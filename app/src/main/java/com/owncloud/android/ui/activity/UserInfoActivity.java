@@ -47,6 +47,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UserInfoDetailsTableItemBinding;
 import com.owncloud.android.databinding.UserInfoLayoutBinding;
@@ -56,7 +57,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
-import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
+import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
@@ -106,16 +107,16 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             return;
         }
 
-        user = bundle.getParcelable(KEY_ACCOUNT);
+        user = BundleExtensionsKt.getParcelableArgument(bundle, KEY_ACCOUNT, User.class);
         if(user == null) {
             finish();
             return;
         }
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_USER_DATA)) {
-            userInfo = savedInstanceState.getParcelable(KEY_USER_DATA);
+            userInfo = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_USER_DATA, UserInfo.class);
         } else if (bundle.containsKey(KEY_ACCOUNT)) {
-            userInfo = bundle.getParcelable(KEY_USER_DATA);
+            userInfo =  BundleExtensionsKt.getParcelableArgument(bundle, KEY_USER_DATA, UserInfo.class);
         }
 
         mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.user_icon_radius);
@@ -173,7 +174,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         } else if (itemId == R.id.action_open_account) {
             accountClicked(user.hashCode());
         } else if (itemId == R.id.action_delete_account) {
-            openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
+            openAccountRemovalDialog(user, getSupportFragmentManager());
         } else {
             retval = super.onOptionsItemSelected(item);
         }
@@ -302,8 +303,8 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         }
     }
 
-    public static void openAccountRemovalConfirmationDialog(User user, FragmentManager fragmentManager) {
-        AccountRemovalConfirmationDialog dialog = AccountRemovalConfirmationDialog.newInstance(user);
+    public static void openAccountRemovalDialog(User user, FragmentManager fragmentManager) {
+        AccountRemovalDialog dialog = AccountRemovalDialog.newInstance(user);
         dialog.show(fragmentManager, "dialog");
     }
 

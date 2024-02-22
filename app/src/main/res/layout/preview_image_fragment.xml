@@ -18,10 +18,31 @@
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:animateLayoutChanges="true">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/live_photo_indicator"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:layout_marginTop="@dimen/live_photo_indicator_margin"
+        android:layout_marginStart="@dimen/standard_quarter_margin"
+        android:paddingVertical="@dimen/live_photo_indicator_vertical_padding"
+        android:paddingHorizontal="@dimen/live_photo_indicator_horizontal_padding"
+        android:background="@drawable/rounded_rect"
+        android:backgroundTint="#E5E5E5"
+        android:textColor="@color/black"
+        android:layout_gravity="start|top"
+        android:gravity="center"
+        android:translationZ="2dp"
+        android:drawablePadding="@dimen/standard_quarter_margin"
+        android:text="@string/file_list_live"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:drawableStartCompat="@drawable/ic_live_photo" />
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/image"

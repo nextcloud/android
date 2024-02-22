@@ -22,7 +22,10 @@
 package com.owncloud.android.ui.adapter
 
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.GridImageBinding
@@ -32,8 +35,12 @@ internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
         binding.root
     ),
     ListGridImageViewHolder {
+
     override val thumbnail: ImageView
         get() = binding.thumbnail
+
+    override val imageFileName: TextView
+        get() = binding.Filename
 
     override fun showVideoOverlay() {
         // noop
@@ -53,6 +60,16 @@ internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
         get() = binding.ListItemLayout
     override val unreadComments: ImageView
         get() = binding.unreadComments
+    override val more: ImageButton
+        get() = binding.more
+    override val fileFeaturesLayout: LinearLayout
+        get() = binding.fileFeaturesLayout
+    override val gridLivePhotoIndicator: ImageView
+        get() = binding.gridLivePhotoIndicator
+    override val livePhotoIndicator: TextView?
+        get() = null
+    override val livePhotoIndicatorSeparator: TextView?
+        get() = null
 
     init {
         binding.favoriteAction.drawable.mutate()

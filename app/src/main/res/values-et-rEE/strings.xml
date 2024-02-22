@@ -14,10 +14,7 @@
     <string name="action_send_share">Saada/Jaga</string>
     <string name="action_switch_grid_view">Ruudustikvaade</string>
     <string name="action_switch_list_view">Nimekirjavaade</string>
-    <string name="actionbar_calendar_contacts_restore">Taasta kontaktid &amp; kalender</string>
-    <string name="actionbar_copy">Kopeeri</string>
     <string name="actionbar_mkdir">Uus kaust</string>
-    <string name="actionbar_move">Tõsta ümber</string>
     <string name="actionbar_open_with">Ava rakendusega</string>
     <string name="actionbar_search">Otsi</string>
     <string name="actionbar_see_details">Üksikasjad</string>
@@ -72,7 +69,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Eemal</string>
     <string name="backup_settings">Varunduse seaded</string>
-    <string name="backup_title">Kontaktide &amp; kalendri varundus</string>
     <string name="battery_optimization_close">Sulge</string>
     <string name="battery_optimization_disable">Lülita välja</string>
     <string name="battery_optimization_message">Sinu seade võib optimeerida akukasutust. Automaatne üleslaadimine toimib ainult siis, kui see rakendus sellest välistada.</string>
@@ -83,7 +79,6 @@
     <string name="certificate_load_problem">Tekkis tõrge sertifikaadi laadimisel.</string>
     <string name="checkbox">Märkeruut</string>
     <string name="choose_local_folder">Vali kohalik kaust...</string>
-    <string name="choose_location">Vali asukoht</string>
     <string name="choose_remote_folder">Vali kaugkaust...</string>
     <string name="choose_template_helper_text">Palun vali mall ja sisesta failinimi.</string>
     <string name="choose_which_file">Vali, milline fail alles jätta!</string>
@@ -109,7 +104,6 @@
     <string name="common_remove">Kustuta</string>
     <string name="common_rename">Nimeta ümber</string>
     <string name="common_save">Salvesta</string>
-    <string name="common_select">Vali</string>
     <string name="common_send">Saada</string>
     <string name="common_share">Jaga</string>
     <string name="common_skip">Jäta vahele</string>
@@ -158,7 +152,6 @@
     <string name="copy_file_not_found">Kopeerimine ebaõnnestus. Palun kontrolli, kas fail on olemas.</string>
     <string name="copy_link">Kopeeri link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopeerimine/liigutamine krüpteeritud kausta pole hetkel toetatud.</string>
-    <string name="copy_to">Kopeeri...</string>
     <string name="could_not_download_image">Täieliku pildifaili allalaadimine ebaõnnestus</string>
     <string name="create">Loo</string>
     <string name="create_dir_fail_msg">Ei suuda kausta luua</string>
@@ -169,7 +162,6 @@
     <string name="daily_backup">Igapäevane varundus</string>
     <string name="data_to_back_up">Varundatavad andmed</string>
     <string name="delete_account">Eemalda konto</string>
-    <string name="delete_account_warning">Eemalda konto %s ja kustuta kõik kohalikud failid?\n\nKustutamist ei saa tagasi võtta.</string>
     <string name="delete_entries">Kustuta sissekanded</string>
     <string name="delete_link">Kustuta link</string>
     <string name="destination_filename">Sihtfaili nimi</string>
@@ -271,7 +263,6 @@
     <string name="forbidden_permissions_delete">selle faili kustutamiseks</string>
     <string name="forbidden_permissions_move">selle faili liigutamiseks</string>
     <string name="forbidden_permissions_rename">selle faili ümbernimetamiseks</string>
-    <string name="foreground_service_download">Failide allalaadimine…</string>
     <string name="foreground_service_upload">Failide ülesaadimine…</string>
     <string name="foreign_files_fail">Mõnda faili ei saanud liigutada</string>
     <string name="foreign_files_local_text">Kohalik: %1$s</string>
@@ -318,9 +309,7 @@
     <string name="move_file_error">Selle faili või kausta liigutamisel tekkis tõrge</string>
     <string name="move_file_invalid_into_descendent">Kausta ei saa liigutada tema enda alamkausta</string>
     <string name="move_file_invalid_overwrite">See fail on sihtkohas juba olemas.</string>
-    <string name="move_to">Liiguta...</string>
     <string name="new_media_folder_photos">photo</string>
-    <string name="note_confirm">Saada</string>
     <string name="notification_channel_download_name_short">Allalaadimised</string>
     <string name="notification_channel_push_name">Süsteemiteavitused</string>
     <string name="notification_channel_upload_description">Näitab üleslaadimise edenemist</string>
@@ -349,7 +338,6 @@
     <string name="pref_behaviour_entries_move">liigutatakse rakenduse kausta</string>
     <string name="pref_instant_name_collision_policy_entries_cancel">Jäta üleslaadimine vahele</string>
     <string name="prefs_add_account">Lisa konto</string>
-    <string name="prefs_calendar_contacts">Sünkroniseeri kalender &amp; kontaktid</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid ega Google Play ei ole installeeritud</string>
     <string name="prefs_category_about">Info</string>
     <string name="prefs_category_details">Üksikasjad</string>
@@ -406,12 +394,6 @@
     <string name="share_via_link_send_link_label">Saada link</string>
     <string name="shared_icon_shared">jagatud</string>
     <string name="sort_by">Sorteeri</string>
-    <string name="sort_by_modification_date_ascending">Uuemad eespool</string>
-    <string name="sort_by_modification_date_descending">Vanemad eespool</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Väiksemad esimesenaa</string>
-    <string name="sort_by_size_descending">Suuremad esimesena</string>
     <string name="ssl_validator_btn_details_hide">Peida</string>
     <string name="ssl_validator_btn_details_see">Üksikasjad</string>
     <string name="ssl_validator_label_C">Riik:</string>
@@ -463,6 +445,8 @@
     <string name="unset_favorite">Eemalda lemmikutest</string>
     <string name="unshare_link_forbidden_permissions">faili jagamise lõpetamiseks</string>
     <string name="update_link_forbidden_permissions">jagamise uuendamiseks</string>
+    <string name="upload_action_failed_clear">Puhasta ebaõnnestunud üleslaadimised</string>
+    <string name="upload_action_failed_retry">Proovi ebaõnnestunud üleslaadimisi uuesti</string>
     <string name="upload_cannot_create_file">Kohalike faili loomine ebaõnnestus</string>
     <string name="upload_content_from_other_apps">Lae üles sisu teistest rakendustest</string>
     <string name="upload_direct_camera_upload">Laadi üles kaamerast</string>
@@ -499,6 +483,7 @@
     <string name="uploader_wrn_no_account_title">Kontot ei leitud</string>
     <string name="uploads_view_group_current_uploads">Praegune</string>
     <string name="uploads_view_group_finished_uploads">Üles laetud</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Tühistatud</string>
     <string name="uploads_view_later_waiting_to_upload">Üleslaadimise ootamine</string>
     <string name="uploads_view_title">Üleslaadimised</string>
     <string name="uploads_view_upload_status_cancelled">Tühistatud</string>
@@ -528,5 +513,6 @@
     <string name="webview_version_check_alert_dialog_positive_button_title">Uuenda</string>
     <string name="whats_new_skip">Jäta vahele</string>
     <string name="whats_your_status">Mis on su staatus?</string>
+    <string name="worker_download">Failide allalaadimine…</string>
     <string name="write_email">Saada kiri</string>
     </resources>

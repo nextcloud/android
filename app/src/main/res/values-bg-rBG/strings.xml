@@ -14,10 +14,7 @@
     <string name="action_send_share">Изпрати/Сподели</string>
     <string name="action_switch_grid_view">Решетъчен изглед</string>
     <string name="action_switch_list_view">Списъчен изглед</string>
-    <string name="actionbar_calendar_contacts_restore">Възстановяване на контакти &amp; календар</string>
-    <string name="actionbar_copy">Копиране</string>
     <string name="actionbar_mkdir">Нова папка</string>
-    <string name="actionbar_move">Преместване</string>
     <string name="actionbar_open_with">Отвори с</string>
     <string name="actionbar_search">Търсене</string>
     <string name="actionbar_see_details">Подробности</string>
@@ -79,7 +76,6 @@
     <string name="avatar">Аватар</string>
     <string name="away">Винаги</string>
     <string name="backup_settings">Настройки за архивиране</string>
-    <string name="backup_title">Контакти &amp; архивиране на календар</string>
     <string name="battery_optimization_close">Затваряне</string>
     <string name="battery_optimization_disable">Изключване</string>
     <string name="battery_optimization_message">Възможно е устройството ви да има активирана оптимизация на батерията. AutoUpload работи правилно само, ако изключите това приложение от него.</string>
@@ -92,7 +88,6 @@
     <string name="check_back_later_or_reload">Проверка отново по-късно или презареждане.</string>
     <string name="checkbox">Отметка</string>
     <string name="choose_local_folder">Изберете локална папка…</string>
-    <string name="choose_location">Избор на местоположение</string>
     <string name="choose_remote_folder">Изберете отдалечена папка…</string>
     <string name="choose_template_helper_text">Моля, изберете шаблон и въведете име на файл.</string>
     <string name="choose_which_file">Изберете кой файл да бъде запазен!</string>
@@ -122,7 +117,6 @@
     <string name="common_remove">Изтриване</string>
     <string name="common_rename">Преименуване</string>
     <string name="common_save">Запазване</string>
-    <string name="common_select">Избери</string>
     <string name="common_send">Изпращане</string>
     <string name="common_share">Сподели</string>
     <string name="common_skip">Пропусни</string>
@@ -173,7 +167,6 @@
     <string name="copy_file_not_found">Невъзможно копиране. Проверете дали файла съществува .</string>
     <string name="copy_link">Копиране на връзката</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копирането/преместването в криптирана папка за момента не се поддържа. </string>
-    <string name="copy_to">Копирай в…</string>
     <string name="could_not_download_image">Пълното изображение не можа да се изтегли</string>
     <string name="could_not_retrieve_shares"> 60% match 
 Споделянията не могат да бъдат извлечени</string>
@@ -192,7 +185,6 @@
     <string name="data_to_back_up">Данни за архивиране</string>
     <string name="default_credentials_wrong">Грешни данни за вход</string>
     <string name="delete_account">Изтриване</string>
-    <string name="delete_account_warning">Изтриване на профила %s и всички локални файлове?\n\nИзтриването е необратима операция.</string>
     <string name="delete_entries">Изтрий записите</string>
     <string name="delete_link">Изтриване на връзка</string>
     <string name="deselect_all">Откажи всички избрани</string>
@@ -288,7 +280,6 @@
     <string name="etm_accounts">Профили</string>
     <string name="etm_background_job_name">Име на процеса</string>
     <string name="etm_background_job_progress">Прогрес</string>
-    <string name="etm_background_job_started">Стартиран</string>
     <string name="etm_background_job_state">Състояние</string>
     <string name="etm_background_job_user">Потребител</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -380,8 +371,6 @@
     <string name="filename_forbidden_charaters_from_server">Името на файла съдържа поне един невалиден символ</string>
     <string name="filename_hint">Име на файла</string>
     <string name="first_run_1_text">Съхранявате данните си на сигурно място и под ваш контрол</string>
-    <string name="first_run_2_text">Сигурно сътрудничество&amp; за обмен на файлове</string>
-    <string name="first_run_4_text">Споделяне на екрана, online meetings и уеб конференции</string>
     <string name="folder_already_exists">Папката вече съществува</string>
     <string name="folder_confirm_create">Създай</string>
     <string name="folder_list_empty_headline">Няма папки</string>
@@ -395,7 +384,6 @@
     <string name="forbidden_permissions_delete">за изтриване на файла</string>
     <string name="forbidden_permissions_move">за да преместите файла</string>
     <string name="forbidden_permissions_rename">за преименуване на файла</string>
-    <string name="foreground_service_download">Сваляне на файлове...</string>
     <string name="foreground_service_upload">Качване на файлове…</string>
     <string name="foreign_files_fail">Някои файлове не могат да бъдат преместени</string>
     <string name="foreign_files_local_text">Локален: %1$s</string>
@@ -476,7 +464,6 @@
     <string name="move_file_invalid_into_descendent">Не може да премествате папка в нейна подпапка</string>
     <string name="move_file_invalid_overwrite">Файлът вече съществува в избраната папка</string>
     <string name="move_file_not_found">Файлът не може да се мести. Моля, проверете дали съществува.</string>
-    <string name="move_to">Премести в…</string>
     <string name="network_error_connect_timeout_exception">Възникна грешка докато се изчаква сървъра. Операцията не можа да се завърши.</string>
     <string name="network_error_socket_exception">Възникна грешка при свързването със сървъра.</string>
     <string name="network_error_socket_timeout_exception">Възникна грешка докато се изчаква сървъра. Операцията не можа да се завърши.</string>
@@ -496,7 +483,6 @@
     <string name="no_pdf_app_available">Няма налично приложение за обработка на в PDF</string>
     <string name="no_send_app">Няма налично приложение за изпращане на избраните файлове</string>
     <string name="no_share_permission_selected">Моля, изберете поне едно право за споделяне.</string>
-    <string name="note_confirm">Изпрати</string>
     <string name="note_could_not_sent">Бележката не може да бъде изпратена</string>
     <string name="note_icon_hint">Икона на бележка</string>
     <string name="notification_action_failed">Грешка при изпълнение на действие</string>
@@ -555,16 +541,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Преименувай новата версия </string>
     <string name="pref_instant_name_collision_policy_title">Какво да направите, ако файлът вече съществува?</string>
     <string name="prefs_add_account">Добавяне на профил</string>
-    <string name="prefs_calendar_contacts">Синхронизиране на календар и контакти</string>
     <string name="prefs_calendar_contacts_no_store_error">Нито F-Droid, нито Google play са инсталирани</string>
     <string name="prefs_calendar_contacts_summary">Настройка на DAVx5 (преди известен като DAVdroid) (v1.3.0+) за текущ профил</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Календар &amp; синхронизацията на контакти е настроена</string>
     <string name="prefs_category_about">Относно</string>
     <string name="prefs_category_details">Подробности</string>
     <string name="prefs_category_dev">Разработка</string>
     <string name="prefs_category_general">Общи</string>
     <string name="prefs_category_more">Още</string>
-    <string name="prefs_daily_backup_summary">Ежедневно архивиране на вашия календар &amp; контакти</string>
     <string name="prefs_daily_contact_backup_summary">Дневно копие на вашите контакти</string>
     <string name="prefs_davx5_setup_error">Възникна неочаквана грешка при настройката на DAVx5 (известен преди, като DAVdroid)</string>
     <string name="prefs_e2e_active">Настроено е цялостно криптиране!</string>
@@ -627,6 +610,7 @@
     <string name="rename_dialog_title">Въведете ново име</string>
     <string name="rename_local_fail_msg">Локалното копие не може да бъде преименувано; опитайте с друго име</string>
     <string name="rename_server_fail_msg">Сървърът не може да бъде преименуван</string>
+    <string name="request_account_deletion">Заявка за изтриване на профил</string>
     <string name="reshare_not_allowed">Повторното споделяне е забранено</string>
     <string name="resharing_is_not_allowed">Повторното споделяне е забранено</string>
     <string name="resized_image_not_possible_download">Няма налично оразмерено изображение. Да се свали ли изображението?</string>
@@ -647,8 +631,6 @@
     <string name="screenshot_04_accounts_heading">Всичките ви профили</string>
     <string name="screenshot_04_accounts_subline">на едно място</string>
     <string name="screenshot_05_autoUpload_heading">Автоматично качване</string>
-    <string name="screenshot_05_autoUpload_subline">за вашите снимки &amp; видеоклипове</string>
-    <string name="screenshot_06_davdroid_heading">Календар&amp; контакти</string>
     <string name="screenshot_06_davdroid_subline">Синхронизиране с DAVx5</string>
     <string name="search_error">Грешка при получаване на резултатите от търсенето</string>
     <string name="select_all">Избери всички</string>
@@ -656,7 +638,6 @@
     <string name="select_one_template">Моля, изберете един шаблон </string>
     <string name="select_template">Изберете шаблон</string>
     <string name="send">Изпрати</string>
-    <string name="send_note">Изпращане на бележка</string>
     <string name="send_share">Изпращане на Споделяне</string>
     <string name="sendbutton_description">Икона на бутон за изпращане</string>
     <string name="set_as">Задай като</string>
@@ -666,7 +647,6 @@
     <string name="set_status_message">Задайте съобщение за състояние</string>
     <string name="setup_e2e">По време на настройката на цялостното криптиране ще получите мнемоника от 12 произволни думи , която ще ви е необходима, за да отваряте файловете си на други устройства. Тя ще бъде съхранена само на това устройство и може да бъде показана отново на този екран. Моля, запишете я на сигурно място!</string>
     <string name="share">Сподели</string>
-    <string name="share_copy_link">Споделяне &amp; Копиране на връзка</string>
     <string name="share_dialog_title">Споделяне</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Изтича %1$s</string>
@@ -714,12 +694,6 @@
     <string name="signup_with_provider">Абониране при доставчик</string>
     <string name="single_sign_on_request_token" formatted="true">Разрешавате ли на %1$s да достъпва вашия Nextcloud профил %2$s?</string>
     <string name="sort_by">Сортиране по</string>
-    <string name="sort_by_modification_date_ascending">Най-нов</string>
-    <string name="sort_by_modification_date_descending">Най-стар</string>
-    <string name="sort_by_name_ascending">А - Я</string>
-    <string name="sort_by_name_descending">Я - А</string>
-    <string name="sort_by_size_ascending">Най-малък</string>
-    <string name="sort_by_size_descending">Най-голям</string>
     <string name="ssl_validator_btn_details_hide">Скриване</string>
     <string name="ssl_validator_btn_details_see">Подробности</string>
     <string name="ssl_validator_header">Идентичността на сървъра не може да бъде потвърдена</string>
@@ -757,7 +731,6 @@
     <string name="storage_permission_full_access">Пълен достъп</string>
     <string name="storage_permission_media_read_only">Медия само за четене</string>
     <string name="storage_pictures">Снимки</string>
-    <string name="store_full_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол. \ N \ nХарактеристики: \ n* Лесен, модерен интерфейс, подходящ за темата на вашия сървър \ n* Качвайте файлове на вашия Nextcloud сървър \ n* Споделяйте ги с други \ n * Дръжте любимите си файлове и папки синхронизирани \ n* Търсете във всички папки на вашия сървър \ n* Автоматично качвайте снимки и видеоклипове, направени от вашето устройство \ n* Бъдете в крак с известията \ n* Поддръжка за няколко профила \ n* Сигурен достъп до вашите данни с пръстов отпечатък или ПИН \ n* Интеграция с DAVx5 (преди известен като DAVdroid) за лесна настройка на календар&amp; Синхронизиране на контакти \ n \ nМоля, докладвайте за всички проблеми на https://github.com/nextcloud/android/issues и обсъждайте това приложение на https://help.nextcloud.com/c/clients/android\n\nНово сте в Nextcloud? Nextcloud е частен  сървър за синхронизация на файлове &amp; за споделяне и комуникация. Това е безплатен софтуер и можете да го хоствате сами или да платите на компания да го направи вместо вас. По този начин вие контролирате снимките си, календара и данните си за контакт, документите си и всичко останало. \ N \ nПроверете Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол. \ NТова е официалната версия за разработка, включваща ежедневна извадка от всяка нова непроверена функционалност, която може да причини нестабилност и загуба на данни. Приложението е за потребители, които желаят да тестват и да докладват грешки, ако възникнат. Не го използвайте за вашата продуктивна работа! \ N \ nИ двете версии - официалната за разработчици и обикновената версия са налични на F-droid и могат да бъдат инсталирани едновременно.</string>
     <string name="store_short_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол</string>
     <string name="store_short_dev_desc">Самостоятелно хостваната платформа за производителност, която ви помага да поддържате контрол (версия за предварителен преглед на разработчиците)</string>
@@ -769,7 +742,6 @@
     <string name="subject_shared_with_you">\"%1$s\" бе споделено с вас</string>
     <string name="subject_user_shared_with_you">%1$s сподели с вас \"%2$s\"</string>
     <string name="subtitle_photos_only">Само снимки</string>
-    <string name="subtitle_photos_videos">Снимки &amp; видеа</string>
     <string name="subtitle_videos_only">Само видеа</string>
     <string name="suggest">Препоръчване</string>
     <string name="sync_conflicts_in_favourites_ticker">Открити са конфликти</string>
@@ -826,6 +798,8 @@
     <string name="update_link_file_no_exist">Невъзможно да се обнови. Моля, проверете дали файлът съществува.</string>
     <string name="update_link_forbidden_permissions">за обновяване на споделянето</string>
     <string name="updating_share_failed"> Неуспешно споделяне на обновяването </string>
+    <string name="upload_action_failed_clear">Изчисти провалените качвания</string>
+    <string name="upload_action_failed_retry">Нов опит за провалените</string>
     <string name="upload_cannot_create_file">Не е възможно създаването на локален файл</string>
     <string name="upload_chooser_title">Качи от...</string>
     <string name="upload_content_from_other_apps">Качи от други приложения</string>
@@ -881,6 +855,7 @@
     <string name="uploads_view_group_current_uploads">Текущ</string>
     <string name="uploads_view_group_failed_uploads">Провален/в очакване на рестарт</string>
     <string name="uploads_view_group_finished_uploads">Качени</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Отказано</string>
     <string name="uploads_view_later_waiting_to_upload">Изчакване за качване</string>
     <string name="uploads_view_title">Качени</string>
     <string name="uploads_view_upload_status_cancelled">Отказано</string>
@@ -922,6 +897,7 @@
     <string name="whats_your_status">Какъв е вашият статус?</string>
     <string name="widgets_not_available">Изпълнимите модули са налични само в %1$s, 25 или по-нова версия</string>
     <string name="widgets_not_available_title">Не е наличен</string>
+    <string name="worker_download">Сваляне на файлове...</string>
     <string name="write_email">Изпращане на имейл</string>
     <string name="wrong_storage_path"> Не съществува папка за съхранение на данни!</string>
     <string name="wrong_storage_path_desc">Това може да се дължи на възстановяване на резервно копие на друго устройство. Връщане към подразбиране. Моля, проверете настройките, за да коригирате папката за съхранение на данни.</string>

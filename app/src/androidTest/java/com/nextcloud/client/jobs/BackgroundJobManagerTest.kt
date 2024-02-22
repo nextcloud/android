@@ -104,7 +104,7 @@ class BackgroundJobManagerTest {
             clock = mock()
             whenever(clock.currentTime).thenReturn(TIMESTAMP)
             whenever(clock.currentDate).thenReturn(Date(TIMESTAMP))
-            backgroundJobManager = BackgroundJobManagerImpl(workManager, clock)
+            backgroundJobManager = BackgroundJobManagerImpl(workManager, clock, mock())
         }
 
         fun assertHasRequiredTags(tags: Set<String>, jobName: String, user: User? = null) {
@@ -117,13 +117,13 @@ class BackgroundJobManagerTest {
         }
 
         fun buildWorkInfo(index: Long): WorkInfo = WorkInfo(
-            UUID.randomUUID(),
-            WorkInfo.State.RUNNING,
-            Data.Builder().build(),
-            listOf(BackgroundJobManagerImpl.formatTimeTag(1581820284000)),
-            Data.Builder().build(),
-            1,
-            0
+            id = UUID.randomUUID(),
+            state = WorkInfo.State.RUNNING,
+            outputData = Data.Builder().build(),
+            tags = setOf(BackgroundJobManagerImpl.formatTimeTag(1581820284000)),
+            progress = Data.Builder().build(),
+            runAttemptCount = 1,
+            generation = 0
         )
     }
 

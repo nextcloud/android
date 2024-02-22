@@ -54,6 +54,7 @@ import com.nextcloud.client.notifications.AppNotificationManager;
 import com.nextcloud.client.notifications.AppNotificationManagerImpl;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
+import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -145,8 +146,8 @@ class AppModule {
     }
 
     @Provides
-    UploadsStorageManager uploadsStorageManager(Context context,
-                                                CurrentAccountProvider currentAccountProvider) {
+    UploadsStorageManager uploadsStorageManager(CurrentAccountProvider currentAccountProvider,
+                                                Context context) {
         return new UploadsStorageManager(currentAccountProvider, context.getContentResolver());
     }
 
@@ -261,4 +262,11 @@ class AppModule {
     PassCodeManager passCodeManager(AppPreferences preferences, Clock clock) {
         return new PassCodeManager(preferences, clock);
     }
+
+    @Provides
+    @Singleton
+    UsersAndGroupsSearchConfig userAndGroupSearchConfig() {
+        return new UsersAndGroupsSearchConfig();
+    }
+
 }

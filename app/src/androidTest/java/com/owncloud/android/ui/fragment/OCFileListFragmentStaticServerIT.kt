@@ -66,6 +66,16 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             sut.storageManager.saveFile(this)
         }
 
+        OCFile("/live photo.png").apply {
+            mimeType = "image/png"
+            isPreviewAvailable = false
+            fileLength = 3072000
+            modificationTimestamp = 746443755000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            setLivePhoto("/video.mov")
+            sut.storageManager.saveFile(this)
+        }
+
         OCFile("/video.mp4").apply {
             mimeType = "video/mp4"
             isPreviewAvailable = false

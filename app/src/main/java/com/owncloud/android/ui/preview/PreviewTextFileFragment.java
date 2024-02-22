@@ -35,6 +35,7 @@ import android.widget.TextView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -117,11 +118,11 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         Bundle args = getArguments();
 
         if (file == null) {
-            file = args.getParcelable(EXTRA_FILE);
+            file = BundleExtensionsKt.getParcelableArgument(args, EXTRA_FILE, OCFile.class);
         }
 
         if (user == null) {
-            user = args.getParcelable(EXTRA_USER);
+            user = BundleExtensionsKt.getParcelableArgument(args, EXTRA_USER, User.class);
         }
 
         if (args.containsKey(EXTRA_SEARCH_QUERY)) {
@@ -137,8 +138,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 throw new IllegalStateException("Instanced with a NULL ownCloud Account");
             }
         } else {
-            file = savedInstanceState.getParcelable(EXTRA_FILE);
-            user = savedInstanceState.getParcelable(EXTRA_USER);
+            file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_FILE, OCFile.class);
+            user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_USER, User.class);
         }
 
         handler = new Handler();
@@ -330,6 +331,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             seeDetails();
         } else if (itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
+        } else if(itemId == R.id.action_cancel_sync){
+            containerActivity.getFileOperationsHelper().cancelTransference(getFile());
         } else if (itemId == R.id.action_edit) {
             containerActivity.getFileOperationsHelper().openFileWithTextEditor(getFile(), getContext());
         }

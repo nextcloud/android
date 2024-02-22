@@ -21,6 +21,8 @@ package com.owncloud.android.ui.activity;
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+import android.content.Intent;
+
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -134,5 +136,26 @@ public class FolderPickerActivityIT extends AbstractIT {
         });
         waitForIdleSync();
         screenshot(sut);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testMoveOrCopy() {
+        Intent intent = new Intent();
+        FolderPickerActivity targetActivity = activityRule.launchActivity(intent);
+
+        waitForIdleSync();
+        screenshot(targetActivity);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testChooseLocationAction() {
+        Intent intent = new Intent();
+        intent.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION);
+        FolderPickerActivity targetActivity = activityRule.launchActivity(intent);
+
+        waitForIdleSync();
+        screenshot(targetActivity);
     }
 }

@@ -51,6 +51,7 @@ public class SyncedFolder implements Serializable, Cloneable {
     private MediaFolderType type;
     private boolean hidden;
     private SubFolderRule subfolderRule;
+    private boolean excludeHidden;
 
     /**
      * constructor for new, to be persisted entity.
@@ -68,6 +69,8 @@ public class SyncedFolder implements Serializable, Cloneable {
      * @param timestampMs         the current timestamp in milliseconds
      * @param type                the type of the folder
      * @param hidden              hide item flag
+     * @param subFolderRule   whether to filter subFolder by year/month/day
+     * @param excludeHidden   exclude hidden file or folder, for {@link MediaFolderType#CUSTOM} only
      */
     public SyncedFolder(String localPath,
                         String remotePath,
@@ -82,7 +85,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                         long timestampMs,
                         MediaFolderType type,
                         boolean hidden,
-                        SubFolderRule subFolderRule) {
+                        SubFolderRule subFolderRule,
+                        boolean excludeHidden) {
         this(UNPERSISTED_ID,
              localPath,
              remotePath,
@@ -97,7 +101,8 @@ public class SyncedFolder implements Serializable, Cloneable {
              timestampMs,
              type,
              hidden,
-             subFolderRule);
+             subFolderRule,
+             excludeHidden);
     }
 
     /**
@@ -119,7 +124,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                            long timestampMs,
                            MediaFolderType type,
                            boolean hidden,
-                           SubFolderRule subFolderRule) {
+                           SubFolderRule subFolderRule,
+                           boolean excludeHidden) {
         this.id = id;
         this.localPath = localPath;
         this.remotePath = remotePath;
@@ -134,6 +140,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.type = type;
         this.hidden = hidden;
         this.subfolderRule = subFolderRule;
+        this.excludeHidden = excludeHidden;
     }
 
     /**
@@ -263,4 +270,12 @@ public class SyncedFolder implements Serializable, Cloneable {
     }
 
     public void setSubFolderRule(SubFolderRule subFolderRule) { this.subfolderRule = subFolderRule; }
+
+    public boolean isExcludeHidden() {
+        return excludeHidden;
+    }
+
+    public void setExcludeHidden(boolean excludeHidden) {
+        this.excludeHidden = excludeHidden;
+    }
 }

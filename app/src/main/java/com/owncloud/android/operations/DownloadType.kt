@@ -22,7 +22,11 @@
 
 package com.owncloud.android.operations
 
-enum class DownloadType {
-    DOWNLOAD,
-    EXPORT
+enum class DownloadType(var type: String) {
+    DOWNLOAD("DOWNLOAD"),
+    EXPORT("EXPORT");
+
+    override fun toString(): String {
+        return type
+    }
 }

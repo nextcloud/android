@@ -14,10 +14,8 @@
     <string name="action_send_share">ส่ง/แชร์</string>
     <string name="action_switch_grid_view">มุมมองแบบตาราง</string>
     <string name="action_switch_list_view">มุมมองแบบรายการ</string>
-    <string name="actionbar_calendar_contacts_restore">กู้คืนข้อมูลรายชื่อและปฏิทิน</string>
-    <string name="actionbar_copy">คัดลอก</string>
     <string name="actionbar_mkdir">โฟลเดอร์ใหม่</string>
-    <string name="actionbar_move">ย้าย</string>
+    <string name="actionbar_move_or_copy">ย้ายหรือคัดลอก</string>
     <string name="actionbar_open_with">เปิดด้วย</string>
     <string name="actionbar_search">ค้นหา</string>
     <string name="actionbar_see_details">รายละเอียด</string>
@@ -78,7 +76,6 @@
     <string name="avatar">ภาพแทนตัว</string>
     <string name="away">ไม่อยู่</string>
     <string name="backup_settings">การตั้งค่าสำรองข้อมูล</string>
-    <string name="backup_title">การสำรองข้อมูลรายชื่อและปฏิทิน</string>
     <string name="battery_optimization_close">ปิด</string>
     <string name="battery_optimization_disable">ปิดใช้งาน</string>
     <string name="battery_optimization_message">อุปกรณ์ของคุณอาจเปิดใช้การเพิ่มประสิทธิภาพแบตเตอรี่อยู่ ฟังก์ชันอัปโหลดอัตโนมัติจะทำงานได้อย่างถูกต้องเฉพาะถ้ายกเว้นแอปนี้</string>
@@ -91,7 +88,6 @@
     <string name="check_back_later_or_reload">กลับมาตรวจสอบภายหลัง หรือรีโหลด</string>
     <string name="checkbox">กล่องกาเครื่องหมาย</string>
     <string name="choose_local_folder">เลือกโฟลเดอร์ต้นทาง…</string>
-    <string name="choose_location">เลือกตำแหน่งที่ตั้ง</string>
     <string name="choose_remote_folder">เลือกโฟลเดอร์รีโมท…</string>
     <string name="choose_template_helper_text">กรุณาเลือกเทมเพลตและใส่ชื่อไฟล์</string>
     <string name="choose_which_file">เลือกไฟล์ที่จะเก็บ</string>
@@ -121,7 +117,6 @@
     <string name="common_remove">ลบ</string>
     <string name="common_rename">เปลี่ยนชื่อ</string>
     <string name="common_save">บันทึก</string>
-    <string name="common_select">เลือก</string>
     <string name="common_send">ส่ง</string>
     <string name="common_share">แชร์</string>
     <string name="common_skip">ข้าม</string>
@@ -136,6 +131,11 @@
     <string name="community_contribute_headline">มีส่วนร่วมเป็นประจำ</string>
     <string name="community_contribute_translate_text">แอป</string>
     <string name="community_contribute_translate_translate">แปลภาษา</string>
+    <string name="community_dev_direct_download">ดาวน์โหลดเวอร์ชันพัฒนาโดยตรง</string>
+    <string name="community_dev_fdroid">รับเวอร์ชันการพัฒนาจากแอป F-Droid</string>
+    <string name="community_rc_fdroid">รับ release candidate จากแอป F-Droid</string>
+    <string name="community_rc_play_store">รับ release candidate จาก Google Play store</string>
+    <string name="community_release_candidate_headline">สมัครรุ่นทดสอบ</string>
     <string name="community_testing_headline">ช่วยโดยการทดสอบ</string>
     <string name="community_testing_report_text">รายงานปัญหาบน GitHub</string>
     <string name="configure_new_media_folder_detection_notifications">กำหนดค่า</string>
@@ -164,7 +164,6 @@
     <string name="copy_file_not_found">ไม่สามารถคัดลอก กรุณาตรวจสอบว่ามีไฟล์นั้นอยู่หรือไม่</string>
     <string name="copy_link">คัดลอกลิงก์</string>
     <string name="copy_move_to_encrypted_folder_not_supported">ยังไม่รองรับการคัดลอก/ย้ายไปยังโฟลเดอร์เข้ารหัส</string>
-    <string name="copy_to">คัดลอกไปยัง…</string>
     <string name="could_not_download_image">ไม่สามารถดาวน์โหลดรูปภาพขนาดเต็ม</string>
     <string name="could_not_retrieve_shares">ไม่สามารถดึงข้อมูลแชร์</string>
     <string name="could_not_retrieve_url">ไม่สามารถดึง URL</string>
@@ -182,7 +181,6 @@
     <string name="data_to_back_up">ข้อมูลที่จะสำรอง</string>
     <string name="default_credentials_wrong">ข้อมูลประจำตัวไม่ถูกต้อง</string>
     <string name="delete_account">ลบบัญชี</string>
-    <string name="delete_account_warning">ลบบัญชี %s ออก และลบไฟล์ในเครื่องทั้งหมดหรือไม่?\n\nเมื่อลบแล้ว จะไม่สามารถย้อนกลับได้</string>
     <string name="delete_entries">ลบรายการ</string>
     <string name="delete_link">ลบลิงก์</string>
     <string name="deselect_all">ยกเลิกการเลือกทั้งหมด</string>
@@ -328,8 +326,6 @@
     <string name="filename_forbidden_charaters_from_server">ชื่อไฟล์มีตัวอักษรที่ไม่ถูกต้องอย่างน้อย 1 ตัว</string>
     <string name="filename_hint">ชื่อไฟล์</string>
     <string name="first_run_1_text">ให้ข้อมูลของคุณปลอดภัยและควบคุมโดยคุณ</string>
-    <string name="first_run_2_text">การทำงานร่วมกันและแลกเปลี่ยนไฟล์อย่างปลอดภัย</string>
-    <string name="first_run_4_text">การแชร์หน้าจอ ประชุมออนไลน์ และประชุมผ่านเว็บ</string>
     <string name="folder_already_exists">โฟลเดอร์มีอยู่แล้ว</string>
     <string name="folder_confirm_create">สร้าง</string>
     <string name="folder_list_empty_headline">ไม่มีโฟลเดอร์ที่นี่</string>
@@ -343,7 +339,6 @@
     <string name="forbidden_permissions_delete">ให้ลบไฟล์นี้</string>
     <string name="forbidden_permissions_move">ให้ย้ายไฟล์นี้</string>
     <string name="forbidden_permissions_rename">ให้เปลี่ยนชื่อไฟล์นี้</string>
-    <string name="foreground_service_download">กำลังดาวน์โหลดไฟล์…</string>
     <string name="foreground_service_upload">กำลังอัปโหลดไฟล์…</string>
     <string name="foreign_files_fail">ไม่สามารถย้ายบางไฟล์</string>
     <string name="foreign_files_local_text">ในเครื่อง: %1$s</string>
@@ -422,7 +417,6 @@
     <string name="move_file_error">เกิดข้อผิดพลาดขณะพยายามที่จะย้ายไฟล์หรือโฟลเดอร์นี้</string>
     <string name="move_file_invalid_overwrite">ไฟล์นี้มีในโฟลเดอร์ปลายทางอยู่แล้ว</string>
     <string name="move_file_not_found">ไม่สามารถย้ายไฟล์ กรุณาตรวจสอบว่ามีไฟล์นั้นอยู่หรือไม่</string>
-    <string name="move_to">ย้ายไปยัง…</string>
     <string name="network_error_connect_timeout_exception">เกิดข้อผิดพลาดขณะรอเซิร์ฟเวอร์ ไม่สามารถดำเนินการให้เสร็จสมบูรณ์</string>
     <string name="network_error_socket_exception">เกิดข้อผิดพลาดขณะเชื่อมต่อไปยังเซิร์ฟเวอร์</string>
     <string name="network_error_socket_timeout_exception">เกิดข้อผิดพลาดขณะรอเซิร์ฟเวอร์ ไม่สามารถดำเนินการให้เสร็จสมบูรณ์</string>
@@ -441,7 +435,6 @@
     <string name="no_mutliple_accounts_allowed">อนุญาตเพียงหนึ่งบัญชีเท่านั้น</string>
     <string name="no_pdf_app_available">ไม่มีแอปสำหรับจัดการ PDF</string>
     <string name="no_send_app">ไม่มีแอปที่สามารถส่งไฟล์ที่เลือก</string>
-    <string name="note_confirm">ส่ง</string>
     <string name="note_could_not_sent">ไม่สามารถส่งโน้ต</string>
     <string name="note_icon_hint">ไอคอนโน้ต</string>
     <string name="notification_action_failed">ไม่สามารถดำเนินการได้</string>
@@ -493,6 +486,7 @@
     <string name="remove_push_notification">ลบออก</string>
     <string name="remove_success_msg">ลบแล้ว</string>
     <string name="rename_dialog_title">กรอกชื่อใหม่</string>
+    <string name="request_account_deletion">ขอลบบัญชี</string>
     <string name="reshare_not_allowed">ไม่อนุญาตให้แชร์ซ้ำ</string>
     <string name="resharing_is_not_allowed">ไม่อนุญาตให้แชร์ซ้ำ</string>
     <string name="scanQR_description">เข้าสู่ระบบผ่านคิวอาร์โค้ด</string>
@@ -517,12 +511,6 @@
     <string name="shared_icon_share">แชร์</string>
     <string name="shared_icon_shared">แชร์แล้ว</string>
     <string name="sort_by">เรียงตาม</string>
-    <string name="sort_by_modification_date_ascending">ใหม่ที่สุดก่อน</string>
-    <string name="sort_by_modification_date_descending">เก่าที่สุดก่อน</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">เล็กที่สุดก่อน</string>
-    <string name="sort_by_size_descending">ใหญ่ที่สุดก่อน</string>
     <string name="ssl_validator_btn_details_hide">ซ๋อน</string>
     <string name="ssl_validator_btn_details_see">รายละเอียด</string>
     <string name="ssl_validator_label_C">ประเทศ:</string>
@@ -550,7 +538,6 @@
     <string name="storage_camera">กล้อง</string>
     <string name="storage_description_default">ค่าเริ่มต้น</string>
     <string name="storage_downloads">ดาวน์โหลด</string>
-    <string name="store_full_desc">แพลตฟอร์มผลิตภาพโอสต์เองได้ ที่คุณควบคุมได้เอง\n\nคุณสมบัติ:\n* ส่วนติดต่อที่ใช้งานง่าย ทันสมัย ปรับแต่งให้เข้ากับธีมของเซิร์ฟเวอร์ของคุณอย่างเต็มรูปแบบ\n* อัปโหลดไฟล์ขึ้นไปยังเซิร์ฟเวอร์ Nextcloud ของคุณ\n* แชร์ไฟล์ของคุณกับผู้อื่น\n* ซิงค์ไฟล์และโฟลเดอร์โปรดของคุณให้ตรงกันอยู่ตลอดเวลา\n* ค้นหาในทุกโฟลเดอร์บนเซิร์ฟเวอร์ของคุณ\n* อัปโหลดอัตโนมัติ สำหรับรูปภาพและวิดีโอที่ถ่ายโดยอุปกรณ์ของคุณ\n* ไม่พลาดข้อมูลล่าสุดด้วยการแจ้งเตือน\n* รองรับหลายบัญชี\n* เพิ่มความปลอดภัยในการเข้าถึงข้อมูลของคุณด้วยลายนิ้วมือหรือ PIN\n* บูรณาการร่วมกับ DAVx5 (ก่อนหน้านี้รู้จักในชื่อ DAVdroid) สำหรับการตั้งค่าการซิงค์ข้อมูลปฏิทินและรายชื่ออย่างง่าย\n\nโปรดรายงานปัญหาทั้งหมดที่ https://github.com/nextcloud/android/issues และแสดงความคิดเห็นเกี่ยวกับแอปนี้ได้ที่ https://help.nextcloud.com/c/clients/android\n\nมือใหม่ Nextcloud? Nextcloud เป็นเซิร์ฟเวอร์ส่วนตัวสำหรับการซิงค์และแชร์ไฟล์ และการสื่อสาร ซึ่งเป็นซอฟต์แวร์เสรี และคุณสามารถโฮสต์ด้วยตัวเองหรือจ่ายเงินให้บริษัทอื่นทำให้คุณแทนได้ วิธีนี้นี่เองทำให้ข้อมูลรูปภาพ ปฏิทิน รายชื่อ เอกสาร และอื่น ๆ ทั้งหมดของคุณอยู่ในการควบคุมของคุณ\n\nลองดู NextCloud ได้ที่ https://nextcloud.com</string>
     <string name="subject_shared_with_you">\"%1$s\" ได้ถูกแชร์กับคุณ</string>
     <string name="subject_user_shared_with_you">%1$s ได้แชร์ \"%2$s\" กับคุณ</string>
     <string name="sync_conflicts_in_favourites_ticker">ตรวจพบความขัดแย้ง</string>
@@ -579,6 +566,7 @@
     <string name="trashbin_file_remove">ลบแบบถาวร</string>
     <string name="unshare_link_forbidden_permissions">เพื่อเลิกแชร์ไฟล์นี้</string>
     <string name="update_link_forbidden_permissions">เพื่ออัปเดตการแชร์นี้</string>
+    <string name="upload_action_failed_clear">ล้างการอัปโหลดที่ล้มเหลว</string>
     <string name="upload_cannot_create_file">ไม่สามารถสร้างไฟล์ต้นทาง</string>
     <string name="upload_chooser_title">อัปโหลดจาก…</string>
     <string name="upload_content_from_other_apps">อัปโหลดเนื้อหาจากแอปอื่น</string>
@@ -609,6 +597,7 @@
     <string name="uploader_wrn_no_account_title">ไม่พบบัญชี</string>
     <string name="uploads_view_group_current_uploads">ปัจจุบัน</string>
     <string name="uploads_view_group_finished_uploads">ถูกอัพโหลด</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">ยกเลิกแล้ว</string>
     <string name="uploads_view_later_waiting_to_upload">กำลังรอที่จะอัปโหลด</string>
     <string name="uploads_view_title">อัปโหลด</string>
     <string name="uploads_view_upload_status_cancelled">ยกเลิกแล้ว</string>
@@ -637,6 +626,7 @@
     <string name="what_s_new_image">รูปภาพมีอะไรใหม่</string>
     <string name="whats_new_skip">ข้าม</string>
     <string name="whats_new_title">มีอะไรใหม่ใน %1$s</string>
+    <string name="worker_download">กำลังดาวน์โหลดไฟล์…</string>
     <string name="write_email">ส่งอีเมล</string>
     <string name="wrong_storage_path">โฟลเดอร์จัดเก็บข้อมูลไม่มีอยู่!</string>
     <plurals name="sync_fail_in_favourites_content">

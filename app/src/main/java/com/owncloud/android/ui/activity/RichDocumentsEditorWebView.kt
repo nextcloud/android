@@ -25,7 +25,6 @@ package com.owncloud.android.ui.activity
 
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.KeyEvent
@@ -35,6 +34,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -71,9 +71,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
 
         webView.addJavascriptInterface(RichDocumentsMobileInterface(), "RichDocumentsMobileInterface")
 
-        intent.getStringExtra(EXTRA_URL)?.let {
-            loadUrl(it)
-        }
+        loadUrl(intent.getStringExtra(EXTRA_URL))
 
         registerActivityResult()
     }
@@ -100,12 +98,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
     }
 
     private fun handleRemoteFile(data: Intent) {
-        val file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            data.getParcelableExtra(FolderPickerActivity.EXTRA_FILES, OCFile::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            data.getParcelableExtra(FolderPickerActivity.EXTRA_FILES)
-        }
+        val file = FolderPickerActivity.EXTRA_FILES?.let { data.getParcelableArgument(it, OCFile::class.java) }
 
         Thread {
             val user = currentAccountProvider?.user
@@ -155,7 +148,7 @@ class RichDocumentsEditorWebView : EditorWebView() {
         PrintAsyncTask(targetFile, url.toString(), WeakReference(this)).execute()
     }
 
-    public override fun loadUrl(url: String) {
+    public override fun loadUrl(url: String?) {
         if (TextUtils.isEmpty(url)) {
             RichDocumentsLoadUrlTask(this, user.get(), file).execute()
         } else {

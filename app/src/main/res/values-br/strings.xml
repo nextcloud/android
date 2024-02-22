@@ -13,9 +13,7 @@
     <string name="action_send_share">Kas/Rannan</string>
     <string name="action_switch_grid_view">Gwelidik roued</string>
     <string name="action_switch_list_view">Gwelidik listenn</string>
-    <string name="actionbar_copy">Eilañ</string>
     <string name="actionbar_mkdir">Teuliad nevez</string>
-    <string name="actionbar_move">Diplasañ</string>
     <string name="actionbar_open_with">Digeriñ gant</string>
     <string name="actionbar_search">Klask</string>
     <string name="actionbar_see_details">Munudoù</string>
@@ -106,7 +104,6 @@
     <string name="common_remove">Dilemel</string>
     <string name="common_rename">Adenvel</string>
     <string name="common_save">Enrollañ</string>
-    <string name="common_select">Dibab</string>
     <string name="common_send">Kas</string>
     <string name="common_share">Rannan</string>
     <string name="common_skip">Tremen</string>
@@ -153,7 +150,6 @@
     <string name="copy_file_not_found">Dibosupl eilan. Gwiriit m\'az eus eus ar restr mar-plij.</string>
     <string name="copy_link">Kopiañ al liamm</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Eilan/diblasañ en un teuliad sifred n\'a vez ket douget evit poent.</string>
-    <string name="copy_to">Eilan da ...</string>
     <string name="could_not_download_image">Diposuple eo pellgargañ tout ar skeudenn</string>
     <string name="could_not_retrieve_url">Dibosuple adtapout an URL</string>
     <string name="create">Krouiñ</string>
@@ -168,7 +164,6 @@
     <string name="credentials_disabled">Titouroù identitelez disaotreet</string>
     <string name="default_credentials_wrong">Titouroù identitelez fall</string>
     <string name="delete_account">Lemel ar c\'hont</string>
-    <string name="delete_account_warning">Lemel ar c\'hont %s ha toud e restroù ?\n\nN\'eo ket posuple disober ur wech graet.</string>
     <string name="delete_entries">Lemel an traoù</string>
     <string name="deselect_all">Disibab pep tra</string>
     <string name="dev_version_new_version_available">Posuple eo kaout ur stumm nevez</string>
@@ -241,7 +236,6 @@
     <string name="etm_accounts">Kont</string>
     <string name="etm_background_job_name">Anv labour</string>
     <string name="etm_background_job_progress">Araokadenn</string>
-    <string name="etm_background_job_started">Kroget</string>
     <string name="etm_background_job_state">Stad</string>
     <string name="etm_background_job_user">Implijer</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -320,8 +314,6 @@
     <string name="filename_forbidden_charaters_from_server">Bez ez eus d\'an neubeutan un arouez diffenet en anv restr</string>
     <string name="filename_hint">Anv restr</string>
     <string name="first_run_1_text">Gwarezit o roadennoù ha gouarnit anezho dindañ o kontrol</string>
-    <string name="first_run_2_text">Kennlabour &amp; ha eskemm restr sur</string>
-    <string name="first_run_4_text">Rannañ skramm, emvodoù dre linnen &amp; ha prezegennoù web</string>
     <string name="folder_already_exists">Bez ez eus dija eus an teuliad</string>
     <string name="folder_confirm_create">Krouiñ</string>
     <string name="folder_list_empty_headline">Emañ heuliad ebet amañ</string>
@@ -334,7 +326,6 @@
     <string name="forbidden_permissions_delete">evit lemel ar restr</string>
     <string name="forbidden_permissions_move">evit diblasa ar restr</string>
     <string name="forbidden_permissions_rename">evit adenvel ar restr</string>
-    <string name="foreground_service_download">O pellgargañ restroù ...</string>
     <string name="foreground_service_upload">O pellkas restreoù ...</string>
     <string name="foreign_files_fail">Ne oa ket posupl diblasañ ar restroù</string>
     <string name="foreign_files_local_text">Diabarzh: %1$s</string>
@@ -396,7 +387,6 @@
     <string name="move_file_invalid_into_descendent">N\'eo ket posuple diblasa un teuliad en unan eus e teuliadoù diabarzh</string>
     <string name="move_file_invalid_overwrite">Bez ez eus eus ar restr en teuliad termen</string>
     <string name="move_file_not_found">Dibosupl eo diblasa ar restr. Gwiriit m\'az eus eus ar restr mar-plij.</string>
-    <string name="move_to">Diblasa da ...</string>
     <string name="network_error_connect_timeout_exception">Ur fazi a zo bet en ur gortoz ar servijour. N\'eo ket posuple echuiñ an oberenn.</string>
     <string name="network_error_socket_exception">Ur fazi a zo bet e pad ar c\'henstagadur gant ar servijour</string>
     <string name="network_error_socket_timeout_exception">Ur fazi a zo bet en ur gortoz ar servijour. N\'eo ket posuple echuiñ an oberenn.</string>
@@ -410,7 +400,6 @@
     <string name="no_browser_available">Meziant dieup ebet evit dougiñ al liamm</string>
     <string name="no_mutliple_accounts_allowed">Ur c\'hont aotreet nemetken</string>
     <string name="no_pdf_app_available">Meziant ebt evit dougiñ ar PDF</string>
-    <string name="note_confirm">Kas</string>
     <string name="note_could_not_sent">Dibosuple kas an notenn</string>
     <string name="note_icon_hint">Skeuden notenn</string>
     <string name="notification_action_failed">C\'hxitet ober an oberenn</string>
@@ -460,10 +449,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Adenvel ar stumm nevez</string>
     <string name="pref_instant_name_collision_policy_title">Petra ober m\'az eus eus ar restr dija ?</string>
     <string name="prefs_add_account">Ouzhpenn ur c\'hont</string>
-    <string name="prefs_calendar_contacts">Kemprenañ &amp; darempred deizataer</string>
     <string name="prefs_calendar_contacts_no_store_error">N\'eo stalied na F-Droid na Google Play</string>
     <string name="prefs_calendar_contacts_summary">Lakaat DAVx5 (anavezhet DAVdroid) (v1.3.0+) evit ar c\'hont</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Deizataer &amp; darempred da kemprenn</string>
     <string name="prefs_category_about">Diwar-benn</string>
     <string name="prefs_category_details">Munudoù</string>
     <string name="prefs_category_dev">Diorenn</string>
@@ -518,6 +505,7 @@
     <string name="rename_dialog_title">Lakaat un anv nevez</string>
     <string name="rename_local_fail_msg">Dibosuple adenvel an eilenn diabarzh, klaskit un anv all</string>
     <string name="rename_server_fail_msg">Dibosuple adenvel, anv kemeret dija</string>
+    <string name="request_account_deletion">Goulenn lemel ar c\'hont</string>
     <string name="reshare_not_allowed">N\'eo ket aotreet an adrannan</string>
     <string name="resharing_is_not_allowed">N\'eo ket aotreet an adrannan</string>
     <string name="resized_image_not_possible_download">Skeudenn admentet ebet. Pellgargañ ar skeudenn glot ?</string>
@@ -535,13 +523,10 @@
     <string name="screenshot_04_accounts_heading">Tout o c\'hontoù</string>
     <string name="screenshot_04_accounts_subline">en ul lec\'h</string>
     <string name="screenshot_05_autoUpload_heading">Pellkas otomatek</string>
-    <string name="screenshot_05_autoUpload_subline">evit o fotoioù &amp; videoioù</string>
-    <string name="screenshot_06_davdroid_heading">Deizataer &amp; darempredoù</string>
     <string name="screenshot_06_davdroid_subline">Kemprenet gant DAVx5</string>
     <string name="select_all">Dibab pep tra</string>
     <string name="select_template">Choaz ur stumm skouer</string>
     <string name="send">Kas</string>
-    <string name="send_note">Kas un notenn d\'an degemerer</string>
     <string name="sendbutton_description">Kas skeudenn ar bouton</string>
     <string name="set_as">Lakaat evel</string>
     <string name="set_picture_as">Implij skeudenn evel</string>
@@ -582,12 +567,6 @@
     <string name="signup_with_provider">En em kemprenn gant ur pourvezher</string>
     <string name="single_sign_on_request_token" formatted="true">Aotreiñ %1$s mont war o c\'hont Nextcloud %2$s ?</string>
     <string name="sort_by">Renkañ dre</string>
-    <string name="sort_by_modification_date_ascending">An hini nevesañ da gentañ</string>
-    <string name="sort_by_modification_date_descending">An hini kozhoñ da gentañ</string>
-    <string name="sort_by_name_ascending">A-Z</string>
-    <string name="sort_by_name_descending">Z-A</string>
-    <string name="sort_by_size_ascending">An hini bihanañ da gentañ</string>
-    <string name="sort_by_size_descending">An hini brasañ da genta</string>
     <string name="ssl_validator_btn_details_hide">Kouacha</string>
     <string name="ssl_validator_btn_details_see">Munudoù</string>
     <string name="ssl_validator_header">Identitelez ar servijour na c\'hell get bezhañ gwiriet</string>
@@ -622,7 +601,6 @@
     <string name="storage_movies">Filmoù</string>
     <string name="storage_music">Musik</string>
     <string name="storage_pictures">Skeudennom</string>
-    <string name="store_full_desc">Ar bladenn labour ostet e unan a laosk ac\'hanoc\'h e kàontrol.\n\nperzhioù :\n* Un etrefas aes ha modern, temed pen-kil-ha-troad evel tem o servijer.\n* Pellgasit o restroù war o servijer Nextcloud.\n* Rannit o restroù gant ar re all.\n* Mirit o teuliadoù ha restroù karetañ kempreded.\n* Klaskit etre holl o teuliadoù en o servijer.\n* Adnevesadur otomatek evit ar fotoioù hag ar videoioù kemeret gant o venvigi.\n* Chomit a giz gant ar c\'hemenadennoù.\n* Skoazel meur-gont.\n* Guardit digor au roadenn gant ur pin pe roudoù-bizel.\n*Lakaet gant DAVx5 (anvet evel DAVdroid) evit ur staliadur aes eus an deizataer &amp; Kemprenn Darempredoù\n\nMar-plij, dezrevit ar gudennoù war https://github.com/nextcloud/android/issues, hag arguzit war https://help.nextcloud.com/c/clients/android\n\n Nevez war Nextcloud ? Nexcloud a zo ur ranner ha kemprener restroù &amp; hag ur servijour darempred prevez. Ur meziant dieub eo, ha posupl o deoc\'h ostañ anezhañ ho unan pe paeañ ur companiunez evit ma rafe ze evideoc\'h. Evel-se, controled e vo ganeoc\'h roadenn o fotoioù, o deizataer hag o darempredoù, o teuliadoù ha pep tra all.\n\nTaolit ur zel ouzh Nexcloud war https://nextcloud.com</string>
     <string name="store_full_dev_desc">Ur pladenn ober a ost anezhi e unan a laosk ac\'hanoc\'h e kontrol.\nAr stumm digelañ efisiel an hini eo, keweriusteriañ sjkouerioù bemdez eus pep keweriusterioù da amprouiñ, pez a zo distabil, ha posupl eo kol roadennoù. Ar meziant a zo evit an implijourien o deus c\'hoant amprouiñ, ha kemennañ ar gudennoù a gwellont. Na implijit ket evit al labour !\n\n Ar stumm amprouiñ hag ar stumm reizh a zo posupl kavout war F-droid, ha posupl; eo staliañ anezho e memes lec\'h.</string>
     <string name="store_short_desc">Ur pladenn ober a ost anezhi e unan a laosk ac\'hanoc\'h e kontrol</string>
     <string name="store_short_dev_desc">Ur pladenn ober a ost anezhi e unan a laosk ac\'hanoc\'h e kontrol (stumm ragwellout amprouiñ)</string>
@@ -683,6 +661,7 @@
     <string name="update_link_file_no_exist">Dibosupl adnevesañ. Sellit m\'az eus ouzh ar restr.</string>
     <string name="update_link_forbidden_permissions">evit adnevezañ ar rannadenn</string>
     <string name="updating_share_failed">Adnevesadenn ar ranndenn c\'hwitet</string>
+    <string name="upload_action_failed_clear">Lemmel ar pellgasoù chwitet</string>
     <string name="upload_cannot_create_file">Dibosupl kroui ur restr diabarzh</string>
     <string name="upload_chooser_title">Pellkas eus ..</string>
     <string name="upload_content_from_other_apps">Pellkas ar gemenadenn diouzh ur meziant all</string>
@@ -736,6 +715,7 @@
     <string name="uploads_view_group_current_uploads">A red</string>
     <string name="uploads_view_group_failed_uploads">Adlakaat war dro c\'hwitet pe re hir</string>
     <string name="uploads_view_group_finished_uploads">Pellkaset</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Arrestet</string>
     <string name="uploads_view_later_waiting_to_upload">O gortoz ar pellkas</string>
     <string name="uploads_view_title">Pellkasadennoù</string>
     <string name="uploads_view_upload_status_cancelled">Arrestet</string>
@@ -773,6 +753,7 @@
     <string name="whats_new_skip">Tremen</string>
     <string name="whats_new_title">Nevez e %1$s</string>
     <string name="widgets_not_available_title">Divak</string>
+    <string name="worker_download">O pellgargañ restroù ...</string>
     <string name="write_email">Kas postel</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Dibosupl kemprennañ %1$d restr (stourm : %2$d)</item>

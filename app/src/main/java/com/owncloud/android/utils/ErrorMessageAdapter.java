@@ -423,7 +423,7 @@ public final class ErrorMessageAdapter {
                 message = res.getString(R.string.auth_not_configured_title);
 
             } else if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                message = res.getString(R.string.auth_incorrect_path_title);
+                message = res.getString(R.string.file_not_found);
 
             } else if (result.getCode() == ResultCode.OAUTH2_ERROR) {
                 message = res.getString(R.string.auth_oauth_error);
@@ -436,6 +436,9 @@ public final class ErrorMessageAdapter {
 
             } else if (result.getCode() == ResultCode.ACCOUNT_NOT_THE_SAME) {
                 message = res.getString(R.string.auth_account_not_the_same);
+
+            } else if (result.getCode() == ResultCode.QUOTA_EXCEEDED) {
+                message = res.getString(R.string.upload_quota_exceeded);
 
             }
 

@@ -14,10 +14,8 @@
     <string name="action_send_share">Trimitere/Distribuire</string>
     <string name="action_switch_grid_view">Afișare în grilă</string>
     <string name="action_switch_list_view">Afișare în listă</string>
-    <string name="actionbar_calendar_contacts_restore">Restaurare contacte 1&amp; calendar</string>
-    <string name="actionbar_copy">Copiază</string>
     <string name="actionbar_mkdir">Dosar nou</string>
-    <string name="actionbar_move">Mutare</string>
+    <string name="actionbar_move_or_copy">Mută sau copiază</string>
     <string name="actionbar_open_with">Deschideţi cu </string>
     <string name="actionbar_search">Caută</string>
     <string name="actionbar_see_details">Detalii</string>
@@ -78,7 +76,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Plecat</string>
     <string name="backup_settings">Setări pentru backup</string>
-    <string name="backup_title">Backup pentru contacte 1&amp; calendar</string>
     <string name="battery_optimization_close">Închidere</string>
     <string name="battery_optimization_disable">Dezactivează</string>
     <string name="battery_optimization_message">Dispozitivul dumneavoastră poate avea economizorul de baterie activat. Incărcarea automată AutoUpload funcționează corespunzător daca excludeti această funcție din aplicație.</string>
@@ -91,7 +88,6 @@
     <string name="check_back_later_or_reload">Revino mai târziu sau reîncarcă.</string>
     <string name="checkbox">Căsuța de bifat</string>
     <string name="choose_local_folder">Alege dosar local…</string>
-    <string name="choose_location">Alege locația</string>
     <string name="choose_remote_folder">Alege dosar la distanță…</string>
     <string name="choose_template_helper_text">Te rog alege un șablon și introdu numele fișierului.</string>
     <string name="choose_which_file">Alege care fișier să-l păstrezi!</string>
@@ -121,7 +117,6 @@
     <string name="common_remove">Șterge</string>
     <string name="common_rename">Redenumește</string>
     <string name="common_save">Salvează</string>
-    <string name="common_select">Selectează</string>
     <string name="common_send">Trimitere</string>
     <string name="common_share">Distribuie</string>
     <string name="common_skip">Sari peste</string>
@@ -173,7 +168,6 @@
     <string name="copy_file_not_found">Imposibil de copiat. Vă rugăm să verificați dacă fișierul există.</string>
     <string name="copy_link">Link copiat</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copierea/mutarea în directorul criptat nu este suportată.</string>
-    <string name="copy_to">Copiază în…</string>
     <string name="could_not_download_image">Nu s-a putut descărca imaginea completă</string>
     <string name="could_not_retrieve_shares">Nu am putut obține lista partajărilor</string>
     <string name="could_not_retrieve_url">Nu a fost găsit URL-ul</string>
@@ -191,7 +185,6 @@
     <string name="data_to_back_up">Date pentru copia de rezervă</string>
     <string name="default_credentials_wrong">Date de autentificare incorecte</string>
     <string name="delete_account">Sterge contul</string>
-    <string name="delete_account_warning">Eliminați contul %s și ștergeți toate fișierele locale?\n\nȘtergerea nu poate fi anulată.</string>
     <string name="delete_entries">Șterge intrările</string>
     <string name="delete_link">Șterge legătura</string>
     <string name="deselect_all">Deselectează tot</string>
@@ -203,6 +196,7 @@
     <string name="did_not_check_for_dupes">Nu s-au verificat duplicatele.</string>
     <string name="digest_algorithm_not_available">Algoritmul \'digest\' nu este disponibil pe telefonul tău.</string>
     <string name="direct_login_failed">Eroare la autentificare prin legătură directă!</string>
+    <string name="direct_login_text">Autentificare cu %1$s la %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Dezactivează</string>
     <string name="dismiss">Elimină</string>
     <string name="dismiss_notification_description">Elimină notificarea</string>
@@ -286,9 +280,9 @@
     <string name="error_starting_direct_camera_upload">Eroare la pornirea camerei</string>
     <string name="error_starting_doc_scan">Eroare la pornirea scanării documentului</string>
     <string name="etm_accounts">Conturi</string>
+    <string name="etm_background_job_created">A fost creat</string>
     <string name="etm_background_job_name">Numele serviciului</string>
     <string name="etm_background_job_progress">Progres</string>
-    <string name="etm_background_job_started">A început</string>
     <string name="etm_background_job_state">Stadiu</string>
     <string name="etm_background_job_user">Utilizator</string>
     <string name="etm_background_job_uuid">identificator UUID</string>
@@ -380,8 +374,6 @@
     <string name="filename_forbidden_charaters_from_server">Numele fișierului conține cel puțin un caracter invalid</string>
     <string name="filename_hint">Nume fișier</string>
     <string name="first_run_1_text">Păstrează datele tale în siguranță și sub controlul tău</string>
-    <string name="first_run_2_text">Colaborare securizată &amp; schimb de fișiere</string>
-    <string name="first_run_4_text">Partajarea ecranului, ședințe &amp; conferințe online</string>
     <string name="folder_already_exists">Dosar existent</string>
     <string name="folder_confirm_create">Creați</string>
     <string name="folder_list_empty_headline">Niciun dosar aici</string>
@@ -395,7 +387,6 @@
     <string name="forbidden_permissions_delete">pentru a șterge acest fișier</string>
     <string name="forbidden_permissions_move">pentru a muta acest fișier</string>
     <string name="forbidden_permissions_rename">pentru a redenumi acest fișier</string>
-    <string name="foreground_service_download">Se descarcă fișiere…</string>
     <string name="foreground_service_upload">Încarcă fișiere…</string>
     <string name="foreign_files_fail">Unele fișiere nu au putut fi mutate</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -413,6 +404,11 @@
     <string name="icon_for_empty_list">Pictogramă pentru liste goale</string>
     <string name="icon_of_dashboard_widget">Pictogramă pentru widgetul panoului principal</string>
     <string name="icon_of_widget_entry">Pictogramă pentru alegerea widgetului</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">în folderul %1$s</string>
     <string name="instant_upload_existing">De asemenea încarcă fisiere existente</string>
     <string name="instant_upload_on_charging">Se încarcă numai în timpul alimentării cu curent</string>
@@ -440,6 +436,7 @@
     <string name="locked_by_app">Blocat de aplicația%1$s </string>
     <string name="log_send_mail_subject">%1$s înregistrările app-ului Android</string>
     <string name="log_send_no_mail_app">Nu există nici o aplicație pentru a trimite fisiere log. Vă rugăm instalați un client de email.</string>
+    <string name="logged_in_as">Autentificat ca %1$s</string>
     <string name="login">Autentificare</string>
     <string name="login_url_helper_text">Linkul către %1$s interfața web atunci când deschizi linkul în browser.</string>
     <string name="logs_menu_delete">Șterge fișiere log</string>
@@ -476,7 +473,6 @@
     <string name="move_file_invalid_into_descendent">Nu este posibil să muți un dosar într-un descendent</string>
     <string name="move_file_invalid_overwrite">Fișierul există deja în dosarul de destinație</string>
     <string name="move_file_not_found">Nu se poate muta fișierul. Vă rugăm să verificați dacă acesta există.</string>
-    <string name="move_to">Mută în…</string>
     <string name="network_error_connect_timeout_exception">A apărut o eroare în timp ce așteptam pentru raspunsul serverului. Operația nu a putut avea loc.</string>
     <string name="network_error_socket_exception">A apărut o eroare în timp ce se conecta la server</string>
     <string name="network_error_socket_timeout_exception">A apărut o eroare în timp ce așteptam pentru raspunsul serverului. Operația nu a putut avea loc.</string>
@@ -496,7 +492,6 @@
     <string name="no_pdf_app_available">Nu este aplicație disponibilă care să deschidă PDF</string>
     <string name="no_send_app">Nu au fost găsite aplicații pentru a trimite fișierele selectate</string>
     <string name="no_share_permission_selected">Alege cel puțin o permisiune pentru a partaja.</string>
-    <string name="note_confirm">Trimitere</string>
     <string name="note_could_not_sent">Nu s-a putut trimite nota</string>
     <string name="note_icon_hint">Pictogramă pentru Notițe</string>
     <string name="notification_action_failed">Nu s-a putut executa acțiunea</string>
@@ -556,16 +551,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Redenumește noua versiune</string>
     <string name="pref_instant_name_collision_policy_title">Ce să facem dacă fișierul deja există?</string>
     <string name="prefs_add_account">Adaugă cont</string>
-    <string name="prefs_calendar_contacts">Sincronizați calendarul și contactele</string>
     <string name="prefs_calendar_contacts_no_store_error">Nici F-Droid, nici Google Play nu sunt instalate</string>
     <string name="prefs_calendar_contacts_summary">Setează DAVx5 (cunoscut în trecut ca DAVdroid) (v1.3.0+) pentru acest cont</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizarea calendarului și a contactelor a fost configurată</string>
     <string name="prefs_category_about">Despre</string>
     <string name="prefs_category_details">Detalii</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Mai mult</string>
-    <string name="prefs_daily_backup_summary">Salvarea zilnică a calendarului &amp;a contactelor</string>
     <string name="prefs_daily_contact_backup_summary">Salvarea zilnică a contactelor dvs.</string>
     <string name="prefs_e2e_active">Encripția end-to-end este setata!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
@@ -626,6 +618,7 @@
     <string name="rename_dialog_title">Introduceţi un nou nume</string>
     <string name="rename_local_fail_msg">Nu s-a putut redenumi copia locală, încercați un alt nume</string>
     <string name="rename_server_fail_msg">Redenumirea nu este posibilă, numele este deja luat</string>
+    <string name="request_account_deletion">Cerere ștergere cont</string>
     <string name="reshare_not_allowed">Repartajarea nu este permisă</string>
     <string name="resharing_is_not_allowed">Repartajarea nu este permisă</string>
     <string name="resized_image_not_possible_download">Nu există o imagine mai mică. Descărcați imaginea completă?</string>
@@ -646,8 +639,6 @@
     <string name="screenshot_04_accounts_heading">Toate conturile tale</string>
     <string name="screenshot_04_accounts_subline">într-un singur loc</string>
     <string name="screenshot_05_autoUpload_heading">Încărcare automată</string>
-    <string name="screenshot_05_autoUpload_subline">pentru pozele &amp; video-urile tale</string>
-    <string name="screenshot_06_davdroid_heading">Calendar &amp; contacte</string>
     <string name="screenshot_06_davdroid_subline">Sincronizează folosind DAXx5</string>
     <string name="search_error">Eroare la returnarea rezultatelor căutării</string>
     <string name="select_all">Selectează tot</string>
@@ -655,7 +646,6 @@
     <string name="select_one_template">Te rugăm selectează un șablon</string>
     <string name="select_template">Selectează șablon</string>
     <string name="send">Trimite</string>
-    <string name="send_note">Trimite comentariu către destinatar</string>
     <string name="send_share">Trimite distribuirea</string>
     <string name="sendbutton_description">Pictograma butonului de trimite</string>
     <string name="set_as">Setează ca</string>
@@ -664,7 +654,6 @@
     <string name="set_status">Setează status</string>
     <string name="set_status_message">Setează statusul mesajelor</string>
     <string name="share">Partajează</string>
-    <string name="share_copy_link">Partajează &amp;copiază legătura</string>
     <string name="share_dialog_title">Partajare</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expiră %1$s</string>
@@ -711,12 +700,6 @@
     <string name="signup_with_provider">Înscriete cu un furnizor</string>
     <string name="single_sign_on_request_token" formatted="true">Permite %1$s să acceseze contul tău Nextcloud %2$s ?</string>
     <string name="sort_by">Sortare după</string>
-    <string name="sort_by_modification_date_ascending">Cel mai nou mai întâi</string>
-    <string name="sort_by_modification_date_descending">Cel mai vechi mai întâi</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Cel mai mic mai întâi</string>
-    <string name="sort_by_size_descending">Cel mai mare mai întâi</string>
     <string name="ssl_validator_btn_details_hide">Ascunde</string>
     <string name="ssl_validator_btn_details_see">Detalii</string>
     <string name="ssl_validator_header">Nu s-a putut verifica identitatea serverului</string>
@@ -754,7 +737,6 @@
     <string name="storage_permission_full_access">Acces complet</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_pictures">Poze</string>
-    <string name="store_full_desc">Platfoma locală de productivitate care vă menține în control.\n\nFuncționalități:\n* Interfață simplă, modernă, adaptată temei serverului\n* Încărcați fișiere în serverul Nextcloud\n* Partajați-le cu alții\n* Țineți fișierele și folderele preferate sincronizate\n* Căutați prin toate folderele de pe server\n* Auto Încărcarea fotografiilor și clipurilor video făcute de dispozitivul personal\n* Fiți la curent cu notificările\n* Suport pentru Multi-account\n* Acces sigur la date cu amprentă sau PIN\n* Integrae cu DAVx5 (anterior DAVdroid) pentru setarea simplă a sincronizării calendarului &amp; Contactelor\n\nRaportați orice problemă la https://github.com/nextcloud/android/issues și discutați despre această aplicație la https://help.nextcloud.com/c/clients/android\n\nNew cu Nextcloud? Nextcloud este un server privat de sincronizare fișiere &amp; partajare și de comunicație. Este un software gratuit și puteți să-l găzduiți sau să plătiți o companie să o facă pentru dumneavoastră. Aveți astfel control asupra fotografiilor, datelor calendarului și despre contacte, documentelor și orice altceva.\n\nVizitați Nextcloud la https://nextcloud.com</string>
     <string name="store_full_dev_desc">Platforma de productivitate locală care vă menține în control.\nAceasta este versiunea de dezvoltare oficială, cuprinzând exemple zilnice de funcționalități netestate, care pot crea instabilitate sau pierderi de date. Aplicația este pentru utilizatori care doresc să testeze și să raporteze bug-uri dacă acestea apar. Nu folosiți în producție!\n\n Și versiunea oficială de dezvoltare și cea stabilă sunt disponibile pe F-droid și pot fi instalate în același timp.</string>
     <string name="store_short_desc">Platforma găzduită și controlată de tine</string>
     <string name="store_short_dev_desc">Platforma găzduită și controlată de tine(versiunea pentru dezvoltatori)</string>
@@ -766,7 +748,6 @@
     <string name="subject_shared_with_you">„%1$s” a fost partajat cu dumneavoastră</string>
     <string name="subject_user_shared_with_you">%1$s a partajat fișierul \"%2$s\" cu tine</string>
     <string name="subtitle_photos_only">Doar poze</string>
-    <string name="subtitle_photos_videos">Poze &amp; video</string>
     <string name="subtitle_videos_only">Doar video</string>
     <string name="suggest">Sugerează</string>
     <string name="sync_conflicts_in_favourites_ticker">S-au gasit conflicte</string>
@@ -824,6 +805,7 @@
     <string name="update_link_file_no_exist">Actualizare nereușită. Vă rugăm să verificați existența fișierului.</string>
     <string name="update_link_forbidden_permissions">sa actualizezi această partajare</string>
     <string name="updating_share_failed">Actualizarea partajării eșuată</string>
+    <string name="upload_action_failed_clear">Elimină încărcările eșuate</string>
     <string name="upload_cannot_create_file">Nu se poate creea un fisier local</string>
     <string name="upload_chooser_title">Încarcă din…</string>
     <string name="upload_content_from_other_apps">Încarcă conținut din alte aplicații</string>
@@ -878,6 +860,7 @@
     <string name="uploads_view_group_current_uploads">Curent</string>
     <string name="uploads_view_group_failed_uploads">Repornire eșuată/în așteptare</string>
     <string name="uploads_view_group_finished_uploads">Încărcat</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Anulat</string>
     <string name="uploads_view_later_waiting_to_upload">Se așteaptă încărcarea</string>
     <string name="uploads_view_title">Încărcări</string>
     <string name="uploads_view_upload_status_cancelled">Anulat</string>
@@ -912,6 +895,7 @@
     <string name="wait_a_moment">Așteaptă un moment…</string>
     <string name="wait_checking_credentials">Se verifică datele de autentificare stocate</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiere fișier din stocare privată</string>
+    <string name="webview_version_check_alert_dialog_message">Pentru a vă autentifica, actualizați componenta WebView a sistemului Android</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Actualizare</string>
     <string name="what_s_new_image">Ce imagine este nouă</string>
     <string name="whats_new_skip">Sari peste</string>
@@ -919,6 +903,7 @@
     <string name="whats_your_status">Care este statusul tău?</string>
     <string name="widgets_not_available">Widgeturile sunt disponibile începând cu %1$s 25</string>
     <string name="widgets_not_available_title">Nu este disponibil</string>
+    <string name="worker_download">Se descarcă fișiere…</string>
     <string name="write_email">Expediază mesajul</string>
     <string name="wrong_storage_path">Dosarul de stocare al datelor nu există!</string>
     <string name="wrong_storage_path_desc">Acest lucru s-ar putea datora unei rstaurări a unui backup pe un alt dispozitiv. Se restaurează opțiunea prestabilită. Vă rugăm verificați setările pentru a schimba dosarul de stocare a datelor.</string>

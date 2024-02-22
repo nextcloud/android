@@ -37,6 +37,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.CopyToClipboardActivity;
@@ -84,12 +85,12 @@ public class ShareLinkToDialog  extends DialogFragment {
     @Override
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mIntent = getArguments().getParcelable(ARG_INTENT);
+        mIntent = BundleExtensionsKt.getParcelableArgument(getArguments(), ARG_INTENT, Intent.class);
         String[] packagesToExclude = getArguments().getStringArray(ARG_PACKAGES_TO_EXCLUDE);
         List<String> packagesToExcludeList = Arrays.asList(packagesToExclude != null ?
                 packagesToExclude : new String[0]);
 
-        PackageManager pm= getActivity().getPackageManager();
+        PackageManager pm = getActivity().getPackageManager();
         List<ResolveInfo> activities = pm.queryIntentActivities(mIntent, PackageManager.MATCH_DEFAULT_ONLY);
         Iterator<ResolveInfo> it = activities.iterator();
         ResolveInfo resolveInfo;

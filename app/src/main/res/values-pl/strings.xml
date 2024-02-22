@@ -14,10 +14,7 @@
     <string name="action_send_share">Wyślij/Udostępnij</string>
     <string name="action_switch_grid_view">Widok siatki</string>
     <string name="action_switch_list_view">Widok listy</string>
-    <string name="actionbar_calendar_contacts_restore">Przywróć kontakty i kalendarz</string>
-    <string name="actionbar_copy">Kopiuj</string>
     <string name="actionbar_mkdir">Nowy katalog</string>
-    <string name="actionbar_move">Przenieś</string>
     <string name="actionbar_move_or_copy">Przenieś lub kopiuj</string>
     <string name="actionbar_open_with">Otwórz za pomocą</string>
     <string name="actionbar_search">Wyszukaj</string>
@@ -80,7 +77,6 @@
     <string name="avatar">Awatar</string>
     <string name="away">Bezczynny</string>
     <string name="backup_settings">Ustawienia kopii zapasowej</string>
-    <string name="backup_title">Kopia zapasowa kontaktów i kalendarza</string>
     <string name="battery_optimization_close">Zamknij</string>
     <string name="battery_optimization_disable">Wyłącz</string>
     <string name="battery_optimization_message">Twoje urządzenie może mieć włączoną optymalizację baterii. Automatyczne wysyłanie działa poprawnie tylko wtedy, gdy wykluczysz z niej tę aplikację.</string>
@@ -93,7 +89,6 @@
     <string name="check_back_later_or_reload">Sprawdź później lub załaduj ponownie.</string>
     <string name="checkbox">Pole checkbox</string>
     <string name="choose_local_folder">Wybierz katalog lokalny…</string>
-    <string name="choose_location">Wybierz lokację</string>
     <string name="choose_remote_folder">Wybierz katalog zdalny…</string>
     <string name="choose_template_helper_text">Wybierz szablon i wprowadź nazwę pliku.</string>
     <string name="choose_which_file">Wybierz, który plik chcesz zachować!</string>
@@ -123,7 +118,6 @@
     <string name="common_remove">Usuń</string>
     <string name="common_rename">Zmień nazwę</string>
     <string name="common_save">Zapisz</string>
-    <string name="common_select">Wybierz</string>
     <string name="common_send">Wyślij</string>
     <string name="common_share">Udostępnij</string>
     <string name="common_skip">Pomiń</string>
@@ -176,7 +170,6 @@
     <string name="copy_file_not_found">Nie można skopiować. Sprawdź, czy plik istnieje.</string>
     <string name="copy_link">Kopiuj link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiuj/przenieś do zaszyfrowanego katalogu, który nie jest obecnie obsługiwany.</string>
-    <string name="copy_to">Kopiuj do…</string>
     <string name="could_not_download_image">Nie można pobrać pełnego obrazu</string>
     <string name="could_not_retrieve_shares">Nie udało się pobrać udziałów</string>
     <string name="could_not_retrieve_url">Nie można pobrać adresu URL</string>
@@ -194,7 +187,6 @@
     <string name="data_to_back_up">Dane dla kopii zapasowej</string>
     <string name="default_credentials_wrong">Błedne poświadczenia</string>
     <string name="delete_account">Usuń konto</string>
-    <string name="delete_account_warning">Usunąć konto %s i wszystkie jego pliki lokalne? Usunięcia nie będzie można cofnąć.</string>
     <string name="delete_entries">Usuń wpisy</string>
     <string name="delete_link">Usuń link</string>
     <string name="deselect_all">Odznacz wszystkie</string>
@@ -294,9 +286,9 @@
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania aparatu</string>
     <string name="error_starting_doc_scan">Błąd podczas uruchamiania skanowania dokumentu</string>
     <string name="etm_accounts">Konta</string>
+    <string name="etm_background_job_created">Utworzono</string>
     <string name="etm_background_job_name">Nazwa zadania</string>
     <string name="etm_background_job_progress">Postęp</string>
-    <string name="etm_background_job_started">Rozpoczęte</string>
     <string name="etm_background_job_state">Stan</string>
     <string name="etm_background_job_user">Użytkownik</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -344,6 +336,7 @@
     <string name="file_list_empty_shared_headline">Nic nie udostępniasz</string>
     <string name="file_list_empty_unified_search_no_results">Nie znaleziono wyników dla Twojego zapytania</string>
     <string name="file_list_folder">katalog</string>
+    <string name="file_list_live">NA ŻYWO</string>
     <string name="file_list_loading">Wczytywanie…</string>
     <string name="file_list_no_app_for_file_type">Brak aplikacji dla tego typu plików.</string>
     <string name="file_list_seconds_ago">przed chwilą</string>
@@ -388,9 +381,6 @@
     <string name="filename_forbidden_charaters_from_server">Nazwa pliku zawiera co najmniej jeden nieprawidłowy znak</string>
     <string name="filename_hint">Nazwa pliku</string>
     <string name="first_run_1_text">Przechowuj swoje dane bezpiecznie i pod swoją pełną kontrolą</string>
-    <string name="first_run_2_text">Bezpieczna współpraca i wymiana plików</string>
-    <string name="first_run_3_text">Łatwe w obsłudze klient e-mail, kalendarz&amp; i kontakty</string>
-    <string name="first_run_4_text">Udostępnianie ekranu, spotkania online i konferencje internetowe</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
@@ -404,7 +394,6 @@
     <string name="forbidden_permissions_delete">do usunięcia tego pliku</string>
     <string name="forbidden_permissions_move">do przeniesienia tego pliku</string>
     <string name="forbidden_permissions_rename">do zmiany nazwy tego pliku</string>
-    <string name="foreground_service_download">Pobieranie plików…</string>
     <string name="foreground_service_upload">Wysyłanie plików…</string>
     <string name="foreign_files_fail">Niektóre pliki nie mogły zostać przeniesione</string>
     <string name="foreign_files_local_text">Lokalnie: %1$s</string>
@@ -499,7 +488,6 @@
     <string name="move_file_invalid_into_descendent">Nie można przenieść katalogu do jednego z jego podkatalogów</string>
     <string name="move_file_invalid_overwrite">Plik już istnieje w katalogu docelowym</string>
     <string name="move_file_not_found">Nie można przenieść. Sprawdź, czy plik istnieje.</string>
-    <string name="move_to">Przenieś do…</string>
     <string name="network_error_connect_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
     <string name="network_error_socket_exception">Wystąpił błąd podczas połączenia z serwerem</string>
     <string name="network_error_socket_timeout_exception">Wystąpił błąd podczas oczekiwania na serwer. Nie można ukończyć operacji.</string>
@@ -520,7 +508,6 @@
     <string name="no_pdf_app_available">Brak aplikacji obsługującej PDF</string>
     <string name="no_send_app">Brak dostępnej aplikacji do wysyłania wybranych plików</string>
     <string name="no_share_permission_selected">Wybierz co najmniej jedno uprawnienie do udostępniania.</string>
-    <string name="note_confirm">Wyślij</string>
     <string name="note_could_not_sent">Nie można wysłać notatki</string>
     <string name="note_icon_hint">Ikona notatki</string>
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
@@ -580,16 +567,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Zmień nazwę nowej wersji</string>
     <string name="pref_instant_name_collision_policy_title">Co zrobić, jeśli plik już istnieje?</string>
     <string name="prefs_add_account">Dodaj konto</string>
-    <string name="prefs_calendar_contacts">Synchronizuj kalendarz i kontakty</string>
     <string name="prefs_calendar_contacts_no_store_error">Brak w systemie F-Droid i Google Play</string>
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVx5 (wcześniej znany jako DAVdroid) (v1.3.0 +) dla bieżącego konta</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronizacja kontaktów i kalendarza została skonfigurowana pomyślnie</string>
     <string name="prefs_category_about">O aplikacji</string>
     <string name="prefs_category_details">Szczegóły</string>
     <string name="prefs_category_dev">Deweloperskie</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
-    <string name="prefs_daily_backup_summary">Codzienna kopia zapasowa kontaktów i kalendarza</string>
     <string name="prefs_daily_contact_backup_summary">Codzienne tworzenie kopii zapasowej kontaktów</string>
     <string name="prefs_davx5_setup_error">Nieoczekiwany błąd podczas konfigurowania DAVx5 (wcześniej znanego jako DAVdroid)</string>
     <string name="prefs_e2e_active">Szyfrowanie end-to-end jest skonfigurowane!</string>
@@ -650,12 +634,17 @@
     <string name="remove_e2e">Możesz usunąć szyfrowanie end-to-end lokalnie na tym kliencie</string>
     <string name="remove_e2e_message">Szyfrowanie end-to-end można usunąć lokalnie na tym kliencie. Zaszyfrowane pliki pozostaną na serwerze, ale nie będą już synchronizowane z tym komputerem.</string>
     <string name="remove_fail_msg">Usuwanie nie powiodło się</string>
+    <string name="remove_local_account">Usuń lokalne konto</string>
+    <string name="remove_local_account_details">Usuń konto z urządzenia i usuń wszystkie lokalne pliki</string>
     <string name="remove_notification_failed">Usunięcie powiadomienia nie powiodło się.</string>
     <string name="remove_push_notification">Usuń</string>
     <string name="remove_success_msg">Usunięto</string>
     <string name="rename_dialog_title">Wprowadź nową nazwę</string>
     <string name="rename_local_fail_msg">Nie można zmienić nazwy lokalnej kopii, użyj innej nazwy</string>
     <string name="rename_server_fail_msg">Nie można zmienić nazwy, nazwa jest już zajęta</string>
+    <string name="request_account_deletion">Zażądaj usunięcia konta</string>
+    <string name="request_account_deletion_button">Poproś o usunięcie</string>
+    <string name="request_account_deletion_details">Prośba o stałe usunięcie konta przez dostawcę usługi</string>
     <string name="reshare_not_allowed">Udostępnianie dalej jest niedozwolone</string>
     <string name="resharing_is_not_allowed">Udostępnianie dalej jest niedozwolone</string>
     <string name="resized_image_not_possible_download">Brak obrazu o zmienionym rozmiarze. Pobrać pełny obraz?</string>
@@ -676,8 +665,6 @@
     <string name="screenshot_04_accounts_heading">Wszystkie Twoje konta</string>
     <string name="screenshot_04_accounts_subline">w jednym miejscu</string>
     <string name="screenshot_05_autoUpload_heading">Automatyczne wysyłanie</string>
-    <string name="screenshot_05_autoUpload_subline">dla Twoich zdjęć i filmów</string>
-    <string name="screenshot_06_davdroid_heading">Kontakty kalendarza &amp;</string>
     <string name="screenshot_06_davdroid_subline">Synchronizuj z DAVx5</string>
     <string name="search_error">Błąd podczas pobierania wyników wyszukiwania</string>
     <string name="select_all">Wybierz wszystko</string>
@@ -685,7 +672,6 @@
     <string name="select_one_template">Wybierz jeden szablon</string>
     <string name="select_template">Wybierz szablon</string>
     <string name="send">Wyślij</string>
-    <string name="send_note">Wyślij notatkę do odbiorcy</string>
     <string name="send_share">Wyślij udostępnienie</string>
     <string name="sendbutton_description">Ikona przycisku wysyłania</string>
     <string name="set_as">Ustaw jako</string>
@@ -695,7 +681,6 @@
     <string name="set_status_message">Ustaw komunikat statusu</string>
     <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
-    <string name="share_copy_link">Udostępnij i skopiuj link</string>
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Wygaśnie o %1$s</string>
@@ -743,12 +728,6 @@
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
     <string name="single_sign_on_request_token" formatted="true">Zezwolić %1$s na dostęp do Twojego konta Nextcloud %2$s?</string>
     <string name="sort_by">Sortuj według</string>
-    <string name="sort_by_modification_date_ascending">Od najnowszych</string>
-    <string name="sort_by_modification_date_descending">Od najstarszych</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Od najmniejszych</string>
-    <string name="sort_by_size_descending">Od największych</string>
     <string name="ssl_validator_btn_details_hide">Ukryj</string>
     <string name="ssl_validator_btn_details_see">Szczegóły</string>
     <string name="ssl_validator_header">Nie można zweryfikować identyfikacji serwera</string>
@@ -786,7 +765,6 @@
     <string name="storage_permission_full_access">Pełny dostęp</string>
     <string name="storage_permission_media_read_only">Multimedia tylko do odczytu</string>
     <string name="storage_pictures">Obrazy</string>
-    <string name="store_full_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\n\nFunkcje:\n* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera\n* Wysyłanie plików na serwer Nextcloud\n* Udostępnianie ich innym\n* Synchronizacja ulubionych plików i katalogów\n* Przeszukiwanie wszystkich katalogów na serwerze\n* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie\n* Otrzymywanie na bieżąco powiadomień\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN\n* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza i synchronizacja kontaktów\n\nZgłoś wszystkie problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików i komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.\n\nSprawdź Nextcloud na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\nJest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!\n\nZarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.</string>
     <string name="store_short_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę</string>
     <string name="store_short_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, które zapewnia kontrolę (wersja deweloperska)</string>
@@ -800,7 +778,6 @@
     <string name="subject_shared_with_you">Udostępniono Tobie \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s udostępnił Tobie \"%2$s\"</string>
     <string name="subtitle_photos_only">Tylko zdjęcia</string>
-    <string name="subtitle_photos_videos">Zdjęcia i filmy</string>
     <string name="subtitle_videos_only">Tylko filmy</string>
     <string name="suggest">Propozycja</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
@@ -858,6 +835,8 @@
     <string name="update_link_file_no_exist">Nie można zaktualizować. Sprawdź, czy plik istnieje.</string>
     <string name="update_link_forbidden_permissions">do zaktualizowania tego udostępnienia</string>
     <string name="updating_share_failed">Zmiana udostępniania nie powiodła się</string>
+    <string name="upload_action_failed_clear">Wyczyść nieudane wysyłanie</string>
+    <string name="upload_action_failed_retry">Ponów nieudane wysyłanie</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
     <string name="upload_chooser_title">Wyślij plik z…</string>
     <string name="upload_content_from_other_apps">Wyślij z innej aplikacji</string>
@@ -879,6 +858,7 @@
     <string name="upload_lock_failed">Nie udało się zablokować katalogu</string>
     <string name="upload_old_android">Szyfrowanie jest możliwe tylko przy &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Brak wystarczającego miejsca, aby skopiować wybrane pliki do katalogu %1$s. Czy chcesz je tam przenieść?</string>
+    <string name="upload_quota_exceeded">Limit przekroczony</string>
     <string name="upload_scan_doc_upload">Zeskanuj dokument z aparatu</string>
     <string name="upload_sync_conflict">Konflikt synchronizacji, proszę rozwiązać ręcznie</string>
     <string name="upload_unknown_error">Nieznany błąd</string>
@@ -890,6 +870,8 @@
     <string name="uploader_error_message_source_file_not_found">Wybrany plik nie został znaleziony. Sprawdź, czy plik istnieje.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ten plik nie może być wysłany</string>
     <string name="uploader_error_title_no_file_to_upload">Brak pliku do wysłania</string>
+    <string name="uploader_file_not_found_message">Plik nie znaleziony. Czy jesteś pewien, że ten plik istnieje lub poprzedni konflikt został rozwiązany?</string>
+    <string name="uploader_file_not_found_on_server_message">Nie mogliśmy odnaleźć pliku na serwerze. Inny użytkownik mógł usunąć plik</string>
     <string name="uploader_info_dirname">Nazwa katalogu</string>
     <string name="uploader_top_message">Wybierz katalog do wysłania</string>
     <string name="uploader_upload_failed_content_single">Nie udało się wysłać %1$s</string>
@@ -913,6 +895,7 @@
     <string name="uploads_view_group_current_uploads">Bieżące</string>
     <string name="uploads_view_group_failed_uploads">Nieudane/oczekujące na ponowne uruchomienie</string>
     <string name="uploads_view_group_finished_uploads">Wysłane</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Anulowane</string>
     <string name="uploads_view_later_waiting_to_upload">Oczekuje na wysłanie</string>
     <string name="uploads_view_title">Wysłane</string>
     <string name="uploads_view_upload_status_cancelled">Przerwano</string>
@@ -956,6 +939,7 @@
     <string name="whats_your_status">Jaki jest Twój status?</string>
     <string name="widgets_not_available">Widżety są dostępne tylko w wersji %1$s 25 lub nowszej</string>
     <string name="widgets_not_available_title">Niedostępny</string>
+    <string name="worker_download">Pobieranie plików…</string>
     <string name="write_email">Wyślij e-mail</string>
     <string name="wrong_storage_path">Katalog przechowywania danych nie istnieje!</string>
     <string name="wrong_storage_path_desc">Może to być spowodowane z przywróceniem kopii zapasowej na innym urządzeniu. Powrócono do wartości domyślnych. Sprawdź ustawienia, aby dostosować katalog przechowywania danych.</string>

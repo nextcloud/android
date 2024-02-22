@@ -22,11 +22,10 @@
 
 package com.owncloud.android.ui.activity;
 
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.datamodel.MediaFolderType;
-import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 
 import org.junit.Test;
@@ -170,7 +169,7 @@ public class SyncedFoldersActivityTest {
                                            true,
                                            true,
                                            "test@nextcloud.com",
-                                           FileUploader.LOCAL_BEHAVIOUR_MOVE,
+                                           FileUploadWorker.LOCAL_BEHAVIOUR_MOVE,
                                            NameCollisionPolicy.ASK_USER.serialize(),
                                            enabled,
                                            System.currentTimeMillis(),
@@ -179,6 +178,7 @@ public class SyncedFoldersActivityTest {
                                            2,
                                            MediaFolderType.IMAGE,
                                            false,
-                                           SubFolderRule.YEAR_MONTH);
+                                           SubFolderRule.YEAR_MONTH,
+                                           true);
     }
 }

@@ -40,8 +40,8 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -49,6 +49,7 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.WebViewUtil;
 
 import javax.inject.Inject;
 
@@ -82,6 +83,11 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         this.url = loadedUrl;
 
         if (!url.isEmpty()) {
+            new WebViewUtil(getApplicationContext()).setProxyKKPlus(this.getWebView());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
             this.getWebView().loadUrl(url);
 
             new Handler().postDelayed(() -> {
@@ -144,7 +150,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             }
         });
 
-        setFile(getIntent().getParcelableExtra(ExternalSiteWebView.EXTRA_FILE));
+        setFile(IntentExtensionsKt.getParcelableArgument(getIntent(), ExternalSiteWebView.EXTRA_FILE, OCFile.class));
 
         if (getFile() == null) {
             Toast.makeText(getApplicationContext(),

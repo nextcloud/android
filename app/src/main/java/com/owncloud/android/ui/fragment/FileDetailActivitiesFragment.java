@@ -38,6 +38,7 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsActivitiesFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -130,12 +131,12 @@ public class FileDetailActivitiesFragment extends Fragment implements
         if (arguments == null) {
             throw new IllegalStateException("arguments are mandatory");
         }
-        file = arguments.getParcelable(ARG_FILE);
-        user = arguments.getParcelable(ARG_USER);
+        file = BundleExtensionsKt.getParcelableArgument(arguments, ARG_FILE, OCFile.class);
+        user = BundleExtensionsKt.getParcelableArgument(arguments, ARG_USER, User.class);
 
         if (savedInstanceState != null) {
-            file = savedInstanceState.getParcelable(ARG_FILE);
-            user = savedInstanceState.getParcelable(ARG_USER);
+            file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_FILE, OCFile.class);
+            user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_USER, User.class);
         }
 
         binding = FileDetailsActivitiesFragmentBinding.inflate(inflater, container, false);
@@ -146,6 +147,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
         viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingEmpty);
         viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
 
+        isLoadingActivities = true;
         fetchAndSetData(-1);
 
         binding.swipeContainingList.setOnRefreshListener(() -> {

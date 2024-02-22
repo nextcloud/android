@@ -63,7 +63,7 @@ class GalleryAdapter(
     transferServiceGetter: ComponentsGetter,
     viewThemeUtils: ViewThemeUtils,
     var columns: Int,
-    val defaultThumbnailSize: Int
+    private val defaultThumbnailSize: Int
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
     var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
@@ -73,6 +73,7 @@ class GalleryAdapter(
         storageManager = transferServiceGetter.storageManager
 
         ocFileListDelegate = OCFileListDelegate(
+            transferServiceGetter.fileUploaderHelper,
             context,
             ocFileListFragmentInterface,
             user,

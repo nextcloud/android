@@ -299,12 +299,14 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void updateHeader() {
+        int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
+
         if (getAccount() != null &&
-            getCapabilities().getServerBackground() != null) {
+            getCapabilities().getServerBackground() != null &&
+            !getResources().getBoolean(R.bool.is_branded_client)) {
 
             OCCapability capability = getCapabilities();
             String logo = capability.getServerLogo();
-            int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
 
             // set background to primary color
             LinearLayout drawerHeader = mNavigationViewHeader.findViewById(R.id.drawer_header_view);
@@ -348,39 +350,39 @@ public abstract class DrawerActivity extends ToolbarActivity
                     .load(Uri.parse(logo))
                     .into(target);
             }
+        }
 
-            // hide ecosystem apps according to user preference or in branded client
-            LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
-            if (getResources().getBoolean(R.bool.is_branded_client) || !preferences.isShowEcosystemApps()) {
-                ecosystemApps.setVisibility(View.GONE);
+        // hide ecosystem apps according to user preference or in branded client
+        LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
+        if (getResources().getBoolean(R.bool.is_branded_client) || !preferences.isShowEcosystemApps()) {
+            ecosystemApps.setVisibility(View.GONE);
+        } else {
+            LinearLayout[] views = {
+                ecosystemApps.findViewById(R.id.drawer_ecosystem_notes),
+                ecosystemApps.findViewById(R.id.drawer_ecosystem_talk),
+                ecosystemApps.findViewById(R.id.drawer_ecosystem_more)
+            };
+
+            views[0].setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
+            views[1].setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
+            views[2].setOnClickListener(v -> openAppStore("Nextcloud", true));
+
+            int iconColor;
+            if (Hct.fromInt(primaryColor).getTone() < 80.0) {
+                iconColor = Color.WHITE;
             } else {
-                LinearLayout[] views = {
-                    ecosystemApps.findViewById(R.id.drawer_ecosystem_notes),
-                    ecosystemApps.findViewById(R.id.drawer_ecosystem_talk),
-                    ecosystemApps.findViewById(R.id.drawer_ecosystem_more)
-                };
-
-                views[0].setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
-                views[1].setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
-                views[2].setOnClickListener(v -> openAppStore("Nextcloud", true));
-
-                int iconColor;
-                if (Hct.fromInt(primaryColor).getTone() < 80.0) {
-                    iconColor = Color.WHITE;
-                } else {
-                    iconColor = getColor(R.color.grey_800_transparent);
-                }
-                for (LinearLayout view : views) {
-                    ImageView imageView = (ImageView) view.getChildAt(0);
-                    imageView.setImageTintList(ColorStateList.valueOf(iconColor));
-                    GradientDrawable background = (GradientDrawable) imageView.getBackground();
-                    background.setStroke(DisplayUtils.convertDpToPixel(1, this), iconColor);
-                    TextView textView = (TextView) view.getChildAt(1);
-                    textView.setTextColor(iconColor);
-                }
-
-                ecosystemApps.setVisibility(View.VISIBLE);
+                iconColor = getColor(R.color.grey_800_transparent);
             }
+            for (LinearLayout view : views) {
+                ImageView imageView = (ImageView) view.getChildAt(0);
+                imageView.setImageTintList(ColorStateList.valueOf(iconColor));
+                GradientDrawable background = (GradientDrawable) imageView.getBackground();
+                background.setStroke(DisplayUtils.convertDpToPixel(1, this), iconColor);
+                TextView textView = (TextView) view.getChildAt(1);
+                textView.setTextColor(iconColor);
+            }
+
+            ecosystemApps.setVisibility(View.VISIBLE);
         }
     }
 
@@ -479,23 +481,23 @@ public abstract class DrawerActivity extends ToolbarActivity
         unsetAllDrawerMenuItems();
     }
 
-
     private void onNavigationItemClicked(final MenuItem menuItem) {
         setDrawerMenuItemChecked(menuItem.getItemId());
 
         int itemId = menuItem.getItemId();
 
-        if (itemId == R.id.nav_all_files) {
+        if (itemId == R.id.nav_all_files || itemId == R.id.nav_personal_files) {
             if (this instanceof FileDisplayActivity &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof GalleryFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof SharedListFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof GroupfolderListFragment) &&
                 !(((FileDisplayActivity) this).getLeftFragment() instanceof PreviewTextStringFragment)) {
-                showFiles(false);
+                showFiles(false, itemId == R.id.nav_personal_files);
                 ((FileDisplayActivity) this).browseToRoot();
                 EventBus.getDefault().post(new ChangeMenuEvent());
             } else {
                 MainApp.showOnlyFilesOnDevice(false);
+                MainApp.showOnlyPersonalFiles(itemId == R.id.nav_personal_files);
                 Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.setAction(FileDisplayActivity.ALL_FILES);
@@ -506,10 +508,10 @@ public abstract class DrawerActivity extends ToolbarActivity
             handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
                                menuItem.getItemId());
         } else if (itemId == R.id.nav_gallery) {
-            startPhotoSearch(menuItem);
+            startPhotoSearch(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
             EventBus.getDefault().post(new ChangeMenuEvent());
-            showFiles(true);
+            showFiles(true, false);
         } else if (itemId == R.id.nav_uploads) {
             startActivity(UploadListActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_trashbin) {
@@ -527,7 +529,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             menuItem.setChecked(false);
             final Optional<User> optionalUser = getUser();
             if (optionalUser.isPresent()) {
-                UserInfoActivity.openAccountRemovalConfirmationDialog(optionalUser.get(), getSupportFragmentManager());
+                UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
             startSharedSearch(menuItem);
@@ -598,11 +600,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         launchActivityForSearch(searchEvent, menuItem.getItemId());
     }
 
-    private void startPhotoSearch(MenuItem menuItem) {
+    public void startPhotoSearch(int id) {
         SearchEvent searchEvent = new SearchEvent("image/%", SearchRemoteOperation.SearchType.PHOTO_SEARCH);
         MainApp.showOnlyFilesOnDevice(false);
 
-        launchActivityForSearch(searchEvent, menuItem.getItemId());
+        launchActivityForSearch(searchEvent, id);
     }
 
     private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
@@ -1104,8 +1106,9 @@ public abstract class DrawerActivity extends ToolbarActivity
      *
      * @param onDeviceOnly flag to decide if all files or only the ones on the device should be shown
      */
-    public void showFiles(boolean onDeviceOnly) {
+    public void showFiles(boolean onDeviceOnly, boolean onlyPersonalFiles) {
         MainApp.showOnlyFilesOnDevice(onDeviceOnly);
+        MainApp.showOnlyPersonalFiles(onlyPersonalFiles);
         Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
         fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         fileDisplayActivity.setAction(FileDisplayActivity.ALL_FILES);
@@ -1150,6 +1153,10 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     public boolean isDrawerIndicatorAvailable() {
         return true;
+    }
+
+    public AppPreferences getAppPreferences(){
+        return preferences;
     }
 
     @Override

@@ -23,6 +23,7 @@
  */
 package com.owncloud.android.ui.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -49,6 +50,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 class UnifiedSearchListAdapter(
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
+    private val filesAction: UnifiedSearchItemViewHolder.FilesAction,
     private val user: User,
     private val clientFactory: ClientFactory,
     private val context: Context,
@@ -91,6 +93,7 @@ class UnifiedSearchListAdapter(
                     clientFactory,
                     storageManager,
                     listInterface,
+                    filesAction,
                     context,
                     viewThemeUtils
                 )
@@ -153,6 +156,7 @@ class UnifiedSearchListAdapter(
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(sections: List<UnifiedSearchSection>) {
         this.sections = sections
         notifyDataSetChanged()

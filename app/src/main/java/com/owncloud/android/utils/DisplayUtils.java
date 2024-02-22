@@ -67,7 +67,6 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.client.preferences.DarkMode;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -295,7 +294,7 @@ public final class DisplayUtils {
             hostStart = url.indexOf('@') + "@".length();
         }
 
-        int hostEnd = url.substring(hostStart).indexOf("/");
+        int hostEnd = url.substring(hostStart).indexOf('/');
         // Handle URL which doesn't have a path (path is implicitly '/')
         hostEnd = hostEnd == -1 ? urlNoDots.length() : hostStart + hostEnd;
 
@@ -978,9 +977,9 @@ public final class DisplayUtils {
     }
 
     private static void configShimmerGridImageSize(LoaderImageView thumbnailShimmer, float gridColumns) {
-        FrameLayout.LayoutParams targetLayoutParams = (FrameLayout.LayoutParams) thumbnailShimmer.getLayoutParams();
-
         try {
+            FrameLayout.LayoutParams targetLayoutParams = (FrameLayout.LayoutParams) thumbnailShimmer.getLayoutParams();
+
             final Point screenSize = getScreenSize(thumbnailShimmer.getContext());
             final int marginLeftAndRight = targetLayoutParams.leftMargin + targetLayoutParams.rightMargin;
             final int size = Math.round(screenSize.x / gridColumns - marginLeftAndRight);

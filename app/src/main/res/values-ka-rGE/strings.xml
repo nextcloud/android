@@ -10,9 +10,7 @@
     <string name="action_send_share">გაგზავნა/გაზიარება</string>
     <string name="action_switch_grid_view">ბადისებური ხედი</string>
     <string name="action_switch_list_view">ჩამონათვლისებური ხედი</string>
-    <string name="actionbar_copy">კოპირება</string>
     <string name="actionbar_mkdir">ახალი დირექტორია</string>
-    <string name="actionbar_move">გადატანა</string>
     <string name="actionbar_open_with">გახსნა</string>
     <string name="actionbar_search">ძიება</string>
     <string name="actionbar_see_details">დეტალები</string>
@@ -80,7 +78,6 @@
     <string name="common_remove">გაუქმება</string>
     <string name="common_rename">გადარქმევა</string>
     <string name="common_save">შენახვა</string>
-    <string name="common_select">არჩევა</string>
     <string name="common_send">გაგზავნა</string>
     <string name="common_share">გაზიარება</string>
     <string name="common_skip">გამოტოვება</string>
@@ -123,7 +120,6 @@
     <string name="create">შექმნა</string>
     <string name="create_dir_fail_msg">დირექტორია ვერ შეიქმნა</string>
     <string name="delete_account">ანგარიშის გაუქმება</string>
-    <string name="delete_account_warning">გავაუქმოთ ანგარიში %s და ყველა ლოკალური ფაილი?\n\nგაუქმება ვერ იქნება უკუბრუნებული.</string>
     <string name="deselect_all">ყველას წაშლა</string>
     <string name="dev_version_new_version_available">ხელმისაწვდომია ახალი ვერსია</string>
     <string name="dev_version_no_new_version_available">ახალი ვერსია არაა ხელმისაწვდომი.</string>
@@ -171,6 +167,7 @@
     <string name="error__upload__local_file_not_copied">%1$s ვერ კოპირდება %2$s ლოკალურ დირექტორიაში</string>
     <string name="error_cant_bind_to_operations_service">კრიტიკული შეცდომა: ოპერაციების განხორციელება შეუძლებელია</string>
     <string name="etm_accounts">ანგარიშები</string>
+    <string name="etm_background_job_created">შექმნილია</string>
     <string name="etm_background_job_user">მომხმარებელი</string>
     <string name="etm_background_jobs">ფონური საქმეები</string>
     <string name="etm_transfer_type_download">ჩამოტვირთვა</string>
@@ -218,7 +215,7 @@
     <string name="filename_hint">ფაილის სახელი</string>
     <string name="folder_confirm_create">შექმნა</string>
     <string name="folder_list_empty_headline">აქ დირექტორიები არაა</string>
-    <string name="folder_picker_choose_button_text">არჩევა</string>
+    <string name="folder_picker_choose_button_text">აირჩიეთ</string>
     <string name="folder_picker_move_button_text">გადატანა</string>
     <string name="forbidden_permissions">თქვენ არ გაქვთ უფლება, %s</string>
     <string name="forbidden_permissions_copy">რომ დააკოპიროთ ეს ფაილი</string>
@@ -276,7 +273,6 @@
     <string name="move_file_invalid_overwrite">ფაილი დანიშნულ დირექტორიაში უკვე არსებობს</string>
     <string name="network_error_socket_exception">სერვერთან დაკავშირებისას წარმოიქმნა შეცდომა</string>
     <string name="new_media_folder_photos">ფოტო</string>
-    <string name="note_confirm">გაგზავნა</string>
     <string name="notification_channel_download_description">აჩვენებს გადმოწერის პროგრესს</string>
     <string name="notification_channel_download_name_short">ჩამოტვირთვები</string>
     <string name="notification_channel_file_sync_description">აჩვენებს ფაილების სინქ. პროგრესს და შედეგებს</string>
@@ -308,9 +304,7 @@
     <string name="pref_behaviour_entries_keep_file">დარჩა ორიგინალ დირექტორიაში</string>
     <string name="pref_behaviour_entries_move">გადატანილია აპლიკაციის დირექტორიაში</string>
     <string name="prefs_add_account">ანგარიშის დამატება</string>
-    <string name="prefs_calendar_contacts">კანენდრისა და კონტაქტების სინქრონიზაცია</string>
     <string name="prefs_calendar_contacts_no_store_error">არც Google Play-ა დაყენებული, არც F-Droid-ი</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">კალენდრისა და კონტაქტების სინქრონიზაცია დაყენებულია</string>
     <string name="prefs_category_about">ჩვენს შესახებ</string>
     <string name="prefs_category_details">დეტალები</string>
     <string name="prefs_category_dev">დევ.</string>
@@ -372,12 +366,6 @@
     <string name="share_via_link_section_title">ბმულის გაზიარება</string>
     <string name="shared_icon_shared">გაზიარებული</string>
     <string name="sort_by">დაასორტირე</string>
-    <string name="sort_by_modification_date_ascending">ჯერ ახალი</string>
-    <string name="sort_by_modification_date_descending">ჯერ ძველი</string>
-    <string name="sort_by_name_ascending">ა - ჰ</string>
-    <string name="sort_by_name_descending">ჰ - ა</string>
-    <string name="sort_by_size_ascending">ჯერ პატარა</string>
-    <string name="sort_by_size_descending">ჯერ დიდი</string>
     <string name="ssl_validator_btn_details_hide">დამალვა</string>
     <string name="ssl_validator_btn_details_see">დეტალები</string>
     <string name="ssl_validator_header">სერვერის იდენტურობა ვერ დამოწმდა</string>
@@ -438,6 +426,8 @@
     <string name="unshare_link_forbidden_permissions">შეწყვიტოთ ამ ფაილის გაზიარება</string>
     <string name="untrusted_domain">წვდომა არასანდო დომენით. დამატებითი ინფორმაციისთვის გთხოვთ იხილოთ დოკუმენტაცია.</string>
     <string name="update_link_forbidden_permissions">განაახლოთ ეს გაზიარება</string>
+    <string name="upload_action_failed_clear">წარუმატებლად დასრულებული ატვირთების გასუფთავება</string>
+    <string name="upload_action_failed_retry">წარუმატებლად დასრულებული ატვირთების ხელახლა გაშვება</string>
     <string name="upload_file_dialog_filename">ფაილის სახელი</string>
     <string name="upload_file_dialog_filetype">ფაილის სახეობა</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps იარლიყის ფაილი(%s)</string>
@@ -477,6 +467,7 @@
     <string name="uploads_view_group_current_uploads">მიმდინარე</string>
     <string name="uploads_view_group_failed_uploads">ვერ მოხერხებული/მიმდინარე რესტარტი</string>
     <string name="uploads_view_group_finished_uploads">ატვირთულია</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">უარყოფილია</string>
     <string name="uploads_view_later_waiting_to_upload">ველოდებით ატვირთვას</string>
     <string name="uploads_view_title">ატვირთვები</string>
     <string name="uploads_view_upload_status_cancelled">უარყოფილია</string>

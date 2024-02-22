@@ -13,9 +13,7 @@
     <string name="action_send_share">Dërgoje/Shpërndaje</string>
     <string name="action_switch_grid_view">Pamje galeri</string>
     <string name="action_switch_list_view">Pamje listë</string>
-    <string name="actionbar_copy">Kopjoni</string>
     <string name="actionbar_mkdir">Dosje e re</string>
-    <string name="actionbar_move">Zhvendose</string>
     <string name="actionbar_open_with">Hapeni me</string>
     <string name="actionbar_search">Kërkoni</string>
     <string name="actionbar_see_details">Hollësi</string>
@@ -103,7 +101,6 @@
     <string name="common_remove">Hiqe</string>
     <string name="common_rename">Riemërtojeni</string>
     <string name="common_save">Ruaj</string>
-    <string name="common_select">Zgjidhni</string>
     <string name="common_send">Dërgojeni</string>
     <string name="common_share">Shpërndaje</string>
     <string name="common_skip">Kalo</string>
@@ -147,7 +144,6 @@
     <string name="copy_file_invalid_overwrite">Kartela gjendet tashmë te dosja destinacion</string>
     <string name="copy_link">Kopjoje lidhjen</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopjimi/lëvizja në direktorinë e enkriptuar për momentin nuk suportohet.</string>
-    <string name="copy_to">Kopjojeni tek…</string>
     <string name="could_not_download_image">Nuk mund të shkarkohet imazhi i plotë</string>
     <string name="could_not_retrieve_url">Nuk mund të rikthej URL-në</string>
     <string name="create">Krijo</string>
@@ -162,7 +158,6 @@
     <string name="credentials_disabled">Kredencialet të pa aktivizuara</string>
     <string name="default_credentials_wrong">Kredenciele jo të sakta</string>
     <string name="delete_account">Hiqe llogarinë</string>
-    <string name="delete_account_warning">Fshij llogarinë %s me të gjithë skedarët lokalë?\n\nFshirja nuk mund të zhbëhet.</string>
     <string name="delete_entries">Fshini shënimet</string>
     <string name="deselect_all">Hiqi të gjithë</string>
     <string name="dev_version_new_version_available">Version i ri i disponueshëm</string>
@@ -231,9 +226,9 @@
     <string name="error_retrieving_templates">Gabim gjatë marrjes së shablloneve</string>
     <string name="error_starting_direct_camera_upload">Gabim në hapjen e kamerës</string>
     <string name="etm_accounts">Llogaritë</string>
+    <string name="etm_background_job_created">U krijua</string>
     <string name="etm_background_job_name">Emri i punës</string>
     <string name="etm_background_job_progress">Progresi</string>
-    <string name="etm_background_job_started">Filloi</string>
     <string name="etm_background_job_state">Gjendja</string>
     <string name="etm_background_job_user">Përdorues</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -306,8 +301,6 @@
     <string name="filename_forbidden_charaters_from_server">Emri i skedarit përmban të paktën një karakter të pavlefshëm</string>
     <string name="filename_hint">Emri i skedarit</string>
     <string name="first_run_1_text">Mbani të sigurta dhe nën kontroll të dhënat tuaja</string>
-    <string name="first_run_2_text">Bashkëpunim i sigurtë &amp;skedar i ndryshuar</string>
-    <string name="first_run_4_text">Ndarja e ekranit, takime në internet &amp; konferenca në web</string>
     <string name="folder_already_exists">Dosja ekziston tashmë</string>
     <string name="folder_confirm_create">Krijo</string>
     <string name="folder_list_empty_headline">Këtu nuk ka dosje</string>
@@ -320,7 +313,6 @@
     <string name="forbidden_permissions_delete">për fshirje të kësaj kartele</string>
     <string name="forbidden_permissions_move">për zhvendosje të këtij skedari</string>
     <string name="forbidden_permissions_rename">për riemërtim të këtij skedari</string>
-    <string name="foreground_service_download">Shkarkimi i skedarëve…</string>
     <string name="foreground_service_upload">Ngarkimi i skedarëve…</string>
     <string name="foreign_files_fail">Disa skedarë nuk u zhvendosën dot</string>
     <string name="foreign_files_local_text">Vendore: %1$s</string>
@@ -378,7 +370,6 @@
     <string name="move_file_error">Ndodhi një gabim teksa përpiqej të zhvendosej ky skedar apo kjo dosje</string>
     <string name="move_file_invalid_into_descendent">S’është e mundur të zhvendoset një dosje në një tjetër brenda saj</string>
     <string name="move_file_invalid_overwrite">Skedri gjendet tashmë te dosja destinacion</string>
-    <string name="move_to">Lëvizni tek…</string>
     <string name="network_error_socket_exception">Ndodhi një gabim gjatë lidhjes me serverin</string>
     <string name="new_comment">Koment i ri…</string>
     <string name="new_media_folder_detected">Dosja %1$se re e mediave u zbulua.</string>
@@ -389,7 +380,6 @@
     <string name="no_browser_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar lidhjet</string>
     <string name="no_mutliple_accounts_allowed">Vetëm një llogari e lejuar</string>
     <string name="no_pdf_app_available">Nuk ka asnjë aplikacion në dispozicion për të trajtuar PDF</string>
-    <string name="note_confirm">Dërgo</string>
     <string name="note_could_not_sent">Shënimi nuk mund të dërgohej</string>
     <string name="notification_action_failed">Dështoi ekzekutimi i veprimeve.</string>
     <string name="notification_channel_download_description">Tregon progresin e shkarkimit</string>
@@ -434,10 +424,8 @@
     <string name="pref_behaviour_entries_keep_file">mbajtur në dosjen origjinale</string>
     <string name="pref_behaviour_entries_move">u kalua te dosja e aplikacionit</string>
     <string name="prefs_add_account">Shtoni llogari</string>
-    <string name="prefs_calendar_contacts">Sinkronizoni kalendarin &amp; kontaktet</string>
     <string name="prefs_calendar_contacts_no_store_error">Nuk janë instaluar as Google Play Store as F-Droid</string>
     <string name="prefs_calendar_contacts_summary">Konfiguro DAVx5 (i njohur më parë si DAVdroid) (v1.3.0+) për llogarinë rrjedhëse</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Sinkronizimi i kalendarit &amp; kontakteve u vendos me sukses</string>
     <string name="prefs_category_about">Rreth </string>
     <string name="prefs_category_details">Hollësi</string>
     <string name="prefs_category_dev">Dev</string>
@@ -508,13 +496,10 @@
     <string name="screenshot_04_accounts_heading">Të gjitha llogaritë tuaja</string>
     <string name="screenshot_04_accounts_subline">në një vend</string>
     <string name="screenshot_05_autoUpload_heading">Ngarkimi automatik</string>
-    <string name="screenshot_05_autoUpload_subline">për fotot tuaja &amp; videot</string>
-    <string name="screenshot_06_davdroid_heading">Kalendari&amp; kontaktet</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizo me DAVx5</string>
     <string name="select_all">Zgjidhi të gjitha</string>
     <string name="select_template">Zgjidh shabllonin</string>
     <string name="send">Dërgo</string>
-    <string name="send_note">Dërgo shënim për marrësin</string>
     <string name="sendbutton_description">Ikona e butonit dërgo</string>
     <string name="set_as">Vendos Si</string>
     <string name="set_picture_as">Vendos fotografinë</string>
@@ -553,12 +538,6 @@
     <string name="signup_with_provider">Regjistrohu me ofruesin</string>
     <string name="single_sign_on_request_token" formatted="true">Lejo %1$s të hyjë në llogarinë tënde Nextcloud %2$s?</string>
     <string name="sort_by">Rendit sipas</string>
-    <string name="sort_by_modification_date_ascending">Më i riu i pari</string>
-    <string name="sort_by_modification_date_descending">Më i vjetri i pari</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Më e vogla në fillim</string>
-    <string name="sort_by_size_descending">Më i madhi i pari</string>
     <string name="ssl_validator_btn_details_hide">Fshihe</string>
     <string name="ssl_validator_btn_details_see">Hollësi</string>
     <string name="ssl_validator_header">Identiteti i serverit nuk mund të verifikohet</string>
@@ -593,7 +572,6 @@
     <string name="storage_movies">Filma</string>
     <string name="storage_music">Muzik</string>
     <string name="storage_pictures">Piktura</string>
-    <string name="store_full_desc">Aplikacioni Android Copyleft libre Nextcloud , që ju jep liri të lëvizshme.\n\nFeatures:\n* Ndërfaqe e lehtë, moderne, e përshtatshme për temën e serverit tuaj\n* Ngarkoni skedarë në serverin tuaj Nextcloud\n* Ndajini ato me të tjerët\n* Ruan skedarët dhe dosjet tuaja të preferuara të sinkronizuara\n* Kërkoni në të gjitha dosjet në serverin tuaj\n* Ngarkim automatik për fotot dhe videot e marra nga pajisja juaj\n* Ju mban të përditësuar me njoftimet\n* Mbështetje për shumë llogari\n* Qasje e sigurtë në të dhënat tuaja me gjurmë gishtash ose PIN\n* Integrimi me DAVx5 (i njohur më parë si DAVdroid) për konfigurim të lehtë të kalendarit&amp; Sinkronizimi i kontakteve\n\nJu lutemi raportoni të gjitha çështjet në https://github.com/nextcloud/android/issues dhe diskutoni këtë aplikacion në https://help.nextcloud.com/c/clients/android\n\nI ri në Nexcloud? Nextcloud është një skedar  sinkronizimi privat&amp; server komunikimi dhe shpërndarës. Është software pa pagesë, dhe ju mund ta hostoni ose të paguani një kompani për ta bërë atë për ju. Në këtë mënyrë, ti kontrollon fotot, kalendarin tënd dhe të dhënat e kontaktit, dokumentet e tua dhe gjithçka tjetër.\n\nShikoni Nextcloud në https://nextcloud.com</string>
     <string name="store_full_dev_desc">Platforma e produktivitetit të vetë-pritëse që ju mban nën kontroll.\n Ky është versioni zhvillimi zyrtar, që përmban një shembull ditor të çdo funksionaliteti të ri të pa provuar, i cili mund të shkaktojë paqëndrueshmëri dhe humbje të të dhënave. Aplikacioni është për përdoruesit e gatshëm për të provuar dhe raportuar të metat nëse ato ndodhin. Mos e përdorni për punën tuaj produktive!\n\nVersioni zyrtar dhe versioni i rregullt janë në dispozicion në F-Droid, dhe mund të instalohen në të njëjtën kohë.</string>
     <string name="store_short_desc">Platforma vetë-pritëse e produktivitetit që ju mban nën kontroll</string>
     <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (versioni i parapamjes dev)</string>
@@ -649,6 +627,8 @@
     <string name="untrusted_domain">Aksesi nëpërmjet një domaini jo të besuar. Ju lutem shikoni dokumentimin për info të mëtejshme. </string>
     <string name="update_link_forbidden_permissions">që të përditësohet kjo ndarje</string>
     <string name="updating_share_failed">Duke përditësuar ndarjet e dështuara</string>
+    <string name="upload_action_failed_clear">Pastroni ngarkimet e dështuara</string>
+    <string name="upload_action_failed_retry">Riprovoni ngarkimet e dështuara</string>
     <string name="upload_cannot_create_file">Nuk mund të krijohet skedar lokal</string>
     <string name="upload_chooser_title">Ngarkojeni prej…</string>
     <string name="upload_content_from_other_apps">Ngarkoni përmbatje nga aplikacionet e tjera</string>
@@ -702,6 +682,7 @@
     <string name="uploads_view_group_current_uploads">Të tanishëm</string>
     <string name="uploads_view_group_failed_uploads">Dështoi/Rindezja në pritje</string>
     <string name="uploads_view_group_finished_uploads">U ngarkua</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">U anulua</string>
     <string name="uploads_view_later_waiting_to_upload">Po pritet për ngarkim</string>
     <string name="uploads_view_title">Ngarkime</string>
     <string name="uploads_view_upload_status_cancelled">U anulua</string>
@@ -738,6 +719,7 @@
     <string name="what_s_new_image">Imazhi me çfarë është e re</string>
     <string name="whats_new_skip">Kalo</string>
     <string name="whats_new_title">I ri në %1$s</string>
+    <string name="worker_download">Shkarkimi i skedarëve…</string>
     <string name="write_email">Dërgo email</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nuk mund të sinkronizohej %1$dskedari (konfliktet:%2$d)</item>

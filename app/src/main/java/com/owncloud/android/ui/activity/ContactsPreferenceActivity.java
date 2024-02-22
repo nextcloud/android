@@ -28,6 +28,7 @@ import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -104,13 +105,14 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         Intent intent = getIntent();
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            if (intent == null || intent.getParcelableExtra(EXTRA_FILE) == null ||
-                intent.getParcelableExtra(EXTRA_USER) == null) {
+            if (intent == null ||
+                IntentExtensionsKt.getParcelableArgument(intent, EXTRA_FILE, OCFile.class) == null ||
+                IntentExtensionsKt.getParcelableArgument(intent, EXTRA_USER, User.class) == null) {
                 BackupFragment fragment = BackupFragment.create(showSidebar);
                 transaction.add(R.id.frame_container, fragment);
             } else {
-                OCFile file = intent.getParcelableExtra(EXTRA_FILE);
-                User user = intent.getParcelableExtra(EXTRA_USER);
+                OCFile file = IntentExtensionsKt.getParcelableArgument(intent, EXTRA_FILE, OCFile.class);
+                User user =  IntentExtensionsKt.getParcelableArgument(intent, EXTRA_USER, User.class);
                 BackupListFragment contactListFragment = BackupListFragment.newInstance(file, user);
                 transaction.add(R.id.frame_container, contactListFragment);
             }

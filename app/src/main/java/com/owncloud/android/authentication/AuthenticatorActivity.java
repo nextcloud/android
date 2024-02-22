@@ -60,6 +60,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
 import android.view.KeyEvent;
@@ -86,6 +87,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -142,6 +144,7 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.ActionBar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -284,11 +287,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         // Workaround, for fixing a problem with Android Library Support v7 19
         //getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().hide();
-            getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            getSupportActionBar().setDisplayShowHomeEnabled(false);
-            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.hide();
+            actionBar.setDisplayHomeAsUpEnabled(false);
+            actionBar.setDisplayShowHomeEnabled(false);
+            actionBar.setDisplayShowTitleEnabled(false);
         }
 
         mIsFirstAuthAttempt = true;
@@ -302,7 +306,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            mAccount = extras.getParcelable(EXTRA_ACCOUNT);
+            mAccount = BundleExtensionsKt.getParcelableArgument(extras, EXTRA_ACCOUNT, Account.class);
         }
 
         if (savedInstanceState != null) {
@@ -362,6 +366,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void initWebViewLogin(String baseURL, boolean useGenericUserAgent) {
         viewThemeUtils.platform.colorCircularProgressBar(accountSetupWebviewBinding.loginWebviewProgressBar, ColorRole.ON_PRIMARY_CONTAINER);
         accountSetupWebviewBinding.loginWebview.setVisibility(View.GONE);
+        new WebViewUtil(this).setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
 
         accountSetupWebviewBinding.loginWebview.getSettings().setAllowFileAccess(false);
         accountSetupWebviewBinding.loginWebview.getSettings().setJavaScriptEnabled(true);
@@ -398,6 +403,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             url = getResources().getString(R.string.webview_login_url);
         }
 
+        new WebViewUtil(this).setProxyKKPlus(accountSetupWebviewBinding.loginWebview);
         if (url.startsWith(HTTPS_PROTOCOL)) {
             strictMode = true;
         }
@@ -466,6 +472,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 }
             }
 
+            @Override
             public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
                 accountSetupWebviewBinding.loginWebviewProgressBar.setVisibility(View.GONE);
                 accountSetupWebviewBinding.loginWebview.setVisibility(View.VISIBLE);
@@ -763,9 +770,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void checkOcServer() {
         String uri;
-        if (accountSetupBinding != null && accountSetupBinding.hostUrlInput.getText() != null &&
-            !accountSetupBinding.hostUrlInput.getText().toString().isEmpty()) {
-            uri = accountSetupBinding.hostUrlInput.getText().toString().trim();
+        Editable hostUrlInput = accountSetupBinding.hostUrlInput.getText();
+
+        if (accountSetupBinding != null && hostUrlInput != null &&
+            !hostUrlInput.toString().isEmpty()) {
+            uri = hostUrlInput.toString().trim();
         } else {
             uri = mServerInfo.mBaseUrl;
         }

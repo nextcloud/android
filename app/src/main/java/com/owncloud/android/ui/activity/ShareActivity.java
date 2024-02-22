@@ -27,7 +27,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ShareActivityBinding;
@@ -144,7 +143,8 @@ public class ShareActivity extends FileActivity {
         getSupportFragmentManager().beginTransaction().replace(R.id.share_fragment_container,
                                                                FileDetailsSharingProcessFragment.newInstance(getFile(),
                                                                                                              shareeName,
-                                                                                                             shareType),
+                                                                                                             shareType,
+                                                                                                             false),
                                                                FileDetailsSharingProcessFragment.TAG)
             .commit();
     }

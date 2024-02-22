@@ -20,7 +20,6 @@
  */
 package com.owncloud.android.datamodel;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -373,6 +372,8 @@ public class SyncedFolderProvider extends Observable {
                 ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN)) == 1;
             SubFolderRule subFolderRule = SubFolderRule.values()[cursor.getInt(
                     cursor.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE))];
+            boolean excludeHidden = cursor.getInt(cursor.getColumnIndexOrThrow(
+                ProviderMeta.ProviderTableMeta.SYNCED_EXCLUDE_HIDDEN)) == 1;
 
 
             syncedFolder = new SyncedFolder(id,
@@ -389,7 +390,8 @@ public class SyncedFolderProvider extends Observable {
                                             enabledTimestampMs,
                                             type,
                                             hidden,
-                                            subFolderRule);
+                                            subFolderRule,
+                                            excludeHidden);
         }
         return syncedFolder;
     }
@@ -418,6 +420,7 @@ public class SyncedFolderProvider extends Observable {
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_TYPE, syncedFolder.getType().id);
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_HIDDEN, syncedFolder.isHidden());
         cv.put(ProviderMeta.ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE, syncedFolder.getSubfolderRule().ordinal());
+        cv.put(ProviderMeta.ProviderTableMeta.SYNCED_EXCLUDE_HIDDEN, syncedFolder.isExcludeHidden());
 
         return cv;
     }

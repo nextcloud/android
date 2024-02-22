@@ -14,10 +14,8 @@
     <string name="action_send_share">Send/Share</string>
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
-    <string name="actionbar_calendar_contacts_restore">Restore contacts &amp; calendar</string>
-    <string name="actionbar_copy">Copy</string>
+    <string name="actionbar_calendar_contacts_restore">Restore contacts and calendar</string>
     <string name="actionbar_mkdir">New folder</string>
-    <string name="actionbar_move">Move</string>
     <string name="actionbar_move_or_copy">Move or Copy</string>
     <string name="actionbar_open_with">Open with</string>
     <string name="actionbar_search">Search</string>
@@ -77,10 +75,11 @@
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
     <string name="autoupload_hide_folder">Hide folder</string>
+    <string name="autoupload_worker_foreground_info">Preparing auto upload</string>
     <string name="avatar">Avatar</string>
     <string name="away">Away</string>
     <string name="backup_settings">Backup settings</string>
-    <string name="backup_title">Contacts &amp; calendar backup</string>
+    <string name="backup_title">Contacts and calendar backup</string>
     <string name="battery_optimization_close">Close</string>
     <string name="battery_optimization_disable">Disable</string>
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
@@ -93,7 +92,6 @@
     <string name="check_back_later_or_reload">Check back later or reload.</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Choose local folder…</string>
-    <string name="choose_location">Choose location</string>
     <string name="choose_remote_folder">Choose remote folder…</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
     <string name="choose_which_file">Choose which file to keep!</string>
@@ -123,7 +121,6 @@
     <string name="common_remove">Delete</string>
     <string name="common_rename">Rename</string>
     <string name="common_save">Save</string>
-    <string name="common_select">Select</string>
     <string name="common_send">Send</string>
     <string name="common_share">Share</string>
     <string name="common_skip">Skip</string>
@@ -176,7 +173,6 @@
     <string name="copy_file_not_found">Unable to copy. Please check whether the file exists.</string>
     <string name="copy_link">Copy link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
-    <string name="copy_to">Copy to…</string>
     <string name="could_not_download_image">Could not download full image</string>
     <string name="could_not_retrieve_shares">Could not retrieve shares</string>
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
@@ -194,7 +190,6 @@
     <string name="data_to_back_up">Data to back up</string>
     <string name="default_credentials_wrong">Incorrect credentials</string>
     <string name="delete_account">Remove account</string>
-    <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
     <string name="delete_entries">Delete entries</string>
     <string name="delete_link">Delete Link</string>
     <string name="deselect_all">Deselect all</string>
@@ -226,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_in_progress_ticker">Downloading…</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
     <string name="downloader_download_succeeded_ticker">Downloaded</string>
+    <string name="downloader_file_download_cancelled">Certain files were canceled during the download by user</string>
+    <string name="downloader_file_download_failed">Error occurred while downloading files</string>
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
+    <string name="downloader_unexpected_error">Unexpected error occurred while downloading files</string>
     <string name="drawer_close">Close sidebar</string>
     <string name="drawer_community">Community</string>
     <string name="drawer_header_background">Background image of drawer header</string>
@@ -242,6 +241,7 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">On device</string>
+    <string name="drawer_item_personal_files">Personal files</string>
     <string name="drawer_item_recently_modified">Recently modified</string>
     <string name="drawer_item_shared">Shared</string>
     <string name="drawer_item_trashbin">Deleted files</string>
@@ -294,9 +294,10 @@
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="error_starting_doc_scan">Error starting document scan</string>
     <string name="etm_accounts">Accounts</string>
+    <string name="etm_background_execution_count">Times run in 48h</string>
+    <string name="etm_background_job_created">Created</string>
     <string name="etm_background_job_name">Job name</string>
     <string name="etm_background_job_progress">Progress</string>
-    <string name="etm_background_job_started">Started</string>
     <string name="etm_background_job_state">State</string>
     <string name="etm_background_job_user">User</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -344,6 +345,7 @@
     <string name="file_list_empty_shared_headline">Nothing shared yet</string>
     <string name="file_list_empty_unified_search_no_results">No results found for your query</string>
     <string name="file_list_folder">folder</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Loading…</string>
     <string name="file_list_no_app_for_file_type">No app set up to handle this file type.</string>
     <string name="file_list_seconds_ago">seconds ago</string>
@@ -388,9 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">Filename contains at least one invalid character</string>
     <string name="filename_hint">Filename</string>
     <string name="first_run_1_text">Keep your data secure and under your control</string>
-    <string name="first_run_2_text">Secure collaboration &amp; file exchange</string>
-    <string name="first_run_3_text">Easy-to-use webmail, calendar &amp; contacts</string>
-    <string name="first_run_4_text">Screensharing, online meetings &amp; web conferences</string>
+    <string name="first_run_2_text">Secure collaboration and file exchange</string>
+    <string name="first_run_3_text">Easy-to-use webmail, calendar and contacts</string>
+    <string name="first_run_4_text">Screensharing, online meetings and web conferences</string>
     <string name="folder_already_exists">Folder already exists</string>
     <string name="folder_confirm_create">Create</string>
     <string name="folder_list_empty_headline">No folders here</string>
@@ -404,7 +406,6 @@
     <string name="forbidden_permissions_delete">to delete this file</string>
     <string name="forbidden_permissions_move">to move this file</string>
     <string name="forbidden_permissions_rename">to rename this file</string>
-    <string name="foreground_service_download">Downloading files…</string>
     <string name="foreground_service_upload">Uploading files…</string>
     <string name="foreign_files_fail">Some files could not be moved</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -413,6 +414,7 @@
     <string name="foreign_files_success">All files were moved</string>
     <string name="forward">Forward</string>
     <string name="fourHours">4 hours</string>
+    <string name="grid_file_features_live_photo_content_description">This icon indicates availability of live photo</string>
     <string name="hidden_file_name_warning">Name will result in a hidden file</string>
     <string name="hint_name">Name</string>
     <string name="hint_note">Note</string>
@@ -499,7 +501,6 @@
     <string name="move_file_invalid_into_descendent">It is not possible to move a folder into one of its own underlying folders</string>
     <string name="move_file_invalid_overwrite">The file is already present in the destination folder</string>
     <string name="move_file_not_found">Unable to move file. Please check whether it exists.</string>
-    <string name="move_to">Move to…</string>
     <string name="network_error_connect_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
     <string name="network_error_socket_exception">An error occurred during connection to the server</string>
     <string name="network_error_socket_timeout_exception">An error occurred while waiting for the server. Could not complete operation.</string>
@@ -520,7 +521,6 @@
     <string name="no_pdf_app_available">No App available to handle PDF</string>
     <string name="no_send_app">No app available for sending the selected files</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
-    <string name="note_confirm">Send</string>
     <string name="note_could_not_sent">Could not send note</string>
     <string name="note_icon_hint">Note icon</string>
     <string name="notification_action_failed">Failed to execute action.</string>
@@ -580,16 +580,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Rename new version</string>
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
     <string name="prefs_add_account">Add account</string>
-    <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
+    <string name="prefs_calendar_contacts">Sync calendar and contacts</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Calendar and contacts sync set up</string>
     <string name="prefs_category_about">About</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
-    <string name="prefs_daily_backup_summary">Daily backup of your calendar &amp; contacts</string>
+    <string name="prefs_daily_backup_summary">Daily backup of your calendar and contacts</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
@@ -602,6 +602,8 @@
     <string name="prefs_imprint">Imprint</string>
     <string name="prefs_instant_behaviour_dialogTitle">Original file will be…</string>
     <string name="prefs_instant_behaviour_title">Original file will be…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Exclude hidden files and folders</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Exclude hidden</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Store in subfolders based on date</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Subfolder options</string>
@@ -650,12 +652,17 @@
     <string name="remove_e2e">You can remove end-to-end encryption locally on this client</string>
     <string name="remove_e2e_message">You can remove end-to-end encryption locally on this client. The encrypted files will remain on server, but will not be synced to this computer any longer.</string>
     <string name="remove_fail_msg">Deletion failed</string>
+    <string name="remove_local_account">Remove local account</string>
+    <string name="remove_local_account_details">Remove account from device and delete all local files</string>
     <string name="remove_notification_failed">Failed to remove notification.</string>
     <string name="remove_push_notification">Remove</string>
     <string name="remove_success_msg">Deleted</string>
     <string name="rename_dialog_title">Enter a new name</string>
     <string name="rename_local_fail_msg">Could not rename local copy, try a different name</string>
     <string name="rename_server_fail_msg">Renaming not possible, name already taken</string>
+    <string name="request_account_deletion">Request account deletion</string>
+    <string name="request_account_deletion_button">Request deletion</string>
+    <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
     <string name="reshare_not_allowed">Resharing is not allowed</string>
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
@@ -676,16 +683,17 @@
     <string name="screenshot_04_accounts_heading">All your accounts</string>
     <string name="screenshot_04_accounts_subline">in one place</string>
     <string name="screenshot_05_autoUpload_heading">Automatic upload</string>
-    <string name="screenshot_05_autoUpload_subline">for your photos &amp; videos</string>
-    <string name="screenshot_06_davdroid_heading">Calendar &amp; contacts</string>
+    <string name="screenshot_05_autoUpload_subline">for your photos and videos</string>
+    <string name="screenshot_06_davdroid_heading">Calendar and contacts</string>
     <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
     <string name="search_error">Error getting search results</string>
+    <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
+    <string name="secure_share_search">Secure share …</string>
     <string name="select_all">Select all</string>
     <string name="select_media_folder">Set media folder</string>
     <string name="select_one_template">Please select one template</string>
     <string name="select_template">Select template</string>
     <string name="send">Send</string>
-    <string name="send_note">Send note to recipient</string>
     <string name="send_share">Send Share</string>
     <string name="sendbutton_description">Send button icon</string>
     <string name="set_as">Set As</string>
@@ -695,7 +703,7 @@
     <string name="set_status_message">Set status message</string>
     <string name="setup_e2e">During setup of end-to-end encryption, you will receive a random 12 word mnemonic, which you will need to open your files on other devices. This will only be stored on this device, and can be shown again in this screen. Please note it down in a secure place!</string>
     <string name="share">Share</string>
-    <string name="share_copy_link">Share &amp; Copy Link</string>
+    <string name="share_copy_link">Share and Copy Link</string>
     <string name="share_dialog_title">Sharing</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expires %1$s</string>
@@ -715,6 +723,7 @@
     <string name="share_link_with_label">Share link (%1$s)</string>
     <string name="share_no_expiration_date_label">Set expiration date</string>
     <string name="share_no_password_title">Set password</string>
+    <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
     <string name="share_password_title">Password-protected</string>
     <string name="share_permission_can_edit">Can edit</string>
     <string name="share_permission_file_drop">File drop</string>
@@ -743,12 +752,6 @@
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="sort_by">Sort by</string>
-    <string name="sort_by_modification_date_ascending">Newest first</string>
-    <string name="sort_by_modification_date_descending">Oldest first</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Smallest first</string>
-    <string name="sort_by_size_descending">Biggest first</string>
     <string name="ssl_validator_btn_details_hide">Hide</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">The identity of the server could not be verified</string>
@@ -786,7 +789,7 @@
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
     <string name="storage_pictures">Pictures</string>
-    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favourite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
     <string name="store_full_dev_desc">The self-hosted productivity platform that keeps you in control.\nThis is the official development version, featuring a daily sample of any new untested functionality, which may cause instability and data loss. The app is for users willing to test, and report bugs should they occur. Do not use it for your productive work!\n\nBoth the official dev and regular version are available on F-droid, and can be installed at the same time.</string>
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
     <string name="store_short_dev_desc">The self-hosted productivity platform that keeps you in control (dev preview version)</string>
@@ -800,7 +803,7 @@
     <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
     <string name="subject_user_shared_with_you">%1$s shared \"%2$s\" with you</string>
     <string name="subtitle_photos_only">Photos only</string>
-    <string name="subtitle_photos_videos">Photos &amp; videos</string>
+    <string name="subtitle_photos_videos">Photos and videos</string>
     <string name="subtitle_videos_only">Videos only</string>
     <string name="suggest">Suggest</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
@@ -858,6 +861,13 @@
     <string name="update_link_file_no_exist">Unable to update. Please check whether the file exists.</string>
     <string name="update_link_forbidden_permissions">to update this share</string>
     <string name="updating_share_failed">Updating share failed</string>
+    <string name="upload_action_cancelled_clear">Clear cancelled uploads</string>
+    <string name="upload_action_cancelled_resume">Resume cancelled uploads</string>
+    <string name="upload_action_failed_clear">Clear failed uploads</string>
+    <string name="upload_action_failed_retry">Retry failed uploads</string>
+    <string name="upload_action_file_not_exist_message">Some files not exists those files cannot be resumed</string>
+    <string name="upload_action_global_upload_pause">Pause all uploads</string>
+    <string name="upload_action_global_upload_resume">Resume all uploads</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_chooser_title">Upload from…</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
@@ -869,6 +879,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Snippet text file(.txt)</string>
     <string name="upload_file_dialog_title">Input filename and filetype to upload</string>
     <string name="upload_files">Upload files</string>
+    <string name="upload_global_pause_title">All uploads are paused</string>
     <string name="upload_item_action_button">Upload item action button</string>
     <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">No uploads available</string>
@@ -877,8 +888,10 @@
     <string name="upload_local_storage_full">Local storage full</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
     <string name="upload_lock_failed">Locking folder failed</string>
+    <string name="upload_manually_cancelled">Upload was cancelled by user</string>
     <string name="upload_old_android">Encryption is only possible with &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Insufficient space prevents copying the selected files into the %1$s folder. Would you like to move them there instead?</string>
+    <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_unknown_error">Unknown error</string>
@@ -890,7 +903,10 @@
     <string name="uploader_error_message_source_file_not_found">File selected for upload not found. Please check whether the file exists.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">This file cannot be uploaded</string>
     <string name="uploader_error_title_no_file_to_upload">No file to upload</string>
+    <string name="uploader_file_not_found_message">File not found. Are you sure that this file exists or has a previous conflict not been resolved?</string>
+    <string name="uploader_file_not_found_on_server_message">We couldnt locate the file on server. Another user may have deleted the file</string>
     <string name="uploader_info_dirname">Folder name</string>
+    <string name="uploader_local_files_uploaded">Retry to upload failed local files</string>
     <string name="uploader_top_message">Choose upload folder</string>
     <string name="uploader_upload_failed_content_single">Could not upload %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Upload failed, log in again</string>
@@ -903,6 +919,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="uploader_upload_forbidden_permissions">to upload to this folder</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
@@ -913,6 +930,7 @@
     <string name="uploads_view_group_current_uploads">Current</string>
     <string name="uploads_view_group_failed_uploads">Failed/pending restart</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancelled</string>
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_upload_status_cancelled">Cancelled</string>
@@ -927,6 +945,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Fetching server version…</string>
     <string name="uploads_view_upload_status_service_interrupted">App terminated</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Same file found on remote, skipping upload</string>
     <string name="uploads_view_upload_status_unknown_fail">Unknown error</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Waiting to exit power save mode</string>
@@ -956,6 +975,7 @@
     <string name="whats_your_status">What is your status?</string>
     <string name="widgets_not_available">Widgets are only available on %1$s 25 or later</string>
     <string name="widgets_not_available_title">Not available</string>
+    <string name="worker_download">Downloading files…</string>
     <string name="write_email">Send email</string>
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>

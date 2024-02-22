@@ -25,7 +25,7 @@ package com.nextcloud.client.media
 
 import android.content.Context
 import android.media.MediaPlayer
-import com.google.android.exoplayer2.PlaybackException
+import androidx.media3.common.PlaybackException
 import com.owncloud.android.R
 
 /**

@@ -10,12 +10,11 @@
     <string name="action_clear_failed_uploads">Notīrīt neizdevušās augšupielādes</string>
     <string name="action_edit">Rediģēt</string>
     <string name="action_empty_notifications">Notīrīt visus paziņojumus</string>
+    <string name="action_empty_trashbin">Izdzēst miskastes saturu</string>
     <string name="action_send_share">Sūtīt/Kopīgot</string>
     <string name="action_switch_grid_view">Režģa izkārtojums</string>
     <string name="action_switch_list_view">Saraksta izkārtojums</string>
-    <string name="actionbar_copy">Kopēt</string>
     <string name="actionbar_mkdir">Jauna mape</string>
-    <string name="actionbar_move">Pārvietot</string>
     <string name="actionbar_open_with">Atvērt ar</string>
     <string name="actionbar_search">Meklēt</string>
     <string name="actionbar_see_details">Detaļas</string>
@@ -99,7 +98,6 @@
     <string name="common_remove">Dzēst</string>
     <string name="common_rename">Pārsaukt</string>
     <string name="common_save">Saglabāt</string>
-    <string name="common_select">Atzīmēt</string>
     <string name="common_send">Sūtīt</string>
     <string name="common_share">Koplietot</string>
     <string name="common_skip">Izlaist</string>
@@ -134,7 +132,6 @@
     <string name="copy_file_invalid_into_descendent">Nav iespējams kopēt mapi tās apakšmapē</string>
     <string name="copy_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
     <string name="copy_link">Kopēt saiti</string>
-    <string name="copy_to">Kopēt uz…</string>
     <string name="could_not_download_image">Nevarēja lejupielādēt pilnu attēlu</string>
     <string name="could_not_retrieve_url">Neizdevās iegūt URL </string>
     <string name="create">Izveidot</string>
@@ -149,7 +146,6 @@
     <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
     <string name="delete_account">Noņemt kontu</string>
-    <string name="delete_account_warning">Noņemt kontu %s un izdzēst visas vietēji saglabātās datnes?\n\nDzēšanu nevar atsaukt.</string>
     <string name="delete_entries">Dzēst ierakstus</string>
     <string name="deselect_all">Atcelt atzīmi</string>
     <string name="dev_version_new_version_available">Pieejama jauna versija  </string>
@@ -252,7 +248,7 @@
     <string name="first_run_1_text">Turi savus datus drošībā un zem savas kontroles</string>
     <string name="folder_confirm_create">Izveidot</string>
     <string name="folder_list_empty_headline">Šeit nav mapju</string>
-    <string name="folder_picker_choose_button_text">Izvēlieties</string>
+    <string name="folder_picker_choose_button_text">Izvēlies</string>
     <string name="folder_picker_move_button_text">Pārvietot</string>
     <string name="forbidden_permissions">Jums nav atļaujas %s</string>
     <string name="forbidden_permissions_copy">lai kopētu šo datni</string>
@@ -308,12 +304,10 @@
     <string name="move_file_error">Radās kļūda, mēģinot pārvietot šo datni vai mapi</string>
     <string name="move_file_invalid_into_descendent">Nav iespējams pārvietot mapi tās apakšmapē</string>
     <string name="move_file_invalid_overwrite">Datne jau pastāv mērķa mapē</string>
-    <string name="move_to">Pārvietot uz…</string>
     <string name="network_error_socket_exception">Radās kļūda, mēģinot izveidot savienojumu ar serveri.</string>
     <string name="new_comment">Jauns komentārs…</string>
     <string name="new_media_folder_photos">bilde</string>
     <string name="new_version_was_created">Jauna versija izveidota</string>
-    <string name="note_confirm">Sūtīt</string>
     <string name="notification_channel_download_name_short">Lejupielādes</string>
     <string name="notification_channel_upload_name_short">Augšupielādes</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
@@ -339,9 +333,7 @@
     <string name="pref_behaviour_entries_keep_file">paturēt sākotnējā mapē</string>
     <string name="pref_behaviour_entries_move">pārvietots uz lietotnes mapi</string>
     <string name="prefs_add_account">Pievienot kontu</string>
-    <string name="prefs_calendar_contacts">Sinhronizēt kalendāra &amp; kontaktus</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid vai Google Play nav uzstādīts</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendāra un kontaktu sinhronizācija ir izveidota</string>
     <string name="prefs_category_about">Par</string>
     <string name="prefs_category_details">Detaļas</string>
     <string name="prefs_category_general">Vispārīgi</string>
@@ -381,6 +373,7 @@
     <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>
     <string name="rename_local_fail_msg">Nevarēja pārsaukt lokālo kopiju, pamēģiniet citu nosaukumu</string>
     <string name="rename_server_fail_msg">Pārsaukšana nav iespējama, nosaukums jau izmantots</string>
+    <string name="request_account_deletion">Pieprasīt konta dzēšanu</string>
     <string name="reshare_not_allowed">Atkārtota koplietošana nav atļauta</string>
     <string name="resharing_is_not_allowed">Atkārtota koplietošana nav atļauta</string>
     <string name="restore">Atjaunot datni</string>
@@ -415,12 +408,6 @@
     <string name="sharee_add_failed">Dalībnieka pievienošana neizdevās</string>
     <string name="signup_with_provider">Reģistrēties ar pakalpojumu sniedzēju</string>
     <string name="sort_by">Kārtot pēc</string>
-    <string name="sort_by_modification_date_ascending">Jaunākie pirms</string>
-    <string name="sort_by_modification_date_descending">Vecākie pirms</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Mazākie pirms</string>
-    <string name="sort_by_size_descending">Lielākie pirms</string>
     <string name="ssl_validator_btn_details_hide">Slēpt</string>
     <string name="ssl_validator_btn_details_see">Sīkāka informācija</string>
     <string name="ssl_validator_header">Servera identitāti nevarēja pārbaudīt</string>
@@ -449,6 +436,7 @@
     <string name="status_message">Statusa ziņojums</string>
     <string name="storage_description_default">Noklusējuma</string>
     <string name="storage_downloads">Lejupielādes</string>
+    <string name="sub_folder_rule_year">Gads</string>
     <string name="subject_shared_with_you">\"%1$s\" ir bijis kopīgots ar jums</string>
     <string name="subject_user_shared_with_you">%1$s koplietots \"%2$s\" ar tevi</string>
     <string name="sync_conflicts_in_favourites_ticker">Ir atrasti konflikti</string>
@@ -476,6 +464,8 @@
     <string name="unshare_link_forbidden_permissions">lai pārtrauktu šīs datnes koplietošanu</string>
     <string name="update_link_forbidden_permissions">lai atjauninātu šo koplietošanu</string>
     <string name="updating_share_failed">Koplietojuma atjaunināšana neizdevās</string>
+    <string name="upload_action_failed_clear">Notīrīt neizdevušās augšupielādes</string>
+    <string name="upload_action_failed_retry">Atkārtot neizdevušās augšupielādes</string>
     <string name="upload_chooser_title">Augšupielādēts no…</string>
     <string name="upload_file_dialog_filename">Datnes nosaukums</string>
     <string name="upload_file_dialog_filetype">Datnes tips</string>
@@ -515,6 +505,7 @@
     <string name="uploads_view_group_current_uploads">Pašreizējais</string>
     <string name="uploads_view_group_failed_uploads">Neizdevās/gaida atsākšanu</string>
     <string name="uploads_view_group_finished_uploads">Augšupielādēts</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Atcelts</string>
     <string name="uploads_view_later_waiting_to_upload">Gaida augšupielādi</string>
     <string name="uploads_view_title">Augšupielādes</string>
     <string name="uploads_view_upload_status_cancelled">Atcelts</string>
@@ -549,5 +540,6 @@
     <string name="whats_new_skip">Izlaist</string>
     <string name="whats_new_title">Jaunums %1$s</string>
     <string name="whats_your_status">Kāds ir jūsu statuss?</string>
+    <string name="widgets_not_available_title">Nav pieejams</string>
     <string name="write_email">Sūtīt e-pastu</string>
     </resources>

@@ -44,6 +44,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ChooseTemplateBinding
@@ -127,8 +128,8 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         val arguments = arguments ?: throw IllegalArgumentException("Arguments may not be null")
         val activity = activity ?: throw IllegalArgumentException("Activity may not be null")
 
-        parentFolder = arguments.getParcelable(ARG_PARENT_FOLDER)
-        creator = arguments.getParcelable(ARG_CREATOR)
+        parentFolder = arguments.getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
+        creator = arguments.getParcelableArgument(ARG_CREATOR, Creator::class.java)
 
         title = arguments.getString(ARG_HEADLINE, getString(R.string.select_template))
         title = when (savedInstanceState) {

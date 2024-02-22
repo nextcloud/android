@@ -14,10 +14,7 @@
     <string name="action_send_share">Envia/Comparteix</string>
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
-    <string name="actionbar_calendar_contacts_restore">Restaura el calendari de contactes&amp;</string>
-    <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
-    <string name="actionbar_move">Mou</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Detalls</string>
@@ -78,7 +75,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Absent</string>
     <string name="backup_settings">Paràmetres de còpia de seguretat</string>
-    <string name="backup_title">&amp;Còpia de seguretat del calendari de contactes</string>
     <string name="battery_optimization_close">Tanca</string>
     <string name="battery_optimization_disable">Inhabilita</string>
     <string name="battery_optimization_message">El vostre dispositiu pot tenir l\'optimització de bateria activada. AutoUpload només funciona correctament si hi excluïu aquesta aplicació.</string>
@@ -91,7 +87,6 @@
     <string name="check_back_later_or_reload">Torneu-ho a comprovar més tard o torneu a carregar.</string>
     <string name="checkbox">Casella de selecció</string>
     <string name="choose_local_folder">Escolliu una carpeta local…</string>
-    <string name="choose_location">Escull localització</string>
     <string name="choose_remote_folder">Escolliu una carpeta remota…</string>
     <string name="choose_template_helper_text">Trieu una plantilla i introduïu un nom de fitxer.</string>
     <string name="choose_which_file">Trieu quin fixer conservar!</string>
@@ -121,7 +116,6 @@
     <string name="common_remove">Suprimeix</string>
     <string name="common_rename">Canvia el nom</string>
     <string name="common_save">Desa</string>
-    <string name="common_select">Selecciona</string>
     <string name="common_send">Envia</string>
     <string name="common_share">Compartir</string>
     <string name="common_skip">Omet</string>
@@ -172,7 +166,6 @@
     <string name="copy_file_not_found">No s\'ha pogut copiar. Assegureu-vos que el fitxer existeix.</string>
     <string name="copy_link">Copia l\'enllaç</string>
     <string name="copy_move_to_encrypted_folder_not_supported">No hi ha suport actualment per copiar o moure a una carpeta xifrada.</string>
-    <string name="copy_to">Copia a…</string>
     <string name="could_not_download_image">No s\'ha pogut baixar la imatge completa</string>
     <string name="could_not_retrieve_shares">No s\'ha pogut recuperar la compartició</string>
     <string name="could_not_retrieve_url">No s\'ha pogut recuperar la URL</string>
@@ -190,7 +183,6 @@
     <string name="data_to_back_up">Dades a fer una còpia de seguretat</string>
     <string name="default_credentials_wrong">Credencials incorrectes</string>
     <string name="delete_account">Suprimeix el compte</string>
-    <string name="delete_account_warning">Suprimeix el compte %s i tots els fitxers locals?\n\nAquesta acció no es pot desfer.</string>
     <string name="delete_entries">Suprimeix les entrades</string>
     <string name="delete_link">Suprimir enllaç</string>
     <string name="deselect_all">No seleccionis res</string>
@@ -277,9 +269,9 @@
     <string name="error_retrieving_templates">S\'ha produït un error recuperant les plantilles</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
     <string name="etm_accounts">Comptes</string>
+    <string name="etm_background_job_created">S\'ha creat</string>
     <string name="etm_background_job_name">Nom de la tasca</string>
     <string name="etm_background_job_progress">Progrés</string>
-    <string name="etm_background_job_started">Iniciat</string>
     <string name="etm_background_job_state">Estat</string>
     <string name="etm_background_job_user">Usuari</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -371,12 +363,10 @@
     <string name="filename_forbidden_charaters_from_server">El nom del fitxer conté com a mínim un caràcter no vàlid</string>
     <string name="filename_hint">Nom de fitxer</string>
     <string name="first_run_1_text">Mantingueu les vostres dades segures i sota el vostre control</string>
-    <string name="first_run_2_text">Col·laboració segura &amp; intercanvi de fitxers</string>
-    <string name="first_run_4_text">Compartició de pantalles, reunions en línia &amp; i conferències web</string>
     <string name="folder_already_exists">La carpeta ja existeix</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
-    <string name="folder_picker_choose_button_text">Escolliu</string>
+    <string name="folder_picker_choose_button_text">Tria</string>
     <string name="folder_picker_choose_caption_text">Trieu la carpeta de destinació</string>
     <string name="folder_picker_copy_button_text">Còpia</string>
     <string name="folder_picker_move_button_text">Mou</string>
@@ -386,7 +376,6 @@
     <string name="forbidden_permissions_delete">per suprimir aquest fitxer</string>
     <string name="forbidden_permissions_move">per moure aquest fitxer</string>
     <string name="forbidden_permissions_rename">per canviar el nom d\'aquest fitxer</string>
-    <string name="foreground_service_download">S\'està descarregant fitxers…</string>
     <string name="foreground_service_upload">S\'està carregant fitxers…</string>
     <string name="foreign_files_fail">No s\'han pogut moure alguns fitxers</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -467,7 +456,6 @@
     <string name="move_file_invalid_into_descendent">No és possible moure una carpeta en una de les seves pròpies carpetes</string>
     <string name="move_file_invalid_overwrite">Aquest fitxer ja existeix a la carpeta de destinació</string>
     <string name="move_file_not_found">Aquest fitxer no es pot moure. Si us plau comproveu que existeixi.</string>
-    <string name="move_to">Mou a…</string>
     <string name="network_error_connect_timeout_exception">S\'ha produït un error mentre s\'esperava el servidor. L\'operació no s\'ha pogut completar</string>
     <string name="network_error_socket_exception">S\'ha produït un error durant la connexió al servidor</string>
     <string name="network_error_socket_timeout_exception">S\'ha produït un error mentre s\'esperava el servidor. L\'operació no s\'ha pogut completar</string>
@@ -487,7 +475,6 @@
     <string name="no_pdf_app_available">No hi ha cap aplicació disponible per manegar els PDF</string>
     <string name="no_send_app">No hi ha cap aplicació disponible per enviar els fitxers seleccionats</string>
     <string name="no_share_permission_selected">Seleccioneu almenys un permís per compartir.</string>
-    <string name="note_confirm">Envia</string>
     <string name="note_could_not_sent">No s\'ha pogut enviar la nota</string>
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">L\'execució de l\'acció ha fallat.</string>
@@ -546,16 +533,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Canviar el nom de la nova versió</string>
     <string name="pref_instant_name_collision_policy_title">Què s\'ha de fer si el fitxer ja existeix?</string>
     <string name="prefs_add_account">Afegeix compte</string>
-    <string name="prefs_calendar_contacts">Sincronitza el calendari &amp; i els contactes</string>
     <string name="prefs_calendar_contacts_no_store_error">Ni F-Droid ni Google Play estan instal·lats</string>
     <string name="prefs_calendar_contacts_summary">Arranja DAVx5 (conegut anterioment com a DAVdroid) (v1.3.0+) per al compte actual</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Configuració de sincronització de contactes de calendari &amp;</string>
     <string name="prefs_category_about">Quant a</string>
     <string name="prefs_category_details">Detalls</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>
-    <string name="prefs_daily_backup_summary">Còpia de seguretat diària dels vostres contactes del calendari &amp;</string>
     <string name="prefs_daily_contact_backup_summary">Còpia de seguretat diària dels vostres contactes</string>
     <string name="prefs_davx5_setup_error">S\'ha produït un error inesperat en configurar DAVx5 (anteriorment anomenat DAVdroid)</string>
     <string name="prefs_e2e_active">S\'ha configurat el xifratge d\'extrem a extrem</string>
@@ -618,6 +602,7 @@
     <string name="rename_dialog_title">Introduiu un nom nou</string>
     <string name="rename_local_fail_msg">No s\'ha pogut canviar el nom de la còpia local, intenteu-ho amb amb un altre nom</string>
     <string name="rename_server_fail_msg">El canvi de nom no és possible, el nom ja es troba en ús</string>
+    <string name="request_account_deletion">Sol·licitud de supressió de compte</string>
     <string name="reshare_not_allowed">No es pot tornar a compartir</string>
     <string name="resharing_is_not_allowed">No està permesa la re-compartició</string>
     <string name="resized_image_not_possible_download">No hi ha imatge redimensionada disponible. Voleu baixar la imatge a la resolució original?</string>
@@ -637,8 +622,6 @@
     <string name="screenshot_04_accounts_heading">Tots els vostres comptes</string>
     <string name="screenshot_04_accounts_subline">En un sol lloc</string>
     <string name="screenshot_05_autoUpload_heading">Pujada automàtica</string>
-    <string name="screenshot_05_autoUpload_subline">pels vostres vídeos &amp;  i fotografies</string>
-    <string name="screenshot_06_davdroid_heading">Calendari &amp;  i contactes</string>
     <string name="screenshot_06_davdroid_subline">Sincronitza amb DAVx5</string>
     <string name="search_error">S\'ha produït un error en obtenir els resultats de la cerca</string>
     <string name="select_all">Selecciona-ho tot</string>
@@ -646,7 +629,6 @@
     <string name="select_one_template">Seleccioneu una plantilla</string>
     <string name="select_template">Selecciona una plantilla</string>
     <string name="send">Envia</string>
-    <string name="send_note">Envia una nota al destinatari</string>
     <string name="send_share">Envia la compartició</string>
     <string name="sendbutton_description">Icona de botó d\'enviar</string>
     <string name="set_as">Configura com</string>
@@ -656,7 +638,6 @@
     <string name="set_status_message">Estableix un missatge d\'estat</string>
     <string name="setup_e2e">Durant la configuració del xifratge d\'extrem a extrem, rebreu un mnemotècnic de 12 paraules a l\'atzar, que necessitareu per obrir els vostres fitxers en altres dispositius. Només s\'emmagatzemarà en aquest dispositiu i es podrà tornar a mostrar en aquesta pantalla. Anoteu-vos-el en un lloc segur!</string>
     <string name="share">Comparteix</string>
-    <string name="share_copy_link">Compartir &amp;copia enllaç</string>
     <string name="share_dialog_title">S\'està compartint</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Caduca el %1$s</string>
@@ -703,12 +684,6 @@
     <string name="signup_with_provider">Registreu-vos amb el proveïdor</string>
     <string name="single_sign_on_request_token" formatted="true">Voleu permetre que %1$s accedeixi al vostre compte de Nextcloud %2$s?</string>
     <string name="sort_by">Ordena per</string>
-    <string name="sort_by_modification_date_ascending">Més nou primer</string>
-    <string name="sort_by_modification_date_descending">Més antic primer</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Més petit primer</string>
-    <string name="sort_by_size_descending">Més gran primer</string>
     <string name="ssl_validator_btn_details_hide">Amaga</string>
     <string name="ssl_validator_btn_details_see">Detalls</string>
     <string name="ssl_validator_header">No s\'ha pogut verificar la identitat del servidor</string>
@@ -746,7 +721,6 @@
     <string name="storage_permission_full_access">Accés complet</string>
     <string name="storage_permission_media_read_only">Medis de només lectura</string>
     <string name="storage_pictures">Fotos</string>
-    <string name="store_full_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades.\n\nCaracterístiques:\n* Interfície fàcil i moderna, adaptada al tema emprat al vostre servidor.\n* Carregueu fitxers al vostre servidor Nextcloud.\n* Compartiu-los amb d\'altres.\n* Mantingueu sincronitzades les teves vostres i fitxers favorits.\n* Cerqueu dins de totes les vostres carpetes al servidor.\n* Càrrega automatitzada de les fotos i vídeos fets al vostre dispositiu.\n* Estigueu al dia amb notificacions.\n* Suport per múltiples comptes.\n* Accés segur a les vostres dades amb empremta digital o PIN.\n* Integració amb l\'aplicació DAVx5 (formalment coneguda com a DAVdroid) per a poder configurar fàcilment la sincronització de contactes i calendaris.\n\nSi us plau, informeu de qualsevol incidència a https://github.com/nextcloud/android/issues i intercanvieu opinions i suggeriments a https://help.nextcloud.com/c/clients/android\n\nSou nou a Nextcloud? Nextcloud és un servidor per compartir, sincronitzar i comunicar fitxers privats. És programari lliure, i per tant podeu allotjar-lo vosaltres mateixos o pagar els serveis d\'algú que us ho faci. D\'aquesta manera tindreu sota el vostre control les vostres fotos, els vostres calendaris, els vostres contactes, els vostres documents i tota la resta.\n\nSi en voleu saber més, feu un cop d\'ull al portal web oficial: https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades.\nAquesta és la versió oficial en desenvolupament, que permet provar qualsevol novetat diària, i que per tant pot causar inestabilitat i fins i tot la pèrdua de dades. Aquesta aplicació és pels usuaris que estan disposats a provar i informar d\'incidències. No feu servir aquesta versió de l\'aplicació en el vostre entorn de feina!\n\nAmbdues versions, la de desenvolupament i la normal, són disponibles a F-droid, i poden ser instal·lades al mateix temps.</string>
     <string name="store_short_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades</string>
     <string name="store_short_dev_desc">La plataforma de productivitat privada (auto-allotjada) que us dóna el control sobre les vostres dades (versió de desenvolupament).</string>
@@ -758,7 +732,6 @@
     <string name="subject_shared_with_you">\"%1$s\" us ha estat compartit</string>
     <string name="subject_user_shared_with_you">%1$s us ha compartit %2$s</string>
     <string name="subtitle_photos_only">Només fotografies</string>
-    <string name="subtitle_photos_videos">Fotografies &amp; vídeos</string>
     <string name="subtitle_videos_only">Només vídeos</string>
     <string name="suggest">Suggereix</string>
     <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
@@ -815,6 +788,8 @@
     <string name="update_link_file_no_exist">No s\'ha pogut actualitzar. Assegureu-vos que el fitxer existeix.</string>
     <string name="update_link_forbidden_permissions">per actualitzar aquesta compartició</string>
     <string name="updating_share_failed">Ha fallat l\'actualització de la compartició</string>
+    <string name="upload_action_failed_clear">Esborra les pujades amb errors</string>
+    <string name="upload_action_failed_retry">Reintenta les pujades fallides</string>
     <string name="upload_cannot_create_file">No s\'ha pogut crear el fitxer local</string>
     <string name="upload_chooser_title">Pujada des de…</string>
     <string name="upload_content_from_other_apps">Pujada de contingut des d\'altres aplicacions</string>
@@ -870,6 +845,7 @@
     <string name="uploads_view_group_current_uploads">Actual</string>
     <string name="uploads_view_group_failed_uploads">Error de reinici/pendent de reiniciar</string>
     <string name="uploads_view_group_finished_uploads">Carregat</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancel·lat</string>
     <string name="uploads_view_later_waiting_to_upload">S\'està esperant per pujar-lo</string>
     <string name="uploads_view_title">Fitxers carregats</string>
     <string name="uploads_view_upload_status_cancelled">S\'ha cancel·lat</string>
@@ -911,6 +887,7 @@
     <string name="whats_your_status">Quin és el vostre estat?</string>
     <string name="widgets_not_available">Els ginys només estan disponibles a %1$s 25 o una versió posterior</string>
     <string name="widgets_not_available_title">No disponible</string>
+    <string name="worker_download">S\'està descarregant fitxers…</string>
     <string name="write_email">Enviar correu</string>
     <string name="wrong_storage_path">La carpeta de dades no existeix!</string>
     <string name="wrong_storage_path_desc">Això podria ser degut a una còpia de seguretat restaurada per un altre dispositiu. Revertint a la configuració per defecte. Si us plau, comprova els paràmetres per seleccionar la carpeta de dades.</string>

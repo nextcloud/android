@@ -28,6 +28,8 @@ import android.os.BatteryManager
 import android.os.PowerManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.nextcloud.utils.extensions.registerBroadcastReceiver
+import com.owncloud.android.datamodel.ReceiverFlag
 
 internal class PowerManagementServiceImpl(
     private val context: Context,
@@ -67,7 +69,11 @@ internal class PowerManagementServiceImpl(
     @Suppress("MagicNumber") // 100% is 100, we're not doing Cobol
     override val battery: BatteryStatus
         get() {
-            val intent: Intent? = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            val intent: Intent? = context.registerBroadcastReceiver(
+                null,
+                IntentFilter(Intent.ACTION_BATTERY_CHANGED),
+                ReceiverFlag.NotExported
+            )
             val isCharging = intent?.let {
                 when (it.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0)) {
                     BatteryManager.BATTERY_PLUGGED_USB -> true

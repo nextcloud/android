@@ -38,15 +38,18 @@ import java.util.Set;
 import javax.annotation.Nullable;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.OptIn;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.media3.common.util.UnstableApi;
 
 /**
  * Adapter class that provides Fragment instances
  */
 public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
 
+    private OCFile selectedFile;
     private List<OCFile> mImageFiles;
     private User user;
     private Set<Object> mObsoleteFragments;
@@ -58,12 +61,13 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     /**
      * Constructor
      *
-     * @param fragmentManager   {@link FragmentManager} instance that will handle
-     *                          the {@link Fragment}s provided by the adapter.
-     * @param parentFolder      Folder where images will be searched for.
-     * @param storageManager    Bridge to database.
+     * @param fragmentManager {@link FragmentManager} instance that will handle the {@link Fragment}s provided by the
+     *                        adapter.
+     * @param parentFolder    Folder where images will be searched for.
+     * @param storageManager  Bridge to database.
      */
     public PreviewImagePagerAdapter(FragmentManager fragmentManager,
+                                    OCFile selectedFile,
                                     OCFile parentFolder,
                                     User user,
                                     FileDataStorageManager storageManager,
@@ -78,6 +82,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         }
 
         this.user = user;
+        this.selectedFile = selectedFile;
         mStorageManager = storageManager;
         mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
 
@@ -93,8 +98,8 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     /**
      * Constructor
      *
-     * @param fragmentManager {@link FragmentManager} instance that will handle
-     *                        the {@link Fragment}s provided by the adapter.
+     * @param fragmentManager {@link FragmentManager} instance that will handle the {@link Fragment}s provided by the
+     *                        adapter.
      * @param type            Type of virtual folder, e.g. favorite or photos
      * @param storageManager  Bridge to database.
      */
@@ -110,7 +115,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         if (type == null) {
             throw new IllegalArgumentException("NULL parent folder");
         }
-        if(type == VirtualFolderType.NONE){
+        if (type == VirtualFolderType.NONE) {
             throw new IllegalArgumentException("NONE virtual folder type");
         }
         if (storageManager == null) {
@@ -147,18 +152,23 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
+    private void addVideoOfLivePhoto(OCFile file) {
+        file.livePhotoVideo = selectedFile;
+    }
 
     @NonNull
+    @OptIn(markerClass = UnstableApi.class)
     public Fragment getItem(int i) {
         OCFile file = getFileAt(i);
         Fragment fragment;
 
         if (file == null) {
             fragment = PreviewImageErrorFragment.newInstance();
-
         } else if (file.isDown()) {
             fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
         } else {
+            addVideoOfLivePhoto(file);
+
             if (mDownloadErrors.remove(i)) {
                 fragment = FileDownloadFragment.newInstance(file, user, true);
                 ((FileDownloadFragment) fragment).setError(true);
@@ -166,7 +176,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
                 if (file.isEncrypted()) {
                     fragment = FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i));
                 } else if (PreviewMediaFragment.canBePreviewed(file)) {
-                    fragment = PreviewMediaFragment.newInstance(file, user, 0, false);
+                    fragment = PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null);
                 } else {
                     fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
                 }
@@ -235,7 +245,7 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
         mCachedFragments.remove(position);
-       super.destroyItem(container, position, object);
+        super.destroyItem(container, position, object);
     }
 
 

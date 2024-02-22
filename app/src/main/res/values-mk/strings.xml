@@ -14,9 +14,7 @@
     <string name="action_send_share">Испрати/Сподели</string>
     <string name="action_switch_grid_view">Мрежа</string>
     <string name="action_switch_list_view">Листа</string>
-    <string name="actionbar_copy">Копирај</string>
     <string name="actionbar_mkdir">Нова папка</string>
-    <string name="actionbar_move">Премести</string>
     <string name="actionbar_open_with">Отвори со</string>
     <string name="actionbar_search">Пребарај</string>
     <string name="actionbar_see_details">Детали:</string>
@@ -86,7 +84,6 @@
     <string name="changelog_dev_version">Changelog dev version</string>
     <string name="checkbox">Поле за избирање</string>
     <string name="choose_local_folder">Избери локална папка…</string>
-    <string name="choose_location">Избери локација</string>
     <string name="choose_remote_folder">Избери папка на серверот…</string>
     <string name="choose_which_file">Избери која датотека да се зачува!</string>
     <string name="choose_widget">Избери виџет</string>
@@ -115,7 +112,6 @@
     <string name="common_remove">Избриши</string>
     <string name="common_rename">Преименувај</string>
     <string name="common_save">Зачувај</string>
-    <string name="common_select">Select</string>
     <string name="common_send">Испрати</string>
     <string name="common_share">Сподели</string>
     <string name="common_skip">Прескокни</string>
@@ -164,7 +160,6 @@
     <string name="copy_file_not_found">Не може да се копира. Проверете дали постои датотеката.</string>
     <string name="copy_link">Копирај врска</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Не е поддржано копирање/преместување во папка која е шифрирана.</string>
-    <string name="copy_to">Копирај во…</string>
     <string name="could_not_download_image">Неможе да се преземе целосната слика</string>
     <string name="could_not_retrieve_shares">Неможе да се превземат споделувањата</string>
     <string name="could_not_retrieve_url">Неможе да се превземе адресата</string>
@@ -181,7 +176,6 @@
     <string name="daily_backup">Дневена резервна копија</string>
     <string name="default_credentials_wrong">Погрешни акредитиви</string>
     <string name="delete_account">Отстрани сметка</string>
-    <string name="delete_account_warning">Избриши ја сметката %s и избриши ги локалните датотеки?\n\nПозсле бришењето на датотеките неможат да се вратат.</string>
     <string name="delete_entries">Избришете записи</string>
     <string name="deselect_all">Одселектирај се</string>
     <string name="dev_version_new_version_available">Достапна е нова верзија</string>
@@ -258,9 +252,9 @@
     <string name="error_retrieving_templates">Грешка при превземањето на шаблоните</string>
     <string name="error_starting_direct_camera_upload">Грешка при стартување на камерата</string>
     <string name="etm_accounts">Сметки</string>
+    <string name="etm_background_job_created">Креирано</string>
     <string name="etm_background_job_name">Име на задачата</string>
     <string name="etm_background_job_progress">Напредок</string>
-    <string name="etm_background_job_started">Започна</string>
     <string name="etm_background_job_state">Статус</string>
     <string name="etm_background_job_user">Корисник</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -338,8 +332,6 @@
     <string name="filename_forbidden_charaters_from_server">Името на датотеката соджи невалиден карактер</string>
     <string name="filename_hint">Име на датотека</string>
     <string name="first_run_1_text">Чувајте ги вашите податоци безбедни и под ваша контрола</string>
-    <string name="first_run_2_text">Безбедна соработка &amp; пренос на датотеки</string>
-    <string name="first_run_4_text">Споделување на екранот, онлајн состаноци &amp; веб конференции</string>
     <string name="folder_already_exists">Папката веќе постои</string>
     <string name="folder_confirm_create">Креирај</string>
     <string name="folder_list_empty_headline">Тука нема папки</string>
@@ -352,7 +344,6 @@
     <string name="forbidden_permissions_delete">да ја избришете оваа датотека</string>
     <string name="forbidden_permissions_move">да ја преместам оваа датотека</string>
     <string name="forbidden_permissions_rename">да ја преименувате датотеката</string>
-    <string name="foreground_service_download">Превземање датотеки…</string>
     <string name="foreground_service_upload">Прикачување датотеки…</string>
     <string name="foreign_files_fail">Некои датотеки не можат да се преместат</string>
     <string name="foreign_files_local_text">Локално: %1$s</string>
@@ -421,7 +412,6 @@
     <string name="move_file_error">Се случи грешка кога пробував да ја преместам оваа датотека или папка</string>
     <string name="move_file_invalid_into_descendent">Не е возможно да се копира папката во истата таа папка</string>
     <string name="move_file_invalid_overwrite">Датотеката веќе постои во папката</string>
-    <string name="move_to">Премести во…</string>
     <string name="network_error_connect_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши.</string>
     <string name="network_error_socket_exception">Настана грешка при обидот за поврзување со серверот</string>
     <string name="network_error_socket_timeout_exception">Се случи грешка при чекање на на серверот, операцијата не можеше да се изврши.</string>
@@ -435,7 +425,6 @@
     <string name="no_browser_available">Нема достапна апликација за линкови</string>
     <string name="no_mutliple_accounts_allowed">Само една сметка е дозволена</string>
     <string name="no_pdf_app_available">Нема достапна апликација за PDF датотеки</string>
-    <string name="note_confirm">Испрати</string>
     <string name="note_could_not_sent">Неможе да се испрати белешката</string>
     <string name="notification_action_failed">Неуспешно извршување на акцијата.</string>
     <string name="notification_channel_download_description">Прикажи напредок на превземање</string>
@@ -490,10 +479,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Преименувај ја новата верзија</string>
     <string name="pref_instant_name_collision_policy_title">Што ако датотеката веќе постои?</string>
     <string name="prefs_add_account">Додади сметка</string>
-    <string name="prefs_calendar_contacts">Синхронизирај календар &amp; контакти</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
     <string name="prefs_calendar_contacts_summary">Подеси DAVx5 (Порано познат под името DAVdroid) (v1.3.0+) за оваа сметка</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Подесување за календар &amp; контакти</string>
     <string name="prefs_category_about">За</string>
     <string name="prefs_category_details">Детали:</string>
     <string name="prefs_category_dev">Dev</string>
@@ -550,6 +537,7 @@
     <string name="rename_dialog_title">Внеси ново име</string>
     <string name="rename_local_fail_msg">Локалната копија не може да се преименува; пробајте со друго име</string>
     <string name="rename_server_fail_msg">Преименувањето не е возможно, тоа име веќе е зафатено</string>
+    <string name="request_account_deletion">Барање за бришење на сметката</string>
     <string name="reshare_not_allowed">Повторно споделување не е дозволено</string>
     <string name="resharing_is_not_allowed">Повторно споделување не е дозволено</string>
     <string name="resized_image_not_possible_download">Нема достапно смалена слика. Превземете ја во целосната големина?</string>
@@ -566,13 +554,10 @@
     <string name="screenshot_04_accounts_heading">Сите ваши сметки</string>
     <string name="screenshot_04_accounts_subline">на едно место</string>
     <string name="screenshot_05_autoUpload_heading">Автоматско прикачување</string>
-    <string name="screenshot_05_autoUpload_subline">за вашите слики &amp; видеа</string>
-    <string name="screenshot_06_davdroid_heading">Календар &amp; контакти</string>
     <string name="select_all">Избери се</string>
     <string name="select_one_template">Изберете еден шаблон</string>
     <string name="select_template">Избери шаблон</string>
     <string name="send">Испрати</string>
-    <string name="send_note">Испрати белешка до примачот</string>
     <string name="sendbutton_description">Икона на копчето за испраќање</string>
     <string name="set_as">Постави како</string>
     <string name="set_picture_as">Користи ја сликата како</string>
@@ -616,12 +601,6 @@
     <string name="signup_with_provider">Пријавете се преку провајдер</string>
     <string name="single_sign_on_request_token" formatted="true">Дозволи му на %1$s да пристапи на твојата Nextcloud сметка %2$s?</string>
     <string name="sort_by">Сортирај по</string>
-    <string name="sort_by_modification_date_ascending">Новите прво</string>
-    <string name="sort_by_modification_date_descending">Старите прво</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Малите прво</string>
-    <string name="sort_by_size_descending">Големите прво</string>
     <string name="ssl_validator_btn_details_hide">Сокриј</string>
     <string name="ssl_validator_btn_details_see">Детали</string>
     <string name="ssl_validator_header">Идентитетот на серверот не може да се потврди</string>
@@ -657,7 +636,6 @@
     <string name="storage_movies">Филмови</string>
     <string name="storage_music">Музика</string>
     <string name="storage_pictures">Слики</string>
-    <string name="store_full_desc">Продуктивна платформа која можете сами да ја хостирате и која ви дава целосна контрола.\n\nОсобини:\n* Едноставен, модерен интерфејс, потполно ускладен со темата на вашиот сервер\n* Прикачувајте датотеки на вашиот Nextcloud сервер\n* Споделувајте со други\n* Чувајте ги вашите омилените датотеки и папки синхронизирани\n* Пребарувајте во сите папки на вашиот сервер\n* Автоматски прикачувајте слики и видеа што се направени со вашиот уред\n* Добивајте известувања и бидете во тек со сите работи што се случуваат на серверот\n* Поддршка за повеќе сметки\n* Безбедносен пристап до вашите податоци со отисок од прст или со ПИН код\n* Интеграција со DAVx5 (порано познат како DAVdroid) за лесно синхронизирање на календарот &amp; контактите\n\nВе молиме пријавете ги сите проблеми на https://github.com/nextcloud/android/issues и дискутирајте за оваа апликација на https://help.nextcloud.com/c/clients/android\n\nНов сте на на Nextcloud? Nextcloud е приватен сервер за синхронизирање на датотеки &amp; споделување и комуникација. Тој е слободен софтвер, и вие можете да го хостирате сами или да платите компанија да го стори тоа за вас. На тој начин, вие ги контролирате вашите фотографии, вашиот календар и контакти, вашите документи и сè останато.\n\nПроверете го Nextcloud на https://nextcloud.com</string>
     <string name="store_full_dev_desc">Продуктивна платформа која можете сами да ја хостирате и која ви дава целосна контрола.\nОва е официјална верзија за развој, во која има секојдневни примери од секоја нова и непроверена функционалност, поради која може да предизвика нестабилност и загуба на податоци. Апликацијата е наменета за корисници кои сакаат да тестираат и да пријават грешки доколку се појават. Не ја користете за вашата продуктивна работа!\n\nОфицијалната верзија и редовната верзија се достапни на F-Droid и може да се инсталираат во исто време.</string>
     <string name="store_short_desc">Продуктивна платформа која можете сами да ја хостирате и која ви дава целосна контрола</string>
     <string name="store_short_dev_desc">Продуктивна платформа која можете сами да ја хостирате и која ви дава целосна контрола (dev верзија за разгледување)</string>
@@ -711,6 +689,7 @@
     <string name="untrusted_domain">Пристап преку недоверлив домен. Ве молиме прочитајте ја документацијата за повеќе информации.</string>
     <string name="update_link_forbidden_permissions">за да се ажурира ова споделување</string>
     <string name="updating_share_failed">Неуспешно ажурирање на споделувањето</string>
+    <string name="upload_action_failed_clear">Исчисти ги неуспешните прикачувања</string>
     <string name="upload_cannot_create_file">Неможе да се креира локална датотека</string>
     <string name="upload_chooser_title">Прикачи од…</string>
     <string name="upload_content_from_other_apps">Прикачете содржина од други апликации</string>
@@ -763,6 +742,7 @@
     <string name="uploads_view_group_current_uploads">Моменталлни</string>
     <string name="uploads_view_group_failed_uploads">Неуспешни/на чекање рестарт</string>
     <string name="uploads_view_group_finished_uploads">Прикачено</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Откажано</string>
     <string name="uploads_view_later_waiting_to_upload">Чекање за прикачување</string>
     <string name="uploads_view_title">Прикачувања</string>
     <string name="uploads_view_upload_status_cancelled">Откажано</string>
@@ -801,6 +781,7 @@
     <string name="whats_new_title">Ново во %1$s</string>
     <string name="whats_your_status">Кој е вашиот статус?</string>
     <string name="widgets_not_available_title">Недостапно</string>
+    <string name="worker_download">Превземање датотеки…</string>
     <string name="write_email">Испрати е-пошта</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Неможе да се синхронизира %1$d датотека (конфликт: %2$d)</item>

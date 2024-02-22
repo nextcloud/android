@@ -1,3 +1,13 @@
+## 3.28.0 (February 13th, 2024)
+
+- E2E sharing
+- Bugfixes
+
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/88
+
 ## 3.26.0 (September 16, 2023)
 
 - image editing

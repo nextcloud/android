@@ -13,13 +13,13 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.java.util.Optional;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
@@ -94,21 +94,19 @@ public abstract class AbstractOnServerIT extends AbstractIT {
             user = optionalUser.orElseThrow(IllegalAccessError::new);
 
             client = OwnCloudClientFactory.createOwnCloudClient(account, targetContext);
+            nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, targetContext);
 
             createDummyFiles();
 
             waitForServer(client, baseUrl);
 
-            deleteAllFilesOnServer(); // makes sure that no file/folder is in root
+            // deleteAllFilesOnServer(); // makes sure that no file/folder is in root
 
-        } catch (OperationCanceledException e) {
-            e.printStackTrace();
-        } catch (AuthenticatorException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (AccountUtils.AccountNotFoundException e) {
-            e.printStackTrace();
+        } catch (OperationCanceledException |
+                 IOException |
+                 AccountUtils.AccountNotFoundException |
+                 AuthenticatorException e) {
+            throw new RuntimeException("Error setting up clients", e);
         }
     }
 
@@ -144,7 +142,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
                     removeResult = new RemoveFileRemoteOperation(remoteFile.getRemotePath())
                         .execute(client)
                         .isSuccess();
-                    
+
                     if (removeResult) {
                         break;
                     }
@@ -180,11 +178,16 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public void uploadOCUpload(OCUpload ocUpload) {
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_COPY);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_COPY);
     }
 
     public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
+            @Override
+            public boolean isConnected() {
+                return false;
+            }
+
             @Override
             public boolean isInternetWalled() {
                 return false;
@@ -250,8 +253,8 @@ public abstract class AbstractOnServerIT extends AbstractIT {
         assertNotNull(uploadedFile.getRemoteId());
         assertNotNull(uploadedFile.getPermissions());
 
-        if (localBehaviour == FileUploader.LOCAL_BEHAVIOUR_COPY ||
-            localBehaviour == FileUploader.LOCAL_BEHAVIOUR_MOVE) {
+        if (localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_COPY ||
+            localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE) {
             assertTrue(new File(uploadedFile.getStoragePath()).exists());
         }
     }

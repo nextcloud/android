@@ -246,11 +246,16 @@ public class ExtendedListFragment extends Fragment implements
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        performSearch(query, false);
-        return true;
+        RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
+        if (adapter instanceof OCFileListAdapter) {
+            ArrayList<String> listOfHiddenFiles = ((OCFileListAdapter) adapter).listOfHiddenFiles;
+            performSearch(query, listOfHiddenFiles, false);
+            return true;
+        }
+        return false;
     }
 
-    public void performSearch(final String query, boolean isBackPressed) {
+    public void performSearch(final String query, final ArrayList<String> listOfHiddenFiles, boolean isBackPressed) {
         handler.removeCallbacksAndMessages(null);
         RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
         Activity activity = getActivity();
@@ -269,7 +274,7 @@ public class ExtendedListFragment extends Fragment implements
                                 .getVersion()
                                 .isNewerOrEqual(OwnCloudVersion.nextcloud_20)
                             ) {
-                                ((FileDisplayActivity) activity).performUnifiedSearch(query);
+                                ((FileDisplayActivity) activity).performUnifiedSearch(query, listOfHiddenFiles);
                             } else {
                                 EventBus.getDefault().post(
                                     new SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH)
@@ -297,9 +302,13 @@ public class ExtendedListFragment extends Fragment implements
 
     @Override
     public boolean onClose() {
-        performSearch("", true);
-
-        return false;
+        RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
+        if (adapter instanceof OCFileListAdapter) {
+            ArrayList<String> listOfHiddenFiles = ((OCFileListAdapter) adapter).listOfHiddenFiles;
+            performSearch("", listOfHiddenFiles,true);
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -467,7 +476,7 @@ public class ExtendedListFragment extends Fragment implements
     private void scrollToPosition(int position) {
         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
 
-        if (mRecyclerView != null) {
+        if (linearLayoutManager != null) {
             int visibleItemCount = linearLayoutManager.findLastCompletelyVisibleItemPosition() -
                 linearLayoutManager.findFirstCompletelyVisibleItemPosition();
             linearLayoutManager.scrollToPositionWithOffset(position, (visibleItemCount / 2) * mHeightCell);

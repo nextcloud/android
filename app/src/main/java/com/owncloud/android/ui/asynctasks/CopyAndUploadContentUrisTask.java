@@ -30,8 +30,8 @@ import android.provider.DocumentsContract;
 import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.owncloud.android.R;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -192,8 +192,7 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
                     user,
                     fullTempPath,
                     currentRemotePath,
-                    behaviour,
-                    leakedContentResolver.getType(currentUri)
+                    behaviour
                 );
                 fullTempPath = null;
             }
@@ -247,20 +246,17 @@ public class CopyAndUploadContentUrisTask extends AsyncTask<Object, Void, Result
         return result;
     }
 
-    private void requestUpload(User user, String localPath, String remotePath, int behaviour, String mimeType) {
-        FileUploader.uploadNewFile(
-            mAppContext,
+    private void requestUpload(User user, String localPath, String remotePath, int behaviour) {
+        FileUploadHelper.Companion.instance().uploadNewFiles(
             user,
-            localPath,
-            remotePath,
+            new String[]{ localPath },
+            new String[]{ remotePath },
             behaviour,
-            mimeType,
             false,      // do not create parent folder if not existent
             UploadFileOperation.CREATED_BY_USER,
             false,
             false,
-            NameCollisionPolicy.ASK_USER
-                                  );
+            NameCollisionPolicy.ASK_USER);
     }
 
     @Override

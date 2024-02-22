@@ -22,6 +22,7 @@
 
 package com.nextcloud.client.database.migrations
 
+import androidx.room.migration.AutoMigrationSpec
 import androidx.sqlite.db.SupportSQLiteDatabase
 
 object DatabaseMigrationUtil {
@@ -101,5 +102,15 @@ object DatabaseMigrationUtil {
     ) {
         database.execSQL("DROP TABLE $tableName")
         database.execSQL("ALTER TABLE $newTableTempName RENAME TO $tableName")
+    }
+
+    /**
+     * Room AutoMigrationSpec to reset capabilities post migration.
+     */
+    class ResetCapabilitiesPostMigration : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            resetCapabilities(db)
+            super.onPostMigrate(db)
+        }
     }
 }

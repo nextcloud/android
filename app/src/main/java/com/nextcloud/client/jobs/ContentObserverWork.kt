@@ -41,12 +41,17 @@ class ContentObserverWork(
 ) : Worker(appContext, params) {
 
     override fun doWork(): Result {
+        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+
         if (params.triggeredContentUris.size > 0) {
             checkAndStartFileSyncJob()
             backgroundJobManager.startMediaFoldersDetectionJob()
         }
         recheduleSelf()
-        return Result.success()
+
+        val result = Result.success()
+        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
+        return result
     }
 
     private fun recheduleSelf() {
@@ -58,5 +63,9 @@ class ContentObserverWork(
         if (!powerManagementService.isPowerSavingEnabled && syncFolders) {
             backgroundJobManager.startImmediateFilesSyncJob(true, false)
         }
+    }
+
+    companion object {
+        val TAG: String = ContentObserverWork::class.java.simpleName
     }
 }

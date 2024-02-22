@@ -14,10 +14,7 @@
     <string name="action_send_share">Αποστολή/Κοινή χρήση</string>
     <string name="action_switch_grid_view">Προβολή πλέγματος</string>
     <string name="action_switch_list_view">Προβολή λίστας</string>
-    <string name="actionbar_calendar_contacts_restore">Επαναφορά επαφών &amp; και ημερολογίου</string>
-    <string name="actionbar_copy">Αντιγραφή</string>
     <string name="actionbar_mkdir">Νέος φάκελος</string>
-    <string name="actionbar_move">Μετακίνηση</string>
     <string name="actionbar_open_with">Άνοιγμα με</string>
     <string name="actionbar_search">Αναζήτηση</string>
     <string name="actionbar_see_details">Λεπτομέρειες</string>
@@ -78,7 +75,6 @@
     <string name="avatar">Εικόνα προφίλ</string>
     <string name="away">Λείπω</string>
     <string name="backup_settings">Ρυθμίσεις αντιγράφου ασφαλείας</string>
-    <string name="backup_title">Αντίγραφο ασφαλείας επαφών &amp; ημερολογίου</string>
     <string name="battery_optimization_close">Κλείσιμο</string>
     <string name="battery_optimization_disable">Απενεργοποίηση</string>
     <string name="battery_optimization_message">Η συσκευή σας ίσως έχει ενεργές ρυθμίσεις εξοικονόμησης ενέργειας. Η αυτόματη μεταφόρτωση δουλεύει μόνο εάν η εφαρμογή εξαιρεθεί από αυτές.</string>
@@ -91,7 +87,6 @@
     <string name="check_back_later_or_reload">Ελέγξτε ξανά αργότερα ή κάνετε ανανέωση.</string>
     <string name="checkbox">Πλαίσιο ελέγχου</string>
     <string name="choose_local_folder">Επιλέξτε τοπικό φάκελο…</string>
-    <string name="choose_location">Επιλέξτε τοποθεσία</string>
     <string name="choose_remote_folder">Επιλέξτε απομακρυσμένο φάκελο…</string>
     <string name="choose_template_helper_text">Παρακαλούμε επιλέξτε ένα πρότυπο και εισαγάγετε ένα όνομα αρχείου.</string>
     <string name="choose_which_file">Επέλεξε ποιο αρχείο θέλεις να κρατήσεις!</string>
@@ -121,7 +116,6 @@
     <string name="common_remove">Διαγραφή</string>
     <string name="common_rename">Μετονομασία</string>
     <string name="common_save">Αποθήκευση</string>
-    <string name="common_select">Επιλογή</string>
     <string name="common_send">Αποστολή</string>
     <string name="common_share">Διαμοιρασμός</string>
     <string name="common_skip">Παράλειψη</string>
@@ -173,7 +167,6 @@
     <string name="copy_file_not_found">Αδυναμία αντιγραφής. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="copy_link">Αντιγραφή συνδέσμου</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Η αντιγραφή/μετακίνηση σε κρυπτογραφημένο φάκελο δεν υποστηρίζεται αυτή τη στιγμή</string>
-    <string name="copy_to">Αντιγραφή σε…</string>
     <string name="could_not_download_image">Αδυναμία λήψης της πλήρους εικόνας</string>
     <string name="could_not_retrieve_shares">Αδυναμία ανάκτησης κοινόχρηστων</string>
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης URL</string>
@@ -191,7 +184,6 @@
     <string name="data_to_back_up">Δεδομένα για δημιουργία αντιγράφου ασφαλείας</string>
     <string name="default_credentials_wrong">Λανθασμένα διαπιστευτήρια</string>
     <string name="delete_account">Αφαίρεση λογαριασμού</string>
-    <string name="delete_account_warning">Κατάργηση λογαριασμού %s και διαγραφή όλων των τοπικών αρχείων; \ n \ nΗ διαγραφή δεν μπορεί να ανακληθεί.</string>
     <string name="delete_entries">Διαγραφή καταχωρήσεων</string>
     <string name="delete_link">Διαγραφή Συνδέσμου</string>
     <string name="deselect_all">Αναίρεση επιλογής όλων</string>
@@ -292,7 +284,6 @@
     <string name="etm_accounts">Λογαριασμοί</string>
     <string name="etm_background_job_name">Όνομα εργασίας</string>
     <string name="etm_background_job_progress">Πρόοδος</string>
-    <string name="etm_background_job_started">Ξεκίνησε</string>
     <string name="etm_background_job_state">Κατάσταση</string>
     <string name="etm_background_job_user">Χρήστης</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -384,12 +375,10 @@
     <string name="filename_forbidden_charaters_from_server">Το όνομα αρχείου κατέχει τουλάχιστο ένα μη έγκυρο χαρακτήρα</string>
     <string name="filename_hint">Όνομα αρχείου</string>
     <string name="first_run_1_text">Κρατήστε τα δεδομένα σας ασφαλή και υπό τον έλεγχό σας</string>
-    <string name="first_run_2_text">Ασφαλής συνεργασία &amp; ανταλλαγή αρχείων</string>
-    <string name="first_run_4_text">Κοινή χρήση οθόνης, ηλεκτρονικές συναντήσεις &amp; συνέδρια</string>
     <string name="folder_already_exists">Ο φάκελος υπάρχει ήδη</string>
     <string name="folder_confirm_create">Δημιουργία</string>
     <string name="folder_list_empty_headline">Δεν υπάρχουν φάκελοι εδώ</string>
-    <string name="folder_picker_choose_button_text">Επιλέξτε</string>
+    <string name="folder_picker_choose_button_text">Επιλογή</string>
     <string name="folder_picker_choose_caption_text">Επιλογή φακέλου προορισμού</string>
     <string name="folder_picker_copy_button_text">Αντιγραφή</string>
     <string name="folder_picker_move_button_text">Μετακίνηση</string>
@@ -399,7 +388,6 @@
     <string name="forbidden_permissions_delete">για να διαγράψετε αυτό το αρχείο</string>
     <string name="forbidden_permissions_move">για μετακίνηση αυτού του αρχείου</string>
     <string name="forbidden_permissions_rename">για να μετονομάσετε αυτό το αρχείο</string>
-    <string name="foreground_service_download">Λήψη αρχείων…</string>
     <string name="foreground_service_upload">Μεταφόρτωση αρχείων…</string>
     <string name="foreign_files_fail">Αδυναμία μετακίνησης μερικών αρχείων</string>
     <string name="foreign_files_local_text">Τοπικά: %1$s</string>
@@ -483,7 +471,6 @@
     <string name="move_file_invalid_into_descendent">Δεν είναι δυνατό να μετακινηθεί ο φάκελος σε έναν απογονικό</string>
     <string name="move_file_invalid_overwrite">Το αρχείο υπάρχει ήδη στο φάκελο προορισμού</string>
     <string name="move_file_not_found">Αδύνατη η μετακίνηση αρχείου. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
-    <string name="move_to">Μετακίνηση σε…</string>
     <string name="network_error_connect_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>
     <string name="network_error_socket_exception">Παρουσιάστηκε σφάλμα κατά τη σύνδεση με το διακομιστή.</string>
     <string name="network_error_socket_timeout_exception">Παρουσιάστηκε σφάλμα κατά την αναμονή απόκρισης του διακομιστή. Η εργασία δεν μπορεί να ολοκληρωθεί.</string>
@@ -503,7 +490,6 @@
     <string name="no_pdf_app_available">Δεν υπάρχει διαθέσιμη εφαρμογή για χειρισμό PDF</string>
     <string name="no_send_app">Δεν υπάρχει διαθέσιμη εφαρμογή για την αποστολή των επιλεγμένων αρχείων</string>
     <string name="no_share_permission_selected">Παρακαλούμε επιλέξτε τουλάχιστον μία άδεια για κοινή χρήση.</string>
-    <string name="note_confirm">Αποστολή</string>
     <string name="note_could_not_sent">Αδυναμία αποστολής σημείωσης</string>
     <string name="note_icon_hint">Εικονίδιο σημείωσης</string>
     <string name="notification_action_failed">Αποτυχία εκτέλεσης ενέργειας</string>
@@ -562,16 +548,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Μετονομασία νέας έκδοσης</string>
     <string name="pref_instant_name_collision_policy_title">Τι να κάνετε όταν το αρχείο υπάρχει ήδη;</string>
     <string name="prefs_add_account">Προσθήκη λογαριασμού</string>
-    <string name="prefs_calendar_contacts">Συγχρονισμός ημερολογίου &amp; επαφών</string>
     <string name="prefs_calendar_contacts_no_store_error">Δεν είναι εγκατεστημένο το Google Play ή το F-Droid</string>
     <string name="prefs_calendar_contacts_summary">Ρύθμιση του DAVx5 (γνωστό και ως DAVdroid) (v1.3.0+) για τον παρόν λογαριασμό</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Επιτυχής ρύθμιση συγχρονισμού ημερολογίου &amp; επαφών</string>
     <string name="prefs_category_about">Περί</string>
     <string name="prefs_category_details">Λεπτομέρειες</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
-    <string name="prefs_daily_backup_summary">Ημερήσιο αντίγραφο ασφαλείας του ημερολογίου &amp; επαφών σας </string>
     <string name="prefs_daily_contact_backup_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_e2e_active">Η κρυπτογράφηση από άκρο σε άκρο έχει ρυθμιστεί!</string>
     <string name="prefs_e2e_mnemonic">E2E μνήμη</string>
@@ -633,6 +616,7 @@
     <string name="rename_dialog_title">Εισάγετε νέο όνομα</string>
     <string name="rename_local_fail_msg">Αδυναμία μετονομασίας τοπικού αντιγράφου, δοκιμάστε διαφορετικό όνομα</string>
     <string name="rename_server_fail_msg">Αδύνατη μετονομασία, το όνομα έχει ήδη δοθεί</string>
+    <string name="request_account_deletion">Αίτηση διαγραφής λογαριασμού</string>
     <string name="reshare_not_allowed">Δεν επιτρέπεται ο επαναμοιρασμός</string>
     <string name="resharing_is_not_allowed">Δεν επιτρέπεται ο διαμοιρασμός</string>
     <string name="resized_image_not_possible_download">Δεν υπάρχει διαθέσιμη εικόνα με αλλαγμένο μέγεθος. Κατέβασμα της πλήρους εικόνας;</string>
@@ -653,8 +637,6 @@
     <string name="screenshot_04_accounts_heading">Όλοι οι λογαριασμοί σας</string>
     <string name="screenshot_04_accounts_subline">σε ένα σημείο</string>
     <string name="screenshot_05_autoUpload_heading">Αυτόματη μεταφόρτωση</string>
-    <string name="screenshot_05_autoUpload_subline">για τις φωτογραφίες &amp; τα βίντεό σας</string>
-    <string name="screenshot_06_davdroid_heading">Ημερολόγιο &amp; επαφές</string>
     <string name="screenshot_06_davdroid_subline">Συγχρονισμός με DAVx5</string>
     <string name="search_error">Σφάλμα λήψης αποτελεσμάτων αναζήτησης</string>
     <string name="select_all">Επιλογή όλων</string>
@@ -662,7 +644,6 @@
     <string name="select_one_template">Παρακαλούμε επιλέξτε ένα πρότυπο</string>
     <string name="select_template">Επιλογή προτύπου</string>
     <string name="send">Αποστολή</string>
-    <string name="send_note">Αποστολή σημείωσης στον παραλήπτη</string>
     <string name="send_share">Αποστολή/Κοινή χρήση</string>
     <string name="sendbutton_description">Εικονίδιο κουμπιού αποστολής</string>
     <string name="set_as">Ορισμός ως</string>
@@ -671,7 +652,6 @@
     <string name="set_status">Ορισμός κατάστασης</string>
     <string name="set_status_message">Ορισμός μηνύματος κατάστασης</string>
     <string name="share">Διαμοιρασμός</string>
-    <string name="share_copy_link">Κοινή χρήση &amp; Αντιγραφή Συνδέσμου</string>
     <string name="share_dialog_title">Γίνεται διαμοιρασμός</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Λήγει στις %1$s</string>
@@ -718,12 +698,6 @@
     <string name="signup_with_provider">Σύνδεση με πάροχο</string>
     <string name="single_sign_on_request_token" formatted="true">Να επιτραπεί%1$sη πρόσβαση στον λογαριασμό σας Nextcloud %2$s ?</string>
     <string name="sort_by">Ταξινόμηση κατά</string>
-    <string name="sort_by_modification_date_ascending">Νεότερο πρώτα</string>
-    <string name="sort_by_modification_date_descending">Παλαιότερο πρώτα</string>
-    <string name="sort_by_name_ascending">Α - Ω</string>
-    <string name="sort_by_name_descending">Ω - Α</string>
-    <string name="sort_by_size_ascending">Μικρότερο πρώτα</string>
-    <string name="sort_by_size_descending">Μεγαλύτερο πρώτα</string>
     <string name="ssl_validator_btn_details_hide">Απόκρυψη</string>
     <string name="ssl_validator_btn_details_see">Λεπτομέρειες</string>
     <string name="ssl_validator_header">Δεν ήταν δυνατή η επαλήθευση της ταυτότητας του διακομιστή</string>
@@ -761,7 +735,6 @@
     <string name="storage_permission_full_access">Πλήρης πρόσβαση </string>
     <string name="storage_permission_media_read_only">Media μόνο για ανάγνωση</string>
     <string name="storage_pictures">Φωτογραφίες</string>
-    <string name="store_full_desc">Η αυτοφιλοξενούμενη πλατφόρμα παραγωγικότητας που έχετε τον πλήρη έλεγχο.\n\nΧαρακτηριστικά:\n* Εύκολη, μοντέρνα διεπαφή, συμβατή με το θέμα του διακομιστή σας\n* Μεταφόρτωση αρχείων στον Nextcloud διακομιστή σας\n* Κοινή χρήση\n* Κρατήστε τα αγαπημένα σας αρχεία και φακέλους συγχρονισμένα\n* Αναζήτηση σε όλους τους φακέλους στον διακομιστή σας\n* Αυτόματη μεταφόρτωση φωτογραφιών και βίντεο από τη συσκευή σας\n* Ενημέρωση για ειδοποιήσεις\n* Υποστήριξη πολλαπλών λογαριασμών\n* Ασφαλής σύνδεση στα δεδομένα σας με χρήση δακτυλικού αποτυπώματος ή κωδικού PIN\n* Ενσωμάτωση με DADVx5 (γνωστό ως DAVdroid) για εύκολη εγκατάσταση και συγχρονισμό ημερολογίου &amp;Συγχρονισμός επαφών\n\nΠαρακαλούμε αναφέρετε τα σφάλματα στο https://github.com/nextcloud/android/issues και συζητήστε για την εφαρμογή στο https://help.nextcloud.com/c/clients/android\n\n Καινούργιος στο Nextcloud? To Nextclound είναι ένας ιδιωτικός διακομιστής &amp;συγχρονισμού κοινόχρηστων αρχείων και επικοινωνίας. Είναι ένα ελεύθερο λογισμικό, οπου μπορείτε να το φιλοξενήσετε μόνοι σας ή να πληρώσετε μια εταιρεία να το κάνει για εσάς. Με αυτό τον τρόπο έχετε τον έλεγχο των φωτογραφιών σας, του ημερολογίου σας και των δεδομένων των επαφών σας, των αρχείων σας και οτιδήποτε άλλο.\n\nΕνημερωθείτε για το Nextcloud στο https://nextcloud.com</string>
     <string name="store_full_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο. \nΑυτή είναι η επίσημη αναπτυξιακή έκδοση, που περιλαμβάνει καθημερινό δείγμα οποιασδήποτε νέας μη δοκιμασμένης λειτουργικότητας, η οποία μπορεί να προκαλέσει αστάθεια και απώλεια δεδομένων. Η εφαρμογή προορίζεται για χρήστες που είναι πρόθυμοι να δοκιμάσουν και να αναφέρουν σφάλματα όταν προκύψουν. Μην το χρησιμοποιείτε για την κανονική εργασία σας! \n\nΗ επίσημη έκδοση dev και η κανονική έκδοση είναι διαθέσιμες στο F-droid και μπορούν να εγκατασταθούν ταυτόχρονα.</string>
     <string name="store_short_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο.</string>
     <string name="store_short_dev_desc">Η αυτόνομη πλατφόρμα λειτουργικότητας που σας κρατά υπό έλεγχο (προεπισκόπηση έκδοσης dev)</string>
@@ -773,7 +746,6 @@
     <string name="subject_shared_with_you">Ο \"%1$s\" διαμοιράστηκε μαζί σας</string>
     <string name="subject_user_shared_with_you">Ο %1$s διαμοιράστηκε το \"%2$s\" με εσάς</string>
     <string name="subtitle_photos_only">Μόνο φωτογραφίες</string>
-    <string name="subtitle_photos_videos">Φωτογραφίες &amp; βίντεο</string>
     <string name="subtitle_videos_only">Μόνο βίντεο</string>
     <string name="suggest">Προτείνετε</string>
     <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν διενέξεις</string>
@@ -830,6 +802,8 @@
     <string name="update_link_file_no_exist">Αδυναμία ενημέρωσης. Παρακαλούμε ελέγξτε αν το αρχείο υπάρχει.</string>
     <string name="update_link_forbidden_permissions">για να ενημερώσετε αυτό τον διαμοιρασμό</string>
     <string name="updating_share_failed">Η ενημέρωση της κοινής χρήσης απέτυχε</string>
+    <string name="upload_action_failed_clear">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
+    <string name="upload_action_failed_retry">Επανάληψη αποτυχημένων μεταφορτώσεων</string>
     <string name="upload_cannot_create_file">Αδυναμία δημιουργίας τοπικού αρχείου</string>
     <string name="upload_chooser_title">Μεταφόρτωση από…</string>
     <string name="upload_content_from_other_apps">Μεταφόρτωση περιεχομένου από άλλες εφαρμογές</string>
@@ -885,6 +859,7 @@
     <string name="uploads_view_group_current_uploads">Τρέχουσα</string>
     <string name="uploads_view_group_failed_uploads">Αποτυχία/αναμονή επανεκκίνησης</string>
     <string name="uploads_view_group_finished_uploads">Μεταφορτώθηκε</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Ακυρώθηκε</string>
     <string name="uploads_view_later_waiting_to_upload">Αναμονή για μεταφόρτωση</string>
     <string name="uploads_view_title">Μεταφορτώσεις</string>
     <string name="uploads_view_upload_status_cancelled">Ακυρώθηκαν</string>
@@ -926,6 +901,7 @@
     <string name="whats_your_status">Ποια είναι η κατάστασή σας;</string>
     <string name="widgets_not_available">Τα γραφικά στοιχεία είναι διαθέσιμα μόνο στην %1$s 25 ή νεότερη</string>
     <string name="widgets_not_available_title">Δεν είναι διαθέσιμο</string>
+    <string name="worker_download">Λήψη αρχείων…</string>
     <string name="write_email">Αποστολή email</string>
     <string name="wrong_storage_path">Ο φάκελος αποθήκευσης δεδομένων δεν υπάρχει!</string>
     <string name="wrong_storage_path_desc">Αυτό μπορεί να οφείλεται σε μια επαναφορά αντιγράφων ασφαλείας σε άλλη συσκευή. Επιστροφή στην προεπιλογή. Παρακαλούμε ελέγξτε τις ρυθμίσεις για να προσαρμόσετε τον φάκελο αποθήκευσης δεδομένων.</string>

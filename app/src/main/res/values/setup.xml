@@ -17,13 +17,18 @@
     <string name="db_name">nextcloud</string>
     <string name="data_folder">nextcloud</string>
     <string name="default_display_name_for_root_folder">Nextcloud</string>
-    <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s</string>
+    <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s%2$s</string>
     <string name="only_office_user_agent">Mozilla/5.0 (Android %1$s) Mobile Nextcloud-android/%2$s</string>
+    <string name="name_for_branded_user_agent"></string>
 
     <!-- URLs and flags related -->
     <bool name="show_server_url_input">true</bool>
     <bool name="show_provider_or_own_installation">true</bool>
     <string name="provider_registration_server">https://www.nextcloud.com/register</string>
+
+    <!-- specify built in proxy -->
+    <string name="proxy_host"></string>
+    <integer name="proxy_port">-1</integer>
 
     <!-- Flags to enable/disable some features -->
     <string name="send_files_to_other_apps">on</string>
@@ -85,7 +90,7 @@
     <string name="syncedFolder_remote_folder">@string/auto_upload_path</string>
     <bool name="syncedFolder_light_on_charging">false</bool>
     <bool name="syncedFolder_light_use_subfolders">false</bool>
-    <string name="syncedFolder_light_upload_behaviour">FileUploader.LOCAL_BEHAVIOUR_FORGET</string>
+    <string name="syncedFolder_light_upload_behaviour">FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET</string>
 
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>

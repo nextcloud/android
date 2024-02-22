@@ -21,7 +21,6 @@
 
 package com.owncloud.android.util;
 
-import android.accounts.Account;
 import android.content.Context;
 import android.content.res.Resources;
 

@@ -14,10 +14,7 @@
     <string name="action_send_share">Gửi/Chia sẽ</string>
     <string name="action_switch_grid_view">Xem dạng Lưới</string>
     <string name="action_switch_list_view">Xem dạng Danh sách</string>
-    <string name="actionbar_calendar_contacts_restore">Khôi phục danh bạ &amp; lịch</string>
-    <string name="actionbar_copy">Sao chép</string>
     <string name="actionbar_mkdir">Tạo thư mục</string>
-    <string name="actionbar_move">Dịch chuyển</string>
     <string name="actionbar_open_with">Mở với</string>
     <string name="actionbar_search">Tìm</string>
     <string name="actionbar_see_details">Chi tiết</string>
@@ -78,7 +75,6 @@
     <string name="avatar">Hình đại diện</string>
     <string name="away">Tạm vắng</string>
     <string name="backup_settings">Cài đặt sao lưu</string>
-    <string name="backup_title">Sao lưu danh bạ &amp; lịch</string>
     <string name="battery_optimization_close">Đóng</string>
     <string name="battery_optimization_disable">Tắt</string>
     <string name="battery_optimization_message">Thiết bị của bạn có thể đã bật tính năng tối ưu hóa pin. AutoUpload chỉ hoạt động bình thường nếu bạn loại trừ ứng dụng này khỏi nó.</string>
@@ -90,7 +86,6 @@
     <string name="changelog_dev_version">Nhật kí phiên bản nhà phát triển</string>
     <string name="checkbox">Hộp chọn</string>
     <string name="choose_local_folder">Chọn thư mục cục bộ...</string>
-    <string name="choose_location">Chọn vị trí lưu trữ</string>
     <string name="choose_remote_folder">Chọn thư mục từ xa...</string>
     <string name="choose_template_helper_text">Vui lòng chọn một mẫu và nhập tên tệp.</string>
     <string name="choose_which_file">Chọn tệp muốn giữ!</string>
@@ -119,7 +114,6 @@
     <string name="common_remove">Xóa</string>
     <string name="common_rename">Sửa tên</string>
     <string name="common_save">Lưu</string>
-    <string name="common_select">Chọn</string>
     <string name="common_send">Gửi</string>
     <string name="common_share">Chia sẻ</string>
     <string name="common_skip">Bỏ qua</string>
@@ -169,7 +163,6 @@
     <string name="copy_file_not_found">Không thể sao chép. Hãy kiểm tra xem tập tin có tồn tại không.</string>
     <string name="copy_link">Sao chép liên kết</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Sao chép/di chuyển vào thư mục được mã hóa hiện không được hỗ trợ.</string>
-    <string name="copy_to">Sao chép đến</string>
     <string name="could_not_download_image">Không thể tải xuống hình ảnh đầy đủ</string>
     <string name="could_not_retrieve_shares">Không thể truy xuất lượt chia sẻ</string>
     <string name="could_not_retrieve_url">Không thể truy xuất URL</string>
@@ -187,7 +180,6 @@
     <string name="data_to_back_up">Dữ liệu được sao lưu</string>
     <string name="default_credentials_wrong">Thông tin đăng nhập không chính xác</string>
     <string name="delete_account">Xóa tài khoản</string>
-    <string name="delete_account_warning">Xóa tài khoản %s và xóa tất cả các tệp cục bộ?\n\nXóa không thể hoàn tác.</string>
     <string name="delete_entries">Xoá mục</string>
     <string name="delete_link">Xóa liên kết</string>
     <string name="deselect_all">Bỏ chọn tất cả</string>
@@ -278,7 +270,6 @@
     <string name="etm_accounts">Tài khoản</string>
     <string name="etm_background_job_name">Tên công việc</string>
     <string name="etm_background_job_progress">Tiến trình</string>
-    <string name="etm_background_job_started">Đã bắt đầu</string>
     <string name="etm_background_job_state">Trạng thái</string>
     <string name="etm_background_job_user">Người dùng</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -370,8 +361,6 @@
     <string name="filename_forbidden_charaters_from_server">Tên tệp chứa ít nhất một ký tự không hợp lệ</string>
     <string name="filename_hint">Tên tập tin</string>
     <string name="first_run_1_text">Giữ cho dữ liệu của bạn bảo mật và dưới sự kiểm soát của bạn</string>
-    <string name="first_run_2_text">Cộng tác an toàn &amp; trao đổi tập tin</string>
-    <string name="first_run_4_text">Chia sẻ màn hình, cuộc họp trực tuyến &amp; hội nghị qua web</string>
     <string name="folder_already_exists">Thư mục đã tồn tại</string>
     <string name="folder_confirm_create">Tạo</string>
     <string name="folder_list_empty_headline">Không có thư mục nào</string>
@@ -384,7 +373,6 @@
     <string name="forbidden_permissions_delete">xóa tập tin này</string>
     <string name="forbidden_permissions_move">dịch chuyển tập tin này</string>
     <string name="forbidden_permissions_rename">đổi tên tập tin này</string>
-    <string name="foreground_service_download">Đang tải về tập tin…</string>
     <string name="foreground_service_upload">Đang tải lên tập tin…</string>
     <string name="foreign_files_fail">Một số tập tin không thể dịch chuyển</string>
     <string name="foreign_files_local_text">Cục bộ: %1$s</string>
@@ -459,7 +447,6 @@
     <string name="move_file_invalid_into_descendent">Không thể di chuyển một thư mục vào một trong các thư mục của riêng nó</string>
     <string name="move_file_invalid_overwrite">Tập tin đã có trong thư mục đích</string>
     <string name="move_file_not_found">Không thể di chuyển tệp. Vui lòng kiểm tra xem nó có tồn tại không.</string>
-    <string name="move_to">Di chuyển đến</string>
     <string name="network_error_connect_timeout_exception">Đã xảy ra lỗi khi chờ máy chủ. Không thể hoàn thành hoạt động.</string>
     <string name="network_error_socket_exception">Đã xảy ra lỗi khi kết nối với máy chủ</string>
     <string name="network_error_socket_timeout_exception">Một lỗi đã xảy ra khi đang đợi máy chủ. Không thể hoàn thành hoạt động.</string>
@@ -478,7 +465,6 @@
     <string name="no_pdf_app_available">Không có ứng dụng để xử lý PDF</string>
     <string name="no_send_app">Không có ứng dụng nào để gửi các tệp đã chọn</string>
     <string name="no_share_permission_selected">Vui lòng chọn ít nhất một quyền để chia sẻ.</string>
-    <string name="note_confirm">Gửi</string>
     <string name="note_could_not_sent">Không thể gửi ghi chú</string>
     <string name="note_icon_hint">Biểu tượng ghi chú</string>
     <string name="notification_action_failed">Thực thi hành động thất bại.</string>
@@ -536,16 +522,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Đổi tên phiên bản mới</string>
     <string name="pref_instant_name_collision_policy_title">Làm gì nếu tập tin đã tồn tại?</string>
     <string name="prefs_add_account">Thêm tài khoản</string>
-    <string name="prefs_calendar_contacts">Đồng bộ lịch &amp; danh bạ</string>
     <string name="prefs_calendar_contacts_no_store_error">Không có F-Droid hoặc Google Play nào được cài đặt</string>
     <string name="prefs_calendar_contacts_summary">Thiết lập DAVx5 (trước kia được biết đến là DAVdroid) (phiên bản 1.3.0+) cho tài khoản hiện tại</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Thiết lập đồng bộ lịch &amp; danh bạ</string>
     <string name="prefs_category_about">Thông tin</string>
     <string name="prefs_category_details">Chi tiết</string>
     <string name="prefs_category_dev">Phát triển</string>
     <string name="prefs_category_general">Tổng hợp</string>
     <string name="prefs_category_more">hơn</string>
-    <string name="prefs_daily_backup_summary">Sao lưu hàng ngày lịch &amp; danh bạ của bạn</string>
     <string name="prefs_daily_contact_backup_summary">Sao lưu hàng ngày danh bạn của bạn</string>
     <string name="prefs_e2e_active">Mã hoá đầu cuối đã được thiết lập</string>
     <string name="prefs_e2e_mnemonic">E2E ghi nhớ</string>
@@ -623,15 +606,12 @@
     <string name="screenshot_04_accounts_heading">Tất cả các tài khoản của bạn</string>
     <string name="screenshot_04_accounts_subline">ở một nơi</string>
     <string name="screenshot_05_autoUpload_heading">Tải lên tự động</string>
-    <string name="screenshot_05_autoUpload_subline">cho ảnh của bạn &amp; videos</string>
-    <string name="screenshot_06_davdroid_heading">Lịch &amp; liên lạc</string>
     <string name="screenshot_06_davdroid_subline">Đồng bộ với DAVx5</string>
     <string name="search_error">Lỗi khi lấy kết quả tìm kiếm</string>
     <string name="select_all">Chọn tất cả</string>
     <string name="select_one_template">Vui lòng chọn một mẫu</string>
     <string name="select_template">Chon mẫu</string>
     <string name="send">Gửi</string>
-    <string name="send_note">Gửi ghi chú cho người nhận</string>
     <string name="send_share">Gửi kho</string>
     <string name="sendbutton_description">Biểu tượng nút gửi</string>
     <string name="set_as">Đặt như</string>
@@ -640,7 +620,6 @@
     <string name="set_status">Đặt trạng thái</string>
     <string name="set_status_message">Đặt thông báo trạng thái</string>
     <string name="share">Chia sẻ</string>
-    <string name="share_copy_link">Chia sẻ &amp; sao chép liên kết</string>
     <string name="share_dialog_title">Chia sẻ</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Hết hạn %1$s</string>
@@ -687,12 +666,6 @@
     <string name="signup_with_provider">Đăng ký với nhà cung cấp</string>
     <string name="single_sign_on_request_token" formatted="true">Cho phép %1$s truy cập vào %2$s tài khoản Hệ thống của bạn</string>
     <string name="sort_by">Sắp xếp theo</string>
-    <string name="sort_by_modification_date_ascending">Mới trước</string>
-    <string name="sort_by_modification_date_descending">Cũ trước</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Nhỏ trước</string>
-    <string name="sort_by_size_descending">Lớn trước</string>
     <string name="ssl_validator_btn_details_hide">Ẩn</string>
     <string name="ssl_validator_btn_details_see">Chi tiết</string>
     <string name="ssl_validator_header">Không thể xác minh danh tính của máy chủ</string>
@@ -740,7 +713,6 @@
     <string name="subject_shared_with_you">\"%1$s\" đã chia sẽ với bạn</string>
     <string name="subject_user_shared_with_you">%1$s đã chia sẽ \"%2$s\" với bạn</string>
     <string name="subtitle_photos_only">Chỉ chấp nhận hình ảnh</string>
-    <string name="subtitle_photos_videos">Hình ảnh và video</string>
     <string name="subtitle_videos_only">Chỉ chấp nhận video</string>
     <string name="suggest">Đề xuất</string>
     <string name="sync_conflicts_in_favourites_ticker">Tìm thấy xung đột</string>
@@ -797,6 +769,8 @@
     <string name="update_link_file_no_exist">Không thể cập nhật. Vui lòng kiểm tra xem tệp có tồn tại hay không.</string>
     <string name="update_link_forbidden_permissions">cập nhật chia sẽ này</string>
     <string name="updating_share_failed">Cập nhật chia sẻ không thành công</string>
+    <string name="upload_action_failed_clear">Dọn dẹp các tải lên bị lỗi</string>
+    <string name="upload_action_failed_retry">Thử lại các tải lên bị lỗi</string>
     <string name="upload_cannot_create_file">Không thể tạo tệp trên máy</string>
     <string name="upload_chooser_title">Tải lên từ…</string>
     <string name="upload_content_from_other_apps">Tải lên từ các ứng dụng khác</string>
@@ -852,6 +826,7 @@
     <string name="uploads_view_group_current_uploads">Hiện tại</string>
     <string name="uploads_view_group_failed_uploads">Không thành công/đang chờ khởi động lại</string>
     <string name="uploads_view_group_finished_uploads">Đã tải lên</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Đã hủy</string>
     <string name="uploads_view_later_waiting_to_upload">Chờ tải lên</string>
     <string name="uploads_view_title">Tải lên</string>
     <string name="uploads_view_upload_status_cancelled">Đã hủy</string>
@@ -891,6 +866,7 @@
     <string name="whats_new_title">Mới trong %1$s</string>
     <string name="whats_your_status">Trạng thái của bạn là gì?</string>
     <string name="widgets_not_available_title">Không khả dụng</string>
+    <string name="worker_download">Đang tải về tập tin…</string>
     <string name="write_email">Gửi email</string>
     <string name="wrong_storage_path">Thư mục lưu trữ dữ liệu không tồn tại!</string>
     <string name="wrong_storage_path_desc">Điều này có thể là do khôi phục sao lưu trên một thiết bị khác. Trở lại mặc định. Vui lòng kiểm tra cài đặt để điều chỉnh thư mục lưu trữ dữ liệu.</string>

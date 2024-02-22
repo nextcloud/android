@@ -19,6 +19,7 @@
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
 
     <string name="drawer_item_all_files">All files</string>
+    <string name="drawer_item_personal_files">Personal files</string>
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_favorites">Favorites</string>
     <string name="drawer_item_on_device">On device</string>
@@ -46,12 +47,12 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
     <string name="prefs_enable_media_scan_notifications">Show media scan notifications</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notify about newly found media folders</string>
-    <string name="prefs_calendar_contacts">Sync calendar &amp; contacts</string>
+    <string name="prefs_calendar_contacts">Sync calendar and contacts</string>
     <string name="prefs_calendar_contacts_summary">Set up DAVx5 (formerly known as DAVdroid) (v1.3.0+) for current account</string>
     <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_calendar_contacts_no_store_error">Neither F-Droid nor Google Play is installed</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Calendar &amp; contacts sync set up</string>
-    <string name="prefs_daily_backup_summary">Daily backup of your calendar &amp; contacts</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Calendar and contacts sync set up</string>
+    <string name="prefs_daily_backup_summary">Daily backup of your calendar and contacts</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
     <string name="prefs_help">Help</string>
@@ -86,6 +87,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_empty_headline">No files here</string>
     <string name="folder_list_empty_headline">No folders here</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
@@ -129,13 +131,18 @@
     <string name="common_skip">Skip</string>
     <string name="common_copy">Copy</string>
     <string name="about_title">About</string>
+    <string name="remove_local_account">Remove local account</string>
+    <string name="remove_local_account_details">Remove account from device and delete all local files</string>
+    <string name="request_account_deletion">Request account deletion</string>
+    <string name="request_account_deletion_button">Request deletion</string>
+    <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
     <string name="delete_account">Remove account</string>
-    <string name="delete_account_warning">Remove account %s and delete all local files?\n\nDeletion cannot be undone.</string>
     <string name="avatar">Avatar</string>
     <string name="active_user">Active user</string>
     <string name="upload_chooser_title">Upload from…</string>
     <string name="uploader_info_dirname">Folder name</string>
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload failed</string>
@@ -145,8 +152,10 @@
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_group_current_uploads">Current</string>
     <string name="uploads_view_group_failed_uploads">Failed/pending restart</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Cancelled</string>
     <string name="uploads_view_group_finished_uploads">Uploaded</string>
     <string name="uploads_view_upload_status_succeeded">Completed</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Same file found on remote, skipping upload</string>
     <string name="uploads_view_upload_status_cancelled">Cancelled</string>
     <string name="uploads_view_upload_status_failed_connection_error">Connection error</string>
     <string name="uploads_view_upload_status_failed_credentials_error">Credentials error</string>
@@ -163,12 +172,16 @@
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_group_header" translatable="false">%1$s (%2$d)</string>
     <string name="downloader_download_in_progress_ticker">Downloading…</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_succeeded_ticker">Downloaded</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_not_downloaded_yet">Not downloaded yet</string>
+    <string name="downloader_file_download_cancelled">Certain files were canceled during the download by user</string>
+    <string name="downloader_file_download_failed">Error occurred while downloading files</string>
+    <string name="downloader_unexpected_error">Unexpected error occurred while downloading files</string>
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
     <string name="common_choose_account">Choose account</string>
     <string name="common_switch_account">Switch account</string>
@@ -356,6 +369,8 @@
     <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Use subfolders</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Store in subfolders based on date</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Exclude hidden</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Exclude hidden files and folders</string>
 
     <string name="prefs_instant_upload_subfolder_rule_title">Subfolder options</string>
 
@@ -431,6 +446,7 @@
     <string name="actionbar_move_or_copy">Move or Copy</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
 
+    <string name="folder_picker_choose_button_text">Choose</string>
     <string name="folder_picker_copy_button_text">Copy</string>
     <string name="folder_picker_move_button_text">Move</string>
     <string name="folder_picker_choose_caption_text">Choose target folder</string>
@@ -500,13 +516,12 @@
     <string name="share_via_link_unset_password">Unset</string>
 
     <string name="share_search">Name, Federated Cloud ID or email address …</string>
+    <string name="secure_share_search">Secure share …</string>
 
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
     <string name="share_known_remote_on_clarification">on %1$s</string>
-
-    <string name="action_clear_failed_uploads">Clear failed uploads</string>
 
     <string name="action_switch_grid_view">Grid view</string>
     <string name="action_switch_list_view">List view</string>
@@ -599,7 +614,7 @@
     <string name="activities_no_results_message">No events like additions, changes and shares yet.</string>
     <string name="prefs_category_about">About</string>
 
-    <string name="actionbar_calendar_contacts_restore">Restore contacts &amp; calendar</string>
+    <string name="actionbar_calendar_contacts_restore">Restore contacts and calendar</string>
     <string name="contacts_backup_button">Back up now</string>
     <string name="contactlist_no_permission">No permission given, nothing imported.</string>
     <string name="contact_no_permission">Contact permission is required.</string>
@@ -608,7 +623,7 @@
     <string name="contacts_preferences_something_strange_happened">Could not find your last backup!</string>
     <string name="contacts_preferences_backup_scheduled">Backup scheduled and will start shortly</string>
     <string name="contacts_preferences_import_scheduled">Import scheduled and will start shortly</string>
-    <string name="backup_title">Contacts &amp; calendar backup</string>
+    <string name="backup_title">Contacts and calendar backup</string>
     <string name="contact_backup_title">Contacts backup</string>
     <string name="drawer_logout">Log out</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
@@ -622,6 +637,7 @@
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="autoupload_configure">Configure</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
+    <string name="autoupload_worker_foreground_info">Preparing auto upload</string>
 
     <string name="empty" translatable="false" />
     <string name="test_server_button">Test server connection</string>
@@ -629,7 +645,7 @@
     <string name="resharing_is_not_allowed">Resharing is not allowed</string>
 
     <string name="foreground_service_upload">Uploading files…</string>
-    <string name="foreground_service_download">Downloading files…</string>
+    <string name="worker_download">Downloading files…</string>
 
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_license">License</string>
@@ -643,7 +659,7 @@
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
 
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
-    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar &amp; Contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync &amp; share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
+    <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
 
     <string name="contactlist_item_icon">User icon for contact list</string>
     <string name="activity_icon">Activity</string>
@@ -700,9 +716,9 @@
     <string name="screenshot_04_accounts_subline">in one place</string>
 
     <string name="screenshot_05_autoUpload_heading">Automatic upload</string>
-    <string name="screenshot_05_autoUpload_subline">for your photos &amp; videos</string>
+    <string name="screenshot_05_autoUpload_subline">for your photos and videos</string>
 
-    <string name="screenshot_06_davdroid_heading">Calendar &amp; contacts</string>
+    <string name="screenshot_06_davdroid_heading">Calendar and contacts</string>
     <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
 
     <string name="userinfo_no_info_headline">No personal info set</string>
@@ -751,9 +767,9 @@
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="host_your_own_server">Host your own server</string>
     <string name="first_run_1_text">Keep your data secure and under your control</string>
-    <string name="first_run_2_text">Secure collaboration &amp; file exchange</string>
-    <string name="first_run_3_text">Easy-to-use webmail, calendar &amp; contacts</string>
-    <string name="first_run_4_text">Screensharing, online meetings &amp; web conferences</string>
+    <string name="first_run_2_text">Secure collaboration and file exchange</string>
+    <string name="first_run_3_text">Easy-to-use webmail, calendar and contacts</string>
+    <string name="first_run_4_text">Screensharing, online meetings and web conferences</string>
     <string name="restore_button_description">Restore deleted file</string>
     <string name="restore">Restore file</string>
     <string name="new_version_was_created">New version was created</string>
@@ -802,6 +818,7 @@
     <string name="no_map_app_availble">No App available to handle maps</string>
     <string name="share_via_link_hide_download">Hide download</string>
     <string name="unread_comments">Unread comments exist</string>
+    <string name="grid_file_features_live_photo_content_description">This icon indicates availability of live photo</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="create_new_document">Create new document</string>
     <string name="create_new_spreadsheet">Create new spreadsheet</string>
@@ -827,9 +844,19 @@
     <string name="upload_sync_conflict">Sync conflict, please resolve manually</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_local_storage_not_copied">File could not be copied to local storage</string>
+    <string name="upload_global_pause_title">All uploads are paused</string>
+    <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="host_not_available">Server not available</string>
     <string name="delete_entries">Delete entries</string>
+    <string name="upload_action_failed_retry">Retry failed uploads</string>
+    <string name="upload_action_failed_clear">Clear failed uploads</string>
+    <string name="upload_action_global_upload_pause">Pause all uploads</string>
+    <string name="upload_action_global_upload_resume">Resume all uploads</string>
     <string name="dismiss_notification_description">Dismiss notification</string>
+    <string name="upload_action_file_not_exist_message">Some files not exists those files cannot be resumed</string>
+    <string name="upload_action_cancelled_resume">Resume cancelled uploads</string>
+    <string name="upload_action_cancelled_clear">Clear cancelled uploads</string>
+    <string name="upload_manually_cancelled">Upload was cancelled by user</string>
     <string name="action_empty_notifications">Clear all notifications</string>
     <string name="timeout_richDocuments">Loading is taking longer than expected</string>
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
@@ -870,8 +897,9 @@
     <string name="etm_background_job_name">Job name</string>
     <string name="etm_background_job_user">User</string>
     <string name="etm_background_job_state">State</string>
-    <string name="etm_background_job_started">Started</string>
+    <string name="etm_background_job_created">Created</string>
     <string name="etm_background_job_progress">Progress</string>
+    <string name="etm_background_execution_count">Times run in 48h</string>
     <string name="etm_migrations">Migrations (app upgrade)</string>
     <string name="etm_transfer">File transfer</string>
     <string name="etm_transfer_remote_path">Remote path</string>
@@ -907,6 +935,9 @@
     <string name="failed_to_start_editor">Failed to start editor</string>
     <string name="create_rich_workspace">Add folder info</string>
     <string name="creates_rich_workspace">creates folder info</string>
+    <string name="uploader_local_files_uploaded">Retry to upload failed local files</string>
+    <string name="uploader_file_not_found_on_server_message">We couldnt locate the file on server. Another user may have deleted the file</string>
+    <string name="uploader_file_not_found_message">File not found. Are you sure that this file exists or has a previous conflict not been resolved?</string>
     <string name="uploader_upload_failed_sync_conflict_error">File upload conflict</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Pick which version to keep of %1$s</string>
     <string name="upload_list_resolve_conflict">Resolve conflict</string>
@@ -989,7 +1020,7 @@
     <string name="common_next">Next</string>
     <string name="send_share">Send Share</string>
     <string name="no_share_permission_selected">Please select at least one permission to share.</string>
-    <string name="share_copy_link">Share &amp; Copy Link</string>
+    <string name="share_copy_link">Share and Copy Link</string>
     <string name="set_note">Set Note</string>
     <string name="share_send_new_email">Send new email</string>
     <string name="link_name">Link Name</string>
@@ -1028,7 +1059,7 @@
     <string name="pdf_zoom_tip">Tap on a page to zoom in</string>
     <string name="storage_permission_full_access">Full access</string>
     <string name="storage_permission_media_read_only">Media read-only</string>
-    <string name="subtitle_photos_videos">Photos &amp; videos</string>
+    <string name="subtitle_photos_videos">Photos and videos</string>
     <string name="show_images">Show photos</string>
     <string name="subtitle_photos_only">Photos only</string>
     <string name="show_video">Show videos</string>
@@ -1108,4 +1139,6 @@
     <string name="sub_folder_rule_year">Year</string>
     <string name="sub_folder_rule_month">Year/Month</string>
     <string name="sub_folder_rule_day">Year/Month/Day</string>
+    <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
+    <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
 </resources>

@@ -33,13 +33,12 @@ import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileDownloader
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
-import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileExportUtils
 import com.owncloud.android.utils.FileStorageUtils
@@ -112,13 +111,11 @@ class FilesExportWork(
     }
 
     private fun downloadFile(ocFile: OCFile) {
-        val i = Intent(appContext, FileDownloader::class.java)
-        i.putExtra(FileDownloader.EXTRA_USER, user)
-        i.putExtra(FileDownloader.EXTRA_FILE, ocFile)
-        i.putExtra(SendShareDialog.PACKAGE_NAME, "")
-        i.putExtra(SendShareDialog.ACTIVITY_NAME, "")
-        i.putExtra(FileDownloader.DOWNLOAD_TYPE, DownloadType.EXPORT)
-        appContext.startService(i)
+        FileDownloadHelper.instance().downloadFile(
+            user,
+            ocFile,
+            downloadType = DownloadType.EXPORT
+        )
     }
 
     private fun showErrorNotification(successfulExports: Int) {

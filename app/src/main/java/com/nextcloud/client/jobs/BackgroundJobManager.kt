@@ -20,8 +20,10 @@
 package com.nextcloud.client.jobs
 
 import androidx.lifecycle.LiveData
+import androidx.work.ListenableWorker
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.operations.DownloadType
 
 /**
  * This interface allows to control, schedule and monitor all application
@@ -34,6 +36,10 @@ interface BackgroundJobManager {
      * Information about all application background jobs.
      */
     val jobs: LiveData<List<JobInfo>>
+
+    fun logStartOfWorker(workerName: String?)
+
+    fun logEndOfWorker(workerName: String?, result: ListenableWorker.Result)
 
     /**
      * Start content observer job that monitors changes in media folders
@@ -137,6 +143,23 @@ interface BackgroundJobManager {
     fun startAccountRemovalJob(accountName: String, remoteWipe: Boolean)
     fun startFilesUploadJob(user: User)
     fun getFileUploads(user: User): LiveData<List<JobInfo>>
+    fun cancelFilesUploadJob(user: User)
+    fun isStartFileUploadJobScheduled(user: User): Boolean
+
+    fun cancelFilesDownloadJob(user: User, fileId: Long)
+
+    fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean
+
+    @Suppress("LongParameterList")
+    fun startFileDownloadJob(
+        user: User,
+        file: OCFile,
+        behaviour: String,
+        downloadType: DownloadType?,
+        activityName: String,
+        packageName: String,
+        conflictUploadId: Long?
+    )
 
     fun startPdfGenerateAndUploadWork(user: User, uploadFolder: String, imagePaths: List<String>, pdfPath: String)
 
@@ -146,4 +169,6 @@ interface BackgroundJobManager {
 
     fun pruneJobs()
     fun cancelAllJobs()
+    fun schedulePeriodicHealthStatus()
+    fun startHealthStatus()
 }

@@ -1,6 +1,6 @@
 La plateforme de productivité auto-hébergée qui vous redonne le contrôle.
 
-Fonctionalités: 
+Fonctionnalités: 
 * Intuitif, interface moderne, adaptée au thème de votre serveur.
 * Envoyez des fichiers sur votre serveur Nextcloud
 * Partagez avec d'autres personnes

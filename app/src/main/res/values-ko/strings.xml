@@ -14,10 +14,8 @@
     <string name="action_send_share">보내기/공유</string>
     <string name="action_switch_grid_view">바둑판식 보기</string>
     <string name="action_switch_list_view">목록 보기</string>
-    <string name="actionbar_calendar_contacts_restore">주소록 &amp; 일정 복원하기</string>
-    <string name="actionbar_copy">복사</string>
     <string name="actionbar_mkdir">새 폴더</string>
-    <string name="actionbar_move">이동</string>
+    <string name="actionbar_move_or_copy">이동이나 복사</string>
     <string name="actionbar_open_with">다음으로 열기</string>
     <string name="actionbar_search">검색</string>
     <string name="actionbar_see_details">자세한 정보</string>
@@ -76,10 +74,10 @@
     <string name="autoupload_custom_folder">사용자 정의 폴더 설정</string>
     <string name="autoupload_disable_power_save_check">에너지 절약 사용 안함</string>
     <string name="autoupload_hide_folder">폴더 숨기기</string>
+    <string name="autoupload_worker_foreground_info">자동 업로드 준비 중</string>
     <string name="avatar">아바타</string>
     <string name="away">자리 비움</string>
     <string name="backup_settings">백업 설정</string>
-    <string name="backup_title">주소록 &amp; 일정 백업</string>
     <string name="battery_optimization_close">닫기</string>
     <string name="battery_optimization_disable">비활성화</string>
     <string name="battery_optimization_message">기기의 배터리 최적화가 활성화되어있습니다. 자동 업로드는 이 앱을 배터리 최적화에서 제외해야만 정상적으로 동작합니다.</string>
@@ -92,7 +90,6 @@
     <string name="check_back_later_or_reload">잠시 후 다시 확인하거나 새로고침 하십시오.</string>
     <string name="checkbox">체크 상자</string>
     <string name="choose_local_folder">로컬 폴더 선택</string>
-    <string name="choose_location">위치 선택</string>
     <string name="choose_remote_folder">대상 폴더 선택</string>
     <string name="choose_template_helper_text">템플릿을 선택하고 파일 이름을 입력하세요.</string>
     <string name="choose_which_file">보관할 파일을 선택하세요!</string>
@@ -122,7 +119,6 @@
     <string name="common_remove">삭제</string>
     <string name="common_rename">이름 바꾸기</string>
     <string name="common_save">저장</string>
-    <string name="common_select">선택</string>
     <string name="common_send">전송</string>
     <string name="common_share">공유</string>
     <string name="common_skip">건너뛰기</string>
@@ -159,6 +155,7 @@
     <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
     <string name="conflict_server_file">서버 파일</string>
     <string name="contact_backup_title">연락처 백업</string>
+    <string name="contact_no_permission">연락처 권한이 필요합니다.</string>
     <string name="contactlist_item_icon">연락처 목록 사용자 아이콘</string>
     <string name="contactlist_no_permission">권한이 없어서 가져올 수 없습니다.</string>
     <string name="contacts">연락처</string>
@@ -174,7 +171,6 @@
     <string name="copy_file_not_found">복사할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>
     <string name="copy_link">링크 주소 복사</string>
     <string name="copy_move_to_encrypted_folder_not_supported">암호화된 폴더로 복사/이동은 아직 지원하지 않습니다.</string>
-    <string name="copy_to">다음으로 복사</string>
     <string name="could_not_download_image">전체 이미지를 다운로드 할 수 없습니다.</string>
     <string name="could_not_retrieve_shares">공유를 가져올 수 없습니다.</string>
     <string name="could_not_retrieve_url">주소를 불러올 수 없습니다.</string>
@@ -192,7 +188,6 @@
     <string name="data_to_back_up">백업 할 날짜</string>
     <string name="default_credentials_wrong">인증 정보 틀림</string>
     <string name="delete_account">계정 삭제</string>
-    <string name="delete_account_warning">%s 계정 및 모든 로컬 파일을 삭제하시겠습니까\n\n삭제 작업은 취소할 수 없습니다.</string>
     <string name="delete_entries">항목 삭제</string>
     <string name="delete_link">링크 삭제</string>
     <string name="deselect_all">모두 선택 해제</string>
@@ -204,6 +199,7 @@
     <string name="did_not_check_for_dupes">중복을 확인 하지 않았습니다.</string>
     <string name="digest_algorithm_not_available">이 다이제스트 알고리즘을 이 장치에서 사용할 수 없습니다.</string>
     <string name="direct_login_failed">직접 링크롤 통한 로그인 실패!</string>
+    <string name="direct_login_text">%2$s에 %1$s(으)로 로그인</string>
     <string name="disable_new_media_folder_detection_notifications">비활성화</string>
     <string name="dismiss">무시</string>
     <string name="dismiss_notification_description">알림 해제</string>
@@ -227,7 +223,10 @@
     <string name="downloader_download_in_progress_ticker">다운로드 중…</string>
     <string name="downloader_download_succeeded_content">%1$s 다운로드됨</string>
     <string name="downloader_download_succeeded_ticker">다운로드됨</string>
+    <string name="downloader_file_download_cancelled">일부 파일의 다운로드가 사용자에 의해 취소되었습니다</string>
+    <string name="downloader_file_download_failed">파일을 다운로드하는 중 오류 발생</string>
     <string name="downloader_not_downloaded_yet">아직 다운로드되지 않았음</string>
+    <string name="downloader_unexpected_error">파일을 다운로드하는 중 예기치 못한 오류 발생</string>
     <string name="drawer_close">사이드바 닫기</string>
     <string name="drawer_community">커뮤니티</string>
     <string name="drawer_header_background">배경 그림 및 서랍 헤더</string>
@@ -255,6 +254,8 @@
     <string name="ecosystem_apps_display_talk">토크</string>
     <string name="ecosystem_apps_more">더 많은 Nextcloud 앱</string>
     <string name="ecosystem_apps_notes">Nextcloud 메모</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">이메일 주소 고르기에 실패함</string>
     <string name="encrypted">암호화하도록 설정</string>
     <string name="end_to_end_encryption_confirm_button">암호화 설정</string>
     <string name="end_to_end_encryption_decrypting">복호화중…</string>
@@ -289,9 +290,9 @@
     <string name="error_starting_direct_camera_upload">카메라 시작 중 오류 발생</string>
     <string name="error_starting_doc_scan">문서 스캔 시작 오류</string>
     <string name="etm_accounts">계정</string>
+    <string name="etm_background_job_created">만든 날짜</string>
     <string name="etm_background_job_name">작업 이름</string>
     <string name="etm_background_job_progress">진행 상황</string>
-    <string name="etm_background_job_started">시작됨</string>
     <string name="etm_background_job_state">상태</string>
     <string name="etm_background_job_user">사용자</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -383,13 +384,12 @@
     <string name="filename_forbidden_charaters_from_server">파일 이름에 잘못된 글자가 한 자 이상 있음</string>
     <string name="filename_hint">파일 이름</string>
     <string name="first_run_1_text">데이터를 안전하게 보관하세요</string>
-    <string name="first_run_2_text">안전한 협력 &amp;파일 교환</string>
-    <string name="first_run_4_text">화면 공유, 온라인 회의 &amp; 웹 회의</string>
     <string name="folder_already_exists">폴더가 이미 존재함</string>
     <string name="folder_confirm_create">생성</string>
     <string name="folder_list_empty_headline">폴더가 없습니다</string>
     <string name="folder_picker_choose_button_text">선택</string>
     <string name="folder_picker_choose_caption_text">폴더 선택</string>
+    <string name="folder_picker_copy_button_text">복사</string>
     <string name="folder_picker_move_button_text">이동</string>
     <string name="forbidden_permissions">%s 권한이 없음</string>
     <string name="forbidden_permissions_copy">이 파일을 복사할</string>
@@ -397,7 +397,6 @@
     <string name="forbidden_permissions_delete">이 파일을 삭제할</string>
     <string name="forbidden_permissions_move">이 파일을 이동할</string>
     <string name="forbidden_permissions_rename">이 파일의 이름을 바꿀</string>
-    <string name="foreground_service_download">파일 다운로드 중…</string>
     <string name="foreground_service_upload">파일 업로드 중…</string>
     <string name="foreign_files_fail">일부 파일을 이동할 수 없음</string>
     <string name="foreign_files_local_text">로컬: %1$s</string>
@@ -406,6 +405,7 @@
     <string name="foreign_files_success">모든 파일이 이동됨</string>
     <string name="forward">앞으로</string>
     <string name="fourHours">4 시간</string>
+    <string name="grid_file_features_live_photo_content_description">이 아이콘은 라이브 포토 사용 가능 여부를 표시합니다</string>
     <string name="hidden_file_name_warning">이 이름은 파일을 숨김처리 할 것입니다.</string>
     <string name="hint_name">이름</string>
     <string name="hint_note">참고</string>
@@ -415,9 +415,16 @@
     <string name="icon_for_empty_list">빈 목록에 대한 아이콘</string>
     <string name="icon_of_dashboard_widget">대시보드 위젯에 대한 아이콘</string>
     <string name="icon_of_widget_entry">위젯 항목에 대한 아이콘</string>
+    <string name="image_editor_file_edited_suffix">수정됨</string>
     <string name="image_editor_rotate_ccw">반시계 방향으로 회전</string>
     <string name="image_editor_rotate_cw">시계 방향으로 회전</string>
     <string name="image_editor_unable_to_edit_image">이미지를 편집할 수 없음</string>
+    <string name="image_preview_filedetails">파일 정보</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s초</string>
     <string name="in_folder">%1$s 폴더 안에</string>
     <string name="instant_upload_existing">이미 존재하는 파일도 올리기</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
@@ -430,7 +437,7 @@
     <string name="link_name">링크 이름</string>
     <string name="link_share_allow_upload_and_editing">업로드와 수정 허용</string>
     <string name="link_share_editing">글 수정</string>
-    <string name="link_share_file_drop">파일 보관소 (업로드만 허용)</string>
+    <string name="link_share_file_drop">업로드만 허용</string>
     <string name="link_share_view_only">읽기 전용</string>
     <string name="list_layout">목록 보기</string>
     <string name="load_more_results">더 많은 결과 불러오기</string>
@@ -456,7 +463,7 @@
     <string name="logs_status_loading">불러오는 중…</string>
     <string name="logs_status_not_filtered">기록: %1$dkB, 필터 없음</string>
     <string name="logs_title">로그</string>
-    <string name="maintenance_mode">서버가 유지 관리 모드입니다.</string>
+    <string name="maintenance_mode">서버가 유지 보수 모드입니다.</string>
     <string name="manage_space_clear_data">데이터 지우기</string>
     <string name="manage_space_description">%1$s의 데이터에서 설정, 데이터베이스, 서버 인증서를 삭제합니다.\n\n다운로드한 파일은 변경되지 않습니다.\n\n이 작업은 시간이 걸릴 수 있습니다.</string>
     <string name="manage_space_title">저장 공간 관리</string>
@@ -482,7 +489,6 @@
     <string name="move_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 이동할 수 없음</string>
     <string name="move_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
     <string name="move_file_not_found">파일을 이동할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>
-    <string name="move_to">다음으로 이동</string>
     <string name="network_error_connect_timeout_exception">서버 응답을 기다리던 중에 에러가 발생했습니다. 동작을 완료할 수 없습니다.</string>
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생했습니다.</string>
     <string name="network_error_socket_timeout_exception">서버 응답을 기다리던 중에 에러가 발생했습니다. 동작을 완료할 수 없습니다.</string>
@@ -498,11 +504,11 @@
     <string name="no_calendar_exists">달력 없음</string>
     <string name="no_email_app_available">메일 주소를 처리할 앱이 없음</string>
     <string name="no_items">항목 없음</string>
+    <string name="no_map_app_availble">지도 데이터를 처리할 앱이 없음</string>
     <string name="no_mutliple_accounts_allowed">하나의 계정만 허용</string>
     <string name="no_pdf_app_available">PDF를 실행할 앱이 없습니다.</string>
     <string name="no_send_app">선택한 파일을 전송할 앱이 없음</string>
     <string name="no_share_permission_selected">공유를 위해서 적어도 하나 이상의 권한 설정을 하세요.</string>
-    <string name="note_confirm">전송</string>
     <string name="note_could_not_sent">메모를 보낼 수 없습니다.</string>
     <string name="note_icon_hint">노트 아이콘</string>
     <string name="notification_action_failed">작업을 실행할 수 없음</string>
@@ -562,16 +568,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">새 버전의 이름을 바꾸기</string>
     <string name="pref_instant_name_collision_policy_title">파일이 이미 존재한다면 어떻게 처리할까요?</string>
     <string name="prefs_add_account">계정 추가</string>
-    <string name="prefs_calendar_contacts">달력 및 연락처 동기화</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid 및 Google Play를 사용할 수 없음</string>
     <string name="prefs_calendar_contacts_summary">현재 계정에 대해 DAVx5 (이전의 DAVdroid) (v1.3.0 +) 설정</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">달력 및 연락처 동기화 설정</string>
     <string name="prefs_category_about">정보</string>
     <string name="prefs_category_details">자세한 정보</string>
     <string name="prefs_category_dev">개발</string>
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
-    <string name="prefs_daily_backup_summary">달력 &amp; 의 연락처 매일 백업</string>
     <string name="prefs_daily_contact_backup_summary">연락처 일간 백업</string>
     <string name="prefs_davx5_setup_error">DAVx5를 설정하는 동안 발생한 예기치 못한 에러</string>
     <string name="prefs_e2e_active">종단간 암호화가 설정됩니다!</string>
@@ -584,7 +587,9 @@
     <string name="prefs_imprint">법적 고지</string>
     <string name="prefs_instant_behaviour_dialogTitle">원래 파일은</string>
     <string name="prefs_instant_behaviour_title">원래 파일은…</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">일자별 하위 폴더에 저장</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">하위 폴더 사용</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">하위 폴더 옵션</string>
     <string name="prefs_keys_exist">이 고객에게 종단간 암호화를 추가합니다.</string>
     <string name="prefs_license">라이선스</string>
     <string name="prefs_lock">앱 암호</string>
@@ -598,6 +603,8 @@
     <string name="prefs_recommend">친구에게 추천하기</string>
     <string name="prefs_remove_e2e">암호화를 일부 제거합니다.</string>
     <string name="prefs_setup_e2e">종단간 암호화를 설정합니다.</string>
+    <string name="prefs_show_ecosystem_apps">앱 스위치 도구 보이기</string>
+    <string name="prefs_show_ecosystem_apps_summary">탐색창 상단에 표시되는 Nextcloud 앱 제안</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
     <string name="prefs_sourcecode">소스 코드 보기</string>
     <string name="prefs_storage_path">데이터 저장 폴더</string>
@@ -628,12 +635,17 @@
     <string name="remove_e2e">당신은 이 고객에 대하여 종단간 암호화를 일부 제거할 수 있습니다.</string>
     <string name="remove_e2e_message">당신은 이 고객에 대하여 종단간 암호화를 일부 제거할 수 있습니다. 암호화된 파일들은 서버에 남아있을 것이지만, 더이상 이 컴퓨터에 동기화 되지 않을 것입니다.</string>
     <string name="remove_fail_msg">삭제할 수 없음</string>
+    <string name="remove_local_account">로컬 계정 삭제</string>
+    <string name="remove_local_account_details">이 기기에서 계정을 지우고 기기에 저장된 파일을 삭제</string>
     <string name="remove_notification_failed">알림을 지우는데 실패했습니다.</string>
     <string name="remove_push_notification">삭제</string>
     <string name="remove_success_msg">삭제함</string>
     <string name="rename_dialog_title">새 이름 입력</string>
     <string name="rename_local_fail_msg">로컬 파일의 이름을 변경할 수 없습니다. 다른 이름을 입력하십시오</string>
     <string name="rename_server_fail_msg">이름을 변경할 수 없음. 이름이 이미 사용중입니다.</string>
+    <string name="request_account_deletion">계정 삭제 요청</string>
+    <string name="request_account_deletion_button">삭제 요청</string>
+    <string name="request_account_deletion_details">서비스 제공자에게 계정 영구 삭제 요청</string>
     <string name="reshare_not_allowed">다시 공유할 수 없음</string>
     <string name="resharing_is_not_allowed">다시 공유할 수 없습니다</string>
     <string name="resized_image_not_possible_download">크기 조정된 사진을 사용할 수 없습니다. 원본 크기로 다운로드하시겠습니까?</string>
@@ -654,16 +666,15 @@
     <string name="screenshot_04_accounts_heading">모든 계정</string>
     <string name="screenshot_04_accounts_subline">한곳에서</string>
     <string name="screenshot_05_autoUpload_heading">자동 업로드</string>
-    <string name="screenshot_05_autoUpload_subline">사진 &amp; 동영상</string>
-    <string name="screenshot_06_davdroid_heading">달력 &amp; 연락처</string>
     <string name="screenshot_06_davdroid_subline">DAVx5와 동기화</string>
     <string name="search_error">검색 결과 조회 오류</string>
+    <string name="secure_share_not_set_up">이 사용자에 대해 보안 공유가 설정되지 않았습니다</string>
+    <string name="secure_share_search">보안 공유 ...</string>
     <string name="select_all">모두 선택</string>
     <string name="select_media_folder">미디어 폴더 설정</string>
     <string name="select_one_template">하나의 템플릿을 선택하세요.</string>
     <string name="select_template">템플릿 선택</string>
     <string name="send">보내기</string>
-    <string name="send_note">받는이에게 메모 보내기</string>
     <string name="send_share">공유 전달 </string>
     <string name="sendbutton_description">보내기 버튼 아이콘</string>
     <string name="set_as">다음으로 설정</string>
@@ -673,7 +684,6 @@
     <string name="set_status_message">상태 메시지 설정</string>
     <string name="setup_e2e">종단간 암호화를 설정하는 동안, 당신은 다른 장치들에서 당신의 파일들을 열어야 할 무작위의 12 단어 니모닉을 수신할 것입니다. 이것은 당신의 장치에만 저장 될 것이고, 이 스크린에서 다시 보여질 수 있습니다. 이를 안전한 위치에 적어두세요!</string>
     <string name="share">공유</string>
-    <string name="share_copy_link">공유 &amp;의 링크 복사</string>
     <string name="share_dialog_title">공유</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">%1$s 에 만료됨</string>
@@ -693,9 +703,10 @@
     <string name="share_link_with_label">공유 링크 (%1$s)</string>
     <string name="share_no_expiration_date_label">만료기한 설정</string>
     <string name="share_no_password_title">비밀번호 설정</string>
+    <string name="share_not_allowed_when_file_drop">업로드 전용 보안 공유는 재공유가 허용되지 않습니다</string>
     <string name="share_password_title">비밀번호로 보호</string>
     <string name="share_permission_can_edit">편집할 수 있음</string>
-    <string name="share_permission_file_drop">파일 떨구기</string>
+    <string name="share_permission_file_drop">업로드만 허용</string>
     <string name="share_permission_secure_file_drop">안전한 파일 공유</string>
     <string name="share_permission_view_only">읽기 전용</string>
     <string name="share_permissions">공유 권한</string>
@@ -721,12 +732,6 @@
     <string name="signup_with_provider">공급자로 가입</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s가 Nextcloud 계정%2$s에 액세스하도록 허용 하시겠습니까?</string>
     <string name="sort_by">정렬</string>
-    <string name="sort_by_modification_date_ascending">새 항목 먼저</string>
-    <string name="sort_by_modification_date_descending">오래된 항목 먼저</string>
-    <string name="sort_by_name_ascending">가나다순</string>
-    <string name="sort_by_name_descending">가나다 역순</string>
-    <string name="sort_by_size_ascending">작은 것 먼저</string>
-    <string name="sort_by_size_descending">큰 것 먼저</string>
     <string name="ssl_validator_btn_details_hide">숨기기</string>
     <string name="ssl_validator_btn_details_see">자세히</string>
     <string name="ssl_validator_header">서버를 검증할 수 없습니다</string>
@@ -764,28 +769,6 @@
     <string name="storage_permission_full_access">완전한 접근</string>
     <string name="storage_permission_media_read_only">읽기 전용 미디어 접근</string>
     <string name="storage_pictures">그림</string>
-    <string name="store_full_desc">당신이 관리할 수 있는 자체 운영되는 생산성 플랫폼.
-
-특징:
-당신의 Nextcloud 서버 테마에 맞는 쉽고 현대적인 인터페이스를 지니고 있음
-파일을 Nextcloud 서버에 올리고 다른 이들과 공유할 수 있음
-당신의 중요 파일과 폴더를 동기화 된 상태로 유지 할 수 있음
-당신의 폴더들 구석구석을 검색할 수 있음
-당신의 장치로 찍힌 사진과 동영상을 자동 업로드 할 수 있음
-Nextcloud의 알림으로 최신 상태로 유지할 수 있음
-다-계정 지원 가능함
-지문이나 PIN을 통한 안전한 잠금을 지원함
-DAVx5(DAVdroid) 와의 통합으로 캘린더와 주소록을 쉽게 동기화할 수 있음
-
-문제가 있다면 https://github.com/nextcloud/android/issues 여기서 토론을
-앱에 문제가 있다면 https://help.nextcloud.com/c/clients/android 여기서 토론을 부탁드립니다.
-
-Nextcloud가 처음이신가요?
-Nextcloud는 개인적인 파일 동기화, 공유 그리고 의사소통을 위한 서버입니다.
-Nextcloud는 자유 소프트웨어이고, 당신이 직접 운영하거나 돈을 내고 다른 서버의 계정를 빌릴 수 있습니다.
-그럼으로써, 당신은 당신의 사진, 캘린더와 주소록, 당신의 문서 등을 관리할 수 있습니다.
-
-Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="store_full_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼.\n이는 공식 개발 버전으로, 테스트되지 않은 새로운 기능을 매일 샘플로 제공하므로 불안정과 데이터 손실이 발생할 수 있습니다. 이 애플리케이션은 기꺼이 테스트하고 버그가 발생하면 보고하는 사용자를 대상으로 합니다. 생산적인 작업에는 사용하지 마십시오!\n\n공식 개발 버전 및 일반 버전은 모두 F-droid에서 사용할 수 있으며, 동시에 설치할 수 있습니다.</string>
     <string name="store_short_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼</string>
     <string name="store_short_dev_desc">컨트롤 가능한 자체 호스팅 생산성 플랫폼 (디바이스 미리 보기 버전)</string>
@@ -793,11 +776,12 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="stream_not_possible_headline">내부 스트리밍 불가능</string>
     <string name="stream_not_possible_message">대신 미디어를 다운로드하거나 외부 앱을 사용하십시오.</string>
     <string name="strict_mode">엄격 모드 : http 연결이 허용되지 않습니다!</string>
+    <string name="sub_folder_rule_day">연/월/일</string>
+    <string name="sub_folder_rule_month">연/월</string>
     <string name="sub_folder_rule_year">년</string>
     <string name="subject_shared_with_you">\"%1$s\"을(를) 여러분과 공유했습니다</string>
     <string name="subject_user_shared_with_you">%1$s 님이 \"%2$s\" 항목을 여러분과 공유했습니다</string>
     <string name="subtitle_photos_only">사진만</string>
-    <string name="subtitle_photos_videos">사진 &amp; 동영상</string>
     <string name="subtitle_videos_only">동영상만</string>
     <string name="suggest">제안</string>
     <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>
@@ -832,6 +816,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="thumbnail">섬네일</string>
     <string name="thumbnail_for_existing_file_description">이미 존재하는 파일의 썸네일</string>
     <string name="thumbnail_for_new_file_desc">새로운 파일의 썸네일</string>
+    <string name="timeout_richDocuments">불러오는 시간이 예상보다 길어지고 있습니다</string>
     <string name="today">오늘</string>
     <string name="trashbin_activity_title">삭제된 파일</string>
     <string name="trashbin_empty_headline">삭제된 파일 없음</string>
@@ -854,6 +839,8 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="update_link_file_no_exist">업데이트할 수 없습니다. 파일이 존재하는지 체크해주십시오.</string>
     <string name="update_link_forbidden_permissions">이 공유를 업데이트할</string>
     <string name="updating_share_failed">공유 갱신 실패</string>
+    <string name="upload_action_failed_clear">실패한 업로드 삭제</string>
+    <string name="upload_action_failed_retry">실패한 업로드 다시 시도</string>
     <string name="upload_cannot_create_file">로컬 파일을 만들 수 없음</string>
     <string name="upload_chooser_title">다음에서 업로드…</string>
     <string name="upload_content_from_other_apps">다른 앱에서 자료 업로드</string>
@@ -875,6 +862,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="upload_lock_failed">폴더 잠금 실패</string>
     <string name="upload_old_android">암호화는 안드로이드 5.0 이상 가능합니다</string>
     <string name="upload_query_move_foreign_files">공간이 부족해서 선택한 파일을 %1$s 폴더로 복사할 수 없습니다. 대신 이동하시겠습니까?</string>
+    <string name="upload_quota_exceeded">저장소 할당량을 전부 사용함</string>
     <string name="upload_scan_doc_upload">카메라로부터 문서 스캔</string>
     <string name="upload_sync_conflict">동기화 충돌, 수동으로 해결해주세요.</string>
     <string name="upload_unknown_error">알 수 없는 오류</string>
@@ -886,7 +874,10 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="uploader_error_message_source_file_not_found">업로드하려고 선택한 파일을 찾을 수 없습니다. 파일이 존재하는지 확인하십시오.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">이 파일은 업로드 할 수 없습니다.</string>
     <string name="uploader_error_title_no_file_to_upload">업로드할 파일이 없음</string>
+    <string name="uploader_file_not_found_message">파일을 찾을 수 없음. 이 파일의 존재 및 파일 충돌 여부를 다시 확인하십시오.</string>
+    <string name="uploader_file_not_found_on_server_message">파일을 서버에서 찾을 수 없습니다. 다른 사용자가 파일을 삭제했을 수도 있습니다</string>
     <string name="uploader_info_dirname">폴더 이름</string>
+    <string name="uploader_local_files_uploaded">실패한 파일 업로드 다시 시도</string>
     <string name="uploader_top_message">업로드 폴더 선택</string>
     <string name="uploader_upload_failed_content_single">%1$s을(를) 업로드할 수 없음</string>
     <string name="uploader_upload_failed_credentials_error">업로드 실패, 다시 로그인하십시오</string>
@@ -909,6 +900,7 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="uploads_view_group_current_uploads">현재</string>
     <string name="uploads_view_group_failed_uploads">다시 시작 실패/대기 중</string>
     <string name="uploads_view_group_finished_uploads">업로드됨</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">취소됨</string>
     <string name="uploads_view_later_waiting_to_upload">업로드 대기 중</string>
     <string name="uploads_view_title">업로드</string>
     <string name="uploads_view_upload_status_cancelled">취소됨</string>
@@ -943,13 +935,16 @@ Nextcloud를 여기서 확인하십시오: https://nextcloud.com</string>
     <string name="wait_a_moment">잠시 기다려 주십시오…</string>
     <string name="wait_checking_credentials">저장된 인증 정보 확인 중</string>
     <string name="wait_for_tmp_copy_from_private_storage">개인 저장소에서 파일 복사</string>
+    <string name="webview_version_check_alert_dialog_message">로그인을 위해 Android 시스템 WebView를 업데이트해 주세요</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">업데이트</string>
+    <string name="webview_version_check_alert_dialog_title">Android 시스템 WebView 업데이트</string>
     <string name="what_s_new_image">새로운 기능 사진</string>
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>
     <string name="whats_your_status">당신의 상태는?</string>
     <string name="widgets_not_available">위젯 기능은 %1$s 버전 25 이후부터 사용할 수 있습니다.</string>
     <string name="widgets_not_available_title">사용할 수 없음</string>
+    <string name="worker_download">파일 다운로드 중…</string>
     <string name="write_email">이메일 보내기</string>
     <string name="wrong_storage_path">데이터 저장 폴더가 존재하지 않습니다!</string>
     <string name="wrong_storage_path_desc">백업이 다른 장치에 복원된 것 같습니다. 초기값으로 돌아갑니다. 설정을 확인하고 데이터 저장 폴더를 조정하세요.</string>

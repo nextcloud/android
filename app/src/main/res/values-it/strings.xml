@@ -14,10 +14,8 @@
     <string name="action_send_share">Invia/Condividi</string>
     <string name="action_switch_grid_view">Vista Griglia</string>
     <string name="action_switch_list_view">Vista Elenco</string>
-    <string name="actionbar_calendar_contacts_restore">Ripristina contatti e calendario</string>
-    <string name="actionbar_copy">Copia</string>
     <string name="actionbar_mkdir">Nuova cartella</string>
-    <string name="actionbar_move">Sposta</string>
+    <string name="actionbar_move_or_copy">Sposta o copia</string>
     <string name="actionbar_open_with">Apri con</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Dettagli</string>
@@ -36,7 +34,7 @@
     <string name="add_to_cloud">Aggiungi a %1$s</string>
     <string name="advanced_settings">Impostazioni avanzate</string>
     <string name="allow_resharing">Consenti la ri-condivisione</string>
-    <string name="app_widget_description">Mostra un widget dalla dashboard</string>
+    <string name="app_widget_description">Mostra un widget dal cruscotto</string>
     <string name="appbar_search_in">Cerca in %s</string>
     <string name="associated_account_not_found">Account associato non trovato.</string>
     <string name="auth_access_failed">Accesso non riuscito: %1$s</string>
@@ -79,7 +77,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Assente</string>
     <string name="backup_settings">Impostazioni di backup</string>
-    <string name="backup_title">Backup contatti e calendario</string>
     <string name="battery_optimization_close">Chiudi</string>
     <string name="battery_optimization_disable">Disabilita</string>
     <string name="battery_optimization_message">Il tuo dispositivo potrebbe avere l\'ottimizzazione della batteria abilitata. Il caricamento automatico funziona correttamente solo se escludi questa applicazione dall\'ottimizzazione.</string>
@@ -92,7 +89,6 @@
     <string name="check_back_later_or_reload">Controlla più tardi o ricarica</string>
     <string name="checkbox">Casella di selezione</string>
     <string name="choose_local_folder">Scegli la cartella locale…</string>
-    <string name="choose_location">Scegli posizione</string>
     <string name="choose_remote_folder">Scegli la cartella remota…</string>
     <string name="choose_template_helper_text">Scegli un modello e inserisci un nome del file.</string>
     <string name="choose_which_file">Scegli quale file mantenere!</string>
@@ -122,7 +118,6 @@
     <string name="common_remove">Elimina</string>
     <string name="common_rename">Rinomina</string>
     <string name="common_save">Salva</string>
-    <string name="common_select">Seleziona</string>
     <string name="common_send">Invia</string>
     <string name="common_share">Condividi</string>
     <string name="common_skip">Salta</string>
@@ -159,6 +154,7 @@
     <string name="conflict_message_description">Se selezioni entrambe le versioni, il file locale ha un numero aggiunto al suo nome.</string>
     <string name="conflict_server_file">File su server</string>
     <string name="contact_backup_title">Backup contatti</string>
+    <string name="contact_no_permission">Autorizzazione Contatti richiesta</string>
     <string name="contactlist_item_icon">Icona utente della lista contatti</string>
     <string name="contactlist_no_permission">Nessun permesso specificato, nessun elemento importato.</string>
     <string name="contacts">Contatti</string>
@@ -174,7 +170,6 @@
     <string name="copy_file_not_found">Impossibile copiare. Assicurati che il file esista.</string>
     <string name="copy_link">Copia collegamento</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Copia/Spostamento in una cartella cifrata attualmente non supportati.</string>
-    <string name="copy_to">Copia in…</string>
     <string name="could_not_download_image">Impossibile scaricare l\'immagine completa</string>
     <string name="could_not_retrieve_shares">Impossibile recuperare le condivisioni</string>
     <string name="could_not_retrieve_url">Impossibile recuperare l\'URL</string>
@@ -192,7 +187,6 @@
     <string name="data_to_back_up">Dati di cui eseguire il backup</string>
     <string name="default_credentials_wrong">Credenziali non corrette</string>
     <string name="delete_account">Rimuovi account</string>
-    <string name="delete_account_warning">Rimuovere l\'account %s e tutti i file salvati localmente?\n\nIl processo non può essere annullato.</string>
     <string name="delete_entries">Elimina voci</string>
     <string name="delete_link">Elimina collegamento</string>
     <string name="deselect_all">Deseleziona tutto</string>
@@ -224,6 +218,7 @@
     <string name="downloader_download_failed_credentials_error">Scaricamento non riuscito, effettua nuovamente l\'accesso</string>
     <string name="downloader_download_failed_ticker">Scaricamento non riuscito</string>
     <string name="downloader_download_file_not_found">Il file non è più disponibile sul server</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Scaricamento di %2$s</string>
     <string name="downloader_download_in_progress_ticker">Scaricamento in corso…</string>
     <string name="downloader_download_succeeded_content">%1$s scaricato</string>
@@ -253,10 +248,10 @@
     <string name="e2e_offline">Impossibile senza connessione internet</string>
     <string name="ecosystem_apps_display_more">Altro</string>
     <string name="ecosystem_apps_display_notes">Note</string>
-    <string name="ecosystem_apps_display_talk">Parlare</string>
-    <string name="ecosystem_apps_more">Altre app di Nextcloud</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
+    <string name="ecosystem_apps_more">Altre applicazioni di Nextcloud</string>
+    <string name="ecosystem_apps_notes">Nextcloud Note</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Impossibile scegliere l\'indirizzo di posta.</string>
     <string name="encrypted">Imposta come cifrato</string>
     <string name="end_to_end_encryption_confirm_button">Configura la cifratura</string>
     <string name="end_to_end_encryption_decrypting">Decifratura in corso…</string>
@@ -291,9 +286,9 @@
     <string name="error_starting_direct_camera_upload">Errore  di avvio della fotocamera</string>
     <string name="error_starting_doc_scan">Errore all\'avvio della scansione del documento</string>
     <string name="etm_accounts">Account</string>
+    <string name="etm_background_job_created">Creato il</string>
     <string name="etm_background_job_name">Nome operazione</string>
     <string name="etm_background_job_progress">Avanzamento</string>
-    <string name="etm_background_job_started">Avviata</string>
     <string name="etm_background_job_state">Stato</string>
     <string name="etm_background_job_user">Utente</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -385,9 +380,6 @@
     <string name="filename_forbidden_charaters_from_server">Il nome del file contiene almeno un carattere non valido</string>
     <string name="filename_hint">Nome file</string>
     <string name="first_run_1_text">Mantieni i tuoi dati sicuri e sotto il tuo controllo</string>
-    <string name="first_run_2_text">Rendi sicuri la collaborazione e lo scambio di file</string>
-    <string name="first_run_3_text">Webmail, calendario e contatti di semplice utilizzo</string>
-    <string name="first_run_4_text">Condivisione dello schermo, riunioni in linea e conferenze web</string>
     <string name="folder_already_exists">La cartella esiste già</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">Qui non c\'è alcuna cartella</string>
@@ -401,7 +393,6 @@
     <string name="forbidden_permissions_delete">per eliminare questo file</string>
     <string name="forbidden_permissions_move">per spostare questo file</string>
     <string name="forbidden_permissions_rename">per rinominare questo file</string>
-    <string name="foreground_service_download">Scaricamento file in corso…</string>
     <string name="foreground_service_upload">Caricamento file in corso…</string>
     <string name="foreign_files_fail">Alcuni file non possono essere spostati</string>
     <string name="foreign_files_local_text">Locale: %1$s</string>
@@ -417,7 +408,7 @@
     <string name="host_not_available">Server non disponibile</string>
     <string name="host_your_own_server">Ospita il tuo server</string>
     <string name="icon_for_empty_list">Icona per lista vuota</string>
-    <string name="icon_of_dashboard_widget">Icona per widget della dashboard</string>
+    <string name="icon_of_dashboard_widget">Icona per widget del cruscotto</string>
     <string name="icon_of_widget_entry">Icona della voce del widget</string>
     <string name="image_editor_file_edited_suffix">modificato</string>
     <string name="image_editor_flip_horizontal">Ribalta orizzontalmente</string>
@@ -456,7 +447,7 @@
     <string name="lock_expiration_info">Scade: %1$s</string>
     <string name="lock_file">Blocca file</string>
     <string name="locked_by">Bloccato da %1$s</string>
-    <string name="locked_by_app">Bloccato dall\'app %1$s </string>
+    <string name="locked_by_app">Bloccato dall\'applicazione %1$s </string>
     <string name="log_send_mail_subject">Registri applicazione %1$s Android</string>
     <string name="log_send_no_mail_app">Non è stata trovata alcuna applicazione per inviare i log. Installa un client di posta elettronica.</string>
     <string name="logged_in_as">Connesso come %1$s</string>
@@ -496,7 +487,6 @@
     <string name="move_file_invalid_into_descendent">Impossibile spostare una cartella in una delle sue cartelle sottostanti</string>
     <string name="move_file_invalid_overwrite">Il file è già presente nella cartella di destinazione</string>
     <string name="move_file_not_found">Impossibile spostare il file. Controlla che esista.</string>
-    <string name="move_to">Sposta in…</string>
     <string name="network_error_connect_timeout_exception">Si è verificato un errore in attesa della risposta del server. Impossibile completare l\'operazione.</string>
     <string name="network_error_socket_exception">Si è verificato un errore durante la connessione al server</string>
     <string name="network_error_socket_timeout_exception">Si è verificato un errore in attesa della risposta del server. Impossibile completare l\'operazione.</string>
@@ -510,14 +500,13 @@
     <string name="no_actions">Nessuna azione per questo utente</string>
     <string name="no_browser_available">Nessun applicazione disponibile per gestire i collegamenti</string>
     <string name="no_calendar_exists">Nessun calendario esistente</string>
-    <string name="no_email_app_available">Nessuna app disponibile per gestire l\'indirizzo email</string>
+    <string name="no_email_app_available">Nessuna applicazione disponibile per gestire l\'indirizzo email</string>
     <string name="no_items">Nessun elemento</string>
     <string name="no_map_app_availble">Nessuna applicazione disponibile per gestire mappe</string>
     <string name="no_mutliple_accounts_allowed">Solo un account consentito</string>
     <string name="no_pdf_app_available">Nessuna applicazione disponibile per gestire i PDF</string>
-    <string name="no_send_app">Nessuna app disponibile per inviare i file selezionati</string>
+    <string name="no_send_app">Nessuna applicazione disponibile per inviare i file selezionati</string>
     <string name="no_share_permission_selected">Seleziona almeno un permesso da condividere.</string>
-    <string name="note_confirm">Invia</string>
     <string name="note_could_not_sent">Impossibile inviare la nota</string>
     <string name="note_icon_hint">Icona della nota</string>
     <string name="notification_action_failed">Esecuzione dell\'azione non riuscita.</string>
@@ -577,16 +566,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Rinomina la nuova versione</string>
     <string name="pref_instant_name_collision_policy_title">Cosa fare se il file esiste già?</string>
     <string name="prefs_add_account">Aggiungi account</string>
-    <string name="prefs_calendar_contacts">Sincronizza calendario e contatti</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid o Google Play non installato</string>
     <string name="prefs_calendar_contacts_summary">Configura DAVx5 (originariamente conosciuto come DAVdroid) (v1.3.0+) per l\'account corrente</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Sincronizzazione calendario e contatti configurata</string>
     <string name="prefs_category_about">Informazioni</string>
     <string name="prefs_category_details">Dettagli</string>
     <string name="prefs_category_dev">Sviluppo</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
-    <string name="prefs_daily_backup_summary">Backup quotidiano del tuo calendario e dei contatti</string>
     <string name="prefs_daily_contact_backup_summary">Backup giornaliero dei tuoi contatti</string>
     <string name="prefs_davx5_setup_error">Errore inaspettato nella configurazione di Davx5 (precedentemente DAVdroid)</string>
     <string name="prefs_e2e_active">La cifratura end-to-end è impostata!</string>
@@ -615,8 +601,8 @@
     <string name="prefs_recommend">Consiglia a un amico</string>
     <string name="prefs_remove_e2e">Rimuovi la cifratura localmente</string>
     <string name="prefs_setup_e2e">Configura la cifratura end-to-end</string>
-    <string name="prefs_show_ecosystem_apps">Mostra switcher di app</string>
-    <string name="prefs_show_ecosystem_apps_summary">Consigli dell\'app Nextcloud nell\'intestazione di navigazione</string>
+    <string name="prefs_show_ecosystem_apps">Mostra il selettore delle applicazioni</string>
+    <string name="prefs_show_ecosystem_apps_summary">Consigli delle applicazioni di Nextcloud nell\'intestazione di navigazione</string>
     <string name="prefs_show_hidden_files">Mostra i file nascosti</string>
     <string name="prefs_sourcecode">Ottieni codice sorgente</string>
     <string name="prefs_storage_path">Cartella di archiviazione dei dati</string>
@@ -647,12 +633,17 @@
     <string name="remove_e2e">Su questo client puoi rimuovere localmente la cifratura end-to-end</string>
     <string name="remove_e2e_message">Su questo client puoi rimuovere localmente la cifratura end-to-end. I file cifrati rimarranno sul server, ma non verranno più sincronizzati su questo computer.</string>
     <string name="remove_fail_msg">Eliminazione non riuscita</string>
+    <string name="remove_local_account">Rimuovi account locale</string>
+    <string name="remove_local_account_details">Rimuovi account dal dispositivo e elimina tutti i file locali</string>
     <string name="remove_notification_failed">Rimozione notifica non riuscita.</string>
     <string name="remove_push_notification">Rimuovi</string>
     <string name="remove_success_msg">Eliminato</string>
     <string name="rename_dialog_title">Digita un nuovo nome</string>
     <string name="rename_local_fail_msg">La copia locale non può essere rinominata, prova un nome diverso</string>
     <string name="rename_server_fail_msg">Rinomina non consentita, nome già utilizzato</string>
+    <string name="request_account_deletion">Richiesta di eliminazione account</string>
+    <string name="request_account_deletion_button">Richiedi eliminazione</string>
+    <string name="request_account_deletion_details">Richiedi l\'eliminazione permanente dell\'account al fornitore del servizio</string>
     <string name="reshare_not_allowed">La ri-condivisione non è consentita</string>
     <string name="resharing_is_not_allowed">La ri-condivisione non è consentita</string>
     <string name="resized_image_not_possible_download">Immagine ridimensionata non disponibile. Scaricare l\'immagine completa?</string>
@@ -673,8 +664,6 @@
     <string name="screenshot_04_accounts_heading">Tutti i tuoi account</string>
     <string name="screenshot_04_accounts_subline">in un posto</string>
     <string name="screenshot_05_autoUpload_heading">Caricamento automatico</string>
-    <string name="screenshot_05_autoUpload_subline">per e tue foto e i video</string>
-    <string name="screenshot_06_davdroid_heading">Calendario e contatti</string>
     <string name="screenshot_06_davdroid_subline">Sincronizza con DAVx5</string>
     <string name="search_error">Errore nel recuperare i risultati della ricerca</string>
     <string name="select_all">Seleziona tutto</string>
@@ -682,7 +671,6 @@
     <string name="select_one_template">Scegli un modello</string>
     <string name="select_template">Seleziona modello</string>
     <string name="send">Invia</string>
-    <string name="send_note">Invia nota a destinatario</string>
     <string name="send_share">Invia condivisione</string>
     <string name="sendbutton_description">Icona pulsante di invio</string>
     <string name="set_as">Imposta come</string>
@@ -690,9 +678,8 @@
     <string name="set_picture_as">Usa immagine come</string>
     <string name="set_status">Imposta stato</string>
     <string name="set_status_message">Imposta messaggio di stato</string>
-    <string name="setup_e2e">Configurando la cifratura end-to-end, riceverai un promemoria di 12 parole, che ti servirà per aprire i tuoi file su altri dispositivi. Questo verrà conservato solo su questo dispositivo, e può essere mostrato di nuovo in questa schermata. Prego annotalo in un posto sicuro!</string>
+    <string name="setup_e2e">Configurando la cifratura end-to-end, riceverai una frase di 12 parole mnemoniche casuali, che ti servirà per aprire i tuoi file su altri dispositivi. Questa sarà conservata solo su questo dispositivo, e può essere mostrata di nuovo in questa schermata. Annotala in un posto sicuro!</string>
     <string name="share">Condividi</string>
-    <string name="share_copy_link">Condividi &amp; Copia il collegamento</string>
     <string name="share_dialog_title">Condivisione</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Scade il %1$s</string>
@@ -740,12 +727,6 @@
     <string name="signup_with_provider">Registrati a un fornitore</string>
     <string name="single_sign_on_request_token" formatted="true">Vuoi consentire a %1$s di accedere al tuo account Nextcloud %2$s?</string>
     <string name="sort_by">Ordina per</string>
-    <string name="sort_by_modification_date_ascending">Prima i più recenti</string>
-    <string name="sort_by_modification_date_descending">Prima i più datati</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Prima i più piccoli</string>
-    <string name="sort_by_size_descending">Prima i più grandi</string>
     <string name="ssl_validator_btn_details_hide">Nascondi</string>
     <string name="ssl_validator_btn_details_see">Dettagli</string>
     <string name="ssl_validator_header">L\'identità del server non può essere verificata</string>
@@ -783,7 +764,6 @@
     <string name="storage_permission_full_access">Accesso completo</string>
     <string name="storage_permission_media_read_only">Multimediali in sola lettura</string>
     <string name="storage_pictures">Immagini</string>
-    <string name="store_full_desc">La piattaforma di produttività auto-gestita che ti lascia al comando.\n\n* Interfaccia semplice e moderna, allineata al tema del tuo server\n* Carica i file sul tuo server Nextcloud\n* Condividi i tuoi file con altri\n* Mantieni i tuoi file e le cartelle preferite sincronizzate\n* Ricerca attraverso tutte le cartelle sul tuo server\n* Caricamento automatico per le foto e i video acquisiti con il tuo dispositivo\n* Tieniti aggiornato con le notifiche\n* Supporto di più account\n* Proteggi l\'accesso ai tuoi dati con impronta digitale o PIN\n* Integrazione con DAVx5 (conosciuto originariamente come DAVdroid) per una facile configurazione della sincronizzazione di calendari e contatti\n\nSegnala tutti i problemi su https://github.com/nextcloud/android/issues e discuti questa applicazione su https://help.nextcloud.com/c/clients/android\n\nNuovo di Nextcloud? Nextcloud è un server privato di sincronizzazione e condivisione dei file e un server di comunicazione. È software libero e puoi ospitarlo a casa tua o pagare una società che lo faccia per conto tuo. In questo modo, avrai il controllo delle tue foto, del tuo calendario e dei tuoi contatti, dei tuoi documenti e di qualsiasi altra cosa.\n\nDai un\'occhiata a Nextcloud su https://nextcloud.com</string>
     <string name="store_full_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando.\nQuesta è la versione di sviluppo ufficiale e include funzionalità nuove, non testate che potrebbero provocare instabilità e perdite di dati. Questa applicazione è pensata per gli utenti che desiderano provare le nuove funzionalità e segnalare bug, se si verificano. Non utilizzarla in ambienti di produzione!\n\nSia la versione di sviluppo che quella normale sono disponibili su F-droid, e possono essere installate contemporaneamente.</string>
     <string name="store_short_desc">La piattaforma di produttività auto-gestita che ti lascia al comando</string>
     <string name="store_short_dev_desc">La piattaforma di produttività auto-gestita che ti lascia al comando (versione in anteprima di sviluppo)</string>
@@ -797,7 +777,6 @@
     <string name="subject_shared_with_you">\"%1$s\" è stato condiviso con te</string>
     <string name="subject_user_shared_with_you">%1$s ha condiviso \"%2$s\" con te</string>
     <string name="subtitle_photos_only">Solo foto</string>
-    <string name="subtitle_photos_videos">Foto &amp; video</string>
     <string name="subtitle_videos_only">Solo video</string>
     <string name="suggest">Suggerisci</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>
@@ -855,6 +834,8 @@
     <string name="update_link_file_no_exist">Impossibile aggiornare. Assicurati che il file esista.</string>
     <string name="update_link_forbidden_permissions">per aggiornare questa condivisione</string>
     <string name="updating_share_failed">Aggiornamento condivisione non riuscito</string>
+    <string name="upload_action_failed_clear">Cancella caricamenti non riusciti</string>
+    <string name="upload_action_failed_retry">Riprova caricamenti non riusciti</string>
     <string name="upload_cannot_create_file">Impossibile creare il file locale</string>
     <string name="upload_chooser_title">Carica da…</string>
     <string name="upload_content_from_other_apps">Carica contenuti da altre applicazioni</string>
@@ -876,6 +857,7 @@
     <string name="upload_lock_failed">Blocco della cartella non riuscito</string>
     <string name="upload_old_android">La cifratura è possibile solo con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">La mancanza di spazio impedisce di copiare i file selezionati nella cartella %1$s. Vuoi spostarli in quella cartella?</string>
+    <string name="upload_quota_exceeded">Quota di archiviazione superata</string>
     <string name="upload_scan_doc_upload">Scansiona il documento dalla fotocamera</string>
     <string name="upload_sync_conflict">Conflitto di sincronizzazione, risolvi manualmente</string>
     <string name="upload_unknown_error">Errore sconosciuto</string>
@@ -900,6 +882,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantieni il file nella cartella di origine</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina il file dalla cartella di origine</string>
     <string name="uploader_upload_forbidden_permissions">per caricare in questa cartella</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Caricamento di %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Caricamento in corso…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s caricato</string>
@@ -910,6 +893,7 @@
     <string name="uploads_view_group_current_uploads">Attuale</string>
     <string name="uploads_view_group_failed_uploads">Riavvio non riuscito/in corso</string>
     <string name="uploads_view_group_finished_uploads">Caricati</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Annullato</string>
     <string name="uploads_view_later_waiting_to_upload">In attesa di caricamento</string>
     <string name="uploads_view_title">Caricamenti</string>
     <string name="uploads_view_upload_status_cancelled">Annullati</string>
@@ -944,13 +928,16 @@
     <string name="wait_a_moment">Attendi…</string>
     <string name="wait_checking_credentials">Controllo delle credenziali memorizzate</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copia file dall\'archiviazione privata</string>
+    <string name="webview_version_check_alert_dialog_message">Aggiorna l\'applicazione System WebView di Android per accedere</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Aggiorna</string>
+    <string name="webview_version_check_alert_dialog_title">Aggiorna System WebView di Android</string>
     <string name="what_s_new_image">Immagine Cosa c\'è di nuovo</string>
     <string name="whats_new_skip">Salta</string>
     <string name="whats_new_title">Prima volta su %1$s</string>
     <string name="whats_your_status">Qual è il tuo stato?</string>
     <string name="widgets_not_available">I widget sono disponibili solo su %1$s 25 o dopo </string>
     <string name="widgets_not_available_title">Non disponibile</string>
+    <string name="worker_download">Scaricamento file in corso…</string>
     <string name="write_email">Invia email</string>
     <string name="wrong_storage_path">La cartella di archiviazione dei dati non esiste!</string>
     <string name="wrong_storage_path_desc">Ciò potrebbe essere dovuto a un ripristino di backup su un altro dispositivo. Ripristino del valore predefinito. Controlla le impostazioni per modificare la cartella di archiviazione dei dati.</string>
@@ -990,19 +977,19 @@
         <item quantity="other">%d file esportati</item>
     </plurals>
     <plurals name="export_failed">
-        <item quantity="one">Esportazione fallita di %d file</item>
-        <item quantity="many">Esportazione fallita di %d files</item>
-        <item quantity="other">Esportazione fallita di %d files</item>
+        <item quantity="one">Esportazione non riuscita di %d file</item>
+        <item quantity="many">Esportazione non riuscita di %d file</item>
+        <item quantity="other">Esportazione non riuscita di %d file</item>
     </plurals>
     <plurals name="export_partially_failed">
         <item quantity="one">Esportato %dfile , il resto saltato a causa di un errore</item>
         <item quantity="many">Esportati %d files, il resto saltato a causa di un errore</item>
-        <item quantity="other">Esportati %d files, il resto saltato a causa di un errore</item>
+        <item quantity="other">Esportati %d file, il resto saltato a causa di un errore</item>
     </plurals>
     <plurals name="export_start">
-        <item quantity="one">%dfile verrà esportato. Vedere la notifica per i dettagli.</item>
-        <item quantity="many">%dfiles verranno esportati. Vedere la notifica per i dettagli.</item>
-        <item quantity="other">%d files verranno esportati. Vedere la notifica per i dettagli.</item>
+        <item quantity="one">%dfile sarà esportato. Vedi la notifica per i dettagli.</item>
+        <item quantity="many">%dfile saranno esportati. Vedi la notifica per i dettagli.</item>
+        <item quantity="other">%d file saranno esportati. Vedi la notifica per i dettagli.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d cartella</item>

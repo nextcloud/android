@@ -164,6 +164,33 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/live_photo_indicator"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/file_list_live"
+                    android:drawablePadding="@dimen/standard_eight_padding"
+                    android:gravity="center"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_secondary_text_size"
+                    app:drawableLeftCompat="@drawable/ic_live_photo"
+                    app:drawableTint="@color/list_item_lastmod_and_filesize_text" />
+
+                <TextView
+                    android:id="@+id/live_photo_indicator_separator"
+                    android:visibility="gone"
+                    tools:visibility="visible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingStart="@dimen/zero"
+                    android:paddingEnd="@dimen/standard_quarter_padding"
+                    android:text="@string/info_separator"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_secondary_text_size" />
+
+                <TextView
                     android:id="@+id/file_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -206,7 +233,7 @@
 
         <ImageView
             android:id="@+id/unreadComments"
-            android:layout_width="wrap_content"
+            android:layout_width="48dp"
             android:layout_height="match_parent"
             android:clickable="true"
             android:contentDescription="@string/unread_comments"
@@ -214,6 +241,7 @@
             android:paddingStart="@dimen/standard_half_padding"
             android:paddingEnd="@dimen/list_item_share_right_margin"
             android:src="@drawable/ic_comment"
+            tools:visibility="visible"
             android:visibility="gone" />
 
         <ImageView
@@ -227,11 +255,12 @@
             android:minHeight="@dimen/min_list_item_size"
             android:paddingStart="@dimen/list_item_share_right_margin"
             android:paddingEnd="@dimen/list_item_share_right_margin"
-            android:src="@drawable/ic_unshared" />
+            android:src="@drawable/ic_unshared"
+            tools:visibility="visible"/>
 
         <com.owncloud.android.ui.AvatarGroupLayout
             android:id="@+id/sharedAvatars"
-            android:layout_width="100dp"
+            android:layout_width="75dp"
             android:layout_height="@dimen/min_list_item_size"
             android:layout_gravity="top"
             android:contentDescription="@string/shared_avatar_desc"

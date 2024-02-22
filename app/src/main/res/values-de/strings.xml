@@ -14,10 +14,8 @@
     <string name="action_send_share">Senden/Teilen</string>
     <string name="action_switch_grid_view">Rasteransicht</string>
     <string name="action_switch_list_view">Listenansicht</string>
-    <string name="actionbar_calendar_contacts_restore">Kontakte &amp; Kalender wiederherstellen</string>
-    <string name="actionbar_copy">Kopieren</string>
+    <string name="actionbar_calendar_contacts_restore">Kontakte und Kalender wiederherstellen</string>
     <string name="actionbar_mkdir">Neuer Ordner</string>
-    <string name="actionbar_move">Verschieben</string>
     <string name="actionbar_move_or_copy">Verschieben oder kopieren</string>
     <string name="actionbar_open_with">Öffnen mit</string>
     <string name="actionbar_search">Suche</string>
@@ -77,10 +75,11 @@
     <string name="autoupload_custom_folder">Erstellen Sie einen eigenen Ordner</string>
     <string name="autoupload_disable_power_save_check">Energiesparmodus deaktivieren</string>
     <string name="autoupload_hide_folder">Ordner verstecken</string>
+    <string name="autoupload_worker_foreground_info">Automatisches Hochladen wird vorbereitet</string>
     <string name="avatar">Avatar</string>
     <string name="away">Abwesend</string>
     <string name="backup_settings">Sicherungseinstellungen</string>
-    <string name="backup_title">Kontakte &amp; Kalender-Sicherung</string>
+    <string name="backup_title">Kontakte- und Kalender-Sicherung</string>
     <string name="battery_optimization_close">Schliessen</string>
     <string name="battery_optimization_disable">Deaktivieren</string>
     <string name="battery_optimization_message">Ihr Gerät hat möglicherweise Batterieoptimierung aktiv. AutoUpload funktioniert nur dann richtig, wenn Sie diese App davon ausschließen.</string>
@@ -93,7 +92,6 @@
     <string name="check_back_later_or_reload">Schauen Sie später noch einmal vorbei oder laden Sie neu.</string>
     <string name="checkbox">Checkbox</string>
     <string name="choose_local_folder">Wähle einen lokalen Ordner…</string>
-    <string name="choose_location">Ort wählen</string>
     <string name="choose_remote_folder">Wähle einen entfernten Ordner …</string>
     <string name="choose_template_helper_text">Bitte eine Vorlage auswählen und einen Dateinamen eingeben.</string>
     <string name="choose_which_file">Wählen Sie, welche Datei behalten werden soll!</string>
@@ -123,7 +121,6 @@
     <string name="common_remove">Löschen</string>
     <string name="common_rename">Umbenennen</string>
     <string name="common_save">Speichern</string>
-    <string name="common_select">Auswählen</string>
     <string name="common_send">Senden</string>
     <string name="common_share">Teilen</string>
     <string name="common_skip">Überspringen</string>
@@ -176,7 +173,6 @@
     <string name="copy_file_not_found">Kopieren nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="copy_link">Link kopieren</string>
     <string name="copy_move_to_encrypted_folder_not_supported">In verschlüsselten Ordner kopieren/verschieben wird aktuell nicht unterstützt.</string>
-    <string name="copy_to">Kopieren nach…</string>
     <string name="could_not_download_image">Originalbild konnte nicht heruntergeladen werden</string>
     <string name="could_not_retrieve_shares">Konnte die Freigaben nicht abrufen</string>
     <string name="could_not_retrieve_url">Konnte URL nicht abrufen</string>
@@ -194,7 +190,6 @@
     <string name="data_to_back_up">Zu sichernde Daten</string>
     <string name="default_credentials_wrong">Zugangsdaten falsch</string>
     <string name="delete_account">Benutzerkonto löschen</string>
-    <string name="delete_account_warning">Konto %s und alle lokalen Dateien löschen?\n\nLöschung kann nicht rückgängig gemacht werden.</string>
     <string name="delete_entries">Einträgen entfernen</string>
     <string name="delete_link">Link löschen</string>
     <string name="deselect_all">Auswahl aufheben</string>
@@ -226,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
     <string name="downloader_download_file_not_found">Diese Datei steht auf dem Server nicht mehr zur Verfügung</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Herunterladen %2$s</string>
     <string name="downloader_download_in_progress_ticker">Lade herunter…</string>
     <string name="downloader_download_succeeded_content">%1$s heruntergeladen</string>
     <string name="downloader_download_succeeded_ticker">Heruntergeladen</string>
+    <string name="downloader_file_download_cancelled">Bestimmte Dateien wurden während des Downloads durch den Benutzer abgebrochen</string>
+    <string name="downloader_file_download_failed">Es ist ein Fehler beim Herunterladen der Dateien aufgetreten.</string>
     <string name="downloader_not_downloaded_yet">Noch nicht Heruntergeladen</string>
+    <string name="downloader_unexpected_error">Es ist ein unerwarteter Fehler beim Herunterladen der Dateien aufgetreten</string>
     <string name="drawer_close">Hauptmenü schließen</string>
     <string name="drawer_community">Gemeinschaft </string>
     <string name="drawer_header_background">Hintergrundbild des Kopfbereiches</string>
@@ -242,6 +241,7 @@
     <string name="drawer_item_home">Home</string>
     <string name="drawer_item_notifications">Benachrichtigungen</string>
     <string name="drawer_item_on_device">Auf dem Gerät</string>
+    <string name="drawer_item_personal_files">Persönliche Dateien</string>
     <string name="drawer_item_recently_modified">Kürzlich geändert</string>
     <string name="drawer_item_shared">Geteilt</string>
     <string name="drawer_item_trashbin">Gelöschte Dateien</string>
@@ -294,9 +294,10 @@
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="error_starting_doc_scan">Start des Dokumentenscans fehlgeschlagen</string>
     <string name="etm_accounts">Konten</string>
+    <string name="etm_background_execution_count">Zeit gelaufen in 48 Stunden</string>
+    <string name="etm_background_job_created">Erzeugt</string>
     <string name="etm_background_job_name">Aufgabenname</string>
     <string name="etm_background_job_progress">Fortschritt</string>
-    <string name="etm_background_job_started">Gestartet</string>
     <string name="etm_background_job_state">Status</string>
     <string name="etm_background_job_user">Benutzer</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -344,6 +345,7 @@
     <string name="file_list_empty_shared_headline">Noch nichts geteilt</string>
     <string name="file_list_empty_unified_search_no_results">Keine Ergebnisse für Ihre Suche gefunden</string>
     <string name="file_list_folder">Ordner</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Lade…</string>
     <string name="file_list_no_app_for_file_type">Es wurde keine App für diesen Dateityp gefunden.</string>
     <string name="file_list_seconds_ago">Gerade eben</string>
@@ -388,9 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">Der Dateiname enthält mindestens ein ungültiges Zeichen</string>
     <string name="filename_hint">Dateiname</string>
     <string name="first_run_1_text">Halten Sie Ihre Daten sicher und unter Ihrer Kontrolle</string>
-    <string name="first_run_2_text">Sichere Zusammenarbeit &amp; Dateiaustausch</string>
-    <string name="first_run_3_text">Benutzerfreundliche Webmailer, Kalender &amp; Kontakte</string>
-    <string name="first_run_4_text">Bildschirm teilen, Online-Meetings&amp; Web-Konferenzen</string>
+    <string name="first_run_2_text">Sichere Zusammenarbeit und Dateiaustausch</string>
+    <string name="first_run_3_text">Benutzerfreundliche Webmailer, Kalender und Kontakte</string>
+    <string name="first_run_4_text">Bildschirmfreigabe, Online-Meetings und Webkonferenzen</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
@@ -404,7 +406,6 @@
     <string name="forbidden_permissions_delete">diese Datei zu löschen</string>
     <string name="forbidden_permissions_move">um diese Datei zu verschieben</string>
     <string name="forbidden_permissions_rename">diese Datei umzubenennen</string>
-    <string name="foreground_service_download">Dateien werden heruntergeladen…</string>
     <string name="foreground_service_upload">Dateien werden hochgeladen…</string>
     <string name="foreign_files_fail">Einige Dateien konnten nicht verschoben werden</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
@@ -413,6 +414,7 @@
     <string name="foreign_files_success">Alle Dateien wurden verschoben</string>
     <string name="forward">Weiterleiten</string>
     <string name="fourHours">4 Stunden</string>
+    <string name="grid_file_features_live_photo_content_description">Dieses Symbol zeigt die Verfügbarkeit von Live-Fotos an</string>
     <string name="hidden_file_name_warning">Dateiname führt dazu, das die Datei versteckt sein wird.</string>
     <string name="hint_name">Name</string>
     <string name="hint_note">Notiz</string>
@@ -499,7 +501,6 @@
     <string name="move_file_invalid_into_descendent">Es ist nicht möglich, einen Ordner in einen seiner Unterordner zu verschieben</string>
     <string name="move_file_invalid_overwrite">Die Datei ist bereits im Zielordner vorhanden</string>
     <string name="move_file_not_found">Verschieben nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
-    <string name="move_to">Verschieben nach…</string>
     <string name="network_error_connect_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden.</string>
     <string name="network_error_socket_exception">Es ist ein Fehler beim Verbinden mit dem Server aufgetreten.</string>
     <string name="network_error_socket_timeout_exception">Es ist ein Fehler beim Warten auf den Server aufgetreten, die Operation konnte nicht abgeschlossen werden</string>
@@ -520,7 +521,6 @@
     <string name="no_pdf_app_available">Keine App verfügbar um PDFs anzuzeigen</string>
     <string name="no_send_app">Keine App zum Senden der ausgewählten Dateien verfügbar</string>
     <string name="no_share_permission_selected">Bitte mindestens eine Berechtigung zum Teilen auswählen.</string>
-    <string name="note_confirm">Senden</string>
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
     <string name="note_icon_hint">Notiz-Symbol</string>
     <string name="notification_action_failed">Ausführen der Aktion fehlgeschlagen.</string>
@@ -580,16 +580,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Neue Version umbenennen</string>
     <string name="pref_instant_name_collision_policy_title">Was tun, wenn die Datei bereits vorhanden ist?</string>
     <string name="prefs_add_account">Konto hinzufügen</string>
-    <string name="prefs_calendar_contacts">Kalender &amp; Kontakte synchronisieren</string>
+    <string name="prefs_calendar_contacts">Kalender und Kontakte synchronisieren</string>
     <string name="prefs_calendar_contacts_no_store_error">Weder F-Droid noch Google-Play sind installiert</string>
     <string name="prefs_calendar_contacts_summary">DAVx5 (zuvor bekannt als DAVdroid) (v1.3.0+) für aktuelles Konto einrichten</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender- &amp; Adress-Synchronisierung konfigurieren</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Synchronisierung von Kalender und Kontakten einrichten</string>
     <string name="prefs_category_about">Über</string>
     <string name="prefs_category_details">Details</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
-    <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender &amp; Kontakte</string>
+    <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender und Kontakte</string>
     <string name="prefs_daily_contact_backup_summary">Tägliche Sicherung Ihrer Kontakte</string>
     <string name="prefs_davx5_setup_error">Unerwarteter Fehler beim Einrichten von DAVx5 (früher bekannt als DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-zu-Ende-Verschlüsselung ist eingerichtet!</string>
@@ -602,6 +602,8 @@
     <string name="prefs_imprint">Impressum</string>
     <string name="prefs_instant_behaviour_dialogTitle">Originaldatei wird…</string>
     <string name="prefs_instant_behaviour_title">Originaldatei wird…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Versteckte Dateien und Ordner ausschließen</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Versteckte ausschließen</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Nach Datum in Unterordnern speichern</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Unterordner benutzen</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Unterordneroptionen</string>
@@ -650,12 +652,17 @@
     <string name="remove_e2e">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen</string>
     <string name="remove_e2e_message">Sie können die Ende-zu-Ende-Verschlüsselung lokal auf diesem Client entfernen. Die verschlüsselten Dateien bleiben auf dem Server, werden aber nicht mehr mit diesem Computer synchronisiert.</string>
     <string name="remove_fail_msg">Löschung fehlgeschlagen</string>
+    <string name="remove_local_account">Lokales Konto entfernen</string>
+    <string name="remove_local_account_details">Das Konto vom Gerät entfernen und alle lokalen Dateien löschen</string>
     <string name="remove_notification_failed">Entfernen der Benachrichtigungen fehlgeschlagen.</string>
     <string name="remove_push_notification">Entfernen</string>
     <string name="remove_success_msg">Gelöscht</string>
     <string name="rename_dialog_title">Geben Sie einen neuen Namen ein</string>
     <string name="rename_local_fail_msg">Die lokale Kopie konnte nicht umbenannt werden. Versuche es mit einem anderen Namen.</string>
     <string name="rename_server_fail_msg">Umbenennen nicht möglich. Der Name wird bereits verwendet.</string>
+    <string name="request_account_deletion">Kontolöschung anfordern</string>
+    <string name="request_account_deletion_button">Löschung anfordern</string>
+    <string name="request_account_deletion_details">Beim Diensteanbieter die dauerhafte Löschung des Kontos anfordern</string>
     <string name="reshare_not_allowed">Das Weiterverteilen ist nicht erlaubt </string>
     <string name="resharing_is_not_allowed">Resharing/Wiederteilen ist nicht erlaubt.</string>
     <string name="resized_image_not_possible_download">Kein verkleinertes Bild verfügbar. Vollbild herunterladen?</string>
@@ -676,16 +683,17 @@
     <string name="screenshot_04_accounts_heading">All ihre Konten</string>
     <string name="screenshot_04_accounts_subline">an einem Ort</string>
     <string name="screenshot_05_autoUpload_heading">Automatisches Hochladen</string>
-    <string name="screenshot_05_autoUpload_subline">ihrer Fotos &amp; Videos</string>
-    <string name="screenshot_06_davdroid_heading">Kalender &amp; Kontakte</string>
+    <string name="screenshot_05_autoUpload_subline">für Ihre Fotos und Videos</string>
+    <string name="screenshot_06_davdroid_heading">Kalender und Kontakte</string>
     <string name="screenshot_06_davdroid_subline">Synchronisiere mit DAVx5</string>
     <string name="search_error">Fehler beim Abrufen der Suchergebnisse</string>
+    <string name="secure_share_not_set_up">Sicheres teilen ist für diesen Benutzer nicht eingerichtet</string>
+    <string name="secure_share_search">Sicheres teilen …</string>
     <string name="select_all">Alle auswählen</string>
     <string name="select_media_folder">Medien-Ordner auswählen</string>
     <string name="select_one_template">Bitte eine Vorlage auswählen</string>
     <string name="select_template">Vorlage auswählen</string>
     <string name="send">Senden</string>
-    <string name="send_note">Notiz an Empfänger senden</string>
     <string name="send_share">Freigabe senden</string>
     <string name="sendbutton_description">Icon für den Senden-Button</string>
     <string name="set_as">Setze als</string>
@@ -695,7 +703,7 @@
     <string name="set_status_message">Statusnachricht setzen</string>
     <string name="setup_e2e">Während der Einrichtung der Ende-zu-Ende-Verschlüsselung erhalten Sie eine zufällige 12-Wörter-Gedächtnisstütze, die Sie benötigen, um Ihre Dateien auf anderen Geräten zu öffnen. Diese wird nur auf diesem Gerät gespeichert und kann in diesem Bildschirm erneut angezeigt werden. Bitte notieren Sie es an einem sicheren Ort!</string>
     <string name="share">Teilen</string>
-    <string name="share_copy_link">Teilen &amp; Link kopieren</string>
+    <string name="share_copy_link">Teilen und Link kopieren</string>
     <string name="share_dialog_title">Teilen</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Läuft am %1$s ab</string>
@@ -715,6 +723,7 @@
     <string name="share_link_with_label">Teile Link (%1$s)</string>
     <string name="share_no_expiration_date_label">Ablaufdatum setzen</string>
     <string name="share_no_password_title">Passwort setzen</string>
+    <string name="share_not_allowed_when_file_drop">Erneutes teilen ist für die sichere Dateiablage nicht zugelassen</string>
     <string name="share_password_title">Passwortgeschützt</string>
     <string name="share_permission_can_edit">Kann bearbeiten</string>
     <string name="share_permission_file_drop">Dateiablage</string>
@@ -743,12 +752,6 @@
     <string name="signup_with_provider">Mit Provider anmelden</string>
     <string name="single_sign_on_request_token" formatted="true">Zulassen, dass %1$s auf Ihr Nextcloud Konto %2$s zugreifen darf?</string>
     <string name="sort_by">Sortiere nach</string>
-    <string name="sort_by_modification_date_ascending">Neue zuerst</string>
-    <string name="sort_by_modification_date_descending">Älteste zuerst</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Kleinste zuerst</string>
-    <string name="sort_by_size_descending">Größste zuerst</string>
     <string name="ssl_validator_btn_details_hide">Ausblenden</string>
     <string name="ssl_validator_btn_details_see">Details</string>
     <string name="ssl_validator_header">Die Identität des Servers konnte nicht verifiziert werden</string>
@@ -786,8 +789,7 @@
     <string name="storage_permission_full_access">Voller Zugriff</string>
     <string name="storage_permission_media_read_only">Medien schreibgeschützt</string>
     <string name="storage_pictures">Bilder</string>
-    <string name="store_full_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\n\nFunktionen:\n* Einfache, moderne Oberfläche. Angepasst an das Design Ihres Servers\n*
-.\n\nEigenschaften:\n* Einfache, moderne an Ihr Design angepasste Oberfläche\n* Laden Sie Ihre Dateien auf Ihren Nextcloud Server\n* Teilen Sie Ihre Dateien mit anderen\n* Halten Sie Ihre favorisierten Dateien und Ordner synchron\n* Suche über alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Fotos und Videos von Ihrem Gerät\n* Bleiben Sie auf dem Laufenden durch Benachrichtigungen\n* Mehrere Konten gleichzeitig\n* Geschützter Zugriff durch Fingerabdruck oder PIN\n* Integration mit DAVx5 (ehemals DAVdroid) für einfaches Konfigurieren der Kalender- &amp; Kontakte-Synchronisierung\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android\n\nWas ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch &amp; -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.\n\nSchauen Sie sich Nextcloud an unter https://nextcloud.com.</string>
+    <string name="store_full_desc">Die selbst gehostete Produktivitätsplattform, mit der Sie die Kontrolle behalten.\n\nFunktionen:\n* Einfache, moderne Benutzeroberfläche, passend zum Thema Ihres Servers\n* Laden Sie Dateien auf Ihren Nextcloud-Server hoch\n* Teilen Sie sie mit anderen\n * Halten Sie Ihre Lieblingsdateien und -ordner synchronisiert\n* Durchsuchen Sie alle Ordner auf Ihrem Server\n* Automatisches Hochladen von Fotos und Videos, die mit Ihrem Gerät aufgenommen wurden\n* Bleiben Sie mit Benachrichtigungen auf dem Laufenden\n* Unterstützung für mehrere Konten\n* Sicherer Zugriff auf Ihre Daten mit Fingerabdruck oder PIN\n* Integration mit DAVx5 (früher bekannt als DAVdroid) zur einfachen Einrichtung der Kalender- und Kontaktsynchronisierung\n\nBitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues und diskutieren Sie diese App unter https://help.nextcloud.com/c/clients/android\n\nNeu bei Nextcloud? Nextcloud ist ein privater Dateisynchronisierungs-, Freigabe- und Kommunikationsserver. Es handelt sich um kostenlose Software, die Sie selbst hosten oder ein Unternehmen damit bezahlen können, dies für Sie zu tun. Auf diese Weise haben Sie die Kontrolle über Ihre Fotos, Ihre Kalender- und Kontaktdaten, Ihre Dokumente und alles andere.\n\nSchauen Sie sich Nextcloud unter https://nextcloud.com an</string>
     <string name="store_full_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.\nDies ist die offizielle Entwicklungsversion und bietet neue, ungetestete Funkitionen. Dies kann zu Instabilitäten und Datenverlust führen. Die App ist für alle Benutzer, die Testen wollen und falls nötig Fehlerberichte erstellen. Nutzen Sie diese Version nicht für Ihre Produktivarbeit!\n\nSowohl die reguläre als auch die Entwicklerversion sind auf F-droid verfügbar und können parallel installiert werden.</string>
     <string name="store_short_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle</string>
     <string name="store_short_dev_desc">Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle (Vorab- Entwicklungsversion)</string>
@@ -801,7 +803,7 @@
     <string name="subject_shared_with_you">\"%1$s\" wurde mit Ihnen geteilt</string>
     <string name="subject_user_shared_with_you">%1$s hat \"%2$s\" mit Ihnen geteilt</string>
     <string name="subtitle_photos_only">Nur Fotos</string>
-    <string name="subtitle_photos_videos">Fotos &amp; Videos</string>
+    <string name="subtitle_photos_videos">Fotos und Videos</string>
     <string name="subtitle_videos_only">Nur Videos</string>
     <string name="suggest">Vorschlagen</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
@@ -859,6 +861,13 @@
     <string name="update_link_file_no_exist">Aktualisierung nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="update_link_forbidden_permissions">zum Aktualisieren dieser Freigabe</string>
     <string name="updating_share_failed">Aktualisierung der Freigabe fehlgeschlagen</string>
+    <string name="upload_action_cancelled_clear">Abgebrochene Uploads entfernen</string>
+    <string name="upload_action_cancelled_resume">Abgebrochene Uploads fortsetzen</string>
+    <string name="upload_action_failed_clear">Fehlgeschlagene Uploads entfernen</string>
+    <string name="upload_action_failed_retry">Fehlgeschlagene Uploads neu starten</string>
+    <string name="upload_action_file_not_exist_message">Einige Dateien existieren nicht, Fortsetzung für diese Dateien ist nicht möglich</string>
+    <string name="upload_action_global_upload_pause">Alle Uploads pausieren</string>
+    <string name="upload_action_global_upload_resume">Alle Uploads fortsetzen</string>
     <string name="upload_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
     <string name="upload_chooser_title">Dateien hochladen von…</string>
     <string name="upload_content_from_other_apps">Inhalt anderer Apps hochladen</string>
@@ -870,6 +879,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Schnipsel Textdatei (.txt)</string>
     <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
     <string name="upload_files">Dateien hochladen</string>
+    <string name="upload_global_pause_title">Alle Uploads wurden pausiert</string>
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
     <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
@@ -878,8 +888,10 @@
     <string name="upload_local_storage_full">Lokaler Speicher voll</string>
     <string name="upload_local_storage_not_copied">Datei konnte nicht in den lokalen Speicher kopiert werden</string>
     <string name="upload_lock_failed">Fehler beim Sperren des Ordners</string>
+    <string name="upload_manually_cancelled">Der Upload wurde manuell abgebrochen</string>
     <string name="upload_old_android">Verschlüsselung ist nur möglich mit &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Es steht nicht genügend Speicherplatz zur Verfügung, um die ausgewählten Dateien in das Verzeichnis %1$s zu kopieren. Sollen diese stattdessen verschoben werden?</string>
+    <string name="upload_quota_exceeded">Speicherkontingent überschritten</string>
     <string name="upload_scan_doc_upload">Dokument von der Kamera scannen</string>
     <string name="upload_sync_conflict">Synchronisierungskonflikt, bitte manuell beheben</string>
     <string name="upload_unknown_error">Unbekannter Fehler</string>
@@ -891,7 +903,10 @@
     <string name="uploader_error_message_source_file_not_found">Die zum Hochladen ausgewählte Datei kann nicht gefunden werden. Bitte prüfen Sie ob die Datei existiert.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Diese Datei kann nicht hochgeladen werden</string>
     <string name="uploader_error_title_no_file_to_upload">Keine Datei zum Hochladen</string>
+    <string name="uploader_file_not_found_message">Datei nicht gefunden. Sind Sie sicher, dass diese Datei existiert oder wurde ein früherer Konflikt nicht gelöst?</string>
+    <string name="uploader_file_not_found_on_server_message">Wir konnten die Datei auf dem Server nicht finden. Ein anderer Benutzer hat möglicherweise die Datei gelöscht.</string>
     <string name="uploader_info_dirname">Ordnername</string>
+    <string name="uploader_local_files_uploaded">Fehlgeschlagene lokale Dateien erneut hochladen</string>
     <string name="uploader_top_message">Hochladeordner auswählen</string>
     <string name="uploader_upload_failed_content_single">Konnte %1$s nicht hochladen</string>
     <string name="uploader_upload_failed_credentials_error">Hochladen fehlgeschlagen, bitte erneut anmelden</string>
@@ -904,6 +919,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Hochladen und im Quellordner behalten</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Hochladen und Datei im Quellordner löschen</string>
     <string name="uploader_upload_forbidden_permissions">diesen Ordner hochzuladen</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Hochladen %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Lade hoch…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s hochgeladen</string>
@@ -914,6 +930,7 @@
     <string name="uploads_view_group_current_uploads">Aktuell</string>
     <string name="uploads_view_group_failed_uploads">Fehlgeschlagene/Wartende neustarten</string>
     <string name="uploads_view_group_finished_uploads">Hochgeladen</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Abgebrochen</string>
     <string name="uploads_view_later_waiting_to_upload">Warte auf Hochladen</string>
     <string name="uploads_view_title">Uploads</string>
     <string name="uploads_view_upload_status_cancelled">Abgebrochen</string>
@@ -928,6 +945,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Serverversion wird abgerufen …</string>
     <string name="uploads_view_upload_status_service_interrupted">App beendet</string>
     <string name="uploads_view_upload_status_succeeded">Fertiggestellt</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Gleiche Datei auf dem Remote-Server gefunden, überspringe das Hochladen</string>
     <string name="uploads_view_upload_status_unknown_fail">Unbekannter Fehler</string>
     <string name="uploads_view_upload_status_virus_detected">Virus gefunden. Das Hochladen kann nicht abgeschlossen werden!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Warte auf Verlassen des Energiesparmodus</string>
@@ -957,6 +975,7 @@
     <string name="whats_your_status">Wie ist Ihr Status?</string>
     <string name="widgets_not_available">Widgets sind nur auf %1$s 25 oder neuer verfügbar</string>
     <string name="widgets_not_available_title">Nicht verfügbar</string>
+    <string name="worker_download">Dateien werden heruntergeladen…</string>
     <string name="write_email">E-Mail senden</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>

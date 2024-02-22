@@ -28,11 +28,13 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.nextcloud.appReview.AppReviewShownModel;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.account.UserAccountManagerImpl;
+import com.nextcloud.client.jobs.LogEntry;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -41,6 +43,8 @@ import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileSortOrder;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
@@ -49,6 +53,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
 import static com.owncloud.android.ui.fragment.OCFileListFragment.FOLDER_LAYOUT_LIST;
+import static java.util.Collections.emptyList;
 
 /**
  * Implementation of application-wide preferences using {@link SharedPreferences}.
@@ -102,11 +107,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__CALENDAR_AUTOMATIC_BACKUP = "calendar_automatic_backup";
     private static final String PREF__CALENDAR_LAST_BACKUP = "calendar_last_backup";
 
+    private static final String PREF__GLOBAL_PAUSE_STATE = "global_pause_state";
+
     private static final String PREF__PDF_ZOOM_TIP_SHOWN = "pdf_zoom_tip_shown";
     private static final String PREF__MEDIA_FOLDER_LAST_PATH = "media_folder_last_path";
 
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
     private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
+
+    private static final String LOG_ENTRY = "log_entry";
 
     private final Context context;
     private final SharedPreferences preferences;
@@ -500,6 +509,22 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
+    public void saveLogEntry(List<LogEntry> logEntryList) {
+        Gson gson = new Gson();
+        String json = gson.toJson(logEntryList);
+        preferences.edit().putString(LOG_ENTRY, json).apply();
+    }
+
+    @Override
+    public List<LogEntry> readLogEntry() {
+        String json = preferences.getString(LOG_ENTRY, null);
+        if (json == null) return emptyList();
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<LogEntry>>() {}.getType();
+        return gson.fromJson(json, listType);
+    }
+
+    @Override
     public void setLastSeenVersionCode(int versionCode) {
         preferences.edit().putInt(AUTO_PREF__LAST_SEEN_VERSION_CODE, versionCode).apply();
     }
@@ -716,6 +741,16 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setCalendarLastBackup(long timestamp) {
         preferences.edit().putLong(PREF__CALENDAR_LAST_BACKUP, timestamp).apply();
+    }
+
+    @Override
+    public boolean isGlobalUploadPaused() {
+        return preferences.getBoolean(PREF__GLOBAL_PAUSE_STATE,false);
+    }
+
+    @Override
+    public void setGlobalUploadPaused(boolean globalPausedState) {
+        preferences.edit().putBoolean(PREF__GLOBAL_PAUSE_STATE, globalPausedState).apply();
     }
 
     @Override

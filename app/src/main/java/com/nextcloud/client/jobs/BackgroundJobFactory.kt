@@ -35,6 +35,8 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.documentscan.GeneratePDFUseCase
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.integrations.deck.DeckApi
+import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.AppPreferences
@@ -51,7 +53,7 @@ import javax.inject.Provider
  *
  * This class is doing too many things and should be split up into smaller factories.
  */
-@Suppress("LongParameterList") // satisfied by DI
+@Suppress("LongParameterList", "TooManyFunctions") // satisfied by DI
 class BackgroundJobFactory @Inject constructor(
     private val logger: Logger,
     private val preferences: AppPreferences,
@@ -62,7 +64,7 @@ class BackgroundJobFactory @Inject constructor(
     private val deviceInfo: DeviceInfo,
     private val accountManager: UserAccountManager,
     private val resources: Resources,
-    private val dataProvider: ArbitraryDataProvider,
+    private val arbitraryDataProvider: ArbitraryDataProvider,
     private val uploadsStorageManager: UploadsStorageManager,
     private val connectivityService: ConnectivityService,
     private val notificationManager: NotificationManager,
@@ -101,8 +103,11 @@ class BackgroundJobFactory @Inject constructor(
                 CalendarBackupWork::class -> createCalendarBackupWork(context, workerParameters)
                 CalendarImportWork::class -> createCalendarImportWork(context, workerParameters)
                 FilesExportWork::class -> createFilesExportWork(context, workerParameters)
-                FilesUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
+                FileUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
+                FileDownloadWorker::class -> createFilesDownloadWorker(context, workerParameters)
                 GeneratePdfFromImagesWork::class -> createPDFGenerateWork(context, workerParameters)
+                HealthStatusWork::class -> createHealthStatusWork(context, workerParameters)
+                TestJob::class -> createTestJob(context, workerParameters)
                 else -> null // caller falls back to default factory
             }
         }
@@ -139,7 +144,7 @@ class BackgroundJobFactory @Inject constructor(
             context,
             params,
             resources,
-            dataProvider,
+            arbitraryDataProvider,
             contentResolver,
             accountManager
         )
@@ -182,7 +187,8 @@ class BackgroundJobFactory @Inject constructor(
             uploadsStorageManager = uploadsStorageManager,
             connectivityService = connectivityService,
             powerManagementService = powerManagementService,
-            syncedFolderProvider = syncedFolderProvider
+            syncedFolderProvider = syncedFolderProvider,
+            backgroundJobManager = backgroundJobManager.get()
         )
     }
 
@@ -236,13 +242,25 @@ class BackgroundJobFactory @Inject constructor(
         )
     }
 
-    private fun createFilesUploadWorker(context: Context, params: WorkerParameters): FilesUploadWorker {
-        return FilesUploadWorker(
+    private fun createFilesUploadWorker(context: Context, params: WorkerParameters): FileUploadWorker {
+        return FileUploadWorker(
             uploadsStorageManager,
             connectivityService,
             powerManagementService,
             accountManager,
             viewThemeUtils.get(),
+            localBroadcastManager.get(),
+            backgroundJobManager.get(),
+            preferences,
+            context,
+            params
+        )
+    }
+
+    private fun createFilesDownloadWorker(context: Context, params: WorkerParameters): FileDownloadWorker {
+        return FileDownloadWorker(
+            viewThemeUtils.get(),
+            accountManager,
             localBroadcastManager.get(),
             context,
             params
@@ -258,6 +276,24 @@ class BackgroundJobFactory @Inject constructor(
             userAccountManager = accountManager,
             logger = logger,
             params = params
+        )
+    }
+
+    private fun createHealthStatusWork(context: Context, params: WorkerParameters): HealthStatusWork {
+        return HealthStatusWork(
+            context,
+            params,
+            accountManager,
+            arbitraryDataProvider,
+            backgroundJobManager.get()
+        )
+    }
+
+    private fun createTestJob(context: Context, params: WorkerParameters): TestJob {
+        return TestJob(
+            context,
+            params,
+            backgroundJobManager.get()
         )
     }
 }

@@ -14,10 +14,7 @@
     <string name="action_send_share">ສົ່ງ/ແບ່ງປັນ</string>
     <string name="action_switch_grid_view">ເບິ່ງຕາຕະລາງ</string>
     <string name="action_switch_list_view">ລາຍການທີ່ຈະເບິ່ງ</string>
-    <string name="actionbar_calendar_contacts_restore">ກູ້ຄືນຂໍ້ມູນຕິດຕໍ່ &amp; ປະຕິທິນ</string>
-    <string name="actionbar_copy">ສຳເນົາ</string>
     <string name="actionbar_mkdir">ໂຟນເດີໃຫມ່</string>
-    <string name="actionbar_move">ຍ້າຍ</string>
     <string name="actionbar_open_with">ເປີດດ້ວຍ</string>
     <string name="actionbar_search">ຄົ້ນຫາ</string>
     <string name="actionbar_see_details">ລາຍລະອຽດ</string>
@@ -79,7 +76,6 @@
     <string name="avatar">ຮຸບພາບອາວະຕານ</string>
     <string name="away">ອອກໄປ</string>
     <string name="backup_settings">ສໍາຮອງຂໍ້ມູນການຕັ້ງຄ່າ</string>
-    <string name="backup_title">ສຳຮອງຂຊ້ມູນລາຍຊື່ຕິດຕໍ່ &amp;ປະຕິທິນ</string>
     <string name="battery_optimization_close">ປີດ</string>
     <string name="battery_optimization_disable">ປີດ</string>
     <string name="battery_optimization_message">ອຸປະກອນຂອງທ່ານອາດຈະເປີດໃຊ້ງານປະສິດທິພາບ. ການອັບໂຫຼດອັດຕະໂນມັດ ເພື່ອເຮັດວຽກໄດ້ຢ່າງຖືກຕ້ອງ.</string>
@@ -118,7 +114,6 @@
     <string name="common_remove">ລຶບ</string>
     <string name="common_rename">ປ່ຽນຊື່</string>
     <string name="common_save">ບັນທຶກ</string>
-    <string name="common_select">ເລືອກ</string>
     <string name="common_send">ສົ່ງ</string>
     <string name="common_share">ແບ່ງປັນ</string>
     <string name="common_skip">ຂ້າມ</string>
@@ -166,7 +161,6 @@
     <string name="copy_file_not_found">ບໍ່ສາມາດສໍາເນົາໄດ້. ກະລຸນາກວດເບິ່ງວ່າຟາຍມີຢູ່ ຫຼື ບໍ່.</string>
     <string name="copy_link">ສຳເນົາລິງ</string>
     <string name="copy_move_to_encrypted_folder_not_supported">ສໍາເນົາ/ຍ້າຍເຂົ້າໃນໂຟນເດີທີ່ຖືກເຂົ້າລະຫັດໃນປະຈຸບັນບໍ່ໄດ້ຮັບການສະຫນັບສະຫນູນ</string>
-    <string name="copy_to">ສຳເນົາໄປຍັງ....</string>
     <string name="could_not_download_image">ບໍ່ສາມາດດາວໂຫລດຮູບພາບເຕັມ</string>
     <string name="could_not_retrieve_shares">ບໍ່ສາມາດເອົາການແບ່ງປັນຄືນໄດ້</string>
     <string name="could_not_retrieve_url">ບໍ່ສາມາດເກັບURL ໄດ້</string>
@@ -182,7 +176,6 @@
     <string name="credentials_disabled">ຂໍ້ມູນປະຈໍາຕົວຖືກປິດ</string>
     <string name="default_credentials_wrong">ການຢັ້ງຢືນຕົວຕົນທີ່ບໍ່ຖືກຕ້ອງ</string>
     <string name="delete_account">ຍ້າຍບັນຊີ</string>
-    <string name="delete_account_warning">ລຶບບັນຊີ %sແລະ ລຶບຟາຍໃນຊ່ອງເກັບທັງຫມົດ?\n\nDeletion ບໍ່ສາມາດລົບລ້າງໄດ້.</string>
     <string name="delete_entries">ລົບລາຍການ</string>
     <string name="deselect_all">ເລືອກຄຶນທັງໝົດ</string>
     <string name="dev_version_new_version_available">ມີເວີຊັນໃຫມ່</string>
@@ -255,7 +248,6 @@
     <string name="etm_accounts">ບັນຊີ</string>
     <string name="etm_background_job_name">ຊື່ວຽກ</string>
     <string name="etm_background_job_progress">ດຳເນີນການ</string>
-    <string name="etm_background_job_started">ເລີີມຕົ້ນ</string>
     <string name="etm_background_job_state">ກ່າວ</string>
     <string name="etm_background_job_user">ຜູ້ໃຊ້</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -336,8 +328,6 @@
     <string name="filename_forbidden_charaters_from_server">ຊື່ຟາຍມີລັກສະນະທີ່ບໍ່ຖືກຕ້ອງ</string>
     <string name="filename_hint">ຊື່ຟາຍ</string>
     <string name="first_run_1_text">ຮັກສາຂໍ້ມູນຂອງທ່ານໃຫ້ປອດໄພ ແລະ ຢູ່ພາຍໃຕ້ການຄວບຄຸມຂອງທ່ານ</string>
-    <string name="first_run_2_text">ການແລກປ່ຽນຟາຍ &amp;ການຮ່ວມມືທີ່ປອດໄພ</string>
-    <string name="first_run_4_text">ການແບ່ງປັນໜ້າຈໍ, ກອງປະຊຸມອອນລາຍ&amp;</string>
     <string name="folder_already_exists">ໂຟນເດີມີຢຸ່ແລ້ວ</string>
     <string name="folder_confirm_create">ສ້າງ</string>
     <string name="folder_list_empty_headline">ບໍ່ມີໂຟນເດີ</string>
@@ -350,7 +340,6 @@
     <string name="forbidden_permissions_delete">ລຶບຟາຍນີ້</string>
     <string name="forbidden_permissions_move">ຢ້າຍຟາຍນີ້</string>
     <string name="forbidden_permissions_rename">ປ່ຽນຊື່ຟາຍນີ້</string>
-    <string name="foreground_service_download">ກຳລັງອັບໂຫຼດຟາຍນີ້</string>
     <string name="foreground_service_upload">ອັບໂຫຼດໄຟລ໌...</string>
     <string name="foreign_files_fail">ບາງຟາຍບໍ່ສາມາດເຄື່ອນຍ້າຍໄດ້</string>
     <string name="foreign_files_local_text">ຊ່ອງເກັບ%1$s</string>
@@ -414,7 +403,6 @@
     <string name="move_file_invalid_into_descendent">ມັນເປັນໄປບໍ່ໄດ້ທີ່ຈະຍ້າຍໂຟນເດີເຂົ້າໄປໃນ ຫນຶ່ງໃນໂຟນເດີພື້ນຖານຂອງມັນເອງ</string>
     <string name="move_file_invalid_overwrite">ຟາຍແມ່ນມີຢູ່ແລ້ວໃນໂຟນເດີຈຸດຫມາຍປາຍທາງ</string>
     <string name="move_file_not_found">ບໍ່ສາມາດເຄື່ອນຍ້າຍຟາຍໄດ້. ກະລຸນາກວດເບິ່ງວ່າມີຢູ່ ຫຼື ບໍ່.</string>
-    <string name="move_to">ຍ້າຍໄປ...</string>
     <string name="network_error_connect_timeout_exception">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ລໍຖ້າເຊີເວີ. ບໍ່ສາມາດດໍາເນີນການໄດ້ຢ່າງຄົບຖ້ວນ.</string>
     <string name="network_error_socket_exception">ເກີດຂໍ້ຜິດພາດໃນລະຫວ່າງການເຊື່ອມຕໍ່ກັບເຊີເວີ</string>
     <string name="network_error_socket_timeout_exception">ມີຂໍ້ຜິດພາດເກີດຂຶ້ນໃນຂະນະທີ່ລໍຖ້າເຊີເວີ. ບໍ່ສາມາດດໍາເນີນການໄດ້ຢ່າງຄົບຖ້ວນ.</string>
@@ -428,7 +416,6 @@
     <string name="no_browser_available">ບໍ່ມີແອັບພລິເຄຊັນທີ່ສາມາດຈັດການກັບລິ້ງໄດ້</string>
     <string name="no_mutliple_accounts_allowed">ອະນຸຍາດໃຫ້ບັນຊີດຽວເທົ່ານັ້ນ</string>
     <string name="no_pdf_app_available">ບໍ່ມີແອັບ ທີ່ສາມາດຮັບມືກັບ PDF</string>
-    <string name="note_confirm">ສົ່ງ</string>
     <string name="note_could_not_sent">ບໍ່ສາມາດສົ່ງຂໍ້ຄວາມໄດ້</string>
     <string name="note_icon_hint">ໄອຄອນ</string>
     <string name="notification_action_failed">ບໍ່ສາມາດດໍາເນີນການໄດ້.</string>
@@ -484,10 +471,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">ປ່ຽນຊື່ສະບັບໃຫມ່</string>
     <string name="pref_instant_name_collision_policy_title">ຈະເຮັດແນວໃດຖ້າຟາຍມີຢູ່ແລ້ວ?</string>
     <string name="prefs_add_account">ເພີ່ມບັນຊີ</string>
-    <string name="prefs_calendar_contacts">Sync ການຕິດຕໍ່ &amp;ປະຕິທິນ</string>
     <string name="prefs_calendar_contacts_no_store_error">ທັງ F-Droid ແລະ Google Play ບໍ່ໄດ້ຖືກຕິດຕັ້ງ</string>
     <string name="prefs_calendar_contacts_summary">ຕັ້ງ DAVx5 (ເຄີຍເປັນທີ່ຮູ້ຈັກໃນຊື່ DAVdroid) (v1.3.0+) ສໍາລັບບັນຊີປະຈຸບັນ</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">  ຕັ້ງຄ່າການຕິດຕໍ່ sync ການຕິດຕໍ່&amp;ປະຕິທິປະຕິທິນ</string>
     <string name="prefs_category_about">ກ່ຽວກັບ</string>
     <string name="prefs_category_details">ລາຍລະອຽດ</string>
     <string name="prefs_category_dev">Dev</string>
@@ -562,14 +547,11 @@
     <string name="screenshot_04_accounts_heading">ບັນຊີທັງໝົດ</string>
     <string name="screenshot_04_accounts_subline">ໃນບ່ອນດຽວ</string>
     <string name="screenshot_05_autoUpload_heading">ອັບໂຫຼດອັດຕະໂນມັັດ</string>
-    <string name="screenshot_05_autoUpload_subline">ສຳລັບຮຸບຂອງທ່ານ&amp;ວີດີໂອ</string>
-    <string name="screenshot_06_davdroid_heading">ການຕິດຕໍ່ປະຕິທິນ&amp;</string>
     <string name="screenshot_06_davdroid_subline">Sync ກັບ DAVx5</string>
     <string name="select_all">ເລືອກທັງໝົດ</string>
     <string name="select_one_template">ເລືອກຕົວຢ່າງ1 ອັນ</string>
     <string name="select_template">ເລືອກຕົວຢ່າງ</string>
     <string name="send">ສົ່ງ</string>
-    <string name="send_note">ສົ່ງຂໍ້ຄວາມໄປຫາຜູ້ຮັບ</string>
     <string name="sendbutton_description">ສົ່ງປຸ່ມ icon</string>
     <string name="set_as">ຕັ້ງຄ່າເປັນ</string>
     <string name="set_picture_as">ໃຊ້ຮູບເປັນ</string>
@@ -615,12 +597,6 @@
     <string name="signup_with_provider">ລົງທະບຽນກັບຜູ້ໃຫ້ບໍລິການ</string>
     <string name="single_sign_on_request_token" formatted="true">ອະນຸຍາດ%1$sໃຫ້ເຂົ້າບັນຊີ Nextcloud ຂອງທ່ານ%2$s?</string>
     <string name="sort_by">ຈັດລຽງໂດຍ</string>
-    <string name="sort_by_modification_date_ascending">ໃໝ່ທີ່ສຸດກ່ອນ</string>
-    <string name="sort_by_modification_date_descending">ເກົ່າທີ່ສຸດກ່ອນ</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">ນ້ອຍທີ່ສຸດກ່ອນ</string>
-    <string name="sort_by_size_descending">ໃຫຍ່ທີ່ສຸດກ່ອນ</string>
     <string name="ssl_validator_btn_details_hide">ເຊື່ຶອງ</string>
     <string name="ssl_validator_btn_details_see">ລາຍລະອຽດ</string>
     <string name="ssl_validator_header">ການລະບຸຕົວຕົນຂອງເຊີເວີ ບໍ່ສາມາດຢັ້ງຢືນໄດ້</string>
@@ -656,7 +632,6 @@
     <string name="storage_movies">ລະຄອນໂທລະທັດ</string>
     <string name="storage_music">ເພງ</string>
     <string name="storage_pictures">ຮູບພາບ</string>
-    <string name="store_full_desc">platform ການເຮັດວຽກ ເປັນ host ດ້ວຍຕົນເອງ ແມ່ນຊ່ວຍໃຫ້ທ່ານຄວບຄຸມໄດ້ \n\nFeatures:\n* ງ່າຍ, ທັນສະໃໝ  ເໝາະສົມກັບເຊີເວີຂອງທ່ານ\n* ການອັບໂຫຼດຟາຍໄປຍັງເຊີເວີ  Nextcloud \n*  ການແບ່ງປັນກັບເຊີເວີອຶ່ນ \n* ຮັກສາ syn ຟາຍ ແລະ ໂຟນເດີຂອງທ່ານ \n*  ຄົ້ນຫາໂຟນເດີທັງໝົດຢຸ່ໃນເຊເວີຂອງທ່ານ\n* ອັບໂຫຼດຮຸບ ແລະ ວິດິໂອອັດຕະໂນມັດໃນອຸປະກອນຂອງທ່ານ \n* ອັບເດດດ້ວຍການແຈ້ງເຕືອນ\n*  ການສະຫັບສະໜຸນບັນຊີ\n*  ຄວາມປອດໄພໃນການເຂົ້າເຖິງຂໍ້ມູນຂອງທ່ານດ້ວຍສະເເກນລາຍນິ້ວມື ຫຼື ລະຫັດຜ່ານ\n*  ການລວມເຂົ້າກັນກັບ DAVx5  (ດັ່ງທີ່ຮຸ້ກັນ  DAVdroid) ງ່າຍໃນການຕິດຕັ້ງປະຕິທິນ &amp;ການຕິດຕໍ່\n\n ກະລຸນາລາຍງານບັນຫາທັງໝົດທີ່  https://github.com/nextcloud/android/issues ແລະ ຂຽນໃນແອັບນີ້ືິ້ https://help.nextcloud.com/c//clients/android\n\nNew to Nextcloud?  Nextcloud ແມ່ນການ sync ຟາຍສ່ວນຕົວ&amp; ເຊີເວີການແບ່ງປັນ  ແລະ ການສື່ສານ. ເປັນຊອບແວ, ແລະ ທ່ານສາມາດຈັດການຕົວທ່ານເອງ ຫຼື ຈ່າຍໃຫ້ບໍລິສັດເພື່ອຈັດການໃຫ້ທ່ານ. ວິທີນີ້ , ທ່ານວສາມາດຄວບຄຸມຮຸບພາບ, ປະຕິທິນ ແລະ ຂໍ້ມຸນຕິດຕໍ່, ເອກະສານ ແລະ ທຸກຢ່າງຂອງທ່ານ\n\nCheck out Nextcloud ທີ່ https://nextcloud.com</string>
     <string name="store_full_dev_desc">platform ການເຮັດວຽກ ເປັນ host ດ້ວຍຕົນເອງ ແມ່ນຊ່ວຍໃຫ້ທ່ານຄວບຄຸມໄດ້  .\n ເປັນເວີຊັ້ນການພັດທະນາຢ່າງເປັນທາງການ ຊຶ່ງມີຕົວຢ່າງການເຮັດວຽກທີ່ຍັງບໍ່ໄດ້ທົດລອງອາດເຮັດໃຫ້ເກີດຄວາມບໍ່ສະຖຽນ ແລະ ການສູນເສຍຂອງຂໍ້ມູນ  ແອັບນີ້ສຳລັບຜູ້ທີ່ ຍິນດີຈະທົດລອງ ແລະ ລາຍງານຂໍ້ບົກຜ່ອງ. ຫ້າມໃຊ້ສຳລັບວຽກຕົວຈິງຂອງທ່ານ!\n\n ໃຫ້ຜູ້ພັດທະນາ ແລະ ເວີຊັ້ນຢ່າງເປັນທາງການພ້ອມໃຊ້ງານໃນ F-droid ແລະ ສາມາດຕິດຕັ້ງໄດ້ໃນເວລາດຽວກັນ. </string>
     <string name="store_short_desc">ປະສິດພາບການເຮັດວຽກຂອງ ຟາດຟອມ ທີ່ເຮັດໜ້າທີ່ດ້ວຍໂຕມັນເອງ ແລະ ທ່ານຄຸ້ມຄອງໄດ້</string>
     <string name="store_short_dev_desc">ປະສິດພາບການເຮັດວຽກຂອງ ຟາດຟອມ ທີ່ເຮັດໜ້າທີ່ດ້ວຍໂຕມັນເອງ ແລະ ທ່ານຄຸ້ມຄອງໄດ້ (ເວີຊັ້ນຕົວຢ່າງ)</string>
@@ -716,6 +691,7 @@
     <string name="update_link_file_no_exist">ບໍ່ສາມາດປັບປຸງໄດ້. ກະລຸນາກວດເບິ່ງວ່າຟາຍມີຢູ່ຫຼືບໍ່.</string>
     <string name="update_link_forbidden_permissions">ເພື່ອປັບປຸງການແບ່ງປັນນີ້</string>
     <string name="updating_share_failed">ການປັບປຸງການແບ່ງປັນບໍ່ສໍາເລັດ</string>
+    <string name="upload_action_failed_clear">ການອັບໂຫຼດບໍ່ສຳເລັດ</string>
     <string name="upload_cannot_create_file">ບໍ່ສາມາດສ້າງຟາຍໄດ້</string>
     <string name="upload_chooser_title">ອັບໂຫຼດຈາກ...</string>
     <string name="upload_content_from_other_apps">ອັບໂຫລດເນື້ອຫາຈາກແອັບອື່ນໆ</string>
@@ -769,6 +745,7 @@
     <string name="uploads_view_group_current_uploads">ປັດຈຸບັນ</string>
     <string name="uploads_view_group_failed_uploads">ການເລີ່ມບໍ່ສຳເລັດ/ຄ້າງ</string>
     <string name="uploads_view_group_finished_uploads">ອັບໂຫຼດແລ້ວ</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">ຍົກເລີກ</string>
     <string name="uploads_view_later_waiting_to_upload">ລໍຖ້າເພື່ອອັບໂຫຼດ</string>
     <string name="uploads_view_title">ອັບໂຫຼດ</string>
     <string name="uploads_view_upload_status_cancelled">ຍົກເລີກ</string>
@@ -806,6 +783,7 @@
     <string name="whats_new_skip">ຂ້າມໄປ</string>
     <string name="whats_new_title">ໃຫມ່ໃນ%1$s</string>
     <string name="widgets_not_available_title">ບໍ່ມີ</string>
+    <string name="worker_download">ກຳລັງອັບໂຫຼດຟາຍນີ້</string>
     <string name="write_email">ສົ່ງອີເມວ</string>
     <string name="wrong_storage_path">ບໍ່ມີໂຟນເດີເກັບຂໍ້ມູນ!</string>
     <string name="wrong_storage_path_desc">ນີ້ອາດຈະເປັນຍ້ອນການກູ້ຄືນການສໍາຮອງໃນອຸປະກອນອື່ນ.ການກັບຄືນຄ່າເດີມບໍ່ສຳເລັດ. ກະລຸນາກວດເບິ່ງການຕັ້ງຄ່າເພື່ອປັບຟາຍການເກັບຂໍ້ມູນ.</string>

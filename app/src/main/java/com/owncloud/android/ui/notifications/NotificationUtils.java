@@ -25,6 +25,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.security.SecureRandom;
@@ -80,5 +81,12 @@ public final class NotificationUtils {
             notificationManager.cancel(notificationId);
             ((HandlerThread) Thread.currentThread()).getLooper().quit();
         }, delayInMillis);
+    }
+
+    public static String createUploadNotificationTag(OCFile file){
+        return createUploadNotificationTag(file.getRemotePath(), file.getStoragePath());
+    }
+    public static String createUploadNotificationTag(String remotePath, String localPath){
+        return remotePath + localPath;
     }
 }

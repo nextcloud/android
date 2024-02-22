@@ -24,6 +24,7 @@
     <dimen name="bottom_sheet_item_height">56dp</dimen>
     <dimen name="bottom_sheet_menu_item_divider_standard_margin">80dp</dimen>
     <dimen name="file_icon_size">40dp</dimen>
+    <dimen name="live_photo_indicator_margin">100dp</dimen>
     <dimen name="file_icon_size_grid">128dp</dimen>
     <dimen name="file_icon_rounded_corner_radius">8dp</dimen>
     <dimen name="file_icon_rounded_corner_radius_for_grid_mode">3dp</dimen>
@@ -39,6 +40,11 @@
     <dimen name="standard_double_margin">32dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
+    <dimen name="grid_layout_item_size">10dp</dimen>
+    <dimen name="grid_layout_file_features_margin_end">24dp</dimen>
+    <dimen name="grid_layout_margin_end">2dp</dimen>
+    <dimen name="grid_layout_margin_bottom">16dp</dimen>
+    <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>
     <dimen name="button_width">140dp</dimen>
     <dimen name="button_extra_width">180dp</dimen>
     <dimen name="standard_eighth_margin">2dp</dimen>
@@ -48,6 +54,9 @@
     <dimen name="two_line_primary_text_size">16sp</dimen>
     <dimen name="two_line_secondary_text_size">12sp</dimen>
     <dimen name="list_item_share_right_margin">12dp</dimen>
+    <dimen name="live_photo_indicator_vertical_padding">3dp</dimen>
+    <dimen name="live_photo_indicator_horizontal_padding">16dp</dimen>
+
     <dimen name="file_list_item_avatar_icon_radius">10dp</dimen>
     <dimen name="account_action_layout_height">72dp</dimen>
     <dimen name="zero">0dp</dimen>
@@ -99,6 +108,17 @@
     <dimen name="activity_row_layout_height">48dp</dimen>
     <dimen name="notification_icon_width">24dp</dimen>
     <dimen name="notification_icon_height">24dp</dimen>
+    <dimen name="grid_container_margin">4dp</dimen>
+    <dimen name="selected_grid_container_radius">4dp</dimen>
+    <dimen name="grid_checkbox_size">18dp</dimen>
+    <dimen name="grid_checkbox_margin">6dp</dimen>
+    <dimen name="grid_thumbnail_margin_bottom">18dp</dimen>
+    <dimen name="grid_bottom_view_margin_bottom">10dp</dimen>
+    <dimen name="grid_bottom_view_margin_end">6dp</dimen>
+    <dimen name="grid_bottom_view_height">20dp</dimen>
+    <dimen name="grid_container_width">130dp</dimen>
+    <dimen name="grid_container_height">120dp</dimen>
+    <dimen name="grid_filename_width">80dp</dimen>
     <dimen name="notification_icon_layout_right_end_margin">21dp</dimen>
     <dimen name="notification_list_item_grid_layout_left_start_margin">-8dp</dimen>
     <dimen name="uploader_list_separator_height">1dp</dimen>
@@ -106,15 +126,6 @@
     <dimen name="contactlist_item_icon_layout_height">40dp</dimen>
     <dimen name="empty_list_icon_layout_width">72dp</dimen>
     <dimen name="empty_list_icon_layout_height">72dp</dimen>
-    <dimen name="grid_image_shared_icon_layout_top_margin">24dp</dimen>
-    <dimen name="grid_image_local_file_indicator_layout_width">16dp</dimen>
-    <dimen name="grid_image_local_file_indicator_layout_height">16dp</dimen>
-    <dimen name="grid_image_icon_margin">14dp</dimen>
-    <dimen name="grid_image_icon_padding">14dp</dimen>
-    <dimen name="grid_item_shared_icon_layout_top_margin">24dp</dimen>
-    <dimen name="grid_item_local_file_indicator_layout_width">16dp</dimen>
-    <dimen name="grid_item_local_file_indicator_layout_height">16dp</dimen>
-    <dimen name="grid_sync_item_layout_next_text_size">22sp</dimen>
     <dimen name="grid_sync_item_layout_counter_text_size">22sp</dimen>
     <dimen name="list_item_favorite_action_layout_width">14dp</dimen>
     <dimen name="list_item_favorite_action_layout_height">14dp</dimen>
@@ -143,7 +154,7 @@
     <dimen name="default_login_width">400dp</dimen>
     <dimen name="dialogBorderRadius">24dp</dimen>
     <dimen name="dialog_padding">24dp</dimen>
-    <dimen name="splash_image_size">116dp</dimen>
+    <dimen name="splash_image_size">180dp</dimen>
     <dimen name="splash_text_size">20sp</dimen>
     <integer name="small_margin">5</integer>
     <integer name="zero">0</integer>

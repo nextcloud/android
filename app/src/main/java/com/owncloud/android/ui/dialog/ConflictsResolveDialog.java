@@ -26,13 +26,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ConflictResolveDialogBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -133,13 +133,13 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            existingFile = savedInstanceState.getParcelable(KEY_EXISTING_FILE);
-            newFile = (File) savedInstanceState.getSerializable(KEY_NEW_FILE);
-            user = savedInstanceState.getParcelable(KEY_USER);
+            existingFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_EXISTING_FILE, OCFile.class);
+            newFile = BundleExtensionsKt.getSerializableArgument(savedInstanceState, KEY_NEW_FILE, File.class);
+            user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_USER, User.class);
         } else if (getArguments() != null) {
-            existingFile = getArguments().getParcelable(KEY_EXISTING_FILE);
-            newFile = (File) getArguments().getSerializable(KEY_NEW_FILE);
-            user = getArguments().getParcelable(KEY_USER);
+            existingFile = BundleExtensionsKt.getParcelableArgument(getArguments(), KEY_EXISTING_FILE, OCFile.class);
+            newFile = BundleExtensionsKt.getSerializableArgument(getArguments(), KEY_NEW_FILE, File.class);
+            user = BundleExtensionsKt.getParcelableArgument(getArguments(), KEY_USER, User.class);
         } else {
             Toast.makeText(getContext(), "Failed to create conflict dialog", Toast.LENGTH_LONG).show();
         }

@@ -39,6 +39,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -109,7 +110,7 @@ public class RenameFileDialogFragment
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mTargetFile = requireArguments().getParcelable(ARG_TARGET_FILE);
+        mTargetFile = BundleExtensionsKt.getParcelableArgument(requireArguments(), ARG_TARGET_FILE, OCFile.class);
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -124,7 +125,7 @@ public class RenameFileDialogFragment
         int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
         binding.userInput.setSelection(0, selectionEnd);
 
-        OCFile parentFolder = requireArguments().getParcelable(ARG_PARENT_FOLDER);
+        OCFile parentFolder = BundleExtensionsKt.getParcelableArgument(getArguments(), ARG_PARENT_FOLDER, OCFile.class);
         List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);
         fileNames = Sets.newHashSetWithExpectedSize(folderContent.size());
 

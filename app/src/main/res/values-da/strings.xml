@@ -14,10 +14,7 @@
     <string name="action_send_share">Send/Del</string>
     <string name="action_switch_grid_view">Grid visning</string>
     <string name="action_switch_list_view">List visning</string>
-    <string name="actionbar_calendar_contacts_restore">Gendan kontakter &amp; kalender</string>
-    <string name="actionbar_copy">Kopiér</string>
     <string name="actionbar_mkdir">Ny mappe</string>
-    <string name="actionbar_move">Flyt</string>
     <string name="actionbar_move_or_copy">Flyt eller kopier</string>
     <string name="actionbar_open_with">Åbn med</string>
     <string name="actionbar_search">Søg</string>
@@ -80,7 +77,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Ikke tilstede</string>
     <string name="backup_settings">Backup indstilinger</string>
-    <string name="backup_title">Kontakter &amp; kalender backup</string>
     <string name="battery_optimization_close">Luk</string>
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_message">Din enhed har batterioptimisering aktiveret. Autoupload aktiveret. Autoupload virker kun korrekt hvis du ekskluderer denne app fra det.</string>
@@ -93,7 +89,6 @@
     <string name="check_back_later_or_reload">Kig forbi senere eller genindlæs.</string>
     <string name="checkbox">Afkrydsningsfelt</string>
     <string name="choose_local_folder">Vælg lokal mappe...</string>
-    <string name="choose_location">Vælg placering</string>
     <string name="choose_remote_folder">Vælg ekstern mappe...</string>
     <string name="choose_template_helper_text">Vælg en skabelon og indtast et fil navn.</string>
     <string name="choose_which_file">Vælg hvilken fil du ønsker at beholde!</string>
@@ -123,7 +118,6 @@
     <string name="common_remove">Slet</string>
     <string name="common_rename">Omdøb</string>
     <string name="common_save">Gem</string>
-    <string name="common_select">Vælg</string>
     <string name="common_send">Send</string>
     <string name="common_share">Del</string>
     <string name="common_skip">Spring over</string>
@@ -175,7 +169,6 @@
     <string name="copy_file_not_found">Ikke muligt at kopiere. Undersøg venligst om filen eksisterer.</string>
     <string name="copy_link">Kopiér link</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopier/flyt til krypteret mappe endnu ikke understøttet.</string>
-    <string name="copy_to">Kopier til...</string>
     <string name="could_not_download_image">Kunne ikke hente hele billedet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente delte drev</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
@@ -193,7 +186,6 @@
     <string name="data_to_back_up">Data at sikkerhedskopiere</string>
     <string name="default_credentials_wrong">Ukorrekte brugeroplysninger</string>
     <string name="delete_account">Fjern konto</string>
-    <string name="delete_account_warning">Slet konto %s og slet alle filer lokalt?\n\nDu kan ikke fortryde en sletning.</string>
     <string name="delete_entries">Slet poster</string>
     <string name="delete_link">Slet link</string>
     <string name="deselect_all">Fravælg alle</string>
@@ -294,7 +286,6 @@
     <string name="etm_accounts">Konti</string>
     <string name="etm_background_job_name">Job navn</string>
     <string name="etm_background_job_progress">Progress</string>
-    <string name="etm_background_job_started">Startet</string>
     <string name="etm_background_job_state">Tilstand</string>
     <string name="etm_background_job_user">Bruger</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -386,9 +377,6 @@
     <string name="filename_forbidden_charaters_from_server">Filnavnet indeholder mindst ét ugyldigt tegn</string>
     <string name="filename_hint">Filnavn</string>
     <string name="first_run_1_text">Bevar dine data i sikkerhed og under din kontrol</string>
-    <string name="first_run_2_text">Sikker kollaboration &amp; fil udveksling</string>
-    <string name="first_run_3_text">Brugervenlig webmail, kalender &amp; kontakter</string>
-    <string name="first_run_4_text">Skærmdeling, onlinemøder &amp; web konferencer</string>
     <string name="folder_already_exists">Mappe findes allerede</string>
     <string name="folder_confirm_create">Opret</string>
     <string name="folder_list_empty_headline">Ingen mappe her</string>
@@ -402,7 +390,6 @@
     <string name="forbidden_permissions_delete">til at slette denne fil</string>
     <string name="forbidden_permissions_move">til at flytte denne fil</string>
     <string name="forbidden_permissions_rename">til at omdøbe denne fil</string>
-    <string name="foreground_service_download">Henter filer...</string>
     <string name="foreground_service_upload">Sender filer...</string>
     <string name="foreign_files_fail">Nogle filer kunne ikke flyttes</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
@@ -497,7 +484,6 @@
     <string name="move_file_invalid_into_descendent">Det er ikke muligt at flytte en mappe til én af dens egne undermapper</string>
     <string name="move_file_invalid_overwrite">Filen findes allerede i destinationsmappen</string>
     <string name="move_file_not_found">Kunne ikke kopiere. Undersøg venligst om filen eksisterer.</string>
-    <string name="move_to">Flyt til...</string>
     <string name="network_error_connect_timeout_exception">Der opstod en fejl mens svar afventedes fra serveren. Kunne ikke fuldføre handlingen.</string>
     <string name="network_error_socket_exception">Der opstod en fejl under tilslutningen til serveren</string>
     <string name="network_error_socket_timeout_exception">Der opstod en fejl mens svar afventedes fra serveren. Kunne ikke fuldføre handlingen.</string>
@@ -518,7 +504,6 @@
     <string name="no_pdf_app_available">Ingen App tilgængelig til håndtering af PDF</string>
     <string name="no_send_app">Der er ingen tilgængelig app til at sende de valgte filer</string>
     <string name="no_share_permission_selected">Vælg mindst én tilladelse til at dele.</string>
-    <string name="note_confirm">Send</string>
     <string name="note_could_not_sent">Kunne ikke sende note</string>
     <string name="note_icon_hint">Note ikon</string>
     <string name="notification_action_failed">Handling fejlede</string>
@@ -578,16 +563,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Omdøb ny version</string>
     <string name="pref_instant_name_collision_policy_title">Hvad skal ske, hvis filen allerede findes?</string>
     <string name="prefs_add_account">Tilføj konto</string>
-    <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-droid eller Google Play er installeret</string>
     <string name="prefs_calendar_contacts_summary">Indstil DAVx5 (før kendt som DAVdroid) (v1.3.0+) for aktiv konto</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Synkroniser kalender &amp;\'s kontakter</string>
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
     <string name="prefs_category_dev">Udvikling</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
-    <string name="prefs_daily_backup_summary">Daglig backup af din kalender &amp; kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_davx5_setup_error">Uventet fejl under opsætning af DAVx5 (tidligere kendt som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end kryptering er blevet konfigureret!</string>
@@ -656,6 +638,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="rename_dialog_title">Indtast et nyt navn</string>
     <string name="rename_local_fail_msg">Lokal kopi kunne ikke omdøbes, prøv et andet navn</string>
     <string name="rename_server_fail_msg">Omdøbning ikke mulig, navnet eksisterer</string>
+    <string name="request_account_deletion">Anmodning om sletning af konto</string>
     <string name="reshare_not_allowed">Gendeling er ikke tilladt</string>
     <string name="resharing_is_not_allowed">Videredeling ikke tilladt</string>
     <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>
@@ -676,8 +659,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="screenshot_04_accounts_heading">Alle dine konti</string>
     <string name="screenshot_04_accounts_subline">på et sted</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk upload</string>
-    <string name="screenshot_05_autoUpload_subline">Til dine billeder &amp; videoer</string>
-    <string name="screenshot_06_davdroid_heading">Kalender &amp; kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkronisér med DAVx5</string>
     <string name="search_error">Fejl ved indhenting af søgeresultater</string>
     <string name="select_all">Vælg alle</string>
@@ -685,7 +666,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="select_one_template">Vælg venligst en skabelon</string>
     <string name="select_template">Vælg model</string>
     <string name="send">Send</string>
-    <string name="send_note">Send note til modtager</string>
     <string name="send_share">Send Deling</string>
     <string name="sendbutton_description">Send knap ikon</string>
     <string name="set_as">Sæt som</string>
@@ -695,7 +675,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="set_status_message">Sæt statusbesked</string>
     <string name="setup_e2e">Undervejs i opsætningen af end-to-end kryptering, så vil du modtage en tilfældig huskeregel på 12 ord, som du får brug for til at åbne dine filer på andre enheder. Denne vil kun blive gemt på denne enhed, og kan blive vist senere i denne visning. Skriv den venligst ned et sikkert sted!</string>
     <string name="share">Del</string>
-    <string name="share_copy_link">Del &amp;Kopier Link</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Udløber %1$s</string>
@@ -743,12 +722,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="signup_with_provider">Indskrivning hos udbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillad %1$s adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sortér efter</string>
-    <string name="sort_by_modification_date_ascending">Nyeste først</string>
-    <string name="sort_by_modification_date_descending">Ældste først</string>
-    <string name="sort_by_name_ascending">A-Å</string>
-    <string name="sort_by_name_descending">Å - A</string>
-    <string name="sort_by_size_ascending">Mindste først</string>
-    <string name="sort_by_size_descending">Største først</string>
     <string name="ssl_validator_btn_details_hide">Gem</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_header">Serverens identitet kunne ikke verificeres</string>
@@ -786,7 +759,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="storage_permission_full_access">Fuld adgang</string>
     <string name="storage_permission_media_read_only">Læsebegrænset til medier</string>
     <string name="storage_pictures">Billeder</string>
-    <string name="store_full_desc">Produktivitets platformen der giver dig fuld kontrol.\nFeatures:\n* Simpelt, moderne interface skræddersyet efter dit server tema.\n* Upload filer til din Nextcloud server\n* Del dem med andre\n* Få dine favorit filer og mapper synkroniseret\n* Søg på tværs af alle dine mapper på din server\n* Auto upload fotos og videoer taget med din device\n* Vær up to date med notifikationer\n* Supporterer flere konti\n* Sikker adgang til dine data med fingeraftryk eller PIN\n* Integration med DAVx5 (tidligere DAVdroid) for nem opsætning af kalender &amp;Synkronisering af kontaker\n\nVenligst rapporter alle fejl og mangler på https://github.com/nextcloud/android/issues og deltag i debat om denne app på https://help.nextcloud.com/c/clients/android\n\nFørste gang du prøver Nextcloud? Nextcloud er en privat fil synkroniserings- &amp;, dele- og kommunikationsserver. Det er fri software, og du kan være din egen vært eller betale et firma for at være vært for dig. På den måde har du kontrol over dine photos, din kalender og kontakt data, dine dokumenter og alt det andet.\n\n Tjek Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Produktivitets platformen der giver dig fuld kontrol.\nDette er den officielle udvikler version som indeholder et dagligt udvalg af nye utestede funktioner der kan medføre ustabilitet og tab af data. Denne er app er kun til brugere villige til at teste og indrapportere fejl og mangler. Brug den ikke i dit produktionsmiljø!\n\nBåde den officielle udvikler og almindelige version er tilgængelig på F-droid og kan begge være installeret på samme tid.</string>
     <string name="store_short_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen.</string>
     <string name="store_short_dev_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen. (tidlig udviklingsversion)</string>
@@ -800,7 +772,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
     <string name="subtitle_photos_only">Kun billeder</string>
-    <string name="subtitle_photos_videos">Fotos &amp; videoer</string>
     <string name="subtitle_videos_only">Kun videoer</string>
     <string name="suggest">Foreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
@@ -858,6 +829,8 @@ Enheds legitimationsoplysninger er sat op
     <string name="update_link_file_no_exist">Kan ikke opdatere. Undersøg venligst om filen eksisterer.</string>
     <string name="update_link_forbidden_permissions">for at opdatere denne deling</string>
     <string name="updating_share_failed">Opdater deling fejlet</string>
+    <string name="upload_action_failed_clear">Fjern fejlede uploads</string>
+    <string name="upload_action_failed_retry">Prøv fejlede uploads igen</string>
     <string name="upload_cannot_create_file">Kan ikke oprette filen lokalt</string>
     <string name="upload_chooser_title">Sender fra...</string>
     <string name="upload_content_from_other_apps">Send indhold fra andre apps</string>
@@ -913,6 +886,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="uploads_view_group_current_uploads">Nuværende</string>
     <string name="uploads_view_group_failed_uploads">Fejl/venter på genstart</string>
     <string name="uploads_view_group_finished_uploads">Sendt</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Annulléret</string>
     <string name="uploads_view_later_waiting_to_upload">Venter med upload</string>
     <string name="uploads_view_title">Uploadede filer</string>
     <string name="uploads_view_upload_status_cancelled">Annulléret</string>
@@ -956,6 +930,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="whats_your_status">Hvad er din status</string>
     <string name="widgets_not_available">Widgets er kun tilgængelige for %1$s 25 eller senere</string>
     <string name="widgets_not_available_title">Ikke tilgængelig</string>
+    <string name="worker_download">Henter filer...</string>
     <string name="write_email">Send email</string>
     <string name="wrong_storage_path">Datalagrings mappe eksisterer ikke</string>
     <string name="wrong_storage_path_desc">Dette kan være på grund af en gendannet sikkerhedskopi på en anden enhed. Ruller tilbage til standard. Undersøg indstillingerne for at tilpasse data lagringsmappen.</string>

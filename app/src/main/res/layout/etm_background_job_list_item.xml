@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
-            android:text="@string/etm_background_job_started" />
+            android:text="@string/etm_background_job_created" />
 
         <TextView
             android:id="@+id/etm_background_job_started"
@@ -135,5 +135,49 @@
             tools:text="50%" />
 
     </TableRow>
+
+    <TableRow
+        android:id="@+id/etm_background_execution_times_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="@string/etm_background_execution_count" />
+
+        <TextView
+            android:id="@+id/etm_background_execution_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="0" />
+
+    </TableRow>
+
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/etm_background_execution_logs_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fadeScrollbars="false"
+            android:scrollbars="horizontal"
+            android:scrollHorizontally="true">
+
+
+                <TextView
+                    android:id="@+id/etm_background_execution_logs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2" />
+
+
+        </TableRow>
+    </HorizontalScrollView>
+
 
 </TableLayout>

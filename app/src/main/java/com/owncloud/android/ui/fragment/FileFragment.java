@@ -21,13 +21,11 @@
 
 package com.owncloud.android.ui.fragment;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 
 import androidx.annotation.Nullable;
@@ -61,7 +59,9 @@ public class FileFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
-        setFile(bundle.getParcelable(EXTRA_FILE));
+        if (bundle != null) {
+            setFile(BundleExtensionsKt.getParcelableArgument(bundle, EXTRA_FILE, OCFile.class));
+        }
     }
 
     /**
@@ -105,7 +105,7 @@ public class FileFragment extends Fragment {
 
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(activity.toString() + " must implement " +
-                    ContainerActivity.class.getSimpleName(), e);
+                                                   ContainerActivity.class.getSimpleName(), e);
         }
     }
 
@@ -158,8 +158,8 @@ public class FileFragment extends Fragment {
          * This happens when a download or upload is started or ended for a file.
          *
          * This method is necessary by now to update the user interface of the double-pane layout
-         * in tablets because methods {@link FileDownloaderBinder#isDownloading(Account, OCFile)}
-         * and {@link FileUploaderBinder#isUploading(Account, OCFile)}
+         * in tablets because methods FileDownloaderBinder.isDownloading(Account, OCFile)
+         * and FilesUploadHelper.isUploading(Account, OCFile)
          * won't provide the needed response before the method where this is called finishes.
          *
          * TODO Remove this when the transfer state of a file is kept in the database

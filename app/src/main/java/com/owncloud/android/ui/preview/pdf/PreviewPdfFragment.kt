@@ -34,6 +34,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.utils.MenuUtils
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPdfFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -75,7 +76,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
 
         setupObservers()
 
-        file = requireArguments().getParcelable(ARG_FILE)!!
+        file = requireArguments().getParcelableArgument(ARG_FILE, OCFile::class.java)!!
         try {
             viewModel.process(file)
         } catch (e: SecurityException) {

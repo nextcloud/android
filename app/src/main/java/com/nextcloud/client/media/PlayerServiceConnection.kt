@@ -28,7 +28,6 @@ import android.os.IBinder
 import android.widget.MediaController
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
-import java.lang.IllegalStateException
 
 @Suppress("TooManyFunctions") // implementing large interface
 class PlayerServiceConnection(private val context: Context) : MediaController.MediaPlayerControl {

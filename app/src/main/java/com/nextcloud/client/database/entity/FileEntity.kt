@@ -78,8 +78,13 @@ data class FileEntity(
     val isDownloading: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_FAVORITE)
     val favorite: Int?,
+
+    @ColumnInfo(name = ProviderTableMeta.FILE_HIDDEN)
+    val hidden: Int?,
+
     @ColumnInfo(name = ProviderTableMeta.FILE_IS_ENCRYPTED)
     val isEncrypted: Int?,
+
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_IN_CONFLICT)
     val etagInConflict: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_SHARED_WITH_SHAREE)
@@ -102,6 +107,8 @@ data class FileEntity(
     val richWorkspace: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_SIZE)
     val metadataSize: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_LIVE_PHOTO)
+    val metadataLivePhoto: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCKED)
     val locked: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TYPE)
@@ -121,5 +128,7 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_TAGS)
     val tags: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_GPS)
-    val metadataGPS: String?
+    val metadataGPS: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_E2E_COUNTER)
+    val e2eCounter: Long?
 )

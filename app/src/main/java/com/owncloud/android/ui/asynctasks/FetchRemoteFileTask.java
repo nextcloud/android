@@ -43,6 +43,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
     private final String fileId;
     private final FileDataStorageManager storageManager;
     private final FileDisplayActivity fileDisplayActivity;
+    private OCFile ocFile;
 
     public FetchRemoteFileTask(User user,
                                String fileId,
@@ -84,7 +85,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
 
             RemoteFile remoteFile = (RemoteFile) result.getData().get(0);
 
-            OCFile ocFile = FileStorageUtils.fillOCFile(remoteFile);
+            ocFile = FileStorageUtils.fillOCFile(remoteFile);
             FileStorageUtils.searchForLocalFileInDefaultPath(ocFile, user.getAccountName());
             ocFile = storageManager.saveFileWithParent(ocFile, fileDisplayActivity);
 
@@ -118,6 +119,6 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
     protected void onPostExecute(String message) {
         super.onPostExecute(message);
 
-        fileDisplayActivity.showFile(message);
+        fileDisplayActivity.showFile(ocFile, message);
     }
 }

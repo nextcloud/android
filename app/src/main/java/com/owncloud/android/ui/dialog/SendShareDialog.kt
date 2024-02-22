@@ -3,7 +3,6 @@ package com.owncloud.android.ui.dialog
 import android.content.ComponentName
 import android.content.Intent
 import android.graphics.drawable.Drawable
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.utils.IntentUtil.createSendIntent
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SendShareFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -73,13 +73,7 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
         retainInstance = true
         val arguments = requireArguments()
 
-        file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arguments.getParcelable(KEY_OCFILE, OCFile::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            arguments.getParcelable(KEY_OCFILE)
-        }
-
+        file = arguments.getParcelableArgument(KEY_OCFILE, OCFile::class.java)
         hideNcSharingOptions = arguments.getBoolean(KEY_HIDE_NCSHARING_OPTIONS, false)
         sharingPublicPasswordEnforced = arguments.getBoolean(KEY_SHARING_PUBLIC_PASSWORD_ENFORCED, false)
         sharingPublicAskForPassword = arguments.getBoolean(KEY_SHARING_PUBLIC_ASK_FOR_PASSWORD)

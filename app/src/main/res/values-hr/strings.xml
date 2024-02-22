@@ -14,10 +14,7 @@
     <string name="action_send_share">Pošalji/podijeli</string>
     <string name="action_switch_grid_view">Prikaz rešetke</string>
     <string name="action_switch_list_view">Prikaz popisa</string>
-    <string name="actionbar_calendar_contacts_restore">Vrati kontakte i kalendar</string>
-    <string name="actionbar_copy">Kopiraj</string>
     <string name="actionbar_mkdir">Nova mapa</string>
-    <string name="actionbar_move">Premjesti</string>
     <string name="actionbar_open_with">Otvori s</string>
     <string name="actionbar_search">Traži</string>
     <string name="actionbar_see_details">Pojedinosti</string>
@@ -77,7 +74,6 @@
     <string name="avatar">Avatar</string>
     <string name="away">Odsutan</string>
     <string name="backup_settings">Postavke sigurnosne kopije</string>
-    <string name="backup_title">Sigurnosno kopiranje kontakata i kalendara</string>
     <string name="battery_optimization_close">Zatvori</string>
     <string name="battery_optimization_disable">Onemogući</string>
     <string name="battery_optimization_message">Možda je omogućena optimizacija rada baterije na uređaju. Mogućnost automatskog otpremanja AutoUpload djeluje samo ako izuzmete ovu aplikaciju iz optimizacije baterije.</string>
@@ -89,7 +85,6 @@
     <string name="changelog_dev_version">Zapis promjena razvojne inačice</string>
     <string name="checkbox">Potvrdni okvir</string>
     <string name="choose_local_folder">Odaberite lokalnu mapu...</string>
-    <string name="choose_location">Odaberi lokaciju</string>
     <string name="choose_remote_folder">Odaberite udaljenu mapu...</string>
     <string name="choose_template_helper_text">Odaberite predložak i unesite naziv datoteke.</string>
     <string name="choose_which_file">Odaberite datoteku koju želite zadržati!</string>
@@ -118,7 +113,6 @@
     <string name="common_remove">Izbriši</string>
     <string name="common_rename">Preimenuj</string>
     <string name="common_save">Spremi</string>
-    <string name="common_select">Odaberi</string>
     <string name="common_send">Pošalji</string>
     <string name="common_share">Dijeli</string>
     <string name="common_skip">Preskoči</string>
@@ -168,7 +162,6 @@
     <string name="copy_file_not_found">Nije moguće kopirati. Provjerite postoji li datoteka.</string>
     <string name="copy_link">Kopiraj poveznicu</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Trenutno nije podržano kopiranje/premještanje u šifriranu mapu.</string>
-    <string name="copy_to">Kopiraj u…</string>
     <string name="could_not_download_image">Nije moguće preuzeti cijelu sliku</string>
     <string name="could_not_retrieve_shares">Dohvaćanje dijeljenja nije uspjelo</string>
     <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
@@ -186,7 +179,6 @@
     <string name="data_to_back_up">Podaci za sigurnosno kopiranje</string>
     <string name="default_credentials_wrong">Netočne vjerodajnice</string>
     <string name="delete_account">Izbriši račun</string>
-    <string name="delete_account_warning">Želite li ukloniti račun %s i izbrisati sve lokalne datoteke?\n\nBrisanje se ne može poništiti.</string>
     <string name="delete_entries">Izbriši unose</string>
     <string name="delete_link">Izbriši poveznicu</string>
     <string name="deselect_all">Odznači sve</string>
@@ -271,7 +263,6 @@
     <string name="etm_accounts">Računi</string>
     <string name="etm_background_job_name">Naziv zadatka</string>
     <string name="etm_background_job_progress">Napredak</string>
-    <string name="etm_background_job_started">Pokrenuto</string>
     <string name="etm_background_job_state">Stanje</string>
     <string name="etm_background_job_user">@string/user_icon</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -363,8 +354,6 @@
     <string name="filename_forbidden_charaters_from_server">Naziv datoteke sadrži barem jedan nevažeći znak</string>
     <string name="filename_hint">Naziv datoteke</string>
     <string name="first_run_1_text">Čuvajte svoje podatke sigurnim i pod kontrolom</string>
-    <string name="first_run_2_text">Sigurna suradnja i razmjena datoteka</string>
-    <string name="first_run_4_text">Dijeljenje zaslona, sastanci na mreži i web konferencije</string>
     <string name="folder_already_exists">Mapa već postoji</string>
     <string name="folder_confirm_create">Stvori</string>
     <string name="folder_list_empty_headline">Ovdje nema mapa</string>
@@ -378,7 +367,6 @@
     <string name="forbidden_permissions_delete">za brisanje ove datoteke</string>
     <string name="forbidden_permissions_move">za premještanje ove datoteke</string>
     <string name="forbidden_permissions_rename">za preimenovanje ove datoteke</string>
-    <string name="foreground_service_download">Preuzimanje datoteka...</string>
     <string name="foreground_service_upload">Otpremanje datoteka...</string>
     <string name="foreign_files_fail">Neke datoteke nije moguće premjestiti</string>
     <string name="foreign_files_local_text">Lokalno: %1$s</string>
@@ -456,7 +444,6 @@
     <string name="move_file_invalid_into_descendent">Nije moguće premjestiti mapu u jednu od svojih osnovnih mapa</string>
     <string name="move_file_invalid_overwrite">Datoteka je već prisutna u odredišnoj mapi</string>
     <string name="move_file_not_found">Nije moguće premjestiti datoteku. Provjerite postoji li datoteka.</string>
-    <string name="move_to">Premjesti u...</string>
     <string name="network_error_connect_timeout_exception">Došlo je do pogreške tijekom čekanja poslužitelja. Nije moguće dovršiti radnju.</string>
     <string name="network_error_socket_exception">Došlo je do pogreške tijekom povezivanja s poslužiteljem</string>
     <string name="network_error_socket_timeout_exception">Došlo je do pogreške tijekom čekanja poslužitelja. Nije moguće dovršiti radnju.</string>
@@ -475,7 +462,6 @@
     <string name="no_pdf_app_available">Nema dostupnih aplikacija za upravljanje PDF datotekama</string>
     <string name="no_send_app">Aplikacija za slanje odabranih datoteka ne postoji na uređaju ili nije dostupna</string>
     <string name="no_share_permission_selected">Odaberite barem jedno dopuštenje za dijeljenje.</string>
-    <string name="note_confirm">Pošalji</string>
     <string name="note_could_not_sent">Nije moguće poslati bilješku</string>
     <string name="note_icon_hint">Ikona bilješke</string>
     <string name="notification_action_failed">Izvršavanje radnje nije uspjelo.</string>
@@ -532,16 +518,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Preimenuj novu inačicu</string>
     <string name="pref_instant_name_collision_policy_title">Što učiniti ako datoteka već postoji?</string>
     <string name="prefs_add_account">Dodaj račun</string>
-    <string name="prefs_calendar_contacts">Sinkroniziraj kalendar i kontakte</string>
     <string name="prefs_calendar_contacts_no_store_error">Nisu instalirani F-Droid ni Google Play</string>
     <string name="prefs_calendar_contacts_summary">Postavite DAVx5 (ranije poznat kao DAVdroid) (v1.3.0+) za predmetni račun</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Postavljena sinkronizacija kalendara i kontakata</string>
     <string name="prefs_category_about">Informacije</string>
     <string name="prefs_category_details">Pojedinosti</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Općenito</string>
     <string name="prefs_category_more">Više</string>
-    <string name="prefs_daily_backup_summary">Svakodnevno sigurnosno kopiranje vašeg kalendara i kontakata</string>
     <string name="prefs_daily_contact_backup_summary">Svakodnevno sigurnosno kopiranje vaših kontakata</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonička oznaka</string>
     <string name="prefs_e2e_no_device_credentials">Omogućite vjerodajnice uređaja kako biste prikazali mnemoničku oznaku.</string>
@@ -596,6 +579,7 @@
     <string name="rename_dialog_title">Unesite novi naziv</string>
     <string name="rename_local_fail_msg">Nije moguće preimenovati lokalnu kopiju, pokušajte s drugim nazivom</string>
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, naziv je već zauzet</string>
+    <string name="request_account_deletion">Zatraži brisanje računa</string>
     <string name="reshare_not_allowed">Ponovno dijeljenje nije dopušteno</string>
     <string name="resharing_is_not_allowed">Ponovno dijeljenje nije dopušteno</string>
     <string name="resized_image_not_possible_download">Nema dostupne slike promijenjene veličine. Preuzeti punu sliku?</string>
@@ -615,8 +599,6 @@
     <string name="screenshot_04_accounts_heading">Svi vaši računi</string>
     <string name="screenshot_04_accounts_subline">na jednom mjestu</string>
     <string name="screenshot_05_autoUpload_heading">Automatsko otpremanje</string>
-    <string name="screenshot_05_autoUpload_subline">fotografija i videozapisa</string>
-    <string name="screenshot_06_davdroid_heading">Kalendar i kontakti</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizacija s DAVx5</string>
     <string name="search_error">Pogreška pri dohvaćanju rezultata pretraživanja</string>
     <string name="select_all">Odaberi sve</string>
@@ -624,7 +606,6 @@
     <string name="select_one_template">Odaberite jedan predložak</string>
     <string name="select_template">Odaberi predložak</string>
     <string name="send">Pošalji</string>
-    <string name="send_note">Pošalji bilješku primatelju</string>
     <string name="send_share">Pošalji dijeljenje</string>
     <string name="sendbutton_description">Ikona gumba za slanje</string>
     <string name="set_as">Postavi kao</string>
@@ -633,7 +614,6 @@
     <string name="set_status">Postavi status</string>
     <string name="set_status_message">Postavi poruku statusa</string>
     <string name="share">Dijeli</string>
-    <string name="share_copy_link">Dijeli i kopiraj poveznicu</string>
     <string name="share_dialog_title">Dijeljenje</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Istječe %1$s</string>
@@ -680,12 +660,6 @@
     <string name="signup_with_provider">Prijavite se kod davatelja usluga</string>
     <string name="single_sign_on_request_token" formatted="true">Dopusti %1$s pristup Nextcloud računu %2$s?</string>
     <string name="sort_by">Razvrstaj prema</string>
-    <string name="sort_by_modification_date_ascending">Najnoviji prvi</string>
-    <string name="sort_by_modification_date_descending">Najstariji prvi</string>
-    <string name="sort_by_name_ascending">A – Z</string>
-    <string name="sort_by_name_descending">Z – A</string>
-    <string name="sort_by_size_ascending">Najmanji prvi</string>
-    <string name="sort_by_size_descending">Najveći prvi</string>
     <string name="ssl_validator_btn_details_hide">Sakrij</string>
     <string name="ssl_validator_btn_details_see">Pojedinosti</string>
     <string name="ssl_validator_header">Nije moguće provjeriti identitet poslužitelja</string>
@@ -723,7 +697,6 @@
     <string name="storage_permission_full_access">Puni pristup</string>
     <string name="storage_permission_media_read_only">Medijske datoteke samo za čitanje</string>
     <string name="storage_pictures">Slike</string>
-    <string name="store_full_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu.\n\nZnačajke:\n* Jednostavno, moderno sučelje, prilagođeno dizajnu vašeg poslužitelja\n* Otpremite datoteke na Nextcloudov poslužitelj\n* Dijelite datoteke s drugima\n* Sinkronizirajte omiljene datoteke i mape\n* Pretražujte sve mape na poslužitelju\n* Automatski prijenos fotografija i videozapisa snimljenih vašim uređajem\n* Primanje najnovijih informacija putem trenutnih obavijesti\n* Podrška za više računa\n* Siguran pristup datotekama putem otiska prsta ili šifre\n* Integracija s aplikacijom DAVx5 (ranije poznatom kao DAVdroid) omogućuje jednostavnu izradu kalendara i sinkronizaciju kontakata\n\nBilo kakve probleme prijavite na https://github.com/nextcloud/android/issues i raspravljajte o aplikaciji na https://help.nextcloud.com/c/clients/android\n\nNovi ste korisnik Nextclouda? Nextcloud je privatni poslužitelj za sinkronizaciju i dijeljenje te komunikaciju. Radi se o besplatnom softveru i možete ga samostalno posluživati ili možete platiti tvrtki da to učini za vas. Na taj način sami upravljate svojim fotografijama, kalendarom i kontaktnim podacima, dokumentima i svim ostalim.\n\nViše informacija o Nextcloudu možete pronaći na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu.\nTo je službena razvojna inačica koja se isporučuje s dnevnim uzorkom svake nove neispitane funkcionalnosti, što može uzrokovati nestabilnost i gubitak podataka. Aplikacija je namijenjena korisnicima koji žele testirati i prijaviti pogreške, ako se iste pojave. Nemojte je upotrebljavati za važne radne zadatke!\n\nSlužbena razvojna i uobičajena inačica dostupne su putem F-droida i mogu biti istovremeno instalirane.</string>
     <string name="store_short_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu</string>
     <string name="store_short_dev_desc">Samopostavljena platforma pospješuje produktivnost i omogućuje vam da zadržite kontrolu (razvojna inačica za pretpregled)</string>
@@ -732,10 +705,9 @@
     <string name="stream_not_possible_message">Umjesto toga preuzmite medijske datoteke ili se koristite vanjskom aplikacijom.</string>
     <string name="strict_mode">Ograničeni način rada: nije dopuštena HTTP veza!</string>
     <string name="sub_folder_rule_year">Godina</string>
-    <string name="subject_shared_with_you">\\"%1$s\\" je dijeljen s vama</string>
-    <string name="subject_user_shared_with_you">%1$s dijeli \\"%2$s\\" s vama</string>
+    <string name="subject_shared_with_you">\"%1$s\" je dijeljen s vama</string>
+    <string name="subject_user_shared_with_you">%1$s dijeli \"%2$s\" s vama</string>
     <string name="subtitle_photos_only">Samo fotografije</string>
-    <string name="subtitle_photos_videos">Fotografije &amp; video materijali</string>
     <string name="subtitle_videos_only">Samo video materijali</string>
     <string name="suggest">Predloži</string>
     <string name="sync_conflicts_in_favourites_ticker">Postoje nepodudaranja</string>
@@ -792,6 +764,8 @@
     <string name="update_link_file_no_exist">Nije moguće ažurirati. Provjerite postoji li datoteka.</string>
     <string name="update_link_forbidden_permissions">za ažuriranje ovog dijeljenja</string>
     <string name="updating_share_failed">Ažuriranje dijeljenja nije uspjelo</string>
+    <string name="upload_action_failed_clear">Izbriši neuspješne otpreme</string>
+    <string name="upload_action_failed_retry">Ponovno pokušaj neuspjele otpreme</string>
     <string name="upload_cannot_create_file">Nije moguće stvoriti lokalnu datoteku</string>
     <string name="upload_chooser_title">Otpremi iz...</string>
     <string name="upload_content_from_other_apps">Otpremi sadržaj iz drugih aplikacija</string>
@@ -847,6 +821,7 @@
     <string name="uploads_view_group_current_uploads">Trenutno</string>
     <string name="uploads_view_group_failed_uploads">Neuspješno/čekanje na ponovno pokretanje</string>
     <string name="uploads_view_group_finished_uploads">Otpremljeno</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Otkazano</string>
     <string name="uploads_view_later_waiting_to_upload">Čekanje otpreme</string>
     <string name="uploads_view_title">Otpreme</string>
     <string name="uploads_view_upload_status_cancelled">Otkazano</string>
@@ -886,6 +861,7 @@
     <string name="whats_new_title">Novo u %1$s</string>
     <string name="whats_your_status">Koji je vaš status?</string>
     <string name="widgets_not_available_title">Nije dostupno</string>
+    <string name="worker_download">Preuzimanje datoteka...</string>
     <string name="write_email">Pošalji poruku e-pošte</string>
     <string name="wrong_storage_path">Put pohrane ne postoji!</string>
     <string name="wrong_storage_path_desc">To može biti zbog vraćanja sigurnosne kopije na drugom uređaju. Provjerite postavke i prilagodite put pohrane.</string>

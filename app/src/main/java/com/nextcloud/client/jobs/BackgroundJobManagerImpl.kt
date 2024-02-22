@@ -36,8 +36,14 @@ import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.nextcloud.client.account.User
 import com.nextcloud.client.core.Clock
+import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
+import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.operations.DownloadType
 import java.util.Date
 import java.util.UUID
 import java.util.concurrent.TimeUnit
@@ -60,10 +66,12 @@ import kotlin.reflect.KClass
 @Suppress("TooManyFunctions") // we expect this implementation to have rich API
 internal class BackgroundJobManagerImpl(
     private val workManager: WorkManager,
-    private val clock: Clock
-) : BackgroundJobManager {
+    private val clock: Clock,
+    private val preferences: AppPreferences
+) : BackgroundJobManager, Injectable {
 
     companion object {
+
         const val TAG_ALL = "*" // This tag allows us to retrieve list of all jobs run by Nextcloud client
         const val JOB_CONTENT_OBSERVER = "content_observer"
         const val JOB_PERIODIC_CONTACTS_BACKUP = "periodic_contacts_backup"
@@ -79,9 +87,14 @@ internal class BackgroundJobManagerImpl(
         const val JOB_NOTIFICATION = "notification"
         const val JOB_ACCOUNT_REMOVAL = "account_removal"
         const val JOB_FILES_UPLOAD = "files_upload"
+        const val JOB_FOLDER_DOWNLOAD = "folder_download"
+        const val JOB_FILES_DOWNLOAD = "files_download"
         const val JOB_PDF_GENERATION = "pdf_generation"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
         const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
+
+        const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
+        const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
 
         const val JOB_TEST = "test_job"
 
@@ -89,12 +102,15 @@ internal class BackgroundJobManagerImpl(
 
         const val TAG_PREFIX_NAME = "name"
         const val TAG_PREFIX_USER = "user"
+        const val TAG_PREFIX_CLASS = "class"
         const val TAG_PREFIX_START_TIMESTAMP = "timestamp"
-        val PREFIXES = setOf(TAG_PREFIX_NAME, TAG_PREFIX_USER, TAG_PREFIX_START_TIMESTAMP)
+        val PREFIXES = setOf(TAG_PREFIX_NAME, TAG_PREFIX_USER, TAG_PREFIX_START_TIMESTAMP, TAG_PREFIX_CLASS)
         const val NOT_SET_VALUE = "not set"
         const val PERIODIC_BACKUP_INTERVAL_MINUTES = 24 * 60L
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
+
+        private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
 
         fun formatNameTag(name: String, user: User? = null): String {
             return if (user == null) {
@@ -105,6 +121,7 @@ internal class BackgroundJobManagerImpl(
         }
 
         fun formatUserTag(user: User): String = "$TAG_PREFIX_USER:${user.accountName}"
+        fun formatClassTag(jobClass: KClass<out ListenableWorker>): String = "$TAG_PREFIX_CLASS:${jobClass.simpleName}"
         fun formatTimeTag(startTimestamp: Long): String = "$TAG_PREFIX_START_TIMESTAMP:$startTimestamp"
 
         fun parseTag(tag: String): Pair<String, String>? {
@@ -118,11 +135,11 @@ internal class BackgroundJobManagerImpl(
         }
 
         fun parseTimestamp(timestamp: String): Date {
-            try {
+            return try {
                 val ms = timestamp.toLong()
-                return Date(ms)
+                Date(ms)
             } catch (ex: NumberFormatException) {
-                return Date(0)
+                Date(0)
             }
         }
 
@@ -141,12 +158,48 @@ internal class BackgroundJobManagerImpl(
                     name = metadata.get(TAG_PREFIX_NAME) ?: NOT_SET_VALUE,
                     user = metadata.get(TAG_PREFIX_USER) ?: NOT_SET_VALUE,
                     started = timestamp,
-                    progress = info.progress.getInt("progress", -1)
+                    progress = info.progress.getInt("progress", -1),
+                    workerClass = metadata.get(TAG_PREFIX_CLASS) ?: NOT_SET_VALUE
                 )
             } else {
                 null
             }
         }
+
+        fun deleteOldLogs(logEntries: MutableList<LogEntry>): MutableList<LogEntry> {
+            logEntries.removeIf {
+                return@removeIf (
+                    it.started != null &&
+                        Date(Date().time - KEEP_LOG_MILLIS).after(it.started)
+                    ) ||
+                    (
+                        it.finished != null &&
+                            Date(Date().time - KEEP_LOG_MILLIS).after(it.finished)
+                        )
+            }
+            return logEntries
+        }
+    }
+
+    override fun logStartOfWorker(workerName: String?) {
+        val logs = deleteOldLogs(preferences.readLogEntry().toMutableList())
+
+        if (workerName == null) {
+            logs.add(LogEntry(Date(), null, null, NOT_SET_VALUE))
+        } else {
+            logs.add(LogEntry(Date(), null, null, workerName))
+        }
+        preferences.saveLogEntry(logs)
+    }
+
+    override fun logEndOfWorker(workerName: String?, result: ListenableWorker.Result) {
+        val logs = deleteOldLogs(preferences.readLogEntry().toMutableList())
+        if (workerName == null) {
+            logs.add(LogEntry(null, Date(), result.toString(), NOT_SET_VALUE))
+        } else {
+            logs.add(LogEntry(null, Date(), result.toString(), workerName))
+        }
+        preferences.saveLogEntry(logs)
     }
 
     /**
@@ -161,6 +214,7 @@ internal class BackgroundJobManagerImpl(
             .addTag(TAG_ALL)
             .addTag(formatNameTag(jobName, user))
             .addTag(formatTimeTag(clock.currentTime))
+            .addTag(formatClassTag(jobClass))
         user?.let { builder.addTag(formatUserTag(it)) }
         return builder
     }
@@ -185,6 +239,7 @@ internal class BackgroundJobManagerImpl(
             .addTag(TAG_ALL)
             .addTag(formatNameTag(jobName, user))
             .addTag(formatTimeTag(clock.currentTime))
+            .addTag(formatClassTag(jobClass))
         user?.let { builder.addTag(formatUserTag(it)) }
         return builder
     }
@@ -446,19 +501,76 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueue(request)
     }
 
-    override fun startFilesUploadJob(user: User) {
-        val data = workDataOf(FilesUploadWorker.ACCOUNT to user.accountName)
+    private fun startFileUploadJobTag(user: User): String {
+        return JOB_FILES_UPLOAD + user.accountName
+    }
 
-        val request = oneTimeRequestBuilder(FilesUploadWorker::class, JOB_FILES_UPLOAD, user)
+    override fun isStartFileUploadJobScheduled(user: User): Boolean {
+        return workManager.isWorkScheduled(startFileUploadJobTag(user))
+    }
+
+    override fun startFilesUploadJob(user: User) {
+        val data = workDataOf(FileUploadWorker.ACCOUNT to user.accountName)
+
+        val tag = startFileUploadJobTag(user)
+
+        val request = oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
+            .addTag(tag)
             .setInputData(data)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_FILES_UPLOAD + user.accountName, ExistingWorkPolicy.KEEP, request)
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)
+    }
+
+    private fun startFileDownloadJobTag(user: User, fileId: Long): String {
+        return JOB_FOLDER_DOWNLOAD + user.accountName + fileId
+    }
+
+    override fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean {
+        return workManager.isWorkScheduled(startFileDownloadJobTag(user, fileId))
+    }
+
+    override fun startFileDownloadJob(
+        user: User,
+        file: OCFile,
+        behaviour: String,
+        downloadType: DownloadType?,
+        activityName: String,
+        packageName: String,
+        conflictUploadId: Long?
+    ) {
+        val tag = startFileDownloadJobTag(user, file.fileId)
+
+        val data = workDataOf(
+            FileDownloadWorker.WORKER_ID to file.fileId.toInt(),
+            FileDownloadWorker.ACCOUNT_NAME to user.accountName,
+            FileDownloadWorker.FILE_REMOTE_PATH to file.remotePath,
+            FileDownloadWorker.BEHAVIOUR to behaviour,
+            FileDownloadWorker.DOWNLOAD_TYPE to downloadType.toString(),
+            FileDownloadWorker.ACTIVITY_NAME to activityName,
+            FileDownloadWorker.PACKAGE_NAME to packageName,
+            FileDownloadWorker.CONFLICT_UPLOAD_ID to conflictUploadId
+        )
+
+        val request = oneTimeRequestBuilder(FileDownloadWorker::class, JOB_FILES_DOWNLOAD, user)
+            .addTag(tag)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.REPLACE, request)
     }
 
     override fun getFileUploads(user: User): LiveData<List<JobInfo>> {
         val workInfo = workManager.getWorkInfosByTagLiveData(formatNameTag(JOB_FILES_UPLOAD, user))
         return workInfo.map { it -> it.map { fromWorkInfo(it) ?: JobInfo() } }
+    }
+
+    override fun cancelFilesUploadJob(user: User) {
+        workManager.cancelJob(JOB_FILES_UPLOAD, user)
+    }
+
+    override fun cancelFilesDownloadJob(user: User, fileId: Long) {
+        workManager.cancelAllWorkByTag(startFileDownloadJobTag(user, fileId))
     }
 
     override fun startPdfGenerateAndUploadWork(
@@ -502,5 +614,26 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelAllJobs() {
         workManager.cancelAllWorkByTag(TAG_ALL)
+    }
+
+    override fun schedulePeriodicHealthStatus() {
+        val request = periodicRequestBuilder(
+            jobClass = HealthStatusWork::class,
+            jobName = JOB_PERIODIC_HEALTH_STATUS,
+            intervalMins = PERIODIC_BACKUP_INTERVAL_MINUTES
+        ).build()
+
+        workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_HEALTH_STATUS, ExistingPeriodicWorkPolicy.KEEP, request)
+    }
+
+    override fun startHealthStatus() {
+        val request = oneTimeRequestBuilder(HealthStatusWork::class, JOB_IMMEDIATE_HEALTH_STATUS)
+            .build()
+
+        workManager.enqueueUniqueWork(
+            JOB_IMMEDIATE_HEALTH_STATUS,
+            ExistingWorkPolicy.KEEP,
+            request
+        )
     }
 }

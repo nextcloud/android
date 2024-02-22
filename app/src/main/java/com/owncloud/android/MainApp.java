@@ -35,6 +35,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -129,7 +130,6 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  * Contains methods to build the "static" strings. These strings were before constants in different classes
  */
 public class MainApp extends MultiDexApplication implements HasAndroidInjector {
-
     public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_23;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_16;
 
@@ -141,6 +141,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     private static String storagePath;
 
     private static boolean mOnlyOnDevice;
+    private static boolean mOnlyPersonalFiles;
 
     @Inject
     protected AppPreferences preferences;
@@ -317,6 +318,13 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
 
+        try {
+            OwnCloudClientManagerFactory.setProxyHost(getResources().getString(R.string.proxy_host));
+            OwnCloudClientManagerFactory.setProxyPort(getResources().getInteger(R.integer.proxy_port));
+        } catch (Resources.NotFoundException e) {
+            // no proxy set
+        }
+
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
@@ -348,6 +356,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         backgroundJobManager.scheduleMediaFoldersDetectionJob();
         backgroundJobManager.startMediaFoldersDetectionJob();
+
+        backgroundJobManager.schedulePeriodicHealthStatus();
 
         registerGlobalPassCodeProtection();
     }
@@ -696,9 +706,16 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         mOnlyOnDevice = state;
     }
 
+    public static void showOnlyPersonalFiles(boolean state) {
+        mOnlyPersonalFiles = state;
+    }
 
     public static boolean isOnlyOnDevice() {
         return mOnlyOnDevice;
+    }
+
+    public static boolean isOnlyPersonFiles() {
+        return mOnlyPersonalFiles;
     }
 
     public static String getUserAgent() {
@@ -709,6 +726,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     // user agent
     private static String getUserAgent(@StringRes int agent) {
         String appString = getAppContext().getResources().getString(agent);
+        String brandedName = getAppContext().getString(R.string.name_for_branded_user_agent);
         String packageName = getAppContext().getPackageName();
         String version = "";
 
@@ -721,7 +739,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             Log_OC.e(TAG, "Trying to get packageName", e.getCause());
         }
 
-        return String.format(appString, version);
+        return String.format(appString, version, brandedName);
     }
 
     private static void updateToAutoUpload() {

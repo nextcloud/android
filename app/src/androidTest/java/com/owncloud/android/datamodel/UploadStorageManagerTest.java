@@ -27,6 +27,7 @@ import org.junit.runner.RunWith;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.UUID;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -174,15 +175,22 @@ public class UploadStorageManagerTest extends AbstractIT {
         }
     }
 
+    public String generateUniqueNumber() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
+    }
+
     private OCUpload createUpload(Account account) {
         OCUpload upload = new OCUpload(File.separator + "very long long long long long long long long long long long " +
                                            "long long long long long long long long long long long long long long " +
                                            "long long long long long long long long long long long long long long " +
-                                           "long long long long long long long LocalPath",
+                                           "long long long long long long long LocalPath " +
+                                           generateUniqueNumber(),
                                        OCFile.PATH_SEPARATOR + "very long long long long long long long long long " +
                                            "long long long long long long long long long long long long long long " +
                                            "long long long long long long long long long long long long long long " +
-                                           "long long long long long long long long long long long long RemotePath",
+                                           "long long long long long long long long long long long long RemotePath " +
+                                           generateUniqueNumber(),
                                        account.name);
 
         upload.setFileSize(new Random().nextInt(20000) * 10000);

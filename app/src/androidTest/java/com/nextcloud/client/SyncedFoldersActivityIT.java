@@ -74,7 +74,8 @@ public class SyncedFoldersActivityIT extends AbstractIT {
                                                                    "Name",
                                                                    MediaFolderType.IMAGE,
                                                                    false,
-                                                                   SubFolderRule.YEAR_MONTH);
+                                                                   SubFolderRule.YEAR_MONTH,
+                                                                   false);
         SyncedFolderPreferencesDialogFragment sut = SyncedFolderPreferencesDialogFragment.newInstance(item, 0);
 
         Intent intent = new Intent(targetContext, SyncedFoldersActivity.class);

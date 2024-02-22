@@ -107,5 +107,18 @@
             tools:text="in TestFolder" />
 
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/more"
+        android:visibility="gone"
+        android:background="@color/transparent"
+        app:srcCompat="@drawable/ic_dots_vertical"
+        app:tint="@color/standard_grey"
+        android:layout_gravity="center"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/overflow_menu"
+        tools:visibility="visible" />
+
 </LinearLayout>
 

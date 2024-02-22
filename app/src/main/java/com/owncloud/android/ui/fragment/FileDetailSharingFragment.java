@@ -46,6 +46,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -58,6 +59,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
+import com.owncloud.android.providers.UsersAndGroupsSearchConfig;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.adapter.ShareeListAdapter;
@@ -107,6 +109,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject UsersAndGroupsSearchConfig searchConfig;
 
     public static FileDetailSharingFragment newInstance(OCFile file, User user) {
         FileDetailSharingFragment fragment = new FileDetailSharingFragment();
@@ -122,13 +125,14 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            file = savedInstanceState.getParcelable(ARG_FILE);
-            user = savedInstanceState.getParcelable(ARG_USER);
+            file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_FILE, OCFile.class);
+            user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, ARG_USER, User.class);
         } else {
             Bundle arguments = getArguments();
+
             if (arguments != null) {
-                file = arguments.getParcelable(ARG_FILE);
-                user = arguments.getParcelable(ARG_USER);
+                file = BundleExtensionsKt.getParcelableArgument(arguments, ARG_FILE, OCFile.class);
+                user = BundleExtensionsKt.getParcelableArgument(arguments, ARG_USER, User.class);
             }
         }
 
@@ -202,26 +206,52 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        searchConfig.setSearchOnlyUsers(file.isEncrypted());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        searchConfig.reset();
+    }
+
     private void setupView() {
         setShareWithYou();
 
-        if (file.isEncrypted()) {
-            binding.searchContainer.setVisibility(View.GONE);
-        } else {
-            FileDetailSharingFragmentHelper.setupSearchView(
-                (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
-                binding.searchView,
-                fileActivity.getComponentName());
-            viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
+        OCFile parentFile = fileDataStorageManager.getFileById(file.getParentId());
 
-            if (file.canReshare()) {
-                binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
+        FileDetailSharingFragmentHelper.setupSearchView(
+            (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
+            binding.searchView,
+            fileActivity.getComponentName());
+        viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
+
+
+        if (file.canReshare()) {
+            if (file.isEncrypted() || (parentFile != null && parentFile.isEncrypted())) {
+                if (file.getE2eCounter() == -1) {
+                    // V1 cannot share
+                    binding.searchContainer.setVisibility(View.GONE);
+                } else {
+                    binding.searchView.setQueryHint(getResources().getString(R.string.secure_share_search));
+
+                    if (file.isSharedViaLink()) {
+                        binding.searchView.setQueryHint(getResources().getString(R.string.share_not_allowed_when_file_drop));
+                        binding.searchView.setInputType(InputType.TYPE_NULL);
+                        disableSearchView(binding.searchView);
+                    }
+                }
             } else {
-                binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
-                binding.searchView.setInputType(InputType.TYPE_NULL);
-                binding.pickContactEmailBtn.setVisibility(View.GONE);
-                disableSearchView(binding.searchView);
+                binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
             }
+        } else {
+            binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
+            binding.searchView.setInputType(InputType.TYPE_NULL);
+            binding.pickContactEmailBtn.setVisibility(View.GONE);
+            disableSearchView(binding.searchView);
         }
     }
 
@@ -422,6 +452,11 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
      * before reading database.
      */
     public void refreshSharesFromDB() {
+        OCFile newFile = fileDataStorageManager.getFileById(file.getFileId());
+        if (newFile != null) {
+            file = newFile;
+        }
+
         ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
 
         if (adapter == null) {
@@ -445,21 +480,8 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                                                    ShareType.PUBLIC_LINK,
                                                                                    "");
 
-//
-//        boolean supportsSecureFiledrop = file.isEncrypted() &&
-//            capabilities.getVersion().isNewerOrEqual(NextcloudVersion.nextcloud_26);
-//
-//        if (publicShares.isEmpty() &&
-//            containsNoNewPublicShare(adapter.getShares()) &&
-//            (!file.isEncrypted() || supportsSecureFiledrop)) {
-//            final OCShare ocShare = new OCShare();
-//            ocShare.setShareType(ShareType.NEW_PUBLIC_LINK);
-//            publicShares.add(ocShare);
-//        } else {
-//            adapter.removeNewPublicShare();
-//        }
-
-        if (publicShares.isEmpty() && containsNoNewPublicShare(adapter.getShares())) {
+        if (publicShares.isEmpty() && containsNoNewPublicShare(adapter.getShares()) &&
+            (!file.isEncrypted() || capabilities.getEndToEndEncryption().isTrue())) {
             final OCShare ocShare = new OCShare();
             ocShare.setShareType(ShareType.NEW_PUBLIC_LINK);
             publicShares.add(ocShare);

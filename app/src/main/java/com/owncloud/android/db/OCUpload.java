@@ -27,10 +27,11 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -171,7 +172,7 @@ public class OCUpload implements Parcelable {
         accountName = "";
         fileSize = -1;
         uploadId = -1;
-        localAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
+        localAction = FileUploadWorker.LOCAL_BEHAVIOUR_COPY;
         nameCollisionPolicy = NameCollisionPolicy.DEFAULT;
         createRemoteFolder = false;
         uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
@@ -182,9 +183,9 @@ public class OCUpload implements Parcelable {
         folderUnlockToken = "";
     }
 
-    public void setDataFixed(FileUploader.FileUploaderBinder binder) {
+    public void setDataFixed(FileUploadHelper uploadHelper) {
         fixedUploadStatus = uploadStatus;
-        fixedUploadingNow = binder != null && binder.isUploadingNow(this);
+        fixedUploadingNow = uploadHelper != null && uploadHelper.isUploadingNow(this);
         fixedUploadEndTimeStamp = uploadEndTimestamp;
         fixedUploadId = uploadId;
     }
@@ -387,6 +388,10 @@ public class OCUpload implements Parcelable {
 
     public boolean isUseWifiOnly() {
         return this.useWifiOnly;
+    }
+
+    public boolean exists() {
+        return new File(localPath).exists();
     }
 
     public boolean isWhileChargingOnly() {

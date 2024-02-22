@@ -14,10 +14,7 @@
     <string name="action_send_share">共享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
-    <string name="actionbar_calendar_contacts_restore">恢复联系人 &amp; 日历</string>
-    <string name="actionbar_copy">复制</string>
     <string name="actionbar_mkdir">新建文件夹</string>
-    <string name="actionbar_move">移动</string>
     <string name="actionbar_move_or_copy">移动或复制</string>
     <string name="actionbar_open_with">打开方式</string>
     <string name="actionbar_search">搜索</string>
@@ -80,7 +77,6 @@
     <string name="avatar">头像</string>
     <string name="away">离开</string>
     <string name="backup_settings">备份设置</string>
-    <string name="backup_title">联系人 &amp; 日历备份 </string>
     <string name="battery_optimization_close">关闭</string>
     <string name="battery_optimization_disable">禁用</string>
     <string name="battery_optimization_message">您的设备可能启用了电池优化。仅当您从中排除（允许后台运行）此应用时，自动上传才能正常工作。</string>
@@ -93,7 +89,6 @@
     <string name="check_back_later_or_reload">请稍后重试</string>
     <string name="checkbox">复选框</string>
     <string name="choose_local_folder">选择本地文件夹…</string>
-    <string name="choose_location">选择位置</string>
     <string name="choose_remote_folder">选择远程文件夹…</string>
     <string name="choose_template_helper_text">请选择一个模板并输入一个文件名</string>
     <string name="choose_which_file">选择保留的文件！</string>
@@ -123,7 +118,6 @@
     <string name="common_remove">删除</string>
     <string name="common_rename">重命名</string>
     <string name="common_save">保存</string>
-    <string name="common_select">选择</string>
     <string name="common_send">发送</string>
     <string name="common_share">共享</string>
     <string name="common_skip">跳过</string>
@@ -160,6 +154,7 @@
     <string name="conflict_message_description">如果您选择两个版本，则本地文件的名称后面将附加一个数字。</string>
     <string name="conflict_server_file">服务器文件</string>
     <string name="contact_backup_title">联系人备份</string>
+    <string name="contact_no_permission">需要联系人权限</string>
     <string name="contactlist_item_icon">联系人列表的用户图标</string>
     <string name="contactlist_no_permission">未授予权限，没有文件被导入</string>
     <string name="contacts">联系人</string>
@@ -175,7 +170,6 @@
     <string name="copy_file_not_found">无法复制文件。请检查文件是否存在。</string>
     <string name="copy_link">复制链接</string>
     <string name="copy_move_to_encrypted_folder_not_supported">目前不支持 复制 / 移动到加密的文件夹。</string>
-    <string name="copy_to">复制到…</string>
     <string name="could_not_download_image">无法下载完整图片</string>
     <string name="could_not_retrieve_shares">无法检索共享</string>
     <string name="could_not_retrieve_url">无法获取地址</string>
@@ -193,7 +187,6 @@
     <string name="data_to_back_up">要备份的数据</string>
     <string name="default_credentials_wrong">凭据不正确</string>
     <string name="delete_account">删除账号</string>
-    <string name="delete_account_warning">删除账号 %s 并删除所有本地文件吗？\n\n一经删除无法撤销。</string>
     <string name="delete_entries">删除条目</string>
     <string name="delete_link">删除链接</string>
     <string name="deselect_all">全部取消选择</string>
@@ -229,6 +222,8 @@
     <string name="downloader_download_in_progress_ticker">正在下载…</string>
     <string name="downloader_download_succeeded_content">已下载了 %1$s</string>
     <string name="downloader_download_succeeded_ticker">已下载</string>
+    <string name="downloader_file_download_cancelled">某些文件在下载过程中被用户取消</string>
+    <string name="downloader_file_download_failed">下载文件时发生错误</string>
     <string name="downloader_not_downloaded_yet">尚未下载</string>
     <string name="drawer_close">关闭侧边栏</string>
     <string name="drawer_community">社区</string>
@@ -258,6 +253,7 @@
     <string name="ecosystem_apps_more">更多Nextcloud应用</string>
     <string name="ecosystem_apps_notes">Nextcloud 笔记</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">未能选择电子邮箱地址</string>
     <string name="encrypted">设置为加密</string>
     <string name="end_to_end_encryption_confirm_button">设置加密</string>
     <string name="end_to_end_encryption_decrypting">正在解密…</string>
@@ -294,7 +290,6 @@
     <string name="etm_accounts">账号</string>
     <string name="etm_background_job_name">工作名称</string>
     <string name="etm_background_job_progress">进度</string>
-    <string name="etm_background_job_started">已开始</string>
     <string name="etm_background_job_state">状况</string>
     <string name="etm_background_job_user">用户</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -342,6 +337,7 @@
     <string name="file_list_empty_shared_headline">暂无共享</string>
     <string name="file_list_empty_unified_search_no_results">未找到查询的结果</string>
     <string name="file_list_folder">文件夹</string>
+    <string name="file_list_live">即时</string>
     <string name="file_list_loading">正在加载...</string>
     <string name="file_list_no_app_for_file_type">此文件类型未设置默认打开程序</string>
     <string name="file_list_seconds_ago">几秒前</string>
@@ -386,9 +382,6 @@
     <string name="filename_forbidden_charaters_from_server">文件名中存在至少一个非法字符</string>
     <string name="filename_hint">文件名</string>
     <string name="first_run_1_text">保证您的数据安全并处于您的控制之下</string>
-    <string name="first_run_2_text">安全协作和文件交换</string>
-    <string name="first_run_3_text">易于使用的网页邮件、日历&amp;和联系人</string>
-    <string name="first_run_4_text">屏幕共享，线上见面和网络会议</string>
     <string name="folder_already_exists">目录已经存在</string>
     <string name="folder_confirm_create">创建</string>
     <string name="folder_list_empty_headline">这里没有文件夹</string>
@@ -402,7 +395,6 @@
     <string name="forbidden_permissions_delete">删除这个文件</string>
     <string name="forbidden_permissions_move">移动这个文件</string>
     <string name="forbidden_permissions_rename">重命名这个文件</string>
-    <string name="foreground_service_download">正在下载文件…</string>
     <string name="foreground_service_upload">正在上传文件... </string>
     <string name="foreign_files_fail">某些文件无法被移动</string>
     <string name="foreign_files_local_text">本地: %1$s</string>
@@ -497,7 +489,6 @@
     <string name="move_file_invalid_into_descendent">将文件夹移动到其自己的底层文件夹中是不可能的</string>
     <string name="move_file_invalid_overwrite">该文件已存在于目标文件夹中</string>
     <string name="move_file_not_found">无法移动文件。 请检查该文件是否存在。</string>
-    <string name="move_to">移动到…</string>
     <string name="network_error_connect_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
     <string name="network_error_socket_exception">连接到服务器时发生错误。</string>
     <string name="network_error_socket_timeout_exception">等待服务器时发生错误。 无法完成操作。</string>
@@ -518,7 +509,6 @@
     <string name="no_pdf_app_available">没有可用来打开 PDF 的应用</string>
     <string name="no_send_app">没有可用于发送所选文件的应用</string>
     <string name="no_share_permission_selected">请选择至少一个要分享的权限</string>
-    <string name="note_confirm">发送</string>
     <string name="note_could_not_sent">无法发送笔记</string>
     <string name="note_icon_hint">笔记图标</string>
     <string name="notification_action_failed">执行动作失败。</string>
@@ -578,16 +568,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">重命名新版本</string>
     <string name="pref_instant_name_collision_policy_title">如果文件已经存在怎么办？</string>
     <string name="prefs_add_account">添加账号</string>
-    <string name="prefs_calendar_contacts">同步日历和联系人</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid 和 Google Play 都没有安装</string>
     <string name="prefs_calendar_contacts_summary">为当前账号设置 DAVx5（前身为 DAVdroid）(v1.3.0+)</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">日历和联系人同步设置</string>
     <string name="prefs_category_about">关于</string>
     <string name="prefs_category_details">详细信息</string>
     <string name="prefs_category_dev">开发</string>
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
-    <string name="prefs_daily_backup_summary">每天备份日历 &amp; 联系人</string>
     <string name="prefs_daily_contact_backup_summary">每日备份您的联系人</string>
     <string name="prefs_davx5_setup_error">设置 DAVx5（以前为 DAVdroid）时出现意外错误</string>
     <string name="prefs_e2e_active">端对端加密已设置完成</string>
@@ -648,12 +635,17 @@
     <string name="remove_e2e">您可以在该客户端上本地删除端对端加密</string>
     <string name="remove_e2e_message">您可以在该客户端上本地删除端对端加密。加密文件将保留在服务器上，但不会再同步到该电脑。</string>
     <string name="remove_fail_msg">删除失败</string>
+    <string name="remove_local_account">移除本地帐户</string>
+    <string name="remove_local_account_details">从设备中移除账户并删除所有本地文件</string>
     <string name="remove_notification_failed">移除通知失败</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已删除</string>
     <string name="rename_dialog_title">输入一个新的名称</string>
     <string name="rename_local_fail_msg">本地副本无法重命名，尝试其他名称</string>
     <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
+    <string name="request_account_deletion">请求删除账号</string>
+    <string name="request_account_deletion_button">请求删除</string>
+    <string name="request_account_deletion_details">请求服务商永久删除账户</string>
     <string name="reshare_not_allowed">不允许再次共享</string>
     <string name="resharing_is_not_allowed">不允许二次共享</string>
     <string name="resized_image_not_possible_download">重整大小的图片不可用。下载完整图片？</string>
@@ -674,8 +666,6 @@
     <string name="screenshot_04_accounts_heading">您所有的账号</string>
     <string name="screenshot_04_accounts_subline">都在一处</string>
     <string name="screenshot_05_autoUpload_heading">自动上传</string>
-    <string name="screenshot_05_autoUpload_subline">您的照片和视频</string>
-    <string name="screenshot_06_davdroid_heading">日历和联系人</string>
     <string name="screenshot_06_davdroid_subline">与DAVx5同步</string>
     <string name="search_error">获取搜索结果时出错</string>
     <string name="select_all">全部选择</string>
@@ -683,7 +673,6 @@
     <string name="select_one_template">请选择一个模板</string>
     <string name="select_template">选择模板</string>
     <string name="send">发送</string>
-    <string name="send_note">发送备注到收件人</string>
     <string name="send_share">发送分享</string>
     <string name="sendbutton_description">发送按钮的图标</string>
     <string name="set_as">设置</string>
@@ -693,7 +682,6 @@
     <string name="set_status_message">设定状态信息</string>
     <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
-    <string name="share_copy_link">分享 &amp; 复制链接</string>
     <string name="share_dialog_title">共享</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">过期 %1$s</string>
@@ -741,12 +729,6 @@
     <string name="signup_with_provider">与提供商签约</string>
     <string name="single_sign_on_request_token" formatted="true">是否允许%1$s访问您的 Nextcloud 账号%2$s？</string>
     <string name="sort_by">排序方式</string>
-    <string name="sort_by_modification_date_ascending">新文件在前</string>
-    <string name="sort_by_modification_date_descending">旧文件在前</string>
-    <string name="sort_by_name_ascending">按名称顺序</string>
-    <string name="sort_by_name_descending">按名称倒序</string>
-    <string name="sort_by_size_ascending">小文件在前</string>
-    <string name="sort_by_size_descending">大文件在前</string>
     <string name="ssl_validator_btn_details_hide">隐藏</string>
     <string name="ssl_validator_btn_details_see">详细信息</string>
     <string name="ssl_validator_header">无法验证服务器身份</string>
@@ -784,7 +766,6 @@
     <string name="storage_permission_full_access">完整存取权限</string>
     <string name="storage_permission_media_read_only">媒体只读权限</string>
     <string name="storage_pictures">图片</string>
-    <string name="store_full_desc">让您掌控全局的自托管生产力平台。\n\n特色：\n* 简单，现代的界面，搭配您服务器的主题\n* 上传文件到您的 Nextcloud 服务器\n* 与他人共享您的文件\n* 为您最喜欢的文件及文件夹保持同步\n* 在您的服务器上的所有文件夹中进行搜索\n* 自动上传通过您的设备所拍摄的照片和视频\n* 获得最新的通知\n* 多账号支持\n* 通过使用指纹或者 PIN 来安全访问到您的数据\n* 集成了 DAVx5（原名DAVdroid） 来快速设置日历和联系人同步\n\n请通过 https://github.com/nextcloud/android/issues 报告任何问题，并在 https://help.nextcloud.com/c/clients/android 讨论此应用程序\n\n刚刚接触 Nextcloud？Nextcloud 是一个私人文件同步和共享和交流服务端软件。它是自由软件，您可以自己组建或者花钱购买某一公司提供的服务。这样，您就可以操作您的照片，日历，联系方式，文档和其他所有内容.\n\n通过 https://nextcloud.com 查看 Nextcloud</string>
     <string name="store_full_dev_desc">让您掌控全局的自托管生产力平台。
 这是官方开发版本，每天都会对新的未经测试的功能进行取样，这些功能可能导致不稳定和数据丢失。此应用主要面向愿意测试以及在发现bug时能提交报告的用户。请不要用于生产性工作！
 
@@ -801,7 +782,6 @@
     <string name="subject_shared_with_you">已与你共享 “%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s 已和你共享了“%2$s”</string>
     <string name="subtitle_photos_only">仅照片</string>
-    <string name="subtitle_photos_videos">照片 &amp; 视频</string>
     <string name="subtitle_videos_only">仅视频</string>
     <string name="suggest">建议</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
@@ -859,6 +839,8 @@
     <string name="update_link_file_no_exist">无法更新文件。请检查文件是否存在。</string>
     <string name="update_link_forbidden_permissions">更新共享</string>
     <string name="updating_share_failed">更新共享失败</string>
+    <string name="upload_action_failed_clear">清除失败上传任务</string>
+    <string name="upload_action_failed_retry">重试失败上传任务</string>
     <string name="upload_cannot_create_file">无法新建本地文件</string>
     <string name="upload_chooser_title">上传自...</string>
     <string name="upload_content_from_other_apps">上传来自其它应用的内容</string>
@@ -880,6 +862,7 @@
     <string name="upload_lock_failed">锁定文件夹失败</string>
     <string name="upload_old_android">加密功能仅适用于安卓 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
+    <string name="upload_quota_exceeded">超出存储限额</string>
     <string name="upload_scan_doc_upload">使用相机扫描文档</string>
     <string name="upload_sync_conflict">同步时发生异常，请手动同步</string>
     <string name="upload_unknown_error">未知错误</string>
@@ -891,6 +874,7 @@
     <string name="uploader_error_message_source_file_not_found">没找到要上传的文件。请检查文件是否存在。</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">无法上传此文件</string>
     <string name="uploader_error_title_no_file_to_upload">没有要上传的文件</string>
+    <string name="uploader_file_not_found_on_server_message">我们无法定位服务器上的该文件。其他用户可能已删除该文件</string>
     <string name="uploader_info_dirname">文件夹名称</string>
     <string name="uploader_top_message">选择上传文件夹</string>
     <string name="uploader_upload_failed_content_single">无法上传 %1$s</string>
@@ -914,6 +898,7 @@
     <string name="uploads_view_group_current_uploads">当前</string>
     <string name="uploads_view_group_failed_uploads">失败 / 等待重启</string>
     <string name="uploads_view_group_finished_uploads">已上传</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">已取消</string>
     <string name="uploads_view_later_waiting_to_upload">等待上传</string>
     <string name="uploads_view_title">上传</string>
     <string name="uploads_view_upload_status_cancelled">已取消</string>
@@ -957,6 +942,7 @@
     <string name="whats_your_status">你什么状态？</string>
     <string name="widgets_not_available">小工具仅在%1$s25及更高版本中可用</string>
     <string name="widgets_not_available_title">不可用</string>
+    <string name="worker_download">正在下载文件…</string>
     <string name="write_email">发送邮件</string>
     <string name="wrong_storage_path">数据存储文件夹不存在！</string>
     <string name="wrong_storage_path_desc">这可能是由于另一台设备上的备份还原。正退回到默认。请检查设置来调整数据存储文件夹。</string>

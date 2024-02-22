@@ -14,9 +14,7 @@
     <string name="action_send_share">Sendi aŭ kunhavigi</string>
     <string name="action_switch_grid_view">Krada vido</string>
     <string name="action_switch_list_view">Lista vido</string>
-    <string name="actionbar_copy">Kopii</string>
     <string name="actionbar_mkdir">Nova dosierujo</string>
-    <string name="actionbar_move">Movi</string>
     <string name="actionbar_move_or_copy">Movi aŭ Kopii</string>
     <string name="actionbar_open_with">Malfermi per</string>
     <string name="actionbar_search">Serĉi</string>
@@ -103,7 +101,6 @@
     <string name="common_remove">Forigi</string>
     <string name="common_rename">Alinomi</string>
     <string name="common_save">Konservi</string>
-    <string name="common_select">Elekti</string>
     <string name="common_send">Sendi</string>
     <string name="common_share">Kunhavigi</string>
     <string name="common_skip">Preterpasi</string>
@@ -148,7 +145,6 @@
     <string name="copy_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
     <string name="copy_link">Kopii ligilon</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopii aŭ movi en ĉifritan dosierujon ne estas subtenata momente.</string>
-    <string name="copy_to">Kopii al...</string>
     <string name="create">Krei</string>
     <string name="create_dir_fail_msg">Ne eblis krei dosierujon</string>
     <string name="create_new">Krei nove</string>
@@ -159,7 +155,6 @@
     <string name="credentials_disabled">Akreditiloj estas malebligitaj</string>
     <string name="default_credentials_wrong">Malĝustaj akreditiloj</string>
     <string name="delete_account">Forigi konton</string>
-    <string name="delete_account_warning">Ĉu forigi la konton %s kaj forigi ĉiujn lokajn dosierojn?\n\nMalfari la forigadon tute ne eblas.</string>
     <string name="delete_entries">Forigi elementojn</string>
     <string name="deselect_all">Malelekti ĉion</string>
     <string name="dev_version_new_version_available">Nova versio disponeblas</string>
@@ -223,6 +218,7 @@
     <string name="error_retrieving_templates">Eraro dum ricevo de ŝablonoj</string>
     <string name="error_starting_direct_camera_upload">Eraro dum ŝargo de la fotilo</string>
     <string name="etm_accounts">Kontoj</string>
+    <string name="etm_background_job_created">Kreita</string>
     <string name="etm_background_job_user">Uzanto</string>
     <string name="etm_background_jobs">Fonaj taskoj</string>
     <string name="etm_transfer_type_download">Elŝuti</string>
@@ -282,8 +278,6 @@
     <string name="filename_forbidden_charaters_from_server">Dosiernomo enhavas almenaŭ unu nevalidan signon</string>
     <string name="filename_hint">Dosiernomo</string>
     <string name="first_run_1_text">Gardu viajn datumojn sekuraj kaj sub via kontrolo</string>
-    <string name="first_run_2_text">Sekura kunlaborado kaj dosiera interŝanĝo</string>
-    <string name="first_run_4_text">Ekrandividado, retkunsidoj kaj reta konferencoj</string>
     <string name="folder_already_exists">La dosierujo jam ekzistas</string>
     <string name="folder_confirm_create">Krei</string>
     <string name="folder_list_empty_headline">Neniu dosierujo ĉi tie</string>
@@ -296,7 +290,6 @@
     <string name="forbidden_permissions_delete">forigi ĉi tiun dosieron</string>
     <string name="forbidden_permissions_move">movi ĉi tiun dosieron</string>
     <string name="forbidden_permissions_rename">alinomi ĉi tiun dosieron</string>
-    <string name="foreground_service_download">Elŝutado de dosieroj...</string>
     <string name="foreground_service_upload">Alŝutado de dosieroj...</string>
     <string name="foreign_files_fail">Kelkaj dosieroj ne eblis moviĝi</string>
     <string name="foreign_files_local_text">Loka: %1$s</string>
@@ -348,7 +341,6 @@
     <string name="move_file_error">Eraro okazis dum provo movi ĉi tiun dosieron aŭ dosierujon</string>
     <string name="move_file_invalid_into_descendent">Ne eblas movi dosierujon en unu el ĝiaj idoj</string>
     <string name="move_file_invalid_overwrite">La dosiero jam ekzistas en la cela dosierujo</string>
-    <string name="move_to">Movi al...</string>
     <string name="network_error_socket_exception">Eraro okazis dum konekto al la servilo</string>
     <string name="new_comment">Nova komento...</string>
     <string name="new_media_folder_detected">Nova aŭdovida dosierujo %1$s eltrovita.</string>
@@ -358,7 +350,6 @@
     <string name="new_version_was_created">Nova versio estis kreita</string>
     <string name="no_browser_available">Neniu aplikaĵo disponeblas por trakti legilojn</string>
     <string name="no_pdf_app_available">Neniu aplikaĵo disponeblas por trakti PDF-dosieron</string>
-    <string name="note_confirm">Sendi</string>
     <string name="note_could_not_sent">Ne eblis sendi noton</string>
     <string name="notification_action_failed">Malsukcesis plenumi agon.</string>
     <string name="notification_channel_download_description">Montras elŝutoplenumon</string>
@@ -402,10 +393,8 @@
     <string name="pref_behaviour_entries_keep_file">konservita en origina dosierujo</string>
     <string name="pref_behaviour_entries_move">movita al aplikaĵa dosierujo</string>
     <string name="prefs_add_account">Aldoni konton</string>
-    <string name="prefs_calendar_contacts">Sinkronigi kalendaron kaj kontaktaron</string>
     <string name="prefs_calendar_contacts_no_store_error">Nek „F-Droid“ nek „Google Play“ estas instalita</string>
     <string name="prefs_calendar_contacts_summary">Agordi aplikaĵon DAVx5 (eks-DAVdroid) (versio 1.3.0 kaj posta) por la nuna konto</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalendara kaj kontaktara sinkronigo agordita</string>
     <string name="prefs_category_about">Pri</string>
     <string name="prefs_category_details">Detaloj</string>
     <string name="prefs_category_dev">Programado</string>
@@ -457,6 +446,7 @@
     <string name="rename_dialog_title">Enigu novan nomon</string>
     <string name="rename_local_fail_msg">Ne eblis alinomi lokan kopion, provu uzi alian nomon</string>
     <string name="rename_server_fail_msg">Ne eblis alinomi: la nomo jam uziĝas</string>
+    <string name="request_account_deletion">Peti kontoforigadon</string>
     <string name="reshare_not_allowed">Rekunhavigo ne estas permesata</string>
     <string name="resharing_is_not_allowed">Re-kunhavigi ne estas permesita</string>
     <string name="resized_image_not_possible_download">Neniu regrandigita bildo disponeblas. Ĉu elŝuti originan bildon?</string>
@@ -467,7 +457,6 @@
     <string name="select_all">Elekti ĉion</string>
     <string name="select_template">Elekti ŝablonon</string>
     <string name="send">Sendi</string>
-    <string name="send_note">Sendi noton al ricevonto</string>
     <string name="sendbutton_description">Piktogramo de sendo-butono</string>
     <string name="set_as">Uzi kiel</string>
     <string name="set_picture_as">Uzi la bildon kiel</string>
@@ -502,12 +491,6 @@
     <string name="signup_with_provider">Registriĝi per provizanto</string>
     <string name="single_sign_on_request_token" formatted="true">Ĉu permesi al %1$s aliri al via Nextcloud-konto %2$s?</string>
     <string name="sort_by">Ordigi laŭ</string>
-    <string name="sort_by_modification_date_ascending">Pli novaj unue</string>
-    <string name="sort_by_modification_date_descending">Malpli novaj unue</string>
-    <string name="sort_by_name_ascending">A→Z</string>
-    <string name="sort_by_name_descending">Z→A</string>
-    <string name="sort_by_size_ascending">Malpli grandaj unue</string>
-    <string name="sort_by_size_descending">Pli grandaj unue</string>
     <string name="ssl_validator_btn_details_hide">Malmontri</string>
     <string name="ssl_validator_btn_details_see">Detaloj</string>
     <string name="ssl_validator_header">La identeco de la servilo ne povis kontroliĝi</string>
@@ -543,7 +526,6 @@
     <string name="storage_movies">Videaĵoj</string>
     <string name="storage_music">Muziko</string>
     <string name="storage_pictures">Bildoj</string>
-    <string name="store_full_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas.\n\nEbloj:\n• facila, kaj moderna fasado, kiu adaptiĝas al la etoso de via servilo\n• alŝuti dosierojn al via Nextcloud‑servilo…\n• …kaj kunhavigi ilin kun aliuloj\n• sinkronigi (samtempigi) viajn ŝatatajn dosierojn kaj dosierujojn\n• serĉi tra ĉiuj dosierujoj en via servilo\n• aŭtomate alŝuti fotojn kaj filmetojn faritajn per via aparato\n• sciigoj por resti informita\n• subteno por pluraj kontoj\n• sekurigi atingon al viaj datumoj per fingropremaĵo aŭ PIN‑kodo\n• integrigo kun DAVx5 (antaŭe DAVdroid) por facile sinkronigi kalendarojn kaj kontaktojn\n\nBonvolu raporti ĉiujn problemojn ĉe https://github.com/nextcloud/android/issues kaj pridiskuti la aplikaĵon ĉe https://help.nextcloud.com/c/clients/android\n\nĈu Nextcloud estas nova por vi?Nextcloud estas privata servilo por sinkronigi dosierojn kaj komunikadi. Ĝi estas libera programaro, vi povas gastigi vian propran servilon aŭ pagi firmaon. Tial vi regas vian fotojn, kalendarojn, kontakt‑datumojn, dokumentojn kaj ĉion alian.\n\nPliaj informoj ĉe https://nextcloud.com</string>
     <string name="store_full_dev_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas.\n\nTio ĉi estas oficiala testa (programista) versio liveranta ĉiutagan specimenon de novaj netestitaj ebloj, kiuj povas kaŭzi nestabilecon aŭ eĉ perdon de viaj datumoj. Tiu ĉi aplikaĵo celas al uzantoj, kiuj volas testi kaj raporti eventualajn erarojn. Ne uzu ĝin por grava laboro!\n\nKaj tiu ĉi testa kaj la stabila versioj estas elŝuteblaj el F-Droid kaj povas esti instalitaj samtempe.</string>
     <string name="store_short_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas</string>
     <string name="store_short_dev_desc">Oficeja programaro lanĉata en privata servilo, kiun vi regas (testa versio)</string>
@@ -591,6 +573,8 @@
     <string name="untrusted_domain">Aliro per nefidinda domajno. Vidu la helpdokumentojn por scii pli.</string>
     <string name="update_link_forbidden_permissions">ĝisdatigi ĉi tiun kunhavon</string>
     <string name="updating_share_failed">Ĝisdatigo de kunhavo malsukcesis</string>
+    <string name="upload_action_failed_clear">Vakigi malsukcesajn alŝutojn</string>
+    <string name="upload_action_failed_retry">Reprovi malsukcesajn alŝutojn</string>
     <string name="upload_cannot_create_file">Ne eblas krei lokan dosieron</string>
     <string name="upload_chooser_title">Alŝuti el...</string>
     <string name="upload_content_from_other_apps">Alŝuti enhavon el aliaj aplikaĵoj</string>
@@ -640,6 +624,7 @@
     <string name="uploads_view_group_current_uploads">Nuna</string>
     <string name="uploads_view_group_failed_uploads">Malsukcesa aŭ atendante reprovadon</string>
     <string name="uploads_view_group_finished_uploads">Alŝutita</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Nuligita</string>
     <string name="uploads_view_later_waiting_to_upload">Atendo por alŝuti</string>
     <string name="uploads_view_title">Alŝutoj</string>
     <string name="uploads_view_upload_status_cancelled">Nuligita</string>
@@ -677,6 +662,7 @@
     <string name="whats_new_title">Novaĵoj en %1$s</string>
     <string name="whats_your_status">Kio estas via stato?</string>
     <string name="widgets_not_available_title">Ne disponeble</string>
+    <string name="worker_download">Elŝutado de dosieroj...</string>
     <string name="write_email">Sendi retpoŝtmesaĝon</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ne eblis sinkronigi %1$d dosieron (konfliktoj: %2$d)</item>

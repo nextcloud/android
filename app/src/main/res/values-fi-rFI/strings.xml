@@ -14,10 +14,7 @@
     <string name="action_send_share">Lähetä/jaa</string>
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
-    <string name="actionbar_calendar_contacts_restore">Palauta yhteystiedot &amp; kalenteri</string>
-    <string name="actionbar_copy">Kopioi</string>
     <string name="actionbar_mkdir">Uusi kansio</string>
-    <string name="actionbar_move">Siirrä</string>
     <string name="actionbar_open_with">Avaa sovelluksella</string>
     <string name="actionbar_search">Etsi</string>
     <string name="actionbar_see_details">Tiedot</string>
@@ -78,7 +75,6 @@
     <string name="avatar">Profiilikuva</string>
     <string name="away">Poissa</string>
     <string name="backup_settings">Varmuuskopioinnin asetukset</string>
-    <string name="backup_title">Yhteystietojen &amp; kalenterin varmuuskopio</string>
     <string name="battery_optimization_close">Sulje</string>
     <string name="battery_optimization_disable">Poista käytöstä</string>
     <string name="battery_optimization_message">Laitteellasi on ehkä päällä akun optimisointi tälle sovellukselle. AutoUpload ei välttämättä toimi oikein ellet poista sovellusta optimisointilistalta.</string>
@@ -91,7 +87,6 @@
     <string name="check_back_later_or_reload">Lataa uudelleen tai yritä myöhemmin uudelleen.</string>
     <string name="checkbox">Valintaruutu</string>
     <string name="choose_local_folder">Valitse paikallinen kansio…</string>
-    <string name="choose_location">Valitse sijainti</string>
     <string name="choose_remote_folder">Valitse etäkansio…</string>
     <string name="choose_template_helper_text">Valitse mallipohja ja anna tiedostonimi</string>
     <string name="choose_which_file">Valitse säilytettävä tiedosto!</string>
@@ -121,7 +116,6 @@
     <string name="common_remove">Poista</string>
     <string name="common_rename">Nimeä uudelleen</string>
     <string name="common_save">Tallenna</string>
-    <string name="common_select">Valitse</string>
     <string name="common_send">Lähetä</string>
     <string name="common_share">Jaa</string>
     <string name="common_skip">Ohita</string>
@@ -172,7 +166,6 @@
     <string name="copy_file_not_found">Kopiointi epäonnistui. Tarkista onko tiedostoa olemassa.</string>
     <string name="copy_link">Kopioi linkki</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiointi/siirto salattuun kansioon ei ole mahdollista.</string>
-    <string name="copy_to">Kopio kohteeseen…</string>
     <string name="could_not_download_image">Koko kuvan lataaminen epäonnistui</string>
     <string name="could_not_retrieve_shares">Jakojen nouto ei onnistunut</string>
     <string name="could_not_retrieve_url">URL:n palautus epännistui</string>
@@ -190,7 +183,6 @@
     <string name="data_to_back_up">Varmuuskopioitavat tiedot</string>
     <string name="default_credentials_wrong">Virheelliset kirjautumistiedot</string>
     <string name="delete_account">Poista tili</string>
-    <string name="delete_account_warning">Poistetaanko tili %s ja kaikki sen paikalliset tiedostot?\n\nPoistamista ei voi perua.</string>
     <string name="delete_entries">Poista merkinnät</string>
     <string name="delete_link">Poista linkki</string>
     <string name="deselect_all">Poista valinnat</string>
@@ -280,9 +272,9 @@
     <string name="error_retrieving_templates">Tapahtui virhe mallien lataamisessa</string>
     <string name="error_starting_direct_camera_upload">Virhe kameraa käynnistäessä</string>
     <string name="etm_accounts">Tilit</string>
+    <string name="etm_background_job_created">Luonut</string>
     <string name="etm_background_job_name">Työn nimi</string>
     <string name="etm_background_job_progress">Edistyminen</string>
-    <string name="etm_background_job_started">Käynnistetty</string>
     <string name="etm_background_job_state">Tila</string>
     <string name="etm_background_job_user">Käyttäjä</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -374,8 +366,6 @@
     <string name="filename_forbidden_charaters_from_server">Tiedoston nimi sisältää ainakin yhden virheellisen merkin</string>
     <string name="filename_hint">Tiedostonimi</string>
     <string name="first_run_1_text">Pidä tietosi turvassa ja omassa hallinnassa</string>
-    <string name="first_run_2_text">Turvallista yhteistyötä ja tiedostonvaihtoa</string>
-    <string name="first_run_4_text">Näytönjakaminen, verkkotapaamiset ja web-konfrenssit</string>
     <string name="folder_already_exists">Kansio on jo olemassa</string>
     <string name="folder_confirm_create">Luo</string>
     <string name="folder_list_empty_headline">Ei kansioita täällä</string>
@@ -389,7 +379,6 @@
     <string name="forbidden_permissions_delete">poistaa tiedostoa</string>
     <string name="forbidden_permissions_move">siirtää tämä tiedosto</string>
     <string name="forbidden_permissions_rename">nimetä tiedostoa uudelleen</string>
-    <string name="foreground_service_download">Ladataan tiedostoja…</string>
     <string name="foreground_service_upload">Lähetetään tiedostoja…</string>
     <string name="foreign_files_fail">Joitain tiedostoja ei voitu siirtää</string>
     <string name="foreign_files_local_text">Paikallinen: %1$s</string>
@@ -470,7 +459,6 @@
     <string name="move_file_invalid_into_descendent">Ei ole mahdollista siirtää kansiota yhteen sen alikansiosta.</string>
     <string name="move_file_invalid_overwrite">Tiedosto on jo olemassa kohdekansiossa</string>
     <string name="move_file_not_found">Tiedoston siirtäminen ei onnistunut. Varmista että tiedosto on olemassa.</string>
-    <string name="move_to">Siirrä kohteeseen…</string>
     <string name="network_error_connect_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun.</string>
     <string name="network_error_socket_exception">Palvelimeen yhdistäessä tapahtui virhe.</string>
     <string name="network_error_socket_timeout_exception">Palvelinta odottaessa tapahtui virhe. Toimenpidettä ei voitu suorittaa loppuun.</string>
@@ -490,7 +478,6 @@
     <string name="no_pdf_app_available">PDF -sovellusta ei löydy</string>
     <string name="no_send_app">Valittujen tiedostojen lähettämiseen ei ole sovellusta</string>
     <string name="no_share_permission_selected">Valitse vähintään yksi käyttöoikeus jakaaksesi.</string>
-    <string name="note_confirm">Lähetä</string>
     <string name="note_could_not_sent">Huomiota ei voitu lähettää</string>
     <string name="note_icon_hint">Note-kuvake</string>
     <string name="notification_action_failed">Toimenpiteen suorittaminen epäonnistui</string>
@@ -549,16 +536,13 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Nimeä uusi versio uudelleen</string>
     <string name="pref_instant_name_collision_policy_title">Mitä tehdään, jos tiedosto on jo olemassa?</string>
     <string name="prefs_add_account">Lisää tili</string>
-    <string name="prefs_calendar_contacts">Synkronoi kalenteri &amp; kontaktit</string>
     <string name="prefs_calendar_contacts_no_store_error">Sekä F-Droid että Google Play asentamatta</string>
     <string name="prefs_calendar_contacts_summary">Aseta DAVx5 (tunnettu nimellä DAVdroid) (v1.3.0+) nykyiselle tilille</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalenterin &amp; yhteystieto synkronointi asetettu</string>
     <string name="prefs_category_about">Tietoja</string>
     <string name="prefs_category_details">Tiedot</string>
     <string name="prefs_category_dev">Kehittäjä</string>
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
-    <string name="prefs_daily_backup_summary">Päivittäinen kalenterin &amp; yhteystietojen varmuuskopio</string>
     <string name="prefs_daily_contact_backup_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
     <string name="prefs_davx5_setup_error">Odottamaton virhe määritettäessä DAVx5:tä (aiemmin DAVdroid)</string>
     <string name="prefs_e2e_active">Päästä päähän -salaus on määritetty!</string>
@@ -622,6 +606,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="rename_dialog_title">Anna uusi nimi</string>
     <string name="rename_local_fail_msg">Paikallisen kopion nimeä ei voitu muuttaa, yritä eri nimeä</string>
     <string name="rename_server_fail_msg">Nimen muutos epäonnistui, nimi on jo käytössä</string>
+    <string name="request_account_deletion">Pyydä tilin poistoa</string>
     <string name="reshare_not_allowed">Uudellenjako ei ole salluttu</string>
     <string name="resharing_is_not_allowed">Uudelleenjakaminen ei ole sallittu</string>
     <string name="resized_image_not_possible_download">Uuden kokoinen kuva ei ole saatavilla. Ladataanko täysikokoinen kuva?</string>
@@ -642,8 +627,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="screenshot_04_accounts_heading">Kaikki tilisi</string>
     <string name="screenshot_04_accounts_subline">yhdessä paikassa</string>
     <string name="screenshot_05_autoUpload_heading">Automaattinen lähetys</string>
-    <string name="screenshot_05_autoUpload_subline">kuvillesi ja videoillesi</string>
-    <string name="screenshot_06_davdroid_heading">Kalenteri ja yhteystiedot</string>
     <string name="screenshot_06_davdroid_subline">Synkronoi DAVx5:llä</string>
     <string name="search_error">Virhe hakutulosten noutamisessa</string>
     <string name="select_all">Valitse kaikki</string>
@@ -651,7 +634,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="select_one_template">Valitse yksi mallipohja</string>
     <string name="select_template">Valitse mallipohja</string>
     <string name="send">Lähetä</string>
-    <string name="send_note">Lähetä huomio vastaanottajalle</string>
     <string name="send_share">Lähetä Jaa</string>
     <string name="sendbutton_description">Lähetä-painikkeen kuvake</string>
     <string name="set_as">Aseta</string>
@@ -660,7 +642,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="set_status">Aseta tilatieto</string>
     <string name="set_status_message">Aseta tilaviesti</string>
     <string name="share">Jaa</string>
-    <string name="share_copy_link">Jaa &amp; kopioi linkki</string>
     <string name="share_dialog_title">Jakaminen</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vanhenee %1$s</string>
@@ -706,12 +687,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="signup_with_provider">Kirjaudu sisään palvelutarjoajan kautta</string>
     <string name="single_sign_on_request_token" formatted="true">Salli käyttäjälle %1$s pääsy Nextcloud -tilillesi %2$s?</string>
     <string name="sort_by">Lajittelujärjestys</string>
-    <string name="sort_by_modification_date_ascending">Uusin ensin</string>
-    <string name="sort_by_modification_date_descending">Vanhin ensin</string>
-    <string name="sort_by_name_ascending">A - Ö</string>
-    <string name="sort_by_name_descending">Ö - A</string>
-    <string name="sort_by_size_ascending">Pienin ensin</string>
-    <string name="sort_by_size_descending">Suurin ensin</string>
     <string name="ssl_validator_btn_details_hide">Piilota</string>
     <string name="ssl_validator_btn_details_see">Tiedot</string>
     <string name="ssl_validator_header">Palvelimen identiteettiä ei voitu vahvistaa</string>
@@ -749,7 +724,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="storage_permission_full_access">Täysi pääsy</string>
     <string name="storage_permission_media_read_only">Media vain luku-tilassa</string>
     <string name="storage_pictures">Kuvat</string>
-    <string name="store_full_desc">Avoimen lähdekoodin Nextcloud-sovellus Android-laitteille mahdollistaa kaikkien Nextcloud-palvelimella olevien tiedostojen käyttämisen.\n\nOminaisuudet:\n* Helppokäyttöinen, moderni käyttöliittymä, joka mukautuu palvelimen teemaan\n* Lähetä tiedostosi Nextcloud-palvelimelle\n* Jaa tiedostosi muiden kanssa\n* Pidä haluamasi tiedostot ja kansiot synkronoituna\n* Etsi kaikista palvelimella olevista kansioista\n* Lähetä automaattisesti laitteella otetut kuvat ja videot\n* Pysy ajan tasalla ilmoitusten avulla\n* Tuki useille tileille\n* Turvallinen pääsy tietoihin joko sormenjäljellä tai PIN-koodilla\n* Integraatio DAVdroidin kanssa kalenterin ja yhteystietojen synkronoimiseksi\n\nIlmoita ongelmista osoitteessa https://github.com/nextcloud/android/issues ja keskustele sovelluksesta osoitteessa https://help.nextcloud.com/c/clients/android\n\nMikä Nextcloud on? Nextcloud on yksityinen tiedostojen synkronointi-, jako- ja viestintäpalvelin. Se on täysin avointa lähdekoodia, ja voit ottaa sen täysin omalle vastuullesi tai maksaa kolmannelle osapuolelle palvelimen ylläpidosta. Näin ollen hallitset itse kuviasi, kalenteriasi, yhteystietojasi, asiakirjojasi ja kaikkea muuta.\n\nTutustu Nextcloudiin osoitteessa https://nextcloud.com</string>
     <string name="store_full_dev_desc">Itse ylläpidetty työalusta jota sinä kontrolloit. \nTämä on virallinen kehitysversio, sisältäen pävittäin vaihtuvia uusia ja testaamattomia toimintoja, jotka voivat epävakauttaa ohjelmistoa ja aiheuttaa tietojen häviämistä. Sovellus on tarkoitettu käyttäjille jotka haluavat testata ja raportoida ohjelman virheitä jos niitä tapahtuu. Älä käytä sitä työ ympäristössä!\n\nSekä virallinen kehitysversio että normaali versio ovat saatavilla F-droid:ssa ja ne voidaan asentaa samanaikaisesti. </string>
     <string name="store_short_desc">Itse ylläpidettävä tuottavuusalusta, joka säilyttää kontrollin sinulla</string>
     <string name="store_short_dev_desc">Itse ylläpidettävä tuottavuusalusta, joka säilyttää kontrollin sinulla (kehitysversio)</string>
@@ -761,7 +735,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="subject_shared_with_you">\"%1$s\" on jaettu kanssasi</string>
     <string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
     <string name="subtitle_photos_only">Vain kuvat</string>
-    <string name="subtitle_photos_videos">Kuvat ja videot</string>
     <string name="subtitle_videos_only">Vain videot</string>
     <string name="suggest">Ehdota</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
@@ -818,6 +791,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="update_link_file_no_exist">Ei voida päivittää. Ole hyvä ja tarkasta, onko tiedosto olemassa.</string>
     <string name="update_link_forbidden_permissions">päivitä tämä jako</string>
     <string name="updating_share_failed">Jaon päivitys epäonnistui</string>
+    <string name="upload_action_failed_clear">Tyhjennä epäonnistuneet lähetykset</string>
+    <string name="upload_action_failed_retry">Yritä lähetystä uudelleen</string>
     <string name="upload_cannot_create_file">Paikallista tiedostoa ei voi luoda</string>
     <string name="upload_chooser_title">Lähetä…</string>
     <string name="upload_content_from_other_apps">Lähetä sisältöä toisista sovelluksista</string>
@@ -873,6 +848,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="uploads_view_group_current_uploads">Nykyiset</string>
     <string name="uploads_view_group_failed_uploads">Epäonnistuneet/odottaa uudelleenlähetystä</string>
     <string name="uploads_view_group_finished_uploads">Lähetetty</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Peruttu</string>
     <string name="uploads_view_later_waiting_to_upload">Odottaa siirtoa</string>
     <string name="uploads_view_title">Lähetykset</string>
     <string name="uploads_view_upload_status_cancelled">Peruttu</string>
@@ -913,6 +889,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="whats_new_title">Uutta versiossa %1$s</string>
     <string name="whats_your_status">Mikä on tilatietosi?</string>
     <string name="widgets_not_available_title">Ei saatavilla</string>
+    <string name="worker_download">Ladataan tiedostoja…</string>
     <string name="write_email">Lähetä sähköposti</string>
     <string name="wrong_storage_path">Tiedostokansiota ei ole olemassa!</string>
     <string name="wrong_storage_path_desc">Tämä voi johtua varmuuskopion palautuksesta toisella laitteella. Palautetaan oletusasetukset. Tarkista tiedostokansion asetukset.</string>

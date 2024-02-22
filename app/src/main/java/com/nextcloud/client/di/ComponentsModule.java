@@ -23,8 +23,12 @@ package com.nextcloud.client.di;
 import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.etm.EtmActivity;
-import com.nextcloud.client.files.downloader.FileTransferService;
+import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment;
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.client.jobs.NotificationWork;
+import com.nextcloud.client.jobs.TestJob;
+import com.nextcloud.client.jobs.transfer.FileTransferService;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.logger.ui.LogsViewModel;
 import com.nextcloud.client.media.PlayerService;
@@ -43,8 +47,6 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.DeepLinkLoginActivity;
 import com.owncloud.android.files.BootupBroadcastReceiver;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.providers.DiskLruImageCacheFileProvider;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.providers.FileContentProvider;
@@ -81,7 +83,7 @@ import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.activity.UploadFilesActivity;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.ui.activity.UserInfoActivity;
-import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
+import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.dialog.ChooseRichDocumentsTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ChooseTemplateDialogFragment;
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
@@ -124,13 +126,13 @@ import com.owncloud.android.ui.preview.FileDownloadFragment;
 import com.owncloud.android.ui.preview.PreviewBitmapActivity;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
+import com.owncloud.android.ui.preview.PreviewMediaActivity;
 import com.owncloud.android.ui.preview.PreviewMediaFragment;
 import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
-import com.owncloud.android.utils.FilesUploadHelper;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -204,6 +206,9 @@ abstract class ComponentsModule {
     abstract PreviewImageActivity previewImageActivity();
 
     @ContributesAndroidInjector
+    abstract PreviewMediaActivity previewMediaActivity();
+
+    @ContributesAndroidInjector
     abstract ReceiveExternalFilesActivity receiveExternalFilesActivity();
 
     @ContributesAndroidInjector
@@ -270,7 +275,7 @@ abstract class ComponentsModule {
     abstract ChooseTemplateDialogFragment chooseTemplateDialogFragment();
 
     @ContributesAndroidInjector
-    abstract AccountRemovalConfirmationDialog accountRemovalConfirmationDialog();
+    abstract AccountRemovalDialog accountRemovalDialog();
 
     @ContributesAndroidInjector
     abstract ChooseRichDocumentsTemplateDialogFragment chooseRichDocumentsTemplateDialogFragment();
@@ -313,12 +318,6 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract ReceiveExternalFilesActivity.DialogInputUploadFilename dialogInputUploadFilename();
-
-    @ContributesAndroidInjector
-    abstract FileUploader fileUploader();
-
-    @ContributesAndroidInjector
-    abstract FileDownloader fileDownloader();
 
     @ContributesAndroidInjector
     abstract BootupBroadcastReceiver bootupBroadcastReceiver();
@@ -453,7 +452,7 @@ abstract class ComponentsModule {
     abstract PreviewBitmapActivity previewBitmapActivity();
 
     @ContributesAndroidInjector
-    abstract FilesUploadHelper filesUploadHelper();
+    abstract FileUploadHelper fileUploadHelper();
 
     @ContributesAndroidInjector
     abstract SslUntrustedCertDialog sslUntrustedCertDialog();
@@ -478,4 +477,13 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract ImageDetailFragment imageDetailFragment();
+
+    @ContributesAndroidInjector
+    abstract EtmBackgroundJobsFragment etmBackgroundJobsFragment();
+
+    @ContributesAndroidInjector
+    abstract BackgroundJobManagerImpl backgroundJobManagerImpl();
+
+    @ContributesAndroidInjector
+    abstract TestJob testJob();
 }

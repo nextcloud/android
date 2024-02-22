@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
@@ -116,11 +117,11 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        setFile(args.getParcelable(ARG_FILE));
+        setFile(BundleExtensionsKt.getParcelableArgument(args, ARG_FILE, OCFile.class));
             // TODO better in super, but needs to check ALL the class extending FileFragment; not right now
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
-        user = args.getParcelable(ARG_USER);
+        user = BundleExtensionsKt.getParcelableArgument(args, ARG_USER, User.class);
     }
 
 
@@ -131,8 +132,8 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         if (savedInstanceState != null) {
             if (!mIgnoreFirstSavedState) {
-                setFile(savedInstanceState.getParcelable(EXTRA_FILE));
-                user = savedInstanceState.getParcelable(EXTRA_USER);
+                setFile(BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_FILE, OCFile.class));
+                user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_USER, User.class);
                 mError = savedInstanceState.getBoolean(EXTRA_ERROR);
             }
             else {
@@ -260,8 +261,8 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
 
     public void listenForTransferProgress() {
-        if (mProgressListener != null && !mListening && containerActivity.getFileDownloaderBinder() != null) {
-            containerActivity.getFileDownloaderBinder().addDatatransferProgressListener(mProgressListener, getFile());
+        if (mProgressListener != null && !mListening && containerActivity.getFileDownloadProgressListener() != null) {
+            containerActivity.getFileDownloadProgressListener().addDataTransferProgressListener(mProgressListener, getFile());
             mListening = true;
             setButtonsForTransferring();
         }
@@ -269,9 +270,9 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
 
     public void leaveTransferProgress() {
-        if (mProgressListener != null && containerActivity.getFileDownloaderBinder() != null) {
-            containerActivity.getFileDownloaderBinder()
-                .removeDatatransferProgressListener(mProgressListener, getFile());
+        if (mProgressListener != null && containerActivity.getFileDownloadProgressListener() != null) {
+            containerActivity.getFileDownloadProgressListener()
+                .removeDataTransferProgressListener(mProgressListener, getFile());
             mListening = false;
         }
     }

@@ -72,6 +72,9 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
 
+    <!-- Needed for Android 14 (API level 34) -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
 
     <!-- Some Chromebooks don't support touch. Although not essential,
          it's a good idea to explicitly include this declaration. -->
@@ -167,6 +170,9 @@
             android:name="com.nextcloud.client.jobs.NotificationWork$NotificationReceiver"
             android:exported="false" />
         <receiver
+            android:name="com.nextcloud.client.jobs.upload.FileUploadHelper$UploadNotificationActionReceiver"
+            android:exported="false" />
+        <receiver
             android:name="com.nextcloud.client.widget.DashboardWidgetProvider"
             android:exported="false">
             <intent-filter>
@@ -228,6 +234,11 @@
             android:name=".ui.preview.PreviewImageActivity"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.Overlay" />
+        <activity
+            android:name=".ui.preview.PreviewMediaActivity"
+            android:exported="false"
+            android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
+            android:theme="@style/Theme.ownCloud.Media" />
         <service
             android:name=".authentication.AccountAuthenticatorService"
             android:exported="false">
@@ -374,19 +385,21 @@
         </activity>
 
         <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:directBootAware="false"
+            android:enabled="@bool/enable_system_foreground_service_default"
+            android:exported="false"
+            android:foregroundServiceType="dataSync" />
+        <service
             android:name=".services.OperationsService"
             android:exported="false" />
         <service
-            android:name=".files.services.FileDownloader"
-            android:exported="false" />
-        <service
-            android:name="com.nextcloud.client.files.downloader.FileTransferService"
-            android:exported="false" />
-        <service
-            android:name=".files.services.FileUploader"
+            android:name="com.nextcloud.client.jobs.transfer.FileTransferService"
+            android:foregroundServiceType="dataSync"
             android:exported="false" />
         <service
             android:name="com.nextcloud.client.media.PlayerService"
+            android:foregroundServiceType="mediaPlayback"
             android:exported="false" />
 
         <activity

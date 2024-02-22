@@ -20,7 +20,6 @@
 package com.nextcloud.client.migrations
 
 import android.content.SharedPreferences
-import java.lang.UnsupportedOperationException
 import java.util.TreeMap
 
 /**

@@ -35,9 +35,9 @@ import com.nextcloud.client.etm.pages.EtmBackgroundJobsFragment
 import com.nextcloud.client.etm.pages.EtmFileTransferFragment
 import com.nextcloud.client.etm.pages.EtmMigrations
 import com.nextcloud.client.etm.pages.EtmPreferencesFragment
-import com.nextcloud.client.files.downloader.TransferManagerConnection
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.JobInfo
+import com.nextcloud.client.jobs.transfer.TransferManagerConnection
 import com.nextcloud.client.migrations.MigrationInfo
 import com.nextcloud.client.migrations.MigrationsDb
 import com.nextcloud.client.migrations.MigrationsManager

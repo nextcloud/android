@@ -22,7 +22,6 @@ package com.owncloud.android.ui.dialog
 
 import android.app.Dialog
 import android.content.DialogInterface
-import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import androidx.appcompat.app.AlertDialog
@@ -31,6 +30,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PasswordDialogBinding
 import com.owncloud.android.datamodel.OCFile
@@ -110,19 +110,8 @@ class SharePasswordDialogFragment : DialogFragment(), Injectable {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        file = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getParcelable(ARG_FILE, OCFile::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            requireArguments().getParcelable(ARG_FILE)
-        }
-
-        share = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            requireArguments().getParcelable(ARG_SHARE, OCShare::class.java)
-        } else {
-            @Suppress("DEPRECATION")
-            requireArguments().getParcelable(ARG_SHARE)
-        }
+        file = requireArguments().getParcelableArgument(ARG_FILE, OCFile::class.java)
+        share = requireArguments().getParcelableArgument(ARG_SHARE, OCShare::class.java)
 
         createShare = requireArguments().getBoolean(ARG_CREATE_SHARE, false)
         askForPassword = requireArguments().getBoolean(ARG_ASK_FOR_PASSWORD, false)

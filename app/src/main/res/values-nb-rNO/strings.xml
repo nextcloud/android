@@ -14,10 +14,8 @@
     <string name="action_send_share">Send/del</string>
     <string name="action_switch_grid_view">Rutenett-visning</string>
     <string name="action_switch_list_view">Listevisning</string>
-    <string name="actionbar_calendar_contacts_restore">Gjenopprett kontakter &amp; kalender</string>
-    <string name="actionbar_copy">Kopier</string>
+    <string name="actionbar_calendar_contacts_restore">Opprett kontakter og kalender</string>
     <string name="actionbar_mkdir">Ny mappe</string>
-    <string name="actionbar_move">Flytt</string>
     <string name="actionbar_move_or_copy">Flytt eller kopier</string>
     <string name="actionbar_open_with">Åpne med</string>
     <string name="actionbar_search">Søk</string>
@@ -77,10 +75,11 @@
     <string name="autoupload_custom_folder">Sett opp en tilpasset mappe</string>
     <string name="autoupload_disable_power_save_check">Deaktivere strømsparing sjekk</string>
     <string name="autoupload_hide_folder">Skjul mappe</string>
+    <string name="autoupload_worker_foreground_info">Forbereder auto-opplasting</string>
     <string name="avatar">Avatar</string>
     <string name="away">Borte</string>
     <string name="backup_settings">Sikkerhetskopier innstillinger</string>
-    <string name="backup_title">Kontakter &amp; kalender sikkerhetskopi</string>
+    <string name="backup_title">Sikkerhetskopi av kontakter og kalender</string>
     <string name="battery_optimization_close">Lukk</string>
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_message">Din enhet har muligens batterioptimalisering aktivert. Auto-opplasting fungerer kun hvis du ekskluderer appen fra optimalisering.</string>
@@ -93,7 +92,6 @@
     <string name="check_back_later_or_reload">Kom tilbake senere eller last på nytt.</string>
     <string name="checkbox">Avkryssningsboks</string>
     <string name="choose_local_folder">Velg lokal mappe…</string>
-    <string name="choose_location">Velg lokasjon</string>
     <string name="choose_remote_folder">Velg mappe annensteds hen…</string>
     <string name="choose_template_helper_text">Velg en mal og oppgi filnavn</string>
     <string name="choose_which_file">Velg filen du ønsker å beholde!</string>
@@ -123,7 +121,6 @@
     <string name="common_remove">Slett</string>
     <string name="common_rename">Gi nytt navn</string>
     <string name="common_save">Lagre</string>
-    <string name="common_select">Velg</string>
     <string name="common_send">Send</string>
     <string name="common_share">Del</string>
     <string name="common_skip">Hopp over</string>
@@ -160,6 +157,7 @@
     <string name="conflict_message_description">Hvis du velger begge versjonene vil den lokale filen få et tall lagt til på slutten av navnet.</string>
     <string name="conflict_server_file">Server fil</string>
     <string name="contact_backup_title">Backup av kontakter</string>
+    <string name="contact_no_permission">Kontaktrettighet kreves.</string>
     <string name="contactlist_item_icon">Brukerikon for kontaktliste</string>
     <string name="contactlist_no_permission">Ingen tilgang gitt, ingenting importert.</string>
     <string name="contacts">Kontakter</string>
@@ -175,7 +173,6 @@
     <string name="copy_file_not_found">Kan ikke kopiere. Sjekk om filen eksisterer.</string>
     <string name="copy_link">Kopier lenke</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Kopiering/flytting til kryptert mappe støttes ikke enda.</string>
-    <string name="copy_to">Kopier til…</string>
     <string name="could_not_download_image">Kunne ikke laste ned det fulle bildet</string>
     <string name="could_not_retrieve_shares">Kunne ikke hente ressursen</string>
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
@@ -193,7 +190,6 @@
     <string name="data_to_back_up">Data å sikkerhetskopiere</string>
     <string name="default_credentials_wrong">Feil legitimasjon</string>
     <string name="delete_account">Fjern konto</string>
-    <string name="delete_account_warning">Fjern kontoen %s og slett alle lokale filer?\n\nSletting kan ikke angres.</string>
     <string name="delete_entries">Slett oppførigner</string>
     <string name="delete_link">Slett lenke</string>
     <string name="deselect_all">Fjern all markering</string>
@@ -225,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">Nedlasting mislyktes, prøv igjen</string>
     <string name="downloader_download_failed_ticker">Nedlasting mislyktes</string>
     <string name="downloader_download_file_not_found">Filen finnes ikke på serveren lenger</string>
+    <string name="downloader_download_in_progress">%1$d %% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Laster ned %2$s</string>
     <string name="downloader_download_in_progress_ticker">Laster ned…</string>
     <string name="downloader_download_succeeded_content">%1$s lastet ned</string>
     <string name="downloader_download_succeeded_ticker">Nedlastet</string>
+    <string name="downloader_file_download_cancelled">Enkelte filer ble kansellert under nedlastingen av brukeren</string>
+    <string name="downloader_file_download_failed">Det oppstod en feil under nedlasting av filer</string>
     <string name="downloader_not_downloaded_yet">Ikke lastet ned enda</string>
+    <string name="downloader_unexpected_error">Det oppstod en uventet feil under nedlasting av filer</string>
     <string name="drawer_close">Lukk sidepanel</string>
     <string name="drawer_community">Samfunn</string>
     <string name="drawer_header_background">Bakgrunsbilde for innledning på meny</string>
@@ -241,6 +241,7 @@
     <string name="drawer_item_home">Hjem</string>
     <string name="drawer_item_notifications">Varsler</string>
     <string name="drawer_item_on_device">På enheten</string>
+    <string name="drawer_item_personal_files">Personlige filer</string>
     <string name="drawer_item_recently_modified">Nylig endret</string>
     <string name="drawer_item_shared">Delt</string>
     <string name="drawer_item_trashbin">Slettede filer</string>
@@ -258,6 +259,7 @@
     <string name="ecosystem_apps_more">Flere Nextcloud apper</string>
     <string name="ecosystem_apps_notes">Nextcloud Notater</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Kunne ikke velge e-postadresse.</string>
     <string name="encrypted">Sett som kryptert</string>
     <string name="end_to_end_encryption_confirm_button">Sett opp kryptering</string>
     <string name="end_to_end_encryption_decrypting">Dekrypterer…</string>
@@ -292,9 +294,10 @@
     <string name="error_starting_direct_camera_upload">Klarte ikke å starte opp kamera</string>
     <string name="error_starting_doc_scan">Feil ved start av dokumentskanning</string>
     <string name="etm_accounts">Kontoer</string>
+    <string name="etm_background_execution_count">Tidene går på 48 timer</string>
+    <string name="etm_background_job_created">Opprettet</string>
     <string name="etm_background_job_name">Jobbnavn</string>
     <string name="etm_background_job_progress">Fremgang</string>
-    <string name="etm_background_job_started">Started</string>
     <string name="etm_background_job_state">Tilstand</string>
     <string name="etm_background_job_user">Bruker</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -342,6 +345,7 @@
     <string name="file_list_empty_shared_headline">Ingenting delt enda</string>
     <string name="file_list_empty_unified_search_no_results">Ingen resultat for søk</string>
     <string name="file_list_folder">mappe</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Laster…</string>
     <string name="file_list_no_app_for_file_type">Ingen app er satt opp til å håndtere denne filtypen.</string>
     <string name="file_list_seconds_ago">for få sekunder siden</string>
@@ -386,9 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">Filnavnet innehold minst et ugyldig tegn</string>
     <string name="filename_hint">Filnavn</string>
     <string name="first_run_1_text">Hold dine data sikre og under din egen kontroll</string>
-    <string name="first_run_2_text">Sikkert samarbeid &amp; fil utveksling</string>
-    <string name="first_run_3_text">Brukervennlig e-post på web, kalender &amp; kontakter </string>
-    <string name="first_run_4_text">Deling av skjerm, online møter &amp; samtaler på web</string>
+    <string name="first_run_2_text">Sikkert samarbeid og filutveksling</string>
+    <string name="first_run_3_text">Brukervennlig e-post på web, kalender og kontakter </string>
+    <string name="first_run_4_text">Skjermdeling, nettmøter og nettkonferanser</string>
     <string name="folder_already_exists">Mappe finnes allerede</string>
     <string name="folder_confirm_create">Opprett</string>
     <string name="folder_list_empty_headline">Ingen mapper her</string>
@@ -402,7 +406,6 @@
     <string name="forbidden_permissions_delete">å slette denne filen</string>
     <string name="forbidden_permissions_move">å flytte denne filen</string>
     <string name="forbidden_permissions_rename">å gi denne filen nytt navn</string>
-    <string name="foreground_service_download">Laster ned filer…</string>
     <string name="foreground_service_upload">Laster opp filer…</string>
     <string name="foreign_files_fail">Noen filer kunne ikke flyttes</string>
     <string name="foreign_files_local_text">Lokal: %1$s</string>
@@ -411,6 +414,7 @@
     <string name="foreign_files_success">Alle filene ble flyttet</string>
     <string name="forward">Fremover</string>
     <string name="fourHours">4 timer</string>
+    <string name="grid_file_features_live_photo_content_description">Dette ikonet indikerer tilgjengeligheten av live photo</string>
     <string name="hidden_file_name_warning">Navn gir skjult fil</string>
     <string name="hint_name">Navn</string>
     <string name="hint_note">Melding</string>
@@ -497,7 +501,6 @@
     <string name="move_file_invalid_into_descendent">Det er ikke mulig å flytte en mappe inn i sin egen undermappe</string>
     <string name="move_file_invalid_overwrite">Filen finnes allerede i målmappen</string>
     <string name="move_file_not_found">Kan ikke flytte filen. Sjekk om den eksisterer.</string>
-    <string name="move_to">Flytt til…</string>
     <string name="network_error_connect_timeout_exception">Feil oppstått ved venting på server. Kunne ikke fullføre operasjonen.</string>
     <string name="network_error_socket_exception">Feil oppstått ved forbindelsen til serveren</string>
     <string name="network_error_socket_timeout_exception">Feil oppstått ved venting på server. Kunne ikke fullføre operasjonen.</string>
@@ -518,7 +521,6 @@
     <string name="no_pdf_app_available">Ingen app tilgjengelig for å håndtere PDF</string>
     <string name="no_send_app">Ingen program for å sende valgt fil</string>
     <string name="no_share_permission_selected">Velg minst en rettighet for å dele.</string>
-    <string name="note_confirm">Send</string>
     <string name="note_could_not_sent">Kan ikke sende melding</string>
     <string name="note_icon_hint">Notatikon</string>
     <string name="notification_action_failed">Feilet å utføre aksjon.</string>
@@ -578,16 +580,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Endre navn på ny versjon</string>
     <string name="pref_instant_name_collision_policy_title">Hva skal gjøres om filen finnes?</string>
     <string name="prefs_add_account">Legg til en konto</string>
-    <string name="prefs_calendar_contacts">Synkroniser kalender &amp; kontakter</string>
+    <string name="prefs_calendar_contacts">Synkroniser kalender og kontakter</string>
     <string name="prefs_calendar_contacts_no_store_error">Hverken F-Droid eller Google Play er installert</string>
     <string name="prefs_calendar_contacts_summary">Konfigurer DAVx5 (tidligere DAVdroid) (v1.3.0+)  for gjeldende konto</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Kalender &amp; kontaktsynkronisering ble satt opp</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Oppsett av synkronisering av kalender og kontakter</string>
     <string name="prefs_category_about">Om</string>
     <string name="prefs_category_details">Detaljer</string>
     <string name="prefs_category_dev">Utvikling</string>
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
-    <string name="prefs_daily_backup_summary">Daglig backup av din kaleder &amp; kontakter</string>
+    <string name="prefs_daily_backup_summary">Daglig sikkerhetskopiering av din kalender og kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig sikkerhetskopiering av kontakter</string>
     <string name="prefs_davx5_setup_error">Uventet feil under oppsett av DAVx5 (tidligere kjent som DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-til-ende -kryptering er satt opp!</string>
@@ -600,6 +602,8 @@
     <string name="prefs_imprint">Avtrykk</string>
     <string name="prefs_instant_behaviour_dialogTitle">Opprinnelig fil vil bli…</string>
     <string name="prefs_instant_behaviour_title">Opprinnelig fil vil bli…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Ekskluder skjulte filer og mapper</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Ekskluder skjulte</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Lagre i undermapper basert på dato</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Bruk undermapper</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Alternativer for undermappe</string>
@@ -648,12 +652,17 @@
     <string name="remove_e2e">Du kan fjerne ende-til-ende -kryptering lokalt på denne klienten</string>
     <string name="remove_e2e_message">Du kan fjerne ende-til-ende -kryptering lokalt på denne klienten. De krypterte filene vil forbli på serveren, men vil ikke bli synkronisert til denne maskinen lengre.</string>
     <string name="remove_fail_msg">Sletting mislyktes</string>
+    <string name="remove_local_account">Fjern lokal konto</string>
+    <string name="remove_local_account_details">Fjern konto fra enheten og slett alle lokale filer</string>
     <string name="remove_notification_failed">Kunne ikke fjerne meldingen.</string>
     <string name="remove_push_notification">Fjern</string>
     <string name="remove_success_msg">Slettet</string>
     <string name="rename_dialog_title">Skriv inn et nytt navn</string>
     <string name="rename_local_fail_msg">Kunne ikke endre navn på lokal kopi, prøv et annet navn</string>
     <string name="rename_server_fail_msg">Endring av navn ikke mulig, navnet er allerde benyttet</string>
+    <string name="request_account_deletion">Request account deletion</string>
+    <string name="request_account_deletion_button">Be om sletting</string>
+    <string name="request_account_deletion_details">Be om permanent sletting av kontoen av tjenesteleverandøren</string>
     <string name="reshare_not_allowed">Videre deling er ikke tillatt</string>
     <string name="resharing_is_not_allowed">Videredeling er ikke tillatt</string>
     <string name="resized_image_not_possible_download">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
@@ -674,16 +683,17 @@
     <string name="screenshot_04_accounts_heading">Alle kontoene dine</string>
     <string name="screenshot_04_accounts_subline">på et plass</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk opplastning</string>
-    <string name="screenshot_05_autoUpload_subline">for dine bilder &amp; videoer</string>
-    <string name="screenshot_06_davdroid_heading">Kalender &amp; kontakter</string>
+    <string name="screenshot_05_autoUpload_subline">for dine bilder og videoer</string>
+    <string name="screenshot_06_davdroid_heading">Kalender og kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkroniser med DAVx5</string>
     <string name="search_error">Feil ved henting av søke resultat</string>
+    <string name="secure_share_not_set_up">Sikker deling er ikke konfigurert for denne brukeren</string>
+    <string name="secure_share_search">Sikker deling...</string>
     <string name="select_all">Velg alle</string>
     <string name="select_media_folder">Velg mediamappe</string>
     <string name="select_one_template">Velg en mal</string>
     <string name="select_template">Velg mal</string>
     <string name="send">Send</string>
-    <string name="send_note">Send melding til mottaker</string>
     <string name="send_share">Send deling</string>
     <string name="sendbutton_description">Ikon for forsendelsesknapp</string>
     <string name="set_as">Bruk som</string>
@@ -693,7 +703,7 @@
     <string name="set_status_message">Velg statusmelding</string>
     <string name="setup_e2e">Under oppsett av ende-til-ende -kryptering så vil du motta et tilfeldig 12-ord-krypteringspassord, som du vil trenge for å få åpner filene dine på andre enheter. Dette vil bare bli lagret på denne enheten. og kan bli vist igjen på denne siden. Vennligst noter det ned på et sikkert sted!</string>
     <string name="share">Del</string>
-    <string name="share_copy_link">Del &amp; kopier lenke</string>
+    <string name="share_copy_link">Del og kopier kobling</string>
     <string name="share_dialog_title">Deling</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Utløper den %1$s</string>
@@ -713,6 +723,7 @@
     <string name="share_link_with_label">Del lenke (%1$s)</string>
     <string name="share_no_expiration_date_label">Sett utløpsdato</string>
     <string name="share_no_password_title">Velg passord</string>
+    <string name="share_not_allowed_when_file_drop">Videredeling er ikke tillatt under sikker filslipp</string>
     <string name="share_password_title">Passordbeskyttet</string>
     <string name="share_permission_can_edit">Kan endre</string>
     <string name="share_permission_file_drop">Filkasse</string>
@@ -741,12 +752,6 @@
     <string name="signup_with_provider">Logg på med tilbyder</string>
     <string name="single_sign_on_request_token" formatted="true">Tillat %1$s  adgang til din Nextcloud konto %2$s?</string>
     <string name="sort_by">Sorter etter</string>
-    <string name="sort_by_modification_date_ascending">Nyeste først</string>
-    <string name="sort_by_modification_date_descending">Eldste først</string>
-    <string name="sort_by_name_ascending">A - Å</string>
-    <string name="sort_by_name_descending">Å - A</string>
-    <string name="sort_by_size_ascending">Minste først</string>
-    <string name="sort_by_size_descending">Største først</string>
     <string name="ssl_validator_btn_details_hide">Skjul</string>
     <string name="ssl_validator_btn_details_see">Detaljer</string>
     <string name="ssl_validator_header">Serverens identitet kunne ikke bekreftes</string>
@@ -784,7 +789,7 @@
     <string name="storage_permission_full_access">Full tilgang</string>
     <string name="storage_permission_media_read_only">Skrivebeskyttet media</string>
     <string name="storage_pictures">Bilder</string>
-    <string name="store_full_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over.\n\nFunksjoner:\n* Last opp filer til din Nextcloud server\n* Del dem med andre\n* Hold favorittfilene og mappene dine synkroniserte\n* Søk gjennom alle mappene dine på serveren\n* Automatisk opplasting av bilder og videoer tatt med enheten din\n* Hold deg oppdatert via notifikasjoner\n* Støtte for flere kontoer\n* Sikker tilgang til dataene dine med fingeravtrykk eller PIN\n* Integrasjon med DAVx5 (tidligere kjent som DAVdroid) for enkel oppsett av synkronisering av kalendre og kontakter\n* Vennligst rapporter alle problemer på https://github.com/nextcloud/android/issues og diskuter appen på https://help.nextcloud.com/c/clients/android\n\nEr Nextcloud nytt for deg? Nextcloud er en privat filsynkroniserings, -deling og kommunikasjonsserver. Det er gratis programvare, og du kan ha den på din egen server, eller betale et selskap for å gjøre det for deg. På den måten har du kontroll over bildene dine, kalenderen og kontaktdata, dokumentene og alt annet.\n\nSjekk ut Nextcloud på https://nextcloud.com</string>
+    <string name="store_full_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over.\n\nFunksjoner:\n* Enkelt, moderne grensesnitt, tilpasset temaet for serveren din\n * Last opp filer til din Nextcloud server\n * Del dem med andre\n * Hold favorittfilene og -mappene dine synkronisert\n* Søk i alle mappene på serverenn* Automatisk opplasting for bilder og videoer tatt med enheten\n* Hold deg oppdatert med varsler\n* Støtte for flere kontoer\n* Sikker tilgang til dataene dine med fingeravtrykk eller PIN\n* Integrasjon med DAVx5 (tidligere kjent som DAVdroid) for enkelt oppsett av kalender og kontakter synkronisering\n\nVennligst rapporter alle problemer på https://github.com/nextcloud/android/issues og diskuter dette programmet på https://help.nextcloud.com/c/clients/android\n\nNew på Nextcloud? Nextcloud er en privat filsynkronisering og delings- og kommunikasjonsserver. Det er fri programvare, og du kan være vert for det selv eller betale et selskap for å gjøre det for deg. På den måten har du kontroll over bildene dine, kalenderen og kontaktdataene dine, dokumentene dine og alt annet. Sjekk ut Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over.\nDette er den offisielle utviklingsversjonen, med et daglig utvalg av ny uprøvd funksjonalitet, som kan forårsake ustabilitet og tap av data. Appen er for brukere som er villige til å teste, og rapporterer feil hvis de skulle oppstå. Ikke bruk den til ditt produktive arbeid!\n\nBåde den offisielle utvikler versjonen og den vanlige versjonen er tilgjengelig på F-droid, og kan installeres samtidig.</string>
     <string name="store_short_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over</string>
     <string name="store_short_dev_desc">Den selvstyrte produktivitetsplattformen som du har kontroll over (dev forhåndsvisningsversjon)</string>
@@ -798,7 +803,7 @@
     <string name="subject_shared_with_you">\"%1$s\" er blitt delt med deg</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med deg</string>
     <string name="subtitle_photos_only">Bare bilder</string>
-    <string name="subtitle_photos_videos">Bilder &amp; videoer</string>
+    <string name="subtitle_photos_videos">Bilder og videoer</string>
     <string name="subtitle_videos_only">Bare videoer</string>
     <string name="suggest">Foreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
@@ -856,6 +861,13 @@
     <string name="update_link_file_no_exist">Kan ikke oppdatere. Sjekk om filen eksisterer.</string>
     <string name="update_link_forbidden_permissions">å oppdatere denne delingen</string>
     <string name="updating_share_failed">Oppdatering av deling feilet</string>
+    <string name="upload_action_cancelled_clear">Fjern avbrutte opplastinger</string>
+    <string name="upload_action_cancelled_resume">Gjenoppta avbrutte opplastinger</string>
+    <string name="upload_action_failed_clear">Fjern feilede opplastinger</string>
+    <string name="upload_action_failed_retry">Prøv å laste opp igjen.</string>
+    <string name="upload_action_file_not_exist_message">Noen filer som ikke finnes kan ikke gjenopptas</string>
+    <string name="upload_action_global_upload_pause">Sett alle opplastinger på pause</string>
+    <string name="upload_action_global_upload_resume">Gjenoppta alle opplastinger</string>
     <string name="upload_cannot_create_file">Kan ikke opprette lokal fil</string>
     <string name="upload_chooser_title">Last opp fra…</string>
     <string name="upload_content_from_other_apps">Last opp innhold fra andre apper</string>
@@ -867,6 +879,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Textfil-snutt(.txt)</string>
     <string name="upload_file_dialog_title">Legg inn filnavn og -type for opplasting</string>
     <string name="upload_files">Last opp filer</string>
+    <string name="upload_global_pause_title">Alle opplastinger er satt på pause</string>
     <string name="upload_item_action_button">Last opp element handlingsknapp</string>
     <string name="upload_list_delete">Slett</string>
     <string name="upload_list_empty_headline">Ingen opplastinger tilgjengelig</string>
@@ -875,8 +888,10 @@
     <string name="upload_local_storage_full">Lokal lagring full</string>
     <string name="upload_local_storage_not_copied">Filen kunne ikke kopieres til lokal lagring</string>
     <string name="upload_lock_failed">Låsing av mappe feilet</string>
+    <string name="upload_manually_cancelled">Opplasting ble avbrutt av bruker</string>
     <string name="upload_old_android">Kryptering er bare mulig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Det er ikke nok plass til å kopiere de valgte filene inn i mappen %1$s. Vil du flytte dem i stedet? </string>
+    <string name="upload_quota_exceeded">Overskredet lagringskvote</string>
     <string name="upload_scan_doc_upload">Skann dokument med kamera</string>
     <string name="upload_sync_conflict">Synkroniseringskonflikt, vennligst fiks manuelt</string>
     <string name="upload_unknown_error">Ukjent feil</string>
@@ -888,7 +903,10 @@
     <string name="uploader_error_message_source_file_not_found">Fil valgt for opplasting ble ikke funnet. Sjekk hvorvidt filen eksisterer.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Denne filen kan ikke lastes opp</string>
     <string name="uploader_error_title_no_file_to_upload">Ingen fil å laste opp</string>
+    <string name="uploader_file_not_found_message">Finner ikke filen. Er du sikker på at denne filen eksisterer, eller er en tidligere konflikt ikke løst?</string>
+    <string name="uploader_file_not_found_on_server_message">Vi finner ikke filen på serveren. En annen bruker kan ha slettet filen.</string>
     <string name="uploader_info_dirname">Mappenavn</string>
+    <string name="uploader_local_files_uploaded">Prøv på nytt å laste opp mislykkede lokale filer</string>
     <string name="uploader_top_message">Velg opplastingsmappe</string>
     <string name="uploader_upload_failed_content_single">Kunne ikke laste opp %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Opplasting mislyktes, logg inn igjen</string>
@@ -901,6 +919,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Behold filen i kildemappe</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slett filen fra kildemappen</string>
     <string name="uploader_upload_forbidden_permissions">å laste opp i denne mappen</string>
+    <string name="uploader_upload_in_progress">%1$d %% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Laster opp %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Laster opp…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s lastet opp</string>
@@ -911,6 +930,7 @@
     <string name="uploads_view_group_current_uploads">Nåværende</string>
     <string name="uploads_view_group_failed_uploads">Mislyktes/venter omstart</string>
     <string name="uploads_view_group_finished_uploads">Opplastet</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Avbrutt</string>
     <string name="uploads_view_later_waiting_to_upload">Venter på å laste opp</string>
     <string name="uploads_view_title">Opplastinger</string>
     <string name="uploads_view_upload_status_cancelled">Avbrutt</string>
@@ -925,6 +945,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Henter serverversjon...</string>
     <string name="uploads_view_upload_status_service_interrupted">Appen ble avsluttet</string>
     <string name="uploads_view_upload_status_succeeded">Ferdig</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Samme fil funnet på ekstern, dropper opplasting</string>
     <string name="uploads_view_upload_status_unknown_fail">Ukjent feil</string>
     <string name="uploads_view_upload_status_virus_detected">Virus oppdaget. Opplasting kan ikke fullføres.</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Venter på å gå ut av strømsparingsmodus</string>
@@ -954,6 +975,7 @@
     <string name="whats_your_status">Hva er din status?</string>
     <string name="widgets_not_available">Widgeter er bare tilgjengelige på %1$s 25 eller nyere</string>
     <string name="widgets_not_available_title">Ikke tilgjengelig</string>
+    <string name="worker_download">Laster ned filer…</string>
     <string name="write_email">Send e-post</string>
     <string name="wrong_storage_path">Denne datalagringsmappen finnes ikke</string>
     <string name="wrong_storage_path_desc">Dette kan skyldes at det er gjort en backup eller gjenoppretting på en annen enhet. Går tilbake til standardinnstilling. Sjekk innstillinger for å endre datalagringsmappen.</string>

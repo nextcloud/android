@@ -20,6 +20,8 @@ import android.accounts.AccountAuthenticatorResponse;
 import android.accounts.AccountManager;
 import android.os.Bundle;
 
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 /*
@@ -59,7 +61,9 @@ public abstract class AccountAuthenticatorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         mAccountAuthenticatorResponse =
-                getIntent().getParcelableExtra(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE);
+            IntentExtensionsKt.getParcelableArgument(getIntent(),
+                                                     AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
+                                                     AccountAuthenticatorResponse.class);
 
         if (mAccountAuthenticatorResponse != null) {
             mAccountAuthenticatorResponse.onRequestContinued();

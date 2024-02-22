@@ -26,12 +26,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ArbitraryDataProviderIT : AbstractIT() {
-    private val arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
 
     @Test
-    fun testNull() {
+    fun testEmpty() {
         val key = "DUMMY_KEY"
-        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, null)
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, "")
 
         assertEquals("", arbitraryDataProvider.getValue(user.accountName, key))
     }
@@ -74,5 +73,25 @@ class ArbitraryDataProviderIT : AbstractIT() {
         value = -1
         arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, value.toString())
         assertEquals(value, arbitraryDataProvider.getIntegerValue(user.accountName, key))
+    }
+
+    @Test
+    fun testIncrement() {
+        val key = "INCREMENT"
+
+        // key does not exist
+        assertEquals(-1, arbitraryDataProvider.getIntegerValue(user.accountName, key))
+
+        // increment -> 1
+        arbitraryDataProvider.incrementValue(user.accountName, key)
+        assertEquals(1, arbitraryDataProvider.getIntegerValue(user.accountName, key))
+
+        // increment -> 2
+        arbitraryDataProvider.incrementValue(user.accountName, key)
+        assertEquals(2, arbitraryDataProvider.getIntegerValue(user.accountName, key))
+
+        // delete
+        arbitraryDataProvider.deleteKeyForAccount(user.accountName, key)
+        assertEquals(-1, arbitraryDataProvider.getIntegerValue(user.accountName, key))
     }
 }

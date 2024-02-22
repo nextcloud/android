@@ -15,130 +15,164 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 -->
-<com.owncloud.android.ui.SquareLinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ListItemLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
+    android:layout_marginEnd="@dimen/grid_container_margin"
+    android:layout_marginTop="@dimen/grid_container_margin"
+    android:orientation="vertical"
     android:gravity="center"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/grid_container_height">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_width="@dimen/grid_container_width"
+        android:layout_height="@dimen/grid_container_height">
+
+        <com.elyeproj.loaderviewlibrary.LoaderImageView
+            android:id="@+id/thumbnail_shimmer"
+            android:visibility="gone"
+            android:layout_marginBottom="@dimen/grid_thumbnail_margin_bottom"
+            android:layout_width="@dimen/standard_list_item_size"
+            android:layout_height="@dimen/standard_list_item_size"
+            android:contentDescription="@null"
+            android:src="@drawable/folder"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
 
         <ImageView
-            android:id="@+id/favorite_action"
+            android:id="@+id/thumbnail"
+            android:layout_width="@dimen/standard_list_item_size"
+            android:layout_height="@dimen/standard_list_item_size"
+            android:layout_marginBottom="@dimen/grid_thumbnail_margin_bottom"
+            android:contentDescription="@null"
+            android:src="@drawable/folder"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <LinearLayout
+            android:id="@+id/file_features_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|end"
-            android:layout_margin="@dimen/standard_quarter_margin"
-            android:src="@drawable/favorite"
-            android:contentDescription="@string/favorite_icon"
-            app:layout_constraintEnd_toEndOf="@+id/frameLayout"
-            app:layout_constraintTop_toTopOf="@id/frameLayout"
-            app:layout_constraintBottom_toTopOf="@id/frameLayout"/>
+            android:gravity="center"
+            android:layout_marginEnd="@dimen/grid_layout_file_features_margin_end"
+            android:layout_marginBottom="@dimen/grid_layout_margin_bottom"
+            android:alpha="0.9"
+            android:background="@drawable/rounded_rect"
+            android:backgroundTint="@color/grid_file_features_background_color"
+            android:orientation="horizontal"
+            android:padding="@dimen/standard_quarter_padding"
+            android:translationZ="4dp"
+            app:layout_constraintBottom_toBottomOf="@+id/thumbnail"
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <FrameLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:layout_constraintBottom_toBottomOf="parent">
+            <ImageView
+                tools:visibility="visible"
+                android:id="@+id/favorite_action"
+                android:layout_width="@dimen/grid_layout_item_size"
+                android:layout_height="@dimen/grid_layout_item_size"
+                android:layout_marginEnd="@dimen/grid_layout_margin_end"
+                android:contentDescription="@string/favorite_icon"
+                android:src="@drawable/favorite" />
 
-            <com.elyeproj.loaderviewlibrary.LoaderImageView
-                android:id="@+id/thumbnail_shimmer"
-                android:layout_width="@dimen/standard_list_item_size"
-                android:layout_height="@dimen/standard_list_item_size"
-                android:layout_gravity="center"
+            <ImageView
+                android:id="@+id/videoOverlay"
+                android:layout_width="@dimen/grid_layout_item_size"
+                android:layout_height="@dimen/grid_layout_item_size"
+                android:layout_marginEnd="@dimen/grid_layout_margin_end"
+                android:contentDescription="@string/video_overlay_icon"
+                android:src="@drawable/video_white"
                 android:visibility="gone"
-                app:corners="8" />
-
-            <FrameLayout
-                android:layout_width="@dimen/standard_list_item_size"
-                android:layout_height="@dimen/standard_list_item_size"
-                android:layout_gravity="center">
-
-                <ImageView
-                    android:id="@+id/thumbnail"
-                    android:layout_width="@dimen/standard_list_item_size"
-                    android:layout_height="@dimen/standard_list_item_size"
-                    android:contentDescription="@null"
-                    android:src="@drawable/folder" />
-
-                <ImageView
-                    android:id="@+id/videoOverlay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginStart="4dp"
-                    android:src="@drawable/video_white"
-                    android:visibility="gone"
-                    tools:visibility="visible"
-                    android:contentDescription="@string/video_overlay_icon" />
-            </FrameLayout>
-
+                app:tint="@color/grid_file_features_icon_color"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/sharedIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="top|end"
-                android:layout_marginTop="@dimen/grid_item_shared_icon_layout_top_margin"
-                android:layout_marginEnd="@dimen/standard_quarter_margin"
+                android:layout_width="@dimen/grid_layout_item_size"
+                android:layout_height="@dimen/grid_layout_item_size"
+                android:layout_marginEnd="@dimen/grid_layout_margin_end"
+                android:contentDescription="@string/shared_icon_shared_via_link"
                 android:src="@drawable/shared_via_link"
-                android:contentDescription="@string/shared_icon_shared_via_link" />
+                app:tint="@color/grid_file_features_icon_color"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/unreadComments"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/grid_layout_item_size"
+                android:layout_height="@dimen/grid_layout_item_size"
+                tools:ignore="TouchTargetSizeCheck"
+                android:layout_marginEnd="@dimen/grid_layout_margin_end"
                 android:clickable="true"
                 android:contentDescription="@string/unread_comments"
                 android:focusable="true"
-                android:layout_gravity="top|end"
-                android:layout_marginTop="@dimen/grid_item_shared_icon_layout_top_margin"
-                android:layout_marginEnd="@dimen/standard_quarter_margin"
                 android:src="@drawable/ic_comment_grid"
-                android:visibility="gone" />
+                android:visibility="gone"
+                app:tint="@color/grid_file_features_icon_color"
+                tools:visibility="visible" />
 
             <ImageView
                 android:id="@+id/localFileIndicator"
-                android:layout_width="@dimen/grid_item_local_file_indicator_layout_width"
-                android:layout_height="@dimen/grid_item_local_file_indicator_layout_height"
-                android:layout_gravity="bottom|end"
-                android:layout_marginBottom="@dimen/standard_quarter_margin"
-                android:layout_marginEnd="@dimen/standard_quarter_margin"
-                android:layout_marginTop="@dimen/standard_quarter_margin"
+                android:layout_width="@dimen/grid_layout_item_size"
+                android:layout_height="@dimen/grid_layout_item_size"
+                android:layout_marginEnd="@dimen/grid_layout_margin_end"
+                android:contentDescription="@string/synced_icon"
                 android:src="@drawable/ic_synced"
-                android:contentDescription="@string/synced_icon"/>
+                tools:visibility="visible" />
 
-            <ImageView
-                android:id="@+id/custom_checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/standard_quarter_margin"
-                android:layout_marginRight="@dimen/standard_quarter_margin"
-                android:layout_gravity="center_vertical|top"
-                android:src="@android:drawable/checkbox_off_background"
-                android:contentDescription="@string/checkbox"/>
+        </LinearLayout>
 
-        </FrameLayout>
+        <ImageView
+            android:id="@+id/custom_checkbox"
+            android:layout_width="@dimen/grid_checkbox_size"
+            android:layout_height="@dimen/grid_checkbox_size"
+            android:layout_marginStart="@dimen/grid_checkbox_margin"
+            android:layout_marginTop="@dimen/grid_checkbox_margin"
+            android:contentDescription="@string/checkbox"
+            android:src="@android:drawable/checkbox_off_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/Filename"
+            android:layout_width="@dimen/grid_filename_width"
+            android:layout_height="@dimen/grid_bottom_view_height"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/grid_bottom_view_margin_bottom"
+            android:ellipsize="middle"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/placeholder_filename"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/grid_item_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/more"
+            android:layout_width="@dimen/grid_bottom_view_height"
+            android:layout_height="@dimen/grid_bottom_view_height"
+            android:layout_marginBottom="@dimen/grid_bottom_view_margin_bottom"
+            android:layout_marginEnd="@dimen/grid_bottom_view_margin_end"
+            android:translationZ="2dp"
+            tools:ignore="TouchTargetSizeCheck"
+            android:layout_gravity="center"
+            android:background="@color/transparent"
+            android:contentDescription="@string/overflow_menu"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_dots_vertical" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/Filename"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/standard_quarter_margin"
-        android:layout_marginRight="@dimen/standard_quarter_margin"
-        android:ellipsize="middle"
-        android:gravity="center_horizontal"
-        android:singleLine="true"
-        android:text="@string/placeholder_filename"
-        android:textColor="@color/text_color"
-        android:textSize="@dimen/grid_item_text_size" />
-
-</com.owncloud.android.ui.SquareLinearLayout>
+</LinearLayout>

@@ -21,6 +21,7 @@
 
 package com.nextcloud.client.device
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.BatteryManager
@@ -126,6 +127,7 @@ class TestPowerManagementService {
         }
     }
 
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
     class Battery : Base() {
 
         companion object {
@@ -137,7 +139,9 @@ class TestPowerManagementService {
 
         @Before
         fun setUp() {
-            whenever(context.registerReceiver(anyOrNull(), anyOrNull())).thenReturn(intent)
+            whenever(context.registerReceiver(anyOrNull(), anyOrNull())).thenReturn(
+                intent
+            )
         }
 
         @Test
@@ -193,7 +197,9 @@ class TestPowerManagementService {
             //      device has API level P or below
             //      battery status sticky intent is NOT available
             whenever(deviceInfo.apiLevel).thenReturn(Build.VERSION_CODES.P)
-            whenever(context.registerReceiver(anyOrNull(), anyOrNull())).thenReturn(null)
+            whenever(context.registerReceiver(anyOrNull(), anyOrNull())).thenReturn(
+                null
+            )
 
             // THEN
             //     charging flag is false

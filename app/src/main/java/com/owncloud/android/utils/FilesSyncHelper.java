@@ -34,6 +34,8 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
@@ -42,11 +44,10 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploader;
+import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.lukhnos.nnio.file.FileVisitResult;
-import org.lukhnos.nnio.file.Files;
 import org.lukhnos.nnio.file.Path;
 import org.lukhnos.nnio.file.Paths;
 import org.lukhnos.nnio.file.SimpleFileVisitor;
@@ -64,8 +65,6 @@ public final class FilesSyncHelper {
     public static final String TAG = "FileSyncHelper";
 
     public static final String GLOBAL = "global";
-
-    public static final int ContentSyncJobId = 315;
 
     private FilesSyncHelper() {
         // utility class -> private constructor
@@ -94,16 +93,28 @@ public final class FilesSyncHelper {
                     FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
                     Path path = Paths.get(syncedFolder.getLocalPath());
 
-                    Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
+                    FileUtil.walkFileTree(path, new SimpleFileVisitor<Path>() {
                         @Override
                         public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                             File file = path.toFile();
+                            if (syncedFolder.isExcludeHidden() && file.isHidden()) {
+                                // exclude hidden file or folder
+                                return FileVisitResult.CONTINUE;
+                            }
                             if (syncedFolder.isExisting() || attrs.lastModifiedTime().toMillis() >= enabledTimestampMs) {
                                 filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
                                                                               attrs.lastModifiedTime().toMillis(),
                                                                               file.isDirectory(), syncedFolder);
                             }
 
+                            return FileVisitResult.CONTINUE;
+                        }
+
+                        @Override
+                        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                            if (syncedFolder.isExcludeHidden() && dir.compareTo(Paths.get(syncedFolder.getLocalPath())) != 0 && dir.toFile().isHidden()) {
+                                return null;
+                            }
                             return FileVisitResult.CONTINUE;
                         }
 
@@ -174,22 +185,22 @@ public final class FilesSyncHelper {
                                            final UserAccountManager accountManager,
                                            final ConnectivityService connectivityService,
                                            final PowerManagementService powerManagementService) {
-        final Context context = MainApp.getAppContext();
-
         boolean accountExists;
 
         boolean whileChargingOnly = true;
         boolean useWifiOnly = true;
 
+        // Make all in progress downloads failed to restart upload worker
+        uploadsStorageManager.failInProgressUploads(UploadResult.SERVICE_INTERRUPTED);
+
         OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
 
         for (OCUpload failedUpload : failedUploads) {
             accountExists = false;
-            if(!failedUpload.isWhileChargingOnly()){
+            if (!failedUpload.isWhileChargingOnly()) {
                 whileChargingOnly = false;
             }
-            if(!failedUpload.isUseWifiOnly())
-            {
+            if (!failedUpload.isUseWifiOnly()) {
                 useWifiOnly = false;
             }
 
@@ -207,35 +218,32 @@ public final class FilesSyncHelper {
         }
 
         failedUploads = uploadsStorageManager.getFailedUploads();
-        if(failedUploads.length == 0)
-        {
+        if (failedUploads.length == 0) {
             //nothing to do
             return;
         }
 
-        if(whileChargingOnly){
+        if (whileChargingOnly) {
             final BatteryStatus batteryStatus = powerManagementService.getBattery();
             final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
-            if(!charging){
+            if (!charging) {
                 //all uploads requires charging
                 return;
             }
         }
 
-        if (useWifiOnly && !connectivityService.getConnectivity().isWifi()){
+        if (useWifiOnly && !connectivityService.getConnectivity().isWifi()) {
             //all uploads requires wifi
             return;
         }
 
         new Thread(() -> {
             if (connectivityService.getConnectivity().isConnected()) {
-                FileUploader.retryFailedUploads(
-                    context,
+                FileUploadHelper.Companion.instance().retryFailedUploads(
                     uploadsStorageManager,
                     connectivityService,
                     accountManager,
-                    powerManagementService
-                                               );
+                    powerManagementService);
             }
         }).start();
     }

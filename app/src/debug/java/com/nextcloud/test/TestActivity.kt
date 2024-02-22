@@ -25,6 +25,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.EditorUtils
@@ -33,8 +35,6 @@ import com.owncloud.android.databinding.TestLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileDownloader
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import com.owncloud.android.services.OperationsService
@@ -56,6 +56,10 @@ class TestActivity :
     private lateinit var binding: TestLayoutBinding
 
     val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
+        override fun isConnected(): Boolean {
+            return false
+        }
+
         override fun isInternetWalled(): Boolean {
             return false
         }
@@ -122,11 +126,11 @@ class TestActivity :
         TODO("Not yet implemented")
     }
 
-    override fun getFileUploaderBinder(): FileUploader.FileUploaderBinder? {
-        return null
+    override fun getFileUploaderHelper(): FileUploadHelper {
+        return FileUploadHelper.instance()
     }
 
-    override fun getFileDownloaderBinder(): FileDownloader.FileDownloaderBinder? {
+    override fun getFileDownloadProgressListener(): FileDownloadWorker.FileDownloadProgressListener? {
         return null
     }
 

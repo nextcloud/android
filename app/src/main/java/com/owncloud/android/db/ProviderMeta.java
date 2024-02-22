@@ -35,7 +35,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 73;
+    public static final int DB_VERSION = 78;
 
     private ProviderMeta() {
         // No instance
@@ -107,6 +107,7 @@ public class ProviderMeta {
         public static final String FILE_IS_DOWNLOADING = "is_downloading";
         public static final String FILE_ETAG_IN_CONFLICT = "etag_in_conflict";
         public static final String FILE_FAVORITE = "favorite";
+        public static final String FILE_HIDDEN = "hidden";
         public static final String FILE_IS_ENCRYPTED = "is_encrypted";
         public static final String FILE_MOUNT_TYPE = "mount_type";
         public static final String FILE_HAS_PREVIEW = "has_preview";
@@ -118,6 +119,7 @@ public class ProviderMeta {
         public static final String FILE_RICH_WORKSPACE = "rich_workspace";
         public static final String FILE_METADATA_SIZE = "metadata_size";
         public static final String FILE_METADATA_GPS = "metadata_gps";
+        public static final String FILE_METADATA_LIVE_PHOTO = "metadata_live_photo";
         public static final String FILE_LOCKED = "locked";
         public static final String FILE_LOCK_TYPE = "lock_type";
         public static final String FILE_LOCK_OWNER = "lock_owner";
@@ -127,6 +129,7 @@ public class ProviderMeta {
         public static final String FILE_LOCK_TIMEOUT = "lock_timeout";
         public static final String FILE_LOCK_TOKEN = "lock_token";
         public static final String FILE_TAGS = "tags";
+        public static final String FILE_E2E_COUNTER = "e2e_counter";
 
         public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
                 _ID,
@@ -156,6 +159,7 @@ public class ProviderMeta {
                 FILE_IS_DOWNLOADING,
                 FILE_ETAG_IN_CONFLICT,
                 FILE_FAVORITE,
+                FILE_HIDDEN,
                 FILE_IS_ENCRYPTED,
                 FILE_MOUNT_TYPE,
                 FILE_HAS_PREVIEW,
@@ -174,6 +178,8 @@ public class ProviderMeta {
                 FILE_LOCK_TIMEOUT,
                 FILE_LOCK_TOKEN,
                 FILE_METADATA_SIZE,
+                FILE_METADATA_LIVE_PHOTO,
+                FILE_E2E_COUNTER,
                 FILE_TAGS,
                 FILE_METADATA_GPS));
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
@@ -244,6 +250,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_SERVER_BACKGROUND_PLAIN = "background_plain";
         public static final String CAPABILITIES_END_TO_END_ENCRYPTION = "end_to_end_encryption";
         public static final String CAPABILITIES_END_TO_END_ENCRYPTION_KEYS_EXIST = "end_to_end_encryption_keys_exist";
+        public static final String CAPABILITIES_END_TO_END_ENCRYPTION_API_VERSION = "end_to_end_encryption_api_version";
         public static final String CAPABILITIES_ACTIVITY = "activity";
         public static final String CAPABILITIES_RICHDOCUMENT = "richdocument";
         public static final String CAPABILITIES_RICHDOCUMENT_MIMETYPE_LIST = "richdocument_mimetype_list";
@@ -259,6 +266,8 @@ public class ProviderMeta {
         public static final String CAPABILITIES_USER_STATUS = "user_status";
         public static final String CAPABILITIES_USER_STATUS_SUPPORTS_EMOJI = "user_status_supports_emoji";
         public static final String CAPABILITIES_GROUPFOLDERS = "groupfolders";
+        public static final String CAPABILITIES_DROP_ACCOUNT = "drop_account";
+        public static final String CAPABILITIES_SECURITY_GUARD = "security_guard";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";
@@ -293,6 +302,7 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_NAME_COLLISION_POLICY = "name_collision_policy";
         public static final String SYNCED_FOLDER_HIDDEN = "hidden";
         public static final String SYNCED_FOLDER_SUBFOLDER_RULE = "sub_folder_rule";
+        public static final String SYNCED_EXCLUDE_HIDDEN = "exclude_hidden";
 
         // Columns of external links table
         public static final String EXTERNAL_LINKS_ICON_URL = "icon_url";

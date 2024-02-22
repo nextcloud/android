@@ -13,9 +13,7 @@
     <string name="action_send_share">Iber / Paýlaş</string>
     <string name="action_switch_grid_view">Gözenegiň görnüşi</string>
     <string name="action_switch_list_view">Sanaw görnüşi</string>
-    <string name="actionbar_copy">Göçüriň</string>
     <string name="actionbar_mkdir">Täze papka döretmek</string>
-    <string name="actionbar_move">Göçüriň</string>
     <string name="actionbar_open_with">Şunyň bilen açyň</string>
     <string name="actionbar_search">Gözlemek</string>
     <string name="actionbar_see_details">Jikme-jiklikleri</string>
@@ -154,7 +152,6 @@
     <string name="copy_file_not_found">Göçürip bolmaýar. Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>
     <string name="copy_link">Link-y nusgalaň</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Häzirki wagtda goldanmaýan şifrlenen bukjany göçüriň / geçiriň.</string>
-    <string name="copy_to">Göçüriň…</string>
     <string name="could_not_download_image">Doly suraty göçürip alyp bolmady</string>
     <string name="could_not_retrieve_shares">Paýlary alyp bolmady</string>
     <string name="could_not_retrieve_url">URL alyp bolmady</string>
@@ -170,7 +167,6 @@
     <string name="credentials_disabled">Şahsyýet maglumatlary ýapyldy</string>
     <string name="default_credentials_wrong">Nädogry şahsyýet maglumatlary</string>
     <string name="delete_account">Hasaby aýyryň</string>
-    <string name="delete_account_warning">%sHasaby aýyryň we ähli ýerli faýllary pozuň? \ N \ n Öçürip bolmaýar.</string>
     <string name="delete_entries">Ýazgylary pozuň</string>
     <string name="deselect_all">Hemmesini aýyryň</string>
     <string name="dev_version_new_version_available">Täze wersiýa bar</string>
@@ -243,7 +239,6 @@
     <string name="etm_accounts">Hasaplar</string>
     <string name="etm_background_job_name">Işiň ady</string>
     <string name="etm_background_job_progress">Ösüş</string>
-    <string name="etm_background_job_started">Başlady</string>
     <string name="etm_background_job_state">Ýagdaýy</string>
     <string name="etm_background_job_user">Ulanyjy</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -324,12 +319,10 @@
     <string name="filename_forbidden_charaters_from_server">Faýlyň ady azyndan bir nädogry belgini öz içine alýar</string>
     <string name="filename_hint">Faýlyň ady</string>
     <string name="first_run_1_text">Maglumatlaryňyzy ygtybarly we gözegçilik astynda saklaň</string>
-    <string name="first_run_2_text">Ygtybarly hyzmatdaşlyk &amp;faýl alyş-çalşygy</string>
-    <string name="first_run_4_text">Ekrany paýlaşmak, onlaýn ýygnaklar &amp;web konferensiýalary</string>
     <string name="folder_already_exists">Bukja eýýäm bar</string>
     <string name="folder_confirm_create">Dörediň</string>
     <string name="folder_list_empty_headline">Bu ýerde bukjalar ýok</string>
-    <string name="folder_picker_choose_button_text">Saýlaň</string>
+    <string name="folder_picker_choose_button_text">saýlamak</string>
     <string name="folder_picker_copy_button_text">Göçüriň</string>
     <string name="folder_picker_move_button_text">Göçüriň</string>
     <string name="forbidden_permissions">%sSize rugsat berilmeýär</string>
@@ -338,7 +331,6 @@
     <string name="forbidden_permissions_delete">bu faýly pozmak</string>
     <string name="forbidden_permissions_move">bu faýly geçirmek</string>
     <string name="forbidden_permissions_rename">bu faýlyň adyny üýtgetmek</string>
-    <string name="foreground_service_download">Faýllary göçürip almaklyk...</string>
     <string name="foreground_service_upload">Faýl ýüklemek…</string>
     <string name="foreign_files_fail">Käbir faýllary süýşürip bolmaýar</string>
     <string name="foreign_files_local_text">Ýerli:%1$s</string>
@@ -401,7 +393,6 @@
     <string name="move_file_invalid_into_descendent">Bir bukjany öz esasy bukjalarynyň birine geçirmek mümkin däl</string>
     <string name="move_file_invalid_overwrite">Faýl niýetlenen bukjada eýýäm bar</string>
     <string name="move_file_not_found">Faýly göçürip bolmaýar. Barlygyny ýa-da ýokdugyny barlaň.</string>
-    <string name="move_to">Göçmek…</string>
     <string name="network_error_connect_timeout_exception">Serwere garaşylýarka ýalňyşlyk ýüze çykdy. Amal edip bolmady</string>
     <string name="network_error_socket_exception">Serwere birikdirilende ýalňyşlyk ýüze çykdy</string>
     <string name="network_error_socket_timeout_exception">Serwere garaşýarka ýalňyşlyk ýüze çykdy. Iş tamamlap bolmady.</string>
@@ -415,7 +406,6 @@
     <string name="no_browser_available">Salgylary dolandyrmak üçin programma ýok</string>
     <string name="no_mutliple_accounts_allowed">Diňe bir hasabyňyza rugsat berildi</string>
     <string name="no_pdf_app_available">PDF bilen işlemek üçin programma ýok</string>
-    <string name="note_confirm">Iber</string>
     <string name="note_could_not_sent">Bellik iberip bolmady</string>
     <string name="note_icon_hint">Bellik nyşany</string>
     <string name="notification_action_failed">Hereket ýerine ýetirilmedi.</string>
@@ -471,10 +461,8 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Täze wersiýanyň adyny üýtgediň</string>
     <string name="pref_instant_name_collision_policy_title">Faýl eýýäm bar bolsa näme etmeli?</string>
     <string name="prefs_add_account">Hasap goşuň</string>
-    <string name="prefs_calendar_contacts">Senenama aragatnaşyklaryny sinhronlaň&amp;</string>
     <string name="prefs_calendar_contacts_no_store_error">Ne F-Droid, ne-de Google Play ýüklenmedik</string>
     <string name="prefs_calendar_contacts_summary">Häzirki hasap üçin DAVx5 (öň DAVdroid ady bilen tanalýardy) (v1.3.0 +) guruň</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Senenama &amp;kontaktlary sinhronlaşdyryldy</string>
     <string name="prefs_category_about">Hakynda</string>
     <string name="prefs_category_details">Jikme-jiklikler</string>
     <string name="prefs_category_dev">Dev</string>
@@ -548,14 +536,11 @@
     <string name="screenshot_04_accounts_heading">Siziň ähli hasaplaryňyz</string>
     <string name="screenshot_04_accounts_subline">bir ýerde</string>
     <string name="screenshot_05_autoUpload_heading">Awtomatiki ýüklemek</string>
-    <string name="screenshot_05_autoUpload_subline">siziň suratlaryňyz üçin&amp;wideolar</string>
-    <string name="screenshot_06_davdroid_heading">Senenama &amp;aragatnaşyklar</string>
     <string name="screenshot_06_davdroid_subline">DAVx5 bilen sinhronlaň</string>
     <string name="select_all">Hemmesini saýlaň</string>
     <string name="select_one_template">Bir şablon saýlaň</string>
     <string name="select_template">Şablon saýlaň</string>
     <string name="send">Iber</string>
-    <string name="send_note">Alyja bellik iberiň</string>
     <string name="sendbutton_description">\"Ibermek\" düwmesiniň nyşanyny</string>
     <string name="set_as">Hökmünde ornaşdyryň</string>
     <string name="set_picture_as">Suraty ulanmak hökmünde</string>
@@ -600,12 +585,6 @@
     <string name="signup_with_provider">Prowaýder bilen ýazylyň</string>
     <string name="single_sign_on_request_token" formatted="true">Nextcloud hasabyňyza girmäge rugsat beriň?%1$s%2$s</string>
     <string name="sort_by">Tertipleşdir</string>
-    <string name="sort_by_modification_date_ascending">Täze ilkinji</string>
-    <string name="sort_by_modification_date_descending">Ilki bilen iň köne</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Ilki bilen iň kiçisi </string>
-    <string name="sort_by_size_descending">Ilki bilen iň ulusy</string>
     <string name="ssl_validator_btn_details_hide">Gizläň</string>
     <string name="ssl_validator_btn_details_see">Jikme-jiklikler</string>
     <string name="ssl_validator_header">Serweriň şahsyýetini tassyklap bolmady</string>
@@ -641,9 +620,6 @@
     <string name="storage_movies">Wideo</string>
     <string name="storage_music">Saz</string>
     <string name="storage_pictures">Suratlar</string>
-    <string name="store_full_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma.\n\n Aýratynlyklary:\n * Serweriňiziň temasyna laýyk gelýän aňsat, döwrebap interfeýs\n * Nextcloud serweriňize faýl ýükläň\n* Olary beýlekiler bilen paýlaşyň\n * Halaýan faýllaryňyzy we bukjalaryňyzy sinhronlaň\ n * Serweriňizdäki ähli bukjalarda gözläň\ n * Enjamyňyz tarapyndan düşürilen suratlar we wideolar üçin awtomatiki ýüklemek\n * Duýduryşlary bilen ähli täzelikleriň habarynda boluň \n * Bir näçe hasaplaryňyz üçin goldaw \n * Barmak yzy ýa-da PIN kodynyň kömegi bilen siziň maglumatlaryňyza ygtybarly girmek \n  Integrasiýa DAVx5 bilen (öň DAVdroid ady bilen tanalýardy) &amp;Aragatnaşyklaryň senenamasyny sinhronlamasyny aňsat gurnamak üçin \n\n Haýyş edýäris ähli ýüze çykýan meseleleri habar beriň https://github.com/nextcloud/android/issues we bu programmany ara alyp maslahatlaşmak üçin
-
-https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud” şahsy umumy düýp faýl sinhronlamasy &amp;we aragatnaşyk serweri. Bu mugt programma üpjünçiligi, ony özbaşdak ýerleşdirip bilersiňiz ýa-da siziň üçin buny ýerine ýetirjek kompaniýa töläp bilersiňiz. Şeýlelik bilen, suratlaryňyzy, senenamaňyzy we aragatnaşyk maglumatlaryňyzy, resminamalaryňyzy we beýleki zatlary dolandyrýarsyňyz. \ N \ n Nextcloud-dan https://nextcloud.com sahypasyna giriň.</string>
     <string name="store_full_dev_desc">Özüňizi gözegçilikde saklaýan öndürijilik platformasy. \ NBu, durnuksyzlyga we maglumatlaryň ýitmegine sebäp bolup biljek islendik täze synag edilmedik funksiýanyň gündelik nusgasyny görkezýän resmi ösüş wersiýasy. Programma synamak isleýän ulanyjylar üçin we näsazlyklar ýüze çykan halatynda habar bermek üçin. Önümçilikli işiňiz üçin ulanmaň! \ N \ n Bu resmi dev we adaty wersiýa F-droid-de bar we şol bir wagtyň özünde gurup bolýar.</string>
     <string name="store_short_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma</string>
     <string name="store_short_dev_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma (deslapky wersiýa)</string>
@@ -703,6 +679,7 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="update_link_file_no_exist">Täzelenip bolmaýar Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>
     <string name="update_link_forbidden_permissions">bu paýy täzelemek üçin</string>
     <string name="updating_share_failed">Paý paýy täzelendi</string>
+    <string name="upload_action_failed_clear">Şowsuz ýüklemeleri arassalaň</string>
     <string name="upload_cannot_create_file">Ýerli faýl döredip bolmaýar</string>
     <string name="upload_chooser_title">Ýüklemek…</string>
     <string name="upload_content_from_other_apps">Mazmuny beýleki programmalardan ýükläň</string>
@@ -756,6 +733,7 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="uploads_view_group_current_uploads">Häzirki</string>
     <string name="uploads_view_group_failed_uploads">Şowsuz / täzeden başlamaga garaşýar</string>
     <string name="uploads_view_group_finished_uploads">Ýüklendi</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Ýatyryldy</string>
     <string name="uploads_view_later_waiting_to_upload">Ýüklemek üçin garaşýar</string>
     <string name="uploads_view_title">Ýüklemeler</string>
     <string name="uploads_view_upload_status_cancelled">Ýatyryldy</string>
@@ -791,6 +769,7 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="what_s_new_image">Täze şekil näme</string>
     <string name="whats_new_skip">Geçmek</string>
     <string name="whats_new_title">Täze%1$s-da</string>
+    <string name="worker_download">Faýllary göçürip almaklyk...</string>
     <string name="wrong_storage_path">Maglumat saklaýyş bukjasy ýok!</string>
     <string name="wrong_storage_path_desc">Bu başga bir enjamda ätiýaçlyk dikeldişi sebäpli bolup biler. Asyl görnüşine gaýdyp gelmek. Maglumat saklaýyş bukjasyny sazlamak üçin sazlamalary barlaň.</string>
     </resources>

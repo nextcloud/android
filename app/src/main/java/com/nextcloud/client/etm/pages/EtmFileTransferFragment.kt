@@ -13,10 +13,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nextcloud.client.etm.EtmBaseFragment
-import com.nextcloud.client.files.downloader.DownloadRequest
-import com.nextcloud.client.files.downloader.Transfer
-import com.nextcloud.client.files.downloader.TransferManager
-import com.nextcloud.client.files.downloader.UploadRequest
+import com.nextcloud.client.files.DownloadRequest
+import com.nextcloud.client.files.UploadRequest
+import com.nextcloud.client.jobs.transfer.Transfer
+import com.nextcloud.client.jobs.transfer.TransferManager
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload

@@ -25,19 +25,18 @@ package com.owncloud.android.ui.preview
 import android.app.Activity
 import android.app.Dialog
 import android.os.Build
-import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.annotation.OptIn
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.ui.StyledPlayerView
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer
 import com.nextcloud.common.NextcloudClient
-import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogPreviewVideoBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 
@@ -49,15 +48,16 @@ import com.owncloud.android.lib.common.utils.Log_OC
  * @param sourceExoPlayer the ExoPlayer playing the video
  * @param sourceView the original non-fullscreen surface that [sourceExoPlayer] is linked to
  */
+@OptIn(UnstableApi::class)
 class PreviewVideoFullscreenDialog(
     private val activity: Activity,
     nextcloudClient: NextcloudClient,
     private val sourceExoPlayer: ExoPlayer,
-    private val sourceView: StyledPlayerView
+    private val sourceView: PlayerView
 ) : Dialog(sourceView.context, android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
 
     private val binding: DialogPreviewVideoBinding = DialogPreviewVideoBinding.inflate(layoutInflater)
-    private var playingStateListener: Player.Listener? = null
+    private var playingStateListener: androidx.media3.common.Player.Listener? = null
 
     /**
      * exoPlayer instance used for this view, either the original one or a new one in specific cases.
@@ -112,11 +112,10 @@ class PreviewVideoFullscreenDialog(
         setOnShowListener {
             enableImmersiveMode()
             switchTargetViewFromSource()
-            setListeners()
+            binding.videoPlayer.setFullscreenButtonClickListener { onBackPressed() }
             if (isPlaying) {
                 mExoPlayer.play()
             }
-            binding.videoPlayer.showController()
         }
         super.show()
     }
@@ -125,34 +124,8 @@ class PreviewVideoFullscreenDialog(
         if (shouldUseRotatedVideoWorkaround) {
             mExoPlayer.seekTo(sourceExoPlayer.currentPosition)
         } else {
-            StyledPlayerView.switchTargetView(sourceExoPlayer, sourceView, binding.videoPlayer)
+            PlayerView.switchTargetView(sourceExoPlayer, sourceView, binding.videoPlayer)
         }
-    }
-
-    private fun setListeners() {
-        binding.root.findViewById<View>(R.id.exo_exit_fs).setOnClickListener { onBackPressed() }
-        val pauseButton: View = binding.root.findViewById(R.id.exo_pause)
-        pauseButton.setOnClickListener { sourceExoPlayer.pause() }
-        val playButton: View = binding.root.findViewById(R.id.exo_play)
-        playButton.setOnClickListener { sourceExoPlayer.play() }
-
-        val playListener = object : Player.Listener {
-            override fun onIsPlayingChanged(isPlaying: Boolean) {
-                super.onIsPlayingChanged(isPlaying)
-                if (isPlaying) {
-                    playButton.visibility = View.GONE
-                    pauseButton.visibility = View.VISIBLE
-                } else {
-                    playButton.visibility = View.VISIBLE
-                    pauseButton.visibility = View.GONE
-                }
-            }
-        }
-        mExoPlayer.addListener(playListener)
-        playingStateListener = playListener
-
-        // Run once to set initial state of play or pause buttons
-        playListener.onIsPlayingChanged(sourceExoPlayer.isPlaying)
     }
 
     override fun onBackPressed() {
@@ -178,7 +151,7 @@ class PreviewVideoFullscreenDialog(
         if (shouldUseRotatedVideoWorkaround) {
             sourceExoPlayer.seekTo(mExoPlayer.currentPosition)
         } else {
-            StyledPlayerView.switchTargetView(sourceExoPlayer, binding.videoPlayer, sourceView)
+            PlayerView.switchTargetView(sourceExoPlayer, binding.videoPlayer, sourceView)
         }
     }
 

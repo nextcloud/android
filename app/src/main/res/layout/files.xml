@@ -21,14 +21,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include android:id="@+id/appbar" layout="@layout/toolbar_standard" />
+        <include
+            android:id="@+id/appbar"
+            layout="@layout/toolbar_standard" />
 
         <!-- The main content view -->
         <LinearLayout
@@ -62,7 +63,7 @@
             android:visibility="gone"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:srcCompat="@drawable/ic_plus"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
