@@ -107,7 +107,7 @@
     </style>
 
     <!-- separate action bar style for activities without an action bar -->
-    <style name="BaseTheme.ownCloud.Toolbar" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="BaseTheme.ownCloud.Toolbar" parent="Theme.AppCompat">
         <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
         <item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
         <item name="android:colorBackground">@color/bg_default</item>
