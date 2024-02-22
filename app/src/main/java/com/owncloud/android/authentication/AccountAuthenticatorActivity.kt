@@ -13,16 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.owncloud.android.authentication
 
-package com.owncloud.android.authentication;
-
-import android.accounts.AccountAuthenticatorResponse;
-import android.accounts.AccountManager;
-import android.os.Bundle;
-
-import com.nextcloud.utils.extensions.IntentExtensionsKt;
-
-import androidx.appcompat.app.AppCompatActivity;
+import android.accounts.AccountAuthenticatorResponse
+import android.accounts.AccountManager
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.nextcloud.utils.extensions.getParcelableArgument
 
 /*
  * Base class for implementing an Activity that is used to help implement an AbstractAccountAuthenticator.
@@ -34,12 +31,10 @@ import androidx.appcompat.app.AppCompatActivity;
  * This result will be sent as the result of the request when the activity finishes. If this is never set or if it is set to null
  * then error AccountManager.ERROR_CODE_CANCELED will be called on the response.
  */
+abstract class AccountAuthenticatorActivity : AppCompatActivity() {
 
-public abstract class AccountAuthenticatorActivity extends AppCompatActivity {
-
-    private AccountAuthenticatorResponse mAccountAuthenticatorResponse;
-    private Bundle mResultBundle;
-
+    private var mAccountAuthenticatorResponse: AccountAuthenticatorResponse? = null
+    private var mResultBundle: Bundle? = null
 
     /**
      * Set the result that is to be sent as the result of the request that caused this Activity to be launched.
@@ -47,8 +42,8 @@ public abstract class AccountAuthenticatorActivity extends AppCompatActivity {
      *
      * @param result this is returned as the result of the AbstractAccountAuthenticator request
      */
-    public final void setAccountAuthenticatorResult(Bundle result) {
-        mResultBundle = result;
+    fun setAccountAuthenticatorResult(result: Bundle?) {
+        mResultBundle = result
     }
 
     /**
@@ -56,35 +51,30 @@ public abstract class AccountAuthenticatorActivity extends AppCompatActivity {
      * icicle is non-zero.
      * @param savedInstanceState the save instance data of this Activity, may be null
      */
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-        mAccountAuthenticatorResponse =
-            IntentExtensionsKt.getParcelableArgument(getIntent(),
-                                                     AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE,
-                                                     AccountAuthenticatorResponse.class);
-
-        if (mAccountAuthenticatorResponse != null) {
-            mAccountAuthenticatorResponse.onRequestContinued();
-        }
+        mAccountAuthenticatorResponse = intent.getParcelableArgument(AccountManager.KEY_ACCOUNT_AUTHENTICATOR_RESPONSE, AccountAuthenticatorResponse::class.java)
+        mAccountAuthenticatorResponse?.onRequestContinued()
     }
 
     /**
      * Sends the result or a Constants.ERROR_CODE_CANCELED error if a result isn't present.
      */
-    @Override
-    public void finish() {
+    override fun finish() {
         if (mAccountAuthenticatorResponse != null) {
             // send the result bundle back if set, otherwise send an error.
             if (mResultBundle != null) {
-                mAccountAuthenticatorResponse.onResult(mResultBundle);
+                mAccountAuthenticatorResponse?.onResult(mResultBundle)
             } else {
-                mAccountAuthenticatorResponse.onError(AccountManager.ERROR_CODE_CANCELED,
-                        "canceled");
+                mAccountAuthenticatorResponse?.onError(
+                    AccountManager.ERROR_CODE_CANCELED,
+                    "canceled"
+                )
             }
-            mAccountAuthenticatorResponse = null;
+            mAccountAuthenticatorResponse = null
         }
-        super.finish();
+
+        super.finish()
     }
 }
