@@ -109,7 +109,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     protected void onRestart() {
         Log_OC.v(TAG, "onRestart() start");
         super.onRestart();
-        mixinRegistry.onRestart();
+        if (enableAccountHandling) {
+            mixinRegistry.onRestart();
+        }
     }
 
     private void onThemeSettingsModeChanged() {
