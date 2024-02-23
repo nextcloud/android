@@ -390,7 +390,7 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:23.2.1"
+    gplayImplementation "com.google.firebase:firebase-messaging:23.4.1"
     gplayImplementation 'com.google.android.play:review-ktx:2.0.1'
 
     implementation 'com.github.nextcloud.android-common:ui:0.15.0'
