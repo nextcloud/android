@@ -21,6 +21,7 @@ buildscript {
         roomVersion = "2.6.1"
 
         ciBuild = System.getenv("CI") == "true"
+        shotTest = System.getenv("SHOT_TEST") == "true"
     }
 }
 

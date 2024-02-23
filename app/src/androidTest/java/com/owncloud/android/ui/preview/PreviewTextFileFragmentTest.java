@@ -26,6 +26,7 @@ import com.owncloud.android.AbstractIT;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -41,7 +42,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
                                                                                            false);
 
     @Test
-    // @ScreenshotTest // todo run without real server
+    @ScreenshotTest
     public void displaySimpleTextFile() throws IOException {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
@@ -59,7 +60,7 @@ public class PreviewTextFileFragmentTest extends AbstractIT {
     }
 
     @Test
-    // @ScreenshotTest // todo run without real server
+    @ScreenshotTest
     public void displayJavaSnippetFile() throws IOException {
         FileDisplayActivity sut = activityRule.launchActivity(null);
 
