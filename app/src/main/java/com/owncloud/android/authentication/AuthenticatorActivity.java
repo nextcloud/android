@@ -60,7 +60,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
 import android.view.KeyEvent;
@@ -215,7 +214,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private AccountManager mAccountMgr;
 
     /// Server PRE-Fragment elements
-    private AccountSetupBinding accountSetupBinding;
+    private AccountSetupBinding accountSetupBinding = null;
     private AccountSetupWebviewBinding accountSetupWebviewBinding;
 
     private String mServerStatusText = EMPTY_STRING;
@@ -768,13 +767,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
 
+    @SuppressFBWarnings("NP")
     private void checkOcServer() {
         String uri;
-        Editable hostUrlInput = accountSetupBinding.hostUrlInput.getText();
 
-        if (accountSetupBinding != null && hostUrlInput != null &&
-            !hostUrlInput.toString().isEmpty()) {
-            uri = hostUrlInput.toString().trim();
+        if (accountSetupBinding != null &&
+            accountSetupBinding.hostUrlInput.getText() != null &&
+            !accountSetupBinding.hostUrlInput.getText().toString().isEmpty()) {
+            uri = accountSetupBinding.hostUrlInput.getText().toString().trim();
         } else {
             uri = mServerInfo.mBaseUrl;
         }
