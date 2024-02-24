@@ -109,6 +109,7 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
+    @ScreenshotTest
     fun normalUser() {
         val sut: TrashbinActivity = activityRule.launchActivity(null)
 
@@ -124,6 +125,7 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
+    @ScreenshotTest
     fun differentUser() {
         val temp = Account("differentUser@https://nextcloud.localhost", MainApp.getAccountType(targetContext))
 

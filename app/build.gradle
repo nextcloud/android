@@ -1,6 +1,6 @@
-import com.github.spotbugs.snom.SpotBugsTask
 import com.github.spotbugs.snom.Confidence
 import com.github.spotbugs.snom.Effort
+import com.github.spotbugs.snom.SpotBugsTask
 import org.gradle.internal.jvm.Jvm
 
 buildscript {
@@ -32,7 +32,12 @@ apply plugin: 'pmd'
 apply from: "$rootProject.projectDir/jacoco.gradle"
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
-apply plugin: 'shot'
+
+// needed to make renovate run without shot, as shot requires Android SDK
+// https://github.com/pedrovgs/Shot/issues/300
+if (shotTest) {
+    apply plugin: 'shot'
+}
 apply plugin: 'com.google.devtools.ksp'
 
 
@@ -99,7 +104,11 @@ android {
         }
 
         // arguments to be passed to functional tests
-        testInstrumentationRunner "com.nextcloud.client.ScreenshotTestRunner"
+        if (shotTest) {
+            testInstrumentationRunner "com.karumi.shot.ShotTestRunner"
+        } else {
+            testInstrumentationRunner "com.nextcloud.client.TestRunner"
+        }
         testInstrumentationRunnerArgument "TEST_SERVER_URL", "${NC_TEST_SERVER_BASEURL}"
         testInstrumentationRunnerArgument "TEST_SERVER_USERNAME", "${NC_TEST_SERVER_USERNAME}"
         testInstrumentationRunnerArgument "TEST_SERVER_PASSWORD", "${NC_TEST_SERVER_PASSWORD}"
@@ -381,7 +390,7 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:23.2.1"
+    gplayImplementation "com.google.firebase:firebase-messaging:23.4.1"
     gplayImplementation 'com.google.android.play:review-ktx:2.0.1'
 
     implementation 'com.github.nextcloud.android-common:ui:0.15.0'
@@ -431,11 +440,13 @@ detekt {
     config.setFrom("detekt.yml")
 }
 
-shot {
-    showOnlyFailingTestsInReports = ciBuild
-    // CI environment renders some shadows slightly different from local VMs
-    // Add a 0.5% tolerance to account for that
-    tolerance = ciBuild ? 0.5 : 0
+if (shotTest) {
+    shot {
+        showOnlyFailingTestsInReports = ciBuild
+        // CI environment renders some shadows slightly different from local VMs
+        // Add a 0.5% tolerance to account for that
+        tolerance = ciBuild ? 0.5 : 0
+    }
 }
 
 jacoco {
