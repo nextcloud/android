@@ -19,7 +19,7 @@
     <string name="actionbar_search">Chirca</string>
     <string name="actionbar_see_details">Detàllios</string>
     <string name="actionbar_send_file">Imbia</string>
-    <string name="actionbar_settings">Impostatziones</string>
+    <string name="actionbar_settings">Cunfiguratzione</string>
     <string name="actionbar_sort">Assenta</string>
     <string name="active_user">Utèntzia ativa</string>
     <string name="activities_no_results_headline">Ancora peruna atividade</string>
@@ -30,7 +30,7 @@
     <string name="add_another_public_share_link">Agiunghe un\'àteru ligòngiu</string>
     <string name="add_new_public_share">Agiunghe ligòngiu de cumpartzidura pùblica nou</string>
     <string name="add_to_cloud">Agiunghe a %1$s</string>
-    <string name="advanced_settings">Impostatziones avantzadas</string>
+    <string name="advanced_settings">Cunfiguratziones avantzadas</string>
     <string name="allow_resharing">Permite sa re-cumpartzidura</string>
     <string name="appbar_search_in">Chirca in %s</string>
     <string name="associated_account_not_found">Contu assotziadu no agatadu!</string>
@@ -394,7 +394,7 @@
     <string name="logs_title">Log</string>
     <string name="maintenance_mode">Serbidore in modalidade de mantenidura</string>
     <string name="manage_space_clear_data">Lìmpia is datos</string>
-    <string name="manage_space_description">Impostatziones, base de datos e tzertificados de su serbidore dae datos de %1$sant a èssere eliminados de su totu. \n\nIs documentos no ant a èssere pigados in cunsideru.\n\n Pro custu protzessu ci podet bòlere unu pagu de tempus.</string>
+    <string name="manage_space_description">Cunfiguratziones, base de datos e tzertificados de su serbidore dae datos de %1$sant a èssere eliminados de su totu. \n\nIs documentos no ant a èssere pigados in cunsideru.\n\n Pro custu protzessu ci podet bòlere unu pagu de tempus.</string>
     <string name="manage_space_title">Gesti su logu</string>
     <string name="media_err_invalid_progressive_playback">S\'archìviu multimediale non podet èssere trasmìtidu</string>
     <string name="media_err_io">No at fatu a lèghere su documentu media</string>
@@ -523,9 +523,9 @@
     <string name="prefs_value_theme_dark">Iscuru</string>
     <string name="prefs_value_theme_light">Craru</string>
     <string name="prefs_value_theme_system">Sistema de sighida</string>
-    <string name="preview_image_description">Anteprima de s\'imàgine</string>
+    <string name="preview_image_description">Anteprima de s\'immàgine</string>
     <string name="preview_image_error_no_local_file">Perunu archìviu locale de mustrare in anteprima</string>
-    <string name="preview_image_error_unknown_format">No at fatu a mustrare s\'imàgine</string>
+    <string name="preview_image_error_unknown_format">Impossìbile mustrare s\'immàgine</string>
     <string name="preview_sorry">Nos dispraghet</string>
     <string name="privacy">Riservadesa</string>
     <string name="public_share_name">Nùmene nou</string>
@@ -600,7 +600,7 @@
     <string name="share_room_clarification">%1$s (tzarrada)</string>
     <string name="share_search">Nùmene, ID de sa nue federada o indiritzu de posta ...</string>
     <string name="share_send_note">Notas pro sa persone destinatària</string>
-    <string name="share_settings">Impostatziones</string>
+    <string name="share_settings">Cunfiguratzione</string>
     <string name="share_via_link_hide_download">Cua iscarrigamentu</string>
     <string name="share_via_link_section_title">Cumpartzi ligòngiu</string>
     <string name="share_via_link_send_link_label">Imbia ligòngiu</string>
@@ -678,7 +678,7 @@
     <string name="sync_not_enough_space_dialog_title">Non b\'at bastante logu</string>
     <string name="sync_status_button">Butone de s\'istadu de sincronizatzione</string>
     <string name="sync_string_files">Archìvios</string>
-    <string name="synced_folder_settings_button">Butone de is impostatziones</string>
+    <string name="synced_folder_settings_button">Butone de cunfiguratzione</string>
     <string name="synced_folders_configure_folders">Cunfigura cartellas</string>
     <string name="synced_folders_new_info">Su carrigamentu automàticu s\'est totu agiornadu. Torra a cunfigurare su carrigamentu automàticu dae su menu printzipale.\n\nImprea su carrigamentu automàticu estèndidu nou.</string>
     <string name="synced_folders_no_results">Peruna cartella de media agatada</string>
@@ -796,7 +796,7 @@
     <string name="user_info_twitter">Twitter</string>
     <string name="user_info_website">Situ internet</string>
     <string name="user_information_retrieval_error">Errore in su recùperu de is informatziones de s\'utente</string>
-    <string name="userinfo_no_info_headline">Peruna impostatzione de datos personales</string>
+    <string name="userinfo_no_info_headline">Nissuna cunfiguratzione de datos personales</string>
     <string name="userinfo_no_info_text">Agiunghe nùmene, fotografia e detàllios de cuntatu in su profilu tuo.</string>
     <string name="username">Nùmene utente</string>
     <string name="version_dev_download">Iscàrriga</string>
