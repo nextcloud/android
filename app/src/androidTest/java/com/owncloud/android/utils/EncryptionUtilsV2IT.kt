@@ -303,7 +303,8 @@ class EncryptionUtilsV2IT : AbstractIT() {
                 mimeType = MimeType.JPEG
             },
             EncryptionUtils.generateIV(),
-            EncryptionUtils.generateUid(), // random string, not real tag
+            // random string, not real tag
+            EncryptionUtils.generateUid(),
             EncryptionUtils.generateKey(),
             metadataFile,
             storageManager

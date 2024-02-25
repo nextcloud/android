@@ -14,7 +14,7 @@ import java.util.Locale
 
 class EtmMigrations : EtmBaseFragment() {
     private var _binding: FragmentEtmMigrationsBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -81,9 +81,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
 
     private lateinit var viewModel: FileActionsViewModel
 
-    private var _binding: FileActionsBottomSheetBinding? = null
-    private val binding
-        get() = _binding!!
+    private lateinit var binding: FileActionsBottomSheetBinding
 
     private lateinit var componentsGetter: ComponentsGetter
 
@@ -95,7 +93,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewModel = ViewModelProvider(this, vmFactory)[FileActionsViewModel::class.java]
-        _binding = FileActionsBottomSheetBinding.inflate(inflater, container, false)
+        binding = FileActionsBottomSheetBinding.inflate(inflater, container, false)
 
         viewModel.uiState.observe(viewLifecycleOwner, this::handleState)
 
@@ -167,11 +165,6 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
             val drawable = viewThemeUtils.platform.tintDrawable(it, R.drawable.file_multiple, ColorRole.PRIMARY)
             binding.thumbnailLayout.thumbnail.setImageDrawable(drawable)
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 
     override fun onAttach(context: Context) {

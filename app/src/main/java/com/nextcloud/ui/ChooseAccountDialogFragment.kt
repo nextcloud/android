@@ -66,7 +66,7 @@ class ChooseAccountDialogFragment :
     private var currentStatus: Status? = null
 
     private var _binding: DialogChooseAccountBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     @Inject
     lateinit var clientFactory: ClientFactory

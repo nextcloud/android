@@ -81,8 +81,8 @@ object ErrorFormat {
                 Added in API level 1
                 Unspecified media player error.
                 Constant Value: 1 (0x00000001)
-             */
-            /*  MediaPlayer.MEDIA_ERROR_SERVER_DIED)
+             
+               MediaPlayer.MEDIA_ERROR_SERVER_DIED)
                 Added in API level 1
                 Media server died. In this case, the application must release the MediaPlayer
                 object and instantiate a new one.

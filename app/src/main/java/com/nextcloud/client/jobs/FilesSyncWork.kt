@@ -215,7 +215,8 @@ class FilesSyncWork(
             localPaths,
             remotePaths,
             uploadAction!!,
-            true, // create parent folder if not existent
+            // create parent folder if not existent
+            true,
             UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
             needsWifi,
             needsCharging,
