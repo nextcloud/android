@@ -399,7 +399,7 @@ dependencies {
     ksp "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
-    implementation "io.coil-kt:coil:2.5.0"
+    implementation "io.coil-kt:coil:2.6.0"
 
     // splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
     implementation 'androidx.core:core-splashscreen:1.0.1'
