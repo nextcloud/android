@@ -314,7 +314,7 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer:1.2.1"
     implementation "androidx.media3:media3-datasource-okhttp:1.2.1"
 
-    implementation 'me.zhanghai.android.fastscroll:library:1.2.0'
+    implementation 'me.zhanghai.android.fastscroll:library:1.3.0'
 
     // Shimmer animation
     implementation 'io.github.elye:loaderviewlibrary:3.0.0'
