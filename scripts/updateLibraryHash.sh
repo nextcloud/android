@@ -37,5 +37,5 @@ sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$latestCommit\"#" 
 
 git add build.gradle
 git add gradle/verification-metadata.xml
-git commit -m "Update library"
+git commit -s -m "Update library"
 gh pr create --title "Update library $(date +%F)" --body "Update library to latest commit"
