@@ -74,6 +74,8 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
+import com.nextcloud.ui.composeFragment.ComposeDestinations;
+import com.nextcloud.ui.composeFragment.ComposeFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -404,8 +406,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     /**
-     * Open app store page of specified app or search for specified string.
-     * Will attempt to open browser when no app store is available.
+     * Open app store page of specified app or search for specified string. Will attempt to open browser when no app
+     * store is available.
      *
      * @param string packageName or url-encoded search string
      * @param search false -> show app corresponding to packageName; true -> open search for string
@@ -543,7 +545,18 @@ public abstract class DrawerActivity extends ToolbarActivity
             intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
             startActivity(intent);
         } else if (itemId == R.id.nav_assistant) {
-            // TODO ADD JETPACK Compose PAGE
+            // FIXME Back navigation is broken, create general function to switch to Jetpack Compose
+            ComposeFragment composeFragment = new ComposeFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable(ComposeFragment.destinationKey, ComposeDestinations.AssistantScreen);
+            composeFragment.setArguments( bundle);
+
+            getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.left_fragment_container, composeFragment)
+                .commit();
+
+
             Log_OC.w(TAG, "ADD JETPACK Compose PAGE");
         } else {
             if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
@@ -695,8 +708,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * Enable or disable interaction with all drawers.
      *
-     * @param lockMode The new lock mode for the given drawer. One of {@link DrawerLayout#LOCK_MODE_UNLOCKED}, {@link
-     *                 DrawerLayout#LOCK_MODE_LOCKED_CLOSED} or {@link DrawerLayout#LOCK_MODE_LOCKED_OPEN}.
+     * @param lockMode The new lock mode for the given drawer. One of {@link DrawerLayout#LOCK_MODE_UNLOCKED},
+     *                 {@link DrawerLayout#LOCK_MODE_LOCKED_CLOSED} or {@link DrawerLayout#LOCK_MODE_LOCKED_OPEN}.
      */
     public void setDrawerLockMode(int lockMode) {
         if (mDrawerLayout != null) {
@@ -1158,7 +1171,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         return true;
     }
 
-    public AppPreferences getAppPreferences(){
+    public AppPreferences getAppPreferences() {
         return preferences;
     }
 
