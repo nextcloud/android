@@ -23,6 +23,10 @@
 latestCommit=$(curl -s https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
 currentCommit=$(grep "androidLibraryVersion" build.gradle | cut -f2 -d'"')
 
+git fetch
+git checkout master
+git pull
+
 [[ $latestCommit == "$currentCommit" ]] && exit # nothing to do
 
 git fetch
