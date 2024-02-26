@@ -74,9 +74,14 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
+import com.nextcloud.operations.assistant.AssistantRepository;
+import com.nextcloud.operations.assistant.model.CreatedTask;
+import com.nextcloud.operations.assistant.model.Ocs;
+import com.nextcloud.operations.assistant.model.TaskTypes;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.view.FastScrollUtils;
@@ -150,7 +155,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Stack;
 
 import javax.inject.Inject;
 

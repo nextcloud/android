@@ -18,6 +18,8 @@
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
 
+
+    <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_personal_files">Personal files</string>
     <string name="drawer_item_home">Home</string>

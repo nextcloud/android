@@ -542,6 +542,9 @@ public abstract class DrawerActivity extends ToolbarActivity
             intent.setAction(FileDisplayActivity.LIST_GROUPFOLDERS);
             intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
             startActivity(intent);
+        } else if (itemId == R.id.nav_assistant) {
+            // TODO ADD JETPACK Compose PAGE
+            Log_OC.w(TAG, "ADD JETPACK Compose PAGE");
         } else {
             if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
                 menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
