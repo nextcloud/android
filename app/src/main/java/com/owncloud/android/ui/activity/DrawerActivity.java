@@ -549,7 +549,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             ComposeFragment composeFragment = new ComposeFragment();
             Bundle bundle = new Bundle();
             bundle.putSerializable(ComposeFragment.destinationKey, ComposeDestinations.AssistantScreen);
-            composeFragment.setArguments( bundle);
+            composeFragment.setArguments(bundle);
 
             getSupportFragmentManager()
                 .beginTransaction()
