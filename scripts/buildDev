@@ -29,6 +29,8 @@ if [ $? != 0 ] ; then
 	exit 1
 fi
 
+./gradlew --console=plain --dependency-verification lenient -q --write-verification-metadata sha256,pgp help
+
 # sign
 mkdir -p ~/apks
 
