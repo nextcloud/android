@@ -555,9 +555,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 .beginTransaction()
                 .replace(R.id.left_fragment_container, composeFragment)
                 .commit();
-
-
-            Log_OC.w(TAG, "ADD JETPACK Compose PAGE");
         } else {
             if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
                 menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {

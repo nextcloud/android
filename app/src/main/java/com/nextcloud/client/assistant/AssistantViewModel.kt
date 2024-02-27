@@ -36,7 +36,7 @@ import kotlinx.coroutines.launch
 
 class AssistantViewModel(context: Context, user: User) : ViewModel() {
 
-    private val repository = AssistantRepository(user, context)
+    private var repository: AssistantRepository? = null
 
     private val _taskTypes = MutableStateFlow<TaskTypes?>(null)
     val taskTypes: StateFlow<TaskTypes?> = _taskTypes
@@ -46,22 +46,24 @@ class AssistantViewModel(context: Context, user: User) : ViewModel() {
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
+            repository = AssistantRepository(user, context)
+
             _taskTypes.update {
-                repository.getTaskTypes()
+                repository?.getTaskTypes()
             }
         }
     }
 
     fun deleteTask(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.deleteTask(id)
+            repository?.deleteTask(id)
         }
     }
 
     fun getTask(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             _task.update {
-                repository.getTask(id)
+                repository?.getTask(id)
             }
         }
     }
@@ -69,11 +71,9 @@ class AssistantViewModel(context: Context, user: User) : ViewModel() {
     fun createTask(
         input: String,
         type: String,
-        appId: String,
-        identifier: String,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository.createTask(input, type, appId, identifier)
+            repository?.createTask(input, type, identifier = " ")
         }
     }
 }
