@@ -299,7 +299,7 @@ dependencies {
     huaweiImplementation project(':appscan')
     qaImplementation project(':appscan')
 
-    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.12.0'
+    spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.6.4'
 
     implementation "com.google.dagger:dagger:$daggerVersion"
@@ -314,7 +314,7 @@ dependencies {
     implementation "androidx.media3:media3-exoplayer:1.2.1"
     implementation "androidx.media3:media3-datasource-okhttp:1.2.1"
 
-    implementation 'me.zhanghai.android.fastscroll:library:1.2.0'
+    implementation 'me.zhanghai.android.fastscroll:library:1.3.0'
 
     // Shimmer animation
     implementation 'io.github.elye:loaderviewlibrary:3.0.0'
@@ -393,13 +393,13 @@ dependencies {
     gplayImplementation "com.google.firebase:firebase-messaging:23.4.1"
     gplayImplementation 'com.google.android.play:review-ktx:2.0.1'
 
-    implementation 'com.github.nextcloud.android-common:ui:0.15.0'
+    implementation 'com.github.nextcloud.android-common:ui:0.16.0'
 
     implementation "androidx.room:room-runtime:$roomVersion"
     ksp "androidx.room:room-compiler:$roomVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
 
-    implementation "io.coil-kt:coil:2.5.0"
+    implementation "io.coil-kt:coil:2.6.0"
 
     // splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
     implementation 'androidx.core:core-splashscreen:1.0.1'

@@ -1111,7 +1111,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @NonNull
     @Override
-    public String getPopupText(int position) {
+    public String getPopupText(View view, int position) {
         OCFile file = getItem(position);
 
         if (file == null || sortOrder == null) {
