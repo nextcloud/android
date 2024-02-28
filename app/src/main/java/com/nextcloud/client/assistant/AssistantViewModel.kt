@@ -21,39 +21,41 @@
 
 package com.nextcloud.client.assistant
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nextcloud.client.account.User
-import com.nextcloud.operations.assistant.AssistantRepository
-import com.nextcloud.operations.assistant.model.CreatedTask
-import com.nextcloud.operations.assistant.model.TaskTypes
+import com.nextcloud.client.assistant.repository.AssistantRepository
+import com.nextcloud.common.NextcloudClient
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class AssistantViewModel(context: Context, user: User) : ViewModel() {
+class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
-    private var repository: AssistantRepository? = null
+    private val repository: AssistantRepository = AssistantRepository(client)
 
-    private val _taskTypes = MutableStateFlow<TaskTypes?>(null)
-    val taskTypes: StateFlow<TaskTypes?> = _taskTypes
+    private val _taskTypes = MutableStateFlow<RemoteOperationResult<TaskTypes>?>(null)
+    val taskTypes: StateFlow<RemoteOperationResult<TaskTypes>?> = _taskTypes
 
-    private val _task = MutableStateFlow<CreatedTask?>(null)
+    /*
+     private val _task = MutableStateFlow<CreatedTask?>(null)
     val task: StateFlow<CreatedTask?> = _task
+     */
+
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            repository = AssistantRepository(user, context)
-
+            val result = repository.getTaskTypes()
             _taskTypes.update {
-                repository?.getTaskTypes()
+                result
             }
         }
     }
 
+    /*
     fun deleteTask(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository?.deleteTask(id)
@@ -76,4 +78,13 @@ class AssistantViewModel(context: Context, user: User) : ViewModel() {
             repository?.createTask(input, type, identifier = " ")
         }
     }
+     */
+
+
+    fun createTask(
+        input: String,
+        type: String,
+    ) {
+    }
+
 }

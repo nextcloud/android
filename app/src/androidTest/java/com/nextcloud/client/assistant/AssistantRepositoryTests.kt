@@ -22,7 +22,7 @@
 package com.nextcloud.client.assistant
 
 import com.nextcloud.client.account.UserAccountManagerImpl
-import com.nextcloud.operations.assistant.AssistantRepository
+import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.owncloud.android.AbstractOnServerIT
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -40,13 +40,31 @@ class AssistantRepositoryTests: AbstractOnServerIT() {
 
     @Test
     fun testGetTaskTypes() {
-        assertTrue(sut?.getTaskTypes()?.ocs?.data?.types?.isNotEmpty() == true)
+        assertTrue(sut?.getTaskTypes()?.resultData?.isNotEmpty() == true)
     }
 
-    @Test
+    /*
+
+       @Test
     fun testGetTaskList() {
         assertTrue(sut?.getTaskList("assistant")?.ocs?.data?.types?.isNotEmpty() == true)
     }
+
+    @Test
+    fun testCreateTask() {
+        val input = "How many files I have?"
+        val type = "OCP\\TextProcessing\\HeadlineTaskType"
+        val result = sut?.createTask(input, type)
+        assertTrue(result != null)
+    }
+
+    @Test
+    fun testDeleteTask() {
+        val taskList = sut?.getTaskList("assistant")?.ocs?.data
+        assertTrue(sut?.getTaskList("assistant")?.ocs?.data?.types?.isNotEmpty() == true)
+    }
+
+     */
 
 
 }
