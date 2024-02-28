@@ -59,6 +59,7 @@ import com.owncloud.android.utils.DisplayUtils
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: FloatingActionButton) {
     // TODO hide sort group, floating action and search bar
+    val taskList by viewModel.taskList.collectAsState()
     val isTaskCreated by viewModel.isTaskCreated.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
     var selectedTaskType: String? by remember {
@@ -87,7 +88,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
             }
         }
 
-        items(taskTypes?.resultData?.types ?: listOf()) {
+        items(taskList?.resultData?.tasks ?: listOf()) {
             Text(text = it.toString())
         }
     }

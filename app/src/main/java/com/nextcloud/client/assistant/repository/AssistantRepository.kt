@@ -24,10 +24,12 @@ package com.nextcloud.client.assistant.repository
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.CreateTaskRemoteOperation
+import com.owncloud.android.lib.resources.assistant.GetTaskListRemoteOperation
 import com.owncloud.android.lib.resources.assistant.GetTaskTypesRemoteOperation
+import com.owncloud.android.lib.resources.assistant.model.TaskList
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
-class AssistantRepository(private val client: NextcloudClient): AssistantRepositoryType {
+class AssistantRepository(private val client: NextcloudClient) : AssistantRepositoryType {
 
     override fun getTaskTypes(): RemoteOperationResult<TaskTypes> {
         return GetTaskTypesRemoteOperation().execute(client)
@@ -40,12 +42,11 @@ class AssistantRepository(private val client: NextcloudClient): AssistantReposit
         return CreateTaskRemoteOperation(input, type).execute(client)
     }
 
-    /*
-      // TODO Check return type
-     override fun getTaskList(appId: String): TaskTypes? {
-        return operation.get("/ocs/v2.php/textprocessing/tasks/app/$appId", TaskTypes::class.java)
+    override fun getTaskList(appId: String): RemoteOperationResult<TaskList> {
+        return GetTaskListRemoteOperation(appId).execute(client)
     }
 
+    /*
     // TODO Check return type
     override fun deleteTask(id: String): CreatedTask? {
         return operation.delete("/ocs/v2.php/textprocessing/task/$id", TaskTypes::class.java)
@@ -55,7 +56,5 @@ class AssistantRepository(private val client: NextcloudClient): AssistantReposit
     override fun getTask(id: String): CreatedTask? {
         return operation.get("/ocs/v2.php/textprocessing/task/$id", TaskTypes::class.java)
     }
-
-
      */
 }

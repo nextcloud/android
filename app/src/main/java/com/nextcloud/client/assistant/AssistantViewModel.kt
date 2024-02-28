@@ -26,6 +26,7 @@ import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.resources.assistant.model.TaskList
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -40,16 +41,15 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
     private val _taskTypes = MutableStateFlow<RemoteOperationResult<TaskTypes>?>(null)
     val taskTypes: StateFlow<RemoteOperationResult<TaskTypes>?> = _taskTypes
 
+    private val _taskList = MutableStateFlow<RemoteOperationResult<TaskList>?>(null)
+    val taskList: StateFlow<RemoteOperationResult<TaskList>?> = _taskList
+
     private val _isTaskCreated = MutableStateFlow(false)
     val isTaskCreated: StateFlow<Boolean> = _isTaskCreated
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.getTaskTypes()
-            _taskTypes.update {
-                result
-            }
-        }
+        getTaskTypes()
+        getTaskList()
     }
 
     fun createTask(
@@ -65,22 +65,32 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
         }
     }
 
+    private fun getTaskTypes() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repository.getTaskTypes()
+            _taskTypes.update {
+                result
+            }
+        }
+    }
+
+    private fun getTaskList(appId: String = "assistant") {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repository.getTaskList(appId)
+
+            _taskList.update {
+                result
+            }
+        }
+    }
+
+
     /*
     fun deleteTask(id: String) {
         viewModelScope.launch(Dispatchers.IO) {
             repository?.deleteTask(id)
         }
     }
-
-    fun getTask(id: String) {
-        viewModelScope.launch(Dispatchers.IO) {
-            _task.update {
-                repository?.getTask(id)
-            }
-        }
-    }
-
-
      */
 
 }
