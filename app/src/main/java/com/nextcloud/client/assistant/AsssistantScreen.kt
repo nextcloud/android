@@ -23,20 +23,12 @@ package com.nextcloud.client.assistant
 
 import android.app.Activity
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -44,13 +36,13 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.nextcloud.ui.composeComponents.SimpleAlertDialog
+import com.nextcloud.client.assistant.component.AddTaskAlertDialog
+import com.nextcloud.client.assistant.component.TaskTypesRow
+import com.nextcloud.client.assistant.component.TaskView
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.utils.DisplayUtils
@@ -59,12 +51,10 @@ import com.owncloud.android.utils.DisplayUtils
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: FloatingActionButton) {
     // TODO hide sort group, floating action and search bar
+    val selectedTask by viewModel.selectedTask.collectAsState()
     val taskList by viewModel.taskList.collectAsState()
     val isTaskCreated by viewModel.isTaskCreated.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
-    var selectedTaskType: String? by remember {
-        mutableStateOf(null)
-    }
     var showAddTaskAlertDialog by remember {
         mutableStateOf(false)
     }
@@ -81,15 +71,18 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         stickyHeader {
             taskTypes?.let { taskTypes ->
                 taskTypes.resultData?.types.let {
-                    TaskTypesRow(selectedTaskType, data = it) { taskId ->
-                        selectedTaskType = taskId
+                    TaskTypesRow(selectedTask, data = it) { task->
+                        viewModel.selectTask(task)
                     }
                 }
             }
+
+            Spacer(modifier = Modifier.height(8.dp))
         }
 
         items(taskList?.resultData?.tasks ?: listOf()) {
-            Text(text = it.toString())
+            TaskView(task = it)
+            Spacer(modifier = Modifier.height(8.dp))
         }
     }
 
@@ -101,69 +94,10 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
     }
 
     if (showAddTaskAlertDialog) {
-        selectedTaskType?.let {
+        selectedTask?.let {
             AddTaskAlertDialog(viewModel, it) {
                 showAddTaskAlertDialog = false
             }
-        }
-    }
-}
-
-@Composable
-private fun AddTaskAlertDialog(viewModel: AssistantViewModel, type: String, dismiss: () -> Unit) {
-
-    var input by remember {
-        mutableStateOf("")
-    }
-
-    // TODO add to UI LIB
-    SimpleAlertDialog(
-        backgroundColor = Color.White,
-        textColor = Color.Black,
-        titleId = R.string.about_title,
-        description = stringResource(id = R.string.about_title),
-        dismiss = { dismiss() },
-        onComplete = { viewModel.createTask(input = input, type = type) },
-        content = {
-            TextField(
-                placeholder = {
-                    Text(
-                        text = stringResource(id = R.string.samples),
-                    )
-                },
-                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                value = input,
-                onValueChange = {
-                    input = it
-                },
-                singleLine = true
-            )
-        }
-    )
-}
-
-@Composable
-private fun TaskTypesRow(selectedTaskType: String?, data: List<TaskType>?, selectTaskType: (String) -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState())
-    ) {
-        data?.forEach {
-            FilledTonalButton(
-                onClick = { selectTaskType(it.id) },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedTaskType == it.id) {
-                        Color.Unspecified
-                    } else {
-                        Color.Gray
-                    }
-                )
-            ) {
-                Text(text = it.name)
-            }
-
-            Spacer(modifier = Modifier.padding(end = 8.dp))
         }
     }
 }

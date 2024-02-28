@@ -26,7 +26,9 @@ import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskList
+import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +39,9 @@ import kotlinx.coroutines.launch
 class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     private val repository: AssistantRepository = AssistantRepository(client)
+
+    private val _selectedTask = MutableStateFlow<TaskType?>(null)
+    val selectedTask: StateFlow<TaskType?> = _selectedTask
 
     private val _taskTypes = MutableStateFlow<RemoteOperationResult<TaskTypes>?>(null)
     val taskTypes: StateFlow<RemoteOperationResult<TaskTypes>?> = _taskTypes
@@ -65,11 +70,22 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
         }
     }
 
+    fun selectTask(task: TaskType) {
+        _selectedTask.update {
+            task
+        }
+    }
+
     private fun getTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getTaskTypes()
+
             _taskTypes.update {
                 result
+            }
+
+            _selectedTask.update {
+                result.resultData.types.first()
             }
         }
     }

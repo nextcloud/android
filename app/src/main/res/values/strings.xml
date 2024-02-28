@@ -18,6 +18,11 @@
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
 
+    <string name="assistant_screen_task_create_success_message">Task successfully created</string>
+    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
+
+    <string name="assistant_screen_task_view_show_more">Show more</string>
+    <string name="assistant_screen_task_view_show_less">Show less</string>
 
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_all_files">All files</string>
