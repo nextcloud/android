@@ -22,10 +22,13 @@
 package com.nextcloud.client.assistant.component
 
 import android.annotation.SuppressLint
+import android.widget.Space
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -57,10 +60,35 @@ fun TaskView(
             .clip(RoundedCornerShape(16.dp))
             .background(Color(R.color.primary))
     ) {
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Text(
+            text = stringResource(id = R.string.assistant_screen_task_view_input),
+            modifier = Modifier.padding(4.dp),
+            color = Color.White
+        )
+
+        Text(
+            text = task.input,
+            modifier = Modifier.padding(4.dp),
+            color = Color.White
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Text(
+            text = stringResource(id = R.string.assistant_screen_task_view_output),
+            color = Color.White,
+            modifier = Modifier
+                .padding(4.dp)
+                .clickable { expanded = !expanded }
+        )
+
         Text(
             text = if (expanded) task.output else task.output.take(100) + "...",
+            color = Color.White,
             modifier = Modifier
-                .padding(16.dp)
+                .padding(4.dp)
                 .clickable { expanded = !expanded }
         )
 
@@ -72,6 +100,7 @@ fun TaskView(
                     stringResource(id = R.string.assistant_screen_task_view_show_less)
                 },
                 textAlign = TextAlign.End,
+                color = Color.White,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)

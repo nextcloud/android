@@ -23,34 +23,43 @@ package com.nextcloud.client.assistant
 
 import android.app.Activity
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.client.assistant.component.AddTaskAlertDialog
+import com.nextcloud.client.assistant.component.CenterText
 import com.nextcloud.client.assistant.component.TaskTypesRow
 import com.nextcloud.client.assistant.component.TaskView
 import com.owncloud.android.R
+import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.utils.DisplayUtils
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: FloatingActionButton) {
-    // TODO hide sort group, floating action and search bar
+    // TODO hide sort group, search bar
+    // TODO top bar, back button causes crash
+    val loading by viewModel.loading.collectAsState()
     val selectedTask by viewModel.selectedTask.collectAsState()
     val taskList by viewModel.taskList.collectAsState()
     val isTaskCreated by viewModel.isTaskCreated.collectAsState()
@@ -63,27 +72,12 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         showAddTaskAlertDialog = true
     }
 
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        stickyHeader {
-            taskTypes?.let { taskTypes ->
-                taskTypes.resultData?.types.let {
-                    TaskTypesRow(selectedTask, data = it) { task->
-                        viewModel.selectTask(task)
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(8.dp))
-        }
-
-        items(taskList?.resultData?.tasks ?: listOf()) {
-            TaskView(task = it)
-            Spacer(modifier = Modifier.height(8.dp))
-        }
+    if (loading) {
+        CenterText(text = stringResource(id = R.string.assistant_screen_loading))
+    } else {
+        val tasks = taskList?.resultData?.tasks ?: return
+        val types = taskTypes?.resultData?.types ?: return
+        AssistantContent(tasks, types, selectedTask, viewModel)
     }
 
     if (isTaskCreated) {
@@ -97,6 +91,38 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         selectedTask?.let {
             AddTaskAlertDialog(viewModel, it) {
                 showAddTaskAlertDialog = false
+            }
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun AssistantContent(
+    taskList: List<Task>,
+    taskTypes: List<TaskType>,
+    selectedTask: TaskType?,
+    viewModel: AssistantViewModel
+) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        stickyHeader {
+            TaskTypesRow(selectedTask, data = taskTypes) { task ->
+                viewModel.selectTask(task)
+            }
+
+            Spacer(modifier = Modifier.height(8.dp))
+        }
+
+        items(taskList) {
+            if (taskList.isEmpty()) {
+                CenterText(text = stringResource(id = R.string.assistant_screen_no_task_available_text))
+            } else {
+                TaskView(task = it)
+                Spacer(modifier = Modifier.height(8.dp))
             }
         }
     }

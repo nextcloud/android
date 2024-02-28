@@ -546,6 +546,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(intent);
         } else if (itemId == R.id.nav_assistant) {
             // FIXME Back navigation is broken, create general function to switch to Jetpack Compose
+
+            showSortListGroup(false);
             ComposeFragment composeFragment = new ComposeFragment();
             Bundle bundle = new Bundle();
             bundle.putSerializable(ComposeFragment.destinationKey, ComposeDestinations.AssistantScreen);

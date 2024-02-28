@@ -18,9 +18,14 @@
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
 
+    <string name="assistant_screen_loading">Task List are loading, please wait</string>
+    <string name="assistant_screen_no_task_available_text">No task available, you can create a new task from bottom right.</string>
+
     <string name="assistant_screen_task_create_success_message">Task successfully created</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
 
+    <string name="assistant_screen_task_view_input">Input: </string>
+    <string name="assistant_screen_task_view_output">Output: </string>
     <string name="assistant_screen_task_view_show_more">Show more</string>
     <string name="assistant_screen_task_view_show_less">Show less</string>
 

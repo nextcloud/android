@@ -21,12 +21,13 @@
 
 package com.nextcloud.client.assistant
 
+import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.nextcloud.common.NextcloudClient
+import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
-import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskList
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
@@ -48,6 +49,9 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     private val _taskList = MutableStateFlow<RemoteOperationResult<TaskList>?>(null)
     val taskList: StateFlow<RemoteOperationResult<TaskList>?> = _taskList
+
+    private val _loading = MutableStateFlow(true)
+    val loading: StateFlow<Boolean> = _loading
 
     private val _isTaskCreated = MutableStateFlow(false)
     val isTaskCreated: StateFlow<Boolean> = _isTaskCreated
@@ -96,6 +100,10 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
             _taskList.update {
                 result
+            }
+
+            _loading.update {
+                false
             }
         }
     }
