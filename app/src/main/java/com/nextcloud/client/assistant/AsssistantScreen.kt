@@ -53,6 +53,7 @@ import com.owncloud.android.utils.DisplayUtils
 fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: FloatingActionButton) {
     // TODO hide sort group, search bar
     // TODO top bar, back button causes crash
+    // TODO generate list according to selection (selectedTask).
     val loading by viewModel.loading.collectAsState()
     val selectedTask by viewModel.selectedTask.collectAsState()
     val taskList by viewModel.taskList.collectAsState()
