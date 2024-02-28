@@ -21,6 +21,7 @@
 
 package com.nextcloud.client.assistant
 
+import android.app.Activity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row
@@ -44,6 +45,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -51,11 +53,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.ui.composeComponents.SimpleAlertDialog
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.TaskType
+import com.owncloud.android.utils.DisplayUtils
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: FloatingActionButton) {
     // TODO hide sort group, floating action and search bar
+    val isTaskCreated by viewModel.isTaskCreated.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
     var selectedTaskType: String? by remember {
         mutableStateOf(null)
@@ -88,6 +92,13 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         }
     }
 
+    if (isTaskCreated) {
+        DisplayUtils.showSnackMessage(
+            LocalContext.current as Activity,
+            stringResource(id = R.string.assistant_screen_task_create_success_message)
+        )
+    }
+
     if (showAddTaskAlertDialog) {
         selectedTaskType?.let {
             AddTaskAlertDialog(viewModel, it) {
@@ -99,6 +110,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
 
 @Composable
 private fun AddTaskAlertDialog(viewModel: AssistantViewModel, type: String, dismiss: () -> Unit) {
+
     var input by remember {
         mutableStateOf("")
     }

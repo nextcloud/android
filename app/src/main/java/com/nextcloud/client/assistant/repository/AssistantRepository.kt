@@ -23,14 +23,21 @@ package com.nextcloud.client.assistant.repository
 
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.resources.assistant.CreateTaskRemoteOperation
 import com.owncloud.android.lib.resources.assistant.GetTaskTypesRemoteOperation
-import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
 class AssistantRepository(private val client: NextcloudClient): AssistantRepositoryType {
 
     override fun getTaskTypes(): RemoteOperationResult<TaskTypes> {
         return GetTaskTypesRemoteOperation().execute(client)
+    }
+
+    override fun createTask(
+        input: String,
+        type: String,
+    ): RemoteOperationResult<Void> {
+        return CreateTaskRemoteOperation(input, type).execute(client)
     }
 
     /*
@@ -49,24 +56,6 @@ class AssistantRepository(private val client: NextcloudClient): AssistantReposit
         return operation.get("/ocs/v2.php/textprocessing/task/$id", TaskTypes::class.java)
     }
 
-    override fun createTask(
-        input: String,
-        type: String,
-        appId: String,
-        identifier: String,
-    ): CreatedTask? {
-        val json = JSONObject().apply {
-            put("input", input)
-            put("type", type)
-            put("appId", appId)
-            put("identifier", identifier)
-        }
 
-        return operation.post(
-            "/ocs/v2.php/textprocessing/schedule",
-            CreatedTask::class.java,
-            json
-        )
-    }
      */
 }

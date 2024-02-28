@@ -40,17 +40,27 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
     private val _taskTypes = MutableStateFlow<RemoteOperationResult<TaskTypes>?>(null)
     val taskTypes: StateFlow<RemoteOperationResult<TaskTypes>?> = _taskTypes
 
-    /*
-     private val _task = MutableStateFlow<CreatedTask?>(null)
-    val task: StateFlow<CreatedTask?> = _task
-     */
-
+    private val _isTaskCreated = MutableStateFlow(false)
+    val isTaskCreated: StateFlow<Boolean> = _isTaskCreated
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getTaskTypes()
             _taskTypes.update {
                 result
+            }
+        }
+    }
+
+    fun createTask(
+        input: String,
+        type: String,
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val result = repository.createTask(input, type)
+
+            _isTaskCreated.update {
+                result.isSuccess
             }
         }
     }
@@ -70,21 +80,7 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
         }
     }
 
-    fun createTask(
-        input: String,
-        type: String,
-    ) {
-        viewModelScope.launch(Dispatchers.IO) {
-            repository?.createTask(input, type, identifier = " ")
-        }
-    }
+
      */
-
-
-    fun createTask(
-        input: String,
-        type: String,
-    ) {
-    }
 
 }
