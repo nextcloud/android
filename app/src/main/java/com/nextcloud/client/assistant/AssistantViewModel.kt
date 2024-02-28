@@ -21,12 +21,10 @@
 
 package com.nextcloud.client.assistant
 
-import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.nextcloud.common.NextcloudClient
-import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.model.TaskList
 import com.owncloud.android.lib.resources.assistant.model.TaskType
