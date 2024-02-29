@@ -36,6 +36,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.owncloud.android.R
 
+@Suppress("LongParameterList")
 @Composable
 fun SimpleAlertDialog(
     backgroundColor: Color,

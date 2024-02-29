@@ -64,6 +64,7 @@ import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.delay
 
+@Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel) {
@@ -81,6 +82,7 @@ fun AssistantScreen(viewModel: AssistantViewModel) {
     }
     val pullRefreshState = rememberPullToRefreshState()
 
+    @Suppress("MagicNumber")
     if (pullRefreshState.isRefreshing) {
         LaunchedEffect(true) {
             delay(1500)

@@ -52,6 +52,7 @@ import com.owncloud.android.lib.resources.assistant.model.Task
 
 @OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("ResourceAsColor")
+@Suppress("LongMethod", "MagicNumber")
 @Composable
 fun TaskView(
     task: Task,

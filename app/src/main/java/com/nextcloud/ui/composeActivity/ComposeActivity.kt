@@ -100,13 +100,14 @@ class ComposeActivity : DrawerActivity() {
             nextcloudClient = getNextcloudClient(user, context)
         }
 
-        return if (destination == ComposeDestination.AssistantScreen && nextcloudClient != null) {
-            AssistantScreen(
-                viewModel = AssistantViewModel(
-                    client = nextcloudClient!!
+        if (destination == ComposeDestination.AssistantScreen) {
+            nextcloudClient?.let {
+                AssistantScreen(
+                    viewModel = AssistantViewModel(
+                        client = it
+                    )
                 )
-            )
-        } else {
+            }
         }
     }
 
