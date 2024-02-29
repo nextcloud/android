@@ -248,6 +248,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        showSortListGroup(true);
+        hideSearchText(false);
     }
 
     /**

@@ -63,8 +63,6 @@ import kotlinx.coroutines.delay
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: FloatingActionButton) {
-    // TODO hide sort group, search bar
-    // TODO top bar, back button causes crash
     val activity = LocalContext.current as Activity
     val loading by viewModel.loading.collectAsState()
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
