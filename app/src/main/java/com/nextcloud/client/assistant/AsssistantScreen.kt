@@ -89,7 +89,14 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
     }
 
     floatingActionButton.setOnClickListener {
-        showAddTaskAlertDialog = true
+        if (selectedTaskType?.id != null) {
+            showAddTaskAlertDialog = true
+        } else {
+            DisplayUtils.showSnackMessage(
+                activity,
+                activity.getString(R.string.assistant_screen_select_different_task_type_to_add)
+            )
+        }
     }
 
     Box(Modifier.nestedScroll(pullRefreshState.nestedScrollConnection)) {

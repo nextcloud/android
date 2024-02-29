@@ -84,14 +84,16 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     private fun getTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.getTaskTypes().resultData.types
+            val result = arrayListOf(TaskType(null, "All", null))
+            val taskTypes = repository.getTaskTypes().resultData.types ?: listOf()
+            result.addAll(taskTypes)
 
             _taskTypes.update {
-                result
+                result.toList()
             }
 
             _selectedTaskType.update {
-                result?.first()
+                result.first()
             }
         }
     }
