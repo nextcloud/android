@@ -24,6 +24,7 @@ package com.nextcloud.client.assistant
 import android.app.Activity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -64,7 +65,6 @@ import kotlinx.coroutines.delay
 fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: FloatingActionButton) {
     // TODO hide sort group, search bar
     // TODO top bar, back button causes crash
-    // TODO generate list according to selection (selectedTask).
     val activity = LocalContext.current as Activity
     val loading by viewModel.loading.collectAsState()
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
@@ -103,16 +103,20 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         if (loading || pullRefreshState.isRefreshing) {
             CenterText(text = stringResource(id = R.string.assistant_screen_loading))
         } else {
-            AssistantContent(
-                filteredTaskList ?: listOf(),
-                taskTypes,
-                selectedTaskType,
-                viewModel,
-                showDeleteTaskAlertDialog = { taskId ->
-                    taskIdToDeleted = taskId
-                    showDeleteTaskAlertDialog = true
-                }
-            )
+            if (filteredTaskList.isNullOrEmpty()) {
+                EmptyTaskList(selectedTaskType, taskTypes, viewModel)
+            } else {
+                AssistantContent(
+                    filteredTaskList!!,
+                    taskTypes,
+                    selectedTaskType,
+                    viewModel,
+                    showDeleteTaskAlertDialog = { taskId ->
+                        taskIdToDeleted = taskId
+                        showDeleteTaskAlertDialog = true
+                    }
+                )
+            }
         }
 
         if (pullRefreshState.isRefreshing) {
@@ -169,7 +173,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
 private fun AssistantContent(
     taskList: List<Task>,
     taskTypes: List<TaskType>?,
-    selectedTask: TaskType?,
+    selectedTaskType: TaskType?,
     viewModel: AssistantViewModel,
     showDeleteTaskAlertDialog: (Long) -> Unit,
 ) {
@@ -179,7 +183,7 @@ private fun AssistantContent(
             .padding(16.dp)
     ) {
         stickyHeader {
-            TaskTypesRow(selectedTask, data = taskTypes) { task ->
+            TaskTypesRow(selectedTaskType, data = taskTypes) { task ->
                 viewModel.selectTaskType(task)
             }
 
@@ -187,12 +191,28 @@ private fun AssistantContent(
         }
 
         items(taskList) { task ->
-            if (taskList.isEmpty()) {
-                CenterText(text = stringResource(id = R.string.assistant_screen_no_task_available_text))
-            } else {
-                TaskView(task, showDeleteTaskAlertDialog = { showDeleteTaskAlertDialog(task.id) })
-                Spacer(modifier = Modifier.height(8.dp))
-            }
+            TaskView(task, showDeleteTaskAlertDialog = { showDeleteTaskAlertDialog(task.id) })
+            Spacer(modifier = Modifier.height(8.dp))
         }
+    }
+}
+
+@Composable
+private fun EmptyTaskList(selectedTaskType: TaskType?, taskTypes: List<TaskType>?, viewModel: AssistantViewModel) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(16.dp)) {
+        TaskTypesRow(selectedTaskType, data = taskTypes) { task ->
+            viewModel.selectTaskType(task)
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        CenterText(
+            text = stringResource(
+                id = R.string.assistant_screen_no_task_available_text,
+                selectedTaskType?.name ?: ""
+            )
+        )
     }
 }

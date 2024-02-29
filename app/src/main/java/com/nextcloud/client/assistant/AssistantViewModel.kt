@@ -77,7 +77,7 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     fun selectTaskType(task: TaskType) {
         _selectedTaskType.update {
-            filterTaskList(it?.id)
+            filterTaskList(task.id)
             task
         }
     }

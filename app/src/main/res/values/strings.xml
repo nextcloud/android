@@ -19,7 +19,7 @@
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
 
     <string name="assistant_screen_loading">Task List are loading, please wait</string>
-    <string name="assistant_screen_no_task_available_text">No task available, you can create a new task from bottom right.</string>
+    <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete Task</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Are you sure you want to delete this task?</string>
 
