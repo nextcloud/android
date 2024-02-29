@@ -693,9 +693,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
             )
         } else {
             val user = contactsPreferenceActivity.user.orElseThrow { RuntimeException() }
-            val files: Array<OCFile?> = arrayOfNulls(backupToRestore.size)
-
-            val contactListFragment = BackupListFragment.newInstance(files, user)
+            val contactListFragment = BackupListFragment.newInstance(backupToRestore.toTypedArray(), user)
 
             contactsPreferenceActivity.supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_container, contactListFragment, BackupListFragment.TAG)
@@ -705,7 +703,7 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
     }
 
     companion object {
-        val TAG = BackupFragment::class.java.simpleName
+        val TAG: String = BackupFragment::class.java.simpleName
         private const val ARG_SHOW_SIDEBAR = "SHOW_SIDEBAR"
         private const val KEY_CALENDAR_PICKER_OPEN = "IS_CALENDAR_PICKER_OPEN"
         private const val KEY_CALENDAR_DAY = "CALENDAR_DAY"
