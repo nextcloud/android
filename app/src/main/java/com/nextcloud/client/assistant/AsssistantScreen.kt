@@ -96,13 +96,16 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         if (loading || pullRefreshState.isRefreshing) {
             CenterText(text = stringResource(id = R.string.assistant_screen_loading))
         } else {
-            val tasks = filteredTaskList?.resultData?.tasks ?: return
-            val types = taskTypes?.resultData?.types ?: return
-
-            AssistantContent(tasks, types, selectedTaskType, viewModel, showDeleteTaskAlertDialog = { taskId ->
-                taskIdToDeleted = taskId
-                showDeleteTaskAlertDialog = true
-            })
+            AssistantContent(
+                filteredTaskList ?: listOf(),
+                taskTypes,
+                selectedTaskType,
+                viewModel,
+                showDeleteTaskAlertDialog = { taskId ->
+                    taskIdToDeleted = taskId
+                    showDeleteTaskAlertDialog = true
+                }
+            )
         }
 
         if (pullRefreshState.isRefreshing) {
@@ -137,9 +140,9 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
             SimpleAlertDialog(
                 backgroundColor = Color.White,
                 textColor = Color.Black,
-                title =stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
+                title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
                 description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
-                dismiss = {showDeleteTaskAlertDialog = false },
+                dismiss = { showDeleteTaskAlertDialog = false },
                 onComplete = { viewModel.deleteTask(id) },
             )
         }
@@ -158,7 +161,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
 @Composable
 private fun AssistantContent(
     taskList: List<Task>,
-    taskTypes: List<TaskType>,
+    taskTypes: List<TaskType>?,
     selectedTask: TaskType?,
     viewModel: AssistantViewModel,
     showDeleteTaskAlertDialog: (Long) -> Unit,

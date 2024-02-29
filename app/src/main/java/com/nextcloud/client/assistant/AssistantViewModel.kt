@@ -25,10 +25,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.nextcloud.common.NextcloudClient
-import com.owncloud.android.lib.common.operations.RemoteOperationResult
-import com.owncloud.android.lib.resources.assistant.model.TaskList
+import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
-import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -42,13 +40,13 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
     private val _selectedTaskType = MutableStateFlow<TaskType?>(null)
     val selectedTaskType: StateFlow<TaskType?> = _selectedTaskType
 
-    private val _taskTypes = MutableStateFlow<RemoteOperationResult<TaskTypes>?>(null)
-    val taskTypes: StateFlow<RemoteOperationResult<TaskTypes>?> = _taskTypes
+    private val _taskTypes = MutableStateFlow<List<TaskType>?>(null)
+    val taskTypes: StateFlow<List<TaskType>?> = _taskTypes
 
-    private var _taskList: RemoteOperationResult<TaskList>? = null
+    private var _taskList: List<Task>? = null
 
-    private val _filteredTaskList = MutableStateFlow<RemoteOperationResult<TaskList>?>(null)
-    val filteredTaskList: StateFlow<RemoteOperationResult<TaskList>?> = _filteredTaskList
+    private val _filteredTaskList = MutableStateFlow<List<Task>?>(null)
+    val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
 
     private val _loading = MutableStateFlow(true)
     val loading: StateFlow<Boolean> = _loading
@@ -86,26 +84,21 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     private fun getTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.getTaskTypes()
-            val new = ArrayList(result.resultData.types ?: listOf()).apply {
-                add(TaskType(null, "All", null))
-            }
-
-            result.resultData.types = new
+            val result = repository.getTaskTypes().resultData.types
 
             _taskTypes.update {
                 result
             }
 
             _selectedTaskType.update {
-                result.resultData.types?.first()
+                result?.first()
             }
         }
     }
 
     fun getTaskList(appId: String = "assistant", onCompleted: () -> Unit = {}) {
         viewModelScope.launch(Dispatchers.IO) {
-            _taskList = repository.getTaskList(appId)
+            _taskList = repository.getTaskList(appId).resultData.tasks
 
             filterTaskList(_selectedTaskType.value?.id)
 
@@ -131,26 +124,21 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
         }
     }
 
-    fun filterTaskList(taskTypeId: String?) {
+    private fun filterTaskList(taskTypeId: String?) {
         if (taskTypeId == null) {
             _filteredTaskList.update {
                 _taskList
             }
         } else {
-            val result = _taskList?.resultData?.tasks?.filter { it.type == taskTypeId }
             _filteredTaskList.update {
-                it?.resultData?.tasks = result
-                it
+                _taskList?.filter { it.type == taskTypeId }
             }
         }
     }
 
     private fun removeTaskFromList(id: Long) {
         _filteredTaskList.update { currentList ->
-            currentList?.resultData?.tasks?.let { tasks ->
-                currentList.resultData.tasks = tasks.filter { it.id != id }
-            }
-            currentList
+            currentList?.filter { it.id != id }
         }
     }
 }
