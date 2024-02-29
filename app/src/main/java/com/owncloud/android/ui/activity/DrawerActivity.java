@@ -74,7 +74,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
-import com.nextcloud.ui.composeFragment.ComposeDestinations;
+import com.nextcloud.ui.composeFragment.ComposeDestination;
 import com.nextcloud.ui.composeFragment.ComposeFragment;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -545,18 +545,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
             startActivity(intent);
         } else if (itemId == R.id.nav_assistant) {
-            // FIXME Back navigation is broken, create general function to switch to Jetpack Compose
-
-            showSortListGroup(false);
-            ComposeFragment composeFragment = new ComposeFragment();
-            Bundle bundle = new Bundle();
-            bundle.putSerializable(ComposeFragment.destinationKey, ComposeDestinations.AssistantScreen);
-            composeFragment.setArguments(bundle);
-
-            getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.left_fragment_container, composeFragment)
-                .commit();
+            navigateComposeView(ComposeDestination.AssistantScreen, false, true);
         } else {
             if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
                 menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
@@ -566,6 +555,21 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
             }
         }
+    }
+
+    private void navigateComposeView(ComposeDestination destination, boolean showSortListGroup, boolean hideSearchText) {
+        showSortListGroup(showSortListGroup);
+        hideSearchText(hideSearchText);
+
+        ComposeFragment composeFragment = new ComposeFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable(ComposeFragment.destinationKey, destination);
+        composeFragment.setArguments(bundle);
+
+        getSupportFragmentManager()
+            .beginTransaction()
+            .replace(R.id.left_fragment_container, composeFragment)
+            .commit();
     }
 
     private void startActivity(Class<? extends Activity> activity) {

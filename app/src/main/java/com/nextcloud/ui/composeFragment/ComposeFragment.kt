@@ -21,6 +21,7 @@
 
 package com.nextcloud.ui.composeFragment
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,12 +33,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.fragment.app.Fragment
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.common.NextcloudClient
-import com.nextcloud.common.User
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentComposeViewBinding
@@ -53,7 +52,7 @@ class ComposeFragment : FileFragment() {
     private var _binding: FragmentComposeViewBinding? = null
 
     private val binding get() = _binding!!
-    private var destination: ComposeDestinations? = null
+    private var destination: ComposeDestination? = null
 
     companion object {
         const val destinationKey = "destinationKey"
@@ -65,7 +64,7 @@ class ComposeFragment : FileFragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentComposeViewBinding.inflate(inflater, container, false)
-        destination = arguments.getSerializableArgument(destinationKey, ComposeDestinations::class.java)
+        destination = arguments.getSerializableArgument(destinationKey, ComposeDestination::class.java)
 
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
@@ -78,8 +77,9 @@ class ComposeFragment : FileFragment() {
         return binding.root
     }
 
+    @SuppressLint("UnusedContentLambdaTargetStateParameter")
     @Composable
-    private fun Content(destination: ComposeDestinations?) {
+    private fun Content(destination: ComposeDestination?) {
         val floatingActionButton: FloatingActionButton = requireActivity().findViewById(R.id.fab_main)
         var nextcloudClient by remember { mutableStateOf<NextcloudClient?>(null) }
 
@@ -87,7 +87,7 @@ class ComposeFragment : FileFragment() {
             nextcloudClient = getNextcloudClient()
         }
 
-        return if (destination == ComposeDestinations.AssistantScreen && nextcloudClient != null) {
+        return if (destination == ComposeDestination.AssistantScreen && nextcloudClient != null) {
             AssistantScreen(
                 viewModel = AssistantViewModel(
                     client = nextcloudClient!!
