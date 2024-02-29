@@ -46,10 +46,14 @@ fun AddTaskAlertDialog(viewModel: AssistantViewModel, taskType: TaskType, dismis
     SimpleAlertDialog(
         backgroundColor = Color.White,
         textColor = Color.Black,
-        title = taskType.name,
+        title = taskType.name ?: "",
         description = taskType.description,
         dismiss = { dismiss() },
-        onComplete = { viewModel.createTask(input = input, type = taskType.id) },
+        onComplete = {
+            taskType.id?.let {
+                viewModel.createTask(input = input, type = it)
+            }
+        },
         content = {
             TextField(
                 placeholder = {

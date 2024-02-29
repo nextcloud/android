@@ -81,11 +81,13 @@ fun TaskView(
             color = Color.White
         )
 
-        Text(
-            text = task.input,
-            modifier = Modifier.padding(4.dp),
-            color = Color.White
-        )
+        task.input?.let {
+            Text(
+                text = it,
+                modifier = Modifier.padding(4.dp),
+                color = Color.White
+            )
+        }
 
         Spacer(modifier = Modifier.height(16.dp))
 
@@ -96,20 +98,22 @@ fun TaskView(
                 .padding(4.dp)
         )
 
-        Text(
-            text = if (expanded) task.output else task.output.take(100) + "...",
-            color = Color.White,
-            modifier = Modifier
-                .animateContentSize(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioLowBouncy,
-                        stiffness = Spring.StiffnessLow
+        task.output?.let {
+            Text(
+                text = if (expanded) it else it.take(100) + "...",
+                color = Color.White,
+                modifier = Modifier
+                    .animateContentSize(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioLowBouncy,
+                            stiffness = Spring.StiffnessLow
+                        )
                     )
-                )
-                .padding(4.dp)
-        )
+                    .padding(4.dp)
+            )
+        }
 
-        if (task.output.length >= 100) {
+        if ((task.output?.length ?: 0) >= 100) {
             Text(
                 text = if (!expanded) {
                     stringResource(id = R.string.assistant_screen_task_view_show_more)

@@ -98,6 +98,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         } else {
             val tasks = taskList?.resultData?.tasks ?: return
             val types = taskTypes?.resultData?.types ?: return
+
             AssistantContent(tasks, types, selectedTaskType, viewModel, showDeleteTaskAlertDialog = { taskId ->
                 taskIdToDeleted = taskId
                 showDeleteTaskAlertDialog = true
@@ -118,10 +119,16 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         )
     }
 
-    if (isTaskDeleted) {
+    isTaskDeleted?.let {
+        val messageId = if (it) {
+            R.string.assistant_screen_task_delete_success_message
+        } else {
+            R.string.assistant_screen_task_delete_success_message
+        }
+
         DisplayUtils.showSnackMessage(
             activity,
-            stringResource(id = R.string.assistant_screen_task_delete_success_message)
+            stringResource(id = messageId)
         )
     }
 

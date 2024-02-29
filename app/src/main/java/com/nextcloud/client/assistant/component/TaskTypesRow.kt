@@ -43,21 +43,23 @@ fun TaskTypesRow(selectedTaskType: TaskType?, data: List<TaskType>?, selectTaskT
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState())
     ) {
-        data?.forEach {
-            FilledTonalButton(
-                onClick = { selectTaskType(it) },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (selectedTaskType?.id == it.id) {
-                        Color.Unspecified
-                    } else {
-                        Color.Gray
-                    }
-                )
-            ) {
-                Text(text = it.name)
-            }
+        data?.forEach { taskType ->
+            taskType.name?.let { taskTypeName ->
+                FilledTonalButton(
+                    onClick = { selectTaskType(taskType) },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (selectedTaskType?.id == taskType.id) {
+                            Color.Unspecified
+                        } else {
+                            Color.Gray
+                        }
+                    )
+                ) {
+                    Text(text = taskTypeName)
+                }
 
-            Spacer(modifier = Modifier.padding(end = 8.dp))
+                Spacer(modifier = Modifier.padding(end = 8.dp))
+            }
         }
     }
 }
