@@ -95,7 +95,7 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
         }
     }
 
-    private fun getTaskList(appId: String = "assistant") {
+    fun getTaskList(appId: String = "assistant", onCompleted: () -> Unit = {}) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getTaskList(appId)
 
@@ -106,6 +106,8 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
             _loading.update {
                 false
             }
+
+            onCompleted()
         }
     }
 
