@@ -4,12 +4,9 @@
       <verify-metadata>true</verify-metadata>
       <verify-signatures>true</verify-signatures>
       <trusted-artifacts>
-         <trust group="com.android.tools.build" name="aapt2" version="8.2.2-10154469" reason="ships OS specific artifacts (win/linux/osx) - temp global trust"/>
+         <trust group="com.android.tools.build" name="aapt2" version="8.3.0-10880808" reason="ships OS specific artifacts (win/linux/osx) - temp global trust"/>
          <trust group="com.fasterxml.jackson" name="jackson-base" version="2.14.2" reason="no keys available, no pom artifact to create a checksum"/>
       </trusted-artifacts>
-      <ignored-keys>
-         <ignored-key id="EE92349AD86DE446" reason="Key couldn't be downloaded from any key server"/>
-      </ignored-keys>
       <trusted-keys>
          <trusted-key id="015479E1055341431B4545AB72475FD306B9CAB7" group="com.googlecode.javaewah" name="JavaEWAH" version="1.2.3"/>
          <trusted-key id="042B29E928995B9DB963C636C7CA19B7B620D787" group="com.github.stephenc.jcip" name="jcip-annotations" version="1.0-1"/>
@@ -285,6 +282,7 @@
          <trusted-key id="E82D2EAF2E83830CE1F7F6BE571A5291E827E1C7" group="net.java" name="jvnet-parent" version="3"/>
          <trusted-key id="E85AED155021AF8A6C6B7A4A7C7D8456294423BA" group="org.objenesis"/>
          <trusted-key id="EAA526B91DD83BA3E1B9636FA730529CA355A63E" group="org.ccil.cowan.tagsoup" name="tagsoup" version="1.2.1"/>
+         <trusted-key id="EB1B3DE71713C9EC2E87CC26EE92349AD86DE446" group="com.google.j2objc" name="j2objc-annotations" version="2.8"/>
          <trusted-key id="EBB241A545CB17C87FACB2EBD0BF1D737C9A1C22" group="net.sourceforge.pmd"/>
          <trusted-key id="EE0CA873074092F806F59B65D364ABAA39A47320" group="com.google.errorprone"/>
          <trusted-key id="EF5214AD654CD05F0DA91609ECEAC3B11AD0E0A0" group="com.adobe.xmp" name="xmpcore" version="6.1.11"/>
