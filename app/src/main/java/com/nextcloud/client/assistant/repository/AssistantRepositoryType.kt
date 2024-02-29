@@ -30,7 +30,7 @@ interface AssistantRepositoryType {
 
     fun createTask(
         input: String,
-        type: String,
+        type: String
     ): RemoteOperationResult<Void>
 
     fun getTaskList(appId: String): RemoteOperationResult<TaskList>

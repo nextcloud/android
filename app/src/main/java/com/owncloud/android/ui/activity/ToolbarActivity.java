@@ -155,14 +155,6 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         mSearchText.setText(getString(R.string.appbar_search_in, title));
     }
 
-    public void hideSearchText(boolean hide) {
-        if (hide) {
-            mSearchText.setVisibility(View.GONE);
-        } else {
-            mSearchText.setVisibility(View.VISIBLE);
-        }
-    }
-
     @SuppressLint("PrivateResource")
     private void showHomeSearchToolbar(boolean isShow) {
         viewThemeUtils.material.themeToolbar(mToolbar);

@@ -77,7 +77,7 @@ fun MoreActionsBottomSheet(
                                 }
                         }
                         .padding(all = 16.dp),
-                    verticalAlignment = Alignment.CenterVertically,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Icon(
                         painter = painterResource(id = action.first),
@@ -90,7 +90,7 @@ fun MoreActionsBottomSheet(
 
                     Text(
                         text = stringResource(action.second),
-                        fontSize = 16.sp,
+                        fontSize = 16.sp
                     )
                 }
             }

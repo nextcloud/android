@@ -28,7 +28,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-class AssistantRepositoryTests: AbstractOnServerIT() {
+class AssistantRepositoryTests : AbstractOnServerIT() {
 
     private var sut: AssistantRepository? = null
 
@@ -65,6 +65,4 @@ class AssistantRepositoryTests: AbstractOnServerIT() {
     }
 
      */
-
-
 }

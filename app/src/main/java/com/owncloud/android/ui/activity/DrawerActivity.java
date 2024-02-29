@@ -74,8 +74,8 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.java.util.Optional;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
-import com.nextcloud.ui.composeFragment.ComposeDestination;
-import com.nextcloud.ui.composeFragment.ComposeFragment;
+import com.nextcloud.ui.composeActivity.ComposeActivity;
+import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -248,9 +248,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        showSortListGroup(true);
-        hideSearchText(false);
     }
 
     /**
@@ -548,7 +545,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
             startActivity(intent);
         } else if (itemId == R.id.nav_assistant) {
-            navigateComposeView(ComposeDestination.AssistantScreen, false, true);
+            startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, itemId);
         } else {
             if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
                 menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
@@ -560,19 +557,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void navigateComposeView(ComposeDestination destination, boolean showSortListGroup, boolean hideSearchText) {
-        showSortListGroup(showSortListGroup);
-        hideSearchText(hideSearchText);
-
-        ComposeFragment composeFragment = new ComposeFragment();
-        Bundle bundle = new Bundle();
-        bundle.putSerializable(ComposeFragment.destinationKey, destination);
-        composeFragment.setArguments(bundle);
-
-        getSupportFragmentManager()
-            .beginTransaction()
-            .replace(R.id.left_fragment_container, composeFragment)
-            .commit();
+    private void startComposeActivity(ComposeDestination destination, int titleId, int menuItemId) {
+        Intent composeActivity = new Intent(getApplicationContext(), ComposeActivity.class);
+        composeActivity.putExtra(ComposeActivity.destinationKey, destination);
+        composeActivity.putExtra(ComposeActivity.titleKey, titleId);
+        composeActivity.putExtra(ComposeActivity.menuItemKey, menuItemId);
+        startActivity(composeActivity);
     }
 
     private void startActivity(Class<? extends Activity> activity) {

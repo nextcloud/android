@@ -38,7 +38,7 @@ class AssistantRepository(private val client: NextcloudClient) : AssistantReposi
 
     override fun createTask(
         input: String,
-        type: String,
+        type: String
     ): RemoteOperationResult<Void> {
         return CreateTaskRemoteOperation(input, type).execute(client)
     }

@@ -19,8 +19,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.ui.composeFragment
+package com.nextcloud.ui.composeActivity
 
-enum class ComposeDestination {
+import java.io.Serializable
+
+enum class ComposeDestination : Serializable {
     AssistantScreen
 }

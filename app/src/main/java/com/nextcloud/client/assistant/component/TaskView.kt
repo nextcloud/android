@@ -55,11 +55,10 @@ import com.owncloud.android.lib.resources.assistant.model.Task
 @Composable
 fun TaskView(
     task: Task,
-    showDeleteTaskAlertDialog: (Long) -> Unit,
+    showDeleteTaskAlertDialog: (Long) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showMoreActionsBottomSheet by remember { mutableStateOf(false) }
-
 
     // TODO Check color
     Column(
@@ -135,7 +134,7 @@ fun TaskView(
                     R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
                 ) {
                     showDeleteTaskAlertDialog(task.id)
-                },
+                }
             )
 
             MoreActionsBottomSheet(

@@ -58,7 +58,9 @@ fun AddTaskAlertDialog(viewModel: AssistantViewModel, taskType: TaskType, dismis
             TextField(
                 placeholder = {
                     Text(
-                        text = stringResource(id = R.string.assistant_screen_create_task_alert_dialog_input_field_placeholder),
+                        text = stringResource(
+                            id = R.string.assistant_screen_create_task_alert_dialog_input_field_placeholder
+                        )
                     )
                 },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),

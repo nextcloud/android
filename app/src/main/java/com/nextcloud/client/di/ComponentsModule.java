@@ -41,6 +41,7 @@ import com.nextcloud.client.widget.DashboardWidgetService;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.ImageDetailFragment;
 import com.nextcloud.ui.SetStatusDialogFragment;
+import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.MainApp;
@@ -198,6 +199,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract CommunityActivity participateActivity();
+
+    @ContributesAndroidInjector
+    abstract ComposeActivity composeActivity();
 
     @ContributesAndroidInjector
     abstract PassCodeActivity passCodeActivity();

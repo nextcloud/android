@@ -19,97 +19,105 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.nextcloud.ui.composeFragment
+package com.nextcloud.ui.composeActivity
 
+import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.MenuItem
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.platform.ViewCompositionStrategy
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.common.User
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.R
-import com.owncloud.android.databinding.FragmentComposeViewBinding
+import com.owncloud.android.databinding.ActivityComposeBinding
 import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.ui.activity.DrawerActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-class ComposeFragment : FileFragment() {
+class ComposeActivity : DrawerActivity() {
 
-    private var _binding: FragmentComposeViewBinding? = null
-
-    private val binding get() = _binding!!
-    private var destination: ComposeDestination? = null
+    lateinit var binding: ActivityComposeBinding
 
     companion object {
         const val destinationKey = "destinationKey"
+        const val titleKey = "titleKey"
+        const val menuItemKey = "menuItemKey"
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentComposeViewBinding.inflate(inflater, container, false)
-        destination = arguments.getSerializableArgument(destinationKey, ComposeDestination::class.java)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityComposeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        binding.composeView.apply {
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+        val destination = intent.getSerializableArgument(destinationKey, ComposeDestination::class.java)
+        val titleId = intent.getIntExtra(titleKey, R.string.empty)
+        val menuItemId = intent.getIntExtra(menuItemKey, R.id.nav_assistant)
 
-            setContent {
-                Content(destination)
-            }
+        setupToolbar()
+        updateActionBarTitleAndHomeButtonByString(getString(titleId))
+
+        setupDrawer(menuItemId)
+
+        binding.composeView.setContent {
+            Content(destination, storageManager.user, this)
         }
+    }
 
-        return binding.root
+    override fun onResume() {
+        super.onResume()
+        setDrawerMenuItemChecked(R.id.nav_assistant)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var retval = true
+        if (item.itemId == android.R.id.home) {
+            if (isDrawerOpen) {
+                closeDrawer()
+            } else {
+                openDrawer()
+            }
+        } else {
+            retval = super.onOptionsItemSelected(item)
+        }
+        return retval
     }
 
     @Composable
-    private fun Content(destination: ComposeDestination?) {
-        val floatingActionButton: FloatingActionButton = requireActivity().findViewById(R.id.fab_main)
+    private fun Content(destination: ComposeDestination?, user: User, context: Context) {
         var nextcloudClient by remember { mutableStateOf<NextcloudClient?>(null) }
 
         LaunchedEffect(Unit) {
-            nextcloudClient = getNextcloudClient()
+            nextcloudClient = getNextcloudClient(user, context)
         }
 
         return if (destination == ComposeDestination.AssistantScreen && nextcloudClient != null) {
             AssistantScreen(
                 viewModel = AssistantViewModel(
                     client = nextcloudClient!!
-                ),
-                floatingActionButton
+                )
             )
         } else {
-
         }
     }
 
-    private suspend fun getNextcloudClient(): NextcloudClient? {
+    private suspend fun getNextcloudClient(user: User, context: Context): NextcloudClient? {
         return withContext(Dispatchers.IO) {
             try {
-                OwnCloudClientFactory.createNextcloudClient(containerActivity.storageManager.user, requireContext())
+                OwnCloudClientFactory.createNextcloudClient(user, context)
             } catch (e: AccountUtils.AccountNotFoundException) {
                 Log_OC.e(this, "Error caught at init of AssistantRepository", e)
                 null
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

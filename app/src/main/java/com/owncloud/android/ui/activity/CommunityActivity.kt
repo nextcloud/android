@@ -42,7 +42,6 @@ open class CommunityActivity : DrawerActivity() {
 
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_community))
-
         setupDrawer(R.id.nav_community)
         binding.communityReleaseCandidateText.movementMethod = LinkMovementMethod.getInstance()
         setupContributeForumView()

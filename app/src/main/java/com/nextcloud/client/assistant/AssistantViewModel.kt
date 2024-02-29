@@ -64,7 +64,7 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     fun createTask(
         input: String,
-        type: String,
+        type: String
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.createTask(input, type)
@@ -123,6 +123,12 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
                 result.isSuccess
             }
+        }
+    }
+
+    fun resetTaskDeletionState() {
+        _isTaskDeleted.update {
+            null
         }
     }
 

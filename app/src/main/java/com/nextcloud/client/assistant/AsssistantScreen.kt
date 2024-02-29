@@ -32,7 +32,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
@@ -42,13 +46,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.client.assistant.component.AddTaskAlertDialog
 import com.nextcloud.client.assistant.component.CenterText
 import com.nextcloud.client.assistant.component.TaskTypesRow
@@ -62,7 +66,7 @@ import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: FloatingActionButton) {
+fun AssistantScreen(viewModel: AssistantViewModel) {
     val activity = LocalContext.current as Activity
     val loading by viewModel.loading.collectAsState()
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
@@ -83,17 +87,6 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
             viewModel.getTaskList(onCompleted = {
                 pullRefreshState.endRefresh()
             })
-        }
-    }
-
-    floatingActionButton.setOnClickListener {
-        if (selectedTaskType?.id != null) {
-            showAddTaskAlertDialog = true
-        } else {
-            DisplayUtils.showSnackMessage(
-                activity,
-                activity.getString(R.string.assistant_screen_select_different_task_type_to_add)
-            )
         }
     }
 
@@ -122,6 +115,24 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         } else {
             LinearProgressIndicator(progress = { pullRefreshState.progress }, modifier = Modifier.fillMaxWidth())
         }
+
+        FloatingActionButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+            onClick = {
+                if (selectedTaskType?.id != null) {
+                    showAddTaskAlertDialog = true
+                } else {
+                    DisplayUtils.showSnackMessage(
+                        activity,
+                        activity.getString(R.string.assistant_screen_select_different_task_type_to_add)
+                    )
+                }
+            }
+        ) {
+            Icon(Icons.Filled.Add, "Add Task Icon")
+        }
     }
 
     if (isTaskCreated) {
@@ -133,7 +144,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
 
     isTaskDeleted?.let {
         val messageId = if (it) {
-            R.string.assistant_screen_task_delete_success_message
+            R.string.assistant_screen_task_create_success_message
         } else {
             R.string.assistant_screen_task_delete_success_message
         }
@@ -142,6 +153,8 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
             activity,
             stringResource(id = messageId)
         )
+
+        viewModel.resetTaskDeletionState()
     }
 
     if (showDeleteTaskAlertDialog) {
@@ -152,7 +165,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
                 title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
                 description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
                 dismiss = { showDeleteTaskAlertDialog = false },
-                onComplete = { viewModel.deleteTask(id) },
+                onComplete = { viewModel.deleteTask(id) }
             )
         }
     }
@@ -173,7 +186,7 @@ private fun AssistantContent(
     taskTypes: List<TaskType>?,
     selectedTaskType: TaskType?,
     viewModel: AssistantViewModel,
-    showDeleteTaskAlertDialog: (Long) -> Unit,
+    showDeleteTaskAlertDialog: (Long) -> Unit
 ) {
     LazyColumn(
         modifier = Modifier
@@ -197,9 +210,11 @@ private fun AssistantContent(
 
 @Composable
 private fun EmptyTaskList(selectedTaskType: TaskType?, taskTypes: List<TaskType>?, viewModel: AssistantViewModel) {
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .padding(16.dp)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
         TaskTypesRow(selectedTaskType, data = taskTypes) { task ->
             viewModel.selectTaskType(task)
         }
