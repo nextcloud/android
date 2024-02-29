@@ -135,27 +135,8 @@ fun AssistantScreen(viewModel: AssistantViewModel) {
         }
     }
 
-    if (isTaskCreated) {
-        DisplayUtils.showSnackMessage(
-            activity,
-            stringResource(id = R.string.assistant_screen_task_create_success_message)
-        )
-    }
-
-    isTaskDeleted?.let {
-        val messageId = if (it) {
-            R.string.assistant_screen_task_create_success_message
-        } else {
-            R.string.assistant_screen_task_delete_success_message
-        }
-
-        DisplayUtils.showSnackMessage(
-            activity,
-            stringResource(id = messageId)
-        )
-
-        viewModel.resetTaskDeletionState()
-    }
+    checkTaskAdd(isTaskCreated, activity, viewModel)
+    checkTaskDeletion(isTaskDeleted, activity, viewModel)
 
     if (showDeleteTaskAlertDialog) {
         taskIdToDeleted?.let { id ->
@@ -176,6 +157,42 @@ fun AssistantScreen(viewModel: AssistantViewModel) {
                 showAddTaskAlertDialog = false
             }
         }
+    }
+}
+
+@Composable
+private fun checkTaskAdd(isTaskCreated: Boolean?, activity: Activity, viewModel: AssistantViewModel) {
+    isTaskCreated?.let {
+        val messageId = if (it) {
+            R.string.assistant_screen_task_create_success_message
+        } else {
+            R.string.assistant_screen_task_create_fail_message
+        }
+
+        DisplayUtils.showSnackMessage(
+            activity,
+            stringResource(id = messageId)
+        )
+
+        viewModel.resetTaskAddState()
+    }
+}
+
+@Composable
+private fun checkTaskDeletion(isTaskDeleted: Boolean?, activity: Activity, viewModel: AssistantViewModel) {
+    isTaskDeleted?.let {
+        val messageId = if (it) {
+            R.string.assistant_screen_task_delete_success_message
+        } else {
+            R.string.assistant_screen_task_delete_fail_message
+        }
+
+        DisplayUtils.showSnackMessage(
+            activity,
+            stringResource(id = messageId)
+        )
+
+        viewModel.resetTaskDeletionState()
     }
 }
 

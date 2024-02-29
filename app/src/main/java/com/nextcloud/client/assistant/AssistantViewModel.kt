@@ -51,8 +51,8 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
     private val _loading = MutableStateFlow(true)
     val loading: StateFlow<Boolean> = _loading
 
-    private val _isTaskCreated = MutableStateFlow(false)
-    val isTaskCreated: StateFlow<Boolean> = _isTaskCreated
+    private val _isTaskCreated = MutableStateFlow<Boolean?>(null)
+    val isTaskCreated: StateFlow<Boolean?> = _isTaskCreated
 
     private val _isTaskDeleted = MutableStateFlow<Boolean?>(null)
     val isTaskDeleted: StateFlow<Boolean?> = _isTaskDeleted
@@ -128,6 +128,12 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     fun resetTaskDeletionState() {
         _isTaskDeleted.update {
+            null
+        }
+    }
+
+    fun resetTaskAddState() {
+        _isTaskCreated.update {
             null
         }
     }
