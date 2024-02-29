@@ -261,6 +261,12 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.12"
     }
+
+    // This enables long timeouts required on slow environments
+    adbOptions {
+        timeOutInMs 5 * 60 * 1000  // 5 minutes
+        installOptions "-t"
+    }
 }
 
 dependencies {
