@@ -54,10 +54,13 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
     // TODO hide sort group, search bar
     // TODO top bar, back button causes crash
     // TODO generate list according to selection (selectedTask).
+    // TODO add swipe to refresh
+    val activity = LocalContext.current as Activity
     val loading by viewModel.loading.collectAsState()
-    val selectedTask by viewModel.selectedTask.collectAsState()
+    val selectedTaskType by viewModel.selectedTaskType.collectAsState()
     val taskList by viewModel.taskList.collectAsState()
     val isTaskCreated by viewModel.isTaskCreated.collectAsState()
+    val isTaskDeleted by viewModel.isTaskDeleted.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
     var showAddTaskAlertDialog by remember {
         mutableStateOf(false)
@@ -72,18 +75,25 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
     } else {
         val tasks = taskList?.resultData?.tasks ?: return
         val types = taskTypes?.resultData?.types ?: return
-        AssistantContent(tasks, types, selectedTask, viewModel)
+        AssistantContent(tasks, types, selectedTaskType, viewModel)
     }
 
     if (isTaskCreated) {
         DisplayUtils.showSnackMessage(
-            LocalContext.current as Activity,
+            activity,
             stringResource(id = R.string.assistant_screen_task_create_success_message)
         )
     }
 
+    if (isTaskDeleted) {
+        DisplayUtils.showSnackMessage(
+            activity,
+            stringResource(id = R.string.assistant_screen_task_delete_success_message)
+        )
+    }
+
     if (showAddTaskAlertDialog) {
-        selectedTask?.let {
+        selectedTaskType?.let {
             AddTaskAlertDialog(viewModel, it) {
                 showAddTaskAlertDialog = false
             }
@@ -97,7 +107,7 @@ private fun AssistantContent(
     taskList: List<Task>,
     taskTypes: List<TaskType>,
     selectedTask: TaskType?,
-    viewModel: AssistantViewModel
+    viewModel: AssistantViewModel,
 ) {
     LazyColumn(
         modifier = Modifier
@@ -116,7 +126,7 @@ private fun AssistantContent(
             if (taskList.isEmpty()) {
                 CenterText(text = stringResource(id = R.string.assistant_screen_no_task_available_text))
             } else {
-                TaskView(task = it)
+                TaskView(task = it, deleteTask = { viewModel.deleteTask(it.id) } )
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }

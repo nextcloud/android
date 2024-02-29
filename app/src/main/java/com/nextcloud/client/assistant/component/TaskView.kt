@@ -22,9 +22,12 @@
 package com.nextcloud.client.assistant.component
 
 import android.annotation.SuppressLint
-import android.widget.Space
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -43,15 +46,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 
+@OptIn(ExperimentalFoundationApi::class)
 @SuppressLint("ResourceAsColor")
 @Composable
 fun TaskView(
     task: Task,
+    deleteTask: () -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
+    var showMoreActionsBottomSheet by remember { mutableStateOf(false) }
+
 
     // TODO Check color
     Column(
@@ -59,6 +67,11 @@ fun TaskView(
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
             .background(Color(R.color.primary))
+            .combinedClickable(onClick = {
+                expanded = !expanded
+            }, onLongClick = {
+                showMoreActionsBottomSheet = true
+            })
     ) {
         Spacer(modifier = Modifier.height(8.dp))
 
@@ -81,15 +94,19 @@ fun TaskView(
             color = Color.White,
             modifier = Modifier
                 .padding(4.dp)
-                .clickable { expanded = !expanded }
         )
 
         Text(
             text = if (expanded) task.output else task.output.take(100) + "...",
             color = Color.White,
             modifier = Modifier
+                .animateContentSize(
+                    animationSpec = spring(
+                        dampingRatio = Spring.DampingRatioLowBouncy,
+                        stiffness = Spring.StiffnessLow
+                    )
+                )
                 .padding(4.dp)
-                .clickable { expanded = !expanded }
         )
 
         if (task.output.length >= 100) {
@@ -104,7 +121,23 @@ fun TaskView(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
-                    .clickable { expanded = true }
+            )
+        }
+
+        if (showMoreActionsBottomSheet) {
+            val bottomSheetAction = listOf(
+                Triple(
+                    R.drawable.ic_delete,
+                    R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
+                ) {
+                    deleteTask()
+                },
+            )
+
+            MoreActionsBottomSheet(
+                title = task.input,
+                actions = bottomSheetAction,
+                dismiss = { showMoreActionsBottomSheet = false }
             )
         }
     }

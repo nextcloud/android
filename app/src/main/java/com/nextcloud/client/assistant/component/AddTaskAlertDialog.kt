@@ -33,7 +33,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import com.nextcloud.client.assistant.AssistantViewModel
-import com.nextcloud.ui.composeComponents.SimpleAlertDialog
+import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 

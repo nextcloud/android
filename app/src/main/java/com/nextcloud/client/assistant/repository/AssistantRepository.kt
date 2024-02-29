@@ -24,6 +24,7 @@ package com.nextcloud.client.assistant.repository
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.CreateTaskRemoteOperation
+import com.owncloud.android.lib.resources.assistant.DeleteTaskRemoteOperation
 import com.owncloud.android.lib.resources.assistant.GetTaskListRemoteOperation
 import com.owncloud.android.lib.resources.assistant.GetTaskTypesRemoteOperation
 import com.owncloud.android.lib.resources.assistant.model.TaskList
@@ -46,15 +47,7 @@ class AssistantRepository(private val client: NextcloudClient) : AssistantReposi
         return GetTaskListRemoteOperation(appId).execute(client)
     }
 
-    /*
-    // TODO Check return type
-    override fun deleteTask(id: String): CreatedTask? {
-        return operation.delete("/ocs/v2.php/textprocessing/task/$id", TaskTypes::class.java)
+    override fun deleteTask(id: Long): RemoteOperationResult<Void> {
+        return DeleteTaskRemoteOperation(id).execute(client)
     }
-
-    // TODO Check return type
-    override fun getTask(id: String): CreatedTask? {
-        return operation.get("/ocs/v2.php/textprocessing/task/$id", TaskTypes::class.java)
-    }
-     */
 }

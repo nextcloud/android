@@ -39,8 +39,8 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     private val repository: AssistantRepository = AssistantRepository(client)
 
-    private val _selectedTask = MutableStateFlow<TaskType?>(null)
-    val selectedTask: StateFlow<TaskType?> = _selectedTask
+    private val _selectedTaskType = MutableStateFlow<TaskType?>(null)
+    val selectedTaskType: StateFlow<TaskType?> = _selectedTaskType
 
     private val _taskTypes = MutableStateFlow<RemoteOperationResult<TaskTypes>?>(null)
     val taskTypes: StateFlow<RemoteOperationResult<TaskTypes>?> = _taskTypes
@@ -53,6 +53,9 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     private val _isTaskCreated = MutableStateFlow(false)
     val isTaskCreated: StateFlow<Boolean> = _isTaskCreated
+
+    private val _isTaskDeleted = MutableStateFlow(false)
+    val isTaskDeleted: StateFlow<Boolean> = _isTaskDeleted
 
     init {
         getTaskTypes()
@@ -73,7 +76,7 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
     }
 
     fun selectTask(task: TaskType) {
-        _selectedTask.update {
+        _selectedTaskType.update {
             task
         }
     }
@@ -86,7 +89,7 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
                 result
             }
 
-            _selectedTask.update {
+            _selectedTaskType.update {
                 result.resultData.types.first()
             }
         }
@@ -106,13 +109,26 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
         }
     }
 
-
-    /*
-    fun deleteTask(id: String) {
+    fun deleteTask(id: Long) {
         viewModelScope.launch(Dispatchers.IO) {
-            repository?.deleteTask(id)
+            val result = repository.deleteTask(id)
+
+            _isTaskDeleted.update {
+                if (result.isSuccess) {
+                    removeTaskFromList(id)
+                }
+
+                result.isSuccess
+            }
         }
     }
-     */
 
+    private fun removeTaskFromList(id: Long) {
+        _taskList.update { currentList ->
+            currentList?.resultData?.tasks?.let { tasks ->
+                currentList.resultData.tasks = tasks.filter { it.id != id }
+            }
+            currentList
+        }
+    }
 }
