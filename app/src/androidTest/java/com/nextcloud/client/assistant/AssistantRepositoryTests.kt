@@ -21,10 +21,10 @@
 
 package com.nextcloud.client.assistant
 
-import com.nextcloud.client.account.UserAccountManagerImpl
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.owncloud.android.AbstractOnServerIT
 import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 
@@ -34,20 +34,17 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
     @Before
     fun setup() {
-        val userAccountManager = UserAccountManagerImpl.fromContext(targetContext)
-        sut = AssistantRepository(userAccountManager.user, targetContext)
+        sut = AssistantRepository(nextcloudClient)
     }
 
     @Test
     fun testGetTaskTypes() {
-        assertTrue(sut?.getTaskTypes()?.resultData?.isNotEmpty() == true)
+        assertTrue(sut?.getTaskTypes()?.resultData?.types?.isNotEmpty() == true)
     }
 
-    /*
-
-       @Test
+    @Test
     fun testGetTaskList() {
-        assertTrue(sut?.getTaskList("assistant")?.ocs?.data?.types?.isNotEmpty() == true)
+        assertTrue(sut?.getTaskList("assistant")?.resultData?.tasks?.isNotEmpty() == true)
     }
 
     @Test
@@ -60,9 +57,18 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
     @Test
     fun testDeleteTask() {
-        val taskList = sut?.getTaskList("assistant")?.ocs?.data
-        assertTrue(sut?.getTaskList("assistant")?.ocs?.data?.types?.isNotEmpty() == true)
-    }
+        testCreateTask()
 
-     */
+        longSleep()
+
+        val taskList = sut?.getTaskList("assistant")?.resultData?.tasks
+        val taskListCountBeforeDelete = taskList?.size
+
+        if (taskList.isNullOrEmpty()) {
+            fail("Expected to get task list but found null or empty list")
+        }
+
+        sut?.deleteTask(taskList!!.first().id)
+        assertTrue(taskListCountBeforeDelete == taskListCountBeforeDelete?.minus(1))
+    }
 }
