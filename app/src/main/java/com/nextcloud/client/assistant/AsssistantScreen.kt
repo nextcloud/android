@@ -42,6 +42,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -51,6 +52,7 @@ import com.nextcloud.client.assistant.component.AddTaskAlertDialog
 import com.nextcloud.client.assistant.component.CenterText
 import com.nextcloud.client.assistant.component.TaskTypesRow
 import com.nextcloud.client.assistant.component.TaskView
+import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
@@ -70,10 +72,11 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
     val isTaskCreated by viewModel.isTaskCreated.collectAsState()
     val isTaskDeleted by viewModel.isTaskDeleted.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
-    var showAddTaskAlertDialog by remember {
-        mutableStateOf(false)
+    var showAddTaskAlertDialog by remember { mutableStateOf(false) }
+    var showDeleteTaskAlertDialog by remember { mutableStateOf(false) }
+    var taskIdToDeleted: Long? by remember {
+        mutableStateOf(null)
     }
-
     val pullRefreshState = rememberPullToRefreshState()
 
     if (pullRefreshState.isRefreshing) {
@@ -95,7 +98,10 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         } else {
             val tasks = taskList?.resultData?.tasks ?: return
             val types = taskTypes?.resultData?.types ?: return
-            AssistantContent(tasks, types, selectedTaskType, viewModel)
+            AssistantContent(tasks, types, selectedTaskType, viewModel, showDeleteTaskAlertDialog = { taskId ->
+                taskIdToDeleted = taskId
+                showDeleteTaskAlertDialog = true
+            })
         }
 
         if (pullRefreshState.isRefreshing) {
@@ -119,6 +125,19 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         )
     }
 
+    if (showDeleteTaskAlertDialog) {
+        taskIdToDeleted?.let { id ->
+            SimpleAlertDialog(
+                backgroundColor = Color.White,
+                textColor = Color.Black,
+                title =stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
+                description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
+                dismiss = {showDeleteTaskAlertDialog = false },
+                onComplete = { viewModel.deleteTask(id) },
+            )
+        }
+    }
+
     if (showAddTaskAlertDialog) {
         selectedTaskType?.let {
             AddTaskAlertDialog(viewModel, it) {
@@ -135,6 +154,7 @@ private fun AssistantContent(
     taskTypes: List<TaskType>,
     selectedTask: TaskType?,
     viewModel: AssistantViewModel,
+    showDeleteTaskAlertDialog: (Long) -> Unit,
 ) {
     LazyColumn(
         modifier = Modifier
@@ -149,11 +169,11 @@ private fun AssistantContent(
             Spacer(modifier = Modifier.height(8.dp))
         }
 
-        items(taskList) {
+        items(taskList) { task ->
             if (taskList.isEmpty()) {
                 CenterText(text = stringResource(id = R.string.assistant_screen_no_task_available_text))
             } else {
-                TaskView(task = it, deleteTask = { viewModel.deleteTask(it.id) } )
+                TaskView(task, showDeleteTaskAlertDialog = { showDeleteTaskAlertDialog(task.id) })
                 Spacer(modifier = Modifier.height(8.dp))
             }
         }

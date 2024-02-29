@@ -55,7 +55,7 @@ import com.owncloud.android.lib.resources.assistant.model.Task
 @Composable
 fun TaskView(
     task: Task,
-    deleteTask: () -> Unit,
+    showDeleteTaskAlertDialog: (Long) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showMoreActionsBottomSheet by remember { mutableStateOf(false) }
@@ -130,7 +130,7 @@ fun TaskView(
                     R.drawable.ic_delete,
                     R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
                 ) {
-                    deleteTask()
+                    showDeleteTaskAlertDialog(task.id)
                 },
             )
 
