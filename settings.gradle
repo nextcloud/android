@@ -14,3 +14,9 @@ include ':appscan'
 //        substitute module('com.github.nextcloud:android-library') using project(':library')
 //    }
 //}
+
+includeBuild('/Users/alperozturk/Desktop/nextcloud/nextcloud_android_library') {
+    dependencySubstitution {
+        substitute module('com.github.nextcloud:android-library') using project(':library')
+    }
+}
