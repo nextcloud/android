@@ -730,7 +730,7 @@
     <string name="show_images">사진 보기</string>
     <string name="show_video">영상 보기</string>
     <string name="signup_with_provider">공급자로 가입</string>
-    <string name="single_sign_on_request_token" formatted="true">%1$s가 Nextcloud 계정%2$s에 액세스하도록 허용 하시겠습니까?</string>
+    <string name="single_sign_on_request_token" formatted="true">%1$s이(가) Nextcloud 계정%2$s에 액세스하도록 허용 하시겠습니까?</string>
     <string name="sort_by">정렬</string>
     <string name="ssl_validator_btn_details_hide">숨기기</string>
     <string name="ssl_validator_btn_details_see">자세히</string>
