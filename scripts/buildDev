@@ -9,6 +9,7 @@ sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" app/build.gra
 
 # change library
 sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
+./gradlew --console=plain --dependency-verification lenient -q --write-verification-metadata sha256,pgp help
 
 # build signed apk
 source ndk.env
@@ -28,8 +29,6 @@ if [ $? != 0 ] ; then
 	echo "Build error!"
 	exit 1
 fi
-
-./gradlew --console=plain --dependency-verification lenient -q --write-verification-metadata sha256,pgp help
 
 # sign
 mkdir -p ~/apks
