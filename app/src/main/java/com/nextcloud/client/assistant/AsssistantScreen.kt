@@ -68,7 +68,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
     val activity = LocalContext.current as Activity
     val loading by viewModel.loading.collectAsState()
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
-    val taskList by viewModel.taskList.collectAsState()
+    val filteredTaskList by viewModel.filteredTaskList.collectAsState()
     val isTaskCreated by viewModel.isTaskCreated.collectAsState()
     val isTaskDeleted by viewModel.isTaskDeleted.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
@@ -96,7 +96,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, floatingActionButton: Floatin
         if (loading || pullRefreshState.isRefreshing) {
             CenterText(text = stringResource(id = R.string.assistant_screen_loading))
         } else {
-            val tasks = taskList?.resultData?.tasks ?: return
+            val tasks = filteredTaskList?.resultData?.tasks ?: return
             val types = taskTypes?.resultData?.types ?: return
 
             AssistantContent(tasks, types, selectedTaskType, viewModel, showDeleteTaskAlertDialog = { taskId ->
@@ -170,7 +170,7 @@ private fun AssistantContent(
     ) {
         stickyHeader {
             TaskTypesRow(selectedTask, data = taskTypes) { task ->
-                viewModel.selectTask(task)
+                viewModel.selectTaskType(task)
             }
 
             Spacer(modifier = Modifier.height(8.dp))

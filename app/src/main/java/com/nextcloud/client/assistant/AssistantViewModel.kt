@@ -45,8 +45,10 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
     private val _taskTypes = MutableStateFlow<RemoteOperationResult<TaskTypes>?>(null)
     val taskTypes: StateFlow<RemoteOperationResult<TaskTypes>?> = _taskTypes
 
-    private val _taskList = MutableStateFlow<RemoteOperationResult<TaskList>?>(null)
-    val taskList: StateFlow<RemoteOperationResult<TaskList>?> = _taskList
+    private var _taskList: RemoteOperationResult<TaskList>? = null
+
+    private val _filteredTaskList = MutableStateFlow<RemoteOperationResult<TaskList>?>(null)
+    val filteredTaskList: StateFlow<RemoteOperationResult<TaskList>?> = _filteredTaskList
 
     private val _loading = MutableStateFlow(true)
     val loading: StateFlow<Boolean> = _loading
@@ -75,8 +77,9 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
         }
     }
 
-    fun selectTask(task: TaskType) {
+    fun selectTaskType(task: TaskType) {
         _selectedTaskType.update {
+            filterTaskList(it?.id)
             task
         }
     }
@@ -84,6 +87,11 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
     private fun getTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getTaskTypes()
+            val new = ArrayList(result.resultData.types ?: listOf()).apply {
+                add(TaskType(null, "All", null))
+            }
+
+            result.resultData.types = new
 
             _taskTypes.update {
                 result
@@ -97,11 +105,9 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     fun getTaskList(appId: String = "assistant", onCompleted: () -> Unit = {}) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.getTaskList(appId)
+            _taskList = repository.getTaskList(appId)
 
-            _taskList.update {
-                result
-            }
+            filterTaskList(_selectedTaskType.value?.id)
 
             _loading.update {
                 false
@@ -125,8 +131,22 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
         }
     }
 
+    fun filterTaskList(taskTypeId: String?) {
+        if (taskTypeId == null) {
+            _filteredTaskList.update {
+                _taskList
+            }
+        } else {
+            val result = _taskList?.resultData?.tasks?.filter { it.type == taskTypeId }
+            _filteredTaskList.update {
+                it?.resultData?.tasks = result
+                it
+            }
+        }
+    }
+
     private fun removeTaskFromList(id: Long) {
-        _taskList.update { currentList ->
+        _filteredTaskList.update { currentList ->
             currentList?.resultData?.tasks?.let { tasks ->
                 currentList.resultData.tasks = tasks.filter { it.id != id }
             }
