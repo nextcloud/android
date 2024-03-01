@@ -33,7 +33,7 @@ import dagger.android.AndroidInjection;
 
 /**
  * Background service for synchronizing remote files with their local state.
- * 
+ * <p>
  * Serves as a connector to an instance of {@link FileSyncAdapter}, as required by standard Android APIs.
  */
 public class FileSyncService extends Service {
@@ -46,7 +46,7 @@ public class FileSyncService extends Service {
     @Inject UserAccountManager userAccountManager;
     @Inject ViewThemeUtils viewThemeUtils;
 
-    /*
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -59,12 +59,11 @@ public class FileSyncService extends Service {
         }
     }
 
-    /*
+    /**
      * {@inheritDoc}
      */
     @Override
     public IBinder onBind(Intent intent) {
        return syncAdapter.getSyncAdapterBinder();
     }
-    
 }
