@@ -334,6 +334,14 @@ public abstract class AbstractIT {
         }
     }
 
+    protected void sleep(int second) {
+        try {
+            Thread.sleep(1000L * second);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     public OCFile createFolder(String remotePath) {
         RemoteOperationResult check = new ExistenceCheckRemoteOperation(remotePath, false).execute(client);
 

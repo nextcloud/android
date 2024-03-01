@@ -24,7 +24,6 @@ package com.nextcloud.client.assistant
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.owncloud.android.AbstractOnServerIT
 import org.junit.Assert.assertTrue
-import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 
@@ -39,42 +38,46 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
     @Test
     fun testGetTaskTypes() {
-        assertTrue(sut?.getTaskTypes()?.resultData?.types?.isNotEmpty() == true)
+        val result = sut?.getTaskTypes()
+        assertTrue(result?.isSuccess == true)
+
+        val taskTypes = result?.resultData?.types
+        assertTrue(taskTypes?.isNotEmpty() == true)
     }
 
     @Test
     fun testGetTaskList() {
-        val result = sut?.getTaskList("assistant")?.resultData?.tasks
+        val result = sut?.getTaskList("assistant")
+        assertTrue(result?.isSuccess == true)
 
-        if (result == null) {
-            fail("Expected to get task list but found null")
-        }
-
-        assertTrue(result?.isEmpty() == true || (result?.size ?: 0) > 0)
+        val taskList = result?.resultData?.tasks
+        assertTrue(taskList?.isEmpty() == true || (taskList?.size ?: 0) > 0)
     }
 
     @Test
     fun testCreateTask() {
-        val input = "How many files I have?"
-        val type = "OCP\\TextProcessing\\HeadlineTaskType"
+        val input = "Give me some random output for test purpose"
+        val type = "OCP\\TextProcessing\\FreePromptTaskType"
         val result = sut?.createTask(input, type)
-        assertTrue(result != null)
+        assertTrue(result?.isSuccess == true)
     }
 
     @Test
     fun testDeleteTask() {
         testCreateTask()
 
-        shortSleep()
+        sleep(120)
 
-        val taskList = sut?.getTaskList("assistant")?.resultData?.tasks
-        val taskListCountBeforeDelete = taskList?.size
+        val resultOfTaskList = sut?.getTaskList("assistant")
+        assertTrue(resultOfTaskList?.isSuccess == true)
 
-        if (taskList.isNullOrEmpty()) {
-            fail("Expected to get task list but found null or empty list")
-        }
+        sleep(120)
 
-        sut?.deleteTask(taskList!!.first().id)
-        assertTrue(taskListCountBeforeDelete == taskListCountBeforeDelete?.minus(1))
+        val taskList = resultOfTaskList?.resultData?.tasks
+
+        assert((taskList?.size ?: 0) > 0)
+
+        val result = sut?.deleteTask(taskList!!.first().id)
+        assertTrue(result?.isSuccess == true)
     }
 }
