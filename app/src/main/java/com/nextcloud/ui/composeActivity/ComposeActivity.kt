@@ -127,7 +127,7 @@ class ComposeActivity : DrawerActivity() {
             try {
                 OwnCloudClientFactory.createNextcloudClient(user, context)
             } catch (e: AccountUtils.AccountNotFoundException) {
-                Log_OC.e(this, "Error caught at init of AssistantRepository", e)
+                Log_OC.e(this, "Error caught at init of createNextcloudClient", e)
                 null
             }
         }
