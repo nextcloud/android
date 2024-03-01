@@ -45,7 +45,6 @@ import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.DrawerActivity
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 
 class ComposeActivity : DrawerActivity() {
@@ -57,7 +56,7 @@ class ComposeActivity : DrawerActivity() {
         const val TITLE = "TITLE"
         const val MENU_ITEM = "MENU_ITEM"
 
-        lateinit var schemeFlow: MutableStateFlow<ColorScheme>
+        lateinit var colorScheme: ColorScheme
     }
 
     @Suppress("DEPRECATION")
@@ -74,9 +73,7 @@ class ComposeActivity : DrawerActivity() {
         updateActionBarTitleAndHomeButtonByString(getString(titleId))
 
         setupDrawer(menuItemId)
-
-        val colorScheme = viewThemeUtils.getScheme(this).toColorScheme()
-        schemeFlow = MutableStateFlow(colorScheme)
+        colorScheme = viewThemeUtils.getScheme(this).toColorScheme()
 
         binding.composeView.setContent {
             MaterialTheme(
