@@ -60,6 +60,7 @@ class ComposeActivity : DrawerActivity() {
         lateinit var schemeFlow: MutableStateFlow<ColorScheme>
     }
 
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityComposeBinding.inflate(layoutInflater)
@@ -74,7 +75,7 @@ class ComposeActivity : DrawerActivity() {
 
         setupDrawer(menuItemId)
 
-        val colorScheme = viewThemeUtils.material.getScheme(this).toColorScheme()
+        val colorScheme = viewThemeUtils.getScheme(this).toColorScheme()
         schemeFlow = MutableStateFlow(colorScheme)
 
         binding.composeView.setContent {
