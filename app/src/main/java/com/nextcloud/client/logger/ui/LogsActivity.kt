@@ -39,7 +39,7 @@ import javax.inject.Inject
 class LogsActivity : ToolbarActivity() {
 
     @Inject
-    protected lateinit var viewModelFactory: ViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils

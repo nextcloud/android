@@ -88,10 +88,10 @@ class PlayerService : Service() {
     }
 
     @Inject
-    protected lateinit var audioManager: AudioManager
+    lateinit var audioManager: AudioManager
 
     @Inject
-    protected lateinit var clientFactory: ClientFactory
+    lateinit var clientFactory: ClientFactory
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
