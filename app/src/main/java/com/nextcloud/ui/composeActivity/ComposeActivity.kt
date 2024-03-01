@@ -92,17 +92,13 @@ class ComposeActivity : DrawerActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var result = true
-        if (item.itemId == android.R.id.home) {
-            if (isDrawerOpen) {
-                closeDrawer()
-            } else {
-                openDrawer()
+        return when (item.itemId) {
+            android.R.id.home -> {
+                if (isDrawerOpen) closeDrawer() else openDrawer()
+                true
             }
-        } else {
-            result = super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
-        return result
     }
 
     @Composable
