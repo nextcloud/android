@@ -74,11 +74,12 @@ class ComposeActivity : DrawerActivity() {
 
         setupDrawer(menuItemId)
 
-        schemeFlow = MutableStateFlow(viewThemeUtils.material.getScheme(this).toColorScheme())
+        val colorScheme = viewThemeUtils.material.getScheme(this).toColorScheme()
+        schemeFlow = MutableStateFlow(colorScheme)
 
         binding.composeView.setContent {
             MaterialTheme(
-                colorScheme = schemeFlow.value,
+                colorScheme = colorScheme,
                 content = {
                     Content(destination, storageManager.user, this)
                 }
