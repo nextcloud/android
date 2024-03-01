@@ -559,9 +559,9 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void startComposeActivity(ComposeDestination destination, int titleId, int menuItemId) {
         Intent composeActivity = new Intent(getApplicationContext(), ComposeActivity.class);
-        composeActivity.putExtra(ComposeActivity.destinationKey, destination);
-        composeActivity.putExtra(ComposeActivity.titleKey, titleId);
-        composeActivity.putExtra(ComposeActivity.menuItemKey, menuItemId);
+        composeActivity.putExtra(ComposeActivity.DESTINATION_KEY, destination);
+        composeActivity.putExtra(ComposeActivity.TITLE_KEY, titleId);
+        composeActivity.putExtra(ComposeActivity.MENU_ITEM_KEY, menuItemId);
         startActivity(composeActivity);
     }
 
