@@ -21,12 +21,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.owncloud.android.R
 import kotlinx.coroutines.launch
 
 @SuppressLint("ResourceAsColor")
@@ -82,7 +80,6 @@ fun MoreActionsBottomSheet(
                     Icon(
                         painter = painterResource(id = action.first),
                         contentDescription = "action icon",
-                        tint = Color(R.color.secondary_button_background_color),
                         modifier = Modifier.size(20.dp)
                     )
 

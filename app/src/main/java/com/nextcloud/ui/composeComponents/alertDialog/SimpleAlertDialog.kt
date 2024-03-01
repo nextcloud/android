@@ -31,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.owncloud.android.R
@@ -39,8 +38,6 @@ import com.owncloud.android.R
 @Suppress("LongParameterList")
 @Composable
 fun SimpleAlertDialog(
-    backgroundColor: Color,
-    textColor: Color,
     title: String,
     description: String?,
     heightFraction: Float? = null,
@@ -57,15 +54,14 @@ fun SimpleAlertDialog(
     }
 
     AlertDialog(
-        containerColor = backgroundColor,
         onDismissRequest = { dismiss() },
         title = {
-            Text(text = title, color = textColor)
+            Text(text = title)
         },
         text = {
             Column(modifier = modifier) {
-                if (description != null) {
-                    Text(text = description, color = textColor)
+                description?.let {
+                    Text(text = description)
                 }
 
                 content?.let {
@@ -81,16 +77,14 @@ fun SimpleAlertDialog(
                 dismiss()
             }) {
                 Text(
-                    stringResource(id = R.string.common_ok),
-                    color = textColor
+                    stringResource(id = R.string.common_ok)
                 )
             }
         },
         dismissButton = {
             TextButton(onClick = { dismiss() }) {
                 Text(
-                    stringResource(id = R.string.common_cancel),
-                    color = textColor
+                    stringResource(id = R.string.common_cancel)
                 )
             }
         }

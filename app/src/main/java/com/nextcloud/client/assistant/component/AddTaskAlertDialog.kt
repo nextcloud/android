@@ -29,7 +29,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import com.nextcloud.client.assistant.AssistantViewModel
@@ -44,8 +43,6 @@ fun AddTaskAlertDialog(viewModel: AssistantViewModel, taskType: TaskType, dismis
     }
 
     SimpleAlertDialog(
-        backgroundColor = Color.White,
-        textColor = Color.Black,
         title = taskType.name ?: "",
         description = taskType.description,
         dismiss = { dismiss() },

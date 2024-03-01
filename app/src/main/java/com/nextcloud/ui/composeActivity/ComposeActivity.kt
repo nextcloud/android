@@ -24,6 +24,8 @@ package com.nextcloud.ui.composeActivity
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.compose.material3.ColorScheme
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -35,6 +37,7 @@ import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.common.User
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.toColorScheme
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityComposeBinding
 import com.owncloud.android.lib.common.OwnCloudClientFactory
@@ -42,6 +45,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.DrawerActivity
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.withContext
 
 class ComposeActivity : DrawerActivity() {
@@ -52,6 +56,8 @@ class ComposeActivity : DrawerActivity() {
         const val destinationKey = "destinationKey"
         const val titleKey = "titleKey"
         const val menuItemKey = "menuItemKey"
+
+        lateinit var schemeFlow: MutableStateFlow<ColorScheme>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,8 +74,15 @@ class ComposeActivity : DrawerActivity() {
 
         setupDrawer(menuItemId)
 
+        schemeFlow = MutableStateFlow(viewThemeUtils.material.getScheme(this).toColorScheme())
+
         binding.composeView.setContent {
-            Content(destination, storageManager.user, this)
+            MaterialTheme(
+                colorScheme = schemeFlow.value,
+                content = {
+                    Content(destination, storageManager.user, this)
+                }
+            )
         }
     }
 
@@ -79,7 +92,7 @@ class ComposeActivity : DrawerActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var retval = true
+        var result = true
         if (item.itemId == android.R.id.home) {
             if (isDrawerOpen) {
                 closeDrawer()
@@ -87,9 +100,9 @@ class ComposeActivity : DrawerActivity() {
                 openDrawer()
             }
         } else {
-            retval = super.onOptionsItemSelected(item)
+            result = super.onOptionsItemSelected(item)
         }
-        return retval
+        return result
     }
 
     @Composable

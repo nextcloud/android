@@ -36,6 +36,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -46,6 +47,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.nextcloud.ui.composeActivity.ComposeActivity.Companion.schemeFlow
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
@@ -58,6 +60,7 @@ fun TaskView(
     task: Task,
     showDeleteTaskAlertDialog: (Long) -> Unit
 ) {
+    val scheme = schemeFlow.collectAsState().value
     var expanded by remember { mutableStateOf(false) }
     var showMoreActionsBottomSheet by remember { mutableStateOf(false) }
 
@@ -66,7 +69,7 @@ fun TaskView(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp))
-            .background(Color(R.color.primary))
+            .background(scheme.primary)
             .combinedClickable(onClick = {
                 expanded = !expanded
             }, onLongClick = {

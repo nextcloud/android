@@ -48,7 +48,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -143,8 +142,6 @@ fun AssistantScreen(viewModel: AssistantViewModel) {
     if (showDeleteTaskAlertDialog) {
         taskIdToDeleted?.let { id ->
             SimpleAlertDialog(
-                backgroundColor = Color.White,
-                textColor = Color.Black,
                 title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
                 description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
                 dismiss = { showDeleteTaskAlertDialog = false },
