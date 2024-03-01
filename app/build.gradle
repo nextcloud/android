@@ -459,14 +459,13 @@ spotbugs {
     reportLevel = Confidence.valueOf('MEDIUM')
 }
 
-tasks.withType(SpotBugsTask).configureEach { task ->
+tasks.withType(SpotBugsTask){task ->
     String variantNameCap = task.name.replace("spotbugs", "")
     String variantName = variantNameCap.substring(0, 1).toLowerCase() + variantNameCap.substring(1)
-
     dependsOn "compile${variantNameCap}Sources"
 
-    excludeFilter.set(file("${project.rootDir}/spotbugs-filter.xml"))
-    classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/classes/")
+    classes = fileTree("$project.buildDir/intermediates/javac/${variantName}/compile${variantNameCap}JavaWithJavac/classes/")
+    excludeFilter = file("${project.rootDir}/scripts/analysis/spotbugs-filter.xml")
     reports {
         xml {
             required = true
