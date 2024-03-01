@@ -75,30 +75,21 @@ fun TaskView(
     ) {
         Spacer(modifier = Modifier.height(8.dp))
 
-        Text(
-            text = stringResource(id = R.string.assistant_screen_task_view_input),
-            color = Color.White
-        )
-
         task.input?.let {
             Text(
-                text = it,
+                text = stringResource(id = R.string.assistant_screen_task_view_input, it),
                 color = Color.White
             )
         }
 
-        Spacer(modifier = Modifier.height(4.dp))
-        HorizontalDivider()
-        Spacer(modifier = Modifier.height(4.dp))
-
-        Text(
-            text = stringResource(id = R.string.assistant_screen_task_view_output),
-            color = Color.White,
-        )
+        HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
 
         task.output?.let {
             Text(
-                text = if (expanded) it else it.take(100) + "...",
+                text = stringResource(
+                    id = R.string.assistant_screen_task_view_output,
+                    if (expanded) it else it.take(100) + "..."
+                ),
                 color = Color.White,
                 modifier = Modifier
                     .animateContentSize(

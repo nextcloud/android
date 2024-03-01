@@ -36,8 +36,8 @@
 
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
 
-    <string name="assistant_screen_task_view_input">Input: </string>
-    <string name="assistant_screen_task_view_output">Output: </string>
+    <string name="assistant_screen_task_view_input">Input\n%s</string>
+    <string name="assistant_screen_task_view_output">Output\n%s</string>
     <string name="assistant_screen_task_view_show_more">Show more</string>
     <string name="assistant_screen_task_view_show_less">Show less</string>
 
