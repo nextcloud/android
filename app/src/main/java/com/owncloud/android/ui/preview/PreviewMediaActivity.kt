@@ -390,6 +390,7 @@ class PreviewMediaActivity :
         }
     }
 
+    @OptIn(markerClass = [UnstableApi::class])
     private fun applyWindowInsets() {
         val playerView = binding.exoplayerView
         val exoControls = playerView.findViewById<FrameLayout>(R.id.exo_bottom_bar)
