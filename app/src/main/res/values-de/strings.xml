@@ -391,7 +391,7 @@
     <string name="filename_hint">Dateiname</string>
     <string name="first_run_1_text">Halten Sie Ihre Daten sicher und unter Ihrer Kontrolle</string>
     <string name="first_run_2_text">Sichere Zusammenarbeit und Dateiaustausch</string>
-    <string name="first_run_3_text">Benutzerfreundliche Webmailer, Kalender und Kontakte</string>
+    <string name="first_run_3_text">Benutzerfreundlicher Webmailer, Kalender und Kontakte</string>
     <string name="first_run_4_text">Bildschirmfreigabe, Online-Meetings und Webkonferenzen</string>
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
