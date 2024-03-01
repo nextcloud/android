@@ -53,9 +53,9 @@ class ComposeActivity : DrawerActivity() {
     lateinit var binding: ActivityComposeBinding
 
     companion object {
-        const val DESTINATION_KEY = "DESTINATION_KEY"
-        const val TITLE_KEY = "TITLE_KEY"
-        const val MENU_ITEM_KEY = "MENU_ITEM_KEY"
+        const val DESTINATION = "DESTINATION"
+        const val TITLE = "TITLE"
+        const val MENU_ITEM = "MENU_ITEM"
 
         lateinit var schemeFlow: MutableStateFlow<ColorScheme>
     }
@@ -66,9 +66,9 @@ class ComposeActivity : DrawerActivity() {
         binding = ActivityComposeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val destination = intent.getSerializableArgument(DESTINATION_KEY, ComposeDestination::class.java)
-        val titleId = intent.getIntExtra(TITLE_KEY, R.string.empty)
-        val menuItemId = intent.getIntExtra(MENU_ITEM_KEY, R.id.nav_assistant)
+        val destination = intent.getSerializableArgument(DESTINATION, ComposeDestination::class.java)
+        val titleId = intent.getIntExtra(TITLE, R.string.empty)
+        val menuItemId = intent.getIntExtra(MENU_ITEM, R.id.nav_assistant)
 
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(titleId))
