@@ -1,4 +1,9 @@
 # synced from @nextcloud/android-config
+
+# SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 name: Scorecard supply-chain security
 on:
   branch_protection_rule:
@@ -37,6 +42,6 @@ jobs:
 
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
-        uses: github/codeql-action/upload-sarif@47b3d888fe66b639e431abf22ebca059152f1eea # v3.24.5
+        uses: github/codeql-action/upload-sarif@8a470fddafa5cbb6266ee11b37ef4d8aae19c571 # v3.24.6
         with:
           sarif_file: results.sarif
