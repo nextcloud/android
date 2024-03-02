@@ -25,7 +25,7 @@ import com.github.oxo42.stateless4j.delegates.Action
 import com.github.oxo42.stateless4j.transitions.Transition
 import java.util.ArrayDeque
 
-/*
+/**
  * To see visual representation of the state machine, install PlanUml plugin.
  * http://plantuml.com/
  *

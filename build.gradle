@@ -1,17 +1,17 @@
 buildscript {
     ext {
-        androidPluginVersion = '8.2.2'
+        androidPluginVersion = '8.3.0'
         appCompatVersion = '1.6.1'
         jacoco_version = '0.8.11'
         kotlin_version = '1.9.22'
         androidxTestVersion = "1.5.0"
-        daggerVersion = "2.50"
+        daggerVersion = "2.51"
         markwonVersion = "4.6.2"
         prismVersion = "2.0.0"
         androidLibraryVersion ="f8bebf237680bb04a566c9555776a035f8040a4e"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
-        mockkVersion = "1.13.9"
+        mockkVersion = "1.13.10"
         espressoVersion = "3.5.1"
         workRuntime = "2.9.0"
         fidoVersion = "4.1.0-patch2"
