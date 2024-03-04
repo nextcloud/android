@@ -14,6 +14,7 @@
     <string name="action_send_share">共享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
+    <string name="actionbar_calendar_contacts_restore">恢复联系人和日历</string>
     <string name="actionbar_mkdir">新建文件夹</string>
     <string name="actionbar_move_or_copy">移动或复制</string>
     <string name="actionbar_open_with">打开方式</string>
@@ -74,9 +75,11 @@
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
     <string name="autoupload_disable_power_save_check">禁用节能检查</string>
     <string name="autoupload_hide_folder">隐藏文件夹</string>
+    <string name="autoupload_worker_foreground_info">正在准备自动上传</string>
     <string name="avatar">头像</string>
     <string name="away">离开</string>
     <string name="backup_settings">备份设置</string>
+    <string name="backup_title">通讯录和日历备份</string>
     <string name="battery_optimization_close">关闭</string>
     <string name="battery_optimization_disable">禁用</string>
     <string name="battery_optimization_message">您的设备可能启用了电池优化。仅当您从中排除（允许后台运行）此应用时，自动上传才能正常工作。</string>
@@ -218,6 +221,7 @@
     <string name="downloader_download_failed_credentials_error">下载失败，请重新登录</string>
     <string name="downloader_download_failed_ticker">下载失败</string>
     <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% 正在下载 %2$s</string>
     <string name="downloader_download_in_progress_ticker">正在下载…</string>
     <string name="downloader_download_succeeded_content">已下载了 %1$s</string>
@@ -225,6 +229,7 @@
     <string name="downloader_file_download_cancelled">某些文件在下载过程中被用户取消</string>
     <string name="downloader_file_download_failed">下载文件时发生错误</string>
     <string name="downloader_not_downloaded_yet">尚未下载</string>
+    <string name="downloader_unexpected_error">下载文件时发生意外错误</string>
     <string name="drawer_close">关闭侧边栏</string>
     <string name="drawer_community">社区</string>
     <string name="drawer_header_background">抽屉标题的背景图片</string>
@@ -236,6 +241,7 @@
     <string name="drawer_item_home">首页</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">在设备上的</string>
+    <string name="drawer_item_personal_files">个人文件</string>
     <string name="drawer_item_recently_modified">最近修改</string>
     <string name="drawer_item_shared">已共享</string>
     <string name="drawer_item_trashbin">已删除的文件</string>
@@ -288,6 +294,8 @@
     <string name="error_starting_direct_camera_upload">开启相机时发生错误</string>
     <string name="error_starting_doc_scan">开始文档扫描时出错</string>
     <string name="etm_accounts">账号</string>
+    <string name="etm_background_execution_count">执行于48小时内</string>
+    <string name="etm_background_job_created">已创建</string>
     <string name="etm_background_job_name">工作名称</string>
     <string name="etm_background_job_progress">进度</string>
     <string name="etm_background_job_state">状况</string>
@@ -382,6 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">文件名中存在至少一个非法字符</string>
     <string name="filename_hint">文件名</string>
     <string name="first_run_1_text">保证您的数据安全并处于您的控制之下</string>
+    <string name="first_run_2_text">安全协作和文件交换</string>
+    <string name="first_run_3_text">易于使用的网页邮件、日历和联系人</string>
+    <string name="first_run_4_text">屏幕共享，线上见面和网络会议</string>
     <string name="folder_already_exists">目录已经存在</string>
     <string name="folder_confirm_create">创建</string>
     <string name="folder_list_empty_headline">这里没有文件夹</string>
@@ -403,6 +414,7 @@
     <string name="foreign_files_success">所有文件已被移动</string>
     <string name="forward">向前</string>
     <string name="fourHours">4小时</string>
+    <string name="grid_file_features_live_photo_content_description">此图标表示实况照片的可用性</string>
     <string name="hidden_file_name_warning">名称会导致隐藏的文件</string>
     <string name="hint_name">名称</string>
     <string name="hint_note">备注</string>
@@ -568,13 +580,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">重命名新版本</string>
     <string name="pref_instant_name_collision_policy_title">如果文件已经存在怎么办？</string>
     <string name="prefs_add_account">添加账号</string>
+    <string name="prefs_calendar_contacts">同步日历和联系人</string>
     <string name="prefs_calendar_contacts_no_store_error">F-droid 和 Google Play 都没有安装</string>
     <string name="prefs_calendar_contacts_summary">为当前账号设置 DAVx5（前身为 DAVdroid）(v1.3.0+)</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">日历和联系人同步设置</string>
     <string name="prefs_category_about">关于</string>
     <string name="prefs_category_details">详细信息</string>
     <string name="prefs_category_dev">开发</string>
     <string name="prefs_category_general">常规</string>
     <string name="prefs_category_more">更多</string>
+    <string name="prefs_daily_backup_summary">每日备份您的日历与联系人</string>
     <string name="prefs_daily_contact_backup_summary">每日备份您的联系人</string>
     <string name="prefs_davx5_setup_error">设置 DAVx5（以前为 DAVdroid）时出现意外错误</string>
     <string name="prefs_e2e_active">端对端加密已设置完成</string>
@@ -587,6 +602,8 @@
     <string name="prefs_imprint">版本说明</string>
     <string name="prefs_instant_behaviour_dialogTitle">原始文件将会被…</string>
     <string name="prefs_instant_behaviour_title">原始文件将会被…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">排除隐藏的文件和文件夹</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">排除隐藏</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">依据日期存储在子文件夹內</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">使用子文件夹</string>
     <string name="prefs_instant_upload_subfolder_rule_title">子文件夹选项</string>
@@ -666,8 +683,12 @@
     <string name="screenshot_04_accounts_heading">您所有的账号</string>
     <string name="screenshot_04_accounts_subline">都在一处</string>
     <string name="screenshot_05_autoUpload_heading">自动上传</string>
+    <string name="screenshot_05_autoUpload_subline">您的照片和视频</string>
+    <string name="screenshot_06_davdroid_heading">日历和联系人</string>
     <string name="screenshot_06_davdroid_subline">与DAVx5同步</string>
     <string name="search_error">获取搜索结果时出错</string>
+    <string name="secure_share_not_set_up">还未为此用户设置安全分享功能</string>
+    <string name="secure_share_search">安全分享 ...</string>
     <string name="select_all">全部选择</string>
     <string name="select_media_folder">设定媒体文件夹</string>
     <string name="select_one_template">请选择一个模板</string>
@@ -682,6 +703,7 @@
     <string name="set_status_message">设定状态信息</string>
     <string name="setup_e2e">在端对端加密期间，你将接收一个随机12字助记字串，您需要这个字符串才能在其它设备上开放您的文件。这将只会存储在该设备上，并可以在此画面中再次展示。请记在安全的地方！</string>
     <string name="share">共享</string>
+    <string name="share_copy_link">分享并复制连接</string>
     <string name="share_dialog_title">共享</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">过期 %1$s</string>
@@ -701,6 +723,7 @@
     <string name="share_link_with_label">共享链接 (%1$s)</string>
     <string name="share_no_expiration_date_label">设置过期日期</string>
     <string name="share_no_password_title">设置密码</string>
+    <string name="share_not_allowed_when_file_drop">在安全文件传输期间不允许重新分享</string>
     <string name="share_password_title">密码已受保护</string>
     <string name="share_permission_can_edit">可以编辑</string>
     <string name="share_permission_file_drop">文件拖放</string>
@@ -766,6 +789,27 @@
     <string name="storage_permission_full_access">完整存取权限</string>
     <string name="storage_permission_media_read_only">媒体只读权限</string>
     <string name="storage_pictures">图片</string>
+    <string name="store_full_desc">Nextcloud - 自托管的生产力平台，让您掌控一切。
+
+特性：
+* 简易现代的界面，可适应您的服务器主题
+* 将您的文件上传到您的 Nextcloud 服务器
+* 与他人共享您的文件
+* 保持您喜爱的文件和文件夹同步
+* 搜索服务器上的所有文件夹
+* 自动上传设备拍摄的照片和视频
+* 及时接收通知
+* 多账号支持
+* 使用指纹或密码安全访问您的数据
+* 与 DAVx5 (前身为 DAVdroid) 集成，轻松设置日历和联系人同步
+
+什么是 Nextcloud?
+
+Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由软件，您可以自己托管它，也可以付费让公司为您托管。这样，您可以掌控您的照片、日历和联系人数据、文档以及所有其他内容。
+
+了解更多:
+
+请访问 https://nextcloud.com 了解 Nextcloud</string>
     <string name="store_full_dev_desc">让您掌控全局的自托管生产力平台。
 这是官方开发版本，每天都会对新的未经测试的功能进行取样，这些功能可能导致不稳定和数据丢失。此应用主要面向愿意测试以及在发现bug时能提交报告的用户。请不要用于生产性工作！
 
@@ -782,6 +826,7 @@
     <string name="subject_shared_with_you">已与你共享 “%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s 已和你共享了“%2$s”</string>
     <string name="subtitle_photos_only">仅照片</string>
+    <string name="subtitle_photos_videos">照片和视频</string>
     <string name="subtitle_videos_only">仅视频</string>
     <string name="suggest">建议</string>
     <string name="sync_conflicts_in_favourites_ticker">发现冲突</string>
@@ -839,8 +884,13 @@
     <string name="update_link_file_no_exist">无法更新文件。请检查文件是否存在。</string>
     <string name="update_link_forbidden_permissions">更新共享</string>
     <string name="updating_share_failed">更新共享失败</string>
+    <string name="upload_action_cancelled_clear">清除已取消的上传</string>
+    <string name="upload_action_cancelled_resume">继续已取消的上传</string>
     <string name="upload_action_failed_clear">清除失败上传任务</string>
     <string name="upload_action_failed_retry">重试失败上传任务</string>
+    <string name="upload_action_file_not_exist_message">有些文件已经不存在,因此无法继续上传</string>
+    <string name="upload_action_global_upload_pause">暂停所有上传</string>
+    <string name="upload_action_global_upload_resume">继续所有上传</string>
     <string name="upload_cannot_create_file">无法新建本地文件</string>
     <string name="upload_chooser_title">上传自...</string>
     <string name="upload_content_from_other_apps">上传来自其它应用的内容</string>
@@ -852,6 +902,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">片段文本文件(.txt)</string>
     <string name="upload_file_dialog_title">输入要上传的文件名和文件类型</string>
     <string name="upload_files">上传文件</string>
+    <string name="upload_global_pause_title">所有上传已暂停</string>
     <string name="upload_item_action_button">上传项操作按钮</string>
     <string name="upload_list_delete">删除</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
@@ -860,6 +911,7 @@
     <string name="upload_local_storage_full">本地存储已满</string>
     <string name="upload_local_storage_not_copied">文件无法被复制到本地存储</string>
     <string name="upload_lock_failed">锁定文件夹失败</string>
+    <string name="upload_manually_cancelled">用户已取消上传</string>
     <string name="upload_old_android">加密功能仅适用于安卓 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空间不足将阻止将所选文件复制到%1$s文件夹中。 你想把它们移到那里吗？</string>
     <string name="upload_quota_exceeded">超出存储限额</string>
@@ -874,8 +926,10 @@
     <string name="uploader_error_message_source_file_not_found">没找到要上传的文件。请检查文件是否存在。</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">无法上传此文件</string>
     <string name="uploader_error_title_no_file_to_upload">没有要上传的文件</string>
+    <string name="uploader_file_not_found_message">未找到文件。请确认文件是否存在或者有未解决的冲突</string>
     <string name="uploader_file_not_found_on_server_message">我们无法定位服务器上的该文件。其他用户可能已删除该文件</string>
     <string name="uploader_info_dirname">文件夹名称</string>
+    <string name="uploader_local_files_uploaded">重试上传失败的本地文件</string>
     <string name="uploader_top_message">选择上传文件夹</string>
     <string name="uploader_upload_failed_content_single">无法上传 %1$s</string>
     <string name="uploader_upload_failed_credentials_error">上传失败，请重新登录</string>
@@ -888,6 +942,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">在原文件夹中保留文件</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">从原文件夹中删除文件</string>
     <string name="uploader_upload_forbidden_permissions">上传到此文件夹</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% 正在上传 %2$s</string>
     <string name="uploader_upload_in_progress_ticker">正在上传…</string>
     <string name="uploader_upload_succeeded_content_single">已上传了 %1$s</string>
@@ -913,6 +968,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">正在获取服务器版本…</string>
     <string name="uploads_view_upload_status_service_interrupted">应用程式已终止</string>
     <string name="uploads_view_upload_status_succeeded">已完成</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">服务器端已存在相同的文件,跳过上传</string>
     <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
     <string name="uploads_view_upload_status_virus_detected">检测到病毒。无法完成上传！</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待退出节能模式</string>
