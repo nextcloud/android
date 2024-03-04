@@ -21,7 +21,6 @@
 
 package com.nextcloud.ui.composeFragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -77,7 +76,6 @@ class ComposeFragment : FileFragment() {
         return binding.root
     }
 
-    @SuppressLint("UnusedContentLambdaTargetStateParameter")
     @Composable
     private fun Content(destination: ComposeDestination?) {
         val floatingActionButton: FloatingActionButton = requireActivity().findViewById(R.id.fab_main)
