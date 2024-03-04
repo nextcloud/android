@@ -27,6 +27,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
+@Suppress("MagicNumber")
 class AssistantRepositoryTests : AbstractOnServerIT() {
 
     private var sut: AssistantRepository? = null
