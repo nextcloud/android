@@ -21,6 +21,6 @@
 
 package com.nextcloud.ui.composeFragment
 
-enum class ComposeDestinations {
+enum class ComposeDestination {
     AssistantScreen
 }
