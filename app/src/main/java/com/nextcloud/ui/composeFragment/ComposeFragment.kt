@@ -28,10 +28,12 @@ import android.view.ViewGroup
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import com.nextcloud.client.assistant.AssistantScreen
+import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.databinding.FragmentComposeViewBinding
+import com.owncloud.android.ui.fragment.FileFragment
 
-class ComposeFragment : Fragment() {
+class ComposeFragment : FileFragment() {
 
     private var _binding: FragmentComposeViewBinding? = null
 
@@ -53,12 +55,17 @@ class ComposeFragment : Fragment() {
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                when(destination) {
+                when (destination) {
                     ComposeDestinations.AssistantScreen -> {
-                        AssistantScreen()
+                        AssistantScreen(
+                            viewModel = AssistantViewModel(
+                                context = requireContext(),
+                                user = containerActivity.storageManager.user
+                            )
+                        )
                     }
-                    else -> {
 
+                    else -> {
                     }
                 }
             }
