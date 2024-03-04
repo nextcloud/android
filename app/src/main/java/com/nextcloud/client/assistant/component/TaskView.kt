@@ -46,6 +46,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
@@ -78,9 +79,9 @@ fun TaskView(
 
         task.input?.let {
             Text(
-                text = stringResource(id = R.string.assistant_screen_task_view_input, it),
+                text = it,
                 color = Color.White,
-                fontSize = 18.sp,
+                fontSize = 18.sp
             )
         }
 
@@ -90,10 +91,7 @@ fun TaskView(
             HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
 
             Text(
-                text = stringResource(
-                    id = R.string.assistant_screen_task_view_output,
-                    if (expanded) it else it.take(100) + "..."
-                ),
+                text = if (expanded) it else it.take(100) + "...",
                 fontSize = 12.sp,
                 color = Color.White,
                 modifier = Modifier
@@ -137,5 +135,40 @@ fun TaskView(
                 dismiss = { showMoreActionsBottomSheet = false }
             )
         }
+    }
+}
+
+@Preview
+@Composable
+private fun TaskViewPreview() {
+    val output =
+        "Lorem Ipsum is simply dummy text of the printing and " +
+            "typesetting industry. Lorem Ipsum has been the " +
+            "industry's standard dummy text ever since the 1500s, " +
+            "when an unknown printer took a galley of type and " +
+            "scrambled it to make a type specimen book. " +
+            "It has survived not only five centuries, but also " +
+            "the leap into electronic typesetting, remaining" +
+            " essentially unchanged. It wLorem Ipsum is simply dummy" +
+            " text of the printing and typesetting industry. " +
+            "Lorem Ipsum has been the industry's standard dummy " +
+            "text ever since the 1500s, when an unknown printer took a" +
+            " galley of type and scrambled it to make a type specimen book. " +
+            "It has survived not only five centuries, but also the leap " +
+            "into electronic typesetting, remaining essentially unchanged."
+
+    TaskView(
+        task = Task(
+            1,
+            "Free Prompt",
+            0,
+            "1",
+            "1",
+            "Give me text",
+            output,
+            "",
+            ""
+        )
+    ) {
     }
 }
