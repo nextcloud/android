@@ -40,7 +40,7 @@ import com.owncloud.android.R
 fun SimpleAlertDialog(
     backgroundColor: Color,
     textColor: Color,
-    titleId: Int,
+    title: String,
     description: String?,
     heightFraction: Float? = null,
     content: @Composable (() -> Unit)? = null,
@@ -59,7 +59,7 @@ fun SimpleAlertDialog(
         containerColor = backgroundColor,
         onDismissRequest = { dismiss() },
         title = {
-            Text(text = stringResource(id = titleId), color = textColor)
+            Text(text = title, color = textColor)
         },
         text = {
             Column(modifier = modifier) {
