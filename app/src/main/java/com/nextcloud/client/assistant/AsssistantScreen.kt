@@ -136,8 +136,8 @@ fun AssistantScreen(viewModel: AssistantViewModel) {
         }
     }
 
-    checkTaskAdd(isTaskCreated, activity, viewModel)
-    checkTaskDeletion(isTaskDeleted, activity, viewModel)
+    CheckTaskAdd(isTaskCreated, activity, viewModel)
+    CheckTaskDeletion(isTaskDeleted, activity, viewModel)
 
     if (showDeleteTaskAlertDialog) {
         taskIdToDeleted?.let { id ->
@@ -160,7 +160,7 @@ fun AssistantScreen(viewModel: AssistantViewModel) {
 }
 
 @Composable
-private fun checkTaskAdd(isTaskCreated: Boolean?, activity: Activity, viewModel: AssistantViewModel) {
+private fun CheckTaskAdd(isTaskCreated: Boolean?, activity: Activity, viewModel: AssistantViewModel) {
     isTaskCreated?.let {
         val messageId = if (it) {
             R.string.assistant_screen_task_create_success_message
@@ -178,7 +178,7 @@ private fun checkTaskAdd(isTaskCreated: Boolean?, activity: Activity, viewModel:
 }
 
 @Composable
-private fun checkTaskDeletion(isTaskDeleted: Boolean?, activity: Activity, viewModel: AssistantViewModel) {
+private fun CheckTaskDeletion(isTaskDeleted: Boolean?, activity: Activity, viewModel: AssistantViewModel) {
     isTaskDeleted?.let {
         val messageId = if (it) {
             R.string.assistant_screen_task_delete_success_message
