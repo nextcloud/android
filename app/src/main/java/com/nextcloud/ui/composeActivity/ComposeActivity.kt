@@ -24,7 +24,6 @@ package com.nextcloud.ui.composeActivity
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.compose.material3.ColorScheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,7 +36,6 @@ import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.common.User
 import com.nextcloud.utils.extensions.getSerializableArgument
-import com.nextcloud.utils.extensions.toColorScheme
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityComposeBinding
 import com.owncloud.android.lib.common.OwnCloudClientFactory
@@ -55,11 +53,8 @@ class ComposeActivity : DrawerActivity() {
         const val DESTINATION = "DESTINATION"
         const val TITLE = "TITLE"
         const val MENU_ITEM = "MENU_ITEM"
-
-        lateinit var colorScheme: ColorScheme
     }
 
-    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityComposeBinding.inflate(layoutInflater)
@@ -73,11 +68,10 @@ class ComposeActivity : DrawerActivity() {
         updateActionBarTitleAndHomeButtonByString(getString(titleId))
 
         setupDrawer(menuItemId)
-        colorScheme = viewThemeUtils.getScheme(this).toColorScheme()
 
         binding.composeView.setContent {
             MaterialTheme(
-                colorScheme = colorScheme,
+                colorScheme = viewThemeUtils.getColorScheme(this),
                 content = {
                     Content(destination, storageManager.user, this)
                 }
