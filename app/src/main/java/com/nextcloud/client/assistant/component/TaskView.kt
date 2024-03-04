@@ -47,6 +47,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
@@ -78,18 +79,22 @@ fun TaskView(
         task.input?.let {
             Text(
                 text = stringResource(id = R.string.assistant_screen_task_view_input, it),
-                color = Color.White
+                color = Color.White,
+                fontSize = 18.sp,
             )
         }
 
-        HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
+        Spacer(modifier = Modifier.height(16.dp))
 
         task.output?.let {
+            HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
+
             Text(
                 text = stringResource(
                     id = R.string.assistant_screen_task_view_output,
                     if (expanded) it else it.take(100) + "..."
                 ),
+                fontSize = 12.sp,
                 color = Color.White,
                 modifier = Modifier
                     .animateContentSize(

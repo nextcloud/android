@@ -25,6 +25,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.nextcloud.common.NextcloudClient
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 import kotlinx.coroutines.Dispatchers
@@ -84,7 +86,8 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
 
     private fun getTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = arrayListOf(TaskType(null, "All", null))
+            val allTaskType = MainApp.getAppContext().getString(R.string.assistant_screen_all_task_type)
+            val result = arrayListOf(TaskType(null, allTaskType, null))
             val taskTypes = repository.getTaskTypes().resultData.types ?: listOf()
             result.addAll(taskTypes)
 

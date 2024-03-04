@@ -24,8 +24,6 @@
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete Task</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Are you sure you want to delete this task?</string>
 
-    <string name="assistant_screen_select_different_task_type_to_add">Please select different task type to create a new task</string>
-
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Delete Task</string>
 
     <string name="assistant_screen_task_create_success_message">Task successfully created</string>
@@ -36,7 +34,8 @@
 
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
 
-    <string name="assistant_screen_task_view_input">Input\n%s</string>
+    <string name="assistant_screen_all_task_type">All</string>
+    <string name="assistant_screen_task_view_input">Input %s</string>
     <string name="assistant_screen_task_view_output">Output\n%s</string>
     <string name="assistant_screen_task_view_show_more">Show more</string>
     <string name="assistant_screen_task_view_show_less">Show less</string>

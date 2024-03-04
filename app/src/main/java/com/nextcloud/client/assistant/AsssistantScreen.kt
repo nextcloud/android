@@ -117,22 +117,17 @@ fun AssistantScreen(viewModel: AssistantViewModel) {
             LinearProgressIndicator(progress = { pullRefreshState.progress }, modifier = Modifier.fillMaxWidth())
         }
 
-        FloatingActionButton(
-            modifier = Modifier
-                .align(Alignment.BottomEnd)
-                .padding(16.dp),
-            onClick = {
-                if (selectedTaskType?.id != null) {
+        if (selectedTaskType?.name != stringResource(id = R.string.assistant_screen_all_task_type)) {
+            FloatingActionButton(
+                modifier = Modifier
+                    .align(Alignment.BottomEnd)
+                    .padding(16.dp),
+                onClick = {
                     showAddTaskAlertDialog = true
-                } else {
-                    DisplayUtils.showSnackMessage(
-                        activity,
-                        activity.getString(R.string.assistant_screen_select_different_task_type_to_add)
-                    )
                 }
+            ) {
+                Icon(Icons.Filled.Add, "Add Task Icon")
             }
-        ) {
-            Icon(Icons.Filled.Add, "Add Task Icon")
         }
     }
 

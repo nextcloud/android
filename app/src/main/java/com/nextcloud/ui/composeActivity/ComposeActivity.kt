@@ -71,7 +71,7 @@ class ComposeActivity : DrawerActivity() {
 
         binding.composeView.setContent {
             MaterialTheme(
-                colorScheme = viewThemeUtils.getColorScheme(this),
+                // colorScheme = viewThemeUtils.getColorScheme(this),
                 content = {
                     Content(destination, storageManager.user, this)
                 }
