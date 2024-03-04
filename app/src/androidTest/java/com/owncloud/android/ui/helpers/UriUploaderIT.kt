@@ -5,13 +5,10 @@ import androidx.test.core.app.launchActivity
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
-import com.owncloud.android.lib.common.utils.Log_OC
 import org.junit.Assert
 import org.junit.Test
 
 class UriUploaderIT : AbstractIT() {
-
-    private val tag = "UriUploaderIT"
 
     @Test
     fun testUploadPrivatePathSharedPreferences() {
@@ -46,9 +43,6 @@ class UriUploaderIT : AbstractIT() {
             null
         )
         val uploadResult = sut.uploadUris()
-
-        Log_OC.d(tag, "Upload Result: ${uploadResult.name}")
-
         Assert.assertEquals(
             "Wrong result code",
             UriUploader.UriUploaderResultCode.ERROR_SENSITIVE_PATH,
