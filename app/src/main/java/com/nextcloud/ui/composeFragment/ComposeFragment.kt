@@ -25,13 +25,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentComposeViewBinding
 import com.owncloud.android.ui.fragment.FileFragment
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class ComposeFragment : FileFragment() {
 
@@ -54,24 +59,32 @@ class ComposeFragment : FileFragment() {
 
         binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                when (destination) {
-                    ComposeDestinations.AssistantScreen -> {
-                        AssistantScreen(
-                            viewModel = AssistantViewModel(
-                                context = requireContext(),
-                                user = containerActivity.storageManager.user
-                            )
-                        )
-                    }
 
-                    else -> {
-                    }
-                }
+            setContent {
+                Content(destination)
             }
         }
 
         return binding.root
+    }
+
+    @Composable
+    private fun Content(destination: ComposeDestinations?) {
+        val floatingActionButton: FloatingActionButton = requireActivity().findViewById(R.id.fab_main)
+
+        return when (destination) {
+            ComposeDestinations.AssistantScreen -> {
+                AssistantScreen(
+                    viewModel = AssistantViewModel(
+                        context = requireContext(),
+                        user = containerActivity.storageManager.user
+                    ),
+                    floatingActionButton
+                )
+            }
+            else -> {
+            }
+        }
     }
 
     override fun onDestroyView() {
