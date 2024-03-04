@@ -78,6 +78,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Pryč</string>
     <string name="backup_settings">Nastavení zálohování</string>
+    <string name="backup_title">Záloha kontaktů a kalendáře</string>
     <string name="battery_optimization_close">Zavřít</string>
     <string name="battery_optimization_disable">Vypnout</string>
     <string name="battery_optimization_message">Vaše zařízení nejspíš má zapnuté snižování vybíjení akumulátoru. Automatické nahrávání funguje správně jen tehdy, když pro tuto aplikaci nastavíte výjimku.</string>
@@ -580,6 +581,7 @@
     <string name="prefs_category_dev">Vývojové</string>
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
+    <string name="prefs_daily_backup_summary">Každodenní záloha vašeho kalendáře a kontaktů</string>
     <string name="prefs_daily_contact_backup_summary">Každodenní záloha vašich kontaktů</string>
     <string name="prefs_davx5_setup_error">Neočekávaná chyba při nastavování DAVx5 (dříve známého jako  DAVdroid)</string>
     <string name="prefs_e2e_active">Šifrování mezi koncovými body je nastaveno!</string>
