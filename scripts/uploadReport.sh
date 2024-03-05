@@ -23,7 +23,6 @@ upload() {
 #5: TYPE (IT or Unit)
 #6: DRONE_PULL_REQUEST
 
-URL=https://nextcloud.kaminsky.me/remote.php/webdav/android-integrationTests
 ID=$3
 USER=$1
 PASS=$2
@@ -35,6 +34,7 @@ source scripts/lib.sh
 
 REMOTE_FOLDER=$ID-$TYPE-$BRANCH-$(date +%H-%M)
 BRANCH_TYPE=$BRANCH-$TYPE
+URL=https://nextcloud.kaminsky.me/remote.php/dav/files/$USER/android-integrationTests
 
 set -e
 

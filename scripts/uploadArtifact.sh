@@ -5,12 +5,14 @@
 #3: DRONE_BUILD_NUMBER
 #4: DRONE_PULL_REQUEST
 
-DAV_URL=https://nextcloud.kaminsky.me/remote.php/webdav/android-artifacts/
+
 PUBLIC_URL=https://www.kaminsky.me/nc-dev/android-artifacts
 USER=$1
 PASS=$2
 BUILD=$3
 PR=$4
+GITHUB_TOKEN=$5
+DAV_URL=https://nextcloud.kaminsky.me/remote.php/dav/files/$USER/android-artifacts/
 
 source scripts/lib.sh
 
