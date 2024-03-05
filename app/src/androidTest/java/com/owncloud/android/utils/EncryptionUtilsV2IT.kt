@@ -831,7 +831,7 @@ class EncryptionUtilsV2IT : AbstractIT() {
         val signature = encryptionUtilsV2.getMessageSignature(enc1Cert, enc1PrivateKey, encryptedFolderMetadata1)
 
         // serialize
-        val encryptedJson = EncryptionUtils.serializeJSON(encryptedFolderMetadata1)
+        val encryptedJson = EncryptionUtils.serializeJSON(encryptedFolderMetadata1, true)
 
         // de-serialize
         val encryptedFolderMetadata2 = EncryptionUtils.deserializeJSON(
