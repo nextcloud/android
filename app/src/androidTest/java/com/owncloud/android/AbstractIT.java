@@ -195,13 +195,18 @@ public abstract class AbstractIT {
     }
 
     protected void testOnlyOnServer(OwnCloudVersion version) throws AccountUtils.AccountNotFoundException {
+        OCCapability ocCapability = getCapability();
+        assumeTrue(ocCapability.getVersion().isNewerOrEqual(version));
+    }
+
+    protected OCCapability getCapability() throws AccountUtils.AccountNotFoundException {
         NextcloudClient client = OwnCloudClientFactory.createNextcloudClient(user, targetContext);
 
         OCCapability ocCapability = (OCCapability) new GetCapabilitiesRemoteOperation()
             .execute(client)
             .getSingleData();
 
-        assumeTrue(ocCapability.getVersion().isNewerOrEqual(version));
+        return ocCapability;
     }
 
     @Before

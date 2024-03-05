@@ -23,6 +23,7 @@ package com.nextcloud.client.assistant
 
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.owncloud.android.AbstractOnServerIT
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
@@ -39,6 +40,12 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
     @Test
     fun testGetTaskTypes() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_28)
+
+        if (capability.assistant.isFalse) {
+            return
+        }
+
         val result = sut?.getTaskTypes()
         assertTrue(result?.isSuccess == true)
 
@@ -48,6 +55,12 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
     @Test
     fun testGetTaskList() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_28)
+
+        if (capability.assistant.isFalse) {
+            return
+        }
+
         val result = sut?.getTaskList("assistant")
         assertTrue(result?.isSuccess == true)
 
@@ -57,6 +70,12 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
     @Test
     fun testCreateTask() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_28)
+
+        if (capability.assistant.isFalse) {
+            return
+        }
+
         val input = "Give me some random output for test purpose"
         val type = "OCP\\TextProcessing\\FreePromptTaskType"
         val result = sut?.createTask(input, type)
@@ -65,6 +84,12 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
     @Test
     fun testDeleteTask() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_28)
+
+        if (capability.assistant.isFalse) {
+            return
+        }
+
         testCreateTask()
 
         sleep(120)
