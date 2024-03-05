@@ -14,6 +14,7 @@
     <string name="action_send_share">Enviar/Compartilhar</string>
     <string name="action_switch_grid_view">Vista em grade</string>
     <string name="action_switch_list_view">Lista de visualização</string>
+    <string name="actionbar_calendar_contacts_restore">Restaurar contatos e calendário</string>
     <string name="actionbar_mkdir">Nova pasta</string>
     <string name="actionbar_move_or_copy">Mover ou Copiar</string>
     <string name="actionbar_open_with">Abrir com</string>
@@ -74,9 +75,11 @@
     <string name="autoupload_custom_folder">Configurar uma pasta personalizada</string>
     <string name="autoupload_disable_power_save_check">Desativar verificação de economia de energia</string>
     <string name="autoupload_hide_folder">Ocultar pasta</string>
+    <string name="autoupload_worker_foreground_info">Preparando upload automático</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
     <string name="backup_settings">Configurações de backup </string>
+    <string name="backup_title">Backup de contatos e calendário</string>
     <string name="battery_optimization_close">Fechar</string>
     <string name="battery_optimization_disable">Desativar</string>
     <string name="battery_optimization_message">Seu dispositivo pode ter a otimização da bateria ativada. AutoUpload funciona corretamente apenas se você excluir este aplicativo a partir dele.</string>
@@ -218,11 +221,15 @@
     <string name="downloader_download_failed_credentials_error">Download falhou, logue-se novamente</string>
     <string name="downloader_download_failed_ticker">Download falhou</string>
     <string name="downloader_download_file_not_found">Este arquivo não está mais disponível neste servidor</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Baixando %2$s</string>
     <string name="downloader_download_in_progress_ticker">Baixando…</string>
     <string name="downloader_download_succeeded_content">%1$s baixado</string>
     <string name="downloader_download_succeeded_ticker">Baixado</string>
+    <string name="downloader_file_download_cancelled">Certos arquivos foram cancelados durante o download pelo usuário</string>
+    <string name="downloader_file_download_failed">Ocorreu um erro ao baixar arquivos</string>
     <string name="downloader_not_downloaded_yet">Ainda não baixado</string>
+    <string name="downloader_unexpected_error">Ocorreu um erro inesperado ao baixar arquivos</string>
     <string name="drawer_close">Fechar barra lateral</string>
     <string name="drawer_community">Comunidade</string>
     <string name="drawer_header_background">Imagem do plano de fundo do cabeçalho</string>
@@ -234,6 +241,7 @@
     <string name="drawer_item_home">Início</string>
     <string name="drawer_item_notifications">Notificações</string>
     <string name="drawer_item_on_device">No aparelho</string>
+    <string name="drawer_item_personal_files">Arquivos pessoais</string>
     <string name="drawer_item_recently_modified">Modificados recentemente</string>
     <string name="drawer_item_shared">Compartilhado</string>
     <string name="drawer_item_trashbin">Arquivos excluídos</string>
@@ -286,6 +294,7 @@
     <string name="error_starting_direct_camera_upload">Erro ao inicializar a câmera</string>
     <string name="error_starting_doc_scan">Erro ao iniciar a digitalização do documento</string>
     <string name="etm_accounts">Contas</string>
+    <string name="etm_background_execution_count">Os tempos correm em 48h</string>
     <string name="etm_background_job_created">Criada</string>
     <string name="etm_background_job_name">Nome da tarefa</string>
     <string name="etm_background_job_progress">Progresso</string>
@@ -381,6 +390,9 @@
     <string name="filename_forbidden_charaters_from_server">O nome do arquivo contém pelo menos um caractere inválido  </string>
     <string name="filename_hint">Nome de arquivo</string>
     <string name="first_run_1_text">Mantenha seus dados seguros e sob seu controle</string>
+    <string name="first_run_2_text">Colaboração segura e troca de arquivos</string>
+    <string name="first_run_3_text">Webmail, calendário e contatos fáceis de usar</string>
+    <string name="first_run_4_text">Compartilhamento de tela, reuniões on-line e conferências na web</string>
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
@@ -402,6 +414,7 @@
     <string name="foreign_files_success">Todos os arquivos foram movidos</string>
     <string name="forward">Adiante</string>
     <string name="fourHours">4 horas</string>
+    <string name="grid_file_features_live_photo_content_description">Este ícone indica a disponibilidade de foto ao vivo</string>
     <string name="hidden_file_name_warning">O nome resultará em um arquivo oculto</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Anotação</string>
@@ -567,13 +580,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Renomear a nova versão</string>
     <string name="pref_instant_name_collision_policy_title">O que fazer se o arquivo já existir?</string>
     <string name="prefs_add_account">Adicionar uma conta</string>
+    <string name="prefs_calendar_contacts">Sincronize calendário e contatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nem o F-Droid nem o Google Play estão instalados</string>
     <string name="prefs_calendar_contacts_summary">Configurar DAVx5 (conhecido como DAVdroid) (v1.3.0+) para a conta atual</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Configuração de sincronização de calendário e contatos</string>
     <string name="prefs_category_about">Sobre</string>
     <string name="prefs_category_details">Detalhes</string>
     <string name="prefs_category_dev">Desenvolvimento</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
+    <string name="prefs_daily_backup_summary">Backup diário do seu calendário e contatos</string>
     <string name="prefs_daily_contact_backup_summary">Backup diário de seus contatos</string>
     <string name="prefs_davx5_setup_error">Erro inesperado ao configurar o DAVx5 (anteriormente conhecido como DAVdroid)</string>
     <string name="prefs_e2e_active">A criptografia de ponta a ponta está configurada!</string>
@@ -586,6 +602,8 @@
     <string name="prefs_imprint">Imprimir</string>
     <string name="prefs_instant_behaviour_dialogTitle">Arquivo original será…</string>
     <string name="prefs_instant_behaviour_title">Arquivo original será…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Exclua arquivos e pastas ocultos</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Excluir oculto</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Armazene em subpastas com base na data</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subpastas</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Opções de subpasta</string>
@@ -665,8 +683,12 @@
     <string name="screenshot_04_accounts_heading">Todas as suas contas</string>
     <string name="screenshot_04_accounts_subline">em um lugar</string>
     <string name="screenshot_05_autoUpload_heading">Envio automático</string>
+    <string name="screenshot_05_autoUpload_subline">para suas fotos e vídeos</string>
+    <string name="screenshot_06_davdroid_heading">Calendário e contatos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx5</string>
     <string name="search_error">Erro ao obter os resultados da pesquisa </string>
+    <string name="secure_share_not_set_up">O compartilhamento seguro não está configurado para este usuário</string>
+    <string name="secure_share_search">Compartilhamento seguro…</string>
     <string name="select_all">Selecionar tudo</string>
     <string name="select_media_folder">Definir pasta de mídia</string>
     <string name="select_one_template">Selecione um modelo</string>
@@ -681,6 +703,7 @@
     <string name="set_status_message">Definir mensagem de status</string>
     <string name="setup_e2e">Durante a configuração da criptografia de ponta a ponta, você receberá um mnemônico aleatório de 12 palavras, necessário para abrir seus arquivos em outros dispositivos. Isso será armazenado apenas neste dispositivo e poderá ser mostrado novamente nesta tela. Por favor, anote-o em um lugar seguro!</string>
     <string name="share">Compartilhar</string>
+    <string name="share_copy_link">Compartilhar e copiar o link</string>
     <string name="share_dialog_title">Compartilhamento</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expira em %1$s</string>
@@ -700,6 +723,7 @@
     <string name="share_link_with_label">Compartilhar link (%1$s)</string>
     <string name="share_no_expiration_date_label">Definir data de expiração</string>
     <string name="share_no_password_title">Definir senha</string>
+    <string name="share_not_allowed_when_file_drop">Não é permitido compartilhar novamente durante o descarte seguro de arquivos</string>
     <string name="share_password_title">Protegido por senha</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_drop">Baixar Arquivo </string>
@@ -765,6 +789,7 @@
     <string name="storage_permission_full_access">Acesso total</string>
     <string name="storage_permission_media_read_only">Mídia somente leitura</string>
     <string name="storage_pictures">Imagens</string>
+    <string name="store_full_desc">A plataforma de produtividade auto-hospedada que mantém você no controle.\n\nRecursos:\n* Interface fácil e moderna, adequada ao tema do seu servidor\n* Faça upload de arquivos para o seu servidor Nextcloud\n* Compartilhe-os com outras pessoas\n * Mantenha seus arquivos e pastas favoritos sincronizados\n* Pesquise todas as pastas do seu servidor\n* Faça upload automático de fotos e vídeos feitos pelo seu dispositivo\n* Mantenha-se atualizado com notificações\n* Suporte para várias contas\n* Acesso seguro aos seus dados com impressão digital ou PIN\n* Integração com DAVx5 (anteriormente conhecido como DAVdroid) para fácil configuração de sincronização de calendário e contatos\n\nRelate todos os problemas em https://github.com/nextcloud/android/issues e discuta este aplicativo em https://help.nextcloud.com/c/clients/android\n\n Novo no Nextcloud? Nextcloud é um servidor privado de sincronização, compartilhamento e comunicação de arquivos. É um software gratuito e você pode hospedá-lo sozinho ou pagar uma empresa para fazer isso por você. Dessa forma, você controla suas fotos, sua agenda e dados de contato, seus documentos e tudo mais.\n\nConfira Nextcloud em https://nextcloud.com</string>
     <string name="store_full_dev_desc">A plataforma de produtividade auto-hospedada que mantém você no controle.\nEsta é a versão oficial de desenvolvimento, apresentando uma amostra diária de qualquer nova funcionalidade não testada e que pode causar instabilidade e perda de dados. O aplicativo é para usuários dispostos a testar e relatar erros caso eles ocorram. Não o use para o seu trabalho produtivo!\n\nOs aplicativos oficiais e a versão regular estão disponíveis no F-droid e podem ser instalados ao mesmo tempo.</string>
     <string name="store_short_desc">A plataforma de produtividade auto-hospedada que mantém você no controle</string>
     <string name="store_short_dev_desc">A plataforma de produtividade auto-hospedada que mantém você no controle (versão preview)</string>
@@ -778,6 +803,7 @@
     <string name="subject_shared_with_you">\"%1$s\" foi compartilhado com você</string>
     <string name="subject_user_shared_with_you">%1$s compartilhou \"%2$s\" com você</string>
     <string name="subtitle_photos_only">Somente fotos</string>
+    <string name="subtitle_photos_videos">Fotos e vídeos</string>
     <string name="subtitle_videos_only">Somente vídeos</string>
     <string name="suggest">Sugerir </string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
@@ -835,8 +861,13 @@
     <string name="update_link_file_no_exist">Não foi possível atualizar. Verifique se o arquivo existe.</string>
     <string name="update_link_forbidden_permissions">para atualizar este compartilhamento</string>
     <string name="updating_share_failed">Falha ao atualizar compartilhamento</string>
+    <string name="upload_action_cancelled_clear">Limpar uploads cancelados</string>
+    <string name="upload_action_cancelled_resume">Retomar uploads cancelados</string>
     <string name="upload_action_failed_clear">Apagar envios com falha</string>
     <string name="upload_action_failed_retry">Repetir envios com falha</string>
+    <string name="upload_action_file_not_exist_message">Alguns arquivos não existem, esses arquivos não podem ser retomados</string>
+    <string name="upload_action_global_upload_pause">Pausar todos os uploads</string>
+    <string name="upload_action_global_upload_resume">Retomar todos os uploads</string>
     <string name="upload_cannot_create_file">Não foi possível criar o arquivo local</string>
     <string name="upload_chooser_title">Enviar de…</string>
     <string name="upload_content_from_other_apps">Enviar conteúdo de outros aplicativos</string>
@@ -848,6 +879,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Fragmento de arquivo texto (.txt)</string>
     <string name="upload_file_dialog_title">Indique o nome e tipo de arquivo a enviar</string>
     <string name="upload_files">Enviar arquivos</string>
+    <string name="upload_global_pause_title">Todos os uploads estão pausados</string>
     <string name="upload_item_action_button">Enviar botão de ação do item</string>
     <string name="upload_list_delete">Excluir</string>
     <string name="upload_list_empty_headline">Nenhum envio disponível</string>
@@ -856,6 +888,7 @@
     <string name="upload_local_storage_full">O armazenamento local está cheio.</string>
     <string name="upload_local_storage_not_copied">O arquivo não pôde ser copiado para o armazenamento local</string>
     <string name="upload_lock_failed">Falha ao bloquear pasta</string>
+    <string name="upload_manually_cancelled">O upload foi cancelado pelo usuário</string>
     <string name="upload_old_android">A criptografia só é possível com Android &gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">O espaço insuficiente está impedindo a cópia dos arquivos selecionados para a pasta %1$s. Em vez de copiá-los, gostaria de movê-los para lá?</string>
     <string name="upload_quota_exceeded">Cota de armazenamento excedida</string>
@@ -873,6 +906,7 @@
     <string name="uploader_file_not_found_message">Arquivo não encontrado. Tem certeza de que este arquivo existe ou algum conflito anterior não foi resolvido?</string>
     <string name="uploader_file_not_found_on_server_message">Não conseguimos localizar o arquivo no servidor. Outro usuário pode ter excluído o arquivo</string>
     <string name="uploader_info_dirname">Nome da pasta</string>
+    <string name="uploader_local_files_uploaded">Tente novamente fazer upload de arquivos locais com falha</string>
     <string name="uploader_top_message">Escolher pasta para envio</string>
     <string name="uploader_upload_failed_content_single">Não foi possível enviar %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Envio falhou. Logue-se novamente</string>
@@ -885,6 +919,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Manter arquivo na pasta de origem</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Excluir arquivo da pasta de origem</string>
     <string name="uploader_upload_forbidden_permissions">para enviar a esta pasta</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% enviando %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Enviando…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s enviado</string>
@@ -910,6 +945,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Buscando versão do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicativo finalizado</string>
     <string name="uploads_view_upload_status_succeeded">Concluído</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Mesmo arquivo encontrado remotamente, ignorando o upload</string>
     <string name="uploads_view_upload_status_unknown_fail">Erro desconhecido</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus encontrado. Envio não foi finalizado!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Esperando sair do modo de economia de energia</string>
