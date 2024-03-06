@@ -745,7 +745,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * @param relative   the percentage of space already used
      * @param quotaValue {@link GetUserInfoRemoteOperation#SPACE_UNLIMITED} or other to determinate state
      */
-    private void setQuotaInformation(long usedSpace, long totalSpace, int relative, long quotaValue) {
+    private void updateQuotaInformationUIElements(long usedSpace, long totalSpace, int relative, long quotaValue) {
         if (GetUserInfoRemoteOperation.SPACE_UNLIMITED == quotaValue) {
             mQuotaTextPercentage.setText(String.format(
                 getString(R.string.drawer_quota_unlimited),
@@ -888,37 +888,55 @@ public abstract class DrawerActivity extends ToolbarActivity
                 final UserInfo userInfo = result.getResultData();
                 final Quota quota = userInfo.getQuota();
 
-                if (quota != null) {
-                    final long used = quota.getUsed();
-                    final long total = quota.getTotal();
-                    final int relative = (int) Math.ceil(quota.getRelative());
-                    final long quotaValue = quota.getQuota();
-
-                    runOnUiThread(() -> {
-                        if (quotaValue > 0 || quotaValue == GetUserInfoRemoteOperation.SPACE_UNLIMITED
-                            || quotaValue == GetUserInfoRemoteOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
-                            /*
-                             * show quota in case
-                             * it is available and calculated (> 0) or
-                             * in case of legacy servers (==QUOTA_LIMIT_INFO_NOT_AVAILABLE)
-                             */
-                            setQuotaInformation(used, total, relative, quotaValue);
-                        } else {
-                            /*
-                             * quotaValue < 0 means special cases like
-                             * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
-                             * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
-                             * {@link RemoteGetUserQuotaOperation.SPACE_UNLIMITED}
-                             * thus don't display any quota information.
-                             */
-                            showQuota(false);
-                        }
-                    });
-                }
+                runOnUiThread(() -> {
+                    if (quota != null) {
+                        setQuotaInformation(quota);
+                    } else {
+                        setQuotaInformationWithCachedValue();
+                    }
+                });
+            } else {
+                runOnUiThread(this::setQuotaInformationWithCachedValue);
             }
         });
 
         t.start();
+    }
+
+    private void setQuotaInformationWithCachedValue() {
+        Quota cachedQuota = getAppPreferences().getQuotaInfo();
+        if (cachedQuota != null) {
+            setQuotaInformation(cachedQuota);
+        } else {
+            showQuota(false);
+        }
+    }
+
+    private void setQuotaInformation(Quota quota) {
+        final long used = quota.getUsed();
+        final long total = quota.getTotal();
+        final int relative = (int) Math.ceil(quota.getRelative());
+        final long quotaValue = quota.getQuota();
+
+        if (quotaValue > 0 || quotaValue == GetUserInfoRemoteOperation.SPACE_UNLIMITED
+            || quotaValue == GetUserInfoRemoteOperation.QUOTA_LIMIT_INFO_NOT_AVAILABLE) {
+            /*
+             * show quota in case
+             * it is available and calculated (> 0) or
+             * in case of legacy servers (==QUOTA_LIMIT_INFO_NOT_AVAILABLE)
+             */
+            getAppPreferences().setQuotaInfo(quota);
+            updateQuotaInformationUIElements(used, total, relative, quotaValue);
+        } else {
+            /*
+             * quotaValue < 0 means special cases like
+             * {@link RemoteGetUserQuotaOperation.SPACE_NOT_COMPUTED},
+             * {@link RemoteGetUserQuotaOperation.SPACE_UNKNOWN} or
+             * {@link RemoteGetUserQuotaOperation.SPACE_UNLIMITED}
+             * thus don't display any quota information.
+             */
+            showQuota(false);
+        }
     }
 
     private void updateExternalLinksInDrawer() {

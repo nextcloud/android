@@ -25,6 +25,7 @@ package com.nextcloud.client.preferences;
 import com.nextcloud.appReview.AppReviewShownModel;
 import com.nextcloud.client.jobs.LogEntry;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.utils.FileSortOrder;
 
 import java.util.List;
@@ -408,4 +409,8 @@ public interface AppPreferences {
 
     @NonNull
     String getLastSelectedMediaFolder();
+
+    void setQuotaInfo(Quota quota);
+
+    Quota getQuotaInfo();
 }

@@ -39,6 +39,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.ui.activity.PassCodeActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.utils.FileSortOrder;
@@ -115,12 +116,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
     private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
 
+    private static final String PREF__QUOTA = "quota";
+
     private static final String LOG_ENTRY = "log_entry";
 
     private final Context context;
     private final SharedPreferences preferences;
     private final UserAccountManager userAccountManager;
     private final ListenerRegistry listeners;
+    private final Gson gson = new Gson();
 
     /**
      * Adapter delegating raw {@link SharedPreferences.OnSharedPreferenceChangeListener} calls with key-value pairs to
@@ -510,7 +514,6 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public void saveLogEntry(List<LogEntry> logEntryList) {
-        Gson gson = new Gson();
         String json = gson.toJson(logEntryList);
         preferences.edit().putString(LOG_ENTRY, json).apply();
     }
@@ -519,7 +522,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     public List<LogEntry> readLogEntry() {
         String json = preferences.getString(LOG_ENTRY, null);
         if (json == null) return emptyList();
-        Gson gson = new Gson();
         Type listType = new TypeToken<List<LogEntry>>() {}.getType();
         return gson.fromJson(json, listType);
     }
@@ -779,7 +781,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
     @Override
     public void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel) {
-        Gson gson = new Gson();
         String json = gson.toJson(appReviewShownModel);
         preferences.edit().putString(PREF__IN_APP_REVIEW_DATA, json).apply();
     }
@@ -787,7 +788,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Nullable
     @Override
     public AppReviewShownModel getInAppReviewData() {
-        Gson gson = new Gson();
         String json = preferences.getString(PREF__IN_APP_REVIEW_DATA, "");
         return gson.fromJson(json, AppReviewShownModel.class);
     }
@@ -801,5 +801,22 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public String getLastSelectedMediaFolder() {
         return preferences.getString(PREF__MEDIA_FOLDER_LAST_PATH, OCFile.ROOT_PATH);
+    }
+
+    @Override
+    public void setQuotaInfo(Quota quota) {
+        String json = gson.toJson(quota);
+        preferences.edit().putString(PREF__QUOTA, json).apply();
+    }
+
+    @Override
+    public Quota getQuotaInfo() {
+        String json = preferences.getString(PREF__QUOTA, null);
+
+        if (json == null) {
+            return null;
+        }
+
+        return gson.fromJson(json, Quota.class);
     }
 }
