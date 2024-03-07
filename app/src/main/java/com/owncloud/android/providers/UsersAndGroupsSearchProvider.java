@@ -106,6 +106,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
 
     public static final String CONTENT = "content";
 
+    private String AUTHORITY;
     private String DATA_USER;
     private String DATA_GROUP;
     private String DATA_ROOM;
@@ -128,7 +129,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
     }
 
     private static void setActionShareWith(@NonNull Context context) {
-        ACTION_SHARE_WITH = context.getResources().getString(R.string.users_and_groups_share_with);
+        ACTION_SHARE_WITH = context.getString(R.string.users_and_groups_share_with);
     }
 
     @Nullable
@@ -146,7 +147,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
             return false;
         }
 
-        String AUTHORITY = getContext().getResources().getString(R.string.users_and_groups_search_authority);
+        AUTHORITY = getContext().getString(R.string.users_and_groups_search_authority);
         setActionShareWith(getContext());
         DATA_USER = AUTHORITY + ".data.user";
         DATA_GROUP = AUTHORITY + ".data.group";
@@ -311,9 +312,7 @@ public class UsersAndGroupsSearchProvider extends ContentProvider {
                             displayName = userName;
                             subline = (status.getMessage() == null || status.getMessage().isEmpty()) ? null :
                                 status.getMessage();
-                            Uri.Builder builder =
-                                Uri.parse("content://com.nextcloud.android.providers.UsersAndGroupsSearchProvider/icon")
-                                    .buildUpon();
+                            Uri.Builder builder = Uri.parse("content://" + AUTHORITY + "/icon").buildUpon();
 
                             builder.appendQueryParameter("shareWith", shareWith);
                             builder.appendQueryParameter("displayName", displayName);
