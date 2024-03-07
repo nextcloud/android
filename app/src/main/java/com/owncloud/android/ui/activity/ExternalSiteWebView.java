@@ -156,8 +156,11 @@ public class ExternalSiteWebView extends FileActivity {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                DisplayUtils.startLinkIntent(self, request.getUrl());
-                return true;
+                if (!request.isRedirect()) {
+                    DisplayUtils.startLinkIntent(self, request.getUrl());
+                    return true;
+                }
+                return false;
             }
         });
 
