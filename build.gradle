@@ -3,7 +3,7 @@ buildscript {
         androidPluginVersion = '8.3.0'
         appCompatVersion = '1.6.1'
         jacoco_version = '0.8.11'
-        kotlin_version = '1.9.22'
+        kotlin_version = '1.9.23'
         androidxTestVersion = "1.5.0"
         daggerVersion = "2.51"
         markwonVersion = "4.6.2"
