@@ -135,8 +135,8 @@ class NotificationsActivityIT : AbstractIT() {
             runOnUiThread {
                 populateList(notifications)
             }
-            longSleep()
-            screenshot(this)
+            shortSleep()
+            screenshot(binding.list)
         }
     }
 
