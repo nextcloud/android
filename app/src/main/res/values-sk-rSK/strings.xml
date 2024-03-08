@@ -255,10 +255,10 @@
     <string name="e2e_offline">Nie je možné bez internetového pripojenia</string>
     <string name="ecosystem_apps_display_more">Viac</string>
     <string name="ecosystem_apps_display_notes">Poznámky</string>
-    <string name="ecosystem_apps_display_talk">Rozhovor</string>
+    <string name="ecosystem_apps_display_talk">Talk /Rozhovor/</string>
     <string name="ecosystem_apps_more">Ďalšie Nextcloud aplikácie</string>
     <string name="ecosystem_apps_notes">Nextcloud poznámky</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk /Rozhovor/</string>
     <string name="email_pick_failed">Nepodarilo sa vybrať e-mailovú adresu.</string>
     <string name="encrypted">Nastaviť ako zašifrované</string>
     <string name="end_to_end_encryption_confirm_button">Nastavenie šifrovania</string>
