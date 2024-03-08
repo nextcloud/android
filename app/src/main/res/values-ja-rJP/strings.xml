@@ -14,6 +14,7 @@
     <string name="action_send_share">送信/共有</string>
     <string name="action_switch_grid_view">グリッド表示</string>
     <string name="action_switch_list_view">リスト表示</string>
+    <string name="actionbar_calendar_contacts_restore">連絡先とカレンダーを復元</string>
     <string name="actionbar_mkdir">新しいフォルダー</string>
     <string name="actionbar_move_or_copy">移動またはコピー</string>
     <string name="actionbar_open_with">次で開く</string>
@@ -74,9 +75,11 @@
     <string name="autoupload_custom_folder">カスタムフォルダを設定する</string>
     <string name="autoupload_disable_power_save_check">省電力チェックを無効化</string>
     <string name="autoupload_hide_folder">フォルダーを隠す</string>
+    <string name="autoupload_worker_foreground_info">自動アップロードの準備中</string>
     <string name="avatar">アバター</string>
     <string name="away">離席中</string>
     <string name="backup_settings">バックアップ設定</string>
+    <string name="backup_title">連絡先とカレンダーをバックアップ</string>
     <string name="battery_optimization_close">閉じる</string>
     <string name="battery_optimization_disable">無効</string>
     <string name="battery_optimization_message">あなたのデバイスでバッテリー最適化が有効に設定されている場合、自動アップロードはこのアプリを最適化の対象から除外した場合にのみ正常に動作します</string>
@@ -142,6 +145,7 @@
     <string name="community_testing_headline">テストによるヘルプ</string>
     <string name="community_testing_report_text">Githubでエラーを報告する</string>
     <string name="configure_new_media_folder_detection_notifications">構成</string>
+    <string name="confirm_removal">ローカル暗号化を解除</string>
     <string name="confirmation_remove_file_alert">本当に %1$s を削除しますか？</string>
     <string name="confirmation_remove_files_alert">本当に選択したアイテムを削除しますか？</string>
     <string name="confirmation_remove_folder_alert">本当に %1$s を中身も一緒に削除しますか？</string>
@@ -153,6 +157,7 @@
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
     <string name="conflict_server_file">サーバーファイル</string>
     <string name="contact_backup_title">連絡先のバックアップ</string>
+    <string name="contact_no_permission">連絡先の権限が必要です。</string>
     <string name="contactlist_item_icon">連絡先リストのユーザーアイコン</string>
     <string name="contactlist_no_permission">許可がありません、インポートできません。</string>
     <string name="contacts">連絡先</string>
@@ -200,6 +205,7 @@
     <string name="disable_new_media_folder_detection_notifications">無効</string>
     <string name="dismiss">閉じる</string>
     <string name="dismiss_notification_description">通知を閉じる</string>
+    <string name="displays_mnemonic">あなたの 12 語のパスフレーズを表示</string>
     <string name="dnd">取り込み中</string>
     <string name="document_scan_export_dialog_images">複数の画像</string>
     <string name="document_scan_export_dialog_pdf">PDFファイル</string>
@@ -557,6 +563,7 @@
     <string name="pref_instant_name_collision_policy_entries_rename">新しいバージョンの名前を変更</string>
     <string name="pref_instant_name_collision_policy_title">ファイルがすでに存在するときの対応</string>
     <string name="prefs_add_account">アカウントを追加</string>
+    <string name="prefs_calendar_contacts">カレンダーと連絡先を同期</string>
     <string name="prefs_calendar_contacts_no_store_error">F-Droid も Google Play もインストールされていません</string>
     <string name="prefs_calendar_contacts_summary">DAVx5 (旧称 DAVdroid) (v1.3.0+) を現在のアカウントに設定する</string>
     <string name="prefs_category_about">アプリについて</string>
@@ -646,6 +653,7 @@
     <string name="screenshot_04_accounts_heading">あなたのすべてのアカウント</string>
     <string name="screenshot_04_accounts_subline">ひとつの場所に</string>
     <string name="screenshot_05_autoUpload_heading">自動アップロード</string>
+    <string name="screenshot_06_davdroid_heading">カレンダーと連絡先</string>
     <string name="screenshot_06_davdroid_subline">DAVx5で同期</string>
     <string name="search_error">検索結果の取得中にエラーが発生しました</string>
     <string name="select_all">すべて選択</string>
