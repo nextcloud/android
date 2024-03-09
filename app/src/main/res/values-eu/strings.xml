@@ -14,6 +14,7 @@
     <string name="action_send_share">Bidali/Partekatu</string>
     <string name="action_switch_grid_view">Sareta ikuspegia</string>
     <string name="action_switch_list_view">Zerrenda ikuspegia</string>
+    <string name="actionbar_calendar_contacts_restore">Berreskuratu kontaktuak eta egutegia</string>
     <string name="actionbar_mkdir">Karpeta berria</string>
     <string name="actionbar_move_or_copy">Mugitu edo kopiatu</string>
     <string name="actionbar_open_with">Ireki honekin</string>
@@ -78,6 +79,7 @@
     <string name="avatar">Abatarra</string>
     <string name="away">Kanpoan</string>
     <string name="backup_settings">Babeskopiaren ezarpenak</string>
+    <string name="backup_title">Kontaktuen eta egutegiaren babeskopia</string>
     <string name="battery_optimization_close">Itxi</string>
     <string name="battery_optimization_disable">Desaktibatu</string>
     <string name="battery_optimization_message">Zure gailuak bateriaren optimizazioa aktibatuta eduki dezake. Auto-karga funtzioak ongi funtzionatzeko aplikazio hau bertatik kanpora utzi behar duzu.</string>
@@ -239,6 +241,7 @@
     <string name="drawer_item_home">Etxea</string>
     <string name="drawer_item_notifications">Jakinarazpenak</string>
     <string name="drawer_item_on_device">Gailura</string>
+    <string name="drawer_item_personal_files">Fitxategi pertsonalak</string>
     <string name="drawer_item_recently_modified">Berriki aldatuak</string>
     <string name="drawer_item_shared">Partekatuta</string>
     <string name="drawer_item_trashbin">Ezabatutako fitxategiak</string>
@@ -385,6 +388,9 @@
     <string name="filename_forbidden_charaters_from_server">Fitxategi-izenak karaktere baliogabe bat du gutxienez</string>
     <string name="filename_hint">Fitxategi-izena</string>
     <string name="first_run_1_text">Mantendu zure datuak seguru eta zure kontrolpean</string>
+    <string name="first_run_2_text">Lankidetza segurua eta fitxategien partekatzea</string>
+    <string name="first_run_3_text">Web posta, egutegi eta kontaktu erabilerrazak</string>
+    <string name="first_run_4_text">Pantaila partekatzea, online bilerak eta web konferentziak</string>
     <string name="folder_already_exists">Karpeta dagoeneko existitzen da</string>
     <string name="folder_confirm_create">Sortu</string>
     <string name="folder_list_empty_headline">Ez dago karpetarik hemen</string>
@@ -406,6 +412,7 @@
     <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
     <string name="forward">Birbidali</string>
     <string name="fourHours">4 ordu</string>
+    <string name="grid_file_features_live_photo_content_description">Ikono honek zuzeneko argazkiaren erabilgarritasuna adierazten du</string>
     <string name="hidden_file_name_warning">Izen honek ezkutuko fitxategi bat sortzea eragingo du</string>
     <string name="hint_name">Izena</string>
     <string name="hint_note">Oharra</string>
@@ -571,13 +578,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Aldatu izena bertsio berriari</string>
     <string name="pref_instant_name_collision_policy_title">Zer egin fitxategia dagoeneko existitzen bada?</string>
     <string name="prefs_add_account">Gehitu kontua</string>
+    <string name="prefs_calendar_contacts">Sinkronizatu egutegia eta kontaktuak</string>
     <string name="prefs_calendar_contacts_no_store_error">Ez F-Droid, ez Google Play, ez daude instalatuta</string>
     <string name="prefs_calendar_contacts_summary">Konfiguratu DAVx5 (lehen DAVdroid izenarekin ezagutzen zena) (v1.3.0+) kontu honetarako</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Egutegiaren eta kontaktuen sinkronizazioa konfiguratuta</string>
     <string name="prefs_category_about">Honi buruz</string>
     <string name="prefs_category_details">Xehetasunak</string>
     <string name="prefs_category_dev">Garapena</string>
     <string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
+    <string name="prefs_daily_backup_summary">Zure egutegiaren eta kontaktuen eguneroko babeskopia</string>
     <string name="prefs_daily_contact_backup_summary">Zure kontaktuen eguneroko babeskopia</string>
     <string name="prefs_davx5_setup_error">Ustekabeko errorea DAVx5 konfiguratzean (lehen DAVdroid izenez ezagutzen zena)</string>
     <string name="prefs_e2e_active">Muturretik muturrerako enkriptatzea konfiguratuta dago!</string>
@@ -590,6 +600,8 @@
     <string name="prefs_imprint">Inprimategi-zigilua</string>
     <string name="prefs_instant_behaviour_dialogTitle">Jatorrizko fitxategia izango da...</string>
     <string name="prefs_instant_behaviour_title">Jatorrizko fitxategia izango da...</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Baztertu ezkutuko fitxategiak eta karpetak</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Baztertu ezkutukoak</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Gorde azpikarpetetan dataren arabera</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Erabili azpikarpetak</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Azpikarpeta aukerak</string>
@@ -669,6 +681,8 @@
     <string name="screenshot_04_accounts_heading">Zure kontu guztiak</string>
     <string name="screenshot_04_accounts_subline">leku bakar batean</string>
     <string name="screenshot_05_autoUpload_heading">Igoera automatikoa</string>
+    <string name="screenshot_05_autoUpload_subline">zure argazki eta bideoentzat</string>
+    <string name="screenshot_06_davdroid_heading">Egutegia eta kontaktuak</string>
     <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx5ekin</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
     <string name="secure_share_not_set_up">Partekatze segurua ez dago konfiguratuta erabiltzaile honentzat</string>
@@ -687,6 +701,7 @@
     <string name="set_status_message">Ezarri egoera mezua</string>
     <string name="setup_e2e">Muturretik muturrerako enkriptatzea konfiguratzean, ausazko 12 hitz mnemotekniko jasoko dituzu, zure fitxategiak beste gailu batzuetan irekitzeko beharko dituzunak. Hau gailu honetan bakarrik gordeko da eta pantaila honetan berriro ikusi ahal izango duzu. Apuntatu leku seguru batean!</string>
     <string name="share">Partekatu</string>
+    <string name="share_copy_link">Partekatu eta kopiatu esteka</string>
     <string name="share_dialog_title">Partekatzea</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Iraungitzen da %1$s</string>
@@ -771,6 +786,7 @@
     <string name="storage_permission_full_access">Sarbide osoa</string>
     <string name="storage_permission_media_read_only">Mutimediak irakurtzeko soilik</string>
     <string name="storage_pictures">Irudiak</string>
+    <string name="store_full_desc">Zure datuak kontrolpean mantentzen dituen norberak ostatatutako produktibitate plataforma.\n\n Ezaugarriak:\n* Interfazea erraza eta modernoa, zure zerbitzariaren gaira egokitzen dena\n* Kargatu fitxategiak Nextcloud zerbitzarira\n* Partekatu itzazu besteekin\n* Mantendu zure gogoko fitxategiak eta karpetak sinkronizatuta\n* Bilatu zure zerbitzariko karpeta guztietan\n* Kargatu automatikoki zure gailuan ateratako argazkiak eta bideoak\n* Egunean egon jakinarazpenen bidez\n* Hainbat kontu erabili daitezke\n* Sarbide segurua zure datuetarako hatz-marka edo PIN bidez\n* DAVx5-rekin integratua (lehenago DAVdroid izenarekin ezagutzen zena) egutegia erraz konfiguratzeko eta kontaktuak sinkronizatzeko\n\n Eman arazoen berri https://github.com/nextcloud/android/issues orrian eta eztabaidatu aplikazio hau https://help.nextcloud.com/c/clients/android orrian\n\n Berria Nextcloud-en? Nextcloud fitxategiak sinkronizatu eta partekatzeko eta komunikaziorako zerbitzari pribatu bat da. Software librea da, eta zuk zeuk ostatatu dezakezu edo enpresa bat ordaindu zure ordez ostatatzeko. Horrela, zure argazkiak, zure egutegia eta kontaktuen datuak, zure dokumentuak eta gainerako guztia zuk kontrolatzen dituzu.\n\n Ezagutu Nextcloud https://nextcloud.com helbidean</string>
     <string name="store_full_dev_desc">Kontrola zuri ematen dizun norberak ostatatutako produktibitate-plataforma.\nHau garapeneko bertsio ofiziala da. Probatu gabeko funtzionalitateen eguneroko lagina hartzen du, eta horrek ezegonkortasuna eta datu-galera eragin ditzake. Aplikazio hau probatu eta gertatzen diren akatsen berri eman nahi duten erabiltzaileentzat da. Ez erabili zure produkzio-lanerako!\n\nBi bertsio ofizialak, garapenekoa eta normala, F-Droiden daude eskuragarri eta aldi berean instalatu daitezke.</string>
     <string name="store_short_desc">Kontrola zuri ematen dizun norberak ostatutako produktibitate plataforma</string>
     <string name="store_short_dev_desc">Kontrola zuri ematen dizun norberak ostatutako produktibitate plataforma (garapeneko aurrerapen bertsioa)</string>
@@ -784,6 +800,7 @@
     <string name="subject_shared_with_you">\"%1$s\" zurekin partekatu dute</string>
     <string name="subject_user_shared_with_you">%1$s(e)k \"%2$s\" partekatu du zurekin</string>
     <string name="subtitle_photos_only">Argazkiak soilik</string>
+    <string name="subtitle_photos_videos">Argazkiak eta bideoak</string>
     <string name="subtitle_videos_only">Bideoak soilik</string>
     <string name="suggest">Iradokitu</string>
     <string name="sync_conflicts_in_favourites_ticker">Gatazkak aurkitu dira</string>
@@ -841,8 +858,13 @@
     <string name="update_link_file_no_exist">Ezin izan da eguneratu. Mesedez egiaztatu fitxategia existitzen dela.</string>
     <string name="update_link_forbidden_permissions">eguneratzeko partekatze hau</string>
     <string name="updating_share_failed">partekatzearen eguneraketa huts egin du</string>
+    <string name="upload_action_cancelled_clear">Garbitu bertan behera utzitako igoerak</string>
+    <string name="upload_action_cancelled_resume">Berrekin bertan behera utzitako igoerei</string>
     <string name="upload_action_failed_clear">Garbitu huts egin duten igoerak</string>
     <string name="upload_action_failed_retry">Erroredun igoerak berriz saiatu</string>
+    <string name="upload_action_file_not_exist_message">Fitxategi batzuk ez daude eta fitxategi horiei ezin zaie berrekin</string>
+    <string name="upload_action_global_upload_pause">Pausatu igoera guztiak</string>
+    <string name="upload_action_global_upload_resume">Berrekin igoera guztiei</string>
     <string name="upload_cannot_create_file">Ezin da sortu fitxategi lokala</string>
     <string name="upload_chooser_title">Igo hemendik…</string>
     <string name="upload_content_from_other_apps">Igo edukia beste aplikazioetatik</string>
@@ -854,6 +876,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Kode-zati testu-fitxategia(.txt)</string>
     <string name="upload_file_dialog_title">Sartu igoko den fitxategi-izena eta fitxategi mota</string>
     <string name="upload_files">Igo fitxategiak</string>
+    <string name="upload_global_pause_title">Igoera guztiak pausatuta daude</string>
     <string name="upload_item_action_button">Elementua igotzeko ekintza botoia</string>
     <string name="upload_list_delete">Ezabatu</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
@@ -862,6 +885,7 @@
     <string name="upload_local_storage_full">Biltegiratze lokala beteta</string>
     <string name="upload_local_storage_not_copied">Ezin izan da fitxategia kopiatu biltegiratze lokalera</string>
     <string name="upload_lock_failed">Karpeta blokeatzeak huts egin du</string>
+    <string name="upload_manually_cancelled">Igoera bertan behera utzi du erabiltzaileak</string>
     <string name="upload_old_android">Zifratzea >= Android 5.0 bertsioarekin soilik da posible</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="upload_quota_exceeded">Biltegiratze kuota gainditu da</string>
