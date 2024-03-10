@@ -3,6 +3,13 @@
 # https://github.com/nextcloud/.github
 # https://docs.github.com/en/actions/learn-github-actions/sharing-workflows-with-your-organization
 
+# SPDX-FileCopyrightText: 2023 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2023 Marcel Klehr <mklehr@gmx.net>
+# SPDX-FileCopyrightText: 2023 Joas Schilling <213943+nickvergessen@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2023 Daniel Kesselberg <mail@danielkesselberg.de>
+# SPDX-FileCopyrightText: 2023 Florian Steffens <florian.steffens@nextcloud.com>
+# SPDX-License-Identifier: MIT
+
 name: 'Ask for feedback on PRs'
 on:
   schedule:
