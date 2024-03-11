@@ -52,7 +52,7 @@ public class SyncedFoldersActivityIT extends AbstractIT {
     @ScreenshotTest
     public void open() {
         Activity sut = activityRule.launchActivity(null);
-
+        longSleep();
         screenshot(sut);
     }
 
