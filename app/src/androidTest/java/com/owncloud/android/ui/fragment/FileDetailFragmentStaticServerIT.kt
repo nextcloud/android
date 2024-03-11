@@ -173,7 +173,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
 
         shortSleep()
         shortSleep()
-        screenshot(activity)
+        screenshot(sut.fileDetailActivitiesFragment.binding.list)
     }
 
     @Test

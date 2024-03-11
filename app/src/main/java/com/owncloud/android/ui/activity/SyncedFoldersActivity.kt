@@ -165,7 +165,7 @@ class SyncedFoldersActivity :
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
-    private lateinit var binding: SyncedFoldersLayoutBinding
+    lateinit var binding: SyncedFoldersLayoutBinding
     private lateinit var adapter: SyncedFolderAdapter
 
     private var syncedFolderPreferencesDialogFragment: SyncedFolderPreferencesDialogFragment? = null
