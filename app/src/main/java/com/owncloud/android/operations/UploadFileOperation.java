@@ -507,8 +507,12 @@ public class UploadFileOperation extends SyncOperation {
                 String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
                 metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
 
+                if (object instanceof DecryptedFolderMetadataFileV1) {
+                    metadata.getMetadata().setChecksum(((DecryptedFolderMetadataFileV1) object).getMetadata().getChecksum());
+                }
+
                 object = metadata;
-                metadataExists = false;
+                metadataExists = true;
             }
 
             // todo fail if no metadata
