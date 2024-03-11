@@ -33,6 +33,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.nextcloud.client.assistant.AssistantScreen
 import com.nextcloud.client.assistant.AssistantViewModel
+import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.nextcloud.common.NextcloudClient
 import com.nextcloud.common.User
 import com.nextcloud.utils.extensions.getSerializableArgument
@@ -103,11 +104,12 @@ class ComposeActivity : DrawerActivity() {
         }
 
         if (destination == ComposeDestination.AssistantScreen) {
-            nextcloudClient?.let {
+            nextcloudClient?.let { client ->
                 AssistantScreen(
                     viewModel = AssistantViewModel(
-                        client = it
-                    )
+                        repository = AssistantRepository(client)
+                    ),
+                    activity = this
                 )
             }
         }

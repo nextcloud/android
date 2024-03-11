@@ -23,8 +23,7 @@ package com.nextcloud.client.assistant
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nextcloud.client.assistant.repository.AssistantRepository
-import com.nextcloud.common.NextcloudClient
+import com.nextcloud.client.assistant.repository.AssistantRepositoryType
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
@@ -35,9 +34,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class AssistantViewModel(client: NextcloudClient) : ViewModel() {
-
-    private val repository: AssistantRepository = AssistantRepository(client)
+class AssistantViewModel(private val repository: AssistantRepositoryType) : ViewModel() {
 
     private val _selectedTaskType = MutableStateFlow<TaskType?>(null)
     val selectedTaskType: StateFlow<TaskType?> = _selectedTaskType
@@ -88,7 +85,7 @@ class AssistantViewModel(client: NextcloudClient) : ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             val allTaskType = MainApp.getAppContext().getString(R.string.assistant_screen_all_task_type)
             val result = arrayListOf(TaskType(null, allTaskType, null))
-            val taskTypes = repository.getTaskTypes().resultData.types ?: listOf()
+            val taskTypes = repository.getTaskTypes().resultData.types
             result.addAll(taskTypes)
 
             _taskTypes.update {

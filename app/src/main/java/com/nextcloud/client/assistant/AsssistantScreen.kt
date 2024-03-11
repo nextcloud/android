@@ -38,6 +38,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -49,13 +50,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.component.AddTaskAlertDialog
 import com.nextcloud.client.assistant.component.CenterText
 import com.nextcloud.client.assistant.component.TaskTypesRow
 import com.nextcloud.client.assistant.component.TaskView
+import com.nextcloud.client.assistant.repository.AssistantMockRepository
+import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
@@ -66,8 +69,7 @@ import kotlinx.coroutines.delay
 @Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AssistantScreen(viewModel: AssistantViewModel) {
-    val activity = LocalContext.current as Activity
+fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
     val loading by viewModel.loading.collectAsState()
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
     val filteredTaskList by viewModel.filteredTaskList.collectAsState()
@@ -239,4 +241,18 @@ private fun EmptyTaskList(selectedTaskType: TaskType?, taskTypes: List<TaskType>
             )
         )
     }
+}
+
+@Composable
+@Preview
+private fun AssistantScreenPreview() {
+    val mockRepository = AssistantMockRepository()
+    MaterialTheme(
+        content = {
+            AssistantScreen(
+                viewModel = AssistantViewModel(repository = mockRepository),
+                activity = ComposeActivity()
+            )
+        }
+    )
 }
