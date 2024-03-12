@@ -54,7 +54,7 @@ public class SyncedFoldersActivityIT extends AbstractIT {
     public void open() {
         SyncedFoldersLayoutBinding sut = activityRule.launchActivity(null).binding;
         shortSleep();
-        screenshot(sut.list);
+        screenshot(sut.loadingContent);
     }
 
     @Test
