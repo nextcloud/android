@@ -105,7 +105,7 @@ class TrashbinActivityIT : AbstractIT() {
 
         shortSleep()
 
-        screenshot(sut)
+        screenshot(sut.binding.listFragmentLayout)
     }
 
     @Test

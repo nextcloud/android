@@ -52,9 +52,11 @@ public class SyncedFoldersActivityIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void open() {
-        SyncedFoldersLayoutBinding sut = activityRule.launchActivity(null).binding;
+        SyncedFoldersActivity activity = activityRule.launchActivity(null);
+        activity.adapter.clear();
+        SyncedFoldersLayoutBinding sut = activity.binding;
         shortSleep();
-        screenshot(sut.loadingContent);
+        screenshot(sut.emptyList.emptyListView);
     }
 
     @Test

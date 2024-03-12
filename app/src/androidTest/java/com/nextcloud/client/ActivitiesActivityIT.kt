@@ -21,6 +21,7 @@
  */
 package com.nextcloud.client
 
+import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.intent.rule.IntentsTestRule
@@ -60,15 +61,19 @@ class ActivitiesActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun loading() {
-        val sut: ActivitiesActivity = activityRule.launchActivity(null)
-        sut.runOnUiThread {
-            sut.dismissSnackbar()
+        val sut: ActivitiesActivity = activityRule.launchActivity(null).apply {
+            runOnUiThread {
+                dismissSnackbar()
+                binding.emptyList.root.visibility = View.GONE
+                binding.swipeContainingList.visibility = View.GONE
+                binding.loadingContent.visibility = View.VISIBLE
+            }
         }
 
         shortSleep()
         waitForIdleSync()
 
-        Screenshot.snapActivity(sut).record()
+        Screenshot.snap(sut.binding.loadingContent).record()
     }
 
     @Test
