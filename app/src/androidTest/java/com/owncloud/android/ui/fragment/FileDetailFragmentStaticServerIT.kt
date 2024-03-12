@@ -154,7 +154,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
                 sut.fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
             }
             longSleep()
-            screenshot(this)
+            screenshot(sut.fileDetailActivitiesFragment.binding.swipeContainingList)
         }
     }
 
@@ -194,7 +194,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
 
         shortSleep()
         shortSleep()
-        screenshot(sut.fileDetailActivitiesFragment.binding.emptyList.emptyListView)
+        screenshot(activity)
     }
 
     @Test
