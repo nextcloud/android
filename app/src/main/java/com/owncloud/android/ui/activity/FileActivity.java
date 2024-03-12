@@ -71,7 +71,6 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
-import com.owncloud.android.operations.GetSharesForFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
@@ -388,16 +387,6 @@ public abstract class FileActivity extends DrawerActivity
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish((SynchronizeFileOperation) operation, result);
 
-        } else if (operation instanceof GetSharesForFileOperation) {
-            if (result.isSuccess() || result.getCode() == ResultCode.SHARE_NOT_FOUND) {
-                updateFileFromDB();
-
-            } else {
-                DisplayUtils.showSnackMessage(this,
-                                              ErrorMessageAdapter.getErrorCauseMessage(result,
-                                                                                       operation,
-                                                                                       getResources()));
-            }
         }
 
         if (operation instanceof CreateShareViaLinkOperation) {
