@@ -490,12 +490,8 @@ public class UploadFileOperation extends SyncOperation {
 //                                                   mContext);
 
             Object object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
-            if (object != null) {
-                if (object instanceof DecryptedFolderMetadataFileV1) {
-                    if (((DecryptedFolderMetadataFileV1) object).getMetadata() != null) {
-                        metadataExists = true;
-                    }
-                }
+            if (object instanceof DecryptedFolderMetadataFileV1 && ((DecryptedFolderMetadataFileV1) object).getMetadata() != null) {
+                metadataExists = true;
             }
 
             if (CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
