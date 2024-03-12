@@ -142,6 +142,10 @@ public class ExtendedListFragment extends Fragment implements
 
     private ListFragmentBinding binding;
 
+    public ListFragmentBinding getBinding() {
+        return binding;
+    }
+
     protected void setRecyclerViewAdapter(RecyclerView.Adapter recyclerViewAdapter) {
         mRecyclerView.setAdapter(recyclerViewAdapter);
     }
