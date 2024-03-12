@@ -508,7 +508,7 @@ public class UploadFileOperation extends SyncOperation {
                 metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
 
                 if (object instanceof DecryptedFolderMetadataFileV1) {
-                    metadata.getMetadata().setChecksum(((DecryptedFolderMetadataFileV1) object).getMetadata().getChecksum());
+                    metadata = (DecryptedFolderMetadataFileV1) object;
                 }
 
                 object = metadata;
@@ -696,6 +696,7 @@ public class UploadFileOperation extends SyncOperation {
                         serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
                     }
 
+                    // FIXME after first failed upload folder stay locked, uploadMetadata throws UploadException for encrypted folder
                     // upload metadata
                     EncryptionUtils.uploadMetadata(parentFile,
                                                    serializedFolderMetadata,
