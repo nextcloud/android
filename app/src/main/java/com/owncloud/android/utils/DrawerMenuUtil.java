@@ -64,8 +64,8 @@ public final class DrawerMenuUtil {
         }
     }
 
-    public static void filterAssistantMenuItem(Menu menu, @Nullable OCCapability capability) {
-        if (capability != null && !capability.getAssistant().isTrue()) {
+    public static void filterAssistantMenuItem(Menu menu, @Nullable OCCapability capability, Resources resources) {
+        if (capability != null && !capability.getAssistant().isTrue() && resources.getBoolean(R.bool.is_branded_client)) {
             filterMenuItems(menu, R.id.nav_assistant);
         }
     }

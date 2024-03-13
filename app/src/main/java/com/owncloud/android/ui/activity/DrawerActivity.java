@@ -366,6 +366,12 @@ public abstract class DrawerActivity extends ToolbarActivity
                 ecosystemApps.findViewById(R.id.drawer_ecosystem_assistant),
             };
 
+            if (getCapabilities() != null && getCapabilities().getAssistant().isTrue() && !getResources().getBoolean(R.bool.is_branded_client)) {
+                views[3].setVisibility(View.VISIBLE);
+            } else {
+                views[3].setVisibility(View.GONE);
+            }
+
             views[0].setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
             views[1].setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
             views[2].setOnClickListener(v -> openAppStore("Nextcloud", true));
@@ -471,7 +477,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
         DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
-        DrawerMenuUtil.filterAssistantMenuItem(menu, capability);
+        DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources());
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
 
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community,
