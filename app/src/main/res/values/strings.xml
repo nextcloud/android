@@ -18,6 +18,8 @@
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
 
+    <string name="ecosystem_apps_display_assistant">Assistant</string>
+
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_loading">Task List are loading, please wait</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">No task available. Select a task type to create a new task.</string>

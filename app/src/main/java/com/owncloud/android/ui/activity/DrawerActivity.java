@@ -362,12 +362,14 @@ public abstract class DrawerActivity extends ToolbarActivity
             LinearLayout[] views = {
                 ecosystemApps.findViewById(R.id.drawer_ecosystem_notes),
                 ecosystemApps.findViewById(R.id.drawer_ecosystem_talk),
-                ecosystemApps.findViewById(R.id.drawer_ecosystem_more)
+                ecosystemApps.findViewById(R.id.drawer_ecosystem_more),
+                ecosystemApps.findViewById(R.id.drawer_ecosystem_assistant),
             };
 
             views[0].setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
             views[1].setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
             views[2].setOnClickListener(v -> openAppStore("Nextcloud", true));
+            views[3].setOnClickListener(v -> startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title));
 
             int iconColor;
             if (Hct.fromInt(primaryColor).getTone() < 80.0) {
@@ -468,7 +470,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.filterSearchMenuItems(menu, user, getResources());
         DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
-        DrawerMenuUtil.filterAssistantMenuItem(menu, capability);
         DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
 
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
@@ -545,8 +546,6 @@ public abstract class DrawerActivity extends ToolbarActivity
             intent.setAction(FileDisplayActivity.LIST_GROUPFOLDERS);
             intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
             startActivity(intent);
-        } else if (itemId == R.id.nav_assistant) {
-            startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, itemId);
         } else {
             if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
                 menuItem.getItemId() <= MENU_ITEM_EXTERNAL_LINK + 100) {
@@ -558,11 +557,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void startComposeActivity(ComposeDestination destination, int titleId, int menuItemId) {
+    private void startComposeActivity(ComposeDestination destination, int titleId) {
         Intent composeActivity = new Intent(getApplicationContext(), ComposeActivity.class);
         composeActivity.putExtra(ComposeActivity.DESTINATION, destination);
         composeActivity.putExtra(ComposeActivity.TITLE, titleId);
-        composeActivity.putExtra(ComposeActivity.MENU_ITEM, menuItemId);
         startActivity(composeActivity);
     }
 

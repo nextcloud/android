@@ -53,7 +53,6 @@ class ComposeActivity : DrawerActivity() {
     companion object {
         const val DESTINATION = "DESTINATION"
         const val TITLE = "TITLE"
-        const val MENU_ITEM = "MENU_ITEM"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,12 +62,9 @@ class ComposeActivity : DrawerActivity() {
 
         val destination = intent.getSerializableArgument(DESTINATION, ComposeDestination::class.java)
         val titleId = intent.getIntExtra(TITLE, R.string.empty)
-        val menuItemId = intent.getIntExtra(MENU_ITEM, R.id.nav_assistant)
 
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(titleId))
-
-        setupDrawer(menuItemId)
 
         binding.composeView.setContent {
             MaterialTheme(
@@ -78,11 +74,6 @@ class ComposeActivity : DrawerActivity() {
                 }
             )
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setDrawerMenuItemChecked(R.id.nav_assistant)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
