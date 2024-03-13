@@ -55,7 +55,7 @@ import com.owncloud.android.utils.PushUtils
  */
 class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
 
-    private lateinit var binding: NotificationsLayoutBinding
+    lateinit var binding: NotificationsLayoutBinding
 
     private var adapter: NotificationListAdapter? = null
     private var snackbar: Snackbar? = null

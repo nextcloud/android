@@ -53,8 +53,6 @@ class NotificationsActivityIT : AbstractIT() {
     @ScreenshotTest
     @SuppressWarnings("MagicNumber")
     fun showNotifications() {
-        val sut: NotificationsActivity = activityRule.launchActivity(null)
-
         val date = GregorianCalendar()
         date.set(2005, 4, 17, 10, 35, 30) // random date
 
@@ -133,11 +131,13 @@ class NotificationsActivityIT : AbstractIT() {
             )
         )
 
-        sut.runOnUiThread { sut.populateList(notifications) }
-
-        shortSleep()
-
-        screenshot(sut)
+        activityRule.launchActivity(null).apply {
+            runOnUiThread {
+                populateList(notifications)
+            }
+            shortSleep()
+            screenshot(binding.list)
+        }
     }
 
     @Test

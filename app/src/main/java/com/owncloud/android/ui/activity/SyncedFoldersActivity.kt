@@ -80,7 +80,7 @@ import javax.inject.Inject
 /**
  * Activity displaying all auto-synced folders and/or instant upload media folders.
  */
-@Suppress("TooManyFunctions")
+@Suppress("TooManyFunctions", "LargeClass")
 class SyncedFoldersActivity :
     FileActivity(),
     SyncedFolderAdapter.ClickListener,
@@ -165,8 +165,8 @@ class SyncedFoldersActivity :
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
 
-    private lateinit var binding: SyncedFoldersLayoutBinding
-    private lateinit var adapter: SyncedFolderAdapter
+    lateinit var binding: SyncedFoldersLayoutBinding
+    lateinit var adapter: SyncedFolderAdapter
 
     private var syncedFolderPreferencesDialogFragment: SyncedFolderPreferencesDialogFragment? = null
     private var path: String? = null

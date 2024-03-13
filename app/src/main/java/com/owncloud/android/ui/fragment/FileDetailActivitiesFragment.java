@@ -106,7 +106,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     private FileOperationsHelper operationsHelper;
     private VersionListInterface.CommentCallback callback;
 
-    private FileDetailsActivitiesFragmentBinding binding;
+    FileDetailsActivitiesFragmentBinding binding;
 
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;

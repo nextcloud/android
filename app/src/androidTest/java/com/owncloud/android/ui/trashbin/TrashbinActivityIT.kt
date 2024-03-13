@@ -89,7 +89,7 @@ class TrashbinActivityIT : AbstractIT() {
         shortSleep()
         waitForIdleSync()
 
-        screenshot(sut)
+        screenshot(sut.binding.emptyList.emptyListView)
     }
 
     @Test
@@ -105,7 +105,7 @@ class TrashbinActivityIT : AbstractIT() {
 
         shortSleep()
 
-        screenshot(sut)
+        screenshot(sut.binding.listFragmentLayout)
     }
 
     @Test

@@ -195,13 +195,18 @@ public abstract class AbstractIT {
     }
 
     protected void testOnlyOnServer(OwnCloudVersion version) throws AccountUtils.AccountNotFoundException {
+        OCCapability ocCapability = getCapability();
+        assumeTrue(ocCapability.getVersion().isNewerOrEqual(version));
+    }
+
+    protected OCCapability getCapability() throws AccountUtils.AccountNotFoundException {
         NextcloudClient client = OwnCloudClientFactory.createNextcloudClient(user, targetContext);
 
         OCCapability ocCapability = (OCCapability) new GetCapabilitiesRemoteOperation()
             .execute(client)
             .getSingleData();
 
-        assumeTrue(ocCapability.getVersion().isNewerOrEqual(version));
+        return ocCapability;
     }
 
     @Before
@@ -329,6 +334,14 @@ public abstract class AbstractIT {
     protected void longSleep() {
         try {
             Thread.sleep(20000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void sleep(int second) {
+        try {
+            Thread.sleep(1000L * second);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

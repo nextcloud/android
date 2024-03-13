@@ -25,11 +25,13 @@
     <group
         android:id="@+id/drawer_menu_standard"
         android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_all_files"
             android:icon="@drawable/all_files"
             android:orderInCategory="0"
             android:title="@string/drawer_item_all_files" />
+
         <item
             android:id="@+id/nav_personal_files"
             android:icon="@drawable/ic_user"
@@ -74,6 +76,13 @@
             android:id="@+id/nav_notifications"
             android:icon="@drawable/nav_notifications"
             android:title="@string/drawer_item_notifications"/>
+
+        <item
+            android:id="@+id/nav_assistant"
+            android:icon="@drawable/ic_assistant"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_assistant" />
+
         <item
             android:id="@+id/nav_uploads"
             android:icon="@drawable/uploads"

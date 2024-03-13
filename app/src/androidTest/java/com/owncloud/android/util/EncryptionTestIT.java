@@ -610,7 +610,7 @@ public class EncryptionTestIT extends AbstractIT {
         EncryptionUtils.encryptFileDropFiles(decryptedFolderMetadata1, encryptedFolderMetadata1, publicKey);
 
         // serialize
-        String encryptedJson = serializeJSON(encryptedFolderMetadata1);
+        String encryptedJson = serializeJSON(encryptedFolderMetadata1, true);
 
         // de-serialize
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata2 = deserializeJSON(encryptedJson,
@@ -626,8 +626,8 @@ public class EncryptionTestIT extends AbstractIT {
             folderID);
 
         // compare
-        assertFalse(compareJsonStrings(serializeJSON(decryptedFolderMetadata1),
-                                       serializeJSON(decryptedFolderMetadata2)));
+        assertFalse(compareJsonStrings(serializeJSON(decryptedFolderMetadata1, true),
+                                       serializeJSON(decryptedFolderMetadata2, true)));
 
         assertEquals(decryptedFolderMetadata1.getFiles().size() + decryptedFolderMetadata1.getFiledrop().size(),
                      decryptedFolderMetadata2.getFiles().size());
