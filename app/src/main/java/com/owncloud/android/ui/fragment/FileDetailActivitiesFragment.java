@@ -341,6 +341,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
                             populateList(activitiesAndVersions, lastGiven == -1);
                         }
                     });
+
+                    isDataFetched = true;
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
                     // show error
@@ -355,23 +357,18 @@ public class FileDetailActivitiesFragment extends Fragment implements
                             isLoadingActivities = false;
                         }
                     });
+
+                    isDataFetched = false;
                 }
 
                 hideRefreshLayoutLoader(activity);
             } catch (ClientFactory.CreationException e) {
+                isDataFetched = false;
                 Log_OC.e(TAG, "Error fetching file details activities", e);
             }
         });
 
         t.start();
-
-        try {
-            t.join();
-            isDataFetched = true;
-            Log_OC.d(TAG, "Data fetched");
-        } catch (InterruptedException e) {
-            Log_OC.d(TAG, "Error caught at thread join: $e");
-        }
     }
 
     public void markCommentsAsRead() {
