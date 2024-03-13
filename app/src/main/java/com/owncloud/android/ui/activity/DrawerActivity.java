@@ -125,6 +125,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -359,23 +360,22 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (getResources().getBoolean(R.bool.is_branded_client) || !preferences.isShowEcosystemApps()) {
             ecosystemApps.setVisibility(View.GONE);
         } else {
-            LinearLayout[] views = {
-                ecosystemApps.findViewById(R.id.drawer_ecosystem_notes),
-                ecosystemApps.findViewById(R.id.drawer_ecosystem_talk),
-                ecosystemApps.findViewById(R.id.drawer_ecosystem_more),
-                ecosystemApps.findViewById(R.id.drawer_ecosystem_assistant),
-            };
+            LinearLayout notesView = ecosystemApps.findViewById(R.id.drawer_ecosystem_notes);
+            LinearLayout talkView = ecosystemApps.findViewById(R.id.drawer_ecosystem_talk);
+            LinearLayout moreView = ecosystemApps.findViewById(R.id.drawer_ecosystem_more);
+            LinearLayout assistantView = ecosystemApps.findViewById(R.id.drawer_ecosystem_assistant);
 
+            notesView.setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
+            talkView.setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
+            moreView.setOnClickListener(v -> openAppStore("Nextcloud", true));
+            assistantView.setOnClickListener(v -> startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, -1));
             if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
-                views[3].setVisibility(View.VISIBLE);
+                assistantView.setVisibility(View.VISIBLE);
             } else {
-                views[3].setVisibility(View.GONE);
+                assistantView.setVisibility(View.GONE);
             }
 
-            views[0].setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
-            views[1].setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
-            views[2].setOnClickListener(v -> openAppStore("Nextcloud", true));
-            views[3].setOnClickListener(v -> startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, -1));
+            List<LinearLayout> views = Arrays.asList(notesView, talkView, moreView, assistantView);
 
             int iconColor;
             if (Hct.fromInt(primaryColor).getTone() < 80.0) {
@@ -383,6 +383,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             } else {
                 iconColor = getColor(R.color.grey_800_transparent);
             }
+
             for (LinearLayout view : views) {
                 ImageView imageView = (ImageView) view.getChildAt(0);
                 imageView.setImageTintList(ColorStateList.valueOf(iconColor));
