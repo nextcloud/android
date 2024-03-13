@@ -27,7 +27,7 @@ import com.owncloud.android.lib.resources.assistant.model.TaskList
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
-class AssistantMockRepository : AssistantRepositoryType {
+class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : AssistantRepositoryType {
     override fun getTaskTypes(): RemoteOperationResult<TaskTypes> {
         return RemoteOperationResult<TaskTypes>(RemoteOperationResult.ResultCode.OK).apply {
             resultData = TaskTypes(
@@ -44,8 +44,10 @@ class AssistantMockRepository : AssistantRepositoryType {
     }
 
     override fun getTaskList(appId: String): RemoteOperationResult<TaskList> {
-        return RemoteOperationResult<TaskList>(RemoteOperationResult.ResultCode.OK).apply {
-            resultData = TaskList(
+        val taskList = if (giveEmptyTasks) {
+            TaskList(listOf())
+        } else {
+            TaskList(
                 listOf(
                     Task(
                         1,
@@ -78,6 +80,10 @@ class AssistantMockRepository : AssistantRepositoryType {
                     )
                 )
             )
+        }
+
+        return RemoteOperationResult<TaskList>(RemoteOperationResult.ResultCode.OK).apply {
+            resultData = taskList
         }
     }
 

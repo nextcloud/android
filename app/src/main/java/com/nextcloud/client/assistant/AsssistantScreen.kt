@@ -231,6 +231,15 @@ private fun AssistantContent(
 
 @Composable
 private fun EmptyTaskList(selectedTaskType: TaskType?, taskTypes: List<TaskType>?, viewModel: AssistantViewModel) {
+    val text = if (selectedTaskType?.name ==  stringResource(id = R.string.assistant_screen_all_task_type)) {
+        stringResource(id = R.string.assistant_screen_no_task_available_for_all_task_filter_text)
+    } else {
+        stringResource(
+            id = R.string.assistant_screen_no_task_available_text,
+            selectedTaskType?.name ?: ""
+        )
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -242,12 +251,7 @@ private fun EmptyTaskList(selectedTaskType: TaskType?, taskTypes: List<TaskType>
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        CenterText(
-            text = stringResource(
-                id = R.string.assistant_screen_no_task_available_text,
-                selectedTaskType?.name ?: ""
-            )
-        )
+        CenterText(text = text)
     }
 }
 
@@ -255,6 +259,20 @@ private fun EmptyTaskList(selectedTaskType: TaskType?, taskTypes: List<TaskType>
 @Preview
 private fun AssistantScreenPreview() {
     val mockRepository = AssistantMockRepository()
+    MaterialTheme(
+        content = {
+            AssistantScreen(
+                viewModel = AssistantViewModel(repository = mockRepository),
+                activity = ComposeActivity()
+            )
+        }
+    )
+}
+
+@Composable
+@Preview
+private fun AssistantEmptyScreenPreview() {
+    val mockRepository = AssistantMockRepository(giveEmptyTasks = true)
     MaterialTheme(
         content = {
             AssistantScreen(
