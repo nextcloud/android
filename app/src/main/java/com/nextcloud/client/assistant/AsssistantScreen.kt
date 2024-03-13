@@ -71,6 +71,7 @@ import kotlinx.coroutines.delay
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
     val loading by viewModel.loading.collectAsState()
+    val errorMessage by viewModel.errorMessage.collectAsState()
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
     val filteredTaskList by viewModel.filteredTaskList.collectAsState()
     val isTaskCreated by viewModel.isTaskCreated.collectAsState()
@@ -133,6 +134,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
         }
     }
 
+    CheckErrorMessage(errorMessage, activity, viewModel)
     CheckTaskAdd(isTaskCreated, activity, viewModel)
     CheckTaskDeletion(isTaskDeleted, activity, viewModel)
 
@@ -179,6 +181,18 @@ private fun CheckTaskAdd(isTaskCreated: Boolean?, activity: Activity, viewModel:
         )
 
         viewModel.resetTaskAddState()
+    }
+}
+
+@Composable
+private fun CheckErrorMessage(errorMessage: String?, activity: Activity, viewModel: AssistantViewModel) {
+    errorMessage?.let {
+        DisplayUtils.showSnackMessage(
+            activity,
+            errorMessage
+        )
+
+        viewModel.resetErrorState()
     }
 }
 

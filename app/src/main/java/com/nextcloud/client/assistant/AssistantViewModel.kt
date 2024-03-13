@@ -36,6 +36,9 @@ import kotlinx.coroutines.launch
 
 class AssistantViewModel(private val repository: AssistantRepositoryType) : ViewModel() {
 
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage
+
     private val _selectedTaskType = MutableStateFlow<TaskType?>(null)
     val selectedTaskType: StateFlow<TaskType?> = _selectedTaskType
 
@@ -85,30 +88,43 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
         viewModelScope.launch(Dispatchers.IO) {
             val allTaskType = MainApp.getAppContext().getString(R.string.assistant_screen_all_task_type)
             val result = arrayListOf(TaskType(null, allTaskType, null))
-            val taskTypes = repository.getTaskTypes().resultData.types
-            result.addAll(taskTypes)
+            val taskTypesResult = repository.getTaskTypes()
 
-            _taskTypes.update {
-                result.toList()
-            }
+            if (taskTypesResult.isSuccess) {
+                result.addAll(taskTypesResult.resultData.types)
+                _taskTypes.update {
+                    result.toList()
+                }
 
-            _selectedTaskType.update {
-                result.first()
+                _selectedTaskType.update {
+                    result.first()
+                }
+            } else {
+                _errorMessage.update {
+                    taskTypesResult.message
+                }
             }
         }
     }
 
     fun getTaskList(appId: String = "assistant", onCompleted: () -> Unit = {}) {
         viewModelScope.launch(Dispatchers.IO) {
-            _taskList = repository.getTaskList(appId).resultData.tasks
+            val result = repository.getTaskList(appId)
+            if (result.isSuccess) {
+                _taskList = result.resultData.tasks
 
-            filterTaskList(_selectedTaskType.value?.id)
+                filterTaskList(_selectedTaskType.value?.id)
 
-            _loading.update {
-                false
+                _loading.update {
+                    false
+                }
+
+                onCompleted()
+            } else {
+                _errorMessage.update {
+                    result.message
+                }
             }
-
-            onCompleted()
         }
     }
 
@@ -123,6 +139,12 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
                 result.isSuccess
             }
+        }
+    }
+
+    fun resetErrorState() {
+        _errorMessage.update {
+            null
         }
     }
 
