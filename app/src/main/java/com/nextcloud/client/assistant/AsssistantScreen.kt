@@ -70,12 +70,9 @@ import kotlinx.coroutines.delay
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
-    val loading by viewModel.loading.collectAsState()
-    val errorMessage by viewModel.errorMessage.collectAsState()
+    val state by viewModel.state.collectAsState()
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
     val filteredTaskList by viewModel.filteredTaskList.collectAsState()
-    val isTaskCreated by viewModel.isTaskCreated.collectAsState()
-    val isTaskDeleted by viewModel.isTaskDeleted.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
     var showAddTaskAlertDialog by remember { mutableStateOf(false) }
     var showDeleteTaskAlertDialog by remember { mutableStateOf(false) }
@@ -95,7 +92,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
     }
 
     Box(Modifier.nestedScroll(pullRefreshState.nestedScrollConnection)) {
-        if (loading || pullRefreshState.isRefreshing) {
+        if (state == AssistantViewModel.State.Loading || pullRefreshState.isRefreshing) {
             CenterText(text = stringResource(id = R.string.assistant_screen_loading))
         } else {
             if (filteredTaskList.isNullOrEmpty()) {
@@ -134,9 +131,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
         }
     }
 
-    CheckErrorMessage(errorMessage, activity, viewModel)
-    CheckTaskAdd(isTaskCreated, activity, viewModel)
-    CheckTaskDeletion(isTaskDeleted, activity, viewModel)
+    ScreenState(state, activity, viewModel)
 
     if (showDeleteTaskAlertDialog) {
         taskIdToDeleted?.let { id ->
@@ -167,50 +162,35 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
 }
 
 @Composable
-private fun CheckTaskAdd(isTaskCreated: Boolean?, activity: Activity, viewModel: AssistantViewModel) {
-    isTaskCreated?.let {
-        val messageId = if (it) {
-            R.string.assistant_screen_task_create_success_message
-        } else {
-            R.string.assistant_screen_task_create_fail_message
+private fun ScreenState(
+    state: AssistantViewModel.State,
+    activity: Activity,
+    viewModel: AssistantViewModel
+) {
+    val messageId: Int? = when (state) {
+        is AssistantViewModel.State.Error -> {
+            state.messageId
         }
 
+        is AssistantViewModel.State.TaskCreated -> {
+            state.messageId
+        }
+
+        is AssistantViewModel.State.TaskDeleted -> {
+            state.messageId
+        }
+        else -> {
+            null
+        }
+    }
+
+    messageId?.let {
         DisplayUtils.showSnackMessage(
             activity,
             stringResource(id = messageId)
         )
 
-        viewModel.resetTaskAddState()
-    }
-}
-
-@Composable
-private fun CheckErrorMessage(errorMessage: String?, activity: Activity, viewModel: AssistantViewModel) {
-    errorMessage?.let {
-        DisplayUtils.showSnackMessage(
-            activity,
-            errorMessage
-        )
-
-        viewModel.resetErrorState()
-    }
-}
-
-@Composable
-private fun CheckTaskDeletion(isTaskDeleted: Boolean?, activity: Activity, viewModel: AssistantViewModel) {
-    isTaskDeleted?.let {
-        val messageId = if (it) {
-            R.string.assistant_screen_task_delete_success_message
-        } else {
-            R.string.assistant_screen_task_delete_fail_message
-        }
-
-        DisplayUtils.showSnackMessage(
-            activity,
-            stringResource(id = messageId)
-        )
-
-        viewModel.resetTaskDeletionState()
+        viewModel.resetState()
     }
 }
 
@@ -245,7 +225,7 @@ private fun AssistantContent(
 
 @Composable
 private fun EmptyTaskList(selectedTaskType: TaskType?, taskTypes: List<TaskType>?, viewModel: AssistantViewModel) {
-    val text = if (selectedTaskType?.name ==  stringResource(id = R.string.assistant_screen_all_task_type)) {
+    val text = if (selectedTaskType?.name == stringResource(id = R.string.assistant_screen_all_task_type)) {
         stringResource(id = R.string.assistant_screen_no_task_available_for_all_task_filter_text)
     } else {
         stringResource(

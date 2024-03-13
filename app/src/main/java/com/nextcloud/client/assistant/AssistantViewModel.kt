@@ -36,8 +36,16 @@ import kotlinx.coroutines.launch
 
 class AssistantViewModel(private val repository: AssistantRepositoryType) : ViewModel() {
 
-    private val _errorMessage = MutableStateFlow<String?>(null)
-    val errorMessage: StateFlow<String?> = _errorMessage
+    sealed class State {
+        data object Idle: State()
+        data object Loading: State()
+        data class Error(val messageId: Int): State()
+        data class TaskCreated(val messageId: Int): State()
+        data class TaskDeleted(val messageId: Int): State()
+    }
+
+    private val _state = MutableStateFlow<State>(State.Loading)
+    val state: StateFlow<State> = _state
 
     private val _selectedTaskType = MutableStateFlow<TaskType?>(null)
     val selectedTaskType: StateFlow<TaskType?> = _selectedTaskType
@@ -49,15 +57,6 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
     private val _filteredTaskList = MutableStateFlow<List<Task>?>(null)
     val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
-
-    private val _loading = MutableStateFlow(true)
-    val loading: StateFlow<Boolean> = _loading
-
-    private val _isTaskCreated = MutableStateFlow<Boolean?>(null)
-    val isTaskCreated: StateFlow<Boolean?> = _isTaskCreated
-
-    private val _isTaskDeleted = MutableStateFlow<Boolean?>(null)
-    val isTaskDeleted: StateFlow<Boolean?> = _isTaskDeleted
 
     init {
         getTaskTypes()
@@ -71,8 +70,14 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.createTask(input, type)
 
-            _isTaskCreated.update {
-                result.isSuccess
+            val messageId = if (result.isSuccess) {
+                R.string.assistant_screen_task_create_success_message
+            } else {
+                R.string.assistant_screen_task_create_fail_message
+            }
+
+            _state.update {
+                State.TaskCreated(messageId)
             }
         }
     }
@@ -100,8 +105,8 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
                     result.first()
                 }
             } else {
-                _errorMessage.update {
-                    taskTypesResult.message
+                _state.update {
+                    State.Error(R.string.assistant_screen_task_types_error_state_message)
                 }
             }
         }
@@ -115,14 +120,14 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
                 filterTaskList(_selectedTaskType.value?.id)
 
-                _loading.update {
-                    false
+                _state.update {
+                    State.Idle
                 }
 
                 onCompleted()
             } else {
-                _errorMessage.update {
-                    result.message
+                _state.update {
+                    State.Error(R.string.assistant_screen_task_list_error_state_message)
                 }
             }
         }
@@ -132,31 +137,25 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.deleteTask(id)
 
-            _isTaskDeleted.update {
-                if (result.isSuccess) {
-                    removeTaskFromList(id)
-                }
+            val messageId = if (result.isSuccess) {
+                R.string.assistant_screen_task_delete_success_message
+            } else {
+                R.string.assistant_screen_task_delete_fail_message
+            }
 
-                result.isSuccess
+            _state.update {
+                State.TaskDeleted(messageId)
+            }
+
+            if (result.isSuccess) {
+                removeTaskFromList(id)
             }
         }
     }
 
-    fun resetErrorState() {
-        _errorMessage.update {
-            null
-        }
-    }
-
-    fun resetTaskDeletionState() {
-        _isTaskDeleted.update {
-            null
-        }
-    }
-
-    fun resetTaskAddState() {
-        _isTaskCreated.update {
-            null
+    fun resetState() {
+        _state.update {
+            State.Idle
         }
     }
 
