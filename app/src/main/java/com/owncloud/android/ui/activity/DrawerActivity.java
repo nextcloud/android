@@ -366,7 +366,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 ecosystemApps.findViewById(R.id.drawer_ecosystem_assistant),
             };
 
-            if (getCapabilities() != null && getCapabilities().getAssistant().isTrue() && !getResources().getBoolean(R.bool.is_branded_client)) {
+            if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
                 views[3].setVisibility(View.VISIBLE);
             } else {
                 views[3].setVisibility(View.GONE);
