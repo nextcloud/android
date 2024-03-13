@@ -148,10 +148,18 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
     }
 
     if (showAddTaskAlertDialog) {
-        selectedTaskType?.let {
-            AddTaskAlertDialog(viewModel, it) {
-                showAddTaskAlertDialog = false
-            }
+        selectedTaskType?.let { taskType ->
+            AddTaskAlertDialog(
+                title = taskType.name,
+                description = taskType.description,
+                addTask = { input ->
+                    taskType.id?.let {
+                        viewModel.createTask(input = input, type = it)
+                    }
+                }, dismiss = {
+                    showAddTaskAlertDialog = false
+                }
+            )
         }
     }
 }

@@ -31,25 +31,22 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
-import com.nextcloud.client.assistant.AssistantViewModel
+import androidx.compose.ui.tooling.preview.Preview
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.TaskType
 
 @Composable
-fun AddTaskAlertDialog(viewModel: AssistantViewModel, taskType: TaskType, dismiss: () -> Unit) {
+fun AddTaskAlertDialog(title: String?, description: String?, addTask: (String) -> Unit, dismiss: () -> Unit) {
     var input by remember {
         mutableStateOf("")
     }
 
     SimpleAlertDialog(
-        title = taskType.name ?: "",
-        description = taskType.description,
+        title = title ?: "",
+        description = description ?: "",
         dismiss = { dismiss() },
         onComplete = {
-            taskType.id?.let {
-                viewModel.createTask(input = input, type = it)
-            }
+            addTask(input)
         },
         content = {
             TextField(
@@ -65,8 +62,13 @@ fun AddTaskAlertDialog(viewModel: AssistantViewModel, taskType: TaskType, dismis
                 onValueChange = {
                     input = it
                 },
-                singleLine = true
             )
         }
     )
+}
+
+@Composable
+@Preview
+private fun AddTaskAlertDialogPreview() {
+    AddTaskAlertDialog(title = "Title", description = "Description", addTask = { }, dismiss = {})
 }
