@@ -490,7 +490,7 @@ public class UploadFileOperation extends SyncOperation {
 //                                                   mContext);
 
             Object object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
-            if (object instanceof DecryptedFolderMetadataFileV1 && ((DecryptedFolderMetadataFileV1) object).getMetadata() != null) {
+            if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
                 metadataExists = true;
             }
 
