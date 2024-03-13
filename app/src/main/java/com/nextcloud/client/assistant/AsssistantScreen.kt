@@ -153,7 +153,8 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
                     taskType.id?.let {
                         viewModel.createTask(input = input, type = it)
                     }
-                }, dismiss = {
+                },
+                dismiss = {
                     showAddTaskAlertDialog = false
                 }
             )

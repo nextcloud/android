@@ -369,7 +369,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             views[0].setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
             views[1].setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
             views[2].setOnClickListener(v -> openAppStore("Nextcloud", true));
-            views[3].setOnClickListener(v -> startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title));
+            views[3].setOnClickListener(v -> startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, -1));
 
             int iconColor;
             if (Hct.fromInt(primaryColor).getTone() < 80.0) {
@@ -471,7 +471,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
         DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
-
+        DrawerMenuUtil.filterAssistantMenuItem(menu, capability);
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
 
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community,
@@ -539,6 +539,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             startSharedSearch(menuItem);
         } else if (itemId == R.id.nav_recently_modified) {
             startRecentlyModifiedSearch(menuItem);
+        } else if (itemId == R.id.nav_assistant) {
+            startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, itemId);
         } else if (itemId == R.id.nav_groupfolders) {
             MainApp.showOnlyFilesOnDevice(false);
             Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
@@ -557,10 +559,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void startComposeActivity(ComposeDestination destination, int titleId) {
+    private void startComposeActivity(ComposeDestination destination, int titleId, int menuItemId) {
         Intent composeActivity = new Intent(getApplicationContext(), ComposeActivity.class);
         composeActivity.putExtra(ComposeActivity.DESTINATION, destination);
         composeActivity.putExtra(ComposeActivity.TITLE, titleId);
+        composeActivity.putExtra(ComposeActivity.MENU_ITEM, menuItemId);
         startActivity(composeActivity);
     }
 

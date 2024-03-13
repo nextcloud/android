@@ -49,10 +49,12 @@ import kotlinx.coroutines.withContext
 class ComposeActivity : DrawerActivity() {
 
     lateinit var binding: ActivityComposeBinding
+    private var menuItemId: Int? = null
 
     companion object {
         const val DESTINATION = "DESTINATION"
         const val TITLE = "TITLE"
+        const val MENU_ITEM = "MENU_ITEM"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,9 +64,14 @@ class ComposeActivity : DrawerActivity() {
 
         val destination = intent.getSerializableArgument(DESTINATION, ComposeDestination::class.java)
         val titleId = intent.getIntExtra(TITLE, R.string.empty)
+        menuItemId = intent.getIntExtra(MENU_ITEM, -1)
 
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(titleId))
+
+        if (menuItemId != -1) {
+            setupDrawer(menuItemId!!)
+        }
 
         binding.composeView.setContent {
             MaterialTheme(
@@ -73,6 +80,13 @@ class ComposeActivity : DrawerActivity() {
                     Content(destination, storageManager.user, this)
                 }
             )
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (menuItemId != -1) {
+            setDrawerMenuItemChecked(R.id.nav_assistant)
         }
     }
 

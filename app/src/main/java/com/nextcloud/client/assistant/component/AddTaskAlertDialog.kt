@@ -61,7 +61,7 @@ fun AddTaskAlertDialog(title: String?, description: String?, addTask: (String) -
                 value = input,
                 onValueChange = {
                     input = it
-                },
+                }
             )
         }
     )

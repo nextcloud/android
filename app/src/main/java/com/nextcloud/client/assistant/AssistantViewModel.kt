@@ -37,11 +37,11 @@ import kotlinx.coroutines.launch
 class AssistantViewModel(private val repository: AssistantRepositoryType) : ViewModel() {
 
     sealed class State {
-        data object Idle: State()
-        data object Loading: State()
-        data class Error(val messageId: Int): State()
-        data class TaskCreated(val messageId: Int): State()
-        data class TaskDeleted(val messageId: Int): State()
+        data object Idle : State()
+        data object Loading : State()
+        data class Error(val messageId: Int) : State()
+        data class TaskCreated(val messageId: Int) : State()
+        data class TaskDeleted(val messageId: Int) : State()
     }
 
     private val _state = MutableStateFlow<State>(State.Loading)
