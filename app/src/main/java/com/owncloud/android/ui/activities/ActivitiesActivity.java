@@ -61,7 +61,7 @@ import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 public class ActivitiesActivity extends DrawerActivity implements ActivityListInterface, ActivitiesContract.View {
     private static final String TAG = ActivitiesActivity.class.getSimpleName();
 
-    private ActivityListLayoutBinding binding;
+    ActivityListLayoutBinding binding;
     private ActivityListAdapter adapter;
     private int lastGiven;
     private boolean isLoadingActivities;

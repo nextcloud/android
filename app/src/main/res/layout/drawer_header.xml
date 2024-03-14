@@ -72,6 +72,37 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/drawer_ecosystem_assistant"
+            android:layout_width="wrap_content"
+            android:layout_marginEnd="30dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/white_outline"
+                android:contentDescription="@string/ecosystem_apps_talk"
+                android:padding="8dp"
+                android:src="@drawable/ic_assistant"
+                app:tint="@color/white" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/ecosystem_apps_display_assistant"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/drawer_ecosystem_talk"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

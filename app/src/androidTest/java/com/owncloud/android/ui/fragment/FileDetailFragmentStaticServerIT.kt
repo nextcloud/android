@@ -94,12 +94,6 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @ScreenshotTest
     @Suppress("MagicNumber")
     fun showDetailsActivities() {
-        val activity = testActivityRule.launchActivity(null)
-        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
-        activity.addFragment(sut)
-
-        waitForIdleSync()
-
         val date = GregorianCalendar()
         date.set(2005, 4, 17, 10, 35, 30) // random date
 
@@ -152,13 +146,16 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
             )
         )
 
-        activity.runOnUiThread {
-            sut.fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
+        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
+        testActivityRule.launchActivity(null).apply {
+            addFragment(sut)
+            waitForIdleSync()
+            runOnUiThread {
+                sut.fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
+            }
+            longSleep()
+            screenshot(sut.fileDetailActivitiesFragment.binding.swipeContainingList)
         }
-
-        shortSleep()
-        shortSleep()
-        screenshot(activity)
     }
 
     // @Test
@@ -176,7 +173,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
 
         shortSleep()
         shortSleep()
-        screenshot(activity)
+        screenshot(sut.fileDetailActivitiesFragment.binding.list)
     }
 
     @Test
@@ -197,7 +194,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
 
         shortSleep()
         shortSleep()
-        screenshot(activity)
+        screenshot(sut.fileDetailActivitiesFragment.binding.emptyList.emptyListView)
     }
 
     @Test

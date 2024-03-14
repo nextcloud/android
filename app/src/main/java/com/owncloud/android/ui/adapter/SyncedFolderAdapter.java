@@ -50,6 +50,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.VisibleForTesting;
 
 /**
  * Adapter to display all auto-synced folders and/or instant upload media folders.
@@ -177,6 +178,12 @@ public class SyncedFolderAdapter extends SectionedRecyclerViewAdapter<SectionedV
         } else {
             return 0;
         }
+    }
+
+    @VisibleForTesting
+    public void clear() {
+        filteredSyncFolderItems.clear();
+        syncFolderItems.clear();
     }
 
     public int getUnfilteredSectionCount() {

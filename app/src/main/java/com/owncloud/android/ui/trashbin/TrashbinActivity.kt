@@ -84,7 +84,7 @@ class TrashbinActivity :
     var trashbinPresenter: TrashbinPresenter? = null
 
     private var active = false
-    private lateinit var binding: TrashbinActivityBinding
+    lateinit var binding: TrashbinActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
