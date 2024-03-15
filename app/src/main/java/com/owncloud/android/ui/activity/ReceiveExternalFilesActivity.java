@@ -174,8 +174,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        prepareStreamsToUpload();
-
         if (savedInstanceState != null) {
             String parentPath = savedInstanceState.getString(KEY_PARENTS);
 
@@ -190,6 +188,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
         super.onCreate(savedInstanceState);
         binding = ReceiveExternalFilesBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        prepareStreamsToUpload();
 
         // Listen for sync messages
         IntentFilter syncIntentFilter = new IntentFilter(RefreshFolderOperation.
@@ -850,16 +850,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
     private void prepareStreamsToUpload() {
         Intent intent = getIntent();
 
-        if (Intent.ACTION_SEND.equals(intent.getAction())) {
+        if (intent.hasExtra(Intent.EXTRA_STREAM) && Intent.ACTION_SEND.equals(intent.getAction())) {
             mStreamsToUpload = new ArrayList<>();
             mStreamsToUpload.add(IntentExtensionsKt.getParcelableArgument(intent, Intent.EXTRA_STREAM, Parcelable.class));
-        } else if (Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction())) {
+        } else if (intent.hasExtra(Intent.EXTRA_STREAM) && Intent.ACTION_SEND_MULTIPLE.equals(intent.getAction())) {
             mStreamsToUpload = intent.getParcelableArrayListExtra(Intent.EXTRA_STREAM);
-        }
-
-        if (mStreamsToUpload == null || mStreamsToUpload.isEmpty() || mStreamsToUpload.get(0) == null) {
+        } else if (intent.hasExtra(Intent.EXTRA_TEXT) && Intent.ACTION_SEND.equals(intent.getAction())) {
             mStreamsToUpload = null;
             saveTextsFromIntent(intent);
+        } else {
+            showErrorDialog(R.string.uploader_error_message_no_file_to_upload, R.string.uploader_error_title_file_cannot_be_uploaded);
         }
     }
 
