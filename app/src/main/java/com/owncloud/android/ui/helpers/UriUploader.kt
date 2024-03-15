@@ -20,6 +20,8 @@
 package com.owncloud.android.ui.helpers
 
 import android.content.ContentResolver
+import android.content.Context
+import android.content.pm.ProviderInfo
 import android.net.Uri
 import android.os.Parcelable
 import com.nextcloud.client.account.User
@@ -70,7 +72,7 @@ class UriUploader(
         try {
             val anySensitiveUri = mUrisToUpload
                 .filterNotNull()
-                .any { isSensitiveUri((it as Uri)) }
+                .any { belongsToCurrentApplication(mActivity, it as Uri) }
             if (anySensitiveUri) {
                 Log_OC.e(TAG, "Sensitive URI detected, aborting upload.")
                 code = UriUploaderResultCode.ERROR_SENSITIVE_PATH
@@ -111,7 +113,11 @@ class UriUploader(
         return mUploadPath + displayName
     }
 
-    private fun isSensitiveUri(uri: Uri): Boolean = uri.toString().contains(mActivity.packageName)
+    private fun belongsToCurrentApplication(ctx: Context, uri: Uri): Boolean {
+        val authority: String = uri.authority.toString()
+        val info: ProviderInfo = ctx.packageManager.resolveContentProvider(authority, 0) ?: return true
+        return ctx.packageName.equals(info.packageName)
+    }
 
     /**
      * Requests the upload of a file in the local file system to [FileUploadHelper] service.
