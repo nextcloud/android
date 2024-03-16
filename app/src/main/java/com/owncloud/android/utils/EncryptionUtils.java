@@ -1390,6 +1390,7 @@ public static String decryptStringSymmetricAsString(String string,
             // new metadata
             metadata = new DecryptedFolderMetadataFileV1();
             metadata.setMetadata(new DecryptedMetadata());
+            metadata.getMetadata().setVersion(Double.parseDouble(E2EVersion.V1_2.getValue()));
             metadata.getMetadata().setMetadataKeys(new HashMap<>());
             String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
             String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
