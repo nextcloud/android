@@ -38,9 +38,22 @@
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="assistant_screen_all_task_type">Всі</string>
+    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Вставте будь-який текст</string>
+    <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
+    <string name="assistant_screen_loading">Отримання переліку завдань, зачекайте</string>
+    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Відсутні завдання. Виберіть вид завдань для додавання нового завдання</string>
+    <string name="assistant_screen_no_task_available_text">Відсутні завдання виду %s. Ви можете додати нове завдання праворуч внизу. </string>
+    <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
+    <string name="assistant_screen_task_create_success_message">Успішно додано завдання</string>
     <string name="assistant_screen_task_delete_fail_message">Завдання успішно видалено</string>
+    <string name="assistant_screen_task_delete_success_message">Помилка під час вилучення завдання</string>
+    <string name="assistant_screen_task_list_error_state_message">Не вдалося отримати перелік завдань, перевірте ваше з\'єднання з мережею.</string>
+    <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Вилучити завдання</string>
+    <string name="assistant_screen_task_types_error_state_message">Не вдалося отримати види завдань, перевірте ваше з\'єднання з мережею.</string>
     <string name="assistant_screen_task_view_show_less">Показувати менше</string>
     <string name="assistant_screen_task_view_show_more">Показати більше</string>
+    <string name="assistant_screen_top_bar_title">Помічник</string>
     <string name="associated_account_not_found">Пов\'язаний обліковий запис не знайдено!</string>
     <string name="auth_access_failed">Доступ невдалий: %1$s</string>
     <string name="auth_account_does_not_exist">Обліковий запис все ще не створено на цьому пристрої</string>
@@ -238,6 +251,7 @@
     <string name="drawer_header_background">Зображення тла верхньої панелі</string>
     <string name="drawer_item_activities">Події</string>
     <string name="drawer_item_all_files">Усі файли</string>
+    <string name="drawer_item_assistant">Помічник</string>
     <string name="drawer_item_favorites">Із зірочкою</string>
     <string name="drawer_item_gallery">Зображення та відео</string>
     <string name="drawer_item_groupfolders">Групові каталоги</string>
@@ -256,6 +270,7 @@
     <string name="drawer_synced_folders">Автоматичне завантаження</string>
     <string name="e2e_not_yet_setup">Наскрізне шифруванння ще не налаштовано</string>
     <string name="e2e_offline">Дія не можлива без доступу до з\'єднання з мережею</string>
+    <string name="ecosystem_apps_display_assistant">Помічник</string>
     <string name="ecosystem_apps_display_more">Більше</string>
     <string name="ecosystem_apps_display_notes">Нотатки</string>
     <string name="ecosystem_apps_more">Більше застосунків Nextcloud</string>
@@ -857,7 +872,7 @@
     <string name="upload_action_cancelled_clear">Очистити скасовані завантаження</string>
     <string name="upload_action_cancelled_resume">Відновити раніше скасовані завантаження</string>
     <string name="upload_action_failed_clear">Очистити невдалі завантаження</string>
-    <string name="upload_action_failed_retry">Повторити невдалі вивантаження</string>
+    <string name="upload_action_failed_retry">Повторити невдалі завантаження</string>
     <string name="upload_action_file_not_exist_message">Деякі файли відсутні, їхнє завантаження неможливо відновити</string>
     <string name="upload_action_global_upload_pause">Призупинити всі завантаження</string>
     <string name="upload_action_global_upload_resume">Відновити всі завантаження</string>
