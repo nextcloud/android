@@ -101,6 +101,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
     private int lastGiven;
     private boolean isLoadingActivities;
+    private boolean isDataFetched = false;
 
     private boolean restoreFileVersionSupported;
     private FileOperationsHelper operationsHelper;
@@ -198,7 +199,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
 
         String trimmedComment = commentField.toString().trim();
 
-        if (trimmedComment.length() > 0) {
+        if (trimmedComment.length() > 0 && ownCloudClient != null && isDataFetched) {
             new SubmitCommentTask(trimmedComment, file.getLocalId(), callback, ownCloudClient).execute();
         }
     }
@@ -340,6 +341,8 @@ public class FileDetailActivitiesFragment extends Fragment implements
                             populateList(activitiesAndVersions, lastGiven == -1);
                         }
                     });
+
+                    isDataFetched = true;
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
                     // show error
@@ -354,10 +357,13 @@ public class FileDetailActivitiesFragment extends Fragment implements
                             isLoadingActivities = false;
                         }
                     });
+
+                    isDataFetched = false;
                 }
 
                 hideRefreshLayoutLoader(activity);
             } catch (ClientFactory.CreationException e) {
+                isDataFetched = false;
                 Log_OC.e(TAG, "Error fetching file details activities", e);
             }
         });
