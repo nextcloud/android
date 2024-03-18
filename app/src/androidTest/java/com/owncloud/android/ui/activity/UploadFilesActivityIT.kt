@@ -58,7 +58,7 @@ class UploadFilesActivityIT : AbstractIT() {
         waitForIdleSync()
         longSleep()
 
-        screenshot(sut.fileListFragment.binding.listFragmentLayout)
+        screenshot(sut)
     }
 
     @Test
