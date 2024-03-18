@@ -30,7 +30,6 @@ import androidx.annotation.VisibleForTesting
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.R
-import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.databinding.ActivitySplashBinding
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -76,9 +75,7 @@ class LauncherActivity : BaseActivity() {
 
     private fun scheduleSplashScreen() {
         Handler(Looper.getMainLooper()).postDelayed({
-            if (!user.isPresent) {
-                startActivity(Intent(this, AuthenticatorActivity::class.java))
-            } else {
+            if (user.isPresent) {
                 startActivity(Intent(this, FileDisplayActivity::class.java))
             }
             finish()
