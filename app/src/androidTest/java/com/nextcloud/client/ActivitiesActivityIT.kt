@@ -76,7 +76,7 @@ class ActivitiesActivityIT : AbstractIT() {
         shortSleep()
         waitForIdleSync()
 
-        screenshot(sut)
+        screenshot(sut.binding.emptyList.emptyListView)
     }
 
     @Test
