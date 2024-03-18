@@ -880,7 +880,7 @@ public abstract class FileActivity extends DrawerActivity
             String shareWith = dataString.substring(dataString.lastIndexOf('/') + 1);
 
             ArrayList<String> existingSharees = new ArrayList<>();
-            for (OCShare share : getStorageManager().getSharesWithForAFile(getFile().getRemotePath(),
+            for (OCShare share : getStorageManager().getSharesWithForAFile(getFileFromDetailFragment().getRemotePath(),
                                                                            getAccount().name)) {
                 existingSharees.add(share.getShareType() + "_" + share.getShareWith());
             }
@@ -890,8 +890,21 @@ public abstract class FileActivity extends DrawerActivity
 
             if (!existingSharees.contains(shareType + "_" + shareWith)) {
                 doShareWith(shareWith, shareType);
+            } else {
+                DisplayUtils.showSnackMessage(this, getString(R.string.sharee_already_added_to_file));
             }
         }
+    }
+
+    /**
+     * returns the file that is selected for sharing, getFile() only returns the containing folder
+     */
+    private OCFile getFileFromDetailFragment() {
+        FileDetailFragment fragment = getFileDetailFragment();
+        if (fragment != null) {
+            return fragment.getFile();
+        }
+        return getFile();
     }
 
     /**
