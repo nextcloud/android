@@ -36,6 +36,5 @@
         <item name="popupMenuStyle">@style/Nextcloud.Widget.PopupMenu</item>
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
         <item name="actionModeStyle">@style/App.ActionMode</item>
-        <item name="android:windowLightNavigationBar">true</item>
     </style>
 </resources>
