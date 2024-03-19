@@ -9,7 +9,7 @@ buildscript {
         daggerVersion = "2.51"
         documentScannerVersion = "1.1.1"
         espressoVersion = "3.5.1"
-        fidoVersion = "4.1.0-patch2"
+        fidoVersion = "4.4.0"
         jacoco_version = '0.8.11'
         kotlin_version = '1.9.22'
         markwonVersion = "4.6.2"
