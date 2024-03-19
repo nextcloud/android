@@ -96,7 +96,6 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
             shortSleep()
             screenshot(fileDisplayActivity)
         }
-
     }
 
     @Test

@@ -7,73 +7,87 @@
  */
 package com.owncloud.android.ui.dialog
 
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import android.content.Intent
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
 class SetupEncryptionDialogFragmentIT : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<TestActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
+
     @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<TestActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     @Test
     @ScreenshotTest
     fun showMnemonic() {
-        val activity = testActivityRule.launchActivity(null)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = SetupEncryptionDialogFragment.newInstance(user, 0)
 
-        val sut = SetupEncryptionDialogFragment.newInstance(user, 0)
+            sut.show(activity.supportFragmentManager, "1")
 
-        sut.show(activity.supportFragmentManager, "1")
+            val keyWords = arrayListOf(
+                "ability",
+                "able",
+                "about",
+                "above",
+                "absent",
+                "absorb",
+                "abstract",
+                "absurd",
+                "abuse",
+                "access",
+                "accident",
+                "account",
+                "accuse"
+            )
 
-        val keyWords = arrayListOf(
-            "ability",
-            "able",
-            "about",
-            "above",
-            "absent",
-            "absorb",
-            "abstract",
-            "absurd",
-            "abuse",
-            "access",
-            "accident",
-            "account",
-            "accuse"
-        )
+            shortSleep()
 
-        shortSleep()
+            runOnUiThread {
+                sut.setMnemonic(keyWords)
+                sut.showMnemonicInfo()
+            }
 
-        runOnUiThread {
-            sut.setMnemonic(keyWords)
-            sut.showMnemonicInfo()
-        }
-
-        onIdleSync {
-            screenshot(sut.requireDialog().window!!.decorView)
+            onIdleSync {
+                screenshot(sut.requireDialog().window!!.decorView)
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun error() {
-        val activity = testActivityRule.launchActivity(null)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = SetupEncryptionDialogFragment.newInstance(user, 0)
 
-        val sut = SetupEncryptionDialogFragment.newInstance(user, 0)
+            sut.show(activity.supportFragmentManager, "1")
 
-        sut.show(activity.supportFragmentManager, "1")
+            shortSleep()
 
-        shortSleep()
+            runOnUiThread {
+                sut.errorSavingKeys()
+            }
 
-        runOnUiThread {
-            sut.errorSavingKeys()
-        }
-
-        shortSleep()
-        onIdleSync {
-            screenshot(sut.requireDialog().window!!.decorView)
+            shortSleep()
+            onIdleSync {
+                screenshot(sut.requireDialog().window!!.decorView)
+            }
         }
     }
 }

@@ -7,34 +7,47 @@
  */
 package com.nextcloud.client.etm
 
-import android.app.Activity
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import android.content.Intent
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
 class EtmActivityTest : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<EtmActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), EtmActivity::class.java)
+
     @get:Rule
-    var activityRule = IntentsTestRule(EtmActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<EtmActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     @Test
     @ScreenshotTest
     fun overview() {
-        val sut: Activity = activityRule.launchActivity(null)
-        onIdleSync {
-            screenshot(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            onIdleSync {
+                screenshot(sut)
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun accounts() {
-        val sut: EtmActivity = activityRule.launchActivity(null)
-
-        UiThreadStatement.runOnUiThread { sut.vm.onPageSelected(1) }
-
-        screenshot(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            UiThreadStatement.runOnUiThread { sut.vm.onPageSelected(1) }
+            screenshot(sut)
+        }
     }
 }
