@@ -297,6 +297,10 @@ public abstract class AbstractIT {
         return temp;
     }
 
+    protected void onIdleSync(Runnable recipient) {
+        InstrumentationRegistry.getInstrumentation().waitForIdle(recipient);
+    }
+
     protected void waitForIdleSync() {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }

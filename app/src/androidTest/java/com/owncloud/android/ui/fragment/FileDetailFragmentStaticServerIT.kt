@@ -8,7 +8,11 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.content.Intent
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.nextcloud.test.TestActivity
 import com.nextcloud.ui.ImageDetailFragment
 import com.owncloud.android.AbstractIT
@@ -19,11 +23,18 @@ import com.owncloud.android.lib.resources.activities.model.RichElement
 import com.owncloud.android.lib.resources.activities.model.RichObject
 import com.owncloud.android.lib.resources.activities.models.PreviewObject
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import java.util.GregorianCalendar
 
 class FileDetailFragmentStaticServerIT : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<TestActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
+
+    @get:Rule
+    val activityRule = ActivityScenarioRule<TestActivity>(intent)
+
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
@@ -165,22 +176,22 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun showDetailsActivitiesError() {
-        val activity = testActivityRule.launchActivity(null)
-        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
-        activity.addFragment(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = FileDetailFragment.newInstance(oCFile, user, 0)
+            activity.addFragment(sut)
 
-        waitForIdleSync()
+            onIdleSync {
+                sut.fileDetailActivitiesFragment.run {
+                    disableLoadingActivities()
+                    setErrorContent(targetContext.resources.getString(R.string.file_detail_activity_error))
+                }
 
-        activity.runOnUiThread {
-            sut.fileDetailActivitiesFragment.disableLoadingActivities()
-            sut
-                .fileDetailActivitiesFragment
-                .setErrorContent(targetContext.resources.getString(R.string.file_detail_activity_error))
+                shortSleep()
+                shortSleep()
+                screenshot(sut.fileDetailActivitiesFragment.binding.emptyList.emptyListView)
+            }
         }
-
-        shortSleep()
-        shortSleep()
-        screenshot(sut.fileDetailActivitiesFragment.binding.emptyList.emptyListView)
     }
 
     @Test
@@ -194,5 +205,10 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         shortSleep()
         shortSleep()
         screenshot(sut)
+    }
+
+    @After
+    fun cleanup() {
+        scenario.close()
     }
 }
