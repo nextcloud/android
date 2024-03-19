@@ -31,7 +31,9 @@ class LauncherActivityIT : AbstractIT() {
         onIdleSync {
             onView(withId(R.id.ivSplash)).check(matches(isCompletelyDisplayed()))
             onView(withId(R.id.splashScreenBold)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-            onView(withId(R.id.splashScreenNormal)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+            onView(
+                withId(R.id.splashScreenNormal)
+            ).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
         }
     }
 

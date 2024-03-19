@@ -480,7 +480,6 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
         shortSleep()
         onIdleSync {
-
             // check if items are visible
             onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
             onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
@@ -496,7 +495,9 @@ class FileDetailSharingFragmentIT : AbstractIT() {
                 onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
                 onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
                 onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
-                onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
+                onView(
+                    ViewMatchers.withId(R.id.share_process_hide_download_checkbox)
+                ).check(matches(not(isDisplayed())))
                 onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
                 onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
                 onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
