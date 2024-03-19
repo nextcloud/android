@@ -47,8 +47,9 @@ class SettingsActivityIT : AbstractIT() {
         val sut = activityRule.launchActivity(null)
         sut.handleMnemonicRequest(null)
         shortSleep()
-        waitForIdleSync()
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 
     @Test

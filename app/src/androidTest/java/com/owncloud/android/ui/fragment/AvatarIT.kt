@@ -46,8 +46,9 @@ class AvatarIT : AbstractIT() {
         }
 
         shortSleep()
-        waitForIdleSync()
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 
     @Test
@@ -165,7 +166,8 @@ class AvatarIT : AbstractIT() {
         }
 
         shortSleep()
-        waitForIdleSync()
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 }

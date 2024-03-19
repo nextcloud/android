@@ -211,9 +211,9 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         activity.addFragment(fragment)
 
-        waitForIdleSync()
-
-        screenshot(activity)
+        onIdleSync {
+            screenshot(activity)
+        }
     }
 
     // public link and email are handled the same way
@@ -235,82 +235,83 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         activity.runOnUiThread { sut.showSharingMenuActionSheet(publicShare) }
         shortSleep()
-        waitForIdleSync()
 
-        // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
+        onIdleSync {
+            // check if items are visible
+            onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
 
-        // click event
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+            // click event
+            onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
 
-        // validate view shown on screen
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(not(isDisplayed())))
+            // validate view shown on screen
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(not(isDisplayed())))
 
-        // read-only
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
-        goBack()
+            // read-only
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
+            goBack()
 
-        // upload and editing
-        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
-        goBack()
+            // upload and editing
+            publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
+            goBack()
 
-        // file drop
-        publicShare.permissions = 4
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isChecked()))
-        goBack()
+            // file drop
+            publicShare.permissions = 4
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isChecked()))
+            goBack()
 
-        // password protection
-        publicShare.shareWith = "someValue"
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isChecked()))
-        goBack()
+            // password protection
+            publicShare.shareWith = "someValue"
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isChecked()))
+            goBack()
 
-        publicShare.shareWith = ""
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isNotChecked()))
-        goBack()
+            publicShare.shareWith = ""
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isNotChecked()))
+            goBack()
 
-        // hide download
-        publicShare.isHideFileDownload = true
-        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isChecked()))
-        goBack()
+            // hide download
+            publicShare.isHideFileDownload = true
+            publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isChecked()))
+            goBack()
 
-        publicShare.isHideFileDownload = false
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isNotChecked()))
-        goBack()
+            publicShare.isHideFileDownload = false
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isNotChecked()))
+            goBack()
 
-        publicShare.expirationDate = 1582019340000
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
-        goBack()
+            publicShare.expirationDate = 1582019340000
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
+            goBack()
 
-        publicShare.expirationDate = 0
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+            publicShare.expirationDate = 0
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+        }
     }
 
     // public link and email are handled the same way
@@ -363,75 +364,75 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             permissions = 17
         }
         activity.handler.post { sut.showSharingMenuActionSheet(publicShare) }
-        waitForIdleSync()
+        onIdleSync {
+            // check if items are visible
+            onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
 
-        // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
+            // click event
+            onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
 
-        // click event
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+            // validate view shown on screen
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
+            onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(not(isDisplayed())))
 
-        // validate view shown on screen
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(not(isDisplayed())))
+            // read-only
+            publicShare.permissions = 17 // from server
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+            goBack()
 
-        // read-only
-        publicShare.permissions = 17 // from server
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        goBack()
+            // editing
+            publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
+            goBack()
 
-        // editing
-        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
-        goBack()
+            // hide download
+            publicShare.isHideFileDownload = true
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isChecked()))
+            goBack()
 
-        // hide download
-        publicShare.isHideFileDownload = true
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isChecked()))
-        goBack()
+            publicShare.isHideFileDownload = false
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isNotChecked()))
+            goBack()
 
-        publicShare.isHideFileDownload = false
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isNotChecked()))
-        goBack()
+            // password protection
+            publicShare.isPasswordProtected = true
+            publicShare.shareWith = "someValue"
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isChecked()))
+            goBack()
 
-        // password protection
-        publicShare.isPasswordProtected = true
-        publicShare.shareWith = "someValue"
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isChecked()))
-        goBack()
+            publicShare.isPasswordProtected = false
+            publicShare.shareWith = ""
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isNotChecked()))
+            goBack()
 
-        publicShare.isPasswordProtected = false
-        publicShare.shareWith = ""
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isNotChecked()))
-        goBack()
+            // expires
+            publicShare.expirationDate = 1582019340
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
+            goBack()
 
-        // expires
-        publicShare.expirationDate = 1582019340
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
-        goBack()
-
-        publicShare.expirationDate = 0
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+            publicShare.expirationDate = 0
+            openAdvancedPermissions(sut, publicShare)
+            onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+        }
     }
 
     // public link and email are handled the same way
@@ -478,64 +479,65 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
         shortSleep()
-        waitForIdleSync()
+        onIdleSync {
 
-        // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
+            // check if items are visible
+            onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
+            onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
 
-        // click event
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
-        shortSleep()
-        waitForIdleSync()
+            // click event
+            onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+            shortSleep()
+            onIdleSync {
+                // validate view shown on screen
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
+                onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
+                onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
+                onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
+                onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
 
-        // validate view shown on screen
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
+                // read-only
+                userShare.permissions = 17 // from server
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+                goBack()
 
-        // read-only
-        userShare.permissions = 17 // from server
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        goBack()
+                // editing
+                userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
+                goBack()
 
-        // editing
-        userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
-        goBack()
+                // allow reshare
+                userShare.permissions = 1 // from server
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isNotChecked()))
+                goBack()
 
-        // allow reshare
-        userShare.permissions = 1 // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isNotChecked()))
-        goBack()
+                userShare.permissions = 17 // from server
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isChecked()))
+                goBack()
 
-        userShare.permissions = 17 // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isChecked()))
-        goBack()
+                // set expiration date
+                userShare.expirationDate = 1582019340000
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
+                goBack()
 
-        // set expiration date
-        userShare.expirationDate = 1582019340000
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
-        goBack()
-
-        userShare.expirationDate = 0
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+                userShare.expirationDate = 0
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+            }
+        }
     }
 
     private fun suppressFDFAccessibilityChecks() {
@@ -603,72 +605,72 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
         activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
         shortSleep()
-        waitForIdleSync()
+        onIdleSync {
+            // check if items are visible
+            onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
+            onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
 
-        // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
+            // click event
+            onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
 
-        // click event
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+            // validate view shown on screen
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
+            onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
+            onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
+            onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
+            onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
 
-        // validate view shown on screen
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
+            // read-only
+            userShare.permissions = 17 // from server
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
+            goBack()
 
-        // read-only
-        userShare.permissions = 17 // from server
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
-        goBack()
+            // allow upload & editing
+            userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER // from server
+            openAdvancedPermissions(sut, userShare)
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
+            goBack()
 
-        // allow upload & editing
-        userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
-        goBack()
+            // file drop
+            userShare.permissions = 4
+            openAdvancedPermissions(sut, userShare)
+            onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isChecked()))
+            goBack()
 
-        // file drop
-        userShare.permissions = 4
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isChecked()))
-        goBack()
+            // allow reshare
+            userShare.permissions = 1 // from server
+            openAdvancedPermissions(sut, userShare)
+            onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isNotChecked()))
+            goBack()
 
-        // allow reshare
-        userShare.permissions = 1 // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isNotChecked()))
-        goBack()
+            userShare.permissions = 17 // from server
+            openAdvancedPermissions(sut, userShare)
+            onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isChecked()))
+            goBack()
 
-        userShare.permissions = 17 // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isChecked()))
-        goBack()
+            // set expiration date
+            userShare.expirationDate = 1582019340000
+            openAdvancedPermissions(sut, userShare)
+            onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
+            goBack()
 
-        // set expiration date
-        userShare.expirationDate = 1582019340000
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
-        goBack()
-
-        userShare.expirationDate = 0
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+            userShare.expirationDate = 0
+            openAdvancedPermissions(sut, userShare)
+            onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
+            onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+        }
     }
 
     // open bottom sheet with actions
@@ -680,8 +682,9 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             sut.showSharingMenuActionSheet(userShare)
         }
         shortSleep()
-        waitForIdleSync()
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+        onIdleSync {
+            onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+        }
     }
 
     // remove the fragment shown
@@ -729,12 +732,13 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     ) {
         activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
 
-        waitForIdleSync()
-        // click event
-        onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).perform(ViewActions.click())
+        onIdleSync {
+            // click event
+            onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).perform(ViewActions.click())
 
-        // validate view shown on screen
-        onView(ViewMatchers.withId(R.id.note_text)).check(matches(isDisplayed()))
+            // validate view shown on screen
+            onView(ViewMatchers.withId(R.id.note_text)).check(matches(isDisplayed()))
+        }
     }
 
     @Test

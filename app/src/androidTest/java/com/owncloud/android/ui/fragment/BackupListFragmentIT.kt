@@ -35,8 +35,9 @@ class BackupListFragmentIT : AbstractIT() {
         transaction.replace(R.id.frame_container, BackupListFragment.newInstance(file, user))
         transaction.commit()
 
-        waitForIdleSync()
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 
     @Test
@@ -52,9 +53,10 @@ class BackupListFragmentIT : AbstractIT() {
         transaction.replace(R.id.frame_container, BackupListFragment.newInstance(ocFile, user))
         transaction.commit()
 
-        waitForIdleSync()
-        shortSleep()
-        screenshot(sut)
+        onIdleSync {
+            shortSleep()
+            screenshot(sut)
+        }
     }
 
     @Test
@@ -70,8 +72,9 @@ class BackupListFragmentIT : AbstractIT() {
         transaction.replace(R.id.frame_container, BackupListFragment.newInstance(ocFile, user))
         transaction.commit()
 
-        waitForIdleSync()
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 
     @Test
@@ -94,7 +97,8 @@ class BackupListFragmentIT : AbstractIT() {
         transaction.replace(R.id.frame_container, BackupListFragment.newInstance(files, user))
         transaction.commit()
 
-        waitForIdleSync()
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 }

@@ -36,8 +36,8 @@ class PreviewBitmapScreenshotIT : AbstractIT() {
         )
 
         shortSleep()
-        waitForIdleSync()
-
-        screenshot(activity)
+        onIdleSync {
+            screenshot(activity)
+        }
     }
 }

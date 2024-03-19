@@ -81,9 +81,9 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
         sut.runOnUiThread { fragment.listDirectory(root, false, false) }
 
-        waitForIdleSync()
-
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 
     /**
@@ -214,12 +214,13 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             fragment.adapter.setShowShareAvatar(true)
         }
 
-        waitForIdleSync()
-        shortSleep()
-        shortSleep()
-        shortSleep()
+        onIdleSync {
+            shortSleep()
+            shortSleep()
+            shortSleep()
 
-        screenshot(sut)
+            screenshot(sut)
+        }
     }
 
     /**
@@ -291,12 +292,13 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             fragment.adapter.setShowShareAvatar(true)
         }
 
-        waitForIdleSync()
-        shortSleep()
-        shortSleep()
-        shortSleep()
+        onIdleSync {
+            shortSleep()
+            shortSleep()
+            shortSleep()
 
-        screenshot(sut)
+            screenshot(sut)
+        }
     }
 
     @Test

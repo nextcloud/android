@@ -262,37 +262,43 @@ public class DialogFragmentIT extends AbstractIT {
                                                               "",
                                                               -1),
                                                    targetContext));
-        waitForIdleSync();
-        shortSleep();
-        screenshot(sut, "dnd");
+        onIdleSync(() -> {
+            shortSleep();
+            screenshot(sut, "dnd");
+        });
 
         activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
                                                               "",
                                                               "",
                                                               -1),
                                                    targetContext));
-        waitForIdleSync();
-        shortSleep();
-        screenshot(sut, "online");
+
+        onIdleSync(() -> {
+            shortSleep();
+            screenshot(sut, "online");
+        });
 
         activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
                                                               "Let's have some fun",
                                                               "🎉",
                                                               -1),
                                                    targetContext));
-        waitForIdleSync();
-        shortSleep();
-        screenshot(sut, "fun");
+        onIdleSync(() -> {
+            shortSleep();
+            screenshot(sut, "fun");
+        });
 
         activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.OFFLINE, "", "", -1), targetContext));
-        waitForIdleSync();
-        shortSleep();
-        screenshot(sut, "offline");
+        onIdleSync(() -> {
+            shortSleep();
+            screenshot(sut, "offline");
+        });
 
         activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.AWAY, "Vacation", "🌴", -1), targetContext));
-        waitForIdleSync();
-        shortSleep();
-        screenshot(sut, "away");
+        onIdleSync(() -> {
+            shortSleep();
+            screenshot(sut, "away");
+        });
     }
 
     @Test
@@ -541,10 +547,7 @@ public class DialogFragmentIT extends AbstractIT {
                                                                     fda.viewThemeUtils);
 
         fda.runOnUiThread(sut::show);
-
-        waitForIdleSync();
-
-        screenshot(sut.getWindow().getDecorView());
+        onIdleSync(() -> screenshot(sut.getWindow().getDecorView()));
     }
 
 

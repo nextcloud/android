@@ -44,9 +44,10 @@ class GroupfolderListFragmentIT : AbstractIT() {
             )
         }
 
-        waitForIdleSync()
-        shortSleep()
-        screenshot(activity)
+        onIdleSync {
+            shortSleep()
+            screenshot(activity)
+        }
     }
 
     @Test
@@ -67,8 +68,9 @@ class GroupfolderListFragmentIT : AbstractIT() {
             )
         }
 
-        waitForIdleSync()
-        shortSleep()
-        screenshot(activity)
+        onIdleSync {
+            shortSleep()
+            screenshot(activity)
+        }
     }
 }

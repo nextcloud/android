@@ -102,11 +102,12 @@ public class DrawerActivityIT extends AbstractIT {
 
         onView(anyOf(withText(account2Name), withText(account2DisplayName))).perform(click());
 
-        waitForIdleSync();
+        onIdleSync(() -> {
+            assertEquals(account2, sut.getUser().get().toPlatformAccount());
 
-        assertEquals(account2, sut.getUser().get().toPlatformAccount());
+            onView(withId(R.id.switch_account_button)).perform(click());
+            onView(withText(account1.name)).perform(click());
 
-        onView(withId(R.id.switch_account_button)).perform(click());
-        onView(withText(account1.name)).perform(click());
+        });
     }
 }

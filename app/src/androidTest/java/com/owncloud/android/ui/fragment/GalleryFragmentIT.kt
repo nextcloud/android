@@ -55,10 +55,9 @@ class GalleryFragmentIT : AbstractIT() {
     fun showEmpty() {
         val sut = GalleryFragment()
         activity.addFragment(sut)
-
-        waitForIdleSync()
-
-        screenshot(activity)
+        onIdleSync {
+            screenshot(activity)
+        }
     }
 
     @Test
@@ -70,10 +69,10 @@ class GalleryFragmentIT : AbstractIT() {
 
         val sut = GalleryFragment()
         activity.addFragment(sut)
-
-        waitForIdleSync()
-        shortSleep()
-        screenshot(activity)
+        onIdleSync {
+            shortSleep()
+            screenshot(activity)
+        }
     }
 
     private fun createImage(id: Int, width: Int? = null, height: Int? = null) {

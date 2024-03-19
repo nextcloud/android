@@ -55,10 +55,10 @@ class UploadFilesActivityIT : AbstractIT() {
             )
         }
 
-        waitForIdleSync()
-        longSleep()
-
-        screenshot(sut)
+        onIdleSync {
+            shortSleep()
+            screenshot(sut)
+        }
     }
 
     @Test
@@ -83,9 +83,9 @@ class UploadFilesActivityIT : AbstractIT() {
             )
         }
 
-        waitForIdleSync()
-
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 
     fun fileSelected() {

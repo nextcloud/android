@@ -311,10 +311,7 @@ public abstract class AbstractIT {
         shortSleep();
 
         onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-
-        waitForIdleSync();
-
-        screenshot(sut);
+        onIdleSync(() -> screenshot(sut));
     }
 
     protected Activity getCurrentActivity() {

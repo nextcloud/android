@@ -23,30 +23,29 @@ class PassCodeActivityIT : AbstractIT() {
     @ScreenshotTest
     fun check() {
         val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_CHECK))
-
-        waitForIdleSync()
-
-        sut.runOnUiThread { sut.binding.txt0.clearFocus() }
-        Espresso.closeSoftKeyboard()
-        shortSleep()
-        waitForIdleSync()
-
-        screenshot(sut)
+        onIdleSync {
+            sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+            Espresso.closeSoftKeyboard()
+            shortSleep()
+            onIdleSync {
+                screenshot(sut)
+            }
+        }
     }
 
     @Test
     @ScreenshotTest
     fun request() {
         val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_REQUEST_WITH_RESULT))
+        onIdleSync {
+            sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+            Espresso.closeSoftKeyboard()
+            shortSleep()
 
-        waitForIdleSync()
-
-        sut.runOnUiThread { sut.binding.txt0.clearFocus() }
-        Espresso.closeSoftKeyboard()
-        shortSleep()
-        waitForIdleSync()
-
-        screenshot(sut)
+            onIdleSync {
+                screenshot(sut)
+            }
+        }
     }
 
     @Test
@@ -54,13 +53,13 @@ class PassCodeActivityIT : AbstractIT() {
     fun delete() {
         val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_CHECK_WITH_RESULT))
 
-        waitForIdleSync()
-
-        sut.runOnUiThread { sut.binding.txt0.clearFocus() }
-        Espresso.closeSoftKeyboard()
-        shortSleep()
-        waitForIdleSync()
-
-        screenshot(sut)
+        onIdleSync {
+            sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+            Espresso.closeSoftKeyboard()
+            shortSleep()
+            onIdleSync {
+                screenshot(sut)
+            }
+        }
     }
 }

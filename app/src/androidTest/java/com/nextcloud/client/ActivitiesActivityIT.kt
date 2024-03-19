@@ -40,8 +40,9 @@ class ActivitiesActivityIT : AbstractIT() {
             sut.dismissSnackbar()
         }
         shortSleep()
-        waitForIdleSync()
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 
     @Test
@@ -57,26 +58,24 @@ class ActivitiesActivityIT : AbstractIT() {
         }
 
         shortSleep()
-        waitForIdleSync()
-
-        Screenshot.snap(sut.binding.loadingContent).record()
+        onIdleSync {
+            Screenshot.snap(sut.binding.loadingContent).record()
+        }
     }
 
     @Test
     @ScreenshotTest
     fun empty() {
         val sut: ActivitiesActivity = activityRule.launchActivity(null)
-
         sut.runOnUiThread {
             sut.showActivities(mutableListOf(), nextcloudClient, -1)
             sut.setProgressIndicatorState(false)
             sut.dismissSnackbar()
         }
-
         shortSleep()
-        waitForIdleSync()
-
-        screenshot(sut.binding.emptyList.emptyListView)
+        onIdleSync {
+            screenshot(sut.binding.emptyList.emptyListView)
+        }
     }
 
     @Test
@@ -166,9 +165,10 @@ class ActivitiesActivityIT : AbstractIT() {
         }
 
         longSleep()
-        waitForIdleSync()
 
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 
     @Test
@@ -186,8 +186,8 @@ class ActivitiesActivityIT : AbstractIT() {
 
         shortSleep()
         shortSleep()
-        waitForIdleSync()
-
-        screenshot(sut)
+        onIdleSync {
+            screenshot(sut)
+        }
     }
 }

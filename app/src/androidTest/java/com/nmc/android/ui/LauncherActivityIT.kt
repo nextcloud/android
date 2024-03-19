@@ -28,25 +28,25 @@ class LauncherActivityIT : AbstractIT() {
 
     @Test
     fun testSplashScreenWithEmptyTitlesShouldHideTitles() {
-        waitForIdleSync()
-
-        onView(withId(R.id.ivSplash)).check(matches(isCompletelyDisplayed()))
-
-        onView(withId(R.id.splashScreenBold)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
-        onView(withId(R.id.splashScreenNormal)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+        onIdleSync {
+            onView(withId(R.id.ivSplash)).check(matches(isCompletelyDisplayed()))
+            onView(withId(R.id.splashScreenBold)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+            onView(withId(R.id.splashScreenNormal)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+        }
     }
 
     @Test
     fun testSplashScreenWithTitlesShouldShowTitles() {
-        waitForIdleSync()
-        onView(withId(R.id.ivSplash)).check(matches(isCompletelyDisplayed()))
+        onIdleSync {
+            onView(withId(R.id.ivSplash)).check(matches(isCompletelyDisplayed()))
 
-        activityRule.scenario.onActivity {
-            it.setSplashTitles("Example", "Cloud")
+            activityRule.scenario.onActivity {
+                it.setSplashTitles("Example", "Cloud")
+            }
+
+            val onePercentArea = ViewMatchers.isDisplayingAtLeast(1)
+            onView(withId(R.id.splashScreenBold)).check(matches(onePercentArea))
+            onView(withId(R.id.splashScreenNormal)).check(matches(onePercentArea))
         }
-
-        val onePercentArea = ViewMatchers.isDisplayingAtLeast(1)
-        onView(withId(R.id.splashScreenBold)).check(matches(onePercentArea))
-        onView(withId(R.id.splashScreenNormal)).check(matches(onePercentArea))
     }
 }
