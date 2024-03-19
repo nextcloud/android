@@ -106,25 +106,6 @@
         <item name="android:textColor">@color/text_color</item>
     </style>
 
-    <!-- separate action bar style for activities without an action bar -->
-    <style name="BaseTheme.ownCloud.Toolbar" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
-        <item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
-        <item name="android:colorBackground">@color/bg_default</item>
-        <item name="android:windowBackground">@color/bg_default</item>
-        <item name="colorAccent">@color/color_accent</item>
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary</item>
-        <item name="searchViewStyle">@style/ownCloud.SearchView</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="windowNoTitle">true</item>
-        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
-        <item name="popupMenuStyle">@style/Nextcloud.Widget.PopupMenu</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
-        <item name="actionModeStyle">@style/App.ActionMode</item>
-    </style>
-
     <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:navigationBarColor">@color/bg_default</item>

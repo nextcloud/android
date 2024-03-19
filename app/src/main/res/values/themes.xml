@@ -22,6 +22,24 @@
 
 <resources>
 
+    <style name="BaseTheme.ownCloud.Toolbar" parent="Theme.Material3.Light">
+        <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+        <item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+        <item name="android:colorBackground">@color/bg_default</item>
+        <item name="android:windowBackground">@color/bg_default</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary</item>
+        <item name="searchViewStyle">@style/ownCloud.SearchView</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="popupMenuStyle">@style/Nextcloud.Widget.PopupMenu</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
+        <item name="actionModeStyle">@style/App.ActionMode</item>
+    </style>
+
     <style name="Theme.ownCloud.Toolbar.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
         <!-- Radius of the outer bound of widgets to make the rounded corners -->
         <item name="appWidgetRadius">16dp</item>
