@@ -244,19 +244,20 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             val sut = FileDetailSharingFragment.newInstance(file, user)
             activity.addFragment(sut)
             setupSecondaryFragment()
-            shortSleep()
-            sut.refreshCapabilitiesFromDB()
-
-            val publicShare = OCShare().apply {
-                isFolder = true
-                shareType = ShareType.PUBLIC_LINK
-                permissions = 17
-            }
-
-            activity.runOnUiThread { sut.showSharingMenuActionSheet(publicShare) }
-            shortSleep()
 
             onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val publicShare = OCShare().apply {
+                    isFolder = true
+                    shareType = ShareType.PUBLIC_LINK
+                    permissions = 17
+                }
+
+                activity.runOnUiThread { sut.showSharingMenuActionSheet(publicShare) }
+                shortSleep()
+
                 // check if items are visible
                 onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
                 onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
@@ -347,16 +348,19 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             val sut = FileDetailSharingFragment.newInstance(file, user)
             activity.addFragment(sut)
             setupSecondaryFragment()
-            shortSleep()
-            sut.refreshCapabilitiesFromDB()
 
-            val publicShare = OCShare().apply {
-                isFolder = true
-                shareType = ShareType.PUBLIC_LINK
-                permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val publicShare = OCShare().apply {
+                    isFolder = true
+                    shareType = ShareType.PUBLIC_LINK
+                    permissions = 17
+                }
+
+                verifySendNewEmail(sut, publicShare)
             }
-
-            verifySendNewEmail(sut, publicShare)
         }
     }
 
@@ -386,16 +390,18 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             val sut = FileDetailSharingFragment.newInstance(file, user)
             activity.addFragment(sut)
             setupSecondaryFragment()
-            shortSleep()
-            sut.refreshCapabilitiesFromDB()
 
-            val publicShare = OCShare().apply {
-                isFolder = false
-                shareType = ShareType.PUBLIC_LINK
-                permissions = 17
-            }
-            activity.handler.post { sut.showSharingMenuActionSheet(publicShare) }
             onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val publicShare = OCShare().apply {
+                    isFolder = false
+                    shareType = ShareType.PUBLIC_LINK
+                    permissions = 17
+                }
+                activity.handler.post { sut.showSharingMenuActionSheet(publicShare) }
+
                 // check if items are visible
                 onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
                 onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
@@ -479,16 +485,19 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             val sut = FileDetailSharingFragment.newInstance(file, user)
             activity.addFragment(sut)
             setupSecondaryFragment()
-            shortSleep()
-            sut.refreshCapabilitiesFromDB()
 
-            val publicShare = OCShare().apply {
-                isFolder = false
-                shareType = ShareType.PUBLIC_LINK
-                permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val publicShare = OCShare().apply {
+                    isFolder = false
+                    shareType = ShareType.PUBLIC_LINK
+                    permissions = 17
+                }
+
+                verifySendNewEmail(sut, publicShare)
             }
-
-            verifySendNewEmail(sut, publicShare)
         }
     }
 
@@ -507,18 +516,20 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             suppressFDFAccessibilityChecks()
             activity.addFragment(sut)
             setupSecondaryFragment()
-            shortSleep()
-            sut.refreshCapabilitiesFromDB()
 
-            val userShare = OCShare().apply {
-                isFolder = false
-                shareType = ShareType.USER
-                permissions = 17
-            }
-
-            activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
-            shortSleep()
             onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val userShare = OCShare().apply {
+                    isFolder = false
+                    shareType = ShareType.USER
+                    permissions = 17
+                }
+
+                activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
+                shortSleep()
+
                 // check if items are visible
                 onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
                 onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
@@ -628,16 +639,19 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             val sut = FileDetailSharingFragment.newInstance(file, user)
             activity.addFragment(sut)
             setupSecondaryFragment()
-            shortSleep()
-            sut.refreshCapabilitiesFromDB()
 
-            val userShare = OCShare().apply {
-                isFolder = false
-                shareType = ShareType.USER
-                permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val userShare = OCShare().apply {
+                    isFolder = false
+                    shareType = ShareType.USER
+                    permissions = 17
+                }
+
+                verifySendNewEmail(sut, userShare)
             }
-
-            verifySendNewEmail(sut, userShare)
         }
     }
 
@@ -656,18 +670,20 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             activity.addFragment(sut)
             setupSecondaryFragment()
             suppressFDFAccessibilityChecks()
-            shortSleep()
-            sut.refreshCapabilitiesFromDB()
 
-            val userShare = OCShare().apply {
-                isFolder = true
-                shareType = ShareType.USER
-                permissions = 17
-            }
-
-            activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
-            shortSleep()
             onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val userShare = OCShare().apply {
+                    isFolder = true
+                    shareType = ShareType.USER
+                    permissions = 17
+                }
+
+                activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
+                shortSleep()
+
                 // check if items are visible
                 onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
                 onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
@@ -784,16 +800,19 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             val sut = FileDetailSharingFragment.newInstance(file, user)
             activity.addFragment(sut)
             setupSecondaryFragment()
-            shortSleep()
-            sut.refreshCapabilitiesFromDB()
 
-            val userShare = OCShare().apply {
-                isFolder = true
-                shareType = ShareType.USER
-                permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val userShare = OCShare().apply {
+                    isFolder = true
+                    shareType = ShareType.USER
+                    permissions = 17
+                }
+
+                verifySendNewEmail(sut, userShare)
             }
-
-            verifySendNewEmail(sut, userShare)
         }
     }
 

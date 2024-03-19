@@ -45,28 +45,30 @@ class UnifiedSearchFragmentIT : AbstractIT() {
 
             shortSleep()
 
-            UiThreadStatement.runOnUiThread {
-                sut.onSearchResultChanged(
-                    listOf(
-                        UnifiedSearchSection(
-                            providerID = "files",
-                            name = "Files",
-                            entries = listOf(
-                                SearchResultEntry(
-                                    "thumbnailUrl",
-                                    "Test",
-                                    "in Files",
-                                    "http://localhost/nc/index.php/apps/files/?dir=/Files&scrollto=Test",
-                                    "icon",
-                                    false
-                                )
-                            ),
-                            hasMoreResults = false
+            onIdleSync {
+                UiThreadStatement.runOnUiThread {
+                    sut.onSearchResultChanged(
+                        listOf(
+                            UnifiedSearchSection(
+                                providerID = "files",
+                                name = "Files",
+                                entries = listOf(
+                                    SearchResultEntry(
+                                        "thumbnailUrl",
+                                        "Test",
+                                        "in Files",
+                                        "http://localhost/nc/index.php/apps/files/?dir=/Files&scrollto=Test",
+                                        "icon",
+                                        false
+                                    )
+                                ),
+                                hasMoreResults = false
+                            )
                         )
                     )
-                )
+                }
+                shortSleep()
             }
-            shortSleep()
         }
     }
 

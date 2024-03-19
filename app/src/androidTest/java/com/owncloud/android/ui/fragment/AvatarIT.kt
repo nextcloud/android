@@ -63,22 +63,23 @@ class AvatarIT : AbstractIT() {
                 screenshot(sut)
             }
         }
+    }
 
-        @Test
-        @ScreenshotTest
-        fun showAvatarsWithStatus() {
-            scenario = activityRule.scenario
-            scenario.onActivity { sut ->
-                val avatarRadius = targetContext.resources.getDimension(R.dimen.list_item_avatar_icon_radius)
-                val width = DisplayUtils.convertDpToPixel(2 * avatarRadius, targetContext)
-                val fragment = AvatarTestFragment()
+    @Test
+    @ScreenshotTest
+    fun showAvatarsWithStatus() {
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val avatarRadius = targetContext.resources.getDimension(R.dimen.list_item_avatar_icon_radius)
+            val width = DisplayUtils.convertDpToPixel(2 * avatarRadius, targetContext)
+            val fragment = AvatarTestFragment()
 
-                val paulette = BitmapFactory.decodeFile(getFile("paulette.jpg").absolutePath)
-                val christine = BitmapFactory.decodeFile(getFile("christine.jpg").absolutePath)
-                val textBitmap = BitmapUtils.drawableToBitmap(TextDrawable.createNamedAvatar("Admin", avatarRadius))
+            val paulette = BitmapFactory.decodeFile(getFile("paulette.jpg").absolutePath)
+            val christine = BitmapFactory.decodeFile(getFile("christine.jpg").absolutePath)
+            val textBitmap = BitmapUtils.drawableToBitmap(TextDrawable.createNamedAvatar("Admin", avatarRadius))
 
-                sut.addFragment(fragment)
-
+            sut.addFragment(fragment)
+            onIdleSync {
                 runOnUiThread {
                     fragment.addBitmap(
                         BitmapUtils.createAvatarWithStatus(paulette, StatusType.ONLINE, "😘", targetContext),
@@ -180,9 +181,8 @@ class AvatarIT : AbstractIT() {
                 }
 
                 shortSleep()
-                onIdleSync {
-                    screenshot(sut)
-                }
+
+                screenshot(sut)
             }
         }
     }

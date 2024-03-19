@@ -363,24 +363,26 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             activity.addFragment(sut)
             val testFolder: OCFile = activity.storageManager.getFileByEncryptedRemotePath("/test/")
 
-            activity.runOnUiThread {
-                // richWorkspace is not set
-                Assert.assertFalse(sut.adapter.shouldShowHeader())
+            onIdleSync {
+                activity.runOnUiThread {
+                    // richWorkspace is not set
+                    Assert.assertFalse(sut.adapter.shouldShowHeader())
 
-                testFolder.richWorkspace = " "
-                activity.storageManager.saveFile(testFolder)
-                sut.adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
-                Assert.assertFalse(sut.adapter.shouldShowHeader())
+                    testFolder.richWorkspace = " "
+                    activity.storageManager.saveFile(testFolder)
+                    sut.adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
+                    Assert.assertFalse(sut.adapter.shouldShowHeader())
 
-                testFolder.richWorkspace = null
-                activity.storageManager.saveFile(testFolder)
-                sut.adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
-                Assert.assertFalse(sut.adapter.shouldShowHeader())
+                    testFolder.richWorkspace = null
+                    activity.storageManager.saveFile(testFolder)
+                    sut.adapter.swapDirectory(user, testFolder, activity.storageManager, false, "")
+                    Assert.assertFalse(sut.adapter.shouldShowHeader())
 
-                testFolder.richWorkspace = "1"
-                activity.storageManager.saveFile(testFolder)
-                sut.adapter.setCurrentDirectory(testFolder)
-                Assert.assertTrue(sut.adapter.shouldShowHeader())
+                    testFolder.richWorkspace = "1"
+                    activity.storageManager.saveFile(testFolder)
+                    sut.adapter.setCurrentDirectory(testFolder)
+                    Assert.assertTrue(sut.adapter.shouldShowHeader())
+                }
             }
         }
     }

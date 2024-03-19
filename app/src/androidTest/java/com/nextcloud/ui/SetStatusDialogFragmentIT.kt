@@ -48,11 +48,13 @@ class SetStatusDialogFragmentIT : AbstractIT() {
                 PredefinedStatus("vacationing", "🌴", "Vacationing", null)
             )
 
-            shortSleep()
+            onIdleSync {
+                shortSleep()
 
-            activity.runOnUiThread { sut.setPredefinedStatus(predefinedStatus) }
+                activity.runOnUiThread { sut.setPredefinedStatus(predefinedStatus) }
 
-            longSleep()
+                longSleep()
+            }
         }
     }
 }
