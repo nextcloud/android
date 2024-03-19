@@ -7,26 +7,39 @@
  */
 package com.owncloud.android.providers
 
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import android.content.Intent
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractOnServerIT
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
 class UsersAndGroupsSearchProviderIT : AbstractOnServerIT() {
+    private lateinit var scenario: ActivityScenario<TestActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
+
     @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<TestActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     @Test
     fun searchUser() {
-        val activity = testActivityRule.launchActivity(null)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            shortSleep()
 
-        shortSleep()
+            activity.runOnUiThread {
+                // fragment.search("Admin")
+            }
 
-        activity.runOnUiThread {
-            // fragment.search("Admin")
+            longSleep()
         }
-
-        longSleep()
     }
 }

@@ -10,11 +10,14 @@ package com.owncloud.android.ui.trashbin
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
 import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
@@ -23,38 +26,25 @@ class TrashbinActivityIT : AbstractIT() {
         ERROR, EMPTY, FILES
     }
 
+    private lateinit var scenario: ActivityScenario<TrashbinActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), TrashbinActivity::class.java)
+
     @get:Rule
-    var activityRule = IntentsTestRule(TrashbinActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<TrashbinActivity>(intent)
 
-    @Test
-    @ScreenshotTest
-    fun error() {
-        val sut: TrashbinActivity = activityRule.launchActivity(null)
-
-        val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
-
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-
-        sut.runOnUiThread { sut.loadFolder() }
-
-        shortSleep()
-
-        screenshot(sut)
+    @After
+    fun cleanup() {
+        scenario.close()
     }
 
     @Test
     @ScreenshotTest
-    fun files() {
-        val sut: TrashbinActivity = activityRule.launchActivity(null)
-
-        val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
-
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-
-        sut.runOnUiThread { sut.loadFolder() }
-
-        onIdleSync {
-            shortSleep()
+    fun error() {
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+            sut.runOnUiThread { sut.loadFolder() }
             shortSleep()
             screenshot(sut)
         }
@@ -62,52 +52,66 @@ class TrashbinActivityIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
+    fun files() {
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
+
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+
+            sut.runOnUiThread { sut.loadFolder() }
+
+            onIdleSync {
+                shortSleep()
+                shortSleep()
+                screenshot(sut)
+            }
+        }
+    }
+
+    @Test
+    @ScreenshotTest
     fun empty() {
-        val sut: TrashbinActivity = activityRule.launchActivity(null)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
 
-        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
 
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+            sut.runOnUiThread { sut.loadFolder() }
 
-        sut.runOnUiThread { sut.loadFolder() }
-
-        shortSleep()
-        shortSleep()
-        onIdleSync {
-            screenshot(sut.binding.emptyList.emptyListView)
+            shortSleep()
+            shortSleep()
+            onIdleSync {
+                screenshot(sut.binding.emptyList.emptyListView)
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun loading() {
-        val sut: TrashbinActivity = activityRule.launchActivity(null)
-
-        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-
-        sut.runOnUiThread { sut.showInitialLoading() }
-
-        shortSleep()
-
-        screenshot(sut.binding.listFragmentLayout)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+            sut.runOnUiThread { sut.showInitialLoading() }
+            shortSleep()
+            screenshot(sut.binding.listFragmentLayout)
+        }
     }
 
     @Test
     @ScreenshotTest
     fun normalUser() {
-        val sut: TrashbinActivity = activityRule.launchActivity(null)
-
-        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-
-        sut.runOnUiThread { sut.showUser() }
-
-        shortSleep()
-
-        screenshot(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+            sut.runOnUiThread { sut.showUser() }
+            shortSleep()
+            screenshot(sut)
+        }
     }
 
     @Test
@@ -122,16 +126,13 @@ class TrashbinActivityIT : AbstractIT() {
 
         val intent = Intent()
         intent.putExtra(Intent.EXTRA_USER, "differentUser@https://nextcloud.localhost")
-        val sut: TrashbinActivity = activityRule.launchActivity(intent)
-
-        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-
-        sut.runOnUiThread { sut.showUser() }
-
-        shortSleep()
-
-        screenshot(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+            sut.runOnUiThread { sut.showUser() }
+            shortSleep()
+            screenshot(sut)
+        }
     }
 }

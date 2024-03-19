@@ -7,46 +7,53 @@
  */
 package com.owncloud.android.ui.fragment
 
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import android.content.Intent
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.nextcloud.android.lib.resources.groupfolders.Groupfolder
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.Before
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
 class GroupfolderListFragmentIT : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<TestActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
+
     @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<TestActivity>(intent)
 
-    lateinit var activity: TestActivity
-
-    @Before
-    fun before() {
-        activity = testActivityRule.launchActivity(null)
+    @After
+    fun cleanup() {
+        scenario.close()
     }
 
     @Test
     @ScreenshotTest
     fun showGroupfolder() {
         val sut = GroupfolderListFragment()
-        activity.addFragment(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            activity.addFragment(sut)
 
-        shortSleep() // to let async task finish
+            shortSleep() // to let async task finish
 
-        activity.runOnUiThread {
-            sut.setAdapter(null)
-            sut.setData(
-                mapOf(
-                    Pair("2", Groupfolder(2, "/subfolder/group"))
+            activity.runOnUiThread {
+                sut.setAdapter(null)
+                sut.setData(
+                    mapOf(
+                        Pair("2", Groupfolder(2, "/subfolder/group"))
+                    )
                 )
-            )
-        }
+            }
 
-        onIdleSync {
-            shortSleep()
-            screenshot(activity)
+            onIdleSync {
+                shortSleep()
+                screenshot(activity)
+            }
         }
     }
 
@@ -54,23 +61,26 @@ class GroupfolderListFragmentIT : AbstractIT() {
     @ScreenshotTest
     fun showGroupfolders() {
         val sut = GroupfolderListFragment()
-        activity.addFragment(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            activity.addFragment(sut)
 
-        shortSleep() // to let async task finish
+            shortSleep() // to let async task finish
 
-        activity.runOnUiThread {
-            sut.setAdapter(null)
-            sut.setData(
-                mapOf(
-                    Pair("1", Groupfolder(1, "/test/")),
-                    Pair("2", Groupfolder(2, "/subfolder/group"))
+            activity.runOnUiThread {
+                sut.setAdapter(null)
+                sut.setData(
+                    mapOf(
+                        Pair("1", Groupfolder(1, "/test/")),
+                        Pair("2", Groupfolder(2, "/subfolder/group"))
+                    )
                 )
-            )
-        }
+            }
 
-        onIdleSync {
-            shortSleep()
-            screenshot(activity)
+            onIdleSync {
+                shortSleep()
+                screenshot(activity)
+            }
         }
     }
 }

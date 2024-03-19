@@ -7,21 +7,33 @@
  */
 package com.nextcloud.ui
 
+import android.content.Intent
 import android.graphics.BitmapFactory
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
 class BitmapIT : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<TestActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
+
     @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<TestActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     @Test
     @ScreenshotTest
@@ -29,25 +41,27 @@ class BitmapIT : AbstractIT() {
         val file = getFile("christine.jpg")
         val bitmap = BitmapFactory.decodeFile(file.absolutePath)
 
-        val activity = testActivityRule.launchActivity(null)
-        val imageView = ImageView(activity).apply {
-            setImageBitmap(bitmap)
-        }
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val imageView = ImageView(activity).apply {
+                setImageBitmap(bitmap)
+            }
 
-        val bitmap2 = BitmapFactory.decodeFile(file.absolutePath)
-        val imageView2 = ImageView(activity).apply {
-            setImageBitmap(BitmapUtils.roundBitmap(bitmap2))
-        }
+            val bitmap2 = BitmapFactory.decodeFile(file.absolutePath)
+            val imageView2 = ImageView(activity).apply {
+                setImageBitmap(BitmapUtils.roundBitmap(bitmap2))
+            }
 
-        val linearLayout = LinearLayout(activity).apply {
-            orientation = LinearLayout.VERTICAL
-            setBackgroundColor(context.getColor(R.color.grey_200))
-        }
-        linearLayout.addView(imageView, 200, 200)
-        linearLayout.addView(imageView2, 200, 200)
-        activity.addView(linearLayout)
+            val linearLayout = LinearLayout(activity).apply {
+                orientation = LinearLayout.VERTICAL
+                setBackgroundColor(context.getColor(R.color.grey_200))
+            }
+            linearLayout.addView(imageView, 200, 200)
+            linearLayout.addView(imageView2, 200, 200)
+            activity.addView(linearLayout)
 
-        screenshot(activity)
+            screenshot(activity)
+        }
     }
 
     // @Test

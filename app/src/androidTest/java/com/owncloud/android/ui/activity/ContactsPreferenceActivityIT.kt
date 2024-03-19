@@ -8,17 +8,28 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 
 class ContactsPreferenceActivityIT : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<ContactsPreferenceActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), ContactsPreferenceActivity::class.java)
+
     @get:Rule
-    var activityRule = IntentsTestRule(ContactsPreferenceActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<ContactsPreferenceActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     @Test
     @ScreenshotTest
@@ -32,20 +43,21 @@ class ContactsPreferenceActivityIT : AbstractIT() {
         val intent = Intent()
         intent.putExtra(ContactsPreferenceActivity.EXTRA_FILE, vcfFile)
         intent.putExtra(ContactsPreferenceActivity.EXTRA_USER, user)
-        val sut = activityRule.launchActivity(intent)
 
-        shortSleep()
-
-        screenshot(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            shortSleep()
+            screenshot(sut)
+        }
     }
 
     @Test
     @ScreenshotTest
     fun openContactsPreference() {
-        val sut = activityRule.launchActivity(null)
-
-        shortSleep()
-
-        screenshot(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            shortSleep()
+            screenshot(sut)
+        }
     }
 }

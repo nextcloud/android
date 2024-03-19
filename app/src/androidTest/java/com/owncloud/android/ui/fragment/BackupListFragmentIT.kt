@@ -7,7 +7,10 @@
 package com.owncloud.android.ui.fragment
 
 import android.Manifest
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import android.content.Intent
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.rule.GrantPermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -15,12 +18,21 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ContactsPreferenceActivity
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
 class BackupListFragmentIT : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<ContactsPreferenceActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), ContactsPreferenceActivity::class.java)
+
     @get:Rule
-    val testActivityRule = IntentsTestRule(ContactsPreferenceActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<ContactsPreferenceActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     @get:Rule
     val permissionRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.READ_CALENDAR)
@@ -28,77 +40,85 @@ class BackupListFragmentIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun showLoading() {
-        val sut = testActivityRule.launchActivity(null)
-        val file = OCFile("/")
-        val transaction = sut.supportFragmentManager.beginTransaction()
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val file = OCFile("/")
+            val transaction = sut.supportFragmentManager.beginTransaction()
 
-        transaction.replace(R.id.frame_container, BackupListFragment.newInstance(file, user))
-        transaction.commit()
+            transaction.replace(R.id.frame_container, BackupListFragment.newInstance(file, user))
+            transaction.commit()
 
-        onIdleSync {
-            screenshot(sut)
+            onIdleSync {
+                screenshot(sut)
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun showContactList() {
-        val sut = testActivityRule.launchActivity(null)
-        val transaction = sut.supportFragmentManager.beginTransaction()
-        val file = getFile("vcard.vcf")
-        val ocFile = OCFile("/vcard.vcf")
-        ocFile.storagePath = file.absolutePath
-        ocFile.mimeType = "text/vcard"
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val transaction = sut.supportFragmentManager.beginTransaction()
+            val file = getFile("vcard.vcf")
+            val ocFile = OCFile("/vcard.vcf")
+            ocFile.storagePath = file.absolutePath
+            ocFile.mimeType = "text/vcard"
 
-        transaction.replace(R.id.frame_container, BackupListFragment.newInstance(ocFile, user))
-        transaction.commit()
+            transaction.replace(R.id.frame_container, BackupListFragment.newInstance(ocFile, user))
+            transaction.commit()
 
-        onIdleSync {
-            shortSleep()
-            screenshot(sut)
+            onIdleSync {
+                shortSleep()
+                screenshot(sut)
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun showCalendarList() {
-        val sut = testActivityRule.launchActivity(null)
-        val transaction = sut.supportFragmentManager.beginTransaction()
-        val file = getFile("calendar.ics")
-        val ocFile = OCFile("/Private calender_2020-09-01_10-45-20.ics.ics")
-        ocFile.storagePath = file.absolutePath
-        ocFile.mimeType = "text/calendar"
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val transaction = sut.supportFragmentManager.beginTransaction()
+            val file = getFile("calendar.ics")
+            val ocFile = OCFile("/Private calender_2020-09-01_10-45-20.ics.ics")
+            ocFile.storagePath = file.absolutePath
+            ocFile.mimeType = "text/calendar"
 
-        transaction.replace(R.id.frame_container, BackupListFragment.newInstance(ocFile, user))
-        transaction.commit()
+            transaction.replace(R.id.frame_container, BackupListFragment.newInstance(ocFile, user))
+            transaction.commit()
 
-        onIdleSync {
-            screenshot(sut)
+            onIdleSync {
+                screenshot(sut)
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun showCalendarAndContactsList() {
-        val sut = testActivityRule.launchActivity(null)
-        val transaction = sut.supportFragmentManager.beginTransaction()
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            val transaction = sut.supportFragmentManager.beginTransaction()
 
-        val calendarFile = getFile("calendar.ics")
-        val calendarOcFile = OCFile("/Private calender_2020-09-01_10-45-20.ics")
-        calendarOcFile.storagePath = calendarFile.absolutePath
-        calendarOcFile.mimeType = "text/calendar"
+            val calendarFile = getFile("calendar.ics")
+            val calendarOcFile = OCFile("/Private calender_2020-09-01_10-45-20.ics")
+            calendarOcFile.storagePath = calendarFile.absolutePath
+            calendarOcFile.mimeType = "text/calendar"
 
-        val contactFile = getFile("vcard.vcf")
-        val contactOcFile = OCFile("/vcard.vcf")
-        contactOcFile.storagePath = contactFile.absolutePath
-        contactOcFile.mimeType = "text/vcard"
+            val contactFile = getFile("vcard.vcf")
+            val contactOcFile = OCFile("/vcard.vcf")
+            contactOcFile.storagePath = contactFile.absolutePath
+            contactOcFile.mimeType = "text/vcard"
 
-        val files = arrayOf(calendarOcFile, contactOcFile)
-        transaction.replace(R.id.frame_container, BackupListFragment.newInstance(files, user))
-        transaction.commit()
+            val files = arrayOf(calendarOcFile, contactOcFile)
+            transaction.replace(R.id.frame_container, BackupListFragment.newInstance(files, user))
+            transaction.commit()
 
-        onIdleSync {
-            screenshot(sut)
+            onIdleSync {
+                screenshot(sut)
+            }
         }
     }
 }

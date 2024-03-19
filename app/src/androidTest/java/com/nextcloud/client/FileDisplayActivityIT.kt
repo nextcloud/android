@@ -7,7 +7,9 @@
  */
 package com.nextcloud.client
 
-import android.app.Activity
+import android.content.Intent
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
@@ -16,13 +18,12 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractOnServerIT
 import com.owncloud.android.R
@@ -35,17 +36,22 @@ import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.OCFileListItemViewHolder
+import org.junit.After
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 
 class FileDisplayActivityIT : AbstractOnServerIT() {
+    private lateinit var scenario: ActivityScenario<FileDisplayActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), FileDisplayActivity::class.java)
+
     @get:Rule
-    val activityRule = IntentsTestRule(
-        FileDisplayActivity::class.java,
-        true,
-        false
-    )
+    val activityRule = ActivityScenarioRule<FileDisplayActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     @get:Rule
     val retryRule = RetryTestRule() // showShares is flaky
@@ -112,47 +118,51 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
 //                                                  OCShare.DEFAULT_PERMISSION)
 //                       .execute(client).isSuccess());
 
-        val sut: Activity = activityRule.launchActivity(null)
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            onIdleSync {
+                // open drawer
+                onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
 
-        // open drawer
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
-
-        // click "shared"
-        onView(withId(R.id.nav_view))
-            .perform(NavigationViewActions.navigateTo(R.id.nav_shared))
-        shortSleep()
-        shortSleep()
-        // screenshot(sut) // todo run without real server
+                // click "shared"
+                onView(withId(R.id.nav_view))
+                    .perform(NavigationViewActions.navigateTo(R.id.nav_shared))
+                shortSleep()
+                shortSleep()
+                // screenshot(sut) // todo run without real server
+            }
+        }
     }
 
     @Test
     fun allFiles() {
-        val sut = activityRule.launchActivity(null)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
 
-        // given test folder
-        Assert.assertTrue(
-            CreateFolderOperation("/test/", user, targetContext, storageManager)
-                .execute(client)
-                .isSuccess
-        )
+            // given test folder
+            Assert.assertTrue(
+                CreateFolderOperation("/test/", user, targetContext, storageManager)
+                    .execute(client)
+                    .isSuccess
+            )
 
-        // navigate into it
-        val test = storageManager.getFileByPath("/test/")
-        sut.file = test
-        sut.startSyncFolderOperation(test, false)
-        Assert.assertEquals(storageManager.getFileByPath("/test/"), sut.currentDir)
+            // navigate into it
+            val test = storageManager.getFileByPath("/test/")
+            sut.file = test
+            sut.startSyncFolderOperation(test, false)
+            Assert.assertEquals(storageManager.getFileByPath("/test/"), sut.currentDir)
 
-        // open drawer
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
+            // open drawer
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
 
-        // click "all files"
-        onView(withId(R.id.nav_view))
-            .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
+            // click "all files"
+            onView(withId(R.id.nav_view))
+                .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
 
-        // then should be in root again
-        shortSleep()
-        Assert.assertEquals(storageManager.getFileByPath("/"), sut.currentDir)
+            // then should be in root again
+            shortSleep()
+            Assert.assertEquals(storageManager.getFileByPath("/"), sut.currentDir)
+        }
     }
 
     @Test
@@ -167,30 +177,31 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         CreateFolderOperation("/$topFolder/$childFolder/", user, targetContext, storageManager)
             .execute(client)
 
-        activityRule.launchActivity(null)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            shortSleep()
 
-        shortSleep()
+            // go into "foo"
+            onView(withText(topFolder)).perform(click())
+            shortSleep()
 
-        // go into "foo"
-        onView(withText(topFolder)).perform(click())
-        shortSleep()
+            // check title is right
+            checkToolbarTitle(topFolder)
 
-        // check title is right
-        checkToolbarTitle(topFolder)
+            // go into "bar"
+            onView(withText(childFolder)).perform(click())
+            shortSleep()
 
-        // go into "bar"
-        onView(withText(childFolder)).perform(click())
-        shortSleep()
+            // check title is right
+            checkToolbarTitle(childFolder)
 
-        // check title is right
-        checkToolbarTitle(childFolder)
+            // browse back up, we should be back in "foo"
+            Espresso.pressBack()
+            shortSleep()
 
-        // browse back up, we should be back in "foo"
-        Espresso.pressBack()
-        shortSleep()
-
-        // check title is right
-        checkToolbarTitle(topFolder)
+            // check title is right
+            checkToolbarTitle(topFolder)
+        }
     }
 
     private fun checkToolbarTitle(childFolder: String) {
@@ -213,51 +224,57 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         ToggleFavoriteRemoteOperation(true, "/$topFolder/")
             .execute(client)
 
-        val sut = activityRule.launchActivity(null)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
 
-        // navigate to favorites
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
-        onView(withId(R.id.nav_view))
-            .perform(NavigationViewActions.navigateTo(R.id.nav_favorites))
-        shortSleep()
+            // navigate to favorites
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
+            onView(withId(R.id.nav_view))
+                .perform(NavigationViewActions.navigateTo(R.id.nav_favorites))
+            shortSleep()
 
-        // check sort button is not shown, favorites are not sortable
-        onView(withId(R.id.sort_button)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+            // check sort button is not shown, favorites are not sortable
+            onView(withId(R.id.sort_button)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
-        // browse into folder
-        onView(withId(R.id.list_root))
-            .perform(closeSoftKeyboard())
-            .perform(
-                RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
-                    0,
-                    click()
+            // browse into folder
+            onView(withId(R.id.list_root))
+                .perform(closeSoftKeyboard())
+                .perform(
+                    RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
+                        0,
+                        click()
+                    )
                 )
-            )
-        shortSleep()
-        checkToolbarTitle(topFolder)
-        // sort button should now be visible
-        onView(withId(R.id.sort_button)).check(matches(ViewMatchers.isDisplayed()))
+            shortSleep()
+            checkToolbarTitle(topFolder)
+            // sort button should now be visible
+            onView(withId(R.id.sort_button)).check(matches(ViewMatchers.isDisplayed()))
 
-        // browse back, should be back to All Files
-        Espresso.pressBack()
-        checkToolbarTitle(sut.getString(R.string.app_name))
-        onView(withId(R.id.sort_button)).check(matches(ViewMatchers.isDisplayed()))
+            // browse back, should be back to All Files
+            Espresso.pressBack()
+            checkToolbarTitle(sut.getString(R.string.app_name))
+            onView(withId(R.id.sort_button)).check(matches(ViewMatchers.isDisplayed()))
+        }
     }
 
     @Test
     fun switchToGridView() {
-        activityRule.launchActivity(null)
-        Assert.assertTrue(
-            CreateFolderOperation("/test/", user, targetContext, storageManager)
-                .execute(client)
-                .isSuccess
-        )
-        onView(withId(R.id.switch_grid_view_button)).perform(click())
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            Assert.assertTrue(
+                CreateFolderOperation("/test/", user, targetContext, storageManager)
+                    .execute(client)
+                    .isSuccess
+            )
+            onView(withId(R.id.switch_grid_view_button)).perform(click())
+        }
     }
 
     @Test
     fun openAccountSwitcher() {
-        activityRule.launchActivity(null)
-        onView(withId(R.id.switch_account_button)).perform(click())
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            onView(withId(R.id.switch_account_button)).perform(click())
+        }
     }
 }

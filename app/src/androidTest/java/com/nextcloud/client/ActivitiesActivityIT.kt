@@ -7,11 +7,14 @@
  */
 package com.nextcloud.client
 
+import android.content.Intent
 import android.view.View
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.contrib.DrawerActions
-import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.facebook.testing.screenshot.Screenshot
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
@@ -22,59 +25,73 @@ import com.owncloud.android.lib.resources.activities.models.PreviewObject
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activities.ActivitiesActivity
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 import java.util.GregorianCalendar
 
 class ActivitiesActivityIT : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<ActivitiesActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), ActivitiesActivity::class.java)
+
     @get:Rule
-    var activityRule = IntentsTestRule(ActivitiesActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<ActivitiesActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     @Test
     @ScreenshotTest
     fun openDrawer() {
-        val sut = activityRule.launchActivity(null)
-        shortSleep()
-        Espresso.onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
-        sut.runOnUiThread {
-            sut.dismissSnackbar()
-        }
-        shortSleep()
-        onIdleSync {
-            screenshot(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            shortSleep()
+            Espresso.onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
+            sut.runOnUiThread {
+                sut.dismissSnackbar()
+            }
+            shortSleep()
+            onIdleSync {
+                screenshot(sut)
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun loading() {
-        val sut: ActivitiesActivity = activityRule.launchActivity(null).apply {
-            runOnUiThread {
-                dismissSnackbar()
-                binding.emptyList.root.visibility = View.GONE
-                binding.swipeContainingList.visibility = View.GONE
-                binding.loadingContent.visibility = View.VISIBLE
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            sut.runOnUiThread {
+                sut.dismissSnackbar()
+                sut.binding.emptyList.root.visibility = View.GONE
+                sut.binding.swipeContainingList.visibility = View.GONE
+                sut.binding.loadingContent.visibility = View.VISIBLE
             }
-        }
 
-        shortSleep()
-        onIdleSync {
-            Screenshot.snap(sut.binding.loadingContent).record()
+            shortSleep()
+            onIdleSync {
+                Screenshot.snap(sut.binding.loadingContent).record()
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun empty() {
-        val sut: ActivitiesActivity = activityRule.launchActivity(null)
-        sut.runOnUiThread {
-            sut.showActivities(mutableListOf(), nextcloudClient, -1)
-            sut.setProgressIndicatorState(false)
-            sut.dismissSnackbar()
-        }
-        shortSleep()
-        onIdleSync {
-            screenshot(sut.binding.emptyList.emptyListView)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            sut.runOnUiThread {
+                sut.showActivities(mutableListOf(), nextcloudClient, -1)
+                sut.setProgressIndicatorState(false)
+                sut.dismissSnackbar()
+            }
+            shortSleep()
+            onIdleSync {
+                screenshot(sut.binding.emptyList.emptyListView)
+            }
         }
     }
 
@@ -85,8 +102,6 @@ class ActivitiesActivityIT : AbstractIT() {
         val capability = OCCapability()
         capability.versionMayor = 20
         fileDataStorageManager.saveCapabilities(capability)
-
-        val sut: ActivitiesActivity = activityRule.launchActivity(null)
 
         val date = GregorianCalendar()
         date.set(2005, 4, 17, 10, 35, 30) // random date
@@ -158,36 +173,40 @@ class ActivitiesActivityIT : AbstractIT() {
             )
         )
 
-        sut.runOnUiThread {
-            sut.showActivities(activities as List<Any>?, nextcloudClient, -1)
-            sut.setProgressIndicatorState(false)
-            sut.dismissSnackbar()
-        }
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            sut.runOnUiThread {
+                sut.showActivities(activities as List<Any>?, nextcloudClient, -1)
+                sut.setProgressIndicatorState(false)
+                sut.dismissSnackbar()
+            }
 
-        longSleep()
+            longSleep()
 
-        onIdleSync {
-            screenshot(sut)
+            onIdleSync {
+                screenshot(sut)
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun error() {
-        val sut: ActivitiesActivity = activityRule.launchActivity(null)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            shortSleep()
 
-        shortSleep()
+            sut.runOnUiThread {
+                sut.showEmptyContent("Error", "Error! Please try again later!")
+                sut.setProgressIndicatorState(false)
+                sut.dismissSnackbar()
+            }
 
-        sut.runOnUiThread {
-            sut.showEmptyContent("Error", "Error! Please try again later!")
-            sut.setProgressIndicatorState(false)
-            sut.dismissSnackbar()
-        }
-
-        shortSleep()
-        shortSleep()
-        onIdleSync {
-            screenshot(sut)
+            shortSleep()
+            shortSleep()
+            onIdleSync {
+                screenshot(sut)
+            }
         }
     }
 }

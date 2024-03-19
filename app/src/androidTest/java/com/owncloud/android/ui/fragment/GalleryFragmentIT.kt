@@ -7,11 +7,14 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
@@ -29,18 +32,26 @@ import org.junit.Test
 import java.util.Random
 
 class GalleryFragmentIT : AbstractIT() {
-    @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+    private lateinit var scenario: ActivityScenario<TestActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
 
-    lateinit var activity: TestActivity
+    @get:Rule
+    val activityRule = ActivityScenarioRule<TestActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
+
     val random = Random(1)
 
     @Before
     fun before() {
-        activity = testActivityRule.launchActivity(null)
-
-        // initialise thumbnails cache on background thread
-        InitDiskCacheTask().execute()
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            // initialise thumbnails cache on background thread
+            InitDiskCacheTask().execute()
+        }
     }
 
     @After
@@ -54,9 +65,12 @@ class GalleryFragmentIT : AbstractIT() {
     @Test
     fun showEmpty() {
         val sut = GalleryFragment()
-        activity.addFragment(sut)
-        onIdleSync {
-            screenshot(activity)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            activity.addFragment(sut)
+            onIdleSync {
+                screenshot(activity)
+            }
         }
     }
 
@@ -68,10 +82,13 @@ class GalleryFragmentIT : AbstractIT() {
         createImage(10000007, 300, 400)
 
         val sut = GalleryFragment()
-        activity.addFragment(sut)
-        onIdleSync {
-            shortSleep()
-            screenshot(activity)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            activity.addFragment(sut)
+            onIdleSync {
+                shortSleep()
+                screenshot(activity)
+            }
         }
     }
 

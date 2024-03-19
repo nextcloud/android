@@ -7,14 +7,26 @@
  */
 package com.owncloud.android.ui.preview
 
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import android.content.Intent
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
+import org.junit.After
 import org.junit.Rule
 
 class PreviewImageFragmentIT : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<TestActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
+
     @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<TestActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     // Disabled for now due to strange failing when using entire test suite
     // Findings so far:
