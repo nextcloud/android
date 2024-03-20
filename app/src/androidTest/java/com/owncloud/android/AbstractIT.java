@@ -74,7 +74,6 @@ import java.util.Optional;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.contrib.DrawerActions;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;

@@ -8,7 +8,9 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.nextcloud.test.GrantStoragePermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.FileStorageUtils
@@ -20,8 +22,16 @@ import org.junit.Test
 import java.io.File
 
 class UploadFilesActivityIT : AbstractIT() {
+    private var scenario: ActivityScenario<UploadFilesActivity>? = null
+    val intent = Intent(ApplicationProvider.getApplicationContext(), UploadFilesActivity::class.java)
+
     @get:Rule
-    var activityRule = IntentsTestRule(UploadFilesActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<UploadFilesActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario?.close()
+    }
 
     @get:Rule
     var permissionRule = GrantStoragePermissionRule.grant()
@@ -42,57 +52,51 @@ class UploadFilesActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun noneSelected() {
-        val sut: UploadFilesActivity = activityRule.launchActivity(null)
+        scenario = activityRule.scenario
+        scenario?.onActivity { sut ->
+            sut.runOnUiThread {
+                sut.fileListFragment.setFiles(
+                    directories +
+                        listOf(
+                            File("1.txt"),
+                            File("2.pdf"),
+                            File("3.mp3")
+                        )
+                )
+            }
 
-        sut.runOnUiThread {
-            sut.fileListFragment.setFiles(
-                directories +
-                    listOf(
-                        File("1.txt"),
-                        File("2.pdf"),
-                        File("3.mp3")
-                    )
-            )
-        }
-
-        onIdleSync {
-            shortSleep()
-            screenshot(sut)
+            onIdleSync {
+                shortSleep()
+                screenshot(sut)
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun localFolderPickerMode() {
-        val sut: UploadFilesActivity = activityRule.launchActivity(
-            Intent().apply {
-                putExtra(
-                    UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE,
-                    true
-                )
-                putExtra(
-                    UploadFilesActivity.REQUEST_CODE_KEY,
-                    FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
-                )
-            }
-        )
-
-        sut.runOnUiThread {
-            sut.fileListFragment.setFiles(
-                directories
+        val intent = Intent(targetContext, UploadFilesActivity::class.java).apply {
+            putExtra(
+                UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE,
+                true
+            )
+            putExtra(
+                UploadFilesActivity.REQUEST_CODE_KEY,
+                FileDisplayActivity.REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM
             )
         }
 
-        onIdleSync {
-            screenshot(sut)
+        val scenario = ActivityScenario.launch<UploadFilesActivity>(intent)
+        scenario.onActivity { sut ->
+            sut.runOnUiThread {
+                sut.fileListFragment.setFiles(
+                    directories
+                )
+            }
+
+            onIdleSync {
+                screenshot(sut)
+            }
         }
-    }
-
-    fun fileSelected() {
-        val sut: UploadFilesActivity = activityRule.launchActivity(null)
-
-        // TODO select one
-
-        screenshot(sut)
     }
 }
