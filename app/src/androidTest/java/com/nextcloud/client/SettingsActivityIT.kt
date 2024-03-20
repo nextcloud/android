@@ -45,7 +45,9 @@ class SettingsActivityIT : AbstractIT() {
     fun open() {
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            screenshot(sut)
+            onIdleSync {
+                screenshot(sut)
+            }
         }
     }
 

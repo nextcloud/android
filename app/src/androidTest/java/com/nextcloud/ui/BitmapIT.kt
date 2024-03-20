@@ -43,24 +43,26 @@ class BitmapIT : AbstractIT() {
 
         scenario = activityRule.scenario
         scenario.onActivity { activity ->
-            val imageView = ImageView(activity).apply {
-                setImageBitmap(bitmap)
-            }
+            onIdleSync {
+                val imageView = ImageView(activity).apply {
+                    setImageBitmap(bitmap)
+                }
 
-            val bitmap2 = BitmapFactory.decodeFile(file.absolutePath)
-            val imageView2 = ImageView(activity).apply {
-                setImageBitmap(BitmapUtils.roundBitmap(bitmap2))
-            }
+                val bitmap2 = BitmapFactory.decodeFile(file.absolutePath)
+                val imageView2 = ImageView(activity).apply {
+                    setImageBitmap(BitmapUtils.roundBitmap(bitmap2))
+                }
 
-            val linearLayout = LinearLayout(activity).apply {
-                orientation = LinearLayout.VERTICAL
-                setBackgroundColor(context.getColor(R.color.grey_200))
-            }
-            linearLayout.addView(imageView, 200, 200)
-            linearLayout.addView(imageView2, 200, 200)
-            activity.addView(linearLayout)
+                val linearLayout = LinearLayout(activity).apply {
+                    orientation = LinearLayout.VERTICAL
+                    setBackgroundColor(activity.getColor(R.color.grey_200))
+                }
+                linearLayout.addView(imageView, 200, 200)
+                linearLayout.addView(imageView2, 200, 200)
+                activity.addView(linearLayout)
 
-            screenshot(activity)
+                screenshot(activity)
+            }
         }
     }
 

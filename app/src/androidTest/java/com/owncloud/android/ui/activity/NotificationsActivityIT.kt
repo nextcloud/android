@@ -130,11 +130,13 @@ class NotificationsActivityIT : AbstractIT() {
 
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            sut.runOnUiThread {
-                sut.populateList(notifications)
+            onIdleSync {
+                sut.runOnUiThread {
+                    sut.populateList(notifications)
+                }
+                shortSleep()
+                screenshot(sut.binding.list)
             }
-            shortSleep()
-            screenshot(sut.binding.list)
         }
     }
 
@@ -143,11 +145,11 @@ class NotificationsActivityIT : AbstractIT() {
     fun error() {
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            shortSleep()
-
-            sut.runOnUiThread { sut.setEmptyContent("Error", "Error! Please try again later!") }
-
-            screenshot(sut)
+            onIdleSync {
+                shortSleep()
+                sut.runOnUiThread { sut.setEmptyContent("Error", "Error! Please try again later!") }
+                screenshot(sut)
+            }
         }
     }
 }

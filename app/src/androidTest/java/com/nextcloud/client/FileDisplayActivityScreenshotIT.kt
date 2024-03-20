@@ -73,28 +73,30 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
             sut.setEmptyListLoadingMessage()
             sut.isLoading = false
 
-            // open drawer
-            Espresso.onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
+            onIdleSync {
+                // open drawer
+                Espresso.onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
 
-            // click "all files"
-            Espresso.onView(ViewMatchers.withId(R.id.nav_view))
-                .perform(NavigationViewActions.navigateTo(R.id.nav_gallery))
+                // click "all files"
+                Espresso.onView(ViewMatchers.withId(R.id.nav_view))
+                    .perform(NavigationViewActions.navigateTo(R.id.nav_gallery))
 
-            // wait
-            shortSleep()
+                // wait
+                shortSleep()
 
-            // click "all files"
-            Espresso.onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
-            Espresso.onView(ViewMatchers.withId(R.id.nav_view))
-                .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
+                // click "all files"
+                Espresso.onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
+                Espresso.onView(ViewMatchers.withId(R.id.nav_view))
+                    .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
 
-            // then compare screenshot
-            shortSleep()
-            sut.setFabEnabled(false)
-            sut.setEmptyListLoadingMessage()
-            sut.isLoading = false
-            shortSleep()
-            screenshot(fileDisplayActivity)
+                // then compare screenshot
+                shortSleep()
+                sut.setFabEnabled(false)
+                sut.setEmptyListLoadingMessage()
+                sut.isLoading = false
+                shortSleep()
+                screenshot(fileDisplayActivity)
+            }
         }
     }
 
@@ -103,18 +105,18 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     fun drawer() {
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            Espresso.onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
-
-            shortSleep()
-            sut.runOnUiThread {
-                sut.hideInfoBox()
-                sut.resetScrolling(true)
-                sut.listOfFilesFragment!!.setFabEnabled(false)
-                sut.listOfFilesFragment!!.setEmptyListLoadingMessage()
-                sut.listOfFilesFragment!!.isLoading = false
-            }
-            shortSleep()
             onIdleSync {
+                Espresso.onView(ViewMatchers.withId(R.id.drawer_layout)).perform(DrawerActions.open())
+
+                shortSleep()
+                sut.runOnUiThread {
+                    sut.hideInfoBox()
+                    sut.resetScrolling(true)
+                    sut.listOfFilesFragment!!.setFabEnabled(false)
+                    sut.listOfFilesFragment!!.setEmptyListLoadingMessage()
+                    sut.listOfFilesFragment!!.isLoading = false
+                }
+                shortSleep()
                 screenshot(sut)
             }
         }

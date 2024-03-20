@@ -50,10 +50,12 @@ class SendShareDialogTest : AbstractIT() {
             val sut = SendShareDialog.newInstance(file, false, OCCapability())
             sut.show(ft, "TAG_SEND_SHARE_DIALOG")
 
-            InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-            shortSleep()
-            shortSleep()
-            sut.requireDialog().window?.decorView.let { screenshot(it) }
+            onIdleSync {
+                InstrumentationRegistry.getInstrumentation().waitForIdleSync()
+                shortSleep()
+                shortSleep()
+                sut.requireDialog().window?.decorView.let { screenshot(it) }
+            }
         }
     }
 }

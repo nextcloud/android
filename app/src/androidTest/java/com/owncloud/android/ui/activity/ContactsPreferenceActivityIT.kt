@@ -46,8 +46,10 @@ class ContactsPreferenceActivityIT : AbstractIT() {
 
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            shortSleep()
-            screenshot(sut)
+            onIdleSync {
+                shortSleep()
+                screenshot(sut)
+            }
         }
     }
 
@@ -56,8 +58,10 @@ class ContactsPreferenceActivityIT : AbstractIT() {
     fun openContactsPreference() {
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            shortSleep()
-            screenshot(sut)
+            onIdleSync {
+                shortSleep()
+                screenshot(sut)
+            }
         }
     }
 }

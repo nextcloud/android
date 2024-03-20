@@ -19,7 +19,7 @@ import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
-class GroupfolderListFragmentIT : AbstractIT() {
+class GroupFolderListFragmentIT : AbstractIT() {
     private lateinit var scenario: ActivityScenario<TestActivity>
     val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
 
@@ -33,24 +33,22 @@ class GroupfolderListFragmentIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    fun showGroupfolder() {
+    fun showGroupFolder() {
         val sut = GroupfolderListFragment()
         scenario = activityRule.scenario
         scenario.onActivity { activity ->
             activity.addFragment(sut)
 
-            shortSleep() // to let async task finish
-
-            activity.runOnUiThread {
-                sut.setAdapter(null)
-                sut.setData(
-                    mapOf(
-                        Pair("2", Groupfolder(2, "/subfolder/group"))
-                    )
-                )
-            }
-
             onIdleSync {
+                activity.runOnUiThread {
+                    sut.setAdapter(null)
+                    sut.setData(
+                        mapOf(
+                            Pair("2", Groupfolder(2, "/subfolder/group"))
+                        )
+                    )
+                }
+
                 shortSleep()
                 screenshot(activity)
             }
@@ -59,25 +57,24 @@ class GroupfolderListFragmentIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    fun showGroupfolders() {
+    fun showGroupFolders() {
         val sut = GroupfolderListFragment()
         scenario = activityRule.scenario
         scenario.onActivity { activity ->
             activity.addFragment(sut)
 
             shortSleep() // to let async task finish
-
-            activity.runOnUiThread {
-                sut.setAdapter(null)
-                sut.setData(
-                    mapOf(
-                        Pair("1", Groupfolder(1, "/test/")),
-                        Pair("2", Groupfolder(2, "/subfolder/group"))
-                    )
-                )
-            }
-
             onIdleSync {
+                activity.runOnUiThread {
+                    sut.setAdapter(null)
+                    sut.setData(
+                        mapOf(
+                            Pair("1", Groupfolder(1, "/test/")),
+                            Pair("2", Groupfolder(2, "/subfolder/group"))
+                        )
+                    )
+                }
+
                 shortSleep()
                 screenshot(activity)
             }

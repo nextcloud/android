@@ -47,13 +47,13 @@ class ActivitiesActivityIT : AbstractIT() {
     fun openDrawer() {
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            shortSleep()
-            Espresso.onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
-            sut.runOnUiThread {
-                sut.dismissSnackbar()
-            }
-            shortSleep()
             onIdleSync {
+                shortSleep()
+                Espresso.onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
+                sut.runOnUiThread {
+                    sut.dismissSnackbar()
+                }
+                shortSleep()
                 screenshot(sut)
             }
         }
@@ -72,6 +72,7 @@ class ActivitiesActivityIT : AbstractIT() {
             }
 
             shortSleep()
+
             onIdleSync {
                 Screenshot.snap(sut.binding.loadingContent).record()
             }

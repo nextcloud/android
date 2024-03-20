@@ -48,18 +48,18 @@ class AvatarIT : AbstractIT() {
 
             sut.addFragment(fragment)
 
-            runOnUiThread {
-                fragment.addAvatar("Admin", avatarRadius, width, targetContext)
-                fragment.addAvatar("Test Server Admin", avatarRadius, width, targetContext)
-                fragment.addAvatar("Cormier Paulette", avatarRadius, width, targetContext)
-                fragment.addAvatar("winston brent", avatarRadius, width, targetContext)
-                fragment.addAvatar("Baker James Lorena", avatarRadius, width, targetContext)
-                fragment.addAvatar("Baker  James   Lorena", avatarRadius, width, targetContext)
-                fragment.addAvatar("email@nextcloud.localhost", avatarRadius, width, targetContext)
-            }
-
-            shortSleep()
             onIdleSync {
+                runOnUiThread {
+                    fragment.addAvatar("Admin", avatarRadius, width, targetContext)
+                    fragment.addAvatar("Test Server Admin", avatarRadius, width, targetContext)
+                    fragment.addAvatar("Cormier Paulette", avatarRadius, width, targetContext)
+                    fragment.addAvatar("winston brent", avatarRadius, width, targetContext)
+                    fragment.addAvatar("Baker James Lorena", avatarRadius, width, targetContext)
+                    fragment.addAvatar("Baker  James   Lorena", avatarRadius, width, targetContext)
+                    fragment.addAvatar("email@nextcloud.localhost", avatarRadius, width, targetContext)
+                }
+
+                shortSleep()
                 screenshot(sut)
             }
         }

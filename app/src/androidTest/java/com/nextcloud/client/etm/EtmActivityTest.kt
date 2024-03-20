@@ -46,8 +46,10 @@ class EtmActivityTest : AbstractIT() {
     fun accounts() {
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            UiThreadStatement.runOnUiThread { sut.vm.onPageSelected(1) }
-            screenshot(sut)
+            onIdleSync {
+                UiThreadStatement.runOnUiThread { sut.vm.onPageSelected(1) }
+                screenshot(sut)
+            }
         }
     }
 }
