@@ -19,7 +19,7 @@ import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
-class GroupfolderListFragmentIT : AbstractIT() {
+class GroupFolderListFragmentIT : AbstractIT() {
     private lateinit var scenario: ActivityScenario<TestActivity>
     val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
 
