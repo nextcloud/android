@@ -43,10 +43,10 @@ class TrashbinPresenter(
     }
 
     override val isRoot: Boolean
-        get() = OCFile.ROOT_PATH != currentPath
+        get() = OCFile.ROOT_PATH == currentPath
 
     override fun navigateUp() {
-        if (OCFile.ROOT_PATH == currentPath) {
+        if (isRoot) {
             trashbinView.close()
         } else {
             currentPath?.let {
@@ -54,8 +54,6 @@ class TrashbinPresenter(
                 loadFolder()
             }
         }
-
-        trashbinView.setDrawerIndicatorEnabled(OCFile.ROOT_PATH == currentPath)
     }
 
     override fun loadFolder() {
@@ -71,6 +69,7 @@ class TrashbinPresenter(
                 }
             }
         )
+        trashbinView.atRoot(isRoot)
     }
 
     override fun restoreTrashbinFile(file: TrashbinFile?) {
