@@ -7,24 +7,37 @@
  */
 package com.nextcloud.client;
 
+import android.content.Intent;
+
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.ui.activity.UploadListActivity;
 import com.owncloud.android.utils.ScreenshotTest;
 
-import org.junit.Rule;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.core.app.ApplicationProvider;
 
 
 public class UploadListActivityActivityIT extends AbstractIT {
-    @Rule public IntentsTestRule<UploadListActivity> activityRule = new IntentsTestRule<>(UploadListActivity.class,
-                                                                                          true,
-                                                                                          false);
+    private ActivityScenario<UploadListActivity> scenario;
+
+    @Before
+    public void setUp() {
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), UploadListActivity.class);
+        scenario = ActivityScenario.launch(intent);
+    }
+
+    @After
+    public void tearDown() {
+        scenario.close();
+    }
 
     @Test
     @ScreenshotTest
     public void openDrawer() {
-        super.openDrawer(activityRule);
+        scenario.onActivity(super::openDrawer);
     }
 }

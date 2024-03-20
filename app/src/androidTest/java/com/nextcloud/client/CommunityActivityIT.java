@@ -7,24 +7,35 @@
  */
 package com.nextcloud.client;
 
-import android.app.Activity;
+import android.content.Intent;
 
 import com.nextcloud.test.GrantStoragePermissionRule;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.ui.activity.CommunityActivity;
 import com.owncloud.android.utils.ScreenshotTest;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.core.app.ApplicationProvider;
 
 public class CommunityActivityIT extends AbstractIT {
-    @Rule public IntentsTestRule<CommunityActivity> activityRule = new IntentsTestRule<>(CommunityActivity.class,
-                                                                                         true,
-                                                                                         false);
+    private ActivityScenario<CommunityActivity> scenario;
+
+    @Before
+    public void setUp() {
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), CommunityActivity.class);
+        scenario = ActivityScenario.launch(intent);
+    }
+
+    @After
+    public void tearDown() {
+        scenario.close();
+    }
 
     @Rule
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
@@ -32,8 +43,6 @@ public class CommunityActivityIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void open() {
-        Activity sut = activityRule.launchActivity(null);
-
-        screenshot(sut);
+        scenario.onActivity(sut -> onIdleSync(() -> screenshot(sut)));
     }
 }

@@ -20,25 +20,21 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.ScreenshotTest;
 
 import org.junit.After;
-import org.junit.Rule;
 import org.junit.Test;
 
 import java.util.Objects;
 
 import androidx.fragment.app.DialogFragment;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.core.app.ActivityScenario;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 
 public class ConflictsResolveActivityIT extends AbstractIT {
-    @Rule public IntentsTestRule<ConflictsResolveActivity> activityRule =
-        new IntentsTestRule<>(ConflictsResolveActivity.class, true, false);
     private boolean returnCode;
 
     @Test
@@ -60,24 +56,24 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         intent.putExtra(ConflictsResolveActivity.EXTRA_FILE, newFile);
         intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
 
-        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
+        ActivityScenario<ConflictsResolveActivity> sutScenario = ActivityScenario.launch(intent);
+        sutScenario.onActivity(sut -> {
+            ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
+                                                                               newFile,
+                                                                               UserAccountManagerImpl
+                                                                                   .fromContext(targetContext)
+                                                                                   .getUser()
+                                                                              );
+            dialog.showDialog(sut);
 
-        ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
-                                                                           newFile,
-                                                                           UserAccountManagerImpl
-                                                                               .fromContext(targetContext)
-                                                                               .getUser()
-                                                                          );
-        dialog.showDialog(sut);
-
-        getInstrumentation().waitForIdleSync();
-
-        shortSleep();
-        shortSleep();
-        shortSleep();
-        shortSleep();
-
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+            onIdleSync(() -> {
+                shortSleep();
+                shortSleep();
+                shortSleep();
+                shortSleep();
+                screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+            });
+        });
     }
 
 //    @Test
@@ -159,19 +155,19 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
         intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
 
-        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
+        ActivityScenario<ConflictsResolveActivity> sutScenario = ActivityScenario.launch(intent);
+        sutScenario.onActivity(sut -> {
+            sut.listener = decision -> {
+                assertEquals(decision, ConflictsResolveDialog.Decision.CANCEL);
+                returnCode = true;
+            };
 
-        sut.listener = decision -> {
-            assertEquals(decision, ConflictsResolveDialog.Decision.CANCEL);
-            returnCode = true;
-        };
-
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
-
-        onView(withText("Cancel")).perform(click());
-
-        assertTrue(returnCode);
+            onIdleSync(() -> {
+                shortSleep();
+                onView(withText("Cancel")).perform(click());
+                assertTrue(returnCode);
+            });
+        });
     }
 
     @Test
@@ -200,23 +196,23 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
         intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
 
-        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
+        ActivityScenario<ConflictsResolveActivity> sutScenario = ActivityScenario.launch(intent);
 
-        sut.listener = decision -> {
-            assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_SERVER);
-            returnCode = true;
-        };
+        sutScenario.onActivity(sut -> {
+            sut.listener = decision -> {
+                assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_SERVER);
+                returnCode = true;
+            };
 
-        getInstrumentation().waitForIdleSync();
-
-        onView(withId(R.id.existing_checkbox)).perform(click());
-
-        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-
-        onView(withText("OK")).perform(click());
-
-        assertTrue(returnCode);
+            onIdleSync(() -> {
+                onView(withId(R.id.existing_checkbox)).perform(click());
+                DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
+                assert dialog != null;
+                screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+                onView(withText("OK")).perform(click());
+                assertTrue(returnCode);
+            });
+        });
     }
 
     @Test
@@ -246,23 +242,22 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
         intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
 
-        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
+        ActivityScenario<ConflictsResolveActivity> sutScenario = ActivityScenario.launch(intent);
+        sutScenario.onActivity(sut -> {
+            sut.listener = decision -> {
+                assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_LOCAL);
+                returnCode = true;
+            };
 
-        sut.listener = decision -> {
-            assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_LOCAL);
-            returnCode = true;
-        };
-
-        getInstrumentation().waitForIdleSync();
-
-        onView(withId(R.id.new_checkbox)).perform(click());
-
-        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-
-        onView(withText("OK")).perform(click());
-
-        assertTrue(returnCode);
+            onIdleSync(() -> {
+                onView(withId(R.id.new_checkbox)).perform(click());
+                DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
+                assert dialog != null;
+                screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+                onView(withText("OK")).perform(click());
+                assertTrue(returnCode);
+            });
+        });
     }
 
     @Test
@@ -291,24 +286,23 @@ public class ConflictsResolveActivityIT extends AbstractIT {
         intent.putExtra(ConflictsResolveActivity.EXTRA_EXISTING_FILE, existingFile);
         intent.putExtra(ConflictsResolveActivity.EXTRA_CONFLICT_UPLOAD_ID, newUpload.getUploadId());
 
-        ConflictsResolveActivity sut = activityRule.launchActivity(intent);
+        ActivityScenario<ConflictsResolveActivity> sutScenario = ActivityScenario.launch(intent);
+        sutScenario.onActivity(sut -> {
+            sut.listener = decision -> {
+                assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_BOTH);
+                returnCode = true;
+            };
 
-        sut.listener = decision -> {
-            assertEquals(decision, ConflictsResolveDialog.Decision.KEEP_BOTH);
-            returnCode = true;
-        };
-
-        getInstrumentation().waitForIdleSync();
-
-        onView(withId(R.id.existing_checkbox)).perform(click());
-        onView(withId(R.id.new_checkbox)).perform(click());
-
-        DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
-
-        onView(withText("OK")).perform(click());
-
-        assertTrue(returnCode);
+            onIdleSync(() -> {
+                onView(withId(R.id.existing_checkbox)).perform(click());
+                onView(withId(R.id.new_checkbox)).perform(click());
+                DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
+                assert dialog != null;
+                screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+                onView(withText("OK")).perform(click());
+                assertTrue(returnCode);
+            });
+        });
     }
 
     @After

@@ -6,6 +6,7 @@
  */
 package com.nextcloud.client;
 
+import android.content.Intent;
 import android.widget.TextView;
 
 import com.nextcloud.test.GrantStoragePermissionRule;
@@ -14,18 +15,30 @@ import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.utils.ScreenshotTest;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.core.app.ApplicationProvider;
 
 public class AuthenticatorActivityIT extends AbstractIT {
     private static final String URL = "cloud.nextcloud.com";
-    @Rule public IntentsTestRule<AuthenticatorActivity> activityRule = new IntentsTestRule<>(AuthenticatorActivity.class,
-                                                                                             true,
-                                                                                             false);
+
+    private ActivityScenario<AuthenticatorActivity> scenario;
+
+    @Before
+    public void setUp() {
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), AuthenticatorActivity.class);
+        scenario = ActivityScenario.launch(intent);
+    }
+
+    @After
+    public void tearDown() {
+        scenario.close();
+    }
 
     @Rule
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
@@ -33,9 +46,12 @@ public class AuthenticatorActivityIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void login() {
-        AuthenticatorActivity sut = activityRule.launchActivity(null);
-        ((TextView) sut.findViewById(R.id.host_url_input)).setText(URL);
-        sut.runOnUiThread(() -> sut.getAccountSetupBinding().hostUrlInput.clearFocus());
-        screenshot(sut);
+        scenario.onActivity(sut -> {
+            ((TextView) sut.findViewById(R.id.host_url_input)).setText(URL);
+            onIdleSync(() -> {
+                sut.runOnUiThread(() -> sut.getAccountSetupBinding().hostUrlInput.clearFocus());
+                screenshot(sut);
+            });
+        });
     }
 }

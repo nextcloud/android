@@ -305,13 +305,12 @@ public abstract class AbstractIT {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }
 
-    protected void openDrawer(IntentsTestRule activityRule) {
-        Activity sut = activityRule.launchActivity(null);
-
-        shortSleep();
-
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-        onIdleSync(() -> screenshot(sut));
+    protected void openDrawer(Activity sut) {
+        onIdleSync(() -> {
+            shortSleep();
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+            screenshot(sut);
+        });
     }
 
     protected Activity getCurrentActivity() {

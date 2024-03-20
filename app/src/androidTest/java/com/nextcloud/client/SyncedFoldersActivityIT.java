@@ -7,7 +7,6 @@
  */
 package com.nextcloud.client;
 
-import android.app.Activity;
 import android.content.Intent;
 
 import com.nextcloud.client.preferences.SubFolderRule;
@@ -19,29 +18,41 @@ import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
 import com.owncloud.android.utils.ScreenshotTest;
 
-import org.junit.Rule;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Objects;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.core.app.ApplicationProvider;
 
 
 public class SyncedFoldersActivityIT extends AbstractIT {
-    @Rule public IntentsTestRule<SyncedFoldersActivity> activityRule = new IntentsTestRule<>(SyncedFoldersActivity.class,
-                                                                                             true,
-                                                                                             false);
+    private ActivityScenario<SyncedFoldersActivity> scenario;
+
+    @Before
+    public void setUp() {
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), SyncedFoldersActivity.class);
+        scenario = ActivityScenario.launch(intent);
+    }
+
+    @After
+    public void tearDown() {
+        scenario.close();
+    }
 
     @Test
     @ScreenshotTest
     public void open() {
-        SyncedFoldersActivity activity = activityRule.launchActivity(null);
-        activity.adapter.clear();
-        SyncedFoldersLayoutBinding sut = activity.binding;
-        shortSleep();
-        screenshot(sut.emptyList.emptyListView);
+        scenario.onActivity(activity -> {
+            activity.adapter.clear();
+            SyncedFoldersLayoutBinding sut = activity.binding;
+            onIdleSync(() -> {
+                shortSleep();
+                screenshot(sut.emptyList.emptyListView);
+            });
+        });
     }
 
     @Test
@@ -66,14 +77,13 @@ public class SyncedFoldersActivityIT extends AbstractIT {
                                                                    false);
         SyncedFolderPreferencesDialogFragment sut = SyncedFolderPreferencesDialogFragment.newInstance(item, 0);
 
-        Intent intent = new Intent(targetContext, SyncedFoldersActivity.class);
-        SyncedFoldersActivity activity = activityRule.launchActivity(intent);
+        scenario.onActivity(activity -> {
+            sut.show(activity.getSupportFragmentManager(), "");
 
-        sut.show(activity.getSupportFragmentManager(), "");
-
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
-
-        screenshot(Objects.requireNonNull(sut.requireDialog().getWindow()).getDecorView());
+            onIdleSync(() -> {
+                shortSleep();
+                screenshot(Objects.requireNonNull(sut.requireDialog().getWindow()).getDecorView());
+            });
+        });
     }
 }
