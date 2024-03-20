@@ -375,7 +375,7 @@
     <string name="ssl_validator_no_info_about_error">- No information about the error</string>
 
     <string name="placeholder_sentence">This is a placeholder</string>
-    <string name="placeholder_filename">placeholder.txt</string>
+    <string name="placeholder_filename">placeholder</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -1169,4 +1169,5 @@
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
     <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
+    <string translatable="false" name="placeholder_extension">.txt</string>
 </resources>
