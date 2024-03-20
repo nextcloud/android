@@ -74,12 +74,14 @@ class SettingsActivityIT : AbstractIT() {
 
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            sut.runOnUiThread {
-                sut.handleMnemonicRequest(intent)
-            }
+            onIdleSync {
+                sut.runOnUiThread {
+                    sut.handleMnemonicRequest(intent)
+                }
 
-            Looper.myLooper()?.quitSafely()
-            Assert.assertTrue(true) // if we reach this, everything is ok
+                Looper.myLooper()?.quitSafely()
+                Assert.assertTrue(true) // if we reach this, everything is ok
+            }
         }
     }
 }

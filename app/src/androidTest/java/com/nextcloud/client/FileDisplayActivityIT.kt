@@ -138,30 +138,31 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
     fun allFiles() {
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
+            onIdleSync {
+                // given test folder
+                Assert.assertTrue(
+                    CreateFolderOperation("/test/", user, targetContext, storageManager)
+                        .execute(client)
+                        .isSuccess
+                )
 
-            // given test folder
-            Assert.assertTrue(
-                CreateFolderOperation("/test/", user, targetContext, storageManager)
-                    .execute(client)
-                    .isSuccess
-            )
+                // navigate into it
+                val test = storageManager.getFileByPath("/test/")
+                sut.file = test
+                sut.startSyncFolderOperation(test, false)
+                Assert.assertEquals(storageManager.getFileByPath("/test/"), sut.currentDir)
 
-            // navigate into it
-            val test = storageManager.getFileByPath("/test/")
-            sut.file = test
-            sut.startSyncFolderOperation(test, false)
-            Assert.assertEquals(storageManager.getFileByPath("/test/"), sut.currentDir)
+                // open drawer
+                onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
 
-            // open drawer
-            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
+                // click "all files"
+                onView(withId(R.id.nav_view))
+                    .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
 
-            // click "all files"
-            onView(withId(R.id.nav_view))
-                .perform(NavigationViewActions.navigateTo(R.id.nav_all_files))
-
-            // then should be in root again
-            shortSleep()
-            Assert.assertEquals(storageManager.getFileByPath("/"), sut.currentDir)
+                // then should be in root again
+                shortSleep()
+                Assert.assertEquals(storageManager.getFileByPath("/"), sut.currentDir)
+            }
         }
     }
 
@@ -179,28 +180,30 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
 
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            shortSleep()
+            onIdleSync {
+                shortSleep()
 
-            // go into "foo"
-            onView(withText(topFolder)).perform(click())
-            shortSleep()
+                // go into "foo"
+                onView(withText(topFolder)).perform(click())
+                shortSleep()
 
-            // check title is right
-            checkToolbarTitle(topFolder)
+                // check title is right
+                checkToolbarTitle(topFolder)
 
-            // go into "bar"
-            onView(withText(childFolder)).perform(click())
-            shortSleep()
+                // go into "bar"
+                onView(withText(childFolder)).perform(click())
+                shortSleep()
 
-            // check title is right
-            checkToolbarTitle(childFolder)
+                // check title is right
+                checkToolbarTitle(childFolder)
 
-            // browse back up, we should be back in "foo"
-            Espresso.pressBack()
-            shortSleep()
+                // browse back up, we should be back in "foo"
+                Espresso.pressBack()
+                shortSleep()
 
-            // check title is right
-            checkToolbarTitle(topFolder)
+                // check title is right
+                checkToolbarTitle(topFolder)
+            }
         }
     }
 
@@ -227,33 +230,35 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
 
-            // navigate to favorites
-            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
-            onView(withId(R.id.nav_view))
-                .perform(NavigationViewActions.navigateTo(R.id.nav_favorites))
-            shortSleep()
+            onIdleSync {
+                // navigate to favorites
+                onView(withId(R.id.drawer_layout)).perform(DrawerActions.open())
+                onView(withId(R.id.nav_view))
+                    .perform(NavigationViewActions.navigateTo(R.id.nav_favorites))
+                shortSleep()
 
-            // check sort button is not shown, favorites are not sortable
-            onView(withId(R.id.sort_button)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
+                // check sort button is not shown, favorites are not sortable
+                onView(withId(R.id.sort_button)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
-            // browse into folder
-            onView(withId(R.id.list_root))
-                .perform(closeSoftKeyboard())
-                .perform(
-                    RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
-                        0,
-                        click()
+                // browse into folder
+                onView(withId(R.id.list_root))
+                    .perform(closeSoftKeyboard())
+                    .perform(
+                        RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
+                            0,
+                            click()
+                        )
                     )
-                )
-            shortSleep()
-            checkToolbarTitle(topFolder)
-            // sort button should now be visible
-            onView(withId(R.id.sort_button)).check(matches(ViewMatchers.isDisplayed()))
+                shortSleep()
+                checkToolbarTitle(topFolder)
+                // sort button should now be visible
+                onView(withId(R.id.sort_button)).check(matches(ViewMatchers.isDisplayed()))
 
-            // browse back, should be back to All Files
-            Espresso.pressBack()
-            checkToolbarTitle(sut.getString(R.string.app_name))
-            onView(withId(R.id.sort_button)).check(matches(ViewMatchers.isDisplayed()))
+                // browse back, should be back to All Files
+                Espresso.pressBack()
+                checkToolbarTitle(sut.getString(R.string.app_name))
+                onView(withId(R.id.sort_button)).check(matches(ViewMatchers.isDisplayed()))
+            }
         }
     }
 
@@ -261,12 +266,14 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
     fun switchToGridView() {
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            Assert.assertTrue(
-                CreateFolderOperation("/test/", user, targetContext, storageManager)
-                    .execute(client)
-                    .isSuccess
-            )
-            onView(withId(R.id.switch_grid_view_button)).perform(click())
+            onIdleSync {
+                Assert.assertTrue(
+                    CreateFolderOperation("/test/", user, targetContext, storageManager)
+                        .execute(client)
+                        .isSuccess
+                )
+                onView(withId(R.id.switch_grid_view_button)).perform(click())
+            }
         }
     }
 
@@ -274,7 +281,9 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
     fun openAccountSwitcher() {
         scenario = activityRule.scenario
         scenario.onActivity { sut ->
-            onView(withId(R.id.switch_account_button)).perform(click())
+            onIdleSync {
+                onView(withId(R.id.switch_account_button)).perform(click())
+            }
         }
     }
 }
