@@ -29,8 +29,8 @@ import android.os.Build
 import android.text.TextUtils
 import androidx.core.app.NotificationCompat
 import androidx.exifinterface.media.ExifInterface
-import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
+import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
@@ -72,19 +72,23 @@ class FilesSyncWork(
     private val powerManagementService: PowerManagementService,
     private val syncedFolderProvider: SyncedFolderProvider,
     private val backgroundJobManager: BackgroundJobManager
-) : CoroutineWorker(context, params) {
+) : Worker(context, params) {
 
     companion object {
         const val TAG = "FilesSyncJob"
         const val SKIP_CUSTOM = "skipCustom"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
+        const val CHANGED_FILES = "changedFiles"
         const val FOREGROUND_SERVICE_ID = 414
     }
 
     @Suppress("MagicNumber")
-    private fun createForegroundInfo(progressPercent: Int): ForegroundInfo {
-        // update throughout worker execution to give use feedback how far worker is
+    private fun updateForegroundWorker(progressPercent: Int, useForegroundWorker: Boolean) {
+        if (useForegroundWorker) {
+            return
+        }
 
+        // update throughout worker execution to give use feedback how far worker is
         val notification = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC)
             .setTicker(context.getString(R.string.autoupload_worker_foreground_info))
             .setContentText(context.getString(R.string.autoupload_worker_foreground_info))
@@ -93,17 +97,18 @@ class FilesSyncWork(
             .setOngoing(true)
             .setProgress(100, progressPercent, false)
             .build()
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        val foregroundInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ForegroundInfo(FOREGROUND_SERVICE_ID, notification, ForegroundServiceType.DataSync.getId())
         } else {
             ForegroundInfo(FOREGROUND_SERVICE_ID, notification)
         }
+
+        setForegroundAsync(foregroundInfo)
     }
 
     @Suppress("MagicNumber")
-    override suspend fun doWork(): Result {
+    override fun doWork(): Result {
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
-        setForeground(createForegroundInfo(0))
 
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         // If we are in power save mode, better to postpone upload
@@ -121,10 +126,20 @@ class FilesSyncWork(
             connectivityService,
             powerManagementService
         )
-        setForeground(createForegroundInfo(5))
-        // Check every file in every synced folder for changes and update filesystemDataProvider database (expensive)
-        FilesSyncHelper.insertAllDBEntries(skipCustom, syncedFolderProvider)
-        setForeground(createForegroundInfo(50))
+
+        // Get changed files from ContentObserverWork or by scanning filesystem
+        val changedFiles = inputData.getStringArray(CHANGED_FILES)
+        var useForegroundWorker = false
+        if (changedFiles != null) {
+            // TODO Handle single files
+            FilesSyncHelper.insertChangedEntries(skipCustom,syncedFolderProvider,changedFiles)
+        } else {
+            useForegroundWorker = true
+            updateForegroundWorker(5, true)
+            // Check every file in every synced folder for changes and update filesystemDataProvider database (expensive)
+            FilesSyncHelper.insertAllDBEntries(skipCustom, syncedFolderProvider)
+            updateForegroundWorker(50, true)
+        }
         // Create all the providers we'll need
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
         val currentLocale = resources.configuration.locale
@@ -134,7 +149,10 @@ class FilesSyncWork(
         // start upload of changed / new files
         val syncedFolders = syncedFolderProvider.syncedFolders
         for ((index, syncedFolder) in syncedFolders.withIndex()) {
-            setForeground(createForegroundInfo((50 + (index.toDouble() / syncedFolders.size.toDouble()) * 50).toInt()))
+            updateForegroundWorker(
+                (50 + (index.toDouble() / syncedFolders.size.toDouble()) * 50).toInt(),
+                useForegroundWorker
+            )
             if (syncedFolder.isEnabled && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.type)) {
                 syncFolder(
                     context,

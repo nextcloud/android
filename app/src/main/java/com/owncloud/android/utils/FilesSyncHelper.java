@@ -139,6 +139,16 @@ public final class FilesSyncHelper {
         }
     }
 
+    public static void insertChangedEntries(boolean skipCustom,
+                                            SyncedFolderProvider syncedFolderProvider,
+                                            String[] changedFiles) {
+        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            if (syncedFolder.isEnabled() && (!skipCustom || syncedFolder.getType() != MediaFolderType.CUSTOM)) {
+                insertAllDBEntriesForSyncedFolder(syncedFolder);
+            }
+        }
+    }
+
     private static void insertContentIntoDB(Uri uri, SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
