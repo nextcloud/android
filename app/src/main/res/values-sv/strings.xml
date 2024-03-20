@@ -767,6 +767,7 @@
     <string name="shared_icon_shared_via_link">delad via länk</string>
     <string name="shared_with_you_by">Delad med dig av %1$s</string>
     <string name="sharee_add_failed">Misslyckades lägga till delning</string>
+    <string name="sharee_already_added_to_file">Det gick inte att lägga till delning. Den här filen eller mappen har redan delats med den här personen eller gruppen.</string>
     <string name="show_images">Visa bilder</string>
     <string name="show_video">Visa video</string>
     <string name="signup_with_provider">Registrera hos en leverantör</string>

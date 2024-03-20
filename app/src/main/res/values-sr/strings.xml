@@ -766,6 +766,7 @@
     <string name="shared_icon_shared_via_link">дељено путем везе</string>
     <string name="shared_with_you_by">Дели са вама %1$s</string>
     <string name="sharee_add_failed">Додавање особе за дељење није успело</string>
+    <string name="sharee_already_added_to_file">Није успело додавање дељења. Овај фајл или фолдер се већ дели са наведеном особом или групом.</string>
     <string name="show_images">Прикажи слике</string>
     <string name="show_video">Прикажи видео снимке</string>
     <string name="signup_with_provider">Пријавите се преко провајдера</string>
