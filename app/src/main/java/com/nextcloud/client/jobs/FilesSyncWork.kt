@@ -122,6 +122,7 @@ class FilesSyncWork(
             powerManagementService
         )
         setForeground(createForegroundInfo(5))
+        // Check every file in every synced folder for changes and update filesystemDataProvider database (expensive)
         FilesSyncHelper.insertAllDBEntries(skipCustom, syncedFolderProvider)
         setForeground(createForegroundInfo(50))
         // Create all the providers we'll need
@@ -130,6 +131,7 @@ class FilesSyncWork(
         val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
         dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
 
+        // start upload of changed / new files
         val syncedFolders = syncedFolderProvider.syncedFolders
         for ((index, syncedFolder) in syncedFolders.withIndex()) {
             setForeground(createForegroundInfo((50 + (index.toDouble() / syncedFolders.size.toDouble()) * 50).toInt()))
