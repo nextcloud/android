@@ -12,17 +12,11 @@ import com.owncloud.android.AbstractIT;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.utils.ScreenshotTest;
 
-import org.junit.Rule;
 import org.junit.Test;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.core.app.ActivityScenario;
 
 public class UserInfoActivityIT extends AbstractIT {
-    @Rule
-    public IntentsTestRule<UserInfoActivity> activityRule = new IntentsTestRule<>(UserInfoActivity.class,
-                                                                                  true,
-                                                                                  false);
-
     @Test
     @ScreenshotTest
     public void fullUserInfoDetail() {
@@ -40,11 +34,13 @@ public class UserInfoActivityIT extends AbstractIT {
                                          null
         );
         intent.putExtra(UserInfoActivity.KEY_USER_DATA, userInfo);
-        UserInfoActivity sut = activityRule.launchActivity(intent);
+        ActivityScenario<UserInfoActivity> sutScenario = ActivityScenario.launch(intent);
 
-        shortSleep();
-        shortSleep();
 
-        screenshot(sut);
+        sutScenario.onActivity(sut -> onIdleSync(() -> {
+            shortSleep();
+            shortSleep();
+            screenshot(sut);
+        }));
     }
 }

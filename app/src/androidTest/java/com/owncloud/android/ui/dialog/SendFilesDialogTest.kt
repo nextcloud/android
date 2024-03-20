@@ -7,15 +7,18 @@
  */
 package com.owncloud.android.ui.dialog
 
+import android.content.Intent
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -43,52 +46,92 @@ class SendFilesDialogTest : AbstractIT() {
         )
     }
 
+    private lateinit var scenario: ActivityScenario<TestActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
+
     @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<TestActivity>(intent)
 
-    private fun showDialog(files: Set<OCFile>): SendFilesDialog {
-        val activity = testActivityRule.launchActivity(null)
-
-        val fm: FragmentManager = activity.supportFragmentManager
-        val ft = fm.beginTransaction()
-        ft.addToBackStack(null)
-
-        val sut = SendFilesDialog.newInstance(files)
-        sut.show(ft, "TAG_SEND_SHARE_DIALOG")
-
-        InstrumentationRegistry.getInstrumentation().waitForIdleSync()
-        shortSleep()
-
-        return sut
+    @After
+    fun cleanup() {
+        scenario.close()
     }
 
     @Test
     fun showDialog() {
-        val sut = showDialog(FILES_SAME_TYPE)
-        val recyclerview: RecyclerView = sut.requireDialog().findViewById(R.id.send_button_recycler_view)
-        Assert.assertNotNull("Adapter is null", recyclerview.adapter)
-        Assert.assertNotEquals("Send button list is empty", 0, recyclerview.adapter!!.itemCount)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val fm: FragmentManager = activity.supportFragmentManager
+            val ft = fm.beginTransaction()
+            ft.addToBackStack(null)
+
+            val sut = SendFilesDialog.newInstance(FILES_SAME_TYPE)
+            sut.show(ft, "TAG_SEND_SHARE_DIALOG")
+
+            onIdleSync {
+                shortSleep()
+                val recyclerview: RecyclerView = sut.requireDialog().findViewById(R.id.send_button_recycler_view)
+                Assert.assertNotNull("Adapter is null", recyclerview.adapter)
+                Assert.assertNotEquals("Send button list is empty", 0, recyclerview.adapter!!.itemCount)
+            }
+        }
     }
 
     @Test
     @ScreenshotTest
     fun showDialog_Screenshot() {
-        val sut = showDialog(FILES_SAME_TYPE)
-        sut.requireDialog().window?.decorView.let { screenshot(it) }
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val fm: FragmentManager = activity.supportFragmentManager
+            val ft = fm.beginTransaction()
+            ft.addToBackStack(null)
+
+            val sut = SendFilesDialog.newInstance(FILES_SAME_TYPE)
+            sut.show(ft, "TAG_SEND_SHARE_DIALOG")
+
+            onIdleSync {
+                shortSleep()
+                sut.requireDialog().window?.decorView.let { screenshot(it) }
+            }
+        }
     }
 
     @Test
     fun showDialogDifferentTypes() {
-        val sut = showDialog(FILES_MIXED_TYPE)
-        val recyclerview: RecyclerView = sut.requireDialog().findViewById(R.id.send_button_recycler_view)
-        Assert.assertNotNull("Adapter is null", recyclerview.adapter)
-        Assert.assertNotEquals("Send button list is empty", 0, recyclerview.adapter!!.itemCount)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val fm: FragmentManager = activity.supportFragmentManager
+            val ft = fm.beginTransaction()
+            ft.addToBackStack(null)
+
+            val sut = SendFilesDialog.newInstance(FILES_MIXED_TYPE)
+            sut.show(ft, "TAG_SEND_SHARE_DIALOG")
+
+            onIdleSync {
+                shortSleep()
+                val recyclerview: RecyclerView = sut.requireDialog().findViewById(R.id.send_button_recycler_view)
+                Assert.assertNotNull("Adapter is null", recyclerview.adapter)
+                Assert.assertNotEquals("Send button list is empty", 0, recyclerview.adapter!!.itemCount)
+            }
+        }
     }
 
     @Test
     @ScreenshotTest
     fun showDialogDifferentTypes_Screenshot() {
-        val sut = showDialog(FILES_MIXED_TYPE)
-        sut.requireDialog().window?.decorView.let { screenshot(it) }
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val fm: FragmentManager = activity.supportFragmentManager
+            val ft = fm.beginTransaction()
+            ft.addToBackStack(null)
+
+            val sut = SendFilesDialog.newInstance(FILES_MIXED_TYPE)
+            sut.show(ft, "TAG_SEND_SHARE_DIALOG")
+
+            onIdleSync {
+                shortSleep()
+                sut.requireDialog().window?.decorView.let { screenshot(it) }
+            }
+        }
     }
 }

@@ -7,7 +7,7 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.app.Activity;
+import android.content.Intent;
 
 import com.nextcloud.client.account.User;
 import com.owncloud.android.AbstractIT;
@@ -15,52 +15,65 @@ import com.owncloud.android.lib.common.Quota;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.utils.ScreenshotTest;
 
-import org.junit.Rule;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.core.app.ApplicationProvider;
 
 public class ManageAccountsActivityIT extends AbstractIT {
-    @Rule
-    public IntentsTestRule<ManageAccountsActivity> activityRule = new IntentsTestRule<>(ManageAccountsActivity.class,
-                                                                                        true,
-                                                                                        false);
+    private ActivityScenario<ManageAccountsActivity> scenario;
+
+    @Before
+    public void setUp() {
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), ManageAccountsActivity.class);
+        scenario = ActivityScenario.launch(intent);
+    }
+
+    @After
+    public void tearDown() {
+        scenario.close();
+    }
 
     @Test
     @ScreenshotTest
     public void open() {
-        Activity sut = activityRule.launchActivity(null);
-
-        shortSleep();
-
-        screenshot(sut);
+        scenario.onActivity(sut -> {
+            onIdleSync(() -> {
+                shortSleep();
+                screenshot(sut);
+            });
+        });
     }
 
     @Test
     @ScreenshotTest
     public void userInfoDetail() {
-        ManageAccountsActivity sut = activityRule.launchActivity(null);
+        scenario.onActivity(sut -> {
+            User user = sut.accountManager.getUser();
 
-        User user = sut.accountManager.getUser();
+            UserInfo userInfo = new UserInfo("test",
+                                             true,
+                                             "Test User",
+                                             "test@nextcloud.com",
+                                             "+49 123 456",
+                                             "Address 123, Berlin",
+                                             "https://www.nextcloud.com",
+                                             "https://twitter.com/Nextclouders",
+                                             new Quota(),
+                                             new ArrayList<>());
 
-        UserInfo userInfo = new UserInfo("test",
-                                         true,
-                                         "Test User",
-                                         "test@nextcloud.com",
-                                         "+49 123 456",
-                                         "Address 123, Berlin",
-                                         "https://www.nextcloud.com",
-                                         "https://twitter.com/Nextclouders",
-                                         new Quota(),
-                                         new ArrayList<>());
+            onIdleSync(() -> {
+                sut.showUser(user, userInfo);
 
-        sut.showUser(user, userInfo);
+                shortSleep();
+                shortSleep();
 
-        shortSleep();
-        shortSleep();
-
-        screenshot(getCurrentActivity());
+                screenshot(getCurrentActivity());
+            });
+        });
     }
 }

@@ -8,27 +8,32 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
+import androidx.test.core.app.ActivityScenario
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.Rule
 import org.junit.Test
 
 class PassCodeActivityIT : AbstractIT() {
-    @get:Rule
-    var activityRule = IntentsTestRule(PassCodeActivity::class.java, true, false)
-
     @Test
     @ScreenshotTest
     fun check() {
-        val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_CHECK))
-        onIdleSync {
-            sut.runOnUiThread { sut.binding.txt0.clearFocus() }
-            Espresso.closeSoftKeyboard()
-            shortSleep()
+        val intent = Intent(
+            targetContext,
+            PassCodeActivity::class.java
+        ).apply {
+            action = PassCodeActivity.ACTION_CHECK
+        }
+
+        val sutScenario = ActivityScenario.launch<PassCodeActivity>(intent)
+        sutScenario.onActivity { sut ->
             onIdleSync {
-                screenshot(sut)
+                sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+                Espresso.closeSoftKeyboard()
+                shortSleep()
+                onIdleSync {
+                    screenshot(sut)
+                }
             }
         }
     }
@@ -36,14 +41,23 @@ class PassCodeActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun request() {
-        val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_REQUEST_WITH_RESULT))
-        onIdleSync {
-            sut.runOnUiThread { sut.binding.txt0.clearFocus() }
-            Espresso.closeSoftKeyboard()
-            shortSleep()
+        val intent = Intent(
+            targetContext,
+            PassCodeActivity::class.java
+        ).apply {
+            action = PassCodeActivity.ACTION_REQUEST_WITH_RESULT
+        }
 
+        val sutScenario = ActivityScenario.launch<PassCodeActivity>(intent)
+        sutScenario.onActivity { sut ->
             onIdleSync {
-                screenshot(sut)
+                sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+                Espresso.closeSoftKeyboard()
+                shortSleep()
+
+                onIdleSync {
+                    screenshot(sut)
+                }
             }
         }
     }
@@ -51,14 +65,22 @@ class PassCodeActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun delete() {
-        val sut = activityRule.launchActivity(Intent(PassCodeActivity.ACTION_CHECK_WITH_RESULT))
+        val intent = Intent(
+            targetContext,
+            PassCodeActivity::class.java
+        ).apply {
+            action = PassCodeActivity.ACTION_CHECK_WITH_RESULT
+        }
 
-        onIdleSync {
-            sut.runOnUiThread { sut.binding.txt0.clearFocus() }
-            Espresso.closeSoftKeyboard()
-            shortSleep()
+        val sutScenario = ActivityScenario.launch<PassCodeActivity>(intent)
+        sutScenario.onActivity { sut ->
             onIdleSync {
-                screenshot(sut)
+                sut.runOnUiThread { sut.binding.txt0.clearFocus() }
+                Espresso.closeSoftKeyboard()
+                shortSleep()
+                onIdleSync {
+                    screenshot(sut)
+                }
             }
         }
     }

@@ -8,10 +8,9 @@
 package com.owncloud.android.ui.preview
 
 import android.content.Intent
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.core.app.ActivityScenario
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.Rule
 import org.junit.Test
 
 class PreviewBitmapScreenshotIT : AbstractIT() {
@@ -20,24 +19,22 @@ class PreviewBitmapScreenshotIT : AbstractIT() {
         private const val PNG_FILE_ASSET = "imageFile.png"
     }
 
-    @get:Rule
-    val testActivityRule = IntentsTestRule(PreviewBitmapActivity::class.java, true, false)
-
     @Test
     @ScreenshotTest
     fun showBitmap() {
         val pngFile = getFile(PNG_FILE_ASSET)
-
-        val activity = testActivityRule.launchActivity(
-            Intent().putExtra(
+        val intent = Intent(targetContext, PreviewBitmapActivity::class.java).apply {
+            putExtra(
                 PreviewBitmapActivity.EXTRA_BITMAP_PATH,
                 pngFile.absolutePath
             )
-        )
-
-        shortSleep()
-        onIdleSync {
-            screenshot(activity)
+        }
+        val sutScenario = ActivityScenario.launch<PreviewBitmapActivity>(intent)
+        sutScenario.onActivity { sut ->
+            shortSleep()
+            onIdleSync {
+                screenshot(sut)
+            }
         }
     }
 }

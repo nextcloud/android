@@ -63,7 +63,7 @@ import com.owncloud.android.utils.theme.MaterialSchemesProvider;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.junit.After;
-import org.junit.Rule;
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -76,7 +76,7 @@ import java.util.Objects;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.core.app.ActivityScenario;
 import kotlin.Unit;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -84,15 +84,6 @@ import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentat
 public class DialogFragmentIT extends AbstractIT {
 
     private final String SERVER_URL = "https://nextcloud.localhost";
-
-    @Rule public IntentsTestRule<FileDisplayActivity> activityRule =
-        new IntentsTestRule<>(FileDisplayActivity.class, true, false);
-
-    private FileDisplayActivity getFileDisplayActivity() {
-        Intent intent = new Intent(targetContext, FileDisplayActivity.class);
-        return activityRule.launchActivity(intent);
-    }
-    
 
     @After
     public void quitLooperIfNeeded() {
@@ -145,7 +136,7 @@ public class DialogFragmentIT extends AbstractIT {
     public void testConfirmationDialogWithThreeActionRTL() {
         enableRTL();
 
-        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[] { }, -1, R.string.common_ok, R.string.common_cancel, R.string.common_confirm);
+        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.upload_list_empty_text_auto_upload, new String[]{}, -1, R.string.common_ok, R.string.common_cancel, R.string.common_confirm);
         showDialog(dialog);
 
         resetLocale();
@@ -219,91 +210,102 @@ public class DialogFragmentIT extends AbstractIT {
 
     @Test
     @ScreenshotTest
-    public void testAccountChooserDialog() throws AccountUtils.AccountNotFoundException {
-        FileDisplayActivity activity = getFileDisplayActivity();
-        UserAccountManager userAccountManager = activity.getUserAccountManager();
-        AccountManager accountManager = AccountManager.get(targetContext);
-        for (Account account : accountManager.getAccountsByType(MainApp.getAccountType(targetContext))) {
-            accountManager.removeAccountExplicitly(account);
-        }
+    public void testAccountChooserDialog() {
+        Intent intent = new Intent(targetContext, FileDisplayActivity.class);
+        ActivityScenario<FileDisplayActivity> sutScenario = ActivityScenario.launch(intent);
 
-        Account newAccount = new Account("test@https://nextcloud.localhost", MainApp.getAccountType(targetContext));
-        accountManager.addAccountExplicitly(newAccount, "password", null);
-        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, SERVER_URL);
-        accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
-        accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
-        User newUser = userAccountManager.getUser(newAccount.name).orElseThrow(RuntimeException::new);
-        userAccountManager.setCurrentOwnCloudAccount(newAccount.name);
+        sutScenario.onActivity(activity -> {
+            UserAccountManager userAccountManager = activity.getUserAccountManager();
+            AccountManager accountManager = AccountManager.get(targetContext);
+            for (Account account : accountManager.getAccountsByType(MainApp.getAccountType(targetContext))) {
+                accountManager.removeAccountExplicitly(account);
+            }
 
-        Account newAccount2 = new Account("user1@nextcloud.localhost", MainApp.getAccountType(targetContext));
-        accountManager.addAccountExplicitly(newAccount2, "password", null);
-        accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_BASE_URL, SERVER_URL);
-        accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_USER_ID, "user1");
-        accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_VERSION, "20.0.0");
-        accountManager.setAuthToken(newAccount2, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
+            Account newAccount = new Account("test@https://nextcloud.localhost", MainApp.getAccountType(targetContext));
+            accountManager.addAccountExplicitly(newAccount, "password", null);
+            accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_OC_BASE_URL, SERVER_URL);
+            accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
+            accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
+            User newUser = userAccountManager.getUser(newAccount.name).orElseThrow(RuntimeException::new);
+            userAccountManager.setCurrentOwnCloudAccount(newAccount.name);
 
-        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newUser,
-                                                                                   targetContext.getContentResolver());
+            Account newAccount2 = new Account("user1@nextcloud.localhost", MainApp.getAccountType(targetContext));
+            accountManager.addAccountExplicitly(newAccount2, "password", null);
+            accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_BASE_URL, SERVER_URL);
+            accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_USER_ID, "user1");
+            accountManager.setUserData(newAccount2, AccountUtils.Constants.KEY_OC_VERSION, "20.0.0");
+            accountManager.setAuthToken(newAccount2, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
 
-        OCCapability capability = new OCCapability();
-        capability.setUserStatus(CapabilityBooleanType.TRUE);
-        capability.setUserStatusSupportsEmoji(CapabilityBooleanType.TRUE);
-        fileDataStorageManager.saveCapabilities(capability);
+            FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newUser,
+                                                                                       targetContext.getContentResolver());
 
-        ChooseAccountDialogFragment sut =
-            ChooseAccountDialogFragment.newInstance(new RegisteredUser(newAccount,
-                                                                       new OwnCloudAccount(newAccount, targetContext),
-                                                                       new Server(URI.create(SERVER_URL),
-                                                                                  OwnCloudVersion.nextcloud_20)));
-        showDialog(activity, sut);
+            OCCapability capability = new OCCapability();
+            capability.setUserStatus(CapabilityBooleanType.TRUE);
+            capability.setUserStatusSupportsEmoji(CapabilityBooleanType.TRUE);
+            fileDataStorageManager.saveCapabilities(capability);
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.DND,
-                                                              "Busy fixing 🐛…",
-                                                              "",
-                                                              -1),
-                                                   targetContext));
-        onIdleSync(() -> {
-            shortSleep();
-            screenshot(sut, "dnd");
-        });
+            try {
+                ChooseAccountDialogFragment sut = ChooseAccountDialogFragment.newInstance(new RegisteredUser(newAccount,
+                                                                                                             new OwnCloudAccount(newAccount, targetContext),
+                                                                                                             new Server(URI.create(SERVER_URL),
+                                                                                                                        OwnCloudVersion.nextcloud_20)));
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
-                                                              "",
-                                                              "",
-                                                              -1),
-                                                   targetContext));
+                showDialog(activity, sut);
 
-        onIdleSync(() -> {
-            shortSleep();
-            screenshot(sut, "online");
-        });
+                onIdleSync(() -> {
+                    activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.DND,
+                                                                          "Busy fixing 🐛…",
+                                                                          "",
+                                                                          -1),
+                                                               targetContext));
+                    onIdleSync(() -> {
+                        shortSleep();
+                        screenshot(sut, "dnd");
+                    });
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
-                                                              "Let's have some fun",
-                                                              "🎉",
-                                                              -1),
-                                                   targetContext));
-        onIdleSync(() -> {
-            shortSleep();
-            screenshot(sut, "fun");
-        });
+                    activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
+                                                                          "",
+                                                                          "",
+                                                                          -1),
+                                                               targetContext));
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.OFFLINE, "", "", -1), targetContext));
-        onIdleSync(() -> {
-            shortSleep();
-            screenshot(sut, "offline");
-        });
+                    onIdleSync(() -> {
+                        shortSleep();
+                        screenshot(sut, "online");
+                    });
 
-        activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.AWAY, "Vacation", "🌴", -1), targetContext));
-        onIdleSync(() -> {
-            shortSleep();
-            screenshot(sut, "away");
+                    activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.ONLINE,
+                                                                          "Let's have some fun",
+                                                                          "🎉",
+                                                                          -1),
+                                                               targetContext));
+                    onIdleSync(() -> {
+                        shortSleep();
+                        screenshot(sut, "fun");
+                    });
+
+                    activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.OFFLINE, "", "", -1), targetContext));
+                    onIdleSync(() -> {
+                        shortSleep();
+                        screenshot(sut, "offline");
+                    });
+
+                    activity.runOnUiThread(() -> sut.setStatus(new Status(StatusType.AWAY, "Vacation", "🌴", -1), targetContext));
+                    onIdleSync(() -> {
+                        shortSleep();
+                        screenshot(sut, "away");
+                    });
+                });
+
+            } catch (AccountUtils.AccountNotFoundException e) {
+                Assert.fail(e.getMessage());
+            }
         });
     }
 
     @Test
     @ScreenshotTest
-    public void testAccountChooserDialogWithStatusDisabled() throws AccountUtils.AccountNotFoundException {
+    public void testAccountChooserDialogWithStatusDisabled() {
         AccountManager accountManager = AccountManager.get(targetContext);
         for (Account account : accountManager.getAccounts()) {
             accountManager.removeAccountExplicitly(account);
@@ -315,23 +317,31 @@ public class DialogFragmentIT extends AbstractIT {
         accountManager.setUserData(newAccount, AccountUtils.Constants.KEY_USER_ID, "test");
         accountManager.setAuthToken(newAccount, AccountTypeUtils.getAuthTokenTypePass(newAccount.type), "password");
 
-        FileDisplayActivity fda = getFileDisplayActivity();
-        UserAccountManager userAccountManager = fda.getUserAccountManager();
-        User newUser = userAccountManager.getUser(newAccount.name).get();
-        FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newUser,
-                                                                                   targetContext.getContentResolver());
+        Intent intent = new Intent(targetContext, FileDisplayActivity.class);
+        ActivityScenario<FileDisplayActivity> sutScenario = ActivityScenario.launch(intent);
 
-        OCCapability capability = new OCCapability();
-        capability.setUserStatus(CapabilityBooleanType.FALSE);
+        sutScenario.onActivity(fda -> {
+            UserAccountManager userAccountManager = fda.getUserAccountManager();
+            User newUser = userAccountManager.getUser(newAccount.name).get();
+            FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(newUser,
+                                                                                       targetContext.getContentResolver());
 
-        fileDataStorageManager.saveCapabilities(capability);
+            OCCapability capability = new OCCapability();
+            capability.setUserStatus(CapabilityBooleanType.FALSE);
 
-        ChooseAccountDialogFragment sut =
-            ChooseAccountDialogFragment.newInstance(new RegisteredUser(newAccount,
-                                                                       new OwnCloudAccount(newAccount, targetContext),
-                                                                       new Server(URI.create(SERVER_URL),
-                                                                                  OwnCloudVersion.nextcloud_20)));
-        showDialog(fda, sut);
+            fileDataStorageManager.saveCapabilities(capability);
+
+            try {
+                ChooseAccountDialogFragment sut = ChooseAccountDialogFragment.newInstance(new RegisteredUser(newAccount,
+                                                                                                             new OwnCloudAccount(newAccount, targetContext),
+                                                                                                             new Server(URI.create(SERVER_URL),
+                                                                                                                        OwnCloudVersion.nextcloud_20)));
+
+                onIdleSync(() -> showDialog(fda, sut));
+            } catch (AccountUtils.AccountNotFoundException e) {
+                Assert.fail(e.getMessage());
+            }
+        });
     }
 
     @Test
@@ -398,117 +408,113 @@ public class DialogFragmentIT extends AbstractIT {
         OCFile ocFile = new OCFile("/test.md");
 
         Intent intent = new Intent(targetContext, FileDisplayActivity.class);
-        FileDisplayActivity fda = activityRule.launchActivity(intent);
+        ActivityScenario<FileDisplayActivity> sutScenario = ActivityScenario.launch(intent);
 
-        // add direct editing info
-        DirectEditing directEditing = new DirectEditing();
-        directEditing.getCreators().put("1", new Creator("1",
-                                                         "text",
-                                                         "text file",
-                                                         ".md",
-                                                         "application/octet-stream",
-                                                         false));
+        sutScenario.onActivity(fda -> {
+            // add direct editing info
+            DirectEditing directEditing = new DirectEditing();
+            directEditing.getCreators().put("1", new Creator("1",
+                                                             "text",
+                                                             "text file",
+                                                             ".md",
+                                                             "application/octet-stream",
+                                                             false));
 
-        directEditing.getCreators().put("2", new Creator("2",
-                                                         "md",
-                                                         "markdown file",
-                                                         ".md",
-                                                         "application/octet-stream",
-                                                         false));
+            directEditing.getCreators().put("2", new Creator("2",
+                                                             "md",
+                                                             "markdown file",
+                                                             ".md",
+                                                             "application/octet-stream",
+                                                             false));
 
-        directEditing.getEditors().put("text",
-                                       new Editor("1",
-                                                  "Text",
-                                                  new ArrayList<>(Collections.singletonList(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)),
-                                                  new ArrayList<>(),
-                                                  false));
+            directEditing.getEditors().put("text",
+                                           new Editor("1",
+                                                      "Text",
+                                                      new ArrayList<>(Collections.singletonList(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN)),
+                                                      new ArrayList<>(),
+                                                      false));
 
-        String json = new Gson().toJson(directEditing);
+            String json = new Gson().toJson(directEditing);
 
-        new ArbitraryDataProviderImpl(targetContext).storeOrUpdateKeyValue(user.getAccountName(),
-                                                                           ArbitraryDataProvider.DIRECT_EDITING,
-                                                                           json);
+            new ArbitraryDataProviderImpl(targetContext).storeOrUpdateKeyValue(user.getAccountName(),
+                                                                               ArbitraryDataProvider.DIRECT_EDITING,
+                                                                               json);
 
-        // activate templates
-        OCCapability capability = fda.getCapabilities();
-        capability.setRichDocuments(CapabilityBooleanType.TRUE);
-        capability.setRichDocumentsDirectEditing(CapabilityBooleanType.TRUE);
-        capability.setRichDocumentsTemplatesAvailable(CapabilityBooleanType.TRUE);
-        capability.setAccountName(user.getAccountName());
+            // activate templates
+            OCCapability capability = fda.getCapabilities();
+            capability.setRichDocuments(CapabilityBooleanType.TRUE);
+            capability.setRichDocumentsDirectEditing(CapabilityBooleanType.TRUE);
+            capability.setRichDocumentsTemplatesAvailable(CapabilityBooleanType.TRUE);
+            capability.setAccountName(user.getAccountName());
 
-        CapabilityUtils.updateCapability(capability);
+            CapabilityUtils.updateCapability(capability);
 
-        AppScanOptionalFeature appScanOptionalFeature = new AppScanOptionalFeature() {
-            @NonNull
-            @Override
-            public ActivityResultContract<Unit, String> getScanContract() {
-                throw new UnsupportedOperationException("Document scan is not available");
-            }
-        };
+            AppScanOptionalFeature appScanOptionalFeature = new AppScanOptionalFeature() {
+                @NonNull
+                @Override
+                public ActivityResultContract<Unit, String> getScanContract() {
+                    throw new UnsupportedOperationException("Document scan is not available");
+                }
+            };
 
-        MaterialSchemesProvider materialSchemesProvider = new MaterialSchemesProvider() {
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForUser(@NonNull User user) {
-                return null;
-            }
+            MaterialSchemesProvider materialSchemesProvider = new MaterialSchemesProvider() {
+                @NonNull
+                @Override
+                public MaterialSchemes getMaterialSchemesForUser(@NonNull User user) {
+                    return null;
+                }
 
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForCapability(@NonNull OCCapability capability) {
-                return null;
-            }
+                @NonNull
+                @Override
+                public MaterialSchemes getMaterialSchemesForCapability(@NonNull OCCapability capability) {
+                    return null;
+                }
 
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForCurrentUser() {
-                return new MaterialSchemesImpl(R.color.primary, false);
-            }
+                @NonNull
+                @Override
+                public MaterialSchemes getMaterialSchemesForCurrentUser() {
+                    return new MaterialSchemesImpl(R.color.primary, false);
+                }
 
-            @NonNull
-            @Override
-            public MaterialSchemes getDefaultMaterialSchemes() {
-                return null;
-            }
+                @NonNull
+                @Override
+                public MaterialSchemes getDefaultMaterialSchemes() {
+                    return null;
+                }
 
-            @NonNull
-            @Override
-            public MaterialSchemes getMaterialSchemesForPrimaryBackground() {
-                return null;
-            }
-        };
+                @NonNull
+                @Override
+                public MaterialSchemes getMaterialSchemesForPrimaryBackground() {
+                    return null;
+                }
+            };
 
-        ViewThemeUtils viewThemeUtils = new ViewThemeUtils(materialSchemesProvider.getMaterialSchemesForCurrentUser(),
-                                                           new ColorUtil(targetContext));
+            ViewThemeUtils viewThemeUtils = new ViewThemeUtils(materialSchemesProvider.getMaterialSchemesForCurrentUser(),
+                                                               new ColorUtil(targetContext));
 
-        EditorUtils editorUtils = new EditorUtils(new ArbitraryDataProviderImpl(targetContext));
+            EditorUtils editorUtils = new EditorUtils(new ArbitraryDataProviderImpl(targetContext));
 
 
-        OCFileListBottomSheetDialog sut = new OCFileListBottomSheetDialog(fda,
-                                                                          action,
-                                                                          info,
-                                                                          user,
-                                                                          ocFile,
-                                                                          fda.themeUtils,
-                                                                          viewThemeUtils,
-                                                                          editorUtils,
-                                                                          appScanOptionalFeature);
+            OCFileListBottomSheetDialog sut = new OCFileListBottomSheetDialog(fda,
+                                                                              action,
+                                                                              info,
+                                                                              user,
+                                                                              ocFile,
+                                                                              fda.themeUtils,
+                                                                              viewThemeUtils,
+                                                                              editorUtils,
+                                                                              appScanOptionalFeature);
 
-        fda.runOnUiThread(sut::show);
-
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
-
-        sut.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
-
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
-
-        ViewGroup viewGroup = sut.getWindow().findViewById(android.R.id.content);
-        hideCursors(viewGroup);
-
-        screenshot(Objects.requireNonNull(sut.getWindow()).getDecorView());
-
+            onIdleSync(() -> {
+                fda.runOnUiThread(sut::show);
+                shortSleep();
+                sut.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
+                shortSleep();
+                ViewGroup viewGroup = Objects.requireNonNull(sut.getWindow()).findViewById(android.R.id.content);
+                hideCursors(viewGroup);
+                screenshot(Objects.requireNonNull(sut.getWindow()).getDecorView());
+            });
+        });
     }
 
     @Test
@@ -539,15 +545,17 @@ public class DialogFragmentIT extends AbstractIT {
 
         // show dialog
         Intent intent = new Intent(targetContext, FileDisplayActivity.class);
-        FileDisplayActivity fda = activityRule.launchActivity(intent);
+        ActivityScenario<FileDisplayActivity> sutScenario = ActivityScenario.launch(intent);
 
-        ProfileBottomSheetDialog sut = new ProfileBottomSheetDialog(fda,
-                                                                    user,
-                                                                    hoverCard,
-                                                                    fda.viewThemeUtils);
+        sutScenario.onActivity(fda -> {
+            ProfileBottomSheetDialog sut = new ProfileBottomSheetDialog(fda,
+                                                                        user,
+                                                                        hoverCard,
+                                                                        fda.viewThemeUtils);
 
-        fda.runOnUiThread(sut::show);
-        onIdleSync(() -> screenshot(sut.getWindow().getDecorView()));
+            fda.runOnUiThread(sut::show);
+            onIdleSync(() -> screenshot(sut.getWindow().getDecorView()));
+        });
     }
 
 
@@ -591,30 +599,27 @@ public class DialogFragmentIT extends AbstractIT {
         showDialog(sut);
     }
 
-    private FileDisplayActivity showDialog(DialogFragment dialog) {
+    private void showDialog(DialogFragment dialog) {
         Intent intent = new Intent(targetContext, FileDisplayActivity.class);
-
-        FileDisplayActivity sut = activityRule.getActivity();
-
-        if (sut == null) {
-            sut = activityRule.launchActivity(intent);
-        }
-
-        return showDialog(sut, dialog);
+        ActivityScenario<FileDisplayActivity> sutScenario = ActivityScenario.launch(intent);
+        sutScenario.onActivity(sut -> {
+            onIdleSync(() -> showDialog(sut, dialog));
+        });
     }
 
-    private FileDisplayActivity showDialog(FileDisplayActivity sut, DialogFragment dialog) {
-        dialog.show(sut.getSupportFragmentManager(), "");
+    private void showDialog(FileDisplayActivity sut, DialogFragment dialog) {
+        onIdleSync(() -> {
+            dialog.show(sut.getSupportFragmentManager(), "");
 
-        getInstrumentation().waitForIdleSync();
-        shortSleep();
+            getInstrumentation().waitForIdleSync();
+            shortSleep();
 
-        ViewGroup viewGroup = dialog.requireDialog().getWindow().findViewById(android.R.id.content);
-        hideCursors(viewGroup);
+            ViewGroup viewGroup = dialog.requireDialog().getWindow().findViewById(android.R.id.content);
+            hideCursors(viewGroup);
 
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+            screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
 
-        return sut;
+        });
     }
 
     private void hideCursors(ViewGroup viewGroup) {

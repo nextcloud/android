@@ -7,22 +7,37 @@
  */
 package com.owncloud.android.ui.activity
 
-import android.app.Activity
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import android.content.Intent
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
 import org.junit.Rule
 import org.junit.Test
 
 class ReceiveExternalFilesActivityIT : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<ReceiveExternalFilesActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), ReceiveExternalFilesActivity::class.java)
+
     @get:Rule
-    val activityRule = IntentsTestRule(ReceiveExternalFilesActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<ReceiveExternalFilesActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     @Test
     @ScreenshotTest
     fun open() {
-        val sut: Activity = activityRule.launchActivity(null)
-        screenshot(sut)
+        scenario = activityRule.scenario
+        scenario.onActivity { sut ->
+            onIdleSync {
+                screenshot(sut)
+            }
+        }
     }
 
     @Test
