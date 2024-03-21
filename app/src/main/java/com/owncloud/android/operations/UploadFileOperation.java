@@ -580,10 +580,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
 
-            File encryptedTempFile = File.createTempFile("encFile", encryptedFileName);
-            FileOutputStream fileOutputStream = new FileOutputStream(encryptedTempFile);
-            fileOutputStream.write(encryptedFile.getEncryptedBytes());
-            fileOutputStream.close();
+            File encryptedTempFile = encryptedFile.getEncryptedFile();
 
             /***** E2E *****/
 
