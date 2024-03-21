@@ -277,7 +277,7 @@ internal class BackgroundJobManagerImpl(
             .setConstraints(constrains)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
+        workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.APPEND, request)
     }
 
     override fun schedulePeriodicContactsBackup(user: User) {
@@ -441,7 +441,7 @@ internal class BackgroundJobManagerImpl(
             .setInputData(arguments)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_SYNC, ExistingWorkPolicy.KEEP, request)
+        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_SYNC, ExistingWorkPolicy.APPEND, request)
     }
 
     override fun scheduleOfflineSync() {
