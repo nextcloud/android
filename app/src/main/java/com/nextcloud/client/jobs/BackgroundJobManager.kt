@@ -133,7 +133,12 @@ interface BackgroundJobManager {
     fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
     fun schedulePeriodicFilesSyncJob()
-    fun startImmediateFilesSyncJob(skipCustomFolders: Boolean = false, overridePowerSaving: Boolean = false)
+
+    fun startImmediateFilesSyncJob(
+        overridePowerSaving: Boolean = false,
+        changedFiles: Array<String> = arrayOf<String>()
+    )
+
     fun scheduleOfflineSync()
 
     fun scheduleMediaFoldersDetectionJob()
