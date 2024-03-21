@@ -97,7 +97,7 @@ internal class BackgroundJobManagerImpl(
 
         const val JOB_TEST = "test_job"
 
-        const val MAX_CONTENT_TRIGGER_DELAY_MS = 1500L
+        const val MAX_CONTENT_TRIGGER_DELAY_MS = 10000L
 
         const val TAG_PREFIX_NAME = "name"
         const val TAG_PREFIX_USER = "user"
