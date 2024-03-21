@@ -266,7 +266,7 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui-tooling-preview:1.6.4")
-    debugImplementation 'androidx.compose.ui:ui-tooling:1.6.2'
+    debugImplementation 'androidx.compose.ui:ui-tooling:1.6.4'
 
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     // remove after entire switch to lib v2
