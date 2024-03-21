@@ -61,8 +61,8 @@ class ContentObserverWork(
     private fun checkAndStartFileSyncJob() {
         val syncFolders = syncerFolderProvider.countEnabledSyncedFolders() > 0
         if (!powerManagementService.isPowerSavingEnabled && syncFolders) {
-            val changedFiles = mutableListOf<String>();
-            for (uri in params.triggeredContentUris){
+            val changedFiles = mutableListOf<String>()
+            for (uri in params.triggeredContentUris) {
                 changedFiles.add(uri.toString())
             }
             backgroundJobManager.startImmediateFilesSyncJob(false, changedFiles.toTypedArray())

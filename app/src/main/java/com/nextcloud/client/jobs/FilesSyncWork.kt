@@ -142,7 +142,11 @@ class FilesSyncWork(
                 (50 + (index.toDouble() / syncedFolders.size.toDouble()) * 50).toInt(),
                 changedFiles.isNullOrEmpty()
             )
-            if (syncedFolder.isEnabled && (changedFiles.isNullOrEmpty() || MediaFolderType.CUSTOM != syncedFolder.type)) {
+            if (syncedFolder.isEnabled && (
+                    changedFiles.isNullOrEmpty() ||
+                        MediaFolderType.CUSTOM != syncedFolder.type
+                    )
+            ) {
                 syncFolder(
                     context,
                     resources,
@@ -159,12 +163,13 @@ class FilesSyncWork(
         return result
     }
 
-    private fun collectChangedFiles(changedFiles: Array<String>?){
+    @Suppress("MagicNumber")
+    private fun collectChangedFiles(changedFiles: Array<String>?) {
         if (!changedFiles.isNullOrEmpty()) {
-            FilesSyncHelper.insertChangedEntries(syncedFolderProvider,changedFiles)
+            FilesSyncHelper.insertChangedEntries(syncedFolderProvider, changedFiles)
         } else {
-            // Check every file in every synced folder for changes and update filesystemDataProvider database (expensive)
-            // Potentially needs a long time so use foreground worker
+            // Check every file in every synced folder for changes and update
+            // filesystemDataProvider database (potentially needs a long time so use foreground worker)
             updateForegroundWorker(5, true)
             FilesSyncHelper.insertAllDBEntries(syncedFolderProvider)
             updateForegroundWorker(50, true)
