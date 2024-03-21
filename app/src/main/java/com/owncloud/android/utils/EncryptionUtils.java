@@ -587,7 +587,7 @@ public final class EncryptionUtils {
         File encryptedFile = new File(file.getAbsolutePath() + ".enc");
         encryptFileWithGivenCipher(file, encryptedFile, cipher);
         byte[] authenticationTag = cipher.getParameters().getParameterSpec(GCMParameterSpec.class).getIV();
-        String authenticationTagString = new String(authenticationTag, StandardCharsets.UTF_8);
+        String authenticationTagString = encodeBytesToBase64String(authenticationTag);
         return new EncryptedFile(encryptedFile, authenticationTagString);
     }
 
