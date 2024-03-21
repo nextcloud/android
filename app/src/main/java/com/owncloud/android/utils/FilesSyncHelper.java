@@ -130,23 +130,49 @@ public final class FilesSyncHelper {
         }
     }
 
-    public static void insertAllDBEntries(boolean skipCustom,
-                                          SyncedFolderProvider syncedFolderProvider) {
+    public static void insertAllDBEntries(SyncedFolderProvider syncedFolderProvider) {
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled() && (!skipCustom || syncedFolder.getType() != MediaFolderType.CUSTOM)) {
+            if (syncedFolder.isEnabled()) {
                 insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
     }
 
-    public static void insertChangedEntries(boolean skipCustom,
-                                            SyncedFolderProvider syncedFolderProvider,
+    public static void insertChangedEntries(SyncedFolderProvider syncedFolderProvider,
                                             String[] changedFiles) {
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled() && (!skipCustom || syncedFolder.getType() != MediaFolderType.CUSTOM)) {
-                insertAllDBEntriesForSyncedFolder(syncedFolder);
+        final ContentResolver contentResolver = MainApp.getAppContext().getContentResolver();
+        final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
+        for (String changedFileURI : changedFiles){
+            String changedFile = getFileFromURI(changedFileURI);
+            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+                if (syncedFolder.isEnabled() && syncedFolder.containsFile(changedFile)){
+                    File file = new File(changedFile);
+                    filesystemDataProvider.storeOrUpdateFileValue(changedFile,
+                                                                  file.lastModified(),file.isDirectory(),
+                                                                  syncedFolder);
+                    break;
+                }
             }
         }
+    }
+
+    private static String getFileFromURI(String uri){
+        final Context context = MainApp.getAppContext();
+
+        Cursor cursor;
+        int column_index_data;
+        String filePath = null;
+
+        String[] projection = {MediaStore.MediaColumns.DATA};
+
+        cursor = context.getContentResolver().query(Uri.parse(uri), projection, null, null, null, null);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            column_index_data = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATA);
+            filePath = cursor.getString(column_index_data);
+            cursor.close();
+        }
+        return filePath;
     }
 
     private static void insertContentIntoDB(Uri uri, SyncedFolder syncedFolder) {

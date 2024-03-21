@@ -425,10 +425,13 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC, ExistingPeriodicWorkPolicy.REPLACE, request)
     }
 
-    override fun startImmediateFilesSyncJob(skipCustomFolders: Boolean, overridePowerSaving: Boolean) {
+    override fun startImmediateFilesSyncJob(
+        overridePowerSaving: Boolean,
+        changedFiles: Array<String>
+    ) {
         val arguments = Data.Builder()
-            .putBoolean(FilesSyncWork.SKIP_CUSTOM, skipCustomFolders)
             .putBoolean(FilesSyncWork.OVERRIDE_POWER_SAVING, overridePowerSaving)
+            .putStringArray(FilesSyncWork.CHANGED_FILES, changedFiles)
             .build()
 
         val request = oneTimeRequestBuilder(

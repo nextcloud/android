@@ -278,4 +278,8 @@ public class SyncedFolder implements Serializable, Cloneable {
     public void setExcludeHidden(boolean excludeHidden) {
         this.excludeHidden = excludeHidden;
     }
+
+    public boolean containsFile(String filePath){
+        return filePath.contains(localPath);
+    }
 }

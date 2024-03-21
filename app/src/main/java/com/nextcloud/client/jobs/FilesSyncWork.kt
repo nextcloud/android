@@ -119,7 +119,6 @@ class FilesSyncWork(
         }
         val resources = context.resources
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
-        val skipCustom = inputData.getBoolean(SKIP_CUSTOM, false)
         FilesSyncHelper.restartJobsIfNeeded(
             uploadsStorageManager,
             userAccountManager,
@@ -127,19 +126,10 @@ class FilesSyncWork(
             powerManagementService
         )
 
-        // Get changed files from ContentObserverWork or by scanning filesystem
+        // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
-        var useForegroundWorker = false
-        if (changedFiles != null) {
-            // TODO Handle single files
-            FilesSyncHelper.insertChangedEntries(skipCustom,syncedFolderProvider,changedFiles)
-        } else {
-            useForegroundWorker = true
-            updateForegroundWorker(5, true)
-            // Check every file in every synced folder for changes and update filesystemDataProvider database (expensive)
-            FilesSyncHelper.insertAllDBEntries(skipCustom, syncedFolderProvider)
-            updateForegroundWorker(50, true)
-        }
+        collectChangedFiles(changedFiles)
+
         // Create all the providers we'll need
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
         val currentLocale = resources.configuration.locale
@@ -151,9 +141,9 @@ class FilesSyncWork(
         for ((index, syncedFolder) in syncedFolders.withIndex()) {
             updateForegroundWorker(
                 (50 + (index.toDouble() / syncedFolders.size.toDouble()) * 50).toInt(),
-                useForegroundWorker
+                changedFiles.isNullOrEmpty()
             )
-            if (syncedFolder.isEnabled && (!skipCustom || MediaFolderType.CUSTOM != syncedFolder.type)) {
+            if (syncedFolder.isEnabled && (changedFiles.isNullOrEmpty() || MediaFolderType.CUSTOM != syncedFolder.type)) {
                 syncFolder(
                     context,
                     resources,
@@ -168,6 +158,18 @@ class FilesSyncWork(
         val result = Result.success()
         backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
         return result
+    }
+
+    private fun collectChangedFiles(changedFiles: Array<String>?){
+        if (!changedFiles.isNullOrEmpty()) {
+            FilesSyncHelper.insertChangedEntries(syncedFolderProvider,changedFiles)
+        } else {
+            // Check every file in every synced folder for changes and update filesystemDataProvider database (expensive)
+            // Potentially needs a long time so use foreground worker
+            updateForegroundWorker(5, true)
+            FilesSyncHelper.insertAllDBEntries(syncedFolderProvider)
+            updateForegroundWorker(50, true)
+        }
     }
 
     @Suppress("LongMethod") // legacy code
