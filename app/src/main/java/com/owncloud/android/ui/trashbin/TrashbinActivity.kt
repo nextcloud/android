@@ -86,6 +86,12 @@ class TrashbinActivity :
     private var active = false
     lateinit var binding: TrashbinActivityBinding
 
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            trashbinPresenter?.navigateUp()
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -181,11 +187,7 @@ class TrashbinActivity :
     private fun handleOnBackPressed() {
         onBackPressedDispatcher.addCallback(
             this,
-            object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    trashbinPresenter?.navigateUp()
-                }
-            }
+            onBackPressedCallback
         )
     }
 
@@ -207,7 +209,7 @@ class TrashbinActivity :
         if (itemId == android.R.id.home) {
             if (isDrawerOpen) {
                 closeDrawer()
-            } else if (trashbinPresenter?.isRoot == true) {
+            } else if (trashbinPresenter?.isRoot == false) {
                 trashbinPresenter?.navigateUp()
             } else {
                 openDrawer()
@@ -233,7 +235,6 @@ class TrashbinActivity :
     override fun onItemClicked(file: TrashbinFile) {
         if (file.isFolder) {
             trashbinPresenter?.enterFolder(file.remotePath)
-            mDrawerToggle.isDrawerIndicatorEnabled = false
         }
     }
 
@@ -256,8 +257,9 @@ class TrashbinActivity :
         trashbinPresenter?.navigateUp()
     }
 
-    override fun setDrawerIndicatorEnabled(bool: Boolean) {
-        mDrawerToggle.isDrawerIndicatorEnabled = bool
+    override fun atRoot(isRoot: Boolean) {
+        mDrawerToggle.isDrawerIndicatorEnabled = isRoot
+        onBackPressedCallback.isEnabled = !isRoot
     }
 
     override fun onSortingOrderChosen(sortOrder: FileSortOrder?) {

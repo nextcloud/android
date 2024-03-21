@@ -766,6 +766,7 @@
     <string name="shared_icon_shared_via_link">透過連結分享</string>
     <string name="shared_with_you_by">%1$s已經與您分享</string>
     <string name="sharee_add_failed">分享失敗</string>
+    <string name="sharee_already_added_to_file">新增分享失敗。此檔案或資料夾已與此人或群組分享。</string>
     <string name="show_images">顯示照片</string>
     <string name="show_video">顯示影片</string>
     <string name="signup_with_provider">使用第三方登入</string>

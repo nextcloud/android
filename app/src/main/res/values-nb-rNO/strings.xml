@@ -766,6 +766,7 @@
     <string name="shared_icon_shared_via_link">del via lenke</string>
     <string name="shared_with_you_by">Delt med deg av %1$s</string>
     <string name="sharee_add_failed">Deling feilet</string>
+    <string name="sharee_already_added_to_file">Tilføyelse av deling feilet. Denne filen eller mappen er allerede delt med denne personen eller gruppen.</string>
     <string name="show_images">Vis bilder</string>
     <string name="show_video">Vis videoer</string>
     <string name="signup_with_provider">Logg på med tilbyder</string>

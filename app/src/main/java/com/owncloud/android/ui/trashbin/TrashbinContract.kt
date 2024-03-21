@@ -33,7 +33,7 @@ interface TrashbinContract {
         fun removeFile(file: TrashbinFile?)
         fun removeAllFiles()
         fun close()
-        fun setDrawerIndicatorEnabled(bool: Boolean)
+        fun atRoot(isRoot: Boolean)
     }
 
     interface Presenter {

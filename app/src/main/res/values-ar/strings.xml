@@ -771,6 +771,7 @@
     <string name="shared_icon_shared_via_link">مشارك عبر الرابط</string>
     <string name="shared_with_you_by">مشارك معك بواسطة %1$s</string>
     <string name="sharee_add_failed">فشلت إضافة المشارك</string>
+    <string name="sharee_already_added_to_file">تعذّرت إضافة المشاركة بسبب أن هذا الملف أو المجلد سبقت مشاركته مع نفس الشخص أو المجموعة.</string>
     <string name="show_images">اعرض الصور</string>
     <string name="show_video">اعرض الفيديو</string>
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>
