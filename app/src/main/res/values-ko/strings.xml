@@ -708,7 +708,7 @@
     <string name="share_no_password_title">비밀번호 설정</string>
     <string name="share_not_allowed_when_file_drop">업로드 전용 보안 공유는 재공유가 허용되지 않습니다</string>
     <string name="share_password_title">비밀번호로 보호</string>
-    <string name="share_permission_can_edit">편집할 수 있음</string>
+    <string name="share_permission_can_edit">수정할 수 있음</string>
     <string name="share_permission_file_drop">업로드만 허용</string>
     <string name="share_permission_secure_file_drop">안전한 파일 공유</string>
     <string name="share_permission_view_only">읽기 전용</string>
