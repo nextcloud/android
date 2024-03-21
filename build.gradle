@@ -11,7 +11,7 @@ buildscript {
         espressoVersion = "3.5.1"
         fidoVersion = "4.1.0-patch2"
         jacoco_version = '0.8.11'
-        kotlin_version = '1.9.22'
+        kotlin_version = '1.9.23'
         markwonVersion = "4.6.2"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
