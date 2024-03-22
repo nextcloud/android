@@ -640,35 +640,6 @@ public final class EncryptionUtils {
         }
     }
 
-    // FIXME Decryption is broken
-    /*
-    public static byte[] decryptFile(
-                                    Cipher cipher,
-                                    File file,
-                                     byte[] authenticationTag,
-                                     ArbitraryDataProvider arbitraryDataProvider,
-                                     User user)
-        throws BadPaddingException, IllegalBlockSizeException, IOException {
-
-        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
-        byte[] fileBytes = new byte[(int) randomAccessFile.length()];
-        randomAccessFile.readFully(fileBytes);
-
-        // check authentication tag
-        byte[] extractedAuthenticationTag = Arrays.copyOfRange(fileBytes,
-                                                               fileBytes.length - (128 / 8),
-                                                               fileBytes.length);
-
-        if (!Arrays.equals(extractedAuthenticationTag, authenticationTag)) {
-            reportE2eError(arbitraryDataProvider, user);
-            throw new SecurityException("Tag not correct");
-        }
-
-        return cipher.doFinal(fileBytes);
-    }
-     */
-
-
     /**
      * Encrypt string with RSA algorithm, ECB mode, OAEPWithSHA-256AndMGF1 padding Asymmetric encryption, with private
      * and public key
