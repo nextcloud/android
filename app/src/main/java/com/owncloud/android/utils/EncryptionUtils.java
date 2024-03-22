@@ -566,29 +566,16 @@ public final class EncryptionUtils {
     /*
     ENCRYPTION
      */
-
-    /**
-     * @param ocFile             file do crypt
-     * @param encryptionKeyBytes key, either from metadata or {@link EncryptionUtils#generateKey()}
-     * @param iv                 initialization vector, either from metadata or
-     *                           {@link EncryptionUtils#randomBytes(int)}
-     * @return encryptedFile with encryptedBytes and authenticationTag
-     */
-    public static EncryptedFile encryptFile(OCFile ocFile, byte[] encryptionKeyBytes, byte[] iv)
-        throws NoSuchAlgorithmException,
-        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException, IOException, InvalidParameterSpecException {
-        File file = new File(ocFile.getStoragePath());
-
-        Cipher cipher = getCipher(Cipher.ENCRYPT_MODE, encryptionKeyBytes, iv);
-        return encryptFile(file, cipher);
-    }
-
     public static EncryptedFile encryptFile(File file, Cipher cipher) throws IOException, InvalidParameterSpecException {
         File encryptedFile = new File(file.getAbsolutePath() + ".enc");
         encryptFileWithGivenCipher(file, encryptedFile, cipher);
-        byte[] authenticationTag = cipher.getParameters().getParameterSpec(GCMParameterSpec.class).getIV();
-        String authenticationTagString = encodeBytesToBase64String(authenticationTag);
+        String authenticationTagString = getAuthenticationTag(cipher);
         return new EncryptedFile(encryptedFile, authenticationTagString);
+    }
+
+    private static String getAuthenticationTag(Cipher cipher) throws InvalidParameterSpecException {
+        byte[] authenticationTag = cipher.getParameters().getParameterSpec(GCMParameterSpec.class).getIV();
+        return encodeBytesToBase64String(authenticationTag);
     }
 
     public static Cipher getCipher(int mode, byte[] encryptionKeyBytes, byte[] iv) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
@@ -623,6 +610,7 @@ public final class EncryptionUtils {
                                      ArbitraryDataProvider arbitraryDataProvider,
                                      User user)
         throws BadPaddingException, IllegalBlockSizeException, IOException {
+
         RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
         byte[] fileBytes = new byte[(int) randomAccessFile.length()];
         randomAccessFile.readFully(fileBytes);
