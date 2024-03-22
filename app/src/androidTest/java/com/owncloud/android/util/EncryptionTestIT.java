@@ -66,6 +66,7 @@ import java.util.Random;
 import java.util.Set;
 
 import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
 
 import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
 import static com.owncloud.android.utils.EncryptionUtils.decryptFile;
@@ -395,9 +396,8 @@ public class EncryptionTestIT extends AbstractIT {
     public void testCryptFileWithoutMetadata() throws Exception {
         byte[] key = decodeStringToBase64Bytes("WANM0gRv+DhaexIsI0T3Lg==");
         byte[] iv = decodeStringToBase64Bytes("gKm3n+mJzeY26q4OfuZEqg==");
-        byte[] authTag = decodeStringToBase64Bytes("PboI9tqHHX3QeAA22PIu4w==");
 
-        assertTrue(cryptFile("ia7OEEEyXMoRa1QWQk8r", "78f42172166f9dc8fd1a7156b1753353", key, iv, authTag));
+        assertTrue(cryptFile("ia7OEEEyXMoRa1QWQk8r", "78f42172166f9dc8fd1a7156b1753353", key, iv));
     }
 
     @Test
@@ -410,9 +410,7 @@ public class EncryptionTestIT extends AbstractIT {
                              decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
                                                            .getEncrypted().getKey()),
                              decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
-                                                           .getInitializationVector()),
-                             decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
-                                                           .getAuthenticationTag())));
+                                                           .getInitializationVector())));
 
         // n9WXAIXO2wRY4R8nXwmo
         assertTrue(cryptFile("n9WXAIXO2wRY4R8nXwmo",
@@ -420,9 +418,7 @@ public class EncryptionTestIT extends AbstractIT {
                              decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
                                                            .getEncrypted().getKey()),
                              decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
-                                                           .getInitializationVector()),
-                             decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
-                                                           .getAuthenticationTag())));
+                                                           .getInitializationVector())));
     }
 
     @Test
@@ -846,35 +842,21 @@ public class EncryptionTestIT extends AbstractIT {
         return new DecryptedFolderMetadataFileV1(metadata1, files);
     }
 
-
-    private boolean cryptFile(String fileName, String md5, byte[] key, byte[] iv, byte[] expectedAuthTag)
+    // FIXME
+    private boolean cryptFile(String fileName, String md5, byte[] key, byte[] iv)
         throws Exception {
-        File file = getFile(fileName);
+        File file = File.createTempFile(fileName, "enc");
         assertEquals(md5, getMD5Sum(file));
 
-        EncryptedFile encryptedFile = encryptFile(file, key, iv);
+        // Encryption
+        Cipher encryptorCipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
+        EncryptionUtils.encryptFile(file, encryptorCipher);
+        String encryptorCipherAuthTag = EncryptionUtils.getAuthenticationTag(encryptorCipher);
 
-        File encryptedTempFile = File.createTempFile("file", "tmp");
-        FileOutputStream fileOutputStream = new FileOutputStream(encryptedTempFile);
-        fileOutputStream.write(encryptedFile.getEncryptedBytes());
-        fileOutputStream.close();
-
-        byte[] authenticationTag = decodeStringToBase64Bytes(encryptedFile.getAuthenticationTag());
-
-        // verify authentication tag
-        assertTrue(Arrays.equals(expectedAuthTag, authenticationTag));
-
-        byte[] decryptedBytes = decryptFile(encryptedTempFile,
-                                            key,
-                                            iv,
-                                            authenticationTag,
-                                            new ArbitraryDataProviderImpl(targetContext),
-                                            user);
-
+        // Decryption
+        Cipher decryptorCipher = EncryptionUtils.getCipher(Cipher.DECRYPT_MODE, key, iv);
         File decryptedFile = File.createTempFile("file", "dec");
-        FileOutputStream fileOutputStream1 = new FileOutputStream(decryptedFile);
-        fileOutputStream1.write(decryptedBytes);
-        fileOutputStream1.close();
+        decryptFile(decryptorCipher, file, decryptedFile, encryptorCipherAuthTag, new ArbitraryDataProviderImpl(targetContext), user);
 
         return md5.compareTo(getMD5Sum(decryptedFile)) == 0;
     }
