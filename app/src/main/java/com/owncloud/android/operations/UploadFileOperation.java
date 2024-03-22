@@ -94,6 +94,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.crypto.Cipher;
+
 import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
 
@@ -560,7 +562,10 @@ public class UploadFileOperation extends SyncOperation {
             // IV, always generate new one
             byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
 
-            EncryptedFile encryptedFile = EncryptionUtils.encryptFile(mFile, key, iv);
+            Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
+            File file = new File(mFile.getStoragePath());
+
+            EncryptedFile encryptedFile = EncryptionUtils.encryptFile(file, cipher);
 
             // new random file name, check if it exists in metadata
             String encryptedFileName = EncryptionUtils.generateUid();
