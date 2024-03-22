@@ -52,6 +52,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.crypto.Cipher;
+
 import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
 
 /**
@@ -266,9 +268,9 @@ public class DownloadFileOperation extends RemoteOperation {
                 byte[] authenticationTag = decodeStringToBase64Bytes(authenticationTagString);
 
                 try {
-                    byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile,
-                                                                        key,
-                                                                        iv,
+                    Cipher cipher = EncryptionUtils.getCipher(Cipher.DECRYPT_MODE, key, iv);
+                    byte[] decryptedBytes = EncryptionUtils.decryptFile(cipher,
+                                                                        tmpFile,
                                                                         authenticationTag,
                                                                         new ArbitraryDataProviderImpl(operationContext),
                                                                         user);

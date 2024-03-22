@@ -579,7 +579,7 @@ public final class EncryptionUtils {
         InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException, IOException, InvalidParameterSpecException {
         File file = new File(ocFile.getStoragePath());
 
-        Cipher cipher = getEncoderCipher(encryptionKeyBytes, iv);
+        Cipher cipher = getCipher(Cipher.ENCRYPT_MODE, encryptionKeyBytes, iv);
         return encryptFile(file, cipher);
     }
 
@@ -591,11 +591,11 @@ public final class EncryptionUtils {
         return new EncryptedFile(encryptedFile, authenticationTagString);
     }
 
-    private static Cipher getEncoderCipher(byte[] encryptionKeyBytes, byte[] iv) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
+    public static Cipher getCipher(int mode, byte[] encryptionKeyBytes, byte[] iv) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
         Key key = new SecretKeySpec(encryptionKeyBytes, AES);
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
-        cipher.init(Cipher.ENCRYPT_MODE, key, spec);
+        cipher.init(mode, key, spec);
         return cipher;
     }
 
@@ -616,29 +616,13 @@ public final class EncryptionUtils {
     }
 
     // FIXME Decryption is broken
-    /**
-     * @param file               encrypted file
-     * @param encryptionKeyBytes key from metadata
-     * @param iv                 initialization vector from metadata
-     * @param authenticationTag  authenticationTag from metadata
-     * @return decrypted byte[]
-     */
-    public static byte[] decryptFile(File file,
-                                     byte[] encryptionKeyBytes,
-                                     byte[] iv,
+    public static byte[] decryptFile(
+                                    Cipher cipher,
+                                    File file,
                                      byte[] authenticationTag,
                                      ArbitraryDataProvider arbitraryDataProvider,
                                      User user)
-        throws NoSuchAlgorithmException,
-        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
-        BadPaddingException, IllegalBlockSizeException, IOException {
-
-
-        Cipher cipher = Cipher.getInstance(AES_CIPHER);
-        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
-        GCMParameterSpec spec = new GCMParameterSpec(128, iv);
-        cipher.init(Cipher.DECRYPT_MODE, key, spec);
-
+        throws BadPaddingException, IllegalBlockSizeException, IOException {
         RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
         byte[] fileBytes = new byte[(int) randomAccessFile.length()];
         randomAccessFile.readFully(fileBytes);
