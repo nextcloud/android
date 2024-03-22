@@ -571,7 +571,7 @@ public final class EncryptionUtils {
         return new EncryptedFile(encryptedFile, authenticationTagString);
     }
 
-    private static String getAuthenticationTag(Cipher cipher) throws InvalidParameterSpecException {
+    public static String getAuthenticationTag(Cipher cipher) throws InvalidParameterSpecException {
         byte[] authenticationTag = cipher.getParameters().getParameterSpec(GCMParameterSpec.class).getIV();
         return encodeBytesToBase64String(authenticationTag);
     }
