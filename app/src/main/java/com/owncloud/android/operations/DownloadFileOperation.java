@@ -268,18 +268,14 @@ public class DownloadFileOperation extends RemoteOperation {
 
                 try {
                     Cipher cipher = EncryptionUtils.getCipher(Cipher.DECRYPT_MODE, key, iv);
-                    tmpFile = EncryptionUtils.decryptFile(tmpFile, authenticationTagString, cipher, new ArbitraryDataProviderImpl(operationContext), user);
+                    EncryptionUtils.decryptFile(cipher, tmpFile, newFile, authenticationTagString, new ArbitraryDataProviderImpl(operationContext), user);
                 } catch (Exception e) {
                     return new RemoteOperationResult(e);
                 }
             }
 
             if (downloadType == DownloadType.DOWNLOAD) {
-                moved = tmpFile.renameTo(newFile);
-                newFile.setLastModified(file.getModificationTimestamp());
-                if (!moved) {
-                    result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
-                }
+
             } else if (downloadType == DownloadType.EXPORT) {
                 new FileExportUtils().exportFile(file.getFileName(),
                                                  file.getMimeType(),
