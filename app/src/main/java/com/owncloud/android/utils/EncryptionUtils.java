@@ -114,6 +114,7 @@ import java.util.UUID;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
 import javax.crypto.CipherOutputStream;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
@@ -563,9 +564,6 @@ public final class EncryptionUtils {
         return Base64.decode(string, Base64.NO_WRAP);
     }
 
-    /*
-    ENCRYPTION
-     */
     public static EncryptedFile encryptFile(File file, Cipher cipher) throws IOException, InvalidParameterSpecException {
         File encryptedFile = new File(file.getAbsolutePath() + ".enc");
         encryptFileWithGivenCipher(file, encryptedFile, cipher);
@@ -602,7 +600,37 @@ public final class EncryptionUtils {
         inputStream.close();
     }
 
+    public static File decryptFile(File encryptedFile,
+                                   String authenticationTag,
+                                   Cipher cipher,
+                                   ArbitraryDataProvider arbitraryDataProvider,
+                                   User user) throws InvalidParameterSpecException {
+        File decryptedFile = new File(encryptedFile.getAbsolutePath().replace(".enc", "_decrypted"));
+
+        try (FileInputStream inputStream = new FileInputStream(encryptedFile);
+             FileOutputStream fileOutputStream = new FileOutputStream(decryptedFile);
+             CipherInputStream cipherInputStream = new CipherInputStream(inputStream, cipher)) {
+
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+
+            while ((bytesRead = cipherInputStream.read(buffer)) != -1) {
+                fileOutputStream.write(buffer, 0, bytesRead);
+            }
+        } catch (Exception e) {
+            Log_OC.d(TAG, "Error caught at decryptFile(): " + e.getLocalizedMessage());
+        }
+
+        if (!getAuthenticationTag(cipher).equals(authenticationTag)) {
+            reportE2eError(arbitraryDataProvider, user);
+            throw new SecurityException("Tag not correct");
+        }
+
+        return decryptedFile;
+    }
+
     // FIXME Decryption is broken
+    /*
     public static byte[] decryptFile(
                                     Cipher cipher,
                                     File file,
@@ -627,6 +655,8 @@ public final class EncryptionUtils {
 
         return cipher.doFinal(fileBytes);
     }
+     */
+
 
     /**
      * Encrypt string with RSA algorithm, ECB mode, OAEPWithSHA-256AndMGF1 padding Asymmetric encryption, with private
