@@ -738,6 +738,8 @@ public class UploadFileOperation extends SyncOperation {
                         token = null;
                     }
                 }
+
+                encryptedTempFile.delete();
             }
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mFile.getStoragePath() + " not exists anymore");
