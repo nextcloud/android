@@ -564,7 +564,7 @@ public final class EncryptionUtils {
         return Base64.decode(string, Base64.NO_WRAP);
     }
 
-    public static EncryptedFile encryptFile(File file, Cipher cipher) throws IOException, InvalidParameterSpecException {
+    public static EncryptedFile encryptFile(File file, Cipher cipher) throws InvalidParameterSpecException {
         File encryptedFile = new File(file.getAbsolutePath() + ".enc");
         encryptFileWithGivenCipher(file, encryptedFile, cipher);
         String authenticationTagString = getAuthenticationTag(cipher);
@@ -584,20 +584,24 @@ public final class EncryptionUtils {
         return cipher;
     }
 
-    public static void encryptFileWithGivenCipher(File inputFile, File encryptedFile, Cipher cipher) throws IOException {
-        FileInputStream inputStream = new FileInputStream(inputFile);
-        FileOutputStream fileOutputStream = new FileOutputStream(encryptedFile);
-        CipherOutputStream outputStream = new CipherOutputStream(fileOutputStream, cipher);
+    public static void encryptFileWithGivenCipher(File inputFile, File encryptedFile, Cipher cipher) {
+        try( FileInputStream inputStream = new FileInputStream(inputFile);
+             FileOutputStream fileOutputStream = new FileOutputStream(encryptedFile);
+             CipherOutputStream outputStream = new CipherOutputStream(fileOutputStream, cipher)) {
+            byte[] buffer = new byte[4096];
+            int bytesRead;
 
-        byte[] buffer = new byte[4096];
-        int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
 
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            outputStream.write(buffer, 0, bytesRead);
+            outputStream.close();
+            inputStream.close();
+
+            Log_OC.d(TAG, encryptedFile.getName() + "encrypted successfully");
+        } catch (IOException exception) {
+            Log_OC.d(TAG, "Error caught at encryptFileWithGivenCipher(): " + exception.getLocalizedMessage());
         }
-
-        outputStream.close();
-        inputStream.close();
     }
 
     public static void decryptFile(Cipher cipher,
@@ -605,29 +609,34 @@ public final class EncryptionUtils {
                                    File decryptedFile,
                                    String authenticationTag,
                                    ArbitraryDataProvider arbitraryDataProvider,
-                                   User user) throws IOException,
-        BadPaddingException, IllegalBlockSizeException, InvalidParameterSpecException {
+                                   User user) {
+        try (FileInputStream inputStream = new FileInputStream(encryptedFile);
+             FileOutputStream outputStream = new FileOutputStream(decryptedFile)) {
 
-        FileInputStream inputStream = new FileInputStream(encryptedFile);
-        FileOutputStream outputStream = new FileOutputStream(decryptedFile);
-        byte[] buffer = new byte[4096];
-        int bytesRead;
-        while ((bytesRead = inputStream.read(buffer)) != -1) {
-            byte[] output = cipher.update(buffer, 0, bytesRead);
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                byte[] output = cipher.update(buffer, 0, bytesRead);
+                if (output != null) {
+                    outputStream.write(output);
+                }
+            }
+            byte[] output = cipher.doFinal();
             if (output != null) {
                 outputStream.write(output);
             }
-        }
-        byte[] output = cipher.doFinal();
-        if (output != null) {
-            outputStream.write(output);
-        }
-        inputStream.close();
-        outputStream.close();
+            inputStream.close();
+            outputStream.close();
 
-        if (!getAuthenticationTag(cipher).equals(authenticationTag)) {
-            reportE2eError(arbitraryDataProvider, user);
-            throw new SecurityException("Tag not correct");
+            if (!getAuthenticationTag(cipher).equals(authenticationTag)) {
+                reportE2eError(arbitraryDataProvider, user);
+                throw new SecurityException("Tag not correct");
+            }
+
+            Log_OC.d(TAG, encryptedFile.getName() + "decrypted successfully");
+        } catch (IOException | BadPaddingException | IllegalBlockSizeException | InvalidParameterSpecException |
+                 SecurityException exception) {
+            Log_OC.d(TAG, "Error caught at decryptFile(): " + exception.getLocalizedMessage());
         }
     }
 
