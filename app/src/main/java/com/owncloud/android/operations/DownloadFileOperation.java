@@ -273,9 +273,7 @@ public class DownloadFileOperation extends RemoteOperation {
                 }
             }
 
-            if (downloadType == DownloadType.DOWNLOAD) {
-
-            } else if (downloadType == DownloadType.EXPORT) {
+            if (downloadType == DownloadType.EXPORT) {
                 new FileExportUtils().exportFile(file.getFileName(),
                                                  file.getMimeType(),
                                                  operationContext.getContentResolver(),
