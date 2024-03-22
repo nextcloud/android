@@ -29,7 +29,7 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
