@@ -1449,7 +1449,8 @@ public static String decryptStringSymmetricAsString(String string,
                                                                                 arbitraryDataProvider)
             );
 
-        } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND) {
+        } else if (getMetadataOperationResult.getHttpCode() == HttpStatus.SC_NOT_FOUND ||
+            getMetadataOperationResult.getHttpCode() == HttpStatus.SC_INTERNAL_SERVER_ERROR) {
             // new metadata
             metadata = new DecryptedFolderMetadataFile(new com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedMetadata(),
                                                        new ArrayList<>(),
