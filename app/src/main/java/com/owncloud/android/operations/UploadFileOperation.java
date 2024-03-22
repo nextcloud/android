@@ -706,10 +706,6 @@ public class UploadFileOperation extends SyncOperation {
 
                     // unlock
                     result = EncryptionUtils.unlockFolderV1(parentFile, client, token);
-
-                    if (result.isSuccess()) {
-                        token = null;
-                    }
                 } else {
                     DecryptedFolderMetadataFile metadata = (DecryptedFolderMetadataFile) object;
                     encryptionUtilsV2.addFileToMetadata(
@@ -733,10 +729,6 @@ public class UploadFileOperation extends SyncOperation {
 
                     // unlock
                     result = EncryptionUtils.unlockFolder(parentFile, client, token);
-
-                    if (result.isSuccess()) {
-                        token = null;
-                    }
                 }
 
                 encryptedTempFile.delete();
@@ -768,23 +760,25 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
+
+
+            // FIXME Notification shows error
+            // unlock must be done always
+            if (token != null) {
+                RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
+                                                                                        client,
+                                                                                        token);
+
+                if (!unlockFolderResult.isSuccess()) {
+                    return unlockFolderResult;
+                }
+            }
         }
 
         if (result.isSuccess()) {
             handleSuccessfulUpload(temporalFile, expectedFile, originalFile, client);
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
-        }
-
-        // unlock must be done always
-        if (token != null) {
-            RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
-                                                                                    client,
-                                                                                    token);
-
-            if (!unlockFolderResult.isSuccess()) {
-                return unlockFolderResult;
-            }
         }
 
         // delete temporal file
