@@ -568,7 +568,6 @@ public final class EncryptionUtils {
         File encryptedFile = new File(file.getAbsolutePath() + ".enc");
         encryptFileWithGivenCipher(file, encryptedFile, cipher);
         String authenticationTagString = getAuthenticationTag(cipher);
-        Log_OC.d("", "KAVGAM!!: " + authenticationTagString);
         return new EncryptedFile(encryptedFile, authenticationTagString);
     }
 
