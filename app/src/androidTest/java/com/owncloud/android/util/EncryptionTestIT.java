@@ -36,20 +36,17 @@ import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.Encrypted;
-import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFile;
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFolderMetadataFileV1;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.e2ee.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
 
-import org.apache.commons.codec.binary.Hex;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.security.DigestInputStream;
@@ -79,7 +76,6 @@ import static com.owncloud.android.utils.EncryptionUtils.decryptStringAsymmetric
 import static com.owncloud.android.utils.EncryptionUtils.decryptStringSymmetric;
 import static com.owncloud.android.utils.EncryptionUtils.deserializeJSON;
 import static com.owncloud.android.utils.EncryptionUtils.encodeBytesToBase64String;
-import static com.owncloud.android.utils.EncryptionUtils.encryptFile;
 import static com.owncloud.android.utils.EncryptionUtils.encryptFolderMetadata;
 import static com.owncloud.android.utils.EncryptionUtils.generateChecksum;
 import static com.owncloud.android.utils.EncryptionUtils.generateKey;
@@ -104,6 +100,9 @@ public class EncryptionTestIT extends AbstractIT {
     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(targetContext);
 
     private static final String MD5_ALGORITHM = "MD5";
+
+    private static final String filename = "ia7OEEEyXMoRa1QWQk8r";
+    private static final String secondFilename = "n9WXAIXO2wRY4R8nXwmo";
 
     public static final String privateKey = "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAo" +
         "IBAQDsn0JKS/THu328z1IgN0VzYU53HjSX03WJIgWkmyTaxbiKpoJaKbksXmfSpgzV" +
@@ -402,27 +401,25 @@ public class EncryptionTestIT extends AbstractIT {
         byte[] key = decodeStringToBase64Bytes("WANM0gRv+DhaexIsI0T3Lg==");
         byte[] iv = decodeStringToBase64Bytes("gKm3n+mJzeY26q4OfuZEqg==");
 
-        assertTrue(cryptFile("ia7OEEEyXMoRa1QWQk8r", "78f42172166f9dc8fd1a7156b1753353", key, iv));
+        assertTrue(cryptFile(filename, "78f42172166f9dc8fd1a7156b1753353", key, iv));
     }
 
     @Test
     public void cryptFileWithMetadata() throws Exception {
         DecryptedFolderMetadataFileV1 metadata = generateFolderMetadataV1_1();
 
-        // n9WXAIXO2wRY4R8nXwmo
-        assertTrue(cryptFile("ia7OEEEyXMoRa1QWQk8r",
+        assertTrue(cryptFile(filename,
                              "78f42172166f9dc8fd1a7156b1753353",
-                             decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
+                             decodeStringToBase64Bytes(metadata.getFiles().get(filename)
                                                            .getEncrypted().getKey()),
-                             decodeStringToBase64Bytes(metadata.getFiles().get("ia7OEEEyXMoRa1QWQk8r")
+                             decodeStringToBase64Bytes(metadata.getFiles().get(filename)
                                                            .getInitializationVector())));
 
-        // n9WXAIXO2wRY4R8nXwmo
-        assertTrue(cryptFile("n9WXAIXO2wRY4R8nXwmo",
+        assertTrue(cryptFile(secondFilename,
                              "825143ed1f21ebb0c3b3c3f005b2f5db",
-                             decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
+                             decodeStringToBase64Bytes(metadata.getFiles().get(secondFilename)
                                                            .getEncrypted().getKey()),
-                             decodeStringToBase64Bytes(metadata.getFiles().get("n9WXAIXO2wRY4R8nXwmo")
+                             decodeStringToBase64Bytes(metadata.getFiles().get(secondFilename)
                                                            .getInitializationVector())));
     }
 
@@ -739,8 +736,8 @@ public class EncryptionTestIT extends AbstractIT {
         DecryptedFolderMetadataFileV1 metadata = new DecryptedFolderMetadataFileV1();
         String mnemonic = "chimney potato joke science ridge trophy result estate spare vapor much room";
 
-        metadata.getFiles().put("n9WXAIXO2wRY4R8nXwmo", new DecryptedFile());
-        metadata.getFiles().put("ia7OEEEyXMoRa1QWQk8r", new DecryptedFile());
+        metadata.getFiles().put(secondFilename, new DecryptedFile());
+        metadata.getFiles().put(filename, new DecryptedFile());
 
         String encryptedMetadataKey = "GuFPAULudgD49S4+VDFck3LiqQ8sx4zmbrBtdpCSGcT+T0W0z4F5gYQYPlzTG6WOkdW5LJZK/";
         metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
@@ -788,9 +785,8 @@ public class EncryptionTestIT extends AbstractIT {
 
     // Helper
     public static boolean compareJsonStrings(String expected, String actual) {
-        JsonParser parser = new JsonParser();
-        JsonElement o1 = parser.parse(expected);
-        JsonElement o2 = parser.parse(actual);
+        JsonElement o1 = JsonParser.parseString(expected);
+        JsonElement o2 = JsonParser.parseString(actual);
 
         if (o1.equals(o2)) {
             return true;
@@ -829,7 +825,7 @@ public class EncryptionTestIT extends AbstractIT {
         file1.setMetadataKey(0);
         file1.setAuthenticationTag("PboI9tqHHX3QeAA22PIu4w==");
 
-        files.put("ia7OEEEyXMoRa1QWQk8r", file1);
+        files.put(filename, file1);
 
         Data data2 = new Data();
         data2.setKey("9dfzbIYDt28zTyZfbcll+g==");
@@ -842,7 +838,7 @@ public class EncryptionTestIT extends AbstractIT {
         file2.setMetadataKey(0);
         file2.setAuthenticationTag("qOQZdu5soFO77Y7y4rAOVA==");
 
-        files.put("n9WXAIXO2wRY4R8nXwmo", file2);
+        files.put(secondFilename, file2);
 
         return new DecryptedFolderMetadataFileV1(metadata1, files);
     }
