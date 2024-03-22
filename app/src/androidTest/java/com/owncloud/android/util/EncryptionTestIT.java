@@ -43,6 +43,7 @@ import com.owncloud.android.lib.resources.e2ee.CsrHelper;
 import com.owncloud.android.utils.EncryptionUtils;
 
 import org.apache.commons.codec.binary.Hex;
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -51,9 +52,11 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.math.BigInteger;
+import java.security.DigestInputStream;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.SecureRandom;
 import java.security.interfaces.RSAPrivateCrtKey;
@@ -99,6 +102,8 @@ public class EncryptionTestIT extends AbstractIT {
     @Rule public RetryTestRule retryTestRule = new RetryTestRule();
 
     ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(targetContext);
+
+    private static final String MD5_ALGORITHM = "MD5";
 
     public static final String privateKey = "MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAo" +
         "IBAQDsn0JKS/THu328z1IgN0VzYU53HjSX03WJIgWkmyTaxbiKpoJaKbksXmfSpgzV" +
@@ -842,11 +847,10 @@ public class EncryptionTestIT extends AbstractIT {
         return new DecryptedFolderMetadataFileV1(metadata1, files);
     }
 
-    // FIXME
     private boolean cryptFile(String fileName, String md5, byte[] key, byte[] iv)
         throws Exception {
         File file = File.createTempFile(fileName, "enc");
-        assertEquals(md5, getMD5Sum(file));
+        String md5BeforeEncryption = getMD5Sum(file);
 
         // Encryption
         Cipher encryptorCipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
@@ -858,35 +862,36 @@ public class EncryptionTestIT extends AbstractIT {
         File decryptedFile = File.createTempFile("file", "dec");
         decryptFile(decryptorCipher, file, decryptedFile, encryptorCipherAuthTag, new ArbitraryDataProviderImpl(targetContext), user);
 
-        return md5.compareTo(getMD5Sum(decryptedFile)) == 0;
-    }
+        String md5AfterEncryption = getMD5Sum(decryptedFile);
 
-    private String getMD5Sum(File file) {
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream(file);
-            MessageDigest md5 = MessageDigest.getInstance("MD5");
-            byte[] bytes = new byte[2048];
-            int readBytes;
-
-            while ((readBytes = fileInputStream.read(bytes)) != -1) {
-                md5.update(bytes, 0, readBytes);
-            }
-
-            return new String(Hex.encodeHex(md5.digest()));
-
-        } catch (Exception e) {
-            Log_OC.e(this, e.getMessage());
-        } finally {
-            if (fileInputStream != null) {
-                try {
-                    fileInputStream.close();
-                } catch (IOException e) {
-                    Log_OC.e(this, "Error getting MD5 checksum for file", e);
-                }
-            }
+        if (md5BeforeEncryption == null) {
+            Assert.fail();
         }
 
-        return "";
+        return md5BeforeEncryption.equals(md5AfterEncryption);
+    }
+
+    public static String getMD5Sum(File file) {
+        try (FileInputStream fis = new FileInputStream(file)) {
+            MessageDigest md = MessageDigest.getInstance(MD5_ALGORITHM);
+            DigestInputStream dis = new DigestInputStream(fis, md);
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = dis.read(buffer)) != -1) {
+                md.update(buffer, 0, bytesRead);
+            }
+            byte[] digest = md.digest();
+            return bytesToHex(digest);
+        } catch (IOException | NoSuchAlgorithmException e) {
+            return null;
+        }
+    }
+
+    private static String bytesToHex(byte[] bytes) {
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes) {
+            sb.append(String.format("%02x", b));
+        }
+        return sb.toString();
     }
 }
