@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.files.downloader.FileDownloadHelper;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -130,11 +131,12 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
                              Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        if (savedInstanceState != null) {
+        if (getArguments() != null) {
             if (!mIgnoreFirstSavedState) {
-                setFile(BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_FILE, OCFile.class));
-                user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_USER, User.class);
-                mError = savedInstanceState.getBoolean(EXTRA_ERROR);
+                setFile(BundleExtensionsKt.getParcelableArgument(requireArguments(), EXTRA_FILE, OCFile.class));
+                user = BundleExtensionsKt.getParcelableArgument(requireArguments(), EXTRA_USER, User.class);
+                mError = requireArguments().getBoolean(EXTRA_ERROR);
+                FileDownloadHelper.Companion.instance().downloadFile(user, getFile());
             }
             else {
                 mIgnoreFirstSavedState = false;
@@ -149,10 +151,9 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         (mView.findViewById(R.id.cancelBtn)).setOnClickListener(this);
 
-        (mView.findViewById(R.id.fileDownloadLL)).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((PreviewImageActivity) getActivity()).toggleFullScreen();
+        (mView.findViewById(R.id.fileDownloadLL)).setOnClickListener(v -> {
+            if (getActivity() instanceof PreviewImageActivity previewImageActivity) {
+                previewImageActivity.toggleFullScreen();
             }
         });
 
@@ -218,7 +219,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     public void onClick(View v) {
         if (v.getId() == R.id.cancelBtn) {
             containerActivity.getFileOperationsHelper().cancelTransference(getFile());
-            getActivity().finish();
+            requireActivity().finish();
         } else {
             Log_OC.e(TAG, "Incorrect view clicked!");
         }
