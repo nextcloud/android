@@ -568,6 +568,7 @@ public final class EncryptionUtils {
         File encryptedFile = new File(file.getAbsolutePath() + ".enc");
         encryptFileWithGivenCipher(file, encryptedFile, cipher);
         String authenticationTagString = getAuthenticationTag(cipher);
+        Log_OC.d("", "KAVGAM!!: " + authenticationTagString);
         return new EncryptedFile(encryptedFile, authenticationTagString);
     }
 
@@ -600,33 +601,35 @@ public final class EncryptionUtils {
         inputStream.close();
     }
 
-    public static File decryptFile(File encryptedFile,
+    public static void decryptFile(Cipher cipher,
+                                   File encryptedFile,
+                                   File decryptedFile,
                                    String authenticationTag,
-                                   Cipher cipher,
                                    ArbitraryDataProvider arbitraryDataProvider,
-                                   User user) throws InvalidParameterSpecException {
-        File decryptedFile = new File(encryptedFile.getAbsolutePath().replace(".enc", "_decrypted"));
+                                   User user) throws IOException,
+        BadPaddingException, IllegalBlockSizeException, InvalidParameterSpecException {
 
-        try (FileInputStream inputStream = new FileInputStream(encryptedFile);
-             FileOutputStream fileOutputStream = new FileOutputStream(decryptedFile);
-             CipherInputStream cipherInputStream = new CipherInputStream(inputStream, cipher)) {
-
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-
-            while ((bytesRead = cipherInputStream.read(buffer)) != -1) {
-                fileOutputStream.write(buffer, 0, bytesRead);
+        FileInputStream inputStream = new FileInputStream(encryptedFile);
+        FileOutputStream outputStream = new FileOutputStream(decryptedFile);
+        byte[] buffer = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(buffer)) != -1) {
+            byte[] output = cipher.update(buffer, 0, bytesRead);
+            if (output != null) {
+                outputStream.write(output);
             }
-        } catch (Exception e) {
-            Log_OC.d(TAG, "Error caught at decryptFile(): " + e.getLocalizedMessage());
         }
+        byte[] output = cipher.doFinal();
+        if (output != null) {
+            outputStream.write(output);
+        }
+        inputStream.close();
+        outputStream.close();
 
         if (!getAuthenticationTag(cipher).equals(authenticationTag)) {
             reportE2eError(arbitraryDataProvider, user);
             throw new SecurityException("Tag not correct");
         }
-
-        return decryptedFile;
     }
 
     // FIXME Decryption is broken
