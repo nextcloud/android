@@ -264,19 +264,10 @@ public class DownloadFileOperation extends RemoteOperation {
 
                 byte[] key = decodeStringToBase64Bytes(keyString);
                 byte[] iv = decodeStringToBase64Bytes(nonceString);
-                byte[] authenticationTag = decodeStringToBase64Bytes(authenticationTagString);
 
                 try {
                     Cipher cipher = EncryptionUtils.getCipher(Cipher.DECRYPT_MODE, key, iv);
-                    byte[] decryptedBytes = EncryptionUtils.decryptFile(cipher,
-                                                                        tmpFile,
-                                                                        authenticationTag,
-                                                                        new ArbitraryDataProviderImpl(operationContext),
-                                                                        user);
-
-                    try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
-                        fileOutputStream.write(decryptedBytes);
-                    }
+                    tmpFile = EncryptionUtils.decryptFile(tmpFile, authenticationTagString, cipher, new ArbitraryDataProviderImpl(operationContext), user);
                 } catch (Exception e) {
                     return new RemoteOperationResult(e);
                 }

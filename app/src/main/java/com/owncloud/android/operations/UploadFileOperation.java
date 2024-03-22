@@ -560,16 +560,10 @@ public class UploadFileOperation extends SyncOperation {
             Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
             /***** E2E *****/
-
-            // Key, always generate new one
             byte[] key = EncryptionUtils.generateKey();
-
-            // IV, always generate new one
             byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
-
             Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
             File file = new File(mFile.getStoragePath());
-
             EncryptedFile encryptedFile = EncryptionUtils.encryptFile(file, cipher);
 
             // new random file name, check if it exists in metadata
