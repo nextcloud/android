@@ -766,6 +766,7 @@
     <string name="shared_icon_shared_via_link">compartido mediante enlace</string>
     <string name="shared_with_you_by">Compartido con Ud. por %1$s</string>
     <string name="sharee_add_failed">Se presentó una falla al agregar una persona para compartir</string>
+    <string name="sharee_already_added_to_file">No se pudo añadir el recurso compartido. Este archivo o carpeta ya se ha compartido con esta persona o grupo.</string>
     <string name="show_images">Mostrar fotos</string>
     <string name="show_video">Mostrar videos</string>
     <string name="signup_with_provider">Registrarse con el proveedor</string>
