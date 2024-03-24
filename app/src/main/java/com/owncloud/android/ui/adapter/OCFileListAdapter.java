@@ -841,6 +841,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
     }
 
+    public void replaceFile(OCFile file) {
+        mFiles.set(mFiles.indexOf(file), file);
+        notifyItemChanged(file);
+    }
+
     private void parseShares(List<Object> objects) {
         List<OCShare> shares = new ArrayList<>();
 
