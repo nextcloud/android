@@ -305,6 +305,7 @@ class FileUploadWorker(
             notifyForFailedResult(uploadResult.code, conflictResolveIntent, credentialIntent, errorMessage)
             showNewNotification(uploadFileOperation)
 
+            // FIXME upload result code is FILE_NOT_FOUND but file already uploaded successfully for EncryptedFolders
             Handler(Looper.getMainLooper()).postDelayed({
                 dismissOldErrorNotification(uploadFileOperation)
             }, 1000)
