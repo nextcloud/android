@@ -244,7 +244,7 @@ class FileUploadWorker(
         }
     }
 
-    @Suppress("ReturnCount")
+    @Suppress("ReturnCount", "MagicNumber")
     private fun notifyUploadResult(
         uploadFileOperation: UploadFileOperation,
         uploadResult: RemoteOperationResult<Any?>
