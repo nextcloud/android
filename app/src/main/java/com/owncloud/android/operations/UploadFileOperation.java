@@ -94,6 +94,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.crypto.Cipher;
+
 import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
 
@@ -553,14 +555,11 @@ public class UploadFileOperation extends SyncOperation {
             Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
             /***** E2E *****/
-
-            // Key, always generate new one
             byte[] key = EncryptionUtils.generateKey();
-
-            // IV, always generate new one
             byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
-
-            EncryptedFile encryptedFile = EncryptionUtils.encryptFile(mFile, key, iv);
+            Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
+            File file = new File(mFile.getStoragePath());
+            EncryptedFile encryptedFile = EncryptionUtils.encryptFile(file, cipher);
 
             // new random file name, check if it exists in metadata
             String encryptedFileName = EncryptionUtils.generateUid();
@@ -575,10 +574,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
 
-            File encryptedTempFile = File.createTempFile("encFile", encryptedFileName);
-            FileOutputStream fileOutputStream = new FileOutputStream(encryptedTempFile);
-            fileOutputStream.write(encryptedFile.getEncryptedBytes());
-            fileOutputStream.close();
+            File encryptedTempFile = encryptedFile.getEncryptedFile();
 
             /***** E2E *****/
 
@@ -738,6 +734,8 @@ public class UploadFileOperation extends SyncOperation {
                         token = null;
                     }
                 }
+
+                encryptedTempFile.delete();
             }
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mFile.getStoragePath() + " not exists anymore");

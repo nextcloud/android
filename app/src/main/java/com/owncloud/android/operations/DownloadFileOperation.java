@@ -52,6 +52,8 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.crypto.Cipher;
+
 import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
 
 /**
@@ -263,31 +265,16 @@ public class DownloadFileOperation extends RemoteOperation {
 
                 byte[] key = decodeStringToBase64Bytes(keyString);
                 byte[] iv = decodeStringToBase64Bytes(nonceString);
-                byte[] authenticationTag = decodeStringToBase64Bytes(authenticationTagString);
 
                 try {
-                    byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile,
-                                                                        key,
-                                                                        iv,
-                                                                        authenticationTag,
-                                                                        new ArbitraryDataProviderImpl(operationContext),
-                                                                        user);
-
-                    try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
-                        fileOutputStream.write(decryptedBytes);
-                    }
+                    Cipher cipher = EncryptionUtils.getCipher(Cipher.DECRYPT_MODE, key, iv);
+                    EncryptionUtils.decryptFile(cipher, tmpFile, newFile, authenticationTagString, new ArbitraryDataProviderImpl(operationContext), user);
                 } catch (Exception e) {
                     return new RemoteOperationResult(e);
                 }
             }
 
-            if (downloadType == DownloadType.DOWNLOAD) {
-                moved = tmpFile.renameTo(newFile);
-                newFile.setLastModified(file.getModificationTimestamp());
-                if (!moved) {
-                    result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
-                }
-            } else if (downloadType == DownloadType.EXPORT) {
+            if (downloadType == DownloadType.EXPORT) {
                 new FileExportUtils().exportFile(file.getFileName(),
                                                  file.getMimeType(),
                                                  operationContext.getContentResolver(),

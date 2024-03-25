@@ -22,11 +22,13 @@
 package com.owncloud.android.utils;
 
 import android.content.Context;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Pair;
 
 import com.google.common.collect.Lists;
+import com.google.common.primitives.Bytes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
@@ -71,13 +73,17 @@ import org.apache.commons.httpclient.HttpStatus;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.Key;
@@ -95,6 +101,7 @@ import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPrivateCrtKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
+import java.security.spec.InvalidParameterSpecException;
 import java.security.spec.KeySpec;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.ArrayList;
@@ -107,6 +114,8 @@ import java.util.UUID;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.CipherInputStream;
+import javax.crypto.CipherOutputStream;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
@@ -118,6 +127,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.annotation.VisibleForTesting;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -554,95 +564,80 @@ public final class EncryptionUtils {
         return Base64.decode(string, Base64.NO_WRAP);
     }
 
-    /*
-    ENCRYPTION
-     */
-
-    /**
-     * @param ocFile             file do crypt
-     * @param encryptionKeyBytes key, either from metadata or {@link EncryptionUtils#generateKey()}
-     * @param iv                 initialization vector, either from metadata or
-     *                           {@link EncryptionUtils#randomBytes(int)}
-     * @return encryptedFile with encryptedBytes and authenticationTag
-     */
-    public static EncryptedFile encryptFile(OCFile ocFile, byte[] encryptionKeyBytes, byte[] iv)
-        throws NoSuchAlgorithmException,
-        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
-        BadPaddingException, IllegalBlockSizeException, IOException {
-        File file = new File(ocFile.getStoragePath());
-
-        return encryptFile(file, encryptionKeyBytes, iv);
+    public static EncryptedFile encryptFile(File file, Cipher cipher) throws InvalidParameterSpecException {
+        File encryptedFile = new File(file.getAbsolutePath() + ".enc");
+        encryptFileWithGivenCipher(file, encryptedFile, cipher);
+        String authenticationTagString = getAuthenticationTag(cipher);
+        return new EncryptedFile(encryptedFile, authenticationTagString);
     }
 
-    /**
-     * @param file               file do crypt
-     * @param encryptionKeyBytes key, either from metadata or {@link EncryptionUtils#generateKey()}
-     * @param iv                 initialization vector, either from metadata or
-     *                           {@link EncryptionUtils#randomBytes(int)}
-     * @return encryptedFile with encryptedBytes and authenticationTag
-     */
-    public static EncryptedFile encryptFile(File file, byte[] encryptionKeyBytes, byte[] iv)
-        throws NoSuchAlgorithmException,
-        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
-        BadPaddingException, IllegalBlockSizeException, IOException {
-
-        Cipher cipher = Cipher.getInstance(AES_CIPHER);
-
-        Key key = new SecretKeySpec(encryptionKeyBytes, AES);
-
-        GCMParameterSpec spec = new GCMParameterSpec(128, iv);
-        cipher.init(Cipher.ENCRYPT_MODE, key, spec);
-
-        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
-        byte[] fileBytes = new byte[(int) randomAccessFile.length()];
-        randomAccessFile.readFully(fileBytes);
-
-        byte[] cryptedBytes = cipher.doFinal(fileBytes);
-        String authenticationTag = encodeBytesToBase64String(Arrays.copyOfRange(cryptedBytes,
-                                                                                cryptedBytes.length - (128 / 8),
-                                                                                cryptedBytes.length));
-
-        return new EncryptedFile(cryptedBytes, authenticationTag);
+    public static String getAuthenticationTag(Cipher cipher) throws InvalidParameterSpecException {
+        byte[] authenticationTag = cipher.getParameters().getParameterSpec(GCMParameterSpec.class).getIV();
+        return encodeBytesToBase64String(authenticationTag);
     }
 
-    /**
-     * @param file               encrypted file
-     * @param encryptionKeyBytes key from metadata
-     * @param iv                 initialization vector from metadata
-     * @param authenticationTag  authenticationTag from metadata
-     * @return decrypted byte[]
-     */
-    public static byte[] decryptFile(File file,
-                                     byte[] encryptionKeyBytes,
-                                     byte[] iv,
-                                     byte[] authenticationTag,
-                                     ArbitraryDataProvider arbitraryDataProvider,
-                                     User user)
-        throws NoSuchAlgorithmException,
-        InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
-        BadPaddingException, IllegalBlockSizeException, IOException {
-
-
+    public static Cipher getCipher(int mode, byte[] encryptionKeyBytes, byte[] iv) throws NoSuchPaddingException, NoSuchAlgorithmException, InvalidAlgorithmParameterException, InvalidKeyException {
         Cipher cipher = Cipher.getInstance(AES_CIPHER);
         Key key = new SecretKeySpec(encryptionKeyBytes, AES);
         GCMParameterSpec spec = new GCMParameterSpec(128, iv);
-        cipher.init(Cipher.DECRYPT_MODE, key, spec);
+        cipher.init(mode, key, spec);
+        return cipher;
+    }
 
-        RandomAccessFile randomAccessFile = new RandomAccessFile(file, "r");
-        byte[] fileBytes = new byte[(int) randomAccessFile.length()];
-        randomAccessFile.readFully(fileBytes);
+    public static void encryptFileWithGivenCipher(File inputFile, File encryptedFile, Cipher cipher) {
+        try( FileInputStream inputStream = new FileInputStream(inputFile);
+             FileOutputStream fileOutputStream = new FileOutputStream(encryptedFile);
+             CipherOutputStream outputStream = new CipherOutputStream(fileOutputStream, cipher)) {
+            byte[] buffer = new byte[4096];
+            int bytesRead;
 
-        // check authentication tag
-        byte[] extractedAuthenticationTag = Arrays.copyOfRange(fileBytes,
-                                                               fileBytes.length - (128 / 8),
-                                                               fileBytes.length);
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
 
-        if (!Arrays.equals(extractedAuthenticationTag, authenticationTag)) {
-            reportE2eError(arbitraryDataProvider, user);
-            throw new SecurityException("Tag not correct");
+            outputStream.close();
+            inputStream.close();
+
+            Log_OC.d(TAG, encryptedFile.getName() + "encrypted successfully");
+        } catch (IOException exception) {
+            Log_OC.d(TAG, "Error caught at encryptFileWithGivenCipher(): " + exception.getLocalizedMessage());
         }
+    }
 
-        return cipher.doFinal(fileBytes);
+    public static void decryptFile(Cipher cipher,
+                                   File encryptedFile,
+                                   File decryptedFile,
+                                   String authenticationTag,
+                                   ArbitraryDataProvider arbitraryDataProvider,
+                                   User user) {
+        try (FileInputStream inputStream = new FileInputStream(encryptedFile);
+             FileOutputStream outputStream = new FileOutputStream(decryptedFile)) {
+
+            byte[] buffer = new byte[4096];
+            int bytesRead;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                byte[] output = cipher.update(buffer, 0, bytesRead);
+                if (output != null) {
+                    outputStream.write(output);
+                }
+            }
+            byte[] output = cipher.doFinal();
+            if (output != null) {
+                outputStream.write(output);
+            }
+            inputStream.close();
+            outputStream.close();
+
+            if (!getAuthenticationTag(cipher).equals(authenticationTag)) {
+                reportE2eError(arbitraryDataProvider, user);
+                throw new SecurityException("Tag not correct");
+            }
+
+            Log_OC.d(TAG, encryptedFile.getName() + "decrypted successfully");
+        } catch (IOException | BadPaddingException | IllegalBlockSizeException | InvalidParameterSpecException |
+                 SecurityException exception) {
+            Log_OC.d(TAG, "Error caught at decryptFile(): " + exception.getLocalizedMessage());
+        }
     }
 
     /**
@@ -840,7 +835,7 @@ public final class EncryptionUtils {
         return metadata.getCiphertext();
     }
 
-//    /**
+    //    /**
 //     * Encrypt string with AES/GCM/NoPadding
 //     *
 //     * @param string             string to encrypt
@@ -872,22 +867,22 @@ public final class EncryptionUtils {
 //
 //        return encodedCryptedBytes + delimiter + encodedIV;
 //    }
-public static String decryptStringSymmetricAsString(String string,
-                                                    byte[] encryptionKeyBytes,
-                                                    byte[] iv,
-                                                    byte[] authenticationTag,
-                                                    ArbitraryDataProvider arbitraryDataProvider,
-                                                    User user
-                                                   ) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-    return decryptStringSymmetricAsString(
-        decodeStringToBase64Bytes(string),
-        encryptionKeyBytes,
-        iv,
-        authenticationTag,
-        false,
-        arbitraryDataProvider,
-        user);
-}
+    public static String decryptStringSymmetricAsString(String string,
+                                                        byte[] encryptionKeyBytes,
+                                                        byte[] iv,
+                                                        byte[] authenticationTag,
+                                                        ArbitraryDataProvider arbitraryDataProvider,
+                                                        User user
+                                                       ) throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+        return decryptStringSymmetricAsString(
+            decodeStringToBase64Bytes(string),
+            encryptionKeyBytes,
+            iv,
+            authenticationTag,
+            false,
+            arbitraryDataProvider,
+            user);
+    }
 
     public static String decryptStringSymmetricAsString(String string,
                                                         byte[] encryptionKeyBytes,
@@ -1196,7 +1191,7 @@ public static String decryptStringSymmetricAsString(String string,
         return "-----BEGIN PRIVATE KEY-----\n" + privateKeyString.replaceAll("(.{65})", "$1\n")
             + "\n-----END PRIVATE KEY-----";
     }
-    
+
     public static PrivateKey PEMtoPrivateKey(String pem) throws NoSuchAlgorithmException, InvalidKeySpecException {
         byte[] privateKeyBytes = EncryptionUtils.decodeStringToBase64Bytes(pem);
         PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(privateKeyBytes);
