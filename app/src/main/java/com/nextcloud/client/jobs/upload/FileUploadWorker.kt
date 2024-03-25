@@ -9,6 +9,8 @@ package com.nextcloud.client.jobs.upload
 
 import android.app.PendingIntent
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -288,19 +290,24 @@ class FileUploadWorker(
                 context.resources
             )
 
-            // FIXME SYNC_CONFLICT passes wrong OCFile, check ConflictsResolveActivity.createIntent usage
             val conflictResolveIntent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
                 intents.conflictResolveActionIntents(context, uploadFileOperation)
             } else {
                 null
             }
+
             val credentialIntent: PendingIntent? = if (uploadResult.code == ResultCode.UNAUTHORIZED) {
                 intents.credentialIntent(uploadFileOperation)
             } else {
                 null
             }
+
             notifyForFailedResult(uploadResult.code, conflictResolveIntent, credentialIntent, errorMessage)
             showNewNotification(uploadFileOperation)
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                dismissOldErrorNotification(uploadFileOperation)
+            }, 1000)
         }
     }
 
