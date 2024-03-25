@@ -69,6 +69,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
+import com.nextcloud.client.jobs.upload.UploadNotificationManager;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
@@ -85,6 +86,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -230,6 +232,8 @@ public class FileDisplayActivity extends FileActivity
     public static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
 
     public static final String REFRESH_FOLDER_EVENT_RECEIVER = "REFRESH_FOLDER_EVENT";
+    public static final String FAILED_ENCRYPTED_FILE_UPLOAD_REMOTE_PATH = "FAILED_UPLOAD_ENCRYPTED_FILE_LOCAL_ID";
+    public static final String FAILED_ENCRYPTED_FILE_UPLOAD_STORAGE_PATH = "FAILED_ENCRYPTED_FILE_UPLOAD_STORAGE_PATH";
 
     private String searchQuery = "";
     private boolean searchOpen;
@@ -238,6 +242,9 @@ public class FileDisplayActivity extends FileActivity
     private PlayerServiceConnection mPlayerConnection;
     private Optional<User> lastDisplayedUser = Optional.empty();
     private int menuItemId = -1;
+
+    @Inject UploadsStorageManager uploadsStorageManager;
+
     @Inject AppPreferences preferences;
 
     @Inject AppInfo appInfo;
@@ -2299,16 +2306,31 @@ public class FileDisplayActivity extends FileActivity
         checkForNewDevVersionNecessary(getApplicationContext());
     }
 
-    // FIXME duplicated uploads for e2e
     private void registerRefreshFolderEventReceiver() {
         IntentFilter filter = new IntentFilter(REFRESH_FOLDER_EVENT_RECEIVER);
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshFolderEventReceiver, filter);
     }
 
+    // FIXME
+    // this is workaround fix for failed file upload for encrypted folder. Shouldn't return 404
+    // from server and successfully upload. In this case uploads successfully but returns 404.
     private final BroadcastReceiver refreshFolderEventReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            String remotePath = intent.getStringExtra(FAILED_ENCRYPTED_FILE_UPLOAD_REMOTE_PATH);
+            String storagePath = intent.getStringExtra(FAILED_ENCRYPTED_FILE_UPLOAD_STORAGE_PATH);
+
+            if (remotePath != null) {
+                uploadsStorageManager.deleteFailedUpload(remotePath);
+            }
+
+            if (remotePath != null && storagePath != null) {
+                UploadNotificationManager uploadNotificationManager = new UploadNotificationManager(FileDisplayActivity.this, viewThemeUtils);
+                uploadNotificationManager.dismissOldErrorNotification(remotePath, storagePath);
+            }
+
             syncAndUpdateFolder(true);
+
         }
     };
 

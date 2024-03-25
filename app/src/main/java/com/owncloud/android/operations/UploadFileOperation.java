@@ -63,7 +63,6 @@ import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.operations.common.SyncOperation;
-import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -102,6 +101,8 @@ import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+import static com.owncloud.android.ui.activity.FileDisplayActivity.FAILED_ENCRYPTED_FILE_UPLOAD_REMOTE_PATH;
+import static com.owncloud.android.ui.activity.FileDisplayActivity.FAILED_ENCRYPTED_FILE_UPLOAD_STORAGE_PATH;
 import static com.owncloud.android.ui.activity.FileDisplayActivity.REFRESH_FOLDER_EVENT_RECEIVER;
 
 
@@ -736,6 +737,7 @@ public class UploadFileOperation extends SyncOperation {
                     result = EncryptionUtils.unlockFolder(parentFile, client, token);
                 }
 
+                // FIXME maybe server throw 404 because of this deletion.
                 encryptedTempFile.delete();
             }
         } catch (FileNotFoundException e) {
@@ -748,6 +750,7 @@ public class UploadFileOperation extends SyncOperation {
             result = new RemoteOperationResult(e);
         } finally {
             mUploadStarted.set(false);
+            sendRefreshFolderEventBroadcast();
 
             if (fileLock != null) {
                 try {
@@ -776,8 +779,6 @@ public class UploadFileOperation extends SyncOperation {
                     result = unlockFolderResult;
                 }
             }
-
-            sendRefreshFolderEventBroadcast();
         }
 
         if (result.isSuccess()) {
@@ -796,6 +797,8 @@ public class UploadFileOperation extends SyncOperation {
 
     private void sendRefreshFolderEventBroadcast() {
         Intent intent = new Intent(REFRESH_FOLDER_EVENT_RECEIVER);
+        intent.putExtra(FAILED_ENCRYPTED_FILE_UPLOAD_REMOTE_PATH, mFile.getRemotePath());
+        intent.putExtra(FAILED_ENCRYPTED_FILE_UPLOAD_STORAGE_PATH,  mFile.getStoragePath());
         LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 

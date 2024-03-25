@@ -9,8 +9,6 @@ package com.nextcloud.client.jobs.upload
 
 import android.app.PendingIntent
 import android.content.Context
-import android.os.Handler
-import android.os.Looper
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -244,7 +242,7 @@ class FileUploadWorker(
         }
     }
 
-    @Suppress("ReturnCount", "MagicNumber")
+    @Suppress("ReturnCount")
     private fun notifyUploadResult(
         uploadFileOperation: UploadFileOperation,
         uploadResult: RemoteOperationResult<Any?>
@@ -304,11 +302,6 @@ class FileUploadWorker(
 
             notifyForFailedResult(uploadResult.code, conflictResolveIntent, credentialIntent, errorMessage)
             showNewNotification(uploadFileOperation)
-
-            // FIXME upload result code is FILE_NOT_FOUND but file already uploaded successfully for EncryptedFolders
-            Handler(Looper.getMainLooper()).postDelayed({
-                dismissOldErrorNotification(uploadFileOperation)
-            }, 1000)
         }
     }
 
