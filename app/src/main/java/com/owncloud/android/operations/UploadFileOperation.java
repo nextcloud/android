@@ -23,6 +23,7 @@ package com.owncloud.android.operations;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
@@ -62,6 +63,7 @@ import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.ui.fragment.GalleryFragment;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -98,6 +100,9 @@ import javax.crypto.Cipher;
 
 import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import static com.owncloud.android.ui.activity.FileDisplayActivity.REFRESH_FOLDER_EVENT_RECEIVER;
 
 
 /**
@@ -761,7 +766,6 @@ public class UploadFileOperation extends SyncOperation {
 
             logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
 
-            // FIXME Notification shows error
             // unlock must be done always
             if (token != null) {
                 RemoteOperationResult<Void> unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
@@ -772,6 +776,8 @@ public class UploadFileOperation extends SyncOperation {
                     result = unlockFolderResult;
                 }
             }
+
+            sendRefreshFolderEventBroadcast();
         }
 
         if (result.isSuccess()) {
@@ -786,6 +792,11 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return result;
+    }
+
+    private void sendRefreshFolderEventBroadcast() {
+        Intent intent = new Intent(REFRESH_FOLDER_EVENT_RECEIVER);
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
     private RemoteOperationResult checkConditions(File originalFile) {
