@@ -464,6 +464,12 @@ public abstract class AbstractIT {
         }
     }
 
+    protected void screenshot(Activity sut, String name) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            Screenshot.snapActivity(sut).setName(name).record();
+        }
+    }
+
     protected void screenshot(DialogFragment dialogFragment, String prefix) {
         screenshot(Objects.requireNonNull(dialogFragment.requireDialog().getWindow()).getDecorView(), prefix);
     }
