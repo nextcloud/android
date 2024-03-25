@@ -26,7 +26,7 @@ class TrashbinActivityIT : AbstractIT() {
         ERROR, EMPTY, FILES
     }
 
-    private lateinit var scenario: ActivityScenario<TrashbinActivity>
+    private var scenario: ActivityScenario<TrashbinActivity>? = null
     val intent = Intent(ApplicationProvider.getApplicationContext(), TrashbinActivity::class.java)
 
     @get:Rule
@@ -34,14 +34,14 @@ class TrashbinActivityIT : AbstractIT() {
 
     @After
     fun cleanup() {
-        scenario.close()
+        scenario?.close()
     }
 
     @Test
     @ScreenshotTest
     fun error() {
         scenario = activityRule.scenario
-        scenario.onActivity { sut ->
+        scenario?.onActivity { sut ->
             val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             sut.runOnUiThread { sut.loadFolder() }
@@ -54,7 +54,7 @@ class TrashbinActivityIT : AbstractIT() {
     @ScreenshotTest
     fun files() {
         scenario = activityRule.scenario
-        scenario.onActivity { sut ->
+        scenario?.onActivity { sut ->
             val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
 
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
@@ -73,7 +73,7 @@ class TrashbinActivityIT : AbstractIT() {
     @ScreenshotTest
     fun empty() {
         scenario = activityRule.scenario
-        scenario.onActivity { sut ->
+        scenario?.onActivity { sut ->
             val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
 
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
@@ -92,7 +92,7 @@ class TrashbinActivityIT : AbstractIT() {
     @ScreenshotTest
     fun loading() {
         scenario = activityRule.scenario
-        scenario.onActivity { sut ->
+        scenario?.onActivity { sut ->
             val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             sut.runOnUiThread { sut.showInitialLoading() }
@@ -105,7 +105,7 @@ class TrashbinActivityIT : AbstractIT() {
     @ScreenshotTest
     fun normalUser() {
         scenario = activityRule.scenario
-        scenario.onActivity { sut ->
+        scenario?.onActivity { sut ->
             val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             sut.runOnUiThread { sut.showUser() }
@@ -124,10 +124,12 @@ class TrashbinActivityIT : AbstractIT() {
         platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.localhost")
         platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, "differentUser")
 
-        val intent = Intent()
+        val intent = Intent(targetContext, TrashbinActivity::class.java)
         intent.putExtra(Intent.EXTRA_USER, "differentUser@https://nextcloud.localhost")
-        scenario = activityRule.scenario
-        scenario.onActivity { sut ->
+
+        val sutScenario = ActivityScenario.launch<TrashbinActivity>(intent)
+        sutScenario.onActivity { sut ->
+            sut.intent = intent
             val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             sut.runOnUiThread { sut.showUser() }
