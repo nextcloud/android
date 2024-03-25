@@ -97,7 +97,7 @@ internal class BackgroundJobManagerImpl(
 
         const val JOB_TEST = "test_job"
 
-        const val MAX_CONTENT_TRIGGER_DELAY_MS = 1500L
+        const val MAX_CONTENT_TRIGGER_DELAY_MS = 10000L
 
         const val TAG_PREFIX_NAME = "name"
         const val TAG_PREFIX_USER = "user"
@@ -276,7 +276,7 @@ internal class BackgroundJobManagerImpl(
             .setConstraints(constrains)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.REPLACE, request)
+        workManager.enqueueUniqueWork(JOB_CONTENT_OBSERVER, ExistingWorkPolicy.APPEND, request)
     }
 
     override fun schedulePeriodicContactsBackup(user: User) {
@@ -424,10 +424,13 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC, ExistingPeriodicWorkPolicy.REPLACE, request)
     }
 
-    override fun startImmediateFilesSyncJob(skipCustomFolders: Boolean, overridePowerSaving: Boolean) {
+    override fun startImmediateFilesSyncJob(
+        overridePowerSaving: Boolean,
+        changedFiles: Array<String>
+    ) {
         val arguments = Data.Builder()
-            .putBoolean(FilesSyncWork.SKIP_CUSTOM, skipCustomFolders)
             .putBoolean(FilesSyncWork.OVERRIDE_POWER_SAVING, overridePowerSaving)
+            .putStringArray(FilesSyncWork.CHANGED_FILES, changedFiles)
             .build()
 
         val request = oneTimeRequestBuilder(
@@ -437,7 +440,7 @@ internal class BackgroundJobManagerImpl(
             .setInputData(arguments)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_SYNC, ExistingWorkPolicy.KEEP, request)
+        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_SYNC, ExistingWorkPolicy.APPEND, request)
     }
 
     override fun scheduleOfflineSync() {

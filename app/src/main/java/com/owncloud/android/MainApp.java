@@ -547,7 +547,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
 
         if (!preferences.isAutoUploadInitialized()) {
-            backgroundJobManager.startImmediateFilesSyncJob(false, false);
+            backgroundJobManager.startImmediateFilesSyncJob(false, new String[]{});
             preferences.setAutoUploadInit(true);
         }
 
