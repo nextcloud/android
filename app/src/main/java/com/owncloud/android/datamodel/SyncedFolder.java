@@ -264,7 +264,7 @@ public class SyncedFolder implements Serializable, Cloneable {
 
     public void setSubFolderRule(SubFolderRule subFolderRule) { this.subfolderRule = subFolderRule; }
     
-    public boolean containsFile(String filePath){
+    public boolean containsFile(String filePath) {
         return filePath.contains(localPath);
     }
 }
