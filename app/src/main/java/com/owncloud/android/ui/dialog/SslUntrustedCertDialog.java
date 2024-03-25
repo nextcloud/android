@@ -76,9 +76,7 @@ public class SslUntrustedCertDialog extends DialogFragment implements Injectable
         if (error == null) {
             throw new IllegalArgumentException("Trying to create instance with parameter error == null");
         }
-        if (handler == null) {
-            throw new IllegalArgumentException("Trying to create instance with parameter handler == null");
-        }
+
         SslUntrustedCertDialog dialog = new SslUntrustedCertDialog();
         dialog.mHandler = handler;
         dialog.mErrorViewAdapter = new SslErrorViewAdapter(error);

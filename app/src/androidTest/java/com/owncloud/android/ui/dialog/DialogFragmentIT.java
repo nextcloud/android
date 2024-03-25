@@ -15,7 +15,6 @@ import android.net.http.SslError;
 import android.os.Looper;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.SslErrorHandler;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -65,7 +64,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -568,13 +566,9 @@ public class DialogFragmentIT extends AbstractIT {
 
         final SslCertificate certificate = new SslCertificate("foo", "bar", "2022/01/10", "2022/01/30");
         final SslError sslError = new SslError(SslError.SSL_UNTRUSTED, certificate);
-
-        final SslErrorHandler handler = Mockito.mock(SslErrorHandler.class);
-
-        SslUntrustedCertDialog sut = SslUntrustedCertDialog.newInstanceForEmptySslError(sslError, handler);
+        SslUntrustedCertDialog sut = SslUntrustedCertDialog.newInstanceForEmptySslError(sslError, null);
         showDialog(sut);
     }
-
 
     @Test
     @ScreenshotTest
