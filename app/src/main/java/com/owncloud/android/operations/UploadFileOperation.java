@@ -761,16 +761,15 @@ public class UploadFileOperation extends SyncOperation {
 
             logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
 
-
             // FIXME Notification shows error
             // unlock must be done always
             if (token != null) {
-                RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
-                                                                                        client,
-                                                                                        token);
+                RemoteOperationResult<Void> unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
+                                                                                              client,
+                                                                                              token);
 
                 if (!unlockFolderResult.isSuccess()) {
-                    return unlockFolderResult;
+                    result = unlockFolderResult;
                 }
             }
         }
