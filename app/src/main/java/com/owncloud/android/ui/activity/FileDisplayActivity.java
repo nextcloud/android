@@ -2299,6 +2299,7 @@ public class FileDisplayActivity extends FileActivity
         checkForNewDevVersionNecessary(getApplicationContext());
     }
 
+    // FIXME duplicated uploads for e2e
     private void registerRefreshFolderEventReceiver() {
         IntentFilter filter = new IntentFilter(REFRESH_FOLDER_EVENT_RECEIVER);
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshFolderEventReceiver, filter);
