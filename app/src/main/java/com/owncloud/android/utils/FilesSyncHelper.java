@@ -20,7 +20,6 @@ import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
-import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
@@ -40,6 +39,7 @@ import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -78,6 +78,40 @@ public final class FilesSyncHelper {
                     FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
                     Path path = Paths.get(syncedFolder.getLocalPath());
 
+                    long startTime = System.nanoTime();
+                    // chick check for changes
+                    long lastCheck = System.currentTimeMillis();
+                    ArrayList<File> changedFiles = new ArrayList<>();
+                    FileUtil.walkFileTree(path, new SimpleFileVisitor<Path>() {
+                        @Override
+                        public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
+                            File file = path.toFile();
+                            if (syncedFolder.isExcludeHidden() && file.isHidden()) {
+                                // exclude hidden file or folder
+                                return FileVisitResult.CONTINUE;
+                            }
+                            if (file.lastModified() >= lastCheck){
+                                changedFiles.add(file);
+                            }
+
+                            return FileVisitResult.CONTINUE;
+                        }
+
+                        @Override
+                        public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
+                            if (syncedFolder.isExcludeHidden() && dir.compareTo(Paths.get(syncedFolder.getLocalPath())) != 0 && dir.toFile().isHidden()) {
+                                return null;
+                            }
+                            return FileVisitResult.CONTINUE;
+                        }
+
+                        @Override
+                        public FileVisitResult visitFileFailed(Path file, IOException exc) {
+                            return FileVisitResult.CONTINUE;
+                        }
+                    });
+                    Log_OC.d(TAG,"FILESYNC FINISHED QUICK CHECK FILE "+path+" "+(System.nanoTime() - startTime));
+                    startTime = System.nanoTime();
                     FileUtil.walkFileTree(path, new SimpleFileVisitor<Path>() {
                         @Override
                         public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
@@ -87,6 +121,8 @@ public final class FilesSyncHelper {
                                 return FileVisitResult.CONTINUE;
                             }
                             if (syncedFolder.isExisting() || attrs.lastModifiedTime().toMillis() >= enabledTimestampMs) {
+                                // storeOrUpdateFileValue takes a few millisec
+                                // -> Rest of this file check takes not even 1 millisec.
                                 filesystemDataProvider.storeOrUpdateFileValue(path.toAbsolutePath().toString(),
                                                                               attrs.lastModifiedTime().toMillis(),
                                                                               file.isDirectory(), syncedFolder);
@@ -108,6 +144,8 @@ public final class FilesSyncHelper {
                             return FileVisitResult.CONTINUE;
                         }
                     });
+                    Log_OC.d(TAG,"FILESYNC FINISHED LONG CHECK FILE "+path+" "+(System.nanoTime() - startTime));
+
                 } catch (IOException e) {
                     Log_OC.e(TAG, "Something went wrong while indexing files for auto upload", e);
                 }
@@ -117,6 +155,7 @@ public final class FilesSyncHelper {
 
     public static void insertAllDBEntries(SyncedFolderProvider syncedFolderProvider) {
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            Log_OC.d(TAG,"FILESYNC CHECK FOLDER "+syncedFolder.getLocalPath());
             if (syncedFolder.isEnabled()) {
                 insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
@@ -135,6 +174,7 @@ public final class FilesSyncHelper {
                     filesystemDataProvider.storeOrUpdateFileValue(changedFile,
                                                                   file.lastModified(),file.isDirectory(),
                                                                   syncedFolder);
+                    Log_OC.d(TAG,"FILESYNC ADDED UPLOAD TO DB");
                     break;
                 }
             }
@@ -191,6 +231,7 @@ public final class FilesSyncHelper {
             column_index_date_modified = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_MODIFIED);
             while (cursor.moveToNext()) {
                 contentPath = cursor.getString(column_index_data);
+                Log_OC.d(TAG,"FILESYNC CHECK File "+contentPath);
                 isFolder = new File(contentPath).isDirectory();
                 if (syncedFolder.isExisting() || cursor.getLong(column_index_date_modified) >= enabledTimestampMs / 1000.0) {
                     filesystemDataProvider.storeOrUpdateFileValue(contentPath,
