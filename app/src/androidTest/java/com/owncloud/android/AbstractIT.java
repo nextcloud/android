@@ -453,8 +453,16 @@ public abstract class AbstractIT {
     }
 
     protected void screenshot(View view, String prefix) {
+        screenshot(view, prefix, true);
+    }
+
+    protected void screenshot(View view, String prefix, boolean createName) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            Screenshot.snap(view).setName(createName(prefix)).record();
+            if (createName) {
+                Screenshot.snap(view).setName(createName(prefix)).record();
+            } else {
+                Screenshot.snap(view).setName(prefix).record();
+            }
         }
     }
 

@@ -20,7 +20,6 @@ import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
 import org.junit.Rule
 import org.junit.Test
-import java.util.UUID
 
 class TrashbinActivityIT : AbstractIT() {
     enum class TestCase {
@@ -47,7 +46,7 @@ class TrashbinActivityIT : AbstractIT() {
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             sut.runOnUiThread { sut.loadFolder() }
             shortSleep()
-            screenshot(sut, UUID.randomUUID().toString())
+            screenshot(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_error")
         }
     }
 
@@ -65,7 +64,7 @@ class TrashbinActivityIT : AbstractIT() {
             onIdleSync {
                 shortSleep()
                 shortSleep()
-                screenshot(sut, UUID.randomUUID().toString())
+                screenshot(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_files")
             }
         }
     }
@@ -84,7 +83,11 @@ class TrashbinActivityIT : AbstractIT() {
             shortSleep()
             shortSleep()
             onIdleSync {
-                screenshot(sut.binding.emptyList.emptyListView, UUID.randomUUID().toString())
+                screenshot(
+                    sut.binding.emptyList.emptyListView,
+                    "com.owncloud.android.ui.trashbin.TrashbinActivityIT_empty",
+                    false
+                )
             }
         }
     }
@@ -98,7 +101,11 @@ class TrashbinActivityIT : AbstractIT() {
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             sut.runOnUiThread { sut.showInitialLoading() }
             shortSleep()
-            screenshot(sut.binding.listFragmentLayout, UUID.randomUUID().toString())
+            screenshot(
+                sut.binding.listFragmentLayout,
+                "com.owncloud.android.ui.trashbin.TrashbinActivityIT_loading",
+                false
+            )
         }
     }
 
@@ -111,7 +118,7 @@ class TrashbinActivityIT : AbstractIT() {
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             sut.runOnUiThread { sut.showUser() }
             shortSleep()
-            screenshot(sut, UUID.randomUUID().toString())
+            screenshot(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_normalUser")
         }
     }
 
@@ -135,7 +142,7 @@ class TrashbinActivityIT : AbstractIT() {
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             sut.runOnUiThread { sut.showUser() }
             shortSleep()
-            screenshot(sut, UUID.randomUUID().toString())
+            screenshot(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_differentUser")
         }
     }
 }
