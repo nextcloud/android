@@ -24,7 +24,9 @@ import com.nextcloud.model.WorkerStateLiveData
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
+import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
@@ -32,6 +34,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.operations.UploadFileOperation.uploadedSourcePath
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
@@ -235,11 +238,30 @@ class FileUploadWorker(
     }
 
     private fun cleanupUploadProcess(result: RemoteOperationResult<Any?>, operation: UploadFileOperation) {
-        if (!(isStopped && result.isCancelled)) {
-            uploadsStorageManager.updateDatabaseUploadResult(result, operation)
-            notifyUploadResult(operation, result)
-            notificationManager.dismissWorkerNotifications()
+        if (operation.originalStoragePath == uploadedSourcePath) {
+            // TODO
+            // This is not ideal fix. When uploading file to the encrypted folder server returns 404 FILE_NOT_FOUND
+            // However file upload successfully completed. This fix mimic success, if upload successfully completed with
+            // receiving path
+            val localPath: String? =
+                if (LOCAL_BEHAVIOUR_MOVE == operation.localBehaviour) operation.storagePath else null
+
+            uploadsStorageManager.updateUploadStatus(
+                operation.ocUploadId,
+                UploadStatus.UPLOAD_SUCCEEDED,
+                UploadResult.UPLOADED,
+                operation.remotePath,
+                localPath
+            )
+            notificationManager.dismissOldErrorNotification(operation)
+        } else {
+            if (!(isStopped && result.isCancelled)) {
+                uploadsStorageManager.updateDatabaseUploadResult(result, operation)
+                notifyUploadResult(operation, result)
+            }
         }
+
+        notificationManager.dismissWorkerNotifications()
     }
 
     @Suppress("ReturnCount")

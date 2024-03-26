@@ -101,8 +101,6 @@ import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import static com.owncloud.android.ui.activity.FileDisplayActivity.FAILED_ENCRYPTED_FILE_UPLOAD_REMOTE_PATH;
-import static com.owncloud.android.ui.activity.FileDisplayActivity.FAILED_ENCRYPTED_FILE_UPLOAD_STORAGE_PATH;
 import static com.owncloud.android.ui.activity.FileDisplayActivity.REFRESH_FOLDER_EVENT_RECEIVER;
 
 
@@ -472,6 +470,7 @@ public class UploadFileOperation extends SyncOperation {
             if (result != null) {
                 return result;
             }
+
             /***** E2E *****/
             // Only on V2+: whenever we change something, increase counter
             long counter = -1;
@@ -491,12 +490,6 @@ public class UploadFileOperation extends SyncOperation {
 
             // Update metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
-//            kotlin.Pair<Boolean, DecryptedFolderMetadataFile> metadataPair =
-//                encryptionUtilsV2.retrieveMetadata(parentFile,
-//                                                   client,
-//                                                   user,
-//                                                   mContext);
-
             Object object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
             if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
                 metadataExists = true;
@@ -737,7 +730,6 @@ public class UploadFileOperation extends SyncOperation {
                     result = EncryptionUtils.unlockFolder(parentFile, client, token);
                 }
 
-                // FIXME maybe server throw 404 because of this deletion.
                 encryptedTempFile.delete();
             }
         } catch (FileNotFoundException e) {
@@ -797,8 +789,6 @@ public class UploadFileOperation extends SyncOperation {
 
     private void sendRefreshFolderEventBroadcast() {
         Intent intent = new Intent(REFRESH_FOLDER_EVENT_RECEIVER);
-        intent.putExtra(FAILED_ENCRYPTED_FILE_UPLOAD_REMOTE_PATH, mFile.getRemotePath());
-        intent.putExtra(FAILED_ENCRYPTED_FILE_UPLOAD_STORAGE_PATH,  mFile.getStoragePath());
         LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
@@ -1008,8 +998,11 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
+    public static String uploadedSourcePath;
+
     private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {
         if (result.isSuccess()) {
+            uploadedSourcePath = sourcePath;
             Log_OC.i(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
         } else {
             if (result.getException() != null) {

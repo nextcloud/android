@@ -232,8 +232,6 @@ public class FileDisplayActivity extends FileActivity
     public static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
 
     public static final String REFRESH_FOLDER_EVENT_RECEIVER = "REFRESH_FOLDER_EVENT";
-    public static final String FAILED_ENCRYPTED_FILE_UPLOAD_REMOTE_PATH = "FAILED_UPLOAD_ENCRYPTED_FILE_LOCAL_ID";
-    public static final String FAILED_ENCRYPTED_FILE_UPLOAD_STORAGE_PATH = "FAILED_ENCRYPTED_FILE_UPLOAD_STORAGE_PATH";
 
     private String searchQuery = "";
     private boolean searchOpen;
@@ -2311,26 +2309,10 @@ public class FileDisplayActivity extends FileActivity
         LocalBroadcastManager.getInstance(this).registerReceiver(refreshFolderEventReceiver, filter);
     }
 
-    // FIXME
-    // this is workaround fix for failed file upload for encrypted folder. Shouldn't return 404
-    // from server and successfully upload. In this case uploads successfully but returns 404.
     private final BroadcastReceiver refreshFolderEventReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            String remotePath = intent.getStringExtra(FAILED_ENCRYPTED_FILE_UPLOAD_REMOTE_PATH);
-            String storagePath = intent.getStringExtra(FAILED_ENCRYPTED_FILE_UPLOAD_STORAGE_PATH);
-
-            if (remotePath != null) {
-                uploadsStorageManager.deleteFailedUpload(remotePath);
-            }
-
-            if (remotePath != null && storagePath != null) {
-                UploadNotificationManager uploadNotificationManager = new UploadNotificationManager(FileDisplayActivity.this, viewThemeUtils);
-                uploadNotificationManager.dismissOldErrorNotification(remotePath, storagePath);
-            }
-
             syncAndUpdateFolder(true);
-
         }
     };
 
