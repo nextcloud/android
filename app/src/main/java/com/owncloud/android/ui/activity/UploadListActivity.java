@@ -208,7 +208,7 @@ public class UploadListActivity extends FileActivity {
     }
 
     private void refresh() {
-        backgroundJobManager.startImmediateFilesSyncJob(false, true);
+        backgroundJobManager.startImmediateFilesSyncJob(true,new String[]{});
 
         if (uploadsStorageManager.getFailedUploads().length > 0) {
             new Thread(() -> {

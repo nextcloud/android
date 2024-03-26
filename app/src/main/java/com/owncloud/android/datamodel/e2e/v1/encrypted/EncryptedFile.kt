@@ -21,4 +21,6 @@
  */
 package com.owncloud.android.datamodel.e2e.v1.encrypted
 
-class EncryptedFile(var encryptedBytes: ByteArray, var authenticationTag: String)
+import java.io.File
+
+class EncryptedFile(var encryptedFile: File, var authenticationTag: String)
