@@ -684,20 +684,6 @@ public class UploadsStorageManager extends Observable {
         return contentResolver;
     }
 
-    public void deleteFailedUpload(String path) {
-        final long deleted = getDB().delete(
-            ProviderTableMeta.CONTENT_URI_UPLOADS,
-            ProviderTableMeta.UPLOADS_STATUS + " = ? AND " +
-                ProviderTableMeta.UPLOADS_REMOTE_PATH + " = ?",
-            new String[]{String.valueOf(UploadStatus.UPLOAD_FAILED.value), path});
-
-        Log_OC.d(TAG, "delete failed upload");
-
-        if (deleted > 0) {
-            notifyObserversNow();
-        }
-    }
-
     public long clearFailedButNotDelayedUploads() {
         User user = currentAccountProvider.getUser();
         final long deleted = getDB().delete(
