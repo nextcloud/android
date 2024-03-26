@@ -44,9 +44,11 @@ class TrashbinActivityIT : AbstractIT() {
         scenario?.onActivity { sut ->
             val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-            sut.runOnUiThread { sut.loadFolder() }
-            shortSleep()
-            screenshot(sut, "error")
+            onIdleSync {
+                sut.runOnUiThread { sut.loadFolder() }
+                shortSleep()
+                screenshot(sut)
+            }
         }
     }
 
@@ -56,15 +58,12 @@ class TrashbinActivityIT : AbstractIT() {
         scenario = activityRule.scenario
         scenario?.onActivity { sut ->
             val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
-
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-
-            sut.runOnUiThread { sut.loadFolder() }
-
             onIdleSync {
+                sut.runOnUiThread { sut.loadFolder() }
                 shortSleep()
                 shortSleep()
-                screenshot(sut, "files")
+                screenshot(sut)
             }
         }
     }
@@ -75,14 +74,11 @@ class TrashbinActivityIT : AbstractIT() {
         scenario = activityRule.scenario
         scenario?.onActivity { sut ->
             val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-
-            sut.runOnUiThread { sut.loadFolder() }
-
-            shortSleep()
-            shortSleep()
             onIdleSync {
+                sut.runOnUiThread { sut.loadFolder() }
+                shortSleep()
+                shortSleep()
                 screenshot(
                     sut.binding.emptyList.emptyListView,
                     "empty",
@@ -99,13 +95,11 @@ class TrashbinActivityIT : AbstractIT() {
         scenario?.onActivity { sut ->
             val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-            sut.runOnUiThread { sut.showInitialLoading() }
-            shortSleep()
-            screenshot(
-                sut.binding.listFragmentLayout,
-                "loading",
-                false
-            )
+            onIdleSync {
+                sut.runOnUiThread { sut.showInitialLoading() }
+                shortSleep()
+                screenshot(sut.binding.listFragmentLayout)
+            }
         }
     }
 
@@ -116,9 +110,11 @@ class TrashbinActivityIT : AbstractIT() {
         scenario?.onActivity { sut ->
             val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-            sut.runOnUiThread { sut.showUser() }
-            shortSleep()
-            screenshot(sut, "normalUser")
+            onIdleSync {
+                sut.runOnUiThread { sut.showUser() }
+                shortSleep()
+                screenshot(sut)
+            }
         }
     }
 
@@ -140,9 +136,11 @@ class TrashbinActivityIT : AbstractIT() {
             sut.intent = intent
             val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-            sut.runOnUiThread { sut.showUser() }
-            shortSleep()
-            screenshot(sut, "differentUser")
+            onIdleSync {
+                sut.runOnUiThread { sut.showUser() }
+                shortSleep()
+                screenshot(sut)
+            }
         }
     }
 }
