@@ -456,7 +456,7 @@
     <string name="link_share_editing">Düzenleniyor</string>
     <string name="link_share_file_drop">Dosya bırakma (yalnızca yükleme)</string>
     <string name="link_share_view_only">Yalnızca görüntüleme</string>
-    <string name="list_layout">Liste düzeni</string>
+    <string name="list_layout">Liste yerleşimi</string>
     <string name="load_more_results">Diğer sonuçları yükle</string>
     <string name="local_file_list_empty">Bu klasörde herhangi bir dosya yok.</string>
     <string name="local_file_not_found_message">Dosya yerel dosya sisteminde bulunamadı</string>
