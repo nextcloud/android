@@ -512,7 +512,7 @@ public class UploadIT extends AbstractOnServerIT {
 
         OCFile ocFile = null;
         for (OCFile f : files) {
-            if (f.getFileName().equals("metadata.jpg")) {
+            if ("metadata.jpg".equals(f.getFileName())) {
                 ocFile = f;
                 break;
             }

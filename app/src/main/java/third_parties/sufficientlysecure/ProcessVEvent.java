@@ -578,7 +578,7 @@ public class ProcessVEvent {
         String expected = parts.length > 1 ? parts[1] : "";
         String got = c.getAsString(key);
 
-        if (expected.equals("<non-null>") && got != null) {
+        if ("<non-null>".equals(expected) && got != null) {
             got = "<non-null>"; // Sentinel for testing present and non-null
         }
         if (got == null) {
