@@ -472,9 +472,9 @@ public abstract class AbstractIT {
         }
     }
 
-    protected void screenshot(Activity sut, String name) {
+    protected void screenshot(Activity sut, String prefix) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            Screenshot.snapActivity(sut).setName(name).record();
+            Screenshot.snapActivity(sut).setName(createName(prefix)).record();
         }
     }
 
