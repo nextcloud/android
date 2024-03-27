@@ -469,7 +469,7 @@ public abstract class AbstractIT {
 
     protected void screenshot(Activity sut) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            Screenshot.snapActivity(sut).setName(UUID.randomUUID().toString()).record();
+            Screenshot.snapActivity(sut).setName(createName()).record();
         }
     }
 
