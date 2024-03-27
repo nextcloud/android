@@ -77,12 +77,14 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
     private fun getTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val allTaskType = MainApp.getAppContext().getString(R.string.assistant_screen_all_task_type)
+            val allTaskType = MainApp.string(R.string.assistant_screen_all_task_type)
+            val excludedIds = listOf("OCA\\ContextChat\\TextProcessing\\ContextChatTaskType")
             val result = arrayListOf(TaskType(null, allTaskType, null))
             val taskTypesResult = repository.getTaskTypes()
 
             if (taskTypesResult.isSuccess) {
-                result.addAll(taskTypesResult.resultData.types)
+                val excludedTaskTypes = taskTypesResult.resultData.types.filter { item -> item.id !in excludedIds }
+                result.addAll(excludedTaskTypes)
                 _taskTypes.update {
                     result.toList()
                 }
