@@ -7,7 +7,6 @@
  */
 package com.nextcloud.client
 
-import android.Manifest
 import android.content.Intent
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
@@ -16,7 +15,6 @@ import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.NavigationViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.rules.ActivityScenarioRule
-import androidx.test.rule.GrantPermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -37,11 +35,6 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
     fun cleanup() {
         scenario.close()
     }
-
-    @get:Rule
-    val permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
-    )
 
     @Test
     @ScreenshotTest

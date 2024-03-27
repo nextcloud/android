@@ -6,9 +6,12 @@
  */
 package com.owncloud.android;
 
+import android.content.Intent;
+
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.common.SyncOperation;
+import com.owncloud.android.ui.activity.ConflictsResolveActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
@@ -52,17 +55,14 @@ public class ScreenshotsIT extends AbstractOnServerIT {
 
     @Test
     public void gridViewScreenshot() {
-        ActivityScenario.launch(FileDisplayActivity.class);
-
-        onView(anyOf(withText(R.string.action_switch_grid_view), withId(R.id.switch_grid_view_button))).perform(click());
-
-        shortSleep();
-
-        Screengrab.screenshot("01_gridView");
-
-        onView(anyOf(withText(R.string.action_switch_list_view), withId(R.id.switch_grid_view_button))).perform(click());
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+        ActivityScenario<FileDisplayActivity> sutScenario = ActivityScenario.launch(new Intent(targetContext, FileDisplayActivity.class));
+        sutScenario.onActivity(sut -> onIdleSync(() -> {
+            onView(anyOf(withText(R.string.action_switch_grid_view), withId(R.id.switch_grid_view_button))).perform(click());
+            shortSleep();
+            Screengrab.screenshot("01_gridView");
+            onView(anyOf(withText(R.string.action_switch_list_view), withId(R.id.switch_grid_view_button))).perform(click());
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }));
     }
 
     @Test
@@ -77,61 +77,54 @@ public class ScreenshotsIT extends AbstractOnServerIT {
             assertTrue(result.isSuccess());
         }
 
-        ActivityScenario.launch(FileDisplayActivity.class);
-
-        // go into work folder
-        onView(withId(R.id.list_root)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
-
-        Screengrab.screenshot("02_listView");
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+        ActivityScenario<FileDisplayActivity> sutScenario = ActivityScenario.launch(new Intent(targetContext, FileDisplayActivity.class));
+        sutScenario.onActivity(sut -> onIdleSync(() -> {
+            // go into work folder
+            onView(withId(R.id.list_root)).perform(RecyclerViewActions.actionOnItemAtPosition(0, click()));
+            Screengrab.screenshot("02_listView");
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }));
     }
 
     @Test
     public void drawerScreenshot() {
-        ActivityScenario.launch(FileDisplayActivity.class);
-
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-
-        Screengrab.screenshot("03_drawer");
-
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.close());
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+        ActivityScenario<FileDisplayActivity> sutScenario = ActivityScenario.launch(new Intent(targetContext, FileDisplayActivity.class));
+        sutScenario.onActivity(sut -> onIdleSync(() -> {
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+            Screengrab.screenshot("03_drawer");
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.close());
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }));
     }
 
     @Test
     public void multipleAccountsScreenshot() {
-        ActivityScenario.launch(FileDisplayActivity.class);
-
-        onView(withId(R.id.switch_account_button)).perform(click());
-
-        Screengrab.screenshot("04_accounts");
-
-        pressBack();
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+        ActivityScenario<FileDisplayActivity> sutScenario = ActivityScenario.launch(new Intent(targetContext, FileDisplayActivity.class));
+        sutScenario.onActivity(sut -> onIdleSync(() -> {
+            onView(withId(R.id.switch_account_button)).perform(click());
+            Screengrab.screenshot("04_accounts");
+            pressBack();
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }));
     }
 
     @Test
     public void autoUploadScreenshot() {
-        ActivityScenario.launch(SyncedFoldersActivity.class);
-
-        Screengrab.screenshot("05_autoUpload");
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+        ActivityScenario<SyncedFoldersActivity> sutScenario = ActivityScenario.launch(new Intent(targetContext, SyncedFoldersActivity.class));
+        sutScenario.onActivity(sut -> onIdleSync(() -> {
+            Screengrab.screenshot("05_autoUpload");
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }));
     }
 
     @Test
     public void davdroidScreenshot() {
-        ActivityScenario.launch(SettingsActivity.class);
-
-        onData(PreferenceMatchers.withTitle(R.string.prefs_category_more)).perform(ViewActions.scrollTo());
-
-        shortSleep();
-
-        Screengrab.screenshot("06_davdroid");
-
-        Assert.assertTrue(true); // if we reach this, everything is ok
+        ActivityScenario<SettingsActivity> sutScenario = ActivityScenario.launch(new Intent(targetContext, SettingsActivity.class));
+        sutScenario.onActivity(sut -> onIdleSync(() -> {
+            onData(PreferenceMatchers.withTitle(R.string.prefs_category_more)).perform(ViewActions.scrollTo());
+            shortSleep();
+            Screengrab.screenshot("06_davdroid");
+            Assert.assertTrue(true); // if we reach this, everything is ok
+        }));
     }
 }

@@ -59,6 +59,8 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
     // @ScreenshotTest // todo run without real server
     @Test
     fun showShares() {
+        scenario = activityRule.scenario
+
         Assert.assertTrue(ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess)
         Assert.assertTrue(CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess)
         Assert.assertTrue(CreateFolderRemoteOperation("/shareToGroup/", true).execute(client).isSuccess)
@@ -118,7 +120,6 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
 //                                                  OCShare.DEFAULT_PERMISSION)
 //                       .execute(client).isSuccess());
 
-        scenario = activityRule.scenario
         scenario.onActivity { sut ->
             onIdleSync {
                 // open drawer
