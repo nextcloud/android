@@ -80,6 +80,7 @@ fun TaskView(
 
         Spacer(modifier = Modifier.height(16.dp))
 
+        // FIXME output not appears
         task.output?.let {
             HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
 
@@ -118,6 +119,7 @@ fun TaskView(
 
             Spacer(modifier = Modifier.weight(1f))
 
+            // TODO Use Icon instead text
             if ((task.output?.length ?: 0) >= 100) {
                 Text(
                     text = if (!expanded) {
