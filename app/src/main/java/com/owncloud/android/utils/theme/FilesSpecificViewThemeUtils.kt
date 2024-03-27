@@ -1,25 +1,11 @@
 /*
  * Nextcloud Android client application
  *
- *  @author Álvaro Brey
- *  Copyright (C) 2022 Álvaro Brey
- *  Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-FileCopyrightText: 2022-2024 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 package com.owncloud.android.utils.theme
 
 import android.content.Context
@@ -47,6 +33,7 @@ import com.nextcloud.utils.view.FastScrollPopupBackground
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.shares.ShareType
+import dynamiccolor.MaterialDynamicColors
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
 import me.zhanghai.android.fastscroll.PopupStyles
 import javax.inject.Inject
@@ -57,12 +44,14 @@ class FilesSpecificViewThemeUtils @Inject constructor(
     private val androidViewThemeUtils: AndroidViewThemeUtils,
     private val androidXViewThemeUtils: AndroidXViewThemeUtils
 ) : ViewThemeUtilsBase(schemes) {
+    private val dynamicColor = MaterialDynamicColors()
+
     // not ported to common lib because PreferenceCategory is deprecated
     fun themePreferenceCategory(category: PreferenceCategory) {
         withScheme(category.context) {
             val text: Spannable = SpannableString(category.title)
             text.setSpan(
-                ForegroundColorSpan(it.primary),
+                ForegroundColorSpan(dynamicColor.primary().getArgb(it)),
                 0,
                 text.length,
                 Spannable.SPAN_INCLUSIVE_INCLUSIVE
@@ -118,7 +107,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                 .setThumbDrawable(getThumbDrawable(context))
                 .setPopupStyle {
                     PopupStyles.MD2.accept(it)
-                    it.background = FastScrollPopupBackground(context, scheme.primary)
+                    it.background = FastScrollPopupBackground(context, dynamicColor.primary().getArgb(scheme))
                 }
         }
     }
@@ -200,8 +189,8 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                         intArrayOf(-android.R.attr.state_checked)
                     ),
                     intArrayOf(
-                        scheme.primary,
-                        scheme.outline
+                        dynamicColor.primary().getArgb(scheme),
+                        dynamicColor.outline().getArgb(scheme)
                     )
                 )
             )
@@ -218,7 +207,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                         intArrayOf(-android.R.attr.state_checked)
                     ),
                     intArrayOf(
-                        scheme.secondaryContainer,
+                        dynamicColor.secondaryContainer().getArgb(scheme),
                         background
                     )
                 )
@@ -229,8 +218,8 @@ class FilesSpecificViewThemeUtils @Inject constructor(
                         intArrayOf(-android.R.attr.state_checked)
                     ),
                     intArrayOf(
-                        scheme.onSecondaryContainer,
-                        scheme.surface
+                        dynamicColor.onSecondaryContainer().getArgb(scheme),
+                        dynamicColor.surface().getArgb(scheme)
                     )
                 )
             )
@@ -239,14 +228,17 @@ class FilesSpecificViewThemeUtils @Inject constructor(
 
     fun themeAvatarButton(shareImageView: ImageView) {
         withScheme(shareImageView.context) { scheme ->
-            shareImageView.background.setColorFilter(scheme.primary, PorterDuff.Mode.SRC_IN)
-            shareImageView.drawable.mutate().setColorFilter(scheme.onPrimary, PorterDuff.Mode.SRC_IN)
+            shareImageView.background.setColorFilter(dynamicColor.primary().getArgb(scheme), PorterDuff.Mode.SRC_IN)
+            shareImageView
+                .drawable
+                .mutate()
+                .setColorFilter(dynamicColor.onPrimary().getArgb(scheme), PorterDuff.Mode.SRC_IN)
         }
     }
 
     fun primaryColorToHexString(context: Context): String {
         return withScheme(context) { scheme ->
-            colorUtil.colorToHexString(scheme.primary)
+            colorUtil.colorToHexString(dynamicColor.primary().getArgb(scheme))
         }
     }
 
