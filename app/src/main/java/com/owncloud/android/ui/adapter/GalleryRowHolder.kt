@@ -22,64 +22,63 @@
 
 package com.owncloud.android.ui.adapter
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.core.content.res.ResourcesCompat
+import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
-import com.elyeproj.loaderviewlibrary.LoaderImageView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.nextcloud.client.account.User
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.GalleryRowBinding
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.resources.files.model.ImageDimension
-import com.owncloud.android.utils.BitmapUtils
-import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.glide.CustomGlideStreamLoader
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.net.URLEncoder
 
+@Suppress("LongParameterList")
 class GalleryRowHolder(
     val binding: GalleryRowBinding,
+    private val viewThemeUtils: ViewThemeUtils,
     private val defaultThumbnailSize: Float,
-    private val ocFileListDelegate: OCFileListDelegate,
-    val storageManager: FileDataStorageManager,
-    private val galleryAdapter: GalleryAdapter
+    private val galleryAdapter: GalleryAdapter,
+    private val user: User,
+    private val clientFactory: ClientFactory,
+    private val galleryRowItemClick: GalleryRowItemClick
 ) : SectionedViewHolder(binding.root) {
-    val context = galleryAdapter.context
 
-    lateinit var currentRow: GalleryRow
+    private val context = galleryAdapter.context
+    private lateinit var currentRow: GalleryRow
+
+    private val client = OwnCloudClientManagerFactory.getDefaultSingleton()
+
+    @Suppress("DEPRECATION")
+    private val baseUri = client.getClientFor(user.toOwnCloudAccount(), context).baseUri
+    private val previewLink = "/index.php/core/preview.png?file="
+    private val imageDownloadWidth = "&x=$defaultThumbnailSize"
+    private val imageDownloadHeight = "&y=$defaultThumbnailSize"
+    private val mode = "&a=1&mode=cover&forceIcon=0"
+    private val defaultImageDimension = ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
+
+    interface GalleryRowItemClick {
+        fun openMedia(file: OCFile)
+    }
 
     fun bind(row: GalleryRow) {
         currentRow = row
 
-        // re-use existing ones
         while (binding.rowLayout.childCount < row.files.size) {
-            val shimmer = LoaderImageView(context).apply {
-                setImageResource(R.drawable.background)
-                resetLoader()
-                invalidate()
-            }
-
-            val imageView = ImageView(context).apply {
-                setImageDrawable(
-                    ThumbnailsCacheManager.AsyncGalleryImageDrawable(
-                        context.resources,
-                        BitmapUtils.drawableToBitmap(
-                            ResourcesCompat.getDrawable(resources, R.drawable.file_image, null),
-                            defaultThumbnailSize.toInt(),
-                            defaultThumbnailSize.toInt()
-                        ),
-                        null
-                    )
-                )
-            }
-
-            LinearLayout(context).apply {
-                addView(shimmer)
-                addView(imageView)
-
-                binding.rowLayout.addView(this)
-            }
+            prepareRow()
         }
 
         if (binding.rowLayout.childCount > row.files.size) {
@@ -88,106 +87,151 @@ class GalleryRowHolder(
 
         val shrinkRatio = computeShrinkRatio(row)
 
-        for (indexedFile in row.files.withIndex()) {
-            adjustFile(indexedFile, shrinkRatio, row)
+        row.files.forEachIndexed { index, file ->
+            val size = getSize(file, shrinkRatio)
+            addImage(row, index, file, size)
         }
     }
 
-    fun redraw() {
-        bind(currentRow)
+    private fun prepareRow() {
+        val placeholder = ContextCompat.getDrawable(context, R.drawable.file_image)
+
+        val thumbnail = ImageView(context).apply {
+            setImageDrawable(placeholder)
+        }
+
+        LinearLayout(context).apply {
+            addView(thumbnail)
+            binding.rowLayout.addView(this)
+        }
     }
 
     @SuppressWarnings("MagicNumber", "ComplexMethod")
     private fun computeShrinkRatio(row: GalleryRow): Float {
-        val screenWidth =
-            DisplayUtils.convertDpToPixel(context.resources.configuration.screenWidthDp.toFloat(), context)
-                .toFloat()
-
         if (row.files.size > 1) {
-            var newSummedWidth = 0f
-            for (file in row.files) {
-                // first adjust all thumbnails to max height
-                val thumbnail1 = file.imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
+            var summedWidth = 0f
 
-                val height1 = thumbnail1.height
-                val width1 = thumbnail1.width
+            row.files.forEach { file ->
+                val (width, height) = file.imageDimension ?: defaultImageDimension
 
-                val scaleFactor1 = row.getMaxHeight() / height1
-                val newHeight1 = height1 * scaleFactor1
-                val newWidth1 = width1 * scaleFactor1
+                val scaleFactor = row.getMaxHeight() / height
 
-                file.imageDimension = ImageDimension(newWidth1, newHeight1)
+                val scaledWidth = width * scaleFactor
+                val scaledHeight = height * scaleFactor
 
-                newSummedWidth += newWidth1
+                file.imageDimension = ImageDimension(scaledWidth, scaledHeight)
+
+                summedWidth += scaledWidth
             }
 
+            val sizeToFactorMap = mapOf(
+                2 to 5 / 2f,
+                3 to 4 / 3f,
+                4 to 4 / 5f,
+                5 to 1f
+            )
+
             var c = 1f
+
             // this ensures that files in last row are better visible,
             // e.g. when 2 images are there, it uses 2/5 of screen
             if (galleryAdapter.columns == 5) {
-                when (row.files.size) {
-                    2 -> {
-                        c = 5 / 2f
-                    }
-                    3 -> {
-                        c = 4 / 3f
-                    }
-                    4 -> {
-                        c = 4 / 5f
-                    }
-                    5 -> {
-                        c = 1f
-                    }
-                }
+                c = sizeToFactorMap[row.files.size] ?: c
             }
 
-            return (screenWidth / c) / newSummedWidth
+            return (galleryAdapter.screenWidth / c) / summedWidth
         } else {
-            val thumbnail1 = row.files[0].imageDimension ?: ImageDimension(defaultThumbnailSize, defaultThumbnailSize)
-            return (screenWidth / galleryAdapter.columns) / thumbnail1.width
+            val firstFileImageDimension = row.files[0].imageDimension ?: defaultImageDimension
+            return (galleryAdapter.screenWidth / galleryAdapter.columns) / firstFileImageDimension.width
         }
     }
 
-    private fun adjustFile(indexedFile: IndexedValue<OCFile>, shrinkRatio: Float, row: GalleryRow) {
-        val file = indexedFile.value
-        val index = indexedFile.index
+    private fun getSize(file: OCFile, shrinkRatio: Float): Pair<Int, Int> {
+        val imageDimension = file.imageDimension ?: defaultImageDimension
+        val height = (imageDimension.height * shrinkRatio).toInt()
+        val width = (imageDimension.width * shrinkRatio).toInt()
+        return Pair(width, height)
+    }
 
-        val adjustedHeight1 = ((file.imageDimension?.height ?: defaultThumbnailSize) * shrinkRatio).toInt()
-        val adjustedWidth1 = ((file.imageDimension?.width ?: defaultThumbnailSize) * shrinkRatio).toInt()
-
-        // re-use existing one
+    private fun addImage(row: GalleryRow, index: Int, file: OCFile, size: Pair<Int, Int>) {
         val linearLayout = binding.rowLayout[index] as LinearLayout
-        val shimmer = linearLayout[0] as LoaderImageView
+        val thumbnail = (linearLayout[0] as ImageView).apply {
+            adjustViewBounds = true
+            scaleType = ImageView.ScaleType.CENTER_CROP
+        }
 
-        val thumbnail = linearLayout[1] as ImageView
+        val (width, height) = size
+        val imageUrl = getImageUrl(file)
+        val placeholder = getPlaceholder(file, width, height)
 
-        thumbnail.adjustViewBounds = true
-        thumbnail.scaleType = ImageView.ScaleType.FIT_CENTER
+        Glide
+            .with(context)
+            .using(CustomGlideStreamLoader(user, clientFactory))
+            .load(imageUrl)
+            .asBitmap()
+            .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+            .placeholder(placeholder)
+            .dontAnimate()
+            .into(thumbnail)
 
-        ocFileListDelegate.bindGalleryRowThumbnail(
-            shimmer,
-            thumbnail,
-            file,
-            this,
-            adjustedWidth1
-        )
+        val params = getThumbnailLayoutParams(width, height, row, index)
 
-        val params = LinearLayout.LayoutParams(adjustedWidth1, adjustedHeight1)
+        thumbnail.run {
+            layoutParams = params
+            layoutParams.width = width
+            layoutParams.height = height
+            setOnClickListener {
+                galleryRowItemClick.openMedia(file)
+            }
+        }
+    }
 
+    private fun getThumbnailLayoutParams(
+        width: Int,
+        height: Int,
+        row: GalleryRow,
+        index: Int
+    ): LinearLayout.LayoutParams {
+        val params = LinearLayout.LayoutParams(width, height)
         val zero = context.resources.getInteger(R.integer.zero)
         val margin = context.resources.getInteger(R.integer.small_margin)
+
         if (index < (row.files.size - 1)) {
             params.setMargins(zero, zero, margin, margin)
         } else {
             params.setMargins(zero, zero, zero, margin)
         }
 
-        thumbnail.layoutParams = params
-        thumbnail.layoutParams.height = adjustedHeight1
-        thumbnail.layoutParams.width = adjustedWidth1
+        return params
+    }
 
-        shimmer.layoutParams = params
-        shimmer.layoutParams.height = adjustedHeight1
-        shimmer.layoutParams.width = adjustedWidth1
+    private fun getImageUrl(file: OCFile): String {
+        return baseUri.toString() +
+            previewLink +
+            URLEncoder.encode(file.remotePath, Charsets.UTF_8.name()) +
+            imageDownloadWidth +
+            imageDownloadHeight +
+            mode
+    }
+
+    private fun getPlaceholder(file: OCFile, width: Int, height: Int): Drawable {
+        val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+
+        val placeholder = MimeTypeUtil.getFileTypeIcon(
+            file.mimeType,
+            file.fileName,
+            context,
+            viewThemeUtils
+        )
+
+        placeholder.setBounds(0, 0, canvas.width, canvas.height)
+        placeholder.draw(canvas)
+
+        return BitmapDrawable(context.resources, bitmap)
+    }
+
+    fun redraw() {
+        bind(currentRow)
     }
 }

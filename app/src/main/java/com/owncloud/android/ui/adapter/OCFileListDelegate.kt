@@ -56,7 +56,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 class OCFileListDelegate(
     private val fileUploadHelper: FileUploadHelper,
     private val context: Context,
-    private val ocFileListFragmentInterface: OCFileListFragmentInterface,
+    val ocFileListFragmentInterface: OCFileListFragmentInterface,
     private val user: User,
     private val storageManager: FileDataStorageManager,
     private val hideItemOptions: Boolean,

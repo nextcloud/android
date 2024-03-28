@@ -25,13 +25,12 @@ package com.owncloud.android.ui.adapter
 import android.content.Context
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
-import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.GalleryItems
 import com.owncloud.android.datamodel.GalleryRow
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
-import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import junit.framework.Assert.assertEquals
 import org.junit.After
@@ -50,10 +49,7 @@ class GalleryAdapterTest {
     lateinit var user: User
 
     @Mock
-    lateinit var ocFileListFragmentInterface: OCFileListFragmentInterface
-
-    @Mock
-    lateinit var preferences: AppPreferences
+    lateinit var clientFactory: ClientFactory
 
     @Mock
     lateinit var transferServiceGetter: ComponentsGetter
@@ -85,16 +81,23 @@ class GalleryAdapterTest {
         whenever(transferServiceGetter.fileUploaderHelper) doReturn fileUploadHelper
 
         val thumbnailSize = 50
+        val testDeviceScreenWidth = 833f
 
         val sut = GalleryAdapter(
             context,
             user,
-            ocFileListFragmentInterface,
-            preferences,
             transferServiceGetter,
-            viewThemeUtils,
             5,
-            thumbnailSize
+            viewThemeUtils,
+            thumbnailSize,
+            clientFactory,
+            null,
+            testDeviceScreenWidth,
+            object : GalleryRowHolder.GalleryRowItemClick {
+                @Suppress("EmptyFunctionBlock")
+                override fun openMedia(file: OCFile) {
+                }
+            }
         )
 
         val list = listOf(

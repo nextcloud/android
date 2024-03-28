@@ -143,6 +143,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
 
+    public OCFileListDelegate getOCFileListDelegate() {
+        return ocFileListDelegate;
+    }
+
     public OCFileListAdapter(
         Activity activity,
         @NonNull User user,
