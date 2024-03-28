@@ -13,7 +13,7 @@ permissions:
 
 jobs:
     screenshot:
-        runs-on: ubuntu-22.04 # ubuntu-latest
+        runs-on: ubuntu-latest
         services:
             sso:
                 image: ghcr.io/nextcloud/continuous-integration-shallow-server:latest
