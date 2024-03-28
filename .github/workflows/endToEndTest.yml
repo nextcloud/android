@@ -14,7 +14,6 @@ permissions:
 jobs:
     tests:
         runs-on: ubuntu-22.04 # our own GARM does not yet support it
-        container: ubuntu
         services:
             server:
                 image: ghcr.io/nextcloud/continuous-integration-shallow-server:latest
