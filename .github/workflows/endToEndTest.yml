@@ -28,10 +28,12 @@ jobs:
         steps:
             -   uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
 
-            -   name: ping server
+            -   name: wait and ping server
                 run: |
-                    ping -c5 http://server:80
-                    curl http://localhost/status.php
+                    while ! curl http://localhost/status.php 2>&1 | grep installed; do
+                        echo "wait…"
+                        sleep 5
+                    done
 
             -   name: Enable KVM group perms
                 run: |
