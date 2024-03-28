@@ -1,9 +1,9 @@
 /*
- * Nextcloud Android Library
+ * Nextcloud Android client application
  *
  * SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud
  * contributors
- * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper_ozturk@proton.me>
  * SPDX-License-Identifier: MIT
  */
 
