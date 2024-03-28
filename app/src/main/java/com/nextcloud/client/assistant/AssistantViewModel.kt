@@ -164,6 +164,12 @@ class AssistantViewModel(
                 _taskList?.filter { it.type == taskTypeId }
             }
         }
+
+        _filteredTaskList.update {
+            it?.sortedByDescending { task ->
+                task.id
+            }
+        }
     }
 
     private fun removeTaskFromList(id: Long) {
