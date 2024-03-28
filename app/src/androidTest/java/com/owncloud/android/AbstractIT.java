@@ -68,7 +68,6 @@ import java.util.Objects;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.test.espresso.contrib.DrawerActions;
-import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.platform.app.InstrumentationRegistry;
 import androidx.test.runner.lifecycle.ActivityLifecycleMonitorRegistry;
 import androidx.test.runner.lifecycle.Stage;
@@ -293,20 +292,20 @@ public abstract class AbstractIT {
         return temp;
     }
 
+    protected void onIdleSync(Runnable recipient) {
+        InstrumentationRegistry.getInstrumentation().waitForIdle(recipient);
+    }
+
     protected void waitForIdleSync() {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }
 
-    protected void openDrawer(IntentsTestRule activityRule) {
-        Activity sut = activityRule.launchActivity(null);
-
-        shortSleep();
-
-        onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
-
-        waitForIdleSync();
-
-        screenshot(sut);
+    protected void openDrawer(Activity sut) {
+        onIdleSync(() -> {
+            shortSleep();
+            onView(withId(R.id.drawer_layout)).perform(DrawerActions.open());
+            screenshot(sut);
+        });
     }
 
     protected Activity getCurrentActivity() {
@@ -450,8 +449,16 @@ public abstract class AbstractIT {
     }
 
     protected void screenshot(View view, String prefix) {
+        screenshot(view, prefix, true);
+    }
+
+    protected void screenshot(View view, String prefix, boolean createName) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
-            Screenshot.snap(view).setName(createName(prefix)).record();
+            if (createName) {
+                Screenshot.snap(view).setName(createName(prefix)).record();
+            } else {
+                Screenshot.snap(view).setName(prefix).record();
+            }
         }
     }
 

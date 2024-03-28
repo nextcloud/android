@@ -24,6 +24,7 @@ package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -36,11 +37,14 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.accounts.AccountUtils;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.core.app.ApplicationProvider;
 
 import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.action.ViewActions.click;
@@ -50,9 +54,18 @@ import static org.hamcrest.Matchers.anyOf;
 import static org.junit.Assert.assertEquals;
 
 public class DrawerActivityIT extends AbstractIT {
-    @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
-                                                                                           true,
-                                                                                           false);
+    private ActivityScenario<FileDisplayActivity> scenario;
+
+    @Before
+    public void setUp() {
+        Intent intent = new Intent(ApplicationProvider.getApplicationContext(), FileDisplayActivity.class);
+        scenario = ActivityScenario.launch(intent);
+    }
+
+    @After
+    public void tearDown() {
+        scenario.close();
+    }
 
     @Rule
     public final RetryTestRule retryTestRule = new RetryTestRule();
@@ -107,21 +120,17 @@ public class DrawerActivityIT extends AbstractIT {
 
     @Test
     public void switchAccountViaAccountList() {
-        FileDisplayActivity sut = activityRule.launchActivity(null);
+        scenario.onActivity(sut -> {
+            sut.setUser(user1);
+            assertEquals(account1, sut.getUser().get().toPlatformAccount());
 
-        sut.setUser(user1);
-
-        assertEquals(account1, sut.getUser().get().toPlatformAccount());
-
-        onView(withId(R.id.switch_account_button)).perform(click());
-
-        onView(anyOf(withText(account2Name), withText(account2DisplayName))).perform(click());
-
-        waitForIdleSync();
-
-        assertEquals(account2, sut.getUser().get().toPlatformAccount());
-
-        onView(withId(R.id.switch_account_button)).perform(click());
-        onView(withText(account1.name)).perform(click());
+            onIdleSync(() -> {
+                onView(withId(R.id.switch_account_button)).perform(click());
+                onView(anyOf(withText(account2Name), withText(account2DisplayName))).perform(click());
+                assertEquals(account2, sut.getUser().get().toPlatformAccount());
+                onView(withId(R.id.switch_account_button)).perform(click());
+                onView(withText(account1.name)).perform(click());
+            });
+        });
     }
 }

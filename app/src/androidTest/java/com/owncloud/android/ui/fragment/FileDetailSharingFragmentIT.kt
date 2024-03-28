@@ -23,17 +23,20 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.content.Intent
 import android.view.View
+import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.accessibility.AccessibilityChecks
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isChecked
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.isNotChecked
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.ext.junit.rules.ActivityScenarioRule
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultBaseUtils.matchesCheckNames
 import com.google.android.apps.common.testing.accessibility.framework.AccessibilityCheckResultUtils.matchesViews
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -67,30 +70,39 @@ import org.junit.Test
 
 @Suppress("TooManyFunctions")
 class FileDetailSharingFragmentIT : AbstractIT() {
+    private lateinit var scenario: ActivityScenario<TestActivity>
+    val intent = Intent(ApplicationProvider.getApplicationContext(), TestActivity::class.java)
+
     @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+    val activityRule = ActivityScenarioRule<TestActivity>(intent)
+
+    @After
+    fun cleanup() {
+        scenario.close()
+    }
 
     @get:Rule
     val retryRule = RetryTestRule()
 
     lateinit var file: OCFile
     lateinit var folder: OCFile
-    lateinit var activity: TestActivity
 
     @Before
     fun before() {
-        activity = testActivityRule.launchActivity(null)
-        file = OCFile("/test.md").apply {
-            remoteId = "00000001"
-            parentId = activity.storageManager.getFileByEncryptedRemotePath("/").fileId
-            permissions = OCFile.PERMISSION_CAN_RESHARE
-            fileDataStorageManager.saveFile(this)
-        }
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            file = OCFile("/test.md").apply {
+                remoteId = "00000001"
+                parentId = activity.storageManager.getFileByEncryptedRemotePath("/").fileId
+                permissions = OCFile.PERMISSION_CAN_RESHARE
+                fileDataStorageManager.saveFile(this)
+            }
 
-        folder = OCFile("/test").apply {
-            setFolder()
-            parentId = activity.storageManager.getFileByEncryptedRemotePath("/").fileId
-            permissions = OCFile.PERMISSION_CAN_RESHARE
+            folder = OCFile("/test").apply {
+                setFolder()
+                parentId = activity.storageManager.getFileByEncryptedRemotePath("/").fileId
+                permissions = OCFile.PERMISSION_CAN_RESHARE
+            }
         }
     }
 
@@ -115,120 +127,126 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @ScreenshotTest
     @Suppress("MagicNumber")
     fun listSharesFileAllShareTypes() {
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 1
-            shareType = ShareType.USER
-            sharedWithDisplayName = "Admin"
-            permissions = MAXIMUM_PERMISSIONS_FOR_FILE
-            userId = getUserId(user)
-            activity.storageManager.saveShare(this)
-        }
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 1
+                shareType = ShareType.USER
+                sharedWithDisplayName = "Admin"
+                permissions = MAXIMUM_PERMISSIONS_FOR_FILE
+                userId = getUserId(user)
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 2
-            shareType = ShareType.GROUP
-            sharedWithDisplayName = "Group"
-            permissions = MAXIMUM_PERMISSIONS_FOR_FILE
-            userId = getUserId(user)
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 2
+                shareType = ShareType.GROUP
+                sharedWithDisplayName = "Group"
+                permissions = MAXIMUM_PERMISSIONS_FOR_FILE
+                userId = getUserId(user)
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 3
-            shareType = ShareType.EMAIL
-            sharedWithDisplayName = "admin@nextcloud.localhost"
-            userId = getUserId(user)
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 3
+                shareType = ShareType.EMAIL
+                sharedWithDisplayName = "admin@nextcloud.localhost"
+                userId = getUserId(user)
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 4
-            shareType = ShareType.PUBLIC_LINK
-            label = "Customer"
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 4
+                shareType = ShareType.PUBLIC_LINK
+                label = "Customer"
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 5
-            shareType = ShareType.PUBLIC_LINK
-            label = "Colleagues"
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 5
+                shareType = ShareType.PUBLIC_LINK
+                label = "Colleagues"
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 6
-            shareType = ShareType.FEDERATED
-            sharedWithDisplayName = "admin@nextcloud.localhost"
-            permissions = OCShare.FEDERATED_PERMISSIONS_FOR_FILE
-            userId = getUserId(user)
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 6
+                shareType = ShareType.FEDERATED
+                sharedWithDisplayName = "admin@nextcloud.localhost"
+                permissions = OCShare.FEDERATED_PERMISSIONS_FOR_FILE
+                userId = getUserId(user)
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 7
-            shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Personal circle"
-            permissions = SHARE_PERMISSION_FLAG
-            userId = getUserId(user)
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 7
+                shareType = ShareType.CIRCLE
+                sharedWithDisplayName = "Personal circle"
+                permissions = SHARE_PERMISSION_FLAG
+                userId = getUserId(user)
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 8
-            shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Public circle"
-            permissions = SHARE_PERMISSION_FLAG
-            userId = getUserId(user)
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 8
+                shareType = ShareType.CIRCLE
+                sharedWithDisplayName = "Public circle"
+                permissions = SHARE_PERMISSION_FLAG
+                userId = getUserId(user)
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 9
-            shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Closed circle"
-            permissions = SHARE_PERMISSION_FLAG
-            userId = getUserId(user)
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 9
+                shareType = ShareType.CIRCLE
+                sharedWithDisplayName = "Closed circle"
+                permissions = SHARE_PERMISSION_FLAG
+                userId = getUserId(user)
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 10
-            shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Secret circle"
-            permissions = SHARE_PERMISSION_FLAG
-            userId = getUserId(user)
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 10
+                shareType = ShareType.CIRCLE
+                sharedWithDisplayName = "Secret circle"
+                permissions = SHARE_PERMISSION_FLAG
+                userId = getUserId(user)
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 11
-            shareType = ShareType.ROOM
-            sharedWithDisplayName = "Admin"
-            permissions = SHARE_PERMISSION_FLAG
-            userId = getUserId(user)
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 11
+                shareType = ShareType.ROOM
+                sharedWithDisplayName = "Admin"
+                permissions = SHARE_PERMISSION_FLAG
+                userId = getUserId(user)
+                activity.storageManager.saveShare(this)
+            }
 
-        OCShare(file.decryptedRemotePath).apply {
-            remoteId = 12
-            shareType = ShareType.ROOM
-            sharedWithDisplayName = "Meeting"
-            permissions = SHARE_PERMISSION_FLAG
-            userId = getUserId(user)
-            activity.storageManager.saveShare(this)
-        }
+            OCShare(file.decryptedRemotePath).apply {
+                remoteId = 12
+                shareType = ShareType.ROOM
+                sharedWithDisplayName = "Meeting"
+                permissions = SHARE_PERMISSION_FLAG
+                userId = getUserId(user)
+                activity.storageManager.saveShare(this)
+            }
 
-        show(file)
+            show(file)
+        }
     }
 
     private fun show(file: OCFile) {
-        val fragment = FileDetailSharingFragment.newInstance(file, user)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val fragment = FileDetailSharingFragment.newInstance(file, user)
 
-        activity.addFragment(fragment)
+            activity.addFragment(fragment)
 
-        waitForIdleSync()
-
-        screenshot(activity)
+            onIdleSync {
+                screenshot(activity)
+            }
+        }
     }
 
     // public link and email are handled the same way
@@ -236,96 +254,103 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @Suppress("MagicNumber")
     fun publicLinkOptionMenuFolderAdvancePermission() {
-        val sut = FileDetailSharingFragment.newInstance(file, user)
-        activity.addFragment(sut)
-        setupSecondaryFragment()
-        shortSleep()
-        sut.refreshCapabilitiesFromDB()
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = FileDetailSharingFragment.newInstance(file, user)
+            activity.addFragment(sut)
+            setupSecondaryFragment()
 
-        val publicShare = OCShare().apply {
-            isFolder = true
-            shareType = ShareType.PUBLIC_LINK
-            permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val publicShare = OCShare().apply {
+                    isFolder = true
+                    shareType = ShareType.PUBLIC_LINK
+                    permissions = 17
+                }
+
+                activity.runOnUiThread { sut.showSharingMenuActionSheet(publicShare) }
+                shortSleep()
+
+                // check if items are visible
+                onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
+
+                // click event
+                onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+
+                // validate view shown on screen
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
+                onView(
+                    ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)
+                ).check(matches(not(isDisplayed())))
+
+                // read-only
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
+                goBack()
+
+                // upload and editing
+                publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
+                goBack()
+
+                // file drop
+                publicShare.permissions = 4
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isChecked()))
+                goBack()
+
+                // password protection
+                publicShare.shareWith = "someValue"
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isChecked()))
+                goBack()
+
+                publicShare.shareWith = ""
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isNotChecked()))
+                goBack()
+
+                // hide download
+                publicShare.isHideFileDownload = true
+                publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isChecked()))
+                goBack()
+
+                publicShare.isHideFileDownload = false
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isNotChecked()))
+                goBack()
+
+                publicShare.expirationDate = 1582019340000
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
+                goBack()
+
+                publicShare.expirationDate = 0
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+            }
         }
-
-        activity.runOnUiThread { sut.showSharingMenuActionSheet(publicShare) }
-        shortSleep()
-        waitForIdleSync()
-
-        // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
-
-        // click event
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
-
-        // validate view shown on screen
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(not(isDisplayed())))
-
-        // read-only
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
-        goBack()
-
-        // upload and editing
-        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
-        goBack()
-
-        // file drop
-        publicShare.permissions = 4
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isChecked()))
-        goBack()
-
-        // password protection
-        publicShare.shareWith = "someValue"
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isChecked()))
-        goBack()
-
-        publicShare.shareWith = ""
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isNotChecked()))
-        goBack()
-
-        // hide download
-        publicShare.isHideFileDownload = true
-        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isChecked()))
-        goBack()
-
-        publicShare.isHideFileDownload = false
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isNotChecked()))
-        goBack()
-
-        publicShare.expirationDate = 1582019340000
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
-        goBack()
-
-        publicShare.expirationDate = 0
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
     }
 
     // public link and email are handled the same way
@@ -333,32 +358,41 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @Suppress("MagicNumber")
     fun publicLinkOptionMenuFolderSendNewEmail() {
-        val sut = FileDetailSharingFragment.newInstance(file, user)
-        activity.addFragment(sut)
-        setupSecondaryFragment()
-        shortSleep()
-        sut.refreshCapabilitiesFromDB()
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = FileDetailSharingFragment.newInstance(file, user)
+            activity.addFragment(sut)
+            setupSecondaryFragment()
 
-        val publicShare = OCShare().apply {
-            isFolder = true
-            shareType = ShareType.PUBLIC_LINK
-            permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val publicShare = OCShare().apply {
+                    isFolder = true
+                    shareType = ShareType.PUBLIC_LINK
+                    permissions = 17
+                }
+
+                verifySendNewEmail(sut, publicShare)
+            }
         }
-
-        verifySendNewEmail(sut, publicShare)
     }
 
     private fun setupSecondaryFragment() {
-        val parentFolder = OCFile("/")
-        val secondary = FileDetailFragment.newInstance(file, parentFolder, user)
-        activity.addSecondaryFragment(secondary, FileDisplayActivity.TAG_LIST_OF_FILES)
-        activity.addView(
-            FloatingActionButton(activity).apply {
-                // needed for some reason
-                visibility = View.GONE
-                id = R.id.fab_main
-            }
-        )
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val parentFolder = OCFile("/")
+            val secondary = FileDetailFragment.newInstance(file, parentFolder, user)
+            activity.addSecondaryFragment(secondary, FileDisplayActivity.TAG_LIST_OF_FILES)
+            activity.addView(
+                FloatingActionButton(activity).apply {
+                    // needed for some reason
+                    visibility = View.GONE
+                    id = R.id.fab_main
+                }
+            )
+        }
     }
 
     // public link and email are handled the same way
@@ -366,87 +400,94 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @Suppress("MagicNumber")
     fun publicLinkOptionMenuFileAdvancePermission() {
-        val sut = FileDetailSharingFragment.newInstance(file, user)
-        activity.addFragment(sut)
-        setupSecondaryFragment()
-        shortSleep()
-        sut.refreshCapabilitiesFromDB()
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = FileDetailSharingFragment.newInstance(file, user)
+            activity.addFragment(sut)
+            setupSecondaryFragment()
 
-        val publicShare = OCShare().apply {
-            isFolder = false
-            shareType = ShareType.PUBLIC_LINK
-            permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val publicShare = OCShare().apply {
+                    isFolder = false
+                    shareType = ShareType.PUBLIC_LINK
+                    permissions = 17
+                }
+                activity.handler.post { sut.showSharingMenuActionSheet(publicShare) }
+
+                // check if items are visible
+                onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
+
+                // click event
+                onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+
+                // validate view shown on screen
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
+                onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
+                onView(
+                    ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)
+                ).check(matches(not(isDisplayed())))
+
+                // read-only
+                publicShare.permissions = 17 // from server
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+                goBack()
+
+                // editing
+                publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
+                goBack()
+
+                // hide download
+                publicShare.isHideFileDownload = true
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isChecked()))
+                goBack()
+
+                publicShare.isHideFileDownload = false
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isNotChecked()))
+                goBack()
+
+                // password protection
+                publicShare.isPasswordProtected = true
+                publicShare.shareWith = "someValue"
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isChecked()))
+                goBack()
+
+                publicShare.isPasswordProtected = false
+                publicShare.shareWith = ""
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isNotChecked()))
+                goBack()
+
+                // expires
+                publicShare.expirationDate = 1582019340
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
+                goBack()
+
+                publicShare.expirationDate = 0
+                openAdvancedPermissions(sut, publicShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+            }
         }
-        activity.handler.post { sut.showSharingMenuActionSheet(publicShare) }
-        waitForIdleSync()
-
-        // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(isDisplayed()))
-
-        // click event
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
-
-        // validate view shown on screen
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(not(isDisplayed())))
-
-        // read-only
-        publicShare.permissions = 17 // from server
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        goBack()
-
-        // editing
-        publicShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
-        goBack()
-
-        // hide download
-        publicShare.isHideFileDownload = true
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isChecked()))
-        goBack()
-
-        publicShare.isHideFileDownload = false
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(isNotChecked()))
-        goBack()
-
-        // password protection
-        publicShare.isPasswordProtected = true
-        publicShare.shareWith = "someValue"
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isChecked()))
-        goBack()
-
-        publicShare.isPasswordProtected = false
-        publicShare.shareWith = ""
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(isNotChecked()))
-        goBack()
-
-        // expires
-        publicShare.expirationDate = 1582019340
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
-        goBack()
-
-        publicShare.expirationDate = 0
-        openAdvancedPermissions(sut, publicShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
     }
 
     // public link and email are handled the same way
@@ -454,19 +495,25 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @Suppress("MagicNumber")
     fun publicLinkOptionMenuFileSendNewEmail() {
-        val sut = FileDetailSharingFragment.newInstance(file, user)
-        activity.addFragment(sut)
-        setupSecondaryFragment()
-        shortSleep()
-        sut.refreshCapabilitiesFromDB()
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = FileDetailSharingFragment.newInstance(file, user)
+            activity.addFragment(sut)
+            setupSecondaryFragment()
 
-        val publicShare = OCShare().apply {
-            isFolder = false
-            shareType = ShareType.PUBLIC_LINK
-            permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val publicShare = OCShare().apply {
+                    isFolder = false
+                    shareType = ShareType.PUBLIC_LINK
+                    permissions = 17
+                }
+
+                verifySendNewEmail(sut, publicShare)
+            }
         }
-
-        verifySendNewEmail(sut, publicShare)
     }
 
     // also applies for
@@ -478,79 +525,102 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @Suppress("MagicNumber")
     fun userOptionMenuFileAdvancePermission() {
-        val sut = FileDetailSharingFragment.newInstance(file, user)
-        suppressFDFAccessibilityChecks()
-        activity.addFragment(sut)
-        setupSecondaryFragment()
-        shortSleep()
-        sut.refreshCapabilitiesFromDB()
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = FileDetailSharingFragment.newInstance(file, user)
+            suppressFDFAccessibilityChecks()
+            activity.addFragment(sut)
+            setupSecondaryFragment()
 
-        val userShare = OCShare().apply {
-            isFolder = false
-            shareType = ShareType.USER
-            permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val userShare = OCShare().apply {
+                    isFolder = false
+                    shareType = ShareType.USER
+                    permissions = 17
+                }
+
+                activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
+                shortSleep()
+
+                // check if items are visible
+                onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
+                onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
+
+                // click event
+                onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+                shortSleep()
+                onIdleSync {
+                    // validate view shown on screen
+                    onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
+                    onView(
+                        ViewMatchers.withId(R.id.share_process_permission_upload_editing)
+                    ).check(matches(isDisplayed()))
+                    onView(
+                        ViewMatchers.withId(R.id.share_process_permission_file_drop)
+                    ).check(matches(not(isDisplayed())))
+                    onView(
+                        ViewMatchers.withId(R.id.share_process_hide_download_checkbox)
+                    ).check(matches(not(isDisplayed())))
+                    onView(
+                        ViewMatchers.withId(R.id.share_process_set_password_switch)
+                    ).check(matches(not(isDisplayed())))
+                    onView(
+                        ViewMatchers.withId(R.id.share_process_change_name_switch)
+                    ).check(matches(not(isDisplayed())))
+                    onView(
+                        ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)
+                    ).check(matches(isDisplayed()))
+
+                    // read-only
+                    userShare.permissions = 17 // from server
+                    onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
+                    onView(
+                        ViewMatchers.withId(R.id.share_process_permission_upload_editing)
+                    ).check(matches(isNotChecked()))
+                    goBack()
+
+                    // editing
+                    userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
+                    openAdvancedPermissions(sut, userShare)
+                    onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+                    onView(
+                        ViewMatchers.withId(R.id.share_process_permission_upload_editing)
+                    ).check(matches(isChecked()))
+                    goBack()
+
+                    // allow reshare
+                    userShare.permissions = 1 // from server
+                    openAdvancedPermissions(sut, userShare)
+                    onView(
+                        ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)
+                    ).check(matches(isNotChecked()))
+                    goBack()
+
+                    userShare.permissions = 17 // from server
+                    openAdvancedPermissions(sut, userShare)
+                    onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isChecked()))
+                    goBack()
+
+                    // set expiration date
+                    userShare.expirationDate = 1582019340000
+                    openAdvancedPermissions(sut, userShare)
+                    onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
+                    onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
+                    goBack()
+
+                    userShare.expirationDate = 0
+                    openAdvancedPermissions(sut, userShare)
+                    onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
+                    onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+                }
+            }
         }
-
-        activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
-        shortSleep()
-        waitForIdleSync()
-
-        // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
-
-        // click event
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
-        shortSleep()
-        waitForIdleSync()
-
-        // validate view shown on screen
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
-
-        // read-only
-        userShare.permissions = 17 // from server
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        goBack()
-
-        // editing
-        userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FILE // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
-        goBack()
-
-        // allow reshare
-        userShare.permissions = 1 // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isNotChecked()))
-        goBack()
-
-        userShare.permissions = 17 // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isChecked()))
-        goBack()
-
-        // set expiration date
-        userShare.expirationDate = 1582019340000
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
-        goBack()
-
-        userShare.expirationDate = 0
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
     }
 
     private fun suppressFDFAccessibilityChecks() {
@@ -579,19 +649,25 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @Suppress("MagicNumber")
     fun userOptionMenuFileSendNewEmail() {
-        val sut = FileDetailSharingFragment.newInstance(file, user)
-        activity.addFragment(sut)
-        setupSecondaryFragment()
-        shortSleep()
-        sut.refreshCapabilitiesFromDB()
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = FileDetailSharingFragment.newInstance(file, user)
+            activity.addFragment(sut)
+            setupSecondaryFragment()
 
-        val userShare = OCShare().apply {
-            isFolder = false
-            shareType = ShareType.USER
-            permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val userShare = OCShare().apply {
+                    isFolder = false
+                    shareType = ShareType.USER
+                    permissions = 17
+                }
+
+                verifySendNewEmail(sut, userShare)
+            }
         }
-
-        verifySendNewEmail(sut, userShare)
     }
 
     // also applies for
@@ -603,87 +679,94 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @Suppress("MagicNumber")
     fun userOptionMenuFolderAdvancePermission() {
-        val sut = FileDetailSharingFragment.newInstance(file, user)
-        activity.addFragment(sut)
-        setupSecondaryFragment()
-        suppressFDFAccessibilityChecks()
-        shortSleep()
-        sut.refreshCapabilitiesFromDB()
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = FileDetailSharingFragment.newInstance(file, user)
+            activity.addFragment(sut)
+            setupSecondaryFragment()
+            suppressFDFAccessibilityChecks()
 
-        val userShare = OCShare().apply {
-            isFolder = true
-            shareType = ShareType.USER
-            permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val userShare = OCShare().apply {
+                    isFolder = true
+                    shareType = ShareType.USER
+                    permissions = 17
+                }
+
+                activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
+                shortSleep()
+
+                // check if items are visible
+                onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
+                onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
+
+                // click event
+                onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+
+                // validate view shown on screen
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
+                onView(
+                    ViewMatchers.withId(R.id.share_process_hide_download_checkbox)
+                ).check(matches(not(isDisplayed())))
+                onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
+                onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
+                onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
+
+                // read-only
+                userShare.permissions = 17 // from server
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
+                goBack()
+
+                // allow upload & editing
+                userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER // from server
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
+                goBack()
+
+                // file drop
+                userShare.permissions = 4
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isChecked()))
+                goBack()
+
+                // allow reshare
+                userShare.permissions = 1 // from server
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isNotChecked()))
+                goBack()
+
+                userShare.permissions = 17 // from server
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isChecked()))
+                goBack()
+
+                // set expiration date
+                userShare.expirationDate = 1582019340000
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
+                goBack()
+
+                userShare.expirationDate = 0
+                openAdvancedPermissions(sut, userShare)
+                onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
+                onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
+            }
         }
-
-        activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
-        shortSleep()
-        waitForIdleSync()
-
-        // check if items are visible
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_send_link)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.menu_share_unshare)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.menu_share_add_another_link)).check(matches(not(isDisplayed())))
-
-        // click event
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
-
-        // validate view shown on screen
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isDisplayed()))
-        onView(ViewMatchers.withId(R.id.share_process_hide_download_checkbox)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_set_password_switch)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_change_name_switch)).check(matches(not(isDisplayed())))
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isDisplayed()))
-
-        // read-only
-        userShare.permissions = 17 // from server
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
-        goBack()
-
-        // allow upload & editing
-        userShare.permissions = MAXIMUM_PERMISSIONS_FOR_FOLDER // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isNotChecked()))
-        goBack()
-
-        // file drop
-        userShare.permissions = 4
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_permission_read_only)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_upload_editing)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_permission_file_drop)).check(matches(isChecked()))
-        goBack()
-
-        // allow reshare
-        userShare.permissions = 1 // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isNotChecked()))
-        goBack()
-
-        userShare.permissions = 17 // from server
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_allow_resharing_checkbox)).check(matches(isChecked()))
-        goBack()
-
-        // set expiration date
-        userShare.expirationDate = 1582019340000
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(not(withText(""))))
-        goBack()
-
-        userShare.expirationDate = 0
-        openAdvancedPermissions(sut, userShare)
-        onView(ViewMatchers.withId(R.id.share_process_set_exp_date_switch)).check(matches(isNotChecked()))
-        onView(ViewMatchers.withId(R.id.share_process_select_exp_date)).check(matches(withText("")))
     }
 
     // open bottom sheet with actions
@@ -691,24 +774,31 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         sut: FileDetailSharingFragment,
         userShare: OCShare
     ) {
-        activity.handler.post {
-            sut.showSharingMenuActionSheet(userShare)
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            activity.handler.post {
+                sut.showSharingMenuActionSheet(userShare)
+            }
+            shortSleep()
+            onIdleSync {
+                onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
+            }
         }
-        shortSleep()
-        waitForIdleSync()
-        onView(ViewMatchers.withId(R.id.menu_share_advanced_permissions)).perform(ViewActions.click())
     }
 
     // remove the fragment shown
     private fun goBack() {
-        activity.handler.post {
-            val processFragment =
-                activity.supportFragmentManager.findFragmentByTag(FileDetailsSharingProcessFragment.TAG) as
-                    FileDetailsSharingProcessFragment
-            processFragment.onBackPressed()
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            activity.handler.post {
+                val processFragment =
+                    activity.supportFragmentManager.findFragmentByTag(FileDetailsSharingProcessFragment.TAG) as
+                        FileDetailsSharingProcessFragment
+                processFragment.onBackPressed()
+            }
+            shortSleep()
+            waitForIdleSync()
         }
-        shortSleep()
-        waitForIdleSync()
     }
 
     // also applies for
@@ -720,19 +810,25 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     @Test
     @Suppress("MagicNumber")
     fun userOptionMenuFolderSendNewEmail() {
-        val sut = FileDetailSharingFragment.newInstance(file, user)
-        activity.addFragment(sut)
-        setupSecondaryFragment()
-        shortSleep()
-        sut.refreshCapabilitiesFromDB()
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            val sut = FileDetailSharingFragment.newInstance(file, user)
+            activity.addFragment(sut)
+            setupSecondaryFragment()
 
-        val userShare = OCShare().apply {
-            isFolder = true
-            shareType = ShareType.USER
-            permissions = 17
+            onIdleSync {
+                shortSleep()
+                sut.refreshCapabilitiesFromDB()
+
+                val userShare = OCShare().apply {
+                    isFolder = true
+                    shareType = ShareType.USER
+                    permissions = 17
+                }
+
+                verifySendNewEmail(sut, userShare)
+            }
         }
-
-        verifySendNewEmail(sut, userShare)
     }
 
     /**
@@ -742,14 +838,18 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         sut: FileDetailSharingFragment,
         userShare: OCShare
     ) {
-        activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
 
-        waitForIdleSync()
-        // click event
-        onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).perform(ViewActions.click())
+            onIdleSync {
+                // click event
+                onView(ViewMatchers.withId(R.id.menu_share_send_new_email)).perform(ViewActions.click())
 
-        // validate view shown on screen
-        onView(ViewMatchers.withId(R.id.note_text)).check(matches(isDisplayed()))
+                // validate view shown on screen
+                onView(ViewMatchers.withId(R.id.note_text)).check(matches(isDisplayed()))
+            }
+        }
     }
 
     @Test
@@ -837,8 +937,11 @@ class FileDetailSharingFragmentIT : AbstractIT() {
 
     @After
     override fun after() {
-        activity.storageManager.cleanShares()
-        activity.finish()
+        scenario = activityRule.scenario
+        scenario.onActivity { activity ->
+            activity.storageManager.cleanShares()
+            activity.finish()
+        }
 
         super.after()
     }

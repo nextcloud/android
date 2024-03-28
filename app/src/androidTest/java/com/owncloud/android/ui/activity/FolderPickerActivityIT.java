@@ -134,8 +134,7 @@ public class FolderPickerActivityIT extends AbstractIT {
         sut.runOnUiThread(() -> {
             sut.findViewById(R.id.folder_picker_btn_copy).requestFocus();
         });
-        waitForIdleSync();
-        screenshot(sut);
+        onIdleSync(() -> screenshot(sut));
     }
 
     @Test
@@ -143,9 +142,7 @@ public class FolderPickerActivityIT extends AbstractIT {
     public void testMoveOrCopy() {
         Intent intent = new Intent();
         FolderPickerActivity targetActivity = activityRule.launchActivity(intent);
-
-        waitForIdleSync();
-        screenshot(targetActivity);
+        onIdleSync(() -> screenshot(targetActivity));
     }
 
     @Test
@@ -154,8 +151,6 @@ public class FolderPickerActivityIT extends AbstractIT {
         Intent intent = new Intent();
         intent.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION);
         FolderPickerActivity targetActivity = activityRule.launchActivity(intent);
-
-        waitForIdleSync();
-        screenshot(targetActivity);
+        onIdleSync(() -> screenshot(targetActivity));
     }
 }
