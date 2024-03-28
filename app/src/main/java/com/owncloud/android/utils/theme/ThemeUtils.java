@@ -43,7 +43,7 @@ public final class ThemeUtils {
         OCCapability capability = CapabilityUtils.getCapability(context);
 
         if (MainApp.isOnlyOnDevice()) {
-            return MainApp.getAppContext().getString(R.string.drawer_item_on_device);
+            return MainApp.string(R.string.drawer_item_on_device);
         } else {
             if (capability.getServerName() == null || capability.getServerName().isEmpty()) {
                 return MainApp.getAppContext().getResources().getString(R.string.default_display_name_for_root_folder);
