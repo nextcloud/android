@@ -516,8 +516,12 @@ public final class EncryptionUtils {
                 new TypeToken<>() {
                 });
 
-            if ("2.0".equals(v2.getVersion()) || "2".equals(v2.getVersion())) {
-                return E2EVersion.V2_0;
+            if (v2 != null) {
+                if ("2.0".equals(v2.getVersion()) || "2".equals(v2.getVersion())) {
+                    return E2EVersion.V2_0;
+                }
+            } else {
+                return E2EVersion.UNKNOWN;
             }
         }
 
