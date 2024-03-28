@@ -73,7 +73,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
     if (pullRefreshState.isRefreshing) {
         LaunchedEffect(true) {
             delay(1500)
-            viewModel.getTaskList(onCompleted = {
+            viewModel.fetchTaskList(onCompleted = {
                 pullRefreshState.endRefresh()
             })
         }
