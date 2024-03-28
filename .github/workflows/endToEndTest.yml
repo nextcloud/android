@@ -12,10 +12,10 @@ permissions:
     pull-requests: write
 
 jobs:
-    screenshot:
-        runs-on: ubuntu-latest
+    tests:
+        runs-on: ubuntu-22.04 # our own GARM does not yet support it
         services:
-            sso:
+            server:
                 image: ghcr.io/nextcloud/continuous-integration-shallow-server:latest
                 ports:
                     - 80:80/tcp
