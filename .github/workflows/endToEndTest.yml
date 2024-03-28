@@ -17,8 +17,6 @@ jobs:
         services:
             server:
                 image: ghcr.io/nextcloud/continuous-integration-shallow-server:latest
-                ports:
-                    - 80:80/tcp
         strategy:
             fail-fast: false
             matrix:
@@ -27,6 +25,10 @@ jobs:
                 api-level: [ 27 ]
         steps:
             -   uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+            -   name: ping server
+                run: |
+                    ping -c5 http://server
 
             -   name: Enable KVM group perms
                 run: |
