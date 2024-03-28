@@ -30,7 +30,7 @@ jobs:
 
             -   name: wait and ping server
                 run: |
-                    while ! curl http://server/status.php 2>&1 | grep installed; do
+                    while ! curl http://localhost/status.php 2>&1 | grep installed; do
                         echo "wait…"
                         sleep 5
                     done
@@ -81,7 +81,9 @@ jobs:
                     echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
 
             -   name: Build gplay
-                run: ./gradlew assembleGplayDebug
+                run: |
+                    sed -i s#http://server#http://10.0.2.2# gradle.properties
+                    ./gradlew assembleGplayDebug
 
             -   name: Delete old comments
                 env:
