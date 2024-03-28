@@ -125,7 +125,7 @@ fun TaskView(
                         id = if (!expanded) R.drawable.ic_expand_more else R.drawable.ic_expand_less
                     ),
                     contentDescription = "expand content icon",
-                    colorFilter = ColorFilter.tint(Color.White),
+                    colorFilter = ColorFilter.tint(Color.White)
                 )
             }
 

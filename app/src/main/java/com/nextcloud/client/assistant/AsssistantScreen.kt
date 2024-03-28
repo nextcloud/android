@@ -36,6 +36,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,6 +52,7 @@ import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.delay
+import java.lang.ref.WeakReference
 
 @Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -166,6 +168,7 @@ private fun ScreenState(
         is AssistantViewModel.State.TaskDeleted -> {
             state.messageId
         }
+
         else -> {
             null
         }
@@ -243,7 +246,10 @@ private fun AssistantScreenPreview() {
     MaterialTheme(
         content = {
             AssistantScreen(
-                viewModel = AssistantViewModel(repository = mockRepository),
+                viewModel = AssistantViewModel(
+                    repository = mockRepository,
+                    context = WeakReference(LocalContext.current)
+                ),
                 activity = ComposeActivity()
             )
         }
@@ -257,7 +263,10 @@ private fun AssistantEmptyScreenPreview() {
     MaterialTheme(
         content = {
             AssistantScreen(
-                viewModel = AssistantViewModel(repository = mockRepository),
+                viewModel = AssistantViewModel(
+                    repository = mockRepository,
+                    context = WeakReference(LocalContext.current)
+                ),
                 activity = ComposeActivity()
             )
         }

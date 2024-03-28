@@ -7,10 +7,10 @@
  */
 package com.nextcloud.client.assistant
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.repository.AssistantRepositoryType
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
@@ -19,8 +19,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.lang.ref.WeakReference
 
-class AssistantViewModel(private val repository: AssistantRepositoryType) : ViewModel() {
+class AssistantViewModel(
+    private val repository: AssistantRepositoryType,
+    private val context: WeakReference<Context>
+) : ViewModel() {
 
     sealed class State {
         data object Idle : State()
@@ -77,7 +81,7 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
 
     private fun getTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val allTaskType = MainApp.getAppContext().getString(R.string.assistant_screen_all_task_type)
+            val allTaskType = context.get()?.getString(R.string.assistant_screen_all_task_type)
             val excludedIds = listOf("OCA\\ContextChat\\TextProcessing\\ContextChatTaskType")
             val result = arrayListOf(TaskType(null, allTaskType, null))
             val taskTypesResult = repository.getTaskTypes()
