@@ -46,11 +46,11 @@
 
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
 
-    <string name="assistant_screen_unknown_task_status_text">Status could not be determined.</string>
-    <string name="assistant_screen_scheduled_task_status_text">Your task is scheduled for a future time.</string>
-    <string name="assistant_screen_successful_task_text">Your task has been completed successfully.</string>
-    <string name="assistant_screen_failed_task_text">An error occurred while executing the task.</string>
-    <string name="assistant_screen_running_task_text">Your task is currently in progress.</string>
+    <string name="assistant_screen_unknown_task_status_text">Unknown</string>
+    <string name="assistant_screen_scheduled_task_status_text">Scheduled</string>
+    <string name="assistant_screen_successful_task_text">Completed</string>
+    <string name="assistant_screen_failed_task_text">Failed</string>
+    <string name="assistant_screen_running_task_text">In Progress</string>
 
     <string name="assistant_screen_all_task_type">All</string>
     <string name="assistant_screen_task_view_show_more">Show more</string>

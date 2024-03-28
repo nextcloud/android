@@ -119,15 +119,13 @@ fun TaskView(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // TODO Use Icon instead text
             if ((task.output?.length ?: 0) >= 100) {
-                Text(
-                    text = if (!expanded) {
-                        stringResource(id = R.string.assistant_screen_task_view_show_more)
-                    } else {
-                        stringResource(id = R.string.assistant_screen_task_view_show_less)
-                    },
-                    color = Color.White
+                Image(
+                    painter = painterResource(
+                        id = if (!expanded) R.drawable.ic_expand_more else R.drawable.ic_expand_less
+                    ),
+                    contentDescription = "expand content icon",
+                    colorFilter = ColorFilter.tint(Color.White),
                 )
             }
 
