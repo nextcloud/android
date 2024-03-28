@@ -51,8 +51,6 @@
     <string name="assistant_screen_task_list_error_state_message">Kan ikke hente oppgavelisten, vennligst sjekk internettforbindelsen din.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Slett oppgave</string>
     <string name="assistant_screen_task_types_error_state_message">Kan ikke hente oppgavetyper, vennligst sjekk internettforbindelsen din.</string>
-    <string name="assistant_screen_task_view_show_less">Vis mindre</string>
-    <string name="assistant_screen_task_view_show_more">Vis mer</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="associated_account_not_found">Tilknyttet bruker ikke funnet!</string>
     <string name="auth_access_failed">Tilgang mislyktes: %1$s</string>
