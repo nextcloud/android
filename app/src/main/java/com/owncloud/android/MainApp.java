@@ -647,6 +647,13 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 
+    public static String string(int id) {
+        return getAppContext().getString(id);
+    }
+
+    public static String string(int id, Object args) {
+        return getAppContext().getString(id, args);
+    }
 
     public static Context getAppContext() {
         return MainApp.mContext;
@@ -674,32 +681,32 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     //  From AccountAuthenticator
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {
-        return getAppContext().getResources().getString(R.string.authority);
+        return string(R.string.authority);
     }
 
     //  From AccountAuthenticator
     //  public static final String AUTH_TOKEN_TYPE = "org.owncloud";
     public static String getAuthTokenType() {
-        return getAppContext().getResources().getString(R.string.authority);
+        return string(R.string.authority);
     }
 
     //  From ProviderMeta
     //  public static final String DB_FILE = "owncloud.db";
     public static String getDBFile() {
-        return getAppContext().getResources().getString(R.string.db_file);
+        return string(R.string.db_file);
     }
 
     //  From ProviderMeta
     //  private final String mDatabaseName = "ownCloud";
     public static String getDBName() {
-        return getAppContext().getResources().getString(R.string.db_name);
+        return string(R.string.db_name);
     }
 
     /**
      * name of data_folder, e.g., "owncloud"
      */
     public static String getDataFolder() {
-        return getAppContext().getResources().getString(R.string.data_folder);
+        return string(R.string.data_folder);
     }
 
     public static void showOnlyFilesOnDevice(boolean state) {
@@ -725,8 +732,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     // user agent
     private static String getUserAgent(@StringRes int agent) {
-        String appString = getAppContext().getResources().getString(agent);
-        String brandedName = getAppContext().getString(R.string.name_for_branded_user_agent);
+        String appString = string(agent);
+        String brandedName = string(R.string.name_for_branded_user_agent);
         String packageName = getAppContext().getPackageName();
         String version = "";
 
