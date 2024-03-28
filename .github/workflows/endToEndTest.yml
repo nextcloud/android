@@ -30,7 +30,7 @@ jobs:
 
             -   name: wait and ping server
                 run: |
-                    while ! curl http://localhost/status.php 2>&1 | grep installed; do
+                    while ! curl http://server/status.php 2>&1 | grep installed; do
                         echo "wait…"
                         sleep 5
                     done
