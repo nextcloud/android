@@ -54,6 +54,7 @@ class AssistantViewModel(
         fetchTaskList()
     }
 
+    @Suppress("MagicNumber")
     fun createTask(
         input: String,
         type: String

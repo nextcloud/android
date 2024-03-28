@@ -12,6 +12,7 @@ package com.nextcloud.client.assistant.extensions
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 
+@Suppress("MagicNumber")
 fun Task.statusData(): Pair<Int, Int> {
     return when (status) {
         0L -> {
