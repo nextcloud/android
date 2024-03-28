@@ -80,7 +80,6 @@ fun TaskView(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // FIXME output not appears
         task.output?.let {
             HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
 
