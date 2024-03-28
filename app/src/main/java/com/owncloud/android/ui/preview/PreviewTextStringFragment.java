@@ -111,11 +111,9 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
 
     @Override
     public void onStart() {
-        if (isEditorWebviewLaunched) {
-            if (containerActivity instanceof FileDisplayActivity fileDisplayActivity) {
-                fileDisplayActivity.getSupportFragmentManager().popBackStack();
-                fileDisplayActivity.onRefresh();
-            }
+        if (isEditorWebviewLaunched && containerActivity instanceof FileDisplayActivity fileDisplayActivity) {
+            fileDisplayActivity.getSupportFragmentManager().popBackStack();
+            fileDisplayActivity.onRefresh();
         }
 
         super.onStart();
