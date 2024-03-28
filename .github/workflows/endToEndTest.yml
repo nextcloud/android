@@ -29,6 +29,7 @@ jobs:
             -   name: ping server
                 run: |
                     ping -c5 http://localhost:80
+                    curl http://localhost/status.php
 
             -   name: Enable KVM group perms
                 run: |
