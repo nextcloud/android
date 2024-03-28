@@ -52,6 +52,8 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
     @Inject UserAccountManager accountManager;
     @Inject ViewThemeUtils viewThemeUtils;
 
+    private boolean isEditorWebviewLaunched = false;
+
     /**
      * Creates an empty fragment for previews.
      */
@@ -107,6 +109,18 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        if (isEditorWebviewLaunched) {
+            if (containerActivity instanceof FileDisplayActivity fileDisplayActivity) {
+                fileDisplayActivity.getSupportFragmentManager().popBackStack();
+                fileDisplayActivity.onRefresh();
+            }
+        }
+
+        super.onStart();
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -146,6 +160,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
                 containerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(getFile(),
                                                                                             url,
                                                                                             getContext());
+                isEditorWebviewLaunched = true;
             } else {
                 DisplayUtils.showSnackMessage(getView(), "Error");
             }
