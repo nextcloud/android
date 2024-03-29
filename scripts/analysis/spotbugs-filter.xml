@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~ 
+  ~ SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-FileCopyrightText: 2024 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-License-Identifier: GPL-3.0-or-later
+-->
 <FindBugsFilter>
     <Match>
         <Class name="~.*\.Manifest\$.*" />

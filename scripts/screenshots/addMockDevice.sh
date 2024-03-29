@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# SPDX-FileCopyrightText: 2017-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2017-2018-2024 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 cd scripts/screenshots/
 for i in $(find ../../fastlane | grep png | grep Screenshots) ; do
     device=$(echo $i | cut -d"/" -f8 | sed s'#Screenshots##')

@@ -1,6 +1,11 @@
 ## Script originally from https://github.com/tir38/android-lint-entropy-reducer at 07.05.2017
 # heavily modified since then
 
+# SPDX-FileCopyrightText: 2017-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2017 Jason Atwood 
+# SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 

@@ -2,6 +2,9 @@
 
 # see http://EditorConfig.org
 
+# SPDX-FileCopyrightText: 2018-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 # This is the file in the root of the project.
 # For sub folders you can have other files that override only some settings.
 # For these, this settings should be false.

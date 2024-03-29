@@ -1,3 +1,9 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018-2024 Google LLC
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
 <vector android:autoMirrored="true"
     android:height="24dp"
     android:tint="#000000"
