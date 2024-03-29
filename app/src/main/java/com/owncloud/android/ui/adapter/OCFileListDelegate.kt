@@ -344,7 +344,7 @@ class OCFileListDelegate(
                 R.drawable.ic_synchronizing_error
             }
 
-            // FIXME delete keep showing deleted snackbar, tick not visible, delete local file not available
+            // FIXME tick not visible for downloaded files also delete local file not available
             file.isDown -> {
                 R.drawable.ic_synced
             }
