@@ -2,7 +2,7 @@
 
 # SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
 # SPDX-FileCopyrightText: 2016 Tobias Kaminsky <tobias@kaminsky.me>
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 snapshotCount=$(./gradlew dependencies | grep SNAPSHOT | grep -v "com.github.nextcloud:android-library" -c)
 betaCount=$(grep "<bool name=\"is_beta\">true</bool>" app/src/main/res/values/setup.xml -c)

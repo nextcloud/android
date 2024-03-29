@@ -2,7 +2,7 @@
 
 # SPDX-FileCopyrightText: 2020-2024 Nextcloud GmbH and Nextcloud contributors
 # SPDX-FileCopyrightText: 2020-2018-2024 Tobias Kaminsky <tobias@kaminsky.me>
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 file=/tmp/screenshotOverview-$(date +%F-%H-%M-%S)
 
