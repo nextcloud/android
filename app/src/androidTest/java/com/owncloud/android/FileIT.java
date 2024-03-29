@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.owncloud.android;
 
 import com.owncloud.android.datamodel.OCFile;
@@ -22,7 +28,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 
 /**
- * Tests related to file operations
+ * Tests related to file operations.
  */
 @RunWith(AndroidJUnit4.class)
 public class FileIT extends AbstractOnServerIT {

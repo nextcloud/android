@@ -1,23 +1,10 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author David A. Velasco
- * Copyright (C) 2016 ownCloud Inc.
- * <p>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- * <p>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * <p>
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2016 David A. Velasco
+ * SPDX-FileCopyrightText: 2016 2016 ownCloud Inc
+ * SPDX-License-Identifier: GPL-2.0-only
  */
-
-
 package com.owncloud.android.datamodel;
 
 import android.os.Parcel;
@@ -35,11 +22,8 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Instrumented unit test, to be run in an Android emulator or device.
- *
  * At the moment, it's a sample to validate the automatic test environment, in the scope of instrumented unit tests.
- *vvlcvlc
  * Don't take it as an example of completeness.
- *
  * See http://developer.android.com/intl/es/training/testing/unit-testing/instrumented-unit-tests.html .
  */
 @RunWith(AndroidJUnit4.class)
