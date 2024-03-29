@@ -745,7 +745,7 @@
     <string name="share_send_new_email">Надіслати новий лист</string>
     <string name="share_send_note">Примітка для одержувача</string>
     <string name="share_settings">Налаштування</string>
-    <string name="share_via_link_hide_download">Сховати завантаження</string>
+    <string name="share_via_link_hide_download">Приховати звантаження</string>
     <string name="share_via_link_section_title">Поділитися посиланням</string>
     <string name="share_via_link_send_link_label">Надіслати посилання</string>
     <string name="share_via_link_unset_password">Зняти</string>
