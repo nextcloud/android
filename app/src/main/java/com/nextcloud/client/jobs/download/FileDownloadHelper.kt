@@ -53,7 +53,8 @@ class FileDownloadHelper {
             backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId) ||
                 backgroundJobManager.isStartFileDownloadJobScheduled(user, topParentId)
         } else {
-            FileDownloadWorker.isDownloading(user.accountName, file.fileId)
+            backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId) ||
+                FileDownloadWorker.isDownloading(user.accountName, file.fileId)
         }
     }
 

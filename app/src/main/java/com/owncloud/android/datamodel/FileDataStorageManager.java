@@ -251,6 +251,25 @@ public class FileDataStorageManager {
         return imageList;
     }
 
+    public boolean isFileExists(OCFile ocFile) {
+        final ContentValues cv = createContentValuesForFile(ocFile);
+        Uri contentUri = ProviderTableMeta.CONTENT_URI;
+        String selection = ProviderTableMeta._ID + "=?";
+        String[] selectionArgs = new String[]{String.valueOf(ocFile.getFileId())};
+
+        boolean result = false;
+        Cursor cursor = contentResolver.query(contentUri, null, selection, selectionArgs, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            result = true;
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return result;
+    }
+
     public boolean saveFile(OCFile ocFile) {
         boolean overridden = false;
         final ContentValues cv = createContentValuesForFile(ocFile);
