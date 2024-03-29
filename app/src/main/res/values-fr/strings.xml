@@ -58,7 +58,7 @@
     <string name="auth_access_failed">L\'accès a échoué: %1$s</string>
     <string name="auth_account_does_not_exist">Le compte n\'est pas encore ajouté sur cet appareil</string>
     <string name="auth_account_not_new">Un compte existe déjà pour cet utilisateur et ce serveur</string>
-    <string name="auth_account_not_the_same">L\'utilisateur saisi ne correspond pas à l\'utilisateur de ce compte</string>
+    <string name="auth_account_not_the_same">L’utilisateur saisi ne correspond pas à l’utilisateur de ce compte</string>
     <string name="auth_bad_oc_version_title">La version du serveur n’est pas reconnue</string>
     <string name="auth_connection_established">Connexion établie</string>
     <string name="auth_fail_get_user_name">Votre serveur ne renvoie pas un identifiant d\'utilisateur correct, veuillez contacter un administrateur.</string>
@@ -258,7 +258,7 @@
     <string name="drawer_item_groupfolders">Dossiers de groupes</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_notifications">Notifications</string>
-    <string name="drawer_item_on_device">Sur l\'appareil</string>
+    <string name="drawer_item_on_device">Sur l’appareil</string>
     <string name="drawer_item_personal_files">Personal files</string>
     <string name="drawer_item_recently_modified">Modifiés récemment</string>
     <string name="drawer_item_shared">Partagé</string>
@@ -367,7 +367,7 @@
     <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Chargement…</string>
     <string name="file_list_no_app_for_file_type">Aucune application trouvée pour ce type de fichier.</string>
-    <string name="file_list_seconds_ago">à l\'instant</string>
+    <string name="file_list_seconds_ago">à l’instant</string>
     <string name="file_management_permission">Autorisations requises</string>
     <string name="file_management_permission_optional">Autorisations d\'accès au stockage</string>
     <string name="file_management_permission_optional_text">%1$s fonctionne mieux avec les autorisations d\'accès au stockage. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
