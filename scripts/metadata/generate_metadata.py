@@ -7,7 +7,7 @@
 
 # SPDX-FileCopyrightText: 2017 Torsten Grote
 # SPDX-FileCopyrightText: 2017-2018 Tobias Kaminsky <tobias@kaminsky.me>
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 import codecs
 import os

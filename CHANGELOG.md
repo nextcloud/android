@@ -1,6 +1,6 @@
 <!--
  ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
- ~ SPDX-License-Identifier: GPL-3.0-or-later
+ ~ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 ## 3.28.0 (February 13th, 2024)
 

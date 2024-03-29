@@ -4,7 +4,7 @@
 # SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
 # SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
 # SPDX-FileCopyrightText: 2023 Álvaro Brey <alvaro@alvarobrey.com>
-# SPDX-License-Identifier: GPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 name: "Validate Gradle Wrapper"
 on:
@@ -16,7 +16,7 @@ on:
 # Declare default permissions as read only.
 permissions: read-all
 
-concurrency: 
+concurrency:
   group: validate-gradle-wrapper-${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 

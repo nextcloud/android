@@ -13,4 +13,4 @@ License: MIT
 
 Files: .idea/* app/schemas/com.nextcloud.client.database.NextcloudDatabase/*.json app/screenshots/gplay/debug/*.png app/src/main/res/values-*/strings.xml src/*/fastlane/metadata/android/*/*.txt src/versionDev/fastlane/metadata/android/*/changelogs/*.txt
 Copyright: 2016-2024 Nextcloud GmbH and Nextcloud contributors
-License: GPL-3.0-or-later
+License: AGPL-3.0-or-later
