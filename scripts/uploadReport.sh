@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# SPDX-FileCopyrightText: 2018-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 upload() {
     scripts/deleteOldComments.sh "$BRANCH" "$TYPE" "$PR"
 

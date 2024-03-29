@@ -1,3 +1,7 @@
+<!--
+ ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+ ~ SPDX-License-Identifier: GPL-3.0-or-later
+-->
 # [Nextcloud](https://nextcloud.com) Android app
 
 # Index

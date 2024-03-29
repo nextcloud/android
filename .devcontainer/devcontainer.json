@@ -1,4 +1,4 @@
 {
 	"name": "NextcloudAndroid",
-	"dockerFile": "Dockerfile"
+	"dockerFile": "Dockerfile",
 }

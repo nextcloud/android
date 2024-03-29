@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2021-2023 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 DRONE_PULL_REQUEST=$1
 LOG_USERNAME=$2
 LOG_PASSWORD=$3
