@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.owncloud.android;
 
 import android.accounts.Account;
@@ -80,11 +86,9 @@ import static com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KE
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assume.assumeTrue;
 
-
 /**
- * Common base for all integration tests
+ * Common base for all integration tests.
  */
-
 public abstract class AbstractIT {
     @Rule
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
@@ -524,5 +528,4 @@ public abstract class AbstractIT {
     protected static boolean removeAccount(Account account) {
         return AccountManager.get(targetContext).removeAccountExplicitly(account);
     }
-
 }

@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.owncloud.android;
 
 import android.accounts.Account;
@@ -47,11 +53,9 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-
 /**
- * Common base for all integration tests
+ * Common base for all integration tests.
  */
-
 public abstract class AbstractOnServerIT extends AbstractIT {
     @BeforeClass
     public static void beforeAll() {
