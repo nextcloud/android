@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?> -
-<!-- -
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Nextcloud - Android Client
   ~
   ~ SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
   ~ SPDX-FileCopyrightText: 2021 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
---> -
-<resources> -
+-->
+<resources>
     <bool name="show_push_warning">true</bool>
-</resources> -
+</resources>
