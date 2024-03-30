@@ -1,3 +1,10 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2021 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2021# Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.nextcloud.client.utils
 
 import com.nextcloud.client.core.Clock

@@ -7,6 +7,6 @@ Files: gradle/wrapper/gradle-wrapper.jar
 Copyright: 2015-2021 the original authors
 License: Apache-2.0
 
-Files: .idea/* app/schemas/com.nextcloud.client.database.NextcloudDatabase/*.json app/screenshots/gplay/debug/*.png app/src/main/res/values-*/strings.xml src/*/fastlane/metadata/android/*/*.txt src/versionDev/fastlane/metadata/android/*/changelogs/*.txt app/src/androidTest/assets/*
+Files: .idea/* app/schemas/com.nextcloud.client.database.NextcloudDatabase/*.json app/screenshots/gplay/debug/*.png app/src/main/res/values-*/strings.xml src/*/fastlane/metadata/android/*/*.txt src/versionDev/fastlane/metadata/android/*/changelogs/*.txt app/src/androidTest/assets/* app/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker app/src/*/google-services.json
 Copyright: 2016-2024 Nextcloud GmbH and Nextcloud contributors
 License: AGPL-3.0-or-later
