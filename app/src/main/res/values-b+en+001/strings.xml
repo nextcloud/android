@@ -48,7 +48,9 @@
     <string name="assistant_screen_task_create_success_message">Task successfully created</string>
     <string name="assistant_screen_task_delete_fail_message">Task successfully deleted</string>
     <string name="assistant_screen_task_delete_success_message">An error occurred while deleting the task</string>
+    <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Delete Task</string>
+    <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
     <string name="assistant_screen_task_view_show_less">Show less</string>
     <string name="assistant_screen_task_view_show_more">Show more</string>
     <string name="assistant_screen_top_bar_title">Assistant</string>
