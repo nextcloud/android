@@ -3,6 +3,10 @@ kind: pipeline
 type: docker
 name: tests-stable
 
+# SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+
 steps:
   - name: gplay
     image: ghcr.io/nextcloud/continuous-integration-android8:3
@@ -179,6 +183,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: cf7f9b6403072500d986d4979375676729a9104f98b0c53fba5198c478cccab4
+hmac: 2d6dd316e41c77d4abd0864d9fe78e90ae727d32c3f6a485095b437840c86a89
 
 ...

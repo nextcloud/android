@@ -1,3 +1,7 @@
+<!--
+ ~ SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
+ ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 # Instructions
 
 1. Start a DevContainer either on GitHub Codespaces or locally in VSCode.

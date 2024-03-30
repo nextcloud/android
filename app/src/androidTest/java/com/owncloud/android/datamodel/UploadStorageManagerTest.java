@@ -1,3 +1,11 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2017 JARP <jarp@customer-187-174-218-184.uninet-ide.com.mx
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.owncloud.android.datamodel;
 
 import android.accounts.Account;
@@ -42,7 +50,6 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by JARP on 6/7/17.
  */
-
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class UploadStorageManagerTest extends AbstractIT {

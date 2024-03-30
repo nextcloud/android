@@ -1,0 +1,12 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Nextcloud Android
+Upstream-Contact: Nextcloud Android team <android@nextcloud.com>
+Source: https://github.com/nextcloud/android
+
+Files: gradle/wrapper/gradle-wrapper.jar
+Copyright: 2015-2021 the original authors
+License: Apache-2.0
+
+Files: .idea/* app/schemas/com.nextcloud.client.database.NextcloudDatabase/*.json app/screenshots/gplay/debug/*.png app/src/main/res/values-*/strings.xml src/*/fastlane/metadata/android/*/*.txt src/versionDev/fastlane/metadata/android/*/changelogs/*.txt
+Copyright: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+License: AGPL-3.0-or-later

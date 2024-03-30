@@ -6,6 +6,7 @@
       <trusted-artifacts>
          <trust group="com.android.tools.build" name="aapt2" version="8.3.1-10880808" reason="ships OS specific artifacts (win/linux/osx) - temp global trust"/>
          <trust group="com.fasterxml.jackson" name="jackson-base" version="2.14.2" reason="no keys available, no pom artifact to create a checksum"/>
+         <trust file=".*-sources[.]jar" regex="true"/>
       </trusted-artifacts>
       <trusted-keys>
          <trusted-key id="015479E1055341431B4545AB72475FD306B9CAB7" group="com.googlecode.javaewah" name="JavaEWAH" version="1.2.3"/>
