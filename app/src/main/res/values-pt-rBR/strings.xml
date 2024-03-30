@@ -48,9 +48,7 @@
     <string name="assistant_screen_task_create_success_message">Tarefa criada com sucesso</string>
     <string name="assistant_screen_task_delete_fail_message">Tarefa excluída com sucesso</string>
     <string name="assistant_screen_task_delete_success_message">Ocorreu um erro ao excluir a tarefa</string>
-    <string name="assistant_screen_task_list_error_state_message">Não é possível obter a lista de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Excluir tarefa</string>
-    <string name="assistant_screen_task_types_error_state_message">Não é possível buscar os tipos de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_task_view_show_less">Mostrar menos</string>
     <string name="assistant_screen_task_view_show_more">Mostrar mais</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>

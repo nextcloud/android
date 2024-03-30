@@ -304,7 +304,7 @@
     <string name="etm_transfer_enqueue_test_upload">Sæt test upload i kø</string>
     <string name="etm_transfer_remote_path">Ekstern sti</string>
     <string name="etm_transfer_type">Overførsel</string>
-    <string name="etm_transfer_type_download">Hent</string>
+    <string name="etm_transfer_type_download">Download</string>
     <string name="etm_transfer_type_upload">Send</string>
     <string name="fab_label">Tilføj eller send</string>
     <string name="failed_to_download">Fejl ved overførsel af fil til download manager</string>
@@ -368,7 +368,7 @@
     <string name="file_version_restored_error">Fejl ved genskabning af fil version!</string>
     <string name="file_version_restored_successfully">Succes ved genskabning af fil version!</string>
     <string name="filedetails_details">Detaljer</string>
-    <string name="filedetails_download">Hent</string>
+    <string name="filedetails_download">Download</string>
     <string name="filedetails_export">Eksportér</string>
     <string name="filedetails_renamed_in_upload_msg">File omdøbt %1$sunder overførelse</string>
     <string name="filedetails_sync_file">Synkronisér</string>
@@ -402,7 +402,7 @@
     <string name="hidden_file_name_warning">Navn vil resultere i en skjult fil</string>
     <string name="hint_name">Navn</string>
     <string name="hint_note">Note</string>
-    <string name="hint_password">Adgangskode</string>
+    <string name="hint_password">Password</string>
     <string name="host_not_available">Server ikke tilgængelig</string>
     <string name="host_your_own_server">Vær vært for egen server</string>
     <string name="icon_for_empty_list">Ikon for tom liste</string>
@@ -800,7 +800,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="synced_folders_preferences_folder_path">For %1$s</string>
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synkroniseret</string>
-    <string name="tags">Mærkater</string>
+    <string name="tags">Tags</string>
     <string name="test_server_button">Test server forbindelsen</string>
     <string name="thirtyMinutes">30 minutter</string>
     <string name="thisWeek">Denne uge</string>
@@ -917,13 +917,13 @@ Enheds legitimationsoplysninger er sat op
     <string name="userinfo_no_info_headline">Personlig information ikke konfigureret</string>
     <string name="userinfo_no_info_text">Tilføj navn, billede og kontakt information på din profilside.</string>
     <string name="username">Brugernavn</string>
-    <string name="version_dev_download">Hent</string>
+    <string name="version_dev_download">Download</string>
     <string name="video_overlay_icon">Ikon til overlejring af videoer</string>
     <string name="wait_a_moment">Vent et øjeblik...</string>
     <string name="wait_checking_credentials">Undersøger lagrede certificeringer</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
     <string name="webview_version_check_alert_dialog_message">Opdater Android System WebView appen for at logge på</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Opdatér</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Opdater</string>
     <string name="webview_version_check_alert_dialog_title">Opdater Android System WebView</string>
     <string name="what_s_new_image">Hvad nyt billede</string>
     <string name="whats_new_skip">Spring over</string>
