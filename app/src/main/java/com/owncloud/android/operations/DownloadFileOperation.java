@@ -271,9 +271,13 @@ public class DownloadFileOperation extends RemoteOperation {
                 } catch (Exception e) {
                     return new RemoteOperationResult(e);
                 }
-            }
-
-            if (downloadType == DownloadType.EXPORT) {
+            } else if (downloadType == DownloadType.DOWNLOAD) {
+                moved = tmpFile.renameTo(newFile);
+                newFile.setLastModified(file.getModificationTimestamp());
+                if (!moved) {
+                    result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                }
+            } else if (downloadType == DownloadType.EXPORT) {
                 new FileExportUtils().exportFile(file.getFileName(),
                                                  file.getMimeType(),
                                                  operationContext.getContentResolver(),
