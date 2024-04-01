@@ -87,6 +87,7 @@ class TrashbinActivityIT : AbstractIT() {
         val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
 
         sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+
         InstrumentationRegistry.getInstrumentation().waitForIdle {
             sut.runOnUiThread { sut.showInitialLoading() }
             shortSleep()
