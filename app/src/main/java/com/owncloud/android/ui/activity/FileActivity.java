@@ -532,6 +532,7 @@ public abstract class FileActivity extends DrawerActivity
      * Show loading dialog
      */
     public void showLoadingDialog(String message) {
+
         if (mResumed) {
             // grant that only one waiting dialog is shown
             dismissLoadingDialog();
