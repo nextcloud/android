@@ -16,32 +16,39 @@
   You should have received a copy of the GNU General Public License
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2016 Maria Asensio <masensio@solidgear.es>
+  ~ SPDX-FileCopyrightText: 2016 ownCloud Inc.
+  ~ SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/general_description"
-        android:layout_height="wrap_content"
+        style="?android:attr/editTextPreferenceStyle"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
         android:layout_margin="@dimen/standard_margin"
-        style="?android:attr/editTextPreferenceStyle"
-        android:text="@string/manage_space_description"
-        />
+        android:text="@string/manage_space_description" />
 
     <com.google.android.material.button.MaterialButton
+        android:id="@+id/clearDataButton"
+        style="@style/Button.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/manage_space_clear_data"
-        android:id="@+id/clearDataButton"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/standard_margin"
-        android:theme="@style/Button.Primary"
-        style="@style/Button.Primary"
         android:contentDescription="@string/manage_space_clear_data"
+        android:text="@string/manage_space_clear_data"
+        android:theme="@style/Button.Primary"
         app:cornerRadius="@dimen/button_corner_radius" />
 
 </LinearLayout>

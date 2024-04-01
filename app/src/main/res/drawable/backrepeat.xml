@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2015 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
     android:src="@drawable/checker_16_16"
     android:tileMode="repeat" />
