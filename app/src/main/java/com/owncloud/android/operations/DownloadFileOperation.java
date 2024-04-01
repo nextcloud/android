@@ -273,7 +273,7 @@ public class DownloadFileOperation extends RemoteOperation {
                 }
             }
 
-            if (downloadType == DownloadType.DOWNLOAD) {
+            if (downloadType == DownloadType.DOWNLOAD && !file.isEncrypted()) {
                 moved = tmpFile.renameTo(newFile);
                 newFile.setLastModified(file.getModificationTimestamp());
                 if (!moved) {

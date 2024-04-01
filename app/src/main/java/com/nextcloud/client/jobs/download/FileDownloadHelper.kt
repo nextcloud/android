@@ -49,12 +49,11 @@ class FileDownloadHelper {
         val fileStorageManager = FileDataStorageManager(user, MainApp.getAppContext().contentResolver)
         val topParentId = fileStorageManager.getTopParentId(file)
 
-        return if (file.isFolder) {
-            backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId) ||
-                backgroundJobManager.isStartFileDownloadJobScheduled(user, topParentId)
+        val isJobScheduled = backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId)
+        return isJobScheduled || if (file.isFolder) {
+            backgroundJobManager.isStartFileDownloadJobScheduled(user, topParentId)
         } else {
-            backgroundJobManager.isStartFileDownloadJobScheduled(user, file.fileId) ||
-                FileDownloadWorker.isDownloading(user.accountName, file.fileId)
+            FileDownloadWorker.isDownloading(user.accountName, file.fileId)
         }
     }
 
