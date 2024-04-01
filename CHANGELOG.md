@@ -1,7 +1,11 @@
+<!--
+ ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+ ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
 ## 3.28.1 (March 25th, 2024)
 
 - Bugfixes
-
 
 Minimum: NC 16 Server, Android 7.0 Nougat
 

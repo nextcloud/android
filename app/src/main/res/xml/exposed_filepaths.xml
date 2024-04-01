@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud Talk - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2017-2024 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+  ~ SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
+  ~ SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 <paths>
     <files-path name="user_files_internal" path="nextcloud/"/>
     <files-path
@@ -9,6 +18,4 @@
         path="attachments"/>
     <external-path name="external_files" path="."/>
     <root-path name="external_files" path="/storage/" />
-    <!-- yes, valid for ALL external storage and not only our app folder, since we can't use @string/data_folder
-    as a value for 'path' attribute; in practice, we will only generate URIs in our folders, of course -->
 </paths>

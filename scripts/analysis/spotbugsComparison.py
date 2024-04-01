@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
+# SPDX-FileCopyrightText: 2017-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: AGPL-3.0-or-later
 import argparse
 import defusedxml.ElementTree as ET
+
 import spotbugsSummary
 
 

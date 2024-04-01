@@ -3,6 +3,10 @@
 #2: TYPE
 #3: PR
 
+# SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2016 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 BRANCH=$1
 TYPE=$2
 PR=$3

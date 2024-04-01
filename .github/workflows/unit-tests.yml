@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 name: Unit tests
 
 on:
@@ -10,7 +13,7 @@ permissions:
     contents: read
     pull-requests: write
 
-concurrency: 
+concurrency:
     group: unit-tests-${{ github.head_ref || github.run_id }}
     cancel-in-progress: true
 
@@ -39,7 +42,7 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "test" "Unit" ${{github.event.number}}
             -   name: Upload coverage to codecov
-                uses: codecov/codecov-action@54bcd8715eee62d40e33596ef5e8f0f48dbbccab # v4.1.0
+                uses: codecov/codecov-action@c16abc29c95fcf9174b58eb7e1abf4c866893bc8 # v4.1.1
                 with:
                     token: ${{ secrets.CODECOV_TOKEN }}
                     flags: unit

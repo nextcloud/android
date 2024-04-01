@@ -48,9 +48,7 @@
     <string name="assistant_screen_task_create_success_message">Uppgiften har skapats</string>
     <string name="assistant_screen_task_delete_fail_message">Uppgiften har raderats</string>
     <string name="assistant_screen_task_delete_success_message">Ett fel uppstod när uppgiften skulle tas bort</string>
-    <string name="assistant_screen_task_list_error_state_message">Det går inte att hämta uppgiftslistan, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ta bort uppgift</string>
-    <string name="assistant_screen_task_types_error_state_message">Det går inte att hämta uppgiftstyper, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_task_view_show_less">Visa mindre</string>
     <string name="assistant_screen_task_view_show_more">Visa mer</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
@@ -810,6 +808,7 @@
     <string name="storage_permission_full_access">Fullständig åtkomst</string>
     <string name="storage_permission_media_read_only">En läsåtkomst till media</string>
     <string name="storage_pictures">Bilder</string>
+    <string name="store_full_desc">En produktivitetsplattform du kan driva själv och som ger dig kontroll.\n\nFunktioner:\n* Enkelt, modernt gränssnitt, anpassat till temat på din server\n* Ladda upp filer till din Nextcloud-server\n* Dela dem med andra\n* Håll dina favoritfiler och mappar synkade\n* Sök i alla mappar på din server\n* Automatisk uppladdning av foton och videor från enheten\n* Håll dig uppdaterad med aviseringar\n* Stöd för flera konton\n* Säker åtkomst till ditt data med fingeravtryck eller PIN-kod\n* Integration med DAVx5 (tidigare känd som DAVdroid) för att enkelt synkronisering av kalender och kontakter\n\nRapportera gärna de problem du upplever på https://github.com/nextcloud/android/issues och diskutera den här appen på https://help.nextcloud.com/c/clients/android\n\nNy på Nextcloud? Nextcloud ger integritet på egen server för synkronisering och delning av filer samt kommunikation. Den är fri programvara och du kan driva den själv eller betala ett företag för att göra det åt dig. På så sätt har du kontroll över dina foton, din kalender och dina kontaktuppgifter, dina dokument och allt annat.\n\nKolla in Nextcloud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll.\nDetta är den officiella utvecklingsversionen, med ett dagligt urval av någon ny otestad funktionalitet, vilket kan orsaka instabilitet och dataförlust. Appen är för användare som är villiga att testa, och rapportera fel om de inträffar. Använd inte det för ditt produktiva arbete!\n\nBåde den officiella dev och regelbunden versionen finns på F-droid, och kan installeras samtidigt.</string>
     <string name="store_short_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll</string>
     <string name="store_short_dev_desc">Produktivitetsplattformen där du är din egen värd och håller dig i kontroll (dev förhandsversion)</string>

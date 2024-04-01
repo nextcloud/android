@@ -14,6 +14,6 @@ Funktionen:
 
 Bitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues und diskutieren Sie über diese App unter https://help.nextcloud.com/c/clients/android
 
-Neu bei Nextcloud? Nextcloud ist ein privater Dateisynchronisierungs-, Freigabe- und Kommunikationsserver. Es handelt sich um kostenlose Software, die Sie selbst, oder gegen Gebühr bei einem Dienstleister hosten könen. So oder so haben Sie die Kontrolle über Ihre Fotos, Ihre Kalender- und Kontaktdaten, Ihre Dokumente und alles andere.
+Neu bei Nextcloud? Nextcloud ist ein privater Dateisynchronisierungs-, Freigabe- und Kommunikationsserver. Es handelt sich um kostenlose Software, die Sie selbst, oder gegen Gebühr bei einem Dienstleister hosten können. So oder so haben Sie die Kontrolle über Ihre Fotos, Ihre Kalender- und Kontaktdaten, Ihre Dokumente und alles andere.
 
 Sehen Sie sich Nextcloud unter https://nextcloud.com an

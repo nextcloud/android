@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro.brey@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.owncloud.android.ui.helpers
 
 import android.net.Uri

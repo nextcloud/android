@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2023 Akshay Chaurasia <akshay.chaurasia@t-systems.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.nextcloud.android.utils
 
 import com.nextcloud.utils.extensions.getFormattedStringDate

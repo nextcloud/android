@@ -1,3 +1,7 @@
+<!--
+ ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+ ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
 # [Nextcloud](https://nextcloud.com) Android app :iphone:
 
 [![Build Status](https://drone.nextcloud.com/api/badges/nextcloud/android/status.svg)](https://drone.nextcloud.com/nextcloud/android) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/80401cb343854343b4d94acbfb72d3ec)](https://www.codacy.com/app/Nextcloud/android?utm_source=github.com\&utm_medium=referral\&utm_content=nextcloud/android\&utm_campaign=Badge_Grade) [![Releases](https://img.shields.io/github/release/nextcloud/android.svg)](https://github.com/nextcloud/android/releases/latest)
@@ -43,7 +47,7 @@ If you want to [contribute](https://nextcloud.com/contribute/) to the Nextcloud 
 
 Nextcloud doesn't require a CLA (Contributor License Agreement). The copyright belongs to all the individual contributors. Therefore we recommend that every contributor adds following line to the header of a file, if they changed it substantially:
 
-    @copyright Copyright (c) <year>, <your name> (<your email address>)
+	SPDX-FileCopyrightText: <year> <your name> <your email address>
 
 Please read the [Code of Conduct](https://nextcloud.com/community/code-of-conduct/). This document offers some guidance to ensure Nextcloud participants can cooperate effectively in a positive and inspiring atmosphere, and to explain how together we can strengthen and support each other.
 
