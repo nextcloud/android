@@ -1,4 +1,16 @@
-<vector android:height="72dp" android:viewportHeight="16"
-    android:viewportWidth="16" android:width="72dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#0082c9" android:pathData="m4,3 l-2,2v7.5c0,0.26 0.24,0.5 0.5,0.5h11c0.26,0 0.5,-0.24 0.5,-0.5v-7.5l-2,-2zM5,4h6l1,1h-8z"/>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018-2024 Nextcloud GmbH, all rights reserved
+  ~ SPDX-FileCopyrightText: 2018-2024 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="72dp"
+    android:height="72dp"
+    android:viewportWidth="16"
+    android:viewportHeight="16">
+    <path
+        android:fillColor="#0082c9"
+        android:pathData="m4,3 l-2,2v7.5c0,0.26 0.24,0.5 0.5,0.5h11c0.26,0 0.5,-0.24 0.5,-0.5v-7.5l-2,-2zM5,4h6l1,1h-8z" />
 </vector>

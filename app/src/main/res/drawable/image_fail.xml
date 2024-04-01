@@ -1,4 +1,16 @@
-<vector android:height="160dp" android:viewportHeight="24"
-    android:viewportWidth="24" android:width="160dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#767676" android:pathData="M13,14H11V10H13M13,18H11V16H13M1,21H23L12,2L1,21Z"/>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018-2024 Google LLC
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="#767676"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M40,840L480,80L920,840L40,840ZM480,720Q497,720 508.5,708.5Q520,697 520,680Q520,663 508.5,651.5Q497,640 480,640Q463,640 451.5,651.5Q440,663 440,680Q440,697 451.5,708.5Q463,720 480,720ZM440,600L520,600L520,400L440,400L440,600Z" />
 </vector>
