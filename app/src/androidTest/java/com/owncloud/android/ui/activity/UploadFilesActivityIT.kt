@@ -9,6 +9,7 @@ package com.owncloud.android.ui.activity
 
 import android.content.Intent
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.test.GrantStoragePermissionRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.utils.FileStorageUtils
@@ -44,21 +45,23 @@ class UploadFilesActivityIT : AbstractIT() {
     fun noneSelected() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
 
-        sut.runOnUiThread {
-            sut.fileListFragment.setFiles(
-                directories +
-                    listOf(
-                        File("1.txt"),
-                        File("2.pdf"),
-                        File("3.mp3")
-                    )
-            )
+        InstrumentationRegistry.getInstrumentation().waitForIdle {
+            sut.runOnUiThread {
+                sut.fileListFragment.setFiles(
+                    directories +
+                        listOf(
+                            File("1.txt"),
+                            File("2.pdf"),
+                            File("3.mp3")
+                        )
+                )
+            }
+
+            waitForIdleSync()
+            longSleep()
+
+            screenshot(sut.fileListFragment.binding.emptyList.emptyListView)
         }
-
-        waitForIdleSync()
-        longSleep()
-
-        screenshot(sut.fileListFragment.binding.emptyList.emptyListView)
     }
 
     @Test
