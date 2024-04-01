@@ -11,6 +11,7 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.platform.app.InstrumentationRegistry
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
 import com.owncloud.android.lib.common.accounts.AccountUtils
@@ -86,12 +87,11 @@ class TrashbinActivityIT : AbstractIT() {
         val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
 
         sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-
-        sut.runOnUiThread { sut.showInitialLoading() }
-
-        shortSleep()
-
-        screenshot(sut.binding.listFragmentLayout)
+        InstrumentationRegistry.getInstrumentation().waitForIdle {
+            sut.runOnUiThread { sut.showInitialLoading() }
+            shortSleep()
+            screenshot(sut)
+        }
     }
 
     @Test
