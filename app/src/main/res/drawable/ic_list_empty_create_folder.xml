@@ -1,6 +1,16 @@
-<vector android:height="72dp" android:viewportHeight="17.066668"
-    android:viewportWidth="17.066668" android:width="72dp" xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillAlpha="0.5" android:fillColor="#0082c9"
-        android:pathData="m1.5542,2.1292c-0.2667,0 -0.4917,0.225 -0.4917,0.4917L1.0625,14.4396c0,0.2773 0.2165,0.4896 0.4917,0.4896L15.5063,14.9292c0.2752,0 0.4896,-0.2123 0.4896,-0.4896L15.9958,4.7583c0,-0.2667 -0.2229,-0.4958 -0.4896,-0.4958L8.5292,4.2625L6.3958,2.1292ZM10.6354,6.6521h1.425L12.0604,8.8h2.1417v1.425h-2.1417v2.1375h-1.425L10.6354,10.225L8.4896,10.225L8.4896,8.8h2.1458z"
-        android:strokeAlpha="0.5" android:strokeWidth="1.06666672"/>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018-2024 Google LLC
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:tint="#0082c9"
+    android:viewportWidth="960"
+    android:viewportHeight="960">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M560,640L640,640L640,560L720,560L720,480L640,480L640,400L560,400L560,480L480,480L480,560L560,560L560,640ZM160,800Q127,800 103.5,776.5Q80,753 80,720L80,240Q80,207 103.5,183.5Q127,160 160,160L400,160L480,240L800,240Q833,240 856.5,263.5Q880,287 880,320L880,720Q880,753 856.5,776.5Q833,800 800,800L160,800Z" />
 </vector>
