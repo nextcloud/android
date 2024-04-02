@@ -106,11 +106,9 @@ public class RemoveFilesDialogFragment extends ConfirmationDialogFragment implem
 
         if (containsFolder || containsDown) {
             args.putInt(ARG_NEGATIVE_BTN_RES, R.string.confirmation_remove_local);
-            args.putInt(ARG_NEUTRAL_BTN_RES, R.string.file_keep);
-        } else {
-            args.putInt(ARG_NEGATIVE_BTN_RES, R.string.file_keep);
         }
 
+        args.putInt(ARG_NEUTRAL_BTN_RES, R.string.file_keep);
         args.putParcelableArrayList(ARG_TARGET_FILES, files);
         frag.setArguments(args);
 

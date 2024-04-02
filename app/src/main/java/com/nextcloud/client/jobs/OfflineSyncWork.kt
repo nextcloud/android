@@ -115,8 +115,12 @@ class OfflineSyncWork constructor(
      * @return new etag if changed, `null` otherwise
      */
     private fun checkEtagChanged(folderName: String, storageManager: FileDataStorageManager, user: User): String? {
-        val ocFolder = storageManager.getFileByPath(folderName)
-        Log_OC.d(TAG, folderName + ": currentEtag: " + ocFolder.etag)
+        val ocFolder = storageManager.getFileByPath(folderName) ?: return null
+
+        ocFolder.etag?.let {
+            Log_OC.d(TAG, "$folderName: currentEtag: $it")
+        }
+
         // check for etag change, if false, skip
         val checkEtagOperation = CheckEtagRemoteOperation(
             ocFolder.remotePath,
