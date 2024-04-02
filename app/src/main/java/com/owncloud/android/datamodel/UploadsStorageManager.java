@@ -256,7 +256,7 @@ public class UploadsStorageManager extends Observable {
      * @param localPath  path of the file to upload in the device storage
      * @return 1 if file status was updated, else 0.
      */
-    private int updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath,
+    public int updateUploadStatus(long id, UploadStatus status, UploadResult result, String remotePath,
                                    String localPath) {
         //Log_OC.v(TAG, "Updating "+filepath+" with uploadStatus="+status +" and result="+result);
 

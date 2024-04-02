@@ -23,6 +23,7 @@ package com.owncloud.android.operations;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
 
@@ -98,6 +99,9 @@ import javax.crypto.Cipher;
 
 import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+
+import static com.owncloud.android.ui.activity.FileDisplayActivity.REFRESH_FOLDER_EVENT_RECEIVER;
 
 
 /**
@@ -466,6 +470,7 @@ public class UploadFileOperation extends SyncOperation {
             if (result != null) {
                 return result;
             }
+
             /***** E2E *****/
             // Only on V2+: whenever we change something, increase counter
             long counter = -1;
@@ -485,12 +490,6 @@ public class UploadFileOperation extends SyncOperation {
 
             // Update metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
-//            kotlin.Pair<Boolean, DecryptedFolderMetadataFile> metadataPair =
-//                encryptionUtilsV2.retrieveMetadata(parentFile,
-//                                                   client,
-//                                                   user,
-//                                                   mContext);
-
             Object object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
             if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
                 metadataExists = true;
@@ -706,10 +705,6 @@ public class UploadFileOperation extends SyncOperation {
 
                     // unlock
                     result = EncryptionUtils.unlockFolderV1(parentFile, client, token);
-
-                    if (result.isSuccess()) {
-                        token = null;
-                    }
                 } else {
                     DecryptedFolderMetadataFile metadata = (DecryptedFolderMetadataFile) object;
                     encryptionUtilsV2.addFileToMetadata(
@@ -733,10 +728,6 @@ public class UploadFileOperation extends SyncOperation {
 
                     // unlock
                     result = EncryptionUtils.unlockFolder(parentFile, client, token);
-
-                    if (result.isSuccess()) {
-                        token = null;
-                    }
                 }
 
                 encryptedTempFile.delete();
@@ -751,6 +742,7 @@ public class UploadFileOperation extends SyncOperation {
             result = new RemoteOperationResult(e);
         } finally {
             mUploadStarted.set(false);
+            sendRefreshFolderEventBroadcast();
 
             if (fileLock != null) {
                 try {
@@ -768,6 +760,17 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
+
+            // unlock must be done always
+            if (token != null) {
+                RemoteOperationResult<Void> unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
+                                                                                              client,
+                                                                                              token);
+
+                if (!unlockFolderResult.isSuccess()) {
+                    result = unlockFolderResult;
+                }
+            }
         }
 
         if (result.isSuccess()) {
@@ -776,23 +779,17 @@ public class UploadFileOperation extends SyncOperation {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
 
-        // unlock must be done always
-        if (token != null) {
-            RemoteOperationResult unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
-                                                                                    client,
-                                                                                    token);
-
-            if (!unlockFolderResult.isSuccess()) {
-                return unlockFolderResult;
-            }
-        }
-
         // delete temporal file
         if (temporalFile != null && temporalFile.exists() && !temporalFile.delete()) {
             Log_OC.e(TAG, "Could not delete temporal file " + temporalFile.getAbsolutePath());
         }
 
         return result;
+    }
+
+    private void sendRefreshFolderEventBroadcast() {
+        Intent intent = new Intent(REFRESH_FOLDER_EVENT_RECEIVER);
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
     private RemoteOperationResult checkConditions(File originalFile) {
@@ -1001,8 +998,11 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
+    public static String uploadedSourcePath;
+
     private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {
         if (result.isSuccess()) {
+            uploadedSourcePath = sourcePath;
             Log_OC.i(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
         } else {
             if (result.getException() != null) {
