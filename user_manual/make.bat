@@ -1,5 +1,8 @@
 @ECHO OFF
 
+REM SPDX-FileCopyrightText: 2015 Carla Schroder
+REM SPDX-License-Identifier: GPL-2.0-only
+
 REM Command file for Sphinx documentation
 
 if "%SPHINXBUILD%" == "" (

@@ -7,10 +7,22 @@ Files: gradle/wrapper/gradle-wrapper.jar
 Copyright: 2015-2021 the original authors
 License: Apache-2.0
 
+Files: user_manual/images/android-1.png user_manual/images/android-2.png user_manual/images/android-3.png user_manual/images/android-4.png user_manual/images/android-10.png user_manual/images/davdroid-1-button-in-nextcloud-app.png user_manual/images/davdroid-2-install-davdroid.png user_manual/images/davdroid-3-enter-password.png user_manual/images/davdroid-4-specify-owner-email.png
+Copyright: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+License: AGPL-3.0-or-later
+
+Files: user_manual/conf.py user_manual/android_app.rst user_manual/index.rst user_manual/conf.py user_manual/Makefile
+Copyright: 2015-2016 ownCloud Inc., 2016-2024 Nextcloud GmbH
+License: GPL-2.0-only
+
+Files: user_manual/images/android-11.png user_manual/images/android-12.png user_manual/images/android-13.png user_manual/images/android-14.png user_manual/images/android-15.png user_manual/images/android-5.png user_manual/images/android-6.png user_manual/images/android-8.png user_manual/images/android-9.png
+Copyright: 2015-2016 ownCloud Inc.
+License: GPL-2.0-only
+
 Files: app/src/*/res/mipmap-*dpi/ic_launcher.png app/src/*/ic_launcher-web.png src/generic/fastlane/metadata/android/en-US/images/icon.png src/versionDev/fastlane/metadata/android/en-US/images/icon.png app/src/main/ic_launcher-web-round.png
 Copyright: 2017-2024 Nextcloud GmbH. All rights reserved. Trademarks apply, see https://nextcloud.com/trademarks/
 License: AGPL-3.0-or-later
 
-Files: .idea/* app/schemas/com.nextcloud.client.database.NextcloudDatabase/*.json app/screenshots/gplay/debug/*.png app/src/main/res/values-*/strings.xml src/*/fastlane/metadata/android/*/*.txt src/versionDev/fastlane/metadata/android/*/changelogs/*.txt app/src/androidTest/assets/* app/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker app/src/*/google-services.json app/src/main/res/drawable-*dpi/checker_16_16.png
+Files: .idea/* app/schemas/com.nextcloud.client.database.NextcloudDatabase/*.json app/screenshots/gplay/debug/*.png app/src/main/res/values-*/strings.xml src/*/fastlane/metadata/android/*/*.txt src/versionDev/fastlane/metadata/android/*/changelogs/*.txt app/src/androidTest/assets/* app/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker app/src/*/google-services.json app/src/main/res/drawable-*dpi/checker_16_16.png app/src/main/res/raw/encryption_key_words.txt app/src/main/resources/ical4j.properties app/src/main/res/drawable-*dpi/apk.png app/src/main/res/drawable-*dpi/fdroid.png app/src/main/res/drawable-*dpi/playstore.png app/src/main/res/drawable-*dpi/background.png app/src/main/res/drawable-*dpi/background_nc18.png
 Copyright: 2016-2024 Nextcloud GmbH and Nextcloud contributors
 License: AGPL-3.0-or-later
