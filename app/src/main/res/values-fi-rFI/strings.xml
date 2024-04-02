@@ -14,7 +14,9 @@
     <string name="action_send_share">Lähetä/jaa</string>
     <string name="action_switch_grid_view">Ruudukkonäkymä</string>
     <string name="action_switch_list_view">Luettelonäkymä</string>
+    <string name="actionbar_calendar_contacts_restore">Palauta yhteystiedot ja kalenteri</string>
     <string name="actionbar_mkdir">Uusi kansio</string>
+    <string name="actionbar_move_or_copy">Siirrä tai kopioi</string>
     <string name="actionbar_open_with">Avaa sovelluksella</string>
     <string name="actionbar_search">Etsi</string>
     <string name="actionbar_see_details">Tiedot</string>
@@ -35,7 +37,11 @@
     <string name="app_widget_description">Näyttää yhden pienoissovelluksen konsolista</string>
     <string name="appbar_search_in">Etsi kohteesta %s</string>
     <string name="assistant_screen_all_task_type">Kaikki</string>
+    <string name="assistant_screen_delete_task_alert_dialog_description">Haluatko varmasti poistaa tämän tehtävän?</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Poista tehtävä</string>
+    <string name="assistant_screen_task_create_success_message">Tehtävä luotu</string>
     <string name="assistant_screen_task_delete_fail_message">Tehtävä poistettu</string>
+    <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Poista tehtävä</string>
     <string name="assistant_screen_task_view_show_less">Näytä vähemmän</string>
     <string name="assistant_screen_task_view_show_more">Näytä enemmän</string>
     <string name="associated_account_not_found">Liitettyä tiliä ei löydy!</string>
@@ -400,6 +406,15 @@
     <string name="icon_for_empty_list">Kuvake tyhjälle listalle</string>
     <string name="icon_of_dashboard_widget">Pienoissovelluksen kuvake</string>
     <string name="icon_of_widget_entry">Widgetin merkinnän kuvake</string>
+    <string name="image_editor_rotate_ccw">Kierrä vastapäivään</string>
+    <string name="image_editor_rotate_cw">Kierrä myötäpäivään</string>
+    <string name="image_editor_unable_to_edit_image">Kuvaa ei voi muokata.</string>
+    <string name="image_preview_filedetails">Tiedoston yksityiskohdat</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">kansiossa %1$s</string>
     <string name="instant_upload_existing">Siirrä myös olemassaolevat tiedostot palvelimelle</string>
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
@@ -427,6 +442,7 @@
     <string name="locked_by_app">Lukinnut %1$s sovellus</string>
     <string name="log_send_mail_subject">%1$sin Android-sovelluksen lokit</string>
     <string name="log_send_no_mail_app">Sovellusta ei löytynyt lokien lähettämistä varten. Asenna sähköpostisovellus.</string>
+    <string name="logged_in_as">Kirjautuneena tilillä %1$s</string>
     <string name="login">Kirjaudu sisään</string>
     <string name="login_url_helper_text">Linkki %1$s selainkäyttöliittymääsi.</string>
     <string name="logs_menu_delete">Poista lokitiedot</string>
@@ -540,6 +556,7 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Nimeä uusi versio uudelleen</string>
     <string name="pref_instant_name_collision_policy_title">Mitä tehdään, jos tiedosto on jo olemassa?</string>
     <string name="prefs_add_account">Lisää tili</string>
+    <string name="prefs_calendar_contacts">Synkronoi kalenteri ja yhteystiedot</string>
     <string name="prefs_calendar_contacts_no_store_error">Sekä F-Droid että Google Play asentamatta</string>
     <string name="prefs_calendar_contacts_summary">Aseta DAVx5 (tunnettu nimellä DAVdroid) (v1.3.0+) nykyiselle tilille</string>
     <string name="prefs_category_about">Tietoja</string>
@@ -604,6 +621,8 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="remove_e2e">Voit poistaa päästä päähän -salauksen paikallisesti tästä asiakasohjelmasta</string>
     <string name="remove_e2e_message">Voit poistaa päästä päähän -salauksen paikallisesti tästä asiakasohjelmasta. Salatut tiedostot säilyvät palvelimella, mutta niitä ei synkronoida enää tähän tietokoneeseen.</string>
     <string name="remove_fail_msg">Poistaminen epäonnistui</string>
+    <string name="remove_local_account">Poista paikallinen tili</string>
+    <string name="remove_local_account_details">Poista tili laitteelta ja poista kaikki paikalliset tiedostot</string>
     <string name="remove_notification_failed">Ilmoitusta ei voitu poistaa</string>
     <string name="remove_push_notification">Poista</string>
     <string name="remove_success_msg">Poistettu</string>
@@ -631,6 +650,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="screenshot_04_accounts_heading">Kaikki tilisi</string>
     <string name="screenshot_04_accounts_subline">yhdessä paikassa</string>
     <string name="screenshot_05_autoUpload_heading">Automaattinen lähetys</string>
+    <string name="screenshot_06_davdroid_heading">Kalenteri ja yhteystiedot</string>
     <string name="screenshot_06_davdroid_subline">Synkronoi DAVx5:llä</string>
     <string name="search_error">Virhe hakutulosten noutamisessa</string>
     <string name="select_all">Valitse kaikki</string>
@@ -646,6 +666,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="set_status">Aseta tilatieto</string>
     <string name="set_status_message">Aseta tilaviesti</string>
     <string name="share">Jaa</string>
+    <string name="share_copy_link">Jaa ja kopioi linkki</string>
     <string name="share_dialog_title">Jakaminen</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vanhenee %1$s</string>
@@ -735,10 +756,13 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="stream_not_possible_headline">Suoratoisto internetiin ei onnistu</string>
     <string name="stream_not_possible_message">Ole hyvä ja lataa media tai käytä ulkopuolista sovellusta.</string>
     <string name="strict_mode">Strict-tila: HTTP-yhteyksiä ei sallita!</string>
+    <string name="sub_folder_rule_day">Vuosi/kuukausi/päivä</string>
+    <string name="sub_folder_rule_month">Vuosi/kuukausi</string>
     <string name="sub_folder_rule_year">Vuosi</string>
     <string name="subject_shared_with_you">\"%1$s\" on jaettu kanssasi</string>
     <string name="subject_user_shared_with_you">%1$s jakoi kohteen \"%2$s\" kanssasi</string>
     <string name="subtitle_photos_only">Vain kuvat</string>
+    <string name="subtitle_photos_videos">Kuvat ja videot</string>
     <string name="subtitle_videos_only">Vain videot</string>
     <string name="suggest">Ehdota</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
