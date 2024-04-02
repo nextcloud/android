@@ -40,7 +40,7 @@ public class SystemDefaultStoragePointProvider extends AbstractStoragePointProvi
     public Vector<StoragePoint> getAvailableStoragePoint() {
         Vector<StoragePoint> result = new Vector<>();
 
-        final String defaultStringDesc = MainApp.string(R.string.storage_description_default);
+        final String defaultStringDesc = MainApp.getAppContext().getString(R.string.storage_description_default);
         // Add private internal storage data directory.
         result.add(new StoragePoint(defaultStringDesc,
                 MainApp.getAppContext().getFilesDir().getAbsolutePath(), StoragePoint.StorageType.INTERNAL,

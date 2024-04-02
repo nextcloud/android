@@ -53,8 +53,6 @@
     <string name="assistant_screen_running_task_text">In Progress</string>
 
     <string name="assistant_screen_all_task_type">All</string>
-    <string name="assistant_screen_task_view_show_more">Show more</string>
-    <string name="assistant_screen_task_view_show_less">Show less</string>
 
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_all_files">All files</string>

@@ -180,7 +180,7 @@ public final class DisplayUtils {
      */
     public static String bytesToHumanReadable(long bytes) {
         if (bytes < 0) {
-            return MainApp.string(R.string.common_pending);
+            return MainApp.getAppContext().getString(R.string.common_pending);
         } else {
             double result = bytes;
             int suffixIndex = 0;

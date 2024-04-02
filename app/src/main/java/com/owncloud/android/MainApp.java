@@ -647,13 +647,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
     }
 
-    public static String string(int id, Object formatArgs) {
-        return MainApp.mContext.getString(id, formatArgs);
-    }
-
-    public static String string(int id) {
-        return MainApp.mContext.getString(id);
-    }
 
     public static Context getAppContext() {
         return MainApp.mContext;
@@ -681,32 +674,32 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     //  From AccountAuthenticator
     //  public static final String AUTHORITY = "org.owncloud";
     public static String getAuthority() {
-        return string(R.string.authority);
+        return getAppContext().getResources().getString(R.string.authority);
     }
 
     //  From AccountAuthenticator
     //  public static final String AUTH_TOKEN_TYPE = "org.owncloud";
     public static String getAuthTokenType() {
-        return string(R.string.authority);
+        return getAppContext().getResources().getString(R.string.authority);
     }
 
     //  From ProviderMeta
     //  public static final String DB_FILE = "owncloud.db";
     public static String getDBFile() {
-        return string(R.string.db_file);
+        return getAppContext().getResources().getString(R.string.db_file);
     }
 
     //  From ProviderMeta
     //  private final String mDatabaseName = "ownCloud";
     public static String getDBName() {
-        return string(R.string.db_name);
+        return getAppContext().getResources().getString(R.string.db_name);
     }
 
     /**
      * name of data_folder, e.g., "owncloud"
      */
     public static String getDataFolder() {
-        return string(R.string.data_folder);
+        return getAppContext().getResources().getString(R.string.data_folder);
     }
 
     public static void showOnlyFilesOnDevice(boolean state) {
@@ -732,8 +725,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     // user agent
     private static String getUserAgent(@StringRes int agent) {
-        String appString = string(agent);
-        String brandedName = string(R.string.name_for_branded_user_agent);
+        String appString = getAppContext().getResources().getString(agent);
+        String brandedName = getAppContext().getString(R.string.name_for_branded_user_agent);
         String packageName = getAppContext().getPackageName();
         String version = "";
 
