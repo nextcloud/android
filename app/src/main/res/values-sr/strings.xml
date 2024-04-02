@@ -48,7 +48,9 @@
     <string name="assistant_screen_task_create_success_message">Задатак је успешно креиран</string>
     <string name="assistant_screen_task_delete_fail_message">Задатак је успешно завршен</string>
     <string name="assistant_screen_task_delete_success_message">Дошло је до грешке током брисања задатка</string>
+    <string name="assistant_screen_task_list_error_state_message">Не може да се преузме листа задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Обриши задатак</string>
+    <string name="assistant_screen_task_types_error_state_message">Не могу да се преузму типови задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_task_view_show_less">Прикажи мање</string>
     <string name="assistant_screen_task_view_show_more">Прикажи више</string>
     <string name="assistant_screen_top_bar_title">Асистент</string>

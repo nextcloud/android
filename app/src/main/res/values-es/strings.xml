@@ -239,7 +239,7 @@
     <string name="downloader_unexpected_error">Ocurrió un error inesperado mientras se descargaban archivos</string>
     <string name="drawer_close">Cerrar barra lateral</string>
     <string name="drawer_community">Comunidad</string>
-    <string name="drawer_header_background">Imagen de fondo de la cabecera del cajón</string>
+    <string name="drawer_header_background">Imagen de fondo del encabezado del cajón</string>
     <string name="drawer_item_activities">Actividades</string>
     <string name="drawer_item_all_files">Todos los archivos</string>
     <string name="drawer_item_favorites">Favoritos</string>
