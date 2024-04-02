@@ -9,8 +9,8 @@ License: Apache-2.0
 
 Files: app/src/*/res/mipmap-*dpi/ic_launcher.png app/src/*/ic_launcher-web.png src/generic/fastlane/metadata/android/en-US/images/icon.png src/versionDev/fastlane/metadata/android/en-US/images/icon.png app/src/main/ic_launcher-web-round.png
 Copyright: 2017-2024 Nextcloud GmbH. All rights reserved. Trademarks apply, see https://nextcloud.com/trademarks/
-License: GPL-3.0-or-later
+License: AGPL-3.0-or-later
 
-Files: .idea/* app/schemas/com.nextcloud.client.database.NextcloudDatabase/*.json app/screenshots/gplay/debug/*.png app/src/main/res/values-*/strings.xml src/*/fastlane/metadata/android/*/*.txt src/versionDev/fastlane/metadata/android/*/changelogs/*.txt app/src/androidTest/assets/* app/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker app/src/*/google-services.json
+Files: .idea/* app/schemas/com.nextcloud.client.database.NextcloudDatabase/*.json app/screenshots/gplay/debug/*.png app/src/main/res/values-*/strings.xml src/*/fastlane/metadata/android/*/*.txt src/versionDev/fastlane/metadata/android/*/changelogs/*.txt app/src/androidTest/assets/* app/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker app/src/*/google-services.json app/src/main/res/drawable-*dpi/checker_16_16.png
 Copyright: 2016-2024 Nextcloud GmbH and Nextcloud contributors
 License: AGPL-3.0-or-later
