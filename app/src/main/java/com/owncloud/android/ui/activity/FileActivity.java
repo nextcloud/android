@@ -520,17 +520,20 @@ public abstract class FileActivity extends DrawerActivity
      * Show loading dialog
      */
     public void showLoadingDialog(String message) {
-        // grant that only one waiting dialog is shown
-        dismissLoadingDialog();
-        // Construct dialog
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
-        if (frag == null) {
-            Log_OC.d(TAG, "show loading dialog");
-            LoadingDialog loading = LoadingDialog.newInstance(message);
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            loading.show(ft, DIALOG_WAIT_TAG);
-            fm.executePendingTransactions();
+
+        if (mResumed) {
+            // grant that only one waiting dialog is shown
+            dismissLoadingDialog();
+            // Construct dialog
+            Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
+            if (frag == null) {
+                Log_OC.d(TAG, "show loading dialog");
+                LoadingDialog loading = LoadingDialog.newInstance(message);
+                FragmentManager fm = getSupportFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                loading.show(ft, DIALOG_WAIT_TAG);
+                fm.executePendingTransactions();
+            }
         }
     }
 
