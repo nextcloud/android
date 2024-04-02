@@ -51,8 +51,6 @@
     <string name="assistant_screen_task_list_error_state_message">無法擷取任務清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除任務</string>
     <string name="assistant_screen_task_types_error_state_message">無法擷取任務類型，請檢查您的網際網路連線。</string>
-    <string name="assistant_screen_task_view_show_less">顯示較少</string>
-    <string name="assistant_screen_task_view_show_more">顯示更多</string>
     <string name="assistant_screen_top_bar_title">助手</string>
     <string name="associated_account_not_found">無法找到連結賬戶</string>
     <string name="auth_access_failed">存取失敗：%1$s</string>

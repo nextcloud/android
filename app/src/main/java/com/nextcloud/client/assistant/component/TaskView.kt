@@ -11,13 +11,17 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -27,14 +31,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nextcloud.client.assistant.extensions.statusData
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
@@ -90,19 +97,38 @@ fun TaskView(
             )
         }
 
-        if ((task.output?.length ?: 0) >= 100) {
-            Text(
-                text = if (!expanded) {
-                    stringResource(id = R.string.assistant_screen_task_view_show_more)
-                } else {
-                    stringResource(id = R.string.assistant_screen_task_view_show_less)
-                },
-                textAlign = TextAlign.End,
-                color = Color.White,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            val (iconId, descriptionId) = task.statusData()
+
+            Image(
+                painter = painterResource(id = iconId),
+                modifier = Modifier.size(16.dp),
+                colorFilter = ColorFilter.tint(Color.White),
+                contentDescription = "status icon"
             )
+
+            Spacer(modifier = Modifier.width(6.dp))
+
+            Text(text = stringResource(id = descriptionId), color = Color.White)
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            if ((task.output?.length ?: 0) >= 100) {
+                Image(
+                    painter = painterResource(
+                        id = if (!expanded) R.drawable.ic_expand_more else R.drawable.ic_expand_less
+                    ),
+                    contentDescription = "expand content icon",
+                    colorFilter = ColorFilter.tint(Color.White)
+                )
+            }
+
+            Spacer(modifier = Modifier.width(8.dp))
         }
 
         if (showMoreActionsBottomSheet) {

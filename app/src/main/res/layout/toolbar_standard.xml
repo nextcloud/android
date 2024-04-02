@@ -56,7 +56,7 @@
                 android:textAllCaps="false"
                 android:textColor="@color/fontAppbar"
                 android:textSize="14sp"
-                app:icon="@drawable/ic_keyboard_arrow_down"
+                app:icon="@drawable/ic_expand_more"
                 app:iconGravity="textEnd"
                 app:iconSize="16dp"
                 app:iconTint="@color/fontAppbar"

@@ -46,9 +46,13 @@
 
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
 
+    <string name="assistant_screen_unknown_task_status_text">Unknown</string>
+    <string name="assistant_screen_scheduled_task_status_text">Scheduled</string>
+    <string name="assistant_screen_successful_task_text">Completed</string>
+    <string name="assistant_screen_failed_task_text">Failed</string>
+    <string name="assistant_screen_running_task_text">In Progress</string>
+
     <string name="assistant_screen_all_task_type">All</string>
-    <string name="assistant_screen_task_view_show_more">Show more</string>
-    <string name="assistant_screen_task_view_show_less">Show less</string>
 
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_all_files">All files</string>
