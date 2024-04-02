@@ -998,11 +998,19 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    public static String uploadedSourcePath;
+    private String uploadedSourcePath;
+
+    public String getUploadedSourcePath(){
+        return uploadedSourcePath;
+    }
+
+    public void setUploadedSourcePath(String uploadedSourcePath){
+        this.uploadedSourcePath = uploadedSourcePath;
+    }
 
     private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {
         if (result.isSuccess()) {
-            uploadedSourcePath = sourcePath;
+            setUploadedSourcePath(sourcePath);
             Log_OC.i(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
         } else {
             if (result.getException() != null) {
