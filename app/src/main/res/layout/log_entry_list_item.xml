@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2020 Stefan Niedermann <info@niedermann.it>
+  ~ SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:padding="@dimen/standard_quarter_margin">
 
     <TextView
         android:id="@+id/log_entry_list_item_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:ellipsize="end"
         android:lines="1"
+        android:textStyle="bold"
         tools:text="@tools:sample/lorem/random" />
 
     <TextView

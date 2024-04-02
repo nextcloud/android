@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.owncloud.android.ui.preview;
 
 import android.os.Bundle;
@@ -13,9 +19,8 @@ import androidx.annotation.Nullable;
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
 
 /**
- * A fragment showing an error message
+ * A fragment showing an error message.
  */
-
 public class PreviewImageErrorFragment extends FileFragment {
     @Nullable
     @Override

@@ -1,5 +1,10 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.owncloud.android.ui.fragment;
-
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

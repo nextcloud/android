@@ -1,3 +1,10 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
+ * SPDX-FileCopyrightText: 2021 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.owncloud.android.ui.unifiedsearch
 
 import com.owncloud.android.lib.common.SearchResultEntry
