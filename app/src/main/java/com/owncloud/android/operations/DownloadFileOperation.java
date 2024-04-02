@@ -275,7 +275,8 @@ public class DownloadFileOperation extends RemoteOperation {
 
             if (downloadType == DownloadType.DOWNLOAD && !file.isEncrypted()) {
                 moved = tmpFile.renameTo(newFile);
-                newFile.setLastModified(file.getModificationTimestamp());
+                boolean isLastModifiedSet = newFile.setLastModified(file.getModificationTimestamp());
+                Log_OC.d(TAG, "Last modified set: " + isLastModifiedSet);
                 if (!moved) {
                     result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
                 }
