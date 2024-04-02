@@ -31,6 +31,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.DrawerActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.lang.ref.WeakReference
 
 class ComposeActivity : DrawerActivity() {
 
@@ -98,7 +99,8 @@ class ComposeActivity : DrawerActivity() {
             nextcloudClient?.let { client ->
                 AssistantScreen(
                     viewModel = AssistantViewModel(
-                        repository = AssistantRepository(client)
+                        repository = AssistantRepository(client),
+                        context = WeakReference(this)
                     ),
                     activity = this
                 )
