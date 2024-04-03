@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
@@ -137,9 +143,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         sessionMixin.setUser(user);
     }
 
-    /**
-     * Launches the account creation activity.
-     */
     protected void startAccountCreation() {
         sessionMixin.startAccountCreation();
     }

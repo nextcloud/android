@@ -7,20 +7,25 @@
  */
 package com.nextcloud.client.assistant
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.repository.AssistantRepositoryType
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.lang.ref.WeakReference
 
-class AssistantViewModel(private val repository: AssistantRepositoryType) : ViewModel() {
+class AssistantViewModel(
+    private val repository: AssistantRepositoryType,
+    private val context: WeakReference<Context>
+) : ViewModel() {
 
     sealed class State {
         data object Idle : State()
@@ -45,10 +50,11 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
     val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
 
     init {
-        getTaskTypes()
-        getTaskList()
+        fetchTaskTypes()
+        fetchTaskList()
     }
 
+    @Suppress("MagicNumber")
     fun createTask(
         input: String,
         type: String
@@ -65,6 +71,9 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
             _state.update {
                 State.TaskCreated(messageId)
             }
+
+            delay(2000L)
+            fetchTaskList()
         }
     }
 
@@ -75,21 +84,21 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
         }
     }
 
-    private fun getTaskTypes() {
+    private fun fetchTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val allTaskType = MainApp.getAppContext().getString(R.string.assistant_screen_all_task_type)
+            val allTaskType = context.get()?.getString(R.string.assistant_screen_all_task_type)
+            val excludedIds = listOf("OCA\\ContextChat\\TextProcessing\\ContextChatTaskType")
             val result = arrayListOf(TaskType(null, allTaskType, null))
             val taskTypesResult = repository.getTaskTypes()
 
             if (taskTypesResult.isSuccess) {
-                result.addAll(taskTypesResult.resultData.types)
+                val excludedTaskTypes = taskTypesResult.resultData.types.filter { item -> item.id !in excludedIds }
+                result.addAll(excludedTaskTypes)
                 _taskTypes.update {
                     result.toList()
                 }
 
-                _selectedTaskType.update {
-                    result.first()
-                }
+                selectTaskType(result.first())
             } else {
                 _state.update {
                     State.Error(R.string.assistant_screen_task_types_error_state_message)
@@ -98,7 +107,7 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
         }
     }
 
-    fun getTaskList(appId: String = "assistant", onCompleted: () -> Unit = {}) {
+    fun fetchTaskList(appId: String = "assistant", onCompleted: () -> Unit = {}) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getTaskList(appId)
             if (result.isSuccess) {
@@ -153,6 +162,12 @@ class AssistantViewModel(private val repository: AssistantRepositoryType) : View
         } else {
             _filteredTaskList.update {
                 _taskList?.filter { it.type == taskTypeId }
+            }
+        }
+
+        _filteredTaskList.update {
+            it?.sortedByDescending { task ->
+                task.id
             }
         }
     }

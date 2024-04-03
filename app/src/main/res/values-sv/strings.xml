@@ -48,7 +48,9 @@
     <string name="assistant_screen_task_create_success_message">Uppgiften har skapats</string>
     <string name="assistant_screen_task_delete_fail_message">Uppgiften har raderats</string>
     <string name="assistant_screen_task_delete_success_message">Ett fel uppstod när uppgiften skulle tas bort</string>
+    <string name="assistant_screen_task_list_error_state_message">Det går inte att hämta uppgiftslistan, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ta bort uppgift</string>
+    <string name="assistant_screen_task_types_error_state_message">Det går inte att hämta uppgiftstyper, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_task_view_show_less">Visa mindre</string>
     <string name="assistant_screen_task_view_show_more">Visa mer</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>

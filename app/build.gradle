@@ -296,7 +296,7 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.6.2"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
-    implementation 'commons-io:commons-io:2.15.1'
+    implementation 'commons-io:commons-io:2.16.0'
     implementation 'org.greenrobot:eventbus:3.3.1'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
     implementation 'org.lukhnos:nnio:0.3'

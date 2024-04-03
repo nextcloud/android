@@ -3,7 +3,7 @@
  *
  * @author David Luhmer
  * @author Andy Scherzinger
- * Copyright (C) 2018 David Luhmer
+ * Copyright (C) 2018 David Luhmer <david-dev@live.de>
  * Copyright (C) 2018 Andy Scherzinger
  *
  * This program is free software: you can redistribute it and/or modify
