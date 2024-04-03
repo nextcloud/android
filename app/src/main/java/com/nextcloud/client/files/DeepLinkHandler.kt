@@ -79,5 +79,5 @@ class DeepLinkHandler(
     }
 
     private fun getMatchingUsers(serverBaseUrl: String): List<User> =
-        users.filter { serverBaseUrl.contains(it.server.uri.toString())  }
+        users.filter { serverBaseUrl.contains(it.server.uri.toString()) }
 }
