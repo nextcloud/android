@@ -254,7 +254,7 @@ class FileUploadWorker(
             )
             notificationManager.dismissOldErrorNotification(operation)
         } else {
-            if (!(isStopped && result.isCancelled)) {
+            if (!isStopped || !result.isCancelled) {
                 uploadsStorageManager.updateDatabaseUploadResult(result, operation)
                 notifyUploadResult(operation, result)
             }
