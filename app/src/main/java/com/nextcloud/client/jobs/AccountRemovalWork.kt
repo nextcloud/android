@@ -33,7 +33,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
-import com.nextcloud.java.util.Optional
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -55,6 +54,7 @@ import com.owncloud.android.ui.events.AccountRemovedEvent
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.PushUtils
 import org.greenrobot.eventbus.EventBus
+import java.util.Optional
 
 /**
  * Removes account and all local files

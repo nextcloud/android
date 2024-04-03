@@ -27,11 +27,11 @@ import android.content.Intent
 import android.os.Bundle
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.java.util.Optional
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.utils.theme.CapabilityUtils
+import java.util.Optional
 
 /**
  * Session mixin collects all account / user handling logic currently

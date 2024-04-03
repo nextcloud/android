@@ -28,7 +28,6 @@ import android.content.res.Resources;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManagerImpl;
-import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -37,6 +36,7 @@ import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 public final class CapabilityUtils {
     private static final Map<String, OCCapability> cachedCapabilities = new HashMap<>();

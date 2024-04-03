@@ -21,8 +21,8 @@ package com.nextcloud.client.integrations.deck
 
 import android.app.PendingIntent
 import com.nextcloud.client.account.User
-import com.nextcloud.java.util.Optional
 import com.owncloud.android.lib.resources.notifications.models.Notification
+import java.util.Optional
 
 /**
  * This API is for an integration with the [Nextcloud
@@ -41,5 +41,5 @@ interface DeckApi {
     fun createForwardToDeckActionIntent(
         notification: Notification,
         user: User
-    ): Optional<PendingIntent?>
+    ): Optional<PendingIntent>
 }
