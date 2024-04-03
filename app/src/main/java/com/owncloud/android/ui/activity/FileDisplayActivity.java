@@ -92,8 +92,11 @@ import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
+import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
@@ -136,6 +139,7 @@ import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.PushUtils;
@@ -150,6 +154,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -2390,7 +2395,10 @@ public class FileDisplayActivity extends FileActivity
             setFile(file);
             showFile(file, "");
         } else {
-            showFile(null, getString(R.string.file_not_found));
+            Object result = new ReadFolderRemoteOperation(shareLink).execute(user, this).getResultData();
+            OCFile remoteFile = FileStorageUtils.fillOCFile((RemoteFile) result);
+            setFile(remoteFile);
+            showFile(remoteFile, "");
         }
     }
 
