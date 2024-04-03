@@ -2383,6 +2383,7 @@ public class FileDisplayActivity extends FileActivity
 
         // TODO listen onRefresh
         // Handle if file not exist download that file
+        // handle f versions of deeplink
         // Fix DeepLinkHandler test
         OCFile file = storageManager.getFileByDecryptedRemotePath(shareLink);
         Log_OC.d(TAG, "Fetched file via deeplink: " + file);

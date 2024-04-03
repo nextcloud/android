@@ -71,27 +71,27 @@ class DeepLinkHandlerTest {
         lateinit var baseUrl: String
 
         @Parameterized.Parameter(1)
-        lateinit var indexPath: String
+        lateinit var path: String
 
         @Parameterized.Parameter(2)
-        lateinit var fileId: String
+        lateinit var fileExtensions: String
 
         @Parameterized.Parameter(3)
         lateinit var url: String
 
         @Test
         fun matches_deep_link_patterns() {
-            val match = DeepLinkHandler.DEEP_LINK_PATTERN.matchEntire(url)
+            val match = DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(url)
             assertNotNull("Url [$url] does not match pattern", match)
             assertEquals(baseUrl, match?.groupValues?.get(DeepLinkHandler.BASE_URL_GROUP_INDEX))
-            assertEquals(indexPath, match?.groupValues?.get(DeepLinkHandler.INDEX_PATH_GROUP_INDEX))
-            assertEquals(fileId, match?.groupValues?.get(DeepLinkHandler.FILE_ID_GROUP_INDEX))
+            assertEquals(path, match?.groupValues?.get(DeepLinkHandler.PATH_GROUP_INDEX))
+            assertEquals(fileExtensions, match?.groupValues?.get(DeepLinkHandler.FILE_EXTENSION_GROUP_INDEX))
         }
 
         @Test
         fun no_trailing_path_allowed_after_file_id() {
             val invalidUrl = "$url/"
-            val match = DeepLinkHandler.DEEP_LINK_PATTERN.matchEntire(invalidUrl)
+            val match = DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(invalidUrl)
             assertNull(match)
         }
     }
@@ -101,8 +101,8 @@ class DeepLinkHandlerTest {
         companion object {
             const val OTHER_SERVER_BASE_URL = "https://someotherserver.net"
             const val SERVER_BASE_URL = "https://server.net"
-            const val FILE_ID = "1234567890"
-            val DEEP_LINK = Uri.parse("$SERVER_BASE_URL/index.php/f/$FILE_ID")
+            const val FILE_EXTENSION = ".mp3"
+            val DEEP_LINK = Uri.parse("$SERVER_BASE_URL/index.php/f/$FILE_EXTENSION")
 
             fun createMockUser(serverBaseUrl: String): User {
                 val user = mock<User>()
@@ -201,7 +201,7 @@ class DeepLinkHandlerTest {
 
             // THEN
             //      file id is returned
-            assertEquals(FILE_ID, match?.fileId)
+            assertEquals(FILE_EXTENSION, match?.fileExtension)
         }
 
         @Test
