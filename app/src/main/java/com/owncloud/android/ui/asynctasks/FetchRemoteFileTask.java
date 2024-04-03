@@ -41,6 +41,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
         this.fileDisplayActivity = fileDisplayActivity;
     }
 
+    // FIXME Nextcloud not configured.
     @Override
     protected String doInBackground(Void... voids) {
         SearchRemoteOperation searchRemoteOperation = new SearchRemoteOperation(fileId,

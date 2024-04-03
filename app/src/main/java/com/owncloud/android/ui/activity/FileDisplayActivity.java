@@ -2389,9 +2389,22 @@ public class FileDisplayActivity extends FileActivity
 
         Log_OC.d(TAG, "ShareLink is: " + shareLink);
 
+
+        // FIXME share is nul
+        OCShare share = storageManager.getShareByShareLink(shareLink);
+        OCFile file = storageManager.getFileByDecryptedRemotePath(share.getPath());
+        if (file != null) {
+            setFile(file);
+            showFile(file, "");
+        } else {
+            showFile(null, getString(R.string.file_not_found));
+        }
+
+        /*
         // FIXME Nextcloud not configured.
         FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(user, shareLink, storageManager, this);
         fetchRemoteFileTask.execute();
+         */
     }
 
     private void openFileByPath(User user, String filepath) {

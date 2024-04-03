@@ -1105,6 +1105,18 @@ public class FileDataStorageManager {
         return share;
     }
 
+    public OCShare getShareByShareLink(String shareLink) {
+        OCShare share = null;
+        Cursor cursor = getShareCursorForValue(ProviderTableMeta.OCSHARES_SHARE_LINK, shareLink);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                share = createShareInstance(cursor);
+            }
+            cursor.close();
+        }
+        return share;
+    }
+
 
     /**
      * Checks the existence of an stored {@link OCShare} matching the given remote id (not to be confused with the local
