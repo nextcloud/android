@@ -237,7 +237,7 @@ class FileUploadWorker(
     }
 
     private fun cleanupUploadProcess(result: RemoteOperationResult<Any?>, operation: UploadFileOperation) {
-        if (operation.originalStoragePath == operation.uploadedSourcePath) {
+        if (operation.originalStoragePath.contains(operation.uploadedFilename)) {
             // TODO
             // This is not ideal fix. When uploading file to the encrypted folder server returns 404 FILE_NOT_FOUND
             // However file upload successfully completed. This fix mimic success, if upload successfully completed with
