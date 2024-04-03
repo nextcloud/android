@@ -1299,13 +1299,7 @@ public class FileDataStorageManager {
         share.setPasswordProtected(getInt(cursor, ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED) == 1);
         share.setNote(getString(cursor, ProviderTableMeta.OCSHARES_NOTE));
         share.setHideFileDownload(getInt(cursor, ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD) == 1);
-
-        String shareLinkPrefix = getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK);
-        String baseUrl = shareLinkPrefix.substring(0, shareLinkPrefix.indexOf("/s/"));
-        String shareLink = baseUrl + "/s" + path;
-        share.setShareLink(shareLink);
-
-        share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LABEL));
+        share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
 
         return share;
     }

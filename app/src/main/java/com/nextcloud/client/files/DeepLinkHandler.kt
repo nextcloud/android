@@ -38,19 +38,14 @@ class DeepLinkHandler(
      * Provide parsed link arguments and context information required
      * to launch it.
      */
-    data class Match(val users: List<User>, val path: String, val fileExtension: String) {
-        fun getFilePath(): String {
-            return "/$path/$fileExtension"
-        }
-    }
+    data class Match(val users: List<User>, val path: String)
 
     companion object {
-        val DEEP_LINK_PATTERN_S = Regex("""(.*?)/index\.php/s/([a-zA-Z0-9]+)/(.*)$""")
-        val DEEP_LINK_PATTERN_F = Regex("""(.*?)/index\.php/f/([a-zA-Z0-9]+)/(.*)$""")
+        val DEEP_LINK_PATTERN_S = Regex("""(.*?)/index\.php/s/([a-zA-Z0-9]+)$""")
+        val DEEP_LINK_PATTERN_F = Regex("""(.*?)/index\.php/f/([a-zA-Z0-9]+)$""")
 
         val BASE_URL_GROUP_INDEX = 1
         val PATH_GROUP_INDEX = 2
-        val FILE_EXTENSION_GROUP_INDEX = 3
     }
 
     /**
@@ -67,8 +62,7 @@ class DeepLinkHandler(
         return if (matchResult != null) {
             val baseServerUrl = matchResult.groupValues[BASE_URL_GROUP_INDEX]
             val path = matchResult.groupValues[PATH_GROUP_INDEX]
-            val fileExtension = matchResult.groupValues[FILE_EXTENSION_GROUP_INDEX]
-            Match(users = getMatchingUsers(baseServerUrl), path = path, fileExtension = fileExtension)
+            Match(users = getMatchingUsers(baseServerUrl), path = path)
         } else {
             null
         }

@@ -21,21 +21,21 @@ class DeepLinkHandlerTest {
 
     private val serverUrl = "https://nextcloud.com/ltd/e2e2"
     private val invalidServerUrl = "https://someotherserver.net"
+    private val shareLinkSuffix = "FRcNeiYDQLr8f54"
 
     @Test
     fun matches_deep_link_patterns() {
-        val url = "$serverUrl/index.php/s/Be/A1.mp3"
+        val url = "$serverUrl/index.php/s/$shareLinkSuffix"
         val match =
             DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(url)
         assertNotNull("Url [$url] does not match pattern", match)
         assertEquals(serverUrl, match?.groupValues?.get(DeepLinkHandler.BASE_URL_GROUP_INDEX))
-        assertEquals("Be", match?.groupValues?.get(DeepLinkHandler.PATH_GROUP_INDEX))
-        assertEquals("A1.mp3", match?.groupValues?.get(DeepLinkHandler.FILE_EXTENSION_GROUP_INDEX))
+        assertEquals(shareLinkSuffix, match?.groupValues?.get(DeepLinkHandler.PATH_GROUP_INDEX))
     }
 
     @Test
     fun no_trailing_path_allowed_after_file_id() {
-        val url = "$serverUrl/index.php/sp/p/f/Be/A1.mp3"
+        val url = "$invalidServerUrl/index.php/$shareLinkSuffix"
         val match =
             DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(url)
         assertNull(match)
@@ -47,7 +47,7 @@ class DeepLinkHandlerTest {
             server = Server(uri = URI.create(invalidServerUrl), version = OwnCloudVersion.nextcloud_19)
         }
         val sut = DeepLinkHandler(listOf(user))
-        val deepLink = Uri.parse("$serverUrl/index.php/s/Be/A1.mp3")
+        val deepLink = Uri.parse("$serverUrl/index.php/s/$shareLinkSuffix")
         val match = sut.parseDeepLink(deepLink)
         assertNotNull(match)
         assertEquals(0, match?.users?.size)
@@ -62,7 +62,7 @@ class DeepLinkHandlerTest {
             server = Server(uri = URI.create(serverUrl), version = OwnCloudVersion.nextcloud_19)
         }
         val sut = DeepLinkHandler(listOf(user, validUser))
-        val deepLink = Uri.parse("${validUser.server}/index.php/f/Folder/A1.mp3")
+        val deepLink = Uri.parse("${validUser.server}/index.php/f/$shareLinkSuffix")
         val match = sut.parseDeepLink(deepLink)
         assertNotNull(match)
         assertSame(1, match?.users?.size)
@@ -80,7 +80,7 @@ class DeepLinkHandlerTest {
             server = Server(uri = URI.create(serverUrl), version = OwnCloudVersion.nextcloud_19)
         }
         val sut = DeepLinkHandler(listOf(user, validUser, validUser2))
-        val deepLink = Uri.parse("${validUser.server}/index.php/f/Folder/A1.mp3")
+        val deepLink = Uri.parse("${validUser.server}/index.php/f/$shareLinkSuffix")
         val match = sut.parseDeepLink(deepLink)
         assertNotNull(match)
         assertSame(2, match?.users?.size)
@@ -92,10 +92,10 @@ class DeepLinkHandlerTest {
             server = Server(uri = URI.create(serverUrl), version = OwnCloudVersion.nextcloud_19)
         }
         val sut = DeepLinkHandler(listOf(validUser))
-        val deepLink = Uri.parse("${validUser.server}/index.php/f/Folder/A1.mp3")
+        val deepLink = Uri.parse("${validUser.server}/index.php/f/$shareLinkSuffix")
         val match = sut.parseDeepLink(deepLink)
         assertNotNull(match)
-        assertEquals("A1.mp3", match?.fileExtension)
+        assertEquals(shareLinkSuffix, match?.path)
     }
 
     @Test

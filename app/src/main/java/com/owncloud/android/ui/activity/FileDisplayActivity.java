@@ -109,6 +109,7 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
+import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
@@ -2349,9 +2350,9 @@ public class FileDisplayActivity extends FileActivity
             dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
         } else if (match.getUsers().size() == SINGLE_USER_SIZE) {
-            openFile(match.getUsers().get(0), match.getFilePath());
+            openFile(match.getUsers().get(0), match.getPath());
         } else {
-            selectUserAndOpenFile(match.getUsers(), match.getFilePath());
+            selectUserAndOpenFile(match.getUsers(), match.getPath());
         }
     }
 
@@ -2386,20 +2387,9 @@ public class FileDisplayActivity extends FileActivity
             storageManager = new FileDataStorageManager(user, getContentResolver());
         }
 
-        // TODO
-        // Handle if file not exist download that file
-        OCFile file = storageManager.getFileByDecryptedRemotePath(shareLink);
-        Log_OC.d(TAG, "Fetched file via deeplink: " + file);
-
-        if (file != null) {
-            setFile(file);
-            showFile(file, "");
-        } else {
-            Object result = new ReadFolderRemoteOperation(shareLink).execute(user, this).getResultData();
-            OCFile remoteFile = FileStorageUtils.fillOCFile((RemoteFile) result);
-            setFile(remoteFile);
-            showFile(remoteFile, "");
-        }
+        Log_OC.d(TAG, "ShareLink is: " + shareLink);
+        FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(user, shareLink, storageManager, this);
+        fetchRemoteFileTask.execute();
     }
 
     private void openFileByPath(User user, String filepath) {
