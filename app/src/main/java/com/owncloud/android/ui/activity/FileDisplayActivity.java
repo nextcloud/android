@@ -2381,7 +2381,9 @@ public class FileDisplayActivity extends FileActivity
             storageManager = new FileDataStorageManager(user, getContentResolver());
         }
 
-        // Be/A1.mp3
+        // TODO listen onRefresh
+        // Handle if file not exist download that file
+        // Fix DeepLinkHandler test
         OCFile file = storageManager.getFileByDecryptedRemotePath(shareLink);
         Log_OC.d(TAG, "Fetched file via deeplink: " + file);
 
