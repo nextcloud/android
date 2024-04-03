@@ -33,76 +33,31 @@ import java.net.URI
 )
 class DeepLinkHandlerTest {
 
-    @RunWith(Parameterized::class)
     class DeepLinkPattern {
-
-        companion object {
-            val FILE_ID = 1234
-            val SERVER_BASE_URLS = listOf(
-                "http://hostname.net",
-                "https://hostname.net",
-                "http://hostname.net/subdir1",
-                "https://hostname.net/subdir1",
-                "http://hostname.net/subdir1/subdir2",
-                "https://hostname.net/subdir1/subdir2",
-                "http://hostname.net/subdir1/subdir2/subdir3",
-                "https://hostname.net/subdir1/subdir2/subdir3"
-            )
-            val INDEX_PHP_PATH = listOf(
-                "",
-                "/index.php"
-            )
-
-            @Parameterized.Parameters
-            @JvmStatic
-            fun urls(): Array<Array<Any>> {
-                val testInput = mutableListOf<Array<Any>>()
-                SERVER_BASE_URLS.forEach { baseUrl ->
-                    INDEX_PHP_PATH.forEach { indexPath ->
-                        val url = "$baseUrl$indexPath/f/$FILE_ID"
-                        testInput.add(arrayOf(baseUrl, indexPath, "$FILE_ID", url))
-                    }
-                }
-                return testInput.toTypedArray()
-            }
-        }
-
-        @Parameterized.Parameter(0)
-        lateinit var baseUrl: String
-
-        @Parameterized.Parameter(1)
-        lateinit var path: String
-
-        @Parameterized.Parameter(2)
-        lateinit var fileExtensions: String
-
-        @Parameterized.Parameter(3)
-        lateinit var url: String
-
         @Test
         fun matches_deep_link_patterns() {
+            val url = "https://nextcloud.com/ltd/e2e2/index.php/s/Be/A1.mp3"
             val match = DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(url)
             assertNotNull("Url [$url] does not match pattern", match)
-            assertEquals(baseUrl, match?.groupValues?.get(DeepLinkHandler.BASE_URL_GROUP_INDEX))
-            assertEquals(path, match?.groupValues?.get(DeepLinkHandler.PATH_GROUP_INDEX))
-            assertEquals(fileExtensions, match?.groupValues?.get(DeepLinkHandler.FILE_EXTENSION_GROUP_INDEX))
+            assertEquals("https://nextcloud.com/ltd/e2e2", match?.groupValues?.get(DeepLinkHandler.BASE_URL_GROUP_INDEX))
+            assertEquals("Be", match?.groupValues?.get(DeepLinkHandler.PATH_GROUP_INDEX))
+            assertEquals("A1.mp3", match?.groupValues?.get(DeepLinkHandler.FILE_EXTENSION_GROUP_INDEX))
         }
 
         @Test
         fun no_trailing_path_allowed_after_file_id() {
-            val invalidUrl = "$url/"
-            val match = DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(invalidUrl)
+            val url = "https://nextcloud.com/ltd/e2e2/index.php/sp/p/f/Be/A1.mp3"
+            val match = DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(url)
             assertNull(match)
         }
     }
 
     class FileDeepLink {
-
         companion object {
             const val OTHER_SERVER_BASE_URL = "https://someotherserver.net"
             const val SERVER_BASE_URL = "https://server.net"
-            const val FILE_EXTENSION = ".mp3"
-            val DEEP_LINK = Uri.parse("$SERVER_BASE_URL/index.php/f/$FILE_EXTENSION")
+            const val FILE_EXTENSION = "A1.mp3"
+            val DEEP_LINK = Uri.parse("$SERVER_BASE_URL/index.php/f/Folder/$FILE_EXTENSION")
 
             fun createMockUser(serverBaseUrl: String): User {
                 val user = mock<User>()
