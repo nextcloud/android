@@ -565,7 +565,7 @@ public final class EncryptionUtils {
     }
 
     public static EncryptedFile encryptFile(File file, Cipher cipher) throws InvalidParameterSpecException {
-        File encryptedFile = new File(file.getAbsolutePath() + ".enc");
+        File encryptedFile = new File(file.getAbsolutePath() + ".enc.jpg");
         encryptFileWithGivenCipher(file, encryptedFile, cipher);
         String authenticationTagString = getAuthenticationTag(cipher);
         return new EncryptedFile(encryptedFile, authenticationTagString);
