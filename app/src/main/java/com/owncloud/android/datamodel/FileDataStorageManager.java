@@ -1282,7 +1282,8 @@ public class FileDataStorageManager {
 
     // test with null cursor?
     private OCShare createShareInstance(Cursor cursor) {
-        OCShare share = new OCShare(getString(cursor, ProviderTableMeta.OCSHARES_PATH));
+        String path = getString(cursor, ProviderTableMeta.OCSHARES_PATH);
+        OCShare share = new OCShare(path);
         share.setId(getLong(cursor, ProviderTableMeta._ID));
         share.setFileSource(getLong(cursor, ProviderTableMeta.OCSHARES_ITEM_SOURCE));
         share.setShareType(ShareType.fromValue(getInt(cursor, ProviderTableMeta.OCSHARES_SHARE_TYPE)));
@@ -1298,7 +1299,14 @@ public class FileDataStorageManager {
         share.setPasswordProtected(getInt(cursor, ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED) == 1);
         share.setNote(getString(cursor, ProviderTableMeta.OCSHARES_NOTE));
         share.setHideFileDownload(getInt(cursor, ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD) == 1);
-        share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
+
+        //  https://try.nextcloud.com/ltd/e2e2/index.php/s/t7NeiDHza2aJjtc
+        //  https://try.nextcloud.com/ltd/e2e2/index.php/s/Be/A1.mp3
+        String shareLinkPrefix = getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK);
+        String baseUrl = shareLinkPrefix.substring(0, shareLinkPrefix.indexOf("/s/"));
+        String shareLink = baseUrl + "/s" + path;
+        share.setShareLink(shareLink);
+
         share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LABEL));
 
         return share;

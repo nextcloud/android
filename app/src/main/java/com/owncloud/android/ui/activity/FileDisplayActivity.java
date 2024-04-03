@@ -94,6 +94,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.DownloadType;
@@ -105,7 +106,6 @@ import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
-import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
@@ -2366,10 +2366,11 @@ public class FileDisplayActivity extends FileActivity
         dialog.show();
     }
 
-    private void openFile(User user, String fileId) {
+    private void openFile(User user, String shareLink) {
+        onRefresh();
         setUser(user);
 
-        if (fileId == null) {
+        if (shareLink == null) {
             onFileRequestError(null);
             return;
         }
@@ -2380,8 +2381,15 @@ public class FileDisplayActivity extends FileActivity
             storageManager = new FileDataStorageManager(user, getContentResolver());
         }
 
-        FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(user, fileId, storageManager, this);
-        fetchRemoteFileTask.execute();
+        OCFile file = storageManager.getFileByDecryptedRemotePath(shareLink);
+        Log_OC.d(TAG, "Fetched file via deeplink: " + file);
+
+        if (file != null) {
+            setFile(file);
+            showFile(file, "");
+        } else {
+            showFile(null, getString(R.string.file_not_found));
+        }
     }
 
     private void openFileByPath(User user, String filepath) {
