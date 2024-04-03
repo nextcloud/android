@@ -21,6 +21,7 @@ import java.io.Serializable;
 public class SyncedFolder implements Serializable, Cloneable {
     public static final long UNPERSISTED_ID = Long.MIN_VALUE;
     public static final long EMPTY_ENABLED_TIMESTAMP_MS = -1;
+    public static final long NOT_SCANNED_YET = -1;
     private static final long serialVersionUID = -793476118299906429L;
 
 
@@ -41,6 +42,7 @@ public class SyncedFolder implements Serializable, Cloneable {
     private boolean hidden;
     private SubFolderRule subfolderRule;
     private boolean excludeHidden;
+    private long lastScanTimestampMs;
 
     /**
      * constructor for new, to be persisted entity.
@@ -75,7 +77,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                         MediaFolderType type,
                         boolean hidden,
                         SubFolderRule subFolderRule,
-                        boolean excludeHidden) {
+                        boolean excludeHidden,
+                        long lastScanTimestampMs) {
         this(UNPERSISTED_ID,
              localPath,
              remotePath,
@@ -91,7 +94,8 @@ public class SyncedFolder implements Serializable, Cloneable {
              type,
              hidden,
              subFolderRule,
-             excludeHidden);
+             excludeHidden,
+             lastScanTimestampMs);
     }
 
     /**
@@ -114,7 +118,8 @@ public class SyncedFolder implements Serializable, Cloneable {
                            MediaFolderType type,
                            boolean hidden,
                            SubFolderRule subFolderRule,
-                           boolean excludeHidden) {
+                           boolean excludeHidden,
+                           long lastScanTimestampMs) {
         this.id = id;
         this.localPath = localPath;
         this.remotePath = remotePath;
@@ -130,6 +135,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.hidden = hidden;
         this.subfolderRule = subFolderRule;
         this.excludeHidden = excludeHidden;
+        this.lastScanTimestampMs = lastScanTimestampMs;
     }
 
     /**
@@ -271,4 +277,8 @@ public class SyncedFolder implements Serializable, Cloneable {
     public boolean containsFile(String filePath){
         return filePath.contains(localPath);
     }
+
+    public long getLastScanTimestampMs() { return lastScanTimestampMs; }
+
+    public void setLastScanTimestampMs(long lastScanTimestampMs) { this.lastScanTimestampMs = lastScanTimestampMs; }
 }

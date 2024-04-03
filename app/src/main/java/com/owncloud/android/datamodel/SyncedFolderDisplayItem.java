@@ -60,7 +60,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    MediaFolderType type,
                                    boolean hidden,
                                    SubFolderRule subFolderRule,
-                                   boolean excludeHidden) {
+                                   boolean excludeHidden,
+                                   long lastScanTimestampMs) {
         super(id,
               localPath,
               remotePath,
@@ -76,7 +77,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               type,
               hidden,
               subFolderRule,
-              excludeHidden);
+              excludeHidden,
+              lastScanTimestampMs);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
@@ -98,7 +100,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    MediaFolderType type,
                                    boolean hidden,
                                    SubFolderRule subFolderRule,
-                                   boolean excludeHidden) {
+                                   boolean excludeHidden,
+                                   long lastScanTimestampMs) {
         super(id,
               localPath,
               remotePath,
@@ -114,7 +117,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               type,
               hidden,
               subFolderRule,
-              excludeHidden);
+              excludeHidden,
+              lastScanTimestampMs);
         this.folderName = folderName;
     }
 

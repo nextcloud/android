@@ -293,7 +293,8 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_NAME_COLLISION_POLICY = "name_collision_policy";
         public static final String SYNCED_FOLDER_HIDDEN = "hidden";
         public static final String SYNCED_FOLDER_SUBFOLDER_RULE = "sub_folder_rule";
-        public static final String SYNCED_EXCLUDE_HIDDEN = "exclude_hidden";
+        public static final String SYNCED_FOLDER_EXCLUDE_HIDDEN = "exclude_hidden";
+        public static final String SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS = "last_scan_timestamp_ms";
 
         // Columns of external links table
         public static final String EXTERNAL_LINKS_ICON_URL = "icon_url";
