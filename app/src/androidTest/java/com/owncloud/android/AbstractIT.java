@@ -33,7 +33,6 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.java.util.Optional;
 import com.nextcloud.test.GrantStoragePermissionRule;
 import com.nextcloud.test.RandomStringGenerator;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -70,6 +69,7 @@ import java.io.InputStream;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;

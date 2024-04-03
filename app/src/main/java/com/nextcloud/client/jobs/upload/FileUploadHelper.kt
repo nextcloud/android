@@ -16,7 +16,6 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
 import com.nextcloud.client.network.ConnectivityService
-import com.nextcloud.java.util.Optional
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -31,6 +30,7 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.utils.FileUtil
 import java.io.File
+import java.util.Optional
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions")

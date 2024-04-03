@@ -19,7 +19,6 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.java.util.Optional
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.ForegroundServiceHelper
@@ -39,6 +38,7 @@ import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.security.SecureRandom
 import java.util.AbstractList
+import java.util.Optional
 import java.util.Vector
 
 @Suppress("LongParameterList", "TooManyFunctions")
