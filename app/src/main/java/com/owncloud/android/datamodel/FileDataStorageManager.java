@@ -1299,7 +1299,8 @@ public class FileDataStorageManager {
         share.setPasswordProtected(getInt(cursor, ProviderTableMeta.OCSHARES_IS_PASSWORD_PROTECTED) == 1);
         share.setNote(getString(cursor, ProviderTableMeta.OCSHARES_NOTE));
         share.setHideFileDownload(getInt(cursor, ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD) == 1);
-        share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
+        share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
+        share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LABEL));
 
         return share;
     }
