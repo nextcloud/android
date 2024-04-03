@@ -24,9 +24,7 @@ import com.nextcloud.model.WorkerStateLiveData
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.UploadsStorageManager
-import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
-import com.owncloud.android.db.UploadResult
 import com.owncloud.android.lib.common.OwnCloudAccount
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
@@ -242,16 +240,8 @@ class FileUploadWorker(
             // This is not ideal fix. When uploading file to the encrypted folder server returns 404 FILE_NOT_FOUND
             // However file upload successfully completed. This fix mimic success, if upload successfully completed with
             // receiving path
-            val localPath: String? =
-                if (LOCAL_BEHAVIOUR_MOVE == operation.localBehaviour) operation.storagePath else null
-
-            uploadsStorageManager.updateUploadStatus(
-                operation.ocUploadId,
-                UploadStatus.UPLOAD_SUCCEEDED,
-                UploadResult.UPLOADED,
-                operation.remotePath,
-                localPath
-            )
+            val newResult = RemoteOperationResult<Void>(ResultCode.OK)
+            uploadsStorageManager.updateDatabaseUploadResult(newResult, operation)
             notificationManager.dismissOldErrorNotification(operation)
         } else {
             if (!isStopped || !result.isCancelled) {
