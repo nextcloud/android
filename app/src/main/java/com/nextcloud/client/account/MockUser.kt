@@ -52,7 +52,7 @@ data class MockUser(override val accountName: String, val accountType: String) :
         source.readString() as String
     )
 
-    override val server = Server(URI.create(""), MainApp.MINIMUM_SUPPORTED_SERVER_VERSION)
+    override var server = Server(URI.create(""), MainApp.MINIMUM_SUPPORTED_SERVER_VERSION)
     override val isAnonymous = false
 
     override fun toPlatformAccount(): Account {

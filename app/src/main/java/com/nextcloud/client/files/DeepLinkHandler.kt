@@ -21,7 +21,6 @@ package com.nextcloud.client.files
 
 import android.net.Uri
 import com.nextcloud.client.account.User
-import com.nextcloud.client.account.UserAccountManager
 
 /**
  * This component parses and matches deep links.
@@ -32,7 +31,7 @@ import com.nextcloud.client.account.UserAccountManager
  */
 @Suppress("ForbiddenComment")
 class DeepLinkHandler(
-    private val userAccountManager: UserAccountManager
+    private val users: List<User>
 ) {
 
     /**
@@ -75,10 +74,10 @@ class DeepLinkHandler(
         }
     }
 
-    fun getMatchResult(uri: Uri): MatchResult? {
+    private fun getMatchResult(uri: Uri): MatchResult? {
         return DEEP_LINK_PATTERN_S.matchEntire(uri.toString()) ?: DEEP_LINK_PATTERN_F.matchEntire(uri.toString())
     }
 
     private fun getMatchingUsers(serverBaseUrl: String): List<User> =
-        userAccountManager.allUsers.filter { it.server.uri.toString() == serverBaseUrl }
+        users.filter { serverBaseUrl.contains(it.server.uri.toString())  }
 }

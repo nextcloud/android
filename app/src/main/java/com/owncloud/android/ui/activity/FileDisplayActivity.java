@@ -2335,7 +2335,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void openDeepLink(Uri uri) {
-        DeepLinkHandler linkHandler = new DeepLinkHandler(getUserAccountManager());
+        DeepLinkHandler linkHandler = new DeepLinkHandler(getUserAccountManager().getAllUsers());
         DeepLinkHandler.Match match = linkHandler.parseDeepLink(uri);
         if (match == null) {
             dismissLoadingDialog();

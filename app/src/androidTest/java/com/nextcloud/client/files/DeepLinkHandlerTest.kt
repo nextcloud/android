@@ -7,171 +7,105 @@
 package com.nextcloud.client.files
 
 import android.net.Uri
+import com.nextcloud.client.account.MockUser
 import com.nextcloud.client.account.Server
-import com.nextcloud.client.account.User
-import com.nextcloud.client.account.UserAccountManager
 import com.owncloud.android.lib.resources.status.OwnCloudVersion
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertSame
-import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.junit.runners.Parameterized
-import org.junit.runners.Suite
-import org.mockito.Mock
-import org.mockito.MockitoAnnotations
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 import java.net.URI
 
-@RunWith(Suite::class)
-@Suite.SuiteClasses(
-    DeepLinkHandlerTest.DeepLinkPattern::class,
-    DeepLinkHandlerTest.FileDeepLink::class
-)
 class DeepLinkHandlerTest {
 
-    class DeepLinkPattern {
-        @Test
-        fun matches_deep_link_patterns() {
-            val url = "https://nextcloud.com/ltd/e2e2/index.php/s/Be/A1.mp3"
-            val match = DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(url)
-            assertNotNull("Url [$url] does not match pattern", match)
-            assertEquals("https://nextcloud.com/ltd/e2e2", match?.groupValues?.get(DeepLinkHandler.BASE_URL_GROUP_INDEX))
-            assertEquals("Be", match?.groupValues?.get(DeepLinkHandler.PATH_GROUP_INDEX))
-            assertEquals("A1.mp3", match?.groupValues?.get(DeepLinkHandler.FILE_EXTENSION_GROUP_INDEX))
-        }
+    private val serverUrl = "https://nextcloud.com/ltd/e2e2"
+    private val invalidServerUrl = "https://someotherserver.net"
 
-        @Test
-        fun no_trailing_path_allowed_after_file_id() {
-            val url = "https://nextcloud.com/ltd/e2e2/index.php/sp/p/f/Be/A1.mp3"
-            val match = DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(url)
-            assertNull(match)
-        }
+    @Test
+    fun matches_deep_link_patterns() {
+        val url = "$serverUrl/index.php/s/Be/A1.mp3"
+        val match =
+            DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(url)
+        assertNotNull("Url [$url] does not match pattern", match)
+        assertEquals(serverUrl, match?.groupValues?.get(DeepLinkHandler.BASE_URL_GROUP_INDEX))
+        assertEquals("Be", match?.groupValues?.get(DeepLinkHandler.PATH_GROUP_INDEX))
+        assertEquals("A1.mp3", match?.groupValues?.get(DeepLinkHandler.FILE_EXTENSION_GROUP_INDEX))
     }
 
-    class FileDeepLink {
-        companion object {
-            const val OTHER_SERVER_BASE_URL = "https://someotherserver.net"
-            const val SERVER_BASE_URL = "https://server.net"
-            const val FILE_EXTENSION = "A1.mp3"
-            val DEEP_LINK = Uri.parse("$SERVER_BASE_URL/index.php/f/Folder/$FILE_EXTENSION")
+    @Test
+    fun no_trailing_path_allowed_after_file_id() {
+        val url = "$serverUrl/index.php/sp/p/f/Be/A1.mp3"
+        val match =
+            DeepLinkHandler.DEEP_LINK_PATTERN_F.matchEntire(url) ?: DeepLinkHandler.DEEP_LINK_PATTERN_S.matchEntire(url)
+        assertNull(match)
+    }
 
-            fun createMockUser(serverBaseUrl: String): User {
-                val user = mock<User>()
-                val uri = URI.create(serverBaseUrl)
-                val server = Server(uri = uri, version = OwnCloudVersion.nextcloud_19)
-                whenever(user.server).thenReturn(server)
-                return user
-            }
+    @Test
+    fun no_user_can_open_file() {
+        val user = MockUser("name", "ACCOUNT_TYPE").apply {
+            server = Server(uri = URI.create(invalidServerUrl), version = OwnCloudVersion.nextcloud_19)
         }
+        val sut = DeepLinkHandler(listOf(user))
+        val deepLink = Uri.parse("$serverUrl/index.php/s/Be/A1.mp3")
+        val match = sut.parseDeepLink(deepLink)
+        assertNotNull(match)
+        assertEquals(0, match?.users?.size)
+    }
 
-        @Mock
-        lateinit var userAccountManager: UserAccountManager
-        lateinit var allUsers: List<User>
-        lateinit var handler: DeepLinkHandler
-
-        @Before
-        fun setUp() {
-            MockitoAnnotations.initMocks(this)
-            whenever(userAccountManager.allUsers).thenAnswer { allUsers }
-            allUsers = emptyList()
-            handler = DeepLinkHandler(userAccountManager)
+    @Test
+    fun single_user_can_open_file() {
+        val user = MockUser("name", "ACCOUNT_TYPE").apply {
+            server = Server(uri = URI.create(invalidServerUrl), version = OwnCloudVersion.nextcloud_19)
         }
-
-        @Test
-        fun no_user_can_open_file() {
-            // GIVEN
-            //      no user capable of opening the file
-            allUsers = listOf(
-                createMockUser(OTHER_SERVER_BASE_URL),
-                createMockUser(OTHER_SERVER_BASE_URL)
-            )
-
-            // WHEN
-            //      deep link is parsed
-            val match = handler.parseDeepLink(DEEP_LINK)
-
-            // THEN
-            //      link is valid
-            //      no user can open the file
-            assertNotNull(match)
-            assertEquals(0, match?.users?.size)
+        val validUser = MockUser("name2", "ACCOUNT_TYPE_2").apply {
+            server = Server(uri = URI.create(serverUrl), version = OwnCloudVersion.nextcloud_19)
         }
+        val sut = DeepLinkHandler(listOf(user, validUser))
+        val deepLink = Uri.parse("${validUser.server}/index.php/f/Folder/A1.mp3")
+        val match = sut.parseDeepLink(deepLink)
+        assertNotNull(match)
+        assertSame(1, match?.users?.size)
+    }
 
-        @Test
-        fun single_user_can_open_file() {
-            // GIVEN
-            //      multiple users registered
-            //      one user capable of opening the link
-            val matchingUser = createMockUser(SERVER_BASE_URL)
-            allUsers = listOf(
-                createMockUser(OTHER_SERVER_BASE_URL),
-                matchingUser,
-                createMockUser(OTHER_SERVER_BASE_URL)
-            )
-
-            // WHEN
-            //      deep link is parsed
-            val match = handler.parseDeepLink(DEEP_LINK)
-
-            // THEN
-            //      link can be opened by single user
-            assertNotNull(match)
-            assertSame(matchingUser, match?.users?.get(0))
+    @Test
+    fun multiple_user_can_open_file() {
+        val user = MockUser("name", "ACCOUNT_TYPE").apply {
+            server = Server(uri = URI.create(invalidServerUrl), version = OwnCloudVersion.nextcloud_19)
         }
-
-        @Test
-        fun multiple_users_can_open_file() {
-            // GIVEN
-            //      mutltiple users registered
-            //      multiple users capable of opening the link
-            val matchingUsers = setOf(
-                createMockUser(SERVER_BASE_URL),
-                createMockUser(SERVER_BASE_URL)
-            )
-            val otherUsers = setOf(
-                createMockUser(OTHER_SERVER_BASE_URL),
-                createMockUser(OTHER_SERVER_BASE_URL)
-            )
-            allUsers = listOf(matchingUsers, otherUsers).flatten()
-
-            // WHEN
-            //      deep link is parsed
-            val match = handler.parseDeepLink(DEEP_LINK)
-
-            // THEN
-            //      link can be opened by multiple matching users
-            assertNotNull(match)
-            assertEquals(matchingUsers, match?.users?.toSet())
+        val validUser = MockUser("name2", "ACCOUNT_TYPE_2").apply {
+            server = Server(uri = URI.create(serverUrl), version = OwnCloudVersion.nextcloud_19)
         }
-
-        @Test
-        fun match_contains_extracted_file_id() {
-            // WHEN
-            //      valid deep file link is parsed
-            val match = handler.parseDeepLink(DEEP_LINK)
-
-            // THEN
-            //      file id is returned
-            assertEquals(FILE_EXTENSION, match?.fileExtension)
+        val validUser2 = MockUser("name3", "ACCOUNT_TYPE_3").apply {
+            server = Server(uri = URI.create(serverUrl), version = OwnCloudVersion.nextcloud_19)
         }
+        val sut = DeepLinkHandler(listOf(user, validUser, validUser2))
+        val deepLink = Uri.parse("${validUser.server}/index.php/f/Folder/A1.mp3")
+        val match = sut.parseDeepLink(deepLink)
+        assertNotNull(match)
+        assertSame(2, match?.users?.size)
+    }
 
-        @Test
-        fun no_match_for_invalid_link() {
-            // GIVEN
-            //      invalid deep link
-            val invalidLink = Uri.parse("http://www.dodgylink.com/index.php")
-
-            // WHEN
-            //      deep link is parsed
-            val match = handler.parseDeepLink(invalidLink)
-
-            // THEN
-            //      no match
-            assertNull(match)
+    @Test
+    fun match_contains_extracted_file_id() {
+        val validUser = MockUser("name2", "ACCOUNT_TYPE_2").apply {
+            server = Server(uri = URI.create(serverUrl), version = OwnCloudVersion.nextcloud_19)
         }
+        val sut = DeepLinkHandler(listOf(validUser))
+        val deepLink = Uri.parse("${validUser.server}/index.php/f/Folder/A1.mp3")
+        val match = sut.parseDeepLink(deepLink)
+        assertNotNull(match)
+        assertEquals("A1.mp3", match?.fileExtension)
+    }
+
+    @Test
+    fun no_match_for_invalid_link() {
+        val validUser = MockUser("name2", "ACCOUNT_TYPE_2").apply {
+            server = Server(uri = URI.create(serverUrl), version = OwnCloudVersion.nextcloud_19)
+        }
+        val sut = DeepLinkHandler(listOf(validUser))
+        val deepLink = Uri.parse("http://www.dodgylink.com/index.php")
+        val match = sut.parseDeepLink(deepLink)
+        assertNull(match)
     }
 }
