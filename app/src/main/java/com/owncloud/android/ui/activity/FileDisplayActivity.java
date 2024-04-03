@@ -2344,13 +2344,13 @@ public class FileDisplayActivity extends FileActivity
             dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
         } else if (match.getUsers().size() == SINGLE_USER_SIZE) {
-            openFile(match.getUsers().get(0), match.getFileId());
+            openFile(match.getUsers().get(0), match.getFilePath());
         } else {
-            selectUserAndOpenFile(match.getUsers(), match.getFileId());
+            selectUserAndOpenFile(match.getUsers(), match.getFilePath());
         }
     }
 
-    private void selectUserAndOpenFile(List<User> users, String fileId) {
+    private void selectUserAndOpenFile(List<User> users, String shareLink) {
         final CharSequence[] userNames = new CharSequence[users.size()];
         for (int i = 0; i < userNames.length; i++) {
             userNames[i] = users.get(i).getAccountName();
@@ -2358,7 +2358,7 @@ public class FileDisplayActivity extends FileActivity
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.common_choose_account).setItems(userNames, (dialog, which) -> {
             User user = users.get(which);
-            openFile(user, fileId);
+            openFile(user, shareLink);
             showLoadingDialog(getString(R.string.retrieving_file));
         });
         final AlertDialog dialog = builder.create();
@@ -2381,6 +2381,7 @@ public class FileDisplayActivity extends FileActivity
             storageManager = new FileDataStorageManager(user, getContentResolver());
         }
 
+        // Be/A1.mp3
         OCFile file = storageManager.getFileByDecryptedRemotePath(shareLink);
         Log_OC.d(TAG, "Fetched file via deeplink: " + file);
 
