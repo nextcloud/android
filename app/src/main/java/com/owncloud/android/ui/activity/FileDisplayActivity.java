@@ -2388,6 +2388,8 @@ public class FileDisplayActivity extends FileActivity
         }
 
         Log_OC.d(TAG, "ShareLink is: " + shareLink);
+
+        // FIXME Nextcloud not configured.
         FetchRemoteFileTask fetchRemoteFileTask = new FetchRemoteFileTask(user, shareLink, storageManager, this);
         fetchRemoteFileTask.execute();
     }
