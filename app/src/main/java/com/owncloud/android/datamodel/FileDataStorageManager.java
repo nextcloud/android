@@ -1300,8 +1300,6 @@ public class FileDataStorageManager {
         share.setNote(getString(cursor, ProviderTableMeta.OCSHARES_NOTE));
         share.setHideFileDownload(getInt(cursor, ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD) == 1);
 
-        //  https://try.nextcloud.com/ltd/e2e2/index.php/s/t7NeiDHza2aJjtc
-        //  https://try.nextcloud.com/ltd/e2e2/index.php/s/Be/A1.mp3
         String shareLinkPrefix = getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK);
         String baseUrl = shareLinkPrefix.substring(0, shareLinkPrefix.indexOf("/s/"));
         String shareLink = baseUrl + "/s" + path;

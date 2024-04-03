@@ -452,8 +452,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         exposedFileUri = null;
     }
 
-    /**t7NeiDHza2aJjtc
-
+    /**
      * Returns the decrypted filename and "/" for the root directory
      *
      * @return The name of the file
