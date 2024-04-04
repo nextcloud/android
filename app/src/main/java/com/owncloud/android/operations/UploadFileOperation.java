@@ -756,6 +756,7 @@ public class UploadFileOperation extends SyncOperation {
 
             logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
 
+            // Unlock must be done otherwise folder stays locked and user can't upload any file
             RemoteOperationResult<Void> unlockFolderResult = null;
             if (object instanceof DecryptedFolderMetadataFileV1) {
                 unlockFolderResult = EncryptionUtils.unlockFolderV1(parentFile, client, token);
