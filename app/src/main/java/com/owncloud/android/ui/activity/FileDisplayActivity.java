@@ -69,6 +69,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
+import com.nextcloud.client.jobs.upload.UploadNotificationManager;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
@@ -229,6 +230,8 @@ public class FileDisplayActivity extends FileActivity
     public static final String KEY_IS_SEARCH_OPEN = "IS_SEARCH_OPEN";
     public static final String KEY_SEARCH_QUERY = "SEARCH_QUERY";
 
+    public static final String REFRESH_FOLDER_EVENT_RECEIVER = "REFRESH_FOLDER_EVENT";
+
     private String searchQuery = "";
     private boolean searchOpen;
 
@@ -236,6 +239,7 @@ public class FileDisplayActivity extends FileActivity
     private PlayerServiceConnection mPlayerConnection;
     private Optional<User> lastDisplayedUser = Optional.empty();
     private int menuItemId = -1;
+
     @Inject AppPreferences preferences;
 
     @Inject AppInfo appInfo;
@@ -283,6 +287,7 @@ public class FileDisplayActivity extends FileActivity
 
         initSyncBroadcastReceiver();
         observeWorkerState();
+        registerRefreshFolderEventReceiver();
     }
 
     @SuppressWarnings("unchecked")
@@ -2294,6 +2299,24 @@ public class FileDisplayActivity extends FileActivity
 
         EventBus.getDefault().post(new TokenPushEvent());
         checkForNewDevVersionNecessary(getApplicationContext());
+    }
+
+    private void registerRefreshFolderEventReceiver() {
+        IntentFilter filter = new IntentFilter(REFRESH_FOLDER_EVENT_RECEIVER);
+        LocalBroadcastManager.getInstance(this).registerReceiver(refreshFolderEventReceiver, filter);
+    }
+
+    private final BroadcastReceiver refreshFolderEventReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            syncAndUpdateFolder(true);
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(refreshFolderEventReceiver);
+        super.onDestroy();
     }
 
     @Override
