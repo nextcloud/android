@@ -183,7 +183,6 @@ public class FileDisplayActivity extends FileActivity
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
 
-
     private FilesBinding binding;
 
     private SyncBroadcastReceiver mSyncBroadcastReceiver;
@@ -197,9 +196,7 @@ public class FileDisplayActivity extends FileActivity
     public static final String KEY_FILE_ID = "KEY_FILE_ID";
     public static final String KEY_FILE_PATH = "KEY_FILE_PATH";
     public static final String KEY_ACCOUNT = "KEY_ACCOUNT";
-    public static final String KEY_SORT_GROUP_STATE = "KEY_SORT_GROUP_STATE";
     public static final String KEY_IS_SORT_GROUP_VISIBLE = "KEY_IS_SORT_GROUP_VISIBLE";
-
 
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
@@ -240,7 +237,6 @@ public class FileDisplayActivity extends FileActivity
     private PlayerServiceConnection mPlayerConnection;
     private Optional<User> lastDisplayedUser = Optional.empty();
     private int menuItemId = -1;
-    private Stack<Boolean> previousSortGroupState;
     @Inject AppPreferences preferences;
 
     @Inject AppInfo appInfo;
@@ -293,14 +289,12 @@ public class FileDisplayActivity extends FileActivity
     @SuppressWarnings("unchecked")
     private void loadSavedInstanceState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
-            previousSortGroupState = BundleExtensionsKt.getSerializableArgument(savedInstanceState, KEY_SORT_GROUP_STATE, Stack.class);
             mWaitingToPreview = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_WAITING_TO_PREVIEW, OCFile.class);
             mSyncInProgress = savedInstanceState.getBoolean(KEY_SYNC_IN_PROGRESS);
             mWaitingToSend = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_WAITING_TO_SEND, OCFile.class);
             searchQuery = savedInstanceState.getString(KEY_SEARCH_QUERY);
             searchOpen = savedInstanceState.getBoolean(FileDisplayActivity.KEY_IS_SEARCH_OPEN, false);
         } else {
-            previousSortGroupState = new Stack<>();
             mWaitingToPreview = null;
             mSyncInProgress = false;
             mWaitingToSend = null;
@@ -613,7 +607,7 @@ public class FileDisplayActivity extends FileActivity
         //clear the subtitle while navigating to any other screen from Media screen
         clearToolbarSubtitle();
 
-        setSortListGroup(sortListGroupVisibility(), showSortListGroup);
+        showSortListGroup(showSortListGroup);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
@@ -1030,7 +1024,7 @@ public class FileDisplayActivity extends FileActivity
                 setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
             }
             if (leftFragment instanceof UnifiedSearchFragment) {
-                popSortListGroupVisibility();
+                showSortListGroup(false);
                 super.onBackPressed();
             }
         }
@@ -1039,13 +1033,12 @@ public class FileDisplayActivity extends FileActivity
     /**
      * Use this method when want to pop the fragment on back press. It resets Scrolling (See
      * {@link #resetScrolling(boolean) with true} and pop the visibility for sortListGroup (See
-     * {@link #setSortListGroup(boolean, boolean)}. At last call to super.onBackPressed()
+     * {@link #showSortListGroup(boolean) with false}. At last call to super.onBackPressed()
      */
     private void popBack() {
-        // pop back fragment
         binding.fabMain.setImageResource(R.drawable.ic_plus);
         resetScrolling(true);
-        popSortListGroupVisibility();
+        showSortListGroup(false);
         super.onBackPressed();
     }
 
@@ -1057,14 +1050,13 @@ public class FileDisplayActivity extends FileActivity
         super.onSaveInstanceState(outState);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
-        //outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS,
+        // outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS,
         // mRefreshSharesInProgress);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_SEND, mWaitingToSend);
         if (searchView != null) {
             outState.putBoolean(KEY_IS_SEARCH_OPEN, !searchView.isIconified());
         }
         outState.putString(KEY_SEARCH_QUERY, searchQuery);
-        outState.putSerializable(KEY_SORT_GROUP_STATE, previousSortGroupState);
         outState.putBoolean(KEY_IS_SORT_GROUP_VISIBLE, sortListGroupVisibility());
         Log_OC.v(TAG, "onSaveInstanceState() end");
     }
@@ -2486,29 +2478,5 @@ public class FileDisplayActivity extends FileActivity
         if (selectedFile != null) {
             listOfFiles.onItemClicked(selectedFile);
         }
-    }
-
-    /**
-     * Use this method to set the visibility of SortListGroup while going to another fragment/view (which needs
-     * different visibility) It internally sets the visibility as well as save the previous one in the stack so that on
-     * going back it pops out the correct visibility. Also see {@link #popSortListGroupVisibility()}
-     */
-    private void setSortListGroup(boolean currentListGroupVisibility, boolean show) {
-        previousSortGroupState.push(currentListGroupVisibility);
-        showSortListGroup(show);
-    }
-
-    /**
-     * Use this method to set the visibility of SortListGroup when coming back from a view/fragment (which changed the
-     * visibility earlier using {@link #setSortListGroup(boolean, boolean)}
-     */
-    private void popSortListGroupVisibility() {
-        showSortListGroup(false);
-
-        if (previousSortGroupState.isEmpty()) {
-            return;
-        }
-
-        previousSortGroupState.pop();
     }
 }
