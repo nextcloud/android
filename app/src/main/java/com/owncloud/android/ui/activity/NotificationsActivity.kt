@@ -34,7 +34,6 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.network.ClientFactory.CreationException
-import com.nextcloud.java.util.Optional
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationsLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -49,6 +48,7 @@ import com.owncloud.android.ui.asynctasks.DeleteAllNotificationsTask
 import com.owncloud.android.ui.notifications.NotificationsContract
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PushUtils
+import java.util.Optional
 
 /**
  * Activity displaying all server side stored notification items.

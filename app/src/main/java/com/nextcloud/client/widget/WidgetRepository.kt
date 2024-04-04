@@ -13,7 +13,7 @@ import com.nextcloud.android.lib.resources.dashboard.DashboardButton
 import com.nextcloud.android.lib.resources.dashboard.DashboardWidget
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.java.util.Optional
+import java.util.Optional
 import javax.inject.Inject
 
 class WidgetRepository @Inject constructor(

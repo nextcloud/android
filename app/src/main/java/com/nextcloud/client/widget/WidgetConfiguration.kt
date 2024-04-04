@@ -9,7 +9,7 @@ package com.nextcloud.client.widget
 
 import com.nextcloud.android.lib.resources.dashboard.DashboardButton
 import com.nextcloud.client.account.User
-import com.nextcloud.java.util.Optional
+import java.util.Optional
 
 data class WidgetConfiguration(
     val widgetId: String,

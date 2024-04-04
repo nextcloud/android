@@ -1,25 +1,10 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Chris Narkiewicz
- * @author TSI-mc
- * Copyright (C) 2019 Chris Narkiewicz
- * Copyright (C) 2023 TSI-mc
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 package com.nextcloud.client.account;
 
 import android.accounts.Account;
@@ -35,7 +20,6 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.java.util.Optional;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -55,6 +39,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.inject.Inject;
 
@@ -406,7 +391,6 @@ public class UserAccountManagerImpl implements UserAccountManager {
     @Override
     public void startAccountCreation(final Activity activity) {
         Intent intent = new Intent(context, AuthenticatorActivity.class);
-
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

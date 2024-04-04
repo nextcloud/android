@@ -24,11 +24,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import com.nextcloud.client.account.User
-import com.nextcloud.java.util.Optional
 import com.owncloud.android.lib.resources.notifications.models.Notification
+import java.util.Optional
 
 class DeckApiImpl(private val context: Context, private val packageManager: PackageManager) : DeckApi {
-    override fun createForwardToDeckActionIntent(notification: Notification, user: User): Optional<PendingIntent?> {
+    override fun createForwardToDeckActionIntent(notification: Notification, user: User): Optional<PendingIntent> {
         if (APP_NAME.equals(notification.app, ignoreCase = true)) {
             val intent = Intent()
             for (appPackage in DECK_APP_PACKAGES) {

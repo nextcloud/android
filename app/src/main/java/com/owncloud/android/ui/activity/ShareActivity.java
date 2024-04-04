@@ -27,7 +27,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.java.util.Optional;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ShareActivityBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -44,6 +43,8 @@ import com.owncloud.android.ui.fragment.FileDetailSharingFragment;
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+
+import java.util.Optional;
 
 import javax.inject.Inject;
 

@@ -40,7 +40,6 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
-import com.nextcloud.java.util.Optional;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
@@ -50,6 +49,8 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.WebViewUtil;
+
+import java.util.Optional;
 
 import javax.inject.Inject;
 

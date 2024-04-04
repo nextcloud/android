@@ -77,7 +77,7 @@ class TextEditorWebView : EditorWebView() {
 
         webView.setDownloadListener { url, _, _, _, _ -> downloadFile(Uri.parse(url)) }
 
-        loadUrl(null)
+        loadUrl(intent.getStringExtra(EXTRA_URL))
     }
 
     override fun loadUrl(url: String?) {
