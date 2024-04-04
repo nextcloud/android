@@ -238,9 +238,8 @@ class FileUploadWorker(
         if (!isStopped || !result.isCancelled) {
             uploadsStorageManager.updateDatabaseUploadResult(result, operation)
             notifyUploadResult(operation, result)
+            notificationManager.dismissWorkerNotifications()
         }
-
-        notificationManager.dismissWorkerNotifications()
     }
 
     @Suppress("ReturnCount")
