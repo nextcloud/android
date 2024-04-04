@@ -45,6 +45,7 @@
     <string name="assistant_screen_loading">Aufgabenlisten werden geladen, bitte warten</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">Keine Aufgabe verfügbar. Aufgabentyp auswählen, um eine neue Aufgabe zu erstellen.</string>
     <string name="assistant_screen_no_task_available_text">Für den Aufgabentyp %s ist keine Aufgabe verfügbar. Sie können unten rechts eine neue Aufgabe erstellen.</string>
+    <string name="assistant_screen_running_task_text">In Bearbeitung</string>
     <string name="assistant_screen_scheduled_task_status_text">Geplant</string>
     <string name="assistant_screen_successful_task_text">Fertiggestellt</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
