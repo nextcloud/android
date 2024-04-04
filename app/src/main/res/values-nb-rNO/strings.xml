@@ -45,6 +45,7 @@
     <string name="assistant_screen_loading">Oppgaveliste lastes inn, vennligst vent</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">Ingen oppgave tilgjengelig. Velg en oppgavetype for å opprette en ny oppgave.</string>
     <string name="assistant_screen_no_task_available_text">Ingen oppgave tilgjengelig for %s-oppgavetype, du kan opprette en ny oppgave fra nede til høyre.</string>
+    <string name="assistant_screen_running_task_text">Pågår</string>
     <string name="assistant_screen_scheduled_task_status_text">Planlagt</string>
     <string name="assistant_screen_successful_task_text">Ferdig</string>
     <string name="assistant_screen_task_create_fail_message">Det oppstod en feil under oppretting av oppgaven</string>
