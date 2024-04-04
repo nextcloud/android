@@ -113,6 +113,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.util.Pair;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.MultiDexApplication;
@@ -367,14 +368,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
-        switch (event) {
-            case ON_START -> {
-                Log_OC.d(TAG, "APP IN FOREGROUND");
-            }
-            case ON_STOP -> {
-                passCodeManager.setCanAskPin(true);
-                Log_OC.d(TAG, "APP IN BACKGROUND");
-            }
+        if (event == Lifecycle.Event.ON_START) {
+            Log_OC.d(TAG, "APP IN FOREGROUND");
+        } else if (event == Lifecycle.Event.ON_STOP) {
+            passCodeManager.setCanAskPin(true);
+            Log_OC.d(TAG, "APP IN BACKGROUND");
         }
     });
 
