@@ -759,6 +759,10 @@ public class UploadFileOperation extends SyncOperation {
                 result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
 
+            if (result.isSuccess()) {
+                setUploadedDecyptedRemotePath(mFile.getDecryptedRemotePath());
+            }
+
             logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
 
             // unlock must be done always
@@ -998,21 +1002,18 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private String uploadedFilename;
+    private String uploadedDecyptedRemotePath;
 
-    public String getUploadedFilename(){
-        return uploadedFilename;
+    public String getUploadedDecyptedRemotePath(){
+        return uploadedDecyptedRemotePath;
     }
 
-    public void setUploadedFilename(String uploadedFilename){
-        this.uploadedFilename = uploadedFilename;
+    public void setUploadedDecyptedRemotePath(String uploadedDecyptedRemotePath){
+        this.uploadedDecyptedRemotePath = uploadedDecyptedRemotePath;
     }
 
     private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {
         if (result.isSuccess()) {
-            String filename = sourcePath.substring(sourcePath.lastIndexOf('/') + 1);
-            setUploadedFilename(filename);
-
             Log_OC.i(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
         } else {
             if (result.getException() != null) {
