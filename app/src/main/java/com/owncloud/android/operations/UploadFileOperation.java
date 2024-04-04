@@ -459,6 +459,7 @@ public class UploadFileOperation extends SyncOperation {
 
         boolean metadataExists = false;
         String token = null;
+        Object object = null;
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(getContext());
         String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
@@ -490,7 +491,7 @@ public class UploadFileOperation extends SyncOperation {
 
             // Update metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
-            Object object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
+            object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
             if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
                 metadataExists = true;
             }
@@ -702,9 +703,6 @@ public class UploadFileOperation extends SyncOperation {
                                                    "",
                                                    arbitraryDataProvider,
                                                    user);
-
-                    // unlock
-                    result = EncryptionUtils.unlockFolderV1(parentFile, client, token);
                 } else {
                     DecryptedFolderMetadataFile metadata = (DecryptedFolderMetadataFile) object;
                     encryptionUtilsV2.addFileToMetadata(
@@ -725,9 +723,6 @@ public class UploadFileOperation extends SyncOperation {
                                                                  mContext,
                                                                  user,
                                                                  getStorageManager());
-
-                    // unlock
-                    result = EncryptionUtils.unlockFolder(parentFile, client, token);
                 }
 
                 encryptedTempFile.delete();
@@ -759,20 +754,20 @@ public class UploadFileOperation extends SyncOperation {
                 result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
 
-            if (result.isSuccess()) {
-                setUploadedDecyptedRemotePath(mFile.getDecryptedRemotePath());
-            }
-
             logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
 
-            // unlock must be done always
-            if (token != null) {
-                RemoteOperationResult<Void> unlockFolderResult = EncryptionUtils.unlockFolder(parentFile,
-                                                                                              client,
-                                                                                              token);
+            // Unlock in final block
+            if (object instanceof DecryptedFolderMetadataFileV1) {
+                RemoteOperationResult unlockFolderV1 = EncryptionUtils.unlockFolderV1(parentFile, client, token);
 
-                if (!unlockFolderResult.isSuccess()) {
-                    result = unlockFolderResult;
+                if (!unlockFolderV1.isSuccess()) {
+                    result = unlockFolderV1;
+                }
+            } else {
+                RemoteOperationResult unlockFolderV2 = EncryptionUtils.unlockFolder(parentFile, client, token);
+
+                if (!unlockFolderV2.isSuccess()) {
+                    result = unlockFolderV2;
                 }
             }
         }
@@ -1000,16 +995,6 @@ public class UploadFileOperation extends SyncOperation {
             ocUpload.setFileSize(size);
             uploadsStorageManager.updateUpload(ocUpload);
         }
-    }
-
-    private String uploadedDecyptedRemotePath;
-
-    public String getUploadedDecyptedRemotePath(){
-        return uploadedDecyptedRemotePath;
-    }
-
-    public void setUploadedDecyptedRemotePath(String uploadedDecyptedRemotePath){
-        this.uploadedDecyptedRemotePath = uploadedDecyptedRemotePath;
     }
 
     private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {

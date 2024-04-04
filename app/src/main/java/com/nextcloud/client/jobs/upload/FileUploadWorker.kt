@@ -235,19 +235,9 @@ class FileUploadWorker(
     }
 
     private fun cleanupUploadProcess(result: RemoteOperationResult<Any?>, operation: UploadFileOperation) {
-        if (operation.decryptedRemotePath == operation.uploadedDecyptedRemotePath) {
-            // TODO
-            // This is not ideal fix. When uploading file to the encrypted folder server returns 404 FILE_NOT_FOUND
-            // However file upload successfully completed. This fix mimic success, if upload successfully completed with
-            // receiving path
-            val newResult = RemoteOperationResult<Void>(ResultCode.OK)
-            uploadsStorageManager.updateDatabaseUploadResult(newResult, operation)
-            notificationManager.dismissOldErrorNotification(operation)
-        } else {
-            if (!isStopped || !result.isCancelled) {
-                uploadsStorageManager.updateDatabaseUploadResult(result, operation)
-                notifyUploadResult(operation, result)
-            }
+        if (!isStopped || !result.isCancelled) {
+            uploadsStorageManager.updateDatabaseUploadResult(result, operation)
+            notifyUploadResult(operation, result)
         }
 
         notificationManager.dismissWorkerNotifications()
