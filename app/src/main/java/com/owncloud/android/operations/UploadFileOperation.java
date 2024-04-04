@@ -1010,8 +1010,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private void logResult(RemoteOperationResult result, String sourcePath, String targetPath) {
         if (result.isSuccess()) {
-            int lastIndex = sourcePath.lastIndexOf("/");
-            String filename = sourcePath.substring(lastIndex + 1);
+            String filename = sourcePath.substring(sourcePath.lastIndexOf('/') + 1);
             setUploadedFilename(filename);
 
             Log_OC.i(TAG, "Upload of " + sourcePath + " to " + targetPath + ": " + result.getLogMessage());
