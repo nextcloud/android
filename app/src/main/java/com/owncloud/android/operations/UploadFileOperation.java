@@ -756,19 +756,15 @@ public class UploadFileOperation extends SyncOperation {
 
             logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
 
-            // Unlock in final block
+            RemoteOperationResult<Void> unlockFolderResult = null;
             if (object instanceof DecryptedFolderMetadataFileV1) {
-                RemoteOperationResult unlockFolderV1 = EncryptionUtils.unlockFolderV1(parentFile, client, token);
+                unlockFolderResult = EncryptionUtils.unlockFolderV1(parentFile, client, token);
+            } else if (object instanceof DecryptedFolderMetadataFile) {
+                unlockFolderResult = EncryptionUtils.unlockFolder(parentFile, client, token);
+            }
 
-                if (!unlockFolderV1.isSuccess()) {
-                    result = unlockFolderV1;
-                }
-            } else {
-                RemoteOperationResult unlockFolderV2 = EncryptionUtils.unlockFolder(parentFile, client, token);
-
-                if (!unlockFolderV2.isSuccess()) {
-                    result = unlockFolderV2;
-                }
+            if (unlockFolderResult != null && !unlockFolderResult.isSuccess()) {
+                result = unlockFolderResult;
             }
         }
 
