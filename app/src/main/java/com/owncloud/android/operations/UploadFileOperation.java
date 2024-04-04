@@ -726,7 +726,7 @@ public class UploadFileOperation extends SyncOperation {
                                                                  metadata,
                                                                  token,
                                                                  client,
-                                                                 metadataExists,
+                                                                 true,
                                                                  mContext,
                                                                  user,
                                                                  getStorageManager());
