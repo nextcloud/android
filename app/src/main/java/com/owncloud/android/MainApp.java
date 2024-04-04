@@ -113,6 +113,9 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.util.Pair;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.ProcessLifecycleOwner;
 import androidx.multidex.MultiDexApplication;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
@@ -297,6 +300,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
 
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
+
         insertConscrypt();
 
         initSecurityKeyManager();
@@ -361,6 +366,15 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         registerGlobalPassCodeProtection();
     }
+
+    private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
+        if (event == Lifecycle.Event.ON_START) {
+            Log_OC.d(TAG, "APP IN FOREGROUND");
+        } else if (event == Lifecycle.Event.ON_STOP) {
+            passCodeManager.setCanAskPin(true);
+            Log_OC.d(TAG, "APP IN BACKGROUND");
+        }
+    });
 
     private void registerGlobalPassCodeProtection() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
