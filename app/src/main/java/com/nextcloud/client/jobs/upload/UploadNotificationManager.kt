@@ -16,7 +16,6 @@ import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
-import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -44,14 +43,14 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     }
 
     @Suppress("MagicNumber")
-    fun prepareForStart(upload: UploadFileOperation, pendingIntent: PendingIntent, startIntent: PendingIntent) {
+    fun prepareForStart(uploadFileOperation: UploadFileOperation, pendingIntent: PendingIntent, startIntent: PendingIntent) {
         notificationBuilder.run {
             setContentTitle(context.getString(R.string.uploader_upload_in_progress_ticker))
             setContentText(
                 String.format(
                     context.getString(R.string.uploader_upload_in_progress),
                     0,
-                    upload.fileName
+                    uploadFileOperation.fileName
                 )
             )
             setTicker(context.getString(R.string.foreground_service_upload))
@@ -68,7 +67,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             setContentIntent(startIntent)
         }
 
-        if (!upload.isInstantPicture && !upload.isInstantVideo) {
+        if (!uploadFileOperation.isInstantPicture && !uploadFileOperation.isInstantVideo) {
             showNotification()
         }
     }
@@ -138,11 +137,10 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     }
 
     @Suppress("MagicNumber")
-    fun updateUploadProgress(filePath: String, percent: Int, currentOperation: UploadFileOperation?) {
+    fun updateUploadProgress(filename: String, percent: Int, currentOperation: UploadFileOperation?) {
         notificationBuilder.run {
             setProgress(100, percent, false)
-            val fileName = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
-            val text = String.format(context.getString(R.string.uploader_upload_in_progress), percent, fileName)
+            val text = String.format(context.getString(R.string.uploader_upload_in_progress), percent, filename)
             setContentText(text)
 
             showNotification()

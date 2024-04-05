@@ -548,7 +548,7 @@ public final class EncryptionUtils {
     }
 
     public static EncryptedFile encryptFile(Context context, File file, Cipher cipher) throws InvalidParameterSpecException, IOException {
-        File tempEncryptedFile = File.createTempFile(file.getName(), "", context.getCacheDir());
+        File tempEncryptedFile = File.createTempFile(file.getName(), ".", context.getCacheDir());
         encryptFileWithGivenCipher(file, tempEncryptedFile, cipher);
         String authenticationTagString = getAuthenticationTag(cipher);
         return new EncryptedFile(tempEncryptedFile, authenticationTagString);
