@@ -547,8 +547,7 @@ public final class EncryptionUtils {
         return Base64.decode(string, Base64.NO_WRAP);
     }
 
-    public static EncryptedFile encryptFile(File file, Cipher cipher) throws InvalidParameterSpecException {
-        // FIXME this won't work on low or write-protected storage
+    public static EncryptedFile encryptFile(Context context, File file, Cipher cipher) throws InvalidParameterSpecException {
         File encryptedFile = new File(file.getAbsolutePath() + ".enc.jpg");
         encryptFileWithGivenCipher(file, encryptedFile, cipher);
         String authenticationTagString = getAuthenticationTag(cipher);
