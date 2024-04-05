@@ -32,11 +32,10 @@
         tools:visibility="visible"
         android:layout_alignParentBottom="true">
 
-        <ImageView
+        <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/uploader_list_separator_height"
-            android:contentDescription="@null"
-            android:src="@drawable/uploader_list_separator" />
+            android:layout_height="1dp"
+            android:background="@color/list_divider_background"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/restore_selected"
