@@ -235,7 +235,7 @@ class FileUploadWorker(
     }
 
     private fun cleanupUploadProcess(result: RemoteOperationResult<Any?>, operation: UploadFileOperation) {
-        if (!(isStopped && result.isCancelled)) {
+        if (!isStopped || !result.isCancelled) {
             uploadsStorageManager.updateDatabaseUploadResult(result, operation)
             notifyUploadResult(operation, result)
             notificationManager.dismissWorkerNotifications()
@@ -288,17 +288,18 @@ class FileUploadWorker(
                 context.resources
             )
 
-            // FIXME SYNC_CONFLICT passes wrong OCFile, check ConflictsResolveActivity.createIntent usage
             val conflictResolveIntent = if (uploadResult.code == ResultCode.SYNC_CONFLICT) {
                 intents.conflictResolveActionIntents(context, uploadFileOperation)
             } else {
                 null
             }
+
             val credentialIntent: PendingIntent? = if (uploadResult.code == ResultCode.UNAUTHORIZED) {
                 intents.credentialIntent(uploadFileOperation)
             } else {
                 null
             }
+
             notifyForFailedResult(uploadResult.code, conflictResolveIntent, credentialIntent, errorMessage)
             showNewNotification(uploadFileOperation)
         }

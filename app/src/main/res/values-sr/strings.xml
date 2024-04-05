@@ -45,6 +45,7 @@
     <string name="assistant_screen_loading">Листа задатака се учитава, молимо вас сачекајте</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">Не постоји ниједан задатак. Да бисте креирали нови задатак, изаберите тип задатка.</string>
     <string name="assistant_screen_no_task_available_text">Не постоји ниједан задатак типа %s, нови задатак можете да креирате доле десно.</string>
+    <string name="assistant_screen_running_task_text">Напредује</string>
     <string name="assistant_screen_scheduled_task_status_text">Заказано</string>
     <string name="assistant_screen_successful_task_text">Завршено</string>
     <string name="assistant_screen_task_create_fail_message">Дошло је до грешке током креирања задатка</string>

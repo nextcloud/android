@@ -866,6 +866,7 @@
     <string name="uploader_error_title_file_cannot_be_uploaded">このファイルはアップロードできません</string>
     <string name="uploader_error_title_no_file_to_upload">アップロードするファイルはありません</string>
     <string name="uploader_info_dirname">フォルダー名</string>
+    <string name="uploader_local_files_uploaded">失敗したローカル ファイルのアップロードを再試行します</string>
     <string name="uploader_top_message">アップロードフォルダーを選択</string>
     <string name="uploader_upload_failed_content_single">%1$sをアップロードできませんでした</string>
     <string name="uploader_upload_failed_credentials_error">アップロード失敗、要 再ログイン</string>

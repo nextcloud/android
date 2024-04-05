@@ -41,9 +41,12 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
+    <string name="assistant_screen_failed_task_text">Misslyckades</string>
     <string name="assistant_screen_loading">Uppgiftslistan laddas, vänta</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">Ingen uppgift tillgänglig. Välj en uppgiftstyp för att skapa en ny uppgift.</string>
     <string name="assistant_screen_no_task_available_text">Ingen uppgift tillgänglig för uppgiftstyp %s, du kan skapa en ny uppgift längst ner till höger.</string>
+    <string name="assistant_screen_running_task_text">Pågående</string>
+    <string name="assistant_screen_scheduled_task_status_text">Schemalagd</string>
     <string name="assistant_screen_successful_task_text">Slutförd</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
     <string name="assistant_screen_task_create_success_message">Uppgiften har skapats</string>

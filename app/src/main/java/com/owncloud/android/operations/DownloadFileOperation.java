@@ -273,7 +273,14 @@ public class DownloadFileOperation extends RemoteOperation {
                 }
             }
 
-            if (downloadType == DownloadType.EXPORT) {
+            if (downloadType == DownloadType.DOWNLOAD && !file.isEncrypted()) {
+                moved = tmpFile.renameTo(newFile);
+                boolean isLastModifiedSet = newFile.setLastModified(file.getModificationTimestamp());
+                Log_OC.d(TAG, "Last modified set: " + isLastModifiedSet);
+                if (!moved) {
+                    result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
+                }
+            } else if (downloadType == DownloadType.EXPORT) {
                 new FileExportUtils().exportFile(file.getFileName(),
                                                  file.getMimeType(),
                                                  operationContext.getContentResolver(),
