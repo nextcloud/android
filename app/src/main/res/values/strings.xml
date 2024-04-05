@@ -41,8 +41,8 @@
     <string name="assistant_screen_task_create_success_message">Task successfully created</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
 
-    <string name="assistant_screen_task_delete_success_message">An error occurred while deleting the task</string>
-    <string name="assistant_screen_task_delete_fail_message">Task successfully deleted</string>
+    <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
+    <string name="assistant_screen_task_delete_fail_message">An error occurred while deleting the task</string>
 
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
 
