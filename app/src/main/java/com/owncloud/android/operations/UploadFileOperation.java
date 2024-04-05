@@ -272,11 +272,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     public String getFileName() {
-        if (mFile == null) {
-            return null;
-        }
-
-        return mFile.getFileName();
+        return (mFile != null) ? mFile.getFileName() : null;
     }
 
     public OCFile getFile() {
