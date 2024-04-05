@@ -547,11 +547,11 @@ public final class EncryptionUtils {
         return Base64.decode(string, Base64.NO_WRAP);
     }
 
-    public static EncryptedFile encryptFile(Context context, File file, Cipher cipher) throws InvalidParameterSpecException {
-        File encryptedFile = new File(file.getAbsolutePath() + ".enc.jpg");
-        encryptFileWithGivenCipher(file, encryptedFile, cipher);
+    public static EncryptedFile encryptFile(Context context, File file, Cipher cipher) throws InvalidParameterSpecException, IOException {
+        File tempEncryptedFile = File.createTempFile(file.getName(), "", context.getCacheDir());
+        encryptFileWithGivenCipher(file, tempEncryptedFile, cipher);
         String authenticationTagString = getAuthenticationTag(cipher);
-        return new EncryptedFile(encryptedFile, authenticationTagString);
+        return new EncryptedFile(tempEncryptedFile, authenticationTagString);
     }
 
     public static String getAuthenticationTag(Cipher cipher) throws InvalidParameterSpecException {
