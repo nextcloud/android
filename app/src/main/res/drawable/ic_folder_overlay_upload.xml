@@ -1,30 +1,15 @@
 <!--
- Nextcloud Android client application
-
- @author Alper Öztürk
- Copyright (C) 2023 Alper Öztürk
- Copyright (C) 2023 Nextcloud GmbH
-
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU Affero General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Affero General Public License for more details.
-
- You should have received a copy of the GNU Affero General Public License
- along with this program. If not, see <https://www.gnu.org/licenses/>.
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018-2024 Google LLC
+  ~ SPDX-License-Identifier: Apache-2.0
 -->
-
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-  <path
-      android:fillColor="#FFFFFF"
-      android:pathData="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"/>
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z" />
 </vector>

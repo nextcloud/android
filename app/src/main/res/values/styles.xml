@@ -274,7 +274,6 @@
         <item name="android:shadowColor">@color/actionbar_shadow</item>
         <item name="android:shadowRadius">1</item>
         <item name="android:shadowDy">1</item>
-        <item name="android:backgroundSplit">@drawable/split_action_bg</item>
     </style>
 
     <!-- Dialogs -->
