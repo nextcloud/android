@@ -50,8 +50,8 @@
     <string name="assistant_screen_successful_task_text">Dokončené</string>
     <string name="assistant_screen_task_create_fail_message">Pri vytváraní úlohy nastala chyba</string>
     <string name="assistant_screen_task_create_success_message">Úloha bola úspešne vytvorená</string>
-    <string name="assistant_screen_task_delete_fail_message">Úloha bola úspešne odstránená</string>
-    <string name="assistant_screen_task_delete_success_message">Pri odstraňovaní úlohy nastala chyba</string>
+    <string name="assistant_screen_task_delete_fail_message">Pri odstraňovaní úlohy nastala chyba</string>
+    <string name="assistant_screen_task_delete_success_message">Úloha bola úspešne odstránená</string>
     <string name="assistant_screen_task_list_error_state_message">Nie je možné načítať zoznam úloh, skontrolujte svoje internetové pripojenie.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Vymazať Úlohu</string>
     <string name="assistant_screen_task_types_error_state_message">Nie je možné načítať typy úloh, skontrolujte svoje internetové pripojenie.</string>

@@ -48,8 +48,8 @@
     <string name="assistant_screen_successful_task_text">Voltooid</string>
     <string name="assistant_screen_task_create_fail_message">Er is een fout opgetreden bij het aanmaken van de taak</string>
     <string name="assistant_screen_task_create_success_message">Taak succesvol aangemaakt</string>
-    <string name="assistant_screen_task_delete_fail_message">Taak succesvol verwijderd</string>
-    <string name="assistant_screen_task_delete_success_message">Er is een fout opgetreden bij het verwijderen van de taak</string>
+    <string name="assistant_screen_task_delete_fail_message">Er is een fout opgetreden bij het verwijderen van de taak</string>
+    <string name="assistant_screen_task_delete_success_message">Taak succesvol verwijderd</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Verwijder taak</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Onbekend</string>

@@ -42,7 +42,9 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro de eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
     <string name="assistant_screen_failed_task_text">Falló</string>
-    <string name="assistant_screen_task_delete_fail_message">¡La tarea fue eliminada exitósamente!</string>
+    <string name="assistant_screen_scheduled_task_status_text">Programado</string>
+    <string name="assistant_screen_successful_task_text">Completado</string>
+    <string name="assistant_screen_task_delete_success_message">¡La tarea fue eliminada exitósamente!</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarea</string>
     <string name="assistant_screen_unknown_task_status_text">Desconocido</string>
     <string name="associated_account_not_found">¡Cuenta asociada no encontrada!</string>

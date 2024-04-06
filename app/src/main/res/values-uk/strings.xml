@@ -49,8 +49,8 @@
     <string name="assistant_screen_successful_task_text">Виконано</string>
     <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
     <string name="assistant_screen_task_create_success_message">Успішно додано завдання</string>
-    <string name="assistant_screen_task_delete_fail_message">Завдання вилучено</string>
-    <string name="assistant_screen_task_delete_success_message">Помилка під час вилучення завдання</string>
+    <string name="assistant_screen_task_delete_fail_message">Помилка під час вилучення завдання</string>
+    <string name="assistant_screen_task_delete_success_message">Завдання вилучено</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Вилучити завдання</string>
     <string name="assistant_screen_top_bar_title">Помічник</string>
     <string name="assistant_screen_unknown_task_status_text">Невідомо</string>
