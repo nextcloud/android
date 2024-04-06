@@ -36,11 +36,10 @@
 		android:layout_height="wrap_content"
 		android:orientation="horizontal">
 
-		<ImageView
-			android:layout_width="match_parent"
-			android:layout_height="1dp"
-			android:src="@drawable/uploader_list_separator"
-			android:contentDescription="@null"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_divider_background"/>
 
 	</LinearLayout>
 

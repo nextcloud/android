@@ -152,7 +152,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 7
             shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Personal circle"
+            sharedWithDisplayName = "Personal team"
             permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
@@ -161,7 +161,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 8
             shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Public circle"
+            sharedWithDisplayName = "Public team"
             permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
@@ -170,7 +170,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 9
             shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Closed circle"
+            sharedWithDisplayName = "Closed team"
             permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
@@ -179,7 +179,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 10
             shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Secret circle"
+            sharedWithDisplayName = "Secret team"
             permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
