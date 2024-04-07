@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ownCloud Android client application
-  Copyright (C) 2015 ownCloud Inc.
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License version 2,
-  as published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2020-2022 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2015 masensio <masensio@solidgear.es>
+  ~ SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
 -->
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -43,8 +34,8 @@
             android:id="@+id/shareFileName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/standard_half_margin"
             android:layout_marginStart="@dimen/standard_quarter_margin"
+            android:layout_marginEnd="@dimen/standard_half_margin"
             android:layout_toEndOf="@+id/shareFileIcon"
             android:ellipsize="middle"
             android:singleLine="true"
@@ -72,8 +63,8 @@
         android:background="@color/primary" />
 
     <FrameLayout
+        android:id="@+id/share_fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/share_fragment_container" />
+        android:layout_height="match_parent" />
 
 </LinearLayout>

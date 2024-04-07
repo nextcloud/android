@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ownCloud Android client application
-
-  Copyright (C) 2015 ownCloud Inc.
-  Copyright (C) 2012 Bartek Przybylski
-  Copyright (C) 2023 Andy Scherzinger
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License version 2,
-  as published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- -->
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
+  ~ SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2020 Abdourahamane Boinaidi <abdourahamane.boinaidi@infomaniak.com>
+  ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski <bart.p.pl@gmail.com>
+  ~ SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -165,22 +157,20 @@
 
                 <TextView
                     android:id="@+id/live_photo_indicator"
-                    android:visibility="gone"
-                    tools:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/file_list_live"
                     android:drawablePadding="@dimen/standard_eight_padding"
                     android:gravity="center"
+                    android:text="@string/file_list_live"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
                     android:textSize="@dimen/two_line_secondary_text_size"
+                    android:visibility="gone"
                     app:drawableLeftCompat="@drawable/ic_live_photo"
-                    app:drawableTint="@color/list_item_lastmod_and_filesize_text" />
+                    app:drawableTint="@color/list_item_lastmod_and_filesize_text"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/live_photo_indicator_separator"
-                    android:visibility="gone"
-                    tools:visibility="visible"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
@@ -188,7 +178,9 @@
                     android:paddingEnd="@dimen/standard_quarter_padding"
                     android:text="@string/info_separator"
                     android:textColor="@color/list_item_lastmod_and_filesize_text"
-                    android:textSize="@dimen/two_line_secondary_text_size" />
+                    android:textSize="@dimen/two_line_secondary_text_size"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
 
                 <TextView
                     android:id="@+id/file_size"
@@ -241,8 +233,8 @@
             android:paddingStart="@dimen/standard_half_padding"
             android:paddingEnd="@dimen/list_item_share_right_margin"
             android:src="@drawable/ic_comment"
-            tools:visibility="visible"
-            android:visibility="gone" />
+            android:visibility="gone"
+            tools:visibility="visible" />
 
         <ImageView
             android:id="@+id/sharedIcon"
@@ -256,7 +248,7 @@
             android:paddingStart="@dimen/list_item_share_right_margin"
             android:paddingEnd="@dimen/list_item_share_right_margin"
             android:src="@drawable/ic_unshared"
-            tools:visibility="visible"/>
+            tools:visibility="visible" />
 
         <com.owncloud.android.ui.AvatarGroupLayout
             android:id="@+id/sharedAvatars"
