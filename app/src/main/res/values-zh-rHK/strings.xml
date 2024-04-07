@@ -49,8 +49,8 @@
     <string name="assistant_screen_successful_task_text">已完成</string>
     <string name="assistant_screen_task_create_fail_message">建立任務項目時發生錯誤</string>
     <string name="assistant_screen_task_create_success_message">已成功建立任務項目</string>
-    <string name="assistant_screen_task_delete_fail_message">任務已刪除</string>
-    <string name="assistant_screen_task_delete_success_message">刪除任務時發生了錯誤</string>
+    <string name="assistant_screen_task_delete_fail_message">刪除任務時發生了錯誤</string>
+    <string name="assistant_screen_task_delete_success_message">任務已刪除</string>
     <string name="assistant_screen_task_list_error_state_message">無法擷取任務清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除任務</string>
     <string name="assistant_screen_task_types_error_state_message">無法擷取任務類型，請檢查您的網際網路連線。</string>
