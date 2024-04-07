@@ -1,3 +1,12 @@
+## 3.28.2 (April 4th, 2024)
+
+- Bugfixes
+
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/90
+
 <!--
  ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  ~ SPDX-License-Identifier: AGPL-3.0-or-later
