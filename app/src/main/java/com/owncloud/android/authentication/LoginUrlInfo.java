@@ -1,13 +1,10 @@
 /*
- *   Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author Andy Scherzinger
- *   Copyright (C) 2016 Andy Scherzinger
- *   Copyright (C) 2016 Nextcloud
- *
+ * SPDX-FileCopyrightText: 2016 Andy Scherzinger
+ * SPDX-FileCopyrightText: 2016 Nextcloud
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 package com.owncloud.android.authentication;
 
 /**

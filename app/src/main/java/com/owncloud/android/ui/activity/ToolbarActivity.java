@@ -1,16 +1,16 @@
 /*
- *   Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author Andy Scherzinger
- *   @author TSI-mc
- *   Copyright (C) 2016 Andy Scherzinger
- *   Copyright (C) 2016 Nextcloud
- *   Copyright (C) 2016 ownCloud Inc.
- *   Copyright (C) 2022 TSI-mc
- *
- *   SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-FileCopyrightText: 2023 ZetaTom
+ * SPDX-FileCopyrightText: 2023 Parneet Singh <gurayaparneet@gmail.com>
+ * SPDX-FileCopyrightText: 2022 Brey Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2022 TSI-mc
+ * SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
+ * SPDX-FileCopyrightText: 2016-2022 Andy Scherzinger
+ * SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2016 Nextcloud
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 package com.owncloud.android.ui.activity;
 
 import android.animation.AnimatorInflater;

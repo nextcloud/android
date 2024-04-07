@@ -1,18 +1,15 @@
 /*
- *   Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author Andy Scherzinger
- *   @author Chris Narkiewicz <hello@ezaquarii.com>
- *   @author Nick Antoniou
- *
- *   Copyright (C) 2016 Andy Scherzinger
- *   Copyright (C) 2016 ownCloud Inc.
- *   Copyright (C) 2019 Nick Antoniou
- *   Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2020 Kilian Périsset <kilian.perisset@infomaniak.com>
+ * SPDX-FileCopyrightText: 2020 Stefan Niedermann <info@niedermann.it>
+ * SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2019 Nick Antoniou <nikolasea@windowslive.com>
+ * SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
@@ -39,9 +36,6 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-/**
- * This Adapter populates a RecyclerView with all accounts within the app.
- */
 public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                                 implements DisplayUtils.AvatarGenerationListener {
     private static final String TAG = UserListAdapter.class.getSimpleName();

@@ -1,16 +1,11 @@
 /*
+ * Nextcloud - Android Client
  *
- *  Nextcloud Android client application
- *
- *  @author Tobias Kaminsky
- *  @author Chris Narkiewicz <hello@ezaquarii.com>
- *
- *  Copyright (C) 2019 Tobias Kaminsky
- *  Copyright (C) 2019 Nextcloud GmbH
- *  Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
+ * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2021 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-License-Identifier: AGPL-3.0-or-later
- *
  */
 package com.owncloud.android.ui.dialog
 
