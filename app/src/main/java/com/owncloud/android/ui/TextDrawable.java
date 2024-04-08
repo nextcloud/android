@@ -1,26 +1,12 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Andy Scherzinger
- * @author Tobias Kaminsky
- * @author Chris Narkiewicz
- * Copyright (C) 2016 ownCloud Inc.
- * Copyright (C) 2018 Andy Scherzinger
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2019-2021 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2015-2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2016-2018 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 package com.owncloud.android.ui;
 
 import android.graphics.Canvas;
@@ -46,22 +32,22 @@ public class TextDrawable extends Drawable {
     /**
      * the text to be rendered.
      */
-    private String mText;
+    private String text;
 
     /**
      * the text paint to be rendered.
      */
-    private Paint mTextPaint;
+    private Paint textPaint;
 
     /**
      * the background to be rendered.
      */
-    private Paint mBackground;
+    private Paint background;
 
     /**
      * the radius of the circular background to be rendered.
      */
-    private float mRadius;
+    private float radius;
 
     private boolean bigText = false;
 
@@ -73,19 +59,19 @@ public class TextDrawable extends Drawable {
      * @param radius circle radius
      */
     public TextDrawable(String text, BitmapUtils.Color color, float radius) {
-        mRadius = radius;
-        mText = text;
+        this.radius = radius;
+        this.text = text;
 
-        mBackground = new Paint();
-        mBackground.setStyle(Paint.Style.FILL);
-        mBackground.setAntiAlias(true);
-        mBackground.setColor(Color.argb(color.a, color.r, color.g, color.b));
+        background = new Paint();
+        background.setStyle(Paint.Style.FILL);
+        background.setAntiAlias(true);
+        background.setColor(Color.argb(color.a, color.r, color.g, color.b));
 
-        mTextPaint = new Paint();
-        mTextPaint.setColor(Color.WHITE);
-        mTextPaint.setTextSize(radius);
-        mTextPaint.setAntiAlias(true);
-        mTextPaint.setTextAlign(Paint.Align.CENTER);
+        textPaint = new Paint();
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTextSize(radius);
+        textPaint.setAntiAlias(true);
+        textPaint.setTextAlign(Paint.Align.CENTER);
 
         setBounds(0, 0, (int) radius * 2, (int) radius * 2);
     }
@@ -155,23 +141,23 @@ public class TextDrawable extends Drawable {
      */
     @Override
     public void draw(@NonNull Canvas canvas) {
-        canvas.drawCircle(mRadius, mRadius, mRadius, mBackground);
+        canvas.drawCircle(radius, radius, radius, background);
 
         if (bigText) {
-            mTextPaint.setTextSize(1.8f * mRadius);
+            textPaint.setTextSize(1.8f * radius);
         }
 
-        canvas.drawText(mText, mRadius, mRadius - ((mTextPaint.descent() + mTextPaint.ascent()) / 2), mTextPaint);
+        canvas.drawText(text, radius, radius - ((textPaint.descent() + textPaint.ascent()) / 2), textPaint);
     }
 
     @Override
     public void setAlpha(int alpha) {
-        mTextPaint.setAlpha(alpha);
+        textPaint.setAlpha(alpha);
     }
 
     @Override
     public void setColorFilter(ColorFilter cf) {
-        mTextPaint.setColorFilter(cf);
+        textPaint.setColorFilter(cf);
     }
 
     @Override

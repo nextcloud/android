@@ -1,24 +1,15 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author David A. Velasco
- *   @author Chris Narkiewicz
- *
- *   Copyright (C) 2016  ownCloud Inc.
- *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hd that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2020-2024 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2016 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2015 masensio <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2013 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
  */
 package com.owncloud.android.ui.preview;
 
@@ -71,9 +62,8 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.viewpager.widget.ViewPager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-
 /**
- *  Holds a swiping galley where image files contained in an Nextcloud directory are shown
+ *  Holds a swiping gallery where image files contained in an Nextcloud directory are shown.
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class PreviewImageActivity extends FileActivity implements
@@ -87,16 +77,15 @@ public class PreviewImageActivity extends FileActivity implements
     private static final String KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER";
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
 
-
     private OCFile livePhotoFile;
-    private ViewPager mViewPager;
-    private PreviewImagePagerAdapter mPreviewImagePagerAdapter;
-    private int mSavedPosition;
-    private boolean mHasSavedPosition;
-    private boolean mRequestWaitingForBinder;
-    private DownloadFinishReceiver mDownloadFinishReceiver;
-    private UploadFinishReceiver mUploadFinishReceiver;
-    private View mFullScreenAnchorView;
+    private ViewPager viewPager;
+    private PreviewImagePagerAdapter previewImagePagerAdapter;
+    private int savedPosition;
+    private boolean hasSavedPosition;
+    private boolean requestWaitingForBinder;
+    private DownloadFinishReceiver downloadFinishReceiver;
+    private UploadFinishReceiver uploadFinishReceiver;
+    private View fullScreenAnchorView;
     private boolean isDownloadWorkStarted = false;
 
     @Inject AppPreferences preferences;
@@ -137,14 +126,14 @@ public class PreviewImageActivity extends FileActivity implements
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        mFullScreenAnchorView = getWindow().getDecorView();
+        fullScreenAnchorView = getWindow().getDecorView();
         // to keep our UI controls visibility in line with system bars visibility
         setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 
         if (savedInstanceState != null) {
-            mRequestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
+            requestWaitingForBinder = savedInstanceState.getBoolean(KEY_WAITING_FOR_BINDER);
         } else {
-            mRequestWaitingForBinder = false;
+            requestWaitingForBinder = false;
         }
 
         observeWorkerState();
@@ -168,10 +157,10 @@ public class PreviewImageActivity extends FileActivity implements
         if (virtualFolderType != null && virtualFolderType != VirtualFolderType.NONE) {
             VirtualFolderType type = (VirtualFolderType) virtualFolderType;
 
-            mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
-                                                                     type,
-                                                                     user,
-                                                                     getStorageManager());
+            previewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
+                                                                    type,
+                                                                    user,
+                                                                    getStorageManager());
         } else {
             // get parent from path
             OCFile parentFolder = getStorageManager().getFileById(getFile().getParentId());
@@ -181,7 +170,7 @@ public class PreviewImageActivity extends FileActivity implements
                 parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
             }
 
-            mPreviewImagePagerAdapter = new PreviewImagePagerAdapter(
+            previewImagePagerAdapter = new PreviewImagePagerAdapter(
                 getSupportFragmentManager(),
                 livePhotoFile,
                 parentFolder,
@@ -192,19 +181,19 @@ public class PreviewImageActivity extends FileActivity implements
             );
         }
 
-        mViewPager = findViewById(R.id.fragmentPager);
+        viewPager = findViewById(R.id.fragmentPager);
 
-        int position = mHasSavedPosition ? mSavedPosition : mPreviewImagePagerAdapter.getFilePosition(getFile());
+        int position = hasSavedPosition ? savedPosition : previewImagePagerAdapter.getFilePosition(getFile());
         position = position >= 0 ? position : 0;
 
-        mViewPager.setAdapter(mPreviewImagePagerAdapter);
-        mViewPager.addOnPageChangeListener(this);
-        mViewPager.setCurrentItem(position);
+        viewPager.setAdapter(previewImagePagerAdapter);
+        viewPager.addOnPageChangeListener(this);
+        viewPager.setCurrentItem(position);
 
         if (position == 0 && !getFile().isDown()) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
             // adapter does not result in a call to #onPageSelected(0)
-            mRequestWaitingForBinder = true;
+            requestWaitingForBinder = true;
         }
     }
 
@@ -272,7 +261,7 @@ public class PreviewImageActivity extends FileActivity implements
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBoolean(KEY_WAITING_FOR_BINDER, mRequestWaitingForBinder);
+        outState.putBoolean(KEY_WAITING_FOR_BINDER, requestWaitingForBinder);
         outState.putBoolean(KEY_SYSTEM_VISIBLE, isSystemUIVisible());
     }
 
@@ -283,9 +272,9 @@ public class PreviewImageActivity extends FileActivity implements
         if (operation instanceof RemoveFileOperation) {
             // initialize the pager with the new file list
             initViewPager(getUser().get());
-            if (mViewPager.getAdapter().getCount() > 0) {
+            if (viewPager.getAdapter().getCount() > 0) {
                 // Trigger page reselection, to update the title
-                onPageSelected(mViewPager.getCurrentItem());
+                onPageSelected(viewPager.getCurrentItem());
             } else {
                 // Last file has been deleted, so finish the activity
                 finish();
@@ -307,11 +296,11 @@ public class PreviewImageActivity extends FileActivity implements
                 Log_OC.d(TAG, "Download worker started");
                 isDownloadWorkStarted = true;
 
-                if (mRequestWaitingForBinder) {
-                    mRequestWaitingForBinder = false;
+                if (requestWaitingForBinder) {
+                    requestWaitingForBinder = false;
                     Log_OC.d(TAG, "Simulating reselection of current page after connection " +
                         "of download binder");
-                    onPageSelected(mViewPager.getCurrentItem());
+                    onPageSelected(viewPager.getCurrentItem());
                 }
             } else {
                 Log_OC.d(TAG, "Download worker stopped");
@@ -334,13 +323,13 @@ public class PreviewImageActivity extends FileActivity implements
     protected void onResume() {
         super.onResume();
 
-        mDownloadFinishReceiver = new DownloadFinishReceiver();
+        downloadFinishReceiver = new DownloadFinishReceiver();
         IntentFilter downloadIntentFilter = new IntentFilter(FileDownloadWorker.Companion.getDownloadFinishMessage());
-        localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
+        localBroadcastManager.registerReceiver(downloadFinishReceiver, downloadIntentFilter);
 
-        mUploadFinishReceiver = new UploadFinishReceiver();
+        uploadFinishReceiver = new UploadFinishReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter(FileUploadWorker.Companion.getUploadFinishMessage());
-        localBroadcastManager.registerReceiver(mUploadFinishReceiver, uploadIntentFilter);
+        localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter);
     }
 
     @Override
@@ -350,9 +339,9 @@ public class PreviewImageActivity extends FileActivity implements
 
     @Override
     public void onPause() {
-        if (mDownloadFinishReceiver != null){
-            localBroadcastManager.unregisterReceiver(mDownloadFinishReceiver);
-            mDownloadFinishReceiver = null;
+        if (downloadFinishReceiver != null){
+            localBroadcastManager.unregisterReceiver(downloadFinishReceiver);
+            downloadFinishReceiver = null;
         }
 
         super.onPause();
@@ -396,12 +385,12 @@ public class PreviewImageActivity extends FileActivity implements
      */
     @Override
     public void onPageSelected(int position) {
-        mSavedPosition = position;
-        mHasSavedPosition = true;
+        savedPosition = position;
+        hasSavedPosition = true;
         if (!isDownloadWorkStarted) {
-            mRequestWaitingForBinder = true;
+            requestWaitingForBinder = true;
         } else {
-            OCFile currentFile = mPreviewImagePagerAdapter.getFileAt(position);
+            OCFile currentFile = previewImagePagerAdapter.getFileAt(position);
 
             if (currentFile != null) {
                 if (getSupportActionBar() != null) {
@@ -410,7 +399,7 @@ public class PreviewImageActivity extends FileActivity implements
                 setDrawerIndicatorEnabled(false);
 
                 if (currentFile.isEncrypted() && !currentFile.isDown() &&
-                    !mPreviewImagePagerAdapter.pendingErrorAt(position)) {
+                    !previewImagePagerAdapter.pendingErrorAt(position)) {
                     requestForDownload(currentFile);
                 }
 
@@ -479,20 +468,20 @@ public class PreviewImageActivity extends FileActivity implements
             if (EditImageActivity.OPEN_IMAGE_EDITOR.equals(downloadBehaviour)) {
                 startImageEditor(file);
             } else {
-                int position = mPreviewImagePagerAdapter.getFilePosition(file);
+                int position = previewImagePagerAdapter.getFilePosition(file);
                 if (position >= 0) {
                     if (downloadWasFine) {
-                        mPreviewImagePagerAdapter.updateFile(position, file);
+                        previewImagePagerAdapter.updateFile(position, file);
 
                     } else {
-                        mPreviewImagePagerAdapter.updateWithDownloadError(position);
+                        previewImagePagerAdapter.updateWithDownloadError(position);
                     }
-                    mPreviewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation of new fragments
+                    previewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation of new fragments
                 } else if (downloadWasFine) {
                     initViewPager(getUser().get());
-                    int newPosition = mPreviewImagePagerAdapter.getFilePosition(file);
+                    int newPosition = previewImagePagerAdapter.getFilePosition(file);
                     if (newPosition >= 0) {
-                        mViewPager.setCurrentItem(newPosition);
+                        viewPager.setCurrentItem(newPosition);
                     }
                 }
             }
@@ -504,22 +493,22 @@ public class PreviewImageActivity extends FileActivity implements
     }
 
     public void toggleFullScreen() {
-        boolean visible = (mFullScreenAnchorView.getSystemUiVisibility()
+        boolean visible = (fullScreenAnchorView.getSystemUiVisibility()
             & View.SYSTEM_UI_FLAG_HIDE_NAVIGATION) == 0;
 
         if (visible) {
-            hideSystemUI(mFullScreenAnchorView);
+            hideSystemUI(fullScreenAnchorView);
             // actionBar.hide(); // propagated through
             // OnSystemUiVisibilityChangeListener()
         } else {
-            showSystemUI(mFullScreenAnchorView);
+            showSystemUI(fullScreenAnchorView);
             // actionBar.show(); // propagated through
             // OnSystemUiVisibilityChangeListener()
         }
     }
 
     public void switchToFullScreen() {
-        hideSystemUI(mFullScreenAnchorView);
+        hideSystemUI(fullScreenAnchorView);
     }
 
     public void startImageEditor(OCFile file) {
