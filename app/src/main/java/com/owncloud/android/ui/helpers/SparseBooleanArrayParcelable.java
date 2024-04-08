@@ -1,23 +1,10 @@
-/**
- *   ownCloud Android client application
+/*
+ * Nextcloud - Android Client
  *
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud GmbH.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2016 David A. Velasco <dvelasco@owncloud.com>
+ * SPDX-FileCopyrightText: 2016 ownCloud GmbH
+ * SPDX-License-Identifier: GPL-2.0-only
  */
-
 package com.owncloud.android.ui.helpers;
 
 import android.os.Parcel;
@@ -25,7 +12,7 @@ import android.os.Parcelable;
 import android.util.SparseBooleanArray;
 
 /**
- * Wraps a SparseBooleanArrayParcelable to allow its serialization and desearialization
+ * Wraps a SparseBooleanArrayParcelable to allow its serialization and de-searialization
  * through {@link Parcelable} interface.
  */
 public class SparseBooleanArrayParcelable implements Parcelable {

@@ -1,22 +1,14 @@
-/**
- *   ownCloud Android client application
+/*
+ * Nextcloud - Android Client
  *
- *   @author masensio
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2018-2022 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2020 Stefan Niedermann <info@niedermann.it>
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2014 Masensio <masensio@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
  */
 package com.owncloud.android.ui.dialog;
 
@@ -53,11 +45,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 /**
- * Dialog to show information about an untrusted certificate and allow the user
- * to decide trust on it or not.
- *
- * Abstract implementation of common functionality for different dialogs that
- * get the information about the error and the certificate from different classes.
+ * Dialog to show information about an untrusted certificate and allow the user to decide trust on it or not.
+ * Abstract implementation of common functionality for different dialogs that get the information about the error and
+ * the certificate from different classes.
  */
 public class SslUntrustedCertDialog extends DialogFragment implements Injectable {
 
