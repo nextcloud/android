@@ -45,6 +45,7 @@
     <string name="assistant_screen_loading">يتم الآن تحميل قائمة المهام؛ يرجى الانتظار ...</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">لا توجد أي مهام متوفرة. حدِّد نوع المهمة لإنشاء واحدة جديدة.</string>
     <string name="assistant_screen_no_task_available_text">لا توجد أي مهام متوفرة من النوع %s. يمكنك إنشاء مهمة جديدة من الشريط السفلي الجانبي.</string>
+    <string name="assistant_screen_running_task_text">قيد التجهيز</string>
     <string name="assistant_screen_scheduled_task_status_text">مُجدول</string>
     <string name="assistant_screen_successful_task_text">مُكتمل</string>
     <string name="assistant_screen_task_create_fail_message">حدث خطأ أثناء إنشاء المهمة</string>
