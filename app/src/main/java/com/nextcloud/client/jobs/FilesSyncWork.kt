@@ -62,7 +62,6 @@ class FilesSyncWork(
 
     companion object {
         const val TAG = "FilesSyncJob"
-        const val SKIP_CUSTOM = "skipCustom"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CHANGED_FILES = "changedFiles"
         const val FOREGROUND_SERVICE_ID = 414
