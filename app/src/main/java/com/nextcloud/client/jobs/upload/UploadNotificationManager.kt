@@ -43,7 +43,11 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     }
 
     @Suppress("MagicNumber")
-    fun prepareForStart(uploadFileOperation: UploadFileOperation, pendingIntent: PendingIntent, startIntent: PendingIntent) {
+    fun prepareForStart(
+        uploadFileOperation: UploadFileOperation,
+        pendingIntent: PendingIntent,
+        startIntent: PendingIntent
+    ) {
         notificationBuilder.run {
             setContentTitle(context.getString(R.string.uploader_upload_in_progress_ticker))
             setContentText(
