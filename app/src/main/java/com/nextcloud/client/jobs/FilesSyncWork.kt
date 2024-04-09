@@ -96,7 +96,7 @@ class FilesSyncWork(
         var canExitEarly = false
         // If we are in power save mode better to postpone scan and upload
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
-        if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)){
+        if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
             canExitEarly = true
         }
 
@@ -107,7 +107,7 @@ class FilesSyncWork(
             canExitEarly = true
         }
 
-        if (! syncedFolderProvider.syncedFolders.any { it.isEnabled }){
+        if (!syncedFolderProvider.syncedFolders.any { it.isEnabled }) {
             Log_OC.d(TAG, "FILESYNC Kill Sync Worker since no sync folder is enabled!")
             canExitEarly = true
         }
