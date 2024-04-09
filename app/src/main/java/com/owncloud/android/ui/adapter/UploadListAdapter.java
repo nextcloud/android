@@ -102,7 +102,14 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                           group.getGroupName(), group.getGroupItemCount()));
         viewThemeUtils.platform.colorPrimaryTextViewElement(headerViewHolder.binding.uploadListTitle);
 
-        headerViewHolder.binding.uploadListTitle.setOnClickListener(v -> toggleSectionExpanded(section));
+        headerViewHolder.binding.uploadListTitle.setOnClickListener(v -> {
+            if(isSectionExpanded(section)){
+                headerViewHolder.binding.uploadListState.setImageResource(R.drawable.ic_expand_less);
+            } else {
+                headerViewHolder.binding.uploadListState.setImageResource(R.drawable.ic_expand_more);
+            }
+            toggleSectionExpanded(section);
+        });
 
         switch (group.type) {
             case CURRENT, FINISHED -> headerViewHolder.binding.uploadListAction.setImageResource(R.drawable.ic_close);
