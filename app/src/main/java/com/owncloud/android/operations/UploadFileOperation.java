@@ -753,9 +753,12 @@ public class UploadFileOperation extends SyncOperation {
                 result = unlockFolderResult;
             }
 
-            boolean isTempEncryptedFileDeleted = encryptedTempFile.delete();
-            Log_OC.e(TAG, "isTempEncryptedFileDeleted: " + isTempEncryptedFileDeleted);
-
+            if (encryptedTempFile != null) {
+                boolean isTempEncryptedFileDeleted = encryptedTempFile.delete();
+                Log_OC.e(TAG, "isTempEncryptedFileDeleted: " + isTempEncryptedFileDeleted);
+            } else {
+                Log_OC.e(TAG, "Encrypted temp file cannot be found");
+            }
         }
 
         if (result.isSuccess()) {
