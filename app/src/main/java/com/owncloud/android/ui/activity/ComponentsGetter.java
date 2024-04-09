@@ -1,23 +1,13 @@
-/**
- *   ownCloud Android client application
+/*
+ * Nextcloud - Android Client
  *
- *   Copyright (C) 2012 Bartek Przybylski
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper_ozturk@proton.me>
+ * SPDX-FileCopyrightText: 2016 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2012 Bartosz Przybylski <bart.p.pl@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
  */
-
 package com.owncloud.android.ui.activity;
 
 import com.nextcloud.client.jobs.download.FileDownloadWorker;
@@ -34,13 +24,11 @@ public interface ComponentsGetter {
      */
     public FileDownloadWorker.FileDownloadProgressListener getFileDownloadProgressListener();
 
-
     /**
      * To be invoked when the parent activity is fully created to get a reference
      * to the FileUploader service API.
      */
     public FileUploadHelper getFileUploaderHelper();
-
 
     /**
      * To be invoked when the parent activity is fully created to get a reference
@@ -48,10 +36,7 @@ public interface ComponentsGetter {
      */
     public OperationsServiceBinder getOperationsServiceBinder();
 
-
     public FileDataStorageManager getStorageManager();
 
     public FileOperationsHelper getFileOperationsHelper();
-
-
 }
