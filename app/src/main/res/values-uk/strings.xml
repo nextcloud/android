@@ -45,12 +45,14 @@
     <string name="assistant_screen_loading">Отримання переліку завдань, зачекайте</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">Відсутні завдання. Виберіть вид завдань для додавання нового завдання</string>
     <string name="assistant_screen_no_task_available_text">Відсутні завдання виду %s. Ви можете додати нове завдання праворуч внизу. </string>
+    <string name="assistant_screen_running_task_text">В процесі</string>
     <string name="assistant_screen_scheduled_task_status_text">Заплановано</string>
     <string name="assistant_screen_successful_task_text">Виконано</string>
     <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
     <string name="assistant_screen_task_create_success_message">Успішно додано завдання</string>
     <string name="assistant_screen_task_delete_fail_message">Помилка під час вилучення завдання</string>
     <string name="assistant_screen_task_delete_success_message">Завдання вилучено</string>
+    <string name="assistant_screen_task_list_error_state_message">Неможливо отримати список завдань. Перевірте з\'єднання з мережею</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Вилучити завдання</string>
     <string name="assistant_screen_top_bar_title">Помічник</string>
     <string name="assistant_screen_unknown_task_status_text">Невідомо</string>
@@ -756,6 +758,7 @@
     <string name="shared_icon_shared_via_link">доступ надано за посиланням</string>
     <string name="shared_with_you_by">%1$s поділив(-ла-)ся з вами</string>
     <string name="sharee_add_failed">Помилка додавання користувача, з яким ви хочете поділитися</string>
+    <string name="sharee_already_added_to_file">Не вдалося поділитися цим ресурсом, оскільки він вже у спільному доступі з цим користувачем чи групою. </string>
     <string name="show_images">Показувати зображення</string>
     <string name="show_video">Показувати відео</string>
     <string name="signup_with_provider">Зареєструватися у провайдейра</string>
@@ -993,9 +996,9 @@
         <item quantity="other">Не вдалося синхронізувати %1$d файлів (конфлікти: %2$d)</item>
     </plurals>
     <plurals name="sync_foreign_files_forgotten_content">
-        <item quantity="one">Не вдалося скопіювати %1$d файл з теки %2$s до</item>
-        <item quantity="few">Не вдалося скопіювати %1$d файлів з теки %2$s до</item>
-        <item quantity="many">Не вдалося скопіювати %1$d файлів з теки %2$s до</item>
+        <item quantity="one">Не вдалося скопіювати %1$d файл з каталогу %2$s до</item>
+        <item quantity="few">Не вдалося скопіювати %1$d файли з каталогу %2$s до</item>
+        <item quantity="many">Не вдалося скопіювати %1$d файлів з каталогу %2$s до</item>
         <item quantity="other">Не вдалося скопіювати %1$d файлів з каталогу %2$s до</item>
     </plurals>
     <plurals name="wrote_n_events_to">

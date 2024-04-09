@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper_ozturk@proton.me>
  * SPDX-FileCopyrightText: 2024 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2024 Andy Scherzinger <info@andy-scherzinger.de>
- * SPDX-FileCopyrightText: 2022 Álvaro Brey Vilas <alvaro.brey@nextcloud.com>
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey Vilas <alvaro@alvarobrey.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 import com.github.spotbugs.snom.Confidence

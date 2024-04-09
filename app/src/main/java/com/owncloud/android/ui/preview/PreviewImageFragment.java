@@ -1,23 +1,14 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author David A. Velasco
- * @author Chris Narkiewicz
- *
- * Copyright (C) 2015 ownCloud Inc.
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020-2024 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2017-2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2013-2015 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
  */
 package com.owncloud.android.ui.preview;
 
@@ -95,12 +86,9 @@ import pl.droidsonroids.gif.GifDrawable;
 
 import static com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_THUMBNAIL;
 
-
 /**
  * This fragment shows a preview of a downloaded image.
- * <p>
  * Trying to get an instance with a NULL {@link OCFile} will produce an {@link IllegalStateException}.
- * <p>
  * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on instantiation too.
  */
 public class PreviewImageFragment extends FileFragment implements Injectable {

@@ -1,28 +1,14 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author masensio
- * @author Andy Scherzinger
- * @author Chris Narkiewicz <hello@ezaquarii.com>
- *
- * Copyright (C) 2015 ownCloud GmbH
- * Copyright (C) 2018 Andy Scherzinger
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2020 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2017-2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+ * SPDX-FileCopyrightText: 2015-2018 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 package com.owncloud.android.ui.adapter;
 
 import android.annotation.SuppressLint;

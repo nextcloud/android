@@ -45,6 +45,7 @@
     <string name="assistant_screen_loading">未載入工作項目清單，請稍候</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">無可用的工作項目。選取工作項目類型以建立新工作項目。</string>
     <string name="assistant_screen_no_task_available_text">沒有可用於 %s 工作項目類型的工作項目，您可以從右下角建立新工作項目。</string>
+    <string name="assistant_screen_running_task_text">進行中</string>
     <string name="assistant_screen_scheduled_task_status_text">已安排</string>
     <string name="assistant_screen_successful_task_text">已完成</string>
     <string name="assistant_screen_task_create_fail_message">建立工作項目時發生錯誤</string>

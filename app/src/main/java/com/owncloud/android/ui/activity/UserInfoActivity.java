@@ -1,19 +1,14 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Mario Danic
- * @author Andy Scherzinger
- * @author Chris Narkiewicz  <hello@ezaquarii.com>
- * @author Chawki Chouib  <chouibc@gmail.com>
- * Copyright (C) 2017 Mario Danic
- * Copyright (C) 2017 Andy Scherzinger
- * Copyright (C) 2017 Nextcloud GmbH.
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2020 Chawki Chouib <chouibc@gmail.com>
- *
+ * SPDX-FileCopyrightText: 2017-2020 Andy Scherzinger <info@andy-scherzinger>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2020 Chawki Chouib <chouibc@gmail.com>
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
+ * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 package com.owncloud.android.ui.activity;
 
 import android.graphics.drawable.Drawable;

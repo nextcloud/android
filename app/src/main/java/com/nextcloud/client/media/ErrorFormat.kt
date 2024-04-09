@@ -1,13 +1,8 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author David A. Velasco
- * @author masensio
- * @author Chris Narkiewicz
- * Copyright (C) 2013 David A. Velasco
- * Copyright (C) 2016 masensio
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.nextcloud.client.media
