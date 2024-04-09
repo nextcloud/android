@@ -1,24 +1,13 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author David A. Velasco
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2020-2021 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2018-2019 Andy Scherzinger <info@andy-scherzinger>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2015 Masensio <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2012 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
  */
-
 package com.owncloud.android.operations;
 
 import android.text.TextUtils;
@@ -36,7 +25,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.File;
 import java.io.IOException;
-
 
 /**
  * Remote operation performing the rename of a remote file (or folder?) in the ownCloud server.

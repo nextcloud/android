@@ -1,19 +1,16 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Bartek Przybylski
- * @author David A. Velasco
- * @author masensio
- * @author Mario Danic
- * @author TSI-mc
- * Copyright (C) 2012  Bartek Przybylski
- * Copyright (C) 2015 ownCloud Inc.
- * Copyright (C) 2017 Mario Danic
- * Copyright (C) 2023 TSI-mc
- *
+ * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2019-2021 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger>
+ * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2013-2015 masensio <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2013-2015 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2011-2012 Bartosz Przybylski <bart.p.pl@gmail.com>
  * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
  */
-
 package com.owncloud.android.authentication;
 
 import android.Manifest;
