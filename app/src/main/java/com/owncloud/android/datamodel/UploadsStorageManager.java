@@ -7,7 +7,7 @@
  * SPDX-FileCopyrightText: 2019-2021 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2016-2020 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2016 ownCloud Inc.
- * SPDX-FileCopyrightText: 2016 masensio <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2016 María Asensio Valverde <masensio@solidgear.es>
  * SPDX-FileCopyrightText: 2016 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-FileCopyrightText: 2014 Luke Owncloud <owncloud@ohrt.org>
  * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later

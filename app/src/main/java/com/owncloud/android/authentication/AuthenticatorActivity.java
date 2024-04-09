@@ -6,7 +6,7 @@
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
- * SPDX-FileCopyrightText: 2013-2015 masensio <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2013-2015 María Asensio Valverde <masensio@solidgear.es>
  * SPDX-FileCopyrightText: 2013-2015 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-FileCopyrightText: 2011-2012 Bartosz Przybylski <bart.p.pl@gmail.com>
  * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
