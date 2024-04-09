@@ -93,25 +93,26 @@ class FilesSyncWork(
     }
 
     private fun canExitEarly(changedFiles: Array<String>?): Boolean {
+        var canExitEarly = false
         // If we are in power save mode better to postpone scan and upload
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)){
-            return true
+            canExitEarly = true
         }
 
         // or sync worker already running and no changed files to be processed
         val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning()
         if (alreadyRunning && changedFiles.isNullOrEmpty()) {
             Log_OC.d(TAG, "FILESYNC Kill Sync Worker since another instance of the worker seems to be running already!")
-            return true
+            canExitEarly = true
         }
 
         if (! syncedFolderProvider.syncedFolders.any { it.isEnabled }){
             Log_OC.d(TAG, "FILESYNC Kill Sync Worker since no sync folder is enabled!")
-            return true
+            canExitEarly = true
         }
 
-        return false
+        return canExitEarly
     }
 
     @Suppress("MagicNumber")
