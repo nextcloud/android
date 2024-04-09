@@ -2,7 +2,7 @@
  *  ownCloud Android client application
  *
  *  @author Bartek Przybylski
- *  @author masensio
+ *  @author María Asensio Valverde
  *  @author Juan Carlos González Cabrero
  *  @author David A. Velasco
  *  @author Chris Narkiewicz

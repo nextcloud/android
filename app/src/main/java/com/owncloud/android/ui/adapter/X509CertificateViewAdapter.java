@@ -1,7 +1,7 @@
 /*
  *   ownCloud Android client application
  *
- *   @author masensio
+ *   @author María Asensio Valverde
  *   @author David A. Velasco
  *   Copyright (C) 2015 ownCloud Inc.
  *

@@ -1,24 +1,13 @@
-/**
- *   ownCloud Android client application
+/*
+ * Nextcloud - Android Client
  *
- *   @author David A. Velasco
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2017-2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2017-2018 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
  */
-
 package com.owncloud.android.operations;
 
 import android.content.Context;
@@ -38,11 +27,9 @@ import java.util.Locale;
 
 /**
  * Get basic information from an ownCloud server given its URL.
- *
  * Checks the existence of a configured ownCloud server in the URL, gets its version
  * and finds out what authentication method is needed to access files in it.
  */
-
 public class GetServerInfoOperation extends RemoteOperation {
 
     private static final String TAG = GetServerInfoOperation.class.getSimpleName();
