@@ -92,21 +92,35 @@ class FilesSyncWork(
         setForegroundAsync(foregroundInfo)
     }
 
+    private fun canExitEarly(changedFiles: Array<String>?): Boolean {
+        // If we are in power save mode better to postpone scan and upload
+        val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
+        if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)){
+            return true
+        }
+
+        // or sync worker already running and no changed files to be processed
+        val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning()
+        if (alreadyRunning && changedFiles.isNullOrEmpty()) {
+            Log_OC.d(TAG, "Kill Sync Worker since another instance of the worker seems to be running already!")
+            return true
+        }
+
+        return false
+    }
+
     @Suppress("MagicNumber")
     override fun doWork(): Result {
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
 
-        // If we are in power save mode or sync worker already running, better to postpone upload
-        val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
-        val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning()
-        if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving) || alreadyRunning) {
-            if (alreadyRunning) {
-                Log_OC.d(TAG, "Kill Sync Worker since another instance of the worker seems to be running already!")
-            }
+        val changedFiles = inputData.getStringArray(CHANGED_FILES)
+
+        if (canExitEarly(changedFiles)) {
             val result = Result.success()
             backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
             return result
         }
+
         val resources = context.resources
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
         FilesSyncHelper.restartJobsIfNeeded(
@@ -117,7 +131,6 @@ class FilesSyncWork(
         )
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
-        val changedFiles = inputData.getStringArray(CHANGED_FILES)
         collectChangedFiles(changedFiles)
 
         // Create all the providers we'll need
