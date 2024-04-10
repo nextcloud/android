@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2017-2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
- * SPDX-FileCopyrightText: 2015 masensio <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
  * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
  */
