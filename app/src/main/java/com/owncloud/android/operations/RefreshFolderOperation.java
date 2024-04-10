@@ -553,6 +553,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             updatedFiles.add(updatedFile);
         }
 
+
         // save updated contents in local database
         // update file name for encrypted files
         if (e2EVersion == E2EVersion.V1_2) {
@@ -636,20 +637,35 @@ public class RefreshFolderOperation extends RemoteOperation {
                 mimetype = MimeType.DIRECTORY;
             } else {
                 DecryptedFile decryptedFile = metadata.getMetadata().getFiles().get(updatedFile.getFileName());
+
+                if (decryptedFile == null) {
+                    throw new NullPointerException("decryptedFile cannot be null");
+                }
+
                 decryptedFileName = decryptedFile.getFilename();
                 mimetype = decryptedFile.getMimetype();
             }
 
 
             OCFile parentFile = storageManager.getFileById(updatedFile.getParentId());
-            String decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;
+
+            if (parentFile == null) {
+                throw new NullPointerException("parentFile cannot be null");
+            }
+
+            String decryptedRemotePath;
+            if (decryptedFileName != null) {
+                decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;
+            } else {
+                decryptedRemotePath = parentFile.getRemotePath() + updatedFile.getFileName();
+            }
 
             if (updatedFile.isFolder()) {
                 decryptedRemotePath += "/";
             }
             updatedFile.setDecryptedRemotePath(decryptedRemotePath);
 
-            if (mimetype == null || mimetype.isEmpty()) {
+            if (mimetype.isEmpty()) {
                 if (updatedFile.isFolder()) {
                     updatedFile.setMimeType(MimeType.DIRECTORY);
                 } else {
