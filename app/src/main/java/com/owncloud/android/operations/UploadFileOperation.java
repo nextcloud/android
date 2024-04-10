@@ -499,8 +499,6 @@ public class UploadFileOperation extends SyncOperation {
                 if (object == null) {
                     // TODO return error
                     return new RemoteOperationResult(new IllegalStateException("Metadata does not exist"));
-                } else {
-                    metadataExists = true;
                 }
             } else {
                 // v1 is allowed to be null, thus create it
