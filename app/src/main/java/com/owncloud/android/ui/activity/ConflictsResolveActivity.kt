@@ -21,6 +21,7 @@ import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -41,6 +42,10 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     @JvmField
     @Inject
     var uploadsStorageManager: UploadsStorageManager? = null
+
+    @JvmField
+    @Inject
+    var fileStorageManager: FileDataStorageManager? = null
 
     private var conflictUploadId: Long = 0
     private var existingFile: OCFile? = null
@@ -159,8 +164,12 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             return
         }
         if (existingFile == null) {
-            // fetch info of existing file from server
-            val operation = ReadFileRemoteOperation(newFile!!.remotePath)
+            var remotePath = newFile!!.remotePath
+            if (newFile?.isEncrypted == true) {
+                remotePath = fileStorageManager?.getEncryptedRemotePath(newFile!!.remotePath)
+            }
+
+            val operation = ReadFileRemoteOperation(remotePath)
 
             @Suppress("TooGenericExceptionCaught")
             Thread {

@@ -66,11 +66,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Pair;
 
 public class FileDataStorageManager {
     private static final String TAG = FileDataStorageManager.class.getSimpleName();
@@ -2295,6 +2298,45 @@ public class FileDataStorageManager {
                 Log_OC.e(TAG, "Exception in deleteAllFiles for account " + user.getAccountName() + ": " + e.getMessage(), e);
             }
         }
+    }
+
+    public String getFolderName(String path) {
+        return "/" + path.split("/")[1] + "/";
+    }
+
+    public String getEncryptedRemotePath(String decryptedRemotePath) {
+        String folderName = getFolderName(decryptedRemotePath);
+
+        if (folderName == null) {
+            throw new NullPointerException("folderName cannot be null");
+        }
+
+        OCFile folder = getFileByDecryptedRemotePath(folderName);
+        List<OCFile> files = getAllFilesRecursivelyInsideFolder(folder);
+        List<Pair<String, String>> decryptedFileNamesAndEncryptedRemotePaths = getDecryptedFileNamesAndEncryptedRemotePaths(files);
+
+        String decryptedFileName = decryptedRemotePath.substring( decryptedRemotePath.lastIndexOf('/') + 1);
+
+        for (Pair<String, String> item : decryptedFileNamesAndEncryptedRemotePaths) {
+            if (item.getFirst().equals(decryptedFileName)) {
+                return item.getSecond();
+            }
+        }
+
+        return null;
+    }
+
+    private List<Pair<String, String>> getDecryptedFileNamesAndEncryptedRemotePaths(List<OCFile> fileList) {
+        List<Pair<String, String>> result = new ArrayList<>();
+
+        for (OCFile file : fileList) {
+            if (file.isEncrypted()) {
+                Pair<String, String> fileNameAndEncryptedRemotePath = new Pair<>(file.getDecryptedFileName(), file.getRemotePath());
+                result.add(fileNameAndEncryptedRemotePath);
+            }
+        }
+
+        return result;
     }
 
     public void removeLocalFiles(User user, FileDataStorageManager storageManager) {

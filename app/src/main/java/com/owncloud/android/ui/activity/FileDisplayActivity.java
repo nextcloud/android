@@ -54,7 +54,6 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
-import com.nextcloud.client.jobs.upload.UploadNotificationManager;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
@@ -135,6 +134,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -149,6 +149,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Pair;
 import kotlin.Unit;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
@@ -878,18 +879,24 @@ public class FileDisplayActivity extends FileActivity
         requestUploadOfFilesFromFileSystem(basePath, filePaths, resultCode);
     }
 
+    private String[] getRemotePaths(String directory, String[] filePaths, String localBasePath) {
+        String[] remotePaths = new String[filePaths.length];
+        for (int j = 0; j < remotePaths.length; j++) {
+            String relativePath = StringUtils.removePrefix(filePaths[j], localBasePath);
+            remotePaths[j] = directory + relativePath;
+        }
+
+        return remotePaths;
+    }
+
     private void requestUploadOfFilesFromFileSystem(String localBasePath, String[] filePaths, int resultCode) {
         if (localBasePath != null && filePaths != null) {
             if (!localBasePath.endsWith("/")) {
                 localBasePath = localBasePath + "/";
             }
 
-            String[] remotePaths = new String[filePaths.length];
             String remotePathBase = getCurrentDir().getRemotePath();
-            for (int j = 0; j < remotePaths.length; j++) {
-                String relativePath = StringUtils.removePrefix(filePaths[j], localBasePath);
-                remotePaths[j] = remotePathBase + relativePath;
-            }
+            String[] decryptedRemotePaths = getRemotePaths(remotePathBase, filePaths, localBasePath);
 
             int behaviour = switch (resultCode) {
                 case UploadFilesActivity.RESULT_OK_AND_MOVE -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE;
@@ -899,7 +906,7 @@ public class FileDisplayActivity extends FileActivity
 
             FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
                                                                  filePaths,
-                                                                 remotePaths,
+                                                                 decryptedRemotePaths,
                                                                  behaviour,
                                                                  true,
                                                                  UploadFileOperation.CREATED_BY_USER,
