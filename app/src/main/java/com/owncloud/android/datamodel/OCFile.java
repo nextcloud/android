@@ -265,11 +265,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
 
         if (isFolder()) {
-            if (decryptedRemotePath.equals("/null/")) {
-                Log_OC.d(TAG, "Null folder path found");
-                return remotePath;
-            }
-
             if (decryptedRemotePath.endsWith(PATH_SEPARATOR)) {
                 return decryptedRemotePath;
             } else {
