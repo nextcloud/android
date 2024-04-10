@@ -601,6 +601,36 @@ public class RefreshFolderOperation extends RemoteOperation {
         return metadata;
     }
 
+    private static void setMimeTypeAndDecryptedRemotePath(OCFile updatedFile, FileDataStorageManager storageManager, String decryptedFileName, String mimetype) {
+        OCFile parentFile = storageManager.getFileById(updatedFile.getParentId());
+
+        if (parentFile == null) {
+            throw new NullPointerException("parentFile cannot be null");
+        }
+
+        String decryptedRemotePath;
+        if (decryptedFileName != null) {
+            decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;
+        } else {
+            decryptedRemotePath = parentFile.getRemotePath() + updatedFile.getFileName();
+        }
+
+        if (updatedFile.isFolder()) {
+            decryptedRemotePath += "/";
+        }
+        updatedFile.setDecryptedRemotePath(decryptedRemotePath);
+
+        if (mimetype == null || mimetype.isEmpty()) {
+            if (updatedFile.isFolder()) {
+                updatedFile.setMimeType(MimeType.DIRECTORY);
+            } else {
+                updatedFile.setMimeType("application/octet-stream");
+            }
+        } else {
+            updatedFile.setMimeType(mimetype);
+        }
+    }
+
     public static void updateFileNameForEncryptedFileV1(FileDataStorageManager storageManager,
                                                         @NonNull DecryptedFolderMetadataFileV1 metadata,
                                                         OCFile updatedFile) {
@@ -623,34 +653,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 mimetype = decryptedFile.getEncrypted().getMimetype();
             }
 
-
-            OCFile parentFile = storageManager.getFileById(updatedFile.getParentId());
-
-            if (parentFile == null) {
-                throw new NullPointerException("parentFile cannot be null");
-            }
-
-            String decryptedRemotePath;
-            if (decryptedFileName != null) {
-                decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;
-            } else {
-                decryptedRemotePath = parentFile.getRemotePath() + updatedFile.getFileName();
-            }
-
-            if (updatedFile.isFolder()) {
-                decryptedRemotePath += "/";
-            }
-            updatedFile.setDecryptedRemotePath(decryptedRemotePath);
-
-            if (mimetype == null || mimetype.isEmpty()) {
-                if (updatedFile.isFolder()) {
-                    updatedFile.setMimeType(MimeType.DIRECTORY);
-                } else {
-                    updatedFile.setMimeType("application/octet-stream");
-                }
-            } else {
-                updatedFile.setMimeType(mimetype);
-            }
+            setMimeTypeAndDecryptedRemotePath(updatedFile, storageManager, decryptedFileName, mimetype);
         } catch (NullPointerException e) {
             Log_OC.e(TAG, "DecryptedMetadata for file " + updatedFile.getFileId() + " not found!");
         }
@@ -677,33 +680,7 @@ public class RefreshFolderOperation extends RemoteOperation {
                 mimetype = decryptedFile.getMimetype();
             }
 
-            OCFile parentFile = storageManager.getFileById(updatedFile.getParentId());
-
-            if (parentFile == null) {
-                throw new NullPointerException("parentFile cannot be null");
-            }
-
-            String decryptedRemotePath;
-            if (decryptedFileName != null) {
-                decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;
-            } else {
-                decryptedRemotePath = parentFile.getRemotePath() + updatedFile.getFileName();
-            }
-
-            if (updatedFile.isFolder()) {
-                decryptedRemotePath += "/";
-            }
-            updatedFile.setDecryptedRemotePath(decryptedRemotePath);
-
-            if (mimetype.isEmpty()) {
-                if (updatedFile.isFolder()) {
-                    updatedFile.setMimeType(MimeType.DIRECTORY);
-                } else {
-                    updatedFile.setMimeType("application/octet-stream");
-                }
-            } else {
-                updatedFile.setMimeType(mimetype);
-            }
+            setMimeTypeAndDecryptedRemotePath(updatedFile, storageManager, decryptedFileName, mimetype);
         } catch (NullPointerException e) {
             Log_OC.e(TAG, "DecryptedMetadata for file " + updatedFile.getFileId() + " not found!");
         }
