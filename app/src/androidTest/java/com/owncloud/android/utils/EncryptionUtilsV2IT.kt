@@ -10,7 +10,7 @@ package com.owncloud.android.utils
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.MockUser
 import com.nextcloud.common.User
-import com.owncloud.android.AbstractIT
+import com.owncloud.android.EncryptionIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.decrypted.Data
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1
@@ -27,9 +27,8 @@ import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
-import java.security.SecureRandom
 
-class EncryptionUtilsV2IT : AbstractIT() {
+class EncryptionUtilsV2IT : EncryptionIT() {
     private val encryptionTestUtils = EncryptionTestUtils()
     private val encryptionUtilsV2 = EncryptionUtilsV2()
 
@@ -785,44 +784,17 @@ class EncryptionUtilsV2IT : AbstractIT() {
 
     @Test
     @Throws(Exception::class)
-    fun testUpdateFileNameForEncryptedFileWhenEncryptedFileUploadRemotePathShouldSetAsEncrypted() {
-        val rootPath = "/"
-        val folderPath = "/TestFolder/"
+    fun testUpdateFileNameForEncryptedFile() {
+        val folder = testFolder()
 
-        OCFile(rootPath).apply {
-            storageManager.saveFile(this)
-        }
+        val metadata = EncryptionTestUtils().generateFolderMetadataV2(
+            client.userId,
+            EncryptionTestIT.publicKey
+        )
 
-        OCFile(folderPath).apply {
-            decryptedRemotePath = folderPath
-            isEncrypted = true
-            fileLength = SecureRandom().nextLong()
-            setFolder()
-            parentId = storageManager.getFileByDecryptedRemotePath(rootPath)!!.fileId
-            storageManager.saveFile(this)
-        }
+        RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadata, folder)
 
-        val decryptedFilename = "image.png"
-        val mockEncryptedFilename = "encrypted_file_name.png"
-
-        val imageFile = OCFile(folderPath + decryptedFilename).apply {
-            mimeType = "image/png"
-            fileName = mockEncryptedFilename
-            isEncrypted = true
-            fileLength = 1024000
-            modificationTimestamp = 1188206955000
-            parentId = storageManager.getFileByEncryptedRemotePath(folderPath).fileId
-            storageManager.saveFile(this)
-        }
-
-        val decryptedMetadata = DecryptedMetadata().apply {
-            folders = mutableMapOf(mockEncryptedFilename to decryptedFilename)
-        }
-        val metadata = DecryptedFolderMetadataFile(decryptedMetadata)
-
-        RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadata, imageFile)
-
-        assertNotEquals(decryptedFilename, imageFile.fileName)
+        assertEquals(folder.decryptedRemotePath.contains("null"), false)
     }
 
     /**
