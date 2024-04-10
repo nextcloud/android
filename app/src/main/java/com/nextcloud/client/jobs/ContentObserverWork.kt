@@ -32,7 +32,7 @@ class ContentObserverWork(
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
 
         if (params.triggeredContentUris.size > 0) {
-            Log_OC.d(TAG,"FILESYNC Content Observer detected files change")
+            Log_OC.d(TAG, "FILESYNC Content Observer detected files change")
             checkAndStartFileSyncJob()
             backgroundJobManager.startMediaFoldersDetectionJob()
         }
