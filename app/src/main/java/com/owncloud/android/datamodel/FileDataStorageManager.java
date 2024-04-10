@@ -2302,6 +2302,19 @@ public class FileDataStorageManager {
         return "/" + path.split("/")[1] + "/";
     }
 
+    public String retrieveRemotePathConsideringEncryption(OCFile file) {
+        if (file == null) {
+            throw new NullPointerException("file cannot be null");
+        }
+
+        String remotePath = file.getRemotePath();
+        if (file.isEncrypted()) {
+            remotePath = getEncryptedRemotePath(file.getRemotePath());
+        }
+
+        return remotePath;
+    }
+
     public String getEncryptedRemotePath(String decryptedRemotePath) {
         String folderName = getFolderName(decryptedRemotePath);
 

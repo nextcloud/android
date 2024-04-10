@@ -164,11 +164,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             return
         }
         if (existingFile == null) {
-            var remotePath = newFile!!.remotePath
-            if (newFile?.isEncrypted == true) {
-                remotePath = fileStorageManager?.getEncryptedRemotePath(newFile!!.remotePath)
-            }
-
+            val remotePath = fileStorageManager?.retrieveRemotePathConsideringEncryption(newFile) ?: return
             val operation = ReadFileRemoteOperation(remotePath)
 
             @Suppress("TooGenericExceptionCaught")
@@ -189,11 +185,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 }
             }.start()
         } else {
-            var remotePath = existingFile!!.remotePath
-            if (newFile?.isEncrypted == true) {
-                remotePath = fileStorageManager?.getEncryptedRemotePath(existingFile!!.remotePath)
-            }
-
+            val remotePath = fileStorageManager?.retrieveRemotePathConsideringEncryption(existingFile) ?: return
             startDialog(remotePath)
         }
     }
