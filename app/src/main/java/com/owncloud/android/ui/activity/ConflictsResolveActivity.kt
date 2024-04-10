@@ -178,7 +178,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                     if (result.isSuccess) {
                         existingFile = FileStorageUtils.fillOCFile(result.data[0] as RemoteFile)
                         existingFile?.lastSyncDateForProperties = System.currentTimeMillis()
-                        startDialog()
+                        startDialog(remotePath)
                     } else {
                         Log_OC.e(TAG, "ReadFileRemoteOp returned failure with code: " + result.httpCode)
                         showErrorAndFinish(result.httpCode)
@@ -189,11 +189,16 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 }
             }.start()
         } else {
-            startDialog()
+            var remotePath = existingFile!!.remotePath
+            if (newFile?.isEncrypted == true) {
+                remotePath = fileStorageManager?.getEncryptedRemotePath(existingFile!!.remotePath)
+            }
+
+            startDialog(remotePath)
         }
     }
 
-    private fun startDialog() {
+    private fun startDialog(remotePath: String) {
         val userOptional = user
         if (!userOptional.isPresent) {
             Log_OC.e(TAG, "User not present")
@@ -206,7 +211,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         if (prev != null) {
             fragmentTransaction.remove(prev)
         }
-        if (existingFile != null && storageManager.fileExists(newFile?.remotePath)) {
+        if (existingFile != null && storageManager.fileExists(remotePath)) {
             val dialog = ConflictsResolveDialog.newInstance(
                 existingFile,
                 newFile,
