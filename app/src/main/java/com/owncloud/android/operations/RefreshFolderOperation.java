@@ -585,6 +585,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         return metadata;
     }
 
+    // TODO write test for decryptedRemotePath existence...
     public static void updateFileNameForEncryptedFileV1(FileDataStorageManager storageManager,
                                                         @NonNull DecryptedFolderMetadataFileV1 metadata,
                                                         OCFile updatedFile) {
@@ -598,13 +599,28 @@ public class RefreshFolderOperation extends RemoteOperation {
             } else {
                 com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile decryptedFile =
                     metadata.getFiles().get(updatedFile.getFileName());
+
+                if (decryptedFile == null) {
+                    throw new NullPointerException("decryptedFile cannot be null");
+                }
+
                 decryptedFileName = decryptedFile.getEncrypted().getFilename();
                 mimetype = decryptedFile.getEncrypted().getMimetype();
             }
 
 
             OCFile parentFile = storageManager.getFileById(updatedFile.getParentId());
-            String decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;
+
+            if (parentFile == null) {
+                throw new NullPointerException("parentFile cannot be null");
+            }
+
+            String decryptedRemotePath;
+            if (decryptedFileName != null) {
+                decryptedRemotePath = parentFile.getDecryptedRemotePath() + decryptedFileName;
+            } else {
+                decryptedRemotePath = parentFile.getRemotePath() + updatedFile.getFileName();
+            }
 
             if (updatedFile.isFolder()) {
                 decryptedRemotePath += "/";
