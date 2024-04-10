@@ -789,10 +789,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
     fun testUpdateFileNameForEncryptedFile() {
         val folder = testFolder()
 
-        val metadata = EncryptionTestUtils().generateFolderMetadataV2(
-            client.userId,
-            EncryptionTestIT.publicKey
-        )
+        RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadata, imageFile)
 
         RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadata, folder)
 

@@ -13,7 +13,7 @@ data class DecryptedMetadata(
     val keyChecksums: MutableList<String> = mutableListOf(),
     val deleted: Boolean = false,
     var counter: Long = 0,
-    val folders: MutableMap<String, String> = mutableMapOf(),
+    var folders: MutableMap<String, String> = mutableMapOf(),
     val files: MutableMap<String, DecryptedFile> = mutableMapOf(),
     @Transient
     var metadataKey: ByteArray = EncryptionUtils.generateKey()

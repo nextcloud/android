@@ -666,7 +666,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
     }
 
-    // TODO write test for decryptedRemotePath existence...
     public static void updateFileNameForEncryptedFile(FileDataStorageManager storageManager,
                                                       @NonNull DecryptedFolderMetadataFile metadata,
                                                       OCFile updatedFile) {
