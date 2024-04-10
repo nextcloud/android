@@ -138,7 +138,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -153,7 +152,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import kotlin.Pair;
 import kotlin.Unit;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
