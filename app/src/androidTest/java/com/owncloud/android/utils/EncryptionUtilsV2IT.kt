@@ -27,6 +27,7 @@ import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
+import java.security.SecureRandom
 
 @Suppress("TooManyFunctions", "LargeClass")
 class EncryptionUtilsV2IT : EncryptionIT() {
