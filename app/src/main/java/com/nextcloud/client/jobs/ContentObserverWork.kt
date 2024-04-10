@@ -11,6 +11,7 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
 import com.owncloud.android.datamodel.SyncedFolderProvider
+import com.owncloud.android.lib.common.utils.Log_OC
 
 /**
  * This work is triggered when OS detects change in media folders.
@@ -31,6 +32,7 @@ class ContentObserverWork(
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
 
         if (params.triggeredContentUris.size > 0) {
+            Log_OC.d(TAG,"FILESYNC Content Observer detected files change")
             checkAndStartFileSyncJob()
             backgroundJobManager.startMediaFoldersDetectionJob()
         }
