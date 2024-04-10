@@ -491,13 +491,14 @@ public class UploadFileOperation extends SyncOperation {
 //                                                   mContext);
 
             Object object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
+            if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
+                metadataExists = true;
+            }
 
             if (CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
                 if (object == null) {
                     // TODO return error
                     return new RemoteOperationResult(new IllegalStateException("Metadata does not exist"));
-                } else {
-                    metadataExists = true;
                 }
             } else {
                 // v1 is allowed to be null, thus create it
@@ -508,6 +509,10 @@ public class UploadFileOperation extends SyncOperation {
                 String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
                 String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
                 metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
+
+                if (object instanceof DecryptedFolderMetadataFileV1) {
+                    metadata = (DecryptedFolderMetadataFileV1) object;
+                }
 
                 object = metadata;
                 metadataExists = false;
