@@ -21,8 +21,6 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFiledrop
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFiledropUser
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
-import com.owncloud.android.lib.resources.status.CapabilityBooleanType
-import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.util.EncryptionTestIT
 import junit.framework.TestCase.assertEquals
@@ -788,39 +786,43 @@ class EncryptionUtilsV2IT : AbstractIT() {
     @Test
     @Throws(Exception::class)
     fun testUpdateFileNameForEncryptedFileWhenEncryptedFileUploadRemotePathShouldSetAsEncrypted() {
-        OCFile("/").apply {
+        val rootPath = "/"
+        val folderPath = "/TestFolder/"
+
+        OCFile(rootPath).apply {
             storageManager.saveFile(this)
         }
 
-        val folder = OCFile("/TestFolder/").apply {
-            decryptedRemotePath = "/TestFolder/"
+        OCFile(folderPath).apply {
+            decryptedRemotePath = folderPath
             isEncrypted = true
             fileLength = SecureRandom().nextLong()
             setFolder()
-            parentId = storageManager.getFileByDecryptedRemotePath("/")!!.fileId
+            parentId = storageManager.getFileByDecryptedRemotePath(rootPath)!!.fileId
             storageManager.saveFile(this)
         }
 
-        val imageFile = OCFile("/TestFolder/test_pic.png").apply {
+        val decryptedFilename = "image.png"
+        val mockEncryptedFilename = "encrypted_file_name.png"
+
+        val imageFile = OCFile(folderPath + decryptedFilename).apply {
             mimeType = "image/png"
-            fileName = "test_pic.png"
+            fileName = mockEncryptedFilename
             isEncrypted = true
             fileLength = 1024000
             modificationTimestamp = 1188206955000
-            parentId = storageManager.getFileByEncryptedRemotePath("/TestFolder/").fileId
+            parentId = storageManager.getFileByEncryptedRemotePath(folderPath).fileId
             storageManager.saveFile(this)
         }
 
-        val remotePathBeforeUpdate = imageFile.remotePath
+        val decryptedMetadata = DecryptedMetadata().apply {
+            folders = mutableMapOf(mockEncryptedFilename to decryptedFilename)
+        }
+        val metadata = DecryptedFolderMetadataFile(decryptedMetadata)
 
-        val metadata = EncryptionTestUtils().generateFolderMetadataV2(
-            client.userId,
-            EncryptionTestIT.publicKey
-        )
+        RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadata, imageFile)
 
-        RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadata, folder)
-
-        assertNotEquals(remotePathBeforeUpdate, imageFile.remotePath)
+        assertNotEquals(decryptedFilename, imageFile.fileName)
     }
 
     /**

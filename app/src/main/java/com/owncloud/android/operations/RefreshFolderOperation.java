@@ -62,11 +62,9 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
 /**
- *  Remote operation performing the synchronization of the list of files contained in a folder identified with its
- *  remote path.
- *  Fetches the list and properties of the files contained in the given folder, including their properties, and updates
- *  the local database with them.
- *  Does NOT enter in the child folders to synchronize their contents also.
+ * Remote operation performing the synchronization of the list of files contained in a folder identified with its remote
+ * path. Fetches the list and properties of the files contained in the given folder, including their properties, and
+ * updates the local database with them. Does NOT enter in the child folders to synchronize their contents also.
  */
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class RefreshFolderOperation extends RemoteOperation {
@@ -74,37 +72,53 @@ public class RefreshFolderOperation extends RemoteOperation {
     private static final String TAG = RefreshFolderOperation.class.getSimpleName();
 
     public static final String EVENT_SINGLE_FOLDER_CONTENTS_SYNCED =
-            RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_CONTENTS_SYNCED";
+        RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_CONTENTS_SYNCED";
     public static final String EVENT_SINGLE_FOLDER_SHARES_SYNCED =
-            RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
+        RefreshFolderOperation.class.getName() + ".EVENT_SINGLE_FOLDER_SHARES_SYNCED";
 
-    /** Time stamp for the synchronization process in progress */
+    /**
+     * Time stamp for the synchronization process in progress
+     */
     private long mCurrentSyncTime;
 
-    /** Remote folder to synchronize */
+    /**
+     * Remote folder to synchronize
+     */
     private OCFile mLocalFolder;
 
-    /** Access to the local database */
+    /**
+     * Access to the local database
+     */
     private FileDataStorageManager mStorageManager;
 
-    /** Account where the file to synchronize belongs */
+    /**
+     * Account where the file to synchronize belongs
+     */
     private User user;
 
-    /** Android context; necessary to send requests to the download service */
+    /**
+     * Android context; necessary to send requests to the download service
+     */
     private Context mContext;
 
-    /** Files and folders contained in the synchronized folder after a successful operation */
+    /**
+     * Files and folders contained in the synchronized folder after a successful operation
+     */
     private List<OCFile> mChildren;
 
-    /** Counter of conflicts found between local and remote files */
+    /**
+     * Counter of conflicts found between local and remote files
+     */
     private int mConflictsFound;
 
-    /** Counter of failed operations in synchronization of kept-in-sync files */
+    /**
+     * Counter of failed operations in synchronization of kept-in-sync files
+     */
     private int mFailsInKeptInSyncFound;
 
     /**
-     * Map of remote and local paths to files that where locally stored in a location
-     * out of the ownCloud folder and couldn't be copied automatically into it
+     * Map of remote and local paths to files that where locally stored in a location out of the ownCloud folder and
+     * couldn't be copied automatically into it
      **/
     private Map<String, String> mForgottenLocalFiles;
 
@@ -113,10 +127,14 @@ public class RefreshFolderOperation extends RemoteOperation {
      */
     private boolean mSyncFullAccount;
 
-    /** 'True' means that the remote folder changed and should be fetched */
+    /**
+     * 'True' means that the remote folder changed and should be fetched
+     */
     private boolean mRemoteFolderChanged;
 
-    /** 'True' means that Etag will be ignored */
+    /**
+     * 'True' means that Etag will be ignored
+     */
     private boolean mIgnoreETag;
 
     /**
@@ -131,16 +149,14 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * Creates a new instance of {@link RefreshFolderOperation}.
      *
-     * @param   folder                  Folder to synchronize.
-     * @param   currentSyncTime         Time stamp for the synchronization process in progress.
-     * @param   syncFullAccount         'True' means that this operation is part of a full account
-     *                                  synchronization.
-     * @param   ignoreETag              'True' means that the content of the remote folder should
-     *                                  be fetched and updated even though the 'eTag' did not
-     *                                  change.
-     * @param   dataStorageManager      Interface with the local database.
-     * @param   user                 ownCloud account where the folder is located.
-     * @param   context                 Application context.
+     * @param folder             Folder to synchronize.
+     * @param currentSyncTime    Time stamp for the synchronization process in progress.
+     * @param syncFullAccount    'True' means that this operation is part of a full account synchronization.
+     * @param ignoreETag         'True' means that the content of the remote folder should be fetched and updated even
+     *                           though the 'eTag' did not change.
+     * @param dataStorageManager Interface with the local database.
+     * @param user               ownCloud account where the folder is located.
+     * @param context            Application context.
      */
     public RefreshFolderOperation(OCFile folder,
                                   long currentSyncTime,
@@ -196,8 +212,8 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     /**
-     * Returns the list of files and folders contained in the synchronized folder,
-     * if called after synchronization is complete.
+     * Returns the list of files and folders contained in the synchronized folder, if called after synchronization is
+     * complete.
      *
      * @return List of files and folders contained in the synchronized folder.
      */
@@ -207,7 +223,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     /**
      * Performs the synchronization.
-     *
+     * <p>
      * {@inheritDoc}
      */
     @Override
@@ -246,7 +262,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         if (!mSyncFullAccount && mRemoteFolderChanged) {
             sendLocalBroadcast(
                 EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result
-            );
+                              );
         }
 
         if (result.isSuccess() && !mSyncFullAccount && !mOnlyFileMetadata) {
@@ -256,7 +272,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         if (!mSyncFullAccount) {
             sendLocalBroadcast(
                 EVENT_SINGLE_FOLDER_SHARES_SYNCED, mLocalFolder.getRemotePath(), result
-            );
+                              );
         }
 
         return result;
@@ -371,7 +387,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             result = new RemoteOperationResult(ResultCode.OK);
 
             Log_OC.i(TAG, "Checked " + user.getAccountName() + remotePath + " : " +
-                    (mRemoteFolderChanged ? "changed" : "not changed"));
+                (mRemoteFolderChanged ? "changed" : "not changed"));
 
         } else {
             // check failed
@@ -380,10 +396,10 @@ public class RefreshFolderOperation extends RemoteOperation {
             }
             if (result.isException()) {
                 Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + " : " +
-                        result.getLogMessage(), result.getException());
+                    result.getLogMessage(), result.getException());
             } else {
                 Log_OC.e(TAG, "Checked " + user.getAccountName() + remotePath + " : " +
-                        result.getLogMessage());
+                    result.getLogMessage());
             }
         }
 
@@ -425,9 +441,9 @@ public class RefreshFolderOperation extends RemoteOperation {
 
 
     /**
-     * Synchronizes the data retrieved from the server about the contents of the target folder
-     * with the current data in the local database.
-     *
+     * Synchronizes the data retrieved from the server about the contents of the target folder with the current data in
+     * the local database.
+     * <p>
      * Grants that mChildren is updated with fresh data after execution.
      *
      * @param folderAndFiles Remote folder and children files in Folder
@@ -641,7 +657,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
     }
 
-    // TODO write test for decryptedRemotePath existence...
     public static void updateFileNameForEncryptedFile(FileDataStorageManager storageManager,
                                                       @NonNull DecryptedFolderMetadataFile metadata,
                                                       OCFile updatedFile) {
@@ -662,7 +677,6 @@ public class RefreshFolderOperation extends RemoteOperation {
                 decryptedFileName = decryptedFile.getFilename();
                 mimetype = decryptedFile.getMimetype();
             }
-
 
             OCFile parentFile = storageManager.getFileById(updatedFile.getParentId());
 
@@ -701,8 +715,8 @@ public class RefreshFolderOperation extends RemoteOperation {
             updatedFile.setFileId(localFile.getFileId());
             updatedFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
             updatedFile.setModificationTimestampAtLastSyncForData(
-                    localFile.getModificationTimestampAtLastSyncForData()
-            );
+                localFile.getModificationTimestampAtLastSyncForData()
+                                                                 );
             if (localFile.isEncrypted()) {
                 if (mLocalFolder.getStoragePath() == null) {
                     updatedFile.setStoragePath(FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mLocalFolder) +
@@ -718,7 +732,7 @@ public class RefreshFolderOperation extends RemoteOperation {
 
             // eTag will not be updated unless file CONTENTS are synchronized
             if (!updatedFile.isFolder() && localFile.isDown() &&
-                    !updatedFile.getEtag().equals(localFile.getEtag())) {
+                !updatedFile.getEtag().equals(localFile.getEtag())) {
                 updatedFile.setEtagInConflict(updatedFile.getEtag());
             }
 
@@ -728,8 +742,8 @@ public class RefreshFolderOperation extends RemoteOperation {
                 updatedFile.setFileLength(remoteFile.getFileLength());
                 updatedFile.setMountType(remoteFile.getMountType());
             } else if (remoteFolderChanged && MimeTypeUtil.isImage(remoteFile) &&
-                    remoteFile.getModificationTimestamp() !=
-                            localFile.getModificationTimestamp()) {
+                remoteFile.getModificationTimestamp() !=
+                    localFile.getModificationTimestamp()) {
                 updatedFile.setUpdateThumbnailNeeded(true);
                 Log_OC.d(TAG, "Image " + remoteFile.getFileName() + " updated on the server");
             }
@@ -764,13 +778,12 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     /**
-     * Performs a list of synchronization operations, determining if a download or upload is needed
-     * or if exists conflict due to changes both in local and remote contents of the each file.
+     * Performs a list of synchronization operations, determining if a download or upload is needed or if exists
+     * conflict due to changes both in local and remote contents of the each file.
+     * <p>
+     * If download or upload is needed, request the operation to the corresponding service and goes on.
      *
-     * If download or upload is needed, request the operation to the corresponding service and goes
-     * on.
-     *
-     * @param filesToSyncContents       Synchronization operations to execute.
+     * @param filesToSyncContents Synchronization operations to execute.
      */
     private void startContentSynchronizations(List<SynchronizeFileOperation> filesToSyncContents) {
         RemoteOperationResult contentsResult;
@@ -783,10 +796,10 @@ public class RefreshFolderOperation extends RemoteOperation {
                     mFailsInKeptInSyncFound++;
                     if (contentsResult.getException() != null) {
                         Log_OC.e(TAG, "Error while synchronizing favourites : "
-                                + contentsResult.getLogMessage(), contentsResult.getException());
+                            + contentsResult.getLogMessage(), contentsResult.getException());
                     } else {
                         Log_OC.e(TAG, "Error while synchronizing favourites : "
-                                + contentsResult.getLogMessage());
+                            + contentsResult.getLogMessage());
                     }
                 }
             }   // won't let these fails break the synchronization process
@@ -796,9 +809,9 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * Syncs the Share resources for the files contained in the folder refreshed (children, not deeper descendants).
      *
-     * @param client    Handler of a session with an OC server.
-     * @return The result of the remote operation retrieving the Share resources in the folder refreshed by
-     *                  the operation.
+     * @param client Handler of a session with an OC server.
+     * @return The result of the remote operation retrieving the Share resources in the folder refreshed by the
+     * operation.
      */
     private RemoteOperationResult refreshSharesForFolder(OwnCloudClient client) {
         RemoteOperationResult result;
@@ -826,12 +839,10 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     /**
-     * Sends a message to any application component interested in the progress
-     * of the synchronization.
+     * Sends a message to any application component interested in the progress of the synchronization.
      *
      * @param event         broadcast event (Intent Action)
-     * @param dirRemotePath Remote path of a folder that was just synchronized
-     *                      (with or without success)
+     * @param dirRemotePath Remote path of a folder that was just synchronized (with or without success)
      * @param result        remote operation result
      */
     private void sendLocalBroadcast(String event, String dirRemotePath, RemoteOperationResult result) {
