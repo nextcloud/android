@@ -515,7 +515,6 @@ public class UploadFileOperation extends SyncOperation {
                 }
 
                 object = metadata;
-                metadataExists = false;
             }
 
             // todo fail if no metadata
