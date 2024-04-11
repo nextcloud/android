@@ -439,6 +439,7 @@ public class UploadFileOperation extends SyncOperation {
     @SuppressLint("AndroidLintUseSparseArrays") // gson cannot handle sparse arrays easily, therefore use hashmap
     private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
         RemoteOperationResult result = null;
+        File temporalFile = null;
         File originalFile = new File(mOriginalStoragePath);
         File expectedFile = null;
         File encryptedTempFile = null;
@@ -579,14 +580,14 @@ public class UploadFileOperation extends SyncOperation {
                 String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
                     mFile.getRemotePath();
                 mFile.setStoragePath(temporalPath);
-                encryptedTempFile = new File(temporalPath);
+                temporalFile = new File(temporalPath);
 
                 Files.deleteIfExists(Paths.get(temporalPath));
-                result = copy(originalFile, encryptedTempFile);
+                result = copy(originalFile, temporalFile);
 
                 if (result.isSuccess()) {
-                    if (encryptedTempFile.length() == originalFile.length()) {
-                        channel = new RandomAccessFile(encryptedTempFile.getAbsolutePath(), "rw").getChannel();
+                    if (temporalFile.length() == originalFile.length()) {
+                        channel = new RandomAccessFile(temporalFile.getAbsolutePath(), "rw").getChannel();
                         fileLock = channel.tryLock();
                     } else {
                         result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
@@ -731,6 +732,9 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
 
+            if (temporalFile != null && !originalFile.equals(temporalFile)) {
+                temporalFile.delete();
+            }
             if (result == null) {
                 result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
             }
@@ -749,18 +753,23 @@ public class UploadFileOperation extends SyncOperation {
                 result = unlockFolderResult;
             }
 
-            if (result.isSuccess()) {
-                handleSuccessfulUpload(encryptedTempFile, expectedFile, originalFile, client);
-            } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
-                getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
-            }
-
             if (encryptedTempFile != null) {
                 boolean isTempEncryptedFileDeleted = encryptedTempFile.delete();
                 Log_OC.e(TAG, "isTempEncryptedFileDeleted: " + isTempEncryptedFileDeleted);
             } else {
                 Log_OC.e(TAG, "Encrypted temp file cannot be found");
             }
+        }
+
+        if (result.isSuccess()) {
+            handleSuccessfulUpload(temporalFile, expectedFile, originalFile, client);
+        } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
+            getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
+        }
+
+        // delete temporal file
+        if (temporalFile != null && temporalFile.exists() && !temporalFile.delete()) {
+            Log_OC.e(TAG, "Could not delete temporal file " + temporalFile.getAbsolutePath());
         }
 
         return result;
