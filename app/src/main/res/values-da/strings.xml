@@ -858,7 +858,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="update_link_forbidden_permissions">for at opdatere denne deling</string>
     <string name="updating_share_failed">Opdater deling fejlet</string>
     <string name="upload_action_failed_clear">Fjern fejlede uploads</string>
-    <string name="upload_action_failed_retry">Prøv fejlede uploads igen</string>
+    <string name="upload_action_failed_retry">Prøv mislykkede uploads igen</string>
     <string name="upload_cannot_create_file">Kan ikke oprette filen lokalt</string>
     <string name="upload_chooser_title">Sender fra...</string>
     <string name="upload_content_from_other_apps">Send indhold fra andre apps</string>
