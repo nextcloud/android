@@ -548,7 +548,17 @@ public final class EncryptionUtils {
     }
 
     public static EncryptedFile encryptFile(Context context, File file, Cipher cipher) throws InvalidParameterSpecException, IOException {
-        File tempEncryptedFile = File.createTempFile(file.getName(), null, context.getFilesDir());
+        String dirPath = context.getFilesDir().getAbsolutePath() + File.separator + "temp_encrypted_folder";
+        File tempEncryptedFolder = new File(dirPath);
+
+        if (!tempEncryptedFolder.exists()) {
+            boolean isTempEncryptedFolderCreated = tempEncryptedFolder.mkdirs();
+            Log_OC.d(TAG, "tempEncryptedFolder created" + isTempEncryptedFolderCreated);
+        } else {
+            Log_OC.d(TAG, "tempEncryptedFolder already exists");
+        }
+
+        File tempEncryptedFile = File.createTempFile(file.getName(), null, tempEncryptedFolder);
         encryptFileWithGivenCipher(file, tempEncryptedFile, cipher);
         String authenticationTagString = getAuthenticationTag(cipher);
         return new EncryptedFile(tempEncryptedFile, authenticationTagString);
@@ -568,7 +578,7 @@ public final class EncryptionUtils {
     }
 
     public static void encryptFileWithGivenCipher(File inputFile, File encryptedFile, Cipher cipher) {
-        try( FileInputStream inputStream = new FileInputStream(inputFile);
+        try (FileInputStream inputStream = new FileInputStream(inputFile);
              FileOutputStream fileOutputStream = new FileOutputStream(encryptedFile);
              CipherOutputStream outputStream = new CipherOutputStream(fileOutputStream, cipher)) {
             byte[] buffer = new byte[4096];
