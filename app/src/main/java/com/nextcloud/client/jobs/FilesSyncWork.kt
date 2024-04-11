@@ -221,7 +221,6 @@ class FilesSyncWork(
             needsWifi = syncedFolder.isWifiOnly
             uploadAction = syncedFolder.uploadAction
         }
-        Log_OC.d(TAG, "FILESYNC SCHEDULE UPLOAD OF FILE")
         FileUploadHelper.instance().uploadNewFiles(
             user,
             localPaths,
