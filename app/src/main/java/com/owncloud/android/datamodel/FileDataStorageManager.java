@@ -56,7 +56,10 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -336,6 +339,43 @@ public class FileDataStorageManager {
         }
 
         return ocFile;
+    }
+
+    private static final String tempEncryptedFolderPath = "temp_encrypted_folder";
+
+    public static void clearTempEncryptedFolder(Context context) {
+        File tempEncryptedFolder = getTempEncryptedFolder(context);
+
+        if (!tempEncryptedFolder.exists()) {
+            Log_OC.d(TAG,"tempEncryptedFolder not exists");
+            return;
+        }
+
+        try {
+            FileUtils.cleanDirectory(tempEncryptedFolder);
+
+            Log_OC.d(TAG,"tempEncryptedFolder cleared");
+        } catch (IOException exception) {
+            Log_OC.d(TAG,"Error caught at clearTempEncryptedFolder: " + exception);
+        }
+    }
+
+    public static File getTempEncryptedFolder(Context context) {
+        String dirPath = context.getFilesDir().getAbsolutePath() + File.separator + tempEncryptedFolderPath;
+        return new File(dirPath);
+    }
+
+    public static File createTempEncryptedFolder(Context context) {
+        File tempEncryptedFolder = getTempEncryptedFolder(context);
+
+        if (!tempEncryptedFolder.exists()) {
+            boolean isTempEncryptedFolderCreated = tempEncryptedFolder.mkdirs();
+            Log_OC.d(TAG, "tempEncryptedFolder created" + isTempEncryptedFolderCreated);
+        } else {
+            Log_OC.d(TAG, "tempEncryptedFolder already exists");
+        }
+
+        return tempEncryptedFolder;
     }
 
     public void saveNewFile(OCFile newFile) {

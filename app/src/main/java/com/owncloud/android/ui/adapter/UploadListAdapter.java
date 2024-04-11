@@ -54,6 +54,8 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
 import java.util.Arrays;
 import java.util.Optional;
@@ -169,6 +171,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             if (itemId == R.id.action_upload_list_cancelled_clear) {
                 uploadsStorageManager.clearCancelledUploadsForCurrentAccount();
                 loadUploadItemsFromDb();
+
+                FileDataStorageManager.clearTempEncryptedFolder(parentActivity);
             } else if (itemId == R.id.action_upload_list_cancelled_resume) {
                 retryCancelledUploads();
             }
