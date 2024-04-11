@@ -28,6 +28,7 @@ import junit.framework.TestCase.assertTrue
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
+@Suppress("TooManyFunctions", "LargeClass")
 class EncryptionUtilsV2IT : EncryptionIT() {
     private val encryptionTestUtils = EncryptionTestUtils()
     private val encryptionUtilsV2 = EncryptionUtilsV2()
