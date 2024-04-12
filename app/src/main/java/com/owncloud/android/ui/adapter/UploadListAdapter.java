@@ -145,8 +145,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 uploadsStorageManager.clearFailedButNotDelayedUploads();
                 FileDataStorageManager.clearTempEncryptedFolder(MainApp.getAppContext());
                 loadUploadItemsFromDb();
-            } else {
-
+            } else if (itemId == R.id.action_upload_list_failed_retry) {
                 new Thread(() -> {
                     FileUploadHelper.Companion.instance().retryFailedUploads(
                         uploadsStorageManager,
@@ -155,8 +154,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                         powerManagementService);
                     parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
                 }).start();
-
             }
+
             return true;
         });
         failedPopup.show();
