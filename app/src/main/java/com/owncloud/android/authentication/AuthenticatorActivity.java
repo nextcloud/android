@@ -331,9 +331,24 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             Build.MANUFACTURER.substring(1).toLowerCase(Locale.getDefault()) + " " + Build.MODEL + " (Android)";
     }
 
+    private void initWebViewLogin(String baseURL, boolean useGenericUserAgent) {
+        String url;
+        if (baseURL != null && !baseURL.isEmpty()) {
+            url = baseURL;
+        } else {
+            url = getResources().getString(R.string.webview_login_url);
+        }
+        
+        url = url + "?clientName=Android";
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        
+        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
+    }
+    
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
     @SuppressLint("SetJavaScriptEnabled")
-    private void initWebViewLogin(String baseURL, boolean useGenericUserAgent) {
+    private void initWebViewLoginOld(String baseURL, boolean useGenericUserAgent) {
         viewThemeUtils.platform.colorCircularProgressBar(accountSetupWebviewBinding.loginWebviewProgressBar, ColorRole.ON_PRIMARY_CONTAINER);
         accountSetupWebviewBinding.loginWebview.setVisibility(View.GONE);
         new WebViewUtil(this).setProxyKKPlus(accountSetupWebviewBinding.loginWebview);

@@ -28,9 +28,9 @@ class WebViewUtil(private val context: Context) {
     private val packageName = "com.google.android.webview"
 
     fun checkWebViewVersion() {
-        if (!isWebViewVersionValid()) {
-            showUpdateDialog()
-        }
+        // if (!isWebViewVersionValid()) {
+        //     showUpdateDialog()
+        // }
     }
 
     private fun isWebViewVersionValid(): Boolean {
