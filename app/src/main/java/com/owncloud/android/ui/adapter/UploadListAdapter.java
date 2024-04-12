@@ -146,6 +146,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 FileDataStorageManager.clearTempEncryptedFolder(MainApp.getAppContext());
                 loadUploadItemsFromDb();
             } else if (itemId == R.id.action_upload_list_failed_retry) {
+
+                // FIXME For e2e resume is not working
                 new Thread(() -> {
                     FileUploadHelper.Companion.instance().retryFailedUploads(
                         uploadsStorageManager,
@@ -158,6 +160,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
             return true;
         });
+
         failedPopup.show();
     }
 
@@ -183,6 +186,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         popup.show();
     }
 
+    // FIXME For e2e resume is not working
     private void retryCancelledUploads() {
         new Thread(() -> {
             boolean showNotExistMessage = FileUploadHelper.Companion.instance().retryCancelledUploads(
