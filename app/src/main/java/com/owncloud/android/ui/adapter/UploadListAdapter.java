@@ -143,6 +143,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
             if (itemId == R.id.action_upload_list_failed_clear) {
                 uploadsStorageManager.clearFailedButNotDelayedUploads();
+                FileDataStorageManager.clearTempEncryptedFolder(MainApp.getAppContext());
                 loadUploadItemsFromDb();
             } else {
 
