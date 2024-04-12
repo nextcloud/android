@@ -29,7 +29,7 @@ buildscript {
 
 plugins {
     id "com.diffplug.spotless" version "6.20.0"
-    id 'com.google.devtools.ksp' version '1.9.23-1.0.19' apply false
+    id 'com.google.devtools.ksp' version '1.9.23-1.0.20' apply false
 }
 
 apply plugin: 'com.android.application'
