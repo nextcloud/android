@@ -553,7 +553,7 @@ public class UploadFileOperation extends SyncOperation {
             byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
             Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
             File file = new File(mFile.getStoragePath());
-            EncryptedFile encryptedFile = EncryptionUtils.encryptFile(getContext(), file, cipher);
+            EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, cipher);
 
             // new random file name, check if it exists in metadata
             String encryptedFileName = EncryptionUtils.generateUid();

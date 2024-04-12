@@ -54,8 +54,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import org.apache.commons.io.FileUtils;
-
 import java.io.File;
 import java.util.Arrays;
 import java.util.Optional;
@@ -143,7 +141,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
             if (itemId == R.id.action_upload_list_failed_clear) {
                 uploadsStorageManager.clearFailedButNotDelayedUploads();
-                FileDataStorageManager.clearTempEncryptedFolder(MainApp.getAppContext());
+                clearTempEncryptedFolder();
                 loadUploadItemsFromDb();
             } else if (itemId == R.id.action_upload_list_failed_retry) {
 
@@ -174,8 +172,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             if (itemId == R.id.action_upload_list_cancelled_clear) {
                 uploadsStorageManager.clearCancelledUploadsForCurrentAccount();
                 loadUploadItemsFromDb();
-
-                FileDataStorageManager.clearTempEncryptedFolder(parentActivity);
+                clearTempEncryptedFolder();
             } else if (itemId == R.id.action_upload_list_cancelled_resume) {
                 retryCancelledUploads();
             }
@@ -184,6 +181,11 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         });
 
         popup.show();
+    }
+
+    private void clearTempEncryptedFolder() {
+        Optional<User> user = parentActivity.getUser();
+        user.ifPresent(value -> FileDataStorageManager.clearTempEncryptedFolder(value.getAccountName()));
     }
 
     // FIXME For e2e resume is not working

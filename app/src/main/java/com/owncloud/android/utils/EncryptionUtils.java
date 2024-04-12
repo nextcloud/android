@@ -547,8 +547,8 @@ public final class EncryptionUtils {
         return Base64.decode(string, Base64.NO_WRAP);
     }
 
-    public static EncryptedFile encryptFile(Context context, File file, Cipher cipher) throws InvalidParameterSpecException, IOException {
-        File tempEncryptedFolder = FileDataStorageManager.createTempEncryptedFolder(context);
+    public static EncryptedFile encryptFile(String accountName, File file, Cipher cipher) throws InvalidParameterSpecException, IOException {
+        File tempEncryptedFolder = FileDataStorageManager.createTempEncryptedFolder(accountName);
         File tempEncryptedFile = File.createTempFile(file.getName(), null, tempEncryptedFolder);
         encryptFileWithGivenCipher(file, tempEncryptedFile, cipher);
         String authenticationTagString = getAuthenticationTag(cipher);

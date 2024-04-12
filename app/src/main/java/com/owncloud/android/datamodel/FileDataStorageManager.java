@@ -341,10 +341,8 @@ public class FileDataStorageManager {
         return ocFile;
     }
 
-    private static final String tempEncryptedFolderPath = "temp_encrypted_folder";
-
-    public static void clearTempEncryptedFolder(Context context) {
-        File tempEncryptedFolder = getTempEncryptedFolder(context);
+    public static void clearTempEncryptedFolder(String accountName) {
+        File tempEncryptedFolder =  new File(FileStorageUtils.getTemporalEncryptedFolderPath(accountName));
 
         if (!tempEncryptedFolder.exists()) {
             Log_OC.d(TAG,"tempEncryptedFolder not exists");
@@ -360,13 +358,8 @@ public class FileDataStorageManager {
         }
     }
 
-    public static File getTempEncryptedFolder(Context context) {
-        String dirPath = context.getFilesDir().getAbsolutePath() + File.separator + tempEncryptedFolderPath;
-        return new File(dirPath);
-    }
-
-    public static File createTempEncryptedFolder(Context context) {
-        File tempEncryptedFolder = getTempEncryptedFolder(context);
+    public static File createTempEncryptedFolder(String accountName) {
+        File tempEncryptedFolder = new File(FileStorageUtils.getTemporalEncryptedFolderPath(accountName));
 
         if (!tempEncryptedFolder.exists()) {
             boolean isTempEncryptedFolderCreated = tempEncryptedFolder.mkdirs();
