@@ -210,7 +210,7 @@ class FileUploadWorker(
 
         notificationManager.prepareForStart(
             uploadFileOperation,
-            intents.startIntent(uploadFileOperation),
+            cancelPendingIntent = intents.startIntent(uploadFileOperation),
             intents.notificationStartIntent(uploadFileOperation)
         )
 

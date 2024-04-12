@@ -45,7 +45,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     @Suppress("MagicNumber")
     fun prepareForStart(
         uploadFileOperation: UploadFileOperation,
-        pendingIntent: PendingIntent,
+        cancelPendingIntent: PendingIntent,
         startIntent: PendingIntent
     ) {
         notificationBuilder.run {
@@ -65,7 +65,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             addAction(
                 R.drawable.ic_action_cancel_grey,
                 context.getString(R.string.common_cancel),
-                pendingIntent
+                cancelPendingIntent
             )
 
             setContentIntent(startIntent)
