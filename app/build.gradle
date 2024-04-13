@@ -16,7 +16,7 @@ import org.gradle.internal.jvm.Jvm
 buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
-        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.9'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.12'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.6"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -29,7 +29,7 @@ buildscript {
 
 plugins {
     id "com.diffplug.spotless" version "6.20.0"
-    id 'com.google.devtools.ksp' version '1.9.23-1.0.19' apply false
+    id 'com.google.devtools.ksp' version '1.9.23-1.0.20' apply false
 }
 
 apply plugin: 'com.android.application'
@@ -296,7 +296,7 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.6.2"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
-    implementation 'commons-io:commons-io:2.16.0'
+    implementation 'commons-io:commons-io:2.16.1'
     implementation 'org.greenrobot:eventbus:3.3.1'
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
     implementation 'org.lukhnos:nnio:0.3'

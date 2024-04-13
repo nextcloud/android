@@ -45,6 +45,7 @@
     <string name="assistant_screen_loading">Task List are loading, please wait</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">No task available. Select a task type to create a new task.</string>
     <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
+    <string name="assistant_screen_running_task_text">In Progress</string>
     <string name="assistant_screen_scheduled_task_status_text">Scheduled</string>
     <string name="assistant_screen_successful_task_text">Completed</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
