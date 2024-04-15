@@ -9,16 +9,14 @@
 
     <restriction
         android:key="proxy_host"
-        android:restrictionType="string"
         android:defaultValue=""
-        android:title="@string/app_config_proxy_host_title"
-        android:description="@string/app_config_proxy_host_description" />
+        android:restrictionType="string"
+        android:title="@string/app_config_proxy_host_title" />
 
     <restriction
         android:key="proxy_port"
-        android:restrictionType="integer"
         android:defaultValue="0"
-        android:title="@string/app_config_proxy_port_title"
-        android:description="@string/app_config_proxy_port_description" />
+        android:restrictionType="integer"
+        android:title="@string/app_config_proxy_port_title" />
 
 </restrictions>

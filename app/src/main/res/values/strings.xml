@@ -26,11 +26,8 @@
 
     <string name="ecosystem_apps_display_assistant">Assistant</string>
 
-    <string name="app_config_proxy_host_title">Host</string>
-    <string name="app_config_proxy_host_description">Select a proxy host configuration</string>
-
-    <string name="app_config_proxy_port_title">Port</string>
-    <string name="app_config_proxy_port_description">Select a proxy port configuration</string>
+    <string name="app_config_proxy_host_title">Proxy Host Name</string>
+    <string name="app_config_proxy_port_title">Proxy Port</string>
 
     <string name="app_config_proxy_config_cannot_be_found_message">Proxy configuration cannot be found</string>
     <string name="app_config_proxy_config_cannot_be_set_message">Proxy configuration cannot be set</string>

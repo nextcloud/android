@@ -326,7 +326,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
 
-        appConfigManager.readProxyConfig();
+        appConfigManager.setProxyConfig();
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -373,7 +373,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
         } else if (event == Lifecycle.Event.ON_RESUME) {
-            appConfigManager.readProxyConfig();
+            appConfigManager.setProxyConfig();
             Log_OC.d(TAG, "APP ON RESUME");
         }
     });
@@ -382,7 +382,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     private final BroadcastReceiver restrictionsReceiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) {
-            appConfigManager.readProxyConfig();
+            appConfigManager.setProxyConfig();
         }
     };
 
