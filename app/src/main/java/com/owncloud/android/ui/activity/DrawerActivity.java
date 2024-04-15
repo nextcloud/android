@@ -29,8 +29,10 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -484,6 +486,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void onNavigationItemClicked(final MenuItem menuItem) {
+        closeDrawer();
+
         setDrawerMenuItemChecked(menuItem.getItemId());
 
         int itemId = menuItem.getItemId();

@@ -36,7 +36,7 @@ import java.lang.ref.WeakReference
 class ComposeActivity : DrawerActivity() {
 
     lateinit var binding: ActivityComposeBinding
-    private var menuItemId: Int? = null
+    private var menuItemId: Int = R.id.nav_all_files
 
     companion object {
         const val DESTINATION = "DESTINATION"
@@ -51,13 +51,9 @@ class ComposeActivity : DrawerActivity() {
 
         val destination = intent.getSerializableArgument(DESTINATION, ComposeDestination::class.java)
         val titleId = intent.getIntExtra(TITLE, R.string.empty)
-        menuItemId = intent.getIntExtra(MENU_ITEM, -1)
+        menuItemId = intent.getIntExtra(MENU_ITEM, R.id.nav_all_files)
 
-        if (menuItemId != -1) {
-            setupDrawer(menuItemId!!)
-        } else {
-            setupDrawer()
-        }
+        setupDrawer(menuItemId)
 
         setupToolbarShowOnlyMenuButtonAndTitle(getString(titleId)) {
             toggleDrawer()
@@ -75,9 +71,7 @@ class ComposeActivity : DrawerActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (menuItemId != -1) {
-            setDrawerMenuItemChecked(R.id.nav_assistant)
-        }
+        setDrawerMenuItemChecked(menuItemId)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
