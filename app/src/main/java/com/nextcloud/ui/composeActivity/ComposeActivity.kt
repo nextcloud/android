@@ -53,11 +53,14 @@ class ComposeActivity : DrawerActivity() {
         val titleId = intent.getIntExtra(TITLE, R.string.empty)
         menuItemId = intent.getIntExtra(MENU_ITEM, -1)
 
-        setupToolbar()
-        updateActionBarTitleAndHomeButtonByString(getString(titleId))
-
         if (menuItemId != -1) {
             setupDrawer(menuItemId!!)
+        } else {
+            setupDrawer()
+        }
+
+        setupToolbarShowOnlyMenuButtonAndTitle(getString(titleId)) {
+            toggleDrawer()
         }
 
         binding.composeView.setContent {
@@ -80,7 +83,7 @@ class ComposeActivity : DrawerActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                if (isDrawerOpen) closeDrawer() else openDrawer()
+                toggleDrawer()
                 true
             }
             else -> super.onOptionsItemSelected(item)

@@ -104,6 +104,22 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
     }
 
+    public void setupToolbarShowOnlyMenuButtonAndTitle(String title, View.OnClickListener toggleDrawer) {
+        setupToolbar(false, false);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+
+        LinearLayout toolbar = findViewById(R.id.toolbar_linear_layout);
+        MaterialButton menuButton = findViewById(R.id.toolbar_menu_button);
+        MaterialTextView titleTextView = findViewById(R.id.toolbar_title);
+        titleTextView.setText(title);
+        toolbar.setVisibility(View.VISIBLE);
+        menuButton.setOnClickListener(toggleDrawer);
+    }
+
     public void setupToolbar() {
         setupToolbar(false, false);
     }
@@ -278,7 +294,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     public void clearToolbarSubtitle() {
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
+        if (actionBar != null) {
             actionBar.setSubtitle(null);
         }
     }

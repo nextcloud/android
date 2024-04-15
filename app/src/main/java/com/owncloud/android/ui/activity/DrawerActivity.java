@@ -506,6 +506,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
                 startActivity(intent);
             }
+
+            closeDrawer();
         } else if (itemId == R.id.nav_favorites) {
             handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
                                menuItem.getItemId());
@@ -679,6 +681,14 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START);
+    }
+
+    public void toggleDrawer() {
+        if (isDrawerOpen()) {
+            closeDrawer();
+        } else {
+            openDrawer();
+        }
     }
 
     /**

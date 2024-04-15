@@ -114,6 +114,42 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:id="@+id/toolbar_linear_layout"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:orientation="horizontal"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/toolbar_menu_button"
+                style="@style/Widget.AppTheme.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:cornerRadius="@dimen/button_corner_radius"
+                app:icon="@drawable/ic_menu"
+                app:iconTint="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/toolbar_title"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:lines="1"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"/>
+
+        </LinearLayout>
+
+
         <!-- home/search toolbar -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/home_toolbar"
