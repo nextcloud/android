@@ -42,7 +42,7 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
                         null,
                         "12",
                         "",
-                        "Give me some long text",
+                        "Give me some long text 1",
                         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc consectetur condimentum augue, sit amet maximus nibh pharetra sodales. Donec blandit nulla vitae diam aliquam, vel viverra sem faucibus. Duis vitae pretium sapien. Curabitur nec libero erat. Nunc pretium eleifend mi non congue. Sed efficitur ullamcorper mi, ac faucibus mi mollis sed. Donec vestibulum enim vel massa sodales facilisis. Integer in consequat nibh. Sed id nisi erat. Donec sollicitudin pharetra massa, id sodales arcu mollis luctus. Donec sed ullamcorper nisl, non euismod metus. Proin eget sollicitudin purus.\n" +
                             "\n" +
                             "Etiam sit amet nisl pretium, facilisis ligula vel, luctus arcu. Nunc bibendum hendrerit ultricies. Integer scelerisque sem arcu, eget fermentum neque pretium in. Curabitur facilisis neque vel leo blandit tincidunt. Nullam at sodales nisl, eu porta leo. Nulla facilisi. Fusce cursus, turpis eget auctor iaculis, eros lectus posuere magna, a tristique purus nunc id quam.\n" +
@@ -74,7 +74,51 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
                         null,
                         "12",
                         "",
-                        "Give me some text",
+                        "Give me some text 3",
+                        "Lorem".getRandomString(300),
+                        "",
+                        ""
+                    ),
+                    Task(
+                        4,
+                        "FreePrompt",
+                        null,
+                        "12",
+                        "",
+                        "Give me some text 4",
+                        "Lorem".getRandomString(300),
+                        "",
+                        ""
+                    ),
+                    Task(
+                        5,
+                        "FreePrompt",
+                        null,
+                        "12",
+                        "",
+                        "Give me some text 5",
+                        "Lorem".getRandomString(300),
+                        "",
+                        ""
+                    ),
+                    Task(
+                        6,
+                        "FreePrompt",
+                        null,
+                        "12",
+                        "",
+                        "Give me some text 6",
+                        "Lorem".getRandomString(300),
+                        "",
+                        ""
+                    ),
+                    Task(
+                        7,
+                        "FreePrompt",
+                        null,
+                        "12",
+                        "",
+                        "Give me some text 7",
                         "Lorem".getRandomString(300),
                         "",
                         ""

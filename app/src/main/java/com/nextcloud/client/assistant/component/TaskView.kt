@@ -22,13 +22,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -45,7 +46,6 @@ import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.extensions.statusData
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.nextcloud.utils.extensions.getRandomString
-import com.nextcloud.utils.extensions.splitIntoChunks
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 
@@ -56,8 +56,7 @@ fun TaskView(
     task: Task,
     showDeleteTaskAlertDialog: (Long) -> Unit
 ) {
-    var loadedChunkSize by remember { mutableIntStateOf(1) }
-    val taskOutputChunks = task.output?.splitIntoChunks(100)
+    val verticalScrollState = rememberScrollState(0)
     var showMoreActionsBottomSheet by remember { mutableStateOf(false) }
 
     Column(
@@ -66,11 +65,7 @@ fun TaskView(
             .clip(RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.primary)
             .combinedClickable(onClick = {
-                if (taskOutputChunks?.size != loadedChunkSize) {
-                    loadedChunkSize += 1
-                } else {
-                    loadedChunkSize = 1
-                }
+
             }, onLongClick = {
                 showMoreActionsBottomSheet = true
             })
@@ -88,23 +83,23 @@ fun TaskView(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        taskOutputChunks?.take(loadedChunkSize).let {
-            it?.joinToString("")?.let { output ->
-                HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
+        task.output?.let {
+            HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
 
-                Text(
-                    text = output,
-                    fontSize = 12.sp,
-                    color = Color.White,
-                    modifier = Modifier
-                        .animateContentSize(
-                            animationSpec = spring(
-                                dampingRatio = Spring.DampingRatioLowBouncy,
-                                stiffness = Spring.StiffnessLow
-                            )
+            Text(
+                text = it,
+                fontSize = 12.sp,
+                color = Color.White,
+                modifier = Modifier
+                    .height(100.dp)
+                    .verticalScroll(verticalScrollState)
+                    .animateContentSize(
+                        animationSpec = spring(
+                            dampingRatio = Spring.DampingRatioLowBouncy,
+                            stiffness = Spring.StiffnessLow
                         )
-                )
-            }
+                    )
+            )
         }
 
         Row(
@@ -125,20 +120,6 @@ fun TaskView(
             Spacer(modifier = Modifier.width(6.dp))
 
             Text(text = stringResource(id = descriptionId), color = Color.White)
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            if ((task.output?.length ?: 0) >= 100) {
-                Image(
-                    painter = painterResource(
-                        id = if (loadedChunkSize != taskOutputChunks?.size) R.drawable.ic_expand_more else R.drawable.ic_expand_less
-                    ),
-                    contentDescription = "expand content icon",
-                    colorFilter = ColorFilter.tint(Color.White)
-                )
-            }
-
-            Spacer(modifier = Modifier.width(8.dp))
         }
 
         if (showMoreActionsBottomSheet) {

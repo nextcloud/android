@@ -15,14 +15,3 @@ fun String.getRandomString(length: Int) : String {
 
     return this + result
 }
-
-fun String.splitIntoChunks(chunkSize: Int): List<String> {
-    val chunks = mutableListOf<String>()
-    var startIndex = 0
-    while (startIndex < length) {
-        val endIndex = kotlin.math.min(startIndex + chunkSize, length)
-        chunks.add(substring(startIndex, endIndex))
-        startIndex = endIndex
-    }
-    return chunks
-}
