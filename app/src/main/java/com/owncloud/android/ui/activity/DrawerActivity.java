@@ -284,6 +284,8 @@ public abstract class DrawerActivity extends ToolbarActivity
         viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
     }
 
+    private boolean showTopBanner = false;
+
     public void updateHeader() {
         int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
 
@@ -340,44 +342,52 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         // hide ecosystem apps according to user preference or in branded client
         LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
-        if (getResources().getBoolean(R.bool.is_branded_client) || !preferences.isShowEcosystemApps()) {
-            ecosystemApps.setVisibility(View.GONE);
+        showTopBanner = !getResources().getBoolean(R.bool.is_branded_client) && preferences.isShowEcosystemApps();
+
+        if (showTopBanner) {
+            showBanner(ecosystemApps, primaryColor);
         } else {
-            LinearLayout notesView = ecosystemApps.findViewById(R.id.drawer_ecosystem_notes);
-            LinearLayout talkView = ecosystemApps.findViewById(R.id.drawer_ecosystem_talk);
-            LinearLayout moreView = ecosystemApps.findViewById(R.id.drawer_ecosystem_more);
-            LinearLayout assistantView = ecosystemApps.findViewById(R.id.drawer_ecosystem_assistant);
-
-            notesView.setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
-            talkView.setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
-            moreView.setOnClickListener(v -> openAppStore("Nextcloud", true));
-            assistantView.setOnClickListener(v -> startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, -1));
-            if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
-                assistantView.setVisibility(View.VISIBLE);
-            } else {
-                assistantView.setVisibility(View.GONE);
-            }
-
-            List<LinearLayout> views = Arrays.asList(notesView, talkView, moreView, assistantView);
-
-            int iconColor;
-            if (Hct.fromInt(primaryColor).getTone() < 80.0) {
-                iconColor = Color.WHITE;
-            } else {
-                iconColor = getColor(R.color.grey_800_transparent);
-            }
-
-            for (LinearLayout view : views) {
-                ImageView imageView = (ImageView) view.getChildAt(0);
-                imageView.setImageTintList(ColorStateList.valueOf(iconColor));
-                GradientDrawable background = (GradientDrawable) imageView.getBackground();
-                background.setStroke(DisplayUtils.convertDpToPixel(1, this), iconColor);
-                TextView textView = (TextView) view.getChildAt(1);
-                textView.setTextColor(iconColor);
-            }
-
-            ecosystemApps.setVisibility(View.VISIBLE);
+            MenuItem assistanMenuItem = findViewById(R.id.nav_assistant);
+            assistanMenuItem.setVisible(false);
+            ecosystemApps.setVisibility(View.GONE);
         }
+    }
+
+    private void showBanner(LinearLayout banner, int primaryColor) {
+        LinearLayout notesView = banner.findViewById(R.id.drawer_ecosystem_notes);
+        LinearLayout talkView = banner.findViewById(R.id.drawer_ecosystem_talk);
+        LinearLayout moreView = banner.findViewById(R.id.drawer_ecosystem_more);
+        LinearLayout assistantView = banner.findViewById(R.id.drawer_ecosystem_assistant);
+
+        notesView.setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
+        talkView.setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
+        moreView.setOnClickListener(v -> openAppStore("Nextcloud", true));
+        assistantView.setOnClickListener(v -> startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, -1));
+        if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
+            assistantView.setVisibility(View.VISIBLE);
+        } else {
+            assistantView.setVisibility(View.GONE);
+        }
+
+        List<LinearLayout> views = Arrays.asList(notesView, talkView, moreView, assistantView);
+
+        int iconColor;
+        if (Hct.fromInt(primaryColor).getTone() < 80.0) {
+            iconColor = Color.WHITE;
+        } else {
+            iconColor = getColor(R.color.grey_800_transparent);
+        }
+
+        for (LinearLayout view : views) {
+            ImageView imageView = (ImageView) view.getChildAt(0);
+            imageView.setImageTintList(ColorStateList.valueOf(iconColor));
+            GradientDrawable background = (GradientDrawable) imageView.getBackground();
+            background.setStroke(DisplayUtils.convertDpToPixel(1, this), iconColor);
+            TextView textView = (TextView) view.getChildAt(1);
+            textView.setTextColor(iconColor);
+        }
+
+        banner.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -461,11 +471,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
         DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
-        DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources());
+        DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources(), showTopBanner);
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
-
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community,
-                                      !getResources().getBoolean(R.bool.participate_enabled));
+        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community, !getResources().getBoolean(R.bool.participate_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
     }
