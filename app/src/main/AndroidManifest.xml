@@ -126,6 +126,10 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
+
+        <meta-data android:name="android.content.APP_RESTRICTIONS"
+            android:resource="@xml/app_config" />
+
         <activity
             android:name="com.nextcloud.ui.composeActivity.ComposeActivity"
             android:exported="false" />

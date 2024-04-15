@@ -21,13 +21,14 @@ import android.app.ActivityManager;
 import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -55,6 +56,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -63,6 +65,7 @@ import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.MediaProvider;
+import com.owncloud.android.datamodel.ReceiverFlag;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -75,6 +78,7 @@ import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.notifications.NotificationUtils;
+import com.owncloud.android.utils.appConfig.AppConfigManager;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
@@ -191,6 +195,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @SuppressWarnings("unused")
     private boolean mBound;
 
+    private AppConfigManager appConfigManager;
+
     private static AppComponent appComponent;
 
     /**
@@ -281,6 +287,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         return appComponent;
     }
 
+
     @SuppressFBWarnings("ST")
     @Override
     public void onCreate() {
@@ -290,6 +297,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
+
+        appConfigManager = new AppConfigManager(this);
+
+        // Listen app config changes
+        ContextExtensionsKt.registerBroadcastReceiver(this, restrictionsReceiver, restrictionsFilter, ReceiverFlag.NotExported);
 
         ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
 
@@ -314,12 +326,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
 
-        try {
-            OwnCloudClientManagerFactory.setProxyHost(getResources().getString(R.string.proxy_host));
-            OwnCloudClientManagerFactory.setProxyPort(getResources().getInteger(R.integer.proxy_port));
-        } catch (Resources.NotFoundException e) {
-            // no proxy set
-        }
+        appConfigManager.readProxyConfig();
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -358,14 +365,26 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         registerGlobalPassCodeProtection();
     }
 
+
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START) {
             Log_OC.d(TAG, "APP IN FOREGROUND");
         } else if (event == Lifecycle.Event.ON_STOP) {
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
+        } else if (event == Lifecycle.Event.ON_RESUME) {
+            appConfigManager.readProxyConfig();
+            Log_OC.d(TAG, "APP ON RESUME");
         }
     });
+
+    private final IntentFilter restrictionsFilter = new IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED);
+
+    private final BroadcastReceiver restrictionsReceiver = new BroadcastReceiver() {
+        @Override public void onReceive(Context context, Intent intent) {
+            appConfigManager.readProxyConfig();
+        }
+    };
 
     private void registerGlobalPassCodeProtection() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
