@@ -32,6 +32,9 @@
     <string name="app_config_proxy_port_title">Port</string>
     <string name="app_config_proxy_port_description">Select a proxy port configuration</string>
 
+    <string name="app_config_proxy_config_cannot_be_found_message">Proxy configuration cannot be found</string>
+    <string name="app_config_proxy_config_cannot_be_set_message">Proxy configuration cannot be set</string>
+
     <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
     <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
 
