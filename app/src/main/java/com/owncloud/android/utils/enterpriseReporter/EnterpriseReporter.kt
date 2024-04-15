@@ -16,19 +16,27 @@ import androidx.enterprise.feedback.KeyedAppStatesCallback.STATUS_TRANSACTION_TO
 import androidx.enterprise.feedback.KeyedAppStatesCallback.STATUS_UNKNOWN_ERROR
 import androidx.enterprise.feedback.KeyedAppStatesReporter
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.appConfig.AppConfigKeys
 
+@Suppress("TooGenericExceptionCaught")
 fun Context.enterpriseFeedback(
+    appConfig: AppConfigKeys,
     messageId: Int,
     severity: Int = KeyedAppState.SEVERITY_ERROR
 ) {
-    val keyedAppStatesReporter = KeyedAppStatesReporter.create(this)
-    val keyedAppStateMessage = KeyedAppState.builder()
-        .setSeverity(severity)
-        .setMessage(getString(messageId))
-        .build()
-    val list: MutableList<KeyedAppState> = ArrayList()
-    list.add(keyedAppStateMessage)
-    keyedAppStatesReporter.setStates(list, Callback())
+    try {
+        val keyedAppStatesReporter = KeyedAppStatesReporter.create(this)
+        val keyedAppStateMessage = KeyedAppState.builder()
+            .setKey(appConfig.key)
+            .setSeverity(severity)
+            .setMessage(getString(messageId))
+            .build()
+        val list: MutableList<KeyedAppState> = ArrayList()
+        list.add(keyedAppStateMessage)
+        keyedAppStatesReporter.setStates(list, Callback())
+    } catch (e: Exception) {
+        Log_OC.d("EnterpriseFeedback", "Feedback cannot sent to the enterprise: $e")
+    }
 }
 
 internal class Callback : KeyedAppStatesCallback {

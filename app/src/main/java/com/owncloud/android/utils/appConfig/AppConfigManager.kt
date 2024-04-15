@@ -25,19 +25,33 @@ class AppConfigManager(private val context: Context) {
     fun readProxyConfig() {
         val appRestrictions = restrictionsManager.applicationRestrictions
 
-        if (!appRestrictions.containsKey(AppConfigKeys.ProxyHost.key) || !appRestrictions.containsKey(AppConfigKeys.ProxyPort.key)) {
-            context.enterpriseFeedback(R.string.app_config_proxy_config_cannot_be_found_message)
+        val host = if (appRestrictions.containsKey(AppConfigKeys.ProxyHost.key)) {
+            appRestrictions.getString(AppConfigKeys.ProxyHost.key)
+        } else {
+            context.resources.getString(R.string.proxy_host)
         }
 
-        val host = appRestrictions.getString(AppConfigKeys.ProxyHost.key)
-        val port = appRestrictions.getInt(AppConfigKeys.ProxyPort.key)
+        val port = if (appRestrictions.containsKey(AppConfigKeys.ProxyPort.key)) {
+            appRestrictions.getInt(AppConfigKeys.ProxyPort.key)
+        } else {
+            context.resources.getInteger(R.integer.proxy_port)
+        }
+
+        if (host == null) {
+            context.enterpriseFeedback(
+                AppConfigKeys.ProxyHost,
+                R.string.app_config_proxy_config_cannot_be_found_message
+            )
+            return
+        }
 
         try {
             OwnCloudClientManagerFactory.setProxyHost(host)
             OwnCloudClientManagerFactory.setProxyPort(port)
         } catch (e: Resources.NotFoundException) {
-            context.enterpriseFeedback(R.string.app_config_proxy_config_cannot_be_set_message)
-           Log_OC.d(tag,"Proxy config cannot able to set due to: $e")
+            context.enterpriseFeedback(AppConfigKeys.ProxyHost, R.string.app_config_proxy_config_cannot_be_set_message)
+            context.enterpriseFeedback(AppConfigKeys.ProxyPort, R.string.app_config_proxy_config_cannot_be_set_message)
+            Log_OC.d(tag, "Proxy config cannot able to set due to: $e")
         }
     }
 }

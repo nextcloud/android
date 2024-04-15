@@ -12,5 +12,5 @@ package com.owncloud.android.utils.appConfig
  */
 enum class AppConfigKeys(val key: String) {
     ProxyHost("proxy_host"),
-    ProxyPort("proxy_port"),
+    ProxyPort("proxy_port")
 }
