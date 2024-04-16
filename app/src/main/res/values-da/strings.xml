@@ -47,6 +47,7 @@
     <string name="assistant_screen_scheduled_task_status_text">Planlagt</string>
     <string name="assistant_screen_successful_task_text">Fuldført</string>
     <string name="assistant_screen_task_create_success_message">Opgaven er oprettet</string>
+    <string name="assistant_screen_task_delete_fail_message">En fejl opstod under sletning af opgaven</string>
     <string name="assistant_screen_task_delete_success_message">Opgaven er slettet</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Slet opgave</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
@@ -354,6 +355,7 @@
     <string name="file_list_empty_shared_headline">Intet er delt endnu</string>
     <string name="file_list_empty_unified_search_no_results">Ingen resultater fundet for din forespørgsel</string>
     <string name="file_list_folder">mappe</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Indlæser...</string>
     <string name="file_list_no_app_for_file_type">Ingen app er sat op til at håndtere denne filtype.</string>
     <string name="file_list_seconds_ago">sekunder siden</string>
@@ -592,6 +594,7 @@
     <string name="prefs_category_dev">Udvikling</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
+    <string name="prefs_daily_backup_summary">Daglig backup af din kalender og kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_davx5_setup_error">Uventet fejl under opsætning af DAVx5 (tidligere kendt som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end kryptering er blevet konfigureret!</string>
@@ -665,6 +668,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="rename_local_fail_msg">Lokal kopi kunne ikke omdøbes, prøv et andet navn</string>
     <string name="rename_server_fail_msg">Omdøbning ikke mulig, navnet eksisterer</string>
     <string name="request_account_deletion">Anmodning om sletning af konto</string>
+    <string name="request_account_deletion_button">Anmod om sletning</string>
     <string name="reshare_not_allowed">Gendeling er ikke tilladt</string>
     <string name="resharing_is_not_allowed">Videredeling ikke tilladt</string>
     <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>
@@ -685,9 +689,11 @@ Enheds legitimationsoplysninger er sat op
     <string name="screenshot_04_accounts_heading">Alle dine konti</string>
     <string name="screenshot_04_accounts_subline">på et sted</string>
     <string name="screenshot_05_autoUpload_heading">Automatisk upload</string>
+    <string name="screenshot_05_autoUpload_subline">for dine billeder og videoer</string>
     <string name="screenshot_06_davdroid_heading">Kalender og kontakter</string>
     <string name="screenshot_06_davdroid_subline">Synkronisér med DAVx5</string>
     <string name="search_error">Fejl ved indhenting af søgeresultater</string>
+    <string name="secure_share_not_set_up">Sikker deling er ikke sat op for denne bruger</string>
     <string name="select_all">Vælg alle</string>
     <string name="select_media_folder">Indstil mediemappe</string>
     <string name="select_one_template">Vælg venligst en skabelon</string>
@@ -800,6 +806,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="subject_shared_with_you">\"%1$s\" er blevet delt med dig</string>
     <string name="subject_user_shared_with_you">%1$s delte \"%2$s\" med dig</string>
     <string name="subtitle_photos_only">Kun billeder</string>
+    <string name="subtitle_photos_videos">Billeder og videoer</string>
     <string name="subtitle_videos_only">Kun videoer</string>
     <string name="suggest">Foreslå</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
