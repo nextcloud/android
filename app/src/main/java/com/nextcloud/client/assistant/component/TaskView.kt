@@ -22,9 +22,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -44,6 +42,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.extensions.statusData
+import com.nextcloud.client.assistant.taskDetail.TaskDetailScreen
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.R
@@ -56,7 +55,7 @@ fun TaskView(
     task: Task,
     showDeleteTaskAlertDialog: (Long) -> Unit
 ) {
-    val verticalScrollState = rememberScrollState(0)
+    var showTaskDetailBottomSheet by remember { mutableStateOf(false) }
     var showMoreActionsBottomSheet by remember { mutableStateOf(false) }
 
     Column(
@@ -65,6 +64,7 @@ fun TaskView(
             .clip(RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.primary)
             .combinedClickable(onClick = {
+                showTaskDetailBottomSheet = true
             }, onLongClick = {
                 showMoreActionsBottomSheet = true
             })
@@ -86,12 +86,11 @@ fun TaskView(
             HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
 
             Text(
-                text = it,
+                text = it.take(100),
                 fontSize = 12.sp,
                 color = Color.White,
                 modifier = Modifier
                     .height(100.dp)
-                    .verticalScroll(verticalScrollState)
                     .animateContentSize(
                         animationSpec = spring(
                             dampingRatio = Spring.DampingRatioLowBouncy,
@@ -137,6 +136,16 @@ fun TaskView(
                 dismiss = { showMoreActionsBottomSheet = false }
             )
         }
+
+        if (showTaskDetailBottomSheet) {
+            task.input?.let { input ->
+                task.output?.let { output ->
+                    TaskDetailScreen(input, output) {
+                        showTaskDetailBottomSheet = false
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -159,5 +168,6 @@ private fun TaskViewPreview() {
             ""
         )
     ) {
+
     }
 }
