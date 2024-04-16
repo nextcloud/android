@@ -73,7 +73,7 @@ public final class FilesSyncHelper {
                         return FileVisitResult.CONTINUE;
                     }
 
-                    if (lastCheck != SyncedFolder.NOT_SCANNED_YET && attrs.lastModifiedTime().toMillis() < lastCheck) {
+                    if (attrs.lastModifiedTime().toMillis() < lastCheck) {
                         // skip files that were already checked
                         return FileVisitResult.CONTINUE;
                     }
