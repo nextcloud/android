@@ -141,6 +141,7 @@ fun TaskView(
     }
 }
 
+@Suppress("MagicNumber")
 @Preview
 @Composable
 private fun TaskViewPreview() {
