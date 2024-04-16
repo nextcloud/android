@@ -94,7 +94,7 @@ class FilesSyncWork(
     @Suppress("MagicNumber")
     override fun doWork(): Result {
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
-        Log_OC.d(TAG, "FILESYNC WORKER STARTED")
+        Log_OC.d(TAG, "File-sync worker started")
 
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         // If we are in power save mode, better to postpone upload
@@ -114,9 +114,9 @@ class FilesSyncWork(
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
-        Log_OC.d(TAG, "FILESYNC WORKER CHANGED FILES: " + changedFiles.contentToString())
+        Log_OC.d(TAG, "File-sync worker changed files from observer: " + changedFiles.contentToString())
         collectChangedFiles(changedFiles)
-        Log_OC.d(TAG, "FILESYNC WORKER CHECKED CHANGED FILES")
+        Log_OC.d(TAG, "File-sync worker finished checking files.")
 
         // Create all the providers we'll need
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
@@ -143,7 +143,7 @@ class FilesSyncWork(
                 )
             }
         }
-        Log_OC.d(TAG, "FILESYNC WORKER ENDED")
+        Log_OC.d(TAG, "File-sync worker finished")
         val result = Result.success()
         backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
         return result

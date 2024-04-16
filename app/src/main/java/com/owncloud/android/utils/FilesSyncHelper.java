@@ -119,6 +119,9 @@ public final class FilesSyncHelper {
             final long lastCheck = syncedFolder.getLastScanTimestampMs();
             final long thisCheck = System.currentTimeMillis();
 
+            Log_OC.d(TAG,"File-sync start check folder "+syncedFolder.getLocalPath());
+            long startTime = System.nanoTime();
+
             if (mediaType == MediaFolderType.IMAGE) {
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
                                                     syncedFolder,
@@ -136,18 +139,15 @@ public final class FilesSyncHelper {
             } else {
                     FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
                     Path path = Paths.get(syncedFolder.getLocalPath());
-
-                    long startTime = System.nanoTime();
                     FilesSyncHelper.insertCustomFolderIntoDB(path, syncedFolder, filesystemDataProvider, lastCheck, thisCheck);
-                    Log_OC.d(TAG,"FILESYNC FINISHED LONG CHECK FOLDER "+path+" "+(System.nanoTime() - startTime));
-
             }
+
+            Log_OC.d(TAG,"File-sync finished full check for custom folder "+syncedFolder.getLocalPath()+" within "+(System.nanoTime() - startTime)+ "ns");
         }
     }
 
     public static void insertAllDBEntries(SyncedFolderProvider syncedFolderProvider) {
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            Log_OC.d(TAG,"FILESYNC CHECK FOLDER "+syncedFolder.getLocalPath());
             if (syncedFolder.isEnabled()) {
                 insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
@@ -166,7 +166,6 @@ public final class FilesSyncHelper {
                     filesystemDataProvider.storeOrUpdateFileValue(changedFile,
                                                                   file.lastModified(),file.isDirectory(),
                                                                   syncedFolder);
-                    Log_OC.d(TAG,"FILESYNC ADDED UPLOAD TO DB");
                     break;
                 }
             }
