@@ -56,7 +56,7 @@ class ComposeActivity : DrawerActivity() {
         setupDrawer(menuItemId)
 
         setupToolbarShowOnlyMenuButtonAndTitle(getString(titleId)) {
-            toggleDrawer()
+            openDrawer()
         }
 
         binding.composeView.setContent {
