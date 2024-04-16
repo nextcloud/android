@@ -29,7 +29,6 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.SystemClock;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -285,14 +284,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         viewThemeUtils.material.colorProgressBar(mQuotaProgressBar);
     }
 
-    private boolean showTopBanner = false;
-
     public void updateHeader() {
         int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
+        boolean isClientBranded = getResources().getBoolean(R.bool.is_branded_client);
 
         if (getAccount() != null &&
-            getCapabilities().getServerBackground() != null &&
-            !getResources().getBoolean(R.bool.is_branded_client)) {
+            getCapabilities().getServerBackground() != null && !isClientBranded) {
 
             OCCapability capability = getCapabilities();
             String logo = capability.getServerLogo();
@@ -342,19 +339,29 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
         // hide ecosystem apps according to user preference or in branded client
-        LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
-        showTopBanner = !getResources().getBoolean(R.bool.is_branded_client) && preferences.isShowEcosystemApps();
+        LinearLayout banner = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
+        boolean shouldHideTopBanner = isClientBranded || !preferences.isShowEcosystemApps();
 
-        if (showTopBanner) {
-            showBanner(ecosystemApps, primaryColor);
+        if (shouldHideTopBanner) {
+            hideTopBanner(banner);
         } else {
-            MenuItem assistanMenuItem = findViewById(R.id.nav_assistant);
-            assistanMenuItem.setVisible(false);
-            ecosystemApps.setVisibility(View.GONE);
+            showTopBanner(banner, primaryColor);
         }
     }
 
-    private void showBanner(LinearLayout banner, int primaryColor) {
+    private void hideTopBanner(LinearLayout banner) {
+        banner.setVisibility(View.GONE);
+    }
+
+    private void hideAssistantMenuItem() {
+        MenuItem assistantMenuItem = findViewById(R.id.nav_assistant);
+
+        if (assistantMenuItem != null) {
+            assistantMenuItem.setVisible(false);
+        }
+    }
+
+    private void showTopBanner(LinearLayout banner, int primaryColor) {
         LinearLayout notesView = banner.findViewById(R.id.drawer_ecosystem_notes);
         LinearLayout talkView = banner.findViewById(R.id.drawer_ecosystem_talk);
         LinearLayout moreView = banner.findViewById(R.id.drawer_ecosystem_more);
@@ -472,7 +479,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
         DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
-        DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources(), showTopBanner);
+        DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources());
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community, !getResources().getBoolean(R.bool.participate_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
