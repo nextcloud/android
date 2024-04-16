@@ -533,7 +533,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(CommunityActivity.class);
         } else if (itemId == R.id.nav_logout) {
             mCheckedMenuItem = -1;
-            menuItem.setChecked(false);
+            MenuItem isNewMenuItemChecked = menuItem.setChecked(false);
+            Log_OC.d(TAG,"onNavigationItemClicked nav_logout setChecked " + isNewMenuItemChecked);
             final Optional<User> optionalUser = getUser();
             if (optionalUser.isPresent()) {
                 UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
@@ -1143,7 +1144,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
         if (callContext instanceof MenuItem menuItem) {
-            menuItem.setIcon(avatarDrawable);
+            MenuItem newIcon = menuItem.setIcon(avatarDrawable);
+            Log_OC.d(TAG,"avatarGenerated new icon: " + newIcon);
         } else if (callContext instanceof ImageView imageView) {
             imageView.setImageDrawable(avatarDrawable);
         } else if (callContext instanceof MaterialButton materialButton) {
