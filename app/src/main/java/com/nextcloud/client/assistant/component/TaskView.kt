@@ -65,7 +65,6 @@ fun TaskView(
             .clip(RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.primary)
             .combinedClickable(onClick = {
-
             }, onLongClick = {
                 showMoreActionsBottomSheet = true
             })

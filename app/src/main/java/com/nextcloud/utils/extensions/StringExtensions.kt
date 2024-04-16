@@ -7,7 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
-fun String.getRandomString(length: Int) : String {
+fun String.getRandomString(length: Int): String {
     val allowedChars = ('A'..'Z') + ('a'..'z') + ('0'..'9')
     val result = (1..length)
         .map { allowedChars.random() }
