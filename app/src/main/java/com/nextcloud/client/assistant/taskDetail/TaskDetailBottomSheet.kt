@@ -40,13 +40,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nextcloud.client.assistant.task.TaskStatus
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.R
+import com.owncloud.android.lib.resources.assistant.model.Task
 
 @Suppress("LongMethod")
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun TaskDetailScreen(input: String, output: String, dismiss: () -> Unit) {
+fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
     var showInput by remember { mutableStateOf(true) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -100,9 +102,9 @@ fun TaskDetailScreen(input: String, output: String, dismiss: () -> Unit) {
                 ) {
                     Text(
                         text = if (showInput) {
-                            input
+                            task.input ?: ""
                         } else {
-                            output
+                            task.output ?: ""
                         },
                         fontSize = 12.sp,
                         color = Color.Black,
@@ -115,6 +117,8 @@ fun TaskDetailScreen(input: String, output: String, dismiss: () -> Unit) {
                             )
                     )
                 }
+
+                TaskStatus(task, foregroundColor = Color.Black)
 
                 Spacer(modifier = Modifier.height(32.dp))
             }
@@ -144,5 +148,17 @@ private fun TextInputSelectButton(modifier: Modifier, titleId: Int, highlightCon
 @Preview
 @Composable
 private fun TaskDetailScreenPreview() {
-    TaskDetailScreen(input = "some input".getRandomString(20), output = "some output".getRandomString(3000)) { }
+    TaskDetailBottomSheet(task = Task(
+        1,
+        "Free Prompt",
+        0,
+        "1",
+        "1",
+        "Give me text".getRandomString(100),
+        "output".getRandomString(300),
+        "",
+        ""
+    )) {
+
+    }
 }
