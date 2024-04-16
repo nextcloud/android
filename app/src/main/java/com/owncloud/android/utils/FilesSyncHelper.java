@@ -225,7 +225,7 @@ public final class FilesSyncHelper {
                 isFolder = new File(contentPath).isDirectory();
 
                 if (syncedFolder.getLastScanTimestampMs() != SyncedFolder.NOT_SCANNED_YET &&
-                    cursor.getLong(column_index_date_modified) < (lastCheckMs / 1000.0)) {
+                    cursor.getLong(column_index_date_modified) < (lastCheckMs / 1000)) {
                     continue;
                 }
 
