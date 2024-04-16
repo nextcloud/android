@@ -353,14 +353,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         banner.setVisibility(View.GONE);
     }
 
-    private void hideAssistantMenuItem() {
-        MenuItem assistantMenuItem = findViewById(R.id.nav_assistant);
-
-        if (assistantMenuItem != null) {
-            assistantMenuItem.setVisible(false);
-        }
-    }
-
     private void showTopBanner(LinearLayout banner, int primaryColor) {
         LinearLayout notesView = banner.findViewById(R.id.drawer_ecosystem_notes);
         LinearLayout talkView = banner.findViewById(R.id.drawer_ecosystem_talk);
