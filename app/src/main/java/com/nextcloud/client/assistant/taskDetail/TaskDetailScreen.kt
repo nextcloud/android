@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.sp
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.R
 
+@Suppress("LongMethod")
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun TaskDetailScreen(input: String, output: String, dismiss: () -> Unit) {
@@ -62,7 +63,6 @@ fun TaskDetailScreen(input: String, output: String, dismiss: () -> Unit) {
                 .fillMaxSize()
                 .padding(16.dp)
         ) {
-
             stickyHeader {
                 Row(
                     modifier = Modifier
@@ -92,10 +92,12 @@ fun TaskDetailScreen(input: String, output: String, dismiss: () -> Unit) {
             item {
                 Spacer(modifier = Modifier.height(16.dp))
 
-                Column(modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = colorResource(id = R.color.light_grey), shape = RoundedCornerShape(8.dp))
-                    .padding(16.dp)) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = colorResource(id = R.color.light_grey), shape = RoundedCornerShape(8.dp))
+                        .padding(16.dp)
+                ) {
                     Text(
                         text = if (showInput) {
                             input

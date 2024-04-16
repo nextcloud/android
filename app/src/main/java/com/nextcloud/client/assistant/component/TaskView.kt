@@ -168,6 +168,5 @@ private fun TaskViewPreview() {
             ""
         )
     ) {
-
     }
 }
