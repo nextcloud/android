@@ -64,7 +64,7 @@ public final class FilesSyncHelper {
         final long enabledTimestampMs = syncedFolder.getEnabledTimestampMs();
 
         try {
-            FileUtil.walkFileTree(path, new SimpleFileVisitor<Path>() {
+            FileUtil.walkFileTree(path, new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                     File file = path.toFile();
