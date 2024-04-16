@@ -229,7 +229,7 @@ public final class FilesSyncHelper {
                     continue;
                 }
 
-                if (syncedFolder.isExisting() || cursor.getLong(column_index_date_modified) >= enabledTimestampMs / 1000.0) {
+                if (syncedFolder.isExisting() || cursor.getLong(column_index_date_modified) >= enabledTimestampMs / 1000) {
                     // storeOrUpdateFileValue takes a few ms
                     // -> Rest of this file check takes not even 1 ms.
                     filesystemDataProvider.storeOrUpdateFileValue(contentPath,
