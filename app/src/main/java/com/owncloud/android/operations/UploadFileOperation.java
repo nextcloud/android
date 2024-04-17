@@ -442,6 +442,7 @@ public class UploadFileOperation extends SyncOperation {
         File temporalFile = null;
         File originalFile = new File(mOriginalStoragePath);
         File expectedFile = null;
+        File encryptedTempFile = null;
         FileLock fileLock = null;
         long size;
 
@@ -552,7 +553,7 @@ public class UploadFileOperation extends SyncOperation {
             byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
             Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
             File file = new File(mFile.getStoragePath());
-            EncryptedFile encryptedFile = EncryptionUtils.encryptFile(file, cipher);
+            EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, cipher);
 
             // new random file name, check if it exists in metadata
             String encryptedFileName = EncryptionUtils.generateUid();
@@ -567,9 +568,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
 
-            File encryptedTempFile = encryptedFile.getEncryptedFile();
-
-            /***** E2E *****/
+            encryptedTempFile = encryptedFile.getEncryptedFile();
 
             FileChannel channel = null;
             try {
@@ -712,8 +711,6 @@ public class UploadFileOperation extends SyncOperation {
                                                                  user,
                                                                  getStorageManager());
                 }
-
-                encryptedTempFile.delete();
             }
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mFile.getStoragePath() + " not exists anymore");
@@ -754,6 +751,13 @@ public class UploadFileOperation extends SyncOperation {
 
             if (unlockFolderResult != null && !unlockFolderResult.isSuccess()) {
                 result = unlockFolderResult;
+            }
+
+            if (encryptedTempFile != null) {
+                boolean isTempEncryptedFileDeleted = encryptedTempFile.delete();
+                Log_OC.e(TAG, "isTempEncryptedFileDeleted: " + isTempEncryptedFileDeleted);
+            } else {
+                Log_OC.e(TAG, "Encrypted temp file cannot be found");
             }
         }
 
