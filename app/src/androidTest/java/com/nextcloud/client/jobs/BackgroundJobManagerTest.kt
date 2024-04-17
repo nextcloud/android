@@ -201,7 +201,7 @@ class BackgroundJobManagerTest {
         fun job_is_unique_and_replaces_previous_job() {
             verify(workManager).enqueueUniqueWork(
                 eq(BackgroundJobManagerImpl.JOB_CONTENT_OBSERVER),
-                eq(ExistingWorkPolicy.APPEND),
+                eq(ExistingWorkPolicy.REPLACE),
                 argThat(IsOneTimeWorkRequest())
             )
         }

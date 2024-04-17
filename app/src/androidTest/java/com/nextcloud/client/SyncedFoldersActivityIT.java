@@ -14,6 +14,7 @@ import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.databinding.SyncedFoldersLayoutBinding;
 import com.owncloud.android.datamodel.MediaFolderType;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
@@ -63,7 +64,8 @@ public class SyncedFoldersActivityIT extends AbstractIT {
                                                                    MediaFolderType.IMAGE,
                                                                    false,
                                                                    SubFolderRule.YEAR_MONTH,
-                                                                   false);
+                                                                   false,
+                                                                   SyncedFolder.NOT_SCANNED_YET);
         SyncedFolderPreferencesDialogFragment sut = SyncedFolderPreferencesDialogFragment.newInstance(item, 0);
 
         Intent intent = new Intent(targetContext, SyncedFoldersActivity.class);

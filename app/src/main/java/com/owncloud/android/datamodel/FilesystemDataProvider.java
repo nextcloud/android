@@ -107,6 +107,7 @@ public class FilesystemDataProvider {
 
     public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, SyncedFolder syncedFolder) {
 
+        // takes multiple milliseconds to query data from database (around 75% of execution time) (6ms)
         FileSystemDataSet data = getFilesystemDataSet(localPath, syncedFolder);
 
         int isFolderValue = 0;
@@ -145,7 +146,7 @@ public class FilesystemDataProvider {
                 }
             }
 
-
+            // updating data takes multiple milliseconds (around 25% of exec time) (2 ms)
             int result = contentResolver.update(
                 ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                 cv,
