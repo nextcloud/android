@@ -1705,6 +1705,7 @@ public class FileDataStorageManager {
         }
     }
 
+    @SuppressFBWarnings("PSC")
     public void saveConflict(OCFile ocFile, String etagInConflict) {
         ContentValues cv = new ContentValues();
         if (!ocFile.isDown()) {

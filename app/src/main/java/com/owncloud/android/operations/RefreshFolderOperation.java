@@ -738,6 +738,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     }
 
     @NonNull
+    @SuppressFBWarnings("OCP")
     public static Map<String, OCFile> prefillLocalFilesMap(Object metadata, List<OCFile> localFiles) {
         Map<String, OCFile> localFilesMap = Maps.newHashMapWithExpectedSize(localFiles.size());
 
