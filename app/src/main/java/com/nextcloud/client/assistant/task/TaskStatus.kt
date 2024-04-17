@@ -23,7 +23,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.nextcloud.client.assistant.extensions.completionDateRepresentation
 import com.nextcloud.client.assistant.extensions.statusData
 import com.owncloud.android.lib.resources.assistant.model.Task
 
@@ -48,10 +47,12 @@ fun TaskStatus(task: Task, foregroundColor: Color) {
 
         Text(text = stringResource(id = descriptionId), color = foregroundColor)
 
+        /*
         Spacer(modifier = Modifier.weight(1f))
 
         Text(text = task.completionDateRepresentation(), color = foregroundColor)
 
         Spacer(modifier = Modifier.width(6.dp))
+         */
     }
 }
