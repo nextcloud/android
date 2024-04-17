@@ -148,17 +148,18 @@ private fun TextInputSelectButton(modifier: Modifier, titleId: Int, highlightCon
 @Preview
 @Composable
 private fun TaskDetailScreenPreview() {
-    TaskDetailBottomSheet(task = Task(
-        1,
-        "Free Prompt",
-        0,
-        "1",
-        "1",
-        "Give me text".getRandomString(100),
-        "output".getRandomString(300),
-        "",
-        ""
-    )) {
-
+    TaskDetailBottomSheet(
+        task = Task(
+            1,
+            "Free Prompt",
+            0,
+            "1",
+            "1",
+            "Give me text".getRandomString(100),
+            "output".getRandomString(300),
+            "",
+            ""
+        )
+    ) {
     }
 }
