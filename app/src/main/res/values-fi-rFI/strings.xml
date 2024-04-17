@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Tilin luonti epäonnistui</string>
     <string name="account_icon">Tilikuvake</string>
     <string name="account_not_found">Tiliä ei löydy!</string>
-    <string name="action_clear_failed_uploads">Tyhjennä epäonnistuneet lähetykset</string>
     <string name="action_edit">Muokkaa</string>
     <string name="action_empty_notifications">Hylkää kaikki ilmoitukset</string>
     <string name="action_empty_trashbin">Tyhjennä roskakori</string>
@@ -158,7 +157,6 @@
     <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="confirmation_remove_local">Vain paikallisen</string>
-    <string name="conflict_dialog_error">Virhe konfliktitietojen näyttämisessä!</string>
     <string name="conflict_file_headline">Ristiriitainen kohde %1$s</string>
     <string name="conflict_local_file">Paikallinen tiedosto</string>
     <string name="conflict_message_description">Jos valitset molemmat versiot, paikallisen tiedoston nimeen lisätään numero.</string>

@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Gerð notandaaðgangs mistókst</string>
     <string name="account_icon">Táknmynd fyrir notandaaðgang</string>
     <string name="account_not_found">Notandaaðgangur fannst ekki!</string>
-    <string name="action_clear_failed_uploads">Hreinsa lista yfir innsendingar sem mistókust</string>
     <string name="action_edit">Breyta</string>
     <string name="action_empty_notifications">Hreinsa allar tilkynningar</string>
     <string name="action_empty_trashbin">Tæma ruslið</string>
@@ -150,7 +149,6 @@
     <string name="confirmation_remove_folder_alert">Ertu viss um að þú viljir eyða %1$s og innihaldi þess?</string>
     <string name="confirmation_remove_folders_alert">Ertu viss um að þú viljir eyða völdum atriðum og innihaldi þeirra?</string>
     <string name="confirmation_remove_local">Einungis staðvært</string>
-    <string name="conflict_dialog_error">Villa við að búa til árekstraglugga!</string>
     <string name="conflict_local_file">Skrá á tölvunni</string>
     <string name="conflict_message_description">Ef þú velur báðar útgáfur, þá mun verða bætt tölustaf aftan við heiti afrituðu skrárinnar.</string>
     <string name="conflict_server_file">Skrá á netþjóni</string>

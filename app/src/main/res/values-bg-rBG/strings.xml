@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Създаването на профила се провали</string>
     <string name="account_icon">Профил</string>
     <string name="account_not_found">Няма намерен профил!</string>
-    <string name="action_clear_failed_uploads">Изчисти провалените качвания</string>
     <string name="action_edit">Променяне</string>
     <string name="action_empty_notifications">Премахнете известията</string>
     <string name="action_empty_trashbin">Изпразване на кошчето</string>
@@ -153,7 +152,6 @@
     <string name="confirmation_remove_folder_alert">Наистина ли желаете %1$s и съдържанието ѝ да бъдат изтрито?</string>
     <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="confirmation_remove_local">Само локално</string>
-    <string name="conflict_dialog_error">Грешка при създаване на диалог за конфликт!</string>
     <string name="conflict_file_headline">Несъвместим файл %1$s</string>
     <string name="conflict_local_file">Локален файл</string>
     <string name="conflict_message_description">Ако изберете и двете версии, ще бъде добавен номер към името на локалния файл.</string>

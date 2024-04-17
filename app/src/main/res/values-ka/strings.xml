@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Account creation failed</string>
     <string name="account_icon">Account icon</string>
     <string name="account_not_found">Account not found!</string>
-    <string name="action_clear_failed_uploads">Clear failed uploads</string>
     <string name="action_edit">Edit</string>
     <string name="action_empty_notifications">Clear all notifications</string>
     <string name="action_empty_trashbin">Empty trash bin</string>
@@ -152,7 +151,6 @@
     <string name="confirmation_remove_folder_alert">Do you really want to delete %1$s and the contents thereof?</string>
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="confirmation_remove_local">Local only</string>
-    <string name="conflict_dialog_error">Error creating conflict dialog!</string>
     <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_local_file">Local file</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
