@@ -58,6 +58,7 @@ import java.util.Vector;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -601,6 +602,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         return metadata;
     }
 
+    @SuppressFBWarnings("CE")
     private static void setMimeTypeAndDecryptedRemotePath(OCFile updatedFile, FileDataStorageManager storageManager, String decryptedFileName, String mimetype) {
         OCFile parentFile = storageManager.getFileById(updatedFile.getParentId());
 

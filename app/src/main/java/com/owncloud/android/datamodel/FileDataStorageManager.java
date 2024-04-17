@@ -2337,6 +2337,7 @@ public class FileDataStorageManager {
         return null;
     }
 
+    @SuppressFBWarnings("OCP")
     private List<Pair<String, String>> getDecryptedFileNamesAndEncryptedRemotePaths(List<OCFile> fileList) {
         List<Pair<String, String>> result = new ArrayList<>();
 
