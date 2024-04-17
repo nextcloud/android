@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Ha fallado la creación de la cuenta</string>
     <string name="account_icon">Icono de la cuenta</string>
     <string name="account_not_found">¡Cuenta no encontrada!</string>
-    <string name="action_clear_failed_uploads">Borrar subidas fallidas</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpiar todas las notificaciones</string>
     <string name="action_empty_trashbin">Vaciar papelera</string>
@@ -47,6 +46,8 @@
     <string name="assistant_screen_task_delete_success_message">¡La tarea fue eliminada exitósamente!</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarea</string>
     <string name="assistant_screen_unknown_task_status_text">Desconocido</string>
+    <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
+    <string name="assistant_task_detail_screen_output_button_title">Salida</string>
     <string name="associated_account_not_found">¡Cuenta asociada no encontrada!</string>
     <string name="auth_access_failed">Acceso fallido: %1$s</string>
     <string name="auth_account_does_not_exist">La cuenta no se ha añadido aún en este dispositivo</string>
@@ -160,7 +161,6 @@
     <string name="confirmation_remove_folder_alert">¿Realmente deseas eliminar %1$s y todo su contenido?</string>
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Solo local</string>
-    <string name="conflict_dialog_error">¡Error al crear el diálogo de conflicto!</string>
     <string name="conflict_file_headline">Conflicto en archivo %1$s</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>

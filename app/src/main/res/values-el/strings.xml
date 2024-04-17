@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Αποτυχία δημιουργίας λογαριασμού</string>
     <string name="account_icon">Εικονίδιο λογαριασμού</string>
     <string name="account_not_found">Δεν βρέθηκε λογαριασμός!</string>
-    <string name="action_clear_failed_uploads">Εκκαθάριση αποτυχημένων μεταφορτώσεων</string>
     <string name="action_edit">Επεξεργασία</string>
     <string name="action_empty_notifications">Εκκαθάριση ειδοποιήσεων</string>
     <string name="action_empty_trashbin">Άδειασμα απορριμάτων</string>
@@ -151,7 +150,6 @@
     <string name="confirmation_remove_folder_alert">Θέλετε σίγουρα να διαγράψετε το %1$s και τα περιεχόμενά του;</string>
     <string name="confirmation_remove_folders_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα και τα περιεχόμενά τους;</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
-    <string name="conflict_dialog_error">Σφάλμα δημιουργίας αναφοράς διένεξης!</string>
     <string name="conflict_file_headline">Αρχείο σε αντίφαση %1$s</string>
     <string name="conflict_local_file">Τοπικό αρχείο</string>
     <string name="conflict_message_description">Εάν επιλέξετε και τις δύο εκδόσεις, στο όνομα του τοπικού αρχείου θα προστεθεί ένας αριθμός.</string>

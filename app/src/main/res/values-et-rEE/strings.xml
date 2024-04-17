@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Konto loomine ebaõnnestus</string>
     <string name="account_icon">Konto ikoon</string>
     <string name="account_not_found">Kontot ei leitud!</string>
-    <string name="action_clear_failed_uploads">Puhasta ebaõnnestunud üleslaadimised</string>
     <string name="action_edit">Redigeeri</string>
     <string name="action_empty_notifications">Kustuta kõik teavitused</string>
     <string name="action_empty_trashbin">Tühjenda prügikast</string>
@@ -136,7 +135,6 @@
     <string name="confirmation_remove_folder_alert">Oled sa kindel, et soovid %1$s ja selle sisu kustutada?</string>
     <string name="confirmation_remove_folders_alert">Oled sa kindel, et soovid valitud objektid ja nende sisud kustutada?</string>
     <string name="confirmation_remove_local">Ainult kohalik</string>
-    <string name="conflict_dialog_error">Konfliktidialoogi loomine ebaõnnestus!</string>
     <string name="conflict_local_file">Kohalik fail</string>
     <string name="conflict_message_description">Kui valid mõlemad versioonid, siis lisatakse kohaliku faili nimele number.</string>
     <string name="conflict_server_file">Serveri fail</string>
