@@ -119,12 +119,25 @@ class FileUploadHelper {
         val batteryStatus = powerManagementService.battery
         val charging = batteryStatus.isCharging || batteryStatus.isFull
         val isPowerSaving = powerManagementService.isPowerSavingEnabled
-        var uploadUser = Optional.empty<User>()
+
+        val uploadUsers = mutableListOf<User>()
         for (failedUpload in failedUploads) {
             // 1. extract failed upload owner account and cache it between loops (expensive query)
-            if (!uploadUser.isPresent || !uploadUser.get().nameEquals(failedUpload.accountName)) {
-                uploadUser = accountManager.getUser(failedUpload.accountName)
+            var correspondingUploadUser = uploadUsers.stream().filter { uploadUser ->
+                uploadUser.nameEquals(
+                    failedUpload.accountName
+                )
+            }.findFirst()
+
+            if (!correspondingUploadUser.isPresent) {
+                correspondingUploadUser = accountManager.getUser(failedUpload.accountName)
+                if (!correspondingUploadUser.isPresent) {
+                    uploadsStorageManager.removeUpload(failedUpload)
+                    continue
+                }
+                uploadUsers.add(correspondingUploadUser.get())
             }
+
             val isDeleted = !File(failedUpload.localPath).exists()
             if (isDeleted) {
                 showNotExistMessage = true
@@ -138,8 +151,13 @@ class FileUploadHelper {
                 canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled
             ) {
                 // 2B. for existing local files, try restarting it if possible
-                retryUpload(failedUpload, uploadUser.get())
+                failedUpload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
+                uploadsStorageManager.updateUpload(failedUpload)
             }
+        }
+
+        uploadUsers.forEach {
+            backgroundJobManager.startFilesUploadJob(it)
         }
 
         return showNotExistMessage
