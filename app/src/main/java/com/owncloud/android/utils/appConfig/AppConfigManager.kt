@@ -8,25 +8,18 @@
 package com.owncloud.android.utils.appConfig
 
 import android.content.Context
-import android.content.RestrictionsManager
 import android.content.res.Resources
+import android.os.Bundle
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 
-class AppConfigManager(private val context: Context) {
-
-    private val restrictionsManager =
-        context.getSystemService(Context.RESTRICTIONS_SERVICE) as RestrictionsManager
-
-    private val appRestrictions = restrictionsManager.applicationRestrictions
+class AppConfigManager(private val context: Context, private val appRestrictions: Bundle) {
 
     private val tag = "AppConfigManager"
 
-    fun setProxyConfig() {
-        if (!context.resources.getBoolean(R.bool.is_branded_client) ||
-            !context.resources.getBoolean(R.bool.is_branded_plus_client)
-        ) {
+    fun setProxyConfig(isBranded: Boolean) {
+        if (!isBranded) {
             Log_OC.d(tag, "Proxy configuration cannot be set. Client is not branded.")
             return
         }

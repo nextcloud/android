@@ -26,9 +26,11 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.RestrictionsManager;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -298,7 +300,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
 
-        appConfigManager = new AppConfigManager(this);
+        RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
+        appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
 
         // Listen app config changes
         ContextExtensionsKt.registerBroadcastReceiver(this, restrictionsReceiver, restrictionsFilter, ReceiverFlag.NotExported);
@@ -326,7 +329,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
 
-        appConfigManager.setProxyConfig();
+        appConfigManager.setProxyConfig(isClientBranded());
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -373,16 +376,21 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
         } else if (event == Lifecycle.Event.ON_RESUME) {
-            appConfigManager.setProxyConfig();
+            appConfigManager.setProxyConfig(isClientBranded());
             Log_OC.d(TAG, "APP ON RESUME");
         }
     });
+
+    public static boolean isClientBranded() {
+        Resources resources = getAppContext().getResources();
+        return (resources.getBoolean(R.bool.is_branded_client) || resources.getBoolean(R.bool.is_branded_plus_client));
+    }
 
     private final IntentFilter restrictionsFilter = new IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED);
 
     private final BroadcastReceiver restrictionsReceiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) {
-            appConfigManager.setProxyConfig();
+            appConfigManager.setProxyConfig(isClientBranded());
         }
     };
 

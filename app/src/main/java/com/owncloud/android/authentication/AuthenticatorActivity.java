@@ -21,6 +21,7 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.RestrictionsManager;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -322,7 +323,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         String webloginUrl = null;
         boolean webViewLoginMethod;
 
-        AppConfigManager appConfigManager = new AppConfigManager(this);
+        RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
+        AppConfigManager appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
 
         if (getResources().getBoolean(R.bool.is_branded_plus_client)) {
             webViewLoginMethod = true;
