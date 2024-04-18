@@ -7,7 +7,6 @@
     <string name="account_creation_failed">יצירת החשבון נכשלה</string>
     <string name="account_icon">סמל חשבון</string>
     <string name="account_not_found">החשבון לא נמצא!</string>
-    <string name="action_clear_failed_uploads">פינוי העלאות שנכשלו</string>
     <string name="action_edit">עריכה</string>
     <string name="action_empty_notifications">פינוי כל ההתראות</string>
     <string name="action_empty_trashbin">פינוי סל האשפה</string>
@@ -144,7 +143,6 @@
     <string name="confirmation_remove_folder_alert">למחוק את %1$s על תוכנו?</string>
     <string name="confirmation_remove_folders_alert">למחוק את הפריטים הנבחרים ואת תוכנם?</string>
     <string name="confirmation_remove_local">מקומי בלבד</string>
-    <string name="conflict_dialog_error">שגיאה ביצירת תיבת דו־שיח סתירה!</string>
     <string name="conflict_local_file">קובץ מקומי</string>
     <string name="conflict_message_description">בבחירה של שתי הגרסאות, יתווסף מספר בסוף שמו של הקובץ המקומי.</string>
     <string name="conflict_server_file">קובץ בשרת</string>

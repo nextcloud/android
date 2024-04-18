@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Pembuatan akun gagal</string>
     <string name="account_icon">Ikon akun</string>
     <string name="account_not_found">Akun tidak ditemukan!</string>
-    <string name="action_clear_failed_uploads">Bersihkan unggahan gagal.</string>
     <string name="action_edit">Sunting</string>
     <string name="action_empty_notifications">Hapus semua notifikasi</string>
     <string name="action_empty_trashbin">Kosongkan tempat sampah</string>
@@ -147,7 +146,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="confirmation_remove_folder_alert">Apakah anda yakin ingin menghapus %1$s beserta isinya?</string>
     <string name="confirmation_remove_folders_alert">Apa anda yakin ingin menghapus item yang terpilih beserta isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
-    <string name="conflict_dialog_error">Galat saat membuat dialog konflik!</string>
     <string name="conflict_file_headline">File konflik %1$s</string>
     <string name="conflict_local_file">File lokal</string>
     <string name="conflict_message_description">Jika Anda memilih kedua versi, nama dari berkas lokal akan ditambahi angka.</string>

@@ -7,7 +7,6 @@
     <string name="account_creation_failed">A fiók létrehozása sikertelen</string>
     <string name="account_icon">Fiók ikon</string>
     <string name="account_not_found">A fiók nem található!</string>
-    <string name="action_clear_failed_uploads">Sikertelen feltöltések eltávolítása</string>
     <string name="action_edit">Szerkesztés</string>
     <string name="action_empty_notifications">Összes értesítés törlése</string>
     <string name="action_empty_trashbin">Kuka ürítése</string>
@@ -155,7 +154,6 @@
     <string name="confirmation_remove_folder_alert">Biztos, hogy törli ezt: %1$s és a tartalmát?</string>
     <string name="confirmation_remove_folders_alert">Biztos, hogy törli a kiválasztott elemeket és tartalmukat?</string>
     <string name="confirmation_remove_local">Csak a helyi példány</string>
-    <string name="conflict_dialog_error">Hiba az ütközési párbeszédablak létrehozásakor!</string>
     <string name="conflict_file_headline">Ütköző fájl: %1$s</string>
     <string name="conflict_local_file">Helyi fájl</string>
     <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl nevéhez egy szám lesz hozzáfűzve.</string>

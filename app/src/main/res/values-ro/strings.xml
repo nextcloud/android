@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Eroare la crearea contului</string>
     <string name="account_icon">Iconița contului</string>
     <string name="account_not_found">Contul nu a fost găsit!</string>
-    <string name="action_clear_failed_uploads">Elimină încărcările eșuate</string>
     <string name="action_edit">Editare</string>
     <string name="action_empty_notifications">Elimină toate notificările</string>
     <string name="action_empty_trashbin">Golește coșul de gunoi</string>
@@ -150,7 +149,6 @@
     <string name="confirmation_remove_folder_alert">Sigur vreți să eliminați %1$s și conținutul său?</string>
     <string name="confirmation_remove_folders_alert">Doriți să ștergeți elementele selectate și conținutul lor?</string>
     <string name="confirmation_remove_local">Doar local</string>
-    <string name="conflict_dialog_error">Eroare la crearea dialogului pentru conflict!</string>
     <string name="conflict_file_headline">Conflict cu fișierul %1$s</string>
     <string name="conflict_local_file">Fișier local</string>
     <string name="conflict_message_description">Dacă selectezi ambele variante, atunci fișierul local va avea un număr adăugat la numele său.</string>

@@ -174,7 +174,8 @@ class SyncedFolderUtilsTest : AbstractIT() {
             MediaFolderType.IMAGE,
             false,
             SubFolderRule.YEAR_MONTH,
-            false
+            false,
+            SyncedFolder.NOT_SCANNED_YET
         )
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
@@ -198,7 +199,8 @@ class SyncedFolderUtilsTest : AbstractIT() {
             MediaFolderType.IMAGE,
             false,
             SubFolderRule.YEAR_MONTH,
-            false
+            false,
+            SyncedFolder.NOT_SCANNED_YET
         )
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }

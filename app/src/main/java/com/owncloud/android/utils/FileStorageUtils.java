@@ -106,6 +106,17 @@ public final class FileStorageUtils {
         // that can be in the accountName since 0.1.190B
     }
 
+    public static String getTemporalEncryptedFolderPath(String accountName) {
+        return MainApp
+            .getAppContext()
+            .getFilesDir()
+            .getAbsolutePath()
+            + File.separator
+            + accountName
+            + File.separator
+            + "temp_encrypted_folder";
+    }
+
     /**
      * Get absolute path to tmp folder inside app folder for given accountName.
      */

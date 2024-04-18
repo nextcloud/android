@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Ошибка создания учетной записи</string>
     <string name="account_icon">Значок учётной записи</string>
     <string name="account_not_found">Учётная запись не найдена!</string>
-    <string name="action_clear_failed_uploads">Убрать неудавшиеся загрузки</string>
     <string name="action_edit">Редактировать</string>
     <string name="action_empty_notifications">Удалить все уведомления</string>
     <string name="action_empty_trashbin">Очистить корзину</string>
@@ -158,7 +157,6 @@
     <string name="confirmation_remove_folder_alert">Действительно удалить «%1$s» и его содержимое?</string>
     <string name="confirmation_remove_folders_alert">Действительно удалить выбранные объекты и их содержимое?</string>
     <string name="confirmation_remove_local">Только локально</string>
-    <string name="conflict_dialog_error">Не удалось создать диалоговое окно разрешения конфликта синхронизации.</string>
     <string name="conflict_file_headline">Конфликт версий файла «%1$s»</string>
     <string name="conflict_local_file">Локальный файл</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>

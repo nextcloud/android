@@ -36,7 +36,7 @@ import java.lang.ref.WeakReference
 class ComposeActivity : DrawerActivity() {
 
     lateinit var binding: ActivityComposeBinding
-    private var menuItemId: Int? = null
+    private var menuItemId: Int = R.id.nav_all_files
 
     companion object {
         const val DESTINATION = "DESTINATION"
@@ -51,13 +51,12 @@ class ComposeActivity : DrawerActivity() {
 
         val destination = intent.getSerializableArgument(DESTINATION, ComposeDestination::class.java)
         val titleId = intent.getIntExtra(TITLE, R.string.empty)
-        menuItemId = intent.getIntExtra(MENU_ITEM, -1)
+        menuItemId = intent.getIntExtra(MENU_ITEM, R.id.nav_all_files)
 
-        setupToolbar()
-        updateActionBarTitleAndHomeButtonByString(getString(titleId))
+        setupDrawer(menuItemId)
 
-        if (menuItemId != -1) {
-            setupDrawer(menuItemId!!)
+        setupToolbarShowOnlyMenuButtonAndTitle(getString(titleId)) {
+            openDrawer()
         }
 
         binding.composeView.setContent {
@@ -72,15 +71,13 @@ class ComposeActivity : DrawerActivity() {
 
     override fun onResume() {
         super.onResume()
-        if (menuItemId != -1) {
-            setDrawerMenuItemChecked(R.id.nav_assistant)
-        }
+        setDrawerMenuItemChecked(menuItemId)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                if (isDrawerOpen) closeDrawer() else openDrawer()
+                toggleDrawer()
                 true
             }
             else -> super.onOptionsItemSelected(item)

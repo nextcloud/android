@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Falló la creación de la cuenta</string>
     <string name="account_icon">Ícono de la cuenta</string>
     <string name="account_not_found">¡No se encontró la cuenta!</string>
-    <string name="action_clear_failed_uploads">Borrar cargas fallidas</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Limpiar todas las notificaciones</string>
     <string name="action_empty_trashbin">Vaciar la papelera de reciclaje</string>
@@ -171,7 +170,6 @@
     <string name="confirmation_remove_folder_alert">¿Realmente quieres eliminar %1$s y sus contenidos? </string>
     <string name="confirmation_remove_folders_alert">¿Reamente deseas eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
-    <string name="conflict_dialog_error">¡Se presentó un error al crear el diálogo de conflictos!</string>
     <string name="conflict_file_headline">Archivo conflictivo %1$s</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número al final del nombre.</string>

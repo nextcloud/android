@@ -75,8 +75,10 @@ class FileUploadHelper {
     ) {
         val failedUploads = uploadsStorageManager.failedUploads
         if (failedUploads == null || failedUploads.isEmpty()) {
+            Log_OC.d(TAG, "Failed uploads are empty or null")
             return
         }
+
         retryUploads(
             uploadsStorageManager,
             connectivityService,
@@ -120,6 +122,7 @@ class FileUploadHelper {
         val charging = batteryStatus.isCharging || batteryStatus.isFull
         val isPowerSaving = powerManagementService.isPowerSavingEnabled
         var uploadUser = Optional.empty<User>()
+
         for (failedUpload in failedUploads) {
             // 1. extract failed upload owner account and cache it between loops (expensive query)
             if (!uploadUser.isPresent || !uploadUser.get().nameEquals(failedUpload.accountName)) {

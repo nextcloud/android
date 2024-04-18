@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Vytvorenie účtu sa nepodarilo</string>
     <string name="account_icon">Ikona účtu</string>
     <string name="account_not_found">Účet sa nenašiel!</string>
-    <string name="action_clear_failed_uploads">Odstrániť zlyhané nahrávania</string>
     <string name="action_edit">Upraviť</string>
     <string name="action_empty_notifications">Odstrániť všetky upozornenia</string>
     <string name="action_empty_trashbin">Vyprázdniť kôš</string>
@@ -171,7 +170,6 @@
     <string name="confirmation_remove_folder_alert">Naozaj chcete odstrániť %1$s a jeho obsah?</string>
     <string name="confirmation_remove_folders_alert">Naozaj chcete odstrániť vybraté položky a ich obsah?</string>
     <string name="confirmation_remove_local">Iba lokálne</string>
-    <string name="conflict_dialog_error">Chyba pri vytváraní konfliktného dialógového okna!</string>
     <string name="conflict_file_headline">Konfliktný súbor %1$s</string>
     <string name="conflict_local_file">Lokálny súbor</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>

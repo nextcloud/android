@@ -286,10 +286,10 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     public void updateHeader() {
         int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
+        boolean isClientBranded = getResources().getBoolean(R.bool.is_branded_client);
 
         if (getAccount() != null &&
-            getCapabilities().getServerBackground() != null &&
-            !getResources().getBoolean(R.bool.is_branded_client)) {
+            getCapabilities().getServerBackground() != null && !isClientBranded) {
 
             OCCapability capability = getCapabilities();
             String logo = capability.getServerLogo();
@@ -339,45 +339,55 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
         // hide ecosystem apps according to user preference or in branded client
-        LinearLayout ecosystemApps = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
-        if (getResources().getBoolean(R.bool.is_branded_client) || !preferences.isShowEcosystemApps()) {
-            ecosystemApps.setVisibility(View.GONE);
+        LinearLayout banner = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
+        boolean shouldHideTopBanner = isClientBranded || !preferences.isShowEcosystemApps();
+
+        if (shouldHideTopBanner) {
+            hideTopBanner(banner);
         } else {
-            LinearLayout notesView = ecosystemApps.findViewById(R.id.drawer_ecosystem_notes);
-            LinearLayout talkView = ecosystemApps.findViewById(R.id.drawer_ecosystem_talk);
-            LinearLayout moreView = ecosystemApps.findViewById(R.id.drawer_ecosystem_more);
-            LinearLayout assistantView = ecosystemApps.findViewById(R.id.drawer_ecosystem_assistant);
-
-            notesView.setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
-            talkView.setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
-            moreView.setOnClickListener(v -> openAppStore("Nextcloud", true));
-            assistantView.setOnClickListener(v -> startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, -1));
-            if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
-                assistantView.setVisibility(View.VISIBLE);
-            } else {
-                assistantView.setVisibility(View.GONE);
-            }
-
-            List<LinearLayout> views = Arrays.asList(notesView, talkView, moreView, assistantView);
-
-            int iconColor;
-            if (Hct.fromInt(primaryColor).getTone() < 80.0) {
-                iconColor = Color.WHITE;
-            } else {
-                iconColor = getColor(R.color.grey_800_transparent);
-            }
-
-            for (LinearLayout view : views) {
-                ImageView imageView = (ImageView) view.getChildAt(0);
-                imageView.setImageTintList(ColorStateList.valueOf(iconColor));
-                GradientDrawable background = (GradientDrawable) imageView.getBackground();
-                background.setStroke(DisplayUtils.convertDpToPixel(1, this), iconColor);
-                TextView textView = (TextView) view.getChildAt(1);
-                textView.setTextColor(iconColor);
-            }
-
-            ecosystemApps.setVisibility(View.VISIBLE);
+            showTopBanner(banner, primaryColor);
         }
+    }
+
+    private void hideTopBanner(LinearLayout banner) {
+        banner.setVisibility(View.GONE);
+    }
+
+    private void showTopBanner(LinearLayout banner, int primaryColor) {
+        LinearLayout notesView = banner.findViewById(R.id.drawer_ecosystem_notes);
+        LinearLayout talkView = banner.findViewById(R.id.drawer_ecosystem_talk);
+        LinearLayout moreView = banner.findViewById(R.id.drawer_ecosystem_more);
+        LinearLayout assistantView = banner.findViewById(R.id.drawer_ecosystem_assistant);
+
+        notesView.setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
+        talkView.setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
+        moreView.setOnClickListener(v -> openAppStore("Nextcloud", true));
+        assistantView.setOnClickListener(v -> startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, -1));
+        if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
+            assistantView.setVisibility(View.VISIBLE);
+        } else {
+            assistantView.setVisibility(View.GONE);
+        }
+
+        List<LinearLayout> views = Arrays.asList(notesView, talkView, moreView, assistantView);
+
+        int iconColor;
+        if (Hct.fromInt(primaryColor).getTone() < 80.0) {
+            iconColor = Color.WHITE;
+        } else {
+            iconColor = getColor(R.color.grey_800_transparent);
+        }
+
+        for (LinearLayout view : views) {
+            ImageView imageView = (ImageView) view.getChildAt(0);
+            imageView.setImageTintList(ColorStateList.valueOf(iconColor));
+            GradientDrawable background = (GradientDrawable) imageView.getBackground();
+            background.setStroke(DisplayUtils.convertDpToPixel(1, this), iconColor);
+            TextView textView = (TextView) view.getChildAt(1);
+            textView.setTextColor(iconColor);
+        }
+
+        banner.setVisibility(View.VISIBLE);
     }
 
     /**
@@ -463,9 +473,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
         DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources());
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
-
-        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community,
-                                      !getResources().getBoolean(R.bool.participate_enabled));
+        DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community, !getResources().getBoolean(R.bool.participate_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_logout, !getResources().getBoolean(R.bool.show_drawer_logout));
     }
@@ -494,10 +502,17 @@ public abstract class DrawerActivity extends ToolbarActivity
                 MainApp.showOnlyPersonalFiles(itemId == R.id.nav_personal_files);
                 Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+                if (this instanceof ComposeActivity) {
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                }
+
                 intent.setAction(FileDisplayActivity.ALL_FILES);
                 intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
                 startActivity(intent);
             }
+
+            closeDrawer();
         } else if (itemId == R.id.nav_favorites) {
             handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
                                menuItem.getItemId());
@@ -520,7 +535,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(CommunityActivity.class);
         } else if (itemId == R.id.nav_logout) {
             mCheckedMenuItem = -1;
-            menuItem.setChecked(false);
+            MenuItem isNewMenuItemChecked = menuItem.setChecked(false);
+            Log_OC.d(TAG,"onNavigationItemClicked nav_logout setChecked " + isNewMenuItemChecked);
             final Optional<User> optionalUser = getUser();
             if (optionalUser.isPresent()) {
                 UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
@@ -627,6 +643,11 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void launchActivityForSearch(SearchEvent searchEvent, int menuItemId) {
         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        if (this instanceof ComposeActivity) {
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
+
         intent.setAction(Intent.ACTION_SEARCH);
         intent.putExtra(OCFileListFragment.SEARCH_EVENT, searchEvent);
         intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
@@ -671,6 +692,14 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     public boolean isDrawerOpen() {
         return mDrawerLayout != null && mDrawerLayout.isDrawerOpen(GravityCompat.START);
+    }
+
+    public void toggleDrawer() {
+        if (isDrawerOpen()) {
+            closeDrawer();
+        } else {
+            openDrawer();
+        }
     }
 
     /**
@@ -1115,6 +1144,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         MainApp.showOnlyPersonalFiles(onlyPersonalFiles);
         Intent fileDisplayActivity = new Intent(getApplicationContext(), FileDisplayActivity.class);
         fileDisplayActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        if (this instanceof ComposeActivity) {
+            fileDisplayActivity.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        }
+
         fileDisplayActivity.setAction(FileDisplayActivity.ALL_FILES);
         startActivity(fileDisplayActivity);
     }
@@ -1122,7 +1156,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
         if (callContext instanceof MenuItem menuItem) {
-            menuItem.setIcon(avatarDrawable);
+            MenuItem newIcon = menuItem.setIcon(avatarDrawable);
+            Log_OC.d(TAG,"avatarGenerated new icon: " + newIcon);
         } else if (callContext instanceof ImageView imageView) {
             imageView.setImageDrawable(avatarDrawable);
         } else if (callContext instanceof MaterialButton materialButton) {
