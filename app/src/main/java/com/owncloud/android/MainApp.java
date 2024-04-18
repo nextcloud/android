@@ -329,7 +329,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
 
-        appConfigManager.setProxyConfig(isClientBranded());
+        appConfigManager.setProxyConfig(isClientBrandedPlus());
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -376,21 +376,20 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
         } else if (event == Lifecycle.Event.ON_RESUME) {
-            appConfigManager.setProxyConfig(isClientBranded());
+            appConfigManager.setProxyConfig(isClientBrandedPlus());
             Log_OC.d(TAG, "APP ON RESUME");
         }
     });
 
-    public static boolean isClientBranded() {
-        Resources resources = getAppContext().getResources();
-        return (resources.getBoolean(R.bool.is_branded_client) || resources.getBoolean(R.bool.is_branded_plus_client));
+    public static boolean isClientBrandedPlus() {
+        return (getAppContext().getResources().getBoolean(R.bool.is_branded_plus_client));
     }
 
     private final IntentFilter restrictionsFilter = new IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED);
 
     private final BroadcastReceiver restrictionsReceiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) {
-            appConfigManager.setProxyConfig(isClientBranded());
+            appConfigManager.setProxyConfig(isClientBrandedPlus());
         }
     };
 

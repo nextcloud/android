@@ -17,7 +17,7 @@ import org.junit.Test
 class AppConfigManagerTests : AbstractIT() {
 
     @Test
-    fun testSetProxyConfigWhenGivenClientBrandedAndCorrectBundleDataProxyConfigurationShouldSet() {
+    fun testSetProxyConfigWhenGivenClientBrandedPlusAndCorrectBundleDataProxyConfigurationShouldSet() {
         val proxySetting = Bundle().apply {
             putString(AppConfigKeys.ProxyHost.key, "nextcloud.cloud.cloud.com")
             putInt(AppConfigKeys.ProxyPort.key, 441212)
@@ -35,7 +35,7 @@ class AppConfigManagerTests : AbstractIT() {
     }
 
     @Test
-    fun testSetProxyConfigWhenGivenClientNotBrandedAndCorrectBundleDataProxyConfigurationShouldNotSet() {
+    fun testSetProxyConfigWhenGivenClientNotBrandedPlusAndCorrectBundleDataProxyConfigurationShouldNotSet() {
         val proxySetting = Bundle().apply {
             putString(AppConfigKeys.ProxyHost.key, "nextcloud.cloud.cloud.com")
             putInt(AppConfigKeys.ProxyPort.key, 441212)
@@ -53,7 +53,7 @@ class AppConfigManagerTests : AbstractIT() {
     }
 
     @Test
-    fun testSetProxyConfigWhenGivenClientBrandedAndBrokenBundleDataProxyConfigurationShouldSetDefaultValues() {
+    fun testSetProxyConfigWhenGivenClientBrandedPlusAndBrokenBundleDataProxyConfigurationShouldSetDefaultValues() {
         val proxySetting = Bundle()
 
         AppConfigManager(targetContext, proxySetting).run {
@@ -68,18 +68,18 @@ class AppConfigManagerTests : AbstractIT() {
     }
 
     @Test
-    fun testGetBaseUrlConfigWhenGivenClientBrandedAndCorrectBundleDataBaseUrlConfigurationShouldSet() {
+    fun testGetBaseUrlConfigWhenGivenClientBrandedPlusAndCorrectBundleDataBaseUrlConfigurationShouldSet() {
         val baseUrlConfig = Bundle().apply {
             putString(AppConfigKeys.BaseUrl.key, "nextcloud.cloud.cloud")
         }
         val sut = AppConfigManager(targetContext, baseUrlConfig)
-        assert(!sut.getBaseUrl().isNullOrEmpty())
+        assert(!sut.getBaseUrl(true).isNullOrEmpty())
     }
 
     @Test
-    fun testGetBaseUrlConfigWhenGivenClientBrandedAndBrokenBundleDataBaseUrlConfigurationShouldNotSet() {
+    fun testGetBaseUrlConfigWhenGivenClientBrandedPlusAndBrokenBundleDataBaseUrlConfigurationShouldNotSet() {
         val baseUrlConfig = Bundle()
         val sut = AppConfigManager(targetContext, baseUrlConfig)
-        assert(sut.getBaseUrl().isNullOrEmpty())
+        assert(sut.getBaseUrl(true).isNullOrEmpty())
     }
 }

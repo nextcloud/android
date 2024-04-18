@@ -18,9 +18,9 @@ class AppConfigManager(private val context: Context, private val appRestrictions
 
     private val tag = "AppConfigManager"
 
-    fun setProxyConfig(isBranded: Boolean) {
-        if (!isBranded) {
-            Log_OC.d(tag, "Proxy configuration cannot be set. Client is not branded.")
+    fun setProxyConfig(isBrandedPlus: Boolean) {
+        if (!isBrandedPlus) {
+            Log_OC.d(tag, "Proxy configuration cannot be set. Client is not branded plus.")
             return
         }
 
@@ -51,7 +51,12 @@ class AppConfigManager(private val context: Context, private val appRestrictions
         }
     }
 
-    fun getBaseUrl(): String? {
+    fun getBaseUrl(isBrandedPlus: Boolean): String? {
+        if (!isBrandedPlus) {
+            Log_OC.d(tag, "Proxy configuration cannot be set. Client is not branded plus.")
+            return null
+        }
+
         return if (appRestrictions.containsKey(AppConfigKeys.BaseUrl.key)) {
             appRestrictions.getString(AppConfigKeys.BaseUrl.key)
         } else {

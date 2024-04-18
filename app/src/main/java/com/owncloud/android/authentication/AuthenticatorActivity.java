@@ -328,7 +328,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (getResources().getBoolean(R.bool.is_branded_plus_client)) {
             webViewLoginMethod = true;
-            webloginUrl = appConfigManager.getBaseUrl();
+            webloginUrl = appConfigManager.getBaseUrl(true);
         } else if (getIntent().getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
             webViewLoginMethod = true;
             webloginUrl = getString(R.string.provider_registration_server);
