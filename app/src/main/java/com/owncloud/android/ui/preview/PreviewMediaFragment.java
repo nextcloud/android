@@ -46,6 +46,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding;
 import com.owncloud.android.datamodel.OCFile;
@@ -293,7 +294,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private void setGenericThumbnail() {
         Drawable logo = AppCompatResources.getDrawable(requireContext(), R.drawable.logo);
         if (logo != null) {
-            if (!getResources().getBoolean(R.bool.is_branded_client)) {
+            if (!MainApp.isClientBrandedOrBrandedPlus()) {
                 // only colour logo of non-branded client
                 DrawableCompat.setTint(logo, getResources().getColor(R.color.primary, requireContext().getTheme()));
             }

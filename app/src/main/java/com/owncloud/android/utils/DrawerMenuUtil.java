@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.view.Menu;
 
 import com.nextcloud.client.account.User;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.resources.status.OCCapability;
 
@@ -49,7 +50,7 @@ public final class DrawerMenuUtil {
     }
 
     public static void filterAssistantMenuItem(Menu menu, @Nullable OCCapability capability, Resources resources) {
-        if (resources.getBoolean(R.bool.is_branded_client)) {
+        if (MainApp.isClientBrandedOrBrandedPlus()) {
             if (capability != null && capability.getAssistant().isFalse()) {
                 removeMenuItem(menu, R.id.nav_assistant);
             }

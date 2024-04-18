@@ -30,7 +30,6 @@ import android.content.RestrictionsManager;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -380,6 +379,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             Log_OC.d(TAG, "APP ON RESUME");
         }
     });
+
+    public static boolean isClientBranded() {
+        return getAppContext().getResources().getBoolean(R.bool.is_branded_client);
+    }
+
+    public static boolean isClientBrandedOrBrandedPlus() {
+        return isClientBrandedPlus() || isClientBranded();
+    }
 
     public static boolean isClientBrandedPlus() {
         return (getAppContext().getResources().getBoolean(R.bool.is_branded_plus_client));
