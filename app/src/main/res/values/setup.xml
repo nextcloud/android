@@ -43,6 +43,7 @@
     <bool name="show_external_links">true</bool>
     <bool name="show_outdated_server_warning">true</bool>
     <bool name="is_branded_client">false</bool>
+    <bool name="is_branded_plus_client">false</bool>
 
     <!-- Calendar & Contacts backup -->
     <string name="contacts_backup_folder">/.Contacts-Backup</string>

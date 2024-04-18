@@ -11,6 +11,7 @@ package com.owncloud.android.utils.appConfig
  * These keys are connected to app_config.xml
  */
 enum class AppConfigKeys(val key: String) {
+    BaseUrl("base_url"),
     ProxyHost("proxy_host"),
     ProxyPort("proxy_port")
 }

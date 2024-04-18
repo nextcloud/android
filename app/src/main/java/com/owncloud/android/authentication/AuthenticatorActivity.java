@@ -111,6 +111,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
+import com.owncloud.android.utils.appConfig.AppConfigManager;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -320,7 +321,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         String webloginUrl = null;
         boolean webViewLoginMethod;
-        if (getIntent().getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
+
+        AppConfigManager appConfigManager = new AppConfigManager(this);
+
+        if (getResources().getBoolean(R.bool.is_branded_plus_client)) {
+            webViewLoginMethod = true;
+            webloginUrl = appConfigManager.getBaseUrl();
+        } else if (getIntent().getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
             webViewLoginMethod = true;
             webloginUrl = getString(R.string.provider_registration_server);
         } else {

@@ -13,17 +13,23 @@ import android.content.res.Resources
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.utils.enterpriseReporter.enterpriseFeedback
 
 class AppConfigManager(private val context: Context) {
 
     private val restrictionsManager =
         context.getSystemService(Context.RESTRICTIONS_SERVICE) as RestrictionsManager
 
+    private val appRestrictions = restrictionsManager.applicationRestrictions
+
     private val tag = "AppConfigManager"
 
     fun setProxyConfig() {
-        val appRestrictions = restrictionsManager.applicationRestrictions
+        if (!context.resources.getBoolean(R.bool.is_branded_client) ||
+            !context.resources.getBoolean(R.bool.is_branded_plus_client)
+        ) {
+            Log_OC.d(tag, "Proxy configuration cannot be set. Client is not branded.")
+            return
+        }
 
         val host = if (appRestrictions.containsKey(AppConfigKeys.ProxyHost.key)) {
             appRestrictions.getString(AppConfigKeys.ProxyHost.key)
@@ -38,10 +44,7 @@ class AppConfigManager(private val context: Context) {
         }
 
         if (host == null) {
-            context.enterpriseFeedback(
-                AppConfigKeys.ProxyHost,
-                R.string.app_config_proxy_config_cannot_be_found_message
-            )
+            Log_OC.d(tag, "Proxy configuration cannot be found")
             return
         }
 
@@ -51,11 +54,16 @@ class AppConfigManager(private val context: Context) {
 
             Log_OC.d(tag, "Proxy configuration successfully set")
         } catch (e: Resources.NotFoundException) {
-            context.run {
-                enterpriseFeedback(AppConfigKeys.ProxyHost, R.string.app_config_proxy_config_cannot_be_set_message)
-                enterpriseFeedback(AppConfigKeys.ProxyPort, R.string.app_config_proxy_config_cannot_be_set_message)
-            }
             Log_OC.e(tag, "Proxy config cannot able to set due to: $e")
+        }
+    }
+
+    fun getBaseUrl(): String? {
+        return if (appRestrictions.containsKey(AppConfigKeys.BaseUrl.key)) {
+            appRestrictions.getString(AppConfigKeys.BaseUrl.key)
+        } else {
+            Log_OC.d(tag, "BaseUrl configuration cannot be found")
+            null
         }
     }
 }

@@ -15,7 +15,7 @@
 
     <restriction
         android:key="proxy_port"
-        android:defaultValue="0"
+        android:defaultValue="-1"
         android:restrictionType="integer"
         android:title="@string/app_config_proxy_port_title" />
 
