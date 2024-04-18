@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_types_error_state_message">تعذّر جلب أنواع المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
     <string name="assistant_screen_top_bar_title">المُساعِد</string>
     <string name="assistant_screen_unknown_task_status_text">غير معروف</string>
+    <string name="assistant_task_detail_screen_input_button_title">مُدخَلات</string>
     <string name="assistant_task_detail_screen_output_button_title">المُخرَجَات</string>
     <string name="associated_account_not_found">الحساب المرتبط غير موجود!</string>
     <string name="auth_access_failed">فشل الوصول لـ: %1$s</string>
@@ -171,6 +172,7 @@
     <string name="confirmation_remove_folder_alert">هل توَدُّ حقاً حذف %1$s وما يحتويه؟</string>
     <string name="confirmation_remove_folders_alert">هل توَدُّ حقاً حذف العناصر المختارة وما يحتوّه؟</string>
     <string name="confirmation_remove_local">محلياً فقط</string>
+    <string name="conflict_dialog_error">تعذّر إنشاء نافذة حوار لحل التعارضات</string>
     <string name="conflict_file_headline">ملف متضارب %1$s </string>
     <string name="conflict_local_file">ملف محلي</string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
