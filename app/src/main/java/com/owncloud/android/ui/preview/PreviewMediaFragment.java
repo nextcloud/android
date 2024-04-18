@@ -294,7 +294,7 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     private void setGenericThumbnail() {
         Drawable logo = AppCompatResources.getDrawable(requireContext(), R.drawable.logo);
         if (logo != null) {
-            if (!MainApp.isClientBrandedOrBrandedPlus()) {
+            if (!MainApp.isClientBranded() || !MainApp.isClientBrandedPlus()) {
                 // only colour logo of non-branded client
                 DrawableCompat.setTint(logo, getResources().getColor(R.color.primary, requireContext().getTheme()));
             }

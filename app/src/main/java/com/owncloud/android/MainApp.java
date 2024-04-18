@@ -384,10 +384,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         return getAppContext().getResources().getBoolean(R.bool.is_branded_client);
     }
 
-    public static boolean isClientBrandedOrBrandedPlus() {
-        return isClientBrandedPlus() || isClientBranded();
-    }
-
     public static boolean isClientBrandedPlus() {
         return (getAppContext().getResources().getBoolean(R.bool.is_branded_plus_client));
     }

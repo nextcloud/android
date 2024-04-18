@@ -594,7 +594,7 @@ public class SettingsActivity extends PreferenceActivity
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
         boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
-        boolean fShowEcosystemAppsEnabled = !MainApp.isClientBrandedOrBrandedPlus();
+        boolean fShowEcosystemAppsEnabled = !MainApp.isClientBrandedPlus() || !MainApp.isClientBranded();
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
         boolean fShowMediaScanNotifications = preferences.isShowMediaScanNotifications();
 

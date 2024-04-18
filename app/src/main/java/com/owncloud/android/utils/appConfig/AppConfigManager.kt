@@ -53,14 +53,14 @@ class AppConfigManager(private val context: Context, private val appRestrictions
 
     fun getBaseUrl(isBrandedPlus: Boolean): String? {
         if (!isBrandedPlus) {
-            Log_OC.d(tag, "Proxy configuration cannot be set. Client is not branded plus.")
+            Log_OC.d(tag, "Proxy configuration cannot be set. Client is not branded plus. Default url applied")
             return null
         }
 
         return if (appRestrictions.containsKey(AppConfigKeys.BaseUrl.key)) {
             appRestrictions.getString(AppConfigKeys.BaseUrl.key)
         } else {
-            Log_OC.d(tag, "BaseUrl configuration cannot be found")
+            Log_OC.d(tag, "BaseUrl configuration cannot be found, default url applied")
             null
         }
     }

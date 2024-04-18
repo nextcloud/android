@@ -49,8 +49,8 @@ public final class DrawerMenuUtil {
         }
     }
 
-    public static void filterAssistantMenuItem(Menu menu, @Nullable OCCapability capability, Resources resources) {
-        if (MainApp.isClientBrandedOrBrandedPlus()) {
+    public static void filterAssistantMenuItem(Menu menu, @Nullable OCCapability capability) {
+        if (MainApp.isClientBranded() || MainApp.isClientBrandedPlus()) {
             if (capability != null && capability.getAssistant().isFalse()) {
                 removeMenuItem(menu, R.id.nav_assistant);
             }

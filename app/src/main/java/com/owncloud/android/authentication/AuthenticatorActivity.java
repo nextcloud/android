@@ -320,15 +320,14 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mIsFirstAuthAttempt = savedInstanceState.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG);
         }
 
-        String webloginUrl = null;
         boolean webViewLoginMethod;
 
         RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
         AppConfigManager appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
+        String webloginUrl = appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus());
 
-        if (getResources().getBoolean(R.bool.is_branded_plus_client)) {
+        if (webloginUrl != null) {
             webViewLoginMethod = true;
-            webloginUrl = appConfigManager.getBaseUrl(true);
         } else if (getIntent().getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
             webViewLoginMethod = true;
             webloginUrl = getString(R.string.provider_registration_server);
