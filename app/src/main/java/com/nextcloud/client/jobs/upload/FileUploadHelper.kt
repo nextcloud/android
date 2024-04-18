@@ -120,23 +120,7 @@ class FileUploadHelper {
         val charging = batteryStatus.isCharging || batteryStatus.isFull
         val isPowerSaving = powerManagementService.isPowerSavingEnabled
 
-        val uploadUsers = mutableListOf<User>()
         for (failedUpload in failedUploads) {
-            // 1. extract failed upload owner account and cache it between loops (expensive query)
-            var correspondingUploadUser = uploadUsers.stream().filter { uploadUser ->
-                uploadUser.nameEquals(
-                    failedUpload.accountName
-                )
-            }.findFirst()
-
-            if (!correspondingUploadUser.isPresent) {
-                correspondingUploadUser = accountManager.getUser(failedUpload.accountName)
-                if (!correspondingUploadUser.isPresent) {
-                    uploadsStorageManager.removeUpload(failedUpload)
-                    continue
-                }
-                uploadUsers.add(correspondingUploadUser.get())
-            }
 
             val isDeleted = !File(failedUpload.localPath).exists()
             if (isDeleted) {
@@ -156,8 +140,9 @@ class FileUploadHelper {
             }
         }
 
-        uploadUsers.forEach {
-            backgroundJobManager.startFilesUploadJob(it)
+        accountManager.accounts.forEach {
+            val user = accountManager.getUser(it.name)
+            if (user.isPresent) backgroundJobManager.startFilesUploadJob(user.get())
         }
 
         return showNotExistMessage
