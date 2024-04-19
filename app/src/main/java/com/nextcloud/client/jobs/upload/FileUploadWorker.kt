@@ -103,7 +103,7 @@ class FileUploadWorker(
             backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
             result
         } catch (t: Throwable) {
-            Log_OC.e(TAG, "Error caught at FileUploadWorker " + t.localizedMessage)
+            Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
             Result.failure()
         }
     }
@@ -161,27 +161,41 @@ class FileUploadWorker(
         val user = userAccountManager.getUser(accountName)
         setWorkerState(user.get(), uploads)
 
-        for (upload in uploads) {
-            if (isStopped) {
-                break
-            }
+        run uploads@ {
+            uploads.forEachIndexed { currentUploadIndex, upload ->
+                if (isStopped) {
+                    return@uploads
+                }
 
-            if (user.isPresent) {
-                val uploadFileOperation = createUploadFileOperation(upload, user.get())
+                if (user.isPresent) {
+                    val uploadFileOperation = createUploadFileOperation(upload, user.get())
 
-                currentUploadFileOperation = uploadFileOperation
-                val result = upload(uploadFileOperation, user.get())
-                currentUploadFileOperation = null
+                    currentUploadFileOperation = uploadFileOperation
 
-                fileUploaderDelegate.sendBroadcastUploadFinished(
-                    uploadFileOperation,
-                    result,
-                    uploadFileOperation.oldFile?.storagePath,
-                    context,
-                    localBroadcastManager
-                )
-            } else {
-                uploadsStorageManager.removeUpload(upload.uploadId)
+                    val result = upload(uploadFileOperation, user.get())
+
+                    notificationManager.prepareForStart(
+                        uploadFileOperation,
+                        cancelPendingIntent = intents.startIntent(uploadFileOperation),
+                        startIntent = intents.notificationStartIntent(uploadFileOperation),
+                        currentUploadIndex = currentUploadIndex + 1,
+                        totalUploadSize = uploads.size
+                    )
+
+                    currentUploadFileOperation = null
+
+                    fileUploaderDelegate.sendBroadcastUploadFinished(
+                        uploadFileOperation,
+                        result,
+                        uploadFileOperation.oldFile?.storagePath,
+                        context,
+                        localBroadcastManager
+                    )
+                } else {
+                    uploadsStorageManager.removeUpload(upload.uploadId)
+                }
+
+                notificationManager.dismissWorkerNotifications()
             }
         }
     }
@@ -209,12 +223,6 @@ class FileUploadWorker(
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
     private fun upload(uploadFileOperation: UploadFileOperation, user: User): RemoteOperationResult<Any?> {
         lateinit var result: RemoteOperationResult<Any?>
-
-        notificationManager.prepareForStart(
-            uploadFileOperation,
-            cancelPendingIntent = intents.startIntent(uploadFileOperation),
-            intents.notificationStartIntent(uploadFileOperation)
-        )
 
         try {
             val storageManager = uploadFileOperation.storageManager
@@ -320,14 +328,14 @@ class FileUploadWorker(
             notificationManager.run {
                 val accountName = currentUploadFileOperation?.user?.accountName
                 val remotePath = currentUploadFileOperation?.remotePath
-                val filename = currentUploadFileOperation?.fileName ?: ""
 
-                updateUploadProgress(filename, percent, currentUploadFileOperation)
+                updateUploadProgress(percent, currentUploadFileOperation)
 
                 if (accountName != null && remotePath != null) {
                     val key: String =
                         FileUploadHelper.buildRemoteName(accountName, remotePath)
                     val boundListener = FileUploadHelper.mBoundListeners[key]
+                    val filename = currentUploadFileOperation?.fileName ?: ""
 
                     boundListener?.onTransferProgress(
                         progressRate,

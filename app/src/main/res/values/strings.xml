@@ -186,8 +186,12 @@
     <string name="active_user">Active user</string>
     <string name="upload_chooser_title">Upload from…</string>
     <string name="uploader_info_dirname">Folder name</string>
+
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
+
+
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
+    <string name="uploader_upload_in_progress">%1$d%%</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload failed</string>

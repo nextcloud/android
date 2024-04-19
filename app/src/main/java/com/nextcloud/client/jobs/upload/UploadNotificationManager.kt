@@ -28,7 +28,6 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     private var notification: Notification? = null
     private var notificationBuilder: NotificationCompat.Builder =
         NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
-            setContentTitle(context.getString(R.string.foreground_service_upload))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
 
@@ -36,6 +35,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
                 setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
             }
         }
+
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     init {
@@ -46,19 +46,20 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     fun prepareForStart(
         uploadFileOperation: UploadFileOperation,
         cancelPendingIntent: PendingIntent,
-        startIntent: PendingIntent
+        startIntent: PendingIntent,
+        currentUploadIndex: Int,
+        totalUploadSize: Int
     ) {
+        val title = String.format(
+            context.getString(R.string.upload_notification_manager_start_text),
+            currentUploadIndex,
+            totalUploadSize,
+            uploadFileOperation.fileName
+        )
+
         notificationBuilder.run {
-            setContentTitle(context.getString(R.string.uploader_upload_in_progress_ticker))
-            setContentText(
-                String.format(
-                    context.getString(R.string.uploader_upload_in_progress),
-                    0,
-                    uploadFileOperation.fileName
-                )
-            )
+            setContentTitle(title)
             setTicker(context.getString(R.string.foreground_service_upload))
-            setProgress(100, 0, false)
             setOngoing(false)
             clearActions()
 
@@ -76,13 +77,25 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         }
     }
 
+    @Suppress("MagicNumber")
+    fun updateUploadProgress(percent: Int, currentOperation: UploadFileOperation?) {
+        notificationBuilder.run {
+            setProgress(100, percent, false)
+            val text = String.format(context.getString(R.string.uploader_upload_in_progress), percent)
+            setContentText(text)
+
+            showNotification()
+            dismissOldErrorNotification(currentOperation)
+        }
+    }
+
     fun notifyForFailedResult(
         resultCode: RemoteOperationResult.ResultCode,
         conflictsResolveIntent: PendingIntent?,
         credentialIntent: PendingIntent?,
         errorMessage: String
     ) {
-        val textId = resultTitle(resultCode)
+        val textId = getFailedResultTitleId(resultCode)
 
         notificationBuilder.run {
             setTicker(context.getString(textId))
@@ -108,7 +121,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         }
     }
 
-    private fun resultTitle(resultCode: RemoteOperationResult.ResultCode): Int {
+    private fun getFailedResultTitleId(resultCode: RemoteOperationResult.ResultCode): Int {
         val needsToUpdateCredentials = (resultCode == RemoteOperationResult.ResultCode.UNAUTHORIZED)
 
         return if (needsToUpdateCredentials) {
@@ -138,18 +151,6 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
 
     private fun showNotification() {
         notificationManager.notify(ID, notificationBuilder.build())
-    }
-
-    @Suppress("MagicNumber")
-    fun updateUploadProgress(filename: String, percent: Int, currentOperation: UploadFileOperation?) {
-        notificationBuilder.run {
-            setProgress(100, percent, false)
-            val text = String.format(context.getString(R.string.uploader_upload_in_progress), percent, filename)
-            setContentText(text)
-
-            showNotification()
-            dismissOldErrorNotification(currentOperation)
-        }
     }
 
     fun dismissOldErrorNotification(operation: UploadFileOperation?) {
