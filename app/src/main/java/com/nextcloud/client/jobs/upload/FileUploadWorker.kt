@@ -311,8 +311,13 @@ class FileUploadWorker(
                 null
             }
 
-            notifyForFailedResult(uploadResult.code, conflictResolveIntent, credentialIntent, errorMessage)
-            showNewNotification(uploadFileOperation)
+            notifyForFailedResult(
+                uploadFileOperation,
+                uploadResult.code,
+                conflictResolveIntent,
+                credentialIntent,
+                errorMessage
+            )
         }
     }
 

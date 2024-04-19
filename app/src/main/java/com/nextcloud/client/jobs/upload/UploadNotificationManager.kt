@@ -84,6 +84,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     }
 
     fun notifyForFailedResult(
+        uploadFileOperation: UploadFileOperation,
         resultCode: RemoteOperationResult.ResultCode,
         conflictsResolveIntent: PendingIntent?,
         credentialIntent: PendingIntent?,
@@ -113,6 +114,8 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
 
             setContentText(errorMessage)
         }
+
+        showNewNotification(uploadFileOperation)
     }
 
     private fun getFailedResultTitleId(resultCode: RemoteOperationResult.ResultCode): Int {
@@ -135,7 +138,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         )
     }
 
-    fun showNewNotification(operation: UploadFileOperation) {
+    private fun showNewNotification(operation: UploadFileOperation) {
         notificationManager.notify(
             NotificationUtils.createUploadNotificationTag(operation.file),
             FileUploadWorker.NOTIFICATION_ERROR_ID,
