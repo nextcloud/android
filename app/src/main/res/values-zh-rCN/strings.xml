@@ -963,7 +963,6 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="uploader_upload_files_behaviour_only_upload">在原文件夹中保留文件</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">从原文件夹中删除文件</string>
     <string name="uploader_upload_forbidden_permissions">上传到此文件夹</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% 正在上传 %2$s</string>
     <string name="uploader_upload_in_progress_ticker">正在上传…</string>
     <string name="uploader_upload_succeeded_content_single">已上传了 %1$s</string>

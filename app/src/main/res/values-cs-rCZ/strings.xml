@@ -909,7 +909,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Ponechat soubor ve zdrojové složce</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Vymazat soubor ze zdrojové složky</string>
     <string name="uploader_upload_forbidden_permissions">pro nahrávání do této složky</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Odesílání %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Nahrávání…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s nahráno</string>

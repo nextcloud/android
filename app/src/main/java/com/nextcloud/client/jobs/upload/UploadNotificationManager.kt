@@ -52,7 +52,10 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             totalUploadSize,
             uploadFileOperation.fileName
         )
-        val progressText = String.format(context.getString(R.string.uploader_upload_in_progress), 0)
+        val progressText = String.format(
+            context.getString(R.string.upload_notification_manager_upload_in_progress_text),
+            0
+        )
 
         notificationBuilder.run {
             setProgress(100, 0, false)

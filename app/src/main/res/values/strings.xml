@@ -187,11 +187,10 @@
     <string name="upload_chooser_title">Upload from…</string>
     <string name="uploader_info_dirname">Folder name</string>
 
-    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
-    <string name="upload_notification_manager_upload_in_progress_text">%1$d%%</string>
+    <string name="upload_notification_manager_start_text" translatable="false">%1$d / %2$d - %3$s</string>
+    <string name="upload_notification_manager_upload_in_progress_text" translatable="false">%1$d%%</string>
 
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
-    <string name="uploader_upload_in_progress">%1$d%%</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
     <string name="uploader_upload_failed_ticker">Upload failed</string>
@@ -221,8 +220,8 @@
     <string name="uploads_view_later_waiting_to_upload">Waiting to upload</string>
     <string name="uploads_view_group_header" translatable="false">%1$s (%2$d)</string>
 
-    <string name="downloader_notification_manager_download_text">%1$d / %2$d - %3$s</string>
-    <string name="downloader_notification_manager_in_progress_text">%1$d%%</string>
+    <string name="downloader_notification_manager_download_text" translatable="false">%1$d / %2$d - %3$s</string>
+    <string name="downloader_notification_manager_in_progress_text" translatable="false">%1$d%%</string>
 
     <string name="downloader_download_in_progress_ticker">Downloading…</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>

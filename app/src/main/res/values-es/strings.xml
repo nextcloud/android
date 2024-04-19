@@ -950,7 +950,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el archivo en la carpeta original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar archivo de la carpeta original</string>
     <string name="uploader_upload_forbidden_permissions">para subir archivos a esta carpeta</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Subiendo %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Subiendo…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s subido</string>
