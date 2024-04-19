@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-name: "Screenshot Test"
+name: "Garm"
 
 on:
     pull_request:
@@ -17,6 +17,7 @@ jobs:
         services:
             server:
                 image: ghcr.io/nextcloud/continuous-integration-shallow-server:latest
+                options: --name server
                 ports:
                     - 80:80
         strategy:
@@ -34,6 +35,16 @@ jobs:
                         echo "wait…"
                         sleep 5
                     done
+
+            -   name: configure server
+                run: |
+                    docker cp .github/workflows/configServer.sh server:/tmp/
+                    docker exec server chmod +x /tmp/configServer.sh
+                    docker exec server /tmp/configServer.sh
+                    docker cp .github/workflows/configNC.sh server:/tmp/
+                    docker exec server chmod +x /tmp/configNC.sh
+                    docker exec --user www-data server /tmp/configNC.sh
+                    docker exec server /usr/local/bin/run.sh
 
             -   name: Enable KVM group perms
                 run: |
