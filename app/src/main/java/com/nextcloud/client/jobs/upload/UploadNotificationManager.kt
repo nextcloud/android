@@ -26,6 +26,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
 
     private var notificationBuilder: NotificationCompat.Builder =
         NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+            setTicker(context.getString(R.string.foreground_service_upload))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
 
@@ -57,7 +58,6 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             setProgress(100, 0, false)
             setContentTitle(currentOperationTitle)
             setContentText(progressText)
-            setTicker(context.getString(R.string.foreground_service_upload))
             setOngoing(false)
             clearActions()
 

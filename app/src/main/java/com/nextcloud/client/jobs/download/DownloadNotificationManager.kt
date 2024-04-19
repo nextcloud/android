@@ -29,49 +29,34 @@ import java.security.SecureRandom
 class DownloadNotificationManager(
     private val id: Int,
     private val context: Context,
-    private val viewThemeUtils: ViewThemeUtils
+    viewThemeUtils: ViewThemeUtils
 ) {
-    private var notification: Notification
-    private var notificationBuilder: NotificationCompat.Builder
+    private var notificationBuilder: NotificationCompat.Builder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+        setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
+        setSmallIcon(R.drawable.notification_icon)
+        setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+        }
+    }
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    init {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
-            setContentTitle(context.getString(R.string.downloader_download_in_progress_ticker))
-            setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
-            setSmallIcon(R.drawable.notification_icon)
-            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
-            }
-        }
-
-        notification = notificationBuilder.build()
-    }
 
     @Suppress("MagicNumber")
     fun prepareForStart(operation: DownloadFileOperation) {
-        notificationBuilder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
-            setSmallIcon(R.drawable.notification_icon)
-            setOngoing(true)
+        notificationBuilder.run {
+            setOngoing(false)
             setProgress(100, 0, operation.size < 0)
-            setContentText(
+            setContentTitle(
                 String.format(
                     context.getString(R.string.downloader_download_in_progress), 0,
                     File(operation.savePath).name
                 )
             )
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
-            }
-
-            notificationManager.notify(
-                id,
-                this.build()
-            )
         }
+
+        showNotification()
     }
 
     fun prepareForResult() {
@@ -83,15 +68,15 @@ class DownloadNotificationManager(
 
     @Suppress("MagicNumber")
     fun updateDownloadProgress(filePath: String, percent: Int, totalToTransfer: Long) {
+        val fileName: String = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
+        val text = String.format(context.getString(R.string.downloader_download_in_progress), percent, fileName)
+
         notificationBuilder.run {
             setProgress(100, percent, totalToTransfer < 0)
-            val fileName: String = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
-            val text =
-                String.format(context.getString(R.string.downloader_download_in_progress), percent, fileName)
-            val title =
-                context.getString(R.string.downloader_download_in_progress_ticker)
-            updateNotificationText(title, text)
+            setContentTitle(text)
         }
+
+        showNotification()
     }
 
     @Suppress("MagicNumber")
@@ -106,21 +91,9 @@ class DownloadNotificationManager(
 
         notificationBuilder.run {
             setProgress(0, 0, false)
-            setContentTitle(null)
-            setContentText(text)
+            setContentTitle(text)
             setOngoing(false)
             notificationManager.notify(notifyId, this.build())
-        }
-    }
-
-    private fun updateNotificationText(title: String?, text: String) {
-        notificationBuilder.run {
-            title?.let {
-                setContentTitle(title)
-            }
-
-            setContentText(text)
-            notificationManager.notify(id, this.build())
         }
     }
 
@@ -133,6 +106,10 @@ class DownloadNotificationManager(
                 flag
             )
         )
+    }
+
+    private fun showNotification() {
+        notificationManager.notify(id, notificationBuilder.build())
     }
 
     fun getId(): Int {
