@@ -18,7 +18,6 @@ import android.os.Handler
 import android.os.Looper
 import androidx.core.app.NotificationCompat
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.files.FileUtils
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -31,29 +30,32 @@ class DownloadNotificationManager(
     private val context: Context,
     viewThemeUtils: ViewThemeUtils
 ) {
-    private var notificationBuilder: NotificationCompat.Builder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
-        setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
-        setSmallIcon(R.drawable.notification_icon)
-        setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
+    private var currentOperationTitle: String? = null
+    private var notificationBuilder: NotificationCompat.Builder =
+        NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+            setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
+            setSmallIcon(R.drawable.notification_icon)
+            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+            }
         }
-    }
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-
     @Suppress("MagicNumber")
-    fun prepareForStart(operation: DownloadFileOperation) {
+    fun prepareForStart(operation: DownloadFileOperation, currentDownloadIndex: Int, totalDownloadSize: Int) {
+        currentOperationTitle = String.format(
+            context.getString(R.string.downloader_notification_manager_download_text),
+            currentDownloadIndex,
+            totalDownloadSize,
+            File(operation.savePath).name
+        )
+
         notificationBuilder.run {
+            setContentTitle(currentOperationTitle)
             setOngoing(false)
             setProgress(100, 0, operation.size < 0)
-            setContentTitle(
-                String.format(
-                    context.getString(R.string.downloader_download_in_progress), 0,
-                    File(operation.savePath).name
-                )
-            )
         }
 
         showNotification()
@@ -67,13 +69,13 @@ class DownloadNotificationManager(
     }
 
     @Suppress("MagicNumber")
-    fun updateDownloadProgress(filePath: String, percent: Int, totalToTransfer: Long) {
-        val fileName: String = filePath.substring(filePath.lastIndexOf(FileUtils.PATH_SEPARATOR) + 1)
-        val text = String.format(context.getString(R.string.downloader_download_in_progress), percent, fileName)
+    fun updateDownloadProgress(percent: Int, totalToTransfer: Long) {
+        val progressText = String.format(context.getString(R.string.upload_notification_manager_upload_in_progress_text), percent)
 
         notificationBuilder.run {
             setProgress(100, percent, totalToTransfer < 0)
-            setContentTitle(text)
+            setContentTitle(currentOperationTitle)
+            setContentText(progressText)
         }
 
         showNotification()
