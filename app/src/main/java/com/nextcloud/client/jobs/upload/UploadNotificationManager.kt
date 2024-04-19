@@ -35,6 +35,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         }
 
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private var currentOperationTitle: String? = "null"
 
     @Suppress("MagicNumber")
     fun prepareForStart(
@@ -44,15 +45,18 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         currentUploadIndex: Int,
         totalUploadSize: Int
     ) {
-        val title = String.format(
+        currentOperationTitle = String.format(
             context.getString(R.string.upload_notification_manager_start_text),
             currentUploadIndex,
             totalUploadSize,
             uploadFileOperation.fileName
         )
+        val progressText = String.format(context.getString(R.string.uploader_upload_in_progress), 0)
 
         notificationBuilder.run {
-            setContentTitle(title)
+            setProgress(100, 0, false)
+            setContentTitle(currentOperationTitle)
+            setContentText(progressText)
             setTicker(context.getString(R.string.foreground_service_upload))
             setOngoing(false)
             clearActions()
@@ -73,10 +77,12 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
 
     @Suppress("MagicNumber")
     fun updateUploadProgress(percent: Int, currentOperation: UploadFileOperation?) {
+        val progressText = String.format(context.getString(R.string.uploader_upload_in_progress), percent)
+
         notificationBuilder.run {
             setProgress(100, percent, false)
-            val text = String.format(context.getString(R.string.uploader_upload_in_progress), percent)
-            setContentText(text)
+            setContentTitle(currentOperationTitle)
+            setContentText(progressText)
 
             showNotification()
             dismissOldErrorNotification(currentOperation)

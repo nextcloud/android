@@ -168,11 +168,10 @@ class FileUploadWorker(
                 }
 
                 if (user.isPresent) {
+
                     val uploadFileOperation = createUploadFileOperation(upload, user.get())
 
                     currentUploadFileOperation = uploadFileOperation
-
-                    val result = upload(uploadFileOperation, user.get())
 
                     notificationManager.prepareForStart(
                         uploadFileOperation,
@@ -181,6 +180,8 @@ class FileUploadWorker(
                         currentUploadIndex = currentUploadIndex + 1,
                         totalUploadSize = uploads.size
                     )
+
+                    val result = upload(uploadFileOperation, user.get())
 
                     currentUploadFileOperation = null
 
