@@ -7,7 +7,6 @@
  */
 package com.nextcloud.client.jobs.upload
 
-import android.app.Notification
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
@@ -25,7 +24,6 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         private const val ID = 411
     }
 
-    private var notification: Notification? = null
     private var notificationBuilder: NotificationCompat.Builder =
         NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
             setSmallIcon(R.drawable.notification_icon)
@@ -37,10 +35,6 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         }
 
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    init {
-        notification = notificationBuilder.build()
-    }
 
     @Suppress("MagicNumber")
     fun prepareForStart(
@@ -57,7 +51,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             uploadFileOperation.fileName
         )
 
-        notificationBuilder.run {
+        notificationBuilder.apply {
             setContentTitle(title)
             setTicker(context.getString(R.string.foreground_service_upload))
             setOngoing(false)
@@ -70,7 +64,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             )
 
             setContentIntent(startIntent)
-        }
+        }.build()
 
         if (!uploadFileOperation.isInstantPicture && !uploadFileOperation.isInstantVideo) {
             showNotification()
