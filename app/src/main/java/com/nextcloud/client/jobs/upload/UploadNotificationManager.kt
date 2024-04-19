@@ -59,7 +59,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             )
             setTicker(context.getString(R.string.foreground_service_upload))
             setProgress(100, 0, false)
-            setOngoing(true)
+            setOngoing(false)
             clearActions()
 
             addAction(
@@ -179,7 +179,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         notificationBuilder.apply {
             setContentTitle(context.getString(R.string.upload_global_pause_title))
             setTicker(context.getString(R.string.upload_global_pause_title))
-            setOngoing(true)
+            setOngoing(false)
             setAutoCancel(false)
             setProgress(0, 0, false)
             clearActions()
