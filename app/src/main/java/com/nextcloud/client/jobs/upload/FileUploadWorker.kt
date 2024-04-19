@@ -161,14 +161,13 @@ class FileUploadWorker(
         val user = userAccountManager.getUser(accountName)
         setWorkerState(user.get(), uploads)
 
-        run uploads@ {
+        run uploads@{
             uploads.forEachIndexed { currentUploadIndex, upload ->
                 if (isStopped) {
                     return@uploads
                 }
 
                 if (user.isPresent) {
-
                     val uploadFileOperation = createUploadFileOperation(upload, user.get())
 
                     currentUploadFileOperation = uploadFileOperation

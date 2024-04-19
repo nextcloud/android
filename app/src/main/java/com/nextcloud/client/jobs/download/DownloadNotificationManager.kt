@@ -70,7 +70,10 @@ class DownloadNotificationManager(
 
     @Suppress("MagicNumber")
     fun updateDownloadProgress(percent: Int, totalToTransfer: Long) {
-        val progressText = String.format(context.getString(R.string.upload_notification_manager_upload_in_progress_text), percent)
+        val progressText = String.format(
+            context.getString(R.string.upload_notification_manager_upload_in_progress_text),
+            percent
+        )
 
         notificationBuilder.run {
             setProgress(100, percent, totalToTransfer < 0)
