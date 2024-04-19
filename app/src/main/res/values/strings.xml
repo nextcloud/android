@@ -225,7 +225,6 @@
     <string name="downloader_notification_manager_in_progress_text">%1$d%%</string>
 
     <string name="downloader_download_in_progress_ticker">Downloading…</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_succeeded_ticker">Downloaded</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>

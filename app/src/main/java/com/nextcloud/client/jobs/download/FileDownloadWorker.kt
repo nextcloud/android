@@ -273,7 +273,7 @@ class FileDownloadWorker(
         lastPercent = 0
 
         notificationManager.run {
-            prepareForStart(currentDownload!!, currentDownloadIndex, totalDownloadSize)
+            prepareForStart(currentDownload!!, currentDownloadIndex + 1, totalDownloadSize)
             setContentIntent(intents.detailsIntent(currentDownload!!), PendingIntent.FLAG_IMMUTABLE)
         }
 

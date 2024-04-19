@@ -246,7 +246,6 @@
     <string name="downloader_download_failed_credentials_error">Téléchargement échoué, reconnectez-vous</string>
     <string name="downloader_download_failed_ticker">Le téléchargement a échoué</string>
     <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
     <string name="downloader_download_in_progress_ticker">Réception en cours…</string>
     <string name="downloader_download_succeeded_content">%1$s reçu</string>

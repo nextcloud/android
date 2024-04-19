@@ -247,7 +247,6 @@
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
     <string name="downloader_download_failed_ticker">下載失敗</string>
     <string name="downloader_download_file_not_found">這個檔案已經不存在於伺服器中</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% 下載中 %2$s</string>
     <string name="downloader_download_in_progress_ticker">正在下載……</string>
     <string name="downloader_download_succeeded_content">%1$s 已下載</string>

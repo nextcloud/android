@@ -236,7 +236,6 @@
     <string name="downloader_download_failed_credentials_error">Stahování se nezdařilo, přihlaste se znovu</string>
     <string name="downloader_download_failed_ticker">Stahování se nezdařilo</string>
     <string name="downloader_download_file_not_found">Tento soubor už není na serveru k dispozici</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Stahuje se %2$s</string>
     <string name="downloader_download_in_progress_ticker">Stahování…</string>
     <string name="downloader_download_succeeded_content">%1$s staženo</string>
