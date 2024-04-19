@@ -51,7 +51,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             uploadFileOperation.fileName
         )
 
-        notificationBuilder.apply {
+        notificationBuilder.run {
             setContentTitle(title)
             setTicker(context.getString(R.string.foreground_service_upload))
             setOngoing(false)
@@ -64,7 +64,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             )
 
             setContentIntent(startIntent)
-        }.build()
+        }
 
         if (!uploadFileOperation.isInstantPicture && !uploadFileOperation.isInstantVideo) {
             showNotification()
@@ -174,7 +174,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     }
 
     fun notifyPaused(intent: PendingIntent) {
-        notificationBuilder.apply {
+        notificationBuilder.run {
             setContentTitle(context.getString(R.string.upload_global_pause_title))
             setTicker(context.getString(R.string.upload_global_pause_title))
             setOngoing(false)
