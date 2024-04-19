@@ -4,9 +4,9 @@
     <string name="about_title">關於</string>
     <string name="about_version">版本 %1$s</string>
     <string name="about_version_with_build">版本 %1$s，組建 #%2$s</string>
-    <string name="account_creation_failed">建立賬戶失敗</string>
-    <string name="account_icon">賬戶圖示</string>
-    <string name="account_not_found">沒有找到任何賬戶</string>
+    <string name="account_creation_failed">建立帳戶失敗</string>
+    <string name="account_icon">帳戶圖示</string>
+    <string name="account_not_found">沒有找到任何帳戶</string>
     <string name="action_edit">編輯</string>
     <string name="action_empty_notifications">清除所有通知訊息</string>
     <string name="action_empty_trashbin">清空回收桶</string>
@@ -58,11 +58,11 @@
     <string name="assistant_screen_unknown_task_status_text">不詳</string>
     <string name="assistant_task_detail_screen_input_button_title">輸入</string>
     <string name="assistant_task_detail_screen_output_button_title">輸出</string>
-    <string name="associated_account_not_found">無法找到連結賬戶</string>
+    <string name="associated_account_not_found">無法找到連結帳戶</string>
     <string name="auth_access_failed">存取失敗：%1$s</string>
-    <string name="auth_account_does_not_exist">此賬戶尚未加入到這個裝置</string>
-    <string name="auth_account_not_new">此裝置上已經存在同樣伺服器與用戶賬戶</string>
-    <string name="auth_account_not_the_same">輸入的用戶與此賬戶的用戶不一致</string>
+    <string name="auth_account_does_not_exist">此帳戶尚未加入到這個裝置</string>
+    <string name="auth_account_not_new">此裝置上已經存在同樣伺服器與用戶帳戶</string>
+    <string name="auth_account_not_the_same">輸入的用戶與此帳戶的用戶不一致</string>
     <string name="auth_bad_oc_version_title">無法辨識的伺服器版本</string>
     <string name="auth_connection_established">連線已建立</string>
     <string name="auth_fail_get_user_name">您的伺服器並未回傳正確的用戶名稱，請您聯絡相關管理人員。</string>
@@ -86,7 +86,7 @@
     <string name="auth_unknown_error_http_title">發生未知的HTTP錯誤！</string>
     <string name="auth_unknown_error_title">發生了不詳的錯誤！</string>
     <string name="auth_unknown_host_title">無法找到主機</string>
-    <string name="auth_unsupported_multiaccount">%1$s 不支援多個賬戶</string>
+    <string name="auth_unsupported_multiaccount">%1$s 不支援多個帳戶</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
@@ -127,7 +127,7 @@
     <string name="common_back">返回</string>
     <string name="common_cancel">取消</string>
     <string name="common_cancel_sync">取消同步</string>
-    <string name="common_choose_account">選擇賬戶</string>
+    <string name="common_choose_account">選擇帳戶</string>
     <string name="common_confirm">確認</string>
     <string name="common_copy">複製</string>
     <string name="common_delete">刪除</string>
@@ -145,8 +145,8 @@
     <string name="common_send">傳送</string>
     <string name="common_share">分享</string>
     <string name="common_skip">略過</string>
-    <string name="common_switch_account">切換賬戶</string>
-    <string name="common_switch_to_account">切換到賬戶</string>
+    <string name="common_switch_account">切換帳戶</string>
+    <string name="common_switch_to_account">切換到帳戶</string>
     <string name="common_yes">是</string>
     <string name="community_beta_headline">測試開發版本</string>
     <string name="community_beta_text">這包含所有最新功能，預期執行上仍可能會有錯誤，若發現錯誤請舉報給我們。</string>
@@ -172,6 +172,7 @@
     <string name="confirmation_remove_folder_alert">你真的想要刪除 %1$s 與裡面的檔案？</string>
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">只有近端</string>
+    <string name="conflict_dialog_error">無法創建衝突解決程序對話框</string>
     <string name="conflict_file_headline">檔案 %1$s 抵觸</string>
     <string name="conflict_local_file">近端檔案</string>
     <string name="conflict_message_description">若您同時選擇兩個版本，近端的檔案會在檔名後附加編號。</string>
@@ -209,7 +210,7 @@
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的數據</string>
     <string name="default_credentials_wrong">不正確的認證方式</string>
-    <string name="delete_account">刪除賬戶</string>
+    <string name="delete_account">刪除帳戶</string>
     <string name="delete_entries">刪除條目</string>
     <string name="delete_link">刪除連結</string>
     <string name="deselect_all">取消全選</string>
@@ -309,13 +310,13 @@
     <string name="error_file_actions">顯示檔案操作時出錯</string>
     <string name="error_file_lock">更改檔案上鎖狀態時出錯</string>
     <string name="error_report_issue_action">舉報</string>
-    <string name="error_report_issue_text">想舉報問題？（需要GitHub賬戶）</string>
+    <string name="error_report_issue_text">想舉報問題？（需要GitHub帳戶）</string>
     <string name="error_retrieving_file">檢索檔案時發生錯誤</string>
     <string name="error_retrieving_templates">取得範本時發生錯誤</string>
     <string name="error_showing_encryption_dialog">顯示加密設定對話方塊時發生錯誤！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">文件掃描開始時出錯</string>
-    <string name="etm_accounts">賬戶</string>
+    <string name="etm_accounts">帳戶</string>
     <string name="etm_background_execution_count">時段運行在48小時內</string>
     <string name="etm_background_job_created">創建於</string>
     <string name="etm_background_job_name">工作名稱</string>
@@ -389,8 +390,8 @@
     <string name="file_migration_ok_finished">完成</string>
     <string name="file_migration_override_data_folder">取代</string>
     <string name="file_migration_preparing">準備遷移…</string>
-    <string name="file_migration_restoring_accounts_configuration">回復賬戶設置中…</string>
-    <string name="file_migration_saving_accounts_configuration">正在儲存賬戶設置…</string>
+    <string name="file_migration_restoring_accounts_configuration">回復帳戶設置中…</string>
+    <string name="file_migration_saving_accounts_configuration">正在儲存帳戶設置…</string>
     <string name="file_migration_source_not_readable">您仍然想要變更資料儲存資料夾為 %1$s 嗎？\n\n注意：所有資料都必須再次下載。</string>
     <string name="file_migration_source_not_readable_title">來源資料夾無法讀取</string>
     <string name="file_migration_updating_index">更新索引中…</string>
@@ -539,7 +540,7 @@
     <string name="no_email_app_available">沒有可用於處理郵件地址的應用程式</string>
     <string name="no_items">沒有項目</string>
     <string name="no_map_app_availble">沒有應用程式可以處理地圖</string>
-    <string name="no_mutliple_accounts_allowed">只可使用一個賬戶</string>
+    <string name="no_mutliple_accounts_allowed">只可使用一個帳戶</string>
     <string name="no_pdf_app_available">沒有應用程式可以開啟 PDF</string>
     <string name="no_send_app">沒有可用於發送所選檔案的應用程式</string>
     <string name="no_share_permission_selected">請選取至少一個要分享的權限。</string>
@@ -601,10 +602,10 @@
     <string name="pref_instant_name_collision_policy_entries_overwrite">覆寫遠端的版本</string>
     <string name="pref_instant_name_collision_policy_entries_rename">重新命名新的版本</string>
     <string name="pref_instant_name_collision_policy_title">當檔案已經存在時我該怎麼做?</string>
-    <string name="prefs_add_account">新增賬戶</string>
+    <string name="prefs_add_account">新增帳戶</string>
     <string name="prefs_calendar_contacts">同步日曆與通訊錄</string>
     <string name="prefs_calendar_contacts_no_store_error">尚未安裝 F-Droid 或 Google Play</string>
-    <string name="prefs_calendar_contacts_summary">為目前用戶賬戶設定 DAVx5 協定（以前稱為 DAVdroid）（版本 v1.3.0 以上）</string>
+    <string name="prefs_calendar_contacts_summary">為目前用戶帳戶設定 DAVx5 協定（以前稱為 DAVdroid）（版本 v1.3.0 以上）</string>
     <string name="prefs_calendar_contacts_sync_setup_successful">日曆與通訊錄同步設定</string>
     <string name="prefs_category_about">關於</string>
     <string name="prefs_category_details">詳細資料</string>
@@ -638,7 +639,7 @@
     <string name="prefs_lock_title">使用以下工具保護 app</string>
     <string name="prefs_lock_using_device_credentials">裝置身分驗證方式</string>
     <string name="prefs_lock_using_passcode">通行碼</string>
-    <string name="prefs_manage_accounts">管理賬戶</string>
+    <string name="prefs_manage_accounts">管理帳戶</string>
     <string name="prefs_recommend">向朋友推薦</string>
     <string name="prefs_remove_e2e">移除近端加密</string>
     <string name="prefs_setup_e2e">設置端對端加密</string>
@@ -661,7 +662,7 @@
     <string name="privacy">私隱政策</string>
     <string name="public_share_name">新名稱</string>
     <string name="push_notifications_not_implemented">由於依賴專有的Google Play服務，推送通知已停用。</string>
-    <string name="push_notifications_old_login">由於登入已過期，因此沒有推送通知。請考慮重新添加您的賬戶。</string>
+    <string name="push_notifications_old_login">由於登入已過期，因此沒有推送通知。請考慮重新添加您的帳戶。</string>
     <string name="push_notifications_temp_error">推送通知目前無法使用。</string>
     <string name="qr_could_not_be_read">QR 碼無法讀取！</string>
     <string name="recommend_subject">在您的裝置上試用 %1$s！</string>
@@ -674,17 +675,17 @@
     <string name="remove_e2e">您可以在此客戶端上本地刪除端到端加密</string>
     <string name="remove_e2e_message">您可以在此客戶端上本地刪除端到端加密。加密檔案將保留在伺服器上，但不會再同步到此電腦。</string>
     <string name="remove_fail_msg">刪除失敗</string>
-    <string name="remove_local_account">移除近端賬戶</string>
-    <string name="remove_local_account_details">從裝置中刪除賬戶並刪除所有近端檔案</string>
+    <string name="remove_local_account">移除近端帳戶</string>
+    <string name="remove_local_account_details">從裝置中刪除帳戶並刪除所有近端檔案</string>
     <string name="remove_notification_failed">移除通知失敗</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已刪除</string>
     <string name="rename_dialog_title">輸入新名稱</string>
     <string name="rename_local_fail_msg">無法重新命名近端複本，請試用不同名稱</string>
     <string name="rename_server_fail_msg">不可重新命名，名稱已存在</string>
-    <string name="request_account_deletion">請求賬戶刪除</string>
+    <string name="request_account_deletion">請求帳戶刪除</string>
     <string name="request_account_deletion_button">請求刪除</string>
-    <string name="request_account_deletion_details">請求服務提供者永久刪除賬戶</string>
+    <string name="request_account_deletion_details">請求服務提供者永久刪除帳戶</string>
     <string name="reshare_not_allowed">不允許重新分享</string>
     <string name="resharing_is_not_allowed">不允許重新分享</string>
     <string name="resized_image_not_possible_download">沒有可用調整過的圖像，下載完整圖像？</string>
@@ -702,7 +703,7 @@
     <string name="screenshot_02_listView_subline">全在您一指之間</string>
     <string name="screenshot_03_drawer_heading">活動、分享…</string>
     <string name="screenshot_03_drawer_subline">可快速存取所有資源</string>
-    <string name="screenshot_04_accounts_heading">您所有的賬戶</string>
+    <string name="screenshot_04_accounts_heading">您所有的帳戶</string>
     <string name="screenshot_04_accounts_subline">在一個地方</string>
     <string name="screenshot_05_autoUpload_heading">自動上傳</string>
     <string name="screenshot_05_autoUpload_subline">您的照片與視像</string>
@@ -773,7 +774,7 @@
     <string name="show_images">顯示照片</string>
     <string name="show_video">顯示影片</string>
     <string name="signup_with_provider">使用第三方登入</string>
-    <string name="single_sign_on_request_token" formatted="true">允許 %1$s 存取您的 Nextcloud 賬戶 %2$s？</string>
+    <string name="single_sign_on_request_token" formatted="true">允許 %1$s 存取您的 Nextcloud 帳戶 %2$s？</string>
     <string name="sort_by">排序方式</string>
     <string name="ssl_validator_btn_details_hide">隱藏</string>
     <string name="ssl_validator_btn_details_see">細節</string>
@@ -812,7 +813,7 @@
     <string name="storage_permission_full_access">完整存取權限</string>
     <string name="storage_permission_media_read_only">僅媒體唯讀</string>
     <string name="storage_pictures">圖片</string>
-    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶界面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多賬戶支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 舉報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
+    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n功能：\n* 簡潔、現代的用戶界面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您最愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 以通知訊息保持更新\n* 多帳戶支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前被稱為 DAVdroid），可輕易設定行事曆與聯絡人同步\n\n請至 https://github.com/nextcloud/android/issues 舉報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、共享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司協助您建置。如此，您便可完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 以取得更多資訊</string>
     <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供未經測試的任何新功能的範例，可能造成不穩定或資料遺失。此應用程式適合願意測試且舉報遇到的問題的用戶。不要將其用於您的生產力工作！\n\nF-Droid 同時提供了官方的開發版本與一般版本，可同時安裝。</string>
     <string name="store_short_desc">讓你能完全掌控、自建且具生產力的平台</string>
     <string name="store_short_dev_desc">讓你能完全掌控、自建且具生產力的平台（開發者預覽版）</string>
@@ -838,7 +839,7 @@
     <string name="sync_fail_ticker_unauthorized">同步失敗，需重新登入。</string>
     <string name="sync_file_nothing_to_do_msg">檔案已同步</string>
     <string name="sync_folder_failed_content">無法完成資料夾 %1$s 的同步作業</string>
-    <string name="sync_foreign_files_forgotten_explanation">於1.3.16版本中，此裝置已上傳的檔案會複製到近端%1$s資料夾，以防止多重賬戶同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中近端與遠端檔案之間的連結。</string>
+    <string name="sync_foreign_files_forgotten_explanation">於1.3.16版本中，此裝置已上傳的檔案會複製到近端%1$s資料夾，以防止多重帳戶同步單一檔案時造成遺失。透過此應用程式更早的版本上傳的檔案則複製到%2$s資料夾。但是在同步時出現錯誤會阻礙此操作完成，你可以選擇無視此檔案並移除%3$s的連結，或者移動此檔案到%1$s資料夾並保留%4$s的連結，下面列出%5$s中近端與遠端檔案之間的連結。</string>
     <string name="sync_foreign_files_forgotten_ticker">有些近端端的檔案已遺失</string>
     <string name="sync_in_progress">取得檔案最近的版本</string>
     <string name="sync_not_enough_space_dialog_action_choose">選擇同步項目</string>
@@ -948,8 +949,8 @@
     <string name="uploader_upload_succeeded_content_single">%1$s 已上傳</string>
     <string name="uploader_wrn_no_account_quit_btn_text">退出</string>
     <string name="uploader_wrn_no_account_setup_btn_text">設定</string>
-    <string name="uploader_wrn_no_account_text">無 %1$s 賬戶，請先建立賬戶。</string>
-    <string name="uploader_wrn_no_account_title">找不到賬戶</string>
+    <string name="uploader_wrn_no_account_text">無 %1$s 帳戶，請先建立帳戶。</string>
+    <string name="uploader_wrn_no_account_title">找不到帳戶</string>
     <string name="uploads_view_group_current_uploads">目前</string>
     <string name="uploads_view_group_failed_uploads">失敗/等待重啟</string>
     <string name="uploads_view_group_finished_uploads">已上傳</string>
