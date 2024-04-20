@@ -1,7 +1,7 @@
 # SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-name: "Screenshot Test"
+name: "Garm"
 
 on:
     pull_request:
@@ -11,13 +11,15 @@ permissions:
     contents: read
     pull-requests: write
 
-concurrency:
-    group: screenshot-test-${{ github.head_ref || github.run_id }}
-    cancel-in-progress: true
-
 jobs:
-    screenshot:
-        runs-on: macOS-latest
+    tests:
+        runs-on: ubuntu-22.04 # our own GARM does not yet support it
+        services:
+            server:
+                image: ghcr.io/nextcloud/continuous-integration-shallow-server:latest
+                options: --name server
+                ports:
+                    - 80:80
         strategy:
             fail-fast: false
             matrix:
@@ -26,6 +28,29 @@ jobs:
                 api-level: [ 27 ]
         steps:
             -   uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+
+            -   name: wait and ping server
+                run: |
+                    while ! curl http://localhost/status.php 2>&1 | grep installed; do
+                        echo "wait…"
+                        sleep 5
+                    done
+
+            -   name: configure server
+                run: |
+                    docker cp .github/workflows/configServer.sh server:/tmp/
+                    docker exec server chmod +x /tmp/configServer.sh
+                    docker exec server /tmp/configServer.sh
+                    docker cp .github/workflows/configNC.sh server:/tmp/
+                    docker exec server chmod +x /tmp/configNC.sh
+                    docker exec --user www-data server /tmp/configNC.sh
+                    docker exec server /usr/local/bin/run.sh
+
+            -   name: Enable KVM group perms
+                run: |
+                    echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+                    sudo udevadm control --reload-rules
+                    sudo udevadm trigger --name-match=kvm
 
             -   name: Gradle cache
                 uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
@@ -67,7 +92,10 @@ jobs:
                     echo "org.gradle.caching=true" >> $HOME/.gradle/gradle.properties
 
             -   name: Build gplay
-                run: ./gradlew assembleGplayDebug
+                run: |
+                    sed -i s#http://server#http://10.0.2.2# gradle.properties
+                    sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
+                    ./gradlew assembleGplayDebug
 
             -   name: Delete old comments
                 env:
@@ -75,7 +103,7 @@ jobs:
                 if: ${{ always() }}
                 run: scripts/deleteOldComments.sh "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}}
 
-            -   name: Run screenshot tests
+            -   name: gplay
                 env:
                     SHOT_TEST: "true"
                 uses: reactivecircus/android-emulator-runner@6b0df4b0efb23bb0ec63d881db79aefbc976e4b2 # v2.30.1
@@ -86,7 +114,8 @@ jobs:
                     sdcard-path-or-size: 100M
                     target: google_apis
                     emulator-options: -no-window -gpu swiftshader_indirect -no-snapshot -noaudio -no-boot-anim -skin 500x833
-                    script: ./gradlew uninstallAll gplayDebugExecuteScreenshotTests -Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED" -Pandroid.testInstrumentationRunnerArguments.annotation=com.owncloud.android.utils.ScreenshotTest -Pandroid.testInstrumentationRunnerArguments.COLOR=${{ matrix.color }} -Pandroid.testInstrumentationRunnerArguments.DARKMODE=${{ matrix.scheme }}
+                    script: scripts/wait_for_emulator.sh &&  scripts/runCombinedTest.sh $DRONE_PULL_REQUEST $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER
+
             -   name: upload failing results
                 if: ${{ failure() }}
                 env:

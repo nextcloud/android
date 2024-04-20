@@ -40,6 +40,9 @@ stat=$?
 # stop saving logcat
 kill $LOGCAT_PID
 
+echo "Exit with: " $stat
+exit $stat
+
 if [ ! $stat -eq 0 ]; then
     upload_logcat
     bash scripts/uploadReport.sh "$LOG_USERNAME" "$LOG_PASSWORD" "$DRONE_BUILD_NUMBER" "master" "IT" "$DRONE_PULL_REQUEST"
@@ -48,6 +51,3 @@ fi
 curl -Os https://uploader.codecov.io/latest/linux/codecov
 chmod +x codecov
 ./codecov -t fc506ba4-33c3-43e4-a760-aada38c24fd5 -F integration
-
-echo "Exit with: " $stat
-exit $stat
