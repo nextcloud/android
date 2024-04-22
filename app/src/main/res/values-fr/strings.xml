@@ -13,7 +13,7 @@
     <string name="action_send_share">Envoyer / Partager</string>
     <string name="action_switch_grid_view">Affichage mosaïque</string>
     <string name="action_switch_list_view">Affichage liste</string>
-    <string name="actionbar_calendar_contacts_restore">Restaurer les contacts et l’agenda</string>
+    <string name="actionbar_calendar_contacts_restore">Restaurer les contacts et l\'agenda</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move_or_copy">Déplacer ou copier</string>
     <string name="actionbar_open_with">Ouvrir avec</string>
@@ -412,7 +412,7 @@
     <string name="filename_hint">Nom du fichier</string>
     <string name="first_run_1_text">Sécurisez et contrôlez vos données</string>
     <string name="first_run_2_text">Collaboration et échange de fichiers sécurisés</string>
-    <string name="first_run_3_text">Messagerie web, agenda, contacts faciles à utiliser</string>
+    <string name="first_run_3_text">Webmail, agenda, contacts faciles à utiliser</string>
     <string name="first_run_4_text">Partage d’écran, réunions en ligne et conférences en ligne</string>
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_confirm_create">Créer</string>
@@ -460,7 +460,7 @@
     <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">dans le dossier %1$s</string>
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
-    <string name="instant_upload_on_charging">Téléverser uniquement si le chargeur est branché</string>
+    <string name="instant_upload_on_charging">Téléverser uniquement lors de la recharge</string>
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="invalid_url">URL invalide</string>
     <string name="invisible">Invisible</string>
@@ -688,7 +688,7 @@
     <string name="resharing_is_not_allowed">Le repartage est interdit</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
     <string name="restore">Restaurer le fichier</string>
-    <string name="restore_backup">Restaurer la sauvegarde</string>
+    <string name="restore_backup">Restaurer une sauvegarde</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
     <string name="restore_selected">Restaurer la sélection</string>
     <string name="retrieving_file">Téléchargement en cours…</string>
@@ -768,6 +768,7 @@
     <string name="shared_icon_shared_via_link">partagé par lien</string>
     <string name="shared_with_you_by">Partagé avec vous par %1$s</string>
     <string name="sharee_add_failed">L\'ajout du partage a échoué</string>
+    <string name="sharee_already_added_to_file">L\'ajout du partage a échoué. Ce fichier ou dossier a déjà été partagé avec cette personne ou ce groupe.</string>
     <string name="show_images">Afficher les photos</string>
     <string name="show_video">Afficher les vidéos</string>
     <string name="signup_with_provider">Se connecter avec un fournisseur</string>
@@ -885,7 +886,7 @@
     <string name="upload_action_cancelled_clear">Effacer les téléversements annulés</string>
     <string name="upload_action_cancelled_resume">Poursuivre les téléversements annulés</string>
     <string name="upload_action_failed_clear">Effacer les téléversements échoués</string>
-    <string name="upload_action_failed_retry">Relancer les envois en erreur</string>
+    <string name="upload_action_failed_retry">Réessayer les téléversements qui ont échoué</string>
     <string name="upload_action_file_not_exist_message">Certains fichiers n’existent pas et ne peuvent pas être relancés.</string>
     <string name="upload_action_global_upload_pause">Suspendre tous les téléversements</string>
     <string name="upload_action_global_upload_resume">Poursuivre tous les téléversements</string>
@@ -927,11 +928,11 @@
     <string name="uploader_file_not_found_message">Fichier non trouvé. Êtes-vous sûr que ce fichier existe ou qu\'un conflit précédent n\'a pas été résolu ?</string>
     <string name="uploader_file_not_found_on_server_message">Impossible de retrouver le fichier sur le serveur. Un autre utilisateur l\'a peut-être supprimé</string>
     <string name="uploader_info_dirname">Nom du dossier</string>
-    <string name="uploader_local_files_uploaded">Réessayer de téléverser les fichiers locaux ayant échoués</string>
+    <string name="uploader_local_files_uploaded">Réessayer de téléverser les fichiers locaux qui ont échoué</string>
     <string name="uploader_top_message">Sélectionnez le dossier de téléversement</string>
     <string name="uploader_upload_failed_content_single">Impossible d\'envoyer %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Le téléversement a échoué, reconnectez-vous</string>
-    <string name="uploader_upload_failed_sync_conflict_error">Conflit de fichier lors de l\'envoi</string>
+    <string name="uploader_upload_failed_sync_conflict_error">Conflit de téléversement de fichiers</string>
     <string name="uploader_upload_failed_sync_conflict_error_content">Sélectionnez la version de %1$s à conserver</string>
     <string name="uploader_upload_failed_ticker">Échec du téléversement</string>
     <string name="uploader_upload_files_behaviour">Option de téléversement :</string>
