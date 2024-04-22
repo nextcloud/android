@@ -836,7 +836,7 @@ public class EncryptionTestIT extends AbstractIT {
 
         // Encryption
         Cipher encryptorCipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
-        EncryptionUtils.encryptFile(file, encryptorCipher);
+        EncryptionUtils.encryptFile(user.getAccountName(), file, encryptorCipher);
         String encryptorCipherAuthTag = EncryptionUtils.getAuthenticationTag(encryptorCipher);
 
         // Decryption

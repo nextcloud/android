@@ -8,7 +8,6 @@
     <string name="account_creation_failed">Pravljenje naloga nije uspelo</string>
     <string name="account_icon">Ikona naloga</string>
     <string name="account_not_found">Nalog nije nađen!</string>
-    <string name="action_clear_failed_uploads">Izbriši neuspela otpremanja</string>
     <string name="action_edit">Izmeni</string>
     <string name="action_empty_notifications">Očisti sva obaveštenja</string>
     <string name="action_send_share">Slanje/Deljenje</string>

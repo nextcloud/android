@@ -75,8 +75,10 @@ class FileUploadHelper {
     ) {
         val failedUploads = uploadsStorageManager.failedUploads
         if (failedUploads == null || failedUploads.isEmpty()) {
+            Log_OC.d(TAG, "Failed uploads are empty or null")
             return
         }
+
         retryUploads(
             uploadsStorageManager,
             connectivityService,
@@ -119,6 +121,8 @@ class FileUploadHelper {
         val batteryStatus = powerManagementService.battery
         val charging = batteryStatus.isCharging || batteryStatus.isFull
         val isPowerSaving = powerManagementService.isPowerSavingEnabled
+        var uploadUser = Optional.empty<User>()
+
 
         for (failedUpload in failedUploads) {
 

@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Errore in sa creatzione de su contu</string>
     <string name="account_icon">Icona de su contu</string>
     <string name="account_not_found">Contu no agatadu!</string>
-    <string name="action_clear_failed_uploads">Boga·nche is carrigamentos faddidos</string>
     <string name="action_edit">Modìfica</string>
     <string name="action_empty_notifications">Boga·nche totu is notìficas</string>
     <string name="action_empty_trashbin">Bòida s\'àliga</string>
@@ -144,7 +143,6 @@
     <string name="confirmation_remove_folder_alert">A beru boles cantzellare %1$s e is cuntenutos suos?</string>
     <string name="confirmation_remove_folders_alert">A beru boles cantzellare is elementos seberados e is cuntenutos issoro?</string>
     <string name="confirmation_remove_local">Locale isceti</string>
-    <string name="conflict_dialog_error">Errore creende una bentana de cunflitu!</string>
     <string name="conflict_file_headline">Archìviu in cunflitu %1$s</string>
     <string name="conflict_message_description">Si seletzionas ambas is versiones, s\'archìviu locale at a tènnere unu nùmeru in agiunta a su nùmene.</string>
     <string name="contactlist_item_icon">Icona utente pro lista de cuntatos</string>

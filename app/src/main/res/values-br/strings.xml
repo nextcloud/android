@@ -7,7 +7,6 @@
     <string name="account_creation_failed">C\'hwitet eo bet ar c\'houiñ eus anr c\'hont</string>
     <string name="account_icon">Ikonenn kont</string>
     <string name="account_not_found">N\'o ket bet kavet ar c\'hont</string>
-    <string name="action_clear_failed_uploads">Lemmel ar pellgasoù chwitet</string>
     <string name="action_edit">Cheñch</string>
     <string name="action_empty_notifications">Lemmel toud ar c\'hemenadennoù</string>
     <string name="action_send_share">Kas/Rannan</string>
@@ -136,7 +135,6 @@
     <string name="confirmation_remove_folder_alert">Sur oc\'h lemel %1$s ha pep tra a zo barzh ?</string>
     <string name="confirmation_remove_folders_alert">Sur oc\'h lemel an traoù choazet ha pep tra a zo barzh ?</string>
     <string name="confirmation_remove_local">E-berzh nemetken</string>
-    <string name="conflict_dialog_error">Ur fazi en deus krouet divizoù diemglev !</string>
     <string name="conflict_message_description">Ma choazit an daou stumm, ar restr diabarzh en do un niver ouzhpennet war e anv.</string>
     <string name="contactlist_item_icon">Skeudenn  implijer evit ar roll darempredoù</string>
     <string name="contactlist_no_permission">Oaetre ebet roet, netra a zo bet emporzhiet.</string>

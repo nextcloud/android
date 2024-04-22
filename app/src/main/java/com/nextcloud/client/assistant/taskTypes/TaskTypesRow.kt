@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.nextcloud.client.assistant.component
+package com.nextcloud.client.assistant.taskTypes
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row

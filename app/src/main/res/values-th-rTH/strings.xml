@@ -7,7 +7,6 @@
     <string name="account_creation_failed">การสร้างบัญชีล้มเหลว</string>
     <string name="account_icon">ไอคอนบัญชี</string>
     <string name="account_not_found">ไม่พบบัญชี!</string>
-    <string name="action_clear_failed_uploads">ล้างการอัปโหลดที่ล้มเหลว</string>
     <string name="action_edit">แก้ไข</string>
     <string name="action_empty_notifications">ล้างการแจ้งเตือน</string>
     <string name="action_empty_trashbin">ล้างข้อมูลในถังขยะ</string>
@@ -147,7 +146,6 @@
     <string name="confirmation_remove_folder_alert">คุณต้องการลบ %1$s และเนื้อหาที่อยู่ในนั้นจริง ๆ หรือไม่?</string>
     <string name="confirmation_remove_folders_alert">คุณต้องการลบรายการที่เลือกและเนื้อหาที่อยู่ในนั้นจริง ๆ หรือไม่?</string>
     <string name="confirmation_remove_local">เฉพาะต้นทางเท่านั้น</string>
-    <string name="conflict_dialog_error">ข้อผิดพลาดในการสร้างกล่องโต้ตอบข้อขัดแย้ง!</string>
     <string name="conflict_file_headline">ขัดขัดแย้งไฟล์ %1$s</string>
     <string name="conflict_local_file">ไฟล์ต้นทาง</string>
     <string name="conflict_message_description">ถ้าคุณเลือกทั้งสองรุ่น ชื่อของไฟล์ที่อยู่ในเครื่องจะมีตัวเลขเพิ่มเข้าไป</string>

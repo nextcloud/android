@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Kreiranje korisničkog računa neuspjelo</string>
     <string name="account_icon">Ikona korisničkog računa</string>
     <string name="account_not_found">Korisnički račun nije pronađen!</string>
-    <string name="action_clear_failed_uploads">Izbriši neuspješne otpreme</string>
     <string name="action_edit">Uredi</string>
     <string name="action_empty_notifications">Izbriši sve obavijesti</string>
     <string name="action_empty_trashbin">Isprazni kantu za smeće</string>
@@ -145,7 +144,6 @@
     <string name="confirmation_remove_folder_alert">Želite li zaista izbrisati %1$s i pripadajući sadržaj?</string>
     <string name="confirmation_remove_folders_alert">Želite li zaista izbrisati odabrane stavke i pripadajući sadržaj?</string>
     <string name="confirmation_remove_local">Samo lokalno</string>
-    <string name="conflict_dialog_error">Pogreška pri stvaranju dijaloškog okvira o nepodudaranju!</string>
     <string name="conflict_file_headline">Nepodudarna datoteka %1$s</string>
     <string name="conflict_local_file">Lokalna datoteka</string>
     <string name="conflict_message_description">Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
