@@ -287,10 +287,9 @@ public abstract class DrawerActivity extends ToolbarActivity
     public void updateHeader() {
         int primaryColor = themeColorUtils.unchangedPrimaryColor(getAccount(), this);
         boolean isClientBranded = getResources().getBoolean(R.bool.is_branded_client);
-        boolean isClientBrandedPlus = getResources().getBoolean(R.bool.is_branded_plus_client);
 
         if (getAccount() != null &&
-            getCapabilities().getServerBackground() != null && (!isClientBranded || !isClientBrandedPlus)) {
+            getCapabilities().getServerBackground() != null && !isClientBranded) {
 
             OCCapability capability = getCapabilities();
             String logo = capability.getServerLogo();
@@ -341,7 +340,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         // hide ecosystem apps according to user preference or in branded client
         LinearLayout banner = mNavigationViewHeader.findViewById(R.id.drawer_ecosystem_apps);
-        boolean shouldHideTopBanner = isClientBrandedPlus || isClientBranded || !preferences.isShowEcosystemApps();
+        boolean shouldHideTopBanner = isClientBranded || !preferences.isShowEcosystemApps();
 
         if (shouldHideTopBanner) {
             hideTopBanner(banner);
