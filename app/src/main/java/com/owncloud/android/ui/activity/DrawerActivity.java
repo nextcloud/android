@@ -472,7 +472,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         DrawerMenuUtil.filterTrashbinMenuItem(menu, capability);
         DrawerMenuUtil.filterActivityMenuItem(menu, capability);
         DrawerMenuUtil.filterGroupfoldersMenuItem(menu, capability);
-        DrawerMenuUtil.filterAssistantMenuItem(menu, capability);
+        DrawerMenuUtil.filterAssistantMenuItem(menu, capability, getResources());
         DrawerMenuUtil.setupHomeMenuItem(menu, getResources());
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_community, !getResources().getBoolean(R.bool.participate_enabled));
         DrawerMenuUtil.removeMenuItem(menu, R.id.nav_shared, !getResources().getBoolean(R.bool.shared_enabled));
