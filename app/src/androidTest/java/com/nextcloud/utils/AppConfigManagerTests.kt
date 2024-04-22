@@ -16,6 +16,7 @@ import org.junit.Test
 
 class AppConfigManagerTests : AbstractIT() {
 
+    @Suppress("MagicNumber")
     @Test
     fun testSetProxyConfigWhenGivenClientBrandedPlusAndCorrectBundleDataProxyConfigurationShouldSet() {
         val proxySetting = Bundle().apply {
@@ -34,6 +35,7 @@ class AppConfigManagerTests : AbstractIT() {
         assert(proxyPort == 441212)
     }
 
+    @Suppress("MagicNumber")
     @Test
     fun testSetProxyConfigWhenGivenClientNotBrandedPlusAndCorrectBundleDataProxyConfigurationShouldNotSet() {
         val proxySetting = Bundle().apply {
