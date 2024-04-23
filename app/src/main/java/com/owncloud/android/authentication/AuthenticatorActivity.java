@@ -973,8 +973,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
                 setContentView(accountSetupWebviewBinding.getRoot());
-                anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
-                // initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, false);
+
+                if (!isLoginProcessCompleted) {
+                    anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
+                    // initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, false);
+                }
             }
         } else {
             updateServerStatusIconAndText(result);
@@ -1572,7 +1575,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         Log_OC.d(TAG, "performLoginV2 response: " + response);
 
         if (!response.isEmpty()) {
-            completeLoginFlow(response);
+            isLoginProcessCompleted = true;
+            runOnUiThread(() -> completeLoginFlow(response));
         }
     }
 
@@ -1595,7 +1599,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.serverAddress);
             webViewUser = loginUrlInfo.username;
             webViewPassword = loginUrlInfo.password;
-            isLoginProcessCompleted = true;
         } catch (Exception e) {
             Log_OC.d(TAG, "Error caught at completeLoginFlow: " + e);
             mServerStatusIcon = R.drawable.ic_alert;
