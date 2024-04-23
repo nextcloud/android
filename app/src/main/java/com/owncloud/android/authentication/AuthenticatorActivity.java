@@ -17,6 +17,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -119,6 +120,8 @@ import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -179,6 +182,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      */
     // public static final String WEB_LOGIN = "/index.php/login/flow";
 
+    /**
+     * Login Flow v2
+     */
     public static final String WEB_LOGIN = "/index.php/login/v2";
 
     public static final String PROTOCOL_SUFFIX = "://";
@@ -189,7 +195,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final int NO_ICON = 0;
     public static final String EMPTY_STRING = "";
 
-    private static final int REQUEST_CODE_QR_SCAN = 101;
     public static final int REQUEST_CODE_FIRST_RUN = 102;
 
     /// parameters from EXTRAs in starter Intent
@@ -239,7 +244,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject ClientFactory clientFactory;
 
     private String token;
-    private static final int REQUEST_CODE_LOGIN = 1001;
 
     private boolean onlyAdd = false;
     @SuppressLint("ResourceAsColor") @ColorInt
@@ -369,7 +373,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             String loginUrl = login;
             runOnUiThread(() -> {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(loginUrl));
-                startActivityForResult(intent, REQUEST_CODE_LOGIN);
+                loginFlowResultLauncher.launch(intent);
             });
 
             token = jsonObject.getAsJsonObject("poll").get("token").getAsString();
@@ -378,11 +382,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         thread.start();
     }
 
+    private final ActivityResultLauncher<Intent> loginFlowResultLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(), result -> poolLogin(clientFactory.createPlainClient()));
+
     private static String getWebLoginUserAgent() {
         return Build.MANUFACTURER.substring(0, 1).toUpperCase(Locale.getDefault()) +
             Build.MANUFACTURER.substring(1).toLowerCase(Locale.getDefault()) + " " + Build.MODEL + " (Android)";
     }
 
+    /**
+     * @Deprecated It uses webview and login flow v1
+     */
+    @Deprecated
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebViewLogin(String baseURL, boolean useGenericUserAgent) {
@@ -1398,8 +1409,36 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void startQRScanner() {
         Intent intent = new Intent(this, QrCodeActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_QR_SCAN);
+        qrScanResultLauncher.launch(intent);
     }
+
+    private final ActivityResultLauncher<Intent> qrScanResultLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+
+                if (data == null) {
+                    return;
+                }
+
+                String resultData = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult");
+
+                if (resultData == null || !resultData.startsWith(getString(R.string.login_data_own_scheme))) {
+                    mServerStatusIcon = R.drawable.ic_alert;
+                    mServerStatusText = "QR Code could not be read!";
+                    showServerStatus();
+                    return;
+                }
+
+                if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+                    accountManager.getAccounts().length == 1) {
+                    Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+                } else {
+                    parseAndLoginFromWebView(resultData);
+                }
+            }
+        });
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -1605,37 +1644,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         checkOcServer();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_LOGIN) {
-            poolLogin(clientFactory.createPlainClient());
-        }
-
-        if (requestCode == REQUEST_CODE_QR_SCAN) {
-            if (data == null) {
-                return;
-            }
-
-            String result = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult");
-
-            if (result == null || !result.startsWith(getString(R.string.login_data_own_scheme))) {
-                mServerStatusIcon = R.drawable.ic_alert;
-                mServerStatusText = "QR Code could not be read!";
-                showServerStatus();
-                return;
-            }
-
-            if (!getResources().getBoolean(R.bool.multiaccount_support) &&
-                accountManager.getAccounts().length == 1) {
-                Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
-            } else {
-                parseAndLoginFromWebView(result);
-            }
-        }
     }
 
     /**
