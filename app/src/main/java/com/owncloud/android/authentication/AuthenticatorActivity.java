@@ -49,6 +49,7 @@ import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
@@ -105,6 +106,9 @@ import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
@@ -113,6 +117,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
@@ -348,7 +354,11 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    private void anonymouslyPostLoginRequest(String baseUrl) {
+    private String baseUrl;
+
+    private void anonymouslyPostLoginRequest(String url) {
+        baseUrl = url;
+
         Thread thread =  new Thread(() -> {
             PostMethod post = new PostMethod(baseUrl, false, new FormBody.Builder().build());
 
@@ -363,7 +373,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
             String loginUrl = login;
             runOnUiThread(() -> {
-                // openLoginLinkInDefaultBrowser
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(loginUrl));
                 startActivityForResult(intent, REQUEST_CODE_LOGIN);
             });
@@ -1537,17 +1546,72 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
+    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+    private boolean isLoginProcessCompleted = false;
+
+    private void poolLogin(PlainClient client) {
+        executorService.scheduleAtFixedRate(() -> {
+            if (!isLoginProcessCompleted) {
+                performLoginV2(client);
+            }
+        }, 0, 30, TimeUnit.SECONDS);
+    }
+
+    private void performLoginV2(PlainClient client) {
+        String postRequestUrl = baseUrl + "/poll";
+
+        RequestBody requestBody = new FormBody.Builder()
+            .add("token", token)
+            .build();
+
+        PostMethod post = new PostMethod(postRequestUrl, false, requestBody);
+        int status = post.execute(client);
+        String response = post.getResponseBodyAsString();
+
+        Log_OC.d(TAG, "performLoginV2 status: " + status);
+        Log_OC.d(TAG, "performLoginV2 response: " + response);
+
+        if (!response.isEmpty()) {
+            completeLoginFlow(response);
+        }
+    }
+
+    private void completeLoginFlow(String response) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+
+            String server = jsonObject.getString("server");
+            String loginName = jsonObject.getString("loginName");
+            String appPassword = jsonObject.getString("appPassword");
+
+            LoginUrlInfo loginUrlInfo = new LoginUrlInfo();
+            loginUrlInfo.serverAddress = server;
+            loginUrlInfo.username = loginName;
+            loginUrlInfo.password = appPassword;
+
+            if (accountSetupBinding != null) {
+                accountSetupBinding.hostUrlInput.setText("");
+            }
+            mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.serverAddress);
+            webViewUser = loginUrlInfo.username;
+            webViewPassword = loginUrlInfo.password;
+            isLoginProcessCompleted = true;
+        } catch (Exception e) {
+            Log_OC.d(TAG, "Error caught at completeLoginFlow: " + e);
+            mServerStatusIcon = R.drawable.ic_alert;
+            mServerStatusText = getString(R.string.qr_could_not_be_read);
+            showServerStatus();
+        }
+
+        checkOcServer();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == REQUEST_CODE_LOGIN) {
-            if (resultCode == RESULT_OK) {
-                if (data != null) {
-                    Uri loginData = data.getData();
-                    Log_OC.d(TAG, "onActivityResult for REQUEST_CODE_LOGIN: " + loginData);
-                }
-            }
+            poolLogin(clientFactory.createPlainClient());
         }
 
         if (requestCode == REQUEST_CODE_QR_SCAN) {
