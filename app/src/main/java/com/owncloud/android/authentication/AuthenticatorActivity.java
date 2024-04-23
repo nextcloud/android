@@ -49,7 +49,6 @@ import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonSyntaxException;
 import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
@@ -106,10 +105,8 @@ import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -138,9 +135,7 @@ import de.cotech.hw.fido2.WebViewWebauthnBridge;
 import de.cotech.hw.fido2.ui.WebauthnDialogOptions;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import okhttp3.FormBody;
-import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import okio.BufferedSink;
 
 import static com.owncloud.android.utils.PermissionUtil.PERMISSIONS_CAMERA;
 
@@ -359,7 +354,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private void anonymouslyPostLoginRequest(String url) {
         baseUrl = url;
 
-        Thread thread =  new Thread(() -> {
+        Thread thread = new Thread(() -> {
             PostMethod post = new PostMethod(baseUrl, false, new FormBody.Builder().build());
 
             PlainClient client = clientFactory.createPlainClient();
@@ -1425,7 +1420,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * server.
      */
     private void showServerStatus() {
-        if (accountSetupBinding == null) return;
+        if (accountSetupBinding == null) {
+            return;
+        }
 
         if (mServerStatusIcon == NO_ICON && EMPTY_STRING.equals(mServerStatusText)) {
             accountSetupBinding.serverStatusText.setVisibility(View.INVISIBLE);
@@ -1549,18 +1546,18 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    private final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+    private final ScheduledExecutorService loginFlowExecutorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isLoginProcessCompleted = false;
 
     private void poolLogin(PlainClient client) {
-        executorService.scheduleAtFixedRate(() -> {
+        loginFlowExecutorService.scheduleAtFixedRate(() -> {
             if (!isLoginProcessCompleted) {
-                performLoginV2(client);
+                performLoginFlowV2(client);
             }
         }, 0, 30, TimeUnit.SECONDS);
     }
 
-    private void performLoginV2(PlainClient client) {
+    private void performLoginFlowV2(PlainClient client) {
         String postRequestUrl = baseUrl + "/poll";
 
         RequestBody requestBody = new FormBody.Builder()
@@ -1571,16 +1568,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         int status = post.execute(client);
         String response = post.getResponseBodyAsString();
 
-        Log_OC.d(TAG, "performLoginV2 status: " + status);
-        Log_OC.d(TAG, "performLoginV2 response: " + response);
+        Log_OC.d(TAG, "performLoginFlowV2 status: " + status);
+        Log_OC.d(TAG, "performLoginFlowV2 response: " + response);
 
         if (!response.isEmpty()) {
-            isLoginProcessCompleted = true;
-            runOnUiThread(() -> completeLoginFlow(response));
+            runOnUiThread(() -> completeLoginFlow(response, status));
         }
     }
 
-    private void completeLoginFlow(String response) {
+    private void completeLoginFlow(String response, int status) {
         try {
             JSONObject jsonObject = new JSONObject(response);
 
@@ -1592,6 +1588,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             loginUrlInfo.serverAddress = server;
             loginUrlInfo.username = loginName;
             loginUrlInfo.password = appPassword;
+
+            isLoginProcessCompleted = (status == 200 && !server.isEmpty() && !loginName.isEmpty() && !appPassword.isEmpty());
 
             if (accountSetupBinding != null) {
                 accountSetupBinding.hostUrlInput.setText("");
