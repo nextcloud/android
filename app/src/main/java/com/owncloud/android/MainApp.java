@@ -28,6 +28,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.database.CursorWindow;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -85,6 +86,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import org.conscrypt.Conscrypt;
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
@@ -356,6 +358,19 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         backgroundJobManager.schedulePeriodicHealthStatus();
 
         registerGlobalPassCodeProtection();
+        increaseCursorSize();
+    }
+
+    @SuppressLint("DiscouragedPrivateApi")
+    private void increaseCursorSize() {
+        try {
+            //noinspection JavaReflectionMemberAccess
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 100 * 1024 * 1024);
+        } catch (Exception e) {
+            Log_OC.d(TAG,"Error caught at increaseCursorSize: " + e);
+        }
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
