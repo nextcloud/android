@@ -2232,10 +2232,14 @@ public class FileDisplayActivity extends FileActivity
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
     public void onMessageEvent(TokenPushEvent event) {
-        if (!preferences.isKeysReInitEnabled()) {
-            PushUtils.reinitKeys(getUserAccountManager());
-        } else {
-            PushUtils.pushRegistrationToServer(getUserAccountManager(), preferences.getPushToken());
+        try {
+            if (!preferences.isKeysReInitEnabled()) {
+                PushUtils.reinitKeys(getUserAccountManager());
+            } else {
+                PushUtils.pushRegistrationToServer(getUserAccountManager(), preferences.getPushToken());
+            }
+        } catch (Exception e) {
+            Log_OC.d(TAG,"Error caught at onMessageEvent: " + e);
         }
     }
 
