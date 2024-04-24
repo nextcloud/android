@@ -268,7 +268,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
         viewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
 
-        WebViewUtil webViewUtil = new WebViewUtil(this);
+        // WebViewUtil webViewUtil = new WebViewUtil(this);
 
         Uri data = getIntent().getData();
         boolean directLogin = data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme));
