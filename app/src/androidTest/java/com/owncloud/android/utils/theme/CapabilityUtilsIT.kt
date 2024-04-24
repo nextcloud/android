@@ -17,6 +17,8 @@ import org.junit.Test
 class CapabilityUtilsIT : AbstractIT() {
     @Test
     fun checkOutdatedWarning() {
+        assertFalse(test(NextcloudVersion.nextcloud_30))
+        assertFalse(test(NextcloudVersion.nextcloud_29))
         assertFalse(test(NextcloudVersion.nextcloud_28))
         assertFalse(test(NextcloudVersion.nextcloud_27))
 
