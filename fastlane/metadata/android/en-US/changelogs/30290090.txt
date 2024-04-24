@@ -1,0 +1,12 @@
+## 3.29.0 (April 24, 2024)
+
+- NC Assistant
+- Client certificates
+- Personal files view
+- REUSE compliance
+- Bugfixes
+
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/89
