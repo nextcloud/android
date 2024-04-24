@@ -355,6 +355,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private String baseUrl;
 
+    /**
+     * This function facilitates the login process by anonymously posting a login request to a specified URL.
+     * After posting the request, it retrieves the login URL for completing the login flow.
+     * The login flow version used is v2.
+     *
+     * @param url The URL where the login request is to be anonymously posted.
+     *            This URL should handle the login request and return the login URL.
+     *            It's typically the entry point for the login process.
+     *            Example: "https://example.com/index.php/login/v2"
+     */
     private void anonymouslyPostLoginRequest(String url) {
         baseUrl = url;
 
@@ -391,7 +401,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     /**
-     * @Deprecated It uses webview and login flow v1
+     * @Deprecated This function is deprecated. Please use the {@link #anonymouslyPostLoginRequest(String)} method instead, which utilizes the improved login flow v2.
      */
     @Deprecated
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
