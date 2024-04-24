@@ -341,7 +341,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         initServerPreFragment(savedInstanceState);
 
-        webViewUtil.checkWebViewVersion();
+        // webViewUtil.checkWebViewVersion();
     }
 
     private void deleteCookies() {
