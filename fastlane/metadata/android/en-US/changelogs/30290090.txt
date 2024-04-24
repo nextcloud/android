@@ -4,7 +4,7 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 #
 
-## 3.29.0 RC1 (April 17, 2024)
+## 3.29.0 (April 24, 2024)
 
 - NC Assistant
 - Client certificates
