@@ -172,6 +172,7 @@
     <string name="confirmation_remove_folder_alert">Ви справді бажаєте вилучити %1$s та його вміст?</string>
     <string name="confirmation_remove_folders_alert">Дійсно вилучити вибрані об\'єкти та їхній вміст?</string>
     <string name="confirmation_remove_local">Лише на пристрої</string>
+    <string name="conflict_dialog_error">Неможливо ініціювати діалог розв\'язання конфлікту</string>
     <string name="conflict_file_headline">Конфліктний файл %1$s</string>
     <string name="conflict_local_file">Файл на пристрої</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
@@ -261,7 +262,7 @@
     <string name="drawer_item_home">Старт</string>
     <string name="drawer_item_notifications">Сповіщення</string>
     <string name="drawer_item_on_device">На пристрої</string>
-    <string name="drawer_item_personal_files">Приватні файли</string>
+    <string name="drawer_item_personal_files">Мої документи</string>
     <string name="drawer_item_recently_modified">Нещодавно змінені</string>
     <string name="drawer_item_shared">Спільні</string>
     <string name="drawer_item_trashbin">Кошик</string>
