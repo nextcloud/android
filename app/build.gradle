@@ -195,6 +195,7 @@ android {
     packagingOptions {
         resources {
             excludes += 'META-INF/LICENSE*'
+            excludes += 'META-INF/versions/9/OSGI-INF/MANIFEST*'
             pickFirst 'MANIFEST.MF' // workaround for duplicated manifest on some dependencies
         }
     }
