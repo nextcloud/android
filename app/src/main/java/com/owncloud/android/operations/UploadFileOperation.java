@@ -657,6 +657,8 @@ public class UploadFileOperation extends SyncOperation {
                 object = getDecryptedFolderMetadataV1(publicKey, object);
             }
 
+            E2EClientData clientData = new E2EClientData(client, token, publicKey);
+
             List<String> fileNames = checkNameCollision(object);
 
             RemoteOperationResult collisionResult = checkNameCollision(client, fileNames, parentFile.isEncrypted());
@@ -731,7 +733,6 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             if (result.isSuccess()) {
-                E2EClientData clientData = new E2EClientData(client, token, publicKey);
                 updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
             }
         } catch (FileNotFoundException e) {
