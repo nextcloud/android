@@ -9,4 +9,9 @@ package com.owncloud.android.operations.e2e
 
 import com.owncloud.android.datamodel.e2e.v1.encrypted.EncryptedFile
 
-data class E2EData(val key: ByteArray, val iv: ByteArray, val encryptedFile: EncryptedFile)
+data class E2EData(
+    val key: ByteArray,
+    val iv: ByteArray,
+    val encryptedFile: EncryptedFile,
+    val encryptedFileName: String
+)

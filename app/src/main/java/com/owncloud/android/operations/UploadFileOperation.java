@@ -85,6 +85,7 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
+import java.security.spec.InvalidParameterSpecException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -547,7 +548,7 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private void updateMetadataForV1(DecryptedFolderMetadataFileV1 metadata, E2EData e2eData, E2EClientData clientData, String encryptedFileName,
+    private void updateMetadataForV1(DecryptedFolderMetadataFileV1 metadata, E2EData e2eData, E2EClientData clientData,
                                      OCFile parentFile, ArbitraryDataProvider arbitraryDataProvider, boolean metadataExists)
 
         throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException,
@@ -562,7 +563,7 @@ public class UploadFileOperation extends SyncOperation {
         decryptedFile.setInitializationVector(EncryptionUtils.encodeBytesToBase64String(e2eData.getIv()));
         decryptedFile.setAuthenticationTag(e2eData.getEncryptedFile().getAuthenticationTag());
 
-        metadata.getFiles().put(encryptedFileName, decryptedFile);
+        metadata.getFiles().put(e2eData.getEncryptedFileName(), decryptedFile);
 
         EncryptedFolderMetadataFileV1 encryptedFolderMetadata =
             EncryptionUtils.encryptFolderMetadata(metadata,
@@ -593,12 +594,11 @@ public class UploadFileOperation extends SyncOperation {
     }
 
 
-    private void updateMetadataForV2(Object object, EncryptionUtilsV2 encryptionUtilsV2, String encryptedFileName,
-                                     E2EData e2eData, E2EClientData clientData, OCFile parentFile) throws UploadException {
+    private void updateMetadataForV2(Object object, EncryptionUtilsV2 encryptionUtilsV2, E2EData e2eData, E2EClientData clientData, OCFile parentFile) throws UploadException {
 
         DecryptedFolderMetadataFile metadata = (DecryptedFolderMetadataFile) object;
         encryptionUtilsV2.addFileToMetadata(
-            encryptedFileName,
+            e2eData.getEncryptedFileName(),
             mFile,
             e2eData.getIv(),
             e2eData.getEncryptedFile().getAuthenticationTag(),
@@ -677,14 +677,8 @@ public class UploadFileOperation extends SyncOperation {
             long lastModifiedTimestamp = e2eFiles.getOriginalFile().lastModified() / 1000;
             Long creationTimestamp = FileUtil.getCreationTimestamp(e2eFiles.getOriginalFile());
 
-            byte[] key = EncryptionUtils.generateKey();
-            byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
-            Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
-            File file = new File(mFile.getStoragePath());
-            EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, cipher);
-            String encryptedFileName = getEncryptedFileName(object);
-
-            e2eFiles.setEncryptedTempFile(encryptedFile.getEncryptedFile());
+            E2EData e2eData = getE2EData(object);
+            e2eFiles.setEncryptedTempFile(e2eData.getEncryptedFile().getEncryptedFile());
 
             FileChannel channel = null;
             try {
@@ -718,7 +712,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             updateSize(size);
-            setUploadFileRemoteOperationForE2E(token, e2eFiles.getEncryptedTempFile(), encryptedFileName, lastModifiedTimestamp, creationTimestamp, size);
+            setUploadFileRemoteOperationForE2E(token, e2eFiles.getEncryptedTempFile(), e2eData.getEncryptedFileName(), lastModifiedTimestamp, creationTimestamp, size);
 
             for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
                 mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
@@ -737,9 +731,8 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             if (result.isSuccess()) {
-                E2EData e2eData = new E2EData(key, iv, encryptedFile);
                 E2EClientData clientData = new E2EClientData(client, token, publicKey);
-                updateMetadataForE2E(object, e2eData, clientData, e2eFiles, encryptedFileName, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
+                updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
             }
         } catch (FileNotFoundException e) {
             Log_OC.d(TAG, mFile.getStoragePath() + " not exists anymore");
@@ -758,25 +751,39 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
-    private void updateMetadataForE2E(Object object, E2EData e2eData, E2EClientData clientData, E2EFiles e2eFiles, String encryptedFileName, ArbitraryDataProvider arbitraryDataProvider, EncryptionUtilsV2 encryptionUtilsV2, boolean metadataExists)
+    private E2EData getE2EData(Object object) throws InvalidAlgorithmParameterException, NoSuchPaddingException, NoSuchAlgorithmException, InvalidKeyException, InvalidParameterSpecException, IOException {
+        byte[] key = EncryptionUtils.generateKey();
+        byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
+        Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
+        File file = new File(mFile.getStoragePath());
+        EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, cipher);
+        String encryptedFileName = getEncryptedFileName(object);
+
+        if (key == null) {
+            throw new NullPointerException("key cannot be null");
+        }
+
+        return new E2EData(key, iv, encryptedFile, encryptedFileName);
+    }
+
+    private void updateMetadataForE2E(Object object, E2EData e2eData, E2EClientData clientData, E2EFiles e2eFiles, ArbitraryDataProvider arbitraryDataProvider, EncryptionUtilsV2 encryptionUtilsV2, boolean metadataExists)
 
         throws InvalidAlgorithmParameterException, UploadException, NoSuchPaddingException, IllegalBlockSizeException, CertificateException,
         NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
 
         mFile.setDecryptedRemotePath(e2eFiles.getParentFile().getDecryptedRemotePath() + e2eFiles.getOriginalFile().getName());
-        mFile.setRemotePath(e2eFiles.getParentFile().getRemotePath() + encryptedFileName);
+        mFile.setRemotePath(e2eFiles.getParentFile().getRemotePath() + e2eData.getEncryptedFileName());
 
 
         if (object instanceof DecryptedFolderMetadataFileV1 metadata) {
             updateMetadataForV1(metadata,
                                 e2eData,
                                 clientData,
-                                encryptedFileName,
                                 e2eFiles.getParentFile(),
                                 arbitraryDataProvider,
                                 metadataExists);
         } else {
-            updateMetadataForV2(object, encryptionUtilsV2, encryptedFileName, e2eData, clientData, e2eFiles.getParentFile());
+            updateMetadataForV2(object, encryptionUtilsV2, e2eData, clientData, e2eFiles.getParentFile());
         }
     }
 
