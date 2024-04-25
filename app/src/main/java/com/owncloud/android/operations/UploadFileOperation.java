@@ -98,6 +98,7 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import androidx.annotation.CheckResult;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import kotlin.Triple;
@@ -622,8 +623,12 @@ public class UploadFileOperation extends SyncOperation {
         return encryptedFileName;
     }
 
-    private void setUploadFileRemoteOperationForE2E(String token, File encryptedTempFile, String encryptedFileName,
-                                                    long lastModifiedTimestamp, long creationTimestamp, long size) {
+    private void setUploadFileRemoteOperationForE2E(String token,
+                                                    File encryptedTempFile,
+                                                    String encryptedFileName,
+                                                    long lastModifiedTimestamp,
+                                                    long creationTimestamp,
+                                                    long size) {
 
         if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
             boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
@@ -654,15 +659,12 @@ public class UploadFileOperation extends SyncOperation {
     private Triple<FileLock, RemoteOperationResult, FileChannel> initFileChannel(RemoteOperationResult result, FileLock fileLock, E2EFiles e2eFiles) throws IOException {
         FileChannel channel = null;
 
-        try {
-            channel = getChannelFromFile(mFile.getStoragePath());
-
-            if (channel == null) {
-                throw new NullPointerException("channel cannot be null");
-            }
-
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(mFile.getStoragePath(), "rw")) {
+            channel = randomAccessFile.getChannel();
             fileLock = channel.tryLock();
-        } catch (IOException e) {
+        } catch (IOException ioException) {
+            Log_OC.d(TAG, "Error caught at getChannelFromFile: " + ioException);
+
             // this basically means that the file is on SD card
             // try to copy file to temporary dir if it doesn't exist
             String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
@@ -679,13 +681,12 @@ public class UploadFileOperation extends SyncOperation {
 
             if (result.isSuccess()) {
                 if (e2eFiles.getTemporalFile().length() == e2eFiles.getOriginalFile().length()) {
-                    channel = getChannelFromFile(e2eFiles.getTemporalFile().getAbsolutePath());
-
-                    if (channel == null) {
-                        throw new NullPointerException("channel cannot be null");
+                    try (RandomAccessFile randomAccessFile = new RandomAccessFile(e2eFiles.getTemporalFile().getAbsolutePath(), "rw")) {
+                        channel = randomAccessFile.getChannel();
+                        fileLock = channel.tryLock();
+                    } catch (IOException e) {
+                        Log_OC.d(TAG, "Error caught at getChannelFromFile: " + e);
                     }
-
-                    fileLock = channel.tryLock();
                 } else {
                     result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
                 }
@@ -693,15 +694,6 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return new Triple<>(fileLock, result, channel);
-    }
-
-    private FileChannel getChannelFromFile(String path) {
-        try (RandomAccessFile randomAccessFile = new RandomAccessFile(path, "rw")) {
-            return randomAccessFile.getChannel();
-        } catch (IOException e) {
-            Log_OC.d(TAG, "Error caught at getChannelFromFile: " + e);
-            return null;
-        }
     }
 
     private long initSize(FileChannel channel) {
