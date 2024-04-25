@@ -15,7 +15,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.util.Pair;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.BatteryStatus;
@@ -509,11 +508,17 @@ public class UploadFileOperation extends SyncOperation {
 
             long lastModifiedTimestamp = e2eFiles.getOriginalFile().lastModified() / 1000;
             Long creationTimestamp = FileUtil.getCreationTimestamp(e2eFiles.getOriginalFile());
+            if (creationTimestamp == null) {
+                throw new NullPointerException("creationTimestamp cannot be null");
+            }
 
             E2EData e2eData = getE2EData(object);
             e2eFiles.setEncryptedTempFile(e2eData.getEncryptedFile().getEncryptedFile());
+            if (e2eFiles.getEncryptedTempFile() == null) {
+                throw new NullPointerException("encryptedTempFile cannot be null");
+            }
 
-            Triple<FileLock, RemoteOperationResult, FileChannel> channelResult = initFileChannel(fileLock, e2eFiles);
+            Triple<FileLock, RemoteOperationResult, FileChannel> channelResult = initFileChannel(result, fileLock, e2eFiles);
             fileLock = channelResult.getFirst();
             result = channelResult.getSecond();
             FileChannel channel = channelResult.getThird();
@@ -522,7 +527,7 @@ public class UploadFileOperation extends SyncOperation {
             updateSize(size);
             setUploadFileRemoteOperationForE2E(token, e2eFiles.getEncryptedTempFile(), e2eData.getEncryptedFileName(), lastModifiedTimestamp, creationTimestamp, size);
 
-            result = performE2EUpload(clientData);
+            result = performE2EUpload(result, clientData);
 
             if (result.isSuccess()) {
                 updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
@@ -568,6 +573,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private DecryptedFolderMetadataFileV1 getDecryptedFolderMetadataV1(String publicKey, Object object)
         throws NoSuchPaddingException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+
         DecryptedFolderMetadataFileV1 metadata = new DecryptedFolderMetadataFileV1();
         metadata.setMetadata(new DecryptedMetadata());
         metadata.getMetadata().setVersion(1.2);
@@ -645,11 +651,16 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private Triple<FileLock, RemoteOperationResult, FileChannel> initFileChannel(FileLock fileLock, E2EFiles e2eFiles) throws IOException {
+    private Triple<FileLock, RemoteOperationResult, FileChannel> initFileChannel(RemoteOperationResult result, FileLock fileLock, E2EFiles e2eFiles) throws IOException {
         FileChannel channel = null;
-        RemoteOperationResult result = null;
+
         try {
-            channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
+            channel = getChannelFromFile(mFile.getStoragePath());
+
+            if (channel == null) {
+                throw new NullPointerException("channel cannot be null");
+            }
+
             fileLock = channel.tryLock();
         } catch (IOException e) {
             // this basically means that the file is on SD card
@@ -659,12 +670,21 @@ public class UploadFileOperation extends SyncOperation {
             mFile.setStoragePath(temporalPath);
             e2eFiles.setTemporalFile(new File(temporalPath));
 
+            if (e2eFiles.getTemporalFile() == null) {
+                throw new NullPointerException("Original file cannot be null");
+            }
+
             Files.deleteIfExists(Paths.get(temporalPath));
             result = copy(e2eFiles.getOriginalFile(), e2eFiles.getTemporalFile());
 
             if (result.isSuccess()) {
                 if (e2eFiles.getTemporalFile().length() == e2eFiles.getOriginalFile().length()) {
-                    channel = new RandomAccessFile(e2eFiles.getTemporalFile().getAbsolutePath(), "rw").getChannel();
+                    channel = getChannelFromFile(e2eFiles.getTemporalFile().getAbsolutePath());
+
+                    if (channel == null) {
+                        throw new NullPointerException("channel cannot be null");
+                    }
+
                     fileLock = channel.tryLock();
                 } else {
                     result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
@@ -675,6 +695,15 @@ public class UploadFileOperation extends SyncOperation {
         return new Triple<>(fileLock, result, channel);
     }
 
+    private FileChannel getChannelFromFile(String path) {
+        try (RandomAccessFile randomAccessFile = new RandomAccessFile(path, "rw")) {
+            return randomAccessFile.getChannel();
+        } catch (IOException e) {
+            Log_OC.d(TAG, "Error caught at getChannelFromFile: " + e);
+            return null;
+        }
+    }
+
     private long initSize(FileChannel channel) {
         try {
             return channel.size();
@@ -683,8 +712,7 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private RemoteOperationResult performE2EUpload(E2EClientData data) throws OperationCancelledException {
-        RemoteOperationResult result;
+    private RemoteOperationResult performE2EUpload( RemoteOperationResult result, E2EClientData data) throws OperationCancelledException {
         for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
             mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
         }
@@ -816,16 +844,10 @@ public class UploadFileOperation extends SyncOperation {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
 
-        if (e2eFiles.getTemporalFile() != null && e2eFiles.getTemporalFile().exists() && !e2eFiles.getTemporalFile().delete()) {
-            Log_OC.e(TAG, "Could not delete temporal file " + e2eFiles.getTemporalFile().getAbsolutePath());
-        }
+        e2eFiles.deleteTemporalFile();
     }
 
-    private RemoteOperationResult cleanupE2EUpload(
-        FileLock fileLock, E2EFiles e2eFiles,
-        RemoteOperationResult result, Object object, OwnCloudClient client,
-        String token) {
-
+    private RemoteOperationResult cleanupE2EUpload(FileLock fileLock, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
         mUploadStarted.set(false);
         sendRefreshFolderEventBroadcast();
 
@@ -837,9 +859,7 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
 
-        if (e2eFiles.getTemporalFile() != null && !e2eFiles.getOriginalFile().equals(e2eFiles.getTemporalFile())) {
-            e2eFiles.getTemporalFile().delete();
-        }
+        e2eFiles.deleteTemporalFileWithOriginalFileComparison();
 
         if (result == null) {
             result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
@@ -859,12 +879,7 @@ public class UploadFileOperation extends SyncOperation {
             result = unlockFolderResult;
         }
 
-        if (e2eFiles.getEncryptedTempFile() != null) {
-            boolean isTempEncryptedFileDeleted = e2eFiles.getEncryptedTempFile().delete();
-            Log_OC.e(TAG, "isTempEncryptedFileDeleted: " + isTempEncryptedFileDeleted);
-        } else {
-            Log_OC.e(TAG, "Encrypted temp file cannot be found");
-        }
+        e2eFiles.deleteEncryptedTempFile();
 
         return result;
     }
