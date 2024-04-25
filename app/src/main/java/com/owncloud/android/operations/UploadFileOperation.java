@@ -644,37 +644,16 @@ public class UploadFileOperation extends SyncOperation {
             E2EData e2eData = getE2EData(object);
             e2eFiles.setEncryptedTempFile(e2eData.getEncryptedFile().getEncryptedFile());
 
-
             Triple<FileLock, RemoteOperationResult, FileChannel> channelResult = initFileChannel(fileLock, e2eFiles);
             fileLock = channelResult.getFirst();
             result = channelResult.getSecond();
             FileChannel channel = channelResult.getThird();
 
-
-            try {
-                size = channel.size();
-            } catch (IOException e1) {
-                size = new File(mFile.getStoragePath()).length();
-            }
-
+            size = initSize(channel);
             updateSize(size);
             setUploadFileRemoteOperationForE2E(token, e2eFiles.getEncryptedTempFile(), e2eData.getEncryptedFileName(), lastModifiedTimestamp, creationTimestamp, size);
 
-            for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
-                mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
-            }
-
-            if (mCancellationRequested.get()) {
-                throw new OperationCancelledException();
-            }
-
-            result = mUploadOperation.execute(client);
-
-            /// move local temporal file or original file to its corresponding
-            // location in the Nextcloud local folder
-            if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
-                result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
-            }
+            result = performE2EUpload(clientData);
 
             if (result.isSuccess()) {
                 updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
@@ -692,6 +671,35 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         completeE2EUpload(result, e2eFiles, client);
+
+        return result;
+    }
+
+    private long initSize(FileChannel channel) {
+        try {
+            return channel.size();
+        } catch (IOException e1) {
+            return new File(mFile.getStoragePath()).length();
+        }
+    }
+
+    private RemoteOperationResult performE2EUpload(E2EClientData data) throws OperationCancelledException {
+        RemoteOperationResult result;
+        for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
+            mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
+        }
+
+        if (mCancellationRequested.get()) {
+            throw new OperationCancelledException();
+        }
+
+        result = mUploadOperation.execute(data.getClient());
+
+        /// move local temporal file or original file to its corresponding
+        // location in the Nextcloud local folder
+        if (!result.isSuccess() && result.getHttpCode() == HttpStatus.SC_PRECONDITION_FAILED) {
+            result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
+        }
 
         return result;
     }
