@@ -9,7 +9,6 @@ package com.owncloud.android.operations.e2e
 
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.operations.UploadFileOperation
 import java.io.File
 
 data class E2EFiles(

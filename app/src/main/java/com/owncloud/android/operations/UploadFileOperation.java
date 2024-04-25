@@ -755,8 +755,12 @@ public class UploadFileOperation extends SyncOperation {
                                 e2eFiles.getParentFile(),
                                 arbitraryDataProvider,
                                 metadataExists);
-        } else {
-            updateMetadataForV2(object, encryptionUtilsV2, e2eData, clientData, e2eFiles.getParentFile());
+        } else if (object instanceof DecryptedFolderMetadataFile metadata) {
+            updateMetadataForV2(metadata,
+                                encryptionUtilsV2,
+                                e2eData,
+                                clientData,
+                                e2eFiles.getParentFile());
         }
     }
 
@@ -806,9 +810,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
 
-    private void updateMetadataForV2(Object object, EncryptionUtilsV2 encryptionUtilsV2, E2EData e2eData, E2EClientData clientData, OCFile parentFile) throws UploadException {
-
-        DecryptedFolderMetadataFile metadata = (DecryptedFolderMetadataFile) object;
+    private void updateMetadataForV2(DecryptedFolderMetadataFile metadata, EncryptionUtilsV2 encryptionUtilsV2, E2EData e2eData, E2EClientData clientData, OCFile parentFile) throws UploadException {
         encryptionUtilsV2.addFileToMetadata(
             e2eData.getEncryptedFileName(),
             mFile,
