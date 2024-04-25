@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Pair;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.BatteryStatus;
@@ -515,7 +516,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private void setUploadFileRemoteOperationForE2E(String token, File encryptedTempFile, String encryptedFileName,
-                                                     long lastModifiedTimestamp, long creationTimestamp, long size) {
+                                                    long lastModifiedTimestamp, long creationTimestamp, long size) {
 
         if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
             boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
@@ -592,8 +593,8 @@ public class UploadFileOperation extends SyncOperation {
 
 
     private void updateMetadataForV2(Object object, EncryptionUtilsV2 encryptionUtilsV2, String encryptedFileName,
-                                  byte[] key, byte[] iv, EncryptedFile encryptedFile, OCFile parentFile, String token,
-                                  OwnCloudClient client) throws UploadException {
+                                     byte[] key, byte[] iv, EncryptedFile encryptedFile, OCFile parentFile, String token,
+                                     OwnCloudClient client) throws UploadException {
 
         DecryptedFolderMetadataFile metadata = (DecryptedFolderMetadataFile) object;
         encryptionUtilsV2.addFileToMetadata(
@@ -749,8 +750,8 @@ public class UploadFileOperation extends SyncOperation {
                                         arbitraryDataProvider, token, client,
                                         metadataExists);
                 } else {
-                    updateMetadataForV2(object,encryptionUtilsV2, encryptedFileName, key,
-                                        iv, encryptedFile, parentFile,token,client);
+                    updateMetadataForV2(object, encryptionUtilsV2, encryptedFileName, key,
+                                        iv, encryptedFile, parentFile, token, client);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -762,55 +763,70 @@ public class UploadFileOperation extends SyncOperation {
         } catch (Exception e) {
             result = new RemoteOperationResult(e);
         } finally {
-            mUploadStarted.set(false);
-            sendRefreshFolderEventBroadcast();
-
-            if (fileLock != null) {
-                try {
-                    fileLock.release();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Failed to unlock file with path " + mFile.getStoragePath());
-                }
-            }
-
-            if (temporalFile != null && !originalFile.equals(temporalFile)) {
-                temporalFile.delete();
-            }
-            if (result == null) {
-                result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
-            }
-
-            logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
-
-            // Unlock must be done otherwise folder stays locked and user can't upload any file
-            RemoteOperationResult<Void> unlockFolderResult;
-            if (object instanceof DecryptedFolderMetadataFileV1) {
-                unlockFolderResult = EncryptionUtils.unlockFolderV1(parentFile, client, token);
-            } else {
-                unlockFolderResult = EncryptionUtils.unlockFolder(parentFile, client, token);
-            }
-
-            if (unlockFolderResult != null && !unlockFolderResult.isSuccess()) {
-                result = unlockFolderResult;
-            }
-
-            if (encryptedTempFile != null) {
-                boolean isTempEncryptedFileDeleted = encryptedTempFile.delete();
-                Log_OC.e(TAG, "isTempEncryptedFileDeleted: " + isTempEncryptedFileDeleted);
-            } else {
-                Log_OC.e(TAG, "Encrypted temp file cannot be found");
-            }
+            result = cleanupE2EUpload(fileLock, temporalFile, originalFile, result, object, parentFile, client, token, encryptedTempFile);
         }
 
+        completeE2EUpload(result, temporalFile, expectedFile, originalFile, client);
+
+        return result;
+    }
+
+    private void completeE2EUpload(RemoteOperationResult result, File temporalFile, File expectedFile, File originalFile, OwnCloudClient client) {
         if (result.isSuccess()) {
             handleSuccessfulUpload(temporalFile, expectedFile, originalFile, client);
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
 
-        // delete temporal file
         if (temporalFile != null && temporalFile.exists() && !temporalFile.delete()) {
             Log_OC.e(TAG, "Could not delete temporal file " + temporalFile.getAbsolutePath());
+        }
+    }
+
+    private RemoteOperationResult cleanupE2EUpload(
+        FileLock fileLock, File temporalFile, File originalFile,
+        RemoteOperationResult result, Object object,
+        OCFile parentFile, OwnCloudClient client,
+        String token, File encryptedTempFile) {
+
+        mUploadStarted.set(false);
+        sendRefreshFolderEventBroadcast();
+
+        if (fileLock != null) {
+            try {
+                fileLock.release();
+            } catch (IOException e) {
+                Log_OC.e(TAG, "Failed to unlock file with path " + mFile.getStoragePath());
+            }
+        }
+
+        if (temporalFile != null && !originalFile.equals(temporalFile)) {
+            temporalFile.delete();
+        }
+
+        if (result == null) {
+            result = new RemoteOperationResult(ResultCode.UNKNOWN_ERROR);
+        }
+
+        logResult(result, mFile.getStoragePath(), mFile.getRemotePath());
+
+        // Unlock must be done otherwise folder stays locked and user can't upload any file
+        RemoteOperationResult<Void> unlockFolderResult;
+        if (object instanceof DecryptedFolderMetadataFileV1) {
+            unlockFolderResult = EncryptionUtils.unlockFolderV1(parentFile, client, token);
+        } else {
+            unlockFolderResult = EncryptionUtils.unlockFolder(parentFile, client, token);
+        }
+
+        if (unlockFolderResult != null && !unlockFolderResult.isSuccess()) {
+            result = unlockFolderResult;
+        }
+
+        if (encryptedTempFile != null) {
+            boolean isTempEncryptedFileDeleted = encryptedTempFile.delete();
+            Log_OC.e(TAG, "isTempEncryptedFileDeleted: " + isTempEncryptedFileDeleted);
+        } else {
+            Log_OC.e(TAG, "Encrypted temp file cannot be found");
         }
 
         return result;
