@@ -617,6 +617,36 @@ public class UploadFileOperation extends SyncOperation {
                                                      getStorageManager());
     }
 
+    private Pair<FileLock, RemoteOperationResult> initFileChannel(FileLock fileLock, E2EFiles e2eFiles) throws IOException {
+        FileChannel channel;
+        RemoteOperationResult result = null;
+        try {
+            channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
+            fileLock = channel.tryLock();
+        } catch (IOException e) {
+            // this basically means that the file is on SD card
+            // try to copy file to temporary dir if it doesn't exist
+            String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
+                mFile.getRemotePath();
+            mFile.setStoragePath(temporalPath);
+            e2eFiles.setTemporalFile(new File(temporalPath));
+
+            Files.deleteIfExists(Paths.get(temporalPath));
+            result = copy(e2eFiles.getOriginalFile(), e2eFiles.getTemporalFile());
+
+            if (result.isSuccess()) {
+                if (e2eFiles.getTemporalFile().length() == e2eFiles.getOriginalFile().length()) {
+                    channel = new RandomAccessFile(e2eFiles.getTemporalFile().getAbsolutePath(), "rw").getChannel();
+                    fileLock = channel.tryLock();
+                } else {
+                    result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+                }
+            }
+        }
+
+        return new Pair<>(fileLock, result);
+    }
+
     // TODO REFACTOR
     @SuppressLint("AndroidLintUseSparseArrays") // gson cannot handle sparse arrays easily, therefore use hashmap
     private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
@@ -682,30 +712,10 @@ public class UploadFileOperation extends SyncOperation {
             E2EData e2eData = getE2EData(object);
             e2eFiles.setEncryptedTempFile(e2eData.getEncryptedFile().getEncryptedFile());
 
-            FileChannel channel = null;
-            try {
-                channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
-                fileLock = channel.tryLock();
-            } catch (FileNotFoundException e) {
-                // this basically means that the file is on SD card
-                // try to copy file to temporary dir if it doesn't exist
-                String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) +
-                    mFile.getRemotePath();
-                mFile.setStoragePath(temporalPath);
-                e2eFiles.setTemporalFile(new File(temporalPath));
 
-                Files.deleteIfExists(Paths.get(temporalPath));
-                result = copy(e2eFiles.getOriginalFile(), e2eFiles.getTemporalFile());
-
-                if (result.isSuccess()) {
-                    if (e2eFiles.getTemporalFile().length() == e2eFiles.getOriginalFile().length()) {
-                        channel = new RandomAccessFile(e2eFiles.getTemporalFile().getAbsolutePath(), "rw").getChannel();
-                        fileLock = channel.tryLock();
-                    } else {
-                        result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
-                    }
-                }
-            }
+            Pair<FileLock, RemoteOperationResult> channelResult = initFileChannel(fileLock, e2eFiles);
+            FileChannel channel = channelResult.first.channel();
+            result = channelResult.second;
 
             try {
                 size = channel.size();
