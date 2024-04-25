@@ -101,6 +101,7 @@ import javax.crypto.NoSuchPaddingException;
 import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import kotlin.Triple;
 
 import static com.owncloud.android.ui.activity.FileDisplayActivity.REFRESH_FOLDER_EVENT_RECEIVER;
 
@@ -548,77 +549,8 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private void updateMetadataForV1(DecryptedFolderMetadataFileV1 metadata, E2EData e2eData, E2EClientData clientData,
-                                     OCFile parentFile, ArbitraryDataProvider arbitraryDataProvider, boolean metadataExists)
-
-        throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException,
-        CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, UploadException {
-
-        DecryptedFile decryptedFile = new DecryptedFile();
-        Data data = new Data();
-        data.setFilename(mFile.getDecryptedFileName());
-        data.setMimetype(mFile.getMimeType());
-        data.setKey(EncryptionUtils.encodeBytesToBase64String(e2eData.getKey()));
-        decryptedFile.setEncrypted(data);
-        decryptedFile.setInitializationVector(EncryptionUtils.encodeBytesToBase64String(e2eData.getIv()));
-        decryptedFile.setAuthenticationTag(e2eData.getEncryptedFile().getAuthenticationTag());
-
-        metadata.getFiles().put(e2eData.getEncryptedFileName(), decryptedFile);
-
-        EncryptedFolderMetadataFileV1 encryptedFolderMetadata =
-            EncryptionUtils.encryptFolderMetadata(metadata,
-                                                  clientData.getPublicKey(),
-                                                  parentFile.getLocalId(),
-                                                  user,
-                                                  arbitraryDataProvider
-                                                 );
-
-        String serializedFolderMetadata;
-
-        if (metadata.getMetadata().getMetadataKey() != null) {
-            serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata, true);
-        } else {
-            serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
-        }
-
-        // upload metadata
-        EncryptionUtils.uploadMetadata(parentFile,
-                                       serializedFolderMetadata,
-                                       clientData.getToken(),
-                                       clientData.getClient(),
-                                       metadataExists,
-                                       E2EVersion.V1_2,
-                                       "",
-                                       arbitraryDataProvider,
-                                       user);
-    }
-
-
-    private void updateMetadataForV2(Object object, EncryptionUtilsV2 encryptionUtilsV2, E2EData e2eData, E2EClientData clientData, OCFile parentFile) throws UploadException {
-
-        DecryptedFolderMetadataFile metadata = (DecryptedFolderMetadataFile) object;
-        encryptionUtilsV2.addFileToMetadata(
-            e2eData.getEncryptedFileName(),
-            mFile,
-            e2eData.getIv(),
-            e2eData.getEncryptedFile().getAuthenticationTag(),
-            e2eData.getKey(),
-            metadata,
-            getStorageManager());
-
-        // upload metadata
-        encryptionUtilsV2.serializeAndUploadMetadata(parentFile,
-                                                     metadata,
-                                                     clientData.getToken(),
-                                                     clientData.getClient(),
-                                                     true,
-                                                     mContext,
-                                                     user,
-                                                     getStorageManager());
-    }
-
-    private Pair<FileLock, RemoteOperationResult> initFileChannel(FileLock fileLock, E2EFiles e2eFiles) throws IOException {
-        FileChannel channel;
+    private Triple<FileLock, RemoteOperationResult, FileChannel> initFileChannel(FileLock fileLock, E2EFiles e2eFiles) throws IOException {
+        FileChannel channel = null;
         RemoteOperationResult result = null;
         try {
             channel = new RandomAccessFile(mFile.getStoragePath(), "rw").getChannel();
@@ -644,7 +576,7 @@ public class UploadFileOperation extends SyncOperation {
             }
         }
 
-        return new Pair<>(fileLock, result);
+        return new Triple<>(fileLock, result, channel);
     }
 
     // TODO REFACTOR
@@ -713,9 +645,11 @@ public class UploadFileOperation extends SyncOperation {
             e2eFiles.setEncryptedTempFile(e2eData.getEncryptedFile().getEncryptedFile());
 
 
-            Pair<FileLock, RemoteOperationResult> channelResult = initFileChannel(fileLock, e2eFiles);
-            FileChannel channel = channelResult.first.channel();
-            result = channelResult.second;
+            Triple<FileLock, RemoteOperationResult, FileChannel> channelResult = initFileChannel(fileLock, e2eFiles);
+            fileLock = channelResult.getFirst();
+            result = channelResult.getSecond();
+            FileChannel channel = channelResult.getThird();
+
 
             try {
                 size = channel.size();
@@ -796,6 +730,75 @@ public class UploadFileOperation extends SyncOperation {
         } else {
             updateMetadataForV2(object, encryptionUtilsV2, e2eData, clientData, e2eFiles.getParentFile());
         }
+    }
+
+    private void updateMetadataForV1(DecryptedFolderMetadataFileV1 metadata, E2EData e2eData, E2EClientData clientData,
+                                     OCFile parentFile, ArbitraryDataProvider arbitraryDataProvider, boolean metadataExists)
+
+        throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException,
+        CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, UploadException {
+
+        DecryptedFile decryptedFile = new DecryptedFile();
+        Data data = new Data();
+        data.setFilename(mFile.getDecryptedFileName());
+        data.setMimetype(mFile.getMimeType());
+        data.setKey(EncryptionUtils.encodeBytesToBase64String(e2eData.getKey()));
+        decryptedFile.setEncrypted(data);
+        decryptedFile.setInitializationVector(EncryptionUtils.encodeBytesToBase64String(e2eData.getIv()));
+        decryptedFile.setAuthenticationTag(e2eData.getEncryptedFile().getAuthenticationTag());
+
+        metadata.getFiles().put(e2eData.getEncryptedFileName(), decryptedFile);
+
+        EncryptedFolderMetadataFileV1 encryptedFolderMetadata =
+            EncryptionUtils.encryptFolderMetadata(metadata,
+                                                  clientData.getPublicKey(),
+                                                  parentFile.getLocalId(),
+                                                  user,
+                                                  arbitraryDataProvider
+                                                 );
+
+        String serializedFolderMetadata;
+
+        if (metadata.getMetadata().getMetadataKey() != null) {
+            serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata, true);
+        } else {
+            serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+        }
+
+        // upload metadata
+        EncryptionUtils.uploadMetadata(parentFile,
+                                       serializedFolderMetadata,
+                                       clientData.getToken(),
+                                       clientData.getClient(),
+                                       metadataExists,
+                                       E2EVersion.V1_2,
+                                       "",
+                                       arbitraryDataProvider,
+                                       user);
+    }
+
+
+    private void updateMetadataForV2(Object object, EncryptionUtilsV2 encryptionUtilsV2, E2EData e2eData, E2EClientData clientData, OCFile parentFile) throws UploadException {
+
+        DecryptedFolderMetadataFile metadata = (DecryptedFolderMetadataFile) object;
+        encryptionUtilsV2.addFileToMetadata(
+            e2eData.getEncryptedFileName(),
+            mFile,
+            e2eData.getIv(),
+            e2eData.getEncryptedFile().getAuthenticationTag(),
+            e2eData.getKey(),
+            metadata,
+            getStorageManager());
+
+        // upload metadata
+        encryptionUtilsV2.serializeAndUploadMetadata(parentFile,
+                                                     metadata,
+                                                     clientData.getToken(),
+                                                     clientData.getClient(),
+                                                     true,
+                                                     mContext,
+                                                     user,
+                                                     getStorageManager());
     }
 
     private void completeE2EUpload(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {
