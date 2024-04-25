@@ -77,6 +77,7 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
+import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -513,6 +514,108 @@ public class UploadFileOperation extends SyncOperation {
         return encryptedFileName;
     }
 
+    private void setUploadFileRemoteOperationForE2E(String token, File encryptedTempFile, String encryptedFileName,
+                                                     long lastModifiedTimestamp, long creationTimestamp, long size) {
+
+        if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
+            boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
+
+            mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
+                                                                    mFile.getParentRemotePath() + encryptedFileName,
+                                                                    mFile.getMimeType(),
+                                                                    mFile.getEtagInConflict(),
+                                                                    lastModifiedTimestamp,
+                                                                    onWifiConnection,
+                                                                    token,
+                                                                    creationTimestamp,
+                                                                    mDisableRetries
+            );
+        } else {
+            mUploadOperation = new UploadFileRemoteOperation(encryptedTempFile.getAbsolutePath(),
+                                                             mFile.getParentRemotePath() + encryptedFileName,
+                                                             mFile.getMimeType(),
+                                                             mFile.getEtagInConflict(),
+                                                             lastModifiedTimestamp,
+                                                             creationTimestamp,
+                                                             token,
+                                                             mDisableRetries
+            );
+        }
+    }
+
+    private void updateMetadataForV1(DecryptedFolderMetadataFileV1 metadata, byte[] key, byte[] iv,
+                                     EncryptedFile encryptedFile, String encryptedFileName, String publicKey,
+                                     OCFile parentFile, ArbitraryDataProvider arbitraryDataProvider,
+                                     String token, OwnCloudClient client, boolean metadataExists)
+        throws InvalidAlgorithmParameterException, NoSuchPaddingException, IllegalBlockSizeException,
+        CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException,
+        UploadException {
+
+        DecryptedFile decryptedFile = new DecryptedFile();
+        Data data = new Data();
+        data.setFilename(mFile.getDecryptedFileName());
+        data.setMimetype(mFile.getMimeType());
+        data.setKey(EncryptionUtils.encodeBytesToBase64String(key));
+        decryptedFile.setEncrypted(data);
+        decryptedFile.setInitializationVector(EncryptionUtils.encodeBytesToBase64String(iv));
+        decryptedFile.setAuthenticationTag(encryptedFile.getAuthenticationTag());
+
+        metadata.getFiles().put(encryptedFileName, decryptedFile);
+
+        EncryptedFolderMetadataFileV1 encryptedFolderMetadata =
+            EncryptionUtils.encryptFolderMetadata(metadata,
+                                                  publicKey,
+                                                  parentFile.getLocalId(),
+                                                  user,
+                                                  arbitraryDataProvider
+                                                 );
+
+        String serializedFolderMetadata;
+
+        if (metadata.getMetadata().getMetadataKey() != null) {
+            serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata, true);
+        } else {
+            serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
+        }
+
+        // upload metadata
+        EncryptionUtils.uploadMetadata(parentFile,
+                                       serializedFolderMetadata,
+                                       token,
+                                       client,
+                                       metadataExists,
+                                       E2EVersion.V1_2,
+                                       "",
+                                       arbitraryDataProvider,
+                                       user);
+    }
+
+
+    private void updateMetadataForV2(Object object, EncryptionUtilsV2 encryptionUtilsV2, String encryptedFileName,
+                                  byte[] key, byte[] iv, EncryptedFile encryptedFile, OCFile parentFile, String token,
+                                  OwnCloudClient client) throws UploadException {
+
+        DecryptedFolderMetadataFile metadata = (DecryptedFolderMetadataFile) object;
+        encryptionUtilsV2.addFileToMetadata(
+            encryptedFileName,
+            mFile,
+            iv,
+            encryptedFile.getAuthenticationTag(),
+            key,
+            metadata,
+            getStorageManager());
+
+        // upload metadata
+        encryptionUtilsV2.serializeAndUploadMetadata(parentFile,
+                                                     metadata,
+                                                     token,
+                                                     client,
+                                                     true,
+                                                     mContext,
+                                                     user,
+                                                     getStorageManager());
+    }
+
     // TODO REFACTOR
     @SuppressLint("AndroidLintUseSparseArrays") // gson cannot handle sparse arrays easily, therefore use hashmap
     private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
@@ -539,7 +642,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             long counter = getE2ECounter(parentFile);
-            token = getToken(client, parentFile,counter);
+            token = getToken(client, parentFile, counter);
 
             // Update metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
@@ -553,7 +656,7 @@ public class UploadFileOperation extends SyncOperation {
                     return new RemoteOperationResult(new IllegalStateException("Metadata does not exist"));
                 }
             } else {
-                object = getDecryptedFolderMetadataV1(publicKey,object);
+                object = getDecryptedFolderMetadataV1(publicKey, object);
             }
 
             List<String> fileNames = checkNameCollision(object);
@@ -617,32 +720,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             updateSize(size);
-
-            /// perform the upload
-            if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
-                boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
-
-                mUploadOperation = new ChunkedFileUploadRemoteOperation(encryptedTempFile.getAbsolutePath(),
-                                                                        mFile.getParentRemotePath() + encryptedFileName,
-                                                                        mFile.getMimeType(),
-                                                                        mFile.getEtagInConflict(),
-                                                                        lastModifiedTimestamp,
-                                                                        onWifiConnection,
-                                                                        token,
-                                                                        creationTimestamp,
-                                                                        mDisableRetries
-                );
-            } else {
-                mUploadOperation = new UploadFileRemoteOperation(encryptedTempFile.getAbsolutePath(),
-                                                                 mFile.getParentRemotePath() + encryptedFileName,
-                                                                 mFile.getMimeType(),
-                                                                 mFile.getEtagInConflict(),
-                                                                 lastModifiedTimestamp,
-                                                                 creationTimestamp,
-                                                                 token,
-                                                                 mDisableRetries
-                );
-            }
+            setUploadFileRemoteOperationForE2E(token, encryptedTempFile, encryptedFileName, lastModifiedTimestamp, creationTimestamp, size);
 
             for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
                 mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
@@ -666,65 +744,13 @@ public class UploadFileOperation extends SyncOperation {
 
 
                 if (object instanceof DecryptedFolderMetadataFileV1 metadata) {
-                    // update metadata
-                    DecryptedFile decryptedFile = new DecryptedFile();
-                    Data data = new Data();
-                    data.setFilename(mFile.getDecryptedFileName());
-                    data.setMimetype(mFile.getMimeType());
-                    data.setKey(EncryptionUtils.encodeBytesToBase64String(key));
-                    decryptedFile.setEncrypted(data);
-                    decryptedFile.setInitializationVector(EncryptionUtils.encodeBytesToBase64String(iv));
-                    decryptedFile.setAuthenticationTag(encryptedFile.getAuthenticationTag());
-
-                    metadata.getFiles().put(encryptedFileName, decryptedFile);
-
-                    EncryptedFolderMetadataFileV1 encryptedFolderMetadata =
-                        EncryptionUtils.encryptFolderMetadata(metadata,
-                                                              publicKey,
-                                                              parentFile.getLocalId(),
-                                                              user,
-                                                              arbitraryDataProvider
-                                                             );
-
-                    String serializedFolderMetadata;
-
-                    // check if we need metadataKeys
-                    if (metadata.getMetadata().getMetadataKey() != null) {
-                        serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata, true);
-                    } else {
-                        serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata);
-                    }
-
-                    // upload metadata
-                    EncryptionUtils.uploadMetadata(parentFile,
-                                                   serializedFolderMetadata,
-                                                   token,
-                                                   client,
-                                                   metadataExists,
-                                                   E2EVersion.V1_2,
-                                                   "",
-                                                   arbitraryDataProvider,
-                                                   user);
+                    updateMetadataForV1(metadata, key, iv, encryptedFile,
+                                        encryptedFileName, publicKey, parentFile,
+                                        arbitraryDataProvider, token, client,
+                                        metadataExists);
                 } else {
-                    DecryptedFolderMetadataFile metadata = (DecryptedFolderMetadataFile) object;
-                    encryptionUtilsV2.addFileToMetadata(
-                        encryptedFileName,
-                        mFile,
-                        iv,
-                        encryptedFile.getAuthenticationTag(),
-                        key,
-                        metadata,
-                        getStorageManager());
-
-                    // upload metadata
-                    encryptionUtilsV2.serializeAndUploadMetadata(parentFile,
-                                                                 metadata,
-                                                                 token,
-                                                                 client,
-                                                                 true,
-                                                                 mContext,
-                                                                 user,
-                                                                 getStorageManager());
+                    updateMetadataForV2(object,encryptionUtilsV2, encryptedFileName, key,
+                                        iv, encryptedFile, parentFile,token,client);
                 }
             }
         } catch (FileNotFoundException e) {
