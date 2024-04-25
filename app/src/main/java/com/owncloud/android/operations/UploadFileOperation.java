@@ -448,6 +448,102 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
+    // region E2E Upload
+    @SuppressLint("AndroidLintUseSparseArrays") // gson cannot handle sparse arrays easily, therefore use hashmap
+    private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
+        RemoteOperationResult result = null;
+        E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
+        FileLock fileLock = null;
+        long size;
+
+        boolean metadataExists = false;
+        String token = null;
+        Object object = null;
+
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(getContext());
+        String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
+
+        try {
+            result = checkConditions(e2eFiles.getOriginalFile());
+
+            if (result != null) {
+                return result;
+            }
+
+            long counter = getE2ECounter(parentFile);
+            token = getToken(client, parentFile, counter);
+
+            // Update metadata
+            EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
+            object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
+            if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
+                metadataExists = true;
+            }
+
+            if (CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
+                if (object == null) {
+                    return new RemoteOperationResult(new IllegalStateException("Metadata does not exist"));
+                }
+            } else {
+                object = getDecryptedFolderMetadataV1(publicKey, object);
+            }
+
+            E2EClientData clientData = new E2EClientData(client, token, publicKey);
+
+            List<String> fileNames = checkNameCollision(object);
+
+            RemoteOperationResult collisionResult = checkNameCollision(client, fileNames, parentFile.isEncrypted());
+            if (collisionResult != null) {
+                result = collisionResult;
+                return collisionResult;
+            }
+
+            mFile.setDecryptedRemotePath(parentFile.getDecryptedRemotePath() + e2eFiles.getOriginalFile().getName());
+            String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
+            e2eFiles.setExpectedFile(new File(expectedPath));
+
+            result = copyFile(e2eFiles.getOriginalFile(), expectedPath);
+            if (!result.isSuccess()) {
+                return result;
+            }
+
+            long lastModifiedTimestamp = e2eFiles.getOriginalFile().lastModified() / 1000;
+            Long creationTimestamp = FileUtil.getCreationTimestamp(e2eFiles.getOriginalFile());
+
+            E2EData e2eData = getE2EData(object);
+            e2eFiles.setEncryptedTempFile(e2eData.getEncryptedFile().getEncryptedFile());
+
+            Triple<FileLock, RemoteOperationResult, FileChannel> channelResult = initFileChannel(fileLock, e2eFiles);
+            fileLock = channelResult.getFirst();
+            result = channelResult.getSecond();
+            FileChannel channel = channelResult.getThird();
+
+            size = initSize(channel);
+            updateSize(size);
+            setUploadFileRemoteOperationForE2E(token, e2eFiles.getEncryptedTempFile(), e2eData.getEncryptedFileName(), lastModifiedTimestamp, creationTimestamp, size);
+
+            result = performE2EUpload(clientData);
+
+            if (result.isSuccess()) {
+                updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
+            }
+        } catch (FileNotFoundException e) {
+            Log_OC.d(TAG, mFile.getStoragePath() + " not exists anymore");
+            result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+        } catch (OverlappingFileLockException e) {
+            Log_OC.d(TAG, "Overlapping file lock exception");
+            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
+        } catch (Exception e) {
+            result = new RemoteOperationResult(e);
+        } finally {
+            result = cleanupE2EUpload(fileLock, e2eFiles, result, object, client, token);
+        }
+
+        completeE2EUpload(result, e2eFiles, client);
+
+        return result;
+    }
+
     private String getToken(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {
         String token;
         if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
@@ -577,102 +673,6 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return new Triple<>(fileLock, result, channel);
-    }
-
-    // TODO REFACTOR
-    @SuppressLint("AndroidLintUseSparseArrays") // gson cannot handle sparse arrays easily, therefore use hashmap
-    private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
-        RemoteOperationResult result = null;
-        E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
-        FileLock fileLock = null;
-        long size;
-
-        boolean metadataExists = false;
-        String token = null;
-        Object object = null;
-
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(getContext());
-        String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
-
-        try {
-            result = checkConditions(e2eFiles.getOriginalFile());
-
-            if (result != null) {
-                return result;
-            }
-
-            long counter = getE2ECounter(parentFile);
-            token = getToken(client, parentFile, counter);
-
-            // Update metadata
-            EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
-            object = EncryptionUtils.downloadFolderMetadata(parentFile, client, mContext, user);
-            if (object instanceof DecryptedFolderMetadataFileV1 decrypted && decrypted.getMetadata() != null) {
-                metadataExists = true;
-            }
-
-            if (CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
-                if (object == null) {
-                    return new RemoteOperationResult(new IllegalStateException("Metadata does not exist"));
-                }
-            } else {
-                object = getDecryptedFolderMetadataV1(publicKey, object);
-            }
-
-            E2EClientData clientData = new E2EClientData(client, token, publicKey);
-
-            List<String> fileNames = checkNameCollision(object);
-
-            RemoteOperationResult collisionResult = checkNameCollision(client, fileNames, parentFile.isEncrypted());
-            if (collisionResult != null) {
-                result = collisionResult;
-                return collisionResult;
-            }
-
-            mFile.setDecryptedRemotePath(parentFile.getDecryptedRemotePath() + e2eFiles.getOriginalFile().getName());
-            String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
-            e2eFiles.setExpectedFile(new File(expectedPath));
-
-            result = copyFile(e2eFiles.getOriginalFile(), expectedPath);
-            if (!result.isSuccess()) {
-                return result;
-            }
-
-            long lastModifiedTimestamp = e2eFiles.getOriginalFile().lastModified() / 1000;
-            Long creationTimestamp = FileUtil.getCreationTimestamp(e2eFiles.getOriginalFile());
-
-            E2EData e2eData = getE2EData(object);
-            e2eFiles.setEncryptedTempFile(e2eData.getEncryptedFile().getEncryptedFile());
-
-            Triple<FileLock, RemoteOperationResult, FileChannel> channelResult = initFileChannel(fileLock, e2eFiles);
-            fileLock = channelResult.getFirst();
-            result = channelResult.getSecond();
-            FileChannel channel = channelResult.getThird();
-
-            size = initSize(channel);
-            updateSize(size);
-            setUploadFileRemoteOperationForE2E(token, e2eFiles.getEncryptedTempFile(), e2eData.getEncryptedFileName(), lastModifiedTimestamp, creationTimestamp, size);
-
-            result = performE2EUpload(clientData);
-
-            if (result.isSuccess()) {
-                updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
-            }
-        } catch (FileNotFoundException e) {
-            Log_OC.d(TAG, mFile.getStoragePath() + " not exists anymore");
-            result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
-        } catch (OverlappingFileLockException e) {
-            Log_OC.d(TAG, "Overlapping file lock exception");
-            result = new RemoteOperationResult(ResultCode.LOCK_FAILED);
-        } catch (Exception e) {
-            result = new RemoteOperationResult(e);
-        } finally {
-            result = cleanupE2EUpload(fileLock, e2eFiles, result, object, client, token);
-        }
-
-        completeE2EUpload(result, e2eFiles, client);
-
-        return result;
     }
 
     private long initSize(FileChannel channel) {
@@ -868,6 +868,7 @@ public class UploadFileOperation extends SyncOperation {
 
         return result;
     }
+    // endregion
 
     private void sendRefreshFolderEventBroadcast() {
         Intent intent = new Intent(REFRESH_FOLDER_EVENT_RECEIVER);
