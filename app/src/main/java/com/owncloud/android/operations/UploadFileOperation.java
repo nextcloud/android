@@ -77,6 +77,9 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileChannel;
 import java.nio.channels.FileLock;
 import java.nio.channels.OverlappingFileLockException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -84,7 +87,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 import androidx.annotation.CheckResult;
 import androidx.annotation.Nullable;
@@ -435,6 +441,78 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
+    private String getToken(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {
+        String token;
+        if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
+            token = mFolderUnlockToken;
+        } else {
+            token = EncryptionUtils.lockFolder(parentFile, client, counter);
+            mUpload.setFolderUnlockToken(token);
+            uploadsStorageManager.updateUpload(mUpload);
+        }
+
+        return token;
+    }
+
+    private long getE2ECounter(OCFile parentFile) {
+        long counter = -1;
+        if (CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
+            counter = parentFile.getE2eCounter() + 1;
+        }
+
+        return counter;
+    }
+
+    private DecryptedFolderMetadataFileV1 getDecryptedFolderMetadataV1(String publicKey, Object object)
+        throws NoSuchPaddingException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
+        DecryptedFolderMetadataFileV1 metadata = new DecryptedFolderMetadataFileV1();
+        metadata.setMetadata(new DecryptedMetadata());
+        metadata.getMetadata().setVersion(1.2);
+        metadata.getMetadata().setMetadataKeys(new HashMap<>());
+        String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
+        String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
+        metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
+
+        if (object instanceof DecryptedFolderMetadataFileV1) {
+            metadata = (DecryptedFolderMetadataFileV1) object;
+        }
+
+        return metadata;
+    }
+
+    private List<String> checkNameCollision(Object object) {
+        List<String> fileNames = new ArrayList<>();
+
+        if (object instanceof DecryptedFolderMetadataFileV1 metadata) {
+            for (DecryptedFile file : metadata.getFiles().values()) {
+                fileNames.add(file.getEncrypted().getFilename());
+            }
+        } else {
+            for (com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile file :
+                ((DecryptedFolderMetadataFile) object).getMetadata().getFiles().values()) {
+                fileNames.add(file.getFilename());
+            }
+        }
+
+        return fileNames;
+    }
+
+    private String getEncryptedFileName(Object object) {
+        String encryptedFileName = EncryptionUtils.generateUid();
+
+        if (object instanceof DecryptedFolderMetadataFileV1 metadata) {
+            while (metadata.getFiles().get(encryptedFileName) != null) {
+                encryptedFileName = EncryptionUtils.generateUid();
+            }
+        } else {
+            while (((DecryptedFolderMetadataFile) object).getMetadata().getFiles().get(encryptedFileName) != null) {
+                encryptedFileName = EncryptionUtils.generateUid();
+            }
+        }
+
+        return encryptedFileName;
+    }
+
     // TODO REFACTOR
     @SuppressLint("AndroidLintUseSparseArrays") // gson cannot handle sparse arrays easily, therefore use hashmap
     private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
@@ -454,29 +532,14 @@ public class UploadFileOperation extends SyncOperation {
         String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
 
         try {
-            // check conditions
             result = checkConditions(originalFile);
 
             if (result != null) {
                 return result;
             }
 
-            /***** E2E *****/
-            // Only on V2+: whenever we change something, increase counter
-            long counter = -1;
-            if (CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
-                counter = parentFile.getE2eCounter() + 1;
-            }
-
-            // we might have an old token from interrupted upload
-            if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
-                token = mFolderUnlockToken;
-            } else {
-                token = EncryptionUtils.lockFolder(parentFile, client, counter);
-                // immediately store it
-                mUpload.setFolderUnlockToken(token);
-                uploadsStorageManager.updateUpload(mUpload);
-            }
+            long counter = getE2ECounter(parentFile);
+            token = getToken(client, parentFile,counter);
 
             // Update metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
@@ -487,46 +550,13 @@ public class UploadFileOperation extends SyncOperation {
 
             if (CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
                 if (object == null) {
-                    // TODO return error
                     return new RemoteOperationResult(new IllegalStateException("Metadata does not exist"));
                 }
             } else {
-                // v1 is allowed to be null, thus create it
-                DecryptedFolderMetadataFileV1 metadata = new DecryptedFolderMetadataFileV1();
-                metadata.setMetadata(new DecryptedMetadata());
-                metadata.getMetadata().setVersion(1.2);
-                metadata.getMetadata().setMetadataKeys(new HashMap<>());
-                String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
-                String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
-                metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
-
-                if (object instanceof DecryptedFolderMetadataFileV1) {
-                    metadata = (DecryptedFolderMetadataFileV1) object;
-                }
-
-                object = metadata;
+                object = getDecryptedFolderMetadataV1(publicKey,object);
             }
 
-            // todo fail if no metadata
-
-//            metadataExists = metadataPair.getFirst();
-//            DecryptedFolderMetadataFile metadata = metadataPair.getSecond();
-
-            // TODO E2E: check counter: must be less than our counter, check rest: signature, etc
-            /**** E2E *****/
-
-            // check name collision
-            List<String> fileNames = new ArrayList<>();
-            if (object instanceof DecryptedFolderMetadataFileV1 metadata) {
-                for (DecryptedFile file : metadata.getFiles().values()) {
-                    fileNames.add(file.getEncrypted().getFilename());
-                }
-            } else {
-                for (com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile file :
-                    ((DecryptedFolderMetadataFile) object).getMetadata().getFiles().values()) {
-                    fileNames.add(file.getFilename());
-                }
-            }
+            List<String> fileNames = checkNameCollision(object);
 
             RemoteOperationResult collisionResult = checkNameCollision(client, fileNames, parentFile.isEncrypted());
             if (collisionResult != null) {
@@ -543,30 +573,15 @@ public class UploadFileOperation extends SyncOperation {
                 return result;
             }
 
-            // Get the last modification date of the file from the file system
             long lastModifiedTimestamp = originalFile.lastModified() / 1000;
-
             Long creationTimestamp = FileUtil.getCreationTimestamp(originalFile);
 
-            /***** E2E *****/
             byte[] key = EncryptionUtils.generateKey();
             byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
             Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
             File file = new File(mFile.getStoragePath());
             EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, cipher);
-
-            // new random file name, check if it exists in metadata
-            String encryptedFileName = EncryptionUtils.generateUid();
-
-            if (object instanceof DecryptedFolderMetadataFileV1 metadata) {
-                while (metadata.getFiles().get(encryptedFileName) != null) {
-                    encryptedFileName = EncryptionUtils.generateUid();
-                }
-            } else {
-                while (((DecryptedFolderMetadataFile) object).getMetadata().getFiles().get(encryptedFileName) != null) {
-                    encryptedFileName = EncryptionUtils.generateUid();
-                }
-            }
+            String encryptedFileName = getEncryptedFileName(object);
 
             encryptedTempFile = encryptedFile.getEncryptedFile();
 
