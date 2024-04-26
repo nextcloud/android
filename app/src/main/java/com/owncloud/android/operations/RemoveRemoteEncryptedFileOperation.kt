@@ -59,12 +59,15 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             token = EncryptionUtils.lockFolder(parentFolder, client)
 
             return if (isE2EVersionAtLeast2) {
-                val (first, second) = deleteForV2(client, token)
-                result = first
-                delete = second
+                val deleteResult = deleteForV2(client, token)
+                result = deleteResult.first
+                delete = deleteResult.second
                 result
             } else {
-                deleteForV1(client, token)
+                val deleteResult = deleteForV1(client, token)
+                result = deleteResult.first
+                delete = deleteResult.second
+                result
             }
         } catch (e: Exception) {
             result = RemoteOperationResult(e)
@@ -122,10 +125,10 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         return metadata
     }
 
-    private fun deleteForV1(client: OwnCloudClient, token: String?): RemoteOperationResult<Void> {
+    private fun deleteForV1(client: OwnCloudClient, token: String?): Pair<RemoteOperationResult<Void>, DeleteMethod> {
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val metadata = getMetadataV1(arbitraryDataProvider)
-        val (first) = deleteRemoteFile(client, token)
+        val (result, delete) = deleteRemoteFile(client, token)
 
         val serializedMetadata: String = if (metadata.metadata.getMetadataKey() != null) {
             EncryptionUtils.serializeJSON(metadata, true)
@@ -144,7 +147,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
             user
         )
 
-        return first
+        return Pair(result, delete)
     }
 
     private fun deleteForV2(client: OwnCloudClient, token: String?): Pair<RemoteOperationResult<Void>, DeleteMethod> {
