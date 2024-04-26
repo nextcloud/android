@@ -29,9 +29,7 @@ import org.apache.jackrabbit.webdav.client.methods.DeleteMethod
 
 /**
  * Remote operation performing the removal of a remote encrypted file or folder
- */
-
-/**
+ *
  * Constructor
  *
  * @param remotePath   RemotePath of the remote file or folder to remove from the server
@@ -124,6 +122,31 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         return metadata
     }
 
+    private fun deleteForV1(client: OwnCloudClient, token: String?): RemoteOperationResult<Void> {
+        val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
+        val metadata = getMetadataV1(arbitraryDataProvider)
+        val (first) = deleteRemoteFile(client, token)
+
+        val serializedMetadata: String = if (metadata.metadata.getMetadataKey() != null) {
+            EncryptionUtils.serializeJSON(metadata, true)
+        } else {
+            EncryptionUtils.serializeJSON(metadata)
+        }
+
+        EncryptionUtils.uploadMetadata(
+            parentFolder,
+            serializedMetadata,
+            token,
+            client,
+            true, E2EVersion.V1_2,
+            "",
+            arbitraryDataProvider,
+            user
+        )
+
+        return first
+    }
+
     private fun deleteForV2(client: OwnCloudClient, token: String?): Pair<RemoteOperationResult<Void>, DeleteMethod> {
         val encryptionUtilsV2 = EncryptionUtilsV2()
 
@@ -154,31 +177,6 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         )
 
         return Pair(result, delete)
-    }
-
-    private fun deleteForV1(client: OwnCloudClient, token: String?): RemoteOperationResult<Void> {
-        val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
-        val metadata = getMetadataV1(arbitraryDataProvider)
-        val (first) = deleteRemoteFile(client, token)
-
-        val serializedMetadata: String = if (metadata.metadata.getMetadataKey() != null) {
-            EncryptionUtils.serializeJSON(metadata, true)
-        } else {
-            EncryptionUtils.serializeJSON(metadata)
-        }
-
-        EncryptionUtils.uploadMetadata(
-            parentFolder,
-            serializedMetadata,
-            token,
-            client,
-            true, E2EVersion.V1_2,
-            "",
-            arbitraryDataProvider,
-            user
-        )
-
-        return first
     }
 
     companion object {
