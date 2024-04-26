@@ -169,6 +169,10 @@ public final class EncryptionUtils {
         }
     }
 
+    public static void removeFileFromMetadata(String fileName, DecryptedFolderMetadataFileV1 metadata) {
+        metadata.getFiles().remove(fileName);
+    }
+
     public static String serializeJSON(Object data) {
         return serializeJSON(data, false);
     }

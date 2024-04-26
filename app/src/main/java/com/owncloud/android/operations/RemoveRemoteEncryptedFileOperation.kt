@@ -36,6 +36,7 @@ import org.apache.jackrabbit.webdav.client.methods.DeleteMethod
  * @param parentFolder parent folder
  */
 
+@Suppress("LongParameterList")
 class RemoveRemoteEncryptedFileOperation internal constructor(
     private val remotePath: String,
     private val user: User,
@@ -48,6 +49,8 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
     /**
      * Performs the remove operation.
      */
+    @Deprecated("Deprecated in Java")
+    @Suppress("TooGenericExceptionCaught")
     override fun run(client: OwnCloudClient): RemoteOperationResult<Void> {
         val result: RemoteOperationResult<Void>
         var delete: DeleteMethod? = null
@@ -110,9 +113,10 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
     }
 
     private fun deleteForV1(client: OwnCloudClient, token: String?): Pair<RemoteOperationResult<Void>, DeleteMethod> {
+        @Suppress("DEPRECATION")
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
-        val publicKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
         val privateKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
+        val publicKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
 
         val (metadataExists, metadata) = EncryptionUtils.retrieveMetadataV1(
             parentFolder,
@@ -124,6 +128,10 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         )
 
         val (result, delete) = deleteRemoteFile(client, token)
+
+        if (!isFolder) {
+            EncryptionUtils.removeFileFromMetadata(fileName, metadata)
+        }
 
         val encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(
             metadata,
