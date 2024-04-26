@@ -26,25 +26,19 @@ import com.owncloud.android.utils.theme.CapabilityUtils
 import org.apache.commons.httpclient.HttpStatus
 import org.apache.commons.httpclient.NameValuePair
 import org.apache.jackrabbit.webdav.client.methods.DeleteMethod
-import java.io.IOException
-import java.security.InvalidKeyException
-import java.security.NoSuchAlgorithmException
-import java.security.cert.CertificateException
-import javax.crypto.BadPaddingException
-import javax.crypto.IllegalBlockSizeException
-import javax.crypto.NoSuchPaddingException
 
 /**
  * Remote operation performing the removal of a remote encrypted file or folder
  */
-class RemoveRemoteEncryptedFileOperation
+
 /**
  * Constructor
  *
  * @param remotePath   RemotePath of the remote file or folder to remove from the server
  * @param parentFolder parent folder
  */
-internal constructor(
+
+class RemoveRemoteEncryptedFileOperation internal constructor(
     private val remotePath: String,
     private val user: User,
     private val context: Context,
@@ -52,6 +46,7 @@ internal constructor(
     private val parentFolder: OCFile,
     private val isFolder: Boolean
 ) : RemoteOperation<Void>() {
+
     /**
      * Performs the remove operation.
      */
@@ -60,9 +55,11 @@ internal constructor(
         var delete: DeleteMethod? = null
         var token: String? = null
         val e2eVersion = CapabilityUtils.getCapability(context).endToEndEncryptionApiVersion
-        val isE2EVersionAtLeast2 = e2eVersion.compareTo(E2EVersion.V2_0) >= 0
+        val isE2EVersionAtLeast2 = e2eVersion >= E2EVersion.V2_0
+
         try {
             token = EncryptionUtils.lockFolder(parentFolder, client)
+
             return if (isE2EVersionAtLeast2) {
                 val (first, second) = deleteForV2(client, token)
                 result = first
@@ -78,6 +75,7 @@ internal constructor(
             delete?.releaseConnection()
             token?.let { unlockFile(client, it, isE2EVersionAtLeast2) }
         }
+
         return result
     }
 
@@ -93,7 +91,6 @@ internal constructor(
         }
     }
 
-    @Throws(IOException::class)
     private fun deleteRemoteFile(
         client: OwnCloudClient,
         token: String?
@@ -159,22 +156,11 @@ internal constructor(
         return Pair(result, delete)
     }
 
-    @Throws(
-        NoSuchPaddingException::class,
-        IllegalBlockSizeException::class,
-        CertificateException::class,
-        NoSuchAlgorithmException::class,
-        BadPaddingException::class,
-        InvalidKeyException::class,
-        IOException::class,
-        UploadException::class
-    )
     private fun deleteForV1(client: OwnCloudClient, token: String?): RemoteOperationResult<Void> {
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val metadata = getMetadataV1(arbitraryDataProvider)
         val (first) = deleteRemoteFile(client, token)
 
-        // check if we need metadataKeys
         val serializedMetadata: String = if (metadata.metadata.getMetadataKey() != null) {
             EncryptionUtils.serializeJSON(metadata, true)
         } else {
