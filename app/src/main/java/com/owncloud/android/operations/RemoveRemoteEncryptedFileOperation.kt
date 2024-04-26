@@ -8,13 +8,13 @@
 package com.owncloud.android.operations
 
 import android.content.Context
+import androidx.core.util.component1
+import androidx.core.util.component2
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -109,39 +109,39 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
         return Pair(result, delete)
     }
 
-    private fun getMetadataV1(arbitraryDataProvider: ArbitraryDataProvider): DecryptedFolderMetadataFileV1 {
-        val publicKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
-
-        val metadata = DecryptedFolderMetadataFileV1().apply {
-            metadata = DecryptedMetadata()
-            metadata.version = 1.2
-            metadata.metadataKeys = HashMap()
-        }
-
-        val metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey())
-        val encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey)
-        metadata.metadata.metadataKey = encryptedMetadataKey
-
-        return metadata
-    }
-
     private fun deleteForV1(client: OwnCloudClient, token: String?): Pair<RemoteOperationResult<Void>, DeleteMethod> {
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
-        val metadata = getMetadataV1(arbitraryDataProvider)
+        val publicKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
+        val privateKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
+
+        val (metadataExists, metadata) = EncryptionUtils.retrieveMetadataV1(
+            parentFolder,
+            client,
+            privateKey,
+            publicKey,
+            arbitraryDataProvider,
+            user
+        )
+
         val (result, delete) = deleteRemoteFile(client, token)
 
-        val serializedMetadata: String = if (metadata.metadata.getMetadataKey() != null) {
-            EncryptionUtils.serializeJSON(metadata, true)
-        } else {
-            EncryptionUtils.serializeJSON(metadata)
-        }
+        val encryptedFolderMetadata = EncryptionUtils.encryptFolderMetadata(
+            metadata,
+            publicKey,
+            parentFolder.localId,
+            user,
+            arbitraryDataProvider
+        )
+
+        val serializedFolderMetadata = EncryptionUtils.serializeJSON(encryptedFolderMetadata)
 
         EncryptionUtils.uploadMetadata(
             parentFolder,
-            serializedMetadata,
+            serializedFolderMetadata,
             token,
             client,
-            true, E2EVersion.V1_2,
+            metadataExists,
+            E2EVersion.V1_2,
             "",
             arbitraryDataProvider,
             user
