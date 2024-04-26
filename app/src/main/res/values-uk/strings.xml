@@ -254,7 +254,7 @@
     <string name="drawer_community">Спільнота</string>
     <string name="drawer_header_background">Зображення тла верхньої панелі</string>
     <string name="drawer_item_activities">Події</string>
-    <string name="drawer_item_all_files">Усі файли</string>
+    <string name="drawer_item_all_files">Усі документи</string>
     <string name="drawer_item_assistant">Помічник</string>
     <string name="drawer_item_favorites">Із зірочкою</string>
     <string name="drawer_item_gallery">Зображення та відео</string>
@@ -354,7 +354,7 @@
     <string name="file_list_empty_favorite_headline">Поки що ви нічого не позначили зірочкою</string>
     <string name="file_list_empty_favorites_filter_list">Тут можна буде знайти файли та каталоги, які ви позначити зірочкою.</string>
     <string name="file_list_empty_gallery">Не знайдено ані зображень, ані відео</string>
-    <string name="file_list_empty_headline">Тут немає файлів</string>
+    <string name="file_list_empty_headline">Тут відсутні файли</string>
     <string name="file_list_empty_headline_search">Жодного збігу у цьому каталозі</string>
     <string name="file_list_empty_headline_server_search">Жодного збігу</string>
     <string name="file_list_empty_moving">Тут нічого немає. Ви можете створити каталог.</string>
