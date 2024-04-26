@@ -1,16 +1,28 @@
+<!--
+ ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+ ~ SPDX-FileCopyrightText: 2016-2024 Tobias Kaminsky <tobias@kaminsky.me>
+ ~ SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+## 3.29.0 (April 24, 2024)
+
+- NC Assistant
+- Client certificates
+- Personal files view
+- REUSE compliance
+- Bugfixes
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/89
+
 ## 3.28.2 (April 4th, 2024)
 
 - Bugfixes
 
-
 Minimum: NC 16 Server, Android 7.0 Nougat
 
 For a full list, please see https://github.com/nextcloud/android/milestone/90
-
-<!--
- ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
- ~ SPDX-License-Identifier: AGPL-3.0-or-later
--->
 
 ## 3.28.1 (March 25th, 2024)
 
@@ -24,7 +36,6 @@ For a full list, please see https://github.com/nextcloud/android/milestone/90
 
 - E2E sharing
 - Bugfixes
-
 
 Minimum: NC 16 Server, Android 7.0 Nougat
 
