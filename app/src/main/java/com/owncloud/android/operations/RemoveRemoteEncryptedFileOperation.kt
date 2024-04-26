@@ -5,210 +5,199 @@
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
+package com.owncloud.android.operations
 
-package com.owncloud.android.operations;
-
-import android.content.Context;
-
-import com.nextcloud.client.account.User;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
-import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata;
-import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
-import com.owncloud.android.lib.common.OwnCloudClient;
-import com.owncloud.android.lib.common.operations.RemoteOperation;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.resources.status.E2EVersion;
-import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.EncryptionUtilsV2;
-import com.owncloud.android.utils.theme.CapabilityUtils;
-
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.jackrabbit.webdav.client.methods.DeleteMethod;
-
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateException;
-import java.util.HashMap;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
-
-import kotlin.Pair;
+import android.content.Context
+import com.nextcloud.client.account.User
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedMetadata
+import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.operations.RemoteOperation
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.E2EVersion
+import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.EncryptionUtilsV2
+import com.owncloud.android.utils.theme.CapabilityUtils
+import org.apache.commons.httpclient.HttpStatus
+import org.apache.commons.httpclient.NameValuePair
+import org.apache.jackrabbit.webdav.client.methods.DeleteMethod
+import java.io.IOException
+import java.security.InvalidKeyException
+import java.security.NoSuchAlgorithmException
+import java.security.cert.CertificateException
+import javax.crypto.BadPaddingException
+import javax.crypto.IllegalBlockSizeException
+import javax.crypto.NoSuchPaddingException
 
 /**
  * Remote operation performing the removal of a remote encrypted file or folder
  */
-public class RemoveRemoteEncryptedFileOperation extends RemoteOperation<Void> {
-    private static final String TAG = RemoveRemoteEncryptedFileOperation.class.getSimpleName();
-    private static final int REMOVE_READ_TIMEOUT = 30000;
-    private static final int REMOVE_CONNECTION_TIMEOUT = 5000;
-    private final String remotePath;
-    private final OCFile parentFolder;
-    private final User user;
-    private final String fileName;
-    private final Context context;
-    private final boolean isFolder;
-
-    /**
-     * Constructor
-     *
-     * @param remotePath   RemotePath of the remote file or folder to remove from the server
-     * @param parentFolder parent folder
-     */
-    RemoveRemoteEncryptedFileOperation(String remotePath,
-                                       User user,
-                                       Context context,
-                                       String fileName,
-                                       OCFile parentFolder,
-                                       boolean isFolder) {
-        this.remotePath = remotePath;
-        this.user = user;
-        this.fileName = fileName;
-        this.context = context;
-        this.parentFolder = parentFolder;
-        this.isFolder = isFolder;
-    }
-
+class RemoveRemoteEncryptedFileOperation
+/**
+ * Constructor
+ *
+ * @param remotePath   RemotePath of the remote file or folder to remove from the server
+ * @param parentFolder parent folder
+ */
+internal constructor(
+    private val remotePath: String,
+    private val user: User,
+    private val context: Context,
+    private val fileName: String,
+    private val parentFolder: OCFile,
+    private val isFolder: Boolean
+) : RemoteOperation<Void>() {
     /**
      * Performs the remove operation.
      */
-    @Override
-    protected RemoteOperationResult<Void> run(OwnCloudClient client) {
-        RemoteOperationResult<Void> result;
-        DeleteMethod delete = null;
-        String token = null;
-
-        E2EVersion e2eVersion = CapabilityUtils.getCapability(context).getEndToEndEncryptionApiVersion();
-        boolean isE2EVersionAtLeast2 = e2eVersion.compareTo(E2EVersion.V2_0) >= 0;
-
+    override fun run(client: OwnCloudClient): RemoteOperationResult<Void> {
+        val result: RemoteOperationResult<Void>
+        var delete: DeleteMethod? = null
+        var token: String? = null
+        val e2eVersion = CapabilityUtils.getCapability(context).endToEndEncryptionApiVersion
+        val isE2EVersionAtLeast2 = e2eVersion.compareTo(E2EVersion.V2_0) >= 0
         try {
-            token = EncryptionUtils.lockFolder(parentFolder, client);
-
-            if (isE2EVersionAtLeast2) {
-                Pair<RemoteOperationResult<Void>, DeleteMethod> deleteResult = deleteForV2(client, token);
-                result = deleteResult.getFirst();
-                delete = deleteResult.getSecond();
-                return result;
+            token = EncryptionUtils.lockFolder(parentFolder, client)
+            return if (isE2EVersionAtLeast2) {
+                val (first, second) = deleteForV2(client, token)
+                result = first
+                delete = second
+                result
             } else {
-                return deleteForV1(client, token);
+                deleteForV1(client, token)
             }
-        } catch (Exception e) {
-            result = new RemoteOperationResult<>(e);
-            Log_OC.e(TAG, "Remove " + remotePath + ": " + result.getLogMessage(), e);
-
+        } catch (e: Exception) {
+            result = RemoteOperationResult(e)
+            Log_OC.e(TAG, "Remove " + remotePath + ": " + result.logMessage, e)
         } finally {
-            if (delete != null) {
-                delete.releaseConnection();
-            }
-
-            if (token != null) {
-                unlockFile(client, token,isE2EVersionAtLeast2);
-            }
+            delete?.releaseConnection()
+            token?.let { unlockFile(client, it, isE2EVersionAtLeast2) }
         }
-
-        return result;
+        return result
     }
 
-    private void unlockFile(OwnCloudClient client, String token, boolean isE2EVersionAtLeast2) {
-        RemoteOperationResult<Void> unlockFileOperationResult;
-
-        if (isE2EVersionAtLeast2) {
-            unlockFileOperationResult = EncryptionUtils.unlockFolder(parentFolder, client, token);
+    private fun unlockFile(client: OwnCloudClient, token: String, isE2EVersionAtLeast2: Boolean) {
+        val unlockFileOperationResult = if (isE2EVersionAtLeast2) {
+            EncryptionUtils.unlockFolder(parentFolder, client, token)
         } else {
-            unlockFileOperationResult = EncryptionUtils.unlockFolderV1(parentFolder, client, token);
+            EncryptionUtils.unlockFolderV1(parentFolder, client, token)
         }
 
-        if (!unlockFileOperationResult.isSuccess()) {
-            Log_OC.e(TAG, "Failed to unlock " + parentFolder.getLocalId());
+        if (!unlockFileOperationResult.isSuccess) {
+            Log_OC.e(TAG, "Failed to unlock " + parentFolder.localId)
         }
     }
 
-    private Pair<RemoteOperationResult<Void>, DeleteMethod> deleteRemoteFile(OwnCloudClient client, String token) throws IOException {
-        DeleteMethod delete = new DeleteMethod(client.getFilesDavUri(remotePath));
-        delete.setQueryString(new NameValuePair[]{new NameValuePair(E2E_TOKEN, token)});
-        int status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, REMOVE_CONNECTION_TIMEOUT);
+    @Throws(IOException::class)
+    private fun deleteRemoteFile(
+        client: OwnCloudClient,
+        token: String?
+    ): Pair<RemoteOperationResult<Void>, DeleteMethod> {
+        val delete = DeleteMethod(client.getFilesDavUri(remotePath)).apply {
+            setQueryString(arrayOf(NameValuePair(E2E_TOKEN, token)))
+        }
 
-        delete.getResponseBodyAsString();   // exhaust the response, although not interesting
-        RemoteOperationResult<Void> result = new RemoteOperationResult<>(delete.succeeded() || status == HttpStatus.SC_NOT_FOUND, delete);
-        Log_OC.i(TAG, "Remove " + remotePath + ": " + result.getLogMessage());
+        val status = client.executeMethod(delete, REMOVE_READ_TIMEOUT, REMOVE_CONNECTION_TIMEOUT)
+        delete.getResponseBodyAsString() // exhaust the response, although not interesting
 
-        return new Pair<>(result, delete);
+        val result = RemoteOperationResult<Void>(delete.succeeded() || status == HttpStatus.SC_NOT_FOUND, delete)
+        Log_OC.i(TAG, "Remove " + remotePath + ": " + result.logMessage)
+
+        return Pair(result, delete)
     }
 
-    private DecryptedFolderMetadataFileV1 getMetadataV1(ArbitraryDataProvider arbitraryDataProvider) throws NoSuchPaddingException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException {
-        String publicKey = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.PUBLIC_KEY);
+    private fun getMetadataV1(arbitraryDataProvider: ArbitraryDataProvider): DecryptedFolderMetadataFileV1 {
+        val publicKey = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
 
-        DecryptedFolderMetadataFileV1 metadata = new DecryptedFolderMetadataFileV1();
-        metadata.setMetadata(new DecryptedMetadata());
-        metadata.getMetadata().setVersion(1.2);
-        metadata.getMetadata().setMetadataKeys(new HashMap<>());
-        String metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey());
-        String encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey);
-        metadata.getMetadata().setMetadataKey(encryptedMetadataKey);
-        return metadata;
+        val metadata = DecryptedFolderMetadataFileV1().apply {
+            metadata = DecryptedMetadata()
+            metadata.version = 1.2
+            metadata.metadataKeys = HashMap()
+        }
+
+        val metadataKey = EncryptionUtils.encodeBytesToBase64String(EncryptionUtils.generateKey())
+        val encryptedMetadataKey = EncryptionUtils.encryptStringAsymmetric(metadataKey, publicKey)
+        metadata.metadata.metadataKey = encryptedMetadataKey
+
+        return metadata
     }
 
-    private Pair<RemoteOperationResult<Void>, DeleteMethod> deleteForV2(OwnCloudClient client, String token) throws UploadException, IOException {
-        EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
-        Pair<Boolean, DecryptedFolderMetadataFile> pair = encryptionUtilsV2.retrieveMetadata(parentFolder, client, user, context);
-        boolean metadataExists = pair.getFirst();
-        DecryptedFolderMetadataFile metadata = pair.getSecond();
+    private fun deleteForV2(client: OwnCloudClient, token: String?): Pair<RemoteOperationResult<Void>, DeleteMethod> {
+        val encryptionUtilsV2 = EncryptionUtilsV2()
 
-        Pair<RemoteOperationResult<Void>, DeleteMethod> deleteResult = deleteRemoteFile(client, token);
-        RemoteOperationResult<Void> result = deleteResult.getFirst();
-        DeleteMethod delete = deleteResult.getSecond();
+        val (metadataExists, metadata) = encryptionUtilsV2.retrieveMetadata(
+            parentFolder,
+            client,
+            user,
+            context
+        )
+
+        val (result, delete) = deleteRemoteFile(client, token)
 
         if (isFolder) {
-            encryptionUtilsV2.removeFolderFromMetadata(fileName, metadata);
+            encryptionUtilsV2.removeFolderFromMetadata(fileName, metadata)
         } else {
-            encryptionUtilsV2.removeFileFromMetadata(fileName, metadata);
+            encryptionUtilsV2.removeFileFromMetadata(fileName, metadata)
         }
 
-        encryptionUtilsV2.serializeAndUploadMetadata(parentFolder,
-                                                     metadata,
-                                                     token,
-                                                     client,
-                                                     metadataExists,
-                                                     context,
-                                                     user,
-                                                     new FileDataStorageManager(user, context.getContentResolver()));
+        encryptionUtilsV2.serializeAndUploadMetadata(
+            parentFolder,
+            metadata,
+            token!!,
+            client,
+            metadataExists,
+            context,
+            user,
+            FileDataStorageManager(user, context.contentResolver)
+        )
 
-        return new Pair<>(result, delete);
+        return Pair(result, delete)
     }
 
-    private RemoteOperationResult<Void> deleteForV1(OwnCloudClient client, String token) throws NoSuchPaddingException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, BadPaddingException, InvalidKeyException, IOException, UploadException {
-        //noinspection deprecation
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
-        DecryptedFolderMetadataFileV1 metadata = getMetadataV1(arbitraryDataProvider);
-        Pair<RemoteOperationResult<Void>, DeleteMethod> deleteResult = deleteRemoteFile(client, token);
-
-        String serializedMetadata;
+    @Throws(
+        NoSuchPaddingException::class,
+        IllegalBlockSizeException::class,
+        CertificateException::class,
+        NoSuchAlgorithmException::class,
+        BadPaddingException::class,
+        InvalidKeyException::class,
+        IOException::class,
+        UploadException::class
+    )
+    private fun deleteForV1(client: OwnCloudClient, token: String?): RemoteOperationResult<Void> {
+        val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
+        val metadata = getMetadataV1(arbitraryDataProvider)
+        val (first) = deleteRemoteFile(client, token)
 
         // check if we need metadataKeys
-        if (metadata.getMetadata().getMetadataKey() != null) {
-            serializedMetadata = EncryptionUtils.serializeJSON(metadata, true);
+        val serializedMetadata: String = if (metadata.metadata.getMetadataKey() != null) {
+            EncryptionUtils.serializeJSON(metadata, true)
         } else {
-            serializedMetadata = EncryptionUtils.serializeJSON(metadata);
+            EncryptionUtils.serializeJSON(metadata)
         }
 
-        EncryptionUtils.uploadMetadata(parentFolder,
-                                       serializedMetadata,
-                                       token,
-                                       client,
-                                       true,
-                                       E2EVersion.V1_2,
-                                       "",
-                                       arbitraryDataProvider,
-                                       user);
+        EncryptionUtils.uploadMetadata(
+            parentFolder,
+            serializedMetadata,
+            token,
+            client,
+            true, E2EVersion.V1_2,
+            "",
+            arbitraryDataProvider,
+            user
+        )
 
-        return deleteResult.getFirst();
+        return first
+    }
+
+    companion object {
+        private val TAG = RemoveRemoteEncryptedFileOperation::class.java.getSimpleName()
+        private const val REMOVE_READ_TIMEOUT = 30000
+        private const val REMOVE_CONNECTION_TIMEOUT = 5000
     }
 }
