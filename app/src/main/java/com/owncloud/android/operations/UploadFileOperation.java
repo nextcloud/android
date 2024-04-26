@@ -89,6 +89,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -98,7 +99,6 @@ import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
 import androidx.annotation.CheckResult;
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import kotlin.Triple;
@@ -471,7 +471,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             long counter = getE2ECounter(parentFile);
-            token = getToken(client, parentFile, counter);
+            token = getFolderUnlockTokenOrLockFolder(client, parentFile, counter);
 
             // Update metadata
             EncryptionUtilsV2 encryptionUtilsV2 = new EncryptionUtilsV2();
@@ -480,7 +480,7 @@ public class UploadFileOperation extends SyncOperation {
                 metadataExists = true;
             }
 
-            if (CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
+            if (isEndToEndVersionAtLeastV2()) {
                 if (object == null) {
                     return new RemoteOperationResult(new IllegalStateException("Metadata does not exist"));
                 }
@@ -490,7 +490,7 @@ public class UploadFileOperation extends SyncOperation {
 
             E2EClientData clientData = new E2EClientData(client, token, publicKey);
 
-            List<String> fileNames = checkNameCollision(object);
+            List<String> fileNames = getCollidedFileNames(object);
 
             RemoteOperationResult collisionResult = checkNameCollision(client, fileNames, parentFile.isEncrypted());
             if (collisionResult != null) {
@@ -524,11 +524,11 @@ public class UploadFileOperation extends SyncOperation {
             result = channelResult.getSecond();
             FileChannel channel = channelResult.getThird();
 
-            size = initSize(channel);
+            size = getChannelSize(channel);
             updateSize(size);
-            setUploadFileRemoteOperationForE2E(token, e2eFiles.getEncryptedTempFile(), e2eData.getEncryptedFileName(), lastModifiedTimestamp, creationTimestamp, size);
+            setUploadOperationForE2E(token, e2eFiles.getEncryptedTempFile(), e2eData.getEncryptedFileName(), lastModifiedTimestamp, creationTimestamp, size);
 
-            result = performE2EUpload(result, clientData);
+            result = performE2EUpload(clientData);
 
             if (result.isSuccess()) {
                 updateMetadataForE2E(object, e2eData, clientData, e2eFiles, arbitraryDataProvider, encryptionUtilsV2, metadataExists);
@@ -550,26 +550,34 @@ public class UploadFileOperation extends SyncOperation {
         return result;
     }
 
-    private String getToken(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {
-        String token;
-        if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
-            token = mFolderUnlockToken;
-        } else {
-            token = EncryptionUtils.lockFolder(parentFile, client, counter);
-            mUpload.setFolderUnlockToken(token);
-            uploadsStorageManager.updateUpload(mUpload);
-        }
+    private boolean isEndToEndVersionAtLeastV2() {
+        return getE2EVersion().compareTo(E2EVersion.V2_0) >= 0;
+    }
 
-        return token;
+    private E2EVersion getE2EVersion() {
+        return CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion();
     }
 
     private long getE2ECounter(OCFile parentFile) {
         long counter = -1;
-        if (CapabilityUtils.getCapability(mContext).getEndToEndEncryptionApiVersion().compareTo(E2EVersion.V2_0) >= 0) {
+
+        if (isEndToEndVersionAtLeastV2()) {
             counter = parentFile.getE2eCounter() + 1;
         }
 
         return counter;
+    }
+
+    private String getFolderUnlockTokenOrLockFolder(OwnCloudClient client, OCFile parentFile, long counter) throws UploadException {
+        if (mFolderUnlockToken != null && !mFolderUnlockToken.isEmpty()) {
+            return mFolderUnlockToken;
+        }
+
+        String token = EncryptionUtils.lockFolder(parentFile, client, counter);
+        mUpload.setFolderUnlockToken(token);
+        uploadsStorageManager.updateUpload(mUpload);
+
+        return token;
     }
 
     private DecryptedFolderMetadataFileV1 getDecryptedFolderMetadataV1(String publicKey, Object object)
@@ -590,21 +598,21 @@ public class UploadFileOperation extends SyncOperation {
         return metadata;
     }
 
-    private List<String> checkNameCollision(Object object) {
-        List<String> fileNames = new ArrayList<>();
+    private List<String> getCollidedFileNames(Object object) {
+        List<String> result = new ArrayList<>();
 
         if (object instanceof DecryptedFolderMetadataFileV1 metadata) {
             for (DecryptedFile file : metadata.getFiles().values()) {
-                fileNames.add(file.getEncrypted().getFilename());
+                result.add(file.getEncrypted().getFilename());
             }
-        } else {
-            for (com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile file :
-                ((DecryptedFolderMetadataFile) object).getMetadata().getFiles().values()) {
-                fileNames.add(file.getFilename());
+        } else if (object instanceof DecryptedFolderMetadataFile metadataFile) {
+            Map<String, com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile> files = metadataFile.getMetadata().getFiles();
+            for (com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile file : files.values()) {
+                result.add(file.getFilename());
             }
         }
 
-        return fileNames;
+        return result;
     }
 
     private String getEncryptedFileName(Object object) {
@@ -623,12 +631,12 @@ public class UploadFileOperation extends SyncOperation {
         return encryptedFileName;
     }
 
-    private void setUploadFileRemoteOperationForE2E(String token,
-                                                    File encryptedTempFile,
-                                                    String encryptedFileName,
-                                                    long lastModifiedTimestamp,
-                                                    long creationTimestamp,
-                                                    long size) {
+    private void setUploadOperationForE2E(String token,
+                                          File encryptedTempFile,
+                                          String encryptedFileName,
+                                          long lastModifiedTimestamp,
+                                          long creationTimestamp,
+                                          long size) {
 
         if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
             boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
@@ -696,7 +704,7 @@ public class UploadFileOperation extends SyncOperation {
         return new Triple<>(fileLock, result, channel);
     }
 
-    private long initSize(FileChannel channel) {
+    private long getChannelSize(FileChannel channel) {
         try {
             return channel.size();
         } catch (IOException e1) {
@@ -704,7 +712,7 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private RemoteOperationResult performE2EUpload( RemoteOperationResult result, E2EClientData data) throws OperationCancelledException {
+    private RemoteOperationResult performE2EUpload(E2EClientData data) throws OperationCancelledException {
         for (OnDatatransferProgressListener mDataTransferListener : mDataTransferListeners) {
             mUploadOperation.addDataTransferProgressListener(mDataTransferListener);
         }
@@ -713,7 +721,7 @@ public class UploadFileOperation extends SyncOperation {
             throw new OperationCancelledException();
         }
 
-        result = mUploadOperation.execute(data.getClient());
+        RemoteOperationResult result = mUploadOperation.execute(data.getClient());
 
         /// move local temporal file or original file to its corresponding
         // location in the Nextcloud local folder
