@@ -650,8 +650,20 @@ public final class DisplayUtils {
      */
     public static Snackbar showSnackMessage(Activity activity, String message) {
         final Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+        var fab = findFABView(activity);
+        if (fab != null && fab.getVisibility() == View.VISIBLE) {
+            snackbar.setAnchorView(fab);
+        }
         snackbar.show();
         return snackbar;
+    }
+
+    private static View findFABView(Activity activity) {
+        return activity.findViewById(R.id.fab_main);
+    }
+
+    private static View findFABView(View view) {
+        return view.findViewById(R.id.fab_main);
     }
 
     /**
@@ -663,6 +675,10 @@ public final class DisplayUtils {
      */
     public static Snackbar showSnackMessage(View view, @StringRes int messageResource) {
         final Snackbar snackbar = Snackbar.make(view, messageResource, Snackbar.LENGTH_LONG);
+        var fab = findFABView(view.getRootView());
+        if (fab != null && fab.getVisibility() == View.VISIBLE) {
+            snackbar.setAnchorView(fab);
+        }
         snackbar.show();
         return snackbar;
     }
