@@ -34,19 +34,27 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -991,7 +999,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 setContentView(accountSetupWebviewBinding.getRoot());
 
                 if (!isLoginProcessCompleted) {
-                    anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
+                    if (!isRedirectedToTheDefaultBrowser) {
+                        anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
+                        isRedirectedToTheDefaultBrowser = true;
+                    } else {
+                        initLoginInfoView();
+                    }
                     // initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, false);
                 }
             }
@@ -1005,6 +1018,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             showUntrustedCertDialog(result);
         }
     }
+
+    // region LoginInfoView
+    private void initLoginInfoView() {
+        LinearLayout loginFlowLayout = accountSetupWebviewBinding.loginFlowV2.getRoot();
+        MaterialButton cancelButton = accountSetupWebviewBinding.loginFlowV2.cancelButton;
+        loginFlowLayout.setVisibility(View.VISIBLE);
+
+        cancelButton.setOnClickListener(v -> {
+            loginFlowExecutorService.shutdown();
+            recreate();
+        });
+    }
+    // endregion
 
     /**
      * Chooses the right icon and text to show to the user for the received operation result.
@@ -1597,6 +1623,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private final ScheduledExecutorService loginFlowExecutorService = Executors.newSingleThreadScheduledExecutor();
     private boolean isLoginProcessCompleted = false;
+    private boolean isRedirectedToTheDefaultBrowser = false;
 
     private void poolLogin(PlainClient client) {
         loginFlowExecutorService.scheduleAtFixedRate(() -> {
@@ -1654,6 +1681,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         checkOcServer();
+        loginFlowExecutorService.shutdown();
     }
 
     /**
