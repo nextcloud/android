@@ -9,7 +9,7 @@
   ~ SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
   ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
   ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski
-  ~ SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <style name="BaseTheme.ownCloud" parent="Theme.Material3.DayNight">

@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2023 Elv1zz <elv1zz.git@gmail.com>
  * SPDX-FileCopyrightText: 2022 Unpublished <unpublished@gmx.net>
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui
 

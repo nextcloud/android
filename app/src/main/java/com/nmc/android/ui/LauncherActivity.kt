@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
  * SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2023 TSI-mc
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nmc.android.ui
 

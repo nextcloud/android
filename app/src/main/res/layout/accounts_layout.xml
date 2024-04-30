@@ -5,7 +5,7 @@
   ~ SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
   ~ SPDX-FileCopyrightText: 2019 Nick Antoniou <nikolasea@windowslive.com>
   ~ SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger>
-  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <LinearLayout
 	android:id="@+id/account_list_layout"

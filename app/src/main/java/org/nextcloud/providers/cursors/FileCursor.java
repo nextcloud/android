@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2019 Jens Mueller <tschenser@gmx.de>
  * SPDX-FileCopyrightText: 2016 Iskra Delta <iskradelta@no-reply.github.com>
  * SPDX-FileCopyrightText: 2015 Bartosz Przybylski <bart.p.pl@gmail.com>
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package org.nextcloud.providers.cursors;
 

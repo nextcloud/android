@@ -1,6 +1,6 @@
 <!--
  ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
- ~ SPDX-License-Identifier: AGPL-3.0-or-later
+ ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 These instructions will help you to set up your development environment, get the source code of the Nextcloud for Android app and build it by yourself. If you want to help developing the app take a look to the [contribution guidelines][0].
 
