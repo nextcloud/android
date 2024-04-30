@@ -6,7 +6,7 @@
  * Copyright (C) 2018 Andy Scherzinger
  * Copyright (C) 2021 TSI-mc
  *
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 
 package com.owncloud.android.ui.fragment.util;

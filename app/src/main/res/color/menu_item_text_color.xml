@@ -4,7 +4,7 @@
   ~
   ~ SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
   ~ SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
-  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:color="@color/text_color" android:state_enabled="true"/>

@@ -354,7 +354,7 @@
     <string name="file_icon">File</string>
     <string name="file_keep">Keep</string>
     <string name="file_list_empty">Upload some content or sync with your devices.</string>
-    <string name="file_list_empty_favorite_headline">Nothing favourited yet</string>
+    <string name="file_list_empty_favorite_headline">Nothing has been marked as favourite yet</string>
     <string name="file_list_empty_favorites_filter_list">Files and folders you mark as favorites will show up here.</string>
     <string name="file_list_empty_gallery">Found no images or videos</string>
     <string name="file_list_empty_headline">No files here</string>

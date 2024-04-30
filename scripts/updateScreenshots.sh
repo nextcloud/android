@@ -2,7 +2,7 @@
 
 # SPDX-FileCopyrightText: 2019-2024 Nextcloud GmbH and Nextcloud contributors
 # SPDX-FileCopyrightText: 2019-2020 Tobias Kaminsky <tobias@kaminsky.me>
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 
 if [[ $(grep NC_TEST_SERVER_BASEURL ~/.gradle/gradle.properties   | grep -v "#" -c) -gt 0 ]]; then
     echo "This will not use server in docker. Please comment in .gradle/gradle.properties. Aborting!"

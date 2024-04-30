@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2021 Lucas Haug <fuermhandy@gmail.com>
  * SPDX-FileCopyrightText: 2019 Edvard Holst <edvard.holst@gmail.com>
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.utils;
 

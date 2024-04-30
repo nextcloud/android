@@ -8,7 +8,7 @@
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2016 David A. Velasco  <dvelasco@solidgear.es>
  * SPDX-FileCopyrightText: 2016 ownCloud Inc.
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.ui.preview
 

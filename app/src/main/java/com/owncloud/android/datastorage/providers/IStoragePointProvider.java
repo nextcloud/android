@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2016-2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2016 Bartosz Przybylski
  *
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.datastorage.providers;
 
