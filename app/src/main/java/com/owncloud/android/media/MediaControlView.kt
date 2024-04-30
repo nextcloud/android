@@ -10,301 +10,301 @@
  * SPDX-FileCopyrightText: 2013 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.media;
+package com.owncloud.android.media
 
-import android.content.Context;
-import android.media.MediaPlayer;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.util.AttributeSet;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.accessibility.AccessibilityEvent;
-import android.view.accessibility.AccessibilityNodeInfo;
-import android.widget.LinearLayout;
-import android.widget.MediaController.MediaPlayerControl;
-import android.widget.SeekBar;
-import android.widget.SeekBar.OnSeekBarChangeListener;
-
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.MediaControlBinding;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.util.Formatter;
-import java.util.Locale;
-
-import javax.inject.Inject;
+import android.content.Context
+import android.os.Handler
+import android.os.Looper
+import android.os.Message
+import android.util.AttributeSet
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.accessibility.AccessibilityEvent
+import android.view.accessibility.AccessibilityNodeInfo
+import android.widget.LinearLayout
+import android.widget.MediaController.MediaPlayerControl
+import android.widget.SeekBar
+import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.core.content.ContextCompat
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.databinding.MediaControlBinding
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.util.Formatter
+import java.util.Locale
+import javax.inject.Inject
 
 /**
- * View containing controls for a {@link MediaPlayer}.
- * <p>
+ * View containing controls for a MediaPlayer.
+ *
+ *
  * Holds buttons "play / pause", "rewind", "fast forward" and a progress slider.
- * <p>
- * It synchronizes itself with the state of the {@link MediaPlayer}.
+ *
+ *
+ * It synchronizes itself with the state of the MediaPlayer.
  */
-public class MediaControlView extends LinearLayout implements OnClickListener, OnSeekBarChangeListener {
-    private static final String TAG = MediaControlView.class.getSimpleName();
-    private static final int SHOW_PROGRESS = 1;
+class MediaControlView(context: Context, attrs: AttributeSet?) :
+    LinearLayout(context, attrs),
+    View.OnClickListener,
+    OnSeekBarChangeListener {
 
-    private MediaPlayerControl playerControl;
-    private final MediaControlBinding binding;
-    private boolean isDragging;
+    private var playerControl: MediaPlayerControl? = null
+    private var binding: MediaControlBinding
+    private var isDragging = false
 
     @Inject
-    ViewThemeUtils viewThemeUtils;
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-    public MediaControlView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-
-        MainApp.getAppComponent().inject(this);
-
-        LayoutInflater inflate = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        binding = MediaControlBinding.inflate(inflate, this, true);
-        initControllerView();
-
-        setFocusable(true);
-        setFocusableInTouchMode(true);
-        setDescendantFocusability(ViewGroup.FOCUS_AFTER_DESCENDANTS);
-        requestFocus();
+    public override fun onFinishInflate() {
+        super.onFinishInflate()
     }
 
-    @Override
-    public void onFinishInflate() {
-        super.onFinishInflate();
+    fun setMediaPlayer(player: MediaPlayerControl?) {
+        playerControl = player
+        handler.sendEmptyMessage(SHOW_PROGRESS)
+
+        handler.postDelayed({
+            updatePausePlay()
+            setProgress()
+        }, 100)
     }
 
-    public void setMediaPlayer(MediaPlayerControl player) {
-        playerControl = player;
-        handler.sendEmptyMessage(SHOW_PROGRESS);
-        handler.postDelayed(() -> {
-            updatePausePlay();
-            setProgress();
-        }, 100);
+    fun stopMediaPlayerMessages() {
+        handler.removeMessages(SHOW_PROGRESS)
     }
 
-    public void stopMediaPlayerMessages() {
-        handler.removeMessages(SHOW_PROGRESS);
-    }
+    private fun initControllerView() {
+        binding.playBtn.requestFocus()
 
-    private void initControllerView() {
-        binding.playBtn.requestFocus();
-        binding.playBtn.setOnClickListener(this);
+        binding.playBtn.setOnClickListener(this)
+        binding.forwardBtn.setOnClickListener(this)
+        binding.rewindBtn.setOnClickListener(this)
 
-        binding.forwardBtn.setOnClickListener(this);
+        binding.progressBar.run {
+            viewThemeUtils.platform.themeHorizontalSeekBar(this)
+            setMax(1000)
+        }
 
-        binding.rewindBtn.setOnClickListener(this);
+        binding.progressBar.setOnSeekBarChangeListener(this)
 
-        viewThemeUtils.platform.themeHorizontalSeekBar(binding.progressBar);
-        binding.progressBar.setOnSeekBarChangeListener(this);
-        binding.progressBar.setMax(1000);
+        viewThemeUtils.material.run {
+            colorMaterialButtonPrimaryTonal(binding.rewindBtn)
+            colorMaterialButtonPrimaryTonal(binding.playBtn)
+            colorMaterialButtonPrimaryTonal(binding.forwardBtn)
+        }
     }
 
     /**
      * Disable pause or seek buttons if the stream cannot be paused or seeked.
      * This requires the control interface to be a MediaPlayerControlExt
      */
-    private void disableUnsupportedButtons() {
+    private fun disableUnsupportedButtons() {
         try {
-            if (binding != null) {
-                if (!playerControl.canPause()) {
-                    binding.playBtn.setEnabled(false);
-                }
-                if (!playerControl.canSeekBackward()) {
-                    binding.rewindBtn.setEnabled(false);
-                }
-                if (!playerControl.canSeekForward()) {
-                    binding.forwardBtn.setEnabled(false);
-                }
+            if (playerControl?.canPause() == false) {
+                binding.playBtn.setEnabled(false)
             }
-
-        } catch (IncompatibleClassChangeError ex) {
+            if (playerControl?.canSeekBackward() == false) {
+                binding.rewindBtn.setEnabled(false)
+            }
+            if (playerControl?.canSeekForward() == false) {
+                binding.forwardBtn.setEnabled(false)
+            }
+        } catch (ex: IncompatibleClassChangeError) {
             // We were given an old version of the interface, that doesn't have
             // the canPause/canSeekXYZ methods. This is OK, it just means we
             // assume the media can be paused and seeked, and so we don't disable
             // the buttons.
-            Log_OC.i(TAG, "Old media interface detected");
+            Log_OC.i(TAG, "Old media interface detected")
         }
     }
 
-    private final Handler handler = new Handler(Looper.getMainLooper()) {
-        @Override
-        public void handleMessage(Message msg) {
+    @Suppress("MagicNumber")
+    private val handler: Handler = object : Handler(Looper.getMainLooper()) {
+        override fun handleMessage(msg: Message) {
             if (msg.what == SHOW_PROGRESS) {
-                updatePausePlay();
-                int pos = setProgress();
+                updatePausePlay()
+                val pos = setProgress()
+
                 if (!isDragging) {
-                    sendMessageDelayed(obtainMessage(SHOW_PROGRESS), 1000 - (pos % 1000));
+                    sendMessageDelayed(obtainMessage(SHOW_PROGRESS), (1000 - pos % 1000).toLong())
                 }
             }
         }
-    };
+    }
 
-    private String formatTime(int timeMs) {
-        int totalSeconds = timeMs / 1000;
+    init {
+        MainApp.getAppComponent().inject(this)
 
-        int seconds = totalSeconds % 60;
-        int minutes = (totalSeconds / 60) % 60;
-        int hours = totalSeconds / 3600;
+        val inflate = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        binding = MediaControlBinding.inflate(inflate, this, true)
+        initControllerView()
+        isFocusable = true
+        setFocusableInTouchMode(true)
+        setDescendantFocusability(FOCUS_AFTER_DESCENDANTS)
+        requestFocus()
+    }
 
-        final StringBuilder mFormatBuilder = new StringBuilder();
-        final Formatter mFormatter = new Formatter(mFormatBuilder, Locale.getDefault());
-        if (hours > 0) {
-            return mFormatter.format("%d:%02d:%02d", hours, minutes, seconds).toString();
+    @Suppress("MagicNumber")
+    private fun formatTime(timeMs: Int): String {
+        val totalSeconds = timeMs / 1000
+        val seconds = totalSeconds % 60
+        val minutes = totalSeconds / 60 % 60
+        val hours = totalSeconds / 3600
+        val mFormatBuilder = StringBuilder()
+        val mFormatter = Formatter(mFormatBuilder, Locale.getDefault())
+        return if (hours > 0) {
+            mFormatter.format("%d:%02d:%02d", hours, minutes, seconds).toString()
         } else {
-            return mFormatter.format("%02d:%02d", minutes, seconds).toString();
+            mFormatter.format("%02d:%02d", minutes, seconds).toString()
         }
     }
 
-    private int setProgress() {
+    @Suppress("MagicNumber")
+    private fun setProgress(): Int {
+        var position = 0
         if (playerControl == null || isDragging) {
-            return 0;
+            position = 0
         }
-        int position = playerControl.getCurrentPosition();
-        int duration = playerControl.getDuration();
-        if (binding != null) {
+
+        playerControl?.let { playerControl ->
+            position = playerControl.currentPosition
+            val duration = playerControl.duration
             if (duration > 0) {
                 // use long to avoid overflow
-                long pos = 1000L * position / duration;
-                binding.progressBar.setProgress((int) pos);
+                val pos = 1000L * position / duration
+                binding.progressBar.progress = pos.toInt()
             }
-            int percent = playerControl.getBufferPercentage();
-            binding.progressBar.setSecondaryProgress(percent * 10);
-
-            String endTime = duration > 0 ? formatTime(duration) : "--:--";
-            binding.totalTimeText.setText(endTime);
-            binding.currentTimeText.setText(formatTime(position));
+            val percent = playerControl.bufferPercentage
+            binding.progressBar.setSecondaryProgress(percent * 10)
+            val endTime = if (duration > 0) formatTime(duration) else "--:--"
+            binding.totalTimeText.text = endTime
+            binding.currentTimeText.text = formatTime(position)
         }
 
-        return position;
+        return position
     }
 
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        int keyCode = event.getKeyCode();
-        final boolean uniqueDown = event.getRepeatCount() == 0
-                && event.getAction() == KeyEvent.ACTION_DOWN;
-        if (keyCode == KeyEvent.KEYCODE_HEADSETHOOK
-                || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE
-                || keyCode == KeyEvent.KEYCODE_SPACE) {
-            if (uniqueDown) {
-                doPauseResume();
-                //show(sDefaultTimeout);
-                if (binding != null) {
-                    binding.playBtn.requestFocus();
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+        val keyCode = event.keyCode
+        val uniqueDown = (event.repeatCount == 0 && event.action == KeyEvent.ACTION_DOWN)
+
+        when (keyCode) {
+            KeyEvent.KEYCODE_HEADSETHOOK, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE, KeyEvent.KEYCODE_SPACE -> {
+                if (uniqueDown) {
+                    doPauseResume()
+                    // show(sDefaultTimeout);
+                    binding.playBtn.requestFocus()
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_MEDIA_PLAY -> {
+                if (uniqueDown && playerControl?.isPlaying == false) {
+                    playerControl?.start()
+                    updatePausePlay()
+                }
+                return true
+            }
+            KeyEvent.KEYCODE_MEDIA_STOP,
+            KeyEvent.KEYCODE_MEDIA_PAUSE
+            -> {
+                if (uniqueDown && playerControl?.isPlaying == true) {
+                    playerControl?.pause()
+                    updatePausePlay()
+                }
+                return true
+            }
+            else -> return super.dispatchKeyEvent(event)
+        }
+    }
+
+    fun updatePausePlay() {
+        binding.playBtn.icon = ContextCompat.getDrawable(
+            context,
+            if (playerControl?.isPlaying == true) {
+                R.drawable.ic_pause
+            } else { R.drawable.ic_play }
+        )
+        binding.forwardBtn.visibility = if (playerControl?.canSeekForward() == true) { VISIBLE } else { INVISIBLE }
+        binding.rewindBtn.visibility = if (playerControl?.canSeekBackward() == true) { VISIBLE } else { INVISIBLE }
+    }
+
+    private fun doPauseResume() {
+        playerControl?.run {
+            if (isPlaying) {
+                pause()
+            } else {
+                start()
+            }
+        }
+        updatePausePlay()
+    }
+
+    override fun setEnabled(enabled: Boolean) {
+        binding.playBtn.setEnabled(enabled)
+        binding.forwardBtn.setEnabled(enabled)
+        binding.rewindBtn.setEnabled(enabled)
+        binding.progressBar.setEnabled(enabled)
+
+        disableUnsupportedButtons()
+
+        super.setEnabled(enabled)
+    }
+
+    @Suppress("MagicNumber")
+    override fun onClick(v: View) {
+        var pos: Int
+
+        playerControl?.let { playerControl ->
+            val playing = playerControl.isPlaying
+            val id = v.id
+
+            when (id) {
+                R.id.playBtn -> {
+                    doPauseResume()
+                }
+                R.id.rewindBtn -> {
+                    pos = playerControl.currentPosition
+                    pos -= 5000
+                    playerControl.seekTo(pos)
+                    if (!playing) {
+                        playerControl.pause() // necessary in some 2.3.x devices
+                    }
+                    setProgress()
+                }
+                R.id.forwardBtn -> {
+                    pos = playerControl.currentPosition
+                    pos += 15000
+                    playerControl.seekTo(pos)
+
+                    if (!playing) {
+                        playerControl.pause() // necessary in some 2.3.x devices
+                    }
+
+                    setProgress()
+                }
+
+                else -> {
                 }
             }
-            return true;
-        } else if (keyCode == KeyEvent.KEYCODE_MEDIA_PLAY) {
-            if (uniqueDown && !playerControl.isPlaying()) {
-                playerControl.start();
-                updatePausePlay();
-            }
-            return true;
-        } else if (keyCode == KeyEvent.KEYCODE_MEDIA_STOP
-                || keyCode == KeyEvent.KEYCODE_MEDIA_PAUSE) {
-            if (uniqueDown && playerControl.isPlaying()) {
-                playerControl.pause();
-                updatePausePlay();
-            }
-            return true;
-        }
-
-        return super.dispatchKeyEvent(event);
-    }
-
-    public void updatePausePlay() {
-        if (binding == null) {
-            return;
-        }
-
-        if (playerControl.isPlaying()) {
-            binding.playBtn.setImageResource(android.R.drawable.ic_media_pause);
-        } else {
-            binding.playBtn.setImageResource(android.R.drawable.ic_media_play);
-        }
-
-        final boolean canSeekFfd = playerControl.canSeekForward();
-        if (canSeekFfd) {
-            binding.forwardBtn.setVisibility(View.VISIBLE);
-        } else {
-            binding.forwardBtn.setVisibility(View.INVISIBLE);
-        }
-
-        final boolean canSeekBwd = playerControl.canSeekBackward();
-        if (canSeekBwd) {
-            binding.rewindBtn.setVisibility(View.VISIBLE);
-        } else {
-            binding.rewindBtn.setVisibility(View.INVISIBLE);
         }
     }
 
-    private void doPauseResume() {
-        if (playerControl.isPlaying()) {
-            playerControl.pause();
-        } else {
-            playerControl.start();
-        }
-        updatePausePlay();
-    }
-
-    @Override
-    public void setEnabled(boolean enabled) {
-        if(binding!=null){
-            binding.playBtn.setEnabled(enabled);
-            binding.forwardBtn.setEnabled(enabled);
-            binding.rewindBtn.setEnabled(enabled);
-            binding.progressBar.setEnabled(enabled);
-        }
-
-        disableUnsupportedButtons();
-        super.setEnabled(enabled);
-    }
-
-    @Override
-    public void onClick(View v) {
-        int pos;
-        boolean playing = playerControl.isPlaying();
-        int id = v.getId();
-
-        if (id == R.id.playBtn) {
-            doPauseResume();
-        } else if (id == R.id.rewindBtn) {
-            pos = playerControl.getCurrentPosition();
-            pos -= 5000;
-            playerControl.seekTo(pos);
-            if (!playing) {
-                playerControl.pause();  // necessary in some 2.3.x devices
-            }
-            setProgress();
-        } else if (id == R.id.forwardBtn) {
-            pos = playerControl.getCurrentPosition();
-            pos += 15000;
-            playerControl.seekTo(pos);
-            if (!playing) {
-                playerControl.pause(); // necessary in some 2.3.x devices
-            }
-            setProgress();
-        }
-    }
-
-    @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+    @Suppress("MagicNumber")
+    override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
         if (!fromUser) {
             // We're not interested in programmatically generated changes to
             // the progress bar's position.
-            return;
+            return
         }
 
-        long duration = playerControl.getDuration();
-        long newPosition = (duration * progress) / 1000L;
-        playerControl.seekTo((int) newPosition);
-        binding.currentTimeText.setText(formatTime((int) newPosition));
+        playerControl?.let { playerControl ->
+            val duration = playerControl.duration.toLong()
+            val newPosition = duration * progress / 1000L
+            playerControl.seekTo(newPosition.toInt())
+            binding.currentTimeText.text = formatTime(newPosition.toInt())
+        }
     }
 
     /**
@@ -312,32 +312,33 @@ public class MediaControlView extends LinearLayout implements OnClickListener, O
      *
      * Will be followed by several onProgressChanged notifications.
      */
-    @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-        isDragging = true;                           // monitors the duration of dragging
-        handler.removeMessages(SHOW_PROGRESS);     // grants no more updates with media player progress while dragging
+    override fun onStartTrackingTouch(seekBar: SeekBar) {
+        isDragging = true // monitors the duration of dragging
+        handler.removeMessages(SHOW_PROGRESS) // grants no more updates with media player progress while dragging
     }
 
     /**
      * Called in devices with touchpad when the user finishes the adjusting of the seekbar.
      */
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-        isDragging = false;
-        setProgress();
-        updatePausePlay();
-        handler.sendEmptyMessage(SHOW_PROGRESS);    // grants future updates with media player progress
+    override fun onStopTrackingTouch(seekBar: SeekBar) {
+        isDragging = false
+        setProgress()
+        updatePausePlay()
+        handler.sendEmptyMessage(SHOW_PROGRESS) // grants future updates with media player progress
     }
 
-    @Override
-    public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
-        super.onInitializeAccessibilityEvent(event);
-        event.setClassName(MediaControlView.class.getName());
+    override fun onInitializeAccessibilityEvent(event: AccessibilityEvent) {
+        super.onInitializeAccessibilityEvent(event)
+        event.setClassName(MediaControlView::class.java.getName())
     }
 
-    @Override
-    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
-        super.onInitializeAccessibilityNodeInfo(info);
-        info.setClassName(MediaControlView.class.getName());
+    override fun onInitializeAccessibilityNodeInfo(info: AccessibilityNodeInfo) {
+        super.onInitializeAccessibilityNodeInfo(info)
+        info.setClassName(MediaControlView::class.java.getName())
+    }
+
+    companion object {
+        private val TAG = MediaControlView::class.java.getSimpleName()
+        private const val SHOW_PROGRESS = 1
     }
 }
