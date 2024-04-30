@@ -403,6 +403,8 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="auto_upload_path">/AutoUpload</string>
 
+    <string name="preview_media_unhandled_http_code_message">File is currently locked by another user or process and therefore not deletable.</string>
+
     <string name="preview_sorry">Sorry</string>
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_unknown_format">Unable to show image</string>
