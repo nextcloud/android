@@ -542,7 +542,13 @@ class PreviewMediaActivity :
     override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>?) {
         super.onRemoteOperationFinish(operation, result)
         if (operation is RemoveFileOperation) {
-            DisplayUtils.showSnackMessage(this, ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources))
+            val errorMessage = if (result?.code == RemoteOperationResult.ResultCode.UNHANDLED_HTTP_CODE) {
+                getString(R.string.preview_media_unhandled_http_code_message)
+            } else {
+                ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources)
+            }
+
+            DisplayUtils.showSnackMessage(this, errorMessage)
 
             val removedFile = operation.file
             val fileAvailable: Boolean = storageManager.fileExists(removedFile.fileId)
