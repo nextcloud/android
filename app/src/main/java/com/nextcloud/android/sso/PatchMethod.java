@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2021 Timo Triebensky <timo@binsky.org>
  * SPDX-FileCopyrightText: 2021 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  *
  * More information here: https://github.com/abeluck/android-streams-ipc
  */

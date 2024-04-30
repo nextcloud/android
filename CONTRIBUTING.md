@@ -1,6 +1,6 @@
 <!--
  ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
- ~ SPDX-License-Identifier: AGPL-3.0-or-later
+ ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 # [Nextcloud](https://nextcloud.com) Android app
 
@@ -191,7 +191,7 @@ Source code of app:
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2024 Your Name <your@email.com>
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
  ```
  
@@ -201,7 +201,7 @@ Source code of app:
   ~ Nextcloud Talk - Android Client
   ~ 
   ~ SPDX-FileCopyrightText: 2024 Your name <your@email.com>
-  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 ```
 

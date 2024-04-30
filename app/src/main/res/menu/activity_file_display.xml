@@ -6,7 +6,7 @@
   ~ SPDX-FileCopyrightText: 2017 Jonas Sandrock <jonas.sandrock@gmx.de>
   ~ SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
-  ~ SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
