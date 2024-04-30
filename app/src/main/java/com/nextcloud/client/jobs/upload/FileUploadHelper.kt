@@ -123,9 +123,7 @@ class FileUploadHelper {
         val isPowerSaving = powerManagementService.isPowerSavingEnabled
         var uploadUser = Optional.empty<User>()
 
-
         for (failedUpload in failedUploads) {
-
             val isDeleted = !File(failedUpload.localPath).exists()
             if (isDeleted) {
                 showNotExistMessage = true
