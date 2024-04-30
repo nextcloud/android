@@ -186,6 +186,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
         return position
     }
 
+    @Suppress("ReturnCount")
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
         val keyCode = event.keyCode
         val uniqueDown = (event.repeatCount == 0 && event.action == KeyEvent.ACTION_DOWN)
