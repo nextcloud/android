@@ -88,6 +88,8 @@
     <string name="auth_unknown_host_title">Could not find host</string>
     <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
     <string name="auth_wrong_connection_title">Could not establish connection</string>
+    <string name="authenticator_activity_cancel_login">Cancel Login</string>
+    <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>

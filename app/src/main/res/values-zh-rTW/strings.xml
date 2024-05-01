@@ -88,6 +88,8 @@
     <string name="auth_unknown_host_title">無法找到主機</string>
     <string name="auth_unsupported_multiaccount">%1$s 不支援多個帳號</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
+    <string name="authenticator_activity_cancel_login">取消登入</string>
+    <string name="authenticator_activity_please_complete_login_process">請在瀏覽器中完成登入流程</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_on_wifi">僅在非計量收費的 Wi-Fi 上傳</string>
     <string name="auto_upload_path">自動上傳</string>
