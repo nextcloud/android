@@ -8,7 +8,7 @@
  * SPDX-FileCopyrightText: 2016 Juan Carlos González Cabrero <malkomich@gmail.com>
  * SPDX-FileCopyrightText: 2015 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.ui.activity;
 

@@ -8,7 +8,7 @@
  * Copyright (C) 2019 Nextcloud GmbH
  * Copyright (C) 2023 TSI-mc
  *
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 
 package com.owncloud.android.ui.dialog;
@@ -56,7 +56,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -245,9 +244,20 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
         adapter.notifyDataSetChanged();
     }
 
+    private String getFileNameText() {
+        String result = "";
+        Editable text = binding.filename.getText();
+
+        if (text != null) {
+            result = text.toString();
+        }
+
+        return result;
+    }
+
     @Override
     public void onClick(View v) {
-        String name = binding.filename.getText().toString();
+        String name = getFileNameText();
         String path = parentFolder.getRemotePath() + name;
 
         Template selectedTemplate = adapter.getSelectedTemplate();
@@ -275,12 +285,13 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     }
 
     private void prefillFilenameIfEmpty(Template template) {
-        String name = binding.filename.getText().toString();
+        String name = getFileNameText();
+
         if (name.isEmpty() || name.equalsIgnoreCase(DOT + template.getExtension())) {
             binding.filename.setText(String.format("%s.%s", template.getName(), template.getExtension()));
         }
 
-        final int dotIndex = binding.filename.getText().toString().lastIndexOf('.');
+        final int dotIndex = getFileNameText().lastIndexOf('.');
         if (dotIndex >= 0) {
             binding.filename.setSelection(dotIndex);
         }
@@ -289,7 +300,7 @@ public class ChooseRichDocumentsTemplateDialogFragment extends DialogFragment im
     private void checkEnablingCreateButton() {
         if (positiveButton != null) {
             Template selectedTemplate = adapter.getSelectedTemplate();
-            String name = Objects.requireNonNull(binding.filename.getText()).toString();
+            String name = getFileNameText();
             boolean isNameJustExtension = selectedTemplate != null && name.equalsIgnoreCase(
                 DOT + selectedTemplate.getExtension());
             boolean isNameEmpty = name.isEmpty() || isNameJustExtension;

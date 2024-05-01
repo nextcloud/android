@@ -2,7 +2,7 @@
 #
 # SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
 # SPDX-FileCopyrightText: 2024 Tobias Kaminsky <tobias@kaminsky.me>
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 
 latestCommit=$(curl -s https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
 currentCommit=$(grep "androidLibraryVersion" build.gradle | cut -f2 -d'"')
