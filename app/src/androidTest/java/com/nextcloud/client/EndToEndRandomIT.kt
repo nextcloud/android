@@ -84,19 +84,20 @@ class EndToEndRandomIT : AbstractOnServerIT() {
     @Before
     @Throws(IOException::class)
     fun before() {
-        val capability: OCCapability = getStorageManager().getCapability(AbstractIT.account.name)
+        val capability: OCCapability = storageManager.getCapability(AbstractIT.account.name)
 
         if (capability.version == OwnCloudVersion("0.0.0")) {
             // fetch new one
             TestCase.assertTrue(
-                GetCapabilitiesOperation(getStorageManager())
+                GetCapabilitiesOperation(storageManager)
                     .execute(AbstractIT.client)
-                    .isSuccess()
+                    .isSuccess
             )
         }
+
         // tests only for NC19+
         Assume.assumeTrue(
-            getStorageManager()
+            storageManager
                 .getCapability(AbstractIT.account.name)
                 .version
                 .isNewerOrEqual(OwnCloudVersion.nextcloud_19)
@@ -112,16 +113,13 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         init()
 
         for (i in 0 until actionCount) {
-            val nextAction = EndToEndAction.entries[Random().nextInt(EndToEndAction.entries.size)]
-
-            when (nextAction) {
+            when (EndToEndAction.entries[Random().nextInt(EndToEndAction.entries.size)]) {
                 EndToEndAction.CREATE_FOLDER -> createFolder(i)
                 EndToEndAction.GO_INTO_FOLDER -> goIntoFolder(i)
                 EndToEndAction.GO_UP -> goUp(i)
                 EndToEndAction.UPLOAD_FILE -> uploadFile(i)
                 EndToEndAction.DOWNLOAD_FILE -> downloadFile(i)
                 EndToEndAction.DELETE_FILE -> deleteFile(i)
-                else -> Log_OC.d(this, "[$i/$actionCount] Unknown action: $nextAction")
             }
         }
     }
@@ -231,10 +229,10 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                 user,
                 false,
                 targetContext,
-                getStorageManager()
+                storageManager
             )
                 .execute(AbstractIT.client)
-                .isSuccess()
+                .isSuccess
         )
     }
 
@@ -256,68 +254,73 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         // encrypt it
         TestCase.assertTrue(
             ToggleEncryptionRemoteOperation(
-                encFolder.getLocalId(),
-                encFolder.getRemotePath(),
+                encFolder.localId,
+                encFolder.remotePath,
                 true
             )
-                .execute(AbstractIT.client).isSuccess()
+                .execute(AbstractIT.client).isSuccess
         )
-        encFolder.setEncrypted(true)
-        getStorageManager().saveFolder(encFolder, ArrayList<OCFile>(), ArrayList<OCFile>())
+        encFolder.isEncrypted = true
+        storageManager.saveFolder(encFolder, ArrayList<OCFile>(), ArrayList<OCFile>())
 
         useExistingKeys()
 
         // lock folder
         val token: String = EncryptionUtils.lockFolder(encFolder, AbstractIT.client)
 
-        val ocCapability: OCCapability = getStorageManager().getCapability(AbstractIT.user.accountName)
+        val ocCapability: OCCapability = storageManager.getCapability(AbstractIT.user.accountName)
 
-        if (ocCapability.endToEndEncryptionApiVersion == E2EVersion.V2_0) {
-            // Update metadata
-            val privateKeyString: String =
-                arbitraryDataProvider.getValue(AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY)
-            val publicKeyString: String =
-                arbitraryDataProvider.getValue(AbstractIT.account.name, EncryptionUtils.PUBLIC_KEY)
+        when (ocCapability.endToEndEncryptionApiVersion) {
+            E2EVersion.V2_0 -> {
+                // Update metadata
+                val privateKeyString: String =
+                    arbitraryDataProvider.getValue(AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY)
+                val publicKeyString: String =
+                    arbitraryDataProvider.getValue(AbstractIT.account.name, EncryptionUtils.PUBLIC_KEY)
 
-            val metadataPair: Pair<Boolean, DecryptedFolderMetadataFile> = EncryptionUtils.retrieveMetadata(
-                encFolder,
-                AbstractIT.client,
-                privateKeyString,
-                publicKeyString,
-                getStorageManager(),
-                AbstractIT.user,
-                AbstractIT.targetContext,
-                arbitraryDataProvider
-            )
+                val metadataPair: Pair<Boolean, DecryptedFolderMetadataFile> = EncryptionUtils.retrieveMetadata(
+                    encFolder,
+                    AbstractIT.client,
+                    privateKeyString,
+                    publicKeyString,
+                    storageManager,
+                    AbstractIT.user,
+                    AbstractIT.targetContext,
+                    arbitraryDataProvider
+                )
 
-            val metadataExists = metadataPair.first
-            val metadata: DecryptedFolderMetadataFile = metadataPair.second
+                val metadataExists = metadataPair.first
+                val metadata: DecryptedFolderMetadataFile = metadataPair.second
 
-            EncryptionUtilsV2().serializeAndUploadMetadata(
-                encFolder,
-                metadata,
-                token,
-                AbstractIT.client,
-                metadataExists,
-                AbstractIT.targetContext,
-                AbstractIT.user,
-                getStorageManager()
-            )
+                EncryptionUtilsV2().serializeAndUploadMetadata(
+                    encFolder,
+                    metadata,
+                    token,
+                    AbstractIT.client,
+                    metadataExists,
+                    AbstractIT.targetContext,
+                    AbstractIT.user,
+                    storageManager
+                )
 
-            // unlock folder
-            EncryptionUtils.unlockFolder(encFolder, AbstractIT.client, token)
-        } else if (ocCapability.endToEndEncryptionApiVersion == E2EVersion.V1_0 || ocCapability.endToEndEncryptionApiVersion == E2EVersion.V1_1 || ocCapability.endToEndEncryptionApiVersion == E2EVersion.V1_2
-        ) {
-            // unlock folder
-            EncryptionUtils.unlockFolderV1(encFolder, AbstractIT.client, token)
-        } else require(ocCapability.endToEndEncryptionApiVersion != E2EVersion.UNKNOWN) { "Unknown E2E version" }
+                // unlock folder
+                EncryptionUtils.unlockFolder(encFolder, AbstractIT.client, token)
+            }
 
-        rootEncFolder = encFolder.getDecryptedRemotePath()
+            E2EVersion.V1_0, E2EVersion.V1_1, E2EVersion.V1_2 -> {
+                // unlock folder
+                EncryptionUtils.unlockFolderV1(encFolder, AbstractIT.client, token)
+            }
+
+            else -> require(ocCapability.endToEndEncryptionApiVersion != E2EVersion.UNKNOWN) { "Unknown E2E version" }
+        }
+
+        rootEncFolder = encFolder.decryptedRemotePath
         currentFolder = encFolder
     }
 
     private fun createFolder(i: Int): OCFile {
-        val path: String = currentFolder?.getDecryptedRemotePath() + RandomStringGenerator.make(5) + "/"
+        val path: String = currentFolder?.decryptedRemotePath + RandomStringGenerator.make(5) + "/"
         Log_OC.d(this, "[$i/$actionCount] Create folder: $path")
 
         return createFolder(path)
@@ -339,7 +342,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         currentFolder = folders[Random().nextInt(folders.size)]
         Log_OC.d(
             this,
-            "[" + i + "/" + actionCount + "] " + "Go into folder: " + currentFolder?.getDecryptedRemotePath()
+            "[" + i + "/" + actionCount + "] " + "Go into folder: " + currentFolder?.decryptedRemotePath
         )
     }
 
@@ -347,7 +350,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         if (currentFolder?.remotePath == rootEncFolder) {
             Log_OC.d(
                 this,
-                "[" + i + "/" + actionCount + "] " + "Go up to folder: " + currentFolder?.getDecryptedRemotePath()
+                "[" + i + "/" + actionCount + "] " + "Go up to folder: " + currentFolder?.decryptedRemotePath
             )
             return
         }
@@ -359,7 +362,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
 
         Log_OC.d(
             this,
-            "[" + i + "/" + actionCount + "] " + "Go up to folder: " + currentFolder?.getDecryptedRemotePath()
+            "[" + i + "/" + actionCount + "] " + "Go up to folder: " + currentFolder?.decryptedRemotePath
         )
     }
 
@@ -392,7 +395,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
             storageManager.getFileByEncryptedRemotePath(File(ocUpload.remotePath).getParent() + "/")
         val uploadedFileName: String = File(ocUpload.remotePath).getName()
 
-        val decryptedPath: String = parentFolder.getDecryptedRemotePath() + uploadedFileName
+        val decryptedPath: String = parentFolder.decryptedRemotePath + uploadedFileName
 
         var uploadedFile: OCFile? = storageManager.getFileByDecryptedRemotePath(decryptedPath)
         if (uploadedFile != null) {
@@ -415,7 +418,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
 
         // verify that unencrypted file is not on server
         TestCase.assertFalse(
-            ReadFileRemoteOperation(currentFolder?.getDecryptedRemotePath() + fileName)
+            ReadFileRemoteOperation(currentFolder?.decryptedRemotePath + fileName)
                 .execute(AbstractIT.client)
                 .isSuccess
         )
@@ -440,7 +443,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         Log_OC.d(
             this,
             "[" + i + "/" + actionCount + "] " + "Download file: " +
-                currentFolder?.getDecryptedRemotePath() + fileToDownload.getDecryptedFileName()
+                currentFolder?.decryptedRemotePath + fileToDownload.decryptedFileName
         )
 
         TestCase.assertTrue(
@@ -578,7 +581,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
     }
 
     private fun deleteFile(i: Int) {
-        val files: ArrayList<OCFile> = ArrayList<OCFile>()
+        val files = ArrayList<OCFile>()
         for (file in storageManager.getFolderContent(currentFolder, false)) {
             if (!file.isFolder) {
                 files.add(file)
@@ -586,7 +589,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         }
 
         if (files.isEmpty()) {
-            Log_OC.d(this, "[" + i + "/" + actionCount + "] No files in: " + currentFolder?.getDecryptedRemotePath())
+            Log_OC.d(this, "[" + i + "/" + actionCount + "] No files in: " + currentFolder?.decryptedRemotePath)
             return
         }
 
@@ -747,7 +750,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
     }
 
     private fun removeFolder(folder: OCFile) {
-        Log_OC.d(this, "Start removing content of folder: " + folder.getDecryptedRemotePath())
+        Log_OC.d(this, "Start removing content of folder: " + folder.decryptedRemotePath)
 
         val children: List<OCFile> = fileDataStorageManager.getFolderContent(folder, false)
 
@@ -757,7 +760,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                 removeFolder(child)
 
                 // remove folder
-                Log_OC.d(this, "Remove folder: " + child.getDecryptedRemotePath())
+                Log_OC.d(this, "Remove folder: " + child.decryptedRemotePath)
                 if (!folder.isEncrypted && child.isEncrypted) {
                     val result: RemoteOperationResult<*> = ToggleEncryptionRemoteOperation(
                         child.localId,
@@ -774,7 +777,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                     child.isEncrypted = false
                 }
             } else {
-                Log_OC.d(this, "Remove file: " + child.getDecryptedRemotePath())
+                Log_OC.d(this, "Remove file: " + child.decryptedRemotePath)
             }
 
             TestCase.assertTrue(
@@ -784,14 +787,14 @@ class EndToEndRandomIT : AbstractOnServerIT() {
             )
         }
 
-        Log_OC.d(this, "Finished removing content of folder: " + folder.getDecryptedRemotePath())
+        Log_OC.d(this, "Finished removing content of folder: " + folder.decryptedRemotePath)
     }
 
     private fun verifyStoragePath(file: OCFile) {
         TestCase.assertEquals(
             FileStorageUtils.getSavePath(AbstractIT.account.name) +
-                currentFolder?.getDecryptedRemotePath() +
-                file.getDecryptedFileName(),
+                currentFolder?.decryptedRemotePath +
+                file.decryptedFileName,
             file.storagePath
         )
     }
@@ -802,7 +805,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         @JvmStatic
         @BeforeClass
         @Throws(Exception::class)
-        fun initClass(): Unit {
+        fun initClass() {
             arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
             createKeys()
         }
