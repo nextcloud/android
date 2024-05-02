@@ -405,6 +405,7 @@ public class PreviewImageActivity extends FileActivity implements
             }
         }
 
+        // Update ActionBar title
         if (currentFile != null) {
             if (getSupportActionBar() != null) {
                 getSupportActionBar().setTitle(currentFile.getFileName());
