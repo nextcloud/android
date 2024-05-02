@@ -119,7 +119,8 @@ public class PreviewImageActivity extends FileActivity implements
         setupDrawer();
 
         // ActionBar
-        updateActionBarTitleAndHomeButton(null);
+        OCFile chosenFile = IntentExtensionsKt.getParcelableArgument(getIntent(), FileActivity.EXTRA_FILE, OCFile.class);
+        updateActionBarTitleAndHomeButton(chosenFile);
 
         if (actionBar != null) {
             viewThemeUtils.files.setWhiteBackButton(this, actionBar);
@@ -387,17 +388,13 @@ public class PreviewImageActivity extends FileActivity implements
     public void onPageSelected(int position) {
         savedPosition = position;
         hasSavedPosition = true;
+
+        OCFile currentFile = previewImagePagerAdapter.getFileAt(position);
+
         if (!isDownloadWorkStarted) {
             requestWaitingForBinder = true;
         } else {
-            OCFile currentFile = previewImagePagerAdapter.getFileAt(position);
-
             if (currentFile != null) {
-                if (getSupportActionBar() != null) {
-                    getSupportActionBar().setTitle(currentFile.getFileName());
-                }
-                setDrawerIndicatorEnabled(false);
-
                 if (currentFile.isEncrypted() && !currentFile.isDown() &&
                     !previewImagePagerAdapter.pendingErrorAt(position)) {
                     requestForDownload(currentFile);
@@ -408,6 +405,12 @@ public class PreviewImageActivity extends FileActivity implements
             }
         }
 
+        if (currentFile != null) {
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setTitle(currentFile.getFileName());
+            }
+            setDrawerIndicatorEnabled(false);
+        }
     }
 
     /**
