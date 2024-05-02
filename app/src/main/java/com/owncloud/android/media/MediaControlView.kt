@@ -61,6 +61,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
         super.onFinishInflate()
     }
 
+    @Suppress("MagicNumber")
     fun setMediaPlayer(player: MediaPlayerControl?) {
         playerControl = player
         handler.sendEmptyMessage(SHOW_PROGRESS)
@@ -75,6 +76,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
         handler.removeMessages(SHOW_PROGRESS)
     }
 
+    @Suppress("MagicNumber")
     private fun initControllerView() {
         binding.playBtn.requestFocus()
 
