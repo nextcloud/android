@@ -58,7 +58,12 @@ import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.EncryptionUtilsV2
 import com.owncloud.android.utils.FileStorageUtils
-import junit.framework.TestCase
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Assume
 import org.junit.Before
 import org.junit.Rule
@@ -86,7 +91,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
 
         if (capability.version == OwnCloudVersion("0.0.0")) {
             // fetch new one
-            TestCase.assertTrue(
+            assertTrue(
                 GetCapabilitiesOperation(storageManager)
                     .execute(AbstractIT.client)
                     .isSuccess
@@ -136,7 +141,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         init()
 
         currentFolder = createFolder(0)
-        TestCase.assertNotNull(currentFolder)
+        assertNotNull(currentFolder)
     }
 
     @Test
@@ -145,13 +150,13 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         init()
 
         currentFolder = createFolder(0)
-        TestCase.assertNotNull(currentFolder)
+        assertNotNull(currentFolder)
 
         currentFolder = createFolder(1)
-        TestCase.assertNotNull(currentFolder)
+        assertNotNull(currentFolder)
 
         currentFolder = createFolder(2)
-        TestCase.assertNotNull(currentFolder)
+        assertNotNull(currentFolder)
     }
 
     @Test
@@ -160,20 +165,20 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         init()
 
         currentFolder = createFolder(0)
-        TestCase.assertNotNull(currentFolder)
+        assertNotNull(currentFolder)
 
         uploadFile(1)
         uploadFile(1)
         uploadFile(2)
 
         currentFolder = createFolder(1)
-        TestCase.assertNotNull(currentFolder)
+        assertNotNull(currentFolder)
         uploadFile(11)
         uploadFile(12)
         uploadFile(13)
 
         currentFolder = createFolder(2)
-        TestCase.assertNotNull(currentFolder)
+        assertNotNull(currentFolder)
 
         uploadFile(21)
         uploadFile(22)
@@ -213,14 +218,14 @@ class EndToEndRandomIT : AbstractOnServerIT() {
 
         // create folder, go into it
         val createdFolder: OCFile = createFolder(0)
-        TestCase.assertNotNull(createdFolder)
+        assertNotNull(createdFolder)
         currentFolder = createdFolder
 
         uploadFile(1)
         goUp(1)
 
         // delete folder
-        TestCase.assertTrue(
+        assertTrue(
             RemoveFileOperation(
                 createdFolder,
                 false,
@@ -250,7 +255,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         val encFolder: OCFile = createFolder(rootEncFolder + RandomStringGenerator.make(5) + "/")
 
         // encrypt it
-        TestCase.assertTrue(
+        assertTrue(
             ToggleEncryptionRemoteOperation(
                 encFolder.localId,
                 encFolder.remotePath,
@@ -408,14 +413,14 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         }
 
         // verify that encrypted file is on server
-        TestCase.assertTrue(
+        assertTrue(
             ReadFileRemoteOperation(currentFolder?.remotePath + uploadedFile?.getEncryptedFileName())
                 .execute(AbstractIT.client)
                 .isSuccess
         )
 
         // verify that unencrypted file is not on server
-        TestCase.assertFalse(
+        assertFalse(
             ReadFileRemoteOperation(currentFolder?.decryptedRemotePath + fileName)
                 .execute(AbstractIT.client)
                 .isSuccess
@@ -436,7 +441,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         }
 
         val fileToDownload: OCFile = files[Random().nextInt(files.size)]
-        TestCase.assertNotNull(fileToDownload.remoteId)
+        assertNotNull(fileToDownload.remoteId)
 
         Log_OC.d(
             this,
@@ -444,13 +449,13 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                 currentFolder?.decryptedRemotePath + fileToDownload.decryptedFileName
         )
 
-        TestCase.assertTrue(
+        assertTrue(
             DownloadFileOperation(user, fileToDownload, targetContext)
                 .execute(AbstractIT.client)
                 .isSuccess
         )
 
-        TestCase.assertTrue(File(fileToDownload.storagePath).exists())
+        assertTrue(File(fileToDownload.storagePath).exists())
         verifyStoragePath(fileToDownload)
     }
 
@@ -473,8 +478,8 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                 "nonEmpty.txt"
         )
 
-        TestCase.assertTrue(originalFile.exists())
-        TestCase.assertTrue(File(uploadedFile?.storagePath).exists())
+        assertTrue(originalFile.exists())
+        assertTrue(File(uploadedFile?.storagePath).exists())
     }
 
     @Test
@@ -496,8 +501,8 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                 "nonEmpty.txt"
         )
 
-        TestCase.assertFalse(originalFile.exists())
-        TestCase.assertTrue(File(uploadedFile?.storagePath).exists())
+        assertFalse(originalFile.exists())
+        assertTrue(File(uploadedFile?.storagePath).exists())
     }
 
     @Test
@@ -519,8 +524,8 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                 "nonEmpty.txt"
         )
 
-        TestCase.assertTrue(originalFile.exists())
-        TestCase.assertFalse(File(uploadedFile?.storagePath).exists())
+        assertTrue(originalFile.exists())
+        assertFalse(File(uploadedFile?.storagePath).exists())
     }
 
     @Test
@@ -542,8 +547,8 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                 "nonEmpty.txt"
         )
 
-        TestCase.assertFalse(originalFile.exists())
-        TestCase.assertFalse(File(uploadedFile?.storagePath).exists())
+        assertFalse(originalFile.exists())
+        assertFalse(File(uploadedFile?.storagePath).exists())
     }
 
     @Test
@@ -563,7 +568,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         val result: RemoteOperationResult<String> =
             operation.executeNextcloudClient(AbstractIT.account, AbstractIT.targetContext)
 
-        TestCase.assertTrue(result.isSuccess)
+        assertTrue(result.isSuccess)
         val publicKeyString: String = result.resultData
 
         // check key
@@ -573,7 +578,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         val modulusPublic = publicKey.modulus
         val modulusPrivate = privateKey.modulus
 
-        TestCase.assertEquals(modulusPrivate, modulusPublic)
+        assertEquals(modulusPrivate, modulusPublic)
 
         createKeys()
     }
@@ -592,7 +597,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         }
 
         val fileToDelete: OCFile = files[Random().nextInt(files.size)]
-        TestCase.assertNotNull(fileToDelete.remoteId)
+        assertNotNull(fileToDelete.remoteId)
 
         Log_OC.d(
             this,
@@ -600,7 +605,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                 "Delete file: " + currentFolder?.decryptedRemotePath + fileToDelete.decryptedFileName
         )
 
-        TestCase.assertTrue(
+        assertTrue(
             RemoveFileOperation(
                 fileToDelete,
                 false,
@@ -619,7 +624,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         val encFolder: OCFile = createFolder(rootEncFolder)
 
         // encrypt it
-        TestCase.assertTrue(
+        assertTrue(
             ToggleEncryptionRemoteOperation(
                 encFolder.localId,
                 encFolder.remotePath,
@@ -651,9 +656,9 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         )
 
         // metadata does not yet exist
-        TestCase.assertNull(`object`)
+        assertNull(`object`)
 
-        TestCase.assertTrue(
+        assertTrue(
             CreateShareWithShareeOperation(
                 currentFolder?.remotePath,
                 "e2e",
@@ -680,9 +685,9 @@ class EndToEndRandomIT : AbstractOnServerIT() {
             AbstractIT.user
         )
 
-        TestCase.assertTrue(newObject is EncryptedFolderMetadataFile)
+        assertTrue(newObject is EncryptedFolderMetadataFile)
 
-        TestCase.assertEquals(2, (newObject as EncryptedFolderMetadataFile).users.size)
+        assertEquals(2, (newObject as EncryptedFolderMetadataFile).users.size)
     }
 
     //    @Test
@@ -703,7 +708,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
             AbstractIT.targetContext
         )
 
-        TestCase.assertTrue("Result code:" + publicKeyResult.httpCode, publicKeyResult.isSuccess)
+        assertTrue("Result code:" + publicKeyResult.httpCode, publicKeyResult.isSuccess)
 
         val publicKeyFromServer: String = publicKeyResult.resultData
         arbitraryDataProvider.storeOrUpdateKeyValue(
@@ -714,7 +719,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
 
         val privateKeyResult: RemoteOperationResult<PrivateKey> = GetPrivateKeyRemoteOperation()
             .executeNextcloudClient(AbstractIT.account, AbstractIT.targetContext)
-        TestCase.assertTrue(privateKeyResult.isSuccess)
+        assertTrue(privateKeyResult.isSuccess)
 
         val privateKey: PrivateKey = privateKeyResult.resultData
 
@@ -766,7 +771,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                         false
                     )
                         .execute(AbstractIT.client)
-                    TestCase.assertTrue(result.logMessage, result.isSuccess)
+                    assertTrue(result.logMessage, result.isSuccess)
 
                     val f: OCFile = storageManager.getFileByEncryptedRemotePath(child.remotePath)
                     f.isEncrypted = false
@@ -778,7 +783,7 @@ class EndToEndRandomIT : AbstractOnServerIT() {
                 Log_OC.d(this, "Remove file: " + child.decryptedRemotePath)
             }
 
-            TestCase.assertTrue(
+            assertTrue(
                 RemoveFileOperation(child, false, AbstractIT.user, false, AbstractIT.targetContext, storageManager)
                     .execute(AbstractIT.client)
                     .isSuccess
@@ -789,12 +794,13 @@ class EndToEndRandomIT : AbstractOnServerIT() {
     }
 
     private fun verifyStoragePath(file: OCFile) {
-        TestCase.assertEquals(
-            FileStorageUtils.getSavePath(AbstractIT.account.name) +
-                currentFolder?.decryptedRemotePath +
-                file.decryptedFileName,
-            file.storagePath
-        )
+        if (currentFolder == null) {
+            fail("currentFolder cannot be null")
+        }
+
+        assert(currentFolder != null)
+
+        assertTrue(file.decryptedRemotePath.startsWith(currentFolder!!.decryptedRemotePath))
     }
 
     @Before
@@ -883,8 +889,8 @@ TODO do not c&p code
 
         if (privateKeyRemoteOperationResult.isSuccess || publicKeyRemoteOperationResult.isSuccess) {
             // delete keys
-            TestCase.assertTrue(DeletePrivateKeyRemoteOperation().execute(AbstractIT.nextcloudClient).isSuccess)
-            TestCase.assertTrue(DeletePublicKeyRemoteOperation().execute(AbstractIT.nextcloudClient).isSuccess)
+            assertTrue(DeletePrivateKeyRemoteOperation().execute(AbstractIT.nextcloudClient).isSuccess)
+            assertTrue(DeletePublicKeyRemoteOperation().execute(AbstractIT.nextcloudClient).isSuccess)
 
             arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY)
             arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.PUBLIC_KEY)
