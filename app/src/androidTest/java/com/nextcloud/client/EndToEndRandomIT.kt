@@ -19,746 +19,718 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
+package com.nextcloud.client
 
-package com.nextcloud.client;
+import android.accounts.AccountManager
+import android.util.Pair
+import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.test.RandomStringGenerator
+import com.nextcloud.test.RetryTestRule
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.AbstractOnServerIT
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
+import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
+import com.owncloud.android.db.OCUpload
+import com.owncloud.android.lib.common.accounts.AccountUtils
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.ocs.responses.PrivateKey
+import com.owncloud.android.lib.resources.e2ee.CsrHelper
+import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation
+import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.status.E2EVersion
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.lib.resources.status.OwnCloudVersion
+import com.owncloud.android.lib.resources.users.DeletePrivateKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.GetPrivateKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
+import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
+import com.owncloud.android.operations.CreateShareWithShareeOperation
+import com.owncloud.android.operations.DownloadFileOperation
+import com.owncloud.android.operations.GetCapabilitiesOperation
+import com.owncloud.android.operations.RemoveFileOperation
+import com.owncloud.android.utils.EncryptionUtils
+import com.owncloud.android.utils.EncryptionUtilsV2
+import com.owncloud.android.utils.FileStorageUtils
+import junit.framework.TestCase
+import org.junit.Assume
+import org.junit.Before
+import org.junit.BeforeClass
+import org.junit.Rule
+import org.junit.Test
+import java.io.File
+import java.io.IOException
+import java.security.KeyPair
+import java.security.interfaces.RSAPrivateCrtKey
+import java.security.interfaces.RSAPublicKey
+import java.util.Random
 
-import android.accounts.AccountManager;
-import android.util.Pair;
+class EndToEndRandomIT : AbstractOnServerIT() {
+    private var currentFolder: OCFile? = null
+    private val actionCount = 20
+    private var rootEncFolder = "/e/"
 
-import com.nextcloud.test.RandomStringGenerator;
-import com.nextcloud.test.RetryTestRule;
-import com.owncloud.android.AbstractOnServerIT;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
-import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile;
-import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
-import com.owncloud.android.lib.common.operations.RemoteOperationResult;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.lib.ocs.responses.PrivateKey;
-import com.owncloud.android.lib.resources.e2ee.CsrHelper;
-import com.owncloud.android.lib.resources.e2ee.ToggleEncryptionRemoteOperation;
-import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
-import com.owncloud.android.lib.resources.status.E2EVersion;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.lib.resources.status.OwnCloudVersion;
-import com.owncloud.android.lib.resources.users.DeletePrivateKeyRemoteOperation;
-import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation;
-import com.owncloud.android.lib.resources.users.GetPrivateKeyRemoteOperation;
-import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation;
-import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation;
-import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation;
-import com.owncloud.android.operations.CreateShareWithShareeOperation;
-import com.owncloud.android.operations.DownloadFileOperation;
-import com.owncloud.android.operations.GetCapabilitiesOperation;
-import com.owncloud.android.operations.RemoveFileOperation;
-import com.owncloud.android.utils.EncryptionUtils;
-import com.owncloud.android.utils.EncryptionUtilsV2;
-import com.owncloud.android.utils.FileStorageUtils;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.Test;
-
-import java.io.File;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.security.KeyPair;
-import java.security.interfaces.RSAPrivateCrtKey;
-import java.security.interfaces.RSAPublicKey;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import static com.owncloud.android.lib.resources.status.OwnCloudVersion.nextcloud_19;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertFalse;
-import static junit.framework.TestCase.assertNotNull;
-import static junit.framework.TestCase.assertNull;
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assume.assumeTrue;
-
-public class EndToEndRandomIT extends AbstractOnServerIT {
-    private static ArbitraryDataProvider arbitraryDataProvider;
-    private OCFile currentFolder;
-    private final int actionCount = 20;
-    private String rootEncFolder = "/e/";
+    @JvmField
     @Rule
-    public RetryTestRule retryTestRule = new RetryTestRule();
-
-    @BeforeClass
-    public static void initClass() throws Exception {
-        arbitraryDataProvider = new ArbitraryDataProviderImpl(targetContext);
-        createKeys();
-    }
+    var retryTestRule = RetryTestRule()
 
     @Before
-    public void before() throws IOException {
-        OCCapability capability = getStorageManager().getCapability(account.name);
+    @Throws(IOException::class)
+    fun before() {
+        val capability: OCCapability = getStorageManager().getCapability(AbstractIT.account.name)
 
-        if (capability.getVersion().equals(new OwnCloudVersion("0.0.0"))) {
+        if (capability.version == OwnCloudVersion("0.0.0")) {
             // fetch new one
-            assertTrue(new GetCapabilitiesOperation(getStorageManager())
-                           .execute(client)
-                           .isSuccess());
+            TestCase.assertTrue(
+                GetCapabilitiesOperation(getStorageManager())
+                    .execute(AbstractIT.client)
+                    .isSuccess()
+            )
         }
         // tests only for NC19+
-        assumeTrue(getStorageManager()
-                       .getCapability(account.name)
-                       .getVersion()
-                       .isNewerOrEqual(nextcloud_19)
-                  );
+        Assume.assumeTrue(
+            getStorageManager()
+                .getCapability(AbstractIT.account.name)
+                .version
+                .isNewerOrEqual(OwnCloudVersion.nextcloud_19)
+        )
 
         // make sure that every file is available, even after tests that remove source file
-        createDummyFiles();
+        AbstractIT.createDummyFiles()
     }
 
     @Test
-    public void run() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun run() {
+        init()
 
-        for (int i = 0; i < actionCount; i++) {
-            EndToEndAction nextAction = EndToEndAction.values()[new Random().nextInt(EndToEndAction.values().length)];
+        for (i in 0 until actionCount) {
+            val nextAction = EndToEndAction.entries[Random().nextInt(EndToEndAction.entries.size)]
 
-            switch (nextAction) {
-                case CREATE_FOLDER:
-                    createFolder(i);
-                    break;
-
-                case GO_INTO_FOLDER:
-                    goIntoFolder(i);
-                    break;
-
-                case GO_UP:
-                    goUp(i);
-                    break;
-
-                case UPLOAD_FILE:
-                    uploadFile(i);
-                    break;
-
-                case DOWNLOAD_FILE:
-                    downloadFile(i);
-                    break;
-
-                case DELETE_FILE:
-                    deleteFile(i);
-                    break;
-
-                default:
-                    Log_OC.d(this, "[" + i + "/" + actionCount + "]" + " Unknown action: " + nextAction);
-                    break;
+            when (nextAction) {
+                EndToEndAction.CREATE_FOLDER -> createFolder(i)
+                EndToEndAction.GO_INTO_FOLDER -> goIntoFolder(i)
+                EndToEndAction.GO_UP -> goUp(i)
+                EndToEndAction.UPLOAD_FILE -> uploadFile(i)
+                EndToEndAction.DOWNLOAD_FILE -> downloadFile(i)
+                EndToEndAction.DELETE_FILE -> deleteFile(i)
+                else -> Log_OC.d(this, "[$i/$actionCount] Unknown action: $nextAction")
             }
         }
     }
 
     @Test
-    public void uploadOneFile() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun uploadOneFile() {
+        init()
 
-        uploadFile(0);
+        uploadFile(0)
     }
 
     @Test
-    public void createFolder() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun createFolder() {
+        init()
 
-        currentFolder = createFolder(0);
-        assertNotNull(currentFolder);
+        currentFolder = createFolder(0)
+        TestCase.assertNotNull(currentFolder)
     }
 
     @Test
-    public void createSubFolders() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun createSubFolders() {
+        init()
 
-        currentFolder = createFolder(0);
-        assertNotNull(currentFolder);
+        currentFolder = createFolder(0)
+        TestCase.assertNotNull(currentFolder)
 
-        currentFolder = createFolder(1);
-        assertNotNull(currentFolder);
+        currentFolder = createFolder(1)
+        TestCase.assertNotNull(currentFolder)
 
-        currentFolder = createFolder(2);
-        assertNotNull(currentFolder);
+        currentFolder = createFolder(2)
+        TestCase.assertNotNull(currentFolder)
     }
 
     @Test
-    public void createSubFoldersWithFiles() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun createSubFoldersWithFiles() {
+        init()
 
-        currentFolder = createFolder(0);
-        assertNotNull(currentFolder);
+        currentFolder = createFolder(0)
+        TestCase.assertNotNull(currentFolder)
 
-        uploadFile(1);
-        uploadFile(1);
-        uploadFile(2);
+        uploadFile(1)
+        uploadFile(1)
+        uploadFile(2)
 
-        currentFolder = createFolder(1);
-        assertNotNull(currentFolder);
-        uploadFile(11);
-        uploadFile(12);
-        uploadFile(13);
+        currentFolder = createFolder(1)
+        TestCase.assertNotNull(currentFolder)
+        uploadFile(11)
+        uploadFile(12)
+        uploadFile(13)
 
-        currentFolder = createFolder(2);
-        assertNotNull(currentFolder);
+        currentFolder = createFolder(2)
+        TestCase.assertNotNull(currentFolder)
 
-        uploadFile(21);
-        uploadFile(22);
-        uploadFile(23);
+        uploadFile(21)
+        uploadFile(22)
+        uploadFile(23)
     }
 
     @Test
-    public void pseudoRandom() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun pseudoRandom() {
+        init()
 
-        uploadFile(1);
-        createFolder(2);
-        goIntoFolder(3);
-        goUp(4);
-        createFolder(5);
-        uploadFile(6);
-        goUp(7);
-        goIntoFolder(8);
-        goIntoFolder(9);
-        uploadFile(10);
+        uploadFile(1)
+        createFolder(2)
+        goIntoFolder(3)
+        goUp(4)
+        createFolder(5)
+        uploadFile(6)
+        goUp(7)
+        goIntoFolder(8)
+        goIntoFolder(9)
+        uploadFile(10)
     }
 
     @Test
-    public void deleteFile() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun deleteFile() {
+        init()
 
-        uploadFile(1);
-        deleteFile(1);
+        uploadFile(1)
+        deleteFile(1)
     }
 
     @Test
-    public void deleteFolder() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun deleteFolder() {
+        init()
 
         // create folder, go into it
-        OCFile createdFolder = createFolder(0);
-        assertNotNull(createdFolder);
-        currentFolder = createdFolder;
+        val createdFolder: OCFile = createFolder(0)
+        TestCase.assertNotNull(createdFolder)
+        currentFolder = createdFolder
 
-        uploadFile(1);
-        goUp(1);
+        uploadFile(1)
+        goUp(1)
 
         // delete folder
-        assertTrue(new RemoveFileOperation(createdFolder,
-                                           false,
-                                           user,
-                                           false,
-                                           targetContext,
-                                           getStorageManager())
-                       .execute(client)
-                       .isSuccess());
+        TestCase.assertTrue(
+            RemoveFileOperation(
+                createdFolder,
+                false,
+                user,
+                false,
+                targetContext,
+                getStorageManager()
+            )
+                .execute(AbstractIT.client)
+                .isSuccess()
+        )
     }
 
     @Test
-    public void downloadFile() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun downloadFile() {
+        init()
 
-        uploadFile(1);
-        downloadFile(1);
+        uploadFile(1)
+        downloadFile(1)
     }
 
-    private void init() throws Throwable {
+    @Throws(Throwable::class)
+    private fun init() {
         // create folder
-        createFolder(rootEncFolder);
-        OCFile encFolder = createFolder(rootEncFolder + RandomStringGenerator.make(5) + "/");
+        createFolder(rootEncFolder)
+        val encFolder: OCFile = createFolder(rootEncFolder + RandomStringGenerator.make(5) + "/")
 
         // encrypt it
-        assertTrue(new ToggleEncryptionRemoteOperation(encFolder.getLocalId(),
-                                                       encFolder.getRemotePath(),
-                                                       true)
-                       .execute(client).isSuccess());
-        encFolder.setEncrypted(true);
-        getStorageManager().saveFolder(encFolder, new ArrayList<>(), new ArrayList<>());
+        TestCase.assertTrue(
+            ToggleEncryptionRemoteOperation(
+                encFolder.getLocalId(),
+                encFolder.getRemotePath(),
+                true
+            )
+                .execute(AbstractIT.client).isSuccess()
+        )
+        encFolder.setEncrypted(true)
+        getStorageManager().saveFolder(encFolder, ArrayList<OCFile>(), ArrayList<OCFile>())
 
-        useExistingKeys();
+        useExistingKeys()
 
         // lock folder
-        String token = EncryptionUtils.lockFolder(encFolder, client);
+        val token: String = EncryptionUtils.lockFolder(encFolder, AbstractIT.client)
 
-        OCCapability ocCapability = getStorageManager().getCapability(user.getAccountName());
+        val ocCapability: OCCapability = getStorageManager().getCapability(AbstractIT.user.accountName)
 
-        if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V2_0) {
+        if (ocCapability.endToEndEncryptionApiVersion == E2EVersion.V2_0) {
             // Update metadata
-            String privateKeyString = arbitraryDataProvider.getValue(account.name, EncryptionUtils.PRIVATE_KEY);
-            String publicKeyString = arbitraryDataProvider.getValue(account.name, EncryptionUtils.PUBLIC_KEY);
+            val privateKeyString: String =
+                arbitraryDataProvider.getValue(AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY)
+            val publicKeyString: String =
+                arbitraryDataProvider.getValue(AbstractIT.account.name, EncryptionUtils.PUBLIC_KEY)
 
-            Pair<Boolean, DecryptedFolderMetadataFile> metadataPair = EncryptionUtils.retrieveMetadata(encFolder,
-                                                                                                       client,
-                                                                                                       privateKeyString,
-                                                                                                       publicKeyString,
-                                                                                                       getStorageManager(),
-                                                                                                       user,
-                                                                                                       targetContext,
-                                                                                                       arbitraryDataProvider);
+            val metadataPair: Pair<Boolean, DecryptedFolderMetadataFile> = EncryptionUtils.retrieveMetadata(
+                encFolder,
+                AbstractIT.client,
+                privateKeyString,
+                publicKeyString,
+                getStorageManager(),
+                AbstractIT.user,
+                AbstractIT.targetContext,
+                arbitraryDataProvider
+            )
 
-            boolean metadataExists = metadataPair.first;
-            DecryptedFolderMetadataFile metadata = metadataPair.second;
+            val metadataExists = metadataPair.first
+            val metadata: DecryptedFolderMetadataFile = metadataPair.second
 
-            new EncryptionUtilsV2().serializeAndUploadMetadata(encFolder,
-                                                               metadata,
-                                                               token,
-                                                               client,
-                                                               metadataExists,
-                                                               targetContext,
-                                                               user,
-                                                               getStorageManager());
+            EncryptionUtilsV2().serializeAndUploadMetadata(
+                encFolder,
+                metadata,
+                token,
+                AbstractIT.client,
+                metadataExists,
+                AbstractIT.targetContext,
+                AbstractIT.user,
+                getStorageManager()
+            )
 
             // unlock folder
-            EncryptionUtils.unlockFolder(encFolder, client, token);
-
-        } else if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V1_0 ||
-            ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V1_1 ||
-            ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.V1_2
+            EncryptionUtils.unlockFolder(encFolder, AbstractIT.client, token)
+        } else if (ocCapability.endToEndEncryptionApiVersion == E2EVersion.V1_0 || ocCapability.endToEndEncryptionApiVersion == E2EVersion.V1_1 || ocCapability.endToEndEncryptionApiVersion == E2EVersion.V1_2
         ) {
             // unlock folder
-            EncryptionUtils.unlockFolderV1(encFolder, client, token);
-        } else if (ocCapability.getEndToEndEncryptionApiVersion() == E2EVersion.UNKNOWN) {
-            throw new IllegalArgumentException("Unknown E2E version");
-        }
+            EncryptionUtils.unlockFolderV1(encFolder, AbstractIT.client, token)
+        } else require(ocCapability.endToEndEncryptionApiVersion != E2EVersion.UNKNOWN) { "Unknown E2E version" }
 
-        rootEncFolder = encFolder.getDecryptedRemotePath();
-        currentFolder = encFolder;
+        rootEncFolder = encFolder.getDecryptedRemotePath()
+        currentFolder = encFolder
     }
 
-    private OCFile createFolder(int i) {
-        String path = currentFolder.getDecryptedRemotePath() + RandomStringGenerator.make(5) + "/";
-        Log_OC.d(this, "[" + i + "/" + actionCount + "] " + "Create folder: " + path);
+    private fun createFolder(i: Int): OCFile {
+        val path: String = currentFolder?.getDecryptedRemotePath() + RandomStringGenerator.make(5) + "/"
+        Log_OC.d(this, "[$i/$actionCount] Create folder: $path")
 
-        return createFolder(path);
+        return createFolder(path)
     }
 
-    private void goIntoFolder(int i) {
-        ArrayList<OCFile> folders = new ArrayList<>();
-        for (OCFile file : getStorageManager().getFolderContent(currentFolder, false)) {
-            if (file.isFolder()) {
-                folders.add(file);
+    private fun goIntoFolder(i: Int) {
+        val folders = ArrayList<OCFile>()
+        for (file in storageManager.getFolderContent(currentFolder, false)) {
+            if (file.isFolder) {
+                folders.add(file)
             }
         }
 
         if (folders.isEmpty()) {
-            Log_OC.d(this, "[" + i + "/" + actionCount + "] " + "Go into folder: No folders");
-            return;
+            Log_OC.d(this, "[$i/$actionCount] Go into folder: No folders")
+            return
         }
 
-        currentFolder = folders.get(new Random().nextInt(folders.size()));
-        Log_OC.d(this,
-                 "[" + i + "/" + actionCount + "] " + "Go into folder: " + currentFolder.getDecryptedRemotePath());
+        currentFolder = folders[Random().nextInt(folders.size)]
+        Log_OC.d(
+            this,
+            "[" + i + "/" + actionCount + "] " + "Go into folder: " + currentFolder?.getDecryptedRemotePath()
+        )
     }
 
-    private void goUp(int i) {
-        if (currentFolder.getRemotePath().equals(rootEncFolder)) {
-            Log_OC.d(this,
-                     "[" + i + "/" + actionCount + "] " + "Go up to folder: " + currentFolder.getDecryptedRemotePath());
-            return;
+    private fun goUp(i: Int) {
+        if (currentFolder?.remotePath == rootEncFolder) {
+            Log_OC.d(
+                this,
+                "[" + i + "/" + actionCount + "] " + "Go up to folder: " + currentFolder?.getDecryptedRemotePath()
+            )
+            return
         }
 
-        currentFolder = getStorageManager().getFileById(currentFolder.getParentId());
+        currentFolder = currentFolder?.parentId?.let { storageManager.getFileById(it) }
         if (currentFolder == null) {
-            throw new RuntimeException("Current folder is null");
+            throw RuntimeException("Current folder is null")
         }
 
-        Log_OC.d(this,
-                 "[" + i + "/" + actionCount + "] " + "Go up to folder: " + currentFolder.getDecryptedRemotePath());
+        Log_OC.d(
+            this,
+            "[" + i + "/" + actionCount + "] " + "Go up to folder: " + currentFolder?.getDecryptedRemotePath()
+        )
     }
 
-    private void uploadFile(int i) throws IOException {
-        String fileName = RandomStringGenerator.make(5) + ".txt";
-
-        File file;
-        if (new Random().nextBoolean()) {
-            file = createFile(fileName, new Random().nextInt(50000));
+    @Throws(IOException::class)
+    private fun uploadFile(i: Int) {
+        val fileName: String = RandomStringGenerator.make(5) + ".txt"
+        val file: File = if (Random().nextBoolean()) {
+            AbstractIT.createFile(fileName, Random().nextInt(50000))
         } else {
-            file = createFile(fileName, 500000 + new Random().nextInt(50000));
+            AbstractIT.createFile(fileName, 500000 + Random().nextInt(50000))
         }
 
-        String remotePath = currentFolder.getRemotePath() + fileName;
+        val remotePath: String = currentFolder?.remotePath + fileName
 
-        Log_OC.d(this,
-                 "[" + i + "/" + actionCount + "] " +
-                     "Upload file to: " + currentFolder.getDecryptedRemotePath() + fileName);
+        Log_OC.d(
+            this,
+            "[" + i + "/" + actionCount + "] " +
+                "Upload file to: " + currentFolder?.decryptedRemotePath + fileName
+        )
 
-        OCUpload ocUpload = new OCUpload(file.getAbsolutePath(),
-                                         remotePath,
-                                         account.name);
-        uploadOCUpload(ocUpload);
-        shortSleep();
+        val ocUpload = OCUpload(
+            file.absolutePath,
+            remotePath,
+            AbstractIT.account.name
+        )
+        uploadOCUpload(ocUpload)
+        AbstractIT.shortSleep()
 
-        OCFile parentFolder = getStorageManager()
-            .getFileByEncryptedRemotePath(new File(ocUpload.getRemotePath()).getParent() + "/");
-        String uploadedFileName = new File(ocUpload.getRemotePath()).getName();
+        val parentFolder: OCFile =
+            storageManager.getFileByEncryptedRemotePath(File(ocUpload.remotePath).getParent() + "/")
+        val uploadedFileName: String = File(ocUpload.remotePath).getName()
 
-        String decryptedPath = parentFolder.getDecryptedRemotePath() + uploadedFileName;
+        val decryptedPath: String = parentFolder.getDecryptedRemotePath() + uploadedFileName
 
-        OCFile uploadedFile = getStorageManager().getFileByDecryptedRemotePath(decryptedPath);
-        verifyStoragePath(uploadedFile);
+        var uploadedFile: OCFile? = storageManager.getFileByDecryptedRemotePath(decryptedPath)
+        if (uploadedFile != null) {
+            verifyStoragePath(uploadedFile)
+        }
 
         // verify storage path
-        refreshFolder(currentFolder.getRemotePath());
-        uploadedFile = getStorageManager().getFileByDecryptedRemotePath(decryptedPath);
-        verifyStoragePath(uploadedFile);
+        refreshFolder(currentFolder?.remotePath)
+        uploadedFile = storageManager.getFileByDecryptedRemotePath(decryptedPath)
+        if (uploadedFile != null) {
+            verifyStoragePath(uploadedFile)
+        }
 
         // verify that encrypted file is on server
-        assertTrue(new ReadFileRemoteOperation(currentFolder.getRemotePath() + uploadedFile.getEncryptedFileName())
-                       .execute(client)
-                       .isSuccess());
+        TestCase.assertTrue(
+            ReadFileRemoteOperation(currentFolder?.remotePath + uploadedFile?.getEncryptedFileName())
+                .execute(AbstractIT.client)
+                .isSuccess
+        )
 
         // verify that unencrypted file is not on server
-        assertFalse(new ReadFileRemoteOperation(currentFolder.getDecryptedRemotePath() + fileName)
-                        .execute(client)
-                        .isSuccess());
+        TestCase.assertFalse(
+            ReadFileRemoteOperation(currentFolder?.getDecryptedRemotePath() + fileName)
+                .execute(AbstractIT.client)
+                .isSuccess
+        )
     }
 
-    private void downloadFile(int i) {
-        ArrayList<OCFile> files = new ArrayList<>();
-        for (OCFile file : getStorageManager().getFolderContent(currentFolder, false)) {
-            if (!file.isFolder()) {
-                files.add(file);
+    private fun downloadFile(i: Int) {
+        val files = ArrayList<OCFile>()
+        for (file in storageManager.getFolderContent(currentFolder, false)) {
+            if (!file.isFolder) {
+                files.add(file)
             }
         }
 
         if (files.isEmpty()) {
-            Log_OC.d(this, "[" + i + "/" + actionCount + "] No files in: " + currentFolder.getDecryptedRemotePath());
-            return;
+            Log_OC.d(this, "[" + i + "/" + actionCount + "] No files in: " + currentFolder?.decryptedRemotePath)
+            return
         }
 
-        OCFile fileToDownload = files.get(new Random().nextInt(files.size()));
-        assertNotNull(fileToDownload.getRemoteId());
+        val fileToDownload: OCFile = files[Random().nextInt(files.size)]
+        TestCase.assertNotNull(fileToDownload.remoteId)
 
-        Log_OC.d(this,
-                 "[" + i + "/" + actionCount + "] " + "Download file: " +
-                     currentFolder.getDecryptedRemotePath() + fileToDownload.getDecryptedFileName());
+        Log_OC.d(
+            this,
+            "[" + i + "/" + actionCount + "] " + "Download file: " +
+                currentFolder?.getDecryptedRemotePath() + fileToDownload.getDecryptedFileName()
+        )
 
-        assertTrue(new DownloadFileOperation(user, fileToDownload, targetContext)
-                       .execute(client)
-                       .isSuccess());
+        TestCase.assertTrue(
+            DownloadFileOperation(user, fileToDownload, targetContext)
+                .execute(AbstractIT.client)
+                .isSuccess
+        )
 
-        assertTrue(new File(fileToDownload.getStoragePath()).exists());
-        verifyStoragePath(fileToDownload);
+        TestCase.assertTrue(File(fileToDownload.storagePath).exists())
+        verifyStoragePath(fileToDownload)
     }
 
     @Test
-    public void testUploadWithCopy() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun testUploadWithCopy() {
+        init()
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         currentFolder.getRemotePath() + "nonEmpty.txt",
-                                         account.name);
+        val ocUpload = OCUpload(
+            FileStorageUtils.getTemporalPath(AbstractIT.account.name) + "/nonEmpty.txt",
+            currentFolder?.remotePath + "nonEmpty.txt",
+            AbstractIT.account.name
+        )
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_COPY);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_COPY)
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
-        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
-                                                                                      "nonEmpty.txt");
+        val originalFile = File(FileStorageUtils.getTemporalPath(AbstractIT.account.name) + "/nonEmpty.txt")
+        val uploadedFile: OCFile? = fileDataStorageManager.getFileByDecryptedRemotePath(
+            currentFolder?.remotePath +
+                "nonEmpty.txt"
+        )
 
-        assertTrue(originalFile.exists());
-        assertTrue(new File(uploadedFile.getStoragePath()).exists());
+        TestCase.assertTrue(originalFile.exists())
+        TestCase.assertTrue(File(uploadedFile?.storagePath).exists())
     }
 
     @Test
-    public void testUploadWithMove() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun testUploadWithMove() {
+        init()
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         currentFolder.getRemotePath() + "nonEmpty.txt",
-                                         account.name);
+        val ocUpload = OCUpload(
+            FileStorageUtils.getTemporalPath(AbstractIT.account.name) + "/nonEmpty.txt",
+            currentFolder?.remotePath + "nonEmpty.txt",
+            AbstractIT.account.name
+        )
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_MOVE)
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
-        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
-                                                                                      "nonEmpty.txt");
+        val originalFile = File(FileStorageUtils.getTemporalPath(AbstractIT.account.name) + "/nonEmpty.txt")
+        val uploadedFile: OCFile? = fileDataStorageManager.getFileByDecryptedRemotePath(
+            currentFolder?.remotePath +
+                "nonEmpty.txt"
+        )
 
-        assertFalse(originalFile.exists());
-        assertTrue(new File(uploadedFile.getStoragePath()).exists());
+        TestCase.assertFalse(originalFile.exists())
+        TestCase.assertTrue(File(uploadedFile?.storagePath).exists())
     }
 
     @Test
-    public void testUploadWithForget() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun testUploadWithForget() {
+        init()
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         currentFolder.getRemotePath() + "nonEmpty.txt",
-                                         account.name);
+        val ocUpload = OCUpload(
+            FileStorageUtils.getTemporalPath(AbstractIT.account.name) + "/nonEmpty.txt",
+            currentFolder?.remotePath + "nonEmpty.txt",
+            AbstractIT.account.name
+        )
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_FORGET);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_FORGET)
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
-        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
-                                                                                      "nonEmpty.txt");
+        val originalFile = File(FileStorageUtils.getTemporalPath(AbstractIT.account.name) + "/nonEmpty.txt")
+        val uploadedFile: OCFile? = fileDataStorageManager.getFileByDecryptedRemotePath(
+            currentFolder?.remotePath +
+                "nonEmpty.txt"
+        )
 
-        assertTrue(originalFile.exists());
-        assertFalse(new File(uploadedFile.getStoragePath()).exists());
+        TestCase.assertTrue(originalFile.exists())
+        TestCase.assertFalse(File(uploadedFile?.storagePath).exists())
     }
 
     @Test
-    public void testUploadWithDelete() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun testUploadWithDelete() {
+        init()
 
-        OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt",
-                                         currentFolder.getRemotePath() + "nonEmpty.txt",
-                                         account.name);
+        val ocUpload = OCUpload(
+            FileStorageUtils.getTemporalPath(AbstractIT.account.name) + "/nonEmpty.txt",
+            currentFolder?.remotePath + "nonEmpty.txt",
+            AbstractIT.account.name
+        )
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_DELETE);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_DELETE)
 
-        File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
-        OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(currentFolder.getRemotePath() +
-                                                                                      "nonEmpty.txt");
+        val originalFile = File(FileStorageUtils.getTemporalPath(AbstractIT.account.name) + "/nonEmpty.txt")
+        val uploadedFile: OCFile? = fileDataStorageManager.getFileByDecryptedRemotePath(
+            currentFolder?.remotePath +
+                "nonEmpty.txt"
+        )
 
-        assertFalse(originalFile.exists());
-        assertFalse(new File(uploadedFile.getStoragePath()).exists());
+        TestCase.assertFalse(originalFile.exists())
+        TestCase.assertFalse(File(uploadedFile?.storagePath).exists())
     }
 
     @Test
-    public void testCheckCSR() throws Exception {
-        deleteKeys();
+    @Throws(Exception::class)
+    fun testCheckCSR() {
+        deleteKeys()
 
         // Create public/private key pair
-        KeyPair keyPair = EncryptionUtils.generateKeyPair();
+        val keyPair: KeyPair = EncryptionUtils.generateKeyPair()
 
         // create CSR
-        AccountManager accountManager = AccountManager.get(targetContext);
-        String userId = accountManager.getUserData(account, AccountUtils.Constants.KEY_USER_ID);
-        String urlEncoded = new CsrHelper().generateCsrPemEncodedString(keyPair, userId);
+        val accountManager: AccountManager = AccountManager.get(AbstractIT.targetContext)
+        val userId: String = accountManager.getUserData(AbstractIT.account, AccountUtils.Constants.KEY_USER_ID)
+        val urlEncoded: String = CsrHelper().generateCsrPemEncodedString(keyPair, userId)
 
-        SendCSRRemoteOperation operation = new SendCSRRemoteOperation(urlEncoded);
-        RemoteOperationResult<String> result = operation.executeNextcloudClient(account, targetContext);
+        val operation = SendCSRRemoteOperation(urlEncoded)
+        val result: RemoteOperationResult<String> =
+            operation.executeNextcloudClient(AbstractIT.account, AbstractIT.targetContext)
 
-        assertTrue(result.isSuccess());
-        String publicKeyString = result.getResultData();
+        TestCase.assertTrue(result.isSuccess)
+        val publicKeyString: String = result.resultData
 
         // check key
-        RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
-        RSAPublicKey publicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString);
+        val privateKey = keyPair.private as RSAPrivateCrtKey
+        val publicKey: RSAPublicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString)
 
-        BigInteger modulusPublic = publicKey.getModulus();
-        BigInteger modulusPrivate = privateKey.getModulus();
+        val modulusPublic = publicKey.modulus
+        val modulusPrivate = privateKey.modulus
 
-        assertEquals(modulusPrivate, modulusPublic);
+        TestCase.assertEquals(modulusPrivate, modulusPublic)
 
-        createKeys();
+        createKeys()
     }
 
-    private void deleteFile(int i) {
-        ArrayList<OCFile> files = new ArrayList<>();
-        for (OCFile file : getStorageManager().getFolderContent(currentFolder, false)) {
-            if (!file.isFolder()) {
-                files.add(file);
+    private fun deleteFile(i: Int) {
+        val files: ArrayList<OCFile> = ArrayList<OCFile>()
+        for (file in storageManager.getFolderContent(currentFolder, false)) {
+            if (!file.isFolder) {
+                files.add(file)
             }
         }
 
         if (files.isEmpty()) {
-            Log_OC.d(this, "[" + i + "/" + actionCount + "] No files in: " + currentFolder.getDecryptedRemotePath());
-            return;
+            Log_OC.d(this, "[" + i + "/" + actionCount + "] No files in: " + currentFolder?.getDecryptedRemotePath())
+            return
         }
 
-        OCFile fileToDelete = files.get(new Random().nextInt(files.size()));
-        assertNotNull(fileToDelete.getRemoteId());
+        val fileToDelete: OCFile = files[Random().nextInt(files.size)]
+        TestCase.assertNotNull(fileToDelete.remoteId)
 
-        Log_OC.d(this,
-                 "[" + i + "/" + actionCount + "] " +
-                     "Delete file: " + currentFolder.getDecryptedRemotePath() + fileToDelete.getDecryptedFileName());
+        Log_OC.d(
+            this,
+            "[" + i + "/" + actionCount + "] " +
+                "Delete file: " + currentFolder?.decryptedRemotePath + fileToDelete.decryptedFileName
+        )
 
-        assertTrue(new RemoveFileOperation(fileToDelete,
-                                           false,
-                                           user,
-                                           false,
-                                           targetContext,
-                                           getStorageManager())
-                       .execute(client)
-                       .isSuccess());
+        TestCase.assertTrue(
+            RemoveFileOperation(
+                fileToDelete,
+                false,
+                AbstractIT.user,
+                false,
+                AbstractIT.targetContext,
+                storageManager
+            ).execute(AbstractIT.client).isSuccess
+        )
     }
 
     @Test
-    public void reInit() throws Exception {
+    @Throws(Exception::class)
+    fun reInit() {
         // create folder
-        OCFile encFolder = createFolder(rootEncFolder);
+        val encFolder: OCFile = createFolder(rootEncFolder)
 
         // encrypt it
-        assertTrue(new ToggleEncryptionRemoteOperation(encFolder.getLocalId(),
-                                                       encFolder.getRemotePath(),
-                                                       true)
-                       .execute(client).isSuccess());
-        encFolder.setEncrypted(true);
-        getStorageManager().saveFolder(encFolder, new ArrayList<>(), new ArrayList<>());
-
+        TestCase.assertTrue(
+            ToggleEncryptionRemoteOperation(
+                encFolder.localId,
+                encFolder.remotePath,
+                true
+            )
+                .execute(AbstractIT.client).isSuccess
+        )
+        encFolder.isEncrypted = true
+        storageManager.saveFolder(encFolder, ArrayList<OCFile>(), ArrayList<OCFile>())
 
         // delete keys
-        arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PRIVATE_KEY);
-        arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PUBLIC_KEY);
-        arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.MNEMONIC);
+        arbitraryDataProvider.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY)
+        arbitraryDataProvider.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.PUBLIC_KEY)
+        arbitraryDataProvider.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.MNEMONIC)
 
-        useExistingKeys();
+        useExistingKeys()
     }
 
     @Test
-    public void shareFolder() throws Throwable {
-        init();
+    @Throws(Throwable::class)
+    fun shareFolder() {
+        init()
 
-        Object object = EncryptionUtils.downloadFolderMetadata(currentFolder,
-                                                               client,
-                                                               targetContext,
-                                                               user);
+        val `object`: Any? = EncryptionUtils.downloadFolderMetadata(
+            currentFolder,
+            AbstractIT.client,
+            AbstractIT.targetContext,
+            AbstractIT.user
+        )
 
         // metadata does not yet exist
-        assertNull(object);
+        TestCase.assertNull(`object`)
 
-        assertTrue(new CreateShareWithShareeOperation(
-            currentFolder.getRemotePath(),
-            "e2e",
-            ShareType.USER,
-            OCShare.SHARE_PERMISSION_FLAG,
-            "",
-            "",
-            -1,
-            false,
-            fileDataStorageManager,
-            targetContext,
-            user,
-            new ArbitraryDataProviderImpl(targetContext))
-                       .execute(client)
-                       .isSuccess());
+        TestCase.assertTrue(
+            CreateShareWithShareeOperation(
+                currentFolder?.remotePath,
+                "e2e",
+                ShareType.USER,
+                OCShare.SHARE_PERMISSION_FLAG,
+                "",
+                "",
+                -1,
+                false,
+                fileDataStorageManager,
+                targetContext,
+                user,
+                ArbitraryDataProviderImpl(targetContext)
+            )
+                .execute(AbstractIT.client)
+                .isSuccess
+        )
 
         // verify
-        Object newObject = EncryptionUtils.downloadFolderMetadata(currentFolder,
-                                                                  client,
-                                                                  targetContext,
-                                                                  user);
+        val newObject: Any? = EncryptionUtils.downloadFolderMetadata(
+            currentFolder,
+            AbstractIT.client,
+            AbstractIT.targetContext,
+            AbstractIT.user
+        )
 
-        assertTrue(newObject instanceof EncryptedFolderMetadataFile);
+        TestCase.assertTrue(newObject is EncryptedFolderMetadataFile)
 
-        assertEquals(2, ((EncryptedFolderMetadataFile) newObject).getUsers().size());
+        TestCase.assertEquals(2, (newObject as EncryptedFolderMetadataFile).users.size)
     }
 
-//    @Test
-//    public void testRemoveFiles() throws Exception {
-//        init();
-//        createFolder();
-//        goIntoFolder(1);
-//
-//        OCFile root = fileDataStorageManager.getFileByDecryptedRemotePath("/");
-//        removeFolder(root);
-//    }
-
-    private void useExistingKeys() throws Exception {
+    //    @Test
+    //    public void testRemoveFiles() throws Exception {
+    //        init();
+    //        createFolder();
+    //        goIntoFolder(1);
+    //
+    //        OCFile root = fileDataStorageManager.getFileByDecryptedRemotePath("/");
+    //        removeFolder(root);
+    //    }
+    @Throws(Exception::class)
+    private fun useExistingKeys() {
         // download them from server
-        GetPublicKeyRemoteOperation publicKeyOperation = new GetPublicKeyRemoteOperation();
-        RemoteOperationResult<String> publicKeyResult = publicKeyOperation.executeNextcloudClient(account,
-                                                                                                  targetContext);
+        val publicKeyOperation = GetPublicKeyRemoteOperation()
+        val publicKeyResult: RemoteOperationResult<String> = publicKeyOperation.executeNextcloudClient(
+            AbstractIT.account,
+            AbstractIT.targetContext
+        )
 
-        assertTrue("Result code:" + publicKeyResult.getHttpCode(), publicKeyResult.isSuccess());
+        TestCase.assertTrue("Result code:" + publicKeyResult.httpCode, publicKeyResult.isSuccess)
 
-        String publicKeyFromServer = publicKeyResult.getResultData();
-        arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
-                                                    EncryptionUtils.PUBLIC_KEY,
-                                                    publicKeyFromServer);
+        val publicKeyFromServer: String = publicKeyResult.resultData
+        arbitraryDataProvider.storeOrUpdateKeyValue(
+            AbstractIT.account.name,
+            EncryptionUtils.PUBLIC_KEY,
+            publicKeyFromServer
+        )
 
-        RemoteOperationResult<PrivateKey> privateKeyResult = new GetPrivateKeyRemoteOperation()
-            .executeNextcloudClient(account, targetContext);
-        assertTrue(privateKeyResult.isSuccess());
+        val privateKeyResult: RemoteOperationResult<PrivateKey> = GetPrivateKeyRemoteOperation()
+            .executeNextcloudClient(AbstractIT.account, AbstractIT.targetContext)
+        TestCase.assertTrue(privateKeyResult.isSuccess)
 
-        PrivateKey privateKey = privateKeyResult.getResultData();
+        val privateKey: PrivateKey = privateKeyResult.resultData
 
-        String mnemonic = generateMnemonicString();
-        String decryptedPrivateKey = EncryptionUtils.decryptPrivateKey(privateKey.getKey(), mnemonic);
+        val mnemonic = generateMnemonicString()
+        val decryptedPrivateKey: String = EncryptionUtils.decryptPrivateKey(privateKey.getKey(), mnemonic)
 
-        arbitraryDataProvider.storeOrUpdateKeyValue(account.name,
-                                                    EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey);
+        arbitraryDataProvider.storeOrUpdateKeyValue(
+            AbstractIT.account.name,
+            EncryptionUtils.PRIVATE_KEY, decryptedPrivateKey
+        )
 
-        Log_OC.d(this, "Private key successfully decrypted and stored");
+        Log_OC.d(this, "Private key successfully decrypted and stored")
 
-        arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.MNEMONIC, mnemonic);
+        arbitraryDataProvider.storeOrUpdateKeyValue(AbstractIT.account.name, EncryptionUtils.MNEMONIC, mnemonic)
     }
 
-    /*
-    TODO do not c&p code
-     */
-    private static void createKeys() throws Exception {
-        deleteKeys();
-
-        String publicKeyString;
-
-        // Create public/private key pair
-        KeyPair keyPair = EncryptionUtils.generateKeyPair();
-
-        // create CSR
-        AccountManager accountManager = AccountManager.get(targetContext);
-        String userId = accountManager.getUserData(account, AccountUtils.Constants.KEY_USER_ID);
-        String urlEncoded = new CsrHelper().generateCsrPemEncodedString(keyPair, userId);
-
-        SendCSRRemoteOperation operation = new SendCSRRemoteOperation(urlEncoded);
-        RemoteOperationResult<String> result = operation.executeNextcloudClient(account, targetContext);
-
-        if (result.isSuccess()) {
-            publicKeyString = result.getResultData();
-
-            // check key
-            RSAPrivateCrtKey privateKey = (RSAPrivateCrtKey) keyPair.getPrivate();
-            RSAPublicKey publicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString);
-
-            BigInteger modulusPublic = publicKey.getModulus();
-            BigInteger modulusPrivate = privateKey.getModulus();
-
-            if (modulusPrivate.compareTo(modulusPublic) != 0) {
-                throw new RuntimeException("Wrong CSR returned");
-            }
-        } else {
-            throw new Exception("failed to send CSR", result.getException());
-        }
-
-        java.security.PrivateKey privateKey = keyPair.getPrivate();
-        String privateKeyString = EncryptionUtils.encodeBytesToBase64String(privateKey.getEncoded());
-        String privatePemKeyString = EncryptionUtils.privateKeyToPEM(privateKey);
-        String encryptedPrivateKey = EncryptionUtils.encryptPrivateKey(privatePemKeyString,
-                                                                       generateMnemonicString());
-
-        // upload encryptedPrivateKey
-        StorePrivateKeyRemoteOperation storePrivateKeyOperation = new StorePrivateKeyRemoteOperation(encryptedPrivateKey);
-        RemoteOperationResult storePrivateKeyResult = storePrivateKeyOperation.executeNextcloudClient(account,
-                                                                                                      targetContext);
-
-        if (storePrivateKeyResult.isSuccess()) {
-            arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.PRIVATE_KEY,
-                                                        privateKeyString);
-            arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.PUBLIC_KEY, publicKeyString);
-            arbitraryDataProvider.storeOrUpdateKeyValue(account.name, EncryptionUtils.MNEMONIC,
-                                                        generateMnemonicString());
-        } else {
-            throw new RuntimeException("Error uploading private key!");
-        }
-    }
-
-    private static void deleteKeys() {
-        RemoteOperationResult<PrivateKey> privateKeyRemoteOperationResult =
-            new GetPrivateKeyRemoteOperation().execute(nextcloudClient);
-        RemoteOperationResult<String> publicKeyRemoteOperationResult =
-            new GetPublicKeyRemoteOperation().execute(nextcloudClient);
-
-        if (privateKeyRemoteOperationResult.isSuccess() || publicKeyRemoteOperationResult.isSuccess()) {
-            // delete keys
-            assertTrue(new DeletePrivateKeyRemoteOperation().execute(nextcloudClient).isSuccess());
-            assertTrue(new DeletePublicKeyRemoteOperation().execute(nextcloudClient).isSuccess());
-
-            arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PRIVATE_KEY);
-            arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.PUBLIC_KEY);
-            arbitraryDataProvider.deleteKeyForAccount(account.name, EncryptionUtils.MNEMONIC);
-        }
-    }
-
-    private static String generateMnemonicString() {
-        return "1 2 3 4 5 6";
-    }
-
-    public void after() {
+    override fun after() {
         // remove all encrypted files
 //        OCFile root = fileDataStorageManager.getFileByDecryptedRemotePath("/");
         // removeFolder(root);
@@ -774,48 +746,158 @@ public class EndToEndRandomIT extends AbstractOnServerIT {
 //        super.after();
     }
 
-    private void removeFolder(OCFile folder) {
-        Log_OC.d(this, "Start removing content of folder: " + folder.getDecryptedRemotePath());
+    private fun removeFolder(folder: OCFile) {
+        Log_OC.d(this, "Start removing content of folder: " + folder.getDecryptedRemotePath())
 
-        List<OCFile> children = fileDataStorageManager.getFolderContent(folder, false);
+        val children: List<OCFile> = fileDataStorageManager.getFolderContent(folder, false)
 
         // remove children
-        for (OCFile child : children) {
-            if (child.isFolder()) {
-                removeFolder(child);
+        for (child in children) {
+            if (child.isFolder) {
+                removeFolder(child)
 
                 // remove folder
-                Log_OC.d(this, "Remove folder: " + child.getDecryptedRemotePath());
-                if (!folder.isEncrypted() && child.isEncrypted()) {
-                    RemoteOperationResult result = new ToggleEncryptionRemoteOperation(child.getLocalId(),
-                                                                                       child.getRemotePath(),
-                                                                                       false)
-                        .execute(client);
-                    assertTrue(result.getLogMessage(), result.isSuccess());
+                Log_OC.d(this, "Remove folder: " + child.getDecryptedRemotePath())
+                if (!folder.isEncrypted && child.isEncrypted) {
+                    val result: RemoteOperationResult<*> = ToggleEncryptionRemoteOperation(
+                        child.localId,
+                        child.remotePath,
+                        false
+                    )
+                        .execute(AbstractIT.client)
+                    TestCase.assertTrue(result.logMessage, result.isSuccess)
 
-                    OCFile f = getStorageManager().getFileByEncryptedRemotePath(child.getRemotePath());
-                    f.setEncrypted(false);
-                    getStorageManager().saveFile(f);
+                    val f: OCFile = storageManager.getFileByEncryptedRemotePath(child.remotePath)
+                    f.isEncrypted = false
+                    storageManager.saveFile(f)
 
-                    child.setEncrypted(false);
+                    child.isEncrypted = false
                 }
             } else {
-                Log_OC.d(this, "Remove file: " + child.getDecryptedRemotePath());
+                Log_OC.d(this, "Remove file: " + child.getDecryptedRemotePath())
             }
 
-            assertTrue(new RemoveFileOperation(child, false, user, false, targetContext, getStorageManager())
-                           .execute(client)
-                           .isSuccess()
-                      );
+            TestCase.assertTrue(
+                RemoveFileOperation(child, false, AbstractIT.user, false, AbstractIT.targetContext, storageManager)
+                    .execute(AbstractIT.client)
+                    .isSuccess
+            )
         }
 
-        Log_OC.d(this, "Finished removing content of folder: " + folder.getDecryptedRemotePath());
+        Log_OC.d(this, "Finished removing content of folder: " + folder.getDecryptedRemotePath())
     }
 
-    private void verifyStoragePath(OCFile file) {
-        assertEquals(FileStorageUtils.getSavePath(account.name) +
-                         currentFolder.getDecryptedRemotePath() +
-                         file.getDecryptedFileName(),
-                     file.getStoragePath());
+    private fun verifyStoragePath(file: OCFile) {
+        TestCase.assertEquals(
+            FileStorageUtils.getSavePath(AbstractIT.account.name) +
+                currentFolder?.getDecryptedRemotePath() +
+                file.getDecryptedFileName(),
+            file.storagePath
+        )
+    }
+
+    companion object {
+        private var arbitraryDataProvider: ArbitraryDataProvider? = null
+
+        @JvmStatic
+        @BeforeClass
+        @Throws(Exception::class)
+        fun initClass(): Unit {
+            arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
+            createKeys()
+        }
+
+        /*
+    TODO do not c&p code
+     */
+        @Throws(Exception::class)
+        private fun createKeys() {
+            deleteKeys()
+
+            val publicKeyString: String
+
+            // Create public/private key pair
+            val keyPair: KeyPair = EncryptionUtils.generateKeyPair()
+
+            // create CSR
+            val accountManager: AccountManager = AccountManager.get(AbstractIT.targetContext)
+            val userId: String = accountManager.getUserData(AbstractIT.account, AccountUtils.Constants.KEY_USER_ID)
+            val urlEncoded: String = CsrHelper().generateCsrPemEncodedString(keyPair, userId)
+
+            val operation = SendCSRRemoteOperation(urlEncoded)
+            val result: RemoteOperationResult<String> =
+                operation.executeNextcloudClient(AbstractIT.account, AbstractIT.targetContext)
+
+            if (result.isSuccess) {
+                publicKeyString = result.resultData
+
+                // check key
+                val privateKey = keyPair.private as RSAPrivateCrtKey
+                val publicKey: RSAPublicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString)
+
+                val modulusPublic = publicKey.modulus
+                val modulusPrivate = privateKey.modulus
+
+                if (modulusPrivate.compareTo(modulusPublic) != 0) {
+                    throw RuntimeException("Wrong CSR returned")
+                }
+            } else {
+                throw Exception("failed to send CSR", result.exception)
+            }
+
+            val privateKey = keyPair.private
+            val privateKeyString: String = EncryptionUtils.encodeBytesToBase64String(privateKey.encoded)
+            val privatePemKeyString: String = EncryptionUtils.privateKeyToPEM(privateKey)
+            val encryptedPrivateKey: String = EncryptionUtils.encryptPrivateKey(
+                privatePemKeyString,
+                generateMnemonicString()
+            )
+
+            // upload encryptedPrivateKey
+            val storePrivateKeyOperation = StorePrivateKeyRemoteOperation(encryptedPrivateKey)
+            val storePrivateKeyResult: RemoteOperationResult<*> = storePrivateKeyOperation.executeNextcloudClient(
+                AbstractIT.account,
+                AbstractIT.targetContext
+            )
+
+            if (storePrivateKeyResult.isSuccess) {
+                arbitraryDataProvider?.storeOrUpdateKeyValue(
+                    AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY,
+                    privateKeyString
+                )
+                arbitraryDataProvider?.storeOrUpdateKeyValue(
+                    AbstractIT.account.name,
+                    EncryptionUtils.PUBLIC_KEY,
+                    publicKeyString
+                )
+                arbitraryDataProvider?.storeOrUpdateKeyValue(
+                    AbstractIT.account.name, EncryptionUtils.MNEMONIC,
+                    generateMnemonicString()
+                )
+            } else {
+                throw RuntimeException("Error uploading private key!")
+            }
+        }
+
+        private fun deleteKeys() {
+            val privateKeyRemoteOperationResult: RemoteOperationResult<PrivateKey> =
+                GetPrivateKeyRemoteOperation().execute(AbstractIT.nextcloudClient)
+            val publicKeyRemoteOperationResult: RemoteOperationResult<String> =
+                GetPublicKeyRemoteOperation().execute(AbstractIT.nextcloudClient)
+
+            if (privateKeyRemoteOperationResult.isSuccess || publicKeyRemoteOperationResult.isSuccess) {
+                // delete keys
+                TestCase.assertTrue(DeletePrivateKeyRemoteOperation().execute(AbstractIT.nextcloudClient).isSuccess)
+                TestCase.assertTrue(DeletePublicKeyRemoteOperation().execute(AbstractIT.nextcloudClient).isSuccess)
+
+                arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY)
+                arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.PUBLIC_KEY)
+                arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.MNEMONIC)
+            }
+        }
+
+        private fun generateMnemonicString(): String {
+            return "1 2 3 4 5 6"
+        }
     }
 }
