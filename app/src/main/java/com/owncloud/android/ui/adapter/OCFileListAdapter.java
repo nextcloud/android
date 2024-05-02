@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018 Nextcloud
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.adapter;
 
@@ -1071,9 +1071,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         List<OCFile> ret = new ArrayList<>();
 
         for (OCFile file : files) {
-            if (file.getOwnerId().equals(userId) &&
-                !file.isSharedWithMe() &&
-                !file.isGroupFolder()) {
+            String ownerId = file.getOwnerId();
+
+            if (ownerId != null && ownerId.equals(userId) && !file.isSharedWithMe() && !file.isGroupFolder()) {
                 ret.add(file);
             }
         }

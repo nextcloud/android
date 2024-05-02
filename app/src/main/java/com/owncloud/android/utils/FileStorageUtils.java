@@ -6,7 +6,7 @@
  * SPDX-FileCopyrightText: 2016-2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-FileCopyrightText: 2016 ownCloud Inc.
  * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.utils;
 
@@ -104,6 +104,17 @@ public final class FileStorageUtils {
                 + Uri.encode(accountName, "@");
         // URL encoding is an 'easy fix' to overcome that NTFS and FAT32 don't allow ":" in file names,
         // that can be in the accountName since 0.1.190B
+    }
+
+    public static String getTemporalEncryptedFolderPath(String accountName) {
+        return MainApp
+            .getAppContext()
+            .getFilesDir()
+            .getAbsolutePath()
+            + File.separator
+            + accountName
+            + File.separator
+            + "temp_encrypted_folder";
     }
 
     /**

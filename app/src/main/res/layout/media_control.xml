@@ -5,51 +5,78 @@
   ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
   ~ SPDX-FileCopyrightText: 2013 David A. Velasco <dvelasco@solidgear.es>
-  ~ SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:id="@+id/media_control_linear_layout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="@dimen/standard_double_margin"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingTop="@dimen/standard_quarter_padding">
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/rewindBtn"
-            style="@android:style/MediaButton.Rew"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:backgroundTint="@color/transparent"
+            app:iconTint="@color/black"
+            app:iconGravity="top"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:paddingTop="@dimen/alternate_padding"
+            app:icon="@drawable/ic_fast_rewind"
             android:contentDescription="@string/media_rewind_description" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/playBtn"
-            style="@android:style/MediaButton.Play"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:backgroundTint="@color/transparent"
+            app:iconTint="@color/black"
+            app:iconGravity="top"
+            android:paddingTop="@dimen/alternate_padding"
+            app:icon="@drawable/ic_play"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+
             android:contentDescription="@string/media_play_pause_description" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/forwardBtn"
-            style="@android:style/MediaButton.Ffwd"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            app:backgroundTint="@color/transparent"
+            app:iconTint="@color/black"
+            app:iconGravity="top"
+            android:paddingTop="@dimen/alternate_padding"
+            app:icon="@drawable/ic_fast_forward"
             android:contentDescription="@string/media_forward_description" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/currentTimeText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingStart="@dimen/standard_quarter_padding"
-            android:paddingTop="@dimen/standard_quarter_padding"
-            android:paddingEnd="@dimen/standard_quarter_padding"
+            android:layout_height="match_parent"
+            android:padding="@dimen/standard_quarter_padding"
+            android:gravity="center"
             android:text="@string/placeholder_media_time"
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_secondary_text_size"
@@ -59,7 +86,7 @@
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="0dp"
-            android:layout_height="@dimen/seek_bar_height"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:splitTrack="false"
             tools:ignore="UnusedAttribute" />
@@ -67,11 +94,9 @@
         <TextView
             android:id="@+id/totalTimeText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingStart="@dimen/standard_quarter_padding"
-            android:paddingTop="@dimen/standard_quarter_padding"
-            android:paddingEnd="@dimen/standard_quarter_padding"
+            android:layout_height="match_parent"
+            android:padding="@dimen/standard_quarter_padding"
+            android:gravity="center"
             android:text="@string/placeholder_media_time"
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_secondary_text_size"

@@ -1,27 +1,22 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper_ozturk@proton.me>
- * SPDX-FileCopyrightText: 2024 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-FileCopyrightText: 2024 Your Name <your@email.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.nextcloud.client.assistant.component
+package com.nextcloud.client.assistant.task
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -31,18 +26,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nextcloud.client.assistant.extensions.statusData
+import com.nextcloud.client.assistant.taskDetail.TaskDetailBottomSheet
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
+import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 
@@ -53,7 +45,7 @@ fun TaskView(
     task: Task,
     showDeleteTaskAlertDialog: (Long) -> Unit
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var showTaskDetailBottomSheet by remember { mutableStateOf(false) }
     var showMoreActionsBottomSheet by remember { mutableStateOf(false) }
 
     Column(
@@ -62,7 +54,7 @@ fun TaskView(
             .clip(RoundedCornerShape(16.dp))
             .background(MaterialTheme.colorScheme.primary)
             .combinedClickable(onClick = {
-                expanded = !expanded
+                showTaskDetailBottomSheet = true
             }, onLongClick = {
                 showMoreActionsBottomSheet = true
             })
@@ -84,10 +76,11 @@ fun TaskView(
             HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
 
             Text(
-                text = if (expanded) it else it.take(100) + "...",
+                text = it.take(100),
                 fontSize = 12.sp,
                 color = Color.White,
                 modifier = Modifier
+                    .height(100.dp)
                     .animateContentSize(
                         animationSpec = spring(
                             dampingRatio = Spring.DampingRatioLowBouncy,
@@ -97,39 +90,7 @@ fun TaskView(
             )
         }
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            val (iconId, descriptionId) = task.statusData()
-
-            Image(
-                painter = painterResource(id = iconId),
-                modifier = Modifier.size(16.dp),
-                colorFilter = ColorFilter.tint(Color.White),
-                contentDescription = "status icon"
-            )
-
-            Spacer(modifier = Modifier.width(6.dp))
-
-            Text(text = stringResource(id = descriptionId), color = Color.White)
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            if ((task.output?.length ?: 0) >= 100) {
-                Image(
-                    painter = painterResource(
-                        id = if (!expanded) R.drawable.ic_expand_more else R.drawable.ic_expand_less
-                    ),
-                    contentDescription = "expand content icon",
-                    colorFilter = ColorFilter.tint(Color.White)
-                )
-            }
-
-            Spacer(modifier = Modifier.width(8.dp))
-        }
+        TaskStatus(task, foregroundColor = Color.White)
 
         if (showMoreActionsBottomSheet) {
             val bottomSheetAction = listOf(
@@ -147,27 +108,20 @@ fun TaskView(
                 dismiss = { showMoreActionsBottomSheet = false }
             )
         }
+
+        if (showTaskDetailBottomSheet) {
+            TaskDetailBottomSheet(task) {
+                showTaskDetailBottomSheet = false
+            }
+        }
     }
 }
 
+@Suppress("MagicNumber")
 @Preview
 @Composable
 private fun TaskViewPreview() {
-    val output =
-        "Lorem Ipsum is simply dummy text of the printing and " +
-            "typesetting industry. Lorem Ipsum has been the " +
-            "industry's standard dummy text ever since the 1500s, " +
-            "when an unknown printer took a galley of type and " +
-            "scrambled it to make a type specimen book. " +
-            "It has survived not only five centuries, but also " +
-            "the leap into electronic typesetting, remaining" +
-            " essentially unchanged. It wLorem Ipsum is simply dummy" +
-            " text of the printing and typesetting industry. " +
-            "Lorem Ipsum has been the industry's standard dummy " +
-            "text ever since the 1500s, when an unknown printer took a" +
-            " galley of type and scrambled it to make a type specimen book. " +
-            "It has survived not only five centuries, but also the leap " +
-            "into electronic typesetting, remaining essentially unchanged."
+    val output = "Lorem".getRandomString(100)
 
     TaskView(
         task = Task(

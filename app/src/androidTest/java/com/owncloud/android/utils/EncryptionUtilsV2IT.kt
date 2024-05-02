@@ -3,14 +3,14 @@
  *
  * SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.utils
 
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.MockUser
 import com.nextcloud.common.User
-import com.owncloud.android.AbstractIT
+import com.owncloud.android.EncryptionIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.decrypted.Data
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1
@@ -21,13 +21,15 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedUser
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFiledrop
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFiledropUser
 import com.owncloud.android.datamodel.e2e.v2.encrypted.EncryptedFolderMetadataFile
+import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.util.EncryptionTestIT
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertTrue
 import org.junit.Assert.assertNotEquals
 import org.junit.Test
 
-class EncryptionUtilsV2IT : AbstractIT() {
+@Suppress("TooManyFunctions", "LargeClass")
+class EncryptionUtilsV2IT : EncryptionIT() {
     private val encryptionTestUtils = EncryptionTestUtils()
     private val encryptionUtilsV2 = EncryptionUtilsV2()
 
@@ -779,6 +781,21 @@ class EncryptionUtilsV2IT : AbstractIT() {
         )
         assertTrue(encryptionUtilsV2.verifySignedMessage(signed, certs))
         assertTrue(encryptionUtilsV2.verifySignedMessage(base64Ans, jsonBase64, certs))
+    }
+
+    @Test
+    @Throws(Exception::class)
+    fun testUpdateFileNameForEncryptedFile() {
+        val folder = testFolder()
+
+        val metadata = EncryptionTestUtils().generateFolderMetadataV2(
+            client.userId,
+            EncryptionTestIT.publicKey
+        )
+
+        RefreshFolderOperation.updateFileNameForEncryptedFile(storageManager, metadata, folder)
+
+        assertEquals(folder.decryptedRemotePath.contains("null"), false)
     }
 
     /**

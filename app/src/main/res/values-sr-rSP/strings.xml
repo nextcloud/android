@@ -8,7 +8,6 @@
     <string name="account_creation_failed">Pravljenje naloga nije uspelo</string>
     <string name="account_icon">Ikona naloga</string>
     <string name="account_not_found">Nalog nije nađen!</string>
-    <string name="action_clear_failed_uploads">Izbriši neuspela otpremanja</string>
     <string name="action_edit">Izmeni</string>
     <string name="action_empty_notifications">Očisti sva obaveštenja</string>
     <string name="action_send_share">Slanje/Deljenje</string>
@@ -66,6 +65,7 @@
     <string name="autoupload_disable_power_save_check">Isključi proveru uštede baterije</string>
     <string name="autoupload_hide_folder">Sakrij fasciklu</string>
     <string name="avatar">Avatar</string>
+    <string name="away">Odsutan</string>
     <string name="battery_optimization_close">Zatvori</string>
     <string name="battery_optimization_disable">Isključi</string>
     <string name="battery_optimization_message">Vaš uređaj možda ima uključenu optimizaciju baterije. Automatsko otpremanje radi samo ako isključite ovu aplikaciju iz optimizacije baterije.</string>
@@ -76,6 +76,7 @@
     <string name="choose_local_folder">Odaberite lokalnu fasciklu…</string>
     <string name="choose_remote_folder">Odaberite udaljenu fasciklu…</string>
     <string name="clear_notifications_failed">Greška pri čišćenju obaveštenja.</string>
+    <string name="clear_status_message">Obriši statusnu poruku</string>
     <string name="clipboard_label">Tekst prekopiran sa %1$s</string>
     <string name="clipboard_no_text_to_copy">Nema teksta za kopiranje u ostavu</string>
     <string name="clipboard_text_copied">Veza iskopirana</string>
@@ -155,7 +156,9 @@
     <string name="disable_new_media_folder_detection_notifications">Isključi</string>
     <string name="dismiss">Odbaci</string>
     <string name="dismiss_notification_description">Skloni obaveštenje</string>
+    <string name="dnd">Ne uznemiravaj</string>
     <string name="done">Gotovo</string>
+    <string name="dontClear">Ne briši</string>
     <string name="download_cannot_create_file">Ne mogu da napravim lokalni fajl</string>
     <string name="download_latest_dev_version">Preuzmite najnoviju razvojnu verziju</string>
     <string name="downloader_download_failed_content">Ne mogu da preuzmem %1$s</string>
@@ -295,6 +298,7 @@
     <string name="foreign_files_remote_text">Udaljeni: %1$s</string>
     <string name="foreign_files_success">Svi fajlovi su premešteni</string>
     <string name="forward">Prosledi</string>
+    <string name="fourHours">4 sata</string>
     <string name="hint_name">Ime</string>
     <string name="hint_note">Beleška</string>
     <string name="hint_password">Lozinka</string>
@@ -302,6 +306,7 @@
     <string name="host_your_own_server">Hostujte sopstveni  server</string>
     <string name="instant_upload_on_charging">Otpremaj samo na punjenju</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="invisible">Nevidljiv</string>
     <string name="link">Veza</string>
     <string name="list_layout">Izlistani raspored</string>
     <string name="local_file_list_empty">Nema fajlova u ovoj fascikli.</string>
@@ -368,6 +373,8 @@
     <string name="notifications_no_results_message">Molimo proverite kasnije.</string>
     <string name="offline_mode">Nema internet konekcije</string>
     <string name="oneHour">1 sat</string>
+    <string name="online">Na mreži</string>
+    <string name="online_status">Mrežni status</string>
     <string name="outdated_server">Server je izašao iz garancije, molimo ažurirajte ga!</string>
     <string name="overflow_menu">još menija</string>
     <string name="pass_code_configure_your_pass_code">Unesite kod za zaključavanje</string>
@@ -472,6 +479,8 @@
     <string name="sendbutton_description">Ikona dugma za slanje</string>
     <string name="set_as">Postavi kao</string>
     <string name="set_picture_as">Postavi sliku kao</string>
+    <string name="set_status">Postavi status</string>
+    <string name="set_status_message">Postavi statusnu poruku</string>
     <string name="share">Podeli</string>
     <string name="share_dialog_title">Deljenje</string>
     <string name="share_expiration_date_label">Ističe na %1$s</string>
@@ -530,6 +539,7 @@
     <string name="ssl_validator_reason_cert_not_trusted">– Sertifikat servera nije od poverenja</string>
     <string name="ssl_validator_reason_cert_not_yet_valid">- Datumi važenja sertifikata su u budućnosti</string>
     <string name="ssl_validator_reason_hostname_not_verified">– Adresa se ne poklapa sa imenom domaćina u sertifikatu</string>
+    <string name="status_message">Poruka stanja</string>
     <string name="storage_camera">Kamera</string>
     <string name="storage_choose_location">Odaberite lokaciju skladišta</string>
     <string name="storage_description_default">Podrazumevano</string>
@@ -672,6 +682,7 @@
     <string name="what_s_new_image">Slika šta je novo</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo u %1$s</string>
+    <string name="whats_your_status">Koji je vaš status?</string>
     <string name="worker_download">Skidam fajlove…</string>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ne mogu da sinhronizujem %1$d fajl (konflikata: %2$d)</item>

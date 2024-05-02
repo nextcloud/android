@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper_ozturk@proton.me>
  * SPDX-FileCopyrightText: 2019 Alice Gaudon <alice@gaudon.pro>
  * SPDX-FileCopyrightText: 2012 Bartosz Przybylski <bart.p.pl@gmail.com>
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.ui.activity
 
@@ -21,6 +21,7 @@ import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -41,6 +42,10 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     @JvmField
     @Inject
     var uploadsStorageManager: UploadsStorageManager? = null
+
+    @JvmField
+    @Inject
+    var fileStorageManager: FileDataStorageManager? = null
 
     private var conflictUploadId: Long = 0
     private var existingFile: OCFile? = null
@@ -159,8 +164,8 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             return
         }
         if (existingFile == null) {
-            // fetch info of existing file from server
-            val operation = ReadFileRemoteOperation(newFile!!.remotePath)
+            val remotePath = fileStorageManager?.retrieveRemotePathConsideringEncryption(newFile) ?: return
+            val operation = ReadFileRemoteOperation(remotePath)
 
             @Suppress("TooGenericExceptionCaught")
             Thread {
@@ -169,7 +174,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                     if (result.isSuccess) {
                         existingFile = FileStorageUtils.fillOCFile(result.data[0] as RemoteFile)
                         existingFile?.lastSyncDateForProperties = System.currentTimeMillis()
-                        startDialog()
+                        startDialog(remotePath)
                     } else {
                         Log_OC.e(TAG, "ReadFileRemoteOp returned failure with code: " + result.httpCode)
                         showErrorAndFinish(result.httpCode)
@@ -180,11 +185,12 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 }
             }.start()
         } else {
-            startDialog()
+            val remotePath = fileStorageManager?.retrieveRemotePathConsideringEncryption(existingFile) ?: return
+            startDialog(remotePath)
         }
     }
 
-    private fun startDialog() {
+    private fun startDialog(remotePath: String) {
         val userOptional = user
         if (!userOptional.isPresent) {
             Log_OC.e(TAG, "User not present")
@@ -197,7 +203,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         if (prev != null) {
             fragmentTransaction.remove(prev)
         }
-        if (existingFile != null && storageManager.fileExists(newFile?.remotePath)) {
+        if (existingFile != null && storageManager.fileExists(remotePath)) {
             val dialog = ConflictsResolveDialog.newInstance(
                 existingFile,
                 newFile,

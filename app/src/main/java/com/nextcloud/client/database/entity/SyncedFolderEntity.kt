@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.database.entity
 
@@ -45,6 +45,8 @@ data class SyncedFolderEntity(
     val hidden: Int?,
     @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_SUBFOLDER_RULE)
     val subFolderRule: Int?,
-    @ColumnInfo(name = ProviderTableMeta.SYNCED_EXCLUDE_HIDDEN)
-    val excludeHidden: Int?
+    @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_EXCLUDE_HIDDEN)
+    val excludeHidden: Int?,
+    @ColumnInfo(name = ProviderTableMeta.SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS)
+    val lastScanTimestampMs: Long?
 )

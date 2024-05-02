@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.database
 
@@ -58,7 +58,8 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 76, to = 77),
         AutoMigration(from = 77, to = 78),
         AutoMigration(from = 78, to = 79, spec = DatabaseMigrationUtil.ResetCapabilitiesPostMigration::class),
-        AutoMigration(from = 79, to = 80)
+        AutoMigration(from = 79, to = 80),
+        AutoMigration(from = 80, to = 81)
     ],
     exportSchema = true
 )

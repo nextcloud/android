@@ -9,7 +9,7 @@
     android:height="24dp"
     android:viewportWidth="960"
     android:viewportHeight="960">
-    <path
-        android:fillColor="@color/foreground_highlight"
-        android:pathData="M560,760L560,200L720,200L720,760L560,760ZM240,760L240,200L400,200L400,760L240,760Z" />
+  <path
+      android:fillColor="#FF000000"
+      android:pathData="M360,640h80v-320h-80v320ZM520,640h80v-320h-80v320ZM480,880q-83,0 -156,-31.5T197,763q-54,-54 -85.5,-127T80,480q0,-83 31.5,-156T197,197q54,-54 127,-85.5T480,80q83,0 156,31.5T763,197q54,54 85.5,127T880,480q0,83 -31.5,156T763,763q-54,54 -127,85.5T480,880Z"/>
 </vector>

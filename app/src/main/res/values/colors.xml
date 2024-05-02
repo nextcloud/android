@@ -7,7 +7,7 @@
   ~ SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
   ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski
-  ~ SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
 <resources>
     <color name="list_item_lastmod_and_filesize_text">@color/secondary_text_color</color>
@@ -15,6 +15,7 @@
     <color name="white">#ffffff</color>
     <color name="white_helper_text">#B3FFFFFF</color>
     <color name="text_color">#333333</color>
+    <color name="light_grey">#F5F5F5</color>
     <color name="grid_file_features_icon_color">#303034</color>
     <color name="grid_file_features_background_color">#E9E8EB</color>
     <color name="drawer_text_color">@color/secondary_text_color</color>
@@ -52,7 +53,6 @@
     <color name="nc_grey">#ededed</color>
     <color name="icon_on_nc_grey">#000000</color>
     <color name="foreground_highlight">#1D1B1E</color>
-
     <color name="process_dialog_background">#ffffff</color>
     <color name="indicator_dot_selected">#ffffff</color>
     <color name="drawer_shadow">#000000</color>

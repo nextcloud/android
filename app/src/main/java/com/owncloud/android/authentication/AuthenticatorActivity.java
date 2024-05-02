@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2013-2015 María Asensio Valverde <masensio@solidgear.es>
  * SPDX-FileCopyrightText: 2013-2015 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-FileCopyrightText: 2011-2012 Bartosz Przybylski <bart.p.pl@gmail.com>
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.authentication;
 
@@ -17,6 +17,7 @@ import android.Manifest;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -33,29 +34,42 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.blikoon.qrcodescanner.QrCodeActivity;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.common.PlainClient;
+import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -100,6 +114,8 @@ import com.owncloud.android.utils.WebViewUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import org.json.JSONObject;
+
 import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.HashMap;
@@ -107,9 +123,13 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.inject.Inject;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -125,6 +145,8 @@ import de.cotech.hw.fido.ui.FidoDialogOptions;
 import de.cotech.hw.fido2.WebViewWebauthnBridge;
 import de.cotech.hw.fido2.ui.WebauthnDialogOptions;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 
 import static com.owncloud.android.utils.PermissionUtil.PERMISSIONS_CAMERA;
 
@@ -162,7 +184,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private static final String KEY_USERNAME = "USERNAME";
     private static final String KEY_PASSWORD = "PASSWORD";
     private static final String KEY_ASYNC_TASK_IN_PROGRESS = "AUTH_IN_PROGRESS";
-    public static final String WEB_LOGIN = "/index.php/login/flow";
+
+    /**
+     * Login Flow v1
+     */
+    // public static final String WEB_LOGIN = "/index.php/login/flow";
+
+    /**
+     * Login Flow v2
+     */
+    public static final String WEB_LOGIN = "/index.php/login/v2";
+
     public static final String PROTOCOL_SUFFIX = "://";
     public static final String LOGIN_URL_DATA_KEY_VALUE_SEPARATOR = ":";
     public static final String HTTPS_PROTOCOL = "https://";
@@ -171,7 +203,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public static final int NO_ICON = 0;
     public static final String EMPTY_STRING = "";
 
-    private static final int REQUEST_CODE_QR_SCAN = 101;
     public static final int REQUEST_CODE_FIRST_RUN = 102;
 
     /// parameters from EXTRAs in starter Intent
@@ -218,6 +249,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     @Inject PassCodeManager passCodeManager;
     @Inject ViewThemeUtils.Factory viewThemeUtilsFactory;
     @Inject ColorUtil colorUtil;
+    @Inject ClientFactory clientFactory;
+
+    private String token;
 
     private boolean onlyAdd = false;
     @SuppressLint("ResourceAsColor") @ColorInt
@@ -242,7 +276,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
         viewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
 
-        WebViewUtil webViewUtil = new WebViewUtil(this);
+        // WebViewUtil webViewUtil = new WebViewUtil(this);
 
         Uri data = getIntent().getData();
         boolean directLogin = data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme));
@@ -298,7 +332,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (webViewLoginMethod) {
             accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
             setContentView(accountSetupWebviewBinding.getRoot());
-            initWebViewLogin(webloginUrl, false);
+            anonymouslyPostLoginRequest(webloginUrl);
+            // initWebViewLogin(webloginUrl, false);
         } else {
             accountSetupBinding = AccountSetupBinding.inflate(getLayoutInflater());
             setContentView(accountSetupBinding.getRoot());
@@ -314,7 +349,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         initServerPreFragment(savedInstanceState);
 
-        webViewUtil.checkWebViewVersion();
+        // webViewUtil.checkWebViewVersion();
     }
 
     private void deleteCookies() {
@@ -326,11 +361,57 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
+    private String baseUrl;
+
+    /**
+     * This function facilitates the login process by anonymously posting a login request to a specified URL.
+     * After posting the request, it retrieves the login URL for completing the login flow.
+     * The login flow version used is v2.
+     *
+     * @param url The URL where the login request is to be anonymously posted.
+     *            This URL should handle the login request and return the login URL.
+     *            It's typically the entry point for the login process.
+     *            Example: "https://example.com/index.php/login/v2"
+     */
+    private void anonymouslyPostLoginRequest(String url) {
+        baseUrl = url;
+
+        Thread thread = new Thread(() -> {
+            PostMethod post = new PostMethod(baseUrl, false, new FormBody.Builder().build());
+
+            PlainClient client = clientFactory.createPlainClient();
+            post.execute(client);
+            String response = post.getResponseBodyAsString();
+            JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+            String login = jsonObject.get("login").getAsString();
+            if (login == null) {
+                login = getResources().getString(R.string.webview_login_url);
+            }
+
+            String loginUrl = login;
+            runOnUiThread(() -> {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(loginUrl));
+                loginFlowResultLauncher.launch(intent);
+            });
+
+            token = jsonObject.getAsJsonObject("poll").get("token").getAsString();
+        });
+
+        thread.start();
+    }
+
+    private final ActivityResultLauncher<Intent> loginFlowResultLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(), result -> poolLogin(clientFactory.createPlainClient()));
+
     private static String getWebLoginUserAgent() {
         return Build.MANUFACTURER.substring(0, 1).toUpperCase(Locale.getDefault()) +
             Build.MANUFACTURER.substring(1).toLowerCase(Locale.getDefault()) + " " + Build.MODEL + " (Android)";
     }
 
+    /**
+     * @Deprecated This function is deprecated. Please use the {@link #anonymouslyPostLoginRequest(String)} method instead, which utilizes the improved login flow v2.
+     */
+    @Deprecated
     @SuppressFBWarnings("ANDROID_WEB_VIEW_JAVASCRIPT")
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebViewLogin(String baseURL, boolean useGenericUserAgent) {
@@ -680,7 +761,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (intent.getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
             accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
             setContentView(accountSetupWebviewBinding.getRoot());
-            initWebViewLogin(getString(R.string.provider_registration_server), true);
+            anonymouslyPostLoginRequest(getString(R.string.provider_registration_server));
+            // initWebViewLogin(getString(R.string.provider_registration_server), true);
         }
     }
 
@@ -915,7 +997,16 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 accountSetupWebviewBinding = AccountSetupWebviewBinding.inflate(getLayoutInflater());
                 setContentView(accountSetupWebviewBinding.getRoot());
-                initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, false);
+
+                if (!isLoginProcessCompleted) {
+                    if (!isRedirectedToTheDefaultBrowser) {
+                        anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
+                        isRedirectedToTheDefaultBrowser = true;
+                    } else {
+                        initLoginInfoView();
+                    }
+                    // initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, false);
+                }
             }
         } else {
             updateServerStatusIconAndText(result);
@@ -927,6 +1018,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             showUntrustedCertDialog(result);
         }
     }
+
+    // region LoginInfoView
+    private void initLoginInfoView() {
+        LinearLayout loginFlowLayout = accountSetupWebviewBinding.loginFlowV2.getRoot();
+        MaterialButton cancelButton = accountSetupWebviewBinding.loginFlowV2.cancelButton;
+        loginFlowLayout.setVisibility(View.VISIBLE);
+
+        cancelButton.setOnClickListener(v -> {
+            loginFlowExecutorService.shutdown();
+            recreate();
+        });
+    }
+    // endregion
 
     /**
      * Chooses the right icon and text to show to the user for the received operation result.
@@ -1169,7 +1273,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         } else {    // authorization fail due to client side - probably wrong credentials
             if (accountSetupWebviewBinding != null) {
-                initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, false);
+                anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
+                // initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, false);
                 DisplayUtils.showSnackMessage(this,
                                               accountSetupWebviewBinding.loginWebview, R.string.auth_access_failed,
                                               result.getLogMessage());
@@ -1340,8 +1445,36 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void startQRScanner() {
         Intent intent = new Intent(this, QrCodeActivity.class);
-        startActivityForResult(intent, REQUEST_CODE_QR_SCAN);
+        qrScanResultLauncher.launch(intent);
     }
+
+    private final ActivityResultLauncher<Intent> qrScanResultLauncher = registerForActivityResult(
+        new ActivityResultContracts.StartActivityForResult(),
+        result -> {
+            if (result.getResultCode() == Activity.RESULT_OK) {
+                Intent data = result.getData();
+
+                if (data == null) {
+                    return;
+                }
+
+                String resultData = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult");
+
+                if (resultData == null || !resultData.startsWith(getString(R.string.login_data_own_scheme))) {
+                    mServerStatusIcon = R.drawable.ic_alert;
+                    mServerStatusText = "QR Code could not be read!";
+                    showServerStatus();
+                    return;
+                }
+
+                if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+                    accountManager.getAccounts().length == 1) {
+                    Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
+                } else {
+                    parseAndLoginFromWebView(resultData);
+                }
+            }
+        });
 
     @Override
     public void onRequestPermissionsResult(int requestCode,
@@ -1362,7 +1495,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * server.
      */
     private void showServerStatus() {
-        if (accountSetupBinding == null) return;
+        if (accountSetupBinding == null) {
+            return;
+        }
 
         if (mServerStatusIcon == NO_ICON && EMPTY_STRING.equals(mServerStatusText)) {
             accountSetupBinding.serverStatusText.setVisibility(View.INVISIBLE);
@@ -1486,30 +1621,67 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE_QR_SCAN) {
-            if (data == null) {
-                return;
-            }
+    private final ScheduledExecutorService loginFlowExecutorService = Executors.newSingleThreadScheduledExecutor();
+    private boolean isLoginProcessCompleted = false;
+    private boolean isRedirectedToTheDefaultBrowser = false;
 
-            String result = data.getStringExtra("com.blikoon.qrcodescanner.got_qr_scan_relult");
-
-            if (result == null || !result.startsWith(getString(R.string.login_data_own_scheme))) {
-                mServerStatusIcon = R.drawable.ic_alert;
-                mServerStatusText = "QR Code could not be read!";
-                showServerStatus();
-                return;
+    private void poolLogin(PlainClient client) {
+        loginFlowExecutorService.scheduleAtFixedRate(() -> {
+            if (!isLoginProcessCompleted) {
+                performLoginFlowV2(client);
             }
+        }, 0, 30, TimeUnit.SECONDS);
+    }
 
-            if (!getResources().getBoolean(R.bool.multiaccount_support) &&
-                accountManager.getAccounts().length == 1) {
-                Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
-            } else {
-                parseAndLoginFromWebView(result);
-            }
+    private void performLoginFlowV2(PlainClient client) {
+        String postRequestUrl = baseUrl + "/poll";
+
+        RequestBody requestBody = new FormBody.Builder()
+            .add("token", token)
+            .build();
+
+        PostMethod post = new PostMethod(postRequestUrl, false, requestBody);
+        int status = post.execute(client);
+        String response = post.getResponseBodyAsString();
+
+        Log_OC.d(TAG, "performLoginFlowV2 status: " + status);
+        Log_OC.d(TAG, "performLoginFlowV2 response: " + response);
+
+        if (!response.isEmpty()) {
+            runOnUiThread(() -> completeLoginFlow(response, status));
         }
+    }
+
+    private void completeLoginFlow(String response, int status) {
+        try {
+            JSONObject jsonObject = new JSONObject(response);
+
+            String server = jsonObject.getString("server");
+            String loginName = jsonObject.getString("loginName");
+            String appPassword = jsonObject.getString("appPassword");
+
+            LoginUrlInfo loginUrlInfo = new LoginUrlInfo();
+            loginUrlInfo.serverAddress = server;
+            loginUrlInfo.username = loginName;
+            loginUrlInfo.password = appPassword;
+
+            isLoginProcessCompleted = (status == 200 && !server.isEmpty() && !loginName.isEmpty() && !appPassword.isEmpty());
+
+            if (accountSetupBinding != null) {
+                accountSetupBinding.hostUrlInput.setText("");
+            }
+            mServerInfo.mBaseUrl = AuthenticatorUrlUtils.INSTANCE.normalizeUrlSuffix(loginUrlInfo.serverAddress);
+            webViewUser = loginUrlInfo.username;
+            webViewPassword = loginUrlInfo.password;
+        } catch (Exception e) {
+            Log_OC.d(TAG, "Error caught at completeLoginFlow: " + e);
+            mServerStatusIcon = R.drawable.ic_alert;
+            mServerStatusText = getString(R.string.qr_could_not_be_read);
+            showServerStatus();
+        }
+
+        checkOcServer();
+        loginFlowExecutorService.shutdown();
     }
 
     /**

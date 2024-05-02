@@ -1,9 +1,8 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH, all rights reserved
-  ~ SPDX-FileCopyrightText: 2023-2024 Tobias Kaminsky <tobias@kaminsky.me>
-  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH <https://nextcloud.com/trademarks/>
+  ~ SPDX-License-Identifier: LicenseRef-NextcloudTrademarks
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="108dp"

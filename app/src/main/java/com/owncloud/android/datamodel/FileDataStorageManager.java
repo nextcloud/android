@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
  * SPDX-FileCopyrightText: 2012 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-FileCopyrightText: 2011 Bartosz Przybylski <bart.p.pl@gmail.com>
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.datamodel;
 
@@ -56,7 +56,10 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 
+import org.apache.commons.io.FileUtils;
+
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -71,6 +74,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import kotlin.Pair;
 
 public class FileDataStorageManager {
     private static final String TAG = FileDataStorageManager.class.getSimpleName();
@@ -336,6 +340,36 @@ public class FileDataStorageManager {
         }
 
         return ocFile;
+    }
+
+    public static void clearTempEncryptedFolder(String accountName) {
+        File tempEncryptedFolder =  new File(FileStorageUtils.getTemporalEncryptedFolderPath(accountName));
+
+        if (!tempEncryptedFolder.exists()) {
+            Log_OC.d(TAG,"tempEncryptedFolder not exists");
+            return;
+        }
+
+        try {
+            FileUtils.cleanDirectory(tempEncryptedFolder);
+
+            Log_OC.d(TAG,"tempEncryptedFolder cleared");
+        } catch (IOException exception) {
+            Log_OC.d(TAG,"Error caught at clearTempEncryptedFolder: " + exception);
+        }
+    }
+
+    public static File createTempEncryptedFolder(String accountName) {
+        File tempEncryptedFolder = new File(FileStorageUtils.getTemporalEncryptedFolderPath(accountName));
+
+        if (!tempEncryptedFolder.exists()) {
+            boolean isTempEncryptedFolderCreated = tempEncryptedFolder.mkdirs();
+            Log_OC.d(TAG, "tempEncryptedFolder created" + isTempEncryptedFolderCreated);
+        } else {
+            Log_OC.d(TAG, "tempEncryptedFolder already exists");
+        }
+
+        return tempEncryptedFolder;
     }
 
     public void saveNewFile(OCFile newFile) {
@@ -1704,6 +1738,7 @@ public class FileDataStorageManager {
         }
     }
 
+    @SuppressFBWarnings("PSC")
     public void saveConflict(OCFile ocFile, String etagInConflict) {
         ContentValues cv = new ContentValues();
         if (!ocFile.isDown()) {
@@ -2295,6 +2330,59 @@ public class FileDataStorageManager {
                 Log_OC.e(TAG, "Exception in deleteAllFiles for account " + user.getAccountName() + ": " + e.getMessage(), e);
             }
         }
+    }
+
+    public String getFolderName(String path) {
+        return "/" + path.split("/")[1] + "/";
+    }
+
+    public String retrieveRemotePathConsideringEncryption(OCFile file) {
+        if (file == null) {
+            throw new NullPointerException("file cannot be null");
+        }
+
+        String remotePath = file.getRemotePath();
+        if (file.isEncrypted()) {
+            remotePath = getEncryptedRemotePath(file.getRemotePath());
+        }
+
+        return remotePath;
+    }
+
+    public String getEncryptedRemotePath(String decryptedRemotePath) {
+        String folderName = getFolderName(decryptedRemotePath);
+
+        if (folderName == null) {
+            throw new NullPointerException("folderName cannot be null");
+        }
+
+        OCFile folder = getFileByDecryptedRemotePath(folderName);
+        List<OCFile> files = getAllFilesRecursivelyInsideFolder(folder);
+        List<Pair<String, String>> decryptedFileNamesAndEncryptedRemotePaths = getDecryptedFileNamesAndEncryptedRemotePaths(files);
+
+        String decryptedFileName = decryptedRemotePath.substring( decryptedRemotePath.lastIndexOf('/') + 1);
+
+        for (Pair<String, String> item : decryptedFileNamesAndEncryptedRemotePaths) {
+            if (item.getFirst().equals(decryptedFileName)) {
+                return item.getSecond();
+            }
+        }
+
+        return null;
+    }
+
+    @SuppressFBWarnings("OCP")
+    private List<Pair<String, String>> getDecryptedFileNamesAndEncryptedRemotePaths(List<OCFile> fileList) {
+        List<Pair<String, String>> result = new ArrayList<>();
+
+        for (OCFile file : fileList) {
+            if (file.isEncrypted()) {
+                Pair<String, String> fileNameAndEncryptedRemotePath = new Pair<>(file.getDecryptedFileName(), file.getRemotePath());
+                result.add(fileNameAndEncryptedRemotePath);
+            }
+        }
+
+        return result;
     }
 
     public void removeLocalFiles(User user, FileDataStorageManager storageManager) {

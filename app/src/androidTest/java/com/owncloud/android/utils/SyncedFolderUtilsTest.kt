@@ -2,7 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.utils
 
@@ -174,7 +174,8 @@ class SyncedFolderUtilsTest : AbstractIT() {
             MediaFolderType.IMAGE,
             false,
             SubFolderRule.YEAR_MONTH,
-            false
+            false,
+            SyncedFolder.NOT_SCANNED_YET
         )
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
@@ -198,7 +199,8 @@ class SyncedFolderUtilsTest : AbstractIT() {
             MediaFolderType.IMAGE,
             false,
             SubFolderRule.YEAR_MONTH,
-            false
+            false,
+            SyncedFolder.NOT_SCANNED_YET
         )
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }

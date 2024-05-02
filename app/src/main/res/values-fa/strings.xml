@@ -7,7 +7,6 @@
     <string name="account_creation_failed">ایجاد حساب ناموفق بود</string>
     <string name="account_icon">آیکون حساب</string>
     <string name="account_not_found">حساب پیدا نشد!</string>
-    <string name="action_clear_failed_uploads">پاک کردن آپلودهای ناموفق</string>
     <string name="action_edit">ویرایش</string>
     <string name="action_empty_notifications">پاک کردن تمام اعلانها</string>
     <string name="action_empty_trashbin">خالی کردن سطل زباله</string>
@@ -158,7 +157,6 @@
     <string name="confirmation_remove_folder_alert">آیا واقعا می خواهید %1$s و محتویات آن را حذف کنید؟</string>
     <string name="confirmation_remove_folders_alert">آیا واقعاً می‌خواهید موارد انتخاب شده و محتوای آنها حذف شود؟</string>
     <string name="confirmation_remove_local">فقط محلی</string>
-    <string name="conflict_dialog_error">هنگام ساختن دیالوگ مغایرت‌ها خطایی رخ داده است!</string>
     <string name="conflict_file_headline">فایل متناقض %1$s</string>
     <string name="conflict_local_file">پروندهٔ محلّی</string>
     <string name="conflict_message_description">اگر هردو نسخه را انتخاب کنید، یک شماره به نام فایل محلی اضافه خواهد شد.</string>

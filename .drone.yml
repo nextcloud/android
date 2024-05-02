@@ -4,7 +4,7 @@ type: docker
 name: tests-stable
 
 # SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 
 
 steps:
@@ -183,6 +183,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: 2d6dd316e41c77d4abd0864d9fe78e90ae727d32c3f6a485095b437840c86a89
+hmac: 5d64f2d46fc49a1e7dad823b7ac9c0ee3762a748ab025782a20292887607d831
 
 ...

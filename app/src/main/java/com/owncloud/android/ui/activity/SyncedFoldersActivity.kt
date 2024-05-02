@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2016 Andy Scherzinger
  * SPDX-FileCopyrightText: 2016 Nextcloud
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.activity
 
@@ -387,7 +387,8 @@ class SyncedFoldersActivity :
             syncedFolder.type,
             syncedFolder.isHidden,
             syncedFolder.subfolderRule,
-            syncedFolder.isExcludeHidden
+            syncedFolder.isExcludeHidden,
+            syncedFolder.lastScanTimestampMs
         )
     }
 
@@ -418,7 +419,8 @@ class SyncedFoldersActivity :
             mediaFolder.type,
             syncedFolder.isHidden,
             syncedFolder.subfolderRule,
-            syncedFolder.isExcludeHidden
+            syncedFolder.isExcludeHidden,
+            syncedFolder.lastScanTimestampMs
         )
     }
 
@@ -448,7 +450,8 @@ class SyncedFoldersActivity :
             mediaFolder.type,
             false,
             SubFolderRule.YEAR_MONTH,
-            false
+            false,
+            SyncedFolder.NOT_SCANNED_YET
         )
     }
 
@@ -541,7 +544,8 @@ class SyncedFoldersActivity :
                         MediaFolderType.CUSTOM,
                         false,
                         SubFolderRule.YEAR_MONTH,
-                        false
+                        false,
+                        SyncedFolder.NOT_SCANNED_YET
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
@@ -658,7 +662,8 @@ class SyncedFoldersActivity :
                 syncedFolder.type,
                 syncedFolder.isHidden,
                 syncedFolder.subFolderRule,
-                syncedFolder.isExcludeHidden
+                syncedFolder.isExcludeHidden,
+                SyncedFolder.NOT_SCANNED_YET
             )
             saveOrUpdateSyncedFolder(newCustomFolder)
             adapter.addSyncFolderItem(newCustomFolder)

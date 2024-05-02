@@ -7,7 +7,7 @@
   ~ SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2016 David A. Velasco <dvelasco@solidgear.es>
   ~ SPDX-FileCopyrightText: 2014 ownCloud Inc.
-  ~ SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
 <resources>
     <!-- Default screen margins, per the Android Design guidelines. -->
@@ -78,7 +78,6 @@
     <dimen name="file_download_fragment_display_text_margin">40dp</dimen>
     <dimen name="drawer_width">240dp</dimen>
     <dimen name="grid_item_text_size">16sp</dimen>
-    <dimen name="seek_bar_height">32dp</dimen>
     <dimen name="search_users_groups_layout_width">200dp</dimen>
     <dimen name="search_users_groups_layout_list_view_margin">20dp</dimen>
     <dimen name="share_file_layout_text_size">12sp</dimen>

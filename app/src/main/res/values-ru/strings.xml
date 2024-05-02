@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Ошибка создания учетной записи</string>
     <string name="account_icon">Значок учётной записи</string>
     <string name="account_not_found">Учётная запись не найдена!</string>
-    <string name="action_clear_failed_uploads">Убрать неудавшиеся загрузки</string>
     <string name="action_edit">Редактировать</string>
     <string name="action_empty_notifications">Удалить все уведомления</string>
     <string name="action_empty_trashbin">Очистить корзину</string>
@@ -39,11 +38,26 @@
     <string name="appbar_search_in">Искать в %s</string>
     <string name="assistant_screen_all_task_type">Все</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Наберите какой-то текст</string>
+    <string name="assistant_screen_delete_task_alert_dialog_description">Вы уверены, что хотите удалить эту задачу?</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Удалить задачу</string>
     <string name="assistant_screen_failed_task_text">Не удалось</string>
+    <string name="assistant_screen_loading">Список задач загружается, пожалуйста подождите</string>
+    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Нет доступных задач. Выберите тип задачи, чтобы создать новую задачу.</string>
+    <string name="assistant_screen_no_task_available_text">Нет доступной задачи для типа задачи %s, вы можете создать новую задачу в правом нижнем углу.</string>
+    <string name="assistant_screen_running_task_text">Выполянется</string>
     <string name="assistant_screen_scheduled_task_status_text">Запланированное</string>
     <string name="assistant_screen_successful_task_text">Выполнено</string>
+    <string name="assistant_screen_task_create_fail_message">Произошла ошибка при создании задачи</string>
+    <string name="assistant_screen_task_create_success_message">Задача успешно создана</string>
+    <string name="assistant_screen_task_delete_fail_message">Произошла ошибка во время удаления задачи</string>
     <string name="assistant_screen_task_delete_success_message">Задача удалена</string>
+    <string name="assistant_screen_task_list_error_state_message">Не удается получить список задач, проверьте ваше подключение к Интернету.</string>
+    <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Удалить задачу</string>
+    <string name="assistant_screen_task_types_error_state_message">Не удается получить список задач, проверьте ваше подключение к Интернету.</string>
+    <string name="assistant_screen_top_bar_title">Помощник</string>
     <string name="assistant_screen_unknown_task_status_text">Неизвестно</string>
+    <string name="assistant_task_detail_screen_input_button_title">Ввод</string>
+    <string name="assistant_task_detail_screen_output_button_title">Вывод</string>
     <string name="associated_account_not_found">Связанный аккаунт не найден!</string>
     <string name="auth_access_failed">Доступ запрещен: %1$s</string>
     <string name="auth_account_does_not_exist">Учётная запись ещё не создана на этом устройстве</string>
@@ -158,7 +172,7 @@
     <string name="confirmation_remove_folder_alert">Действительно удалить «%1$s» и его содержимое?</string>
     <string name="confirmation_remove_folders_alert">Действительно удалить выбранные объекты и их содержимое?</string>
     <string name="confirmation_remove_local">Только локально</string>
-    <string name="conflict_dialog_error">Не удалось создать диалоговое окно разрешения конфликта синхронизации.</string>
+    <string name="conflict_dialog_error">Не удается создать диалоговое окно разрешения конфликтов</string>
     <string name="conflict_file_headline">Конфликт версий файла «%1$s»</string>
     <string name="conflict_local_file">Локальный файл</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
@@ -242,6 +256,7 @@
     <string name="drawer_header_background">Фоновое изображение заголовка</string>
     <string name="drawer_item_activities">События</string>
     <string name="drawer_item_all_files">Все файлы</string>
+    <string name="drawer_item_assistant">Помощник</string>
     <string name="drawer_item_favorites">Избранное</string>
     <string name="drawer_item_gallery">Медиа</string>
     <string name="drawer_item_groupfolders">Групповые папки</string>
@@ -260,6 +275,7 @@
     <string name="drawer_synced_folders">Автоматическая передача</string>
     <string name="e2e_not_yet_setup">Сквозное шифрование не настроено</string>
     <string name="e2e_offline">Невозможно без подключения к интернету</string>
+    <string name="ecosystem_apps_display_assistant">Помощник</string>
     <string name="ecosystem_apps_display_more">Больше</string>
     <string name="ecosystem_apps_display_notes">Заметки</string>
     <string name="ecosystem_apps_display_talk">Конференции</string>
@@ -731,6 +747,7 @@
     <string name="share_link_with_label">Поделиться ссылкой (%1$s)</string>
     <string name="share_no_expiration_date_label">Установить срок действия</string>
     <string name="share_no_password_title">Задать пароль</string>
+    <string name="share_not_allowed_when_file_drop">Перенаправление запрещено во время безопасного удаления файлов</string>
     <string name="share_password_title">Защищено паролем</string>
     <string name="share_permission_can_edit">Разрешено редактировать</string>
     <string name="share_permission_file_drop">Принимать файлы</string>
@@ -754,6 +771,7 @@
     <string name="shared_icon_shared_via_link">поступ по ссылке</string>
     <string name="shared_with_you_by">С вами поделился %1$s</string>
     <string name="sharee_add_failed">Не удалось открыть общий доступ</string>
+    <string name="sharee_already_added_to_file">Не удалось добавить общий ресурс. Этому пользователю или группе уже предоставлен общий доступ к этому файлу или папке.</string>
     <string name="show_images">Показать фотографии</string>
     <string name="show_video">Показать видео</string>
     <string name="signup_with_provider">Подключиться через поставщика услуги</string>
@@ -796,6 +814,7 @@
     <string name="storage_permission_full_access">Полный доступ</string>
     <string name="storage_permission_media_read_only">Носитель только для чтения</string>
     <string name="storage_pictures">Изображения</string>
+    <string name="store_full_desc">Собственная продуктивная платформа, которая держит вас под контролем.\n\nFeatures:\n* Простой, современный интерфейс, соответствующий тематике вашего сервера\n* Загрузите файлы на свой сервер Nextcloud\n* Делитесь ими с другими\n* Синхронизируйте ваши любимые файлы и папки\n* Поиск во всех папках на вашем сервере\n* Автоматическая отправка фотографий и видео с вашего устройства\n* Будьте в курсе с уведомлениями\n* Поддержка нескольких учетных записей\n* Безопасный доступ к вашим данным с помощью отпечатка пальцев или PIN-кода\n* Интеграция с DAVx5 (ранее известный как DAVdroid) для легкой настройки синхронизации календаря и контактов\n\nПожалуйста, сообщите обо всех проблемах на https://github.com/nextcloud/android/issues и обсудите это приложение на https://help.nextcloud.com/c/clients/android\n\nНовичок в Nextcloud? Nextcloud - это частный сервер синхронизации и обмена файлами и коммуникационный сервер. Это свободное программное обеспечение, и вы можете разместить его самостоятельно или заплатить компании, чтобы сделать это за вас. Таким образом, вы управляете своими фотографиями, календарем и контактными данными, документами и всем остальным.\n\nПроверьте Nextcloud по адресу https://nextcloud.com</string>
     <string name="store_full_dev_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными.\nЭто разрабатываемая версия официального приложения Nextcloud, содержащая новые возможности, тестирование которых не ещё завершено. Разрабатываемая версия может быть нестабильна и её использование может привести к потере данных. Это приложение предназначено для пользователей, которые хотят познакомиться с новыми возможности и сообщать об обнаруженных ошибках. Не используйте его для работы!\n\nРазрабатываемая версия может быть установлена совместно с официальным приложением Nextcloud, которое также доступно в F-Droid.</string>
     <string name="store_short_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными</string>
     <string name="store_short_dev_desc">Платформа, размещаемая на собственных ресурсах и позволяющая самостоятельно управлять данными (разрабатываемая версия)</string>

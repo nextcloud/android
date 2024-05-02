@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2021 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018 Nextcloud GmbH
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.utils
 

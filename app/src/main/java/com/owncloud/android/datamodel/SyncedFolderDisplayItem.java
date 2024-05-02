@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2016 Andy Scherzinger
  * SPDX-FileCopyrightText: 2016 Nextcloud
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.datamodel;
 
@@ -60,7 +60,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    MediaFolderType type,
                                    boolean hidden,
                                    SubFolderRule subFolderRule,
-                                   boolean excludeHidden) {
+                                   boolean excludeHidden,
+                                   long lastScanTimestampMs) {
         super(id,
               localPath,
               remotePath,
@@ -76,7 +77,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               type,
               hidden,
               subFolderRule,
-              excludeHidden);
+              excludeHidden,
+              lastScanTimestampMs);
         this.filePaths = filePaths;
         this.folderName = folderName;
         this.numberOfFiles = numberOfFiles;
@@ -98,7 +100,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
                                    MediaFolderType type,
                                    boolean hidden,
                                    SubFolderRule subFolderRule,
-                                   boolean excludeHidden) {
+                                   boolean excludeHidden,
+                                   long lastScanTimestampMs) {
         super(id,
               localPath,
               remotePath,
@@ -114,7 +117,8 @@ public class SyncedFolderDisplayItem extends SyncedFolder {
               type,
               hidden,
               subFolderRule,
-              excludeHidden);
+              excludeHidden,
+              lastScanTimestampMs);
         this.folderName = folderName;
     }
 

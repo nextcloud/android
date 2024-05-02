@@ -3,13 +3,14 @@
  *
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.activity;
 
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.datamodel.MediaFolderType;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 
@@ -164,6 +165,7 @@ public class SyncedFoldersActivityTest {
                                            MediaFolderType.IMAGE,
                                            false,
                                            SubFolderRule.YEAR_MONTH,
-                                           true);
+                                           true,
+                                           SyncedFolder.NOT_SCANNED_YET);
     }
 }

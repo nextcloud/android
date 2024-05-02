@@ -11,7 +11,7 @@
  * SPDX-FileCopyrightText: 2015 ownCloud Inc.
  * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-FileCopyrightText: 2013 María Asensio Valverde <masensio@solidgear.es>
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android;
 
@@ -124,7 +124,7 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  * Contains methods to build the "static" strings. These strings were before constants in different classes.
  */
 public class MainApp extends MultiDexApplication implements HasAndroidInjector {
-    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_23;
+    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_26;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_16;
 
     private static final String TAG = MainApp.class.getSimpleName();

@@ -6,7 +6,7 @@
   ~ SPDX-FileCopyrightText: 2015-2017 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2016 Divay Prakash <divayprakash3@gmail.com>
   ~ SPDX-FileCopyrightText: 2013 ownCloud Inc.
-  ~ SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fileDownloadLL"

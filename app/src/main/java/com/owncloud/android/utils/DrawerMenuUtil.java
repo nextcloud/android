@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.utils;
 
@@ -27,7 +27,7 @@ public final class DrawerMenuUtil {
                                              User user,
                                              Resources resources) {
         if (user.isAnonymous()) {
-            filterMenuItems(menu, R.id.nav_gallery, R.id.nav_favorites);
+            removeMenuItem(menu, R.id.nav_gallery, R.id.nav_favorites);
         }
 
         if (!resources.getBoolean(R.bool.recently_modified_enabled)) {
@@ -38,26 +38,29 @@ public final class DrawerMenuUtil {
     public static void filterTrashbinMenuItem(Menu menu, @Nullable OCCapability capability) {
         if (capability != null && capability.getFilesUndelete().isFalse() ||
             capability != null && capability.getFilesUndelete().isUnknown()) {
-            filterMenuItems(menu, R.id.nav_trashbin);
+            removeMenuItem(menu, R.id.nav_trashbin);
         }
     }
 
     public static void filterActivityMenuItem(Menu menu, @Nullable OCCapability capability) {
         if (capability != null && capability.getActivity().isFalse()) {
-            filterMenuItems(menu, R.id.nav_activity);
+            removeMenuItem(menu, R.id.nav_activity);
         }
     }
 
     public static void filterAssistantMenuItem(Menu menu, @Nullable OCCapability capability, Resources resources) {
-        boolean showCondition = capability != null && capability.getAssistant().isTrue() && !resources.getBoolean(R.bool.is_branded_client);
-        if (!showCondition) {
-            filterMenuItems(menu, R.id.nav_assistant);
+        if (resources.getBoolean(R.bool.is_branded_client)) {
+            if (capability != null && capability.getAssistant().isFalse()) {
+                removeMenuItem(menu, R.id.nav_assistant);
+            }
+        } else {
+            removeMenuItem(menu, R.id.nav_assistant);
         }
     }
 
     public static void filterGroupfoldersMenuItem(Menu menu, @Nullable OCCapability capability) {
         if (capability != null && !capability.getGroupfolders().isTrue()) {
-            filterMenuItems(menu, R.id.nav_groupfolders);
+            removeMenuItem(menu, R.id.nav_groupfolders);
         }
     }
 
@@ -74,7 +77,7 @@ public final class DrawerMenuUtil {
         }
     }
 
-    private static void filterMenuItems(Menu menu, int... menuIds) {
+    private static void removeMenuItem(Menu menu, int... menuIds) {
         if (menuIds != null) {
             for (int menuId : menuIds) {
                 menu.removeItem(menuId);

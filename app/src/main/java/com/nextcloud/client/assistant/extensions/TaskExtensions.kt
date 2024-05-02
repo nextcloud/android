@@ -35,3 +35,8 @@ fun Task.statusData(): Pair<Int, Int> {
         }
     }
 }
+
+// TODO add
+fun Task.completionDateRepresentation(): String {
+    return completionExpectedAt ?: "TODO IMPLEMENT IT"
+}

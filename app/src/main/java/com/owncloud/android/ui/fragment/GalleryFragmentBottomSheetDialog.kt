@@ -5,7 +5,7 @@
  * Copyright (C) 2022 TSI-mc
  * Copyright (C) 2022 Nextcloud GmbH
  *
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.fragment
 

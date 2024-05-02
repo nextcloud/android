@@ -2,7 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.jobs
 
@@ -201,7 +201,7 @@ class BackgroundJobManagerTest {
         fun job_is_unique_and_replaces_previous_job() {
             verify(workManager).enqueueUniqueWork(
                 eq(BackgroundJobManagerImpl.JOB_CONTENT_OBSERVER),
-                eq(ExistingWorkPolicy.APPEND),
+                eq(ExistingWorkPolicy.REPLACE),
                 argThat(IsOneTimeWorkRequest())
             )
         }

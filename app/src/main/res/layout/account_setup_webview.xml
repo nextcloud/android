@@ -4,18 +4,28 @@
   ~
   ~ SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
-  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:orientation="vertical"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
+    <!-- Login Flow V1 -->
     <WebView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:id="@+id/login_webview">
     </WebView>
+
+    <!-- Login Flow V2 -->
+    <include
+        tools:visibility="visible"
+        android:visibility="gone"
+        android:id="@+id/login_flow_v2"
+        layout="@layout/login_flow_info_layout_v2" />
 
     <ProgressBar
         android:id="@+id/login_webview_progress_bar"
@@ -23,5 +33,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:indeterminate="true"/>
+        android:indeterminate="true" />
 </FrameLayout>

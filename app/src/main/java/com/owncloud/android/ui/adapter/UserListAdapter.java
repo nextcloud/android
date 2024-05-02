@@ -8,7 +8,7 @@
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2019 Nick Antoniou <nikolasea@windowslive.com>
  * SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger.de>
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.adapter;
 

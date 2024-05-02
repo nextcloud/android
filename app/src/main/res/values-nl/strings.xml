@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Account aanmaken mislukt</string>
     <string name="account_icon">Accountpictogram</string>
     <string name="account_not_found">Account niet gevonden!</string>
-    <string name="action_clear_failed_uploads">Wis mislukte uploads</string>
     <string name="action_edit">Bewerken</string>
     <string name="action_empty_notifications">Handel alle meldingen af</string>
     <string name="action_empty_trashbin">Prullenbak legen</string>
@@ -167,7 +166,6 @@
     <string name="confirmation_remove_folder_alert">Wil je %1$s en de inhoud ervan werkelijk verwijderen?</string>
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="confirmation_remove_local">Alleen lokaal</string>
-    <string name="conflict_dialog_error">Fout bij het maken van conflictdialoog!</string>
     <string name="conflict_file_headline">Conflicterend bestand%1$s</string>
     <string name="conflict_local_file">Lokaal bestand</string>
     <string name="conflict_message_description">Als je beide versies selecteert, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>

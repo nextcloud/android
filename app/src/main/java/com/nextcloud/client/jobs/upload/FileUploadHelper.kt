@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.jobs.upload
 
@@ -75,8 +75,10 @@ class FileUploadHelper {
     ) {
         val failedUploads = uploadsStorageManager.failedUploads
         if (failedUploads == null || failedUploads.isEmpty()) {
+            Log_OC.d(TAG, "Failed uploads are empty or null")
             return
         }
+
         retryUploads(
             uploadsStorageManager,
             connectivityService,
@@ -120,11 +122,8 @@ class FileUploadHelper {
         val charging = batteryStatus.isCharging || batteryStatus.isFull
         val isPowerSaving = powerManagementService.isPowerSavingEnabled
         var uploadUser = Optional.empty<User>()
+
         for (failedUpload in failedUploads) {
-            // 1. extract failed upload owner account and cache it between loops (expensive query)
-            if (!uploadUser.isPresent || !uploadUser.get().nameEquals(failedUpload.accountName)) {
-                uploadUser = accountManager.getUser(failedUpload.accountName)
-            }
             val isDeleted = !File(failedUpload.localPath).exists()
             if (isDeleted) {
                 showNotExistMessage = true
@@ -138,8 +137,14 @@ class FileUploadHelper {
                 canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled
             ) {
                 // 2B. for existing local files, try restarting it if possible
-                retryUpload(failedUpload, uploadUser.get())
+                failedUpload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
+                uploadsStorageManager.updateUpload(failedUpload)
             }
+        }
+
+        accountManager.accounts.forEach {
+            val user = accountManager.getUser(it.name)
+            if (user.isPresent) backgroundJobManager.startFilesUploadJob(user.get())
         }
 
         return showNotExistMessage

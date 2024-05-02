@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.jobs.upload
 
@@ -165,16 +165,16 @@ class FileUploadWorker(
             }
 
             if (user.isPresent) {
-                val operation = createUploadFileOperation(upload, user.get())
+                val uploadFileOperation = createUploadFileOperation(upload, user.get())
 
-                currentUploadFileOperation = operation
-                val result = upload(operation, user.get())
+                currentUploadFileOperation = uploadFileOperation
+                val result = upload(uploadFileOperation, user.get())
                 currentUploadFileOperation = null
 
                 fileUploaderDelegate.sendBroadcastUploadFinished(
-                    operation,
+                    uploadFileOperation,
                     result,
-                    operation.oldFile?.storagePath,
+                    uploadFileOperation.oldFile?.storagePath,
                     context,
                     localBroadcastManager
                 )
@@ -205,39 +205,39 @@ class FileUploadWorker(
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
-    private fun upload(operation: UploadFileOperation, user: User): RemoteOperationResult<Any?> {
+    private fun upload(uploadFileOperation: UploadFileOperation, user: User): RemoteOperationResult<Any?> {
         lateinit var result: RemoteOperationResult<Any?>
 
         notificationManager.prepareForStart(
-            operation,
-            intents.startIntent(operation),
-            intents.notificationStartIntent(operation)
+            uploadFileOperation,
+            cancelPendingIntent = intents.startIntent(uploadFileOperation),
+            intents.notificationStartIntent(uploadFileOperation)
         )
 
         try {
-            val storageManager = operation.storageManager
+            val storageManager = uploadFileOperation.storageManager
             val ocAccount = OwnCloudAccount(user.toPlatformAccount(), context)
             val uploadClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(ocAccount, context)
-            result = operation.execute(uploadClient)
+            result = uploadFileOperation.execute(uploadClient)
 
             val task = ThumbnailsCacheManager.ThumbnailGenerationTask(storageManager, user)
-            val file = File(operation.originalStoragePath)
-            val remoteId: String? = operation.file.remoteId
+            val file = File(uploadFileOperation.originalStoragePath)
+            val remoteId: String? = uploadFileOperation.file.remoteId
             task.execute(ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, remoteId))
         } catch (e: Exception) {
             Log_OC.e(TAG, "Error uploading", e)
             result = RemoteOperationResult<Any?>(e)
         } finally {
-            cleanupUploadProcess(result, operation)
+            cleanupUploadProcess(result, uploadFileOperation)
         }
 
         return result
     }
 
-    private fun cleanupUploadProcess(result: RemoteOperationResult<Any?>, operation: UploadFileOperation) {
+    private fun cleanupUploadProcess(result: RemoteOperationResult<Any?>, uploadFileOperation: UploadFileOperation) {
         if (!isStopped || !result.isCancelled) {
-            uploadsStorageManager.updateDatabaseUploadResult(result, operation)
-            notifyUploadResult(operation, result)
+            uploadsStorageManager.updateDatabaseUploadResult(result, uploadFileOperation)
+            notifyUploadResult(uploadFileOperation, result)
             notificationManager.dismissWorkerNotifications()
         }
     }
@@ -315,10 +315,11 @@ class FileUploadWorker(
 
         if (percent != lastPercent) {
             notificationManager.run {
-                updateUploadProgress(fileAbsoluteName, percent, currentUploadFileOperation)
-
                 val accountName = currentUploadFileOperation?.user?.accountName
                 val remotePath = currentUploadFileOperation?.remotePath
+                val filename = currentUploadFileOperation?.fileName ?: ""
+
+                updateUploadProgress(filename, percent, currentUploadFileOperation)
 
                 if (accountName != null && remotePath != null) {
                     val key: String =
@@ -329,7 +330,7 @@ class FileUploadWorker(
                         progressRate,
                         totalTransferredSoFar,
                         totalToTransfer,
-                        fileAbsoluteName
+                        filename
                     )
                 }
 

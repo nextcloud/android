@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Неуспешно креирање на сметка</string>
     <string name="account_icon">Икона за сметката</string>
     <string name="account_not_found">Сметката не е пројандена!</string>
-    <string name="action_clear_failed_uploads">Исчисти ги неуспешните прикачувања</string>
     <string name="action_edit">Уреди</string>
     <string name="action_empty_notifications">Исчисти ги сите известувања</string>
     <string name="action_empty_trashbin">Испразни ја корпата со отпадоци</string>
@@ -144,7 +143,6 @@
     <string name="confirmation_remove_folder_alert">али си сигурен дека сакаш да ја избришеш %1$s и содржината во истата?</string>
     <string name="confirmation_remove_folders_alert">Дали си сигурен дека сакаш да ја избришеш означената ставкаи содржината во неа?</string>
     <string name="confirmation_remove_local">Само локално</string>
-    <string name="conflict_dialog_error">Грешка при креирање конфликтен извештај!</string>
     <string name="conflict_file_headline">Датотеки со конфликт %1$s</string>
     <string name="conflict_local_file">Локална датотека</string>
     <string name="conflict_message_description">Ако ги одберете и двете верзии, локалната датотека ќе има број додаден на нејзиното име.</string>

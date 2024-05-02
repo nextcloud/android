@@ -9,7 +9,7 @@
  * SPDX-FileCopyrightText: 2016-2022 Andy Scherzinger
  * SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2016 Nextcloud
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.activity;
 
@@ -102,6 +102,22 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         viewThemeUtils.material.colorToolbarOverflowIcon(mToolbar);
         viewThemeUtils.platform.themeStatusBar(this);
         viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
+    }
+
+    public void setupToolbarShowOnlyMenuButtonAndTitle(String title, View.OnClickListener toggleDrawer) {
+        setupToolbar(false, false);
+
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+        }
+
+        LinearLayout toolbar = findViewById(R.id.toolbar_linear_layout);
+        MaterialButton menuButton = findViewById(R.id.toolbar_menu_button);
+        MaterialTextView titleTextView = findViewById(R.id.toolbar_title);
+        titleTextView.setText(title);
+        toolbar.setVisibility(View.VISIBLE);
+        menuButton.setOnClickListener(toggleDrawer);
     }
 
     public void setupToolbar() {
@@ -278,7 +294,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
 
     public void clearToolbarSubtitle() {
         ActionBar actionBar = getSupportActionBar();
-        if(actionBar != null){
+        if (actionBar != null) {
             actionBar.setSubtitle(null);
         }
     }

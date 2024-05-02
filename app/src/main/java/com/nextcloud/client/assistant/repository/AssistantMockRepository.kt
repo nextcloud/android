@@ -3,16 +3,18 @@
  *
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper_ozturk@proton.me>
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.assistant.repository
 
+import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskList
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
+@Suppress("MagicNumber")
 class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : AssistantRepositoryType {
     override fun getTaskTypes(): RemoteOperationResult<TaskTypes> {
         return RemoteOperationResult<TaskTypes>(RemoteOperationResult.ResultCode.OK).apply {
@@ -41,16 +43,8 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
                         null,
                         "12",
                         "",
-                        "Give me some text",
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. " +
-                            "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s," +
-                            " when an unknown printer took a galley of type and scrambled it to make a type" +
-                            " specimen book. It has survived not only five centuries, " +
-                            "but also the leap into electronic typesetting, remaining essentially unchanged." +
-                            " It was popularised in the 1960s with the release of Letraset sheets containing " +
-                            "Lorem Ipsum passages, and more recently with desktop publishing software like Aldus" +
-                            " PageMaker including versions of Lorem Ipsum",
-                        "",
+                        "Give me some long text 1",
+                        "Lorem ipsum".getRandomString(100),
                         ""
                     ),
                     Task(
@@ -60,7 +54,62 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
                         "12",
                         "",
                         "Give me some text 2",
-                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+                        "Lorem".getRandomString(100),
+                        "",
+                        ""
+                    ),
+                    Task(
+                        3,
+                        "FreePrompt",
+                        null,
+                        "12",
+                        "",
+                        "Give me some text 3",
+                        "Lorem".getRandomString(300),
+                        "",
+                        ""
+                    ),
+                    Task(
+                        4,
+                        "FreePrompt",
+                        null,
+                        "12",
+                        "",
+                        "Give me some text 4",
+                        "Lorem".getRandomString(300),
+                        "",
+                        ""
+                    ),
+                    Task(
+                        5,
+                        "FreePrompt",
+                        null,
+                        "12",
+                        "",
+                        "Give me some text 5",
+                        "Lorem".getRandomString(300),
+                        "",
+                        ""
+                    ),
+                    Task(
+                        6,
+                        "FreePrompt",
+                        null,
+                        "12",
+                        "",
+                        "Give me some text 6",
+                        "Lorem".getRandomString(300),
+                        "",
+                        ""
+                    ),
+                    Task(
+                        7,
+                        "FreePrompt",
+                        null,
+                        "12",
+                        "",
+                        "Give me some text 7",
+                        "Lorem".getRandomString(300),
                         "",
                         ""
                     )

@@ -5,7 +5,7 @@
   ~ SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2017-2020 Andy Scherzinger <info@andy-scherzinger>
   ~ SPDX-FileCopyrightText: 22020 Joris Bodin <joris.bodin@infomaniak.com>
-  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -113,6 +113,42 @@
             </com.google.android.material.appbar.MaterialToolbar>
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/toolbar_linear_layout"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:orientation="horizontal"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/toolbar_menu_button"
+                style="@style/Widget.AppTheme.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:cornerRadius="@dimen/button_corner_radius"
+                app:icon="@drawable/ic_menu"
+                app:iconTint="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/toolbar_title"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:lines="1"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"/>
+
+        </LinearLayout>
+
 
         <!-- home/search toolbar -->
         <com.google.android.material.card.MaterialCardView

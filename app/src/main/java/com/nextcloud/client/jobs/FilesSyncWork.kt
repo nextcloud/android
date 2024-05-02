@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.jobs
 
@@ -62,7 +62,6 @@ class FilesSyncWork(
 
     companion object {
         const val TAG = "FilesSyncJob"
-        const val SKIP_CUSTOM = "skipCustom"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CHANGED_FILES = "changedFiles"
         const val FOREGROUND_SERVICE_ID = 414
@@ -70,7 +69,7 @@ class FilesSyncWork(
 
     @Suppress("MagicNumber")
     private fun updateForegroundWorker(progressPercent: Int, useForegroundWorker: Boolean) {
-        if (useForegroundWorker) {
+        if (!useForegroundWorker) {
             return
         }
 
@@ -126,6 +125,7 @@ class FilesSyncWork(
     @Suppress("MagicNumber")
     override fun doWork(): Result {
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
+        Log_OC.d(TAG, "File-sync worker started")
 
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
 
@@ -145,7 +145,9 @@ class FilesSyncWork(
         )
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
+        Log_OC.d(TAG, "File-sync worker changed files from observer: " + changedFiles.contentToString())
         collectChangedFiles(changedFiles)
+        Log_OC.d(TAG, "File-sync worker finished checking files.")
 
         // Create all the providers we'll need
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
@@ -160,11 +162,7 @@ class FilesSyncWork(
                 (50 + (index.toDouble() / syncedFolders.size.toDouble()) * 50).toInt(),
                 changedFiles.isNullOrEmpty()
             )
-            if (syncedFolder.isEnabled && (
-                    changedFiles.isNullOrEmpty() ||
-                        MediaFolderType.CUSTOM != syncedFolder.type
-                    )
-            ) {
+            if (syncedFolder.isEnabled) {
                 syncFolder(
                     context,
                     resources,
@@ -176,6 +174,7 @@ class FilesSyncWork(
                 )
             }
         }
+        Log_OC.d(TAG, "File-sync worker finished")
         val result = Result.success()
         backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
         return result
@@ -253,7 +252,6 @@ class FilesSyncWork(
             needsWifi = syncedFolder.isWifiOnly
             uploadAction = syncedFolder.uploadAction
         }
-
         FileUploadHelper.instance().uploadNewFiles(
             user,
             localPaths,

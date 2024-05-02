@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper_ozturk@proton.me>
  * SPDX-FileCopyrightText: 2024 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.assistant
 
@@ -42,8 +42,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.component.AddTaskAlertDialog
 import com.nextcloud.client.assistant.component.CenterText
-import com.nextcloud.client.assistant.component.TaskTypesRow
-import com.nextcloud.client.assistant.component.TaskView
+import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
+import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.repository.AssistantMockRepository
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog

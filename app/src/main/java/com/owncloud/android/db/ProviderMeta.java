@@ -7,7 +7,7 @@
  * SPDX-FileCopyrightText: 2014-2015 María Asensio Valverde <masensio@solidgear.es>
  * SPDX-FileCopyrightText: 2012 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-FileCopyrightText: 2011 Bartosz Przybylski <bart.p.pl@gmail.com>
- * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.db;
 
@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 80;
+    public static final int DB_VERSION = 81;
 
     private ProviderMeta() {
         // No instance
@@ -293,7 +293,8 @@ public class ProviderMeta {
         public static final String SYNCED_FOLDER_NAME_COLLISION_POLICY = "name_collision_policy";
         public static final String SYNCED_FOLDER_HIDDEN = "hidden";
         public static final String SYNCED_FOLDER_SUBFOLDER_RULE = "sub_folder_rule";
-        public static final String SYNCED_EXCLUDE_HIDDEN = "exclude_hidden";
+        public static final String SYNCED_FOLDER_EXCLUDE_HIDDEN = "exclude_hidden";
+        public static final String SYNCED_FOLDER_LAST_SCAN_TIMESTAMP_MS = "last_scan_timestamp_ms";
 
         // Columns of external links table
         public static final String EXTERNAL_LINKS_ICON_URL = "icon_url";

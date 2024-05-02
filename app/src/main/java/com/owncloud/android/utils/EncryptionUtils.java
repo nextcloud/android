@@ -3,7 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.utils;
 
@@ -167,6 +167,10 @@ public final class EncryptionUtils {
                 .create()
                 .toJson(data);
         }
+    }
+
+    public static void removeFileFromMetadata(String fileName, DecryptedFolderMetadataFileV1 metadata) {
+        metadata.getFiles().remove(fileName);
     }
 
     public static String serializeJSON(Object data) {
@@ -547,12 +551,12 @@ public final class EncryptionUtils {
         return Base64.decode(string, Base64.NO_WRAP);
     }
 
-    public static EncryptedFile encryptFile(File file, Cipher cipher) throws InvalidParameterSpecException {
-        // FIXME this won't work on low or write-protected storage
-        File encryptedFile = new File(file.getAbsolutePath() + ".enc.jpg");
-        encryptFileWithGivenCipher(file, encryptedFile, cipher);
+    public static EncryptedFile encryptFile(String accountName, File file, Cipher cipher) throws InvalidParameterSpecException, IOException {
+        File tempEncryptedFolder = FileDataStorageManager.createTempEncryptedFolder(accountName);
+        File tempEncryptedFile = File.createTempFile(file.getName(), null, tempEncryptedFolder);
+        encryptFileWithGivenCipher(file, tempEncryptedFile, cipher);
         String authenticationTagString = getAuthenticationTag(cipher);
-        return new EncryptedFile(encryptedFile, authenticationTagString);
+        return new EncryptedFile(tempEncryptedFile, authenticationTagString);
     }
 
     public static String getAuthenticationTag(Cipher cipher) throws InvalidParameterSpecException {
@@ -569,7 +573,7 @@ public final class EncryptionUtils {
     }
 
     public static void encryptFileWithGivenCipher(File inputFile, File encryptedFile, Cipher cipher) {
-        try( FileInputStream inputStream = new FileInputStream(inputFile);
+        try (FileInputStream inputStream = new FileInputStream(inputFile);
              FileOutputStream fileOutputStream = new FileOutputStream(encryptedFile);
              CipherOutputStream outputStream = new CipherOutputStream(fileOutputStream, cipher)) {
             byte[] buffer = new byte[4096];

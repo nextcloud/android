@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Krijimi i llogarisë dështoi</string>
     <string name="account_icon">Ikona e llogarisë</string>
     <string name="account_not_found">Llogaria nuk u gjet!</string>
-    <string name="action_clear_failed_uploads">Pastroni ngarkimet e dështuara</string>
     <string name="action_edit">Përpuno</string>
     <string name="action_empty_notifications">Pastro të gjithë njoftimet</string>
     <string name="action_send_share">Dërgoje/Shpërndaje</string>
@@ -131,7 +130,6 @@
     <string name="confirmation_remove_folder_alert">Doni vërtet të hiqet %1$s dhe përmbajtja e tij?</string>
     <string name="confirmation_remove_folders_alert">Doni vërtet të hiqni artikujt e zgjedhur dhe përmbajtjen e tyre?</string>
     <string name="confirmation_remove_local">Vetëm vendorja</string>
-    <string name="conflict_dialog_error">Gabim në krijimin e dialogut për konflikte!</string>
     <string name="conflict_message_description">Nëse zgjidhni të dy versionet, skedari lokal do të ketë një numër të bashkangjitur në emër</string>
     <string name="contactlist_item_icon">Ikona e përdoruesit për listën e kontakteve</string>
     <string name="contactlist_no_permission">Asnjë leje e dhënë, nuk u importua asgjë.</string>

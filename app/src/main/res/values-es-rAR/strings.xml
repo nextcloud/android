@@ -7,7 +7,6 @@
     <string name="account_creation_failed">Falló la creación de la carpeta</string>
     <string name="account_icon">Icono de cuenta</string>
     <string name="account_not_found">Cuenta no encontrada!</string>
-    <string name="action_clear_failed_uploads">Borrar subidas fallidas</string>
     <string name="action_edit">Editar</string>
     <string name="action_empty_notifications">Borrar todas las notificaciones</string>
     <string name="action_empty_trashbin">Vaciar la papelera</string>
@@ -150,7 +149,6 @@
     <string name="confirmation_remove_folder_alert">¿Realmente quieres eliminar %1$s y su contenido?</string>
     <string name="confirmation_remove_folders_alert">¿Realmente desea eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
-    <string name="conflict_dialog_error">¡Error al crear el diálogo de conflicto!</string>
     <string name="conflict_file_headline">Archivo en conflicto %1$s</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si selecciona ambas versiones, se le agregará un número al nombre del archivo copiado.</string>
