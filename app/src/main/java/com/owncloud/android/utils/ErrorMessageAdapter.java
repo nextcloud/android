@@ -30,11 +30,13 @@ import com.owncloud.android.operations.UnshareOperation;
 import com.owncloud.android.operations.UpdateSharePermissionsOperation;
 import com.owncloud.android.operations.UpdateShareViaLinkOperation;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.operations.common.RemoteOperationHttpPhrase;
 
 import org.apache.commons.httpclient.ConnectTimeoutException;
 
 import java.io.File;
 import java.net.SocketTimeoutException;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -293,9 +295,9 @@ public final class ErrorMessageAdapter {
 
         } else {
             if (result.getCode() == ResultCode.FORBIDDEN) {
-                // Error --> No permissions
-                return String.format(res.getString(R.string.forbidden_permissions),
-                                     res.getString(R.string.forbidden_permissions_delete));
+                return String.format(res.getString(R.string.forbidden_permissions), res.getString(R.string.forbidden_permissions_delete));
+            } else if (Objects.equals(result.getHttpPhrase(), RemoteOperationHttpPhrase.Locked.getValue())) {
+                return res.getString(R.string.preview_media_unhandled_http_code_message);
             }
         }
 
