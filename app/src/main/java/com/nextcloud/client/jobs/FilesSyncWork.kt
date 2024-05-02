@@ -102,12 +102,12 @@ class FilesSyncWork(
         // or sync worker already running and no changed files to be processed
         val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning()
         if (alreadyRunning && changedFiles.isNullOrEmpty()) {
-            Log_OC.d(TAG, "FILESYNC Kill Sync Worker since another instance of the worker seems to be running already!")
+            Log_OC.d(TAG, "File-sync kill worker since another instance of the worker seems to be running already!")
             canExitEarly = true
         }
 
         if (!syncedFolderProvider.syncedFolders.any { it.isEnabled }) {
-            Log_OC.d(TAG, "FILESYNC Kill Sync Worker since no sync folder is enabled!")
+            Log_OC.d(TAG, "File-sync kill worker since no sync folder is enabled!")
             canExitEarly = true
         }
 
@@ -115,7 +115,7 @@ class FilesSyncWork(
             !powerManagementService.battery.isCharging &&
             !powerManagementService.battery.isFull
         ) {
-            Log_OC.d(TAG, "FILESYNC Kill Sync Worker since no sync folder is enabled!")
+            Log_OC.d(TAG, "File-sync kill worker since phone is not charging!")
             canExitEarly = true
         }
 
