@@ -88,6 +88,8 @@
     <string name="auth_unknown_host_title">Nemožno nájsť server</string>
     <string name="auth_unsupported_multiaccount">%1$s nepodporuje viacero účtov</string>
     <string name="auth_wrong_connection_title">Nepodarilo sa nadviazať spojenie</string>
+    <string name="authenticator_activity_cancel_login">Zrušiť prihlasovanie</string>
+    <string name="authenticator_activity_please_complete_login_process">Prosím, dokončite proces prihlasovania vo vašom prehliadači</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
