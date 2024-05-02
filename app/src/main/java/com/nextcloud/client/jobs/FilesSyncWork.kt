@@ -112,6 +112,14 @@ class FilesSyncWork(
             canExitEarly = true
         }
 
+        if (syncedFolderProvider.syncedFolders.all { it.isChargingOnly } &&
+            !powerManagementService.battery.isCharging &&
+            !powerManagementService.battery.isFull) {
+
+            Log_OC.d(TAG, "FILESYNC Kill Sync Worker since no sync folder is enabled!")
+            canExitEarly = true
+        }
+
         return canExitEarly
     }
 
@@ -181,7 +189,7 @@ class FilesSyncWork(
             // Check every file in every synced folder for changes and update
             // filesystemDataProvider database (potentially needs a long time so use foreground worker)
             updateForegroundWorker(5, true)
-            FilesSyncHelper.insertAllDBEntries(syncedFolderProvider)
+            FilesSyncHelper.insertAllDBEntries(syncedFolderProvider, powerManagementService)
             updateForegroundWorker(50, true)
         }
     }
