@@ -28,7 +28,6 @@ import com.nextcloud.test.RandomStringGenerator
 import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.AbstractOnServerIT
-import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile
@@ -62,7 +61,6 @@ import com.owncloud.android.utils.FileStorageUtils
 import junit.framework.TestCase
 import org.junit.Assume
 import org.junit.Before
-import org.junit.BeforeClass
 import org.junit.Rule
 import org.junit.Test
 import java.io.File
@@ -799,108 +797,102 @@ class EndToEndRandomIT : AbstractOnServerIT() {
         )
     }
 
-    companion object {
-        private var arbitraryDataProvider: ArbitraryDataProvider? = null
+    @Before
+    @Throws(Exception::class)
+    fun initClass() {
+        createKeys()
+    }
 
-        @JvmStatic
-        @BeforeClass
-        @Throws(Exception::class)
-        fun initClass() {
-            arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
-            createKeys()
+    /*
+TODO do not c&p code
+ */
+    @Throws(Exception::class)
+    private fun createKeys() {
+        deleteKeys()
+
+        val publicKeyString: String
+
+        // Create public/private key pair
+        val keyPair: KeyPair = EncryptionUtils.generateKeyPair()
+
+        // create CSR
+        val accountManager: AccountManager = AccountManager.get(AbstractIT.targetContext)
+        val userId: String = accountManager.getUserData(AbstractIT.account, AccountUtils.Constants.KEY_USER_ID)
+        val urlEncoded: String = CsrHelper().generateCsrPemEncodedString(keyPair, userId)
+
+        val operation = SendCSRRemoteOperation(urlEncoded)
+        val result: RemoteOperationResult<String> =
+            operation.executeNextcloudClient(AbstractIT.account, AbstractIT.targetContext)
+
+        if (result.isSuccess) {
+            publicKeyString = result.resultData
+
+            // check key
+            val privateKey = keyPair.private as RSAPrivateCrtKey
+            val publicKey: RSAPublicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString)
+
+            val modulusPublic = publicKey.modulus
+            val modulusPrivate = privateKey.modulus
+
+            if (modulusPrivate.compareTo(modulusPublic) != 0) {
+                throw RuntimeException("Wrong CSR returned")
+            }
+        } else {
+            throw Exception("failed to send CSR", result.exception)
         }
 
-        /*
-    TODO do not c&p code
-     */
-        @Throws(Exception::class)
-        private fun createKeys() {
-            deleteKeys()
+        val privateKey = keyPair.private
+        val privateKeyString: String = EncryptionUtils.encodeBytesToBase64String(privateKey.encoded)
+        val privatePemKeyString: String = EncryptionUtils.privateKeyToPEM(privateKey)
+        val encryptedPrivateKey: String = EncryptionUtils.encryptPrivateKey(
+            privatePemKeyString,
+            generateMnemonicString()
+        )
 
-            val publicKeyString: String
+        // upload encryptedPrivateKey
+        val storePrivateKeyOperation = StorePrivateKeyRemoteOperation(encryptedPrivateKey)
+        val storePrivateKeyResult: RemoteOperationResult<*> = storePrivateKeyOperation.executeNextcloudClient(
+            AbstractIT.account,
+            AbstractIT.targetContext
+        )
 
-            // Create public/private key pair
-            val keyPair: KeyPair = EncryptionUtils.generateKeyPair()
-
-            // create CSR
-            val accountManager: AccountManager = AccountManager.get(AbstractIT.targetContext)
-            val userId: String = accountManager.getUserData(AbstractIT.account, AccountUtils.Constants.KEY_USER_ID)
-            val urlEncoded: String = CsrHelper().generateCsrPemEncodedString(keyPair, userId)
-
-            val operation = SendCSRRemoteOperation(urlEncoded)
-            val result: RemoteOperationResult<String> =
-                operation.executeNextcloudClient(AbstractIT.account, AbstractIT.targetContext)
-
-            if (result.isSuccess) {
-                publicKeyString = result.resultData
-
-                // check key
-                val privateKey = keyPair.private as RSAPrivateCrtKey
-                val publicKey: RSAPublicKey = EncryptionUtils.convertPublicKeyFromString(publicKeyString)
-
-                val modulusPublic = publicKey.modulus
-                val modulusPrivate = privateKey.modulus
-
-                if (modulusPrivate.compareTo(modulusPublic) != 0) {
-                    throw RuntimeException("Wrong CSR returned")
-                }
-            } else {
-                throw Exception("failed to send CSR", result.exception)
-            }
-
-            val privateKey = keyPair.private
-            val privateKeyString: String = EncryptionUtils.encodeBytesToBase64String(privateKey.encoded)
-            val privatePemKeyString: String = EncryptionUtils.privateKeyToPEM(privateKey)
-            val encryptedPrivateKey: String = EncryptionUtils.encryptPrivateKey(
-                privatePemKeyString,
+        if (storePrivateKeyResult.isSuccess) {
+            arbitraryDataProvider?.storeOrUpdateKeyValue(
+                AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY,
+                privateKeyString
+            )
+            arbitraryDataProvider?.storeOrUpdateKeyValue(
+                AbstractIT.account.name,
+                EncryptionUtils.PUBLIC_KEY,
+                publicKeyString
+            )
+            arbitraryDataProvider?.storeOrUpdateKeyValue(
+                AbstractIT.account.name, EncryptionUtils.MNEMONIC,
                 generateMnemonicString()
             )
-
-            // upload encryptedPrivateKey
-            val storePrivateKeyOperation = StorePrivateKeyRemoteOperation(encryptedPrivateKey)
-            val storePrivateKeyResult: RemoteOperationResult<*> = storePrivateKeyOperation.executeNextcloudClient(
-                AbstractIT.account,
-                AbstractIT.targetContext
-            )
-
-            if (storePrivateKeyResult.isSuccess) {
-                arbitraryDataProvider?.storeOrUpdateKeyValue(
-                    AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY,
-                    privateKeyString
-                )
-                arbitraryDataProvider?.storeOrUpdateKeyValue(
-                    AbstractIT.account.name,
-                    EncryptionUtils.PUBLIC_KEY,
-                    publicKeyString
-                )
-                arbitraryDataProvider?.storeOrUpdateKeyValue(
-                    AbstractIT.account.name, EncryptionUtils.MNEMONIC,
-                    generateMnemonicString()
-                )
-            } else {
-                throw RuntimeException("Error uploading private key!")
-            }
+        } else {
+            throw RuntimeException("Error uploading private key!")
         }
+    }
 
-        private fun deleteKeys() {
-            val privateKeyRemoteOperationResult: RemoteOperationResult<PrivateKey> =
-                GetPrivateKeyRemoteOperation().execute(AbstractIT.nextcloudClient)
-            val publicKeyRemoteOperationResult: RemoteOperationResult<String> =
-                GetPublicKeyRemoteOperation().execute(AbstractIT.nextcloudClient)
+    private fun deleteKeys() {
+        val privateKeyRemoteOperationResult: RemoteOperationResult<PrivateKey> =
+            GetPrivateKeyRemoteOperation().execute(AbstractIT.nextcloudClient)
+        val publicKeyRemoteOperationResult: RemoteOperationResult<String> =
+            GetPublicKeyRemoteOperation().execute(AbstractIT.nextcloudClient)
 
-            if (privateKeyRemoteOperationResult.isSuccess || publicKeyRemoteOperationResult.isSuccess) {
-                // delete keys
-                TestCase.assertTrue(DeletePrivateKeyRemoteOperation().execute(AbstractIT.nextcloudClient).isSuccess)
-                TestCase.assertTrue(DeletePublicKeyRemoteOperation().execute(AbstractIT.nextcloudClient).isSuccess)
+        if (privateKeyRemoteOperationResult.isSuccess || publicKeyRemoteOperationResult.isSuccess) {
+            // delete keys
+            TestCase.assertTrue(DeletePrivateKeyRemoteOperation().execute(AbstractIT.nextcloudClient).isSuccess)
+            TestCase.assertTrue(DeletePublicKeyRemoteOperation().execute(AbstractIT.nextcloudClient).isSuccess)
 
-                arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY)
-                arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.PUBLIC_KEY)
-                arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.MNEMONIC)
-            }
+            arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.PRIVATE_KEY)
+            arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.PUBLIC_KEY)
+            arbitraryDataProvider?.deleteKeyForAccount(AbstractIT.account.name, EncryptionUtils.MNEMONIC)
         }
+    }
 
-        private fun generateMnemonicString(): String {
-            return "1 2 3 4 5 6"
-        }
+    private fun generateMnemonicString(): String {
+        return "1 2 3 4 5 6"
     }
 }
