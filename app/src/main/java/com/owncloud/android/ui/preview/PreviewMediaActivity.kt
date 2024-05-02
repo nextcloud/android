@@ -73,6 +73,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
 import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.SynchronizeFileOperation
+import com.owncloud.android.operations.common.RemoteOperationHttpPhrase
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
@@ -541,7 +542,7 @@ class PreviewMediaActivity :
     override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>?) {
         super.onRemoteOperationFinish(operation, result)
         if (operation is RemoveFileOperation) {
-            val errorMessage = if (result?.code == RemoteOperationResult.ResultCode.UNHANDLED_HTTP_CODE) {
+            val errorMessage = if (result?.httpPhrase == RemoteOperationHttpPhrase.Locked.value) {
                 getString(R.string.preview_media_unhandled_http_code_message)
             } else {
                 ErrorMessageAdapter.getErrorCauseMessage(result, operation, resources)
