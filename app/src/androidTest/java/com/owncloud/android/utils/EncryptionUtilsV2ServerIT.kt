@@ -28,6 +28,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class EncryptionUtilsV2ServerIT : AbstractOnServerIT() {
+
     @Throws(Throwable::class)
     @Test
     fun testStoreAndUpdate() {
@@ -73,7 +74,7 @@ class EncryptionUtilsV2ServerIT : AbstractOnServerIT() {
         // compare it, check metadata key
         val compare = encryptionUtilsV2.retrieveMetadata(folder, client, user, targetContext)
 
-        metadataFile.metadata.counter = metadataFile.metadata.counter + 1
+        metadataFile.metadata.counter += 1
 
         // lock it
         token = EncryptionUtils.lockFolder(folder, client, metadataFile.metadata.counter)
@@ -96,7 +97,7 @@ class EncryptionUtilsV2ServerIT : AbstractOnServerIT() {
         // compare it, check metadata key
         val compare2 = encryptionUtilsV2.retrieveMetadata(folder, client, user, targetContext)
 
-        compare.second.metadata.counter = compare.second.metadata.counter + 1
+        compare.second.metadata.counter += 1
         assertEquals(compare.second, compare2.second)
     }
 }
