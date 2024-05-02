@@ -1071,9 +1071,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         List<OCFile> ret = new ArrayList<>();
 
         for (OCFile file : files) {
-            if (file.getOwnerId().equals(userId) &&
-                !file.isSharedWithMe() &&
-                !file.isGroupFolder()) {
+            String ownerId = file.getOwnerId();
+
+            if (ownerId != null && ownerId.equals(userId) && !file.isSharedWithMe() && !file.isGroupFolder()) {
                 ret.add(file);
             }
         }
