@@ -113,8 +113,8 @@ class FilesSyncWork(
 
         if (syncedFolderProvider.syncedFolders.all { it.isChargingOnly } &&
             !powerManagementService.battery.isCharging &&
-            !powerManagementService.battery.isFull) {
-
+            !powerManagementService.battery.isFull
+        ) {
             Log_OC.d(TAG, "FILESYNC Kill Sync Worker since no sync folder is enabled!")
             canExitEarly = true
         }
