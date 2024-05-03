@@ -28,6 +28,7 @@ import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.isWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadType
@@ -401,6 +402,11 @@ internal class BackgroundJobManagerImpl(
 
     override fun cancelPeriodicCalendarBackup(user: User) {
         workManager.cancelJob(JOB_PERIODIC_CALENDAR_BACKUP, user)
+    }
+
+    override fun bothFilesSyncJobsRunning(): Boolean {
+        return workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC) &&
+            workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC)
     }
 
     override fun schedulePeriodicFilesSyncJob() {

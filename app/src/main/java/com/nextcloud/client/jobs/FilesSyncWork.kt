@@ -91,18 +91,50 @@ class FilesSyncWork(
         setForegroundAsync(foregroundInfo)
     }
 
+    private fun canExitEarly(changedFiles: Array<String>?): Boolean {
+        var canExitEarly = false
+        // If we are in power save mode better to postpone scan and upload
+        val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
+        if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
+            canExitEarly = true
+        }
+
+        // or sync worker already running and no changed files to be processed
+        val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning()
+        if (alreadyRunning && changedFiles.isNullOrEmpty()) {
+            Log_OC.d(TAG, "File-sync kill worker since another instance of the worker seems to be running already!")
+            canExitEarly = true
+        }
+
+        if (!syncedFolderProvider.syncedFolders.any { it.isEnabled }) {
+            Log_OC.d(TAG, "File-sync kill worker since no sync folder is enabled!")
+            canExitEarly = true
+        }
+
+        if (syncedFolderProvider.syncedFolders.all { it.isChargingOnly } &&
+            !powerManagementService.battery.isCharging &&
+            !powerManagementService.battery.isFull
+        ) {
+            Log_OC.d(TAG, "File-sync kill worker since phone is not charging!")
+            canExitEarly = true
+        }
+
+        return canExitEarly
+    }
+
     @Suppress("MagicNumber")
     override fun doWork(): Result {
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
         Log_OC.d(TAG, "File-sync worker started")
 
-        val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
-        // If we are in power save mode, better to postpone upload
-        if (powerManagementService.isPowerSavingEnabled && !overridePowerSaving) {
+        val changedFiles = inputData.getStringArray(CHANGED_FILES)
+
+        if (canExitEarly(changedFiles)) {
             val result = Result.success()
             backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
             return result
         }
+
         val resources = context.resources
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
         FilesSyncHelper.restartJobsIfNeeded(
@@ -113,7 +145,6 @@ class FilesSyncWork(
         )
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
-        val changedFiles = inputData.getStringArray(CHANGED_FILES)
         Log_OC.d(TAG, "File-sync worker changed files from observer: " + changedFiles.contentToString())
         collectChangedFiles(changedFiles)
         Log_OC.d(TAG, "File-sync worker finished checking files.")
@@ -157,7 +188,7 @@ class FilesSyncWork(
             // Check every file in every synced folder for changes and update
             // filesystemDataProvider database (potentially needs a long time so use foreground worker)
             updateForegroundWorker(5, true)
-            FilesSyncHelper.insertAllDBEntries(syncedFolderProvider)
+            FilesSyncHelper.insertAllDBEntries(syncedFolderProvider, powerManagementService)
             updateForegroundWorker(50, true)
         }
     }

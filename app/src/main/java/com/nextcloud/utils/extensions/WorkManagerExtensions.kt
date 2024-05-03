@@ -13,23 +13,24 @@ import com.google.common.util.concurrent.ListenableFuture
 import com.owncloud.android.lib.common.utils.Log_OC
 import java.util.concurrent.ExecutionException
 
-fun WorkManager.isWorkScheduled(tag: String): Boolean {
-    val statuses: ListenableFuture<List<WorkInfo>> = this.getWorkInfosByTag(tag)
-    var running = false
+private const val TAG = "WorkManager"
+
+fun WorkManager.isWorkRunning(tag: String): Boolean = checkWork(tag, listOf(WorkInfo.State.RUNNING))
+
+fun WorkManager.isWorkScheduled(tag: String): Boolean =
+    checkWork(tag, listOf(WorkInfo.State.RUNNING, WorkInfo.State.ENQUEUED))
+
+private fun WorkManager.checkWork(tag: String, stateConditions: List<WorkInfo.State>): Boolean {
+    val statuses: ListenableFuture<List<WorkInfo>> = getWorkInfosByTag(tag)
     var workInfoList: List<WorkInfo> = emptyList()
 
     try {
         workInfoList = statuses.get()
     } catch (e: ExecutionException) {
-        Log_OC.d("Worker", "ExecutionException in isWorkScheduled: $e")
+        Log_OC.d(TAG, "ExecutionException in checkWork: $e")
     } catch (e: InterruptedException) {
-        Log_OC.d("Worker", "InterruptedException in isWorkScheduled: $e")
+        Log_OC.d(TAG, "InterruptedException in checkWork: $e")
     }
 
-    for (workInfo in workInfoList) {
-        val state = workInfo.state
-        running = running || (state == WorkInfo.State.RUNNING || state == WorkInfo.State.ENQUEUED)
-    }
-
-    return running
+    return workInfoList.any { workInfo -> stateConditions.contains(workInfo.state) }
 }
