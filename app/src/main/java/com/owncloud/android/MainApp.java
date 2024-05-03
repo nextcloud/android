@@ -300,9 +300,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
 
-        // Listen app config changes
-        ContextExtensionsKt.registerBroadcastReceiver(this, restrictionsReceiver, restrictionsFilter, ReceiverFlag.NotExported);
-
         ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
 
         insertConscrypt();
@@ -330,6 +327,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
             appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
             appConfigManager.setProxyConfig(isClientBrandedPlus());
+
+            // Listen app config changes
+            ContextExtensionsKt.registerBroadcastReceiver(this, restrictionsReceiver, restrictionsFilter, ReceiverFlag.NotExported);
         } else {
             setProxyForNonBrandedPlusClients();
         }
