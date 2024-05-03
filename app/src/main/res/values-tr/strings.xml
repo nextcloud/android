@@ -88,6 +88,8 @@
     <string name="auth_unknown_host_title">Sunucu adı bulunamadı</string>
     <string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
     <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
+    <string name="authenticator_activity_cancel_login">Oturum açmaktan vazgeç</string>
+    <string name="authenticator_activity_please_complete_login_process">Lütfen oturum açma işlemini tarayıcınızdan tamamlayın</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
     <string name="auto_upload_on_wifi">Yalnızca kullanıma göre ücretlendirilmeyen kablosuz ağ üzerinden yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
