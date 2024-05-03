@@ -40,6 +40,7 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Idatzi testu bat</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ezabatu zeregina</string>
     <string name="assistant_screen_failed_task_text">Huts egin du</string>
+    <string name="assistant_screen_running_task_text">Abian</string>
     <string name="assistant_screen_scheduled_task_status_text">Antolatuta</string>
     <string name="assistant_screen_successful_task_text">Osatua</string>
     <string name="assistant_screen_task_delete_success_message">Zeregina ongi ezabatu da</string>
