@@ -84,6 +84,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.OwnCloudCredentials;
 import com.owncloud.android.lib.common.OwnCloudCredentialsFactory;
 import com.owncloud.android.lib.common.UserInfo;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException;
 import com.owncloud.android.lib.common.accounts.AccountUtils.Constants;
 import com.owncloud.android.lib.common.network.CertificateCombinedException;
@@ -321,10 +322,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         boolean webViewLoginMethod;
+        String webloginUrl = null;
 
-        RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-        AppConfigManager appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
-        String webloginUrl = appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus());
+        if (MainApp.isClientBrandedPlus()) {
+            RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
+            AppConfigManager appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
+            webloginUrl = appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus());
+        }
 
         if (webloginUrl != null) {
             webViewLoginMethod = true;
@@ -1383,7 +1387,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         // can be anything: email, name, name with whitespaces
         String loginName = webViewUser;
 
-        String accountName = com.owncloud.android.lib.common.accounts.AccountUtils.buildAccountName(uri, loginName);
+        String accountName = AccountUtils.buildAccountName(uri, loginName);
         Account newAccount = new Account(accountName, accountType);
         if (accountManager.exists(newAccount)) {
             // fail - not a new account, but an existing one; disallow
@@ -1488,7 +1492,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        if (requestCode == PermissionUtil.PERMISSIONS_CAMERA) {// If request is cancelled, result arrays are empty.
+        if (requestCode == PERMISSIONS_CAMERA) {// If request is cancelled, result arrays are empty.
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // permission was granted
                 startQRScanner();

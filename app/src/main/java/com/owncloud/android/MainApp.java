@@ -30,6 +30,7 @@ import android.content.RestrictionsManager;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -299,9 +300,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         setAppTheme(preferences.getDarkThemeMode());
         super.onCreate();
 
-        RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-        appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
-
         // Listen app config changes
         ContextExtensionsKt.registerBroadcastReceiver(this, restrictionsReceiver, restrictionsFilter, ReceiverFlag.NotExported);
 
@@ -328,7 +326,13 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
 
-        appConfigManager.setProxyConfig(isClientBrandedPlus());
+        if (isClientBrandedPlus()) {
+            RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
+            appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
+            appConfigManager.setProxyConfig(isClientBrandedPlus());
+        } else {
+            setProxyForNonBrandedPlusClients();
+        }
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
@@ -367,7 +371,6 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         registerGlobalPassCodeProtection();
     }
 
-
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START) {
             Log_OC.d(TAG, "APP IN FOREGROUND");
@@ -375,10 +378,20 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
         } else if (event == Lifecycle.Event.ON_RESUME) {
+            if (appConfigManager == null) return;
             appConfigManager.setProxyConfig(isClientBrandedPlus());
             Log_OC.d(TAG, "APP ON RESUME");
         }
     });
+
+    private void setProxyForNonBrandedPlusClients() {
+        try {
+            OwnCloudClientManagerFactory.setProxyHost(getResources().getString(R.string.proxy_host));
+            OwnCloudClientManagerFactory.setProxyPort(getResources().getInteger(R.integer.proxy_port));
+        } catch (Resources.NotFoundException e) {
+            Log_OC.d(TAG, "Error caught at setProxyForNonBrandedPlusClients: " + e);
+        }
+    }
 
     public static boolean isClientBrandedPlus() {
         return (getAppContext().getResources().getBoolean(R.bool.is_branded_plus_client));
@@ -388,6 +401,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     private final BroadcastReceiver restrictionsReceiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) {
+            if (appConfigManager == null) return;
             appConfigManager.setProxyConfig(isClientBrandedPlus());
         }
     };
