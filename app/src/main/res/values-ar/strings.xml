@@ -402,6 +402,7 @@
     <string name="file_not_found">تعذر العثور على الملف</string>
     <string name="file_not_synced">الملف لا يمكن مزامنته. عرض آخر إصدار متوفر.</string>
     <string name="file_rename">إعادة التسمية</string>
+    <string name="file_upload_worker_same_file_already_exists">الملف موجود سلفاً. لم يتم اكتشاف أي تعارض</string>
     <string name="file_version_restored_error">حدث خطأ في استيراد إصدار الملف!</string>
     <string name="file_version_restored_successfully">تم استيراد إصدار الملف بنجاح.</string>
     <string name="filedetails_details">التفاصيل</string>

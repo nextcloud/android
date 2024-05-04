@@ -401,7 +401,7 @@
     <string name="forbidden_permissions_move">para mover este ficheiro</string>
     <string name="forbidden_permissions_rename">para renomear este ficheiro</string>
     <string name="foreground_service_upload">Enviando ficheiros…</string>
-    <string name="foreign_files_fail">Algúns ficheiros non puideron seren movidos</string>
+    <string name="foreign_files_fail">Non foi posíbel mover algúns ficheiros</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
     <string name="foreign_files_move">Mover todo</string>
     <string name="foreign_files_remote_text">Remoto: %1$s</string>
