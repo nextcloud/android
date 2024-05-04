@@ -145,9 +145,15 @@ public final class FilesSyncHelper {
         }
     }
 
-    public static void insertAllDBEntries(SyncedFolderProvider syncedFolderProvider) {
+    public static void insertAllDBEntries(SyncedFolderProvider syncedFolderProvider,
+                                          PowerManagementService powerManagementService) {
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled()) {
+            if (syncedFolder.isEnabled() &&
+                !(syncedFolder.isChargingOnly() &&
+                    !powerManagementService.getBattery().isCharging() &&
+                    !powerManagementService.getBattery().isFull()
+                )
+            ) {
                 insertAllDBEntriesForSyncedFolder(syncedFolder);
             }
         }
