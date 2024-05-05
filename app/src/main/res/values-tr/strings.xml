@@ -402,6 +402,7 @@
     <string name="file_not_found">Dosya bulunamadı</string>
     <string name="file_not_synced">Dosya eşitlenemedi. Kullanılabilen son sürüm görüntüleniyor.</string>
     <string name="file_rename">Yeniden adlandır</string>
+    <string name="file_upload_worker_same_file_already_exists">Aynı dosya zaten var. Herhangi bir çakışma bulunmadı</string>
     <string name="file_version_restored_error">Geri yüklenecek dosya sürümünü seçin!</string>
     <string name="file_version_restored_successfully">Dosya sürümü geri yüklendi.</string>
     <string name="filedetails_details">Ayrıntılar</string>
