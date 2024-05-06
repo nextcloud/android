@@ -18,9 +18,10 @@ class AppConfigManagerTests : AbstractIT() {
 
     private val testBaseUrl = "nextcloud.cloud.cloud"
     private val testProxyHost = "nextcloud.cloud.cloud.com"
-    private val testProxyPort = 8800
 
     @Suppress("MagicNumber")
+    private val testProxyPort = 8800
+
     @Test
     fun testSetProxyConfigWhenGivenClientBrandedPlusAndCorrectBundleDataProxyConfigurationShouldSet() {
         val proxySetting = Bundle().apply {
@@ -36,15 +37,14 @@ class AppConfigManagerTests : AbstractIT() {
         val proxyPort = OwnCloudClientManagerFactory.getProxyPort()
 
         assert(proxyHost.equals(testProxyHost))
-        assert(proxyPort == 8800)
+        assert(proxyPort == testProxyPort)
     }
 
-    @Suppress("MagicNumber")
     @Test
     fun testSetProxyConfigWhenGivenClientNotBrandedPlusAndCorrectBundleDataProxyConfigurationShouldNotSet() {
         val proxySetting = Bundle().apply {
             putString(AppConfigKeys.ProxyHost.key, testProxyHost)
-            putInt(AppConfigKeys.ProxyPort.key, 8800)
+            putInt(AppConfigKeys.ProxyPort.key, testProxyPort)
         }
 
         AppConfigManager(targetContext, proxySetting).run {
