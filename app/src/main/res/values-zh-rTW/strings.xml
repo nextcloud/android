@@ -402,6 +402,7 @@
     <string name="file_not_found">找不到檔案</string>
     <string name="file_not_synced">檔案無法同步，將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
+    <string name="file_upload_worker_same_file_already_exists">已存在相同的檔案，未偵測到衝突</string>
     <string name="file_version_restored_error">復原失敗！</string>
     <string name="file_version_restored_successfully">成功地回復檔案版本</string>
     <string name="filedetails_details">詳細資訊</string>

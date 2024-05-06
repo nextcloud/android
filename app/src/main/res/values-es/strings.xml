@@ -255,7 +255,7 @@
     <string name="drawer_item_shared">Compartido</string>
     <string name="drawer_item_trashbin">Archivos eliminados</string>
     <string name="drawer_item_uploads_list">Subidas</string>
-    <string name="drawer_logout">Cerrar sersión</string>
+    <string name="drawer_logout">Cerrar sesión</string>
     <string name="drawer_open">Abrir barra lateral</string>
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
     <string name="drawer_quota_unlimited">usado %1$s</string>
