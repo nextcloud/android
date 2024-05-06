@@ -16,12 +16,16 @@ import org.junit.Test
 
 class AppConfigManagerTests : AbstractIT() {
 
+    private val testBaseUrl = "nextcloud.cloud.cloud"
+    private val testProxyHost = "nextcloud.cloud.cloud.com"
+    private val testProxyPort = 8800
+
     @Suppress("MagicNumber")
     @Test
     fun testSetProxyConfigWhenGivenClientBrandedPlusAndCorrectBundleDataProxyConfigurationShouldSet() {
         val proxySetting = Bundle().apply {
-            putString(AppConfigKeys.ProxyHost.key, "nextcloud.cloud.cloud.com")
-            putInt(AppConfigKeys.ProxyPort.key, 441212)
+            putString(AppConfigKeys.ProxyHost.key, testProxyHost)
+            putInt(AppConfigKeys.ProxyPort.key, testProxyPort)
         }
 
         AppConfigManager(targetContext, proxySetting).run {
@@ -31,16 +35,16 @@ class AppConfigManagerTests : AbstractIT() {
         val proxyHost = OwnCloudClientManagerFactory.getProxyHost()
         val proxyPort = OwnCloudClientManagerFactory.getProxyPort()
 
-        assert(proxyHost.equals("nextcloud.cloud.cloud.com"))
-        assert(proxyPort == 441212)
+        assert(proxyHost.equals(testProxyHost))
+        assert(proxyPort == 8800)
     }
 
     @Suppress("MagicNumber")
     @Test
     fun testSetProxyConfigWhenGivenClientNotBrandedPlusAndCorrectBundleDataProxyConfigurationShouldNotSet() {
         val proxySetting = Bundle().apply {
-            putString(AppConfigKeys.ProxyHost.key, "nextcloud.cloud.cloud.com")
-            putInt(AppConfigKeys.ProxyPort.key, 441212)
+            putString(AppConfigKeys.ProxyHost.key, testProxyHost)
+            putInt(AppConfigKeys.ProxyPort.key, 8800)
         }
 
         AppConfigManager(targetContext, proxySetting).run {
@@ -72,7 +76,7 @@ class AppConfigManagerTests : AbstractIT() {
     @Test
     fun testGetBaseUrlConfigWhenGivenClientBrandedPlusAndCorrectBundleDataBaseUrlConfigurationShouldSet() {
         val baseUrlConfig = Bundle().apply {
-            putString(AppConfigKeys.BaseUrl.key, "nextcloud.cloud.cloud")
+            putString(AppConfigKeys.BaseUrl.key, testBaseUrl)
         }
         val sut = AppConfigManager(targetContext, baseUrlConfig)
         assert(!sut.getBaseUrl(true).isNullOrEmpty())
