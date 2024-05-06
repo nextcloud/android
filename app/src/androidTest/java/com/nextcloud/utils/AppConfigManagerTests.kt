@@ -59,21 +59,6 @@ class AppConfigManagerTests : AbstractIT() {
     }
 
     @Test
-    fun testSetProxyConfigWhenGivenClientBrandedPlusAndBrokenBundleDataProxyConfigurationShouldSetDefaultValues() {
-        val proxySetting = Bundle()
-
-        AppConfigManager(targetContext, proxySetting).run {
-            setProxyConfig(true)
-        }
-
-        val proxyHost = OwnCloudClientManagerFactory.getProxyHost()
-        val proxyPort = OwnCloudClientManagerFactory.getProxyPort()
-
-        assert(proxyHost.equals(""))
-        assert(proxyPort == -1)
-    }
-
-    @Test
     fun testGetBaseUrlConfigWhenGivenClientBrandedPlusAndCorrectBundleDataBaseUrlConfigurationShouldSet() {
         val baseUrlConfig = Bundle().apply {
             putString(AppConfigKeys.BaseUrl.key, testBaseUrl)

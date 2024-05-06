@@ -10,6 +10,7 @@ package com.owncloud.android.utils.appConfig
 import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
+import android.text.TextUtils
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -34,6 +35,11 @@ class AppConfigManager(private val context: Context, private val appRestrictions
             appRestrictions.getInt(AppConfigKeys.ProxyPort.key)
         } else {
             context.resources.getInteger(R.integer.proxy_port)
+        }
+
+        if (TextUtils.isEmpty(host) || port == -1) {
+            Log_OC.d(tag, "Proxy configuration cannot be found")
+            return
         }
 
         try {
