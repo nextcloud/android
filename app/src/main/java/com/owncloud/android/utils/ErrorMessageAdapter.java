@@ -293,9 +293,9 @@ public final class ErrorMessageAdapter {
 
         } else {
             if (result.getCode() == ResultCode.FORBIDDEN) {
-                // Error --> No permissions
-                return String.format(res.getString(R.string.forbidden_permissions),
-                                     res.getString(R.string.forbidden_permissions_delete));
+                return String.format(res.getString(R.string.forbidden_permissions), res.getString(R.string.forbidden_permissions_delete));
+            } else if (result.getCode() == ResultCode.LOCKED) {
+                return res.getString(R.string.preview_media_unhandled_http_code_message);
             }
         }
 
