@@ -1,6 +1,6 @@
-Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.
+Oprogramowanie biurowe uruchamiane na własnym serwerze, które daje Ci pełną kontrolę nad swoimi danymi.
 
-Funkcje:
+Cechy:
 * Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera
 * Wysyłanie plików na serwer Nextcloud
 * Udostępnianie ich innym
@@ -10,10 +10,10 @@ Funkcje:
 * Otrzymywanie na bieżąco powiadomień
 * Obsługa wielu kont
 * Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN
-* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza i synchronizacja kontaktów
+* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza i synchronizacji kontaktów
 
-Zgłoś wszystkie problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android
+Zgłaszaj problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android
 
-Nie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików i komunikacji. Jest darmowym oprogramowaniem, które możesz hostować samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.
+Nie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików i komunikacji. Jest darmowym oprogramowaniem, które możesz utrzymywać samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.
 
 Sprawdź Nextcloud na https://nextcloud.com

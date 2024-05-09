@@ -88,6 +88,8 @@
     <string name="auth_unknown_host_title">Nie znaleziono hosta</string>
     <string name="auth_unsupported_multiaccount">%1$s nie wspiera wielu kont</string>
     <string name="auth_wrong_connection_title">Nie udało się ustanowić połączenia</string>
+    <string name="authenticator_activity_cancel_login">Anuluj logowanie</string>
+    <string name="authenticator_activity_please_complete_login_process">Dokończ proces logowania w przeglądarce</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -317,6 +319,7 @@
     <string name="error_starting_direct_camera_upload">Błąd podczas uruchamiania aparatu</string>
     <string name="error_starting_doc_scan">Błąd podczas uruchamiania skanowania dokumentu</string>
     <string name="etm_accounts">Konta</string>
+    <string name="etm_background_execution_count">Ilość uruchomień w ciągu 48h</string>
     <string name="etm_background_job_created">Utworzono</string>
     <string name="etm_background_job_name">Nazwa zadania</string>
     <string name="etm_background_job_progress">Postęp</string>
@@ -399,6 +402,7 @@
     <string name="file_not_found">Nie znaleziono pliku</string>
     <string name="file_not_synced">Nie można zsynchronizować pliku. Pokazana jest najnowsza dostępna wersja.</string>
     <string name="file_rename">Zmień nazwę</string>
+    <string name="file_upload_worker_same_file_already_exists">Ten sam plik już istnieje, nie wykryto konfliktu</string>
     <string name="file_version_restored_error">Wystąpił błąd podczas przywracania wersji pliku!</string>
     <string name="file_version_restored_successfully">Pomyślnie przywrócono wersję pliku.</string>
     <string name="filedetails_details">Szczegóły</string>
@@ -412,6 +416,9 @@
     <string name="filename_forbidden_charaters_from_server">Nazwa pliku zawiera co najmniej jeden nieprawidłowy znak</string>
     <string name="filename_hint">Nazwa pliku</string>
     <string name="first_run_1_text">Przechowuj swoje dane bezpiecznie i pod swoją pełną kontrolą</string>
+    <string name="first_run_2_text">Bezpieczna współpraca i wymiana plików</string>
+    <string name="first_run_3_text">Łatwe w obsłudze poczta internetowa, kalendarz i kontakty</string>
+    <string name="first_run_4_text">Udostępnianie ekranu, spotkania online i konferencje internetowe</string>
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
@@ -433,6 +440,7 @@
     <string name="foreign_files_success">Wszystkie pliki zostały przeniesione</string>
     <string name="forward">Prześlij dalej</string>
     <string name="fourHours">4 godziny</string>
+    <string name="grid_file_features_live_photo_content_description">Ta ikona wskazuje dostępność zdjęcia na żywo</string>
     <string name="hidden_file_name_warning">Nazwa spowoduje ukrycie pliku</string>
     <string name="hint_name">Nazwa</string>
     <string name="hint_note">Notatka</string>
@@ -598,13 +606,16 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Zmień nazwę nowej wersji</string>
     <string name="pref_instant_name_collision_policy_title">Co zrobić, jeśli plik już istnieje?</string>
     <string name="prefs_add_account">Dodaj konto</string>
+    <string name="prefs_calendar_contacts">Synchronizacja kalendarza i kontaktów</string>
     <string name="prefs_calendar_contacts_no_store_error">Brak w systemie F-Droid i Google Play</string>
     <string name="prefs_calendar_contacts_summary">Skonfiguruj DAVx5 (wcześniej znany jako DAVdroid) (v1.3.0 +) dla bieżącego konta</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Skonfigurowano synchronizację kalendarza i kontaktów</string>
     <string name="prefs_category_about">O aplikacji</string>
     <string name="prefs_category_details">Szczegóły</string>
     <string name="prefs_category_dev">Deweloperskie</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
+    <string name="prefs_daily_backup_summary">Codzienna kopia zapasowa kalendarza i kontaktów</string>
     <string name="prefs_daily_contact_backup_summary">Codzienne tworzenie kopii zapasowej kontaktów</string>
     <string name="prefs_davx5_setup_error">Nieoczekiwany błąd podczas konfigurowania DAVx5 (wcześniej znanego jako DAVdroid)</string>
     <string name="prefs_e2e_active">Szyfrowanie end-to-end jest skonfigurowane!</string>
@@ -617,6 +628,8 @@
     <string name="prefs_imprint">Stopka</string>
     <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie…</string>
     <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie…</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Wyklucz ukryte pliki i foldery</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Wyklucz ukryte</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Przechowuj w podkatalogach na podstawie daty</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podkatalogów</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Opcje podkatalogów</string>
@@ -696,8 +709,12 @@
     <string name="screenshot_04_accounts_heading">Wszystkie Twoje konta</string>
     <string name="screenshot_04_accounts_subline">w jednym miejscu</string>
     <string name="screenshot_05_autoUpload_heading">Automatyczne wysyłanie</string>
+    <string name="screenshot_05_autoUpload_subline">dla Twoich zdjęć i filmów</string>
+    <string name="screenshot_06_davdroid_heading">Kalendarz i kontakty</string>
     <string name="screenshot_06_davdroid_subline">Synchronizuj z DAVx5</string>
     <string name="search_error">Błąd podczas pobierania wyników wyszukiwania</string>
+    <string name="secure_share_not_set_up">Dla tego użytkownika nie skonfigurowano bezpiecznego udostępniania</string>
+    <string name="secure_share_search">Bezpieczne udostępnianie…</string>
     <string name="select_all">Wybierz wszystko</string>
     <string name="select_media_folder">Ustaw katalog multimediów</string>
     <string name="select_one_template">Wybierz jeden szablon</string>
@@ -712,6 +729,7 @@
     <string name="set_status_message">Ustaw komunikat statusu</string>
     <string name="setup_e2e">Podczas konfigurowania szyfrowania typu end-to-end otrzymasz losowy mnemonik składający się z 12-stu słów, który będzie potrzebny do otwierania plików na innych urządzeniach. Będzie on przechowywany tylko na tym urządzeniu i można go ponownie wyświetlić na tym ekranie. Zapisz go w bezpiecznym miejscu!</string>
     <string name="share">Udostępnij</string>
+    <string name="share_copy_link">Udostępnij i skopiuj odnośnik</string>
     <string name="share_dialog_title">Udostępnianie</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Wygaśnie o %1$s</string>
@@ -731,6 +749,7 @@
     <string name="share_link_with_label">Udostępnij link (%1$s)</string>
     <string name="share_no_expiration_date_label">Ustaw datę wygaśnięcia</string>
     <string name="share_no_password_title">Ustaw hasło</string>
+    <string name="share_not_allowed_when_file_drop">Ponowne udostępnianie nie jest dozwolone podczas bezpiecznego upuszczania plików</string>
     <string name="share_password_title">Zabezpieczone hasłem</string>
     <string name="share_permission_can_edit">Może modyfikować</string>
     <string name="share_permission_file_drop">Upuść plik</string>
@@ -754,6 +773,7 @@
     <string name="shared_icon_shared_via_link">udostępniono za pomocą linku</string>
     <string name="shared_with_you_by">Udostępnione przez %1$s</string>
     <string name="sharee_add_failed">Udostępnienie nie powiodło się</string>
+    <string name="sharee_already_added_to_file">Dodanie współudziału nie powiodło się. Ten plik lub folder został już udostępniony tej osobie lub grupie.</string>
     <string name="show_images">Pokaż zdjęcia</string>
     <string name="show_video">Pokaż filmy</string>
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
@@ -796,6 +816,7 @@
     <string name="storage_permission_full_access">Pełny dostęp</string>
     <string name="storage_permission_media_read_only">Multimedia tylko do odczytu</string>
     <string name="storage_pictures">Obrazy</string>
+    <string name="store_full_desc">Oprogramowanie biurowe uruchamiane na własnym serwerze, które daje Ci pełną kontrolę nad swoimi danymi.\n\nCechy:\n* Łatwy, nowoczesny interfejs, dostosowany do wyglądu Twojego serwera\n* Wysyłanie plików na serwer Nextcloud\n* Udostępnianie ich innym\n* Synchronizacja ulubionych plików i katalogów\n* Przeszukiwanie wszystkich katalogów na serwerze\n* Automatyczne przesyłanie zdjęć i filmów zrobionych przez urządzenie\n* Otrzymywanie na bieżąco powiadomień\n* Obsługa wielu kont\n* Bezpieczny dostęp do danych za pomocą odcisku palca lub kodu PIN\n* Integracja z DAVx5 (wcześniej znany jako DAVdroid) dla łatwej konfiguracji kalendarza i synchronizacji kontaktów\n\nZgłaszaj problemy na https://github.com/nextcloud/android/issues i omów tę aplikację na https://help.nextcloud.com/c/clients/android\n\nNie znasz jeszcze Nextcloud? Nextcloud to prywatny serwer do synchronizacji plików i komunikacji. Jest darmowym oprogramowaniem, które możesz utrzymywać samodzielnie lub zapłacić firmie, która zrobi to za Ciebie. Dzięki temu posiadasz pełną kontrolę nad swoimi zdjęciami, kalendarzem, kontaktami, dokumentami i nad wszystkim innym.\n\nSprawdź Nextcloud na https://nextcloud.com</string>
     <string name="store_full_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę.\nJest to oficjalna wersja deweloperska, zawierająca codzienną próbkę każdej nowej niesprawdzonej funkcji, która może powodować niestabilność i utratę danych. Aplikacja jest przeznaczona dla użytkowników chcących przetestować i zgłosić błędy w przypadku ich wystąpienia. Nie używaj jej do ciągłej pracy!\n\nZarówno oficjalna wersja dev jak i zwykła są dostępne na F-droid i mogą być instalowane równocześnie.</string>
     <string name="store_short_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, który zapewnia kontrolę</string>
     <string name="store_short_dev_desc">Oprogramowanie biurowe uruchamiane na własnym hostingu, które zapewnia kontrolę (wersja deweloperska)</string>
@@ -809,6 +830,7 @@
     <string name="subject_shared_with_you">Udostępniono Tobie \"%1$s\"</string>
     <string name="subject_user_shared_with_you">%1$s udostępnił Tobie \"%2$s\"</string>
     <string name="subtitle_photos_only">Tylko zdjęcia</string>
+    <string name="subtitle_photos_videos">Zdjęcia i filmy</string>
     <string name="subtitle_videos_only">Tylko filmy</string>
     <string name="suggest">Propozycja</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
@@ -866,8 +888,11 @@
     <string name="update_link_file_no_exist">Nie można zaktualizować. Sprawdź, czy plik istnieje.</string>
     <string name="update_link_forbidden_permissions">do zaktualizowania tego udostępnienia</string>
     <string name="updating_share_failed">Zmiana udostępniania nie powiodła się</string>
+    <string name="upload_action_cancelled_clear">Usuń anulowane przesyłanie</string>
+    <string name="upload_action_cancelled_resume">Wznów anulowane przesyłanie</string>
     <string name="upload_action_failed_clear">Wyczyść nieudane wysyłanie</string>
     <string name="upload_action_failed_retry">Ponów nieudane wysyłanie</string>
+    <string name="upload_action_file_not_exist_message">Niektóre pliki nie istnieją. Nie można ich wznowić</string>
     <string name="upload_action_global_upload_pause">Wstrzymaj wszystkie przesyłania</string>
     <string name="upload_action_global_upload_resume">Wznów wszystkie przesyłania</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
