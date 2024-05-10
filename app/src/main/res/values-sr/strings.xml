@@ -661,6 +661,7 @@
     <string name="preview_image_description">Преглед слике</string>
     <string name="preview_image_error_no_local_file">Нема локалног фајла за преглед</string>
     <string name="preview_image_error_unknown_format">Не могу да прикажем слику</string>
+    <string name="preview_media_unhandled_http_code_message">Фајл је тренутно закључао други корисник или процес, па не може да се обрише. Молимо вас покушајте касније.</string>
     <string name="preview_sorry">Извините</string>
     <string name="privacy">Приватност</string>
     <string name="public_share_name">Ново име</string>

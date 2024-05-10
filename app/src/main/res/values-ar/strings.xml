@@ -665,6 +665,7 @@
     <string name="preview_image_description">معاينة الصورة</string>
     <string name="preview_image_error_no_local_file">لا يوجد ملف محلي للمعاينة</string>
     <string name="preview_image_error_unknown_format">تعذرت عملية عرض الصورة</string>
+    <string name="preview_media_unhandled_http_code_message">الملف مقفلٌ حالياً من قِبَل مستخدِمٍ أو عمليةٍ أخرى؛ وبالتالي لا يمكن حذفه. الرجاء معاودة المحاولة في وقتٍ لاحقٍ.</string>
     <string name="preview_sorry">آسف</string>
     <string name="privacy">الخصوصية</string>
     <string name="public_share_name">اسم جديد</string>
