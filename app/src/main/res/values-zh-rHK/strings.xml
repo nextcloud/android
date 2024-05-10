@@ -655,12 +655,13 @@
     <string name="prefs_synced_folders_local_path_title">近端資料夾</string>
     <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>
     <string name="prefs_theme_title">佈景主題</string>
-    <string name="prefs_value_theme_dark">暗色</string>
-    <string name="prefs_value_theme_light">亮色</string>
+    <string name="prefs_value_theme_dark">深色</string>
+    <string name="prefs_value_theme_light">淺色</string>
     <string name="prefs_value_theme_system">跟隨系統</string>
     <string name="preview_image_description">圖像預覽</string>
     <string name="preview_image_error_no_local_file">沒有可供預覽的近端檔案</string>
     <string name="preview_image_error_unknown_format">無法顯示圖像</string>
+    <string name="preview_media_unhandled_http_code_message">檔案目前已被其他用戶或進程鎖定，因此無法刪除。 請稍後再試。</string>
     <string name="preview_sorry">很抱歉</string>
     <string name="privacy">私隱政策</string>
     <string name="public_share_name">新名稱</string>
