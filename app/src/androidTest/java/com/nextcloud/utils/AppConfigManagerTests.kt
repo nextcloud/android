@@ -12,6 +12,7 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.utils.appConfig.AppConfigKeys
 import com.owncloud.android.utils.appConfig.AppConfigManager
+import org.junit.AfterClass
 import org.junit.Test
 
 class AppConfigManagerTests : AbstractIT() {
@@ -72,5 +73,14 @@ class AppConfigManagerTests : AbstractIT() {
         val baseUrlConfig = Bundle()
         val sut = AppConfigManager(targetContext, baseUrlConfig)
         assert(sut.getBaseUrl(true).isNullOrEmpty())
+    }
+
+    companion object {
+        @JvmStatic
+        @AfterClass
+        fun tearDown() {
+            OwnCloudClientManagerFactory.setProxyHost("")
+            OwnCloudClientManagerFactory.setProxyPort(-1)
+        }
     }
 }
