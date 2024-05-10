@@ -87,6 +87,8 @@
     <string name="auth_unknown_host_title">Kunde inte hitta värden</string>
     <string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
     <string name="auth_wrong_connection_title">Kunde inte upprätta anslutning</string>
+    <string name="authenticator_activity_cancel_login">Avbryt inloggning</string>
+    <string name="authenticator_activity_please_complete_login_process">Slutför inloggningsprocessen i din webbläsare</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
@@ -399,6 +401,7 @@
     <string name="file_not_found">Filen hittades inte</string>
     <string name="file_not_synced">Filen kunde inte synkroniseras. Visar senaste tillgängliga versionen.</string>
     <string name="file_rename">Byt namn</string>
+    <string name="file_upload_worker_same_file_already_exists">Samma fil finns redan, ingen konflikt upptäckt</string>
     <string name="file_version_restored_error">Fel vid återställning av filversion!</string>
     <string name="file_version_restored_successfully">Lyckades återställa filversion.</string>
     <string name="filedetails_details">Detaljer</string>
