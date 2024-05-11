@@ -33,6 +33,7 @@
     <string name="add_to_cloud">Lisää kohteeseen %1$s</string>
     <string name="advanced_settings">Lisäasetukset</string>
     <string name="allow_resharing">Salli uudelleenjakaminen</string>
+    <string name="app_config_proxy_port_title">Välityspalvelimen portti</string>
     <string name="app_widget_description">Näyttää yhden pienoissovelluksen konsolista</string>
     <string name="appbar_search_in">Etsi kohteesta %s</string>
     <string name="assistant_screen_all_task_type">Kaikki</string>

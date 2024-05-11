@@ -31,6 +31,7 @@
     <string name="add_to_cloud">Agiunghe a %1$s</string>
     <string name="advanced_settings">Cunfiguratziones avantzadas</string>
     <string name="allow_resharing">Permite sa re-cumpartzidura</string>
+    <string name="app_config_proxy_port_title">Port serbidore intermèdiu</string>
     <string name="appbar_search_in">Chirca in %s</string>
     <string name="assistant_screen_all_task_type">Totu</string>
     <string name="assistant_screen_successful_task_text">Cumpletadu</string>

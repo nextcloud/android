@@ -32,6 +32,7 @@
     <string name="add_to_cloud">Agregar a %1$s</string>
     <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
+    <string name="app_config_proxy_port_title">Puerto del proxy</string>
     <string name="app_widget_description">Muestra un widget del panel de control</string>
     <string name="appbar_search_in">Compartir en %s</string>
     <string name="assistant_screen_all_task_type">Todos</string>
