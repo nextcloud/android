@@ -661,6 +661,7 @@
     <string name="preview_image_description">圖片預覽</string>
     <string name="preview_image_error_no_local_file">沒有可供預覽的本機檔案</string>
     <string name="preview_image_error_unknown_format">無法顯示圖片</string>
+    <string name="preview_media_unhandled_http_code_message">檔案目前已被其他使用者或處理程序鎖定，因此無法刪除。請稍後再試。</string>
     <string name="preview_sorry">很抱歉</string>
     <string name="privacy">隱私權</string>
     <string name="public_share_name">新名稱</string>
