@@ -33,6 +33,7 @@
     <string name="add_to_cloud">Aggiungi a %1$s</string>
     <string name="advanced_settings">Impostazioni avanzate</string>
     <string name="allow_resharing">Consenti la ri-condivisione</string>
+    <string name="app_config_proxy_port_title">Porta proxy</string>
     <string name="app_widget_description">Mostra un widget dal cruscotto</string>
     <string name="appbar_search_in">Cerca in %s</string>
     <string name="assistant_screen_all_task_type">Tutti</string>
