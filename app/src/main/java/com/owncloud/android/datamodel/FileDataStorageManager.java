@@ -346,7 +346,7 @@ public class FileDataStorageManager {
         File tempEncryptedFolder =  new File(FileStorageUtils.getTemporalEncryptedFolderPath(accountName));
 
         if (!tempEncryptedFolder.exists()) {
-            Log_OC.d(TAG,"tempEncryptedFolder not exists");
+            Log_OC.d(TAG,"tempEncryptedFolder does not exist");
             return;
         }
 
