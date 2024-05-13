@@ -325,6 +325,15 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
     public void onStart() {
         super.onStart();
         Log_OC.v(TAG, "onStart");
+
+        @NonNull Context context;
+        if (getContext() != null) {
+            context = getContext();
+        } else {
+            context = MainApp.getAppContext();
+        }
+
+
         OCFile file = getFile();
         if (file != null) {
             // bind to any existing player
@@ -349,9 +358,9 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
                         try {
                             nextcloudClient = clientFactory.createNextcloudClient(accountManager.getUser());
                             handler.post(() -> {
-                                exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(requireContext(), nextcloudClient);
+                                exoPlayer = NextcloudExoPlayer.createNextcloudExoplayer(context, nextcloudClient);
 
-                                exoPlayer.addListener(new ExoplayerListener(requireContext(), binding.exoplayerView, exoPlayer, () -> {
+                                exoPlayer.addListener(new ExoplayerListener(context, binding.exoplayerView, exoPlayer, () -> {
                                     goBackToLivePhoto();
                                     return null;
                                 }));
