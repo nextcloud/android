@@ -34,6 +34,9 @@
     <string name="add_to_cloud">Додати до хмари %1$s</string>
     <string name="advanced_settings">Розширені</string>
     <string name="allow_resharing">Дозволяти передавати у спільний доступ іншим</string>
+    <string name="app_config_base_url_title">Основний URL</string>
+    <string name="app_config_proxy_host_title">Хост проксі-сервера</string>
+    <string name="app_config_proxy_port_title">Порт проксі-сервера</string>
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="assistant_screen_all_task_type">Всі</string>
@@ -399,6 +402,7 @@
     <string name="file_not_found">Файл не знайдено</string>
     <string name="file_not_synced">Неможливо синхронізувати файл. Буде показано останню доступну версію.</string>
     <string name="file_rename">Перейменувати</string>
+    <string name="file_upload_worker_same_file_already_exists">Тотожній файл присутній. Не знайдено конфліктів</string>
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
     <string name="file_version_restored_successfully">Успішно відновлено версію файлу.</string>
     <string name="filedetails_details">Деталі</string>
