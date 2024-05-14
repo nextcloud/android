@@ -33,6 +33,7 @@
     <string name="add_to_cloud">Voeg toe aan %1$s</string>
     <string name="advanced_settings">Geavanceerde instellingen</string>
     <string name="allow_resharing">Opnieuw delen toestaan</string>
+    <string name="app_config_proxy_port_title">Proxy poort</string>
     <string name="app_widget_description">Toont één widget van dashboard</string>
     <string name="appbar_search_in">Zoeken in %s</string>
     <string name="assistant_screen_all_task_type">Alle</string>

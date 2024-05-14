@@ -34,6 +34,7 @@
     <string name="add_to_cloud">Lägg till %1$s</string>
     <string name="advanced_settings">Avancerade inställningar</string>
     <string name="allow_resharing">Tillåt dela vidare</string>
+    <string name="app_config_proxy_port_title">Proxyport</string>
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="assistant_screen_all_task_type">Alla</string>

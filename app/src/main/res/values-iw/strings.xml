@@ -31,6 +31,7 @@
     <string name="add_to_cloud">הוספה אל %1$s</string>
     <string name="advanced_settings">הגדרות מתקדמות</string>
     <string name="allow_resharing">לאפשר שיתוף מחדש</string>
+    <string name="app_config_proxy_port_title">פתחת מתווך</string>
     <string name="app_widget_description">מצג וידג׳ט אחד מלוח הבקרה</string>
     <string name="appbar_search_in">חפש ב %s</string>
     <string name="assistant_screen_all_task_type">הכול</string>

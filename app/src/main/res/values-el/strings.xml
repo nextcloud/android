@@ -31,6 +31,7 @@
     <string name="add_to_cloud">Προσθήκη στο %1$s</string>
     <string name="advanced_settings">Ρυθμίσεις για προχωρημένους</string>
     <string name="allow_resharing">Επιτρέπεται ο επαναδιαμοιρασμός</string>
+    <string name="app_config_proxy_port_title">Θύρα διαμεσολαβητή</string>
     <string name="app_widget_description">Εμφάνιση ενός γραφικού στοιχείου από τον πίνακα ελέγχου</string>
     <string name="appbar_search_in">Αναζήτηση στο %s</string>
     <string name="assistant_screen_all_task_type">\'Ολα</string>

@@ -34,6 +34,7 @@
     <string name="add_to_cloud">Dodaj do %1$s</string>
     <string name="advanced_settings">Ustawienia zaawansowane</string>
     <string name="allow_resharing">Zezwalaj na udostępnianie dalej</string>
+    <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
     <string name="assistant_screen_all_task_type">Wszystkie</string>
@@ -661,6 +662,7 @@
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_no_local_file">Brak lokalnego pliku do podglądu</string>
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
+    <string name="preview_media_unhandled_http_code_message">Plik jest obecnie zablokowany przez innego użytkownika lub proces i dlatego nie można go usunąć. Spróbuj ponownie później.</string>
     <string name="preview_sorry">Przykro nam</string>
     <string name="privacy">Prywatność</string>
     <string name="public_share_name">Nowa nazwa</string>
