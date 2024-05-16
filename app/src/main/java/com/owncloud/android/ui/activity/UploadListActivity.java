@@ -198,11 +198,10 @@ public class UploadListActivity extends FileActivity {
     }
 
     private void refresh() {
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled()) {
-                backgroundJobManager.startImmediateFilesSyncJob(syncedFolder.getId(), true, new String[]{});
-            }
-        }
+        FilesSyncHelper.startFilesSyncForAllFolders(syncedFolderProvider,
+                                                    backgroundJobManager,
+                                                    true,
+                                                    new String[]{});
 
         if (uploadsStorageManager.getFailedUploads().length > 0) {
             new Thread(() -> {

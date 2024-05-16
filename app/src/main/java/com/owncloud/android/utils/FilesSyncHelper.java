@@ -311,10 +311,22 @@ public final class FilesSyncHelper {
         }).start();
     }
 
-    public static void scheduleFilesSyncIfNeeded(Context context, Long syncedFolderID, BackgroundJobManager jobManager) {
-        jobManager.schedulePeriodicFilesSyncJob(syncedFolderID);
+    public static void scheduleFilesSyncForAllFoldersIfNeeded(Context context, SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager) {
+        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            if (syncedFolder.isEnabled()) {
+                jobManager.schedulePeriodicFilesSyncJob(syncedFolder.getId());
+            }
+        }
         if (context != null) {
             jobManager.scheduleContentObserverJob();
+        }
+    }
+
+    public static void startFilesSyncForAllFolders(SyncedFolderProvider syncedFolderProvider, BackgroundJobManager jobManager, boolean overridePowerSaving, String[] changedFiles) {
+        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            if (syncedFolder.isEnabled()) {
+                jobManager.startImmediateFilesSyncJob(syncedFolder.getId(),overridePowerSaving,changedFiles);
+            }
         }
     }
 }

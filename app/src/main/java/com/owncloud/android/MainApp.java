@@ -605,19 +605,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
 
         if (!preferences.isAutoUploadInitialized()) {
-            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                if (syncedFolder.isEnabled()) {
-                    backgroundJobManager.startImmediateFilesSyncJob(syncedFolder.getId() ,false, new String[]{});
-                }
-            }
+            FilesSyncHelper.startFilesSyncForAllFolders(syncedFolderProvider, backgroundJobManager,false, new String[]{});
             preferences.setAutoUploadInit(true);
         }
 
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled()) {
-                FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, syncedFolder.getId(), backgroundJobManager);
-            }
-        }
+        FilesSyncHelper.scheduleFilesSyncForAllFoldersIfNeeded(mContext, syncedFolderProvider, backgroundJobManager);
         FilesSyncHelper.restartUploadsIfNeeded(
             uploadsStorageManager,
             accountManager,
