@@ -52,6 +52,8 @@ import com.owncloud.android.ui.fragment.OCFileListFragment;
 import com.owncloud.android.utils.MimeTypeUtil;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -277,16 +279,15 @@ public class PreviewImageActivity extends FileActivity implements
         super.onRemoteOperationFinish(operation, result);
 
         if (operation instanceof RemoveFileOperation) {
-            final RecyclerView.Adapter adapter = viewPager.getAdapter();
+            if (viewPager.getAdapter() != null) {
+                int deletePosition = viewPager.getCurrentItem();
+                previewImagePagerAdapter.delete(deletePosition);
 
-            if (adapter != null) {
-                previewImagePagerAdapter.delete(viewPager.getCurrentItem());
-
-                if (adapter.getItemCount() > 0) {
-                    int nextPosition = viewPager.getCurrentItem() + 1;
+                if (viewPager.getAdapter().getItemCount() > 0) {
+                    int nextPosition = deletePosition + 1;
                     viewPager.setCurrentItem(nextPosition);
-                    updateActionBarTitle(String.valueOf(previewImagePagerAdapter.getPageTitle(nextPosition)));
-
+                    String nextItemTitle = String.valueOf(previewImagePagerAdapter.getPageTitle(nextPosition));
+                    updateActionBarTitle(nextItemTitle);
                 } else {
                     // Last file has been deleted, so finish the activity
                     finish();
