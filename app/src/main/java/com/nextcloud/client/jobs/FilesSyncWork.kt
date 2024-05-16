@@ -64,7 +64,6 @@ class FilesSyncWork(
 
     private lateinit var syncedFolder: SyncedFolder
 
-
     @Suppress("ReturnCount")
     private fun canExitEarly(changedFiles: Array<String>?, syncedFolderID: Long): Boolean {
         // If we are in power save mode better to postpone scan and upload
@@ -81,17 +80,20 @@ class FilesSyncWork(
         // or sync worker already running and no changed files to be processed
         val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)
         if (alreadyRunning && changedFiles.isNullOrEmpty()) {
-            Log_OC.d(TAG, "File-sync kill worker since another instance of the worker ($syncedFolderID) seems to be running already!")
+            Log_OC.d(
+                TAG,
+                "File-sync kill worker since another instance of the worker " +
+                    "($syncedFolderID) seems to be running already!"
+            )
             return true
         }
 
         val syncedFolderTmp = syncedFolderProvider.getSyncedFolderByID(syncedFolderID)
         if (syncedFolderTmp == null || !syncedFolderTmp.isEnabled || !syncedFolderTmp.isExisting) {
-            Log_OC.d(TAG, "File-sync kill worker since syncedFolder (${syncedFolderID}) is not enabled!")
+            Log_OC.d(TAG, "File-sync kill worker since syncedFolder ($syncedFolderID) is not enabled!")
             return true
         }
         syncedFolder = syncedFolderTmp
-
 
         if (syncedFolder.isChargingOnly &&
             !powerManagementService.battery.isCharging &&
@@ -109,7 +111,7 @@ class FilesSyncWork(
         val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
 
-        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class)+"_"+syncFolderId)
+        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class) + "_" + syncFolderId)
         Log_OC.d(TAG, "File-sync worker started for folder ID: $syncFolderId")
 
         if (canExitEarly(changedFiles, syncFolderId)) {
@@ -128,7 +130,11 @@ class FilesSyncWork(
         )
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
-        Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) changed files from observer: " + changedFiles.contentToString())
+        Log_OC.d(
+            TAG,
+            "File-sync worker (${syncedFolder.remotePath}) changed files from observer: " +
+                changedFiles.contentToString()
+        )
         collectChangedFiles(changedFiles)
         Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished checking files.")
 

@@ -571,7 +571,7 @@ class SyncedFoldersActivity :
             }
         }
         if (syncedFolderDisplayItem.isEnabled) {
-            backgroundJobManager.startImmediateFilesSyncJob(syncedFolderDisplayItem.id ,overridePowerSaving = false)
+            backgroundJobManager.startImmediateFilesSyncJob(syncedFolderDisplayItem.id, overridePowerSaving = false)
             showBatteryOptimizationInfo()
         }
     }

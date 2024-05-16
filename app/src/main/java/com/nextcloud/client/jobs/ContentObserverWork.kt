@@ -54,7 +54,12 @@ class ContentObserverWork(
             for (uri in params.triggeredContentUris) {
                 changedFiles.add(uri.toString())
             }
-            FilesSyncHelper.startFilesSyncForAllFolders(syncedFolderProvider, backgroundJobManager, false, changedFiles.toTypedArray())
+            FilesSyncHelper.startFilesSyncForAllFolders(
+                syncedFolderProvider,
+                backgroundJobManager,
+                false,
+                changedFiles.toTypedArray()
+            )
         }
     }
 

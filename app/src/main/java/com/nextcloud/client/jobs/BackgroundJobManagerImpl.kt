@@ -405,8 +405,8 @@ internal class BackgroundJobManagerImpl(
     }
 
     override fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean {
-        return workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC+"_"+syncedFolderID) &&
-            workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC+"_"+syncedFolderID)
+        return workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID) &&
+            workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID)
     }
 
     override fun schedulePeriodicFilesSyncJob(
@@ -429,7 +429,7 @@ internal class BackgroundJobManagerImpl(
     override fun startImmediateFilesSyncJob(
         syncedFolderID: Long,
         overridePowerSaving: Boolean,
-        changedFiles: Array<String>,
+        changedFiles: Array<String>
     ) {
         val arguments = Data.Builder()
             .putBoolean(FilesSyncWork.OVERRIDE_POWER_SAVING, overridePowerSaving)
