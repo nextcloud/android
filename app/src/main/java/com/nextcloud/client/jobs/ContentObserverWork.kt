@@ -48,13 +48,15 @@ class ContentObserverWork(
     }
 
     private fun checkAndStartFileSyncJob() {
-        val syncFolders = syncerFolderProvider.countEnabledSyncedFolders() > 0
-        if (!powerManagementService.isPowerSavingEnabled && syncFolders) {
+        val syncFolders = syncerFolderProvider.syncedFolders
+        if (!powerManagementService.isPowerSavingEnabled && syncerFolderProvider.countEnabledSyncedFolders() > 0) {
             val changedFiles = mutableListOf<String>()
             for (uri in params.triggeredContentUris) {
                 changedFiles.add(uri.toString())
             }
-            backgroundJobManager.startImmediateFilesSyncJob(false, changedFiles.toTypedArray())
+            for (syncFolder in syncFolders){
+                backgroundJobManager.startImmediateFilesSyncJob(syncFolder.id, false, changedFiles.toTypedArray())
+            }
         }
     }
 

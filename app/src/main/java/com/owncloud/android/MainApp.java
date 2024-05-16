@@ -161,6 +161,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     @Inject
     ConnectivityService connectivityService;
 
+    @Inject
+    SyncedFolderProvider syncedFolderProvider;
+
     @Inject PowerManagementService powerManagementService;
 
     @Inject
@@ -359,7 +362,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                            backgroundJobManager,
                            clock,
                            viewThemeUtils,
-                           walledCheckCache);
+                           walledCheckCache,
+                           syncedFolderProvider);
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
@@ -586,7 +590,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final BackgroundJobManager backgroundJobManager,
         final Clock clock,
         final ViewThemeUtils viewThemeUtils,
-        final WalledCheckCache walledCheckCache) {
+        final WalledCheckCache walledCheckCache,
+        final SyncedFolderProvider syncedFolderProvider) {
         updateToAutoUpload();
         cleanOldEntries(clock);
         updateAutoUploadEntries(clock);
@@ -600,12 +605,20 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
 
         if (!preferences.isAutoUploadInitialized()) {
-            backgroundJobManager.startImmediateFilesSyncJob(false, new String[]{});
+            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+                if (syncedFolder.isEnabled()) {
+                    backgroundJobManager.startImmediateFilesSyncJob(syncedFolder.getId() ,false, new String[]{});
+                }
+            }
             preferences.setAutoUploadInit(true);
         }
 
-        FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, backgroundJobManager);
-        FilesSyncHelper.restartJobsIfNeeded(
+        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            if (syncedFolder.isEnabled()) {
+                FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, syncedFolder.getId(), backgroundJobManager);
+            }
+        }
+        FilesSyncHelper.restartUploadsIfNeeded(
             uploadsStorageManager,
             accountManager,
             connectivityService,

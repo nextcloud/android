@@ -49,10 +49,10 @@ public final class ReceiversHelper {
                 DNSCache.clear();
                 walledCheckCache.clear();
                 if (connectivityService.getConnectivity().isConnected()) {
-                    FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
-                                                        accountManager,
-                                                        connectivityService,
-                                                        powerManagementService);
+                    FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
+                                                           accountManager,
+                                                           connectivityService,
+                                                           powerManagementService);
                 }
             }
         };
@@ -76,10 +76,10 @@ public final class ReceiversHelper {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (Intent.ACTION_POWER_CONNECTED.equals(intent.getAction())) {
-                    FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
-                                                        accountManager,
-                                                        connectivityService,
-                                                        powerManagementService);
+                    FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
+                                                           accountManager,
+                                                           connectivityService,
+                                                           powerManagementService);
                 }
             }
         };
@@ -102,10 +102,10 @@ public final class ReceiversHelper {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (!powerManagementService.isPowerSavingEnabled()) {
-                    FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
-                                                        accountManager,
-                                                        connectivityService,
-                                                        powerManagementService);
+                    FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
+                                                           accountManager,
+                                                           connectivityService,
+                                                           powerManagementService);
                 }
             }
         };

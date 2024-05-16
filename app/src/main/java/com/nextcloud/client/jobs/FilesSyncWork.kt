@@ -11,11 +11,8 @@ package com.nextcloud.client.jobs
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
-import android.os.Build
 import android.text.TextUtils
-import androidx.core.app.NotificationCompat
 import androidx.exifinterface.media.ExifInterface
-import androidx.work.ForegroundInfo
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
@@ -28,7 +25,6 @@ import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FilesystemDataProvider
-import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
@@ -36,7 +32,6 @@ import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
-import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
@@ -64,72 +59,60 @@ class FilesSyncWork(
         const val TAG = "FilesSyncJob"
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CHANGED_FILES = "changedFiles"
-        const val FOREGROUND_SERVICE_ID = 414
+        const val SYNCED_FOLDER_ID = "syncedFolderId"
     }
 
-    @Suppress("MagicNumber")
-    private fun updateForegroundWorker(progressPercent: Int, useForegroundWorker: Boolean) {
-        if (!useForegroundWorker) {
-            return
-        }
+    private lateinit var syncedFolder: SyncedFolder
 
-        // update throughout worker execution to give use feedback how far worker is
-        val notification = NotificationCompat.Builder(context, NotificationUtils.NOTIFICATION_CHANNEL_FILE_SYNC)
-            .setTicker(context.getString(R.string.autoupload_worker_foreground_info))
-            .setContentText(context.getString(R.string.autoupload_worker_foreground_info))
-            .setSmallIcon(R.drawable.notification_icon)
-            .setContentTitle(context.getString(R.string.autoupload_worker_foreground_info))
-            .setOngoing(true)
-            .setProgress(100, progressPercent, false)
-            .build()
-        val foregroundInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            ForegroundInfo(FOREGROUND_SERVICE_ID, notification, ForegroundServiceType.DataSync.getId())
-        } else {
-            ForegroundInfo(FOREGROUND_SERVICE_ID, notification)
-        }
 
-        setForegroundAsync(foregroundInfo)
-    }
-
-    private fun canExitEarly(changedFiles: Array<String>?): Boolean {
-        var canExitEarly = false
+    @Suppress("ReturnCount")
+    private fun canExitEarly(changedFiles: Array<String>?, syncedFolderID: Long): Boolean {
         // If we are in power save mode better to postpone scan and upload
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
-            canExitEarly = true
+            return true
+        }
+
+        if (syncedFolderID < 0) {
+            Log_OC.d(TAG, "File-sync kill worker since no valid syncedFolderID provided!")
+            return true
         }
 
         // or sync worker already running and no changed files to be processed
-        val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning()
+        val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)
         if (alreadyRunning && changedFiles.isNullOrEmpty()) {
-            Log_OC.d(TAG, "File-sync kill worker since another instance of the worker seems to be running already!")
-            canExitEarly = true
+            Log_OC.d(TAG, "File-sync kill worker since another instance of the worker ($syncedFolderID) seems to be running already!")
+            return true
         }
 
-        if (!syncedFolderProvider.syncedFolders.any { it.isEnabled }) {
-            Log_OC.d(TAG, "File-sync kill worker since no sync folder is enabled!")
-            canExitEarly = true
+        val syncedFolderTmp = syncedFolderProvider.getSyncedFolderByID(syncedFolderID)
+        if (syncedFolderTmp == null || !syncedFolderTmp.isEnabled || !syncedFolderTmp.isExisting) {
+            Log_OC.d(TAG, "File-sync kill worker since syncedFolder (${syncedFolderID}) is not enabled!")
+            return true
         }
+        syncedFolder = syncedFolderTmp
 
-        if (syncedFolderProvider.syncedFolders.all { it.isChargingOnly } &&
+
+        if (syncedFolder.isChargingOnly &&
             !powerManagementService.battery.isCharging &&
             !powerManagementService.battery.isFull
         ) {
-            Log_OC.d(TAG, "File-sync kill worker since phone is not charging!")
-            canExitEarly = true
+            Log_OC.d(TAG, "File-sync kill worker since phone is not charging (${syncedFolder.localPath})!")
+            return true
         }
 
-        return canExitEarly
+        return false
     }
 
     @Suppress("MagicNumber")
     override fun doWork(): Result {
-        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class))
-        Log_OC.d(TAG, "File-sync worker started")
-
+        val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
 
-        if (canExitEarly(changedFiles)) {
+        backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class)+"_"+syncFolderId)
+        Log_OC.d(TAG, "File-sync worker started for folder ID: $syncFolderId")
+
+        if (canExitEarly(changedFiles, syncFolderId)) {
             val result = Result.success()
             backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
             return result
@@ -137,7 +120,7 @@ class FilesSyncWork(
 
         val resources = context.resources
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
-        FilesSyncHelper.restartJobsIfNeeded(
+        FilesSyncHelper.restartUploadsIfNeeded(
             uploadsStorageManager,
             userAccountManager,
             connectivityService,
@@ -145,9 +128,9 @@ class FilesSyncWork(
         )
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
-        Log_OC.d(TAG, "File-sync worker changed files from observer: " + changedFiles.contentToString())
+        Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) changed files from observer: " + changedFiles.contentToString())
         collectChangedFiles(changedFiles)
-        Log_OC.d(TAG, "File-sync worker finished checking files.")
+        Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished checking files.")
 
         // Create all the providers we'll need
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
@@ -155,26 +138,17 @@ class FilesSyncWork(
         val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
         dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
 
-        // start upload of changed / new files
-        val syncedFolders = syncedFolderProvider.syncedFolders
-        for ((index, syncedFolder) in syncedFolders.withIndex()) {
-            updateForegroundWorker(
-                (50 + (index.toDouble() / syncedFolders.size.toDouble()) * 50).toInt(),
-                changedFiles.isNullOrEmpty()
-            )
-            if (syncedFolder.isEnabled) {
-                syncFolder(
-                    context,
-                    resources,
-                    lightVersion,
-                    filesystemDataProvider,
-                    currentLocale,
-                    dateFormat,
-                    syncedFolder
-                )
-            }
-        }
-        Log_OC.d(TAG, "File-sync worker finished")
+        syncFolder(
+            context,
+            resources,
+            lightVersion,
+            filesystemDataProvider,
+            currentLocale,
+            dateFormat,
+            syncedFolder
+        )
+
+        Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished")
         val result = Result.success()
         backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
         return result
@@ -183,13 +157,11 @@ class FilesSyncWork(
     @Suppress("MagicNumber")
     private fun collectChangedFiles(changedFiles: Array<String>?) {
         if (!changedFiles.isNullOrEmpty()) {
-            FilesSyncHelper.insertChangedEntries(syncedFolderProvider, changedFiles)
+            FilesSyncHelper.insertChangedEntries(syncedFolder, changedFiles)
         } else {
-            // Check every file in every synced folder for changes and update
-            // filesystemDataProvider database (potentially needs a long time so use foreground worker)
-            updateForegroundWorker(5, true)
-            FilesSyncHelper.insertAllDBEntries(syncedFolderProvider, powerManagementService)
-            updateForegroundWorker(50, true)
+            // Check every file in synced folder for changes and update
+            // filesystemDataProvider database (potentially needs a long time)
+            FilesSyncHelper.insertAllDBEntries(syncedFolder, powerManagementService)
         }
     }
 

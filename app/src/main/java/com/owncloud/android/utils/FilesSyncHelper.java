@@ -146,34 +146,29 @@ public final class FilesSyncHelper {
         }
     }
 
-    public static void insertAllDBEntries(SyncedFolderProvider syncedFolderProvider,
+    public static void insertAllDBEntries(SyncedFolder syncedFolder,
                                           PowerManagementService powerManagementService) {
-        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            if (syncedFolder.isEnabled() &&
-                !(syncedFolder.isChargingOnly() &&
-                    !powerManagementService.getBattery().isCharging() &&
-                    !powerManagementService.getBattery().isFull()
-                )
-            ) {
-                insertAllDBEntriesForSyncedFolder(syncedFolder);
-            }
+        if (syncedFolder.isEnabled() &&
+            !(syncedFolder.isChargingOnly() &&
+                !powerManagementService.getBattery().isCharging() &&
+                !powerManagementService.getBattery().isFull()
+            )
+        ) {
+            insertAllDBEntriesForSyncedFolder(syncedFolder);
         }
     }
 
-    public static void insertChangedEntries(SyncedFolderProvider syncedFolderProvider,
+    public static void insertChangedEntries(SyncedFolder syncedFolder,
                                             String[] changedFiles) {
         final ContentResolver contentResolver = MainApp.getAppContext().getContentResolver();
         final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
         for (String changedFileURI : changedFiles){
             String changedFile = getFileFromURI(changedFileURI);
-            for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-                if (syncedFolder.isEnabled() && syncedFolder.containsFile(changedFile)){
-                    File file = new File(changedFile);
-                    filesystemDataProvider.storeOrUpdateFileValue(changedFile,
-                                                                  file.lastModified(),file.isDirectory(),
-                                                                  syncedFolder);
-                    break;
-                }
+            if (syncedFolder.isEnabled() && syncedFolder.containsFile(changedFile)){
+                File file = new File(changedFile);
+                filesystemDataProvider.storeOrUpdateFileValue(changedFile,
+                                                              file.lastModified(),file.isDirectory(),
+                                                              syncedFolder);
             }
         }
     }
@@ -249,10 +244,10 @@ public final class FilesSyncHelper {
         }
     }
 
-    public static void restartJobsIfNeeded(final UploadsStorageManager uploadsStorageManager,
-                                           final UserAccountManager accountManager,
-                                           final ConnectivityService connectivityService,
-                                           final PowerManagementService powerManagementService) {
+    public static void restartUploadsIfNeeded(final UploadsStorageManager uploadsStorageManager,
+                                              final UserAccountManager accountManager,
+                                              final ConnectivityService connectivityService,
+                                              final PowerManagementService powerManagementService) {
         boolean accountExists;
 
         boolean whileChargingOnly = true;
@@ -316,8 +311,8 @@ public final class FilesSyncHelper {
         }).start();
     }
 
-    public static void scheduleFilesSyncIfNeeded(Context context, BackgroundJobManager jobManager) {
-        jobManager.schedulePeriodicFilesSyncJob();
+    public static void scheduleFilesSyncIfNeeded(Context context, Long syncedFolderID, BackgroundJobManager jobManager) {
+        jobManager.schedulePeriodicFilesSyncJob(syncedFolderID);
         if (context != null) {
             jobManager.scheduleContentObserverJob();
         }
