@@ -143,7 +143,7 @@ public class PreviewImagePagerAdapter extends FragmentStateAdapter {
         mDownloadErrors.remove(position);
         mCachedFragments.remove(position);
 
-        notifyDataSetChanged();
+        notifyItemRemoved(position);
     }
 
     /**
@@ -158,6 +158,16 @@ public class PreviewImagePagerAdapter extends FragmentStateAdapter {
         } catch (IndexOutOfBoundsException exception) {
             return null;
         }
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return mImageFiles.get(position).hashCode();
+    }
+
+    @Override
+    public boolean containsItem(long itemId) {
+        return super.containsItem(itemId);
     }
 
     private void addVideoOfLivePhoto(OCFile file) {
@@ -225,8 +235,6 @@ public class PreviewImagePagerAdapter extends FragmentStateAdapter {
         }
         mDownloadErrors.add(position);
     }
-
-
 
     public boolean pendingErrorAt(int position) {
         return mDownloadErrors.contains(position);
