@@ -129,7 +129,7 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
      */
     fun getFileAt(position: Int): OCFile? {
         return try {
-            imageFiles!![position]
+            imageFiles[position]
         } catch (exception: IndexOutOfBoundsException) {
             null
         }
