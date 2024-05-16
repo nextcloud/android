@@ -44,6 +44,7 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
      * @param parentFolder    Folder where images will be searched for.
      * @param storageManager  Bridge to database.
      */
+    @Suppress("LongParameterList")
     constructor(
         fragmentActivity: FragmentActivity?,
         selectedFile: OCFile?,
@@ -127,6 +128,7 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
      *
      * @return OCFile desired image or null if position is not in adapter
      */
+    @Suppress("TooGenericExceptionCaught")
     fun getFileAt(position: Int): OCFile? {
         return try {
             imageFiles[position]
