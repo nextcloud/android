@@ -279,22 +279,27 @@ public class PreviewImageActivity extends FileActivity implements
         super.onRemoteOperationFinish(operation, result);
 
         if (operation instanceof RemoveFileOperation) {
-            if (viewPager.getAdapter() != null) {
-                int deletePosition = viewPager.getCurrentItem();
-                previewImagePagerAdapter.delete(deletePosition);
+            if (viewPager.getAdapter() == null) {
+                finish();
+                return;
+            }
 
-                if (viewPager.getAdapter().getItemCount() > 0) {
-                    int nextPosition = deletePosition + 1;
-                    viewPager.setCurrentItem(nextPosition);
-                    String nextItemTitle = String.valueOf(previewImagePagerAdapter.getPageTitle(nextPosition));
-                    updateActionBarTitle(nextItemTitle);
-                } else {
-                    // Last file has been deleted, so finish the activity
-                    finish();
-                }
-            } else {
+            int deletePosition = viewPager.getCurrentItem();
+            previewImagePagerAdapter.delete(deletePosition);
+
+            if (viewPager.getAdapter().getItemCount() <= 0) {
+                finish();
+                return;
+            }
+
+            int nextPosition = deletePosition + 1;
+            if (nextPosition < 0 || nextPosition >= viewPager.getAdapter().getItemCount()) {
                 finish();
             }
+
+            viewPager.setCurrentItem(nextPosition);
+            String nextItemTitle = String.valueOf(previewImagePagerAdapter.getPageTitle(nextPosition));
+            updateActionBarTitle(nextItemTitle);
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result);
         }
