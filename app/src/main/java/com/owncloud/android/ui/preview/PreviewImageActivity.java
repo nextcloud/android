@@ -21,6 +21,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
@@ -59,7 +60,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.viewpager.widget.ViewPager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -68,7 +70,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class PreviewImageActivity extends FileActivity implements
     FileFragment.ContainerActivity,
-    ViewPager.OnPageChangeListener,
     OnRemoteOperationListener,
     Injectable {
 
@@ -78,7 +79,7 @@ public class PreviewImageActivity extends FileActivity implements
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
 
     private OCFile livePhotoFile;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
     private PreviewImagePagerAdapter previewImagePagerAdapter;
     private int savedPosition;
     private boolean hasSavedPosition;
@@ -158,7 +159,7 @@ public class PreviewImageActivity extends FileActivity implements
         if (virtualFolderType != null && virtualFolderType != VirtualFolderType.NONE) {
             VirtualFolderType type = (VirtualFolderType) virtualFolderType;
 
-            previewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
+            previewImagePagerAdapter = new PreviewImagePagerAdapter(this,
                                                                     type,
                                                                     user,
                                                                     getStorageManager());
@@ -172,7 +173,7 @@ public class PreviewImageActivity extends FileActivity implements
             }
 
             previewImagePagerAdapter = new PreviewImagePagerAdapter(
-                getSupportFragmentManager(),
+                this,
                 livePhotoFile,
                 parentFolder,
                 user,
@@ -188,7 +189,12 @@ public class PreviewImageActivity extends FileActivity implements
         position = position >= 0 ? position : 0;
 
         viewPager.setAdapter(previewImagePagerAdapter);
-        viewPager.addOnPageChangeListener(this);
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                selectPage(position);
+            }
+        });
         viewPager.setCurrentItem(position);
 
         if (position == 0 && !getFile().isDown()) {
@@ -247,7 +253,7 @@ public class PreviewImageActivity extends FileActivity implements
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
                 setFile(file);  // reset after getting it fresh from storageManager
-                getSupportActionBar().setTitle(getFile().getFileName());
+                updateActionBarTitle(getFile().getFileName());
                 //if (!stateWasRecovered) {
                 initViewPager(optionalUser.get());
                 //}
@@ -271,13 +277,21 @@ public class PreviewImageActivity extends FileActivity implements
         super.onRemoteOperationFinish(operation, result);
 
         if (operation instanceof RemoveFileOperation) {
-            // initialize the pager with the new file list
-            initViewPager(getUser().get());
-            if (viewPager.getAdapter().getCount() > 0) {
-                // Trigger page reselection, to update the title
-                onPageSelected(viewPager.getCurrentItem());
+            final RecyclerView.Adapter adapter = viewPager.getAdapter();
+
+            if (adapter != null) {
+                previewImagePagerAdapter.delete(viewPager.getCurrentItem());
+
+                if (adapter.getItemCount() > 0) {
+                    int nextPosition = viewPager.getCurrentItem() + 1;
+                    viewPager.setCurrentItem(nextPosition);
+                    updateActionBarTitle(String.valueOf(previewImagePagerAdapter.getPageTitle(nextPosition)));
+
+                } else {
+                    // Last file has been deleted, so finish the activity
+                    finish();
+                }
             } else {
-                // Last file has been deleted, so finish the activity
                 finish();
             }
         } else if (operation instanceof SynchronizeFileOperation) {
@@ -301,7 +315,7 @@ public class PreviewImageActivity extends FileActivity implements
                     requestWaitingForBinder = false;
                     Log_OC.d(TAG, "Simulating reselection of current page after connection " +
                         "of download binder");
-                    onPageSelected(viewPager.getCurrentItem());
+                    selectPage(viewPager.getCurrentItem());
                 }
             } else {
                 Log_OC.d(TAG, "Download worker stopped");
@@ -384,8 +398,7 @@ public class PreviewImageActivity extends FileActivity implements
      *
      *  @param  position        Position index of the new selected page
      */
-    @Override
-    public void onPageSelected(int position) {
+    public void selectPage(int position) {
         savedPosition = position;
         hasSavedPosition = true;
 
@@ -414,31 +427,10 @@ public class PreviewImageActivity extends FileActivity implements
         }
     }
 
-    /**
-     * Called when the scroll state changes. Useful for discovering when the user begins dragging,
-     * when the pager is automatically settling to the current page. when it is fully stopped/idle.
-     *
-     * @param   state       The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
-     */
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        // not used at the moment
-    }
-
-    /**
-     * This method will be invoked when the current page is scrolled, either as part of a
-     * programmatically initiated smooth scroll or a user initiated touch scroll.
-     *
-     * @param   position                Position index of the first page currently being displayed.
-     *                                  Page position+1 will be visible if positionOffset is
-     *                                  nonzero.
-     * @param   positionOffset          Value from [0, 1) indicating the offset from the page
-     *                                  at position.
-     * @param   positionOffsetPixels    Value in pixels indicating the offset from position.
-     */
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        // not used at the moment
+    public void updateActionBarTitle(String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
     }
 
     /**

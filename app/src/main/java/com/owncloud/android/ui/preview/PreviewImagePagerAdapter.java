@@ -11,7 +11,6 @@
 package com.owncloud.android.ui.preview;
 
 import android.util.SparseArray;
-import android.view.ViewGroup;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -31,40 +30,41 @@ import javax.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.annotation.OptIn;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentActivity;
 import androidx.media3.common.util.UnstableApi;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 /**
  * Adapter class that provides Fragment instances
  */
-public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
+public class PreviewImagePagerAdapter extends FragmentStateAdapter {
 
     private OCFile selectedFile;
     private List<OCFile> mImageFiles;
-    private User user;
-    private Set<Object> mObsoleteFragments;
-    private Set<Integer> mObsoletePositions;
-    private Set<Integer> mDownloadErrors;
-    private FileDataStorageManager mStorageManager;
-    private SparseArray<FileFragment> mCachedFragments;
+    private final User user;
+    private final Set<Object> mObsoleteFragments;
+    private final Set<Integer> mObsoletePositions;
+    private final Set<Integer> mDownloadErrors;
+    private final FileDataStorageManager mStorageManager;
+    private final SparseArray<FileFragment> mCachedFragments;
 
     /**
      * Constructor
      *
-     * @param fragmentManager {@link FragmentManager} instance that will handle the {@link Fragment}s provided by the
+     * @param fragmentActivity {@link FragmentActivity} instance that will handle the {@link Fragment}s provided by the
      *                        adapter.
      * @param parentFolder    Folder where images will be searched for.
      * @param storageManager  Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentManager fragmentManager,
+    public PreviewImagePagerAdapter(FragmentActivity fragmentActivity,
                                     OCFile selectedFile,
                                     OCFile parentFolder,
                                     User user,
                                     FileDataStorageManager storageManager,
                                     boolean onlyOnDevice,
                                     AppPreferences preferences) {
-        super(fragmentManager);
+        super(fragmentActivity);
+
         if (parentFolder == null) {
             throw new IllegalArgumentException("NULL parent folder");
         }
@@ -89,20 +89,17 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
     /**
      * Constructor
      *
-     * @param fragmentManager {@link FragmentManager} instance that will handle the {@link Fragment}s provided by the
+     * @param fragmentActivity {@link FragmentActivity} instance that will handle the {@link Fragment}s provided by the
      *                        adapter.
      * @param type            Type of virtual folder, e.g. favorite or photos
      * @param storageManager  Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentManager fragmentManager,
+    public PreviewImagePagerAdapter(FragmentActivity fragmentActivity,
                                     VirtualFolderType type,
                                     User user,
                                     FileDataStorageManager storageManager) {
-        super(fragmentManager);
+        super(fragmentActivity);
 
-        if (fragmentManager == null) {
-            throw new IllegalArgumentException("NULL FragmentManager instance");
-        }
         if (type == null) {
             throw new IllegalArgumentException("NULL parent folder");
         }
@@ -127,6 +124,26 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mObsoletePositions = new HashSet<>();
         mDownloadErrors = new HashSet<>();
         mCachedFragments = new SparseArray<>();
+    }
+
+    public void delete(int position) {
+        if (position < 0 || position >= mImageFiles.size()) {
+            return;
+        }
+
+        FileFragment fragmentToDelete = mCachedFragments.get(position);
+        if (fragmentToDelete == null) {
+            return;
+        }
+
+        mObsoleteFragments.add(fragmentToDelete);
+        mObsoletePositions.add(position);
+
+        mImageFiles.remove(position);
+        mDownloadErrors.remove(position);
+        mCachedFragments.remove(position);
+
+        notifyDataSetChanged();
     }
 
     /**
@@ -182,12 +199,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         return mImageFiles.indexOf(file);
     }
 
-    @Override
-    public int getCount() {
-        return mImageFiles.size();
-    }
-
-    @Override
     public CharSequence getPageTitle(int position) {
         OCFile file = getFileAt(position);
 
@@ -198,7 +209,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
-
     public void updateFile(int position, OCFile file) {
         FileFragment fragmentToUpdate = mCachedFragments.get(position);
         if (fragmentToUpdate != null) {
@@ -208,7 +218,6 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mImageFiles.set(position, file);
     }
 
-
     public void updateWithDownloadError(int position) {
         FileFragment fragmentToUpdate = mCachedFragments.get(position);
         if (fragmentToUpdate != null) {
@@ -217,30 +226,20 @@ public class PreviewImagePagerAdapter extends FragmentStatePagerAdapter {
         mDownloadErrors.add(position);
     }
 
-    @Override
-    public int getItemPosition(@NonNull Object object) {
-        if (mObsoleteFragments.remove(object)) {
-            return POSITION_NONE;
-        }
-        return super.getItemPosition(object);
-    }
-
-    @NonNull
-    @Override
-    public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        Object fragment = super.instantiateItem(container, position);
-        mCachedFragments.put(position, (FileFragment) fragment);
-        return fragment;
-    }
-
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        mCachedFragments.remove(position);
-        super.destroyItem(container, position, object);
-    }
 
 
     public boolean pendingErrorAt(int position) {
         return mDownloadErrors.contains(position);
+    }
+
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) {
+        return getItem(position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return mImageFiles.size();
     }
 }
