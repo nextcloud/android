@@ -8,142 +8,118 @@
  * SPDX-FileCopyrightText: 2013 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.preview;
+package com.owncloud.android.ui.preview
 
-import android.util.SparseArray;
-
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.preferences.AppPreferences;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.VirtualFolderType;
-import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.FileSortOrder;
-import com.owncloud.android.utils.FileStorageUtils;
-
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.annotation.Nullable;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.OptIn;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.media3.common.util.UnstableApi;
-import androidx.viewpager2.adapter.FragmentStateAdapter;
+import android.util.SparseArray
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.nextcloud.client.account.User
+import com.nextcloud.client.preferences.AppPreferences
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.VirtualFolderType
+import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.utils.FileStorageUtils
 
 /**
  * Adapter class that provides Fragment instances
  */
-public class PreviewImagePagerAdapter extends FragmentStateAdapter {
+class PreviewImagePagerAdapter : FragmentStateAdapter {
 
-    private OCFile selectedFile;
-    private List<OCFile> mImageFiles;
-    private final User user;
-    private final Set<Object> mObsoleteFragments;
-    private final Set<Integer> mObsoletePositions;
-    private final Set<Integer> mDownloadErrors;
-    private final FileDataStorageManager mStorageManager;
-    private final SparseArray<FileFragment> mCachedFragments;
+    private var selectedFile: OCFile? = null
+    private var imageFiles: MutableList<OCFile> = mutableListOf()
+    private val user: User
+    private val mObsoleteFragments: MutableSet<Any>
+    private val mObsoletePositions: MutableSet<Int>
+    private val mDownloadErrors: MutableSet<Int>
+    private val mStorageManager: FileDataStorageManager
+    private val mCachedFragments: SparseArray<FileFragment>
 
     /**
      * Constructor
      *
-     * @param fragmentActivity {@link FragmentActivity} instance that will handle the {@link Fragment}s provided by the
-     *                        adapter.
+     * @param fragmentActivity [FragmentActivity] instance that will handle the [Fragment]s provided by the
+     * adapter.
      * @param parentFolder    Folder where images will be searched for.
      * @param storageManager  Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentActivity fragmentActivity,
-                                    OCFile selectedFile,
-                                    OCFile parentFolder,
-                                    User user,
-                                    FileDataStorageManager storageManager,
-                                    boolean onlyOnDevice,
-                                    AppPreferences preferences) {
-        super(fragmentActivity);
+    constructor(
+        fragmentActivity: FragmentActivity?,
+        selectedFile: OCFile?,
+        parentFolder: OCFile?,
+        user: User,
+        storageManager: FileDataStorageManager?,
+        onlyOnDevice: Boolean,
+        preferences: AppPreferences
+    ) : super(fragmentActivity!!) {
+        requireNotNull(parentFolder) { "NULL parent folder" }
+        requireNotNull(storageManager) { "NULL storage manager" }
 
-        if (parentFolder == null) {
-            throw new IllegalArgumentException("NULL parent folder");
-        }
-        if (storageManager == null) {
-            throw new IllegalArgumentException("NULL storage manager");
-        }
+        this.user = user
+        this.selectedFile = selectedFile
+        mStorageManager = storageManager
+        imageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice)
 
-        this.user = user;
-        this.selectedFile = selectedFile;
-        mStorageManager = storageManager;
-        mImageFiles = mStorageManager.getFolderImages(parentFolder, onlyOnDevice);
+        val sortOrder = preferences.getSortOrderByFolder(parentFolder)
+        imageFiles = sortOrder.sortCloudFiles(imageFiles.toMutableList()).toMutableList()
 
-        FileSortOrder sortOrder = preferences.getSortOrderByFolder(parentFolder);
-        mImageFiles = sortOrder.sortCloudFiles(mImageFiles);
-
-        mObsoleteFragments = new HashSet<>();
-        mObsoletePositions = new HashSet<>();
-        mDownloadErrors = new HashSet<>();
-        mCachedFragments = new SparseArray<>();
+        mObsoleteFragments = HashSet()
+        mObsoletePositions = HashSet()
+        mDownloadErrors = HashSet()
+        mCachedFragments = SparseArray()
     }
 
     /**
      * Constructor
      *
-     * @param fragmentActivity {@link FragmentActivity} instance that will handle the {@link Fragment}s provided by the
-     *                        adapter.
+     * @param fragmentActivity [FragmentActivity] instance that will handle the [Fragment]s provided by the
+     * adapter.
      * @param type            Type of virtual folder, e.g. favorite or photos
      * @param storageManager  Bridge to database.
      */
-    public PreviewImagePagerAdapter(FragmentActivity fragmentActivity,
-                                    VirtualFolderType type,
-                                    User user,
-                                    FileDataStorageManager storageManager) {
-        super(fragmentActivity);
+    constructor(
+        fragmentActivity: FragmentActivity?,
+        type: VirtualFolderType?,
+        user: User,
+        storageManager: FileDataStorageManager?
+    ) : super(fragmentActivity!!) {
+        requireNotNull(type) { "NULL parent folder" }
+        require(type != VirtualFolderType.NONE) { "NONE virtual folder type" }
+        requireNotNull(storageManager) { "NULL storage manager" }
 
-        if (type == null) {
-            throw new IllegalArgumentException("NULL parent folder");
-        }
-        if (type == VirtualFolderType.NONE) {
-            throw new IllegalArgumentException("NONE virtual folder type");
-        }
-        if (storageManager == null) {
-            throw new IllegalArgumentException("NULL storage manager");
-        }
-
-        this.user = user;
-        mStorageManager = storageManager;
+        this.user = user
+        mStorageManager = storageManager
 
         if (type == VirtualFolderType.GALLERY) {
-            mImageFiles = mStorageManager.getAllGalleryItems();
-            mImageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mImageFiles);
+            imageFiles = mStorageManager.allGalleryItems
+            imageFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(imageFiles)
         } else {
-            mImageFiles = mStorageManager.getVirtualFolderContent(type, true);
+            imageFiles = mStorageManager.getVirtualFolderContent(type, true)
         }
 
-        mObsoleteFragments = new HashSet<>();
-        mObsoletePositions = new HashSet<>();
-        mDownloadErrors = new HashSet<>();
-        mCachedFragments = new SparseArray<>();
+        mObsoleteFragments = HashSet()
+        mObsoletePositions = HashSet()
+        mDownloadErrors = HashSet()
+        mCachedFragments = SparseArray()
     }
 
-    public void delete(int position) {
-        if (position < 0 || position >= mImageFiles.size()) {
-            return;
+    fun delete(position: Int) {
+        if (position < 0 || position >= imageFiles.size) {
+            return
         }
 
-        FileFragment fragmentToDelete = mCachedFragments.get(position);
-        if (fragmentToDelete == null) {
-            return;
+        mCachedFragments[position]?.let {
+            mObsoleteFragments.add(it)
         }
 
-        mObsoleteFragments.add(fragmentToDelete);
-        mObsoletePositions.add(position);
+        mObsoletePositions.add(position)
 
-        mImageFiles.remove(position);
-        mDownloadErrors.remove(position);
-        mCachedFragments.remove(position);
+        imageFiles.removeAt(position)
+        mDownloadErrors.remove(position)
+        mCachedFragments.remove(position)
 
-        notifyItemRemoved(position);
+        notifyItemRemoved(position)
     }
 
     /**
@@ -151,103 +127,91 @@ public class PreviewImagePagerAdapter extends FragmentStateAdapter {
      *
      * @return OCFile desired image or null if position is not in adapter
      */
-    @Nullable
-    public OCFile getFileAt(int position) {
-        try {
-            return mImageFiles.get(position);
-        } catch (IndexOutOfBoundsException exception) {
-            return null;
+    fun getFileAt(position: Int): OCFile? {
+        return try {
+            imageFiles!![position]
+        } catch (exception: IndexOutOfBoundsException) {
+            null
         }
     }
 
-    @Override
-    public long getItemId(int position) {
-        return mImageFiles.get(position).hashCode();
+    override fun getItemId(position: Int): Long {
+        return imageFiles[position].hashCode().toLong()
     }
 
-    @Override
-    public boolean containsItem(long itemId) {
-        return super.containsItem(itemId);
+    private fun addVideoOfLivePhoto(file: OCFile) {
+        file.livePhotoVideo = selectedFile
     }
 
-    private void addVideoOfLivePhoto(OCFile file) {
-        file.livePhotoVideo = selectedFile;
-    }
-
-    @NonNull
-    @OptIn(markerClass = UnstableApi.class)
-    public Fragment getItem(int i) {
-        OCFile file = getFileAt(i);
-        Fragment fragment;
+    fun getItem(i: Int): Fragment {
+        val file = getFileAt(i)
+        val fragment: Fragment
 
         if (file == null) {
-            fragment = PreviewImageErrorFragment.newInstance();
-        } else if (file.isDown()) {
-            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false);
+            fragment = PreviewImageErrorFragment.newInstance()
+        } else if (file.isDown) {
+            fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), false)
         } else {
-            addVideoOfLivePhoto(file);
+            addVideoOfLivePhoto(file)
 
             if (mDownloadErrors.remove(i)) {
-                fragment = FileDownloadFragment.newInstance(file, user, true);
-                ((FileDownloadFragment) fragment).setError(true);
+                fragment = FileDownloadFragment.newInstance(file, user, true)
+                (fragment as FileDownloadFragment).setError(true)
             } else {
-                if (file.isEncrypted()) {
-                    fragment = FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i));
+                fragment = if (file.isEncrypted) {
+                    FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i))
                 } else if (PreviewMediaFragment.canBePreviewed(file)) {
-                    fragment = PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null);
+                    PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null)
                 } else {
-                    fragment = PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true);
+                    PreviewImageFragment.newInstance(file, mObsoletePositions.contains(i), true)
                 }
             }
         }
 
-        mObsoletePositions.remove(i);
-        return fragment;
+        mObsoletePositions.remove(i)
+        return fragment
     }
 
-    public int getFilePosition(OCFile file) {
-        return mImageFiles.indexOf(file);
+    fun getFilePosition(file: OCFile): Int {
+        return imageFiles.indexOf(file)
     }
 
-    public CharSequence getPageTitle(int position) {
-        OCFile file = getFileAt(position);
+    fun getPageTitle(position: Int): CharSequence {
+        val file = getFileAt(position)
 
-        if (file != null) {
-            return file.getFileName();
+        return if (file != null) {
+            file.fileName
         } else {
-            return "";
+            ""
         }
     }
 
-    public void updateFile(int position, OCFile file) {
-        FileFragment fragmentToUpdate = mCachedFragments.get(position);
+    fun updateFile(position: Int, file: OCFile) {
+        val fragmentToUpdate = mCachedFragments[position]
         if (fragmentToUpdate != null) {
-            mObsoleteFragments.add(fragmentToUpdate);
+            mObsoleteFragments.add(fragmentToUpdate)
         }
-        mObsoletePositions.add(position);
-        mImageFiles.set(position, file);
+        mObsoletePositions.add(position)
+        imageFiles[position] = file
     }
 
-    public void updateWithDownloadError(int position) {
-        FileFragment fragmentToUpdate = mCachedFragments.get(position);
+    fun updateWithDownloadError(position: Int) {
+        val fragmentToUpdate = mCachedFragments[position]
         if (fragmentToUpdate != null) {
-            mObsoleteFragments.add(fragmentToUpdate);
+            mObsoleteFragments.add(fragmentToUpdate)
         }
-        mDownloadErrors.add(position);
+        mDownloadErrors.add(position)
     }
 
-    public boolean pendingErrorAt(int position) {
-        return mDownloadErrors.contains(position);
+    fun pendingErrorAt(position: Int): Boolean {
+        return mDownloadErrors.contains(position)
     }
 
-    @NonNull
-    @Override
-    public Fragment createFragment(int position) {
-        return getItem(position);
+    override fun createFragment(position: Int): Fragment {
+        return getItem(position)
     }
 
-    @Override
-    public int getItemCount() {
-        return mImageFiles.size();
+    override fun getItemCount(): Int {
+        return imageFiles.size
     }
 }
