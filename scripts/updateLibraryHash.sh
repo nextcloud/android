@@ -11,7 +11,7 @@ git fetch
 git checkout master
 git pull
 
-[[ $latestCommit == "$currentCommit" ]] && exit # nothing to do
+[[ $latestCommit == "$currentCommit" ]] && echo "Nothing to do. Commit is: $latestCommit" && exit # nothing to do
 
 git fetch
 git checkout -B update-library-"$(date +%F)" origin/master
