@@ -83,7 +83,6 @@ public class PreviewImageActivity extends FileActivity implements
     private boolean hasSavedPosition;
     private boolean requestWaitingForBinder;
     private DownloadFinishReceiver downloadFinishReceiver;
-    private UploadFinishReceiver uploadFinishReceiver;
     private View fullScreenAnchorView;
     private boolean isDownloadWorkStarted = false;
 
@@ -184,7 +183,7 @@ public class PreviewImageActivity extends FileActivity implements
         viewPager = findViewById(R.id.fragmentPager);
 
         int position = hasSavedPosition ? savedPosition : previewImagePagerAdapter.getFilePosition(getFile());
-        position = position >= 0 ? position : 0;
+        position = Math.max(position, 0);
 
         viewPager.setAdapter(previewImagePagerAdapter);
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
@@ -333,7 +332,7 @@ public class PreviewImageActivity extends FileActivity implements
         IntentFilter downloadIntentFilter = new IntentFilter(FileDownloadWorker.Companion.getDownloadFinishMessage());
         localBroadcastManager.registerReceiver(downloadFinishReceiver, downloadIntentFilter);
 
-        uploadFinishReceiver = new UploadFinishReceiver();
+        UploadFinishReceiver uploadFinishReceiver = new UploadFinishReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter(FileUploadWorker.Companion.getUploadFinishMessage());
         localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter);
     }
@@ -426,7 +425,7 @@ public class PreviewImageActivity extends FileActivity implements
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloadWorker} service.
-     *
+     * <p>
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * folder displayed in the gallery.
      */
@@ -448,8 +447,9 @@ public class PreviewImageActivity extends FileActivity implements
         String accountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME);
         String downloadedRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_REMOTE_PATH);
         String downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
+
         if (getAccount().name.equals(accountName) && downloadedRemotePath != null) {
-            OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
+            OCFile file = getStorageManager().getFileByEncryptedRemotePath(downloadedRemotePath);
             boolean downloadWasFine = intent.getBooleanExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, false);
 
             if (EditImageActivity.OPEN_IMAGE_EDITOR.equals(downloadBehaviour)) {
@@ -459,16 +459,19 @@ public class PreviewImageActivity extends FileActivity implements
                 if (position >= 0) {
                     if (downloadWasFine) {
                         previewImagePagerAdapter.updateFile(position, file);
-
                     } else {
                         previewImagePagerAdapter.updateWithDownloadError(position);
                     }
-                    previewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation of new fragments
+                    previewImagePagerAdapter.notifyItemChanged(position);
                 } else if (downloadWasFine) {
-                    initViewPager(getUser().get());
-                    int newPosition = previewImagePagerAdapter.getFilePosition(file);
-                    if (newPosition >= 0) {
-                        viewPager.setCurrentItem(newPosition);
+                    Optional<User> user = getUser();
+
+                    if (user.isPresent()) {
+                        initViewPager(user.get());
+                        int newPosition = previewImagePagerAdapter.getFilePosition(file);
+                        if (newPosition >= 0) {
+                            viewPager.setCurrentItem(newPosition);
+                        }
                     }
                 }
             }
@@ -485,17 +488,9 @@ public class PreviewImageActivity extends FileActivity implements
 
         if (visible) {
             hideSystemUI(fullScreenAnchorView);
-            // actionBar.hide(); // propagated through
-            // OnSystemUiVisibilityChangeListener()
         } else {
             showSystemUI(fullScreenAnchorView);
-            // actionBar.show(); // propagated through
-            // OnSystemUiVisibilityChangeListener()
         }
-    }
-
-    public void switchToFullScreen() {
-        hideSystemUI(fullScreenAnchorView);
     }
 
     public void startImageEditor(OCFile file) {
