@@ -88,8 +88,9 @@ class TrashbinActivityIT : AbstractIT() {
         sut.runOnUiThread { sut.showInitialLoading() }
 
         shortSleep()
-
-        screenshot(sut.binding.listFragmentLayout)
+        InstrumentationRegistry.getInstrumentation().waitForIdle {
+            screenshot(sut.binding.listFragmentLayout)
+        }
     }
 
     @Test
