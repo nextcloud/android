@@ -34,6 +34,8 @@
     <string name="add_to_cloud">%1$s üzerine ekle</string>
     <string name="advanced_settings">Gelişmiş ayarlar</string>
     <string name="allow_resharing">Yeniden paylaşılabilsin</string>
+    <string name="app_config_base_url_title">Temel adres</string>
+    <string name="app_config_proxy_host_title">Vekil sunucu adı</string>
     <string name="app_config_proxy_port_title">Vekil sunucu bağlantı noktası</string>
     <string name="app_widget_description">Panodan bir pano bileşeni görüntüler</string>
     <string name="appbar_search_in">%s içinde arama</string>
@@ -662,6 +664,7 @@
     <string name="preview_image_description">Görsel ön izleme</string>
     <string name="preview_image_error_no_local_file">Ön izlenebilecek bir yerel dosya yok</string>
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
+    <string name="preview_media_unhandled_http_code_message">Dosya şu anda başka bir kullanıcı veya işlem tarafından kilitlenmiş olduğundan silinemez. Lütfen bir süre sonra yeniden deneyin.</string>
     <string name="preview_sorry">Ne yazık ki</string>
     <string name="privacy">Gizlilik</string>
     <string name="public_share_name">Yeni ad</string>
