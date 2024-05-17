@@ -34,10 +34,9 @@ class TrashbinActivityIT : AbstractIT() {
         val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
         sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
 
-        sut.runOnUiThread { sut.loadFolder() }
-        shortSleep()
-
         InstrumentationRegistry.getInstrumentation().waitForIdle {
+            sut.runOnUiThread { sut.loadFolder() }
+            shortSleep()
             screenshot(sut)
         }
     }
@@ -66,12 +65,11 @@ class TrashbinActivityIT : AbstractIT() {
         val sut: TrashbinActivity = activityRule.launchActivity(null)
 
         val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-
         sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
 
-        sut.runOnUiThread { sut.loadFolder() }
-        shortSleep()
         InstrumentationRegistry.getInstrumentation().waitForIdle {
+            sut.runOnUiThread { sut.loadFolder() }
+            shortSleep()
             screenshot(sut.binding.emptyList.emptyListView)
         }
     }
