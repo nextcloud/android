@@ -193,7 +193,7 @@ public class PreviewImageActivity extends FileActivity implements
                 selectPage(position);
             }
         });
-        viewPager.setCurrentItem(position);
+        viewPager.setCurrentItem(position, false);
 
         if (position == 0 && !getFile().isDown()) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
@@ -275,27 +275,16 @@ public class PreviewImageActivity extends FileActivity implements
         super.onRemoteOperationFinish(operation, result);
 
         if (operation instanceof RemoveFileOperation) {
-            if (viewPager.getAdapter() == null) {
-                finish();
-                return;
-            }
-
             int deletePosition = viewPager.getCurrentItem();
-            previewImagePagerAdapter.delete(deletePosition);
+            int nextPosition = deletePosition > 0 ? deletePosition - 1 : 0;
 
-            if (viewPager.getAdapter().getItemCount() <= 0) {
+            if (previewImagePagerAdapter.getItemCount() <= 1) {
                 finish();
                 return;
             }
 
-            int nextPosition = deletePosition + 1;
-            if (nextPosition < 0 || nextPosition >= viewPager.getAdapter().getItemCount()) {
-                finish();
-            }
-
-            viewPager.setCurrentItem(nextPosition);
-            String nextItemTitle = String.valueOf(previewImagePagerAdapter.getPageTitle(nextPosition));
-            updateActionBarTitle(nextItemTitle);
+            viewPager.setCurrentItem(nextPosition, true);
+            previewImagePagerAdapter.delete(deletePosition);
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result);
         }
