@@ -157,6 +157,7 @@
     <string name="disable_new_media_folder_detection_notifications">Deaktivēt</string>
     <string name="dismiss">Atmest</string>
     <string name="dismiss_notification_description">Noraidīt paziņojumu</string>
+    <string name="document_scan_export_dialog_images">Vairāki attēli</string>
     <string name="done">Pabeigts</string>
     <string name="downloader_download_failed_content">Nevarēja lejupielādēt %1$s</string>
     <string name="downloader_download_failed_credentials_error">Lejupielāde neizdevās, piesakieties vēlreiz.</string>
@@ -383,6 +384,8 @@
     <string name="send">Sūtīt</string>
     <string name="set_as">Saglabāt kā</string>
     <string name="set_picture_as">Izmantot attēlu kā</string>
+    <string name="set_status">Iestatīt stāvokli</string>
+    <string name="set_status_message">Iestatīt stāvokļa ziņojumu</string>
     <string name="share">Dalīties</string>
     <string name="share_dialog_title">Koplietošana</string>
     <string name="share_expiration_date_label">Beidzas %1$s</string>
@@ -437,6 +440,7 @@
     <string name="status_message">Statusa ziņojums</string>
     <string name="storage_description_default">Noklusējuma</string>
     <string name="storage_downloads">Lejupielādes</string>
+    <string name="storage_pictures">Attēli</string>
     <string name="sub_folder_rule_year">Gads</string>
     <string name="subject_shared_with_you">\"%1$s\" ir bijis kopīgots ar jums</string>
     <string name="subject_user_shared_with_you">%1$s koplietots \"%2$s\" ar tevi</string>
