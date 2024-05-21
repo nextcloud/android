@@ -118,7 +118,6 @@ class DashboardWidgetUpdater @Inject constructor(
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray)
         }
 
-
         return PendingIntent.getBroadcast(
             context,
             appWidgetId,
@@ -142,9 +141,12 @@ class DashboardWidgetUpdater @Inject constructor(
         )
     }
 
+    @Suppress("MagicNumber")
     private val pendingIntentFlags: Int = when {
         Build.VERSION.SDK_INT >= 34 -> {
-            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_ALLOW_UNSAFE_IMPLICIT_INTENT
+            PendingIntent.FLAG_UPDATE_CURRENT or
+                PendingIntent.FLAG_MUTABLE or
+                PendingIntent.FLAG_ALLOW_UNSAFE_IMPLICIT_INTENT
         }
 
         else -> {
