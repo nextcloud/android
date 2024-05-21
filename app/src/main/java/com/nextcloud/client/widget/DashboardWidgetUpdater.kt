@@ -84,7 +84,7 @@ class DashboardWidgetUpdater @Inject constructor(
             context,
             0,
             intent,
-            getPendingIntentFlags()
+            pendingIntentFlags
         )
 
         remoteViews.setPendingIntentTemplate(R.id.list, pendingIntent)
@@ -123,7 +123,7 @@ class DashboardWidgetUpdater @Inject constructor(
             context,
             appWidgetId,
             intent,
-            getPendingIntentFlags()
+            pendingIntentFlags
         )
     }
 
@@ -138,17 +138,17 @@ class DashboardWidgetUpdater @Inject constructor(
             context,
             appWidgetId,
             intent,
-            getPendingIntentFlags()
+            pendingIntentFlags
         )
     }
 
-    private fun getPendingIntentFlags(): Int {
-        return PendingIntent.FLAG_UPDATE_CURRENT or if (Build.VERSION.SDK_INT >= 34) {
-            PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_ALLOW_UNSAFE_IMPLICIT_INTENT
-        } else if (Build.VERSION.SDK_INT >= 31) {
-            PendingIntent.FLAG_MUTABLE
-        } else {
-            PendingIntent.FLAG_IMMUTABLE
+    private val pendingIntentFlags: Int = when {
+        Build.VERSION.SDK_INT >= 34 -> {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE or PendingIntent.FLAG_ALLOW_UNSAFE_IMPLICIT_INTENT
+        }
+
+        else -> {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
         }
     }
     // endregion
