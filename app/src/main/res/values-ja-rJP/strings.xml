@@ -40,6 +40,7 @@
     <string name="assistant_screen_all_task_type">すべて</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">テキストを入力</string>
     <string name="assistant_screen_failed_task_text">失敗</string>
+    <string name="assistant_screen_scheduled_task_status_text">スケジュール済</string>
     <string name="assistant_screen_successful_task_text">完了</string>
     <string name="assistant_screen_unknown_task_status_text">不明</string>
     <string name="assistant_task_detail_screen_input_button_title">入力</string>
