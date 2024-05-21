@@ -120,6 +120,9 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
+import androidx.lifecycle.LifecycleEventObserver;
+import androidx.lifecycle.ProcessLifecycleOwner;
 import de.cotech.hw.fido.WebViewFidoBridge;
 import de.cotech.hw.fido.ui.FidoDialogOptions;
 import de.cotech.hw.fido2.WebViewWebauthnBridge;
@@ -313,9 +316,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
 
         initServerPreFragment(savedInstanceState);
+        ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
 
         webViewUtil.checkWebViewVersion();
     }
+
+    private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
+        if (event == Lifecycle.Event.ON_START && token != null) {
+            Log_OC.d(TAG, "Start poolLogin");
+            poolLogin(clientFactory.createPlainClient());
+        }
+    });
 
     private void deleteCookies() {
         try {
@@ -733,6 +744,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
         }
+
+        Log_OC.d(TAG, "AuthenticatorActivity onDestroy called");
 
         super.onDestroy();
     }
