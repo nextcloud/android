@@ -210,6 +210,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         showAllGalleryItems();
     }
 
+    @Override
     public int getColumnsCount() {
         return columnSize;
     }
