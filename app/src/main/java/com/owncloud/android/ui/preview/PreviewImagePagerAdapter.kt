@@ -46,16 +46,15 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
      */
     @Suppress("LongParameterList")
     constructor(
-        fragmentActivity: FragmentActivity?,
+        fragmentActivity: FragmentActivity,
         selectedFile: OCFile?,
         parentFolder: OCFile?,
         user: User,
-        storageManager: FileDataStorageManager?,
+        storageManager: FileDataStorageManager,
         onlyOnDevice: Boolean,
         preferences: AppPreferences
-    ) : super(fragmentActivity!!) {
+    ) : super(fragmentActivity) {
         requireNotNull(parentFolder) { "NULL parent folder" }
-        requireNotNull(storageManager) { "NULL storage manager" }
 
         this.user = user
         this.selectedFile = selectedFile
@@ -80,14 +79,13 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
      * @param storageManager  Bridge to database.
      */
     constructor(
-        fragmentActivity: FragmentActivity?,
+        fragmentActivity: FragmentActivity,
         type: VirtualFolderType?,
         user: User,
-        storageManager: FileDataStorageManager?
-    ) : super(fragmentActivity!!) {
+        storageManager: FileDataStorageManager
+    ) : super(fragmentActivity) {
         requireNotNull(type) { "NULL parent folder" }
         require(type != VirtualFolderType.NONE) { "NONE virtual folder type" }
-        requireNotNull(storageManager) { "NULL storage manager" }
 
         this.user = user
         mStorageManager = storageManager
@@ -176,16 +174,6 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
 
     fun getFilePosition(file: OCFile): Int {
         return imageFiles.indexOf(file)
-    }
-
-    fun getPageTitle(position: Int): CharSequence {
-        val file = getFileAt(position)
-
-        return if (file != null) {
-            file.fileName
-        } else {
-            ""
-        }
     }
 
     fun updateFile(position: Int, file: OCFile) {

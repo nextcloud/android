@@ -166,7 +166,7 @@ public class PreviewImageActivity extends FileActivity implements
 
             if (parentFolder == null) {
                 // should not be necessary
-                parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+                parentFolder = getStorageManager().getFileByEncryptedRemotePath(OCFile.ROOT_PATH);
             }
 
             previewImagePagerAdapter = new PreviewImagePagerAdapter(
@@ -410,9 +410,8 @@ public class PreviewImageActivity extends FileActivity implements
 
         if (currentFile != null) {
             updateActionBarTitle(currentFile.getFileName());
+            setDrawerIndicatorEnabled(false);
         }
-
-        setDrawerIndicatorEnabled(false);
     }
 
     public void updateActionBarTitle(String title) {
