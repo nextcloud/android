@@ -166,7 +166,7 @@ public class PreviewImageActivity extends FileActivity implements
 
             if (parentFolder == null) {
                 // should not be necessary
-                parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+                parentFolder = getStorageManager().getFileByEncryptedRemotePath(OCFile.ROOT_PATH);
             }
 
             previewImagePagerAdapter = new PreviewImagePagerAdapter(
