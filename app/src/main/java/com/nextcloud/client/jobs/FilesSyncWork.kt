@@ -97,24 +97,10 @@ class FilesSyncWork(
             "File-sync worker (${syncedFolder.remotePath}) changed files from observer: " +
                 changedFiles.contentToString()
         )
-        collectChangedFiles(changedFiles)
-        Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished checking files.")
 
         // Create all the providers we'll need
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
-        val currentLocale = resources.configuration.locale
-        val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
-        dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
-
-        syncFolder(
-            context,
-            resources,
-            lightVersion,
-            filesystemDataProvider,
-            currentLocale,
-            dateFormat,
-            syncedFolder
-        )
+        FilesSyncHelper.addNewFilesToDB(syncedFolder, filesystemDataProvider)
 
         Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished")
         val result = Result.success()
