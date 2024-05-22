@@ -106,6 +106,23 @@ public class FilesystemDataProvider {
         return localPathsToUpload;
     }
 
+    /**
+     * Add path to DB if it not already exists
+     */
+    public void addNewFilesystemFileToDB(String localPath, SyncedFolder syncedFolder) {
+
+        if (getFilesystemDataSet(localPath, syncedFolder) == null) {
+            ContentValues cv = new ContentValues();
+            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_FOUND_RECENTLY, 0);
+            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH, localPath);
+            cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID, syncedFolder.getId());
+            contentResolver.insert(
+                ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
+                cv);
+        }
+
+    }
+
     public void storeOrUpdateFileValue(String localPath, long modifiedAt, boolean isFolder, SyncedFolder syncedFolder) {
 
         // takes multiple milliseconds to query data from database (around 75% of execution time) (6ms)

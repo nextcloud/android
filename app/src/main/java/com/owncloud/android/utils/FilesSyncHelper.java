@@ -10,6 +10,7 @@ package com.owncloud.android.utils;
 
 import android.accounts.Account;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -28,6 +29,7 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
+import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
@@ -53,6 +55,23 @@ public final class FilesSyncHelper {
 
     private FilesSyncHelper() {
         // utility class -> private constructor
+    }
+
+    public static void addNewFilesToDB(SyncedFolder syncedFolder, FilesystemDataProvider filesystemDataProvider) {
+
+        long current = System.nanoTime();
+        String[] paths = new File(syncedFolder.getLocalPath()).list();
+        if (paths == null) {
+            return;
+        }
+        Log_OC.d(TAG, "File-sync reading files took " + (System.nanoTime() - current) + "ns");
+        current = System.nanoTime();
+
+        for (String localPath : paths){
+            filesystemDataProvider.addNewFilesystemFileToDB(localPath, syncedFolder);
+        }
+        Log_OC.d(TAG, "File-sync adding files to DB took " + (System.nanoTime() - current) + "ns");
+
     }
 
     private static void insertCustomFolderIntoDB(Path path,
