@@ -889,7 +889,6 @@
     <string name="upload_action_cancelled_resume">Reanudar cargas canceladas</string>
     <string name="upload_action_failed_clear">Borrar cargas fallidas</string>
     <string name="upload_action_failed_retry">Reintentar cargas fallidas</string>
-    <string name="upload_action_file_not_exist_message">Algunos archivos no existen, estos archivos no se pueden resumir</string>
     <string name="upload_action_global_upload_pause">Pausar todas las cargas</string>
     <string name="upload_action_global_upload_resume">Reanudar todas las cargas</string>
     <string name="upload_cannot_create_file">No se puede crear el archivo local</string>

@@ -896,7 +896,6 @@
     <string name="upload_action_cancelled_resume">Resume cancelled uploads</string>
     <string name="upload_action_failed_clear">Clear failed uploads</string>
     <string name="upload_action_failed_retry">Retry failed uploads</string>
-    <string name="upload_action_file_not_exist_message">Some files not exists those files cannot be resumed</string>
     <string name="upload_action_global_upload_pause">Pause all uploads</string>
     <string name="upload_action_global_upload_resume">Resume all uploads</string>
     <string name="upload_cannot_create_file">Cannot create local file</string>
