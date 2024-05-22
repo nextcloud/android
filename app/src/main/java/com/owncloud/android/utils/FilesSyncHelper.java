@@ -36,6 +36,7 @@ import org.lukhnos.nnio.file.Path;
 import org.lukhnos.nnio.file.Paths;
 import org.lukhnos.nnio.file.SimpleFileVisitor;
 import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
+import org.lukhnos.nnio.file.Files;
 
 import java.io.File;
 import java.io.IOException;
@@ -63,7 +64,7 @@ public final class FilesSyncHelper {
         final long enabledTimestampMs = syncedFolder.getEnabledTimestampMs();
 
         try {
-            FileUtil.walkFileTree(path, new SimpleFileVisitor<>() {
+            Files.walkFileTree(path, new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                     File file = path.toFile();
@@ -91,7 +92,7 @@ public final class FilesSyncHelper {
                 @Override
                 public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) {
                     if (syncedFolder.isExcludeHidden() && dir.compareTo(Paths.get(syncedFolder.getLocalPath())) != 0 && dir.toFile().isHidden()) {
-                        return null;
+                        return FileVisitResult.SKIP_SUBTREE;
                     }
                     return FileVisitResult.CONTINUE;
                 }

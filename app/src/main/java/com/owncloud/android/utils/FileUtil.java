@@ -12,11 +12,6 @@ import android.text.TextUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 
-import org.lukhnos.nnio.file.FileVisitResult;
-import org.lukhnos.nnio.file.FileVisitor;
-import org.lukhnos.nnio.file.Path;
-import org.lukhnos.nnio.file.impl.FileBasedPathImpl;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -67,20 +62,5 @@ public final class FileUtil {
                      "Failed to read creation timestamp for file: " + file.getName());
             return null;
         }
-    }
-
-    public static Path walkFileTree(Path start, FileVisitor<? super Path> visitor) throws IOException {
-        if (org.lukhnos.nnio.file.Files.isDirectory(start)) {
-            org.lukhnos.nnio.file.FileVisitResult preVisitDirectoryResult = visitor.preVisitDirectory(start, null);
-            if (preVisitDirectoryResult == FileVisitResult.CONTINUE) {
-                for (File child : start.toFile().listFiles()) {
-                    walkFileTree(FileBasedPathImpl.get(child), visitor);
-                }
-            }
-            visitor.postVisitDirectory(start, null);
-        } else {
-            visitor.visitFile(start, new org.lukhnos.nnio.file.attribute.BasicFileAttributes(start.toFile()));
-        }
-        return start;
     }
 }
