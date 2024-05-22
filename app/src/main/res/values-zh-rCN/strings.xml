@@ -913,7 +913,6 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="upload_action_cancelled_resume">继续已取消的上传</string>
     <string name="upload_action_failed_clear">清除失败上传任务</string>
     <string name="upload_action_failed_retry">重试失败上传任务</string>
-    <string name="upload_action_file_not_exist_message">有些文件已经不存在,因此无法继续上传</string>
     <string name="upload_action_global_upload_pause">暂停所有上传</string>
     <string name="upload_action_global_upload_resume">继续所有上传</string>
     <string name="upload_cannot_create_file">无法新建本地文件</string>

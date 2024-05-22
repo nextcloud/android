@@ -34,6 +34,8 @@
     <string name="add_to_cloud">Ajouter à %1$s</string>
     <string name="advanced_settings">Paramètres avancés</string>
     <string name="allow_resharing">Autoriser le repartage</string>
+    <string name="app_config_base_url_title">URL de base</string>
+    <string name="app_config_proxy_host_title">Nom de l\'hôte du proxy</string>
     <string name="app_config_proxy_port_title">Port Proxy</string>
     <string name="app_widget_description">Affiche un widget du tableau de bord</string>
     <string name="appbar_search_in">Recherche dans %s</string>
@@ -89,6 +91,8 @@
     <string name="auth_unknown_host_title">Impossible de trouver l\'hôte</string>
     <string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
     <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
+    <string name="authenticator_activity_cancel_login">Annuler la connexion</string>
+    <string name="authenticator_activity_please_complete_login_process">Veuillez finaliser la connexion dans votre navigateur</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/TéléversementAuto</string>
@@ -173,6 +177,7 @@
     <string name="confirmation_remove_folder_alert">Voulez-vous vraiment supprimer %1$s et ses contenus ?</string>
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
+    <string name="conflict_dialog_error">Erreur lors de la création de la boîte de dialogue de conflit !</string>
     <string name="conflict_file_headline">Fichier %1$s en conflit</string>
     <string name="conflict_local_file">fichier local</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
@@ -657,6 +662,7 @@
     <string name="preview_image_description">Prévisualisation de l’image</string>
     <string name="preview_image_error_no_local_file">Il n\'y a aucun fichier local à prévisualiser</string>
     <string name="preview_image_error_unknown_format">L\'image ne peut pas être affichée</string>
+    <string name="preview_media_unhandled_http_code_message">Ce fichier est actuellement vérouillé par un autre utilisateur ou processus et ne peut donc pas être supprimé. Veuillez réessayer plus tard.</string>
     <string name="preview_sorry">Désolé</string>
     <string name="privacy">Vie privée</string>
     <string name="public_share_name">Nouveau nom</string>
@@ -888,7 +894,6 @@
     <string name="upload_action_cancelled_resume">Poursuivre les téléversements annulés</string>
     <string name="upload_action_failed_clear">Effacer les téléversements échoués</string>
     <string name="upload_action_failed_retry">Réessayer les téléversements qui ont échoué</string>
-    <string name="upload_action_file_not_exist_message">Certains fichiers n’existent pas et ne peuvent pas être relancés.</string>
     <string name="upload_action_global_upload_pause">Suspendre tous les téléversements</string>
     <string name="upload_action_global_upload_resume">Poursuivre tous les téléversements</string>
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>

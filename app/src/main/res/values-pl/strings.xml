@@ -894,7 +894,6 @@
     <string name="upload_action_cancelled_resume">Wznów anulowane przesyłanie</string>
     <string name="upload_action_failed_clear">Wyczyść nieudane wysyłanie</string>
     <string name="upload_action_failed_retry">Ponów nieudane wysyłanie</string>
-    <string name="upload_action_file_not_exist_message">Niektóre pliki nie istnieją. Nie można ich wznowić</string>
     <string name="upload_action_global_upload_pause">Wstrzymaj wszystkie przesyłania</string>
     <string name="upload_action_global_upload_resume">Wznów wszystkie przesyłania</string>
     <string name="upload_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
