@@ -713,7 +713,7 @@ public class UploadFileOperation extends SyncOperation {
                 }
             }
         } catch (FileNotFoundException e) {
-            Log_OC.d(TAG, mFile.getStoragePath() + " not exists anymore");
+            Log_OC.d(TAG, mFile.getStoragePath() + " does not exist anymore");
             result = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
         } catch (OverlappingFileLockException e) {
             Log_OC.d(TAG, "Overlapping file lock exception");
@@ -805,7 +805,7 @@ public class UploadFileOperation extends SyncOperation {
 
         // check if the file continues existing before schedule the operation
         if (!originalFile.exists()) {
-            Log_OC.d(TAG, mOriginalStoragePath + " not exists anymore");
+            Log_OC.d(TAG, mOriginalStoragePath + " does not exist anymore");
             remoteOperationResult = new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
         }
 

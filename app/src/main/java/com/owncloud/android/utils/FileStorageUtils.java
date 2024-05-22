@@ -192,7 +192,7 @@ public final class FileStorageUtils {
 
         String relativeSubfolderPath = "";
         if (parentFile == null) {
-            Log_OC.e("AutoUpload", "Parent folder does not exists!");
+            Log_OC.e("AutoUpload", "Parent folder does not exist!");
         } else {
             relativeSubfolderPath = parentFile.getAbsolutePath();
         }
