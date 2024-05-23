@@ -61,7 +61,7 @@ class DashboardWidgetConfigurationActivity :
     @Inject
     lateinit var widgetUpdater: DashboardWidgetUpdater
 
-    var appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
+    private var appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID
 
     public override fun onCreate(bundle: Bundle?) {
         super.onCreate(bundle)
@@ -117,7 +117,7 @@ class DashboardWidgetConfigurationActivity :
 
         // Find the widget id from the intent.
         appWidgetId = intent?.extras?.getInt(
-            AppWidgetManager.EXTRA_APPWIDGET_ID,
+            EXTRA_APPWIDGET_ID,
             AppWidgetManager.INVALID_APPWIDGET_ID
         ) ?: AppWidgetManager.INVALID_APPWIDGET_ID
 
@@ -153,11 +153,9 @@ class DashboardWidgetConfigurationActivity :
                                 visibility = View.VISIBLE
                             }
                             binding.emptyView.emptyListViewText.apply {
-                                setText(
-                                    String.format(
-                                        getString(R.string.widgets_not_available),
-                                        getString(R.string.app_name)
-                                    )
+                                text = String.format(
+                                    getString(R.string.widgets_not_available),
+                                    getString(R.string.app_name)
                                 )
                                 visibility = View.VISIBLE
                             }

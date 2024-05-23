@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import android.view.View
 import android.widget.RemoteViews
 import com.bumptech.glide.Glide
@@ -63,64 +64,96 @@ class DashboardWidgetUpdater @Inject constructor(
             loadIcon(appWidgetId, iconUrl, this)
         }
 
-        appWidgetManager.updateAppWidget(appWidgetId, views)
-        appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetId, R.id.list)
+        appWidgetManager.run {
+            updateAppWidget(appWidgetId, views)
+            notifyAppWidgetViewDataChanged(appWidgetId, R.id.list)
+        }
     }
 
     private fun setPendingReload(remoteViews: RemoteViews, appWidgetId: Int) {
-        val intentUpdate = Intent(context, DashboardWidgetProvider::class.java)
-        intentUpdate.action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
-
-        val idArray = intArrayOf(appWidgetId)
-        intentUpdate.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray)
-
-        remoteViews.setOnClickPendingIntent(
-            R.id.reload,
-            PendingIntent.getBroadcast(
-                context,
-                appWidgetId,
-                intentUpdate,
-                PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
-            )
-        )
+        val pendingIntent = getReloadPendingIntent(appWidgetId)
+        remoteViews.setOnClickPendingIntent(R.id.reload, pendingIntent)
     }
 
     private fun setPendingClick(remoteViews: RemoteViews) {
-        val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        val intent = Intent().apply {
+            setPackage(context.packageName)
+        }
 
-        val clickIntent = PendingIntent.getActivity(
+        val pendingIntent = PendingIntent.getActivity(
             context,
             0,
-            Intent(),
-            flags
+            intent,
+            pendingIntentFlags
         )
 
-        remoteViews.setPendingIntentTemplate(R.id.list, clickIntent)
+        remoteViews.setPendingIntentTemplate(R.id.list, pendingIntent)
     }
 
     private fun setAddButton(addButton: DashboardButton?, appWidgetId: Int, remoteViews: RemoteViews) {
-        // create add button
-        if (addButton == null) {
-            remoteViews.setViewVisibility(R.id.create, View.GONE)
-        } else {
-            remoteViews.setViewVisibility(R.id.create, View.VISIBLE)
-            remoteViews.setContentDescription(R.id.create, addButton.text)
+        remoteViews.run {
+            if (addButton == null) {
+                setViewVisibility(R.id.create, View.GONE)
+            } else {
+                setViewVisibility(R.id.create, View.VISIBLE)
+                setContentDescription(R.id.create, addButton.text)
 
-            val clickIntent = Intent(context, DashboardWidgetProvider::class.java)
-            clickIntent.action = DashboardWidgetProvider.OPEN_INTENT
-            clickIntent.data = Uri.parse(addButton.link)
+                val pendingIntent = getAddPendingIntent(appWidgetId, addButton)
 
-            remoteViews.setOnClickPendingIntent(
-                R.id.create,
-                PendingIntent.getBroadcast(
-                    context,
-                    appWidgetId,
-                    clickIntent,
-                    PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT
+                setOnClickPendingIntent(
+                    R.id.create,
+                    pendingIntent
                 )
-            )
+            }
         }
     }
+
+    // region PendingIntents
+    private fun getReloadPendingIntent(appWidgetId: Int): PendingIntent {
+        val intent = Intent(context, DashboardWidgetProvider::class.java).apply {
+            setPackage(context.packageName)
+            action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+
+            val idArray = intArrayOf(appWidgetId)
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, idArray)
+        }
+
+        return PendingIntent.getBroadcast(
+            context,
+            appWidgetId,
+            intent,
+            pendingIntentFlags
+        )
+    }
+
+    private fun getAddPendingIntent(appWidgetId: Int, addButton: DashboardButton): PendingIntent {
+        val intent = Intent(context, DashboardWidgetProvider::class.java).apply {
+            setPackage(context.packageName)
+            action = DashboardWidgetProvider.OPEN_INTENT
+            data = Uri.parse(addButton.link)
+        }
+
+        return PendingIntent.getBroadcast(
+            context,
+            appWidgetId,
+            intent,
+            pendingIntentFlags
+        )
+    }
+
+    @Suppress("MagicNumber")
+    private val pendingIntentFlags: Int = when {
+        Build.VERSION.SDK_INT >= 34 -> {
+            PendingIntent.FLAG_UPDATE_CURRENT or
+                PendingIntent.FLAG_MUTABLE or
+                PendingIntent.FLAG_ALLOW_UNSAFE_IMPLICIT_INTENT
+        }
+
+        else -> {
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE
+        }
+    }
+    // endregion
 
     private fun loadIcon(appWidgetId: Int, iconUrl: String, remoteViews: RemoteViews) {
         val iconTarget = object : AppWidgetTarget(context, remoteViews, R.id.icon, appWidgetId) {
