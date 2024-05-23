@@ -1,16 +1,17 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2024 Jonas Mayer
+  ~ SPDX-FileCopyrightText: 2024 Nextcloud GmbH
   ~ SPDX-FileCopyrightText: 2018-2024 Google LLC
   ~ SPDX-License-Identifier: Apache-2.0
 -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:tint="#FF000000"
     android:viewportWidth="960"
     android:viewportHeight="960">
     <path
-        android:fillColor="@android:color/white"
+        android:fillColor="@color/foreground_highlight"
         android:pathData="M480,616L240,376L296,320L480,504L664,320L720,376L480,616Z" />
 </vector>
