@@ -45,9 +45,12 @@ class DashboardWidgetProvider : AppWidgetProvider() {
         AndroidInjection.inject(this, context)
 
         if (intent?.action == OPEN_INTENT) {
-            val clickIntent = Intent(Intent.ACTION_VIEW, intent.data)
-            clickIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            context?.startActivity(clickIntent)
+            context?.let {
+                val clickIntent = Intent(Intent.ACTION_VIEW, intent.data).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+                context.startActivity(clickIntent)
+            }
         }
     }
 

@@ -873,7 +873,7 @@
     <string name="uploader_btn_alternative_text">Escoller</string>
     <string name="uploader_btn_upload_text">Enviar</string>
     <string name="uploader_error_message_no_file_to_upload">Os datos recibidos non inclúen un ficheiro correcto.</string>
-    <string name="uploader_error_message_read_permission_not_granted">%1$s non ten permisos para ler o ficheiro recibido</string>
+    <string name="uploader_error_message_read_permission_not_granted">%1$s non ten permiso para ler o ficheiro recibido</string>
     <string name="uploader_error_message_source_file_not_copied">Non foi posíbel copiar o ficheiro nun cartafol temporal. Tente volver envialo.</string>
     <string name="uploader_error_message_source_file_not_found">Non foi atopado o ficheiro seleccionado para enviar. Comprobe se existe o ficheiro.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Non é posíbel enviar este ficheiro</string>

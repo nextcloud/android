@@ -891,7 +891,6 @@
     <string name="upload_action_cancelled_resume">Продолжить отмененные загрузки</string>
     <string name="upload_action_failed_clear">Убрать неудавшиеся загрузки</string>
     <string name="upload_action_failed_retry">Повторить неудавшиеся загрузки</string>
-    <string name="upload_action_file_not_exist_message">Некоторые файлы не существуют, эти файлы нельзя возобновить</string>
     <string name="upload_action_global_upload_pause">Приостановить все загрузки</string>
     <string name="upload_action_global_upload_resume">Возобновить все загрузки</string>
     <string name="upload_cannot_create_file">Невозможно создать локальный файл</string>

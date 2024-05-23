@@ -896,7 +896,6 @@
     <string name="upload_action_cancelled_resume">繼續已取消的上傳</string>
     <string name="upload_action_failed_clear">清除失敗的上傳</string>
     <string name="upload_action_failed_retry">重試失敗的上傳</string>
-    <string name="upload_action_file_not_exist_message">部份檔案不存在，這些檔案無法繼續</string>
     <string name="upload_action_global_upload_pause">暫停所有上傳</string>
     <string name="upload_action_global_upload_resume">繼續所有上傳</string>
     <string name="upload_cannot_create_file">無法建立近端檔案</string>

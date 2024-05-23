@@ -889,7 +889,6 @@
     <string name="upload_action_cancelled_resume">Gjenoppta avbrutte opplastinger</string>
     <string name="upload_action_failed_clear">Fjern feilede opplastinger</string>
     <string name="upload_action_failed_retry">Prøv å laste opp igjen.</string>
-    <string name="upload_action_file_not_exist_message">Noen filer som ikke finnes kan ikke gjenopptas</string>
     <string name="upload_action_global_upload_pause">Sett alle opplastinger på pause</string>
     <string name="upload_action_global_upload_resume">Gjenoppta alle opplastinger</string>
     <string name="upload_cannot_create_file">Kan ikke opprette lokal fil</string>
