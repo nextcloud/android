@@ -922,6 +922,7 @@
     <string name="upload_action_cancelled_resume">إستئناف المرفوعات الملغاة</string>
     <string name="upload_action_failed_clear">مسح الملفات التي فشل رفعها</string>
     <string name="upload_action_failed_retry">أعِد محاولات الرفع الفاشلة</string>
+    <string name="upload_action_file_not_exist_message">بعض الملفات لم تعُد موجودة. عمليات الرفع هذه لا يمكن استئنافها.</string>
     <string name="upload_action_global_upload_pause">جمِّد كل عمليات الرفع</string>
     <string name="upload_action_global_upload_resume">إستَأنِف عمليات الرفع</string>
     <string name="upload_cannot_create_file">لا يمكن إنشاء ملف محلي</string>
