@@ -1,8 +1,6 @@
 <!--
   ~ Nextcloud - Android Client
   ~
-  ~ SPDX-FileCopyrightText: 2024 Jonas Mayer
-  ~ SPDX-FileCopyrightText: 2024 Nextcloud GmbH
   ~ SPDX-FileCopyrightText: 2018-2024 Google LLC
   ~ SPDX-License-Identifier: Apache-2.0
 -->
@@ -12,6 +10,6 @@
     android:viewportWidth="960"
     android:viewportHeight="960">
   <path
-      android:fillColor="@color/foreground_highlight"
+      android:fillColor="#FF000000"
       android:pathData="M100,720v-480l360,240 -360,240ZM500,720v-480l360,240 -360,240Z"/>
 </vector>
