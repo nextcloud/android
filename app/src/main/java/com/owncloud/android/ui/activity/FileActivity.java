@@ -531,8 +531,8 @@ public abstract class FileActivity extends DrawerActivity
                 LoadingDialog loading = LoadingDialog.newInstance(message);
                 FragmentManager fm = getSupportFragmentManager();
                 FragmentTransaction ft = fm.beginTransaction();
-                loading.show(ft, DIALOG_WAIT_TAG);
-                fm.executePendingTransactions();
+            ft.add(loading, DIALOG_WAIT_TAG);
+            ft.commitAllowingStateLoss();
             }
         }
     }
