@@ -353,6 +353,7 @@ class FileDownloadWorker(
 
     private fun checkDownloadError(result: RemoteOperationResult<*>) {
         if (result.isSuccess || downloadError != null) {
+            notificationManager.dismissNotification()
             return
         }
 
