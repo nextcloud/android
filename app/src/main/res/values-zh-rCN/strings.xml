@@ -265,7 +265,7 @@
     <string name="drawer_item_personal_files">个人文件</string>
     <string name="drawer_item_recently_modified">最近修改</string>
     <string name="drawer_item_shared">已共享</string>
-    <string name="drawer_item_trashbin">已删除的文件</string>
+    <string name="drawer_item_trashbin">回收站</string>
     <string name="drawer_item_uploads_list">上传</string>
     <string name="drawer_logout">登出</string>
     <string name="drawer_open">打开侧边栏</string>
@@ -888,7 +888,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="thumbnail_for_new_file_desc">新文件的缩略图</string>
     <string name="timeout_richDocuments">加载比预期时间要长</string>
     <string name="today">今天</string>
-    <string name="trashbin_activity_title">已删除的文件</string>
+    <string name="trashbin_activity_title">回收站</string>
     <string name="trashbin_empty_headline">没有被删除的文件</string>
     <string name="trashbin_empty_message">您可以在此处恢复已删除的文件。</string>
     <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
