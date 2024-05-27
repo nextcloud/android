@@ -335,7 +335,7 @@
     <string name="auth_access_failed">Access failed: %1$s</string>
 
     <string name="favorite">Add to favorites</string>
-    <string name="unset_favorite">Remove from favourites</string>
+    <string name="unset_favorite">Remove from favorites</string>
     <string name="encrypted">Set as encrypted</string>
     <string name="unset_encrypted">Unset encryption</string>
     <string name="common_rename">Rename</string>
