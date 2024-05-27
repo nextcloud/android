@@ -237,8 +237,8 @@
     <string name="document_scan_export_dialog_pdf">Archivo PDF</string>
     <string name="document_scan_export_dialog_title">Seleccione el tipo de exportación</string>
     <string name="document_scan_pdf_generation_failed">La generación del PDF falló</string>
-    <string name="document_scan_pdf_generation_in_progress">Generando PDF...</string>
-    <string name="done">Hecho</string>
+    <string name="document_scan_pdf_generation_in_progress">Generando PDF…</string>
+    <string name="done">Listo</string>
     <string name="dontClear">No eliminar</string>
     <string name="download_cannot_create_file">No se puede crear el archivo local</string>
     <string name="download_download_invalid_local_file_name">Nombre de archivo inválido para archivo local</string>
@@ -278,7 +278,7 @@
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
     <string name="drawer_quota_unlimited">usado %1$s</string>
     <string name="drawer_synced_folders">Carga automática</string>
-    <string name="e2e_not_yet_setup">E2E todavía no está configurado</string>
+    <string name="e2e_not_yet_setup">El cifrado de extremo a extremo (E2E) todavía no está configurado</string>
     <string name="e2e_offline">No es posible sin conexión a internet</string>
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Más</string>
@@ -287,7 +287,7 @@
     <string name="ecosystem_apps_more">Más apps de Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Notas</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
-    <string name="email_pick_failed">Error al seleccionar dirección de correo.</string>
+    <string name="email_pick_failed">Fallo al seleccionar dirección de correo.</string>
     <string name="encrypted">Establecer como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar cifrado</string>
     <string name="end_to_end_encryption_decrypting">Descifrando…</string>
@@ -296,7 +296,7 @@
     <string name="end_to_end_encryption_folder_not_empty">Esta carpeta no está vacía.</string>
     <string name="end_to_end_encryption_generating_keys">Generando claves nuevas…</string>
     <string name="end_to_end_encryption_keywords_description">Las 12 palabras juntas forman una contraseña muy fuerte, permitiéndote solo a ti ver y usar tus archivos cifrados. Por favor, escríbelas y guárdalas en un lugar seguro.</string>
-    <string name="end_to_end_encryption_not_enabled">Cifrado de extremo a extremo desactivado en el servidor.</string>
+    <string name="end_to_end_encryption_not_enabled">El Cifrado de extremo a extremo está desactivado en el servidor.</string>
     <string name="end_to_end_encryption_passphrase_title">Toma nota de tu contraseña de cifrado de 12 palabras</string>
     <string name="end_to_end_encryption_password">Contraseña…</string>
     <string name="end_to_end_encryption_retrieving_keys">Recuperando claves…</string>
@@ -352,7 +352,7 @@
     <string name="failed_update_ui">Fallo al actualizar la UI</string>
     <string name="favorite">Añadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
-    <string name="file_already_exists">El nombre de fichero ya existe</string>
+    <string name="file_already_exists">El nombre de archivo ya existe</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Error al recuperar las actividades del archivo</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
@@ -379,8 +379,8 @@
     <string name="file_list_seconds_ago">hace segundos</string>
     <string name="file_management_permission">Permisos necesarios</string>
     <string name="file_management_permission_optional">Permisos de almacenamiento</string>
-    <string name="file_management_permission_optional_text">%1$s funciona mejor con permisos para acceder al almacenamiento. Puedes escoger el acceso completo a los archivos, o acceso solo de lectura a fotos y vídeos.</string>
-    <string name="file_management_permission_text">%1$s necesita permisos de gestión de archivos para subir archivos. Puedes escoger acceso completo a todos los archivos, o acceso de solo lectura a fotos y vídeos.</string>
+    <string name="file_management_permission_optional_text">%1$s funciona mejor con permisos para acceder al almacenamiento. Puede escoger entre el acceso completo a los archivos, o acceso solo de lectura a fotos y vídeos.</string>
+    <string name="file_management_permission_text">%1$s necesita permisos de gestión de archivos para subir archivos. Puede escoger entre acceso completo a todos los archivos, o acceso de solo lectura a fotos y vídeos.</string>
     <string name="file_migration_checking_destination">Comprobando destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
     <string name="file_migration_dialog_title">Actualizando carpeta de almacenamiento de datos</string>
@@ -425,9 +425,9 @@
     <string name="folder_already_exists">La carpeta ya existe</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
-    <string name="folder_picker_choose_button_text">Selecciona</string>
+    <string name="folder_picker_choose_button_text">Seleccione</string>
     <string name="folder_picker_choose_caption_text">Elegir carpeta de destino</string>
-    <string name="folder_picker_copy_button_text">Copia</string>
+    <string name="folder_picker_copy_button_text">Copiar</string>
     <string name="folder_picker_move_button_text">Mover</string>
     <string name="forbidden_permissions">No tiene permiso %s</string>
     <string name="forbidden_permissions_copy">copiar este archivo</string>
@@ -490,7 +490,7 @@
     <string name="lock_expiration_info">Expira: %1$s</string>
     <string name="lock_file">Bloquear archivo</string>
     <string name="locked_by">Bloqueado por %1$s</string>
-    <string name="locked_by_app">Bloqueado por la aplicación %1$s</string>
+    <string name="locked_by_app">Bloqueado por la app %1$s</string>
     <string name="log_send_mail_subject">Se han encontrado %1$s aplicaciones de registros para Android</string>
     <string name="log_send_no_mail_app">No se ha encontrado una app para enviar los registros. Por favor, instale un cliente de correo electrónico.</string>
     <string name="logged_in_as">Se ha autenticado como %1$s</string>
@@ -583,7 +583,7 @@
     <string name="pass_code_removed">Código de acceso borrado</string>
     <string name="pass_code_stored">Código de acceso almacenado</string>
     <string name="pass_code_wrong">Código de acceso incorrecto</string>
-    <string name="pdf_password_protected">No es posible abrir archivos PDF protegidos por contraseñas. Por favor, usa un visor PDF externo.</string>
+    <string name="pdf_password_protected">No es posible abrir archivos PDF protegidos por contraseñas. Por favor, use un visor PDF externo.</string>
     <string name="pdf_zoom_tip">Toca sobre una página para hacer zoom</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
@@ -720,7 +720,7 @@
     <string name="secure_share_not_set_up">Compartir en modo seguro no está configurado para este usuario</string>
     <string name="secure_share_search">Compartir en modo seguro …</string>
     <string name="select_all">Seleccionar todo</string>
-    <string name="select_media_folder">Establece la carpeta multimedia</string>
+    <string name="select_media_folder">Establezca la carpeta de medios</string>
     <string name="select_one_template">Por favor, selecciona una plantilla</string>
     <string name="select_template">Escoge plantilla</string>
     <string name="send">Mandar</string>
@@ -731,7 +731,7 @@
     <string name="set_picture_as">Usar imagen como</string>
     <string name="set_status">Configurar estado</string>
     <string name="set_status_message">Ajustar el mensaje de estado</string>
-    <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. Por favor anótelo en un lugar seguro!</string>
+    <string name="setup_e2e">Durante la configuración del cifrado de extremo a extremo, recibirá un mnemónico aleatorio de 12 palabras, que necesitará para abrir sus archivos en otros dispositivos. Esto solo se almacenará en este dispositivo y se puede volver a mostrar en esta pantalla. ¡Por favor anótelo en un lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_copy_link">Compartir y copiar enlace</string>
     <string name="share_dialog_title">Compartir</string>
@@ -757,7 +757,7 @@
     <string name="share_password_title">Protegido con contraseña</string>
     <string name="share_permission_can_edit">Puede editar</string>
     <string name="share_permission_file_drop">Entrega de archivos</string>
-    <string name="share_permission_secure_file_drop">entrega de archivos segura</string>
+    <string name="share_permission_secure_file_drop">Entrega de archivos segura</string>
     <string name="share_permission_view_only">Solo lectura</string>
     <string name="share_permissions">Permisos al compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
@@ -818,7 +818,7 @@
     <string name="storage_movies">Películas</string>
     <string name="storage_music">Música</string>
     <string name="storage_permission_full_access">Acceso completo</string>
-    <string name="storage_permission_media_read_only">Solo lectura de medios</string>
+    <string name="storage_permission_media_read_only">Medios en sólo lectura</string>
     <string name="storage_pictures">Imágenes</string>
     <string name="store_full_desc">La plataforma de productividad auto hospedada que le mantiene en control.\n\nCaracterísticas;\n* Interfaz moderna y fácil de usar adecuada al tema de su servidor\n* Cargue archivos a su servidor Nextcloud\n* Compártalos con otros\n* Mantenga sus archivos y carpetas favoritas sincronizados\n* Busque en todas las carpetas de su servidor\n* Carga automática para fotos y videos capturados en su dispositivo\n* Manténgase al día con notificaciones\n* Soporte para múltiples cuentas\n* Acceda a su información de forma segura usando su huella dactilar o PIN\n* Integración con DAVx5 (anteriormente conocido como DAVdroid) para configurar fácilmente la sincronización del calendario y contactos\n\nPor favor, reporte cualquier problema en https://github.com/nextcloud/android/issues y discuta acerca de esta aplicación en https://help.nextcloud.com/c/clients/android\n\n¿Es Ud. nuevo en Nextcloud? Nextcloud es un servidor privado para sincronizar y compartir archivos, y comunicación. Es un programa de uso libre, y lo puede hospedar Ud. mismo o pagar a una compañía para hacerlo por Ud. De esa manera, Ud. está en control de sus fotos, su calendario e información de sus contactos, sus documentos y todo lo demás.\n\nConozca Nextcloud en https://nextcloud.com</string>
     <string name="store_full_dev_desc">La plataforma de productividad autoalojada que te mantiene al mando.\nEsta es la versión oficial de desarrollo, que incluye una muestra diaria de cualquier funcionalidad sin probar, lo que puede causar inestabilidad y pérdida de datos. Esta app es para usuarios que desean probar, e informar de los fallos que ocurran. ¡No la uses para tu trabajo productivo!\n\nTanto la versión normal como la oficial de desarrollo están disponibles en F-Droid y pueden estar instaladas al mismo tiempo.</string>
@@ -895,7 +895,8 @@
     <string name="upload_action_cancelled_clear">Limpiar cargas canceladas</string>
     <string name="upload_action_cancelled_resume">Reanudar cargas canceladas</string>
     <string name="upload_action_failed_clear">Borrar subidas fallidas</string>
-    <string name="upload_action_failed_retry">Reintentar cargas fallidas</string>
+    <string name="upload_action_failed_retry">Reintentar subidas fallidas</string>
+    <string name="upload_action_file_not_exist_message">Algunos archivos no existen. Estas subidas no pueden ser resumidas.</string>
     <string name="upload_action_global_upload_pause">Pausar todas las cargas</string>
     <string name="upload_action_global_upload_resume">Reanudar todas las cargas</string>
     <string name="upload_cannot_create_file">No se puede crear el archivo local</string>
@@ -998,7 +999,7 @@
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
     <string name="webview_version_check_alert_dialog_message">Por favor actualiza la aplicación WebView de Sistema Android para iniciar sesión</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
-    <string name="webview_version_check_alert_dialog_title">Actualiza WebView de Sistema Android</string>
+    <string name="webview_version_check_alert_dialog_title">Actualiza WebView del Sistema Android</string>
     <string name="what_s_new_image">Imagen de Qué hay de nuevo</string>
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
@@ -1055,9 +1056,9 @@
         <item quantity="other">%d archivos exportados, el resto han sido omitidos por un error</item>
     </plurals>
     <plurals name="export_start">
-        <item quantity="one">Se va a exportar %d archivo. En la notificación puedes ver más detalles.</item>
-        <item quantity="many">Se van a exportar %d archivos. En la notificación puedes ver más detalles.</item>
-        <item quantity="other">Se van a exportar %d archivos. En la notificación puedes ver más detalles.</item>
+        <item quantity="one">Se va a exportar %d archivo. En la notificación podrá ver más detalles.</item>
+        <item quantity="many">Se van a exportar %d archivos. En la notificación podrá ver más detalles.</item>
+        <item quantity="other">Se van a exportar %d archivos. En la notificación podrá ver más detalles.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d carpeta</item>
