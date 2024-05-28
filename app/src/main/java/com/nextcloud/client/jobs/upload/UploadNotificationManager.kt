@@ -31,12 +31,16 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         currentUploadIndex: Int,
         totalUploadSize: Int
     ) {
-        currentOperationTitle = String.format(
-            context.getString(R.string.upload_notification_manager_start_text),
-            currentUploadIndex,
-            totalUploadSize,
+        currentOperationTitle = if (totalUploadSize > 1) {
+            String.format(
+                context.getString(R.string.upload_notification_manager_start_text),
+                currentUploadIndex,
+                totalUploadSize,
+                uploadFileOperation.fileName
+            )
+        } else {
             uploadFileOperation.fileName
-        )
+        }
 
         val progressText = String.format(
             context.getString(R.string.upload_notification_manager_upload_in_progress_text),

@@ -19,19 +19,23 @@ import java.security.SecureRandom
 
 @Suppress("TooManyFunctions")
 class DownloadNotificationManager(
-    private val id: Int,
+    id: Int,
     private val context: Context,
     viewThemeUtils: ViewThemeUtils
 ) : WorkerNotificationManager(id, context, viewThemeUtils, R.string.downloader_download_in_progress_ticker) {
 
     @Suppress("MagicNumber")
     fun prepareForStart(operation: DownloadFileOperation, currentDownloadIndex: Int, totalDownloadSize: Int) {
-        currentOperationTitle = String.format(
-            context.getString(R.string.downloader_notification_manager_download_text),
-            currentDownloadIndex,
-            totalDownloadSize,
+        currentOperationTitle = if (totalDownloadSize > 1) {
+            String.format(
+                context.getString(R.string.downloader_notification_manager_download_text),
+                currentDownloadIndex,
+                totalDownloadSize,
+                File(operation.savePath).name
+            )
+        } else {
             File(operation.savePath).name
-        )
+        }
 
         notificationBuilder.run {
             setContentTitle(currentOperationTitle)
