@@ -343,7 +343,7 @@
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
 
     <string name="favorite">Add to favorites</string>
-    <string name="unset_favorite">Remove from favourites</string>
+    <string name="unset_favorite">Remove from favorites</string>
     <string name="encrypted">Set as encrypted</string>
     <string name="unset_encrypted">Unset encryption</string>
     <string name="common_rename">Rename</string>
@@ -805,7 +805,7 @@
     <string name="upload_direct_camera_upload">Upload from camera</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
-    <string name="create_new_folder">Create new folder</string>
+    <string name="create_new_folder">New folder</string>
     <string name="uploads_view_upload_status_virus_detected">Virus detected. Upload cannot be completed!</string>
     <string name="tags">Tags</string>
     <string name="sharee_add_failed">Adding sharee failed</string>
@@ -871,9 +871,9 @@
     <string name="unread_comments">Unread comments exist</string>
     <string name="grid_file_features_live_photo_content_description">This icon indicates availability of live photo</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
-    <string name="create_new_document">Create new document</string>
-    <string name="create_new_spreadsheet">Create new spreadsheet</string>
-    <string name="create_new_presentation">Create new presentation</string>
+    <string name="create_new_document">New document</string>
+    <string name="create_new_spreadsheet">New spreadsheet</string>
+    <string name="create_new_presentation">New presentation</string>
     <string name="select_template">Select template</string>
     <string name="filename_hint">Filename</string>
     <string name="thumbnail">Thumbnail</string>
@@ -984,8 +984,8 @@
     <string name="share_internal_link">Share internal link</string>
     <string name="action_edit">Edit</string>
     <string name="failed_to_start_editor">Failed to start editor</string>
-    <string name="create_rich_workspace">Add folder info</string>
-    <string name="creates_rich_workspace">creates folder info</string>
+    <string name="create_rich_workspace">Add folder description</string>
+    <string name="creates_rich_workspace">Adds folder description</string>
     <string name="uploader_local_files_uploaded">Retry to upload failed local files</string>
     <string name="uploader_file_not_found_on_server_message">We couldnt locate the file on server. Another user may have deleted the file</string>
     <string name="uploader_file_not_found_message">File not found. Are you sure that this file exists or has a previous conflict not been resolved?</string>
@@ -993,7 +993,7 @@
     <string name="uploader_upload_failed_sync_conflict_error_content">Pick which version to keep of %1$s</string>
     <string name="upload_list_resolve_conflict">Resolve conflict</string>
     <string name="upload_list_delete">Delete</string>
-    <string name="create_new">Create new</string>
+    <string name="create_new">New</string>
     <string name="editor_placeholder" translatable="false">%1$s %2$s</string>
 
     <string name="sync_not_enough_space_dialog_action_choose">Choose what to sync</string>
