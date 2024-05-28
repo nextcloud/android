@@ -8,18 +8,15 @@
 package com.nextcloud.client.jobs.download
 
 import android.app.Notification
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import androidx.core.app.NotificationCompat
+import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.owncloud.android.R
 import com.owncloud.android.operations.DownloadFileOperation
-import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
@@ -29,19 +26,8 @@ class DownloadNotificationManager(
     private val id: Int,
     private val context: Context,
     viewThemeUtils: ViewThemeUtils
-) {
-    private var currentOperationTitle: String? = null
-    private var notificationBuilder: NotificationCompat.Builder =
-        NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
-            setTicker(context.getString(R.string.downloader_download_in_progress_ticker))
-            setSmallIcon(R.drawable.notification_icon)
-            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
-            }
-        }
-    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+): WorkerNotificationManager(context, viewThemeUtils) {
+    private var notificationBuilder: NotificationCompat.Builder = getNotificationBuilder(R.string.downloader_download_in_progress_ticker)
 
     @Suppress("MagicNumber")
     fun prepareForStart(operation: DownloadFileOperation, currentDownloadIndex: Int, totalDownloadSize: Int) {

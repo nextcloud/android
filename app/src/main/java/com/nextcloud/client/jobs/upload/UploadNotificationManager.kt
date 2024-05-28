@@ -7,36 +7,22 @@
  */
 package com.nextcloud.client.jobs.upload
 
-import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
-import android.graphics.BitmapFactory
-import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) {
+class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils): WorkerNotificationManager(context, viewThemeUtils) {
     companion object {
         private const val ID = 411
     }
 
-    private var notificationBuilder: NotificationCompat.Builder =
-        NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
-            setTicker(context.getString(R.string.foreground_service_upload))
-            setSmallIcon(R.drawable.notification_icon)
-            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_UPLOAD)
-            }
-        }
-
-    private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    private var currentOperationTitle: String? = null
+    private var notificationBuilder: NotificationCompat.Builder = getNotificationBuilder(R.string.foreground_service_upload)
 
     @Suppress("MagicNumber")
     fun prepareForStart(

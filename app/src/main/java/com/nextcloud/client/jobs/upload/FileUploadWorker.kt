@@ -134,7 +134,7 @@ class FileUploadWorker(
 
         Log_OC.d(TAG, "Total upload size: $totalUploadSize")
 
-        notificationManager.dismissWorkerNotifications()
+        // notificationManager.dismissWorkerNotifications()
 
         while (uploadsPerPage.isNotEmpty() && !isStopped) {
             if (preferences.isGlobalUploadPaused) {
