@@ -184,13 +184,10 @@
     <string name="could_not_retrieve_url">امکان بازیابی URL وجود ندارد</string>
     <string name="create">ساخت</string>
     <string name="create_dir_fail_msg">امکان ساخت پوشه وجود ندارد</string>
-    <string name="create_new">ایجاد جدید</string>
-    <string name="create_new_document">ساختن سند جدید</string>
-    <string name="create_new_folder">ساختن پوشه جدید</string>
-    <string name="create_new_presentation">ساختن ارائه جدید</string>
-    <string name="create_new_spreadsheet">"تازه ترین ها اول "</string>
-    <string name="create_rich_workspace">اطلاعات پوشه را اضافه کنید</string>
-    <string name="creates_rich_workspace">ایجاد اطلاعات پوشه</string>
+    <string name="create_new">جدید</string>
+    <string name="create_new_document">سند جدید</string>
+    <string name="create_new_presentation">ارائه جدید</string>
+    <string name="create_new_spreadsheet">صفحهٔ گستردهٔ جدید</string>
     <string name="credentials_disabled">اعتبارنامه غیرفعال است</string>
     <string name="daily_backup">پشتیبان روزانه</string>
     <string name="data_to_back_up">داده برای پشتیبان‌گیری</string>
@@ -856,7 +853,7 @@
     <string name="unlock_file">باز کردن قفل پرونده</string>
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
     <string name="unset_encrypted">به صورت رمزگذاری شده تنظیم نشده است</string>
-    <string name="unset_favorite">حذف از موارد دلخواه</string>
+    <string name="unset_favorite">حذف از برگزیده‌ها</string>
     <string name="unshare_link_file_error">هنگام لغو اشتراک‌گذاری فایل یا پوشه خطایی رخ داده است.</string>
     <string name="unshare_link_file_no_exist">امکان لغو اشتراک‌گذاری نیست. لطفا موجود بودن فایل را بررسی کنید.</string>
     <string name="unshare_link_forbidden_permissions">حذف اشتراک‌گذاری این فایل</string>

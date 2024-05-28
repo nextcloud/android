@@ -138,13 +138,8 @@
     <string name="could_not_retrieve_url">Neizdevās iegūt URL </string>
     <string name="create">Izveidot</string>
     <string name="create_dir_fail_msg">Nevarēja izveidot mapi</string>
-    <string name="create_new">Izveidot jaunu</string>
-    <string name="create_new_document">Izveidot jaunu dokumentu </string>
-    <string name="create_new_folder">Izveidot jaunu mapi</string>
-    <string name="create_new_presentation">Izveidot jaunu prezentāciju</string>
-    <string name="create_new_spreadsheet">Izveidot jaunu izklājlapu</string>
-    <string name="create_rich_workspace">Pievienot mapes informāciju</string>
-    <string name="creates_rich_workspace">pievieno mapes informāciju</string>
+    <string name="create_new">Jauns</string>
+    <string name="create_new_folder">Jauna mape</string>
     <string name="credentials_disabled">Akreditācijas dati atspējoti</string>
     <string name="default_credentials_wrong">Nepareizi akreditācijas dati</string>
     <string name="delete_account">Noņemt kontu</string>
@@ -475,7 +470,6 @@
     <string name="trashbin_empty_headline">Nav dzēstu datņu</string>
     <string name="trashbin_file_remove">Dzēst pavisam</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
-    <string name="unset_favorite">Noņemt no favorītiem</string>
     <string name="unshare_link_forbidden_permissions">lai pārtrauktu šīs datnes koplietošanu</string>
     <string name="update_link_forbidden_permissions">lai atjauninātu šo koplietošanu</string>
     <string name="updating_share_failed">Koplietojuma atjaunināšana neizdevās</string>

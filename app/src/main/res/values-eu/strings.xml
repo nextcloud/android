@@ -204,13 +204,11 @@
     <string name="could_not_retrieve_url">Ezin izan da URLa berreskuratu</string>
     <string name="create">Sortu</string>
     <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
-    <string name="create_new">Sortu berria</string>
-    <string name="create_new_document">Sortu dokumentu berria</string>
-    <string name="create_new_folder">Sortu karpeta berria</string>
-    <string name="create_new_presentation">Sortu aurkezpen berria</string>
-    <string name="create_new_spreadsheet">Sortu kalkulu-orri berria</string>
-    <string name="create_rich_workspace">Gehitu karpetaren informazioa</string>
-    <string name="creates_rich_workspace">karpetaren informazioa sortzen du</string>
+    <string name="create_new">Berria</string>
+    <string name="create_new_document">Dokumentu berria</string>
+    <string name="create_new_presentation">Aurkezpen berria</string>
+    <string name="create_new_spreadsheet">Kalkulu-orri berria</string>
+    <string name="create_rich_workspace">Gehitu karpetaren deskribapena</string>
     <string name="credentials_disabled">Kredentzialak desgaituta</string>
     <string name="daily_backup">Eguneko babeskopia</string>
     <string name="data_to_back_up">Babesteko datuak</string>
@@ -880,7 +878,7 @@
     <string name="unlock_file">Desblokeatu fitxategia</string>
     <string name="unread_comments">Irakurri gabeko iruzkinak daude</string>
     <string name="unset_encrypted">Kendu enkriptatzea</string>
-    <string name="unset_favorite">Gogokoenetatik kendu</string>
+    <string name="unset_favorite">Kendu gogokoetatik</string>
     <string name="unshare_link_file_error">Errorea gertatu da fitxategi edo karpeta hau partekatzeari uzten saiatzerakoan.</string>
     <string name="unshare_link_file_no_exist">Ezin izan da partekatzeari utzi. Mesedez egiaztatu fitxategia existitzen dela.</string>
     <string name="unshare_link_forbidden_permissions">fitxategiaren konpartitzea kentzeko</string>

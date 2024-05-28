@@ -204,13 +204,12 @@
     <string name="could_not_retrieve_url">Adres alınamadı</string>
     <string name="create">Ekle</string>
     <string name="create_dir_fail_msg">Klasör oluşturulamadı</string>
-    <string name="create_new">Yeni ekle</string>
+    <string name="create_new">Yeni</string>
     <string name="create_new_document">Yeni belge</string>
-    <string name="create_new_folder">Klasör ekle</string>
+    <string name="create_new_folder">Yeni klasör</string>
     <string name="create_new_presentation">Yeni sunum</string>
     <string name="create_new_spreadsheet">Yeni çalışma sayfası</string>
-    <string name="create_rich_workspace">Klasör bilgileri ekle</string>
-    <string name="creates_rich_workspace">klasör bilgilerini oluşturur</string>
+    <string name="create_rich_workspace">Klasör açıklaması ekle</string>
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
     <string name="daily_backup">Günlük yedek</string>
     <string name="data_to_back_up">Yedeklenecek veriler</string>

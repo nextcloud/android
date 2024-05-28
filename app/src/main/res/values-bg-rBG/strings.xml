@@ -178,13 +178,6 @@
     <string name="could_not_retrieve_url">URL адресът не може да бъде извлечен</string>
     <string name="create">Създай</string>
     <string name="create_dir_fail_msg">Не може да се създаде папка</string>
-    <string name="create_new">Създай нов</string>
-    <string name="create_new_document">Нов документ</string>
-    <string name="create_new_folder">Създай нова папка</string>
-    <string name="create_new_presentation">Нова презентация</string>
-    <string name="create_new_spreadsheet">Нова таблица</string>
-    <string name="create_rich_workspace">Добави папката в</string>
-    <string name="creates_rich_workspace">създава информация за папките</string>
     <string name="credentials_disabled">Потребителските данни са спрени</string>
     <string name="daily_backup">Ежедневно архивиране</string>
     <string name="data_to_back_up">Данни за архивиране</string>
@@ -793,7 +786,6 @@
     <string name="unlock_file">Отключване на файл</string>
     <string name="unread_comments">Съществуват непрочетени коментари</string>
     <string name="unset_encrypted">Изключи криптиране</string>
-    <string name="unset_favorite">Премахни от любимите</string>
     <string name="unshare_link_file_error">Възникна грешка при опита за прекратяване на споделянето на този файл или папка</string>
     <string name="unshare_link_file_no_exist">Неуспешен опит за прекратяване на споделянето. Проверете дали  файла съществува.</string>
     <string name="unshare_link_forbidden_permissions">за премахване споделянето на файла</string>

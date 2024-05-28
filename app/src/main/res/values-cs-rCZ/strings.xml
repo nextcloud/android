@@ -196,13 +196,7 @@
     <string name="could_not_retrieve_url">Nepodařilo se získat URL</string>
     <string name="create">Vytvořit</string>
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
-    <string name="create_new">Vytvořit nové</string>
-    <string name="create_new_document">Vytvořit nový dokument</string>
-    <string name="create_new_folder">Vytvořit novou složku</string>
-    <string name="create_new_presentation">Vytvořit novou prezentaci</string>
-    <string name="create_new_spreadsheet">Vytvořit nový sešit</string>
-    <string name="create_rich_workspace">Přidat informace o složce</string>
-    <string name="creates_rich_workspace">vytvoří informace o složce</string>
+    <string name="create_new_spreadsheet">Nová tabulka</string>
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="daily_backup">Každodenní záloha</string>
     <string name="data_to_back_up">Data k zálohování</string>
@@ -853,7 +847,6 @@
     <string name="unlock_file">Odemknout soubor</string>
     <string name="unread_comments">Existuje nepřečtený komentář</string>
     <string name="unset_encrypted">Zrušit šifrování</string>
-    <string name="unset_favorite">Odebrat z oblíbených</string>
     <string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či složky došlo k chybě.</string>
     <string name="unshare_link_file_no_exist">Nedaří se zrušit sdílení – zkontrolujte zda soubor existuje.</string>
     <string name="unshare_link_forbidden_permissions">pro zrušení sdílení tohoto souboru</string>

@@ -157,13 +157,7 @@
     <string name="could_not_retrieve_url">URL alyp bolmady</string>
     <string name="create">Dörediň</string>
     <string name="create_dir_fail_msg">Bukjany döredip bolmady</string>
-    <string name="create_new">Täzesini dörediň</string>
-    <string name="create_new_document">Täze resminama dörediň</string>
-    <string name="create_new_folder">Täze bukja dörediň</string>
-    <string name="create_new_presentation">Täze prezentasiýany dörediň</string>
-    <string name="create_new_spreadsheet">Täze elektron tablisany dörediň</string>
-    <string name="create_rich_workspace">Bukja barada maglumat goşuň</string>
-    <string name="creates_rich_workspace">bukja barada maglumatlar döredilýär</string>
+    <string name="create_new_folder">Täze papka döretmek</string>
     <string name="credentials_disabled">Şahsyýet maglumatlary ýapyldy</string>
     <string name="default_credentials_wrong">Nädogry şahsyýet maglumatlary</string>
     <string name="delete_account">Hasaby aýyryň</string>
@@ -669,7 +663,6 @@
     <string name="trashbin_not_emptied">Faýllary hemişelik pozup bolmaz!</string>
     <string name="unread_comments">Okalmadyk teswirler bar</string>
     <string name="unset_encrypted">Şifrlemäni açmak</string>
-    <string name="unset_favorite">Halanýanlardan aýyryň</string>
     <string name="unshare_link_file_error">Bu faýly ýa-da bukjany paýlaşmaga synanyşanda ýalňyşlyk ýüze çykdy.</string>
     <string name="unshare_link_file_no_exist">Paýlaşyp bolmaýar. Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>
     <string name="unshare_link_forbidden_permissions">bu faýly paýlaşmak üçin</string>

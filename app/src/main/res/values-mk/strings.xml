@@ -168,13 +168,11 @@
     <string name="could_not_retrieve_url">Неможе да се превземе адресата</string>
     <string name="create">Креирај</string>
     <string name="create_dir_fail_msg">Не може да креира папка</string>
-    <string name="create_new">Креирај нова</string>
-    <string name="create_new_document">Креирај нов документ</string>
-    <string name="create_new_folder">Креирај нова папка</string>
-    <string name="create_new_presentation">Креирај нова презентација</string>
-    <string name="create_new_spreadsheet">Креирајте нова табела</string>
-    <string name="create_rich_workspace">Додади информации за папката</string>
-    <string name="creates_rich_workspace">креира инфо за папката</string>
+    <string name="create_new">Ново</string>
+    <string name="create_new_document">Нов Документ</string>
+    <string name="create_new_folder">Нова папка</string>
+    <string name="create_new_presentation">Нова Презентација</string>
+    <string name="create_new_spreadsheet">Нова Табела</string>
     <string name="credentials_disabled">Акредитивите се оневозможени</string>
     <string name="daily_backup">Дневена резервна копија</string>
     <string name="default_credentials_wrong">Погрешни акредитиви</string>
@@ -686,7 +684,7 @@
     <string name="unlock_file">Отклучи датотека</string>
     <string name="unread_comments">Постои непрочитан коментар</string>
     <string name="unset_encrypted">Отстрани енкрипција</string>
-    <string name="unset_favorite">Отстрани од фаворити</string>
+    <string name="unset_favorite">Избриши од фаворити</string>
     <string name="unshare_link_forbidden_permissions">да тргнете споделување на оваа датотека</string>
     <string name="unsharing_failed">Неуспешно несподелување</string>
     <string name="untrusted_domain">Пристап преку недоверлив домен. Ве молиме прочитајте ја документацијата за повеќе информации.</string>

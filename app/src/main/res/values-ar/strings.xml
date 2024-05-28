@@ -204,13 +204,6 @@
     <string name="could_not_retrieve_url">لا يمكن استرجاع الرابط</string>
     <string name="create">إنشاء</string>
     <string name="create_dir_fail_msg">تعذر إنشاء المُجلّد</string>
-    <string name="create_new">إنشاء جديد</string>
-    <string name="create_new_document">إنشاء مستند جديد</string>
-    <string name="create_new_folder">إنشاء مجلدا جديد</string>
-    <string name="create_new_presentation">إنشاء عرض تقديمي جديد</string>
-    <string name="create_new_spreadsheet">إنشاء جدول بيانات جديد</string>
-    <string name="create_rich_workspace">إضافة معلومات المجلد</string>
-    <string name="creates_rich_workspace">إنشاء معلومات عن المجلد</string>
     <string name="credentials_disabled">التصريح غير مفعل</string>
     <string name="daily_backup">النسخ الاحتياطي اليومي</string>
     <string name="data_to_back_up">البيانات التي سيتم نسخها احتياطيا</string>
@@ -908,7 +901,6 @@
     <string name="unlock_file">فتح قفل الملف</string>
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>
-    <string name="unset_favorite">إزالتها مِن المفضلة</string>
     <string name="unshare_link_file_error">حدث خطأ أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد.</string>
     <string name="unshare_link_file_no_exist">غير قادر على المشاركة. يرجى التحقق من وجود الملف.</string>
     <string name="unshare_link_forbidden_permissions">لإلغاء مشاركة هذا الملف</string>

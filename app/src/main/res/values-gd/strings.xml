@@ -158,13 +158,7 @@
     <string name="could_not_retrieve_url">Cha b’ urrainn dhuinn an URL fhaighinn</string>
     <string name="create">Cruthaich</string>
     <string name="create_dir_fail_msg">Cha b’ urrainn dhuinn am pasgan a chruthachadh</string>
-    <string name="create_new">Cruthaich fear ùr</string>
-    <string name="create_new_document">Cruthaich sgrìobhainn ùr</string>
-    <string name="create_new_folder">Cruthaich pasgan ùr</string>
-    <string name="create_new_presentation">Cruthaich taisbeanadh ùr</string>
-    <string name="create_new_spreadsheet">Cruthaich cliath-dhuilleag ùr</string>
-    <string name="create_rich_workspace">Cuir fiosrachadh pasgain ris</string>
-    <string name="creates_rich_workspace">cruthaichidh seo fiosrachadh pasgain</string>
+    <string name="create_new_folder">Pasgan ùr</string>
     <string name="credentials_disabled">Chaidh an teisteas a chur à comas</string>
     <string name="default_credentials_wrong">Teisteas ceàrr</string>
     <string name="delete_account">Thoir air falbh an cunntas</string>
@@ -682,7 +676,6 @@
     <string name="trashbin_not_emptied">Cha b’ urrainn dhuinn na faidhlichean a sguabadh às gu buan!</string>
     <string name="unread_comments">Tha beachd gun leughadh ann</string>
     <string name="unset_encrypted">Neo-shuidhich an crioptachadh</string>
-    <string name="unset_favorite">Thoir air falbh o na h-annsachdan</string>
     <string name="unshare_link_file_error">Thachair mearachd le crìochnachadh co-roinneadh an fhaidhle no pasgain seo.</string>
     <string name="unshare_link_file_no_exist">Cha ghabh an co-roinneadh a chrìochnachadh. Thoir sùil a bheil am faidhle ann.</string>
     <string name="unshare_link_forbidden_permissions">ach nach co-roinn thu am faidhle seo tuilleadh</string>

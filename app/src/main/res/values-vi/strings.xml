@@ -171,12 +171,10 @@
     <string name="create">Tạo</string>
     <string name="create_dir_fail_msg">Không thể tạo thư mục</string>
     <string name="create_new">Tạo mới</string>
-    <string name="create_new_document">Tạo tệp tài liệu mới</string>
-    <string name="create_new_folder">Tạo thư mục mới</string>
-    <string name="create_new_presentation">Tạo tệp trình chiếu mới </string>
-    <string name="create_new_spreadsheet">Tại bảng tính mới</string>
-    <string name="create_rich_workspace">Thêm thông tin thư mục</string>
-    <string name="creates_rich_workspace">Tạo thông tin thư mục</string>
+    <string name="create_new_document">Tài liệu mới</string>
+    <string name="create_new_folder">Tạo thư mục</string>
+    <string name="create_new_presentation">Bản trình chiếu mới</string>
+    <string name="create_new_spreadsheet">Bảng tính mới</string>
     <string name="credentials_disabled">Đã vô hiệu hóa thông tin đăng nhập</string>
     <string name="daily_backup">Sao lưu hàng ngày</string>
     <string name="data_to_back_up">Dữ liệu được sao lưu</string>
@@ -761,7 +759,6 @@
     <string name="unlock_file">Mở khoá tập tin</string>
     <string name="unread_comments">Có bình luận chưa đọc</string>
     <string name="unset_encrypted">Bỏ đặt mã hóa</string>
-    <string name="unset_favorite">Xóa khỏi ưa thích</string>
     <string name="unshare_link_file_error">Đã xảy ra lỗi khi cố gắng hủy chia sẻ tệp hoặc thư mục này.</string>
     <string name="unshare_link_file_no_exist">Không thể ngừng chia sẻ. Vui lòng kiểm tra xem tệp có tồn tại hay không.</string>
     <string name="unshare_link_forbidden_permissions">bỏ chia sẽ tập tin này</string>

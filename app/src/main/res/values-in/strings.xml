@@ -198,13 +198,8 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="could_not_retrieve_url">Tidak dapat mengambil URL</string>
     <string name="create">Buat</string>
     <string name="create_dir_fail_msg">Folder tidak dapat dibuat</string>
-    <string name="create_new">Buat</string>
-    <string name="create_new_document">Buat dokumen baru</string>
-    <string name="create_new_folder">Buat direktori baru</string>
-    <string name="create_new_presentation">Buat presentasi baru</string>
-    <string name="create_new_spreadsheet">Buat lembar kerja baru</string>
-    <string name="create_rich_workspace">Tambah info folder</string>
-    <string name="creates_rich_workspace">Buat info folder</string>
+    <string name="create_new">Baru</string>
+    <string name="create_new_folder">Folder baru</string>
     <string name="credentials_disabled">Kredensial dimatikan</string>
     <string name="daily_backup">Pencadangan harian</string>
     <string name="data_to_back_up">Data untuk dicadangkan</string>
@@ -824,7 +819,6 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="trashbin_not_emptied">Berkas tidak dapat dihapus secara permanen!</string>
     <string name="unlock_file">Buka kunci berkas</string>
     <string name="unread_comments">Ada komentar yang belum dibaca</string>
-    <string name="unset_favorite">Hapus dari favorit</string>
     <string name="unshare_link_file_error">Terjadi kesalahan saat mencoba menghapus pembagian berkas atau folder ini.</string>
     <string name="unshare_link_file_no_exist">Tidak dapat menghapus pembagian. Mohon periksa apakah berkas ada.</string>
     <string name="unshare_link_forbidden_permissions">untuk batal membagikan berkas ini</string>

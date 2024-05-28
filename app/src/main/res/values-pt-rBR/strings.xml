@@ -34,6 +34,8 @@
     <string name="add_to_cloud">Adicionar em %1$s</string>
     <string name="advanced_settings">Configurações avançadas </string>
     <string name="allow_resharing">Permitir recompartilhamento</string>
+    <string name="app_config_base_url_title">URL base</string>
+    <string name="app_config_proxy_host_title">Nome do host proxy</string>
     <string name="app_config_proxy_port_title">Porta do Proxy</string>
     <string name="app_widget_description">Mostra um widget do painel</string>
     <string name="appbar_search_in">Pesquisar em %s</string>
@@ -89,6 +91,8 @@
     <string name="auth_unknown_host_title">Não foi possível encontrar o host</string>
     <string name="auth_unsupported_multiaccount">%1$s não tem suporte a múltiplas contas</string>
     <string name="auth_wrong_connection_title">Não foi possível estabelecer a conexão</string>
+    <string name="authenticator_activity_cancel_login">Cancelar login</string>
+    <string name="authenticator_activity_please_complete_login_process">Conclua o processo de login no seu navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
     <string name="auto_upload_path">/AutoEnvio</string>
@@ -173,6 +177,7 @@
     <string name="confirmation_remove_folder_alert">Quer realmente excluir %1$s e seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
+    <string name="conflict_dialog_error">A caixa de diálogo de resolução de conflitos não pode ser criada</string>
     <string name="conflict_file_headline">Arquivo conflitante %1$s</string>
     <string name="conflict_local_file">Arquivo local</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
@@ -199,13 +204,12 @@
     <string name="could_not_retrieve_url">Não foi possível recuperar a URL</string>
     <string name="create">Criar</string>
     <string name="create_dir_fail_msg">Não foi possível criar a pasta</string>
-    <string name="create_new">Criar novo</string>
-    <string name="create_new_document">Criar novo documento</string>
-    <string name="create_new_folder">Criar nova pasta</string>
-    <string name="create_new_presentation">Criar nova apresentação</string>
-    <string name="create_new_spreadsheet">Criar nova planilha</string>
-    <string name="create_rich_workspace">Adicionar informação da pasta</string>
-    <string name="creates_rich_workspace">cria informação da pasta</string>
+    <string name="create_new">Novo</string>
+    <string name="create_new_document">Novo documento</string>
+    <string name="create_new_folder">Nova pasta</string>
+    <string name="create_new_presentation">Nova apresentação</string>
+    <string name="create_new_spreadsheet">Nova planilha</string>
+    <string name="create_rich_workspace">Adicionar descrição da pasta</string>
     <string name="credentials_disabled">Credenciais desabilitadas</string>
     <string name="daily_backup">Backup diário </string>
     <string name="data_to_back_up">Dados para backup </string>
@@ -400,6 +404,7 @@
     <string name="file_not_found">Arquivo não encontrado</string>
     <string name="file_not_synced">Arquivo não pôde ser sincronizado. Mostrando a última versão disponível.</string>
     <string name="file_rename">Renomear</string>
+    <string name="file_upload_worker_same_file_already_exists">O mesmo arquivo já existe, nenhum conflito detectado</string>
     <string name="file_version_restored_error">Erro recuperando arquivo!</string>
     <string name="file_version_restored_successfully">Arquivo recuperado com sucesso.</string>
     <string name="filedetails_details">Detalhes</string>
@@ -658,6 +663,7 @@
     <string name="preview_image_description">Pré-visualização da imagem</string>
     <string name="preview_image_error_no_local_file">Não há arquivos locais para exibir</string>
     <string name="preview_image_error_unknown_format">Não foi possível exibir a imagem</string>
+    <string name="preview_media_unhandled_http_code_message">O arquivo está atualmente bloqueado por outro usuário ou processo e, portanto, não pode ser excluído. Por favor, tente novamente mais tarde.</string>
     <string name="preview_sorry">Desculpe</string>
     <string name="privacy">Privacidade</string>
     <string name="public_share_name">Novo nome</string>
@@ -889,6 +895,7 @@
     <string name="upload_action_cancelled_resume">Retomar uploads cancelados</string>
     <string name="upload_action_failed_clear">Apagar envios com falha</string>
     <string name="upload_action_failed_retry">Repetir envios com falha</string>
+    <string name="upload_action_file_not_exist_message">Alguns arquivos não existem mais. Esses uploads não podem ser retomados.</string>
     <string name="upload_action_global_upload_pause">Pausar todos os uploads</string>
     <string name="upload_action_global_upload_resume">Retomar todos os uploads</string>
     <string name="upload_cannot_create_file">Não foi possível criar o arquivo local</string>

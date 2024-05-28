@@ -102,7 +102,6 @@
     <string name="copy_link">Copiar enllaz</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">Nun pudo crease la carpeta</string>
-    <string name="create_new_folder">Crear una carpeta</string>
     <string name="delete_account">Desaniciar cuenta</string>
     <string name="dev_version_no_information_available">Nun hai nenguna información disponible</string>
     <string name="dev_version_no_new_version_available">Nun hai nengún anovamientu disponible.</string>
@@ -560,7 +559,6 @@
     <string name="trashbin_not_emptied">¡Los ficheros nun se pudieron desaniciar permanentemente!</string>
     <string name="unlock_file">Desbloquiar el ficheru</string>
     <string name="unread_comments">Esisten comentarios ensin lleer</string>
-    <string name="unset_favorite">Quitar de Favoritos</string>
     <string name="unshare_link_file_error">Prodúxose un error mentanto se dexaba de compartir esti ficheru o esta carpeta</string>
     <string name="unshare_link_file_no_exist">Nun ye posible dexar de compartir. Comprueba si\'l ficheru esiste.</string>
     <string name="unshare_link_forbidden_permissions">pa dexar de compartir esti ficheru</string>

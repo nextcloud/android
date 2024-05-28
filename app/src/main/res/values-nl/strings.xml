@@ -192,13 +192,11 @@
     <string name="could_not_retrieve_url">Kon URL niet ophalen</string>
     <string name="create">Creëren</string>
     <string name="create_dir_fail_msg">Kan map niet aanmaken</string>
-    <string name="create_new">Maak nieuw</string>
-    <string name="create_new_document">Creëer nieuw document</string>
-    <string name="create_new_folder">Nieuwe map aanmaken</string>
-    <string name="create_new_presentation">Creëer nieuwe presentatie</string>
-    <string name="create_new_spreadsheet">Creëren nieuw werkblad</string>
-    <string name="create_rich_workspace">Toevoegen mapinfo</string>
-    <string name="creates_rich_workspace">maakt mapinfo</string>
+    <string name="create_new">Nieuw</string>
+    <string name="create_new_document">Nieuw document</string>
+    <string name="create_new_folder">Nieuwe map</string>
+    <string name="create_new_presentation">Nieuwe presentatie</string>
+    <string name="create_new_spreadsheet">Nieuw werkblad</string>
     <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
     <string name="daily_backup">Dagelijkse back-up</string>
     <string name="data_to_back_up">Te back-uppen data</string>
@@ -827,7 +825,7 @@
     <string name="unlock_file">Ontgrendel bestand</string>
     <string name="unread_comments">Er zijn ongelezen reacties</string>
     <string name="unset_encrypted">Niet ingestelde versleuteling</string>
-    <string name="unset_favorite">Verwijderen uit favorieten</string>
+    <string name="unset_favorite">Verwijder uit favorieten</string>
     <string name="unshare_link_file_error">Het beëindigen van het delen van dit bestand of deze map is mislukt.</string>
     <string name="unshare_link_file_no_exist">Kan delen niet beëindigen. Controleer of het bestand bestaat.</string>
     <string name="unshare_link_forbidden_permissions">om dit bestand niet meer te delen</string>

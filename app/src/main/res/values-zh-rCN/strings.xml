@@ -199,12 +199,10 @@
     <string name="create">创建</string>
     <string name="create_dir_fail_msg">无法创建文件夹</string>
     <string name="create_new">新建</string>
-    <string name="create_new_document">新建文档</string>
-    <string name="create_new_folder">创建新文件夹</string>
-    <string name="create_new_presentation">新建演示</string>
-    <string name="create_new_spreadsheet">新建表格</string>
-    <string name="create_rich_workspace">添加文件夹信息</string>
-    <string name="creates_rich_workspace">创建文件夹信息</string>
+    <string name="create_new_document">新文档</string>
+    <string name="create_new_folder">新建文件夹</string>
+    <string name="create_new_presentation">新演示文稿</string>
+    <string name="create_new_spreadsheet">新表格</string>
     <string name="credentials_disabled">设备凭证已禁用</string>
     <string name="daily_backup">每日备份</string>
     <string name="data_to_back_up">要备份的数据</string>
@@ -899,7 +897,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="unlock_file">解锁文件</string>
     <string name="unread_comments">有未读评论</string>
     <string name="unset_encrypted">不设置加密</string>
-    <string name="unset_favorite">从收藏列表移除</string>
+    <string name="unset_favorite">从收藏中移除</string>
     <string name="unshare_link_file_error">尝试取消共享此文件或文件夹时发生错误。</string>
     <string name="unshare_link_file_no_exist">无法取消共享。请检查文件是否存在。</string>
     <string name="unshare_link_forbidden_permissions">取消共享该文件</string>
