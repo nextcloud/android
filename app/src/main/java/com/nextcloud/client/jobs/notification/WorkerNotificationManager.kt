@@ -27,7 +27,7 @@ open class WorkerNotificationManager(
 
     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    var notificationBuilder: NotificationCompat.Builder = NotificationUtils.newNotificationBuilder(context, viewThemeUtils).apply {
+    var notificationBuilder: NotificationCompat.Builder = NotificationUtils.newNotificationBuilder(context, "WorkerNotificationManager", viewThemeUtils).apply {
         setTicker(context.getString(tickerId))
         setSmallIcon(R.drawable.notification_icon)
         setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
