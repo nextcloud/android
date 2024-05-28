@@ -7,13 +7,11 @@
  */
 package com.nextcloud.client.jobs.download
 
-import android.app.Notification
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
 import android.os.Looper
-import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.owncloud.android.R
 import com.owncloud.android.operations.DownloadFileOperation
@@ -26,8 +24,7 @@ class DownloadNotificationManager(
     private val id: Int,
     private val context: Context,
     viewThemeUtils: ViewThemeUtils
-): WorkerNotificationManager(context, viewThemeUtils) {
-    private var notificationBuilder: NotificationCompat.Builder = getNotificationBuilder(R.string.downloader_download_in_progress_ticker)
+): WorkerNotificationManager(id, context, viewThemeUtils, R.string.downloader_download_in_progress_ticker) {
 
     @Suppress("MagicNumber")
     fun prepareForStart(operation: DownloadFileOperation, currentDownloadIndex: Int, totalDownloadSize: Int) {
@@ -97,17 +94,5 @@ class DownloadNotificationManager(
                 flag
             )
         )
-    }
-
-    private fun showNotification() {
-        notificationManager.notify(id, notificationBuilder.build())
-    }
-
-    fun getId(): Int {
-        return id
-    }
-
-    fun getNotification(): Notification {
-        return notificationBuilder.build()
     }
 }

@@ -9,7 +9,6 @@ package com.nextcloud.client.jobs.upload
 
 import android.app.PendingIntent
 import android.content.Context
-import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -17,12 +16,12 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
-class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils): WorkerNotificationManager(context, viewThemeUtils) {
+class UploadNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
+    WorkerNotificationManager(ID, context, viewThemeUtils, R.string.foreground_service_upload) {
+
     companion object {
         private const val ID = 411
     }
-
-    private var notificationBuilder: NotificationCompat.Builder = getNotificationBuilder(R.string.foreground_service_upload)
 
     @Suppress("MagicNumber")
     fun prepareForStart(
@@ -38,6 +37,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             totalUploadSize,
             uploadFileOperation.fileName
         )
+
         val progressText = String.format(
             context.getString(R.string.upload_notification_manager_upload_in_progress_text),
             0
@@ -144,10 +144,6 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         )
     }
 
-    private fun showNotification() {
-        notificationManager.notify(ID, notificationBuilder.build())
-    }
-
     fun dismissOldErrorNotification(operation: UploadFileOperation?) {
         if (operation == null) {
             return
@@ -165,10 +161,6 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             NotificationUtils.createUploadNotificationTag(remotePath, localPath),
             FileUploadWorker.NOTIFICATION_ERROR_ID
         )
-    }
-
-    fun dismissWorkerNotifications() {
-        notificationManager.cancel(ID)
     }
 
     fun notifyPaused(intent: PendingIntent) {
