@@ -899,6 +899,7 @@
     <string name="upload_quota_exceeded">Storage quota exceeded</string>
     <string name="host_not_available">Server not available</string>
     <string name="delete_entries">Delete entries</string>
+    <string name="upload_list_expand_header">Toggle expansion of header</string>
     <string name="upload_action_failed_retry">Retry failed uploads</string>
     <string name="upload_action_failed_clear">Clear failed uploads</string>
     <string name="upload_action_global_upload_pause">Pause all uploads</string>
