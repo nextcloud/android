@@ -14,7 +14,7 @@
 
         <item
             android:id="@+id/action_toggle_global_pause"
-            android:icon="@android:drawable/ic_media_pause"
+            android:icon="@drawable/ic_global_pause"
             android:title="@string/upload_action_global_upload_pause"
             app:showAsAction="always" />
     </group>
