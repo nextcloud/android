@@ -194,8 +194,6 @@ class FileUploadWorker(
                 } else {
                     uploadsStorageManager.removeUpload(upload.uploadId)
                 }
-
-                notificationManager.dismissWorkerNotifications()
             }
         }
     }
