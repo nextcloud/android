@@ -321,9 +321,11 @@ class FileUploadWorker(
         }
     }
 
+    @Suppress("MagicNumber")
     private val minProgressUpdateInterval = 750
     private var lastUpdateTime = 0L
 
+    @Suppress("MagicNumber")
     override fun onTransferProgress(
         progressRate: Long,
         totalTransferredSoFar: Long,
@@ -360,5 +362,4 @@ class FileUploadWorker(
 
         lastPercent = percent
     }
-
 }

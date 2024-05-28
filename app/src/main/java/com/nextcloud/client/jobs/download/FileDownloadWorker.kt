@@ -406,6 +406,7 @@ class FileDownloadWorker(
         }
     }
 
+    @Suppress("MagicNumber")
     private val minProgressUpdateInterval = 750
     private var lastUpdateTime = 0L
 
@@ -428,7 +429,6 @@ class FileDownloadWorker(
 
         lastPercent = percent
     }
-
 
     inner class FileDownloadProgressListener : OnDatatransferProgressListener {
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
