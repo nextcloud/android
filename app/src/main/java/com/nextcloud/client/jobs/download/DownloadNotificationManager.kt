@@ -10,8 +10,6 @@ package com.nextcloud.client.jobs.download
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.os.Handler
-import android.os.Looper
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.owncloud.android.R
 import com.owncloud.android.operations.DownloadFileOperation
@@ -59,9 +57,7 @@ class DownloadNotificationManager(
 
     @Suppress("MagicNumber")
     fun dismissNotification() {
-        Handler(Looper.getMainLooper()).postDelayed({
-            notificationManager.cancel(id)
-        }, 2000)
+        dismissNotification(2000)
     }
 
     fun showNewNotification(text: String) {

@@ -12,6 +12,8 @@ import android.app.NotificationManager
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import androidx.core.app.NotificationCompat
 import com.owncloud.android.R
 import com.owncloud.android.ui.notifications.NotificationUtils
@@ -54,8 +56,10 @@ open class WorkerNotificationManager(
         }
     }
 
-    fun dismissWorkerNotifications() {
-        notificationManager.cancel(id)
+    fun dismissNotification(delay: Long = 0) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            notificationManager.cancel(id)
+        }, delay)
     }
 
     fun getId(): Int {

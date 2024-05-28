@@ -113,7 +113,7 @@ class FileUploadWorker(
 
         setIdleWorkerState()
         currentUploadFileOperation?.cancel(null)
-        notificationManager.dismissWorkerNotifications()
+        notificationManager.dismissNotification()
 
         super.onStopped()
     }
@@ -249,7 +249,7 @@ class FileUploadWorker(
         if (!isStopped || !result.isCancelled) {
             uploadsStorageManager.updateDatabaseUploadResult(result, uploadFileOperation)
             notifyUploadResult(uploadFileOperation, result)
-            notificationManager.dismissWorkerNotifications()
+            notificationManager.dismissNotification()
         }
     }
 
