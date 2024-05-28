@@ -29,21 +29,24 @@ open class WorkerNotificationManager(
 
     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-    var notificationBuilder: NotificationCompat.Builder = NotificationUtils.newNotificationBuilder(context, "WorkerNotificationManager", viewThemeUtils).apply {
-        setTicker(context.getString(tickerId))
-        setSmallIcon(R.drawable.notification_icon)
-        setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
+    var notificationBuilder: NotificationCompat.Builder =
+        NotificationUtils.newNotificationBuilder(context, "WorkerNotificationManager", viewThemeUtils).apply {
+            setTicker(context.getString(tickerId))
+            setSmallIcon(R.drawable.notification_icon)
+            setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
+            setStyle(NotificationCompat.BigTextStyle())
+            setPriority(NotificationCompat.PRIORITY_LOW)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
+            }
         }
-    }
 
     fun showNotification() {
         notificationManager.notify(id, notificationBuilder.build())
     }
 
-    fun setProgress(percent: Int, progressTextId: Int ,indeterminate: Boolean) {
+    fun setProgress(percent: Int, progressTextId: Int, indeterminate: Boolean) {
         val progressText = String.format(
             context.getString(progressTextId),
             percent
