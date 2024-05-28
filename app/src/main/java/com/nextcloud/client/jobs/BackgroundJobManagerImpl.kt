@@ -418,12 +418,12 @@ internal class BackgroundJobManagerImpl(
 
         val request = periodicRequestBuilder(
             jobClass = FilesSyncWork::class,
-            jobName = JOB_PERIODIC_FILES_SYNC,
+            jobName = JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
             intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES
         )
             .setInputData(arguments)
             .build()
-        workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC, ExistingPeriodicWorkPolicy.REPLACE, request)
+        workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID, ExistingPeriodicWorkPolicy.REPLACE, request)
     }
 
     override fun startImmediateFilesSyncJob(
@@ -439,12 +439,12 @@ internal class BackgroundJobManagerImpl(
 
         val request = oneTimeRequestBuilder(
             jobClass = FilesSyncWork::class,
-            jobName = JOB_IMMEDIATE_FILES_SYNC
+            jobName = JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID
         )
             .setInputData(arguments)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_SYNC, ExistingWorkPolicy.APPEND, request)
+        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID, ExistingWorkPolicy.APPEND, request)
     }
 
     override fun scheduleOfflineSync() {

@@ -122,8 +122,7 @@ interface BackgroundJobManager {
     fun schedulePeriodicFilesSyncJob(syncedFolderID: Long)
 
     /**
-     * Immediately start File Sync job for given syncFolderID if provided. If no syncFolderID is provided, it will start
-     * the syncFolder job for all sync folders.
+     * Immediately start File Sync job for given syncFolderID.
      */
     fun startImmediateFilesSyncJob(
         syncedFolderID: Long,
