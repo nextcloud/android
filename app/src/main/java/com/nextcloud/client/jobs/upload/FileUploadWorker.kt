@@ -133,8 +133,6 @@ class FileUploadWorker(
 
         Log_OC.d(TAG, "Total upload size: $totalUploadSize")
 
-        // notificationManager.dismissWorkerNotifications()
-
         while (uploadsPerPage.isNotEmpty() && !isStopped) {
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
