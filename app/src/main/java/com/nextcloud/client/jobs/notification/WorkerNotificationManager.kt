@@ -41,6 +41,19 @@ open class WorkerNotificationManager(
         notificationManager.notify(id, notificationBuilder.build())
     }
 
+    fun setProgress(percent: Int, progressTextId: Int ,indeterminate: Boolean) {
+        val progressText = String.format(
+            context.getString(progressTextId),
+            percent
+        )
+
+        notificationBuilder.run {
+            setProgress(100, percent, indeterminate)
+            setContentTitle(currentOperationTitle)
+            setContentText(progressText)
+        }
+    }
+
     fun dismissWorkerNotifications() {
         notificationManager.cancel(id)
     }

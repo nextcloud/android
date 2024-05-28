@@ -24,7 +24,7 @@ class DownloadNotificationManager(
     private val id: Int,
     private val context: Context,
     viewThemeUtils: ViewThemeUtils
-): WorkerNotificationManager(id, context, viewThemeUtils, R.string.downloader_download_in_progress_ticker) {
+) : WorkerNotificationManager(id, context, viewThemeUtils, R.string.downloader_download_in_progress_ticker) {
 
     @Suppress("MagicNumber")
     fun prepareForStart(operation: DownloadFileOperation, currentDownloadIndex: Int, totalDownloadSize: Int) {
@@ -53,17 +53,7 @@ class DownloadNotificationManager(
 
     @Suppress("MagicNumber")
     fun updateDownloadProgress(percent: Int, totalToTransfer: Long) {
-        val progressText = String.format(
-            context.getString(R.string.downloader_notification_manager_in_progress_text),
-            percent
-        )
-
-        notificationBuilder.run {
-            setProgress(100, percent, totalToTransfer < 0)
-            setContentTitle(currentOperationTitle)
-            setContentText(progressText)
-        }
-
+        setProgress(percent, R.string.downloader_notification_manager_in_progress_text, totalToTransfer < 0)
         showNotification()
     }
 

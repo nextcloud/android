@@ -66,19 +66,9 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
 
     @Suppress("MagicNumber")
     fun updateUploadProgress(percent: Int, currentOperation: UploadFileOperation?) {
-        val progressText = String.format(
-            context.getString(R.string.upload_notification_manager_upload_in_progress_text),
-            percent
-        )
-
-        notificationBuilder.run {
-            setProgress(100, percent, false)
-            setContentTitle(currentOperationTitle)
-            setContentText(progressText)
-
-            showNotification()
-            dismissOldErrorNotification(currentOperation)
-        }
+        setProgress(percent, R.string.upload_notification_manager_upload_in_progress_text, false)
+        showNotification()
+        dismissOldErrorNotification(currentOperation)
     }
 
     fun notifyForFailedResult(
