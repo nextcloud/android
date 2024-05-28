@@ -36,7 +36,7 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         }
 
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-    private var currentOperationTitle: String? = "null"
+    private var currentOperationTitle: String? = null
 
     @Suppress("MagicNumber")
     fun prepareForStart(
