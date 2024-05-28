@@ -64,48 +64,6 @@ class FilesSyncWork(
 
     private lateinit var syncedFolder: SyncedFolder
 
-    @Suppress("ReturnCount")
-    private fun canExitEarly(changedFiles: Array<String>?, syncedFolderID: Long): Boolean {
-        // If we are in power save mode better to postpone scan and upload
-        val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
-        if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
-            return true
-        }
-
-        if (syncedFolderID < 0) {
-            Log_OC.d(TAG, "File-sync kill worker since no valid syncedFolderID provided!")
-            return true
-        }
-
-        // or sync worker already running and no changed files to be processed
-        val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)
-        if (alreadyRunning && changedFiles.isNullOrEmpty()) {
-            Log_OC.d(
-                TAG,
-                "File-sync kill worker since another instance of the worker " +
-                    "($syncedFolderID) seems to be running already!"
-            )
-            return true
-        }
-
-        val syncedFolderTmp = syncedFolderProvider.getSyncedFolderByID(syncedFolderID)
-        if (syncedFolderTmp == null || !syncedFolderTmp.isEnabled || !syncedFolderTmp.isExisting) {
-            Log_OC.d(TAG, "File-sync kill worker since syncedFolder ($syncedFolderID) is not enabled!")
-            return true
-        }
-        syncedFolder = syncedFolderTmp
-
-        if (syncedFolder.isChargingOnly &&
-            !powerManagementService.battery.isCharging &&
-            !powerManagementService.battery.isFull
-        ) {
-            Log_OC.d(TAG, "File-sync kill worker since phone is not charging (${syncedFolder.localPath})!")
-            return true
-        }
-
-        return false
-    }
-
     @Suppress("MagicNumber")
     override fun doWork(): Result {
         val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
@@ -116,7 +74,11 @@ class FilesSyncWork(
 
         if (canExitEarly(changedFiles, syncFolderId)) {
             val result = Result.success()
-            backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class) + "_" + syncFolderId, result)
+            backgroundJobManager.logEndOfWorker(
+                BackgroundJobManagerImpl.formatClassTag(this::class) +
+                    "_" + syncFolderId,
+                result
+            )
             return result
         }
 
@@ -156,8 +118,61 @@ class FilesSyncWork(
 
         Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished")
         val result = Result.success()
-        backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class) + "_" + syncFolderId, result)
+        backgroundJobManager.logEndOfWorker(
+            BackgroundJobManagerImpl.formatClassTag(this::class) +
+                "_" + syncFolderId,
+            result
+        )
         return result
+    }
+
+    private fun setSyncedFolder(syncedFolderID: Long): Boolean {
+        val syncedFolderTmp = syncedFolderProvider.getSyncedFolderByID(syncedFolderID)
+        if (syncedFolderTmp == null || !syncedFolderTmp.isEnabled || !syncedFolderTmp.isExisting) {
+            return false
+        }
+        syncedFolder = syncedFolderTmp
+        return true
+    }
+
+    @Suppress("ReturnCount")
+    private fun canExitEarly(changedFiles: Array<String>?, syncedFolderID: Long): Boolean {
+        // If we are in power save mode better to postpone scan and upload
+        val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
+        if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
+            return true
+        }
+
+        if (syncedFolderID < 0) {
+            Log_OC.d(TAG, "File-sync kill worker since no valid syncedFolderID provided!")
+            return true
+        }
+
+        // or sync worker already running and no changed files to be processed
+        val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)
+        if (alreadyRunning && changedFiles.isNullOrEmpty()) {
+            Log_OC.d(
+                TAG,
+                "File-sync kill worker since another instance of the worker " +
+                    "($syncedFolderID) seems to be running already!"
+            )
+            return true
+        }
+
+        if (!setSyncedFolder(syncedFolderID)) {
+            Log_OC.d(TAG, "File-sync kill worker since syncedFolder ($syncedFolderID) is not enabled!")
+            return true
+        }
+
+        if (syncedFolder.isChargingOnly &&
+            !powerManagementService.battery.isCharging &&
+            !powerManagementService.battery.isFull
+        ) {
+            Log_OC.d(TAG, "File-sync kill worker since phone is not charging (${syncedFolder.localPath})!")
+            return true
+        }
+
+        return false
     }
 
     @Suppress("MagicNumber")

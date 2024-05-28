@@ -423,7 +423,11 @@ internal class BackgroundJobManagerImpl(
         )
             .setInputData(arguments)
             .build()
-        workManager.enqueueUniquePeriodicWork(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID, ExistingPeriodicWorkPolicy.REPLACE, request)
+        workManager.enqueueUniquePeriodicWork(
+            JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID,
+            ExistingPeriodicWorkPolicy.REPLACE,
+            request
+        )
     }
 
     override fun startImmediateFilesSyncJob(
@@ -444,7 +448,11 @@ internal class BackgroundJobManagerImpl(
             .setInputData(arguments)
             .build()
 
-        workManager.enqueueUniqueWork(JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID, ExistingWorkPolicy.APPEND, request)
+        workManager.enqueueUniqueWork(
+            JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID,
+            ExistingWorkPolicy.APPEND,
+            request
+        )
     }
 
     override fun scheduleOfflineSync() {
