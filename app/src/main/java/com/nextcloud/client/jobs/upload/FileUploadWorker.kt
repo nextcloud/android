@@ -56,7 +56,6 @@ class FileUploadWorker(
         val TAG: String = FileUploadWorker::class.java.simpleName
 
         const val NOTIFICATION_ERROR_ID: Int = 413
-        private const val MAX_PROGRESS: Int = 100
         const val ACCOUNT = "data_account"
         var currentUploadFileOperation: UploadFileOperation? = null
 
@@ -322,15 +321,19 @@ class FileUploadWorker(
         }
     }
 
+    private val minProgressUpdateInterval = 750
+    private var lastUpdateTime = 0L
+
     override fun onTransferProgress(
         progressRate: Long,
         totalTransferredSoFar: Long,
         totalToTransfer: Long,
         fileAbsoluteName: String
     ) {
-        val percent = (MAX_PROGRESS * totalTransferredSoFar.toDouble() / totalToTransfer.toDouble()).toInt()
+        val percent = (100.0 * totalTransferredSoFar.toDouble() / totalToTransfer.toDouble()).toInt()
+        val currentTime = System.currentTimeMillis()
 
-        if (percent != lastPercent) {
+        if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
             notificationManager.run {
                 val accountName = currentUploadFileOperation?.user?.accountName
                 val remotePath = currentUploadFileOperation?.remotePath
@@ -338,8 +341,7 @@ class FileUploadWorker(
                 updateUploadProgress(percent, currentUploadFileOperation)
 
                 if (accountName != null && remotePath != null) {
-                    val key: String =
-                        FileUploadHelper.buildRemoteName(accountName, remotePath)
+                    val key: String = FileUploadHelper.buildRemoteName(accountName, remotePath)
                     val boundListener = FileUploadHelper.mBoundListeners[key]
                     val filename = currentUploadFileOperation?.fileName ?: ""
 
@@ -353,8 +355,10 @@ class FileUploadWorker(
 
                 dismissOldErrorNotification(currentUploadFileOperation)
             }
+            lastUpdateTime = currentTime
         }
 
         lastPercent = percent
     }
+
 }

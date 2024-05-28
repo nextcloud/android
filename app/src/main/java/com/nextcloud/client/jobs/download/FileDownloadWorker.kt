@@ -406,6 +406,9 @@ class FileDownloadWorker(
         }
     }
 
+    private val minProgressUpdateInterval = 750
+    private var lastUpdateTime = 0L
+
     @Suppress("MagicNumber")
     override fun onTransferProgress(
         progressRate: Long,
@@ -414,15 +417,18 @@ class FileDownloadWorker(
         filePath: String
     ) {
         val percent: Int = (100.0 * totalTransferredSoFar.toDouble() / totalToTransfer.toDouble()).toInt()
+        val currentTime = System.currentTimeMillis()
 
-        if (percent != lastPercent) {
+        if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
             notificationManager.run {
                 updateDownloadProgress(percent, totalToTransfer)
             }
+            lastUpdateTime = currentTime
         }
 
         lastPercent = percent
     }
+
 
     inner class FileDownloadProgressListener : OnDatatransferProgressListener {
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
