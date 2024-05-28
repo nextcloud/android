@@ -174,13 +174,8 @@
     <string name="could_not_retrieve_url"> No se pudo recuperar la URL</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
-    <string name="create_new">Crear nuevo</string>
-    <string name="create_new_document">Crear nuevo documento</string>
-    <string name="create_new_folder">Crear nueva carpeta</string>
-    <string name="create_new_presentation">Crear nueva presentación</string>
-    <string name="create_new_spreadsheet">Crear nueva hoja de cálculo</string>
-    <string name="create_rich_workspace">Agregar información de carpeta</string>
-    <string name="creates_rich_workspace">Crear información de carpeta</string>
+    <string name="create_new">Nuevo</string>
+    <string name="create_new_folder">Carpeta nueva</string>
     <string name="credentials_disabled">Contraseña deshabilitada</string>
     <string name="daily_backup">Copia de seguridad diaria</string>
     <string name="data_to_back_up">Datos a respaldar</string>
@@ -770,7 +765,6 @@
     <string name="trashbin_not_emptied">¡Los archivos no se pudieron eliminar permanentemente!</string>
     <string name="unread_comments">Existen comentarios no leídos</string>
     <string name="unset_encrypted">Cifrado no establecido</string>
-    <string name="unset_favorite">Quitar de favoritos</string>
     <string name="unshare_link_file_error">Se presentó un error al tratar de dejar de compartir este archivo o carpeta.</string>
     <string name="unshare_link_file_no_exist">No fue posible compartir. Favor de revisar si el archivo existe</string>
     <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>

@@ -166,13 +166,7 @@
     <string name="could_not_retrieve_url">ບໍ່ສາມາດເກັບURL ໄດ້</string>
     <string name="create">ສ້າງ</string>
     <string name="create_dir_fail_msg">ບໍ່ສາມາດສ້າງໂຟນເດີໄດ້</string>
-    <string name="create_new">ສ້າງໃຫມ່</string>
-    <string name="create_new_document">ສ້າງເອກະສານໃຫມ່</string>
-    <string name="create_new_folder">ສ້າງໂຟນເດີໃຫມ່</string>
-    <string name="create_new_presentation">ສ້າງບົດສະເຫນີໃຫມ່</string>
-    <string name="create_new_spreadsheet">ສ້າງຕາຕະລາງໃຫມ່</string>
-    <string name="create_rich_workspace">ເພີ່ມຂໍ້ມູນໂຟນເດີ</string>
-    <string name="creates_rich_workspace">ສ້າງໂຟນເດີຂໍ້ມຸນ</string>
+    <string name="create_new_folder">ໂຟນເດີໃຫມ່</string>
     <string name="credentials_disabled">ຂໍ້ມູນປະຈໍາຕົວຖືກປິດ</string>
     <string name="default_credentials_wrong">ການຢັ້ງຢືນຕົວຕົນທີ່ບໍ່ຖືກຕ້ອງ</string>
     <string name="delete_account">ຍ້າຍບັນຊີ</string>
@@ -681,7 +675,6 @@
     <string name="trashbin_not_emptied">ຟາຍບໍ່ສາມາດລຶບໄດ້ຖາວອນ!</string>
     <string name="unread_comments">ຄວາມຄິດເຫັນທີ່ບໍ່ອ່ານ</string>
     <string name="unset_encrypted">ຍົກເລີິກການຕັ້ງຄ່າເຂົ້າລະຫັດຜ່ານ</string>
-    <string name="unset_favorite">ຍ້າຍອອກຈາກລາຍການທີ່ມັກ</string>
     <string name="unshare_link_file_error">ເກີດຂໍ້ຜິດພາດໃນຂະນະທີ່ພະຍາຍາມຍົກເລີກຟາຍແບ້ງປັນ ຫຼື ໂຟນເດີນີ້.</string>
     <string name="unshare_link_file_no_exist">ບໍ່ສາມາດແບ່ງປັນໄດ້. ກະລຸນາກວດເບິ່ງວ່າມີຟາຍຢູ່ ຫຼື ບໍ່.</string>
     <string name="unshare_link_forbidden_permissions">ເພື່ອຍົກເລີກການແບ່ງປັນຟາຍນີ້</string>

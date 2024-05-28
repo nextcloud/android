@@ -149,11 +149,8 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopii aŭ movi en ĉifritan dosierujon ne estas subtenata momente.</string>
     <string name="create">Krei</string>
     <string name="create_dir_fail_msg">Ne eblis krei dosierujon</string>
-    <string name="create_new">Krei nove</string>
-    <string name="create_new_document">Krei novan dokumenton</string>
-    <string name="create_new_folder">Krei novan dosierujon</string>
-    <string name="create_new_presentation">Krei novan prezentaĵon</string>
-    <string name="create_new_spreadsheet">Krei novan kalkultabelon</string>
+    <string name="create_new">Nova</string>
+    <string name="create_new_folder">Nova dosierujo</string>
     <string name="credentials_disabled">Akreditiloj estas malebligitaj</string>
     <string name="default_credentials_wrong">Malĝustaj akreditiloj</string>
     <string name="delete_account">Forigi konton</string>
@@ -569,7 +566,7 @@
     <string name="trashbin_not_emptied">Dosieroj ne povis esti porĉiame forigitaj!</string>
     <string name="unread_comments">Ekzistas nelegataj komentoj</string>
     <string name="unset_encrypted">Malĉifrigi</string>
-    <string name="unset_favorite">Forigi el pliŝataĵoj</string>
+    <string name="unset_favorite">Malpliŝatigi</string>
     <string name="unshare_link_forbidden_permissions">malkunhavigi ĉi tiun dosieron</string>
     <string name="unsharing_failed">Malkunhavigo malsukcesis</string>
     <string name="untrusted_domain">Aliro per nefidinda domajno. Vidu la helpdokumentojn por scii pli.</string>

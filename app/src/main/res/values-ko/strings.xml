@@ -180,13 +180,11 @@
     <string name="could_not_retrieve_url">주소를 불러올 수 없습니다.</string>
     <string name="create">생성</string>
     <string name="create_dir_fail_msg">폴더를 만들 수 없음</string>
-    <string name="create_new">새로 만들기</string>
-    <string name="create_new_document">새 문서 작성</string>
-    <string name="create_new_folder">새 폴더 생성</string>
-    <string name="create_new_presentation">새 프리젠테이션 작성</string>
-    <string name="create_new_spreadsheet">새 스프레드시트 작성</string>
-    <string name="create_rich_workspace">폴더 정보 추가</string>
-    <string name="creates_rich_workspace">폴더 정보 만들기</string>
+    <string name="create_new">새 파일</string>
+    <string name="create_new_document">새 문서</string>
+    <string name="create_new_folder">새 폴더</string>
+    <string name="create_new_presentation">새 프레젠테이션</string>
+    <string name="create_new_spreadsheet">새 스프레드시트</string>
     <string name="credentials_disabled">인증 비활성화됨</string>
     <string name="daily_backup">매일 백업</string>
     <string name="data_to_back_up">백업 할 날짜</string>
@@ -833,7 +831,7 @@
     <string name="unlock_file">파일 잠금해제</string>
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>
-    <string name="unset_favorite">즐겨찾기에서 제거</string>
+    <string name="unset_favorite">즐겨찾기에서 삭제</string>
     <string name="unshare_link_file_error">이 파일이나 폴더의 공유해제 중에 오류가 발생하였습니다.</string>
     <string name="unshare_link_file_no_exist">공유해제 실패. 파일이 존재하지는 확인하십시오.</string>
     <string name="unshare_link_forbidden_permissions">이 파일의 공유를 해제할</string>

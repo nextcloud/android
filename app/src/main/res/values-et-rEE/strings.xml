@@ -156,10 +156,10 @@
     <string name="could_not_download_image">Täieliku pildifaili allalaadimine ebaõnnestus</string>
     <string name="create">Loo</string>
     <string name="create_dir_fail_msg">Ei suuda kausta luua</string>
-    <string name="create_new_document">Loo uus dokument</string>
-    <string name="create_new_folder">Loo uus kaust</string>
-    <string name="create_new_presentation">Loo uus presentatsioon</string>
-    <string name="create_new_spreadsheet">Loo uus arvutustabel</string>
+    <string name="create_new">Uus</string>
+    <string name="create_new_document">Uus dokument</string>
+    <string name="create_new_presentation">Uus esitlus</string>
+    <string name="create_new_spreadsheet">Uus arvutustabel</string>
     <string name="daily_backup">Igapäevane varundus</string>
     <string name="data_to_back_up">Varundatavad andmed</string>
     <string name="delete_account">Eemalda konto</string>
@@ -443,7 +443,6 @@
     <string name="trashbin_empty_headline">Kustutatud faile pole</string>
     <string name="trashbin_file_remove">Kustuta jäädavalt</string>
     <string name="unset_encrypted">Eemalda krüpteering</string>
-    <string name="unset_favorite">Eemalda lemmikutest</string>
     <string name="unshare_link_forbidden_permissions">faili jagamise lõpetamiseks</string>
     <string name="update_link_forbidden_permissions">jagamise uuendamiseks</string>
     <string name="upload_action_failed_clear">Puhasta ebaõnnestunud üleslaadimised</string>

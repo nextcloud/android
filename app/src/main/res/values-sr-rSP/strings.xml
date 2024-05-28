@@ -139,10 +139,8 @@
     <string name="could_not_download_image">Nije moguće preuzeti celu sliku</string>
     <string name="create">Napravi</string>
     <string name="create_dir_fail_msg">Ne mogu da napravim fasciklu</string>
-    <string name="create_new_document">Napravi novi dokument</string>
-    <string name="create_new_folder">Napravi novu fasciklu</string>
-    <string name="create_new_presentation">Napravi novu prezentaciju</string>
-    <string name="create_new_spreadsheet">Napravi novu tabelu</string>
+    <string name="create_new">Nov</string>
+    <string name="create_new_folder">Nova fascikla</string>
     <string name="credentials_disabled">Akreditivi isključeni</string>
     <string name="default_credentials_wrong">Neispravni akreditivi</string>
     <string name="delete_account">Ukloni nalog</string>
@@ -591,7 +589,6 @@
     <string name="trashbin_not_emptied">Fajl ne može da se obriše nepovratno!</string>
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Isključi šifrovanje</string>
-    <string name="unset_favorite">Ukloni iz omiljenih</string>
     <string name="unshare_link_forbidden_permissions">da ukinete deljenje ovog fajla</string>
     <string name="unsharing_failed">Uklanjanje deljenja nije uspelo</string>
     <string name="untrusted_domain">Pristup kroz domen koji nije od poverenja. Pogledajte dokumentaciju za još informacija.</string>

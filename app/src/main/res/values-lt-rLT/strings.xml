@@ -171,13 +171,11 @@
     <string name="could_not_retrieve_url">Nepavyko nuskaityti URL</string>
     <string name="create">Sukurti</string>
     <string name="create_dir_fail_msg">Nepavyko sukurti failo</string>
-    <string name="create_new">Sukurti naują</string>
-    <string name="create_new_document">Sukurti naują dokumentą</string>
-    <string name="create_new_folder">Sukurti naują aplanką</string>
-    <string name="create_new_presentation">Sukurti naują pateiktį</string>
-    <string name="create_new_spreadsheet">Sukurti naują skaičiuoklę</string>
-    <string name="create_rich_workspace"> Pridėti aplanko informaciją</string>
-    <string name="creates_rich_workspace">sukuria aplanko informaciją</string>
+    <string name="create_new">Nauja</string>
+    <string name="create_new_document">Naujas dokumentas</string>
+    <string name="create_new_folder">Naujas aplankas</string>
+    <string name="create_new_presentation">Nauja pateiktis</string>
+    <string name="create_new_spreadsheet">Nauja skaičiuoklė</string>
     <string name="credentials_disabled">Prisijungimo duomenys išjungti</string>
     <string name="daily_backup">Kasdienės atsarginės kopijos</string>
     <string name="data_to_back_up">Duomenys, kurių atsarginę kopiją daryti</string>
@@ -734,7 +732,7 @@
     <string name="unlock_file">Atrakinti failą</string>
     <string name="unread_comments">Yra neskaitytų komentarų</string>
     <string name="unset_encrypted">Atjungti šifravimą</string>
-    <string name="unset_favorite">Šalinti iš mėgstamų</string>
+    <string name="unset_favorite">Šalinti iš svarbiausių</string>
     <string name="unshare_link_file_error">Bandant nustoti bendrinti šį failą ar aplanką įvyko klaida.</string>
     <string name="unshare_link_file_no_exist">Nepavyko nustoti bendrinti. Prašome, patikrinkite ar failas egzistuoja.</string>
     <string name="unshare_link_forbidden_permissions">nustoti bendrinti šį failą</string>

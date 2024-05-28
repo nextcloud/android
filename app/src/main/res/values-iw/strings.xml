@@ -167,13 +167,11 @@
     <string name="could_not_retrieve_url">לא ניתן לקבל כתובת</string>
     <string name="create">יצירה</string>
     <string name="create_dir_fail_msg">לא ניתן ליצור תיקייה</string>
-    <string name="create_new">יצירת חדש</string>
-    <string name="create_new_document">יצירת מסמך חדש</string>
-    <string name="create_new_folder">יצירת תיקייה חדשה</string>
-    <string name="create_new_presentation">יצירת מצגת חדשה</string>
-    <string name="create_new_spreadsheet">יצירת גיליון חדש</string>
-    <string name="create_rich_workspace">הוספת פרטי תיקייה</string>
-    <string name="creates_rich_workspace">יוצר פרטי תיקייה</string>
+    <string name="create_new">חדש</string>
+    <string name="create_new_document">מסמך חדש</string>
+    <string name="create_new_folder">תיקייה חדשה</string>
+    <string name="create_new_presentation">מצגת חדשה</string>
+    <string name="create_new_spreadsheet">גיליון נתונים חדש</string>
     <string name="credentials_disabled">פרטי גישה מושבתים</string>
     <string name="daily_backup">גיבוי יומי</string>
     <string name="data_to_back_up">נתונים לגיבוי</string>
@@ -681,7 +679,6 @@
     <string name="unlock_file">שחרור קובץ</string>
     <string name="unread_comments">יש תגובות שלא נקראו</string>
     <string name="unset_encrypted">ביטול הגדרת ההצפנה</string>
-    <string name="unset_favorite">הסרה מהמועדפים</string>
     <string name="unshare_link_forbidden_permissions">לבטל שיתוף לקובץ זה</string>
     <string name="unsharing_failed">ביטול השיתוף נכשל</string>
     <string name="untrusted_domain">גישה דרך שם מתחם בלתי מהימן. נא לעיין בתיעוד לקבלת פרטים נוספים.</string>
