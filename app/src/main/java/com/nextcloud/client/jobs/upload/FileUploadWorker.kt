@@ -129,11 +129,14 @@ class FileUploadWorker(
     @Suppress("ReturnCount")
     private fun retrievePagesBySortingUploadsByID(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
-        var currentPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
+        var uploadsPerPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
+        val totalUploadSize = uploadsStorageManager.getTotalUploadSize(accountName)
+
+        Log_OC.d(TAG, "Total upload size: $totalUploadSize")
 
         notificationManager.dismissWorkerNotifications()
 
-        while (currentPage.isNotEmpty() && !isStopped) {
+        while (uploadsPerPage.isNotEmpty() && !isStopped) {
             if (preferences.isGlobalUploadPaused) {
                 Log_OC.d(TAG, "Upload is paused, skip uploading files!")
                 notificationManager.notifyPaused(
@@ -142,10 +145,10 @@ class FileUploadWorker(
                 return Result.success()
             }
 
-            Log_OC.d(TAG, "Handling ${currentPage.size} uploads for account $accountName")
-            val lastId = currentPage.last().uploadId
-            uploadFiles(currentPage, accountName)
-            currentPage =
+            Log_OC.d(TAG, "Handling ${uploadsPerPage.size} uploads for account $accountName")
+            val lastId = uploadsPerPage.last().uploadId
+            uploadFiles(totalUploadSize, uploadsPerPage, accountName)
+            uploadsPerPage =
                 uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(lastId, accountName)
         }
 
@@ -157,12 +160,12 @@ class FileUploadWorker(
         return Result.success()
     }
 
-    private fun uploadFiles(uploads: List<OCUpload>, accountName: String) {
+    private fun uploadFiles(totalUploadSize: Int, uploadsPerPage: List<OCUpload>, accountName: String) {
         val user = userAccountManager.getUser(accountName)
-        setWorkerState(user.get(), uploads)
+        setWorkerState(user.get(), uploadsPerPage)
 
         run uploads@{
-            uploads.forEachIndexed { currentUploadIndex, upload ->
+            uploadsPerPage.forEachIndexed { currentUploadIndex, upload ->
                 if (isStopped) {
                     return@uploads
                 }
@@ -177,7 +180,7 @@ class FileUploadWorker(
                         cancelPendingIntent = intents.startIntent(uploadFileOperation),
                         startIntent = intents.notificationStartIntent(uploadFileOperation),
                         currentUploadIndex = currentUploadIndex + 1,
-                        totalUploadSize = uploads.size
+                        totalUploadSize = totalUploadSize
                     )
 
                     val result = upload(uploadFileOperation, user.get())
