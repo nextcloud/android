@@ -155,6 +155,8 @@
     <string name="could_not_retrieve_url">Dibosuple adtapout an URL</string>
     <string name="create">Krouiñ</string>
     <string name="create_dir_fail_msg">Dibosuple krouiñ an teuliad</string>
+    <string name="create_new">Nevez</string>
+    <string name="create_new_folder">Teuliad nevez</string>
     <string name="credentials_disabled">Titouroù identitelez disaotreet</string>
     <string name="default_credentials_wrong">Titouroù identitelez fall</string>
     <string name="delete_account">Lemel ar c\'hont</string>

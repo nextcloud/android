@@ -149,6 +149,8 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Kopii aŭ movi en ĉifritan dosierujon ne estas subtenata momente.</string>
     <string name="create">Krei</string>
     <string name="create_dir_fail_msg">Ne eblis krei dosierujon</string>
+    <string name="create_new">Nova</string>
+    <string name="create_new_folder">Nova dosierujo</string>
     <string name="credentials_disabled">Akreditiloj estas malebligitaj</string>
     <string name="default_credentials_wrong">Malĝustaj akreditiloj</string>
     <string name="delete_account">Forigi konton</string>

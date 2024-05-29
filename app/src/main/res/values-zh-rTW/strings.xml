@@ -210,6 +210,7 @@
     <string name="create_new_presentation">新簡報</string>
     <string name="create_new_spreadsheet">新試算表</string>
     <string name="create_rich_workspace">新增資料夾描述</string>
+    <string name="creates_rich_workspace">新增資料夾描述</string>
     <string name="credentials_disabled">認證方式已取消</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的資料</string>

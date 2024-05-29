@@ -176,6 +176,10 @@
     <string name="could_not_retrieve_url">Αδυναμία ανάκτησης URL</string>
     <string name="create">Δημιουργία</string>
     <string name="create_dir_fail_msg">Αδυναμία δημιουργίας φακέλου</string>
+    <string name="create_new">Νέα</string>
+    <string name="create_new_document">Νέο έγγραφο</string>
+    <string name="create_new_folder">Νέος φάκελος</string>
+    <string name="create_new_presentation">Νέα παρουσίαση</string>
     <string name="create_new_spreadsheet">Νέο λογιστικό φύλλο</string>
     <string name="credentials_disabled">Απενεργοποιημένα διαπιστευτήρια</string>
     <string name="daily_backup">Ημερήσιο αντίγραφο ασφαλείας</string>

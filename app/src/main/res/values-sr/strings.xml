@@ -210,6 +210,7 @@
     <string name="create_new_presentation">Нова презентација</string>
     <string name="create_new_spreadsheet">Нова табела</string>
     <string name="create_rich_workspace">Додај опис фолдера</string>
+    <string name="creates_rich_workspace">Додаје опис фолдера</string>
     <string name="credentials_disabled">Акредитиви искључени</string>
     <string name="daily_backup">Дневна резервна копија</string>
     <string name="data_to_back_up">Подаци који се чувају</string>

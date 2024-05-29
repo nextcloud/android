@@ -204,8 +204,13 @@
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create">Create</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
+    <string name="create_new">New</string>
+    <string name="create_new_document">New document</string>
+    <string name="create_new_folder">New folder</string>
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
+    <string name="create_rich_workspace">Add folder description</string>
+    <string name="creates_rich_workspace">Adds folder description</string>
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>

@@ -190,6 +190,10 @@
     <string name="could_not_retrieve_url">Kunne ikke hente URL</string>
     <string name="create">Opret</string>
     <string name="create_dir_fail_msg">Kunne ikke oprette mappe</string>
+    <string name="create_new">Ny</string>
+    <string name="create_new_document">Nyt Dokument</string>
+    <string name="create_new_folder">Ny mappe</string>
+    <string name="create_new_presentation">Ny Præsentation</string>
     <string name="create_new_spreadsheet">Nyt Regneark</string>
     <string name="credentials_disabled">Brugeroplysninger deaktiverede</string>
     <string name="daily_backup">Daglig backup</string>
