@@ -205,11 +205,12 @@
     <string name="create">建立</string>
     <string name="create_dir_fail_msg">無法新增資料夾</string>
     <string name="create_new">新</string>
-    <string name="create_new_document">新文字文件</string>
+    <string name="create_new_document">新文件</string>
     <string name="create_new_folder">新資料夾</string>
     <string name="create_new_presentation">新簡報</string>
     <string name="create_new_spreadsheet">新試算表</string>
-    <string name="create_rich_workspace">新增資料夾描述</string>
+    <string name="create_rich_workspace">添加資料夾描述</string>
+    <string name="creates_rich_workspace">添加資料夾描述</string>
     <string name="credentials_disabled">認證方式已取消</string>
     <string name="daily_backup">每日備份</string>
     <string name="data_to_back_up">要備份的數據</string>

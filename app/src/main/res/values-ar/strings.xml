@@ -210,6 +210,7 @@
     <string name="create_new_presentation">عرض تقديمي جديد</string>
     <string name="create_new_spreadsheet">جدول بيانات جديد</string>
     <string name="create_rich_workspace">أضِف وصفاً للمجلد</string>
+    <string name="creates_rich_workspace">إضافة وصف للمجلد</string>
     <string name="credentials_disabled">التصريح غير مفعل</string>
     <string name="daily_backup">النسخ الاحتياطي اليومي</string>
     <string name="data_to_back_up">البيانات التي سيتم نسخها احتياطيا</string>

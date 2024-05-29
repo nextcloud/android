@@ -210,6 +210,7 @@
     <string name="create_new_presentation">Neue Präsentation</string>
     <string name="create_new_spreadsheet">Neue Tabelle</string>
     <string name="create_rich_workspace">Ordnerbeschreibung hinzufügen</string>
+    <string name="creates_rich_workspace">Fügt eine Ordnerbeschreibung hinzu</string>
     <string name="credentials_disabled">Zugangsdaten ausgeschaltet</string>
     <string name="daily_backup">Tägliche Sicherung</string>
     <string name="data_to_back_up">Zu sichernde Daten</string>

@@ -210,6 +210,7 @@
     <string name="create_new_presentation">New presentation</string>
     <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="create_rich_workspace">Add folder description</string>
+    <string name="creates_rich_workspace">Adds folder description</string>
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
