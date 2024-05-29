@@ -2,6 +2,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2024 Jonas Mayer
   ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
   ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-FileCopyrightText: 2018 Nextcloud
@@ -14,15 +15,36 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
+    <FrameLayout
+        android:id="@+id/upload_list_state_layout"
+        android:layout_width="@dimen/upload_list_item_frame_layout_width"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/standard_half_padding"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:focusable="false"
+        android:layout_alignParentStart="true"
+        android:focusableInTouchMode="false">
+
+        <ImageView
+            android:id="@+id/upload_list_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:contentDescription="@string/upload_list_expand_header"
+            android:src="@drawable/ic_expand_less" />
+    </FrameLayout>
+
     <TextView
         android:id="@+id/upload_list_title"
         style="@style/TextAppearance.AppCompat.Body2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
+        android:layout_toEndOf="@id/upload_list_state_layout"
         android:layout_toStartOf="@id/upload_list_action"
         android:ellipsize="middle"
-        android:padding="@dimen/standard_half_padding"
+        android:gravity="center_vertical"
+        android:paddingTop="@dimen/standard_half_padding"
+        android:paddingBottom="@dimen/standard_half_padding"
         android:textColor="@color/color_accent"
         tools:text="Current (2)" />
 
