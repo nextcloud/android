@@ -601,17 +601,8 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getCurrentAndPendingUploadsForAccount(final @NonNull String accountName) {
-        return getUploads("( " + ProviderTableMeta.UPLOADS_STATUS + "==" + UploadStatus.UPLOAD_IN_PROGRESS.value +
-                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              "==" + UploadResult.DELAYED_FOR_WIFI.getValue() +
-                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              "==" + UploadResult.LOCK_FAILED.getValue() +
-                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              "==" + UploadResult.DELAYED_FOR_CHARGING.getValue() +
-                              " OR " + ProviderTableMeta.UPLOADS_LAST_RESULT +
-                              "==" + UploadResult.DELAYED_IN_POWER_SAVE_MODE.getValue() +
-                              " ) AND " + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + "== ?",
-                          accountName);
+        String inProgressUploadsSelection = getInProgressUploadsSelection();
+        return getUploads(inProgressUploadsSelection, accountName);
     }
 
     /**
