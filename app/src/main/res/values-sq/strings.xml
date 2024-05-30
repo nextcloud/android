@@ -149,13 +149,8 @@
     <string name="could_not_retrieve_url">Nuk mund të rikthej URL-në</string>
     <string name="create">Krijo</string>
     <string name="create_dir_fail_msg">S’u krijua dot dosja</string>
-    <string name="create_new">Krijo të ri</string>
-    <string name="create_new_document">Krijo një dokument te ri</string>
-    <string name="create_new_folder">Krijo një dosje të re</string>
-    <string name="create_new_presentation">Krijo një prezantim të ri</string>
-    <string name="create_new_spreadsheet">Krijo një spreadsheet të ri</string>
-    <string name="create_rich_workspace">Shto informacion për dosjen</string>
-    <string name="creates_rich_workspace">Krijon informacionin e dosjeve</string>
+    <string name="create_new">I ri</string>
+    <string name="create_new_folder">Dosje e re</string>
     <string name="credentials_disabled">Kredencialet të pa aktivizuara</string>
     <string name="default_credentials_wrong">Kredenciele jo të sakta</string>
     <string name="delete_account">Hiqe llogarinë</string>
@@ -622,7 +617,7 @@
     <string name="trashbin_not_emptied">Skedarët nuk mund të fshihen përgjithmonë!</string>
     <string name="unread_comments">Ekzistojnë komente të palexuara</string>
     <string name="unset_encrypted">Hiq enkriptimin</string>
-    <string name="unset_favorite">Hiqe nga të parapëlqyerat</string>
+    <string name="unset_favorite">Hiqeni nga të parapëlqyerat</string>
     <string name="unshare_link_forbidden_permissions">për zhbërje të ndarjes me të tjerët të kësaj kartele</string>
     <string name="unsharing_failed">Mos ndarja dështoi</string>
     <string name="untrusted_domain">Aksesi nëpërmjet një domaini jo të besuar. Ju lutem shikoni dokumentimin për info të mëtejshme. </string>

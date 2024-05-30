@@ -175,13 +175,8 @@
     <string name="could_not_retrieve_url">Tókst ekki að ná í slóð</string>
     <string name="create">Búa til</string>
     <string name="create_dir_fail_msg">gat ekki búið til möppuna %1</string>
-    <string name="create_new">Búa til nýjan</string>
-    <string name="create_new_document">Búa til nýtt skjal</string>
-    <string name="create_new_folder">Búa til nýja möppu</string>
-    <string name="create_new_presentation">Búa til nýja kynningu</string>
-    <string name="create_new_spreadsheet">Búa til nýtt töflureiknisskjal</string>
-    <string name="create_rich_workspace">Bæta við upplýsingum möppu</string>
-    <string name="creates_rich_workspace">býr til upplýsingar um möppu</string>
+    <string name="create_new">Nýtt</string>
+    <string name="create_new_folder">Ný mappa</string>
     <string name="credentials_disabled">Auðkenni óvirk</string>
     <string name="daily_backup">Dagleg öryggisafritun</string>
     <string name="data_to_back_up">Gögn sem á að taka öryggisafrit af</string>
@@ -810,7 +805,6 @@
     <string name="unlock_file">Aflæsa skrá</string>
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
-    <string name="unset_favorite">Fjarlægja úr eftirlætislista</string>
     <string name="unshare_link_file_error">Villa kom upp við að reyna að hætta deilingu á þessari skrá eða möppu.</string>
     <string name="unshare_link_file_no_exist">Get ekki hætt deilingu. Athugaðu hvort skráin sé til.</string>
     <string name="unshare_link_forbidden_permissions">til að hætta deilingu á þessari skrá</string>

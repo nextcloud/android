@@ -170,13 +170,8 @@
     <string name="could_not_retrieve_url">ไม่สามารถดึง URL</string>
     <string name="create">สร้าง</string>
     <string name="create_dir_fail_msg">ไม่สามารถสร้างโฟลเดอร์</string>
-    <string name="create_new">สร้างใหม่</string>
-    <string name="create_new_document">สร้างเอกสารใหม่</string>
-    <string name="create_new_folder">สร้างโฟลเดอร์ใหม่</string>
-    <string name="create_new_presentation">สร้างงานนำเสนอใหม่</string>
-    <string name="create_new_spreadsheet">สร้างสเปรดชีตใหม่</string>
-    <string name="create_rich_workspace">เพิ่มข้อมูลโฟลเดอร์</string>
-    <string name="creates_rich_workspace">สร้างข้อมูลโฟลเดอร์</string>
+    <string name="create_new">ใหม่</string>
+    <string name="create_new_folder">โฟลเดอร์ใหม่</string>
     <string name="credentials_disabled">ข้อมูลประจำตัวถูกปิดใช้งาน</string>
     <string name="daily_backup">สำรองข้อมูลรายวัน</string>
     <string name="data_to_back_up">ข้อมูลที่จะสำรอง</string>
@@ -568,6 +563,7 @@
     <string name="trashbin_activity_title">ไฟล์ที่ถูกลบ</string>
     <string name="trashbin_empty_headline">ไม่มีไฟล์ที่ถูกลบ</string>
     <string name="trashbin_file_remove">ลบแบบถาวร</string>
+    <string name="unset_favorite">เอาออกจากรายการโปรด</string>
     <string name="unshare_link_forbidden_permissions">เพื่อเลิกแชร์ไฟล์นี้</string>
     <string name="update_link_forbidden_permissions">เพื่ออัปเดตการแชร์นี้</string>
     <string name="upload_action_failed_clear">ล้างการอัปโหลดที่ล้มเหลว</string>

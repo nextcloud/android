@@ -102,7 +102,11 @@
     <string name="copy_link">Copiar enllaz</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">Nun pudo crease la carpeta</string>
-    <string name="create_new_folder">Crear una carpeta</string>
+    <string name="create_new">Nuevu</string>
+    <string name="create_new_document">Documentu nuevu</string>
+    <string name="create_new_folder">Carpeta nueva</string>
+    <string name="create_new_presentation">Presentación nueva</string>
+    <string name="create_new_spreadsheet">Fueya de cálculu nueva</string>
     <string name="delete_account">Desaniciar cuenta</string>
     <string name="dev_version_no_information_available">Nun hai nenguna información disponible</string>
     <string name="dev_version_no_new_version_available">Nun hai nengún anovamientu disponible.</string>

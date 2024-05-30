@@ -181,13 +181,11 @@
     <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
     <string name="create">Létrehozás</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
-    <string name="create_new">Új létrehozása</string>
-    <string name="create_new_document">Új dokumentum létrehozása</string>
-    <string name="create_new_folder">Új mappa létrehozása</string>
-    <string name="create_new_presentation">Új bemutató létrehozása</string>
-    <string name="create_new_spreadsheet">Új munkafüzet létrehozása</string>
-    <string name="create_rich_workspace">Mappainformációk hozzáadása</string>
-    <string name="creates_rich_workspace">létrehozza a mappainformációkat</string>
+    <string name="create_new">Új</string>
+    <string name="create_new_document">Új dokumentum</string>
+    <string name="create_new_folder">Új mappa</string>
+    <string name="create_new_presentation">Új bemutató</string>
+    <string name="create_new_spreadsheet">Új munkafüzet</string>
     <string name="credentials_disabled">Hitelesítő adatok letiltva</string>
     <string name="daily_backup">Napi biztonsági mentés</string>
     <string name="data_to_back_up">Mentendő adatok</string>
@@ -830,7 +828,7 @@
     <string name="unlock_file">Fájl feloldása</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
-    <string name="unset_favorite">Eltávolítás a kedvencekből</string>
+    <string name="unset_favorite">Eltávolítás a kedvencek közül</string>
     <string name="unshare_link_file_error">Hiba történt a mappa megosztásának visszavonásakor.</string>
     <string name="unshare_link_file_no_exist">A megosztás visszavonása sikertelen. Ellenőrizze, hogy a fájl létezik-e.</string>
     <string name="unshare_link_forbidden_permissions">fájl megosztásának visszavonása</string>

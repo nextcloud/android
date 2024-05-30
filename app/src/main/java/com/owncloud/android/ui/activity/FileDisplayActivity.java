@@ -597,10 +597,13 @@ public class FileDisplayActivity extends FileActivity
 
         showSortListGroup(showSortListGroup);
 
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.addToBackStack(null);
-        transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
-        transaction.commit();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        if (!isFinishing() && !fragmentManager.isDestroyed()) {
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            transaction.addToBackStack(null);
+            transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);
+            transaction.commit();
+        }
     }
 
     private OCFileListFragment getOCFileListFragmentFromFile() {

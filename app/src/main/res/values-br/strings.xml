@@ -155,13 +155,8 @@
     <string name="could_not_retrieve_url">Dibosuple adtapout an URL</string>
     <string name="create">Krouiñ</string>
     <string name="create_dir_fail_msg">Dibosuple krouiñ an teuliad</string>
-    <string name="create_new">Krouiñ unan nevez</string>
-    <string name="create_new_document">Krouiñ un diel nevez</string>
-    <string name="create_new_folder">Krouiñ un teuliad nevez</string>
-    <string name="create_new_presentation">Kroui ur ginnigadur nevez</string>
-    <string name="create_new_spreadsheet">Krouiñ ul loger nevez</string>
-    <string name="create_rich_workspace">Ouzhpennañ titouroù an teuliad</string>
-    <string name="creates_rich_workspace">kroui titouroù an teuliad</string>
+    <string name="create_new">Nevez</string>
+    <string name="create_new_folder">Teuliad nevez</string>
     <string name="credentials_disabled">Titouroù identitelez disaotreet</string>
     <string name="default_credentials_wrong">Titouroù identitelez fall</string>
     <string name="delete_account">Lemel ar c\'hont</string>
@@ -652,7 +647,6 @@
     <string name="unlock_file">Dibrennan ar restr</string>
     <string name="unread_comments">Bez eez eus kemenadennom n\'int ket bet lennet</string>
     <string name="unset_encrypted">Lemel ar sifrañ</string>
-    <string name="unset_favorite">Lemel eus ar pennroll</string>
     <string name="unshare_link_file_error">Ur fazi a zo bet pa oamp o klask dirannan ar restr pe an teuliad.</string>
     <string name="unshare_link_file_no_exist">Dibosupl eo dirannañ. Selleit ma\'z eus ouzh ar restr.</string>
     <string name="unshare_link_forbidden_permissions">evit diranna ar restr</string>

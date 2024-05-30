@@ -169,13 +169,11 @@
     <string name="could_not_retrieve_url">Nije moguće dohvatiti URL</string>
     <string name="create">Stvori</string>
     <string name="create_dir_fail_msg">Nije moguće stvoriti mapu</string>
-    <string name="create_new">Stvori novi</string>
-    <string name="create_new_document">Stvori novi dokument</string>
-    <string name="create_new_folder">Stvori novu mapu</string>
-    <string name="create_new_presentation">Stvori novu prezentaciju</string>
-    <string name="create_new_spreadsheet">Stvori novu proračunsku tablicu</string>
-    <string name="create_rich_workspace">Dodaj informacije o mapi</string>
-    <string name="creates_rich_workspace">stvara informacije o mapi</string>
+    <string name="create_new">Novo</string>
+    <string name="create_new_document">Novi dokument</string>
+    <string name="create_new_folder">Nova mapa</string>
+    <string name="create_new_presentation">Nova prezentacija</string>
+    <string name="create_new_spreadsheet">Nova proračunska tablica</string>
     <string name="credentials_disabled">Vjerodajnice onemogućene</string>
     <string name="daily_backup">Svakodnevno sigurnosno kopiranje</string>
     <string name="data_to_back_up">Podaci za sigurnosno kopiranje</string>
@@ -756,7 +754,6 @@
     <string name="unlock_file">Otključaj datoteku</string>
     <string name="unread_comments">Postoje nepročitani komentari</string>
     <string name="unset_encrypted">Ukloni šifriranje</string>
-    <string name="unset_favorite">Ukloni iz favorita</string>
     <string name="unshare_link_file_error">Došlo je do pogreške prilikom prestanka dijeljenja ove datoteke ili mape.</string>
     <string name="unshare_link_file_no_exist">Nije moguće poništiti dijeljenje. Provjerite postoji li datoteka.</string>
     <string name="unshare_link_forbidden_permissions">kako biste poništili dijeljenje ove datoteke</string>

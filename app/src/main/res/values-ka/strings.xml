@@ -177,13 +177,11 @@
     <string name="could_not_retrieve_url">Could not retrieve URL</string>
     <string name="create">Create</string>
     <string name="create_dir_fail_msg">Could not create folder</string>
-    <string name="create_new">Create new</string>
-    <string name="create_new_document">Create new document</string>
-    <string name="create_new_folder">Create new folder</string>
-    <string name="create_new_presentation">Create new presentation</string>
-    <string name="create_new_spreadsheet">Create new spreadsheet</string>
-    <string name="create_rich_workspace">Add folder info</string>
-    <string name="creates_rich_workspace">creates folder info</string>
+    <string name="create_new">New</string>
+    <string name="create_new_document">New document</string>
+    <string name="create_new_folder">New folder</string>
+    <string name="create_new_presentation">New presentation</string>
+    <string name="create_new_spreadsheet">New spreadsheet</string>
     <string name="credentials_disabled">Credentials disabled</string>
     <string name="daily_backup">Daily backup</string>
     <string name="data_to_back_up">Data to back up</string>
@@ -827,7 +825,7 @@
     <string name="unlock_file">Unlock file</string>
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>
-    <string name="unset_favorite">Remove from favourites</string>
+    <string name="unset_favorite">Remove from favorites</string>
     <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder.</string>
     <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists.</string>
     <string name="unshare_link_forbidden_permissions">to unshare this file</string>

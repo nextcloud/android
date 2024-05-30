@@ -147,7 +147,8 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copiar/ mover a la carpeta encriptada no se encuentra soportado por el momento.</string>
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
-    <string name="create_new_folder">Crear nueva carpeta</string>
+    <string name="create_new">Nuevo</string>
+    <string name="create_new_folder">Carpeta nueva</string>
     <string name="delete_account">Cerrar sesión</string>
     <string name="deselect_all">Deseleccionar todo</string>
     <string name="dev_version_new_version_available">Nueva versión disponible</string>

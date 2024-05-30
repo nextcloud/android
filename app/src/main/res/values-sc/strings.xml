@@ -166,13 +166,11 @@
     <string name="could_not_retrieve_url">No at fatu a recuperare s\'URL</string>
     <string name="create">Crea</string>
     <string name="create_dir_fail_msg">No at fatu a creare sa cartella</string>
-    <string name="create_new">Crea·nde una noa</string>
-    <string name="create_new_document">Crea archìviu nou</string>
-    <string name="create_new_folder">Crea cartella noa</string>
-    <string name="create_new_presentation">Crea presentatzione noa</string>
-    <string name="create_new_spreadsheet">Crea fògiu eletrònicu nou</string>
-    <string name="create_rich_workspace">Agiunghe informatziones de sa cartella</string>
-    <string name="creates_rich_workspace">creat informatziones de sa cartella</string>
+    <string name="create_new">Nou</string>
+    <string name="create_new_document">Documentu nou</string>
+    <string name="create_new_folder">Cartella noa</string>
+    <string name="create_new_presentation">Presentatzione noa</string>
+    <string name="create_new_spreadsheet">Fògiu eletrònicu nou</string>
     <string name="credentials_disabled">Credentziales disativadas</string>
     <string name="default_credentials_wrong">Credentziales isballiadas</string>
     <string name="delete_account">Boga·nche su contu</string>
@@ -706,7 +704,7 @@
     <string name="unlock_file">Isbloca su documentu</string>
     <string name="unread_comments">Ddoe sunt cummentos non lèghidos</string>
     <string name="unset_encrypted">Tzifradura non cunfigurada</string>
-    <string name="unset_favorite">Boga·nche·ddu dae is preferidos</string>
+    <string name="unset_favorite">Boga·nche dae preferidos</string>
     <string name="unshare_link_file_error">Ddoe at àpidu un\'errore in s\'annullamentu de sa cumpartzidura de s\'archìviu o de sa cartella.</string>
     <string name="unshare_link_file_no_exist">No at fatu a annnullare sa cumpartzidura. Controlla si s\'archìviu esistit.</string>
     <string name="unshare_link_forbidden_permissions">de annullare sa cumpartzidura de custu documentu</string>
