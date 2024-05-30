@@ -206,6 +206,7 @@
     <string name="create_dir_fail_msg">Le dossier n\'a pas pu être créé</string>
     <string name="create_new">Nouveau</string>
     <string name="create_new_document">Nouveau document</string>
+    <string name="create_new_folder">Nouveau dossier</string>
     <string name="create_new_presentation">Nouvelle présentation</string>
     <string name="create_new_spreadsheet">Nouvelle feuille de calcul</string>
     <string name="create_rich_workspace">Ajouter la description du dossier</string>
