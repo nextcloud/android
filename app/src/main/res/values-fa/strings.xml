@@ -186,6 +186,7 @@
     <string name="create_dir_fail_msg">امکان ساخت پوشه وجود ندارد</string>
     <string name="create_new">جدید</string>
     <string name="create_new_document">سند جدید</string>
+    <string name="create_new_folder">پوشه جدید</string>
     <string name="create_new_presentation">ارائه جدید</string>
     <string name="create_new_spreadsheet">صفحهٔ گستردهٔ جدید</string>
     <string name="credentials_disabled">اعتبارنامه غیرفعال است</string>

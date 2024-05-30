@@ -206,6 +206,7 @@
     <string name="create_dir_fail_msg">Ezin izan da karpeta sortu</string>
     <string name="create_new">Berria</string>
     <string name="create_new_document">Dokumentu berria</string>
+    <string name="create_new_folder">Karpeta berria</string>
     <string name="create_new_presentation">Aurkezpen berria</string>
     <string name="create_new_spreadsheet">Kalkulu-orri berria</string>
     <string name="create_rich_workspace">Gehitu karpetaren deskribapena</string>

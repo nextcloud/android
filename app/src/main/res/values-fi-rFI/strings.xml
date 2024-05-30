@@ -184,6 +184,7 @@
     <string name="create_dir_fail_msg">Kansion luominen ei onnistunut</string>
     <string name="create_new">Uusi</string>
     <string name="create_new_document">Uusi dokumentti</string>
+    <string name="create_new_folder">Uusi kansio</string>
     <string name="create_new_presentation">Uusi esitys</string>
     <string name="create_new_spreadsheet">Uusi laskentataulukko</string>
     <string name="create_rich_workspace">Lisään kansion kuvaus</string>

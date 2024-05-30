@@ -200,6 +200,7 @@
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="create_new">Nuevo</string>
+    <string name="create_new_folder">Carpeta nueva </string>
     <string name="create_rich_workspace">Añadir descripción de carpeta</string>
     <string name="credentials_disabled">Credenciales deshabilitadas</string>
     <string name="daily_backup">Respaldo diario</string>
