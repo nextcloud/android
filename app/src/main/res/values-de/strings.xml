@@ -915,6 +915,7 @@
     <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
     <string name="upload_list_empty_text_auto_upload">Laden Sie Inhalte hoch oder aktivieren Sie den Auto Upload.</string>
+    <string name="upload_list_expand_header">Erweiterung der Kopfzeile umschalten</string>
     <string name="upload_list_resolve_conflict">Konflikt lösen</string>
     <string name="upload_local_storage_full">Lokaler Speicher voll</string>
     <string name="upload_local_storage_not_copied">Datei konnte nicht in den lokalen Speicher kopiert werden</string>

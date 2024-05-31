@@ -915,6 +915,7 @@
     <string name="upload_list_delete">Избриши</string>
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
     <string name="upload_list_empty_text_auto_upload">Отпремите нешто или укључите аутоматско отпремање.</string>
+    <string name="upload_list_expand_header">Укљ./Искљ. развијање заглавља</string>
     <string name="upload_list_resolve_conflict">Разреши сукоб</string>
     <string name="upload_local_storage_full">Локално складиште пуно</string>
     <string name="upload_local_storage_not_copied">Фајл није могао да се копира на локално складиште</string>
