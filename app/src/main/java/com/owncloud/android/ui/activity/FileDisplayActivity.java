@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2023 Archontis E. Kostis <arxontisk02@gmail.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
@@ -2355,7 +2355,7 @@ public class FileDisplayActivity extends FileActivity
         DeepLinkHandler.Match match = linkHandler.parseDeepLink(uri);
         if (match == null) {
             dismissLoadingDialog();
-            DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
+            handleDeepLink(uri);
         } else if (match.getUsers().isEmpty()) {
             dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
