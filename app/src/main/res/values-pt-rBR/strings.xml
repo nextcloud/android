@@ -210,6 +210,7 @@
     <string name="create_new_presentation">Nova apresentação</string>
     <string name="create_new_spreadsheet">Nova planilha</string>
     <string name="create_rich_workspace">Adicionar descrição da pasta</string>
+    <string name="creates_rich_workspace">Adiciona descrição da pasta</string>
     <string name="credentials_disabled">Credenciais desabilitadas</string>
     <string name="daily_backup">Backup diário </string>
     <string name="data_to_back_up">Dados para backup </string>

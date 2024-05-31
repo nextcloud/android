@@ -158,6 +158,7 @@
     <string name="create_dir_fail_msg">Ei suuda kausta luua</string>
     <string name="create_new">Uus</string>
     <string name="create_new_document">Uus dokument</string>
+    <string name="create_new_folder">Uus kaust</string>
     <string name="create_new_presentation">Uus esitlus</string>
     <string name="create_new_spreadsheet">Uus arvutustabel</string>
     <string name="daily_backup">Igapäevane varundus</string>
