@@ -209,7 +209,7 @@
     <string name="create_new_folder">Nueva carpeta</string>
     <string name="create_new_presentation">Nueva presentación</string>
     <string name="create_new_spreadsheet">Nueva hoja de cálculo</string>
-    <string name="create_rich_workspace">Añadir descripción a carpeta</string>
+    <string name="create_rich_workspace">Añadir una descripción a la carpeta</string>
     <string name="creates_rich_workspace">Añade una descripción a la carpeta</string>
     <string name="credentials_disabled">Credenciales desactivadas</string>
     <string name="daily_backup">Copia de seguridad diaria</string>
@@ -915,6 +915,7 @@
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Sube algún contenido o active la subida automática.</string>
+    <string name="upload_list_expand_header">Alternar la expansión de la cabecera</string>
     <string name="upload_list_resolve_conflict">Resolver conflicto</string>
     <string name="upload_local_storage_full">Almacenamiento local lleno</string>
     <string name="upload_local_storage_not_copied">No se ha podido copiar el archivo al almacenamiento local</string>
