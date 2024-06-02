@@ -511,7 +511,7 @@
     <string name="uploader_wrn_no_account_setup_btn_text">Iestatīt</string>
     <string name="uploader_wrn_no_account_text">Jūsu ierīcē nav neviena %1$s konta. Lūdzu vispirms izveido kontu.</string>
     <string name="uploader_wrn_no_account_title">Nav atrastu kontu</string>
-    <string name="uploads_view_group_current_uploads">Pašreizējais</string>
+    <string name="uploads_view_group_current_uploads">Pašreizējās</string>
     <string name="uploads_view_group_failed_uploads">Neizdevās/gaida atsākšanu</string>
     <string name="uploads_view_group_finished_uploads">Augšupielādēts</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Atcelts</string>
