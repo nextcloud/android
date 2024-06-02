@@ -210,6 +210,7 @@
     <string name="create_new_presentation">Нова презентація</string>
     <string name="create_new_spreadsheet">Нова електронна таблиця</string>
     <string name="create_rich_workspace">Додати опис каталогу</string>
+    <string name="creates_rich_workspace">Додає опис каталогу</string>
     <string name="credentials_disabled">Дані авторизації не активні</string>
     <string name="daily_backup">Щоденне резервне збереження</string>
     <string name="data_to_back_up">Дані користувача для резервного збереження</string>
@@ -903,6 +904,7 @@
     <string name="upload_list_delete">Вилучити</string>
     <string name="upload_list_empty_headline">Ви ще нічого не завантажили</string>
     <string name="upload_list_empty_text_auto_upload">Завантажте вміст або увімкніть автоматичне завантаження</string>
+    <string name="upload_list_expand_header">Розгорнути/згорнути заголовок</string>
     <string name="upload_list_resolve_conflict">Розв\'язати конфлікт</string>
     <string name="upload_local_storage_full">Локальне сховище заповнено</string>
     <string name="upload_local_storage_not_copied">Неможливо скопіювати файл до внутрішнього сховища</string>
