@@ -915,6 +915,7 @@
     <string name="upload_list_delete">Scrios</string>
     <string name="upload_list_empty_headline">Níl aon uaslódála ar fáil</string>
     <string name="upload_list_empty_text_auto_upload">Uaslódáil roinnt ábhar nó cuir an uaslódáil uathoibríoch i ngníomh.</string>
+    <string name="upload_list_expand_header">Scoránaigh leathnú an cheanntásca</string>
     <string name="upload_list_resolve_conflict">Réitigh coinbhleacht</string>
     <string name="upload_local_storage_full">Stóráil áitiúil lán</string>
     <string name="upload_local_storage_not_copied">Níorbh fhéidir an comhad a chóipeáil go dtí an stóras áitiúil</string>
