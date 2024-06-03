@@ -915,6 +915,7 @@
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
     <string name="upload_list_empty_text_auto_upload">上傳一些內容或者啟用自動上傳。</string>
+    <string name="upload_list_expand_header">切換標題展開</string>
     <string name="upload_list_resolve_conflict">解決衝突</string>
     <string name="upload_local_storage_full">本機儲存空間已滿</string>
     <string name="upload_local_storage_not_copied">無法複製檔案到本機儲存空間</string>
