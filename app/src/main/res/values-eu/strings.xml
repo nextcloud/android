@@ -210,6 +210,7 @@
     <string name="create_new_presentation">Aurkezpen berria</string>
     <string name="create_new_spreadsheet">Kalkulu-orri berria</string>
     <string name="create_rich_workspace">Gehitu karpetaren deskribapena</string>
+    <string name="creates_rich_workspace">Karpetaren deskribapena gehitzen du</string>
     <string name="credentials_disabled">Kredentzialak desgaituta</string>
     <string name="daily_backup">Eguneko babeskopia</string>
     <string name="data_to_back_up">Babesteko datuak</string>
@@ -321,6 +322,7 @@
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
     <string name="error_starting_doc_scan">Errorea dokumentuen eskaneatzea abiaraztean</string>
     <string name="etm_accounts">Kontuak</string>
+    <string name="etm_background_execution_count">Denbora 48 ordutan egiten da</string>
     <string name="etm_background_job_created">Sortua</string>
     <string name="etm_background_job_name">Lanaren izena</string>
     <string name="etm_background_job_progress">Aurrerapena</string>
@@ -751,6 +753,7 @@
     <string name="share_link_with_label">Partekatze-esteka (%1$s)</string>
     <string name="share_no_expiration_date_label">Ezarri iraungitze-data</string>
     <string name="share_no_password_title">Ezarri pasahitza</string>
+    <string name="share_not_allowed_when_file_drop">Ez da birpartekatzea onartzen fitxategiak seguruen jariotzea erabiltzean</string>
     <string name="share_password_title">Pasahitzez babestua</string>
     <string name="share_permission_can_edit">Editatu dezake</string>
     <string name="share_permission_file_drop">Fitxategiak jaregin</string>
@@ -893,6 +896,7 @@
     <string name="upload_action_cancelled_resume">Berrekin bertan behera utzitako igoerei</string>
     <string name="upload_action_failed_clear">Garbitu huts egin duten igoerak</string>
     <string name="upload_action_failed_retry">Erroredun igoerak berriz saiatu</string>
+    <string name="upload_action_file_not_exist_message">Fitxategi batzuk jada ez dira existitzen. Karga hauek ezin dira berriro hasi.</string>
     <string name="upload_action_global_upload_pause">Pausatu igoera guztiak</string>
     <string name="upload_action_global_upload_resume">Berrekin igoera guztiei</string>
     <string name="upload_cannot_create_file">Ezin da sortu fitxategi lokala</string>
@@ -911,6 +915,7 @@
     <string name="upload_list_delete">Ezabatu</string>
     <string name="upload_list_empty_headline">Ezin dira fitxategiak igo</string>
     <string name="upload_list_empty_text_auto_upload">Edukiak igo edo auto-igotzea aktiba ezazu.</string>
+    <string name="upload_list_expand_header">Txandakatu goiburuaren hedapena</string>
     <string name="upload_list_resolve_conflict">Ebatzi gatazka</string>
     <string name="upload_local_storage_full">Biltegiratze lokala beteta</string>
     <string name="upload_local_storage_not_copied">Ezin izan da fitxategia kopiatu biltegiratze lokalera</string>
