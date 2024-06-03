@@ -52,16 +52,16 @@ import androidx.annotation.VisibleForTesting;
  * Database helper for storing list of files to be uploaded, including status information for each file.
  */
 public class UploadsStorageManager extends Observable {
-    private final String TAG = UploadsStorageManager.class.getSimpleName();
+    private static final String TAG = UploadsStorageManager.class.getSimpleName();
 
-    private final String IS_EQUAL =  "== ?";
-    private final String EQUAL =  "==";
-    private final String OR =  " OR ";
-    private final String AND = " AND ";
-    private final String ANGLE_BRACKETS = "<>";
-    private final int SINGLE_RESULT = 1;
+    private static final String IS_EQUAL =  "== ?";
+    private static final String EQUAL =  "==";
+    private static final String OR =  " OR ";
+    private static final String AND = " AND ";
+    private static final String ANGLE_BRACKETS = "<>";
+    private static final int SINGLE_RESULT = 1;
 
-    private final long QUERY_PAGE_SIZE = 100;
+    private static final long QUERY_PAGE_SIZE = 100;
 
     private final ContentResolver contentResolver;
     private final CurrentAccountProvider currentAccountProvider;
