@@ -126,8 +126,8 @@ class FileDownloadWorker(
             )
             setForegroundAsync(foregroundInfo)
 
-            requestDownloads.forEach {
-                downloadFile(it)
+            requestDownloads.forEachIndexed { currentDownloadIndex, requestedDownload ->
+                downloadFile(requestedDownload, currentDownloadIndex, requestDownloads.size)
             }
 
             downloadError?.let {
@@ -254,7 +254,7 @@ class FileDownloadWorker(
     }
 
     @Suppress("TooGenericExceptionCaught", "DEPRECATION")
-    private fun downloadFile(downloadKey: String) {
+    private fun downloadFile(downloadKey: String, currentDownloadIndex: Int, totalDownloadSize: Int) {
         currentDownload = pendingDownloads.get(downloadKey)
 
         if (currentDownload == null) {
@@ -270,7 +270,13 @@ class FileDownloadWorker(
             return
         }
 
-        notifyDownloadStart(currentDownload!!)
+        lastPercent = 0
+
+        notificationManager.run {
+            prepareForStart(currentDownload!!, currentDownloadIndex + 1, totalDownloadSize)
+            setContentIntent(intents.detailsIntent(currentDownload!!), PendingIntent.FLAG_IMMUTABLE)
+        }
+
         var downloadResult: RemoteOperationResult<*>? = null
         try {
             val ocAccount = getOCAccountForDownload()
@@ -288,15 +294,6 @@ class FileDownloadWorker(
             downloadResult = RemoteOperationResult<Any?>(e)
         } finally {
             cleanupDownloadProcess(downloadResult)
-        }
-    }
-
-    private fun notifyDownloadStart(download: DownloadFileOperation) {
-        lastPercent = 0
-
-        notificationManager.run {
-            prepareForStart(download)
-            setContentIntent(intents.detailsIntent(download), PendingIntent.FLAG_IMMUTABLE)
         }
     }
 
@@ -369,6 +366,7 @@ class FileDownloadWorker(
             FileDownloadError.Cancelled -> {
                 context.getString(R.string.downloader_file_download_cancelled)
             }
+
             FileDownloadError.Failed -> {
                 context.getString(R.string.downloader_file_download_failed)
             }
@@ -409,6 +407,10 @@ class FileDownloadWorker(
     }
 
     @Suppress("MagicNumber")
+    private val minProgressUpdateInterval = 750
+    private var lastUpdateTime = 0L
+
+    @Suppress("MagicNumber")
     override fun onTransferProgress(
         progressRate: Long,
         totalTransferredSoFar: Long,
@@ -416,11 +418,13 @@ class FileDownloadWorker(
         filePath: String
     ) {
         val percent: Int = (100.0 * totalTransferredSoFar.toDouble() / totalToTransfer.toDouble()).toInt()
+        val currentTime = System.currentTimeMillis()
 
-        if (percent != lastPercent) {
+        if (percent != lastPercent && (currentTime - lastUpdateTime) >= minProgressUpdateInterval) {
             notificationManager.run {
-                updateDownloadProgress(filePath, percent, totalToTransfer)
+                updateDownloadProgress(percent, totalToTransfer)
             }
+            lastUpdateTime = currentTime
         }
 
         lastPercent = percent

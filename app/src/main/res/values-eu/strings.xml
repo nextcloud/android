@@ -247,7 +247,6 @@
     <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
     <string name="downloader_download_failed_ticker">Deskargak huts egin du</string>
     <string name="downloader_download_file_not_found">Fitxategia jadanik ez dago eskuragarri zerbitzarian</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Deskargatzen %2$s</string>
     <string name="downloader_download_in_progress_ticker">Deskargatzen…</string>
     <string name="downloader_download_succeeded_content">%1$s deskargatuta</string>
@@ -951,7 +950,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantendu fitxategia jatorrizko karpetan</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ezabatu fitxategia jatorrizko karpetatik</string>
     <string name="uploader_upload_forbidden_permissions">kargatzeko karpeta honetara</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Igotzen %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Kargatzen…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s igota</string>

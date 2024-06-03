@@ -247,7 +247,6 @@
     <string name="downloader_download_failed_credentials_error">فشل التنزيل، قم بتسجيل الدخول مرة أخرى</string>
     <string name="downloader_download_failed_ticker">فشل التحميل</string>
     <string name="downloader_download_file_not_found">الملف غير متوفر في الخادم</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% تحميل  %2$s</string>
     <string name="downloader_download_in_progress_ticker">جارِ التنزيل …</string>
     <string name="downloader_download_succeeded_content">%1$s مُنزَّلَة</string>
@@ -978,7 +977,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">الإبقاء على الملف في المجلد الأصلي</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">إحذف الملف من المجلد الأصلي</string>
     <string name="uploader_upload_forbidden_permissions">للرفع إلى هذا المجلد</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% رفع %2$s</string>
     <string name="uploader_upload_in_progress_ticker">يتم الرفع…</string>
     <string name="uploader_upload_succeeded_content_single">تم رفع %1$s</string>
