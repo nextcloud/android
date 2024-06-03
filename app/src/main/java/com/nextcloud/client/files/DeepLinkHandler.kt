@@ -34,7 +34,8 @@ class DeepLinkHandler(
         val INDEX_PATH_GROUP_INDEX = 2
         val FILE_ID_GROUP_INDEX = 3
 
-        fun isDeepLinkTypeIsNavigation(deepLinkUrl: String): Boolean = DeepLinkConstants.navigationPaths.any { deepLinkUrl.endsWith(it) }
+        fun isDeepLinkTypeIsNavigation(deepLinkUrl: String): Boolean =
+            DeepLinkConstants.navigationPaths.any { deepLinkUrl.endsWith(it) }
     }
 
     /**
