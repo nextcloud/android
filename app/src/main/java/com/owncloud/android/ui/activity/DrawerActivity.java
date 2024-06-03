@@ -1277,50 +1277,31 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     protected void handleDeepLink(@NonNull Uri uri) {
         String path = uri.getLastPathSegment();
-        if (path != null) {
-            switch (path) {
-                case DeepLinkConstants.OPEN_FILES:
-                    handleNavItemClickEvent(R.id.nav_all_files);
-                    break;
-                case DeepLinkConstants.OPEN_FAVORITES:
-                    handleNavItemClickEvent(R.id.nav_favorites);
-                    break;
-                case DeepLinkConstants.OPEN_MEDIA:
-                    handleNavItemClickEvent(R.id.nav_gallery);
-                    break;
-                case DeepLinkConstants.OPEN_SHARED:
-                    handleNavItemClickEvent(R.id.nav_shared);
-                    break;
-                case DeepLinkConstants.OPEN_OFFLINE:
-                    handleNavItemClickEvent(R.id.nav_on_device);
-                    break;
-                case DeepLinkConstants.OPEN_NOTIFICATIONS:
-                    handleNavItemClickEvent(R.id.nav_notifications);
-                    break;
-                case DeepLinkConstants.OPEN_DELETED:
-                    handleNavItemClickEvent(R.id.nav_trashbin);
-                    break;
-                case DeepLinkConstants.OPEN_SETTINGS:
-                    handleNavItemClickEvent(R.id.nav_settings);
-                    break;
-                case DeepLinkConstants.OPEN_AUTO_UPLOAD:
-                    startActivity(SyncedFoldersActivity.class);
-                    break;
-                case DeepLinkConstants.OPEN_EXTERNAL_URL:
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                                               Uri.parse(uri.getQueryParameter("url")));
-                    startActivity(intent);
-                    break;
-                case DeepLinkConstants.ACTION_CREATE_NEW:
-                    findViewById(R.id.fab_main).callOnClick();
-                    break;
-                case DeepLinkConstants.ACTION_APP_UPDATE:
-                    openAppStore(getPackageName(), false);
-                    break;
-                default:
-                    DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
-                    break;
-            }
+        if (path == null) return;
+
+        DeepLinkConstants deepLinkType = DeepLinkConstants.Companion.fromPath(path);
+        if (deepLinkType == null) {
+            DisplayUtils.showSnackMessage(this, getString(R.string.invalid_url));
+            return;
+        }
+
+        switch (deepLinkType) {
+            case OPEN_AUTO_UPLOAD:
+                startActivity(new Intent(this, SyncedFoldersActivity.class));
+                break;
+            case OPEN_EXTERNAL_URL:
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri.getQueryParameter("url")));
+                startActivity(intent);
+                break;
+            case ACTION_CREATE_NEW:
+                findViewById(R.id.fab_main).callOnClick();
+                break;
+            case ACTION_APP_UPDATE:
+                openAppStore(getPackageName(), false);
+                break;
+            default:
+                handleNavItemClickEvent(deepLinkType.getNavId());
+                break;
         }
     }
 

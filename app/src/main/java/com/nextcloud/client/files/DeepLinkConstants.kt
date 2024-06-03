@@ -7,37 +7,29 @@
 
 package com.nextcloud.client.files
 
-// deep link url format should be: https://example.com/app/<constants>
-object DeepLinkConstants {
-    const val OPEN_FILES = "openFiles"
-    const val OPEN_FAVORITES = "openFavorites"
-    const val OPEN_MEDIA = "openMedia"
-    const val OPEN_SHARED = "openShared"
-    const val OPEN_OFFLINE = "openOffline"
-    const val OPEN_NOTIFICATIONS = "openNotifications"
-    const val OPEN_DELETED = "openDeleted"
-    const val OPEN_SETTINGS = "openSettings"
-    const val OPEN_AUTO_UPLOAD = "openAutoUpload"
+import com.owncloud.android.R
 
-    // for external url the url should have the following format
-    // https://example.com/app/openUrl?url=<url_to_open>
-    const val OPEN_EXTERNAL_URL = "openUrl"
+enum class DeepLinkConstants(val route: String, val navId: Int) {
+    OPEN_FILES("openFiles", R.id.nav_all_files),
+    OPEN_FAVORITES("openFavorites", R.id.nav_favorites),
+    OPEN_MEDIA("openMedia", R.id.nav_gallery),
+    OPEN_SHARED("openShared", R.id.nav_shared),
+    OPEN_OFFLINE("openOffline", R.id.nav_on_device),
+    OPEN_NOTIFICATIONS("openNotifications", R.id.nav_notifications),
+    OPEN_DELETED("openDeleted", R.id.nav_trashbin),
+    OPEN_SETTINGS("openSettings", R.id.nav_settings),
 
-    const val ACTION_CREATE_NEW = "createNew"
-    const val ACTION_APP_UPDATE = "checkAppUpdate"
+    // Special case, handled separately
+    OPEN_AUTO_UPLOAD("openAutoUpload", -1),
+    OPEN_EXTERNAL_URL("openUrl", -1),
+    ACTION_CREATE_NEW("createNew", -1),
+    ACTION_APP_UPDATE("checkAppUpdate", -1);
 
-    val navigationPaths = listOf(
-        OPEN_FILES,
-        OPEN_FAVORITES,
-        OPEN_MEDIA,
-        OPEN_SHARED,
-        OPEN_OFFLINE,
-        OPEN_NOTIFICATIONS,
-        OPEN_DELETED,
-        OPEN_SETTINGS,
-        OPEN_AUTO_UPLOAD,
-        OPEN_EXTERNAL_URL,
-        ACTION_CREATE_NEW,
-        ACTION_APP_UPDATE
-    )
+    companion object {
+        fun fromPath(path: String?): DeepLinkConstants? {
+            return entries.find { it.route == path }
+        }
+
+        val navigationPaths = entries.map { it.route }
+    }
 }
