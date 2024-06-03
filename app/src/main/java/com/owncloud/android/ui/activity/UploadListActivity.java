@@ -34,6 +34,8 @@ import com.nextcloud.model.WorkerStateLiveData;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -83,6 +85,9 @@ public class UploadListActivity extends FileActivity {
 
     @Inject
     BackgroundJobManager backgroundJobManager;
+
+    @Inject
+    SyncedFolderProvider syncedFolderProvider;
 
     @Inject
     LocalBroadcastManager localBroadcastManager;
@@ -193,7 +198,10 @@ public class UploadListActivity extends FileActivity {
     }
 
     private void refresh() {
-        backgroundJobManager.startImmediateFilesSyncJob(true,new String[]{});
+        FilesSyncHelper.startFilesSyncForAllFolders(syncedFolderProvider,
+                                                    backgroundJobManager,
+                                                    true,
+                                                    new String[]{});
 
         if (uploadsStorageManager.getFailedUploads().length > 0) {
             new Thread(() -> {
@@ -316,10 +324,10 @@ public class UploadListActivity extends FileActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
-            FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
-                                                userAccountManager,
-                                                connectivityService,
-                                                powerManagementService);
+            FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
+                                                   userAccountManager,
+                                                   connectivityService,
+                                                   powerManagementService);
         }
     }
 
@@ -339,10 +347,10 @@ public class UploadListActivity extends FileActivity {
 
             } else {
                 // already updated -> just retry!
-                FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
-                                                    userAccountManager,
-                                                    connectivityService,
-                                                    powerManagementService);
+                FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
+                                                       userAccountManager,
+                                                       connectivityService,
+                                                       powerManagementService);
             }
 
         } else {

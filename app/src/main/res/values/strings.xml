@@ -687,7 +687,6 @@
     <string name="autoupload_hide_folder">Hide folder</string>
     <string name="autoupload_configure">Configure</string>
     <string name="synced_folders_configure_folders">Configure folders</string>
-    <string name="autoupload_worker_foreground_info">Preparing auto upload</string>
 
     <string name="empty" translatable="false" />
     <string name="test_server_button">Test server connection</string>

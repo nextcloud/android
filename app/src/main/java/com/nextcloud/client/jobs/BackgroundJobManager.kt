@@ -119,9 +119,13 @@ interface BackgroundJobManager {
 
     fun startImmediateFilesExportJob(files: Collection<OCFile>): LiveData<JobInfo?>
 
-    fun schedulePeriodicFilesSyncJob()
+    fun schedulePeriodicFilesSyncJob(syncedFolderID: Long)
 
+    /**
+     * Immediately start File Sync job for given syncFolderID.
+     */
     fun startImmediateFilesSyncJob(
+        syncedFolderID: Long,
         overridePowerSaving: Boolean = false,
         changedFiles: Array<String> = arrayOf<String>()
     )
@@ -163,5 +167,5 @@ interface BackgroundJobManager {
     fun cancelAllJobs()
     fun schedulePeriodicHealthStatus()
     fun startHealthStatus()
-    fun bothFilesSyncJobsRunning(): Boolean
+    fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean
 }
