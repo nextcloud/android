@@ -25,4 +25,19 @@ object DeepLinkConstants {
 
     const val ACTION_CREATE_NEW = "createNew"
     const val ACTION_APP_UPDATE = "checkAppUpdate"
+
+    val navigationPaths = listOf(
+        OPEN_FILES,
+        OPEN_FAVORITES,
+        OPEN_MEDIA,
+        OPEN_SHARED,
+        OPEN_OFFLINE,
+        OPEN_NOTIFICATIONS,
+        OPEN_DELETED,
+        OPEN_SETTINGS,
+        OPEN_AUTO_UPLOAD,
+        OPEN_EXTERNAL_URL,
+        ACTION_CREATE_NEW,
+        ACTION_APP_UPDATE
+    )
 }

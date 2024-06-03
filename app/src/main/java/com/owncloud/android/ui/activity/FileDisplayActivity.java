@@ -2324,7 +2324,10 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void handleOpenFileViaIntent(Intent intent) {
-        showLoadingDialog(getString(R.string.retrieving_file));
+        Uri deepLinkUri = getIntent().getData();
+        if (deepLinkUri == null || !DeepLinkHandler.Companion.isDeepLinkTypeIsNavigation(deepLinkUri.toString())) {
+            showLoadingDialog(getString(R.string.retrieving_file));
+        }
 
         String userName = intent.getStringExtra(KEY_ACCOUNT);
         String fileId = intent.getStringExtra(KEY_FILE_ID);
