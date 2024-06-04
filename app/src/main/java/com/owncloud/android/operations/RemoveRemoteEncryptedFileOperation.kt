@@ -52,7 +52,7 @@ class RemoveRemoteEncryptedFileOperation internal constructor(
     @Deprecated("Deprecated in Java")
     @Suppress("TooGenericExceptionCaught")
     override fun run(client: OwnCloudClient): RemoteOperationResult<Void> {
-        val result: RemoteOperationResult<Void>
+        var result: RemoteOperationResult<Void>
         var delete: DeleteMethod? = null
         var token: String? = null
         val e2eVersion = CapabilityUtils.getCapability(context).endToEndEncryptionApiVersion

@@ -236,7 +236,6 @@
     <string name="downloader_download_failed_credentials_error">Stahování se nezdařilo, přihlaste se znovu</string>
     <string name="downloader_download_failed_ticker">Stahování se nezdařilo</string>
     <string name="downloader_download_file_not_found">Tento soubor už není na serveru k dispozici</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Stahuje se %2$s</string>
     <string name="downloader_download_in_progress_ticker">Stahování…</string>
     <string name="downloader_download_succeeded_content">%1$s staženo</string>
@@ -910,7 +909,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Ponechat soubor ve zdrojové složce</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Vymazat soubor ze zdrojové složky</string>
     <string name="uploader_upload_forbidden_permissions">pro nahrávání do této složky</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Odesílání %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Nahrávání…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s nahráno</string>

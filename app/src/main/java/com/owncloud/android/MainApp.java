@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper_ozturk@proton.me>
+ * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 TSI-mc
  * SPDX-FileCopyrightText: 2022-2023 Álvaro Brey <alvaro@alvarobrey.com>
  * SPDX-FileCopyrightText: 2016-2020 Tobias Kaminsky <tobias@kaminsky.me>
@@ -160,6 +160,9 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
 
     @Inject
     ConnectivityService connectivityService;
+
+    @Inject
+    SyncedFolderProvider syncedFolderProvider;
 
     @Inject PowerManagementService powerManagementService;
 
@@ -359,7 +362,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
                            backgroundJobManager,
                            clock,
                            viewThemeUtils,
-                           walledCheckCache);
+                           walledCheckCache,
+                           syncedFolderProvider);
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
@@ -586,7 +590,8 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         final BackgroundJobManager backgroundJobManager,
         final Clock clock,
         final ViewThemeUtils viewThemeUtils,
-        final WalledCheckCache walledCheckCache) {
+        final WalledCheckCache walledCheckCache,
+        final SyncedFolderProvider syncedFolderProvider) {
         updateToAutoUpload();
         cleanOldEntries(clock);
         updateAutoUploadEntries(clock);
@@ -600,12 +605,12 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         }
 
         if (!preferences.isAutoUploadInitialized()) {
-            backgroundJobManager.startImmediateFilesSyncJob(false, new String[]{});
+            FilesSyncHelper.startFilesSyncForAllFolders(syncedFolderProvider, backgroundJobManager,false, new String[]{});
             preferences.setAutoUploadInit(true);
         }
 
-        FilesSyncHelper.scheduleFilesSyncIfNeeded(mContext, backgroundJobManager);
-        FilesSyncHelper.restartJobsIfNeeded(
+        FilesSyncHelper.scheduleFilesSyncForAllFoldersIfNeeded(mContext, syncedFolderProvider, backgroundJobManager);
+        FilesSyncHelper.restartUploadsIfNeeded(
             uploadsStorageManager,
             accountManager,
             connectivityService,

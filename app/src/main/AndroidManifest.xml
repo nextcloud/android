@@ -2,6 +2,7 @@
 <!--
   ~ Nextcloud - Android Client
   ~
+  ~ SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
   ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
@@ -160,6 +161,8 @@
                 <data android:pathPattern="/..*/f/..*" />
                 <data android:pathPattern="/..*/..*/f/..*" />
                 <data android:pathPattern="/..*/..*/..*/f/..*" />
+                <!-- path pattern to handle deep link -->
+                <data android:pathPattern="/app/..*" />
             </intent-filter>
 
             <meta-data

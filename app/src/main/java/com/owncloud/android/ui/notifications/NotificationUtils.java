@@ -53,8 +53,8 @@ public final class NotificationUtils {
      * @param context       Context that will use the builder to create notifications
      * @return An instance of the regular {@link NotificationCompat.Builder}.
      */
-    public static NotificationCompat.Builder newNotificationBuilder(Context context, final ViewThemeUtils viewThemeUtils) {
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+    public static NotificationCompat.Builder newNotificationBuilder(Context context, String channelId, final ViewThemeUtils viewThemeUtils) {
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId);
         viewThemeUtils.androidx.themeNotificationCompatBuilder(context, builder);
         return builder;
     }

@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper_ozturk@proton.me>
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2021 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2016-2018 Andy Scherzinger <info@andy-scherzinger.de>

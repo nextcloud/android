@@ -27,6 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import javax.annotation.Nullable;
+
 import androidx.annotation.NonNull;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
@@ -200,6 +202,29 @@ public class SyncedFolderProvider extends Observable {
                 Log_OC.e(TAG, cursor.getCount() + " items for local path=" + localPath
                         + " available in sync folder db. Expected 1. Failed to update sync folder db.");
             }
+        }
+
+        if (cursor != null) {
+            cursor.close();
+        }
+
+        return result;
+
+    }
+
+    @Nullable
+    public SyncedFolder getSyncedFolderByID(Long syncedFolderID) {
+        SyncedFolder result = null;
+        Cursor cursor = mContentResolver.query(
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_SYNCED_FOLDERS,
+            null,
+            ProviderMeta.ProviderTableMeta._ID + " =? ",
+            new String[]{syncedFolderID.toString()},
+            null
+                                              );
+
+        if (cursor != null && cursor.getCount() == 1 && cursor.moveToFirst()) {
+            result = createSyncedFolderFromCursor(cursor);
         }
 
         if (cursor != null) {

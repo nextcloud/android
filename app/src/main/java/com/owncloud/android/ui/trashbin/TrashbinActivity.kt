@@ -150,9 +150,9 @@ class TrashbinActivity :
         recyclerView.setHasFooter(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-        viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList)
+        viewThemeUtils?.androidx?.themeSwipeRefreshLayout(binding.swipeContainingList)
         binding.swipeContainingList.setOnRefreshListener { loadFolder() }
-        viewThemeUtils.material.colorMaterialTextButton(findViewById(R.id.sort_button))
+        viewThemeUtils?.material?.colorMaterialTextButton(findViewById(R.id.sort_button))
 
         findViewById<View>(R.id.sort_button).setOnClickListener {
             DisplayUtils.openSortingOrderDialogFragment(

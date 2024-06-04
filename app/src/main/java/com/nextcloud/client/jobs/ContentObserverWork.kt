@@ -12,6 +12,7 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.device.PowerManagementService
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.FilesSyncHelper
 
 /**
  * This work is triggered when OS detects change in media folders.
@@ -23,7 +24,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 class ContentObserverWork(
     appContext: Context,
     private val params: WorkerParameters,
-    private val syncerFolderProvider: SyncedFolderProvider,
+    private val syncedFolderProvider: SyncedFolderProvider,
     private val powerManagementService: PowerManagementService,
     private val backgroundJobManager: BackgroundJobManager
 ) : Worker(appContext, params) {
@@ -48,13 +49,17 @@ class ContentObserverWork(
     }
 
     private fun checkAndStartFileSyncJob() {
-        val syncFolders = syncerFolderProvider.countEnabledSyncedFolders() > 0
-        if (!powerManagementService.isPowerSavingEnabled && syncFolders) {
+        if (!powerManagementService.isPowerSavingEnabled && syncedFolderProvider.countEnabledSyncedFolders() > 0) {
             val changedFiles = mutableListOf<String>()
             for (uri in params.triggeredContentUris) {
                 changedFiles.add(uri.toString())
             }
-            backgroundJobManager.startImmediateFilesSyncJob(false, changedFiles.toTypedArray())
+            FilesSyncHelper.startFilesSyncForAllFolders(
+                syncedFolderProvider,
+                backgroundJobManager,
+                false,
+                changedFiles.toTypedArray()
+            )
         }
     }
 

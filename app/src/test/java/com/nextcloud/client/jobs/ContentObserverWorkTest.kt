@@ -46,7 +46,7 @@ class ContentObserverWorkTest {
         worker = ContentObserverWork(
             appContext = context,
             params = params,
-            syncerFolderProvider = folderProvider,
+            syncedFolderProvider = folderProvider,
             powerManagementService = powerManagementService,
             backgroundJobManager = backgroundJobManager
         )
