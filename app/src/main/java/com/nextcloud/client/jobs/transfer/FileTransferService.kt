@@ -103,7 +103,7 @@ class FileTransferService : Service() {
             return START_NOT_STICKY
         }
 
-        if (!isRunning && MainApp.lifecycle == AppLifecycle.Foreground) {
+        if (!isRunning && MainApp.getAppLifeCycle() == AppLifecycle.Foreground) {
             ForegroundServiceHelper.startService(
                 this,
                 AppNotificationManager.TRANSFER_NOTIFICATION_ID,
