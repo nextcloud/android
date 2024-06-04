@@ -7,27 +7,36 @@
  */
 package com.nextcloud.utils
 
+import android.app.ForegroundServiceStartNotAllowedException
 import android.app.Notification
 import android.app.Service
 import android.os.Build
+import android.util.Log
 import androidx.core.app.ServiceCompat
 import androidx.work.ForegroundInfo
 import com.owncloud.android.datamodel.ForegroundServiceType
 
 object ForegroundServiceHelper {
+    private const val TAG = "ForegroundServiceHelper"
+    private val isAPILevel29OrAbove = Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
     fun startService(
         service: Service,
         id: Int,
         notification: Notification,
         foregroundServiceType: ForegroundServiceType
     ) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            ServiceCompat.startForeground(
-                service,
-                id,
-                notification,
-                foregroundServiceType.getId()
-            )
+        if (isAPILevel29OrAbove) {
+            try {
+                ServiceCompat.startForeground(
+                    service,
+                    id,
+                    notification,
+                    foregroundServiceType.getId()
+                )
+            } catch (e: ForegroundServiceStartNotAllowedException) {
+                Log.d(TAG, "Exception caught at ForegroundServiceHelper.startService: $e")
+            }
         } else {
             service.startForeground(id, notification)
         }
@@ -38,7 +47,7 @@ object ForegroundServiceHelper {
         notification: Notification,
         foregroundServiceType: ForegroundServiceType
     ): ForegroundInfo {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+        return if (isAPILevel29OrAbove) {
             ForegroundInfo(id, notification, foregroundServiceType.getId())
         } else {
             ForegroundInfo(id, notification)

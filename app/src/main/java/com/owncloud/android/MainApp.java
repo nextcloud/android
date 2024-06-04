@@ -358,10 +358,14 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         registerGlobalPassCodeProtection();
     }
 
+    public static AppLifecycle lifecycle = AppLifecycle.Foreground;
+
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START) {
+            lifecycle = AppLifecycle.Foreground;
             Log_OC.d(TAG, "APP IN FOREGROUND");
         } else if (event == Lifecycle.Event.ON_STOP) {
+            lifecycle = AppLifecycle.Background;
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
         }
