@@ -23,8 +23,10 @@ import com.nextcloud.client.logger.Logger
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.notifications.AppNotificationManager
+import com.nextcloud.model.AppLifecycle
 import com.nextcloud.utils.ForegroundServiceHelper
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.UploadsStorageManager
@@ -101,7 +103,7 @@ class FileTransferService : Service() {
             return START_NOT_STICKY
         }
 
-        if (!isRunning) {
+        if (!isRunning && MainApp.lifecycle == AppLifecycle.Foreground) {
             ForegroundServiceHelper.startService(
                 this,
                 AppNotificationManager.TRANSFER_NOTIFICATION_ID,
