@@ -8,5 +8,5 @@
 package com.nextcloud.model
 
 enum class AppLifecycle {
-    Foreground, Background;
+    Foreground, Background
 }
