@@ -276,7 +276,7 @@ dependencies {
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.material3:material3")
-    implementation("androidx.compose.ui:ui-tooling-preview:1.6.6")
+    implementation("androidx.compose.ui:ui-tooling-preview:1.6.7")
     debugImplementation 'androidx.compose.ui:ui-tooling:1.6.7'
 
     compileOnly 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
