@@ -246,6 +246,10 @@ public class ExtendedListFragment extends Fragment implements
             performSearch(query, listOfHiddenFiles, false);
             return true;
         }
+        if (adapter instanceof LocalFileListAdapter) {
+            performSearch(query, new ArrayList<>(), false);
+            return true;
+        }
         return false;
     }
 
@@ -287,7 +291,7 @@ public class ExtendedListFragment extends Fragment implements
             } else if (activity instanceof UploadFilesActivity) {
                 LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
                 localFileListAdapter.filter(query);
-                ((UploadFilesActivity) activity).showToolbarSpinner();
+                ((UploadFilesActivity) activity).getFileListFragment().setLoading(false);
             } else if (activity instanceof FolderPickerActivity) {
                 ((FolderPickerActivity) activity).search(query);
             }
@@ -630,6 +634,10 @@ public class ExtendedListFragment extends Fragment implements
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                                            R.string.file_list_empty_gallery,
                                            R.drawable.file_image);
+                } else if (searchType == SearchType.LOCAL_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                                           R.string.file_list_empty_local_search,
+                                           R.drawable.ic_search_light_grey);
                 }
             }
         });
