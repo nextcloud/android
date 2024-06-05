@@ -246,6 +246,7 @@
     <string name="downloader_download_failed_credentials_error">Téléchargement échoué, reconnectez-vous</string>
     <string name="downloader_download_failed_ticker">Le téléchargement a échoué</string>
     <string name="downloader_download_file_not_found">Ce fichier n’est plus disponible sur le serveur</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
     <string name="downloader_download_in_progress_ticker">Réception en cours…</string>
     <string name="downloader_download_succeeded_content">%1$s reçu</string>
@@ -945,6 +946,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Conserver le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="uploader_upload_forbidden_permissions">d\'envoyer dans ce dossier</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">Téléversement de %2$s : %1$d%%</string>
     <string name="uploader_upload_in_progress_ticker">Téléversement en cours…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s envoyé</string>

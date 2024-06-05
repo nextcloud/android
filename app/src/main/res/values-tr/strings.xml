@@ -246,6 +246,7 @@
     <string name="downloader_download_failed_credentials_error">İndirilemedi, yeniden oturum açmalısınız</string>
     <string name="downloader_download_failed_ticker">İndirilemedi</string>
     <string name="downloader_download_file_not_found">Bu dosya artık sunucuda yok</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%%%1$d İndirilen: %2$s</string>
     <string name="downloader_download_in_progress_ticker">İndiriliyor …</string>
     <string name="downloader_download_succeeded_content">%1$s indirildi</string>
@@ -947,6 +948,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Kaynak klasördeki dosya tutulsun</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Dosya kaynak klasörden silinsin</string>
     <string name="uploader_upload_forbidden_permissions">bu klasöre yükleyemezsiniz</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%%%1$d Yüklenen: %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Yükleniyor …</string>
     <string name="uploader_upload_succeeded_content_single">%1$s yüklendi</string>
