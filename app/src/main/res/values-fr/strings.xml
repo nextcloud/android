@@ -210,6 +210,7 @@
     <string name="create_new_presentation">Nouvelle présentation</string>
     <string name="create_new_spreadsheet">Nouvelle feuille de calcul</string>
     <string name="create_rich_workspace">Ajouter la description du dossier</string>
+    <string name="creates_rich_workspace">Ajouter la description du dossier</string>
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="daily_backup">Sauvegarde journalière</string>
     <string name="data_to_back_up">Données à sauvegarder</string>
@@ -321,6 +322,7 @@
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
     <string name="error_starting_doc_scan">Erreur lors de la numérisation du document</string>
     <string name="etm_accounts">Comptes</string>
+    <string name="etm_background_execution_count">Temps d’exécution en 48h</string>
     <string name="etm_background_job_created">Créée</string>
     <string name="etm_background_job_name">Nom de la tâche </string>
     <string name="etm_background_job_progress">Progression</string>
@@ -403,6 +405,7 @@
     <string name="file_not_found">Fichier non trouvé</string>
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
+    <string name="file_upload_worker_same_file_already_exists">Le même fichier existe déjà, aucun conflit détecté</string>
     <string name="file_version_restored_error">Erreur, la version du fichier n\'a pas été restaurée !</string>
     <string name="file_version_restored_successfully">Restauration de la version du fichier réussie.</string>
     <string name="filedetails_details">Détails</string>
@@ -893,6 +896,7 @@
     <string name="upload_action_cancelled_resume">Poursuivre les téléversements annulés</string>
     <string name="upload_action_failed_clear">Effacer les téléversements échoués</string>
     <string name="upload_action_failed_retry">Réessayer les téléversements qui ont échoué</string>
+    <string name="upload_action_file_not_exist_message">Certains fichiers n’existent plus. Ces téléchargements ne peuvent pas être repris.</string>
     <string name="upload_action_global_upload_pause">Suspendre tous les téléversements</string>
     <string name="upload_action_global_upload_resume">Poursuivre tous les téléversements</string>
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
@@ -911,6 +915,7 @@
     <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun téléversement disponible</string>
     <string name="upload_list_empty_text_auto_upload">Téléversez du contenu ou activez le téléversement automatique.</string>
+    <string name="upload_list_expand_header">Basculer l’expansion de l’entête</string>
     <string name="upload_list_resolve_conflict">Résoudre le conflit</string>
     <string name="upload_local_storage_full">Stockage local plein</string>
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>

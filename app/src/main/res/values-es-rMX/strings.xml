@@ -34,6 +34,9 @@
     <string name="add_to_cloud">Agregar a %1$s</string>
     <string name="advanced_settings">Configuraciones Avanzadas</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
+    <string name="app_config_base_url_title">URL base</string>
+    <string name="app_config_proxy_host_title">Nombre del huésped del proxy</string>
+    <string name="app_config_proxy_port_title">Puerto del proxy</string>
     <string name="app_widget_description">Muestra un widget del panel</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="assistant_screen_all_task_type">Todos</string>
@@ -88,6 +91,8 @@
     <string name="auth_unknown_host_title">No fue posible encontrar el servidor</string>
     <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
     <string name="auth_wrong_connection_title">No fue posible establecer la conexión</string>
+    <string name="authenticator_activity_cancel_login">Cancelar inicio de sesión</string>
+    <string name="authenticator_activity_please_complete_login_process">Por favor, complete el proceso de inicio de sesión en su navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantenido en la carpeta original, ya que es de solo lectura</string>
     <string name="auto_upload_on_wifi">Solo cargar sobre una Wi-Fi no tarificada</string>
     <string name="auto_upload_path">/CargaAutomática</string>
@@ -200,8 +205,12 @@
     <string name="create">Crear</string>
     <string name="create_dir_fail_msg">No fue posible crear la carpeta</string>
     <string name="create_new">Nuevo</string>
+    <string name="create_new_document">Nuevo documento</string>
     <string name="create_new_folder">Carpeta nueva </string>
+    <string name="create_new_presentation">Nueva presentación</string>
+    <string name="create_new_spreadsheet">Nueva hoja de cálculo</string>
     <string name="create_rich_workspace">Añadir descripción de carpeta</string>
+    <string name="creates_rich_workspace">Añade una descripción de carpeta</string>
     <string name="credentials_disabled">Credenciales deshabilitadas</string>
     <string name="daily_backup">Respaldo diario</string>
     <string name="data_to_back_up">Datos a respaldar</string>
@@ -396,6 +405,7 @@
     <string name="file_not_found">Archivo no encontrado</string>
     <string name="file_not_synced">El archivo no pudo ser sincronizado. Mostrando la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
+    <string name="file_upload_worker_same_file_already_exists">El mismo archivo ya existe, no se detectaron conflictos</string>
     <string name="file_version_restored_error">¡Error al restaurar la versión del archivo!</string>
     <string name="file_version_restored_successfully">La versión del archivo fue restaurada con éxito.</string>
     <string name="filedetails_details">Detalles</string>
@@ -654,6 +664,7 @@
     <string name="preview_image_description">Vista previa de imagen</string>
     <string name="preview_image_error_no_local_file">No existe un archivo local a previsualizar</string>
     <string name="preview_image_error_unknown_format">No es posible mostrar la imagen</string>
+    <string name="preview_media_unhandled_http_code_message">El archivo se encuentra bloqueado actualmente por otro usuario o proceso y, por lo tanto, no es posible eliminarlo. Por favor, intente de nuevo más tarde.</string>
     <string name="preview_sorry">Disculpa</string>
     <string name="privacy">Privacidad</string>
     <string name="public_share_name">Nuevo nombre</string>
@@ -871,6 +882,7 @@
     <string name="unlock_file">Archivo desbloqueado</string>
     <string name="unread_comments">Existen comentarios sin leer</string>
     <string name="unset_encrypted">Desestablecer encripción</string>
+    <string name="unset_favorite">Eliminar de favoritos</string>
     <string name="unshare_link_file_error">Ocurrió un error al intentar dejar de compartir este archivo o carpeta.</string>
     <string name="unshare_link_file_no_exist">No se pudo dejar de compartir. Por favor, verifique que el archivo exista.</string>
     <string name="unshare_link_forbidden_permissions">para dejar de compartir este archivo</string>
@@ -884,6 +896,7 @@
     <string name="upload_action_cancelled_resume">Reanudar cargas canceladas</string>
     <string name="upload_action_failed_clear">Borrar cargas fallidas</string>
     <string name="upload_action_failed_retry">Reintentar cargas fallidas</string>
+    <string name="upload_action_file_not_exist_message">Algunos archivos ya no existen. Estas cargas no se pueden resumir.</string>
     <string name="upload_action_global_upload_pause">Pausar todas las cargas</string>
     <string name="upload_action_global_upload_resume">Reanudar todas las cargas</string>
     <string name="upload_cannot_create_file">No se puede crear el archivo local</string>
@@ -902,11 +915,13 @@
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay cargas disponibles</string>
     <string name="upload_list_empty_text_auto_upload">Carga algún contenido o activa la carga automática</string>
+    <string name="upload_list_expand_header">Alternar la expansión del encabezado</string>
     <string name="upload_list_resolve_conflict">Resolver conflicto</string>
     <string name="upload_local_storage_full">Almacenamiento local lleno</string>
     <string name="upload_local_storage_not_copied">No se pudo copiar el archivo al almacenamiento local</string>
     <string name="upload_lock_failed">No se pudo bloquear la carpeta</string>
     <string name="upload_manually_cancelled">La carga fue cancelada por el usuario</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">El cifrado sólo es posible con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">El espacio insuficiente evita que se copien los archivos seleccionados dentro de la carpeta %1$s. ¿Te gustaría moverlos ahí en su lugar?</string>
     <string name="upload_quota_exceeded">Se excedió la cuota de almacenamiento</string>
