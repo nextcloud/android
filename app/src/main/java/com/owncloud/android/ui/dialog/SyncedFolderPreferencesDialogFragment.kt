@@ -456,7 +456,6 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putBoolean(BEHAVIOUR_DIALOG_STATE, behaviourDialogShown)
         outState.putBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, nameCollisionPolicyDialogShown)
-        super.onSaveInstanceState(outState)
     }
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
@@ -523,14 +522,19 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
         private const val alphaDisabled = 0.7f
 
         @JvmStatic
-        fun newInstance(syncedFolder: SyncedFolderDisplayItem?, section: Int): SyncedFolderPreferencesDialogFragment {
-            requireNotNull(syncedFolder) { "SyncedFolder is mandatory but NULL!" }
-            val args = Bundle()
-            args.putParcelable(SYNCED_FOLDER_PARCELABLE, SyncedFolderParcelable(syncedFolder, section))
-            val dialogFragment = SyncedFolderPreferencesDialogFragment()
-            dialogFragment.arguments = args
-            dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
-            return dialogFragment
+        fun newInstance(syncedFolder: SyncedFolderDisplayItem?, section: Int): SyncedFolderPreferencesDialogFragment? {
+            if (syncedFolder == null) {
+                return null
+            }
+
+            val args = Bundle().apply {
+                putParcelable(SYNCED_FOLDER_PARCELABLE, SyncedFolderParcelable(syncedFolder, section))
+            }
+
+            return SyncedFolderPreferencesDialogFragment().apply {
+                arguments = args
+                setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
+            }
         }
 
         /**
