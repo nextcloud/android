@@ -44,16 +44,16 @@ import javax.inject.Inject
  * the certificate from different classes.
  */
 open class SslUntrustedCertDialog : DialogFragment(), Injectable {
+
     @JvmField
     @Inject
     var viewThemeUtils: ViewThemeUtils? = null
 
     protected var binding: SslUntrustedCertLayoutBinding? = null
-    protected var mHandler: SslErrorHandler? = null
-    protected var m509Certificate: X509Certificate? = null
-
-    private var mErrorViewAdapter: ErrorViewAdapter? = null
-    private var mCertificateViewAdapter: CertificateViewAdapter? = null
+    protected var sslErrorHandler: SslErrorHandler? = null
+    protected var x509Certificate: X509Certificate? = null
+    private var errorViewAdapter: ErrorViewAdapter? = null
+    private var certificateViewAdapter: CertificateViewAdapter? = null
 
     override fun onAttach(context: Context) {
         Log_OC.d(TAG, "onAttach")
@@ -79,26 +79,29 @@ open class SslUntrustedCertDialog : DialogFragment(), Injectable {
         val layoutBinding = SslUntrustedCertLayoutBinding.inflate(layoutInflater, null, false)
         this.binding = layoutBinding
 
-        layoutBinding.detailsScroll.visibility = View.GONE
-        mErrorViewAdapter?.updateErrorView(layoutBinding)
+        layoutBinding.run {
+            detailsScroll.visibility = View.GONE
+            errorViewAdapter?.updateErrorView(layoutBinding)
 
-        layoutBinding.ok.setOnClickListener(OnCertificateTrusted())
+            ok.setOnClickListener(OnCertificateTrusted())
 
-        layoutBinding.cancel.setOnClickListener(OnCertificateNotTrusted())
+            cancel.setOnClickListener(OnCertificateNotTrusted())
 
-        layoutBinding.detailsBtn.setOnClickListener { v: View ->
-            if (layoutBinding.detailsScroll.visibility == View.VISIBLE) {
-                layoutBinding.detailsScroll.visibility = View.GONE
-                (v as Button).setText(R.string.ssl_validator_btn_details_see)
-            } else {
-                layoutBinding.detailsScroll.visibility = View.VISIBLE
-                (v as Button).setText(R.string.ssl_validator_btn_details_hide)
-                mCertificateViewAdapter?.updateCertificateView(layoutBinding)
+            detailsBtn.setOnClickListener { v: View ->
+                if (detailsScroll.visibility == View.VISIBLE) {
+                    detailsScroll.visibility = View.GONE
+                    (v as Button).setText(R.string.ssl_validator_btn_details_see)
+                } else {
+                    detailsScroll.visibility = View.VISIBLE
+                    (v as Button).setText(R.string.ssl_validator_btn_details_hide)
+                    certificateViewAdapter?.updateCertificateView(layoutBinding)
+                }
             }
         }
 
-        val builder = MaterialAlertDialogBuilder(requireContext())
-        builder.setView(layoutBinding.getRoot())
+        val builder = MaterialAlertDialogBuilder(requireContext()).apply {
+            setView(layoutBinding.getRoot())
+        }
 
         viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireContext(), builder)
 
@@ -118,16 +121,16 @@ open class SslUntrustedCertDialog : DialogFragment(), Injectable {
     private inner class OnCertificateNotTrusted : View.OnClickListener {
         override fun onClick(v: View) {
             dialog?.cancel()
-            mHandler?.cancel()
+            sslErrorHandler?.cancel()
         }
     }
 
     private inner class OnCertificateTrusted : View.OnClickListener {
         override fun onClick(v: View) {
             dismiss()
-            mHandler?.proceed()
+            sslErrorHandler?.proceed()
 
-            if (m509Certificate == null) {
+            if (x509Certificate == null) {
                 Log_OC.d(TAG, "m509Certificate is null onClick dismissed")
                 return
             }
@@ -139,7 +142,7 @@ open class SslUntrustedCertDialog : DialogFragment(), Injectable {
 
             try {
                 // TODO make this asynchronously, it can take some time
-                NetworkUtils.addCertToKnownServersStore(m509Certificate, activity)
+                NetworkUtils.addCertToKnownServersStore(x509Certificate, activity)
                 (activity as OnSslUntrustedCertListener?)?.onSavedCertificate()
             } catch (e: GeneralSecurityException) {
                 (activity as OnSslUntrustedCertListener?)?.onFailedSavingCertificate()
@@ -173,9 +176,9 @@ open class SslUntrustedCertDialog : DialogFragment(), Injectable {
             requireNotNull(handler) { "Trying to create instance with parameter handler == null" }
 
             return SslUntrustedCertDialog().apply {
-                mHandler = handler
-                mErrorViewAdapter = SslErrorViewAdapter(error)
-                mCertificateViewAdapter = SslCertificateViewAdapter(error.certificate)
+                sslErrorHandler = handler
+                errorViewAdapter = SslErrorViewAdapter(error)
+                certificateViewAdapter = SslCertificateViewAdapter(error.certificate)
             }
         }
 
@@ -184,9 +187,9 @@ open class SslUntrustedCertDialog : DialogFragment(), Injectable {
             requireNotNull(sslException) { "Trying to create instance with parameter sslException == null" }
 
             return SslUntrustedCertDialog().apply {
-                m509Certificate = sslException.serverCertificate
-                mErrorViewAdapter = CertificateCombinedExceptionViewAdapter(sslException)
-                mCertificateViewAdapter = X509CertificateViewAdapter(sslException.serverCertificate)
+                x509Certificate = sslException.serverCertificate
+                errorViewAdapter = CertificateCombinedExceptionViewAdapter(sslException)
+                certificateViewAdapter = X509CertificateViewAdapter(sslException.serverCertificate)
             }
         }
 
@@ -200,10 +203,10 @@ open class SslUntrustedCertDialog : DialogFragment(), Injectable {
             requireNotNull(handler) { "Trying to create instance with parameter handler == null" }
 
             return SslUntrustedCertDialog().apply {
-                m509Certificate = cert
-                mHandler = handler
-                mErrorViewAdapter = SslErrorViewAdapter(error)
-                mCertificateViewAdapter = X509CertificateViewAdapter(cert)
+                x509Certificate = cert
+                sslErrorHandler = handler
+                errorViewAdapter = SslErrorViewAdapter(error)
+                certificateViewAdapter = X509CertificateViewAdapter(cert)
             }
         }
     }
