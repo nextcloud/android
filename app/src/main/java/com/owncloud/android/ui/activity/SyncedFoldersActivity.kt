@@ -589,11 +589,10 @@ class SyncedFoldersActivity :
 
         dialogFragment?.let {
             if (isDialogFragmentReady(it)) {
+                it.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
+            } else {
                 Log_OC.d(TAG, "SyncedFolderPreferencesDialogFragment not ready")
-                return
             }
-
-            it.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
         }
     }
 
