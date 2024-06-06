@@ -95,14 +95,16 @@ class FileTransferService : LifecycleService() {
 
     override fun onCreate() {
         AndroidInjection.inject(this)
+        super.onCreate()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        super.onStartCommand(intent, flags, startId)
         if (intent == null || intent.action != ACTION_TRANSFER) {
             return START_NOT_STICKY
         }
 
-        if (!isRunning && lifecycle.currentState == Lifecycle.State.STARTED) {
+        if (!isRunning && lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
             ForegroundServiceHelper.startService(
                 this,
                 AppNotificationManager.TRANSFER_NOTIFICATION_ID,
@@ -112,8 +114,10 @@ class FileTransferService : LifecycleService() {
         }
 
         val request: Request = intent.getParcelableArgument(EXTRA_REQUEST, Request::class.java)!!
-        val transferManager = getTransferManager(request.user)
-        transferManager.enqueue(request)
+
+        getTransferManager(request.user).run {
+            enqueue(request)
+        }
 
         logger.d(TAG, "Enqueued new transfer: ${request.uuid} ${request.file.remotePath}")
 
@@ -121,6 +125,7 @@ class FileTransferService : LifecycleService() {
     }
 
     override fun onBind(intent: Intent): IBinder? {
+        super.onBind(intent)
         val user = intent.getParcelableArgument(EXTRA_USER, User::class.java) ?: return null
         return Binder(getTransferManager(user), this)
     }
@@ -129,7 +134,7 @@ class FileTransferService : LifecycleService() {
         if (!isRunning) {
             logger.d(TAG, "All downloads completed")
             notificationsManager.cancelTransferNotification()
-            stopForeground(true)
+            stopForeground(STOP_FOREGROUND_DETACH)
             stopSelf()
         } else if (transfer.direction == Direction.DOWNLOAD) {
             notificationsManager.postDownloadTransferProgress(
