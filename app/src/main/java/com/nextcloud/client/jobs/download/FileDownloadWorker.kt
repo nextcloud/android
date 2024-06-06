@@ -43,7 +43,7 @@ import java.util.Vector
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class FileDownloadWorker(
-    private val viewThemeUtils: ViewThemeUtils,
+    viewThemeUtils: ViewThemeUtils,
     private val accountManager: UserAccountManager,
     private var localBroadcastManager: LocalBroadcastManager,
     private val context: Context,
@@ -94,7 +94,7 @@ class FileDownloadWorker(
     private var lastPercent = 0
 
     private val intents = FileDownloadIntents(context)
-    private lateinit var notificationManager: DownloadNotificationManager
+    private var notificationManager: DownloadNotificationManager
     private var downloadProgressListener = FileDownloadProgressListener()
 
     private var user: User? = null
@@ -106,17 +106,20 @@ class FileDownloadWorker(
     private var workerId: Int? = null
     private var downloadError: FileDownloadError? = null
 
+    init {
+        workerId = inputData.keyValueMap[WORKER_ID] as Int
+        notificationManager =
+            DownloadNotificationManager(
+                workerId ?: SecureRandom().nextInt(),
+                context,
+                viewThemeUtils
+            )
+    }
+
     @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
         return try {
             val requestDownloads = getRequestDownloads()
-
-            notificationManager =
-                DownloadNotificationManager(
-                    workerId ?: SecureRandom().nextInt(),
-                    context,
-                    viewThemeUtils
-                )
             addAccountUpdateListener()
 
             val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
@@ -170,7 +173,6 @@ class FileDownloadWorker(
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
-        workerId = inputData.keyValueMap[WORKER_ID] as Int
         Log_OC.e(TAG, "FilesDownloadWorker started for $workerId")
 
         setUser()
