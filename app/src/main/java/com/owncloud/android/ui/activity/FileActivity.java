@@ -542,8 +542,8 @@ public abstract class FileActivity extends DrawerActivity
         if (frag != null) {
             Log_OC.d(TAG, "dismiss loading dialog");
             LoadingDialog loadingDialogFragment = (LoadingDialog) frag;
-            boolean isFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
-            if (isFragmentReady) {
+            boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
+            if (isDialogFragmentReady) {
                 loadingDialogFragment.dismiss();
             }
         }
