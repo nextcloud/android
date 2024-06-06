@@ -76,27 +76,29 @@ open class SslUntrustedCertDialog : DialogFragment(), Injectable {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         Log_OC.d(TAG, "onCreateDialog, savedInstanceState is $savedInstanceState")
 
-        binding = SslUntrustedCertLayoutBinding.inflate(layoutInflater, null, false)
-        binding?.detailsScroll?.visibility = View.GONE
-        mErrorViewAdapter?.updateErrorView(binding)
+        val layoutBinding = SslUntrustedCertLayoutBinding.inflate(layoutInflater, null, false)
+        this.binding = layoutBinding
 
-        binding?.ok?.setOnClickListener(OnCertificateTrusted())
+        layoutBinding.detailsScroll.visibility = View.GONE
+        mErrorViewAdapter?.updateErrorView(layoutBinding)
 
-        binding?.cancel?.setOnClickListener(OnCertificateNotTrusted())
+        layoutBinding.ok.setOnClickListener(OnCertificateTrusted())
 
-        binding?.detailsBtn?.setOnClickListener { v: View ->
-            if (binding?.detailsScroll?.visibility == View.VISIBLE) {
-                binding?.detailsScroll?.visibility = View.GONE
+        layoutBinding.cancel.setOnClickListener(OnCertificateNotTrusted())
+
+        layoutBinding.detailsBtn.setOnClickListener { v: View ->
+            if (layoutBinding.detailsScroll.visibility == View.VISIBLE) {
+                layoutBinding.detailsScroll.visibility = View.GONE
                 (v as Button).setText(R.string.ssl_validator_btn_details_see)
             } else {
-                binding?.detailsScroll?.visibility = View.VISIBLE
+                layoutBinding.detailsScroll.visibility = View.VISIBLE
                 (v as Button).setText(R.string.ssl_validator_btn_details_hide)
-                mCertificateViewAdapter?.updateCertificateView(binding)
+                mCertificateViewAdapter?.updateCertificateView(layoutBinding)
             }
         }
 
         val builder = MaterialAlertDialogBuilder(requireContext())
-        builder.setView(binding?.getRoot())
+        builder.setView(layoutBinding.getRoot())
 
         viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireContext(), builder)
 
@@ -155,11 +157,11 @@ open class SslUntrustedCertDialog : DialogFragment(), Injectable {
     }
 
     interface ErrorViewAdapter {
-        fun updateErrorView(binding: SslUntrustedCertLayoutBinding?)
+        fun updateErrorView(binding: SslUntrustedCertLayoutBinding)
     }
 
     interface CertificateViewAdapter {
-        fun updateCertificateView(binding: SslUntrustedCertLayoutBinding?)
+        fun updateCertificateView(binding: SslUntrustedCertLayoutBinding)
     }
 
     companion object {
