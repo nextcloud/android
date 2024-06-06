@@ -18,6 +18,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.MainApp;
@@ -52,10 +53,10 @@ public class UserAccountManagerImpl implements UserAccountManager {
     private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
 
     private Context context;
-    private AccountManager accountManager;
+    private final AccountManager accountManager;
 
     public static UserAccountManagerImpl fromContext(Context context) {
-        AccountManager am = (AccountManager)context.getSystemService(Context.ACCOUNT_SERVICE);
+        AccountManager am = (AccountManager) context.getSystemService(Context.ACCOUNT_SERVICE);
         return new UserAccountManagerImpl(context, am);
     }
 
@@ -181,7 +182,12 @@ public class UserAccountManagerImpl implements UserAccountManager {
             return null;
         }
 
-        OwnCloudAccount ownCloudAccount = null;
+        if (context == null) {
+            Log_OC.d(TAG, "Context is null MainApp.getAppContext() used");
+            context = MainApp.getAppContext();
+        }
+
+        OwnCloudAccount ownCloudAccount;
         try {
             ownCloudAccount = new OwnCloudAccount(account, context);
         } catch (AccountUtils.AccountNotFoundException ex) {
