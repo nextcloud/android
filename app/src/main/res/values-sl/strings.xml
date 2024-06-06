@@ -698,7 +698,7 @@
     <string name="share_no_password_title">Nastavi geslo</string>
     <string name="share_password_title">Zaščiteno z geslom</string>
     <string name="share_permission_can_edit">Lahko ureja</string>
-    <string name="share_permission_file_drop">Poteg datotek</string>
+    <string name="share_permission_file_drop">Poteg datotek v mapo</string>
     <string name="share_permission_secure_file_drop">Varno pošiljanje daottek</string>
     <string name="share_permission_view_only">Le ogled</string>
     <string name="share_permissions">Dovoljenja souporabe</string>
