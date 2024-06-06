@@ -1071,7 +1071,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private void browseToRoot() {
-        OCFile root = getStorageManager().getFileByEncryptedRemotePath(OCFile.ROOT_PATH);
+        OCFile root = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
         mFile = root;
         mParents.clear();
         mParents.add("");
