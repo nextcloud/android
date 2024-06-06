@@ -210,6 +210,7 @@
     <string name="create_new_presentation">Yeni sunum</string>
     <string name="create_new_spreadsheet">Yeni çalışma sayfası</string>
     <string name="create_rich_workspace">Klasör açıklaması ekle</string>
+    <string name="creates_rich_workspace">Klasör açıklaması ekler</string>
     <string name="credentials_disabled">Kimlik doğrulama bilgileri kullanılmıyor</string>
     <string name="daily_backup">Günlük yedek</string>
     <string name="data_to_back_up">Yedeklenecek veriler</string>
@@ -895,6 +896,7 @@
     <string name="upload_action_cancelled_resume">İptal edilen yüklemeler sürdürülsün</string>
     <string name="upload_action_failed_clear">Tamamlanamayan yüklemeler silinsin</string>
     <string name="upload_action_failed_retry">Tamamlanamayan yüklemeler yinelensin</string>
+    <string name="upload_action_file_not_exist_message">Bazı dosyalar bulunamadı. Bu yüklemeler sürdürülemez.</string>
     <string name="upload_action_global_upload_pause">Tüm yüklemeleri duraklat</string>
     <string name="upload_action_global_upload_resume">Tüm yüklemeleri sürdür</string>
     <string name="upload_cannot_create_file">Yerel dosya oluşturulamadı</string>
@@ -913,11 +915,13 @@
     <string name="upload_list_delete">Sil</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
     <string name="upload_list_empty_text_auto_upload">Bazı içerikler yükleyin ya da otomatik yüklemeyi etkinleştirin.</string>
+    <string name="upload_list_expand_header">Başlık genişlemesini aç/kapat</string>
     <string name="upload_list_resolve_conflict">Çakışmayı çöz</string>
     <string name="upload_local_storage_full">Yerel depolama alanı doldu</string>
     <string name="upload_local_storage_not_copied">Dosya yerel depolamaya kopyalanamadı</string>
     <string name="upload_lock_failed">Klasör kilitlenemedi</string>
     <string name="upload_manually_cancelled">Kullanıcı yüklemeyi iptal etti</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Şifreleme yalnızca >=Android 5.0 üzerinde kullanılabilir </string>
     <string name="upload_query_move_foreign_files">Seçilmiş dosyaları %1$s klasörüne kopyalamak için yeterli boş alan yok. Bu dosyaları kopyalamak yerine taşımak ister misiniz?</string>
     <string name="upload_quota_exceeded">Depolama sınırına ulaşıldı</string>
