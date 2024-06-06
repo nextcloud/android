@@ -528,8 +528,8 @@ public abstract class FileActivity extends DrawerActivity
             Log_OC.d(TAG, "show loading dialog");
             LoadingDialog loadingDialogFragment = LoadingDialog.newInstance(message);
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            boolean isFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
-            if (isFragmentReady) {
+            boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
+            if (isDialogFragmentReady) {
                 loadingDialogFragment.show(fragmentTransaction, DIALOG_WAIT_TAG);
             }
         }
@@ -543,8 +543,8 @@ public abstract class FileActivity extends DrawerActivity
         if (frag != null) {
             Log_OC.d(TAG, "dismiss loading dialog");
             LoadingDialog loadingDialogFragment = (LoadingDialog) frag;
-            boolean isFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
-            if (isFragmentReady) {
+            boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
+            if (isDialogFragmentReady) {
                 loadingDialogFragment.dismiss();
             }
         }
