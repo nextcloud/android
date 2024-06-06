@@ -65,7 +65,6 @@ class FileDownloadWorker(
             return pendingDownloads.all.any { it.value?.payload?.isMatching(accountName, fileId) == true }
         }
 
-        const val WORKER_ID = "WORKER_ID"
         const val FILE_REMOTE_PATH = "FILE_REMOTE_PATH"
         const val ACCOUNT_NAME = "ACCOUNT_NAME"
         const val BEHAVIOUR = "BEHAVIOUR"
@@ -94,7 +93,12 @@ class FileDownloadWorker(
     private var lastPercent = 0
 
     private val intents = FileDownloadIntents(context)
-    private var notificationManager: DownloadNotificationManager
+    private var notificationManager = DownloadNotificationManager(
+        SecureRandom().nextInt(),
+        context,
+        viewThemeUtils
+    )
+
     private var downloadProgressListener = FileDownloadProgressListener()
 
     private var user: User? = null
@@ -103,18 +107,7 @@ class FileDownloadWorker(
     private var currentUserFileStorageManager: FileDataStorageManager? = null
     private var fileDataStorageManager: FileDataStorageManager? = null
 
-    private var workerId: Int? = null
     private var downloadError: FileDownloadError? = null
-
-    init {
-        workerId = inputData.keyValueMap[WORKER_ID] as Int
-        notificationManager =
-            DownloadNotificationManager(
-                workerId ?: SecureRandom().nextInt(),
-                context,
-                viewThemeUtils
-            )
-    }
 
     @Suppress("TooGenericExceptionCaught")
     override fun doWork(): Result {
@@ -173,8 +166,6 @@ class FileDownloadWorker(
     }
 
     private fun getRequestDownloads(): AbstractList<String> {
-        Log_OC.e(TAG, "FilesDownloadWorker started for $workerId")
-
         setUser()
         val files = getFiles()
         val downloadType = getDownloadType()
