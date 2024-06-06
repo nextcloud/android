@@ -48,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     @Inject UserAccountManager accountManager;
     @Inject AppPreferences preferences;
+    @Inject FileDataStorageManager fileDataStorageManager;
 
     private AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
         @Override
@@ -174,6 +175,10 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     }
 
     public FileDataStorageManager getStorageManager() {
-        return sessionMixin.getStorageManager();
+        FileDataStorageManager result = sessionMixin.getStorageManager();
+        if (result == null) {
+            result = fileDataStorageManager;
+        }
+        return result;
     }
 }
