@@ -32,6 +32,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadFilesLayoutBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -479,7 +480,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
      */
     @Override
     public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
-        if (mCurrentDialog != null) {
+        if (mCurrentDialog != null && ActivityExtensionsKt.isDialogFragmentReady(this, mCurrentDialog)) {
             mCurrentDialog.dismiss();
             mCurrentDialog = null;
         }
@@ -524,7 +525,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         } else {
             // show a dialog to query the user if wants to move the selected files
             // to the ownCloud folder instead of copying
-            String[] args = {getString(R.string.app_name)};
+            String[] args = { getString(R.string.app_name) };
             ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
                 R.string.upload_query_move_foreign_files, args, 0, R.string.common_yes,  R.string.common_no, -1);
             dialog.setOnConfirmationListener(this);

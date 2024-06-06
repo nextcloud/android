@@ -37,6 +37,7 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
@@ -525,11 +526,12 @@ public abstract class FileActivity extends DrawerActivity
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag == null) {
             Log_OC.d(TAG, "show loading dialog");
-            LoadingDialog loading = LoadingDialog.newInstance(message);
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            ft.add(loading, DIALOG_WAIT_TAG);
-            ft.commitAllowingStateLoss();
+            LoadingDialog loadingDialogFragment = LoadingDialog.newInstance(message);
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
+            if (isDialogFragmentReady) {
+                loadingDialogFragment.show(fragmentTransaction, DIALOG_WAIT_TAG);
+            }
         }
     }
 
@@ -540,8 +542,11 @@ public abstract class FileActivity extends DrawerActivity
         Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
         if (frag != null) {
             Log_OC.d(TAG, "dismiss loading dialog");
-            LoadingDialog loading = (LoadingDialog) frag;
-            loading.dismissAllowingStateLoss();
+            LoadingDialog loadingDialogFragment = (LoadingDialog) frag;
+            boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
+            if (isDialogFragmentReady) {
+                loadingDialogFragment.dismiss();
+            }
         }
     }
 
