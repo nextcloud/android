@@ -29,7 +29,7 @@ class UnifiedSearchRemoteRepository(
 
     private fun runAsyncWithNcClient(callback: (client: NextcloudClient) -> Unit) {
         val coroutineExceptionHandler = CoroutineExceptionHandler { _, exception ->
-            Log_OC.d(tag,"CoroutineExceptionHandler got at runAsyncWithNcClient $exception")
+            Log_OC.d(tag, "CoroutineExceptionHandler got at runAsyncWithNcClient $exception")
         }
 
         CoroutineScope(Dispatchers.IO).launch(coroutineExceptionHandler) {
@@ -37,7 +37,6 @@ class UnifiedSearchRemoteRepository(
             callback(client)
         }
     }
-
 
     override fun queryAll(
         query: String,
