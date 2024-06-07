@@ -61,6 +61,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.view.FastScrollUtils;
@@ -598,7 +599,7 @@ public class FileDisplayActivity extends FileActivity
         showSortListGroup(showSortListGroup);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
-        if (!isFinishing() && !fragmentManager.isDestroyed()) {
+        if (ActivityExtensionsKt.isActive(this) && !fragmentManager.isDestroyed()) {
             FragmentTransaction transaction = fragmentManager.beginTransaction();
             transaction.addToBackStack(null);
             transaction.replace(R.id.left_fragment_container, fragment, TAG_LIST_OF_FILES);

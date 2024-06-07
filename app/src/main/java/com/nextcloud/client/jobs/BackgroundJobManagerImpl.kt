@@ -556,7 +556,6 @@ internal class BackgroundJobManagerImpl(
         val tag = startFileDownloadJobTag(user, file.fileId)
 
         val data = workDataOf(
-            FileDownloadWorker.WORKER_ID to file.fileId.toInt(),
             FileDownloadWorker.ACCOUNT_NAME to user.accountName,
             FileDownloadWorker.FILE_REMOTE_PATH to file.remotePath,
             FileDownloadWorker.BEHAVIOUR to behaviour,

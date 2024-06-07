@@ -33,6 +33,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.SubFolderRule
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.isDialogFragmentReady
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
@@ -577,11 +578,6 @@ class SyncedFoldersActivity :
     }
 
     override fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem) {
-        if (isFinishing || isDestroyed) {
-            Log_OC.d(TAG, "Activity destroyed or finished")
-            return
-        }
-
         val fragmentTransaction = supportFragmentManager.beginTransaction().apply {
             addToBackStack(null)
         }
@@ -591,12 +587,13 @@ class SyncedFoldersActivity :
             section
         )
 
-        if (dialogFragment?.isStateSaved == true) {
-            Log_OC.d(TAG, "SyncedFolderPreferencesDialogFragment state is saved cannot be shown")
-            return
+        dialogFragment?.let {
+            if (isDialogFragmentReady(it)) {
+                it.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
+            } else {
+                Log_OC.d(TAG, "SyncedFolderPreferencesDialogFragment not ready")
+            }
         }
-
-        dialogFragment?.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
     }
 
     override fun onVisibilityToggleClick(section: Int, syncedFolder: SyncedFolderDisplayItem) {
