@@ -32,7 +32,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -610,7 +612,8 @@ public class FileDisplayActivity extends FileActivity
 
     private OCFileListFragment getOCFileListFragmentFromFile() {
         final Fragment leftFragment = getLeftFragment();
-        OCFileListFragment listOfFiles = null;
+        OCFileListFragment listOfFiles;
+
         if (leftFragment instanceof OCFileListFragment) {
             listOfFiles = (OCFileListFragment) leftFragment;
         } else {
@@ -618,11 +621,24 @@ public class FileDisplayActivity extends FileActivity
             Bundle args = new Bundle();
             args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
             listOfFiles.setArguments(args);
-            setLeftFragment(listOfFiles);
-            getSupportFragmentManager().executePendingTransactions();
+
+            FragmentManager fm = getSupportFragmentManager();
+            boolean isExecutingTransactions = !fm.isStateSaved() && !fm.executePendingTransactions();
+
+            if (isExecutingTransactions) {
+                setLeftFragment(listOfFiles);
+                fm.executePendingTransactions();
+            } else {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    setLeftFragment(listOfFiles);
+                    fm.executePendingTransactions();
+                });
+            }
         }
+
         return listOfFiles;
     }
+
 
     public void showFileActions(OCFile file) {
         dismissLoadingDialog();
