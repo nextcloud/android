@@ -13,6 +13,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -1354,7 +1355,8 @@ public class FileDisplayActivity extends FileActivity
         public void onReceive(Context context, Intent intent) {
             String uploadedRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileUploadWorker.ACCOUNT_NAME);
-            boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
+            Account account = getAccount();
+            boolean sameAccount = accountName != null && account != null && accountName.equals(account.name);
             OCFile currentDir = getCurrentDir();
             boolean isDescendant = currentDir != null && uploadedRemotePath != null && uploadedRemotePath.startsWith(currentDir.getRemotePath());
 
