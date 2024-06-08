@@ -91,6 +91,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import org.conscrypt.Conscrypt;
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.ref.WeakReference;
 import java.lang.reflect.Method;
 import java.security.NoSuchAlgorithmException;
 import java.security.Security;
@@ -114,7 +115,6 @@ import androidx.core.util.Pair;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.ProcessLifecycleOwner;
-import androidx.multidex.MultiDexApplication;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasAndroidInjector;
@@ -129,14 +129,14 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  * Main Application of the project.
  * Contains methods to build the "static" strings. These strings were before constants in different classes.
  */
-public class MainApp extends MultiDexApplication implements HasAndroidInjector {
+public class MainApp extends Application implements HasAndroidInjector {
     public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_26;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_16;
 
     private static final String TAG = MainApp.class.getSimpleName();
     public static final String DOT = ".";
 
-    private static Context mContext;
+    private static WeakReference<Context> appContext;
 
     private static String storagePath;
 
@@ -208,7 +208,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
      * Temporary hack
      */
     private static void initGlobalContext(Context context) {
-        mContext = context;
+        appContext = new WeakReference<>(context);
     }
 
     /**
@@ -491,7 +491,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(mContext);
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(appContext.get());
         List<User> users = accountManager.getAllUsers();
         for (User user : users) {
             if (arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
@@ -609,7 +609,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
             preferences.setAutoUploadInit(true);
         }
 
-        FilesSyncHelper.scheduleFilesSyncForAllFoldersIfNeeded(mContext, syncedFolderProvider, backgroundJobManager);
+        FilesSyncHelper.scheduleFilesSyncForAllFoldersIfNeeded(appContext.get(), syncedFolderProvider, backgroundJobManager);
         FilesSyncHelper.restartUploadsIfNeeded(
             uploadsStorageManager,
             accountManager,
@@ -705,11 +705,11 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
     }
 
     public static Context getAppContext() {
-        return MainApp.mContext;
+        return MainApp.appContext.get();
     }
 
     public static void setAppContext(Context context) {
-        MainApp.mContext = context;
+        MainApp.appContext = new WeakReference<>(context);
     }
 
     public static String getStoragePath() {
@@ -831,7 +831,7 @@ public class MainApp extends MultiDexApplication implements HasAndroidInjector {
         if (!preferences.isAutoUploadPathsUpdateEnabled()) {
             SyncedFolderProvider syncedFolderProvider =
                 new SyncedFolderProvider(MainApp.getAppContext().getContentResolver(), preferences, clock);
-            syncedFolderProvider.updateAutoUploadPaths(mContext);
+            syncedFolderProvider.updateAutoUploadPaths(appContext.get());
         }
     }
 

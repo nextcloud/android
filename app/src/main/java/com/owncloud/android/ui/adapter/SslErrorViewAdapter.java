@@ -14,6 +14,8 @@ import android.view.View;
 import com.owncloud.android.databinding.SslUntrustedCertLayoutBinding;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 
+import androidx.annotation.NonNull;
+
 /**
  * Dialog to show an Untrusted Certificate
  */
@@ -21,14 +23,14 @@ public class SslErrorViewAdapter implements SslUntrustedCertDialog.ErrorViewAdap
 
     //private final static String TAG = SslErrorViewAdapter.class.getSimpleName();
 
-    private SslError mSslError;
+    private final SslError mSslError;
 
     public SslErrorViewAdapter(SslError sslError) {
         mSslError = sslError;
     }
 
     @Override
-    public void updateErrorView(SslUntrustedCertLayoutBinding binding) {
+    public void updateErrorView(@NonNull SslUntrustedCertLayoutBinding binding) {
         /// clean
         binding.reasonNoInfoAboutError.setVisibility(View.GONE);
 
