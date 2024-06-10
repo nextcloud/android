@@ -29,7 +29,7 @@ import android.text.style.StyleSpan;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.android.sso.Constants;
-import com.nextcloud.utils.extensions.AccountExtensionsKt;
+import com.nextcloud.client.account.User;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -40,6 +40,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -174,31 +175,34 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(packageName + DELIMITER + account.name, hashedTokenWithSalt);
         editor.apply();
+        Optional<User> user = getUser();
 
         String serverUrl;
         String userId;
-        try {
-            OwnCloudAccount ocAccount = new OwnCloudAccount(account, this);
-            serverUrl = ocAccount.getBaseUri().toString();
-            AccountManager accountManager = AccountManager.get(this);
-            userId = AccountExtensionsKt.userId(account);
-        } catch (AccountUtils.AccountNotFoundException e) {
-            Log_OC.e(TAG, "Account not found");
-            setResultAndExit(EXCEPTION_ACCOUNT_NOT_FOUND);
-            return;
+
+        if (user.isPresent()) {
+            try {
+                OwnCloudAccount ocAccount = new OwnCloudAccount(account, this);
+                serverUrl = ocAccount.getBaseUri().toString();
+                userId = user.get().getUserId();
+            } catch (AccountUtils.AccountNotFoundException e) {
+                Log_OC.e(TAG, "Account not found");
+                setResultAndExit(EXCEPTION_ACCOUNT_NOT_FOUND);
+                return;
+            }
+
+            final Bundle result = new Bundle();
+            result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
+            result.putString(AccountManager.KEY_ACCOUNT_TYPE, MainApp.getAccountType(this));
+            result.putString(AccountManager.KEY_AUTHTOKEN, NEXTCLOUD_SSO);
+            result.putString(Constants.SSO_USER_ID, userId);
+            result.putString(Constants.SSO_TOKEN, token);
+            result.putString(Constants.SSO_SERVER_URL, serverUrl);
+
+            Intent data = new Intent();
+            data.putExtra(NEXTCLOUD_SSO, result);
+            setResult(RESULT_OK, data);
+            finish();
         }
-
-        final Bundle result = new Bundle();
-        result.putString(AccountManager.KEY_ACCOUNT_NAME, account.name);
-        result.putString(AccountManager.KEY_ACCOUNT_TYPE, MainApp.getAccountType(this));
-        result.putString(AccountManager.KEY_AUTHTOKEN, NEXTCLOUD_SSO);
-        result.putString(Constants.SSO_USER_ID, userId);
-        result.putString(Constants.SSO_TOKEN, token);
-        result.putString(Constants.SSO_SERVER_URL, serverUrl);
-
-        Intent data = new Intent();
-        data.putExtra(NEXTCLOUD_SSO, result);
-        setResult(RESULT_OK, data);
-        finish();
     }
 }

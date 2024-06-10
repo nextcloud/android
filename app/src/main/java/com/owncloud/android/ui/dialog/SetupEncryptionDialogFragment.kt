@@ -11,7 +11,6 @@
  */
 package com.owncloud.android.ui.dialog
 
-import android.accounts.AccountManager
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
@@ -28,12 +27,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
-import com.nextcloud.utils.extensions.userId
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetupEncryptionDialogBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
-import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.e2ee.CsrHelper
 import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
@@ -388,7 +385,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 // create CSR
                 val user = user ?: return ""
 
-                val userId = user.toPlatformAccount().userId()
+                val userId = user.getUserId()
                 val urlEncoded = CsrHelper().generateCsrPemEncodedString(keyPair, userId)
                 val operation = SendCSRRemoteOperation(urlEncoded)
                 val result = operation.executeNextcloudClient(user, context)

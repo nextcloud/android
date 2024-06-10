@@ -131,7 +131,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public OCFileListAdapter(
         Activity activity,
         @NonNull User user,
-        @NonNull String userId,
         AppPreferences preferences,
         SyncedFolderProvider syncedFolderProvider,
         ComponentsGetter transferServiceGetter,
@@ -155,7 +154,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
         }
 
-        this.userId = userId;
+        this.userId = user.getUserId();
         this.viewThemeUtils = viewThemeUtils;
 
         ocFileListDelegate = new OCFileListDelegate(FileUploadHelper.Companion.instance(),

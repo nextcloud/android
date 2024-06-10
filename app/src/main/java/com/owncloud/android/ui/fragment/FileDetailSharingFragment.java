@@ -35,7 +35,6 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.utils.extensions.AccountExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
@@ -155,7 +154,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         fileOperationsHelper = fileActivity.getFileOperationsHelper();
         fileDataStorageManager = fileActivity.getStorageManager();
-        String userId = AccountExtensionsKt.userId(user.toPlatformAccount());
+        String userId = user.getUserId();
         binding.sharesList.setAdapter(new ShareeListAdapter(fileActivity,
                                                             new ArrayList<>(),
                                                             this,

@@ -61,7 +61,6 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.utils.extensions.AccountExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -445,7 +444,7 @@ public final class DisplayUtils {
      */
     public static void setAvatar(@NonNull User user, AvatarGenerationListener listener,
                                  float avatarRadius, Resources resources, Object callContext, Context context) {
-        String userId = AccountExtensionsKt.userId(user.toPlatformAccount());
+        String userId = user.getUserId();
         setAvatar(user, userId, listener, avatarRadius, resources, callContext, context);
     }
 

@@ -55,7 +55,6 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
-import com.nextcloud.utils.extensions.AccountExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.view.FastScrollUtils;
@@ -424,28 +423,24 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     protected void setAdapter(Bundle args) {
+        boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
-        if (requireActivity() instanceof FileDisplayActivity activity) {
-            boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
+        User user = accountManager.getUser();
+        mAdapter = new OCFileListAdapter(
+            getActivity(),
+            user,
+            preferences,
+            syncedFolderProvider,
+            mContainerActivity,
+            this,
+            hideItemOptions,
+            isGridViewPreferred(mFile),
+            viewThemeUtils
+        );
 
-            String userId = AccountExtensionsKt.userId(activity.getAccount());
-            mAdapter = new OCFileListAdapter(
-                getActivity(),
-                accountManager.getUser(),
-                userId,
-                preferences,
-                syncedFolderProvider,
-                mContainerActivity,
-                this,
-                hideItemOptions,
-                isGridViewPreferred(mFile),
-                viewThemeUtils
-            );
+        setRecyclerViewAdapter(mAdapter);
 
-            setRecyclerViewAdapter(mAdapter);
-
-            fastScrollUtils.applyFastScroll(getRecyclerView());
-        }
+        fastScrollUtils.applyFastScroll(getRecyclerView());
     }
 
     protected void prepareCurrentSearch(SearchEvent event) {

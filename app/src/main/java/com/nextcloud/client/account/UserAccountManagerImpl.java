@@ -18,10 +18,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.utils.extensions.AccountExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -349,7 +347,8 @@ public class UserAccountManagerImpl implements UserAccountManager {
         GetUserInfoRemoteOperation remoteUserNameOperation = new GetUserInfoRemoteOperation();
         int failed = 0;
         for (Account account : ocAccounts) {
-            String storedUserId = AccountExtensionsKt.userId(account);
+            User user = getUser();
+            String storedUserId = user.getUserId();
 
             if (!TextUtils.isEmpty(storedUserId)) {
                 continue;
