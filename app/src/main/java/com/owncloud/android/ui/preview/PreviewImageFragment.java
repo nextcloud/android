@@ -230,25 +230,41 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            if (!ignoreFirstSavedState) {
-                OCFile file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_FILE, OCFile.class);
-                if (file == null) {
-                    return;
-                }
+        if (savedInstanceState == null) {
+            Log_OC.d(TAG, "savedInstanceState is null");
+            return;
+        }
 
-                setFile(file);
+        if (ignoreFirstSavedState) {
+            Log_OC.d(TAG, "Saved state ignored");
+            ignoreFirstSavedState = false;
+            return;
+        }
 
-                try {
-                    binding.image.setScale(Math.min(binding.image.getMaximumScale(), savedInstanceState.getFloat(EXTRA_ZOOM)));
-                } catch (IllegalArgumentException e) {
-                    Log_OC.d(TAG, "Error caught at setScale: " + e);
-                }
-            } else {
-                ignoreFirstSavedState = false;
-            }
+        OCFile file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_FILE, OCFile.class);
+        if (file == null) {
+            Log_OC.d(TAG, "file cannot be found inside the savedInstanceState");
+            return;
+        }
+
+        setFile(file);
+
+        float maxScale = binding.image.getMaximumScale();
+        float minScale = binding.image.getMinimumScale();
+        float savedScale = savedInstanceState.getFloat(EXTRA_ZOOM);
+
+        if (savedScale < minScale || savedScale > maxScale) {
+            Log_OC.d(TAG, "Saved scale " + savedScale + " is out of bounds, setting to default scale.");
+            savedScale = Math.min(maxScale, Math.max(minScale, savedScale));
+        }
+
+        try {
+            binding.image.setScale(savedScale);
+        } catch (IllegalArgumentException e) {
+            Log_OC.d(TAG, "Error caught at setScale: " + e);
         }
     }
+
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {

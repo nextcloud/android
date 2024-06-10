@@ -13,6 +13,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
 import android.accounts.AuthenticatorException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -31,7 +32,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -609,7 +612,8 @@ public class FileDisplayActivity extends FileActivity
 
     private OCFileListFragment getOCFileListFragmentFromFile() {
         final Fragment leftFragment = getLeftFragment();
-        OCFileListFragment listOfFiles = null;
+        OCFileListFragment listOfFiles;
+
         if (leftFragment instanceof OCFileListFragment) {
             listOfFiles = (OCFileListFragment) leftFragment;
         } else {
@@ -617,11 +621,24 @@ public class FileDisplayActivity extends FileActivity
             Bundle args = new Bundle();
             args.putBoolean(OCFileListFragment.ARG_ALLOW_CONTEXTUAL_ACTIONS, true);
             listOfFiles.setArguments(args);
-            setLeftFragment(listOfFiles);
-            getSupportFragmentManager().executePendingTransactions();
+
+            FragmentManager fm = getSupportFragmentManager();
+            boolean isExecutingTransactions = !fm.isStateSaved() && !fm.executePendingTransactions();
+
+            if (isExecutingTransactions) {
+                setLeftFragment(listOfFiles);
+                fm.executePendingTransactions();
+            } else {
+                new Handler(Looper.getMainLooper()).post(() -> {
+                    setLeftFragment(listOfFiles);
+                    fm.executePendingTransactions();
+                });
+            }
         }
+
         return listOfFiles;
     }
+
 
     public void showFileActions(OCFile file) {
         dismissLoadingDialog();
@@ -1354,7 +1371,8 @@ public class FileDisplayActivity extends FileActivity
         public void onReceive(Context context, Intent intent) {
             String uploadedRemotePath = intent.getStringExtra(FileUploadWorker.EXTRA_REMOTE_PATH);
             String accountName = intent.getStringExtra(FileUploadWorker.ACCOUNT_NAME);
-            boolean sameAccount = getAccount() != null && accountName.equals(getAccount().name);
+            Account account = getAccount();
+            boolean sameAccount = accountName != null && account != null && accountName.equals(account.name);
             OCFile currentDir = getCurrentDir();
             boolean isDescendant = currentDir != null && uploadedRemotePath != null && uploadedRemotePath.startsWith(currentDir.getRemotePath());
 
