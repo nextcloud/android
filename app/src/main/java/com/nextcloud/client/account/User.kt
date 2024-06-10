@@ -54,8 +54,8 @@ interface User : Parcelable, com.nextcloud.common.User {
      */
     fun nameEquals(accountName: CharSequence?): Boolean
 
-    fun getUserId(): String  {
-        val atIndex = accountName.indexOf('@')
+    fun getUserId(): String {
+        val atIndex = accountName.lastIndexOf('@')
         return if (atIndex != -1) accountName.substring(0, atIndex) else accountName
     }
 }
