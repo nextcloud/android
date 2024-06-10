@@ -24,6 +24,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
@@ -50,7 +51,6 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     private static final String TAG = UserAccountManagerImpl.class.getSimpleName();
     private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
-    @Inject ArbitraryDataProvider arbitraryDataProvider;
 
     private Context context;
     private final AccountManager accountManager;
@@ -136,6 +136,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
     public Account getCurrentAccount() {
         Account[] ocAccounts = getAccounts();
 
+        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
         SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String accountName = appPreferences.getString(PREF_SELECT_OC_ACCOUNT, null);
 
