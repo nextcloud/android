@@ -64,9 +64,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sessionMixin = new SessionMixin(this,
-                                        getContentResolver(),
-                                        accountManager);
+        sessionMixin = new SessionMixin(this, accountManager);
         mixinRegistry.add(sessionMixin);
 
         if (enableAccountHandling) {
