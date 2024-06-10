@@ -175,10 +175,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     }
 
     public FileDataStorageManager getStorageManager() {
-        FileDataStorageManager result = sessionMixin.getStorageManager();
-        if (result == null) {
-            result = fileDataStorageManager;
-        }
-        return result;
+        return fileDataStorageManager;
     }
 }
