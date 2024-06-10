@@ -14,9 +14,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.resources.status.OCCapability
-import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.utils.theme.CapabilityUtils
 import java.util.Optional
 
@@ -27,36 +25,26 @@ import java.util.Optional
  * It is an intermediary step facilitating comprehensive rework of
  * account handling logic.
  */
-class SessionMixin constructor(
+class SessionMixin(
     private val activity: Activity,
     private val contentResolver: ContentResolver,
     private val accountManager: UserAccountManager
 ) : ActivityMixin {
-
-    private companion object {
-        private val TAG = BaseActivity::class.java.simpleName
-    }
-
     var currentAccount: Account? = null
         private set
-    var storageManager: FileDataStorageManager? = null
-        private set
+
     val capabilities: OCCapability?
         get() = getUser()
             .map { CapabilityUtils.getCapability(it, activity) }
             .orElse(null)
 
     fun setAccount(account: Account?) {
-        val validAccount = account != null && accountManager.setCurrentOwnCloudAccount(account.name)
-        if (validAccount) {
-            currentAccount = account
-        } else {
-            swapToDefaultAccount()
-        }
+        val validAccount = (account != null && accountManager.setCurrentOwnCloudAccount(account.name))
 
-        currentAccount?.let {
-            val storageManager = FileDataStorageManager(getUser().get(), contentResolver)
-            this.storageManager = storageManager
+        currentAccount = if (validAccount) {
+            account
+        } else {
+            getDefaultAccount()
         }
     }
 
@@ -75,16 +63,15 @@ class SessionMixin constructor(
      * If no valid ownCloud [Account] exists, then the user is requested
      * to create a new ownCloud [Account].
      */
-    private fun swapToDefaultAccount() {
+    private fun getDefaultAccount(): Account? {
         // default to the most recently used account
         val newAccount = accountManager.currentAccount
         if (newAccount == null) {
             // no account available: force account creation
-            currentAccount = null
             startAccountCreation()
-        } else {
-            currentAccount = newAccount
         }
+
+        return newAccount
     }
 
     /**
@@ -111,7 +98,7 @@ class SessionMixin constructor(
         super.onRestart()
         val validAccount = currentAccount != null && accountManager.exists(currentAccount)
         if (!validAccount) {
-            swapToDefaultAccount()
+            getDefaultAccount()
         }
     }
 
@@ -124,7 +111,7 @@ class SessionMixin constructor(
     override fun onResume() {
         super.onResume()
         if (currentAccount == null) {
-            swapToDefaultAccount()
+            getDefaultAccount()
         }
     }
 }
