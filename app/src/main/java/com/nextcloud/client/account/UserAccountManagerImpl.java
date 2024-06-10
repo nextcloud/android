@@ -39,8 +39,10 @@ import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import javax.inject.Inject;
 
@@ -51,6 +53,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     private static final String TAG = UserAccountManagerImpl.class.getSimpleName();
     private static final String PREF_SELECT_OC_ACCOUNT = "select_oc_account";
+    @Inject ArbitraryDataProvider arbitraryDataProvider;
 
     private Context context;
     private final AccountManager accountManager;
@@ -132,37 +135,28 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
-    @Nullable
+    @NonNull
     public Account getCurrentAccount() {
         Account[] ocAccounts = getAccounts();
-        Account defaultAccount = null;
-
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
 
         SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String accountName = appPreferences.getString(PREF_SELECT_OC_ACCOUNT, null);
 
-        // account validation: the saved account MUST be in the list of ownCloud Accounts known by the AccountManager
-        if (accountName != null) {
-            for (Account account : ocAccounts) {
-                if (account.name.equals(accountName)) {
-                    defaultAccount = account;
-                    break;
-                }
-            }
+        Account defaultAccount = Arrays.stream(ocAccounts)
+            .filter(account -> account.name.equals(accountName))
+            .findFirst()
+            .orElse(null);
+
+        // take first which is not pending for removal account as fallback
+        if (defaultAccount == null) {
+            defaultAccount = Arrays.stream(ocAccounts)
+                .filter(account -> !arbitraryDataProvider.getBooleanValue(account.name, PENDING_FOR_REMOVAL))
+                .findFirst()
+                .orElse(null);
         }
 
-        if (defaultAccount == null && ocAccounts.length > 0) {
-            // take first which is not pending for removal account as fallback
-            for (Account account: ocAccounts) {
-                boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(account.name,
-                                                                                  PENDING_FOR_REMOVAL);
-
-                if (!pendingForRemoval) {
-                    defaultAccount = account;
-                    break;
-                }
-            }
+        if (defaultAccount == null) {
+            defaultAccount = ocAccounts[0];
         }
 
         return defaultAccount;

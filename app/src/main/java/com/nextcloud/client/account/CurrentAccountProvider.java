@@ -24,7 +24,7 @@ public interface CurrentAccountProvider {
      * @return Currently selected {@link Account} or first valid {@link Account} registered in OS or null, if not available at all.
      */
     @Deprecated
-    @Nullable
+    @NonNull
     Account getCurrentAccount();
 
     /**
