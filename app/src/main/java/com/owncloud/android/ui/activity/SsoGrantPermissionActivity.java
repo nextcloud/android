@@ -29,6 +29,7 @@ import android.text.style.StyleSpan;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.android.sso.Constants;
+import com.nextcloud.utils.extensions.AccountExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -180,8 +181,7 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             OwnCloudAccount ocAccount = new OwnCloudAccount(account, this);
             serverUrl = ocAccount.getBaseUri().toString();
             AccountManager accountManager = AccountManager.get(this);
-            userId = accountManager.getUserData(account,
-                    com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+            userId = AccountExtensionsKt.userId(account);
         } catch (AccountUtils.AccountNotFoundException e) {
             Log_OC.e(TAG, "Account not found");
             setResultAndExit(EXCEPTION_ACCOUNT_NOT_FOUND);

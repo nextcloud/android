@@ -9,6 +9,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
@@ -130,6 +131,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public OCFileListAdapter(
         Activity activity,
         @NonNull User user,
+        @NonNull String userId,
         AppPreferences preferences,
         SyncedFolderProvider syncedFolderProvider,
         ComponentsGetter transferServiceGetter,
@@ -153,11 +155,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mStorageManager = new FileDataStorageManager(user, activity.getContentResolver());
         }
 
-        userId = AccountManager
-            .get(activity)
-            .getUserData(this.user.toPlatformAccount(),
-                         com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
-
+        this.userId = userId;
         this.viewThemeUtils = viewThemeUtils;
 
         ocFileListDelegate = new OCFileListDelegate(FileUploadHelper.Companion.instance(),

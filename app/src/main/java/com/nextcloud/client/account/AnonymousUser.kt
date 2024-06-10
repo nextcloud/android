@@ -12,6 +12,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Parcel
 import android.os.Parcelable
+import com.nextcloud.utils.extensions.userId
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudAccount
@@ -62,6 +63,8 @@ internal data class AnonymousUser(private val accountType: String) : User, Parce
     override fun nameEquals(accountName: CharSequence?): Boolean {
         return accountName?.toString().equals(this.accountType, true)
     }
+
+    override fun getUserId(account: Account): String = account.userId()
 
     override fun describeContents() = 0
 

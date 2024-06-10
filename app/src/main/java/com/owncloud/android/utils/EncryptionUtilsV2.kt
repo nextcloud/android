@@ -12,6 +12,7 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.extensions.userId
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -616,10 +617,7 @@ class EncryptionUtilsV2 {
         )
 
         val decryptedFolderMetadata = if (v2.version == "2.0" || v2.version == "2") {
-            val userId = AccountManager.get(context).getUserData(
-                user.toPlatformAccount(),
-                AccountUtils.Constants.KEY_USER_ID
-            )
+            val userId = user.toPlatformAccount().userId()
             decryptFolderMetadataFile(
                 v2,
                 userId,

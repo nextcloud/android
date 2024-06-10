@@ -28,6 +28,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.userId
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetupEncryptionDialogBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -385,10 +386,9 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 val keyPair = EncryptionUtils.generateKeyPair()
 
                 // create CSR
-                val accountManager = AccountManager.get(context)
                 val user = user ?: return ""
 
-                val userId = accountManager.getUserData(user.toPlatformAccount(), AccountUtils.Constants.KEY_USER_ID)
+                val userId = user.toPlatformAccount().userId()
                 val urlEncoded = CsrHelper().generateCsrPemEncodedString(keyPair, userId)
                 val operation = SendCSRRemoteOperation(urlEncoded)
                 val result = operation.executeNextcloudClient(user, context)

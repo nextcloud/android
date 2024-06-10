@@ -23,6 +23,7 @@ import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.extensions.AccountExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -115,10 +116,7 @@ public class FileMenuFilter {
         this.context = context;
         this.overflowMenu = overflowMenu;
         this.user = user;
-        userId = AccountManager
-            .get(context)
-            .getUserData(this.user.toPlatformAccount(),
-                         com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+        userId = AccountExtensionsKt.userId(user.toPlatformAccount());
     }
 
     /**

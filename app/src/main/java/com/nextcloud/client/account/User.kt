@@ -53,4 +53,6 @@ interface User : Parcelable, com.nextcloud.common.User {
      * @return true if account names are same, false otherwise
      */
     fun nameEquals(accountName: CharSequence?): Boolean
+
+    fun getUserId(account: Account): String
 }
