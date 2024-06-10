@@ -9,7 +9,6 @@ package com.nextcloud.client.mixins
 
 import android.accounts.Account
 import android.app.Activity
-import android.content.ContentResolver
 import android.content.Intent
 import android.os.Bundle
 import com.nextcloud.client.account.User
@@ -27,7 +26,6 @@ import java.util.Optional
  */
 class SessionMixin(
     private val activity: Activity,
-    private val contentResolver: ContentResolver,
     private val accountManager: UserAccountManager
 ) : ActivityMixin {
     var currentAccount: Account? = null

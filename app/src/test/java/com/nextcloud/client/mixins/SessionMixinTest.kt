@@ -8,7 +8,6 @@
 package com.nextcloud.client.mixins
 
 import android.app.Activity
-import android.content.ContentResolver
 import com.nextcloud.client.account.UserAccountManager
 import junit.framework.Assert.assertNull
 import org.junit.Before
@@ -25,9 +24,6 @@ class SessionMixinTest {
     private lateinit var activity: Activity
 
     @Mock
-    private lateinit var contentResolver: ContentResolver
-
-    @Mock
     private lateinit var userAccountManager: UserAccountManager
 
     private lateinit var session: SessionMixin
@@ -38,7 +34,6 @@ class SessionMixinTest {
         session = spy(
             SessionMixin(
                 activity,
-                contentResolver,
                 userAccountManager
             )
         )
