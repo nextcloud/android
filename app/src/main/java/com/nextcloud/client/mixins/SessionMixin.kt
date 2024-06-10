@@ -28,7 +28,7 @@ class SessionMixin(
     private val activity: Activity,
     private val accountManager: UserAccountManager
 ) : ActivityMixin {
-    var currentAccount: Account? = null
+    lateinit var currentAccount: Account
         private set
 
     val capabilities: OCCapability?
@@ -36,8 +36,8 @@ class SessionMixin(
             .map { CapabilityUtils.getCapability(it, activity) }
             .orElse(null)
 
-    fun setAccount(account: Account?) {
-        val validAccount = (account != null && accountManager.setCurrentOwnCloudAccount(account.name))
+    fun setAccount(account: Account) {
+        val validAccount = (accountManager.setCurrentOwnCloudAccount(account.name))
 
         currentAccount = if (validAccount) {
             account
@@ -51,7 +51,6 @@ class SessionMixin(
     }
 
     fun getUser(): Optional<User> = when (val it = this.currentAccount) {
-        null -> Optional.empty()
         else -> accountManager.getUser(it.name)
     }
 
@@ -61,15 +60,9 @@ class SessionMixin(
      * If no valid ownCloud [Account] exists, then the user is requested
      * to create a new ownCloud [Account].
      */
-    private fun getDefaultAccount(): Account? {
+    private fun getDefaultAccount(): Account {
         // default to the most recently used account
-        val newAccount = accountManager.currentAccount
-        if (newAccount == null) {
-            // no account available: force account creation
-            startAccountCreation()
-        }
-
-        return newAccount
+        return accountManager.currentAccount
     }
 
     /**
@@ -83,7 +76,7 @@ class SessionMixin(
         super.onNewIntent(intent)
         val current = accountManager.currentAccount
         val currentAccount = this.currentAccount
-        if (current != null && currentAccount != null && !currentAccount.name.equals(current.name)) {
+        if (!currentAccount.name.equals(current.name)) {
             this.currentAccount = current
         }
     }
@@ -94,7 +87,7 @@ class SessionMixin(
      */
     override fun onRestart() {
         super.onRestart()
-        val validAccount = currentAccount != null && accountManager.exists(currentAccount)
+        val validAccount = accountManager.exists(currentAccount)
         if (!validAccount) {
             getDefaultAccount()
         }
@@ -104,12 +97,5 @@ class SessionMixin(
         super.onCreate(savedInstanceState)
         val account = accountManager.currentAccount
         setAccount(account)
-    }
-
-    override fun onResume() {
-        super.onResume()
-        if (currentAccount == null) {
-            getDefaultAccount()
-        }
     }
 }
