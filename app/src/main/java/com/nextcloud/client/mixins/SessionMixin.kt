@@ -13,6 +13,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.utils.extensions.isAnonymous
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.theme.CapabilityUtils
 import java.util.Optional
@@ -50,8 +51,12 @@ class SessionMixin(
         setAccount(user.toPlatformAccount())
     }
 
-    fun getUser(): Optional<User> = when (val it = this.currentAccount) {
-        else -> accountManager.getUser(it.name)
+    fun getUser(): Optional<User> {
+        return if (currentAccount.isAnonymous(activity)) {
+            Optional.empty()
+        } else {
+            accountManager.getUser(currentAccount.name)
+        }
     }
 
     /**
@@ -60,7 +65,15 @@ class SessionMixin(
      * If no valid ownCloud [Account] exists, then the user is requested
      * to create a new ownCloud [Account].
      */
-    private fun getDefaultAccount(): Account = accountManager.currentAccount
+    private fun getDefaultAccount(): Account {
+        val defaultAccount = accountManager.currentAccount
+
+        if (defaultAccount.isAnonymous(activity)) {
+            startAccountCreation()
+        }
+
+        return defaultAccount
+    }
 
     /**
      * Launches the account creation activity.

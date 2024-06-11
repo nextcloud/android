@@ -20,6 +20,7 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.AccountExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -154,10 +155,18 @@ public class UserAccountManagerImpl implements UserAccountManager {
         }
 
         if (defaultAccount == null) {
-            defaultAccount = ocAccounts[0];
+            if (ocAccounts.length > 0) {
+                defaultAccount = ocAccounts[0];
+            } else {
+                defaultAccount = getAnonymousAccount();
+            }
         }
 
         return defaultAccount;
+    }
+
+    private Account getAnonymousAccount() {
+        return new Account("Anonymous", context.getString(R.string.anonymous_account_type));
     }
 
     /**
@@ -169,8 +178,8 @@ public class UserAccountManagerImpl implements UserAccountManager {
      * @return User instance or null, if conversion failed
      */
     @Nullable
-    private User createUserFromAccount(@Nullable Account account) {
-        if (account == null) {
+    private User createUserFromAccount(@NonNull Account account) {
+        if (AccountExtensionsKt.isAnonymous(account, context)) {
             return null;
         }
 
@@ -247,7 +256,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
-    @Nullable
+    @NonNull
     public Account getAccountByName(String name) {
         for (Account account : getAccounts()) {
             if (account.name.equals(name)) {
@@ -255,7 +264,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
             }
         }
 
-        return null;
+        return getAnonymousAccount();
     }
 
     @Override
