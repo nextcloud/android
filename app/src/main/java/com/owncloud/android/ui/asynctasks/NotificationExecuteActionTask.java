@@ -25,6 +25,8 @@ import org.apache.commons.httpclient.HttpStatus;
 
 import java.io.IOException;
 
+import okhttp3.RequestBody;
+
 public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boolean> {
 
     private final NotificationListAdapter.NotificationViewHolder holder;
@@ -47,14 +49,18 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
         OkHttpMethodBase method;
         Action action = actions[0];
 
+        if (action.type == null || action.link == null) {
+            return Boolean.FALSE;
+        }
+
         switch (action.type) {
             case "GET" -> method = new GetMethod(action.link, true);
-            case "POST" -> method = new PostMethod(action.link, true, null);
+            case "POST" -> method = new PostMethod(action.link, true, RequestBody.create("", null));
             case "DELETE" -> method = new DeleteMethod(action.link, true);
             case "PUT" -> method = new PutMethod(action.link, true, null);
             default -> {
                 // do nothing
-                return false;
+                return Boolean.FALSE;
             }
         }
 
@@ -65,7 +71,7 @@ public class NotificationExecuteActionTask extends AsyncTask<Action, Void, Boole
             status = client.execute(method);
         } catch (IOException e) {
             Log_OC.e(this, "Execution of notification action failed: " + e);
-            return false;
+            return Boolean.FALSE;
         } finally {
             method.releaseConnection();
         }
