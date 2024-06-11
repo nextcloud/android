@@ -1292,6 +1292,24 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(directory, null, onlyOnDevice, fromSearch);
     }
 
+    private OCFile getDirectoryForListDirectory(OCFile directory, FileDataStorageManager storageManager) {
+        if (directory == null) {
+            if (mFile != null) {
+                directory = mFile;
+            } else {
+                directory = storageManager.getFileByPath(ROOT_PATH);
+            }
+        }
+
+        // If that's not a directory -> List its parent
+        if (!directory.isFolder()) {
+            Log_OC.w(TAG, "You see, that is not a directory -> " + directory);
+            directory = storageManager.getFileById(directory.getParentId());
+        }
+
+        return directory;
+    }
+
     /**
      * Lists the given directory on the view. When the input parameter is null, it will either refresh the last known
      * directory. list the root if there never was a directory.
@@ -1301,52 +1319,47 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void listDirectory(OCFile directory, OCFile file, boolean onlyOnDevice, boolean fromSearch) {
         if (!searchFragment) {
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-            if (storageManager != null) {
-                // Check input parameters for null
-                if (directory == null) {
-                    if (mFile != null) {
-                        directory = mFile;
-                    } else {
-                        directory = storageManager.getFileByPath(ROOT_PATH);
-                        if (directory == null) {
-                            return; // no files, wait for sync
-                        }
-                    }
+            if (storageManager == null) {
+                Log_OC.d(TAG, "fileDataStorageManager is null");
+                return;
+            }
+
+            directory = getDirectoryForListDirectory(directory, storageManager);
+            if (directory == null) {
+                Log_OC.d(TAG, "directory is null, no files, wait for sync");
+                return;
+            }
+
+            if (mLimitToMimeType == null) {
+                Log_OC.d(TAG, "mLimitToMimeType is null");
+                return;
+            }
+
+            if (mAdapter == null) {
+                Log_OC.d(TAG, "mAdapter is null");
+                return;
+            }
+
+            mAdapter.swapDirectory(
+                accountManager.getUser(),
+                directory,
+                storageManager,
+                onlyOnDevice,
+                mLimitToMimeType);
+
+            OCFile previousDirectory = mFile;
+            mFile = directory;
+
+            updateLayout();
+
+            if (file != null) {
+                mAdapter.setHighlightedItem(file);
+                int position = mAdapter.getItemPosition(file);
+                if (position != -1) {
+                    getRecyclerView().scrollToPosition(position);
                 }
-
-                // If that's not a directory -> List its parent
-                if (!directory.isFolder()) {
-                    Log_OC.w(TAG, "You see, that is not a directory -> " + directory);
-                    directory = storageManager.getFileById(directory.getParentId());
-
-                    if (directory == null) {
-                        return; // no files, wait for sync
-                    }
-                }
-
-                mAdapter.swapDirectory(
-                    accountManager.getUser(),
-                    directory,
-                    storageManager,
-                    onlyOnDevice,
-                    mLimitToMimeType
-                                      );
-
-                OCFile previousDirectory = mFile;
-                mFile = directory;
-
-                updateLayout();
-
-                if (file != null) {
-                    mAdapter.setHighlightedItem(file);
-                    int position = mAdapter.getItemPosition(file);
-                    if (position != -1) {
-                        getRecyclerView().scrollToPosition(position);
-                    }
-                } else if (previousDirectory == null || !previousDirectory.equals(directory)) {
-                    getRecyclerView().scrollToPosition(0);
-                }
-
+            } else if (previousDirectory == null || !previousDirectory.equals(directory)) {
+                getRecyclerView().scrollToPosition(0);
             }
         } else if (isSearchEventSet(searchEvent)) {
             handleSearchEvent(searchEvent);
