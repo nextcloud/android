@@ -185,9 +185,18 @@ class PreviewMediaActivity :
         }
 
         if (MimeTypeUtil.isAudio(file)) {
-            registerMediaControlReceiver()
-            requestForDownload(file)
+            preparePreviewForAudioFile()
         }
+    }
+
+    private fun preparePreviewForAudioFile() {
+        registerMediaControlReceiver()
+
+        if (file.isDown) {
+            return
+        }
+
+        requestForDownload(file)
     }
 
     private fun initWithIntent(intent: Intent) {
