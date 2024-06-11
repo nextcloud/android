@@ -60,10 +60,7 @@ class SessionMixin(
      * If no valid ownCloud [Account] exists, then the user is requested
      * to create a new ownCloud [Account].
      */
-    private fun getDefaultAccount(): Account {
-        // default to the most recently used account
-        return accountManager.currentAccount
-    }
+    private fun getDefaultAccount(): Account = accountManager.currentAccount
 
     /**
      * Launches the account creation activity.
