@@ -51,24 +51,16 @@
 
     <FrameLayout
         android:id="@+id/progress"
+        android:background="@color/color_dark_transparent"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.elyeproj.loaderviewlibrary.LoaderImageView
-            android:layout_width="@dimen/empty_list_icon_layout_width"
-            android:layout_height="@dimen/empty_list_icon_layout_width"
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="wrap_content"
             android:layout_gravity="center"
-            android:contentDescription="@null"
-            app:corners="24" />
+            android:layout_height="wrap_content"
+            android:indeterminate="true" />
 
-        <ImageView
-            android:layout_width="@dimen/empty_list_icon_layout_width"
-            android:layout_height="@dimen/empty_list_icon_layout_height"
-            android:layout_gravity="center"
-            android:contentDescription="@null"
-            android:padding="@dimen/standard_half_padding"
-            android:src="@drawable/file_movie"
-            app:tint="@color/bg_default" />
     </FrameLayout>
 
     <FrameLayout

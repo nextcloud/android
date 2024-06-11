@@ -13,7 +13,10 @@
 package com.owncloud.android.ui.preview
 
 import android.app.Activity
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -41,6 +44,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.marginBottom
 import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.media3.common.MediaItem
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
@@ -53,6 +57,7 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
+import com.nextcloud.client.media.PlayerService
 import com.nextcloud.client.media.PlayerServiceConnection
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
@@ -146,8 +151,27 @@ class PreviewMediaActivity :
         showMediaTypeViews()
         configureSystemBars()
         emptyListView = binding.emptyView.emptyListView
-        setLoadingView()
+        showProgressLayout()
     }
+
+    private fun registerMediaControlReceiver() {
+        val filter = IntentFilter(MEDIA_CONTROL_READY_RECEIVER)
+        LocalBroadcastManager.getInstance(this).registerReceiver(mediaControlReceiver, filter)
+    }
+
+    private val mediaControlReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context, intent: Intent) {
+            intent.getBooleanExtra(PlayerService.IS_MEDIA_CONTROL_LAYOUT_READY, false).run {
+                if (this) {
+                    hideProgressLayout()
+                    recreate()
+                } else {
+                    showProgressLayout()
+                }
+            }
+        }
+    }
+
 
     private fun initArguments(savedInstanceState: Bundle?) {
         intent?.let {
@@ -159,6 +183,11 @@ class PreviewMediaActivity :
             checkNotNull(user) { "Instanced with a NULL ownCloud Account" }
         } else {
             initWithBundle(savedInstanceState)
+        }
+
+        if (MimeTypeUtil.isAudio(file)) {
+            registerMediaControlReceiver()
+            requestForDownload(file)
         }
     }
 
@@ -206,9 +235,16 @@ class PreviewMediaActivity :
         )
     }
 
-    private fun setLoadingView() {
+    private fun showProgressLayout() {
         binding.progress.visibility = View.VISIBLE
+        binding.mediaController.visibility = View.GONE
         binding.emptyView.emptyListView.visibility = View.GONE
+    }
+
+    private fun hideProgressLayout() {
+        binding.progress.visibility = View.GONE
+        binding.mediaController.visibility = View.VISIBLE
+        binding.emptyView.emptyListView.visibility = View.VISIBLE
     }
 
     private fun setVideoErrorMessage(headline: String, @StringRes message: Int) {
@@ -218,8 +254,8 @@ class PreviewMediaActivity :
             emptyListIcon.setImageResource(R.drawable.file_movie)
             emptyListViewText.visibility = View.VISIBLE
             emptyListIcon.visibility = View.VISIBLE
-            binding.progress.visibility = View.GONE
-            emptyListView.visibility = View.VISIBLE
+
+            hideProgressLayout()
         }
     }
 
@@ -691,8 +727,9 @@ class PreviewMediaActivity :
     override fun onDestroy() {
         Log_OC.v(TAG, "onDestroy")
 
-        super.onDestroy()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(mediaControlReceiver)
 
+        super.onDestroy()
         exoPlayer?.run {
             stop()
             release()
@@ -783,6 +820,8 @@ class PreviewMediaActivity :
 
     companion object {
         private val TAG = PreviewMediaActivity::class.java.simpleName
+
+        const val MEDIA_CONTROL_READY_RECEIVER: String = "MEDIA_CONTROL_READY_RECEIVER"
         const val EXTRA_FILE = "FILE"
         const val EXTRA_USER = "USER"
         const val EXTRA_AUTOPLAY = "AUTOPLAY"
