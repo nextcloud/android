@@ -164,7 +164,8 @@ class PreviewMediaActivity :
             intent.getBooleanExtra(PlayerService.IS_MEDIA_CONTROL_LAYOUT_READY, false).run {
                 if (this) {
                     hideProgressLayout()
-                    recreate()
+                    mediaPlayerServiceConnection?.bind()
+                    setupAudioPlayerServiceConnection()
                 } else {
                     showProgressLayout()
                 }
