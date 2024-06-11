@@ -95,7 +95,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             columnSize = maxColumnSizePortrait;
         }
 
-        registerRefreshSearchEventReceiver();
     }
 
     private void registerRefreshSearchEventReceiver() {
@@ -203,6 +202,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void onRefresh() {
         super.onRefresh();
+        registerRefreshSearchEventReceiver();
         handleSearchEvent();
     }
 
