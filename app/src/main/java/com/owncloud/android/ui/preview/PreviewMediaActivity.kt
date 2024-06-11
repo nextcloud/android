@@ -311,21 +311,23 @@ class PreviewMediaActivity :
 
         Log_OC.v(TAG, "onStart")
 
-        if (file != null) {
-            mediaPlayerServiceConnection?.bind()
+        if (file == null) {
+            return
+        }
 
-            if (MimeTypeUtil.isAudio(file)) {
-                setupAudioPlayerServiceConnection()
-            } else if (MimeTypeUtil.isVideo(file)) {
-                if (mediaPlayerServiceConnection?.isConnected == true) {
-                    stopAudio()
-                }
+        mediaPlayerServiceConnection?.bind()
 
-                if (exoPlayer != null) {
-                    playVideo()
-                } else {
-                    initNextcloudExoPlayer()
-                }
+        if (MimeTypeUtil.isAudio(file)) {
+            setupAudioPlayerServiceConnection()
+        } else if (MimeTypeUtil.isVideo(file)) {
+            if (mediaPlayerServiceConnection?.isConnected == true) {
+                stopAudio()
+            }
+
+            if (exoPlayer != null) {
+                playVideo()
+            } else {
+                initNextcloudExoPlayer()
             }
         }
     }
