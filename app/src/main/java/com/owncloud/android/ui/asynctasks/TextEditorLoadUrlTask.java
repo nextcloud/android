@@ -48,7 +48,7 @@ public class TextEditorLoadUrlTask extends AsyncTask<Void, Void, String> {
         }
 
         RemoteOperationResult<String> result = new DirectEditingOpenFileRemoteOperation(file.getRemotePath(), editor.getId())
-            .executeNextcloudClient(user, editorWebViewWeakReference.get());
+            .executeNextcloudClient(user, editorWebView);
 
 
         if (!result.isSuccess()) {
