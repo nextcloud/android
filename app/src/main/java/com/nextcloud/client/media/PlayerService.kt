@@ -60,7 +60,7 @@ class PlayerService : Service() {
 
     private val playerListener = object : Player.Listener {
         override fun onRunning(file: OCFile) {
-            Log_OC.d(TAG,"PlayerService.onRunning()")
+            Log_OC.d(TAG, "PlayerService.onRunning()")
             val intent = Intent(PreviewMediaActivity.MEDIA_CONTROL_READY_RECEIVER).apply {
                 putExtra(IS_MEDIA_CONTROL_LAYOUT_READY, false)
             }
@@ -69,7 +69,7 @@ class PlayerService : Service() {
         }
 
         override fun onStart() {
-            Log_OC.d(TAG,"PlayerService.onStart()")
+            Log_OC.d(TAG, "PlayerService.onStart()")
             val intent = Intent(PreviewMediaActivity.MEDIA_CONTROL_READY_RECEIVER).apply {
                 putExtra(IS_MEDIA_CONTROL_LAYOUT_READY, true)
             }
@@ -77,16 +77,16 @@ class PlayerService : Service() {
         }
 
         override fun onPause() {
-            Log_OC.d(TAG,"PlayerService.onPause()")
+            Log_OC.d(TAG, "PlayerService.onPause()")
         }
 
         override fun onStop() {
-            Log_OC.d(TAG,"PlayerService.onStop()")
+            Log_OC.d(TAG, "PlayerService.onStop()")
             stopServiceAndRemoveNotification(null)
         }
 
         override fun onError(error: PlayerError) {
-            Log_OC.d(TAG,"PlayerService.onError()")
+            Log_OC.d(TAG, "PlayerService.onError()")
             Toast.makeText(this@PlayerService, error.message, Toast.LENGTH_SHORT).show()
         }
     }

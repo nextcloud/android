@@ -172,7 +172,6 @@ class PreviewMediaActivity :
         }
     }
 
-
     private fun initArguments(savedInstanceState: Bundle?) {
         intent?.let {
             initWithIntent(it)
