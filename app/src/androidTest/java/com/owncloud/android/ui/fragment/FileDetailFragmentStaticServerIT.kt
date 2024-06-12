@@ -9,7 +9,6 @@
 package com.owncloud.android.ui.fragment
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
-import androidx.test.platform.app.InstrumentationRegistry
 import com.nextcloud.test.TestActivity
 import com.nextcloud.ui.ImageDetailFragment
 import com.owncloud.android.AbstractIT
@@ -190,10 +189,10 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
         val sut = testActivityRule.launchActivity(null)
         sut.addFragment(FileDetailFragment.newInstance(oCFile, user, 1))
 
-        InstrumentationRegistry.getInstrumentation().waitForIdle {
-            shortSleep()
-            shortSleep()
-            screenshot(sut)
-        }
+        waitForIdleSync()
+
+        shortSleep()
+        shortSleep()
+        screenshot(sut)
     }
 }
