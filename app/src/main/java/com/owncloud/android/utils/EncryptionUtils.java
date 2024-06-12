@@ -17,7 +17,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.nextcloud.client.account.User;
-import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -408,12 +407,11 @@ public final class EncryptionUtils {
     Object
     downloadFolderMetadata(OCFile folder,
                            OwnCloudClient client,
-                           NextcloudClient nextcloudClient,
                            Context context,
                            User user
                           ) {
         RemoteOperationResult<MetadataResponse> getMetadataOperationResult = new GetMetadataRemoteOperation(folder.getLocalId())
-            .execute(nextcloudClient);
+            .execute(client);
 
         if (!getMetadataOperationResult.isSuccess()) {
             return null;
@@ -1319,9 +1317,7 @@ public final class EncryptionUtils {
         return lockFolder(parentFile, client, -1);
     }
 
-    public static String lockFolder(ServerFileInterface parentFile,
-                                    NextcloudClient client,
-                                    long counter) throws UploadException {
+    public static String lockFolder(ServerFileInterface parentFile, OwnCloudClient client, long counter) throws UploadException {
         // Lock folder
         LockFileRemoteOperation lockFileOperation = new LockFileRemoteOperation(parentFile.getLocalId(),
                                                                                 counter);
@@ -1342,7 +1338,7 @@ public final class EncryptionUtils {
      * @return Pair: boolean: true: metadata already exists, false: metadata new created
      */
     public static Pair<Boolean, DecryptedFolderMetadataFileV1> retrieveMetadataV1(OCFile parentFile,
-                                                                                  NextcloudClient nextcloudClient,
+                                                                                  OwnCloudClient client,
                                                                                   String privateKey,
                                                                                   String publicKey,
                                                                                   ArbitraryDataProvider arbitraryDataProvider,
@@ -1353,7 +1349,7 @@ public final class EncryptionUtils {
         long localId = parentFile.getLocalId();
 
         GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(localId);
-        RemoteOperationResult<MetadataResponse> getMetadataOperationResult = getMetadataOperation.execute(nextcloudClient);
+        RemoteOperationResult<MetadataResponse> getMetadataOperationResult = getMetadataOperation.execute(client);
 
         DecryptedFolderMetadataFileV1 metadata;
 
@@ -1396,7 +1392,6 @@ public final class EncryptionUtils {
      */
     public static Pair<Boolean, DecryptedFolderMetadataFile> retrieveMetadata(OCFile parentFile,
                                                                               OwnCloudClient client,
-                                                                              NextcloudClient nextcloudClient,
                                                                               String privateKey,
                                                                               String publicKey,
                                                                               FileDataStorageManager storageManager,
@@ -1409,7 +1404,7 @@ public final class EncryptionUtils {
         long localId = parentFile.getLocalId();
 
         GetMetadataRemoteOperation getMetadataOperation = new GetMetadataRemoteOperation(localId);
-        RemoteOperationResult<MetadataResponse> getMetadataOperationResult = getMetadataOperation.execute(nextcloudClient);
+        RemoteOperationResult<MetadataResponse> getMetadataOperationResult = getMetadataOperation.execute(client);
 
 
         DecryptedFolderMetadataFile metadata;
@@ -1512,9 +1507,7 @@ public final class EncryptionUtils {
         }
     }
 
-    public static RemoteOperationResult<Void> unlockFolder(ServerFileInterface parentFolder,
-                                                           NextcloudClient client,
-                                                           String token) {
+    public static RemoteOperationResult<Void> unlockFolder(ServerFileInterface parentFolder, OwnCloudClient client, String token) {
         if (token != null) {
             return new UnlockFileRemoteOperation(parentFolder.getLocalId(), token).execute(client);
         } else {
