@@ -12,6 +12,7 @@ package com.owncloud.android.operations;
 import android.content.Context;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -153,7 +154,7 @@ public class UnshareOperation extends SyncOperation {
         return result;
     }
 
-    private boolean existsFile(OwnCloudClient client, String remotePath) {
+    private boolean existsFile(NextcloudClient client, String remotePath) {
         return new ExistenceCheckRemoteOperation(remotePath, false).execute(client).isSuccess();
     }
 }

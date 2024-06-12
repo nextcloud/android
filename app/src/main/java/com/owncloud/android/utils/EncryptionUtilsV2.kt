@@ -12,6 +12,7 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
+import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -310,6 +311,7 @@ class EncryptionUtilsV2 {
         folder: OCFile,
         storageManager: FileDataStorageManager,
         client: OwnCloudClient,
+        nextcloudClient: NextcloudClient,
         userId: String,
         privateKey: String,
         user: User,
@@ -328,7 +330,7 @@ class EncryptionUtilsV2 {
         }
 
         // parent is now top most encrypted folder
-        val result = GetMetadataRemoteOperation(topMost.localId).execute(client)
+        val result = GetMetadataRemoteOperation(topMost.localId).execute(nextcloudClient)
 
         if (result.isSuccess) {
             val v2 = EncryptionUtils.deserializeJSON(
@@ -555,10 +557,11 @@ class EncryptionUtilsV2 {
     fun retrieveMetadata(
         folder: OCFile,
         client: OwnCloudClient,
+        nextcloudClient: NextcloudClient,
         user: User,
         context: Context
     ): Pair<Boolean, DecryptedFolderMetadataFile> {
-        val getMetadataOperationResult = GetMetadataRemoteOperation(folder.localId).execute(client)
+        val getMetadataOperationResult = GetMetadataRemoteOperation(folder.localId).execute(nextcloudClient)
 
         return if (getMetadataOperationResult.isSuccess) {
             // decrypt metadata

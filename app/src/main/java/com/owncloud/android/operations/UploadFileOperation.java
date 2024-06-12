@@ -22,6 +22,7 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -1239,9 +1240,11 @@ public class UploadFileOperation extends SyncOperation {
      * @param pathToGrant Full remote path whose existence will be granted.
      * @return An {@link OCFile} instance corresponding to the folder where the file will be uploaded.
      */
-    private RemoteOperationResult grantFolderExistence(String pathToGrant, OwnCloudClient client) {
+    private RemoteOperationResult grantFolderExistence(String pathToGrant,
+                                                       OwnCloudClient client,
+                                                       NextcloudClient nextcloudClient) {
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult result = operation.execute(nextcloudClient);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
             SyncOperation syncOp = new CreateFolderOperation(pathToGrant, user, getContext(), getStorageManager());
             result = syncOp.execute(client);
@@ -1338,7 +1341,7 @@ public class UploadFileOperation extends SyncOperation {
         return newPath;
     }
 
-    private boolean existsFile(OwnCloudClient client,
+    private boolean existsFile(NextcloudClient client,
                                String remotePath,
                                List<String> fileNames,
                                boolean encrypted) {

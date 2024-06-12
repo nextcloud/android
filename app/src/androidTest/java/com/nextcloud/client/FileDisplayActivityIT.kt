@@ -53,7 +53,7 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
     // @ScreenshotTest // todo run without real server
     @Test
     fun showShares() {
-        Assert.assertTrue(ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess)
+        Assert.assertTrue(ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(nextcloudClient).isSuccess)
         Assert.assertTrue(CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess)
         Assert.assertTrue(CreateFolderRemoteOperation("/shareToGroup/", true).execute(client).isSuccess)
         Assert.assertTrue(CreateFolderRemoteOperation("/shareViaLink/", true).execute(client).isSuccess)

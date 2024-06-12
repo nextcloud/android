@@ -352,7 +352,7 @@ public abstract class AbstractIT {
     }
 
     public OCFile createFolder(String remotePath) {
-        RemoteOperationResult check = new ExistenceCheckRemoteOperation(remotePath, false).execute(client);
+        RemoteOperationResult check = new ExistenceCheckRemoteOperation(remotePath, false).execute(nextcloudClient);
 
         if (!check.isSuccess()) {
             assertTrue(new CreateFolderOperation(remotePath, user, targetContext, getStorageManager())

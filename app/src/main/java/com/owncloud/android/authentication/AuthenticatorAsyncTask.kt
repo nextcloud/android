@@ -66,7 +66,7 @@ class AuthenticatorAsyncTask(activity: Activity) : AsyncTask<Any?, Void?, Remote
                 val operation = ExistenceCheckRemoteOperation(OCFile.ROOT_PATH, SUCCESS_IF_ABSENT)
 
                 @Suppress("UNCHECKED_CAST")
-                result = operation.execute(client) as RemoteOperationResult<UserInfo?>
+                result = operation.execute(nextcloudClient) as RemoteOperationResult<UserInfo?>
                 if (operation.wasRedirected()) {
                     val redirectionPath = operation.redirectionPath
                     val permanentLocation = redirectionPath.lastPermanentLocation

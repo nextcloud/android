@@ -11,9 +11,9 @@
 package com.owncloud.android.operations;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation;
@@ -34,7 +34,7 @@ public class CheckCurrentCredentialsOperation extends SyncOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    public RemoteOperationResult run(NextcloudClient client) {
         RemoteOperationResult result;
         boolean validAccount = user.nameEquals(getStorageManager().getUser().getAccountName());
         if (!validAccount) {
