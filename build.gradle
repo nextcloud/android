@@ -10,7 +10,7 @@
  */
 buildscript {
     ext {
-        androidLibraryVersion = "cda1b08aa81b74201177f29c2326abee62f32c15"
+        androidLibraryVersion = "354911a81da973d8874381480ed0ea577e992572"
         androidPluginVersion = '8.4.0'
         androidxMediaVersion = '1.3.1'
         androidxTestVersion = "1.5.0"
@@ -23,6 +23,7 @@ buildscript {
         jacoco_version = '0.8.12'
         kotlin_version = '2.0.0'
         markwonVersion = "4.6.2"
+        prismVersion = "2.0.0"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
         mockkVersion = "1.13.10"
