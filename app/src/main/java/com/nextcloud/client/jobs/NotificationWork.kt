@@ -29,6 +29,7 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.DecryptedPushMessage
 import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -236,8 +237,7 @@ class NotificationWork constructor(
         }
         val user = optionalUser.get()
         try {
-            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                .getClientFor(user.toOwnCloudAccount(), context)
+            val client = OwnCloudClientFactory.createNextcloudClient(user, context)
             val result = GetNotificationRemoteOperation(decryptedPushMessage.nid)
                 .execute(client)
             if (result.isSuccess) {
@@ -287,6 +287,7 @@ class NotificationWork constructor(
                                 val user = optionalUser.get()
                                 val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                                     .getClientFor(user.toOwnCloudAccount(), context)
+                                val nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, context)
                                 val actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE)
                                 val actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK)
                                 val success: Boolean = if (!actionType.isNullOrEmpty() && !actionLink.isNullOrEmpty()) {
@@ -294,7 +295,7 @@ class NotificationWork constructor(
                                     resultCode == HttpStatus.SC_OK || resultCode == HttpStatus.SC_ACCEPTED
                                 } else {
                                     DeleteNotificationRemoteOperation(numericNotificationId)
-                                        .execute(client).isSuccess
+                                        .execute(nextcloudClient).isSuccess
                                 }
                                 if (success) {
                                     if (oldNotification == null) {

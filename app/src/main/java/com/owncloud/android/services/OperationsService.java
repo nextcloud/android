@@ -29,6 +29,7 @@ import android.util.Pair;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -260,7 +261,7 @@ public class OperationsService extends Service {
          */
         private final ConcurrentMap<OnRemoteOperationListener, Handler> mBoundListeners = new ConcurrentHashMap<>();
 
-        private ServiceHandler mServiceHandler;
+        private final ServiceHandler mServiceHandler;
 
         public OperationsServiceBinder(ServiceHandler serviceHandler) {
             mServiceHandler = serviceHandler;
@@ -380,7 +381,7 @@ public class OperationsService extends Service {
         OperationsService mService;
 
 
-        private ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations =
+        private final ConcurrentLinkedQueue<Pair<Target, RemoteOperation>> mPendingOperations =
             new ConcurrentLinkedQueue<>();
         private RemoteOperation mCurrentOperation;
         private Target mLastTarget;
@@ -416,11 +417,12 @@ public class OperationsService extends Service {
             if (next != null) {
                 mCurrentOperation = next.second;
                 RemoteOperationResult result;
+                OwnCloudAccount ocAccount = null;
+
                 try {
                     /// prepare client object to send the request to the ownCloud server
                     if (mLastTarget == null || !mLastTarget.equals(next.first)) {
                         mLastTarget = next.first;
-                        OwnCloudAccount ocAccount;
                         if (mLastTarget.mAccount != null) {
                             ocAccount = new OwnCloudAccount(mLastTarget.mAccount, mService);
                         } else {
@@ -430,9 +432,21 @@ public class OperationsService extends Service {
                             getClientFor(ocAccount, mService);
                     }
 
-                    /// perform the operation
-                    result = mCurrentOperation.execute(mOwnCloudClient);
-                } catch (AccountsException e) {
+                    // perform the operation
+                    try {
+                        result = mCurrentOperation.execute(mOwnCloudClient);
+                    } catch (UnsupportedOperationException e) {
+                        // TODO remove - added to aid in transition to NextcloudClient
+
+                        if (ocAccount == null) {
+                            throw e;
+                        }
+
+                        NextcloudClient nextcloudClient = OwnCloudClientManagerFactory.getDefaultSingleton()
+                            .getNextcloudClientFor(ocAccount, mService.getBaseContext());
+                        result = mCurrentOperation.run(nextcloudClient);
+                    }
+                } catch (AccountsException | IOException e) {
                     if (mLastTarget.mAccount == null) {
                         Log_OC.e(TAG, "Error while trying to get authorization for a NULL account",
                                  e);
@@ -442,15 +456,6 @@ public class OperationsService extends Service {
                     }
                     result = new RemoteOperationResult(e);
 
-                } catch (IOException e) {
-                    if (mLastTarget.mAccount == null) {
-                        Log_OC.e(TAG, "Error while trying to get authorization for a NULL account",
-                                 e);
-                    } else {
-                        Log_OC.e(TAG, "Error while trying to get authorization for " +
-                            mLastTarget.mAccount.name, e);
-                    }
-                    result = new RemoteOperationResult(e);
                 } catch (Exception e) {
                     if (mLastTarget.mAccount == null) {
                         Log_OC.e(TAG, "Unexpected error for a NULL account", e);
@@ -536,10 +541,6 @@ public class OperationsService extends Service {
                             boolean hideFileDownload = operationIntent.getBooleanExtra(EXTRA_SHARE_HIDE_FILE_DOWNLOAD,
                                                                                        false);
                             updateLinkOperation.setHideFileDownload(hideFileDownload);
-
-//                            if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_UPLOAD)) {
-//                                updateLinkOperation.setPublicUpload(true);
-//                            }
 
                             if (operationIntent.hasExtra(EXTRA_SHARE_PUBLIC_LABEL)) {
                                 updateLinkOperation.setLabel(operationIntent.getStringExtra(EXTRA_SHARE_PUBLIC_LABEL));
