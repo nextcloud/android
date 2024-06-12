@@ -345,10 +345,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             }
         });
 
-        TabLayout.Tab tab = binding.tabLayout.getTabAt(activeTab);
-        if (tab != null) {
-            tab.select();
-        }
+        binding.tabLayout.post(() -> {
+            TabLayout.Tab tab1 = binding.tabLayout.getTabAt(activeTab);
+            if (tab1 == null) return;
+            tab1.select();
+        });
     }
 
     @Override
