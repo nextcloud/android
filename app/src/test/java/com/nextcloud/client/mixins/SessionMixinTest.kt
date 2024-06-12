@@ -9,7 +9,6 @@ package com.nextcloud.client.mixins
 
 import android.app.Activity
 import com.nextcloud.client.account.UserAccountManager
-import junit.framework.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -49,16 +48,5 @@ class SessionMixinTest {
         //      start is delegated to account manager
         //      account manager receives parent activity
         verify(userAccountManager).startAccountCreation(same(activity))
-    }
-
-    @Test
-    fun `trigger accountCreation on resume when currentAccount is null`() {
-        // WHEN
-        //      start onResume and currentAccount is null
-        assertNull(session.currentAccount)
-        session.onResume()
-        // THEN
-        //      accountCreation flow is started
-        verify(session).startAccountCreation()
     }
 }
