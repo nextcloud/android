@@ -135,10 +135,6 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
         }
     }
 
-    override fun getItemId(position: Int): Long {
-        return imageFiles[position].hashCode().toLong()
-    }
-
     private fun addVideoOfLivePhoto(file: OCFile) {
         file.livePhotoVideo = selectedFile
     }

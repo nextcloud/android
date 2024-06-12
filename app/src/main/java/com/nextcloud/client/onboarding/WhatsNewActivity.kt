@@ -13,7 +13,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentActivity
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.di.Injectable
@@ -29,7 +29,7 @@ import javax.inject.Inject
 /**
  * Activity displaying new features after an update.
  */
-class WhatsNewActivity : FragmentActivity(), ViewPager.OnPageChangeListener, Injectable {
+class WhatsNewActivity : FragmentActivity(), Injectable {
 
     @JvmField
     @Inject
@@ -64,7 +64,11 @@ class WhatsNewActivity : FragmentActivity(), ViewPager.OnPageChangeListener, Inj
         val showWebView = urls.isNotEmpty()
 
         setupFeatureViewAdapter(showWebView, urls)
-        binding.contentPanel.addOnPageChangeListener(this)
+        binding.contentPanel.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                controlPanelOnPageSelected(position)
+            }
+        })
         setupForwardImageButton()
         setupSkipImageButton()
         setupWelcomeText(showWebView)
@@ -75,15 +79,15 @@ class WhatsNewActivity : FragmentActivity(), ViewPager.OnPageChangeListener, Inj
     @Suppress("SpreadOperator")
     private fun setupFeatureViewAdapter(showWebView: Boolean, urls: Array<String>) {
         val adapter = if (showWebView) {
-            FeaturesWebViewAdapter(supportFragmentManager, *urls)
+            FeaturesWebViewAdapter(this, *urls)
         } else {
             onboarding?.let {
-                FeaturesViewAdapter(supportFragmentManager, *it.whatsNew)
+                FeaturesViewAdapter(this, *it.whatsNew)
             }
         }
 
         adapter?.let {
-            binding.progressIndicator.setNumberOfSteps(it.count)
+            binding.progressIndicator.setNumberOfSteps(it.itemCount)
             binding.contentPanel.adapter = it
         }
     }
@@ -142,14 +146,8 @@ class WhatsNewActivity : FragmentActivity(), ViewPager.OnPageChangeListener, Inj
         preferences?.lastSeenVersionCode = BuildConfig.VERSION_CODE
     }
 
-    override fun onPageSelected(position: Int) {
+    private fun controlPanelOnPageSelected(position: Int) {
         binding.progressIndicator.animateToStep(position + 1)
         updateNextButtonIfNeeded()
     }
-
-    @Suppress("EmptyFunctionBlock")
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-
-    @Suppress("EmptyFunctionBlock")
-    override fun onPageScrollStateChanged(state: Int) {}
 }

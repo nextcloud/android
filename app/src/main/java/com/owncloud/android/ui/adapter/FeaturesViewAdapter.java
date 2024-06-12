@@ -9,26 +9,28 @@ package com.owncloud.android.ui.adapter;
 import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.ui.fragment.FeatureFragment;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-public class FeaturesViewAdapter extends FragmentPagerAdapter {
+public class FeaturesViewAdapter extends FragmentStateAdapter {
 
-    private FeatureItem[] mFeatures;
+    private final FeatureItem[] mFeatures;
 
-    public FeaturesViewAdapter(FragmentManager fm, FeatureItem... features) {
-        super(fm);
+    public FeaturesViewAdapter(FragmentActivity fragmentActivity, FeatureItem... features) {
+        super(fragmentActivity);
         mFeatures = features;
     }
 
+    @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
         return FeatureFragment.newInstance(mFeatures[position]);
     }
 
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return mFeatures.length;
     }
 }
