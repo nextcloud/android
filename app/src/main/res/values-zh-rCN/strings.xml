@@ -203,6 +203,7 @@
     <string name="create_new_folder">新建文件夹</string>
     <string name="create_new_presentation">新演示文稿</string>
     <string name="create_new_spreadsheet">新表格</string>
+    <string name="create_rich_workspace">添加文件夹描述</string>
     <string name="credentials_disabled">设备凭证已禁用</string>
     <string name="daily_backup">每日备份</string>
     <string name="data_to_back_up">要备份的数据</string>
