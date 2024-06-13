@@ -15,7 +15,7 @@
 
     <ImageView
         android:id="@+id/whatsNewImage"
-        android:layout_width="200dp"
+        android:layout_width="@dimen/splash_image_size"
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="@dimen/alternate_margin"
