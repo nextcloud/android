@@ -18,7 +18,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.appinfo.AppInfo
@@ -39,7 +39,7 @@ import javax.inject.Inject
 /**
  * Activity displaying general feature after a fresh install.
  */
-class FirstRunActivity : BaseActivity(), ViewPager.OnPageChangeListener, Injectable {
+class FirstRunActivity : BaseActivity(), Injectable {
 
     @JvmField
     @Inject
@@ -171,10 +171,14 @@ class FirstRunActivity : BaseActivity(), ViewPager.OnPageChangeListener, Injecta
 
     @Suppress("SpreadOperator")
     private fun setupFeaturesViewAdapter() {
-        val featuresViewAdapter = FeaturesViewAdapter(supportFragmentManager, *firstRun)
-        binding.progressIndicator.setNumberOfSteps(featuresViewAdapter.count)
+        val featuresViewAdapter = FeaturesViewAdapter(this, *firstRun)
+        binding.progressIndicator.setNumberOfSteps(featuresViewAdapter.itemCount)
         binding.contentPanel.adapter = featuresViewAdapter
-        binding.contentPanel.addOnPageChangeListener(this)
+        binding.contentPanel.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.progressIndicator.animateToStep(position + 1)
+            }
+        })
     }
 
     private fun handleOnBackPressed() {
@@ -234,18 +238,6 @@ class FirstRunActivity : BaseActivity(), ViewPager.OnPageChangeListener, Injecta
     override fun onStop() {
         onFinish()
         super.onStop()
-    }
-
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-        // unused but to be implemented due to abstract parent
-    }
-
-    override fun onPageSelected(position: Int) {
-        binding.progressIndicator.animateToStep(position + 1)
-    }
-
-    override fun onPageScrollStateChanged(state: Int) {
-        // unused but to be implemented due to abstract parent
     }
 
     companion object {

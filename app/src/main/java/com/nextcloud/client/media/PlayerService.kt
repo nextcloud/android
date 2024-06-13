@@ -16,6 +16,7 @@ import android.os.IBinder
 import android.widget.MediaController
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.ForegroundServiceHelper
@@ -23,7 +24,9 @@ import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ForegroundServiceType
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.notifications.NotificationUtils
+import com.owncloud.android.ui.preview.PreviewMediaActivity
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import dagger.android.AndroidInjection
 import java.util.Locale
@@ -32,6 +35,8 @@ import javax.inject.Inject
 class PlayerService : Service() {
 
     companion object {
+        private const val TAG = "PlayerService"
+
         const val EXTRA_USER = "USER"
         const val EXTRA_FILE = "FILE"
         const val EXTRA_AUTO_PLAY = "EXTRA_AUTO_PLAY"
@@ -40,6 +45,8 @@ class PlayerService : Service() {
         const val ACTION_STOP = "STOP"
         const val ACTION_TOGGLE = "TOGGLE"
         const val ACTION_STOP_FILE = "STOP_FILE"
+
+        const val IS_MEDIA_CONTROL_LAYOUT_READY = "IS_MEDIA_CONTROL_LAYOUT_READY"
     }
 
     class Binder(val service: PlayerService) : android.os.Binder() {
@@ -52,24 +59,34 @@ class PlayerService : Service() {
     }
 
     private val playerListener = object : Player.Listener {
-
         override fun onRunning(file: OCFile) {
+            Log_OC.d(TAG, "PlayerService.onRunning()")
+            val intent = Intent(PreviewMediaActivity.MEDIA_CONTROL_READY_RECEIVER).apply {
+                putExtra(IS_MEDIA_CONTROL_LAYOUT_READY, false)
+            }
+            LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent)
             startForeground(file)
         }
 
         override fun onStart() {
-            // empty
+            Log_OC.d(TAG, "PlayerService.onStart()")
+            val intent = Intent(PreviewMediaActivity.MEDIA_CONTROL_READY_RECEIVER).apply {
+                putExtra(IS_MEDIA_CONTROL_LAYOUT_READY, true)
+            }
+            LocalBroadcastManager.getInstance(applicationContext).sendBroadcast(intent)
         }
 
         override fun onPause() {
-            // empty
+            Log_OC.d(TAG, "PlayerService.onPause()")
         }
 
         override fun onStop() {
+            Log_OC.d(TAG, "PlayerService.onStop()")
             stopServiceAndRemoveNotification(null)
         }
 
         override fun onError(error: PlayerError) {
+            Log_OC.d(TAG, "PlayerService.onError()")
             Toast.makeText(this@PlayerService, error.message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -89,18 +106,23 @@ class PlayerService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+
         AndroidInjection.inject(this)
         player = Player(applicationContext, clientFactory, playerListener, audioManager)
         notificationBuilder = NotificationCompat.Builder(this)
         viewThemeUtils.androidx.themeNotificationCompatBuilder(this, notificationBuilder)
 
-        val stop = Intent(this, PlayerService::class.java)
-        stop.action = ACTION_STOP
+        val stop = Intent(this, PlayerService::class.java).apply {
+            action = ACTION_STOP
+        }
+
         val pendingStop = PendingIntent.getService(this, 0, stop, PendingIntent.FLAG_IMMUTABLE)
         notificationBuilder.addAction(0, getString(R.string.player_stop).toUpperCase(Locale.getDefault()), pendingStop)
 
-        val toggle = Intent(this, PlayerService::class.java)
-        toggle.action = ACTION_TOGGLE
+        val toggle = Intent(this, PlayerService::class.java).apply {
+            action = ACTION_TOGGLE
+        }
+
         val pendingToggle = PendingIntent.getService(this, 0, toggle, PendingIntent.FLAG_IMMUTABLE)
         notificationBuilder.addAction(
             0,
@@ -124,10 +146,12 @@ class PlayerService : Service() {
     }
 
     private fun onActionToggle() {
-        if (player.isPlaying) {
-            player.pause()
-        } else {
-            player.start()
+        player.run {
+            if (isPlaying) {
+                pause()
+            } else {
+                start()
+            }
         }
     }
 
@@ -153,14 +177,17 @@ class PlayerService : Service() {
     private fun startForeground(currentFile: OCFile) {
         val ticker = String.format(getString(R.string.media_notif_ticker), getString(R.string.app_name))
         val content = getString(R.string.media_state_playing, currentFile.getFileName())
-        notificationBuilder.setSmallIcon(R.drawable.ic_play_arrow)
-        notificationBuilder.setWhen(System.currentTimeMillis())
-        notificationBuilder.setOngoing(true)
-        notificationBuilder.setContentTitle(ticker)
-        notificationBuilder.setContentText(content)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            notificationBuilder.setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA)
+        notificationBuilder.run {
+            setSmallIcon(R.drawable.ic_play_arrow)
+            setWhen(System.currentTimeMillis())
+            setOngoing(true)
+            setContentTitle(ticker)
+            setContentText(content)
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_MEDIA)
+            }
         }
 
         ForegroundServiceHelper.startService(

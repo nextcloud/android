@@ -8,25 +8,27 @@ package com.owncloud.android.ui.adapter;
 
 import com.owncloud.android.ui.fragment.FeatureWebFragment;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-public class FeaturesWebViewAdapter extends FragmentPagerAdapter {
+public class FeaturesWebViewAdapter extends FragmentStateAdapter {
     private String[] mWebUrls;
 
-    public FeaturesWebViewAdapter(FragmentManager fm, String... webUrls) {
-        super(fm);
+    public FeaturesWebViewAdapter(FragmentActivity fragmentActivity, String... webUrls) {
+        super(fragmentActivity);
         mWebUrls = webUrls;
     }
 
+    @NonNull
     @Override
-    public Fragment getItem(int position) {
+    public Fragment createFragment(int position) {
         return FeatureWebFragment.newInstance(mWebUrls[position]);
     }
 
     @Override
-    public int getCount() {
+    public int getItemCount() {
         return mWebUrls.length;
     }
 }

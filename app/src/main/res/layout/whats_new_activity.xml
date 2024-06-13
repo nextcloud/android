@@ -24,7 +24,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/primary_button_text_color"/>
 
-    <androidx.viewpager.widget.ViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/contentPanel"
         android:layout_width="match_parent"
         android:layout_height="0dp"
