@@ -236,7 +236,7 @@ public class FileMenuFilter {
 
     private void filterEncrypt(List<Integer> toHide, boolean endToEndEncryptionEnabled) {
         if (files.isEmpty() || !isSingleSelection() || isSingleFile() || isEncryptedFolder() || isGroupFolder()
-            || !endToEndEncryptionEnabled || !isEmptyFolder() || isShared()) {
+            || !endToEndEncryptionEnabled || !isEmptyFolder() || isShared() || isInSubFolder()) {
             toHide.add(R.id.action_encrypted);
         }
     }
@@ -573,5 +573,16 @@ public class FileMenuFilter {
             }
         }
         return false;
+    }
+
+    private boolean isInSubFolder() {
+        OCFile folder = files.iterator().next();
+        OCFile parent = storageManager.getFileById(folder.getParentId());
+
+        if (parent == null) {
+            return false;
+        }
+
+        return !OCFile.ROOT_PATH.equals(parent.getRemotePath());
     }
 }
