@@ -7,7 +7,7 @@
  */
 package com.owncloud.android.operations;
 
-import com.owncloud.android.lib.common.OwnCloudClient;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -16,7 +16,7 @@ import com.owncloud.android.lib.resources.comments.CommentFileRemoteOperation;
 /**
  * Comment file
  */
-public class CommentFileOperation extends RemoteOperation {
+public class CommentFileOperation extends RemoteOperation<Void> {
 
     private final String message;
     private final long fileId;
@@ -37,8 +37,8 @@ public class CommentFileOperation extends RemoteOperation {
      * @param client Client object to communicate with the remote ownCloud server.
      */
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result = new CommentFileRemoteOperation(message, fileId).execute(client);
+    public RemoteOperationResult<Void> run(NextcloudClient client) {
+        RemoteOperationResult<Void> result = new CommentFileRemoteOperation(message, fileId).execute(client);
 
         if (!result.isSuccess()) {
             Log_OC.e(this, "File with Id " + fileId + " could not be commented");

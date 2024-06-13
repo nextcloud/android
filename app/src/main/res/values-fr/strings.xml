@@ -264,7 +264,7 @@
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_favorites">Favoris</string>
     <string name="drawer_item_gallery">Médias</string>
-    <string name="drawer_item_groupfolders">Dossiers de groupes</string>
+    <string name="drawer_item_groupfolders">Dossiers de groupe</string>
     <string name="drawer_item_home">Accueil</string>
     <string name="drawer_item_notifications">Notifications</string>
     <string name="drawer_item_on_device">Sur l’appareil</string>

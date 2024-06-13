@@ -75,6 +75,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.viewpager2.widget.ViewPager2;
 
 /**
  * This Fragment is used to display the details about a file.
@@ -166,7 +167,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (binding == null) {
             return null;
         }
-        return ((FileDetailTabAdapter) binding.pager.getAdapter()).getFileDetailSharingFragment();
+
+        if (binding.pager.getAdapter() instanceof FileDetailTabAdapter adapter) {
+            return adapter.getFileDetailSharingFragment();
+        }
+
+        return null;
     }
 
     /**
@@ -175,7 +181,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
      * @return reference to the {@link FileDetailActivitiesFragment}
      */
     public FileDetailActivitiesFragment getFileDetailActivitiesFragment() {
-        return ((FileDetailTabAdapter) binding.pager.getAdapter()).getFileDetailActivitiesFragment();
+        if (binding.pager.getAdapter() instanceof FileDetailTabAdapter adapter) {
+            return adapter.getFileDetailActivitiesFragment();
+        }
+
+        return null;
     }
 
     public void goBackToOCFileListFragment() {
@@ -296,12 +306,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
         viewThemeUtils.material.themeTabLayout(binding.tabLayout);
 
-        final FileDetailTabAdapter adapter = new FileDetailTabAdapter(getFragmentManager(),
+        final FileDetailTabAdapter adapter = new FileDetailTabAdapter(requireActivity(),
                                                                       getFile(),
                                                                       user,
                                                                       showSharingTab());
         binding.pager.setAdapter(adapter);
-        binding.pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(binding.tabLayout) {
+
+        binding.pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 final FileDetailActivitiesFragment fragment = getFileDetailActivitiesFragment();
@@ -334,10 +345,11 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             }
         });
 
-        TabLayout.Tab tab = binding.tabLayout.getTabAt(activeTab);
-        if (tab != null) {
-            tab.select();
-        }
+        binding.tabLayout.post(() -> {
+            TabLayout.Tab tab1 = binding.tabLayout.getTabAt(activeTab);
+            if (tab1 == null) return;
+            tab1.select();
+        });
     }
 
     @Override

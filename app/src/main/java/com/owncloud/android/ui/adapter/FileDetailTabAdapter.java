@@ -15,13 +15,13 @@ import com.owncloud.android.utils.MimeTypeUtil;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentActivity;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 
 /**
  * File details pager adapter.
  */
-public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
+public class FileDetailTabAdapter extends FragmentStateAdapter {
     private final OCFile file;
     private final User user;
     private final boolean showSharingTab;
@@ -30,31 +30,14 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
     private FileDetailActivitiesFragment fileDetailActivitiesFragment;
     private ImageDetailFragment imageDetailFragment;
 
-    public FileDetailTabAdapter(FragmentManager fm,
+    public FileDetailTabAdapter(FragmentActivity fragmentActivity,
                                 OCFile file,
                                 User user,
                                 boolean showSharingTab) {
-        super(fm);
+        super(fragmentActivity);
         this.file = file;
         this.user = user;
         this.showSharingTab = showSharingTab;
-    }
-
-    @NonNull
-    @Override
-    public Fragment getItem(int position) {
-        switch (position) {
-            case 0:
-            default:
-                fileDetailActivitiesFragment = FileDetailActivitiesFragment.newInstance(file, user);
-                return fileDetailActivitiesFragment;
-            case 1:
-                fileDetailSharingFragment = FileDetailSharingFragment.newInstance(file, user);
-                return fileDetailSharingFragment;
-            case 2:
-                imageDetailFragment = ImageDetailFragment.newInstance(file, user);
-                return imageDetailFragment;
-        }
     }
 
     public FileDetailSharingFragment getFileDetailSharingFragment() {
@@ -69,8 +52,27 @@ public class FileDetailTabAdapter extends FragmentStatePagerAdapter {
         return imageDetailFragment;
     }
 
+    @NonNull
     @Override
-    public int getCount() {
+    public Fragment createFragment(int position) {
+        return switch (position) {
+            default -> {
+                fileDetailActivitiesFragment = FileDetailActivitiesFragment.newInstance(file, user);
+                yield fileDetailActivitiesFragment;
+            }
+            case 1 -> {
+                fileDetailSharingFragment = FileDetailSharingFragment.newInstance(file, user);
+                yield fileDetailSharingFragment;
+            }
+            case 2 -> {
+                imageDetailFragment = ImageDetailFragment.newInstance(file, user);
+                yield imageDetailFragment;
+            }
+        };
+    }
+
+    @Override
+    public int getItemCount() {
         if (showSharingTab) {
             if (MimeTypeUtil.isImage(file)) {
                 return 3;

@@ -38,12 +38,14 @@ class PlayerServiceConnection(private val context: Context) : MediaController.Me
     }
 
     fun start(user: User, file: OCFile, playImmediately: Boolean, position: Long) {
-        val i = Intent(context, PlayerService::class.java)
-        i.putExtra(PlayerService.EXTRA_USER, user)
-        i.putExtra(PlayerService.EXTRA_FILE, file)
-        i.putExtra(PlayerService.EXTRA_AUTO_PLAY, playImmediately)
-        i.putExtra(PlayerService.EXTRA_START_POSITION_MS, position)
-        i.action = PlayerService.ACTION_PLAY
+        val i = Intent(context, PlayerService::class.java).apply {
+            putExtra(PlayerService.EXTRA_USER, user)
+            putExtra(PlayerService.EXTRA_FILE, file)
+            putExtra(PlayerService.EXTRA_AUTO_PLAY, playImmediately)
+            putExtra(PlayerService.EXTRA_START_POSITION_MS, position)
+            action = PlayerService.ACTION_PLAY
+        }
+
         startForegroundService(i)
     }
 

@@ -177,12 +177,14 @@ public class PreviewMediaFragment extends FileFragment implements OnTouchListene
 
         Bundle bundle = getArguments();
 
-        setFile(BundleExtensionsKt.getParcelableArgument(bundle, FILE, OCFile.class));
-        user = BundleExtensionsKt.getParcelableArgument(bundle, USER, User.class);
+        if (bundle != null) {
+            setFile(BundleExtensionsKt.getParcelableArgument(bundle, FILE, OCFile.class));
+            user = BundleExtensionsKt.getParcelableArgument(bundle, USER, User.class);
 
-        savedPlaybackPosition = bundle.getLong(PLAYBACK_POSITION);
-        autoplay = bundle.getBoolean(AUTOPLAY);
-        isLivePhoto = bundle.getBoolean(IS_LIVE_PHOTO);
+            savedPlaybackPosition = bundle.getLong(PLAYBACK_POSITION);
+            autoplay = bundle.getBoolean(AUTOPLAY);
+            isLivePhoto = bundle.getBoolean(IS_LIVE_PHOTO);
+        }
 
         mediaPlayerServiceConnection = new PlayerServiceConnection(requireContext());
     }
