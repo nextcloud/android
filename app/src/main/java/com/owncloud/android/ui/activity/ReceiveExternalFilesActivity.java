@@ -804,7 +804,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     private void startSyncFolderOperation(OCFile folder) {
         if (folder == null) {
-            throw new IllegalArgumentException("Folder must not be null");
+            DisplayUtils.showSnackMessage(this, R.string.receive_external_files_activity_start_sync_folder_is_not_exists_message);
+            return;
         }
 
         long currentSyncTime = System.currentTimeMillis();
