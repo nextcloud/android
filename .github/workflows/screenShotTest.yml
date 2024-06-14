@@ -1,5 +1,5 @@
 # SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
-# SPDX-License-Identifier: AGPL-3.0-or-later
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 
 name: "Screenshot Test"
 
@@ -17,7 +17,7 @@ concurrency:
 
 jobs:
     screenshot:
-        runs-on: macOS-latest
+        runs-on: ubuntu-22.04
         strategy:
             fail-fast: false
             matrix:
@@ -25,7 +25,7 @@ jobs:
                 color: [ blue ]
                 api-level: [ 27 ]
         steps:
-            -   uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+            -   uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
             -   name: Gradle cache
                 uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
@@ -47,6 +47,12 @@ jobs:
                 with:
                     distribution: "temurin"
                     java-version: 17
+
+            -   name: Enable KVM group perms
+                run: |
+                    echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+                    sudo udevadm control --reload-rules
+                    sudo udevadm trigger --name-match=kvm
 
             -   name: create AVD and generate snapshot for caching
                 if: steps.avd-cache.outputs.cache-hit != 'true'
@@ -93,7 +99,7 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "${{ matrix.color }}-${{ matrix.scheme }}" "Screenshot" ${{github.event.number}}
             -   name: Archive Espresso results
-                uses: actions/upload-artifact@5d5d22a31266ced268874388b861e4b58bb5c2f3 # v4.3.1
+                uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808 # v4.3.3
                 if: ${{ always() }}
                 with:
                     name: Report-${{ matrix.color }}-${{ matrix.scheme }}
