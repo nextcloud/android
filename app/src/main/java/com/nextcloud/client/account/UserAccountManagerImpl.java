@@ -20,6 +20,7 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.AccountExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -38,6 +39,7 @@ import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -131,40 +133,40 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
-    @Nullable
+    @NonNull
     public Account getCurrentAccount() {
         Account[] ocAccounts = getAccounts();
-        Account defaultAccount = null;
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
-
         SharedPreferences appPreferences = PreferenceManager.getDefaultSharedPreferences(context);
         String accountName = appPreferences.getString(PREF_SELECT_OC_ACCOUNT, null);
 
-        // account validation: the saved account MUST be in the list of ownCloud Accounts known by the AccountManager
-        if (accountName != null) {
-            for (Account account : ocAccounts) {
-                if (account.name.equals(accountName)) {
-                    defaultAccount = account;
-                    break;
-                }
-            }
+        Account defaultAccount = Arrays.stream(ocAccounts)
+            .filter(account -> account.name.equals(accountName))
+            .findFirst()
+            .orElse(null);
+
+        // take first which is not pending for removal account as fallback
+        if (defaultAccount == null) {
+            defaultAccount = Arrays.stream(ocAccounts)
+                .filter(account -> !arbitraryDataProvider.getBooleanValue(account.name, PENDING_FOR_REMOVAL))
+                .findFirst()
+                .orElse(null);
         }
 
-        if (defaultAccount == null && ocAccounts.length > 0) {
-            // take first which is not pending for removal account as fallback
-            for (Account account: ocAccounts) {
-                boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(account.name,
-                                                                                  PENDING_FOR_REMOVAL);
-
-                if (!pendingForRemoval) {
-                    defaultAccount = account;
-                    break;
-                }
+        if (defaultAccount == null) {
+            if (ocAccounts.length > 0) {
+                defaultAccount = ocAccounts[0];
+            } else {
+                defaultAccount = getAnonymousAccount();
             }
         }
 
         return defaultAccount;
+    }
+
+    private Account getAnonymousAccount() {
+        return new Account("Anonymous", context.getString(R.string.anonymous_account_type));
     }
 
     /**
@@ -176,8 +178,8 @@ public class UserAccountManagerImpl implements UserAccountManager {
      * @return User instance or null, if conversion failed
      */
     @Nullable
-    private User createUserFromAccount(@Nullable Account account) {
-        if (account == null) {
+    private User createUserFromAccount(@NonNull Account account) {
+        if (AccountExtensionsKt.isAnonymous(account, context)) {
             return null;
         }
 
@@ -254,7 +256,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
-    @Nullable
+    @NonNull
     public Account getAccountByName(String name) {
         for (Account account : getAccounts()) {
             if (account.name.equals(name)) {
@@ -262,7 +264,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
             }
         }
 
-        return null;
+        return getAnonymousAccount();
     }
 
     @Override
