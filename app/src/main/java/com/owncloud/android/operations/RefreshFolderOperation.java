@@ -453,6 +453,11 @@ public class RefreshFolderOperation extends RemoteOperation {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
 
+        if (mLocalFolder == null) {
+            Log_OC.d(TAG,"mLocalFolder cannot be null");
+            return;
+        }
+
         // parse data from remote folder
         OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
