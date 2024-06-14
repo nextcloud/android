@@ -30,6 +30,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask.GalleryListener
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.BitmapUtils
@@ -109,7 +110,10 @@ class OCFileListDelegate(
             width
         )
 
-        imageView.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
+        imageView.setOnClickListener {
+            ocFileListFragmentInterface.onItemClicked(file)
+            GalleryFragment.setLastMediaItemPosition(galleryRowHolder.absoluteAdapterPosition)
+        }
     }
 
     @Suppress("ComplexMethod")
