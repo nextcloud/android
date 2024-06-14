@@ -151,7 +151,7 @@ class SyncedFoldersActivity :
     lateinit var binding: SyncedFoldersLayoutBinding
     lateinit var adapter: SyncedFolderAdapter
 
-    private var syncedFolderPreferencesDialogFragment: SyncedFolderPreferencesDialogFragment? = null
+    private var dialogFragment: SyncedFolderPreferencesDialogFragment? = null
     private var path: String? = null
     private var type = 0
     private var loadJob: Job? = null
@@ -577,15 +577,26 @@ class SyncedFoldersActivity :
     }
 
     override fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem) {
-        val fm = supportFragmentManager
-        val ft = fm.beginTransaction()
-        ft.addToBackStack(null)
-        syncedFolderPreferencesDialogFragment = SyncedFolderPreferencesDialogFragment.newInstance(
+        if (isFinishing || isDestroyed) {
+            Log_OC.d(TAG, "Activity destroyed or finished")
+            return
+        }
+
+        val fragmentTransaction = supportFragmentManager.beginTransaction().apply {
+            addToBackStack(null)
+        }
+
+        dialogFragment = SyncedFolderPreferencesDialogFragment.newInstance(
             syncedFolderDisplayItem,
             section
-        ).also {
-            it.show(ft, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
+        )
+
+        if (dialogFragment?.isStateSaved == true) {
+            Log_OC.d(TAG, "SyncedFolderPreferencesDialogFragment state is saved cannot be shown")
+            return
         }
+
+        dialogFragment?.show(fragmentTransaction, SYNCED_FOLDER_PREFERENCES_DIALOG_TAG)
     }
 
     override fun onVisibilityToggleClick(section: Int, syncedFolder: SyncedFolderDisplayItem) {
@@ -620,18 +631,18 @@ class SyncedFoldersActivity :
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_REMOTE_FOLDER &&
-            resultCode == RESULT_OK && syncedFolderPreferencesDialogFragment != null
+            resultCode == RESULT_OK && dialogFragment != null
         ) {
             val chosenFolder: OCFile? = FolderPickerActivity.EXTRA_FOLDER?.let {
                 data?.getParcelableArgument(it, OCFile::class.java)
             }
-            syncedFolderPreferencesDialogFragment?.setRemoteFolderSummary(chosenFolder?.remotePath)
+            dialogFragment?.setRemoteFolderSummary(chosenFolder?.remotePath)
         } else if (
             requestCode == SyncedFolderPreferencesDialogFragment.REQUEST_CODE__SELECT_LOCAL_FOLDER &&
-            resultCode == RESULT_OK && syncedFolderPreferencesDialogFragment != null
+            resultCode == RESULT_OK && dialogFragment != null
         ) {
             val localPath = data!!.getStringExtra(UploadFilesActivity.EXTRA_CHOSEN_FILES)
-            syncedFolderPreferencesDialogFragment!!.setLocalFolderSummary(localPath)
+            dialogFragment!!.setLocalFolderSummary(localPath)
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
@@ -688,7 +699,7 @@ class SyncedFoldersActivity :
 
             adapter.notifyItemChanged(adapter.getSectionHeaderIndex(syncedFolder.section))
         }
-        syncedFolderPreferencesDialogFragment = null
+        dialogFragment = null
         if (syncedFolder.isEnabled) {
             showBatteryOptimizationInfo()
         }
@@ -728,7 +739,7 @@ class SyncedFoldersActivity :
     }
 
     override fun onCancelSyncedFolderPreference() {
-        syncedFolderPreferencesDialogFragment = null
+        dialogFragment = null
     }
 
     override fun onDeleteSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?) {
