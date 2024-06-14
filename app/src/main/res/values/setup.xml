@@ -29,7 +29,7 @@
 
     <!-- URLs and flags related -->
     <bool name="show_server_url_input">true</bool>
-    <bool name="show_provider_or_own_installation">true</bool>
+    <bool name="show_provider_or_own_installation">false</bool>
     <string name="provider_registration_server">https://www.nextcloud.com/register</string>
 
     <!-- specify built in proxy -->
@@ -58,11 +58,11 @@
     <array name="whatsnew_urls"></array>
 
     <!-- Colors -->
-    <color name="primary">#0082c9</color>
-    <color name="primary_dark">#006AA3</color>
-    <color name="color_accent">#007cc2</color>
-    <color name="login_text_color">#ffffff</color>
-    <color name="login_text_hint_color">#7fC0E3</color>
+    <color name="primary">#FFFFFF</color>
+    <color name="primary_dark">#cccccc</color>
+    <color name="color_accent">#FFFFFF</color>
+    <color name="login_text_color">#000</color>
+    <color name="login_text_hint_color">#000</color>
 
     <!-- Multiaccount support -->
     <bool name="multiaccount_support">true</bool>
