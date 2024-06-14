@@ -35,6 +35,7 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
+import com.owncloud.android.ui.adapter.OCFileListDelegate;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 
@@ -53,6 +54,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private static final int MAX_ITEMS_PER_ROW = 10;
     private static final String FRAGMENT_TAG_BOTTOM_SHEET = "data";
 
+    private static Integer lastMediaItemPosition = null;
     public static final String REFRESH_SEARCH_EVENT_RECEIVER = "refreshSearchEventReceiver";
 
     private boolean photoSearchQueryRunning = false;
@@ -112,9 +114,14 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         }
     };
 
+    public static void setLastMediaItemPosition(Integer position) {
+        lastMediaItemPosition = position;
+    }
+
     @Override
     public void onDestroyView() {
         LocalBroadcastManager.getInstance(requireContext()).unregisterReceiver(refreshSearchEventReceiver);
+        setLastMediaItemPosition(null);
         super.onDestroyView();
     }
 
@@ -180,6 +187,10 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 1);
         mAdapter.setLayoutManager(layoutManager);
         getRecyclerView().setLayoutManager(layoutManager);
+
+        if (lastMediaItemPosition != null) {
+            layoutManager.scrollToPosition(lastMediaItemPosition);
+        }
     }
 
     @Override
