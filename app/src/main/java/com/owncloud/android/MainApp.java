@@ -565,7 +565,7 @@ public class MainApp extends Application implements HasAndroidInjector {
             preferences.setAutoUploadInit(true);
         }
 
-        FilesSyncHelper.scheduleFilesSyncIfNeeded(getAppContext(), backgroundJobManager);
+        FilesSyncHelper.scheduleFilesSyncIfNeeded(appContext.get(), backgroundJobManager);
         FilesSyncHelper.restartJobsIfNeeded(
             uploadsStorageManager,
             accountManager,
