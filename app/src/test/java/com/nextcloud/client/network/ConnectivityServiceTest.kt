@@ -94,7 +94,7 @@ class ConnectivityServiceTest {
 
         val baseServerUri = URI.create(SERVER_BASE_URL)
         val newServer = Server(baseServerUri, OwnCloudVersion.nextcloud_20)
-        val legacyServer = Server(baseServerUri, OwnCloudVersion.nextcloud_16)
+        val legacyServer = Server(baseServerUri, OwnCloudVersion.nextcloud_17)
 
         @Mock
         lateinit var user: User

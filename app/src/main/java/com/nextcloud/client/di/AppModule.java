@@ -100,8 +100,7 @@ class AppModule {
     @Provides
     UserAccountManager userAccountManager(
         Context context,
-        AccountManager accountManager
-                                         ) {
+        AccountManager accountManager) {
         return new UserAccountManagerImpl(context, accountManager);
     }
 

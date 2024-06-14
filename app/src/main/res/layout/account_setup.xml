@@ -26,8 +26,8 @@
 
         <ImageView
             android:id="@+id/thumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/splash_image_size"
+            android:layout_height="@dimen/splash_image_size"
             android:layout_marginBottom="@dimen/standard_padding"
             android:contentDescription="@string/app_name"
             android:src="@drawable/logo" />
