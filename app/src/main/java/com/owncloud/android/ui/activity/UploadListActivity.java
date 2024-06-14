@@ -267,10 +267,10 @@ public class UploadListActivity extends FileActivity {
         int iconId;
         String title;
         if (preferences.isGlobalUploadPaused()) {
-            iconId = R.drawable.ic_play;
+            iconId = R.drawable.ic_global_resume;
             title = getString(R.string.upload_action_global_upload_resume);
         } else {
-            iconId = R.drawable.ic_pause;
+            iconId = R.drawable.ic_global_pause;
             title = getString(R.string.upload_action_global_upload_pause);
         }
 
