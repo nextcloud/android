@@ -24,7 +24,7 @@ public class SslCertificateViewAdapter implements SslUntrustedCertDialog.Certifi
 
     //private final static String TAG = SslCertificateViewAdapter.class.getSimpleName();
 
-    private SslCertificate mCertificate;
+    private final SslCertificate mCertificate;
 
     /**
      * Constructor
@@ -36,7 +36,7 @@ public class SslCertificateViewAdapter implements SslUntrustedCertDialog.Certifi
     }
 
     @Override
-    public void updateCertificateView(SslUntrustedCertLayoutBinding binding) {
+    public void updateCertificateView(@NonNull SslUntrustedCertLayoutBinding binding) {
         if (mCertificate != null) {
             binding.nullCert.setVisibility(View.GONE);
             showSubject(mCertificate.getIssuedTo(), binding);
