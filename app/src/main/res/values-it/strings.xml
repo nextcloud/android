@@ -192,6 +192,7 @@
     <string name="create_new_folder">Nuova cartella</string>
     <string name="create_new_presentation">Nuova presentazione</string>
     <string name="create_new_spreadsheet">Nuovo foglio elettronico</string>
+    <string name="create_rich_workspace">Aggiungi descrizione cartella</string>
     <string name="credentials_disabled">Credenziali disabilitate</string>
     <string name="daily_backup">Backup giornaliero</string>
     <string name="data_to_back_up">Dati di cui eseguire il backup</string>
@@ -349,6 +350,7 @@
     <string name="file_list_empty_shared_headline">Ancora nessuna condivisione</string>
     <string name="file_list_empty_unified_search_no_results">Nessun risultato trovato per la tua interrogazione</string>
     <string name="file_list_folder">cartella</string>
+    <string name="file_list_live">LIVE</string>
     <string name="file_list_loading">Caricamento in corso…</string>
     <string name="file_list_no_app_for_file_type">Nessuna applicazione configurata per gestire questo tipo di file.</string>
     <string name="file_list_seconds_ago">secondi fa</string>
