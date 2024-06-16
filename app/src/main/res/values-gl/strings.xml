@@ -859,6 +859,7 @@
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">Non hai envíos dispoñíbeis</string>
     <string name="upload_list_empty_text_auto_upload">Envíe algún contido ou active o envío automático.</string>
+    <string name="upload_list_expand_header">Alternar a expansión da cabeceira</string>
     <string name="upload_list_resolve_conflict">Resolver conflitos</string>
     <string name="upload_local_storage_full">O almacenamento local está cheo</string>
     <string name="upload_local_storage_not_copied">Non foi posíbel copiar o ficheiro no almacenamento local</string>

@@ -282,7 +282,7 @@
     <string name="error_comment_file">파일 주석 처리 중 오류 발생</string>
     <string name="error_crash_title">%1$s충돌</string>
     <string name="error_creating_file_from_template">템플릿으로부터 파일을 생성하는 중 오류 발생</string>
-    <string name="error_file_actions">파일 동작들을 보여주는 에러</string>
+    <string name="error_file_actions">파일 동작을 표시하는 중 오류 발생</string>
     <string name="error_file_lock">파일 잠금 상태 변경중 오류 발생</string>
     <string name="error_report_issue_action">보고</string>
     <string name="error_report_issue_text">트래커에 문제를 보고하시겠습니까? (GitHub 계정 필요함)</string>
@@ -491,9 +491,9 @@
     <string name="move_file_invalid_into_descendent">폴더를 자기 자신의 하위 폴더로 이동할 수 없음</string>
     <string name="move_file_invalid_overwrite">파일이 대상 폴더에 이미 존재함</string>
     <string name="move_file_not_found">파일을 이동할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>
-    <string name="network_error_connect_timeout_exception">서버 응답을 기다리던 중에 에러가 발생했습니다. 동작을 완료할 수 없습니다.</string>
+    <string name="network_error_connect_timeout_exception">서버 응답을 기다리던 중에 오류가 발생했습니다. 동작을 완료할 수 없습니다.</string>
     <string name="network_error_socket_exception">서버에 연결하는 중 오류가 발생했습니다.</string>
-    <string name="network_error_socket_timeout_exception">서버 응답을 기다리던 중에 에러가 발생했습니다. 동작을 완료할 수 없습니다.</string>
+    <string name="network_error_socket_timeout_exception">서버 응답을 기다리던 중에 오류가 발생했습니다. 동작을 완료할 수 없습니다.</string>
     <string name="network_host_not_available">작업을 완료하지 못했습니다. 서버를 사용할 수 없음.</string>
     <string name="new_comment">새로운 댓글…</string>
     <string name="new_media_folder_detected">새 %1$s 미디어 폴더를 발견했습니다.</string>
@@ -578,7 +578,7 @@
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
     <string name="prefs_daily_contact_backup_summary">연락처 일간 백업</string>
-    <string name="prefs_davx5_setup_error">DAVx5를 설정하는 동안 발생한 예기치 못한 에러</string>
+    <string name="prefs_davx5_setup_error">DAVx5를 설정하는 동안 발생한 예기치 못한 오류</string>
     <string name="prefs_e2e_active">종단간 암호화가 설정됩니다!</string>
     <string name="prefs_e2e_mnemonic">E2E 연상 기호</string>
     <string name="prefs_e2e_no_device_credentials">연상 기호를 표시하려면 장치 자격 증명을 활성화하십시오.</string>
@@ -697,7 +697,7 @@
     <string name="share_known_remote_on_clarification">%1$s 에</string>
     <string name="share_link">링크 공유</string>
     <string name="share_link_empty_password">암호를 입력해야 합니다</string>
-    <string name="share_link_file_error">파일과 폴더를 공유하던 중 에러가 발생했습니다.</string>
+    <string name="share_link_file_error">파일과 폴더를 공유하던 중 오류가 발생했습니다.</string>
     <string name="share_link_file_no_exist">공유할 수 없습니다. 파일이 존재하는지 확인해주십시오.</string>
     <string name="share_link_forbidden_permissions">이 파일을 공유할</string>
     <string name="share_link_optional_password_title">선택적 암호를 입력하십시오.</string>
@@ -837,7 +837,7 @@
     <string name="unshare_link_forbidden_permissions">이 파일의 공유를 해제할</string>
     <string name="unsharing_failed">공유 해제 실패</string>
     <string name="untrusted_domain">신뢰할 수 없는 도메인으로 접근했습니다. 더 많은 정보를 보려면 문서를 참조하십시오.</string>
-    <string name="update_link_file_error">공유를 업데이트하던 중 에러가 발생했습니다.</string>
+    <string name="update_link_file_error">공유를 업데이트하던 중 오류가 발생했습니다.</string>
     <string name="update_link_file_no_exist">업데이트할 수 없습니다. 파일이 존재하는지 체크해주십시오.</string>
     <string name="update_link_forbidden_permissions">이 공유를 업데이트할</string>
     <string name="updating_share_failed">공유 갱신 실패</string>
