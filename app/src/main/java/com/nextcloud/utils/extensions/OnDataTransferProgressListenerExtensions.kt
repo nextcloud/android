@@ -9,6 +9,7 @@ package com.nextcloud.utils.extensions
 
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 
+@Suppress("MagicNumber")
 fun OnDatatransferProgressListener.getPercent(
     totalTransferredSoFar: Long,
     totalToTransfer: Long
