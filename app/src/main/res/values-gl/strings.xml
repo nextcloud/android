@@ -633,6 +633,7 @@
     <string name="prefs_instant_behaviour_dialogTitle">O ficheiro orixinal vai ser…</string>
     <string name="prefs_instant_behaviour_title">O ficheiro orixinal vai ser…</string>
     <string name="prefs_instant_upload_exclude_hidden_summary">Excluír ficheiros e cartafoles agochados</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Excluír o agochado</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Arquivar en subcartafoles baseados na data</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar subcartafoles</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Opcións de subcartafol</string>
@@ -664,6 +665,7 @@
     <string name="preview_image_description">Vista previa da imaxe</string>
     <string name="preview_image_error_no_local_file">Non hai ficheiro local que ver</string>
     <string name="preview_image_error_unknown_format">Non é posíbel amosar a imaxe</string>
+    <string name="preview_media_unhandled_http_code_message">O ficheiro está bloqueado actualmente por outro usuario ou proceso e, polo tanto, non é posíbel eliminalo. Ténteo de novo máis tarde.</string>
     <string name="preview_sorry">Desculpe.</string>
     <string name="privacy">Privacidade</string>
     <string name="public_share_name">Nome novo</string>
@@ -671,6 +673,7 @@
     <string name="push_notifications_old_login">Non dispón de notificacións automáticas por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
     <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións automáticas.</string>
     <string name="qr_could_not_be_read">Non foi posíbel ler o código QR.</string>
+    <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Non é posíbel atopar o cartafol, a operación de sincronización foi cancelada</string>
     <string name="recommend_subject">Probe %1$s no seu dispositivo!</string>
     <string name="recommend_text">Quixera convidalo a usar %1$s no seu dispositivo.\nDescargueo aquí: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
@@ -712,8 +715,12 @@
     <string name="screenshot_04_accounts_heading">Todas as súas contas</string>
     <string name="screenshot_04_accounts_subline">nun só lugar</string>
     <string name="screenshot_05_autoUpload_heading">Envío automático</string>
+    <string name="screenshot_05_autoUpload_subline">para as súas fotos e vídeos</string>
+    <string name="screenshot_06_davdroid_heading">Calendario e contactos</string>
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="search_error">Produciuse un erro ao obter os resultados da busca</string>
+    <string name="secure_share_not_set_up">A compartición segura non está definida para este usuario</string>
+    <string name="secure_share_search">Compartición segura…</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_media_folder">Estabelecer o cartafol multimedia</string>
     <string name="select_one_template">Seleccione un modelo</string>
@@ -728,6 +735,7 @@
     <string name="set_status_message">Estabelecer a mensaxe de estado</string>
     <string name="setup_e2e">Durante a configuración do cifrado de extremo a extremo, recibirá un mnemotécnico ao chou de 12 palabras, que necesitará para abrir os seus ficheiros noutros dispositivos. Isto só se almacenará neste dispositivo e pódese amosar de novo nesta pantalla. Anóteo nun lugar seguro!</string>
     <string name="share">Compartir</string>
+    <string name="share_copy_link">Compartir e copiar a ligazón</string>
     <string name="share_dialog_title">Compartindo</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Caduca o %1$s</string>
@@ -747,6 +755,7 @@
     <string name="share_link_with_label">Compartir ligazón (%1$s)</string>
     <string name="share_no_expiration_date_label">Estabelecer a data de caducidade</string>
     <string name="share_no_password_title">Estabelecer o contrasinal</string>
+    <string name="share_not_allowed_when_file_drop">Non se permite volver compartir durante a entrega segura de ficheiros</string>
     <string name="share_password_title">Protexido con contrasinal</string>
     <string name="share_permission_can_edit">Pode editar</string>
     <string name="share_permission_file_drop">Soltar o ficheiro</string>
@@ -770,6 +779,7 @@
     <string name="shared_icon_shared_via_link">compartido mediante ligazón</string>
     <string name="shared_with_you_by">Compartido con Vde. por %1$s</string>
     <string name="sharee_add_failed">Produciuse un fallo ao engadir unha compartición</string>
+    <string name="sharee_already_added_to_file">Produciuse un erro ao engadir o contido compartido. Este ficheiro ou cartafol xa foi compartido con esta persoa ou grupo.</string>
     <string name="show_images">Amosar as fotos</string>
     <string name="show_video">Amosar os vídeos</string>
     <string name="signup_with_provider">Rexistrarse cun provedor</string>
@@ -826,6 +836,7 @@
     <string name="subject_shared_with_you">«%1$s» foi compartido con Vde.</string>
     <string name="subject_user_shared_with_you">%1$s compartiu «%2$s» con Vde.</string>
     <string name="subtitle_photos_only">Só fotos</string>
+    <string name="subtitle_photos_videos">Fotos e vídeos</string>
     <string name="subtitle_videos_only">Só vídeos</string>
     <string name="suggest">Suxerir</string>
     <string name="sync_conflicts_in_favourites_ticker">Atopáronse conflitos</string>
@@ -883,8 +894,12 @@
     <string name="update_link_file_no_exist">Non é posíbel actualizar. Comprobe que o ficheiro existe.</string>
     <string name="update_link_forbidden_permissions">para actualizar esta compartición</string>
     <string name="updating_share_failed">Produciuse un fallo ao actualizar elementos compartidos</string>
+    <string name="upload_action_cancelled_clear">Limpar os envíos cancelados</string>
+    <string name="upload_action_cancelled_resume">Retomar os envíos cancelados</string>
     <string name="upload_action_failed_clear">Limpar os envíos fallados</string>
     <string name="upload_action_failed_retry">Tentar de novo os envíos fallados</string>
+    <string name="upload_action_global_upload_pause">Pausar todos os envíos</string>
+    <string name="upload_action_global_upload_resume">Retomar todos os envíos</string>
     <string name="upload_cannot_create_file">Non é posíbel crear o ficheiro local</string>
     <string name="upload_chooser_title">Enviar dende…</string>
     <string name="upload_content_from_other_apps">Enviar contido dende outras aplicacións</string>
@@ -896,6 +911,7 @@
     <string name="upload_file_dialog_filetype_snippet_text">Ficheiro de fragmento de texto(.txt)</string>
     <string name="upload_file_dialog_title">Introduza o nome e o tipo do ficheiro a enviar</string>
     <string name="upload_files">Enviar ficheiros</string>
+    <string name="upload_global_pause_title">Todos os envíos están en pausa</string>
     <string name="upload_item_action_button">Botón da acción do envío de elemento</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">Non hai envíos dispoñíbeis</string>
@@ -905,6 +921,7 @@
     <string name="upload_local_storage_full">O almacenamento local está cheo</string>
     <string name="upload_local_storage_not_copied">Non foi posíbel copiar o ficheiro no almacenamento local</string>
     <string name="upload_lock_failed">Produciuse un fallo ao bloquear o cartafol</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">O cifrado só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. No canto diso, gustaríalle movelos?</string>
     <string name="upload_quota_exceeded">Superouse a cota de almacenamento</string>
