@@ -12,6 +12,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.CalendarContract
+import com.nextcloud.utils.extensions.parseDateTimeRange
 import com.nextcloud.utils.extensions.parseDateTimeToMillis
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
@@ -19,7 +20,16 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 class CalendarEventManager(private val context: Context) {
 
     fun openCalendarEvent(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
-        val eventStartDate = searchResult.parseDateTimeToMillis()
+        var eventStartDate = searchResult.parseDateTimeToMillis()
+        if (eventStartDate == null) {
+            eventStartDate = searchResult.parseDateTimeRange()
+        }
+
+        if (eventStartDate == null) {
+            listInterface.onSearchResultClicked(searchResult)
+            return
+        }
+
         val eventId: Long? = getCalendarEventId(searchResult.title, eventStartDate)
         if (eventId == null) {
             listInterface.onSearchResultClicked(searchResult)
