@@ -167,7 +167,7 @@
     <string name="community_rc_play_store">Obteña a versión candidata na Google Play Store</string>
     <string name="community_release_candidate_headline">Candidata de publicación</string>
     <string name="community_release_candidate_text">A candidata de publicación (release candidate - RC) é unha instantánea da versión máis próxima a publicar e agardase que sexa estábel. Probar a súa configuración individual podería axudarnos a asegurar iso. Rexístrese para facer probas na Play Store ou búsquea manualmente na sección «Versións» no F-Droid.</string>
-    <string name="community_testing_bug_text">Atopaches un fallo? hai algo estraño?</string>
+    <string name="community_testing_bug_text">Atopou un fallo? hai algo estraño?</string>
     <string name="community_testing_headline">Axudanos facendo probas</string>
     <string name="community_testing_report_text">Informe dun incidente no GitHub</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
@@ -898,6 +898,7 @@
     <string name="upload_action_cancelled_resume">Retomar os envíos cancelados</string>
     <string name="upload_action_failed_clear">Limpar os envíos fallados</string>
     <string name="upload_action_failed_retry">Tentar de novo os envíos fallados</string>
+    <string name="upload_action_file_not_exist_message">Algúns ficheiros xa non existen. Non é posíbel retomar estes envíos</string>
     <string name="upload_action_global_upload_pause">Pausar todos os envíos</string>
     <string name="upload_action_global_upload_resume">Retomar todos os envíos</string>
     <string name="upload_cannot_create_file">Non é posíbel crear o ficheiro local</string>
@@ -921,6 +922,7 @@
     <string name="upload_local_storage_full">O almacenamento local está cheo</string>
     <string name="upload_local_storage_not_copied">Non foi posíbel copiar o ficheiro no almacenamento local</string>
     <string name="upload_lock_failed">Produciuse un fallo ao bloquear o cartafol</string>
+    <string name="upload_manually_cancelled">O envío foi cancelado polo usuario</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">O cifrado só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. No canto diso, gustaríalle movelos?</string>
@@ -939,6 +941,7 @@
     <string name="uploader_file_not_found_message">Non se atopou o ficheiro. Está seguro de que este ficheiro existe ou non se resolveu un conflito anterior?</string>
     <string name="uploader_file_not_found_on_server_message">Non foi posíbel localizar o ficheiro no servidor. Outro usuario pode ter eliminado o ficheiro</string>
     <string name="uploader_info_dirname">Nome do cartafol</string>
+    <string name="uploader_local_files_uploaded">Tentar de novo enviar os ficheiros locais que fallaron</string>
     <string name="uploader_top_message">Escoller o cartafol de envío</string>
     <string name="uploader_upload_failed_content_single">Non foi posíbel enviar: %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Produciuse un fallo no envío, acceda de novo.</string>
@@ -977,6 +980,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Recuperando a versión do servidor…</string>
     <string name="uploads_view_upload_status_service_interrupted">Aplicación finalizada</string>
     <string name="uploads_view_upload_status_succeeded">Completado</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Atopouse o mesmo ficheiro en remoto, omitindo o envío</string>
     <string name="uploads_view_upload_status_unknown_fail">Produciuse un erro descoñecido</string>
     <string name="uploads_view_upload_status_virus_detected">Detectouse un virus. Non é posíbel completar o envío!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Agardando a saír do modo de aforro de enerxía</string>
