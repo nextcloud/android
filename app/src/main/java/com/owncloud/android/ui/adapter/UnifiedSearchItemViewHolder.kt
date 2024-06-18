@@ -82,16 +82,12 @@ class UnifiedSearchItemViewHolder(
         }
 
         binding.unifiedSearchItemLayout.setOnClickListener {
-            when (entry.icon) {
-                "icon-contacts" -> {
-                    contactManager.openContact(entry, listInterface)
-                }
-                "icon-calendar" -> {
-                    calendarEventManager.openCalendarEvent(entry, listInterface)
-                }
-                else -> {
-                    listInterface.onSearchResultClicked(entry)
-                }
+            if (entry.icon.startsWith("icon-contacts")) {
+                contactManager.openContact(entry, listInterface)
+            } else if (entry.icon.startsWith("icon-calendar")) {
+                calendarEventManager.openCalendarEvent(entry, listInterface)
+            } else {
+                listInterface.onSearchResultClicked(entry)
             }
         }
     }

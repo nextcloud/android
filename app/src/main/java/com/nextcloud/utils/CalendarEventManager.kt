@@ -13,23 +13,13 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.CalendarContract
 import com.nextcloud.utils.extensions.parseDateTimeRange
-import com.nextcloud.utils.extensions.parseDateTimeToMillis
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 
 class CalendarEventManager(private val context: Context) {
 
     fun openCalendarEvent(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
-        var eventStartDate = searchResult.parseDateTimeToMillis()
-        if (eventStartDate == null) {
-            eventStartDate = searchResult.parseDateTimeRange()
-        }
-
-        if (eventStartDate == null) {
-            listInterface.onSearchResultClicked(searchResult)
-            return
-        }
-
+        val eventStartDate = searchResult.parseDateTimeRange()!!
         val eventId: Long? = getCalendarEventId(searchResult.title, eventStartDate)
         if (eventId == null) {
             listInterface.onSearchResultClicked(searchResult)
@@ -58,7 +48,7 @@ class CalendarEventManager(private val context: Context) {
         cursor?.use {
             val idIndex = cursor.getColumnIndex(CalendarContract.Events._ID)
             val titleIndex = cursor.getColumnIndex(CalendarContract.Events.TITLE)
-            val dtstartIndex = cursor.getColumnIndex(CalendarContract.Events.DTSTART)
+            val dtstartIndex = cursor.getColumnIndex(CalendarContract.Events.DTEND)
 
             while (cursor.moveToNext()) {
                 val title = cursor.getString(titleIndex)

@@ -7,25 +7,31 @@
 
 package com.nextcloud.utils.extensions
 
+import android.annotation.SuppressLint
 import com.owncloud.android.lib.common.SearchResultEntry
+import java.text.ParseException
 import java.text.SimpleDateFormat
-import java.util.Locale
+import java.util.TimeZone
 
-fun SearchResultEntry.parseDateTimeToMillis(): Long? {
-    val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss", Locale.getDefault())
-    val date = sdf.parse(subline)
-    return date?.time
-}
-
+@SuppressLint("SimpleDateFormat")
 fun SearchResultEntry.parseDateTimeRange(): Long? {
-    val regex = Regex("""(\w+ \d{1,2}, \d{4} \d{1,2}:\d{2} [AP]M) - (\d{1,2}:\d{2} [AP]M)""")
-    val matchResult = regex.find(subline)
+    // Define the input and output date formats
+    val inputFormat = SimpleDateFormat("MMM d, yyyy h:mm a")
+    val outputFormat = SimpleDateFormat("MMM d, yyyy HH:mm a")
 
-    if (matchResult != null) {
-        val (startDateTimeString, endTimeString) = matchResult.destructured
-        val dateFormat = SimpleDateFormat("MMM d, yyyy h:mm a", Locale.getDefault())
-        return dateFormat.parse(startDateTimeString)?.time
+    // Parse the input date string
+    val startDateTime = inputFormat.parse(subline.split(" - ")[0])
+
+    // Format the date to the desired output format
+    val result = outputFormat.format(startDateTime)
+
+
+    val formatter = SimpleDateFormat("MMM dd, yyyy HH:MM")
+    try {
+        val date = formatter.parse(result)
+        formatter.timeZone = TimeZone.getTimeZone("UTC")
+        return date?.time
+    } catch (e: ParseException) {
+       return null
     }
-
-    return null
 }

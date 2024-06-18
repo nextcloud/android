@@ -141,10 +141,14 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.TimeZone;
 
 import javax.inject.Inject;
 
@@ -283,6 +287,19 @@ public class FileDisplayActivity extends FileActivity
         initSyncBroadcastReceiver();
         observeWorkerState();
         registerRefreshFolderEventReceiver();
+
+        String aa = "Jun 19, 2024 9:30 AM - 10:00 AM";
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd, yyyy HH:mm a - HH:mm a");
+        try {
+            Date date = formatter.parse(aa);
+            formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+            Log_OC.d("TAGGGGG", "UTC time: " + date.getTime());
+
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     @SuppressWarnings("unchecked")
