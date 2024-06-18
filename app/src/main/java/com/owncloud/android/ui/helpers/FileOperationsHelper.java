@@ -13,7 +13,6 @@
  */
 package com.owncloud.android.ui.helpers;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -69,7 +68,6 @@ import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -1058,34 +1056,42 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_checking_credentials));
     }
 
-    public void uploadFromCamera(Activity activity, int requestCode) {
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    public void uploadFromCamera(Activity activity, int requestCode, boolean isVideo) {
+        Intent intent;
+        if (isVideo) {
 
-        File photoFile = createImageFile(activity);
+            // FIXME Not working on Emulator
+            intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        } else {
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        }
 
-        Uri photoUri = FileProvider.getUriForFile(activity.getApplicationContext(),
-                                                  activity.getResources().getString(R.string.file_provider_authority), photoFile);
-        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        File cameraFile = createCameraFile(activity, isVideo);
 
-        if (pictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
-                activity.startActivityForResult(pictureIntent, requestCode);
-            } else {
-                PermissionUtil.requestCameraPermission(activity, PermissionUtil.PERMISSIONS_CAMERA);
-            }
+        Uri cameraUri = FileProvider.getUriForFile(activity.getApplicationContext(),
+                                                  activity.getResources().getString(R.string.file_provider_authority), cameraFile);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
+
+        if (intent.resolveActivity(activity.getPackageManager()) != null) {
+            activity.startActivityForResult(intent, requestCode);
         } else {
             DisplayUtils.showSnackMessage(activity, "No Camera found");
         }
     }
 
-    public static File createImageFile(Activity activity) {
-        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        return new File(storageDir + "/directCameraUpload.jpg");
+    public static File createCameraFile(Activity activity, boolean isVideo) {
+        String directory = isVideo ? Environment.DIRECTORY_MOVIES : Environment.DIRECTORY_PICTURES;
+        File storageDir = activity.getExternalFilesDir(directory);
+        String fileName = isVideo ? "/directCameraUpload.mp4" : "/directCameraUpload.jpg";
+        return new File(storageDir + fileName);
     }
 
     public static String getCapturedImageName() {
         return getTimestampedFileName(".jpg");
+    }
+
+    public static String getCapturedVideoName() {
+        return getTimestampedFileName(".mp4");
     }
 
     /**
