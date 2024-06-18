@@ -8,11 +8,8 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.net.Uri
-import android.provider.ContactsContract
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
@@ -27,6 +24,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.BitmapUtils
+import com.nextcloud.utils.CalendarEventManager
+import com.nextcloud.utils.ContactManager
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -41,12 +40,14 @@ class UnifiedSearchItemViewHolder(
     private val filesAction: FilesAction,
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils
-) :
-    SectionedViewHolder(binding.root) {
+) : SectionedViewHolder(binding.root) {
 
     interface FilesAction {
         fun showFilesAction(searchResultEntry: SearchResultEntry)
     }
+
+    private val contactManager = ContactManager(context)
+    private val calendarEventManager = CalendarEventManager(context)
 
     fun bind(entry: SearchResultEntry) {
         binding.title.text = entry.title
@@ -81,8 +82,17 @@ class UnifiedSearchItemViewHolder(
         }
 
         binding.unifiedSearchItemLayout.setOnClickListener {
-
-            // listInterface.onSearchResultClicked(entry)
+            when (entry.icon) {
+                "icon-contacts" -> {
+                    contactManager.openContact(entry, listInterface)
+                }
+                "icon-calendar" -> {
+                    calendarEventManager.openCalendarEvent(entry, listInterface)
+                }
+                else -> {
+                    listInterface.onSearchResultClicked(entry)
+                }
+            }
         }
     }
 

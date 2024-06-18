@@ -283,30 +283,6 @@ public class FileDisplayActivity extends FileActivity
         initSyncBroadcastReceiver();
         observeWorkerState();
         registerRefreshFolderEventReceiver();
-        getAllContacts();
-    }
-
-    public void getAllContacts() {
-        ContentResolver contentResolver = getContentResolver();
-        Uri uri = ContactsContract.Contacts.CONTENT_URI;
-        String[] projection = new String[]{
-            ContactsContract.Contacts._ID,
-            ContactsContract.Contacts.DISPLAY_NAME
-        };
-        Cursor cursor = contentResolver.query(uri, projection, null, null, null);
-
-        if (cursor != null && cursor.getCount() > 0) {
-            while (cursor.moveToNext()) {
-                String id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID));
-                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
-                Log_OC.d(TAG, "CONTACT_ID: " + id);
-                Log_OC.d(TAG, "CONTACT_NAME: " + name);
-
-            }
-            cursor.close();
-        }
-
-        // Do something with the list of contacts
     }
 
     @SuppressWarnings("unchecked")
