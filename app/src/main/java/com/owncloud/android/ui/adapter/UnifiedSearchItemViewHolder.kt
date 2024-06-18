@@ -8,8 +8,11 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
+import android.net.Uri
+import android.provider.ContactsContract
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
@@ -70,12 +73,17 @@ class UnifiedSearchItemViewHolder(
 
         if (entry.isFile) {
             binding.more.visibility = View.VISIBLE
-            binding.more.setOnClickListener { filesAction.showFilesAction(entry) }
+            binding.more.setOnClickListener {
+                filesAction.showFilesAction(entry)
+            }
         } else {
             binding.more.visibility = View.GONE
         }
 
-        binding.unifiedSearchItemLayout.setOnClickListener { listInterface.onSearchResultClicked(entry) }
+        binding.unifiedSearchItemLayout.setOnClickListener {
+
+            // listInterface.onSearchResultClicked(entry)
+        }
     }
 
     private fun getPlaceholder(entry: SearchResultEntry, mimetype: String?): Drawable {
