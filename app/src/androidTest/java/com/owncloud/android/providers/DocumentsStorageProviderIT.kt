@@ -91,7 +91,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
 
         // file1 was uploaded
         val ocFile1 = file1.getOCFile(storageManager)!!
-        assertExistsOnServer(nextcloudClient, ocFile1.remotePath, true)
+        assertExistsOnServer(client, ocFile1.remotePath, true)
 
         // create second long file with long file name
         val name2 = RandomStringGenerator.make(MAX_FILE_NAME_LENGTH)
@@ -100,7 +100,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
 
         // file2 was uploaded
         val ocFile2 = file2.getOCFile(storageManager)!!
-        assertExistsOnServer(nextcloudClient, ocFile2.remotePath, true)
+        assertExistsOnServer(client, ocFile2.remotePath, true)
 
         // check assumptions
         file2.assertRegularFile(name2, 0L, type2, rootDir)
@@ -112,7 +112,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         // delete first file
         assertTrue(file1.delete())
         assertFalse(file1.exists())
-        assertExistsOnServer(nextcloudClient, ocFile1.remotePath, false)
+        assertExistsOnServer(client, ocFile1.remotePath, false)
 
         // only second file gets listed in root
         assertListFilesEquals(listOf(file2), rootDir.listFiles().toList())
@@ -120,7 +120,7 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         // delete also second file
         assertTrue(file2.delete())
         assertFalse(file2.exists())
-        assertExistsOnServer(nextcloudClient, ocFile2.remotePath, false)
+        assertExistsOnServer(client, ocFile2.remotePath, false)
 
         // no more files in root
         assertListFilesEquals(emptyList(), rootDir.listFilesBlocking(context))
@@ -160,13 +160,13 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
 
         // ensure folder was uploaded to server
         val ocDir1 = dir1.getOCFile(storageManager)!!
-        assertExistsOnServer(nextcloudClient, ocDir1.remotePath, true)
+        assertExistsOnServer(client, ocDir1.remotePath, true)
 
         // create file in folder
         val file1 = dir1.createFile("text/html", RandomStringGenerator.make())!!
         file1.assertRegularFile(parent = dir1)
         val ocFile1 = file1.getOCFile(storageManager)!!
-        assertExistsOnServer(nextcloudClient, ocFile1.remotePath, true)
+        assertExistsOnServer(client, ocFile1.remotePath, true)
 
         // we find the new file in the created folder and get it in the list
         assertEquals(file1.uri.toString(), dir1.findFileBlocking(context, file1.name!!)!!.uri.toString())
@@ -175,14 +175,14 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         // delete folder
         dir1.delete()
         assertFalse(dir1.exists())
-        assertExistsOnServer(nextcloudClient, ocDir1.remotePath, false)
+        assertExistsOnServer(client, ocDir1.remotePath, false)
 
         // ensure file got deleted with it
         // since Room was introduced, the file is not automatically updated for some reason.
         // however, it is correctly deleted from server, and smoke testing shows it works just fine.
         // suspecting a race condition of some sort
         // assertFalse(file1.exists())
-        assertExistsOnServer(nextcloudClient, ocFile1.remotePath, false)
+        assertExistsOnServer(client, ocFile1.remotePath, false)
     }
 
     @Suppress("MagicNumber")

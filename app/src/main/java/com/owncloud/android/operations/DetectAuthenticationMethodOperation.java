@@ -13,7 +13,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.nextcloud.common.NextcloudClient;
+import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -69,12 +69,12 @@ public class DetectAuthenticationMethodOperation extends RemoteOperation {
      *  any, is requested by the server.
      */
     @Override
-    public RemoteOperationResult run(NextcloudClient client) {
+    protected RemoteOperationResult run(OwnCloudClient client) {
         RemoteOperationResult result = null;
         AuthenticationMethod authMethod = AuthenticationMethod.UNKNOWN;
 
         RemoteOperation operation = new ExistenceCheckRemoteOperation("", mContext, false);
-        client.setCredentials("");
+        client.clearCredentials();
         client.setFollowRedirects(false);
 
         // try to access the root folder, following redirections but not SAML SSO redirections

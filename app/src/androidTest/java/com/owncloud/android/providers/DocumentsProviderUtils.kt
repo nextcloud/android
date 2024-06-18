@@ -20,9 +20,9 @@ import android.provider.DocumentsContract.buildTreeDocumentUri
 import android.provider.DocumentsContract.getDocumentId
 import androidx.annotation.VisibleForTesting
 import androidx.documentfile.provider.DocumentFile
-import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ExistenceCheckRemoteOperation
 import com.owncloud.android.providers.DocumentsStorageProvider.DOCUMENTID_SEPARATOR
@@ -81,7 +81,7 @@ object DocumentsProviderUtils {
         assertTrue("File $name older than expected: $diff", diff < RECENT_MILLISECONDS)
     }
 
-    internal fun assertExistsOnServer(client: NextcloudClient, remotePath: String, shouldExist: Boolean) {
+    internal fun assertExistsOnServer(client: OwnCloudClient, remotePath: String, shouldExist: Boolean) {
         val result = ExistenceCheckRemoteOperation(remotePath, !shouldExist).execute(client)
         assertTrue("$result", result.isSuccess)
     }
