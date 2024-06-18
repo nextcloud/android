@@ -74,7 +74,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
 
     private val thumbnailAsyncTasks = mutableListOf<ThumbnailsCacheManager.ThumbnailGenerationTask>()
 
-    interface ResultListener {
+    fun interface ResultListener {
         fun onResult(@IdRes actionId: Int)
     }
 
