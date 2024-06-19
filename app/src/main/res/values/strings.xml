@@ -812,6 +812,10 @@
     <string name="add_to_cloud">Add to %1$s</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_direct_camera_upload">Upload from camera</string>
+    <string name="upload_direct_camera_promt">Do you want to take a photo or video?</string>
+    <string name="upload_direct_camera_photo">Photo</string>
+    <string name="upload_direct_camera_video">Video</string>
+    <string name="error_uploading_direct_camera_upload">Failed to upload taken media</string>
     <string name="upload_scan_doc_upload">Scan document from camera</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
     <string name="create_new_folder">New folder</string>

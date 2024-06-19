@@ -198,6 +198,7 @@ public class FileDisplayActivity extends FileActivity
     public static final int REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM = REQUEST_CODE__LAST_SHARED + 2;
     public static final int REQUEST_CODE__MOVE_OR_COPY_FILES = REQUEST_CODE__LAST_SHARED + 3;
     public static final int REQUEST_CODE__UPLOAD_FROM_CAMERA = REQUEST_CODE__LAST_SHARED + 5;
+    public static final int REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA = REQUEST_CODE__LAST_SHARED + 6;
 
     protected static final long DELAY_TO_REQUEST_REFRESH_OPERATION_LATER = DELAY_TO_REQUEST_OPERATIONS_LATER + 350;
 
@@ -447,7 +448,7 @@ public class FileDisplayActivity extends FileActivity
                 // If request is cancelled, result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
-                    getFileOperationsHelper().uploadFromCamera(this, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
+                    getOCFileListFragmentFromFile().directCameraUpload();
                 }
                 break;
             default:
@@ -851,7 +852,7 @@ public class FileDisplayActivity extends FileActivity
 
             requestUploadOfFilesFromFileSystem(data, resultCode);
 
-        } else if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
+        } else if ((requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA || requestCode == REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA) && (resultCode == RESULT_OK || resultCode == UploadFilesActivity.RESULT_OK_AND_DELETE)) {
 
             new CheckAvailableSpaceTask(new CheckAvailableSpaceTask.CheckAvailableSpaceListener() {
                 @Override
@@ -865,17 +866,22 @@ public class FileDisplayActivity extends FileActivity
 
                     if (hasEnoughSpaceAvailable) {
                         File file = new File(filesToUpload[0]);
-                        File renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedImageName());
+                        File renamedFile;
+                        if(requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA) {
+                            renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedImageName());
+                        } else {
+                            renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedVideoName());
+                        }
 
                         if (!file.renameTo(renamedFile)) {
-                            DisplayUtils.showSnackMessage(getActivity(), "Fail to upload taken image!");
+                            DisplayUtils.showSnackMessage(getActivity(), R.string.error_uploading_direct_camera_upload);
                             return;
                         }
 
                         requestUploadOfFilesFromFileSystem(renamedFile.getParentFile().getAbsolutePath(), new String[]{renamedFile.getAbsolutePath()}, FileUploadWorker.LOCAL_BEHAVIOUR_DELETE);
                     }
                 }
-            }, new String[]{FileOperationsHelper.createImageFile(getActivity()).getAbsolutePath()}).execute();
+            }, new String[]{FileOperationsHelper.createCameraFile(getActivity(), requestCode == REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA).getAbsolutePath()}).execute();
         } else if (requestCode == REQUEST_CODE__MOVE_OR_COPY_FILES && resultCode == RESULT_OK) {
             exitSelectionMode();
         } else if (requestCode == PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES) {
