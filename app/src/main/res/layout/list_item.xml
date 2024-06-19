@@ -10,15 +10,11 @@
   ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski <bart.p.pl@gmail.com>
   ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/ListItemLayout"
     android:layout_width="match_parent"
-    android:layout_marginTop="4dp"
-    android:layout_marginHorizontal="12dp"
-    android:translationZ="10dp"
     android:layout_height="wrap_content"
     android:baselineAligned="false"
     android:descendantFocusability="blocksDescendants"
@@ -287,7 +283,7 @@
             android:minHeight="@dimen/min_list_item_size"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
-            android:layout_marginEnd="12dp"
+            android:layout_marginEnd="25dp"
             android:src="@drawable/ic_dots_vertical" />
 
     </LinearLayout>
