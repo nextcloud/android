@@ -44,21 +44,26 @@ class CalendarEventManager(private val context: Context) {
             CalendarContract.Events.DTSTART,
         )
 
-        val selection = "${CalendarContract.Events.TITLE} = ? AND ${CalendarContract.Events.DTSTART} = ?"
-        val selectionArgs = arrayOf(eventTitle, eventStartDate.toString())
-
         val cursor = context.contentResolver.query(
             CalendarContract.Events.CONTENT_URI,
             projection,
-            selection,
-            selectionArgs,
+            null,
+            null,
             "${CalendarContract.Events.DTSTART} ASC"
         )
 
         cursor?.use {
-            if (cursor.moveToFirst()) {
-                val idIndex = cursor.getColumnIndex(CalendarContract.Events._ID)
-                return cursor.getLong(idIndex)
+            val idIndex = cursor.getColumnIndex(CalendarContract.Events._ID)
+            val titleIndex = cursor.getColumnIndex(CalendarContract.Events.TITLE)
+            val startDateIndex = cursor.getColumnIndex(CalendarContract.Events.DTSTART)
+
+            while (cursor.moveToNext()) {
+                val title = cursor.getString(titleIndex)
+                val startDate = cursor.getLong(startDateIndex)
+
+                if (eventTitle == title && startDate == eventStartDate) {
+                    return cursor.getLong(idIndex)
+                }
             }
         }
 
