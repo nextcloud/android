@@ -283,6 +283,7 @@
             android:minHeight="@dimen/min_list_item_size"
             android:paddingStart="12dp"
             android:paddingEnd="12dp"
+            android:layout_marginEnd="12dp"
             android:src="@drawable/ic_dots_vertical" />
 
     </LinearLayout>
