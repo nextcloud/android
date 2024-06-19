@@ -41,7 +41,7 @@ class CalendarEventManager(private val context: Context) {
         val projection = arrayOf(
             CalendarContract.Events._ID,
             CalendarContract.Events.TITLE,
-            CalendarContract.Events.DTSTART,
+            CalendarContract.Events.DTSTART
         )
 
         val cursor = context.contentResolver.query(

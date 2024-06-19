@@ -13,7 +13,7 @@ enum class SearchResultEntryType {
     CalendarEvent, Folder, Note, Contact, Deck, Unknown;
 
     fun getIconId(): Int? {
-        return when(this) {
+        return when (this) {
             Folder -> R.drawable.folder
             Note -> R.drawable.ic_edit
             Contact -> R.drawable.file_vcard
