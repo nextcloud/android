@@ -21,6 +21,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ConflictResolveDialogBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -81,7 +82,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
         args.putParcelable(KEY_EXISTING_FILE, existingFile);
 
         File file = new File(newFile.getStoragePath());
-        Log_OC.d(TAG,"ConflictsResolveDialog.putSerializable: " + file.getAbsolutePath().length());
+        FileExtensionsKt.logFileSize(file, TAG);
         args.putSerializable(KEY_NEW_FILE, file);
         args.putParcelable(KEY_USER, user);
         dialog.setArguments(args);
@@ -140,9 +141,8 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
 
-        Log_OC.d(TAG,"onSaveInstanceState.existingFile: " + existingFile.getFileLength());
-        Log_OC.d(TAG,"onSaveInstanceState.newFile: " + newFile.length());
-
+        FileExtensionsKt.logFileSize(existingFile, TAG);
+        FileExtensionsKt.logFileSize(newFile, TAG);
         outState.putParcelable(KEY_EXISTING_FILE, existingFile);
         outState.putSerializable(KEY_NEW_FILE, newFile);
         outState.putParcelable(KEY_USER, user);

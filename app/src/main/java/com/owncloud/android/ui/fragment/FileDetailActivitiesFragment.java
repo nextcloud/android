@@ -23,6 +23,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsActivitiesFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -431,7 +432,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log_OC.d(TAG, "onSaveInstanceState " + file.getFileLength());
+        FileExtensionsKt.logFileSize(file, TAG);
         outState.putParcelable(ARG_FILE, file);
         outState.putParcelable(ARG_USER, user);
     }
