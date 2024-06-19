@@ -9,8 +9,15 @@ package com.nextcloud.utils.extensions
 
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.utils.DisplayUtils
 import java.io.File
 
-fun OCFile?.logFileSize(tag: String) = Log_OC.d(tag, "onSaveInstanceState: ${this?.fileLength}")
+fun OCFile?.logFileSize(tag: String) {
+    val size = DisplayUtils.bytesToHumanReadable(this?.fileLength ?: -1)
+    Log_OC.d(tag, "onSaveInstanceState: $size")
+}
 
-fun File?.logFileSize(tag: String) = Log_OC.d(tag, "onSaveInstanceState: ${this?.length()}")
+fun File?.logFileSize(tag: String) {
+    val size = DisplayUtils.bytesToHumanReadable(this?.length() ?: -1)
+    Log_OC.d(tag, "onSaveInstanceState: $size")
+}
