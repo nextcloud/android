@@ -13,6 +13,8 @@ import android.content.Intent
 import android.net.Uri
 import android.provider.CalendarContract
 import com.nextcloud.utils.extensions.parseDateTimeRange
+import com.nextcloud.utils.extensions.showToast
+import com.owncloud.android.R
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 
@@ -22,6 +24,7 @@ class CalendarEventManager(private val context: Context) {
         val eventStartDate = searchResult.parseDateTimeRange()
 
         if (eventStartDate == null) {
+            context.showToast(R.string.unified_search_fragment_calendar_event_cannot_be_found_on_device)
             listInterface.onSearchResultClicked(searchResult)
             return
         }
@@ -29,6 +32,7 @@ class CalendarEventManager(private val context: Context) {
         val eventId: Long? = getCalendarEventId(searchResult.title, eventStartDate)
 
         if (eventId == null) {
+            context.showToast(R.string.unified_search_fragment_calendar_event_cannot_be_found_on_device)
             listInterface.onSearchResultClicked(searchResult)
         } else {
             val uri: Uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId)
@@ -44,26 +48,21 @@ class CalendarEventManager(private val context: Context) {
             CalendarContract.Events.DTSTART
         )
 
+        val selection = "${CalendarContract.Events.TITLE} = ? AND ${CalendarContract.Events.DTSTART} = ?"
+        val selectionArgs = arrayOf(eventTitle, eventStartDate.toString())
+
         val cursor = context.contentResolver.query(
             CalendarContract.Events.CONTENT_URI,
             projection,
-            null,
-            null,
+            selection,
+            selectionArgs,
             "${CalendarContract.Events.DTSTART} ASC"
         )
 
         cursor?.use {
-            val idIndex = cursor.getColumnIndex(CalendarContract.Events._ID)
-            val titleIndex = cursor.getColumnIndex(CalendarContract.Events.TITLE)
-            val startDateIndex = cursor.getColumnIndex(CalendarContract.Events.DTSTART)
-
-            while (cursor.moveToNext()) {
-                val title = cursor.getString(titleIndex)
-                val startDate = cursor.getLong(startDateIndex)
-
-                if (eventTitle == title && startDate == eventStartDate) {
-                    return cursor.getLong(idIndex)
-                }
+            if (cursor.moveToFirst()) {
+                val idIndex = cursor.getColumnIndex(CalendarContract.Events._ID)
+                return cursor.getLong(idIndex)
             }
         }
 

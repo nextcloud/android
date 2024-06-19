@@ -11,6 +11,8 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
+import com.nextcloud.utils.extensions.showToast
+import com.owncloud.android.R
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 
@@ -18,7 +20,9 @@ class ContactManager(private val context: Context) {
 
     fun openContact(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
         val contactIds = getContactIds(searchResult.title)
+
         if (contactIds.isEmpty()) {
+            context.showToast(R.string.unified_search_fragment_contact_cannot_be_found_on_device)
             listInterface.onSearchResultClicked(searchResult)
         } else {
             val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactIds.first().toString())
