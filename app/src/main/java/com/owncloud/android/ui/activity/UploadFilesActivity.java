@@ -33,6 +33,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadFilesLayoutBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -410,7 +411,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in
         // onRestoreInstanceState when there are Fragments involved
-        Log_OC.d(TAG, "onSaveInstanceState " + mCurrentDir.length());
+        FileExtensionsKt.logFileSize(mCurrentDir, TAG);
         super.onSaveInstanceState(outState);
         outState.putString(UploadFilesActivity.KEY_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
         if (mOptionsMenu != null && mOptionsMenu.findItem(R.id.action_select_all) != null) {
