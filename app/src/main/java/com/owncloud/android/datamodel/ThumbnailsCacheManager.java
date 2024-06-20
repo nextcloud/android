@@ -296,51 +296,58 @@ public final class ThumbnailsCacheManager {
             if (file.getRemoteId() != null || file.isPreviewAvailable()) {
                 // Thumbnail in cache?
                 thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getRemoteId()
-                                                                         );
+                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getRemoteId());
 
-                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
-                    Float size = (float) ThumbnailsCacheManager.getThumbnailDimension();
+                if (thumbnail != null && !file.isUpdateThumbnailNeeded())
+                    return getThumbnailFromCache(thumbnail);
 
-                    // resized dimensions
-                    ImageDimension imageDimension = file.getImageDimension();
-                    if (imageDimension == null ||
-                        imageDimension.getWidth() != size ||
-                        imageDimension.getHeight() != size) {
-                        file.setImageDimension(new ImageDimension(thumbnail.getWidth(), thumbnail.getHeight()));
-                        storageManager.saveFile(file);
-                    }
-
-                    if (MimeTypeUtil.isVideo(file)) {
-                        return ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
-                    } else {
-                        return thumbnail;
-                    }
-                } else {
-                    try {
-                        mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(),
-                                                                                                  MainApp.getAppContext());
-
-                        thumbnail = doResizedImageInBackground(file, storageManager);
-                        newImage = true;
-
-                        if (MimeTypeUtil.isVideo(file) && thumbnail != null) {
-                            thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
-                        }
-
-                    } catch (OutOfMemoryError oome) {
-                        Log_OC.e(TAG, "Out of memory");
-                    } catch (Throwable t) {
-                        // the app should never break due to a problem with thumbnails
-                        Log_OC.e(TAG, "Generation of gallery image for " + file + " failed", t);
-                    }
-
-                    return thumbnail;
-                }
+                return getThumbnailFromServerAndAddToCache(thumbnail);
             }
 
             Log_OC.d(TAG, "File cannot be previewed");
             return null;
+        }
+
+        @Nullable
+        private Bitmap getThumbnailFromServerAndAddToCache(Bitmap thumbnail) {
+            try {
+                mClient = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(user.toOwnCloudAccount(),
+                                                                                          MainApp.getAppContext());
+
+                thumbnail = doResizedImageInBackground(file, storageManager);
+                newImage = true;
+
+                if (MimeTypeUtil.isVideo(file) && thumbnail != null) {
+                    thumbnail = addVideoOverlay(thumbnail, MainApp.getAppContext());
+                }
+
+            } catch (OutOfMemoryError oome) {
+                Log_OC.e(TAG, "Out of memory");
+            } catch (Throwable t) {
+                // the app should never break due to a problem with thumbnails
+                Log_OC.e(TAG, "Generation of gallery image for " + file + " failed", t);
+            }
+
+            return thumbnail;
+        }
+
+        private Bitmap getThumbnailFromCache(Bitmap thumbnail) {
+            float size = (float) ThumbnailsCacheManager.getThumbnailDimension();
+
+            // resized dimensions
+            ImageDimension imageDimension = file.getImageDimension();
+            if (imageDimension == null ||
+                imageDimension.getWidth() != size ||
+                imageDimension.getHeight() != size) {
+                file.setImageDimension(new ImageDimension(thumbnail.getWidth(), thumbnail.getHeight()));
+                storageManager.saveFile(file);
+            }
+
+            if (MimeTypeUtil.isVideo(file)) {
+                return ThumbnailsCacheManager.addVideoOverlay(thumbnail, MainApp.getAppContext());
+            } else {
+                return thumbnail;
+            }
         }
 
         protected void onPostExecute(Bitmap bitmap) {
