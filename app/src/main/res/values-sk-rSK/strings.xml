@@ -897,6 +897,7 @@
     <string name="upload_cannot_create_file">Nieje možné vytvoriť lokálny súbor</string>
     <string name="upload_chooser_title">Nahrať z…</string>
     <string name="upload_content_from_other_apps">Nahrať obsah z iných aplikácií</string>
+    <string name="upload_direct_camera_photo">Fotka</string>
     <string name="upload_direct_camera_upload">Nahrať z fotoaparátu</string>
     <string name="upload_file_dialog_filename">Názov súboru</string>
     <string name="upload_file_dialog_filetype">Typ súboru</string>

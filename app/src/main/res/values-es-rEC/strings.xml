@@ -814,6 +814,7 @@
     <string name="upload_cannot_create_file">No se puede crear el archivo local</string>
     <string name="upload_chooser_title">Cargar forma…</string>
     <string name="upload_content_from_other_apps">Cargar contenido de otras aplicaciones</string>
+    <string name="upload_direct_camera_photo">Foto</string>
     <string name="upload_direct_camera_upload">Cargar desde la cámara</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
     <string name="upload_file_dialog_filetype">Tipo de archivo</string>

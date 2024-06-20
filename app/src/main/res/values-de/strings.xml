@@ -904,10 +904,6 @@
     <string name="upload_chooser_title">Dateien hochladen von…</string>
     <string name="upload_content_from_other_apps">Inhalt anderer Apps hochladen</string>
     <string name="upload_direct_camera_upload">Von Kamera hochladen</string>
-    <string name="upload_direct_camera_promt">Möchten Sie ein Foto oder Video aufnehmen?</string>
-    <string name="upload_direct_camera_photo">Foto</string>
-    <string name="upload_direct_camera_video">Video</string>
-    <string name="error_uploading_direct_camera_upload">Hochladen von Medien fehlgeschlagen</string>
     <string name="upload_file_dialog_filename">Dateiname</string>
     <string name="upload_file_dialog_filetype">Dateityp</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps Abkürzungs-Datei (%s)</string>

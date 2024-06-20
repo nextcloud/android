@@ -450,6 +450,7 @@
     <string name="upload_action_failed_retry">Proovi ebaõnnestunud üleslaadimisi uuesti</string>
     <string name="upload_cannot_create_file">Kohalike faili loomine ebaõnnestus</string>
     <string name="upload_content_from_other_apps">Lae üles sisu teistest rakendustest</string>
+    <string name="upload_direct_camera_photo">Foto</string>
     <string name="upload_direct_camera_upload">Laadi üles kaamerast</string>
     <string name="upload_file_dialog_filename">Faili nimi</string>
     <string name="upload_files">Failide üleslaadimine</string>

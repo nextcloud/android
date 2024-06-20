@@ -570,6 +570,7 @@
     <string name="upload_cannot_create_file">ไม่สามารถสร้างไฟล์ต้นทาง</string>
     <string name="upload_chooser_title">อัปโหลดจาก…</string>
     <string name="upload_content_from_other_apps">อัปโหลดเนื้อหาจากแอปอื่น</string>
+    <string name="upload_direct_camera_photo">รูปภาพ</string>
     <string name="upload_direct_camera_upload">อัปโหลดจากกล้อง</string>
     <string name="upload_file_dialog_filename">ชื่อไฟล์</string>
     <string name="upload_file_dialog_filetype">ประเภทไฟล์</string>

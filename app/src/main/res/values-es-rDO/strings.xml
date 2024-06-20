@@ -474,6 +474,7 @@
     <string name="upload_action_failed_retry">Reintentar cargas fallidas</string>
     <string name="upload_chooser_title">Cargar forma…</string>
     <string name="upload_content_from_other_apps">Cargar contenido de otras aplicaciones</string>
+    <string name="upload_direct_camera_photo">Foto</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
     <string name="upload_file_dialog_filetype">Tipo de archivo</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Archivo de acceso directo a Google Maps(%s)</string>

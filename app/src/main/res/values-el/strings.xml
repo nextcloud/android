@@ -809,6 +809,7 @@
     <string name="upload_cannot_create_file">Αδυναμία δημιουργίας τοπικού αρχείου</string>
     <string name="upload_chooser_title">Μεταφόρτωση από…</string>
     <string name="upload_content_from_other_apps">Μεταφόρτωση περιεχομένου από άλλες εφαρμογές</string>
+    <string name="upload_direct_camera_photo">Φωτογραφία</string>
     <string name="upload_direct_camera_upload">Μεταφόρτωση από την φωτογραφική μηχανή</string>
     <string name="upload_file_dialog_filename">Όνομα αρχείου</string>
     <string name="upload_file_dialog_filetype">Τύπος αρχείου</string>

@@ -904,6 +904,7 @@
     <string name="upload_chooser_title">上傳自…</string>
     <string name="upload_content_from_other_apps">從其它應用程式上傳</string>
     <string name="upload_direct_camera_upload">從相機上傳</string>
+    <string name="upload_direct_camera_video">影片</string>
     <string name="upload_file_dialog_filename">檔案名稱</string>
     <string name="upload_file_dialog_filetype">檔案類型</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google 地圖捷徑（%s）</string>
