@@ -12,9 +12,11 @@ import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
+import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.OCFile
@@ -28,9 +30,9 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.FileUtil
 import java.io.File
-import java.util.Optional
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions")
@@ -117,33 +119,41 @@ class FileUploadHelper {
         failedUploads: Array<OCUpload>
     ): Boolean {
         var showNotExistMessage = false
-        val (gotNetwork, _, gotWifi) = connectivityService.connectivity
-        val batteryStatus = powerManagementService.battery
-        val charging = batteryStatus.isCharging || batteryStatus.isFull
-        val isPowerSaving = powerManagementService.isPowerSavingEnabled
-        var uploadUser = Optional.empty<User>()
+        val hasGeneralConnection = checkConnectivity(connectivityService)
+        val connectivity = connectivityService.connectivity
+        val battery = powerManagementService.battery
+        val accountNames = accountManager.accounts.filter {
+            accountManager.getUser(it.name).isPresent
+        }.map { it.name }.toHashSet()
 
         for (failedUpload in failedUploads) {
-            val isDeleted = !File(failedUpload.localPath).exists()
-            if (isDeleted) {
-                showNotExistMessage = true
 
-                // 2A. for deleted files, mark as permanently failed
-                if (failedUpload.lastResult != UploadResult.FILE_NOT_FOUND) {
-                    failedUpload.lastResult = UploadResult.FILE_NOT_FOUND
+            if (!accountNames.contains(failedUpload.accountName)) {
+                uploadsStorageManager.removeUpload(failedUpload)
+                continue
+            }
+
+            val conditions =
+                checkUploadConditions(failedUpload, connectivity, battery, powerManagementService, hasGeneralConnection)
+
+            if (conditions != UploadResult.UPLOADED) {
+                if (failedUpload.lastResult != conditions){
+                    failedUpload.lastResult = conditions
                     uploadsStorageManager.updateUpload(failedUpload)
                 }
-            } else if (!isPowerSaving && gotNetwork &&
-                canUploadBeRetried(failedUpload, gotWifi, charging) && !connectivityService.isInternetWalled
-            ) {
-                // 2B. for existing local files, try restarting it if possible
-                failedUpload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-                uploadsStorageManager.updateUpload(failedUpload)
+                if (conditions == UploadResult.FILE_NOT_FOUND) {
+                    showNotExistMessage = true
+                }
+                continue
             }
+
+            failedUpload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
+            uploadsStorageManager.updateUpload(failedUpload)
+
         }
 
-        accountManager.accounts.forEach {
-            val user = accountManager.getUser(it.name)
+        accountNames.forEach {
+            val user = accountManager.getUser(it)
             if (user.isPresent) backgroundJobManager.startFilesUploadJob(user.get())
         }
 
@@ -216,11 +226,52 @@ class FileUploadHelper {
         return upload.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS
     }
 
-    private fun canUploadBeRetried(upload: OCUpload, gotWifi: Boolean, isCharging: Boolean): Boolean {
-        val file = File(upload.localPath)
-        val needsWifi = upload.isUseWifiOnly
-        val needsCharging = upload.isWhileChargingOnly
-        return file.exists() && (!needsWifi || gotWifi) && (!needsCharging || isCharging)
+    private fun checkConnectivity(connectivityService: ConnectivityService): Boolean {
+        // check that internet is not behind walled garden
+        return connectivityService.getConnectivity().isConnected && !connectivityService.isInternetWalled()
+
+    }
+
+    /**
+     * Dupe of [UploadFileOperation.checkConditions], needed to check if the upload should even be scheduled
+     * @return [UploadResult.UPLOADED] if the upload should be scheduled, otherwise the reason why it shouldn't
+     */
+    private fun checkUploadConditions(
+        upload: OCUpload,
+        connectivity: Connectivity,
+        battery: BatteryStatus,
+        powerManagementService: PowerManagementService,
+        hasGeneralConnection: Boolean
+    ): UploadResult {
+
+        var conditions = UploadResult.UPLOADED
+
+        // check that internet is available
+        if (!hasGeneralConnection) {
+            conditions = UploadResult.NETWORK_CONNECTION
+        }
+
+        // check that local file exists and skip the upload otherwise
+        if (!File(upload.localPath).exists()){
+            conditions = UploadResult.FILE_NOT_FOUND
+        }
+
+        // check that connectivity conditions are met and skip the upload otherwise
+        if (upload.isUseWifiOnly && (!connectivity.isWifi || connectivity.isMetered)) {
+            conditions = UploadResult.DELAYED_FOR_WIFI
+        }
+
+        // check if charging conditions are met and delays the upload otherwise
+        if (upload.isWhileChargingOnly && (!battery.isCharging || !battery.isFull)){
+            conditions = UploadResult.DELAYED_FOR_CHARGING
+        }
+
+        // check that device is not in power save mode
+        if (powerManagementService.isPowerSavingEnabled) {
+            conditions = UploadResult.DELAYED_IN_POWER_SAVE_MODE
+        }
+
+        return conditions
     }
 
     @Suppress("ReturnCount")
