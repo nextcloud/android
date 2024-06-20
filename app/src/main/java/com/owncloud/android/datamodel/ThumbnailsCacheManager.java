@@ -286,8 +286,12 @@ public final class ThumbnailsCacheManager {
         protected Bitmap doInBackground(Object... params) {
             Bitmap thumbnail;
 
-            file = (OCFile) params[0];
+            if (params == null || params.length == 0 || !(params[0] instanceof OCFile)) {
+                Log_OC.d(TAG, "Downloaded file is null or is not an instance of OCFile");
+                return null;
+            }
 
+            file = (OCFile) params[0];
 
             if (file.getRemoteId() != null || file.isPreviewAvailable()) {
                 // Thumbnail in cache?
@@ -335,6 +339,7 @@ public final class ThumbnailsCacheManager {
                 }
             }
 
+            Log_OC.d(TAG, "File cannot be previewed");
             return null;
         }
 
