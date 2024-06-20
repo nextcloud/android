@@ -289,7 +289,7 @@ public final class ThumbnailsCacheManager {
             file = (OCFile) params[0];
 
 
-            if (file.getRemoteId() != null && file.isPreviewAvailable()) {
+            if (file.getRemoteId() != null || file.isPreviewAvailable()) {
                 // Thumbnail in cache?
                 thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
                     ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getRemoteId()
@@ -1423,9 +1423,10 @@ public final class ThumbnailsCacheManager {
                 }
             }
 
-            // resized dimensions
+            // resized dimensions and set update thumbnail needed to false to prevent rendering loop
             if (thumbnail != null) {
                 file.setImageDimension(new ImageDimension(thumbnail.getWidth(), thumbnail.getHeight()));
+                file.setUpdateThumbnailNeeded(false);
                 storageManager.saveFile(file);
             }
         }
