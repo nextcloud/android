@@ -14,6 +14,7 @@
  */
 package com.owncloud.android.ui.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -108,6 +109,7 @@ import com.owncloud.android.utils.EncryptionUtilsV2;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -131,6 +133,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -521,12 +524,29 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void directCameraUpload() {
         FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) getActivity();
 
-        if (fileDisplayActivity != null) {
-            fileDisplayActivity.getFileOperationsHelper()
-                .uploadFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA);
-        } else {
+        if (fileDisplayActivity == null) {
             DisplayUtils.showSnackMessage(getView(), getString(R.string.error_starting_direct_camera_upload));
+            return;
         }
+
+        if (!PermissionUtil.checkSelfPermission(fileDisplayActivity, Manifest.permission.CAMERA)) {
+            PermissionUtil.requestCameraPermission(fileDisplayActivity, PermissionUtil.PERMISSIONS_CAMERA);
+            return;
+        }
+
+        showDirectCameraUploadAlertDialog(fileDisplayActivity);
+    }
+
+    private void showDirectCameraUploadAlertDialog(FileDisplayActivity fileDisplayActivity) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(fileDisplayActivity);
+        AlertDialog dialog = builder.setIcon(R.mipmap.ic_launcher)
+            .setTitle(R.string.upload_direct_camera_promt)
+            .setNegativeButton(R.string.upload_direct_camera_video, (iface, id) ->
+                fileDisplayActivity.getFileOperationsHelper().uploadFromCamera(fileDisplayActivity,FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA, true))
+            .setPositiveButton(R.string.upload_direct_camera_photo, (iface, id) ->
+                fileDisplayActivity.getFileOperationsHelper().uploadFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA, false))
+            .create();
+        dialog.show();
     }
 
     @Override

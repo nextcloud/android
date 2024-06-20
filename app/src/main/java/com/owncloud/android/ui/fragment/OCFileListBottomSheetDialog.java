@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.gson.Gson;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
@@ -75,12 +76,12 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         binding = FileListActionsBottomSheetFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        viewThemeUtils.platform.colorImageView(binding.menuIconUploadFiles);
-        viewThemeUtils.platform.colorImageView(binding.menuIconUploadFromApp);
-        viewThemeUtils.platform.colorImageView(binding.menuIconDirectCameraUpload);
-        viewThemeUtils.platform.colorImageView(binding.menuIconScanDocUpload);
-        viewThemeUtils.platform.colorImageView(binding.menuIconMkdir);
-        viewThemeUtils.platform.colorImageView(binding.menuIconAddFolderInfo);
+        viewThemeUtils.platform.colorImageView(binding.menuIconUploadFiles, ColorRole.PRIMARY);
+        viewThemeUtils.platform.colorImageView(binding.menuIconUploadFromApp, ColorRole.PRIMARY);
+        viewThemeUtils.platform.colorImageView(binding.menuIconDirectCameraUpload, ColorRole.PRIMARY);
+        viewThemeUtils.platform.colorImageView(binding.menuIconScanDocUpload, ColorRole.PRIMARY);
+        viewThemeUtils.platform.colorImageView(binding.menuIconMkdir, ColorRole.PRIMARY);
+        viewThemeUtils.platform.colorImageView(binding.menuIconAddFolderInfo, ColorRole.PRIMARY);
 
         binding.addToCloud.setText(getContext().getResources().getString(R.string.add_to_cloud,
                                                                          themeUtils.getDefaultDisplayNameForRootFolder(getContext())));
