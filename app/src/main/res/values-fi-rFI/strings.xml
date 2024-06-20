@@ -824,6 +824,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="upload_cannot_create_file">Paikallista tiedostoa ei voi luoda</string>
     <string name="upload_chooser_title">Lähetä…</string>
     <string name="upload_content_from_other_apps">Lähetä sisältöä toisista sovelluksista</string>
+    <string name="upload_direct_camera_photo">Kuva</string>
     <string name="upload_direct_camera_upload">Lähetä kamerasta</string>
     <string name="upload_file_dialog_filename">Tiedostonimi</string>
     <string name="upload_file_dialog_filetype">Tiedostotyyppi</string>
