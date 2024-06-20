@@ -67,8 +67,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     private GalleryFragmentBottomSheetDialog galleryFragmentBottomSheetDialog;
 
     @Inject FileDataStorageManager fileDataStorageManager;
-    private final int maxColumnSizeLandscape = 5;
-    private final int maxColumnSizePortrait = 2;
+    private final static int maxColumnSizeLandscape = 5;
+    private final static int maxColumnSizePortrait = 2;
     private int columnSize;
 
     protected void setPhotoSearchQueryRunning(boolean value) {
