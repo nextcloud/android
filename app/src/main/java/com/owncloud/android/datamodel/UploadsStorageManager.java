@@ -471,7 +471,7 @@ public class UploadsStorageManager extends Observable {
         return getUploadPage(QUERY_PAGE_SIZE, afterId, true, selection, selectionArgs);
     }
 
-    private String getInProgressUploadsSelection() {
+    private String getInProgressAndDelayedUploadsSelection() {
         return "( " + ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_IN_PROGRESS.value +
             OR + ProviderTableMeta.UPLOADS_LAST_RESULT +
             EQUAL + UploadResult.DELAYED_FOR_WIFI.getValue() +
@@ -485,7 +485,7 @@ public class UploadsStorageManager extends Observable {
     }
 
     public int getTotalUploadSize(@Nullable String... selectionArgs) {
-        final String selection = getInProgressUploadsSelection();
+        final String selection = getInProgressAndDelayedUploadsSelection();
         int totalSize = 0;
 
         Cursor cursor = getDB().query(
@@ -605,8 +605,13 @@ public class UploadsStorageManager extends Observable {
     }
 
     public OCUpload[] getCurrentAndPendingUploadsForAccount(final @NonNull String accountName) {
-        String inProgressUploadsSelection = getInProgressUploadsSelection();
+        String inProgressUploadsSelection = getInProgressAndDelayedUploadsSelection();
         return getUploads(inProgressUploadsSelection, accountName);
+    }
+
+    public OCUpload[] getCurrentUploadsForAccount(final @NonNull String accountName) {
+        return getUploads(ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_IN_PROGRESS.value + AND +
+                              ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, accountName);
     }
 
     /**
@@ -615,7 +620,7 @@ public class UploadsStorageManager extends Observable {
      * If <code>afterId</code> is -1, returns the first page
      */
     public List<OCUpload> getCurrentAndPendingUploadsForAccountPageAscById(final long afterId, final @NonNull String accountName) {
-        final String selection = getInProgressUploadsSelection();
+        final String selection = getInProgressAndDelayedUploadsSelection();
         return getUploadPage(QUERY_PAGE_SIZE, afterId, false, selection, accountName);
     }
 
