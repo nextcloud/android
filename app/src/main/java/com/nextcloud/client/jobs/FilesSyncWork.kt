@@ -182,7 +182,7 @@ class FilesSyncWork(
         } else {
             // Check every file in synced folder for changes and update
             // filesystemDataProvider database (potentially needs a long time)
-            FilesSyncHelper.insertAllDBEntries(syncedFolder, powerManagementService)
+            FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
         }
     }
 
