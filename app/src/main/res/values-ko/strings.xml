@@ -846,7 +846,9 @@
     <string name="upload_cannot_create_file">로컬 파일을 만들 수 없음</string>
     <string name="upload_chooser_title">다음에서 업로드…</string>
     <string name="upload_content_from_other_apps">다른 앱에서 자료 업로드</string>
+    <string name="upload_direct_camera_photo">사진</string>
     <string name="upload_direct_camera_upload">카메라에서 업로드</string>
+    <string name="upload_direct_camera_video">영상</string>
     <string name="upload_file_dialog_filename">파일 이름</string>
     <string name="upload_file_dialog_filetype">파일 형식</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google 지도 바로 가기 파일(%s)</string>

@@ -904,6 +904,7 @@
     <string name="upload_chooser_title">Uaslódáil ó…</string>
     <string name="upload_content_from_other_apps">Uaslódáil ábhar ó apps eile</string>
     <string name="upload_direct_camera_upload">Íosluchtaigh ó ceamara</string>
+    <string name="upload_direct_camera_video">Físeán</string>
     <string name="upload_file_dialog_filename">Ainm comhaid</string>
     <string name="upload_file_dialog_filetype">Cineál comhaid</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Comhad aicearra Google Maps(%s)</string>

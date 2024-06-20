@@ -903,6 +903,7 @@
     <string name="upload_cannot_create_file">Не могу да направим локални фајл</string>
     <string name="upload_chooser_title">Отпреми из…</string>
     <string name="upload_content_from_other_apps">Отпрема садржај из других апликација</string>
+    <string name="upload_direct_camera_photo">Фотографија</string>
     <string name="upload_direct_camera_upload">Отпреми са камере</string>
     <string name="upload_file_dialog_filename">Назив фајла</string>
     <string name="upload_file_dialog_filetype">Тип фајла</string>
