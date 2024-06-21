@@ -321,6 +321,7 @@
     <string name="error_showing_encryption_dialog">Earráid agus dialóg socraithe criptithe á taispeáint!</string>
     <string name="error_starting_direct_camera_upload">Earráid agus ceamara á thosú</string>
     <string name="error_starting_doc_scan">Earráid agus scanadh doiciméad á thosú</string>
+    <string name="error_uploading_direct_camera_upload">Theip ar uaslódáil na meán glactha</string>
     <string name="etm_accounts">Cuntais</string>
     <string name="etm_background_execution_count">Ritheann amanna i 48h</string>
     <string name="etm_background_job_created">Cruthaithe</string>
@@ -903,6 +904,8 @@
     <string name="upload_cannot_create_file">Ní féidir comhad áitiúil a chruthú</string>
     <string name="upload_chooser_title">Uaslódáil ó…</string>
     <string name="upload_content_from_other_apps">Uaslódáil ábhar ó apps eile</string>
+    <string name="upload_direct_camera_photo">Grianghraf</string>
+    <string name="upload_direct_camera_promt">Ar mhaith leat grianghraf nó físeán a ghlacadh?</string>
     <string name="upload_direct_camera_upload">Íosluchtaigh ó ceamara</string>
     <string name="upload_direct_camera_video">Físeán</string>
     <string name="upload_file_dialog_filename">Ainm comhaid</string>

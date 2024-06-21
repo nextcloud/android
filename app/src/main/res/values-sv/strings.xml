@@ -321,6 +321,7 @@
     <string name="error_showing_encryption_dialog">Det gick inte att visa dialogrutan för krypteringsinställningar!</string>
     <string name="error_starting_direct_camera_upload">Fel vid start av kamera</string>
     <string name="error_starting_doc_scan">Fel vid start av dokumentskanning</string>
+    <string name="error_uploading_direct_camera_upload">Kunde inte ladda upp tagen media</string>
     <string name="etm_accounts">Konton</string>
     <string name="etm_background_execution_count">Antal körningar på 48 timmar</string>
     <string name="etm_background_job_created">Skapat</string>
@@ -904,7 +905,10 @@
     <string name="upload_cannot_create_file">Kan inte skapa lokal fil</string>
     <string name="upload_chooser_title">Ladda upp från…</string>
     <string name="upload_content_from_other_apps">Ladda upp innehåll från andra appar</string>
+    <string name="upload_direct_camera_photo">Bild</string>
+    <string name="upload_direct_camera_promt">Vill du ta en bild eller en film?</string>
     <string name="upload_direct_camera_upload">Ladda upp från kamera</string>
+    <string name="upload_direct_camera_video">Film</string>
     <string name="upload_file_dialog_filename">Filnamn</string>
     <string name="upload_file_dialog_filetype">Filtyp</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Kartor-genväg(%s)</string>
