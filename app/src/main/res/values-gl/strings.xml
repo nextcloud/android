@@ -321,6 +321,7 @@
     <string name="error_showing_encryption_dialog">Produciuse un erro ao amosar o diálogo de configuración do cifrado!</string>
     <string name="error_starting_direct_camera_upload">Produciuse un erro ao iniciar a cámara</string>
     <string name="error_starting_doc_scan">Produciuse un erro ao iniciar o escaneamento do documento</string>
+    <string name="error_uploading_direct_camera_upload">Produciuse un fallo ao cargar os medios tomados</string>
     <string name="etm_accounts">Contas</string>
     <string name="etm_background_execution_count">Veces executado en 48h</string>
     <string name="etm_background_job_created">Creado</string>
@@ -904,7 +905,10 @@
     <string name="upload_cannot_create_file">Non é posíbel crear o ficheiro local</string>
     <string name="upload_chooser_title">Enviar dende…</string>
     <string name="upload_content_from_other_apps">Enviar contido dende outras aplicacións</string>
+    <string name="upload_direct_camera_photo">Foto</string>
+    <string name="upload_direct_camera_promt">Confirma que quere facer unha foto ou un vídeo?</string>
     <string name="upload_direct_camera_upload">Enviar dende a cámara</string>
+    <string name="upload_direct_camera_video">Vídeo</string>
     <string name="upload_file_dialog_filename">Nome de ficheiro</string>
     <string name="upload_file_dialog_filetype">Tipo de ficheiro</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Ficheiro(%s) de atallo a Google Maps</string>

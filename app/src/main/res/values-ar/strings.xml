@@ -321,6 +321,7 @@
     <string name="error_showing_encryption_dialog">خطأ في عرض حوار تجهيز التشفير</string>
     <string name="error_starting_direct_camera_upload">خطأ في تشغيل الكاميرا</string>
     <string name="error_starting_doc_scan">خطأ في بدء مسح المستند</string>
+    <string name="error_uploading_direct_camera_upload">تعذّر تحميل الوسائط المأخوذة</string>
     <string name="etm_accounts">الحسابات</string>
     <string name="etm_background_execution_count">أوقات التشغيل خلال 48 ساعة</string>
     <string name="etm_background_job_created">أُنشِئَ</string>
@@ -929,7 +930,10 @@
     <string name="upload_cannot_create_file">لا يمكن إنشاء ملف محلي</string>
     <string name="upload_chooser_title">الرفع من…</string>
     <string name="upload_content_from_other_apps">تحميل محتوى من تطبيقات أخرى</string>
+    <string name="upload_direct_camera_photo">الصِّوَر</string>
+    <string name="upload_direct_camera_promt">هل ترغب في التقاط صورة أو فيديو؟</string>
     <string name="upload_direct_camera_upload">حمّل مِن آلة التصوير</string>
+    <string name="upload_direct_camera_video">الفيديو</string>
     <string name="upload_file_dialog_filename">اسم الملف</string>
     <string name="upload_file_dialog_filetype">نوع الملف</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">ملف اختصار خرائط Google (%s)</string>

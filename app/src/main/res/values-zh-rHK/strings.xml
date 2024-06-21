@@ -321,6 +321,7 @@
     <string name="error_showing_encryption_dialog">顯示加密設定對話方塊時發生錯誤！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">文件掃描開始時出錯</string>
+    <string name="error_uploading_direct_camera_upload">上傳拍攝的媒體失敗</string>
     <string name="etm_accounts">帳戶</string>
     <string name="etm_background_execution_count">時段運行在48小時內</string>
     <string name="etm_background_job_created">創建於</string>
@@ -903,6 +904,8 @@
     <string name="upload_cannot_create_file">無法建立近端檔案</string>
     <string name="upload_chooser_title">上傳自…</string>
     <string name="upload_content_from_other_apps">從其它應用程式上傳</string>
+    <string name="upload_direct_camera_photo">照片</string>
+    <string name="upload_direct_camera_promt">你想拍照還是錄影？</string>
     <string name="upload_direct_camera_upload">從相機上傳</string>
     <string name="upload_direct_camera_video">影片</string>
     <string name="upload_file_dialog_filename">檔案名稱</string>
