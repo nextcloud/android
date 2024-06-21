@@ -55,7 +55,9 @@ public class CreateShareViaLinkOperation extends SyncOperation {
         RemoteOperationResult<List<OCShare>> result = createOp.execute(client);
 
         if (result.isSuccess()) {
-            if (!result.getResultData().isEmpty()) {
+            if (result.getResultData().isEmpty()) {
+                result = new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
+            } else {
                 OCShare item = result.getResultData().get(0);
                 if (item != null) {
                     updateData(item);
@@ -64,8 +66,6 @@ public class CreateShareViaLinkOperation extends SyncOperation {
                     result = new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
                     result.setResultData(data);
                 }
-            } else {
-                result = new RemoteOperationResult<>(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND);
             }
         }
 
