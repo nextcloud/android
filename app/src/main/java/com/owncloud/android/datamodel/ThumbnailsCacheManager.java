@@ -65,7 +65,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.ref.WeakReference;
-import java.net.URLEncoder;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -73,7 +72,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.res.ResourcesCompat;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import kotlin.text.Charsets;
 
 /**
  * Manager for concurrent access to thumbnails cache.
@@ -705,8 +703,9 @@ public final class ThumbnailsCacheManager {
                                 // thumbnail
                                 String uri;
                                 if (file instanceof OCFile) {
-                                    uri = mClient.getBaseUri() + "/index.php/apps/files/api/v1/thumbnail/" +
-                                        pxW + "/" + pxH + Uri.encode(file.getRemotePath(), "/");
+                                    uri = mClient.getBaseUri() + "/index.php/core/preview?fileId="
+                                        + file.getLocalId()
+                                        + "&x=" + pxW + "&y=" + pxH + "&a=1&mode=cover&forceIcon=0";
                                 } else {
                                     uri = mClient.getBaseUri() + "/index.php/apps/files_trashbin/preview?fileId=" +
                                         file.getLocalId() + "&x=" + pxW + "&y=" + pxH;
@@ -1388,8 +1387,8 @@ public final class ThumbnailsCacheManager {
                 if (mClient != null) {
                     GetMethod getMethod = null;
                     try {
-                        String uri = mClient.getBaseUri() + "/index.php/core/preview.png?file="
-                            + URLEncoder.encode(file.getRemotePath(), Charsets.UTF_8.name())
+                        String uri = mClient.getBaseUri() + "/index.php/core/preview?fileId="
+                            + file.getRemoteId()
                             + "&x=" + (pxW / 2) + "&y=" + (pxH / 2) + "&a=1&mode=cover&forceIcon=0";
                         Log_OC.d(TAG, "generate resized image: " + file.getFileName() + " URI: " + uri);
                         getMethod = new GetMethod(uri);
