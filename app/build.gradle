@@ -429,7 +429,7 @@ dependencies {
 configurations.configureEach {
     resolutionStrategy {
         cacheChangingModulesFor 0, 'seconds'
-        force 'org.objenesis:objenesis:3.3'
+        force 'org.objenesis:objenesis:3.4'
         eachDependency { details ->
             if ('org.jacoco' == details.requested.group) {
                 details.useVersion "$jacoco_version"
