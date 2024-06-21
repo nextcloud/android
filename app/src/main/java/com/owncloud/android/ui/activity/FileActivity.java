@@ -790,11 +790,14 @@ public abstract class FileActivity extends DrawerActivity
             String link = "";
             OCFile file = null;
             for (Object object : result.getData()) {
-                OCShare shareLink = (OCShare) object;
-                if (TAG_PUBLIC_LINK.equalsIgnoreCase(shareLink.getShareType().name())) {
-                    link = shareLink.getShareLink();
-                    file = getStorageManager().getFileByPath(shareLink.getPath());
-                    break;
+                if (object instanceof OCShare shareLink) {
+                    ShareType shareType = shareLink.getShareType();
+
+                    if (shareType != null && TAG_PUBLIC_LINK.equalsIgnoreCase(shareType.name())) {
+                        link = shareLink.getShareLink();
+                        file = getStorageManager().getFileByEncryptedRemotePath(shareLink.getPath());
+                        break;
+                    }
                 }
             }
 

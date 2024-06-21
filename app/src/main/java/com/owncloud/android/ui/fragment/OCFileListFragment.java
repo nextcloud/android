@@ -1389,7 +1389,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public void updateOCFile(OCFile file) {
         List<OCFile> mFiles = mAdapter.getFiles();
-        mFiles.set(mFiles.indexOf(file), file);
+        int index = mFiles.indexOf(file);
+        if (index == -1) {
+            Log_OC.d(TAG, "File cannot be found in adapter's files");
+            return;
+        }
+
+        mFiles.set(index, file);
         mAdapter.notifyItemChanged(file);
     }
 
