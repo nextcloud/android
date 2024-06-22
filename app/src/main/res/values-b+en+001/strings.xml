@@ -321,6 +321,7 @@
     <string name="error_showing_encryption_dialog">Error showing encryption setup dialogue!</string>
     <string name="error_starting_direct_camera_upload">Error starting camera</string>
     <string name="error_starting_doc_scan">Error starting document scan</string>
+    <string name="error_uploading_direct_camera_upload">Failed to upload taken media</string>
     <string name="etm_accounts">Accounts</string>
     <string name="etm_background_execution_count">Times run in 48h</string>
     <string name="etm_background_job_created">Created</string>
@@ -903,11 +904,10 @@
     <string name="upload_cannot_create_file">Cannot create local file</string>
     <string name="upload_chooser_title">Upload from…</string>
     <string name="upload_content_from_other_apps">Upload content from other apps</string>
-    <string name="upload_direct_camera_upload">Upload from camera</string>
-    <string name="upload_direct_camera_promt">Do you want to take a photo or video?</string>
     <string name="upload_direct_camera_photo">Photo</string>
+    <string name="upload_direct_camera_promt">Do you want to take a photo or video?</string>
+    <string name="upload_direct_camera_upload">Upload from camera</string>
     <string name="upload_direct_camera_video">Video</string>
-    <string name="error_uploading_direct_camera_upload">Failed to upload taken media</string>
     <string name="upload_file_dialog_filename">Filename</string>
     <string name="upload_file_dialog_filetype">Filetype</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps shortcut file(%s)</string>

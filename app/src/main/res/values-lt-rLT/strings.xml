@@ -747,6 +747,7 @@
     <string name="upload_cannot_create_file">Nepavyksta sukurti vietinį failą</string>
     <string name="upload_chooser_title">Įkelti iš…</string>
     <string name="upload_content_from_other_apps">Įkelti turinį iš kitų programėlių</string>
+    <string name="upload_direct_camera_photo">Nuotrauka</string>
     <string name="upload_direct_camera_upload">Įkelti iš kameros</string>
     <string name="upload_file_dialog_filename">Failo pavadinimas</string>
     <string name="upload_file_dialog_filetype">Failo tipas</string>

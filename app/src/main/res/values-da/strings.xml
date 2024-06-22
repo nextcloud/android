@@ -865,6 +865,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="upload_cannot_create_file">Kan ikke oprette filen lokalt</string>
     <string name="upload_chooser_title">Sender fra...</string>
     <string name="upload_content_from_other_apps">Send indhold fra andre apps</string>
+    <string name="upload_direct_camera_photo">Foto</string>
     <string name="upload_direct_camera_upload">Send fra kamera</string>
     <string name="upload_file_dialog_filename">Filnavn</string>
     <string name="upload_file_dialog_filetype">Filtype</string>

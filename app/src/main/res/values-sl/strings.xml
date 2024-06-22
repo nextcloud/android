@@ -836,6 +836,7 @@
     <string name="upload_cannot_create_file">Krajevne datoteke ni mogoče ustvariti</string>
     <string name="upload_chooser_title">Pošlji iz …</string>
     <string name="upload_content_from_other_apps">Pošlji vsebino iz drugih programov</string>
+    <string name="upload_direct_camera_photo">Slika</string>
     <string name="upload_direct_camera_upload">Pošlji s kamere</string>
     <string name="upload_file_dialog_filename">Ime datoteke</string>
     <string name="upload_file_dialog_filetype">Vrsta datoteke</string>

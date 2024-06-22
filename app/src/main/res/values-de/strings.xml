@@ -321,6 +321,7 @@
     <string name="error_showing_encryption_dialog">Fehler beim Anzeigen des Setup-Dialogs für Verschlüsselung!</string>
     <string name="error_starting_direct_camera_upload">Fehler beim Starten der Kamera</string>
     <string name="error_starting_doc_scan">Start des Dokumentenscans fehlgeschlagen</string>
+    <string name="error_uploading_direct_camera_upload">Fehler beim Hochladen aufgenommener Medien</string>
     <string name="etm_accounts">Konten</string>
     <string name="etm_background_execution_count">Zeit gelaufen in 48 Stunden</string>
     <string name="etm_background_job_created">Erzeugt</string>
@@ -903,11 +904,10 @@
     <string name="upload_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
     <string name="upload_chooser_title">Dateien hochladen von…</string>
     <string name="upload_content_from_other_apps">Inhalt anderer Apps hochladen</string>
-    <string name="upload_direct_camera_upload">Von Kamera hochladen</string>
-    <string name="upload_direct_camera_promt">Möchten Sie ein Foto oder Video aufnehmen?</string>
     <string name="upload_direct_camera_photo">Foto</string>
+    <string name="upload_direct_camera_promt">Möchten Sie ein Foto oder ein Video aufnehmen?</string>
+    <string name="upload_direct_camera_upload">Von Kamera hochladen</string>
     <string name="upload_direct_camera_video">Video</string>
-    <string name="error_uploading_direct_camera_upload">Hochladen von Medien fehlgeschlagen</string>
     <string name="upload_file_dialog_filename">Dateiname</string>
     <string name="upload_file_dialog_filetype">Dateityp</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps Abkürzungs-Datei (%s)</string>

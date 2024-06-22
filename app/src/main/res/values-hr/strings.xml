@@ -768,6 +768,7 @@
     <string name="upload_cannot_create_file">Nije moguće stvoriti lokalnu datoteku</string>
     <string name="upload_chooser_title">Otpremi iz...</string>
     <string name="upload_content_from_other_apps">Otpremi sadržaj iz drugih aplikacija</string>
+    <string name="upload_direct_camera_photo">Fotografija</string>
     <string name="upload_direct_camera_upload">Otpremanje iz kamere</string>
     <string name="upload_file_dialog_filename">Naziv datoteke</string>
     <string name="upload_file_dialog_filetype">Vrsta datoteke</string>

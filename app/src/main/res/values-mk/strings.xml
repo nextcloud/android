@@ -695,6 +695,7 @@
     <string name="upload_chooser_title">Прикачи од…</string>
     <string name="upload_content_from_other_apps">Прикачете содржина од други апликации</string>
     <string name="upload_direct_camera_upload">Прикачи од камерата</string>
+    <string name="upload_direct_camera_video">Видео</string>
     <string name="upload_file_dialog_filename">Име на датотека</string>
     <string name="upload_file_dialog_filetype">Вид на датотека</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Датотека со врска до Google Maps(%s)</string>

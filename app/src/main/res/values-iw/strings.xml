@@ -689,6 +689,7 @@
     <string name="upload_cannot_create_file">לא ניתן ליצור קובץ מקומי</string>
     <string name="upload_chooser_title">העלאה מהמיקום…</string>
     <string name="upload_content_from_other_apps">העלאת תוכן מיישומונים אחרים</string>
+    <string name="upload_direct_camera_photo">תמונה</string>
     <string name="upload_direct_camera_upload">העלאה מהמצלמה</string>
     <string name="upload_file_dialog_filename">שם קובץ</string>
     <string name="upload_file_dialog_filetype">סוג קובץ</string>
