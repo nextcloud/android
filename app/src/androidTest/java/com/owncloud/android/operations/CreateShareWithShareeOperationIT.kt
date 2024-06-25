@@ -8,7 +8,6 @@
 package com.owncloud.android.operations
 
 import com.owncloud.android.AbstractOnServerIT
-import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
 import org.junit.Assert.assertFalse
@@ -19,9 +18,8 @@ class CreateShareWithShareeOperationIT : AbstractOnServerIT() {
     @Test
     fun testCreateShare() {
         val remotePath = "/share/"
-        assertTrue(CreateFolderRemoteOperation(remotePath, true).execute(client).isSuccess)
-
-        assertFalse(fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)?.isSharedWithSharee == true)
+        assertTrue(CreateFolderOperation(remotePath, user, targetContext, storageManager).execute(client).isSuccess)
+        assertFalse(storageManager.getFileByDecryptedRemotePath(remotePath)!!.isSharedWithSharee)
         
         assertTrue(
             CreateShareWithShareeOperation(
@@ -41,6 +39,6 @@ class CreateShareWithShareeOperationIT : AbstractOnServerIT() {
                 .isSuccess
         )
 
-        assertFalse(fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)?.isSharedWithSharee == true)
+        assertTrue(storageManager.getFileByDecryptedRemotePath(remotePath)!!.isSharedWithSharee)
     }
 }

@@ -7,7 +7,6 @@
 package com.owncloud.android.operations
 
 import com.owncloud.android.AbstractOnServerIT
-import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -17,15 +16,15 @@ class CreateShareViaLinkOperationIT : AbstractOnServerIT() {
     fun createShare() {
         val remotePath = "/share/"
         val password = "12345"
-        assertTrue(CreateFolderRemoteOperation(remotePath, true).execute(client).isSuccess)
+        assertTrue(CreateFolderOperation(remotePath, user, targetContext, storageManager).execute(client).isSuccess)
 
-        assertFalse(fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)?.isSharedViaLink == true)
+        assertFalse(storageManager.getFileByDecryptedRemotePath(remotePath)!!.isSharedViaLink)
 
         assertTrue(
             CreateShareViaLinkOperation(remotePath, password, storageManager).execute(nextcloudClient)
                 .isSuccess
         )
 
-        assertFalse(fileDataStorageManager.getFileByDecryptedRemotePath(remotePath)?.isSharedViaLink == true)
+        assertTrue(storageManager.getFileByDecryptedRemotePath(remotePath)!!.isSharedViaLink)
     }
 }
