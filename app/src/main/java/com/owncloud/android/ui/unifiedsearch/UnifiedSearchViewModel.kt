@@ -94,14 +94,6 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         )
     }
 
-    open fun startLoading(query: String) {
-        if (!loadingStarted) {
-            loadingStarted = true
-            this.query.value = query
-            initialQuery()
-        }
-    }
-
     /**
      * Clears data and queries all available providers
      */
@@ -183,10 +175,6 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
             )
             runner.postQuickTask(task, onResult = this::onFileRequestResult)
         }
-    }
-
-    open fun clearError() {
-        error.value = ""
     }
 
     fun onError(error: Throwable) {
