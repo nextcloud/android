@@ -47,7 +47,7 @@
     <string name="assistant_screen_loading">Estase a cargar a lista de tarefas, agarde</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">Non hai ningunha tarefa dispoñíbel. Seleccione un tipo de tarefa para crear unha nova tarefa.</string>
     <string name="assistant_screen_no_task_available_text">Non hai ningunha tarefa dispoñible para o tipo de tarefa %s, pode crear unha nova dende a parte inferior dereita.</string>
-    <string name="assistant_screen_running_task_text">En progreso</string>
+    <string name="assistant_screen_running_task_text">En proceso</string>
     <string name="assistant_screen_scheduled_task_status_text">Programado</string>
     <string name="assistant_screen_successful_task_text">Completado</string>
     <string name="assistant_screen_task_create_fail_message">Produciuse un erro ao crear a tarefa</string>
