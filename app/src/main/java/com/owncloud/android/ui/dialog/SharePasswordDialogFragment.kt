@@ -112,7 +112,7 @@ class SharePasswordDialogFragment : DialogFragment(), Injectable {
         binding = PasswordDialogBinding.inflate(inflater, null, false)
 
         // Setup layout
-        binding?.sharePassword?.setText("")
+        binding?.sharePassword?.setText(R.string.empty)
         viewThemeUtils?.material?.colorTextInputLayout(binding!!.sharePasswordContainer)
 
         val neutralButtonTextId: Int

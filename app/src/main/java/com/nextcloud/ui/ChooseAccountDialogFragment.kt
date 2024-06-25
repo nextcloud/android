@@ -227,7 +227,7 @@ class ChooseAccountDialogFragment :
 
         binding.currentAccount.status.let {
             if (newStatus.message.isNullOrBlank()) {
-                it.text = ""
+                it.text = getString(R.string.empty)
                 it.visibility = View.GONE
             } else {
                 it.text = newStatus.message
