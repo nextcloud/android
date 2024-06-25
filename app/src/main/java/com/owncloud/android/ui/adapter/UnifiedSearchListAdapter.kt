@@ -103,14 +103,16 @@ class UnifiedSearchListAdapter(
     }
 
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder, section: Int, expanded: Boolean) {
-        val headerViewHolder = holder as UnifiedSearchHeaderViewHolder
-        headerViewHolder.bind(sections[section])
+        (holder as UnifiedSearchHeaderViewHolder).run {
+            bind(sections[section])
+        }
     }
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder, section: Int) {
         if (sections[section].hasMoreResults) {
-            val footerViewHolder = holder as UnifiedSearchFooterViewHolder
-            footerViewHolder.bind(sections[section])
+            (holder as UnifiedSearchFooterViewHolder).run {
+                bind(sections[section])
+            }
         }
     }
 
@@ -126,17 +128,19 @@ class UnifiedSearchListAdapter(
         absolutePosition: Int
     ) {
         // TODO different binding (and also maybe diff UI) for non-file results
-        val itemViewHolder = holder as UnifiedSearchItemViewHolder
-        val entry = sections[section].entries[relativePosition]
-        itemViewHolder.bind(entry)
+        (holder as UnifiedSearchItemViewHolder).run {
+            val entry = sections[section].entries[relativePosition]
+            bind(entry)
+        }
     }
 
     override fun onViewAttachedToWindow(holder: SectionedViewHolder) {
         if (holder is UnifiedSearchItemViewHolder) {
-            val thumbnailShimmer = holder.binding.thumbnailShimmer
-            if (thumbnailShimmer.visibility == View.VISIBLE) {
-                thumbnailShimmer.setImageResource(R.drawable.background)
-                thumbnailShimmer.resetLoader()
+            holder.binding.thumbnailShimmer.run {
+                if (visibility == View.VISIBLE) {
+                    setImageResource(R.drawable.background)
+                    resetLoader()
+                }
             }
         }
     }
