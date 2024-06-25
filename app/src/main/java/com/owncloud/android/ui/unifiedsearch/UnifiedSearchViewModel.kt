@@ -30,7 +30,6 @@ import javax.inject.Inject
 class UnifiedSearchViewModel(application: Application) : AndroidViewModel(application), IUnifiedSearchViewModel {
     companion object {
         private const val TAG = "UnifiedSearchViewModel"
-        private const val DEFAULT_LIMIT = 5
         private const val FILES_PROVIDER_ID = "files"
     }
 
@@ -39,17 +38,6 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
     ) {
         fun nextCursor(): Int? = results.lastOrNull()?.cursor?.toInt()
         fun name(): String? = results.lastOrNull()?.name
-        fun isFinished(): Boolean {
-            if (results.isEmpty()) {
-                return false
-            }
-            val lastResult = results.last()
-            return when {
-                !lastResult.isPaginated -> true
-                lastResult.entries.size < DEFAULT_LIMIT -> true
-                else -> false
-            }
-        }
     }
 
     private lateinit var currentAccountProvider: CurrentAccountProvider
@@ -62,7 +50,6 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         get() = getApplication<Application>().applicationContext
 
     private lateinit var repository: IUnifiedSearchRepository
-    private var loadingStarted: Boolean = false
     private var results: MutableMap<ProviderID, UnifiedSearchMetadata> = mutableMapOf()
 
     override val isLoading = MutableLiveData(false)
@@ -201,11 +188,13 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         searchResults.value = results
             .filter { it.value.results.isNotEmpty() }
             .map { (key, value) ->
+                val hasMoreResults = results.isNotEmpty() && results[key]?.nextCursor() != null
+
                 UnifiedSearchSection(
                     providerID = key,
                     name = value.name()!!,
                     entries = value.results.flatMap { it.entries },
-                    hasMoreResults = !value.isFinished()
+                    hasMoreResults = hasMoreResults
                 )
             }
             .sortedWith { o1, o2 ->
