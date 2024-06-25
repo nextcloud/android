@@ -485,7 +485,8 @@ public class UploadsStorageManager extends Observable {
     }
 
     public int getTotalUploadSize(@Nullable String... selectionArgs) {
-        final String selection = getInProgressAndDelayedUploadsSelection();
+        final String selection = ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_IN_PROGRESS.value +
+            AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL;
         int totalSize = 0;
 
         Cursor cursor = getDB().query(
@@ -613,6 +614,13 @@ public class UploadsStorageManager extends Observable {
         return getUploads(ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_IN_PROGRESS.value + AND +
                               ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL, accountName);
     }
+
+    public List<OCUpload> getCurrentUploadsForAccountPageAscById(final long afterId, final @NonNull String accountName) {
+        final String selection = ProviderTableMeta.UPLOADS_STATUS + EQUAL + UploadStatus.UPLOAD_IN_PROGRESS.value +
+            AND + ProviderTableMeta.UPLOADS_ACCOUNT_NAME + IS_EQUAL;
+        return getUploadPage(QUERY_PAGE_SIZE, afterId, false, selection, accountName);
+    }
+
 
     /**
      * Gets a page of uploads after <code>afterId</code>, where uploads are sorted by ascending upload id.
