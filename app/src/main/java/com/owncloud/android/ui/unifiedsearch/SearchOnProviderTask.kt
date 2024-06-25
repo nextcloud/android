@@ -16,7 +16,7 @@ class SearchOnProviderTask(
     private val provider: String,
     private val client: NextcloudClient,
     private val cursor: Int? = null,
-    private val limit: Int = 5
+    private val limit: Int = 6
 ) : () -> SearchOnProviderTask.Result {
     companion object {
         private const val TAG = "SearchOnProviderTask"
