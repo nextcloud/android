@@ -127,7 +127,6 @@ class FileUploadHelper {
         }.map { it.name }.toHashSet()
 
         for (failedUpload in failedUploads) {
-
             if (!accountNames.contains(failedUpload.accountName)) {
                 uploadsStorageManager.removeUpload(failedUpload)
                 continue
@@ -137,7 +136,7 @@ class FileUploadHelper {
                 checkUploadConditions(failedUpload, connectivity, battery, powerManagementService, hasGeneralConnection)
 
             if (conditions != UploadResult.UPLOADED) {
-                if (failedUpload.lastResult != conditions){
+                if (failedUpload.lastResult != conditions) {
                     failedUpload.lastResult = conditions
                     uploadsStorageManager.updateUpload(failedUpload)
                 }
@@ -149,7 +148,6 @@ class FileUploadHelper {
 
             failedUpload.uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
             uploadsStorageManager.updateUpload(failedUpload)
-
         }
 
         accountNames.forEach {
@@ -229,7 +227,6 @@ class FileUploadHelper {
     private fun checkConnectivity(connectivityService: ConnectivityService): Boolean {
         // check that internet is not behind walled garden
         return connectivityService.getConnectivity().isConnected && !connectivityService.isInternetWalled()
-
     }
 
     /**
@@ -243,7 +240,6 @@ class FileUploadHelper {
         powerManagementService: PowerManagementService,
         hasGeneralConnection: Boolean
     ): UploadResult {
-
         var conditions = UploadResult.UPLOADED
 
         // check that internet is available
@@ -252,7 +248,7 @@ class FileUploadHelper {
         }
 
         // check that local file exists and skip the upload otherwise
-        if (!File(upload.localPath).exists()){
+        if (!File(upload.localPath).exists()) {
             conditions = UploadResult.FILE_NOT_FOUND
         }
 
@@ -262,7 +258,7 @@ class FileUploadHelper {
         }
 
         // check if charging conditions are met and delays the upload otherwise
-        if (upload.isWhileChargingOnly && !battery.isCharging && !battery.isFull){
+        if (upload.isWhileChargingOnly && !battery.isCharging && !battery.isFull) {
             conditions = UploadResult.DELAYED_FOR_CHARGING
         }
 
