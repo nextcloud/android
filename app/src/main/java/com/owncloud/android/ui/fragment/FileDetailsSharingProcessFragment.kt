@@ -402,7 +402,7 @@ class FileDetailsSharingProcessFragment :
             binding.noteText.setText(share?.note)
         } else {
             binding.shareProcessBtnNext.text = requireContext().resources.getString(R.string.send_share)
-            binding.noteText.setText("")
+            binding.noteText.setText(R.string.empty)
         }
         shareProcessStep = SCREEN_TYPE_NOTE
     }
@@ -447,7 +447,7 @@ class FileDetailsSharingProcessFragment :
     private fun showChangeNameInput(isChecked: Boolean) {
         binding.shareProcessChangeNameContainer.visibility = if (isChecked) View.VISIBLE else View.GONE
         if (!isChecked) {
-            binding.shareProcessChangeName.setText("")
+            binding.shareProcessChangeName.setText(R.string.empty)
         }
     }
 
@@ -474,7 +474,7 @@ class FileDetailsSharingProcessFragment :
         // reset the expiration date if switch is unchecked
         if (!isChecked) {
             chosenExpDateInMills = -1
-            binding.shareProcessSelectExpDate.text = ""
+            binding.shareProcessSelectExpDate.text = getString(R.string.empty)
         }
     }
 
@@ -483,7 +483,7 @@ class FileDetailsSharingProcessFragment :
 
         // reset the password if switch is unchecked
         if (!isChecked) {
-            binding.shareProcessEnterPassword.setText("")
+            binding.shareProcessEnterPassword.setText(R.string.empty)
         }
     }
 

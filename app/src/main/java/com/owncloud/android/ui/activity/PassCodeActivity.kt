@@ -188,7 +188,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
                     passCodeDigits?.set(passCodeIndex - 1, "")
                 }
 
-                passCodeEditTexts[passCodeIndex - 1]?.setText("")
+                passCodeEditTexts[passCodeIndex - 1]?.setText(R.string.empty)
 
                 changed = false
             } else if (!changed) {
