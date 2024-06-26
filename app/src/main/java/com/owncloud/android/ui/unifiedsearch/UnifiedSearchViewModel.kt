@@ -43,7 +43,6 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
                 null
             }
         }
-
         fun name(): String? = results.lastOrNull()?.name
     }
 
@@ -197,11 +196,13 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         searchResults.value = results
             .filter { it.value.results.isNotEmpty() }
             .map { (key, value) ->
+                val isLastEntryHaveValue = results[key]?.results?.last()?.entries?.isEmpty() != true
+
                 UnifiedSearchSection(
                     providerID = key,
                     name = value.name()!!,
                     entries = value.results.flatMap { it.entries },
-                    hasMoreResults = results.isNotEmpty() && results[key]?.nextCursor() != null
+                    hasMoreResults = isLastEntryHaveValue && results[key]?.nextCursor() != null
                 )
             }
             .sortedWith { o1, o2 ->
