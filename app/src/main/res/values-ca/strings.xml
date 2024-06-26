@@ -797,6 +797,7 @@
     <string name="upload_cannot_create_file">No s\'ha pogut crear el fitxer local</string>
     <string name="upload_chooser_title">Pujada des de…</string>
     <string name="upload_content_from_other_apps">Pujada de contingut des d\'altres aplicacions</string>
+    <string name="upload_direct_camera_photo">Fotografia</string>
     <string name="upload_direct_camera_upload">Pujada des de la càmera</string>
     <string name="upload_file_dialog_filename">Nom de fitxer</string>
     <string name="upload_file_dialog_filetype">Tipus de fitxer</string>
@@ -813,6 +814,7 @@
     <string name="upload_local_storage_full">L\'emmagatzematge local és ple</string>
     <string name="upload_local_storage_not_copied">El fitxer no es pot copiar a l\'emmagatzematge local</string>
     <string name="upload_lock_failed">Ha fallat el blocatge de la carpeta</string>
+    <string name="upload_manually_cancelled">L\'usuari ha cancel·lat la pujada</string>
     <string name="upload_old_android">El xifratge només és possible amb &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">L\'espai insuficient evita la còpia dels fitxers seleccionats a la carpeta %1$s. Els hi voleu moure?</string>
     <string name="upload_scan_doc_upload">Escaneja el document des de la càmera</string>
