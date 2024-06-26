@@ -10,838 +10,866 @@
  * SPDX-FileCopyrightText: 2013-2015 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.preview;
+package com.owncloud.android.ui.preview
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.PictureDrawable;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Process;
-import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-
-import com.caverock.androidsvg.SVG;
-import com.caverock.androidsvg.SVGParseException;
-import com.github.chrisbanes.photoview.PhotoView;
-import com.google.android.material.snackbar.Snackbar;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.ExtensionsKt;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.PreviewImageFragmentBinding;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
-import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
-import com.owncloud.android.ui.fragment.FileFragment;
-import com.owncloud.android.utils.BitmapUtils;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.MimeType;
-import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import javax.annotation.Nullable;
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.StringRes;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import pl.droidsonroids.gif.GifDrawable;
-
-import static com.owncloud.android.datamodel.ThumbnailsCacheManager.PREFIX_THUMBNAIL;
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.graphics.drawable.LayerDrawable
+import android.graphics.drawable.PictureDrawable
+import android.os.AsyncTask
+import android.os.Bundle
+import android.os.Process
+import android.util.DisplayMetrics
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.LinearLayout
+import androidx.annotation.StringRes
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import com.caverock.androidsvg.SVG
+import com.caverock.androidsvg.SVGParseException
+import com.github.chrisbanes.photoview.PhotoView
+import com.google.android.material.snackbar.Snackbar
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
+import com.nextcloud.utils.extensions.clickWithDebounce
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.databinding.PreviewImageFragmentBinding
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncResizedImageDrawable
+import com.owncloud.android.datamodel.ThumbnailsCacheManager.ResizedImageGenerationTask
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.dialog.ConfirmationDialogFragment
+import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
+import com.owncloud.android.ui.fragment.FileFragment
+import com.owncloud.android.ui.preview.PreviewMediaFragment.Companion.newInstance
+import com.owncloud.android.utils.BitmapUtils
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.MimeType
+import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
+import pl.droidsonroids.gif.GifDrawable
+import java.io.FileInputStream
+import java.io.FileNotFoundException
+import java.io.IOException
+import java.lang.ref.WeakReference
+import javax.inject.Inject
+import kotlin.math.max
+import kotlin.math.min
 
 /**
  * This fragment shows a preview of a downloaded image.
- * Trying to get an instance with a NULL {@link OCFile} will produce an {@link IllegalStateException}.
- * If the {@link OCFile} passed is not downloaded, an {@link IllegalStateException} is generated on instantiation too.
+ * Trying to get an instance with a NULL [OCFile] will produce an [IllegalStateException].
+ * If the [OCFile] passed is not downloaded, an [IllegalStateException] is generated on instantiation too.
  */
-public class PreviewImageFragment extends FileFragment implements Injectable {
 
-    private static final String EXTRA_FILE = "FILE";
-    private static final String EXTRA_ZOOM = "ZOOM";
+/**
+ * Creates an empty fragment for image previews.
+ *
+ *
+ * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
+ * device is turned a aside).
+ *
+ *
+ * DO NOT CALL IT: an [OCFile] and [User] must be provided for a successful construction
+ */
 
-    private static final String ARG_FILE = "FILE";
-    private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
-    private static final String ARG_SHOW_RESIZED_IMAGE = "SHOW_RESIZED_IMAGE";
-    private static final String MIME_TYPE_PNG = "image/png";
-    private static final String MIME_TYPE_GIF = "image/gif";
-    private static final String MIME_TYPE_SVG = "image/svg+xml";
+@Suppress("TooManyFunctions")
+class PreviewImageFragment : FileFragment(), Injectable {
+    private var showResizedImage: Boolean? = null
+    private var bitmap: Bitmap? = null
 
-    private Boolean showResizedImage;
-    private Bitmap bitmap;
+    private var ignoreFirstSavedState = false
+    private var loadBitmapTask: LoadBitmapTask? = null
 
-    private static final String TAG = PreviewImageFragment.class.getSimpleName();
+    @Inject
+    lateinit var connectivityService: ConnectivityService
 
-    private boolean ignoreFirstSavedState;
-    private LoadBitmapTask loadBitmapTask;
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
-    @Inject ConnectivityService connectivityService;
-    @Inject UserAccountManager accountManager;
-    @Inject BackgroundJobManager backgroundJobManager;
-    @Inject ViewThemeUtils viewThemeUtils;
+    @Inject
+    lateinit var backgroundJobManager: BackgroundJobManager
 
-    private PreviewImageFragmentBinding binding;
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-    /**
-     * Public factory method to create a new fragment that previews an image.
-     * <p>
-     * Android strongly recommends keep the empty constructor of fragments as the only public constructor, and use
-     * {@link #setArguments(Bundle)} to set the needed arguments.
-     * <p>
-     * This method hides to client objects the need of doing the construction in two steps.
-     *
-     * @param imageFile             An {@link OCFile} to preview as an image in the fragment
-     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of { FragmentStateAdapter } ;
-     *                                                           TODO better solution
-     */
-    public static PreviewImageFragment newInstance(@NonNull OCFile imageFile,
-                                                   boolean ignoreFirstSavedState,
-                                                   boolean showResizedImage) {
-        PreviewImageFragment frag = new PreviewImageFragment();
-        frag.showResizedImage = showResizedImage;
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_FILE, imageFile);
-        args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
-        args.putBoolean(ARG_SHOW_RESIZED_IMAGE, showResizedImage);
-        frag.setArguments(args);
-        return frag;
-    }
+    private lateinit var binding: PreviewImageFragmentBinding
 
-    /**
-     * Creates an empty fragment for image previews.
-     * <p>
-     * MUST BE KEPT: the system uses it when tries to re-instantiate a fragment automatically (for instance, when the
-     * device is turned a aside).
-     * <p>
-     * DO NOT CALL IT: an {@link OCFile} and {@link User} must be provided for a successful construction
-     */
-    public PreviewImageFragment() {
-        ignoreFirstSavedState = false;
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val args = arguments ?: throw IllegalArgumentException("Arguments may not be null!")
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Bundle args = getArguments();
+        file = args.getParcelableArgument(ARG_FILE, OCFile::class.java)
 
-        if (args == null) {
-            throw new IllegalArgumentException("Arguments may not be null!");
-        }
-
-        setFile(BundleExtensionsKt.getParcelableArgument(args, ARG_FILE, OCFile.class));
         // TODO better in super, but needs to check ALL the class extending FileFragment;
         // not right now
-
-        ignoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
-        showResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE);
-        setHasOptionsMenu(true);
+        ignoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST)
+        showResizedImage = args.getBoolean(ARG_SHOW_RESIZED_IMAGE)
     }
 
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
 
-        binding = PreviewImageFragmentBinding.inflate(inflater, container, false);
-        View view = binding.getRoot();
+        binding = PreviewImageFragmentBinding.inflate(inflater, container, false)
 
-        binding.image.setVisibility(View.GONE);
+        binding.image.visibility = View.GONE
+        binding.root.setOnClickListener { togglePreviewImageFullScreen() }
+        binding.image.setOnClickListener { togglePreviewImageFullScreen() }
 
-        view.setOnClickListener(v -> togglePreviewImageFullScreen());
+        checkLivePhotoAvailability()
+        setMultiListLoadingMessage()
 
-        binding.image.setOnClickListener(v -> togglePreviewImageFullScreen());
-        checkLivePhotoAvailability();
-        setMultiListLoadingMessage();
-
-        return view;
+        return binding.root
     }
 
-    private void checkLivePhotoAvailability() {
-        OCFile livePhotoVideo = getFile().livePhotoVideo;
+    @Suppress("MagicNumber")
+    private fun checkLivePhotoAvailability() {
+        val livePhotoVideo = file.livePhotoVideo ?: return
 
-        if (livePhotoVideo == null) return;
-
-        binding.livePhotoIndicator.setVisibility(View.VISIBLE);
-        ExtensionsKt.clickWithDebounce(binding.livePhotoIndicator, 4000L, () -> {
-            playLivePhoto(livePhotoVideo);
-            return null;
-        });
+        binding.livePhotoIndicator.visibility = View.VISIBLE
+        clickWithDebounce(binding.livePhotoIndicator, 4000L) {
+            playLivePhoto(livePhotoVideo)
+        }
     }
 
-    private void hideActionBar() {
-        PreviewImageActivity activity = (PreviewImageActivity) requireActivity();
-        activity.toggleActionBarVisibility(true);
+    private fun hideActionBar() {
+        (requireActivity() as PreviewImageActivity).run {
+            toggleActionBarVisibility(true)
+        }
     }
 
-    private void playLivePhoto(OCFile file) {
+    private fun playLivePhoto(file: OCFile?) {
         if (file == null) {
-            return;
+            return
         }
 
-        hideActionBar();
+        hideActionBar()
 
-        Fragment mediaFragment = PreviewMediaFragment.newInstance(file, accountManager.getUser(), 0, true, true);
-        FragmentManager fragmentManager = requireActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.top, mediaFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
+        val mediaFragment: Fragment = newInstance(file, accountManager.user, 0, true, true)
+        val fragmentManager = requireActivity().supportFragmentManager
+        fragmentManager.beginTransaction().run {
+            replace(R.id.top, mediaFragment)
+            addToBackStack(null)
+            commit()
+        }
     }
 
     /**
      * {@inheritDoc}
      */
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    @Suppress("ReturnCount")
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         if (savedInstanceState == null) {
-            Log_OC.d(TAG, "savedInstanceState is null");
-            return;
+            Log_OC.d(TAG, "savedInstanceState is null")
+            return
         }
 
         if (ignoreFirstSavedState) {
-            Log_OC.d(TAG, "Saved state ignored");
-            ignoreFirstSavedState = false;
-            return;
+            Log_OC.d(TAG, "Saved state ignored")
+            ignoreFirstSavedState = false
+            return
         }
 
-        OCFile file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_FILE, OCFile.class);
+        val file = savedInstanceState.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
         if (file == null) {
-            Log_OC.d(TAG, "file cannot be found inside the savedInstanceState");
-            return;
+            Log_OC.d(TAG, "file cannot be found inside the savedInstanceState")
+            return
         }
 
-        setFile(file);
+        setFile(file)
 
-        float maxScale = binding.image.getMaximumScale();
-        float minScale = binding.image.getMinimumScale();
-        float savedScale = savedInstanceState.getFloat(EXTRA_ZOOM);
+        val maxScale = binding.image.maximumScale
+        val minScale = binding.image.minimumScale
+        var savedScale = savedInstanceState.getFloat(EXTRA_ZOOM)
 
         if (savedScale < minScale || savedScale > maxScale) {
-            Log_OC.d(TAG, "Saved scale " + savedScale + " is out of bounds, setting to default scale.");
-            savedScale = Math.min(maxScale, Math.max(minScale, savedScale));
+            Log_OC.d(TAG, "Saved scale $savedScale is out of bounds, setting to default scale.")
+            savedScale = min(maxScale.toDouble(), max(minScale.toDouble(), savedScale.toDouble()))
+                .toFloat()
         }
 
         try {
-            binding.image.setScale(savedScale);
-        } catch (IllegalArgumentException e) {
-            Log_OC.d(TAG, "Error caught at setScale: " + e);
+            binding.image.scale = savedScale
+        } catch (e: IllegalArgumentException) {
+            Log_OC.d(TAG, "Error caught at setScale: $e")
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putFloat(EXTRA_ZOOM, binding.image.getScale());
-        outState.putParcelable(EXTRA_FILE, getFile());
+        outState.putFloat(EXTRA_ZOOM, binding.image.scale)
+        outState.putParcelable(EXTRA_FILE, file)
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (getFile() != null) {
-            binding.image.setTag(getFile().getFileId());
+    override fun onStart() {
+        super.onStart()
 
-            Point screenSize = DisplayUtils.getScreenSize(getActivity());
-            int width = screenSize.x;
-            int height = screenSize.y;
+        if (file == null) {
+            showErrorMessage(R.string.preview_image_error_no_local_file)
+            return
+        }
 
-            // show thumbnail while loading image
-            binding.image.setVisibility(View.GONE);
-            binding.emptyListProgress.setVisibility(View.VISIBLE);
+        binding.image.tag = file.fileId
 
-            Bitmap thumbnail = getThumbnailBitmap(getFile());
-            if (thumbnail != null) {
-                binding.shimmer.setVisibility(View.VISIBLE);
-                binding.shimmerThumbnail.setImageBitmap(thumbnail);
-                binding.image.setVisibility(View.GONE);
-                bitmap = thumbnail;
-            } else {
-                thumbnail = ThumbnailsCacheManager.mDefaultImg;
-            }
+        val screenSize = DisplayUtils.getScreenSize(activity)
+        val width = screenSize.x
+        val height = screenSize.y
 
-            if (showResizedImage) {
-                Bitmap resizedImage = getResizedBitmap(getFile(), width, height);
+        // show thumbnail while loading image
+        binding.image.visibility = View.GONE
+        binding.emptyListProgress.visibility = View.VISIBLE
 
-                if (resizedImage != null && !getFile().isUpdateThumbnailNeeded()) {
-                    binding.image.setImageBitmap(resizedImage);
-                    binding.image.setVisibility(View.VISIBLE);
-                    binding.emptyListView.setVisibility(View.GONE);
-                    binding.emptyListProgress.setVisibility(View.GONE);
-                    binding.image.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
-
-                    bitmap = resizedImage;
-                } else {
-                    // generate new resized image
-                    if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(getFile(), binding.image) &&
-                        containerActivity.getStorageManager() != null) {
-                        final ThumbnailsCacheManager.ResizedImageGenerationTask task =
-                            new ThumbnailsCacheManager.ResizedImageGenerationTask(this,
-                                                                                  binding.image,
-                                                                                  binding.emptyListProgress,
-                                                                                  containerActivity.getStorageManager(),
-                                                                                  connectivityService,
-                                                                                  containerActivity.getStorageManager().getUser(),
-                                                                                  getResources().getColor(R.color.background_color_inverse)
-                            );
-                        if (resizedImage == null) {
-                            resizedImage = thumbnail;
-                        }
-                        final ThumbnailsCacheManager.AsyncResizedImageDrawable asyncDrawable =
-                            new ThumbnailsCacheManager.AsyncResizedImageDrawable(
-                                MainApp.getAppContext().getResources(),
-                                resizedImage,
-                                task
-                            );
-                        binding.image.setImageDrawable(asyncDrawable);
-                        task.execute(getFile());
-                    }
-                }
-            } else {
-                loadBitmapTask = new LoadBitmapTask(binding.image, binding.emptyListView, binding.emptyListProgress);
-                binding.image.setVisibility(View.GONE);
-                binding.emptyListView.setVisibility(View.GONE);
-                binding.emptyListProgress.setVisibility(View.VISIBLE);
-                loadBitmapTask.execute(getFile());
-            }
+        var thumbnail = getThumbnailBitmap(file)
+        if (thumbnail != null) {
+            binding.shimmer.visibility = View.VISIBLE
+            binding.shimmerThumbnail.setImageBitmap(thumbnail)
+            binding.image.visibility = View.GONE
+            bitmap = thumbnail
         } else {
-            showErrorMessage(R.string.preview_image_error_no_local_file);
+            thumbnail = ThumbnailsCacheManager.mDefaultImg
+        }
+
+        if (showResizedImage == true) {
+            adjustResizedImage(thumbnail, width, height)
+        } else {
+            loadBitmapTask = LoadBitmapTask(binding.image, binding.emptyListView, binding.emptyListProgress)
+            binding.image.visibility = View.GONE
+            binding.emptyListView.visibility = View.GONE
+            binding.emptyListProgress.visibility = View.VISIBLE
+            loadBitmapTask?.execute(file)
         }
     }
 
-    private @Nullable
-    Bitmap getResizedBitmap(OCFile file, int width, int height) {
-        Bitmap cachedImage = null;
-        int scaledWidth = width;
-        int scaledHeight = height;
+    private fun adjustResizedImage(thumbnail: Bitmap?, width: Int, height: Int) {
+        var resizedImage = getResizedBitmap(file, width, height)
 
-        for (int i = 0; i < 3 && cachedImage == null; i++) {
+        if (resizedImage != null && !file.isUpdateThumbnailNeeded) {
+            binding.image.setImageBitmap(resizedImage)
+            binding.image.visibility = View.VISIBLE
+            binding.emptyListView.visibility = View.GONE
+            binding.emptyListProgress.visibility = View.GONE
+            binding.image.setBackgroundColor(resources.getColor(R.color.background_color_inverse))
+
+            bitmap = resizedImage
+        } else {
+            // generate new resized image
+            if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, binding.image) &&
+                containerActivity.storageManager != null
+            ) {
+                val task =
+                    ResizedImageGenerationTask(
+                        this,
+                        binding.image,
+                        binding.emptyListProgress,
+                        containerActivity.storageManager,
+                        connectivityService,
+                        containerActivity.storageManager.user,
+                        resources.getColor(R.color.background_color_inverse)
+                    )
+                if (resizedImage == null) {
+                    resizedImage = thumbnail
+                }
+                val asyncDrawable =
+                    AsyncResizedImageDrawable(
+                        MainApp.getAppContext().resources,
+                        resizedImage,
+                        task
+                    )
+                binding.image.setImageDrawable(asyncDrawable)
+                task.execute(file)
+            }
+        }
+    }
+
+    @Suppress("MagicNumber")
+    private fun getResizedBitmap(file: OCFile, width: Int, height: Int): Bitmap? {
+        var cachedImage: Bitmap? = null
+        var scaledWidth = width
+        var scaledHeight = height
+
+        var i = 0
+        while (i < 3 && cachedImage == null) {
             try {
                 cachedImage = ThumbnailsCacheManager.getScaledBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getRemoteId(),
+                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.remoteId,
                     scaledWidth,
-                    scaledHeight);
-            } catch (OutOfMemoryError e) {
-                scaledWidth = scaledWidth / 2;
-                scaledHeight = scaledHeight / 2;
+                    scaledHeight
+                )
+            } catch (e: OutOfMemoryError) {
+                scaledWidth /= 2
+                scaledHeight /= 2
             }
+            i++
         }
 
-        return cachedImage;
+        return cachedImage
     }
 
-    private @Nullable
-    Bitmap getThumbnailBitmap(OCFile file) {
-        return ThumbnailsCacheManager.getBitmapFromDiskCache(PREFIX_THUMBNAIL + file.getRemoteId());
+    private fun getThumbnailBitmap(file: OCFile): Bitmap? {
+        return ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId)
     }
 
-    @Override
-    public void onStop() {
-        Log_OC.d(TAG, "onStop starts");
-        if (loadBitmapTask != null) {
-            loadBitmapTask.cancel(true);
-            loadBitmapTask = null;
-        }
-        super.onStop();
+    override fun onStop() {
+        Log_OC.d(TAG, "onStop starts")
+        loadBitmapTask?.cancel(true)
+        loadBitmapTask = null
+        super.onStop()
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.custom_menu_placeholder, menu);
-        final MenuItem item = menu.findItem(R.id.custom_menu_placeholder_item);
-        item.setIcon(viewThemeUtils.platform.colorDrawable(item.getIcon(), ContextCompat.getColor(requireContext(), R.color.white)));
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val menuHost: MenuHost = requireActivity()
+        addMenuProvider(menuHost)
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.custom_menu_placeholder_item) {
-            final OCFile file = getFile();
-            if (containerActivity.getStorageManager() != null && file != null) {
-                // Update the file
-                final OCFile updatedFile = containerActivity.getStorageManager().getFileById(file.getFileId());
-                setFile(updatedFile);
+    private fun addMenuProvider(menuHost: MenuHost) {
+        menuHost.addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                    menuInflater.inflate(R.menu.custom_menu_placeholder, menu)
+                    val item = menu.findItem(R.id.custom_menu_placeholder_item)
 
-                final OCFile fileNew = getFile();
-                if (fileNew != null) {
-                    showFileActions(file);
+                    item.icon?.let {
+                        item.setIcon(
+                            viewThemeUtils.platform.colorDrawable(
+                                it,
+                                ContextCompat.getColor(requireContext(), R.color.white)
+                            )
+                        )
+                    }
                 }
-            }
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return when (menuItem.itemId) {
+                        R.id.custom_menu_placeholder_item -> {
+                            val file = file
+                            if (containerActivity.storageManager != null && file != null) {
+                                // Update the file
+                                val updatedFile = containerActivity.storageManager.getFileById(file.fileId)
+                                setFile(updatedFile)
+
+                                val fileNew = getFile()
+                                if (fileNew != null) {
+                                    showFileActions(file)
+                                }
+                            }
+                            true
+                        }
+
+                        else -> false
+                    }
+                }
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
     }
 
-    private void showFileActions(OCFile file) {
-        final List<Integer> additionalFilter = new ArrayList<>(
-            Arrays.asList(
+    private fun showFileActions(file: OCFile) {
+        val additionalFilter: MutableList<Int> = ArrayList(
+            listOf(
                 R.id.action_rename_file,
                 R.id.action_sync_file,
                 R.id.action_move_or_copy,
                 R.id.action_favorite,
                 R.id.action_unset_favorite,
                 R.id.action_pin_to_homescreen
-                         ));
-        if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
-            additionalFilter.add(R.id.action_send_share_file);
+            )
+        )
+
+        if (getFile() != null && getFile().isSharedWithMe && !getFile().canReshare()) {
+            additionalFilter.add(R.id.action_send_share_file)
         }
-        final FragmentManager fragmentManager = getChildFragmentManager();
-        FileActionsBottomSheet.newInstance(file, false, additionalFilter)
-            .setResultListener(fragmentManager, this, this::onFileActionChosen)
-            .show(fragmentManager, "actions");
+
+        val fragmentManager = childFragmentManager
+        newInstance(file, false, additionalFilter)
+            .setResultListener(fragmentManager, this) { itemId: Int -> this.onFileActionChosen(itemId) }
+            .show(fragmentManager, "actions")
     }
 
     /**
      * {@inheritDoc}
      */
-    public void onFileActionChosen(final int itemId) {
+    private fun onFileActionChosen(itemId: Int) {
         if (itemId == R.id.action_send_share_file) {
-            if (getFile().isSharedWithMe() && !getFile().canReshare()) {
-                Snackbar.make(requireView(), R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show();
+            if (file.isSharedWithMe && !file.canReshare()) {
+                Snackbar.make(requireView(), R.string.resharing_is_not_allowed, Snackbar.LENGTH_LONG).show()
             } else {
-                containerActivity.getFileOperationsHelper().sendShareFile(getFile());
+                containerActivity.fileOperationsHelper.sendShareFile(file)
             }
         } else if (itemId == R.id.action_open_file_with) {
-            openFile();
+            openFile()
         } else if (itemId == R.id.action_remove_file) {
-            RemoveFilesDialogFragment dialog = RemoveFilesDialogFragment.newInstance(getFile());
-            dialog.show(getFragmentManager(), ConfirmationDialogFragment.FTAG_CONFIRMATION);
+            val dialog = RemoveFilesDialogFragment.newInstance(file)
+            dialog.show(parentFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
         } else if (itemId == R.id.action_see_details) {
-            seeDetails();
+            seeDetails()
         } else if (itemId == R.id.action_download_file || itemId == R.id.action_sync_file) {
-            containerActivity.getFileOperationsHelper().syncFile(getFile());
-        }else if(itemId == R.id.action_cancel_sync){
-            containerActivity.getFileOperationsHelper().cancelTransference(getFile());
+            containerActivity.fileOperationsHelper.syncFile(file)
+        } else if (itemId == R.id.action_cancel_sync) {
+            containerActivity.fileOperationsHelper.cancelTransference(file)
         } else if (itemId == R.id.action_set_as_wallpaper) {
-            containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getImageView());
+            containerActivity.fileOperationsHelper.setPictureAs(file, imageView)
         } else if (itemId == R.id.action_export_file) {
-            ArrayList<OCFile> list = new ArrayList<>();
-            list.add(getFile());
-            containerActivity.getFileOperationsHelper().exportFiles(list,
-                                                                    getContext(),
-                                                                    getView(),
-                                                                    backgroundJobManager);
+            val list = ArrayList<OCFile>()
+            list.add(file)
+            containerActivity.fileOperationsHelper.exportFiles(
+                list,
+                context,
+                view,
+                backgroundJobManager
+            )
         } else if (itemId == R.id.action_edit) {
-            ((PreviewImageActivity) requireActivity()).startImageEditor(getFile());
+            (requireActivity() as PreviewImageActivity).startImageEditor(file)
         }
     }
 
-    private void seeDetails() {
-        containerActivity.showDetails(getFile());
+    private fun seeDetails() {
+        containerActivity.showDetails(file)
     }
 
     @SuppressFBWarnings("Dm")
-    @Override
-    public void onDestroy() {
-        if (bitmap != null) {
-            bitmap.recycle();
-            // putting this in onStop() is just the same; the fragment is always destroyed by
-            // {@link FragmentStatePagerAdapter} when the fragment in swiped further than the
-            // valid offscreen distance, and onStop() is never called before than that
-        }
-        super.onDestroy();
+    override fun onDestroy() {
+        bitmap?.recycle()
+        super.onDestroy()
     }
 
     /**
      * Opens the previewed image with an external application.
      */
-    private void openFile() {
-        containerActivity.getFileOperationsHelper().openFile(getFile());
-        finish();
+    private fun openFile() {
+        containerActivity.fileOperationsHelper.openFile(file)
+        finish()
     }
 
-    private class LoadBitmapTask extends AsyncTask<OCFile, Void, LoadImage> {
-        private static final int PARAMS_LENGTH = 1;
-
+    @SuppressLint("StaticFieldLeak")
+    private inner class LoadBitmapTask(imageView: PhotoView, infoView: LinearLayout, progressView: FrameLayout) :
+        AsyncTask<OCFile?, Void?, LoadImage?>() {
         /**
-         * Weak reference to the target {@link ImageView} where the bitmap will be loaded into.
-         * <p>
+         * Weak reference to the target [ImageView] where the bitmap will be loaded into.
+         *
+         *
          * Using a weak reference will avoid memory leaks if the target ImageView is retired from memory before the load
          * finishes.
          */
-        private final WeakReference<PhotoView> imageViewRef;
-        private final WeakReference<LinearLayout> infoViewRef;
-        private final WeakReference<FrameLayout> progressViewRef;
+        private val imageViewRef = WeakReference(imageView)
+        private val infoViewRef = WeakReference(infoView)
+        private val progressViewRef = WeakReference(progressView)
 
         /**
          * Error message to show when a load fails.
          */
-        private int mErrorMessageId;
+        private var mErrorMessageId = 0
+        private val paramsLength = 1
 
-        /**
-         * Constructor.
-         *
-         * @param imageView Target {@link ImageView} where the bitmap will be loaded into.
-         */
-        LoadBitmapTask(PhotoView imageView, LinearLayout infoView, FrameLayout progressView) {
-            imageViewRef = new WeakReference<>(imageView);
-            infoViewRef = new WeakReference<>(infoView);
-            progressViewRef = new WeakReference<>(progressView);
-        }
+        @Suppress("TooGenericExceptionCaught", "MagicNumber", "ReturnCount", "LongMethod", "NestedBlockDepth")
+        @Deprecated("Deprecated in Java")
+        override fun doInBackground(vararg params: OCFile?): LoadImage? {
+            Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND + Process.THREAD_PRIORITY_MORE_FAVORABLE)
 
-        @Override
-        protected LoadImage doInBackground(OCFile... params) {
-            Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND + Process.THREAD_PRIORITY_MORE_FAVORABLE);
-
-            if (params.length != PARAMS_LENGTH) {
-                return null;
+            if (params.size != paramsLength) {
+                return null
             }
 
-            Bitmap bitmapResult = null;
-            Drawable drawableResult = null;
-            OCFile ocFile = params[0];
-            String storagePath = ocFile.getStoragePath();
+            var bitmapResult: Bitmap? = null
+            var drawableResult: Drawable? = null
+            val ocFile = params[0] ?: return null
+            val storagePath = ocFile.storagePath
             try {
-                int maxDownScale = 3;   // could be a parameter passed to doInBackground(...)
-                Point screenSize = DisplayUtils.getScreenSize(getActivity());
-                int minWidth = screenSize.x;
-                int minHeight = screenSize.y;
-                for (int i = 0; i < maxDownScale && bitmapResult == null && drawableResult == null; i++) {
-
-                    if (MIME_TYPE_SVG.equalsIgnoreCase(ocFile.getMimeType())) {
-                        if (isCancelled()) {
-                            return null;
+                val maxDownScale = 3 // could be a parameter passed to doInBackground(...)
+                val screenSize = DisplayUtils.getScreenSize(activity)
+                var minWidth = screenSize.x
+                var minHeight = screenSize.y
+                var i = 0
+                while (i < maxDownScale && bitmapResult == null && drawableResult == null) {
+                    if (MIME_TYPE_SVG.equals(ocFile.mimeType, ignoreCase = true)) {
+                        if (isCancelled) {
+                            return null
                         }
 
                         try {
-                            SVG svg = SVG.getFromInputStream(new FileInputStream(storagePath));
-                            drawableResult = new PictureDrawable(svg.renderToPicture());
+                            val svg = SVG.getFromInputStream(FileInputStream(storagePath))
+                            drawableResult = PictureDrawable(svg.renderToPicture())
 
-                            if (isCancelled()) {
-                                return new LoadImage(null, drawableResult, ocFile);
+                            if (isCancelled) {
+                                return LoadImage(null, drawableResult, ocFile)
                             }
-                        } catch (FileNotFoundException e) {
-                            mErrorMessageId = R.string.common_error_unknown;
-                            Log_OC.e(TAG, "File not found trying to load " + getFile().getStoragePath(), e);
-                        } catch (SVGParseException e) {
-                            mErrorMessageId = R.string.common_error_unknown;
-                            Log_OC.e(TAG, "Couldn't parse SVG " + getFile().getStoragePath(), e);
+                        } catch (e: FileNotFoundException) {
+                            mErrorMessageId = R.string.common_error_unknown
+                            Log_OC.e(TAG, "File not found trying to load " + file.storagePath, e)
+                        } catch (e: SVGParseException) {
+                            mErrorMessageId = R.string.common_error_unknown
+                            Log_OC.e(TAG, "Couldn't parse SVG " + file.storagePath, e)
                         }
                     } else {
-                        if (isCancelled()) {
-                            return null;
+                        if (isCancelled) {
+                            return null
                         }
 
                         try {
-                            bitmapResult = BitmapUtils.decodeSampledBitmapFromFile(storagePath, minWidth,
-                                                                                   minHeight);
+                            bitmapResult = BitmapUtils.decodeSampledBitmapFromFile(
+                                storagePath, minWidth,
+                                minHeight
+                            )
 
-                            if (isCancelled()) {
-                                return new LoadImage(bitmapResult, null, ocFile);
+                            if (isCancelled) {
+                                return LoadImage(bitmapResult, null, ocFile)
                             }
 
                             if (bitmapResult == null) {
-                                mErrorMessageId = R.string.preview_image_error_unknown_format;
-                                Log_OC.e(TAG, "File could not be loaded as a bitmap: " + storagePath);
-                                break;
+                                mErrorMessageId = R.string.preview_image_error_unknown_format
+                                Log_OC.e(TAG, "File could not be loaded as a bitmap: $storagePath")
+                                break
                             } else {
-                                if (MimeType.JPEG.equalsIgnoreCase(ocFile.getMimeType())) {
+                                if (MimeType.JPEG.equals(ocFile.mimeType, ignoreCase = true)) {
                                     // Rotate image, obeying exif tag.
-                                    bitmapResult = BitmapUtils.rotateImage(bitmapResult, storagePath);
+                                    bitmapResult = BitmapUtils.rotateImage(bitmapResult, storagePath)
                                 }
                             }
-
-                        } catch (OutOfMemoryError e) {
-                            mErrorMessageId = R.string.common_error_out_memory;
+                        } catch (e: OutOfMemoryError) {
+                            mErrorMessageId = R.string.common_error_out_memory
                             if (i < maxDownScale - 1) {
-                                Log_OC.w(TAG, "Out of memory rendering file " + storagePath + " ; scaling down");
-                                minWidth = minWidth / 2;
-                                minHeight = minHeight / 2;
-
+                                Log_OC.w(TAG, "Out of memory rendering file $storagePath ; scaling down")
+                                minWidth /= 2
+                                minHeight /= 2
                             } else {
-                                Log_OC.w(TAG, "Out of memory rendering file " + storagePath + " ; failing");
+                                Log_OC.w(TAG, "Out of memory rendering file $storagePath ; failing")
                             }
-                            if (bitmapResult != null) {
-                                bitmapResult.recycle();
-                            }
-                            bitmapResult = null;
+                            bitmapResult?.recycle()
+                            bitmapResult = null
                         }
                     }
+                    i++
                 }
-
-            } catch (NoSuchFieldError e) {
-                mErrorMessageId = R.string.common_error_unknown;
-                Log_OC.e(TAG, "Error from access to non-existing field despite protection; file "
-                    + storagePath, e);
-
-            } catch (Throwable t) {
-                mErrorMessageId = R.string.common_error_unknown;
-                Log_OC.e(TAG, "Unexpected error loading " + getFile().getStoragePath(), t);
-
+            } catch (e: NoSuchFieldError) {
+                mErrorMessageId = R.string.common_error_unknown
+                Log_OC.e(
+                    TAG,
+                    "Error from access to non-existing field despite protection; file " +
+                        storagePath,
+                    e
+                )
+            } catch (t: Throwable) {
+                mErrorMessageId = R.string.common_error_unknown
+                Log_OC.e(TAG, "Unexpected error loading " + file.storagePath, t)
             }
 
-            return new LoadImage(bitmapResult, drawableResult, ocFile);
+            return LoadImage(bitmapResult, drawableResult, ocFile)
         }
 
-        @Override
-        protected void onCancelled(LoadImage result) {
-            if (result != null && result.bitmap != null) {
-                result.bitmap.recycle();
-            }
+        @Deprecated("Deprecated in Java")
+        override fun onCancelled(result: LoadImage?) {
+            result?.bitmap?.recycle()
         }
 
-        @Override
-        protected void onPostExecute(LoadImage result) {
-            if (result.bitmap != null || result.drawable != null) {
-                showLoadedImage(result);
+        @Deprecated("Deprecated in Java")
+        override fun onPostExecute(result: LoadImage?) {
+            if (result?.bitmap != null || result?.drawable != null) {
+                showLoadedImage(result)
             } else {
-                showErrorMessage(mErrorMessageId);
+                showErrorMessage(mErrorMessageId)
             }
-            if (result.bitmap != null && bitmap != result.bitmap) {
+
+            if (result?.bitmap != null && bitmap != result.bitmap) {
                 // unused bitmap, release it! (just in case)
-                result.bitmap.recycle();
+                result.bitmap.recycle()
             }
         }
 
-        private void showLoadedImage(LoadImage result) {
-            final PhotoView imageView = imageViewRef.get();
-            Bitmap bitmap = result.bitmap;
-            Drawable drawable = result.drawable;
+        private fun showLoadedImage(result: LoadImage?) {
+            val imageView = imageViewRef.get()
+            val bitmap = result?.bitmap
+            val drawable = result?.drawable
 
-            if (imageView != null) {
-                if (bitmap != null) {
-                    Log_OC.d(TAG, "Showing image with resolution " + bitmap.getWidth() + "x" +
-                        bitmap.getHeight());
+            if (imageView == null) {
+                return
+            }
 
-                    if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType()) ||
-                        MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
-                        getResources();
-                        imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap));
-                    } else {
-                        imageView.setImageBitmap(bitmap);
-                    }
+            if (bitmap != null) {
+                Log_OC.d(
+                    TAG,
+                    "Showing image with resolution " + bitmap.width + "x" +
+                        bitmap.height
+                )
 
-                    PreviewImageFragment.this.bitmap = bitmap;  // needs to be kept for recycling when not useful
+                if (MIME_TYPE_PNG.equals(result.ocFile.mimeType, ignoreCase = true) ||
+                    MIME_TYPE_GIF.equals(result.ocFile.mimeType, ignoreCase = true)
+                ) {
+                    resources
+                    imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, bitmap))
                 } else {
-                    if (drawable != null
-                        && MIME_TYPE_SVG.equalsIgnoreCase(result.ocFile.getMimeType())) {
-                        getResources();
-                        imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, null));
-                    }
-                }
-                final LinearLayout infoView = infoViewRef.get();
-                if (infoView != null) {
-                    infoView.setVisibility(View.GONE);
+                    imageView.setImageBitmap(bitmap)
                 }
 
-                final FrameLayout progressView = progressViewRef.get();
-                if (progressView != null) {
-                    progressView.setVisibility(View.GONE);
-                }
-                imageView.setBackgroundColor(getResources().getColor(R.color.background_color_inverse));
-                imageView.setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
-    private LayerDrawable generateCheckerboardLayeredDrawable(LoadImage result, Bitmap bitmap) {
-        Resources resources = getResources();
-        Drawable[] layers = new Drawable[2];
-        layers[0] = ResourcesCompat.getDrawable(resources, R.color.bg_default, null);
-        Drawable bitmapDrawable;
-
-        if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
-            bitmapDrawable = new BitmapDrawable(resources, bitmap);
-        } else if (MIME_TYPE_SVG.equalsIgnoreCase(result.ocFile.getMimeType())) {
-            bitmapDrawable = result.drawable;
-        } else if (MIME_TYPE_GIF.equalsIgnoreCase(result.ocFile.getMimeType())) {
-            try {
-                bitmapDrawable = new GifDrawable(result.ocFile.getStoragePath());
-            } catch (IOException exception) {
-                bitmapDrawable = result.drawable;
-            }
-        } else {
-            bitmapDrawable = new BitmapDrawable(resources, bitmap);
-        }
-
-        layers[1] = bitmapDrawable;
-        LayerDrawable layerDrawable = new LayerDrawable(layers);
-
-        Activity activity = getActivity();
-        if (activity != null) {
-            int bitmapWidth;
-            int bitmapHeight;
-
-            if (MIME_TYPE_PNG.equalsIgnoreCase(result.ocFile.getMimeType())) {
-                bitmapWidth = convertDpToPixel(bitmap.getWidth(), getActivity());
-                bitmapHeight = convertDpToPixel(bitmap.getHeight(), getActivity());
+                this@PreviewImageFragment.bitmap = bitmap // needs to be kept for recycling when not useful
             } else {
-                bitmapWidth = convertDpToPixel(bitmapDrawable.getIntrinsicWidth(), getActivity());
-                bitmapHeight = convertDpToPixel(bitmapDrawable.getIntrinsicHeight(), getActivity());
+                if (drawable != null &&
+                    MIME_TYPE_SVG.equals(result.ocFile.mimeType, ignoreCase = true)
+                ) {
+                    resources
+                    imageView.setImageDrawable(generateCheckerboardLayeredDrawable(result, null))
+                }
             }
-            layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight);
-            layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight);
+
+            val infoView = infoViewRef.get()
+            infoView?.visibility = View.GONE
+
+            val progressView = progressViewRef.get()
+            progressView?.visibility = View.GONE
+
+            imageView.setBackgroundColor(resources.getColor(R.color.background_color_inverse))
+            imageView.visibility = View.VISIBLE
         }
-
-        return layerDrawable;
     }
 
-    private void showErrorMessage(@StringRes int errorMessageId) {
-        setSorryMessageForMultiList(errorMessageId);
-    }
+    @Suppress("ReturnCount")
+    private fun generateCheckerboardLayeredDrawable(result: LoadImage, bitmap: Bitmap?): LayerDrawable {
+        val resources = resources
+        val layers = arrayOfNulls<Drawable>(2)
+        layers[0] = ResourcesCompat.getDrawable(resources, R.color.bg_default, null)
 
-    private void setMultiListLoadingMessage() {
-        binding.image.setVisibility(View.GONE);
-        binding.emptyListView.setVisibility(View.GONE);
-        binding.emptyListProgress.setVisibility(View.VISIBLE);
-    }
-
-    private void setSorryMessageForMultiList(@StringRes int message) {
-        binding.emptyListViewHeadline.setText(R.string.preview_sorry);
-        binding.emptyListViewText.setText(message);
-        binding.emptyListIcon.setImageResource(R.drawable.file_image);
-
-        binding.emptyListView.setBackgroundColor(getResources().getColor(R.color.bg_default));
-        binding.emptyListViewHeadline.setTextColor(getResources().getColor(R.color.standard_grey));
-        binding.emptyListViewText.setTextColor(getResources().getColor(R.color.standard_grey));
-
-        binding.image.setVisibility(View.GONE);
-        binding.emptyListView.setVisibility(View.VISIBLE);
-        binding.emptyListProgress.setVisibility(View.GONE);
-    }
-
-    public void setErrorPreviewMessage() {
-        try {
-            if (getActivity() != null) {
-                Snackbar.make(binding.emptyListView,
-                              R.string.resized_image_not_possible_download,
-                              Snackbar.LENGTH_INDEFINITE)
-                    .setAction(R.string.common_yes, v -> {
-                                   PreviewImageActivity activity = (PreviewImageActivity) getActivity();
-                                   if (activity != null) {
-                                       activity.requestForDownload(getFile());
-                                   } else if (getContext() != null) {
-                                       Snackbar.make(binding.emptyListView,
-                                                     getResources().getString(R.string.could_not_download_image),
-                                                     Snackbar.LENGTH_INDEFINITE).show();
-                                   }
-                               }
-                              ).show();
+        val bitmapDrawable =
+            if (MIME_TYPE_PNG.equals(result.ocFile.mimeType, ignoreCase = true)) {
+                BitmapDrawable(resources, bitmap)
+            } else if (MIME_TYPE_SVG.equals(result.ocFile.mimeType, ignoreCase = true)) {
+                result.drawable
+            } else if (MIME_TYPE_GIF.equals(result.ocFile.mimeType, ignoreCase = true)) {
+                try {
+                    GifDrawable(result.ocFile.storagePath)
+                } catch (exception: IOException) {
+                    result.drawable
+                }
+            } else {
+                BitmapDrawable(resources, bitmap)
             }
-        } catch (IllegalArgumentException e) {
-            Log_OC.d(TAG, e.getMessage());
+
+        layers[1] = bitmapDrawable
+        val layerDrawable = LayerDrawable(layers)
+
+        val activity: Activity? = activity
+        if (activity != null) {
+            val bitmapWidth: Int
+            val bitmapHeight: Int
+
+            if (MIME_TYPE_PNG.equals(result.ocFile.mimeType, ignoreCase = true)) {
+                if (bitmap == null) {
+                    return layerDrawable
+                }
+
+                bitmapWidth = convertDpToPixel(bitmap.width.toFloat(), getActivity())
+                bitmapHeight = convertDpToPixel(bitmap.height.toFloat(), getActivity())
+            } else {
+                if (bitmapDrawable == null) {
+                    return layerDrawable
+                }
+
+                bitmapWidth = convertDpToPixel(bitmapDrawable.intrinsicWidth.toFloat(), getActivity())
+                bitmapHeight = convertDpToPixel(bitmapDrawable.intrinsicHeight.toFloat(), getActivity())
+            }
+
+            layerDrawable.setLayerSize(0, bitmapWidth, bitmapHeight)
+            layerDrawable.setLayerSize(1, bitmapWidth, bitmapHeight)
         }
+
+        return layerDrawable
     }
 
-    public void setNoConnectionErrorMessage() {
+    private fun showErrorMessage(@StringRes errorMessageId: Int) {
+        setSorryMessageForMultiList(errorMessageId)
+    }
+
+    private fun setMultiListLoadingMessage() {
+        binding.image.visibility = View.GONE
+        binding.emptyListView.visibility = View.GONE
+        binding.emptyListProgress.visibility = View.VISIBLE
+    }
+
+    private fun setSorryMessageForMultiList(@StringRes message: Int) {
+        binding.emptyListViewHeadline.setText(R.string.preview_sorry)
+        binding.emptyListViewText.setText(message)
+        binding.emptyListIcon.setImageResource(R.drawable.file_image)
+
+        binding.emptyListView.setBackgroundColor(resources.getColor(R.color.bg_default))
+        binding.emptyListViewHeadline.setTextColor(resources.getColor(R.color.standard_grey))
+        binding.emptyListViewText.setTextColor(resources.getColor(R.color.standard_grey))
+
+        binding.image.visibility = View.GONE
+        binding.emptyListView.visibility = View.VISIBLE
+        binding.emptyListProgress.visibility = View.GONE
+    }
+
+    fun setErrorPreviewMessage() {
         try {
-            Snackbar.make(binding.emptyListView, R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show();
-        } catch (IllegalArgumentException e) {
-            Log_OC.d(TAG, e.getMessage());
+            if (activity != null) {
+                Snackbar.make(
+                    binding.emptyListView,
+                    R.string.resized_image_not_possible_download,
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                    .setAction(
+                        R.string.common_yes
+                    ) { v: View? ->
+                        val activity = activity as PreviewImageActivity?
+                        if (activity != null) {
+                            activity.requestForDownload(file)
+                        } else if (context != null) {
+                            Snackbar.make(
+                                binding.emptyListView,
+                                resources.getString(R.string.could_not_download_image),
+                                Snackbar.LENGTH_INDEFINITE
+                            ).show()
+                        }
+                    }.show()
+            }
+        } catch (e: IllegalArgumentException) {
+            Log_OC.d(TAG, e.message)
         }
     }
 
-    /**
-     * Helper method to test if an {@link OCFile} can be passed to a {@link PreviewImageFragment} to be previewed.
-     *
-     * @param file File to test if can be previewed.
-     * @return 'True' if the file can be handled by the fragment.
-     */
-    public static boolean canBePreviewed(OCFile file) {
-        return file != null && MimeTypeUtil.isImage(file);
+    fun setNoConnectionErrorMessage() {
+        try {
+            Snackbar.make(binding.emptyListView, R.string.auth_no_net_conn_title, Snackbar.LENGTH_LONG).show()
+        } catch (e: IllegalArgumentException) {
+            Log_OC.d(TAG, e.message)
+        }
     }
 
     /**
      * Finishes the preview
      */
-    private void finish() {
-        Activity container = getActivity();
-        if (container != null) {
-            container.finish();
-        }
+    private fun finish() {
+        val container: Activity? = activity
+        container?.finish()
     }
 
-    private void togglePreviewImageFullScreen() {
-        Activity activity = getActivity();
+    private fun togglePreviewImageFullScreen() {
+        val activity: Activity? = activity
 
         if (activity != null) {
-            ((PreviewImageActivity) activity).toggleFullScreen();
+            (activity as PreviewImageActivity).toggleFullScreen()
         }
-        toggleImageBackground();
+        toggleImageBackground()
     }
 
-    private void toggleImageBackground() {
-        if (getFile() != null && (MIME_TYPE_PNG.equalsIgnoreCase(getFile().getMimeType()) ||
-            MIME_TYPE_SVG.equalsIgnoreCase(getFile().getMimeType())) && getActivity() != null &&
-            getActivity() instanceof PreviewImageActivity) {
-            PreviewImageActivity previewImageActivity = (PreviewImageActivity) getActivity();
+    @Suppress("ComplexCondition")
+    private fun toggleImageBackground() {
+        if (file != null && (
+                MIME_TYPE_PNG.equals(
+                    file.mimeType,
+                    ignoreCase = true
+                ) ||
+                    MIME_TYPE_SVG.equals(file.mimeType, ignoreCase = true)
+                ) && activity != null &&
+            activity is PreviewImageActivity
+        ) {
+            val previewImageActivity = activity as PreviewImageActivity?
 
-            if (binding.image.getDrawable() instanceof LayerDrawable) {
-                LayerDrawable layerDrawable = (LayerDrawable) binding.image.getDrawable();
-                Drawable layerOne;
+            if (binding.image.drawable is LayerDrawable) {
+                val layerDrawable = binding.image.drawable as LayerDrawable
 
-                if (previewImageActivity.isSystemUIVisible()) {
-                    layerOne = ResourcesCompat.getDrawable(getResources(), R.color.bg_default, null);
+                val layerOne = if (previewImageActivity?.isSystemUIVisible == true) {
+                    ResourcesCompat.getDrawable(resources, R.color.bg_default, null)
                 } else {
-                    layerOne = ResourcesCompat.getDrawable(getResources(), R.drawable.backrepeat, null);
+                    ResourcesCompat.getDrawable(
+                        resources,
+                        R.drawable.backrepeat,
+                        null
+                    )
                 }
 
-                layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne);
+                layerDrawable.setDrawableByLayerId(layerDrawable.getId(0), layerOne)
 
-                binding.image.setImageDrawable(layerDrawable);
-                binding.image.invalidate();
+                binding.image.setImageDrawable(layerDrawable)
+                binding.image.invalidate()
             }
         }
     }
 
-    private static int convertDpToPixel(float dp, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        return (int) (dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT));
-    }
+    val imageView: PhotoView
+        get() = binding.image
 
-    public PhotoView getImageView() {
-        return binding.image;
-    }
+    private inner class LoadImage(val bitmap: Bitmap?, val drawable: Drawable?, val ocFile: OCFile)
+    companion object {
+        private const val EXTRA_FILE = "FILE"
+        private const val EXTRA_ZOOM = "ZOOM"
 
-    private class LoadImage {
-        private final Bitmap bitmap;
-        private final Drawable drawable;
-        private final OCFile ocFile;
+        private const val ARG_FILE = "FILE"
+        private const val ARG_IGNORE_FIRST = "IGNORE_FIRST"
+        private const val ARG_SHOW_RESIZED_IMAGE = "SHOW_RESIZED_IMAGE"
+        private const val MIME_TYPE_PNG = "image/png"
+        private const val MIME_TYPE_GIF = "image/gif"
+        private const val MIME_TYPE_SVG = "image/svg+xml"
 
-        LoadImage(Bitmap bitmap, Drawable drawable, OCFile ocFile) {
-            this.bitmap = bitmap;
-            this.drawable = drawable;
-            this.ocFile = ocFile;
+        private val TAG: String = PreviewImageFragment::class.java.simpleName
+
+        /**
+         * Public factory method to create a new fragment that previews an image.
+         *
+         *
+         * Android strongly recommends keep the empty constructor of fragments as the only public constructor, and use
+         * [.setArguments] to set the needed arguments.
+         *
+         *
+         * This method hides to client objects the need of doing the construction in two steps.
+         *
+         * @param imageFile             An [OCFile] to preview as an image in the fragment
+         * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of { FragmentStateAdapter } ;
+         * TODO better solution
+         */
+        fun newInstance(
+            imageFile: OCFile,
+            ignoreFirstSavedState: Boolean,
+            showResizedImage: Boolean
+        ): PreviewImageFragment {
+            val args = Bundle().apply {
+                putParcelable(ARG_FILE, imageFile)
+                putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState)
+                putBoolean(ARG_SHOW_RESIZED_IMAGE, showResizedImage)
+            }
+
+            return PreviewImageFragment().apply {
+                this.showResizedImage = showResizedImage
+                arguments = args
+            }
+        }
+
+        /**
+         * Helper method to test if an [OCFile] can be passed to a [PreviewImageFragment] to be previewed.
+         *
+         * @param file File to test if can be previewed.
+         * @return 'True' if the file can be handled by the fragment.
+         */
+        @JvmStatic
+        fun canBePreviewed(file: OCFile?): Boolean {
+            return file != null && MimeTypeUtil.isImage(file)
+        }
+
+        private fun convertDpToPixel(dp: Float, context: Context?): Int {
+            val resources = context?.resources ?: return 0
+            val metrics = resources.displayMetrics
+            return (dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)).toInt()
         }
     }
 }
