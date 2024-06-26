@@ -349,6 +349,7 @@
 
     <string name="authenticator_activity_cancel_login">Cancel Login</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
+    <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
 
     <string name="favorite">Add to favorites</string>
     <string name="unset_favorite">Remove from favorites</string>
