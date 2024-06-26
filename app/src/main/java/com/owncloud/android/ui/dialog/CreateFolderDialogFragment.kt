@@ -92,7 +92,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
         val view: View = binding.root
 
         // Setup layout
-        binding.userInput.setText("")
+        binding.userInput.setText(R.string.empty)
         viewThemeUtils?.material?.colorTextInputLayout(binding.userInputContainer)
 
         val parentFolder = requireArguments().getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)

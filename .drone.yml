@@ -36,7 +36,7 @@ services:
     image: ghcr.io/nextcloud/continuous-integration-shallow-server:latest # also change in updateScreenshots.sh
     environment:
       EVAL: true
-      SERVER_VERSION: 'stable27'
+      SERVER_VERSION: 'stable29'
     commands:
       - BRANCH="$SERVER_VERSION" /usr/local/bin/initnc.sh
       - echo 127.0.0.1 server >> /etc/hosts
@@ -48,13 +48,13 @@ services:
       - su www-data -c "php /var/www/html/occ group:add users"
       - su www-data -c "php /var/www/html/occ group:adduser users user1"
       - su www-data -c "php /var/www/html/occ group:adduser users user2"
-      - su www-data -c "git clone -b $SERVER_VERSION https://github.com/nextcloud/activity.git /var/www/html/apps/activity/"
+      - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/activity.git /var/www/html/apps/activity/"
       - su www-data -c "php /var/www/html/occ app:enable activity"
-      - su www-data -c "git clone -b $SERVER_VERSION https://github.com/nextcloud/text.git /var/www/html/apps/text/"
+      - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/text.git /var/www/html/apps/text/"
       - su www-data -c "php /var/www/html/occ app:enable text"
-      - su www-data -c "git clone -b $SERVER_VERSION https://github.com/nextcloud/end_to_end_encryption.git /var/www/html/apps/end_to_end_encryption/"
+      - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/end_to_end_encryption.git /var/www/html/apps/end_to_end_encryption/"
       - su www-data -c "php /var/www/html/occ app:enable end_to_end_encryption"
-      - su www-data -c "git clone -b $SERVER_VERSION https://github.com/nextcloud/photos.git /var/www/html/apps/photos/"
+      - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/photos.git /var/www/html/apps/photos/"
       - su www-data -c "cd /var/www/html/apps/photos; composer install"
       - su www-data -c "php /var/www/html/occ app:enable -f photos"
       - /usr/local/bin/run.sh
@@ -106,13 +106,13 @@ services:
       - su www-data -c "php /var/www/html/occ group:add users"
       - su www-data -c "php /var/www/html/occ group:adduser users user1"
       - su www-data -c "php /var/www/html/occ group:adduser users user2"
-      - su www-data -c "git clone -b master https://github.com/nextcloud/activity.git /var/www/html/apps/activity/"
+      - su www-data -c "git clone --depth 1 -b master https://github.com/nextcloud/activity.git /var/www/html/apps/activity/"
       - su www-data -c "php /var/www/html/occ app:enable activity"
-      - su www-data -c "git clone -b main https://github.com/nextcloud/text.git /var/www/html/apps/text/"
+      - su www-data -c "git clone --depth 1 -b main https://github.com/nextcloud/text.git /var/www/html/apps/text/"
       - su www-data -c "php /var/www/html/occ app:enable text"
-      - su www-data -c "git clone -b master https://github.com/nextcloud/end_to_end_encryption/  /var/www/html/apps/end_to_end_encryption/"
+      - su www-data -c "git clone --depth 1 -b master https://github.com/nextcloud/end_to_end_encryption/  /var/www/html/apps/end_to_end_encryption/"
       - su www-data -c "php /var/www/html/occ app:enable end_to_end_encryption"
-      - su www-data -c "git clone https://github.com/nextcloud/photos.git /var/www/html/apps/photos/"
+      - su www-data -c "git clone --depth 1 https://github.com/nextcloud/photos.git /var/www/html/apps/photos/"
       - su www-data -c "cd /var/www/html/apps/photos; composer install"
       - su www-data -c "php /var/www/html/occ app:enable -f photos"
       - /usr/local/bin/run.sh
@@ -183,6 +183,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: 5d64f2d46fc49a1e7dad823b7ac9c0ee3762a748ab025782a20292887607d831
+hmac: a659f1f06a609743077c77b6a07a369e55db67adbd8343fc027ac1c9473d1a43
 
 ...
