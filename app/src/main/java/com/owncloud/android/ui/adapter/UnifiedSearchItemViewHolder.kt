@@ -16,14 +16,18 @@ import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
-import com.owncloud.android.R
+import com.nextcloud.model.SearchResultEntryType
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.BitmapUtils
+import com.nextcloud.utils.CalendarEventManager
+import com.nextcloud.utils.ContactManager
+import com.nextcloud.utils.extensions.getType
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -38,12 +42,14 @@ class UnifiedSearchItemViewHolder(
     private val filesAction: FilesAction,
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils
-) :
-    SectionedViewHolder(binding.root) {
+) : SectionedViewHolder(binding.root) {
 
     interface FilesAction {
         fun showFilesAction(searchResultEntry: SearchResultEntry)
     }
+
+    private val contactManager = ContactManager(context)
+    private val calendarEventManager = CalendarEventManager(context)
 
     fun bind(entry: SearchResultEntry) {
         binding.title.text = entry.title
@@ -57,7 +63,8 @@ class UnifiedSearchItemViewHolder(
 
         val mimetype = MimeTypeUtil.getBestMimeTypeByFilename(entry.title)
 
-        val placeholder = getPlaceholder(entry, mimetype)
+        val entryType = entry.getType()
+        val placeholder = getPlaceholder(entry, entryType, mimetype)
 
         Glide.with(context).using(CustomGlideStreamLoader(user, clientFactory))
             .load(entry.thumbnailUrl)
@@ -70,35 +77,50 @@ class UnifiedSearchItemViewHolder(
 
         if (entry.isFile) {
             binding.more.visibility = View.VISIBLE
-            binding.more.setOnClickListener { filesAction.showFilesAction(entry) }
+            binding.more.setOnClickListener {
+                filesAction.showFilesAction(entry)
+            }
         } else {
             binding.more.visibility = View.GONE
         }
 
-        binding.unifiedSearchItemLayout.setOnClickListener { listInterface.onSearchResultClicked(entry) }
+        binding.unifiedSearchItemLayout.setOnClickListener {
+            searchEntryOnClick(entry, entryType)
+        }
+    }
+
+    private fun searchEntryOnClick(entry: SearchResultEntry, entryType: SearchResultEntryType) {
+        when (entryType) {
+            SearchResultEntryType.Contact -> {
+                contactManager.openContact(entry, listInterface)
+            }
+            SearchResultEntryType.CalendarEvent -> {
+                calendarEventManager.openCalendarEvent(entry, listInterface)
+            }
+            else -> {
+                listInterface.onSearchResultClicked(entry)
+            }
+        }
     }
 
     private fun getPlaceholder(
         entry: SearchResultEntry,
+        entryType: SearchResultEntryType,
         mimetype: String?
     ): Drawable {
-        val drawable = with(entry.icon) {
-            when {
-                equals("icon-folder") ->
-                    ResourcesCompat.getDrawable(context.resources, R.drawable.folder, null)
-                startsWith("icon-note") ->
-                    ResourcesCompat.getDrawable(context.resources, R.drawable.ic_edit, null)
-                startsWith("icon-contacts") ->
-                    ResourcesCompat.getDrawable(context.resources, R.drawable.file_vcard, null)
-                startsWith("icon-calendar") ->
-                    ResourcesCompat.getDrawable(context.resources, R.drawable.file_calendar, null)
-                startsWith("icon-deck") ->
-                    ResourcesCompat.getDrawable(context.resources, R.drawable.ic_deck, null)
-                else ->
-                    MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, viewThemeUtils)
-            }
+        val iconId = entryType.run {
+            getIconId()
         }
-        return viewThemeUtils.platform.tintPrimaryDrawable(context, drawable)!!
+
+        val defaultDrawable = MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, viewThemeUtils)
+
+        val drawable: Drawable = if (iconId == null) {
+            defaultDrawable
+        } else {
+            ResourcesCompat.getDrawable(context.resources, iconId, null) ?: defaultDrawable
+        }
+
+        return viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY)
     }
 
     private inner class RoundIfNeededListener(private val entry: SearchResultEntry) :

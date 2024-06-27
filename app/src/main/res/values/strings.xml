@@ -298,6 +298,9 @@
     <string name="default_credentials_wrong">Incorrect credentials</string>
     <string name="credentials_disabled">Credentials disabled</string>
 
+    <string name="unified_search_fragment_calendar_event_cannot_be_found_on_device">The calendar event cannot be found on your device. Redirecting to web…</string>
+    <string name="unified_search_fragment_contact_cannot_be_found_on_device">Contact cannot be found on your device. Redirecting to web…</string>
+
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
     <string name="pass_code_reenter_your_pass_code">Please reenter your passcode</string>
