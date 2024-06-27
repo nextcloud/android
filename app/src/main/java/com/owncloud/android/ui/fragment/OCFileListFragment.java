@@ -135,7 +135,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
