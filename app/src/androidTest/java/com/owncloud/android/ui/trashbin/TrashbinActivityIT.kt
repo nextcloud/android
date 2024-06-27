@@ -90,6 +90,7 @@ class TrashbinActivityIT : AbstractIT() {
         sut.runOnUiThread { sut.showInitialLoading() }
 
         shortSleep()
+        shortSleep()
 
         screenshot(sut.binding.listFragmentLayout)
     }
