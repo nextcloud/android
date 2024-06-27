@@ -35,21 +35,15 @@ import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.AndroidRuntimeException;
-import android.util.DisplayMetrics;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
-import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -208,7 +202,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     public static final int NO_ICON = 0;
     public static final String EMPTY_STRING = "";
-
     public static final int REQUEST_CODE_FIRST_RUN = 102;
 
     /// parameters from EXTRAs in starter Intent
@@ -394,34 +387,48 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
      * @param url The URL where the login request is to be anonymously posted.
      *            This URL should handle the login request and return the login URL.
      *            It's typically the entry point for the login process.
-     *            Example: "https://example.com/index.php/login/v2"
+     *            Example: "<a href="https://example.com/index.php/login/v2">...</a>"
      */
     private void anonymouslyPostLoginRequest(String url) {
         baseUrl = url;
 
         Thread thread = new Thread(() -> {
-            PostMethod post = new PostMethod(baseUrl, false, new FormBody.Builder().build());
+            String response = getResponseOfAnonymouslyPostLoginRequest();
 
-            PlainClient client = clientFactory.createPlainClient();
-            post.execute(client);
-            String response = post.getResponseBodyAsString();
-            JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
-            String login = jsonObject.get("login").getAsString();
-            if (login == null) {
-                login = getResources().getString(R.string.webview_login_url);
+            try {
+                JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
+                String loginUrl = getLoginUrl(jsonObject);
+                runOnUiThread(() -> launchDefaultWebBrowser(loginUrl));
+                token = jsonObject.getAsJsonObject("poll").get("token").getAsString();
+            } catch (Throwable t) {
+                Log_OC.d(TAG, "Error caught at anonymouslyPostLoginRequest: " + t);
+                DisplayUtils.showSnackMessage(this, R.string.authenticator_activity_login_error);
             }
-
-            String loginUrl = login;
-            runOnUiThread(() -> {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(loginUrl));
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-            });
-
-            token = jsonObject.getAsJsonObject("poll").get("token").getAsString();
         });
 
         thread.start();
+    }
+
+    private String getResponseOfAnonymouslyPostLoginRequest() {
+        PostMethod post = new PostMethod(baseUrl, false, new FormBody.Builder().build());
+        PlainClient client = clientFactory.createPlainClient();
+        post.execute(client);
+        return post.getResponseBodyAsString();
+    }
+
+    private String getLoginUrl(JsonObject response) {
+        String result = response.get("login").getAsString();
+        if (result == null) {
+            result = getResources().getString(R.string.webview_login_url);
+        }
+
+        return result;
+    }
+
+    private void launchDefaultWebBrowser(String url) {
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     private static String getWebLoginUserAgent() {
@@ -1585,12 +1592,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         }
     }
 
-
     private void dismissWaitingDialog() {
         Fragment frag = getSupportFragmentManager().findFragmentByTag(WAIT_DIALOG_TAG);
-        if (frag instanceof DialogFragment) {
-            DialogFragment dialog = (DialogFragment) frag;
-
+        if (frag instanceof DialogFragment dialog) {
             try {
                 dialog.dismiss();
             } catch (IllegalStateException e) {
