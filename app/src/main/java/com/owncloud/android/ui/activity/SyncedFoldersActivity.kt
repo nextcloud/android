@@ -222,13 +222,16 @@ class SyncedFoldersActivity :
     }
 
     private fun showPowerCheckDialog() {
-        val alertDialog = MaterialAlertDialogBuilder(this)
+        val builder = MaterialAlertDialogBuilder(this)
             .setView(R.id.root_layout)
             .setPositiveButton(R.string.common_ok) { dialog, _ -> dialog.dismiss() }
             .setTitle(R.string.autoupload_disable_power_save_check)
             .setMessage(getString(R.string.power_save_check_dialog_message))
-            .show()
 
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(this, builder)
+
+        val alertDialog = builder.create()
+        builder.show()
         viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE))
     }
 

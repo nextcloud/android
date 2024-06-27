@@ -26,6 +26,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 
@@ -38,10 +39,11 @@ import androidx.core.content.res.ResourcesCompat;
 public class StorageMigration {
     private static final String TAG = StorageMigration.class.getName();
 
-    private Context mContext;
-    private User user;
-    private String mSourceStoragePath;
-    private String mTargetStoragePath;
+    private final Context mContext;
+    private final User user;
+    private final String mSourceStoragePath;
+    private final String mTargetStoragePath;
+    private final ViewThemeUtils viewThemeUtils;
 
     private StorageMigrationProgressListener mListener;
 
@@ -50,11 +52,12 @@ public class StorageMigration {
         void onCancelMigration();
     }
 
-    public StorageMigration(Context context, User user, String sourcePath, String targetPath) {
+    public StorageMigration(Context context, User user, String sourcePath, String targetPath, ViewThemeUtils viewThemeUtils) {
         mContext = context;
         this.user = user;
         mSourceStoragePath = sourcePath;
         mTargetStoragePath = targetPath;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     public void setStorageMigrationProgressListener(StorageMigrationProgressListener listener) {
@@ -73,7 +76,8 @@ public class StorageMigration {
                     mSourceStoragePath,
                     mTargetStoragePath,
                     progressDialog,
-                    mListener).execute();
+                    mListener,
+                    viewThemeUtils).execute();
 
             progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
         }
@@ -85,7 +89,7 @@ public class StorageMigration {
     }
 
     private void askToOverride() {
-        new MaterialAlertDialogBuilder(mContext)
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext)
                 .setMessage(R.string.file_migration_directory_already_exists)
                 .setCancelable(true)
                 .setOnCancelListener(dialogInterface -> {
@@ -107,7 +111,8 @@ public class StorageMigration {
                             mSourceStoragePath,
                             mTargetStoragePath,
                             progressDialog,
-                            mListener).execute();
+                            mListener,
+                            viewThemeUtils).execute();
 
                     progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
 
@@ -121,12 +126,15 @@ public class StorageMigration {
                             mSourceStoragePath,
                             mTargetStoragePath,
                             progressDialog,
-                            mListener).execute();
+                            mListener,
+                            viewThemeUtils).execute();
 
                     progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
-                })
-                .create()
-                .show();
+                });
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(mContext, builder);
+        builder.create();
+        builder.show();
     }
 
     private ProgressDialog createMigrationProgressDialog() {
@@ -156,20 +164,22 @@ public class StorageMigration {
 
         protected String mAuthority;
         protected Account[] mOcAccounts;
+        protected ViewThemeUtils viewThemeUtils;
 
         public FileMigrationTaskBase(Context context,
                                      User user,
                                      String source,
                                      String target,
                                      ProgressDialog progressDialog,
-                                     StorageMigrationProgressListener listener) throws SecurityException {
+                                     StorageMigrationProgressListener listener,
+                                     ViewThemeUtils viewThemeUtils) throws SecurityException {
             mContext = context;
             this.user = user;
             mStorageSource = source;
             mStorageTarget = target;
             mProgressDialog = progressDialog;
             mListener = listener;
-
+            this.viewThemeUtils = viewThemeUtils;
             mAuthority = mContext.getString(R.string.authority);
             mOcAccounts = AccountManager.get(mContext).getAccountsByType(MainApp.getAccountType(context));
         }
@@ -211,7 +221,7 @@ public class StorageMigration {
         }
 
         private void askToStillMove() {
-           new MaterialAlertDialogBuilder(mContext)
+            final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext)
                     .setTitle(R.string.file_migration_source_not_readable_title)
                     .setMessage(mContext.getString(R.string.file_migration_source_not_readable, mStorageTarget))
                     .setNegativeButton(R.string.common_no, (dialogInterface, i) -> dialogInterface.dismiss())
@@ -219,9 +229,11 @@ public class StorageMigration {
                         if (mListener != null) {
                             mListener.onStorageMigrationFinished(mStorageTarget, true);
                         }
-                    })
-                    .create()
-                    .show();
+                    });
+
+            viewThemeUtils.dialog.colorMaterialAlertDialogBackground(mContext, builder);
+            builder.create();
+            builder.show();
         }
 
         protected boolean[] saveAccountsSyncStatus() {
@@ -272,8 +284,9 @@ public class StorageMigration {
                                      String source,
                                      String target,
                                      ProgressDialog progressDialog,
-                                     StorageMigrationProgressListener listener) {
-            super(context, user, source, target, progressDialog, listener);
+                                     StorageMigrationProgressListener listener,
+                                     ViewThemeUtils viewThemeUtils) {
+            super(context, user, source, target, progressDialog, listener, viewThemeUtils);
         }
 
         @Override
@@ -320,8 +333,9 @@ public class StorageMigration {
                                  String source,
                                  String target,
                                  ProgressDialog progressDialog,
-                                 StorageMigrationProgressListener listener) {
-            super(context, user, source, target, progressDialog, listener);
+                                 StorageMigrationProgressListener listener,
+                                 ViewThemeUtils viewThemeUtils) {
+            super(context, user, source, target, progressDialog, listener, viewThemeUtils);
         }
 
         @Override

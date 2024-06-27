@@ -792,7 +792,7 @@ public class SettingsActivity extends PreferenceActivity
                 if (storagePath.equals(newPath)) {
                     return true;
                 }
-                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath);
+                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath, viewThemeUtils);
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
 

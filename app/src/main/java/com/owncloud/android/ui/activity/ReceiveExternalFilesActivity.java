@@ -135,6 +135,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
     @Inject SyncedFolderProvider syncedFolderProvider;
+    @Inject ViewThemeUtils viewThemeUtils;
+
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
     private List<Parcelable> mStreamsToUpload;
@@ -205,7 +207,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
         Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAccountType(this));
         if (accounts.length == 0) {
             Log_OC.i(TAG, "No ownCloud account is available");
-            DialogNoAccount dialog = new DialogNoAccount();
+            DialogNoAccount dialog = new DialogNoAccount(viewThemeUtils);
             dialog.show(getSupportFragmentManager(), null);
         }
 
@@ -308,10 +310,16 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public static class DialogNoAccount extends DialogFragment {
+        private final ViewThemeUtils viewThemeUtils;
+
+        public DialogNoAccount(ViewThemeUtils viewThemeUtils) {
+            this.viewThemeUtils = viewThemeUtils;
+        }
+
         @NonNull
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
-            final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+            final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireContext());
             builder.setIcon(R.drawable.ic_warning);
             builder.setTitle(R.string.uploader_wrn_no_account_title);
             builder.setMessage(String.format(getString(R.string.uploader_wrn_no_account_text),
@@ -328,7 +336,8 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 startActivityForResult(intent, REQUEST_CODE__SETUP_ACCOUNT);
             });
             builder.setNeutralButton(R.string.uploader_wrn_no_account_quit_btn_text,
-                                     (dialog, which) -> getActivity().finish());
+                                     (dialog, which) -> requireActivity().finish());
+            viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireContext(), builder);
             return builder.create();
         }
     }
@@ -681,7 +690,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
             Account[] accounts = mAccountManager.getAccountsByType(MainApp.getAuthTokenType());
             if (accounts.length == 0) {
-                DialogNoAccount dialog = new DialogNoAccount();
+                DialogNoAccount dialog = new DialogNoAccount(viewThemeUtils);
                 dialog.show(getSupportFragmentManager(), null);
             } else {
                 // there is no need for checking for is there more then one

@@ -2409,6 +2409,9 @@ public class FileDisplayActivity extends FileActivity
             openFile(user, fileId);
             showLoadingDialog(getString(R.string.retrieving_file));
         });
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(getApplicationContext(), builder);
+
         final AlertDialog dialog = builder.create();
         dismissLoadingDialog();
         dialog.show();
