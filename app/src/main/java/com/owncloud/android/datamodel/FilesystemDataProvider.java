@@ -274,7 +274,7 @@ public class FilesystemDataProvider {
         cv.put(ProviderMeta.ProviderTableMeta._ID, fileData.getId());
         cv.put(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD, fileData.isSentForUpload());
 
-        contentResolver.update(ProviderMeta.ProviderTableMeta.CONTENT_URI_UPLOADS,
+        contentResolver.update(ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
                                cv,
                                ProviderMeta.ProviderTableMeta._ID + "=?",
                                new String[]{String.valueOf(fileData.getId())}

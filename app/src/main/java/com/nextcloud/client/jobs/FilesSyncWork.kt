@@ -18,7 +18,6 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
-import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.instance
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
@@ -37,7 +36,6 @@ import com.owncloud.android.ui.activity.SettingsActivity
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
-import com.owncloud.android.utils.MimeTypeUtil
 import java.io.File
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
