@@ -353,8 +353,8 @@ public class MainApp extends Application implements HasAndroidInjector {
         } catch (Exception e) {
             Log_OC.d("Debug", "Failed to disable uri exposure");
         }
-
-        initSyncOperations(preferences,
+        initSyncOperations(this,
+                           preferences,
                            uploadsStorageManager,
                            accountManager,
                            connectivityService,
@@ -367,10 +367,11 @@ public class MainApp extends Application implements HasAndroidInjector {
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
-        backgroundJobManager.scheduleMediaFoldersDetectionJob();
-        backgroundJobManager.startMediaFoldersDetectionJob();
-
-        backgroundJobManager.schedulePeriodicHealthStatus();
+        if (backgroundJobManager != null) {
+            backgroundJobManager.scheduleMediaFoldersDetectionJob();
+            backgroundJobManager.startMediaFoldersDetectionJob();
+            backgroundJobManager.schedulePeriodicHealthStatus();
+        }
 
         registerGlobalPassCodeProtection();
     }
@@ -492,11 +493,14 @@ public class MainApp extends Application implements HasAndroidInjector {
 
     public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(appContext.get());
+        if (accountManager == null) {
+            return;
+        }
+
         List<User> users = accountManager.getAllUsers();
         for (User user : users) {
-            if (arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
+            if (backgroundJobManager != null && arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
                 backgroundJobManager.schedulePeriodicContactsBackup(user);
-
             }
         }
     }
@@ -582,6 +586,7 @@ public class MainApp extends Application implements HasAndroidInjector {
     }
 
     public static void initSyncOperations(
+        final Context context,
         final AppPreferences preferences,
         final UploadsStorageManager uploadsStorageManager,
         final UserAccountManager accountManager,
@@ -592,7 +597,7 @@ public class MainApp extends Application implements HasAndroidInjector {
         final ViewThemeUtils viewThemeUtils,
         final WalledCheckCache walledCheckCache,
         final SyncedFolderProvider syncedFolderProvider) {
-        updateToAutoUpload();
+        updateToAutoUpload(context);
         cleanOldEntries(clock);
         updateAutoUploadEntries(clock);
 
@@ -798,33 +803,34 @@ public class MainApp extends Application implements HasAndroidInjector {
         return String.format(appString, version, brandedName);
     }
 
-    private static void updateToAutoUpload() {
-        Context context = getAppContext();
+    private static void updateToAutoUpload(Context context) {
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (preferences.instantPictureUploadEnabled() || preferences.instantVideoUploadEnabled()) {
             preferences.removeLegacyPreferences();
 
             // show info pop-up
             try {
-                showAutoUploadAlertDialog();
+                showAutoUploadAlertDialog(context);
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.i(TAG, "Error showing Auto Upload Update dialog, so skipping it: " + e.getMessage());
             }
         }
     }
 
-    private static void showAutoUploadAlertDialog() {
-        new MaterialAlertDialogBuilder(appContext.get())
+    private static void showAutoUploadAlertDialog(Context context) {
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)
             .setTitle(R.string.drawer_synced_folders)
             .setMessage(R.string.synced_folders_new_info)
             .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
-                Intent folderSyncIntent = new Intent(appContext.get(), SyncedFoldersActivity.class);
+                Intent folderSyncIntent = new Intent(context, SyncedFoldersActivity.class);
                 dialog.dismiss();
-                appContext.get().startActivity(folderSyncIntent);
+                context.startActivity(folderSyncIntent);
             })
             .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
-            .setIcon(R.drawable.nav_synced_folders)
-            .show();
+            .setIcon(R.drawable.nav_synced_folders);
+
+        builder.create();
+        builder.show();
     }
 
     private static void updateAutoUploadEntries(Clock clock) {

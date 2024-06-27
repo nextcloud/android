@@ -62,7 +62,8 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
         AndroidInjection.inject(this, context);
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            MainApp.initSyncOperations(preferences,
+            MainApp.initSyncOperations(context,
+                                       preferences,
                                        uploadsStorageManager,
                                        accountManager,
                                        connectivityService,

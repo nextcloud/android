@@ -21,7 +21,6 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -337,10 +336,7 @@ public class FileDisplayActivity extends FileActivity
 
                 viewThemeUtils.dialog.colorMaterialAlertDialogBackground(getApplicationContext(), builder);
 
-                AlertDialog dialog = builder.create();
-                builder.show();
-
-                viewThemeUtils.platform.colorTextButtons(dialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                builder.create().show();
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
             }
