@@ -20,9 +20,11 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.FilesSyncWork;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.FileSystemDataSet;
 import com.owncloud.android.datamodel.FilesystemDataProvider;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
@@ -56,6 +58,52 @@ public final class FilesSyncHelper {
     private FilesSyncHelper() {
         // utility class -> private constructor
     }
+
+    // Must run completely to make FilesSyncWork persistent
+    public static void insertNewFilesIntoFSDatabase(
+        String folderPath,
+        SyncedFolder syncedFolder,
+        FilesystemDataProvider filesystemDataProvider){
+
+        //TODO: Maybe File not needed -> Path is enough
+        File[] files = new File(folderPath).listFiles();
+        if (files == null) {
+            return;
+        }
+
+        // TODO: Add multiple files at once -> Maybe more efficient
+        // see storeUploads()
+        // ContentResolver.applyBatch() -> https://developer.android.com/guide/topics/providers/content-provider-basics
+        for (File file : files) {
+            filesystemDataProvider.insertFileIntoDB(file, syncedFolder);
+            if (file.isDirectory()){
+                insertNewFilesIntoFSDatabase(file.getAbsolutePath(), syncedFolder, filesystemDataProvider);
+            }
+        }
+    }
+
+    public static boolean checkFileForChanges(
+        FileSystemDataSet fileData,
+        FilesystemDataProvider filesystemDataProvider
+                                           ){
+
+        File file = new File(fileData.getLocalPath());
+        boolean changed = false;
+        if (file.lastModified() > fileData.getFoundAt()){
+            long newCrc32 = FilesystemDataProvider.getFileChecksum(fileData.getLocalPath());
+            if (fileData.getCrc32() == null || (newCrc32 != -1 && !fileData.getCrc32().equals(Long.toString(newCrc32)))) {
+                changed = true;
+                fileData.setCrc32(Long.toString(newCrc32));
+            }
+        }
+
+        fileData.setFoundAt(System.currentTimeMillis());
+        filesystemDataProvider.updateFilesystemDataSet(fileData);
+        return changed;
+    }
+
+
+
 
     public static void addNewFilesToDB(SyncedFolder syncedFolder, FilesystemDataProvider filesystemDataProvider) {
 
