@@ -369,10 +369,7 @@ class FileDownloadWorker(
         notificationManager.showNewNotification(text)
     }
 
-    private fun notifyDownloadResult(
-        download: DownloadFileOperation,
-        downloadResult: RemoteOperationResult<*>
-    ) {
+    private fun notifyDownloadResult(download: DownloadFileOperation, downloadResult: RemoteOperationResult<*>) {
         if (downloadResult.isCancelled) {
             return
         }

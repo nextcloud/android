@@ -196,7 +196,8 @@ class EncryptionUtilsV2 {
 
             DecryptedFolderMetadataFile(
                 decryptedMetadata,
-                mutableListOf(), // subfolder do not store user array
+                // subfolder do not store user array
+                mutableListOf(),
                 mutableMapOf()
             )
         } else {
@@ -530,20 +531,13 @@ class EncryptionUtilsV2 {
     }
 
     @Throws(IllegalStateException::class)
-    fun removeFileFromMetadata(
-        fileName: String,
-        metadata: DecryptedFolderMetadataFile
-    ) {
+    fun removeFileFromMetadata(fileName: String, metadata: DecryptedFolderMetadataFile) {
         metadata.metadata.files.remove(fileName)
             ?: throw IllegalStateException("File $fileName not found in metadata!")
     }
 
     @Throws(IllegalStateException::class)
-    fun renameFile(
-        key: String,
-        newName: String,
-        metadataFile: DecryptedFolderMetadataFile
-    ) {
+    fun renameFile(key: String, newName: String, metadataFile: DecryptedFolderMetadataFile) {
         if (!metadataFile.metadata.files.containsKey(key)) {
             throw IllegalStateException("File with key $key not found in metadata!")
         }
@@ -956,7 +950,8 @@ class EncryptionUtilsV2 {
         encryptedFolderMetadataFile: EncryptedFolderMetadataFile,
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
         oldCounter: Long,
-        ans: String // base 64 encoded BER
+        // base 64 encoded BER
+        ans: String
     ) {
         // check counter
         if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {

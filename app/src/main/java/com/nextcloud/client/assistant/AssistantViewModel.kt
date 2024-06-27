@@ -44,7 +44,7 @@ class AssistantViewModel(
     private val _taskTypes = MutableStateFlow<List<TaskType>?>(null)
     val taskTypes: StateFlow<List<TaskType>?> = _taskTypes
 
-    private var _taskList: List<Task>? = null
+    private var taskList: List<Task>? = null
 
     private val _filteredTaskList = MutableStateFlow<List<Task>?>(null)
     val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
@@ -55,10 +55,7 @@ class AssistantViewModel(
     }
 
     @Suppress("MagicNumber")
-    fun createTask(
-        input: String,
-        type: String
-    ) {
+    fun createTask(input: String, type: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.createTask(input, type)
 
@@ -111,7 +108,7 @@ class AssistantViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getTaskList(appId)
             if (result.isSuccess) {
-                _taskList = result.resultData.tasks
+                taskList = result.resultData.tasks
 
                 filterTaskList(_selectedTaskType.value?.id)
 
@@ -157,11 +154,11 @@ class AssistantViewModel(
     private fun filterTaskList(taskTypeId: String?) {
         if (taskTypeId == null) {
             _filteredTaskList.update {
-                _taskList
+                taskList
             }
         } else {
             _filteredTaskList.update {
-                _taskList?.filter { it.type == taskTypeId }
+                taskList?.filter { it.type == taskTypeId }
             }
         }
 

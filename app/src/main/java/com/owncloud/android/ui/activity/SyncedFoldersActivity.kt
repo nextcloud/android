@@ -801,11 +801,7 @@ class SyncedFoldersActivity :
         item.setExcludeHidden(excludeHidden)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE -> {
                 // If request is cancelled, result arrays are empty.

@@ -18,7 +18,8 @@ import androidx.annotation.RequiresApi
  * This wrapper is designed for compatibility on those versions.
  */
 enum class ForegroundServiceType {
-    DataSync, MediaPlayback;
+    DataSync,
+    MediaPlayback;
 
     @RequiresApi(Build.VERSION_CODES.Q)
     fun getId(): Int {

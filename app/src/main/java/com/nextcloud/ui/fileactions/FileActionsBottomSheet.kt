@@ -67,7 +67,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     private lateinit var viewModel: FileActionsViewModel
 
     private var _binding: FileActionsBottomSheetBinding? = null
-    private val binding
+    val binding
         get() = _binding!!
 
     private lateinit var componentsGetter: ComponentsGetter
@@ -99,9 +99,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         return binding.root
     }
 
-    private fun handleState(
-        state: FileActionsViewModel.UiState
-    ) {
+    private fun handleState(state: FileActionsViewModel.UiState) {
         toggleLoadingOrContent(state)
         when (state) {
             is FileActionsViewModel.UiState.LoadedForSingleFile -> {
@@ -192,9 +190,7 @@ class FileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         }
     }
 
-    private fun displayActions(
-        actions: List<FileAction>
-    ) {
+    private fun displayActions(actions: List<FileAction>) {
         if (binding.fileActionsList.isEmpty()) {
             actions.forEach { action ->
                 val view = inflateActionView(action)

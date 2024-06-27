@@ -22,10 +22,7 @@ import com.owncloud.android.ui.preview.PreviewImageFragment
 
 class FileDownloadIntents(private val context: Context) {
 
-    fun newDownloadIntent(
-        download: DownloadFileOperation,
-        linkedToRemotePath: String
-    ): Intent {
+    fun newDownloadIntent(download: DownloadFileOperation, linkedToRemotePath: String): Intent {
         return Intent(FileDownloadWorker.getDownloadAddedMessage()).apply {
             putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, download.user.accountName)
             putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)

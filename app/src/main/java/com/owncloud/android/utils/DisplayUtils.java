@@ -110,12 +110,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import static com.owncloud.android.ui.dialog.SortingOrderDialogFragment.SORTING_ORDER_FRAGMENT;
-import static com.owncloud.android.utils.FileSortOrder.sort_a_to_z_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_big_to_small_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_new_to_old_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_old_to_new_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_small_to_big_id;
-import static com.owncloud.android.utils.FileSortOrder.sort_z_to_a_id;
+import static com.owncloud.android.utils.FileSortOrder.SORT_A_TO_Z_ID;
+import static com.owncloud.android.utils.FileSortOrder.SORT_BIG_TO_SMALL_ID;
+import static com.owncloud.android.utils.FileSortOrder.SORT_NEW_TO_OLD_ID;
+import static com.owncloud.android.utils.FileSortOrder.SORT_OLD_TO_NEW_ID;
+import static com.owncloud.android.utils.FileSortOrder.SORT_SMALL_TO_BIG_ID;
+import static com.owncloud.android.utils.FileSortOrder.SORT_Z_TO_A_ID;
 
 /**
  * A helper class for UI/display related operations.
@@ -819,17 +819,17 @@ public final class DisplayUtils {
 
     public static @StringRes int getSortOrderStringId(FileSortOrder sortOrder) {
         switch (sortOrder.name) {
-            case sort_z_to_a_id:
+            case SORT_Z_TO_A_ID:
                 return R.string.menu_item_sort_by_name_z_a;
-            case sort_new_to_old_id:
+            case SORT_NEW_TO_OLD_ID:
                 return R.string.menu_item_sort_by_date_newest_first;
-            case sort_old_to_new_id:
+            case SORT_OLD_TO_NEW_ID:
                 return R.string.menu_item_sort_by_date_oldest_first;
-            case sort_big_to_small_id:
+            case SORT_BIG_TO_SMALL_ID:
                 return R.string.menu_item_sort_by_size_biggest_first;
-            case sort_small_to_big_id:
+            case SORT_SMALL_TO_BIG_ID:
                 return R.string.menu_item_sort_by_size_smallest_first;
-            case sort_a_to_z_id:
+            case SORT_A_TO_Z_ID:
             default:
                 return R.string.menu_item_sort_by_name_a_z;
         }

@@ -86,7 +86,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
                 requireContext().startActivity(intent)
             }
         }
-        viewModel.shouldShowZoomTip.observe(viewLifecycleOwner) { shouldShow ->
+        viewModel.showZoomTip.observe(viewLifecycleOwner) { shouldShow ->
             if (shouldShow) {
                 snack = DisplayUtils.showSnackMessage(binding.root, R.string.pdf_zoom_tip)
                 viewModel.onZoomTipShown()
@@ -100,8 +100,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
         setHasOptionsMenu(true)
     }
 
-    private fun getScreenWidth(): Int =
-        requireContext().resources.displayMetrics.widthPixels
+    private fun getScreenWidth(): Int = requireContext().resources.displayMetrics.widthPixels
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)

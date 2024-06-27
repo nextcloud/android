@@ -329,7 +329,7 @@ public final class AppPreferencesImpl implements AppPreferences {
                                                                 userAccountManager.getUser(),
                                                                 PREF__FOLDER_SORT_ORDER,
                                                                 folder,
-                                                                FileSortOrder.sort_a_to_z.name));
+                                                                FileSortOrder.SORT_A_TO_Z.name));
     }
 
     @Override
@@ -343,7 +343,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public FileSortOrder getSortOrderByType(FileSortOrder.Type type) {
-        return getSortOrderByType(type, FileSortOrder.sort_a_to_z);
+        return getSortOrderByType(type, FileSortOrder.SORT_A_TO_Z);
     }
 
     @Override

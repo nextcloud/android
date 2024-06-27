@@ -20,7 +20,7 @@ import com.owncloud.android.databinding.FragmentEtmPreferencesBinding
 
 class EtmPreferencesFragment : EtmBaseFragment() {
     private var _binding: FragmentEtmPreferencesBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

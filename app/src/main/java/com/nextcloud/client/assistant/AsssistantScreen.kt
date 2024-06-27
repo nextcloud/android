@@ -151,11 +151,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
 }
 
 @Composable
-private fun ScreenState(
-    state: AssistantViewModel.State,
-    activity: Activity,
-    viewModel: AssistantViewModel
-) {
+private fun ScreenState(state: AssistantViewModel.State, activity: Activity, viewModel: AssistantViewModel) {
     val messageId: Int? = when (state) {
         is AssistantViewModel.State.Error -> {
             state.messageId

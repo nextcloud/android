@@ -343,11 +343,7 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
         }
     }
 
-    override fun onActionCallback(
-        isSuccess: Boolean,
-        notification: Notification,
-        holder: NotificationViewHolder
-    ) {
+    override fun onActionCallback(isSuccess: Boolean, notification: Notification, holder: NotificationViewHolder) {
         if (isSuccess) {
             adapter?.removeNotification(holder)
         } else {

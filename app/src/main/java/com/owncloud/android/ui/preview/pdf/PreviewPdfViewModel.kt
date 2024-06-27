@@ -36,7 +36,7 @@ class PreviewPdfViewModel @Inject constructor(val appPreferences: AppPreferences
         get() = _previewImagePath
 
     private var _showZoomTip = MutableLiveData<Boolean>()
-    val shouldShowZoomTip: LiveData<Boolean>
+    val showZoomTip: LiveData<Boolean>
         get() = _showZoomTip
 
     override fun onCleared() {

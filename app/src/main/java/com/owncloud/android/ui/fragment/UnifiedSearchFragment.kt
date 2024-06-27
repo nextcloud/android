@@ -59,7 +59,7 @@ class UnifiedSearchFragment :
     UnifiedSearchItemViewHolder.FilesAction {
     private lateinit var adapter: UnifiedSearchListAdapter
     private var _binding: ListFragmentBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
     private var searchView: SearchView? = null
     lateinit var vm: IUnifiedSearchViewModel
 

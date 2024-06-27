@@ -20,7 +20,7 @@ import com.owncloud.android.databinding.FragmentEtmAccountsBinding
 
 class EtmAccountsFragment : EtmBaseFragment() {
     private var _binding: FragmentEtmAccountsBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -159,7 +159,7 @@ class TrashbinActivity :
                 supportFragmentManager,
                 preferences?.getSortOrderByType(
                     FileSortOrder.Type.trashBinView,
-                    FileSortOrder.sort_new_to_old
+                    FileSortOrder.SORT_NEW_TO_OLD
                 )
             )
         }
@@ -247,10 +247,10 @@ class TrashbinActivity :
         onBackPressedCallback.isEnabled = !isRoot
     }
 
-    override fun onSortingOrderChosen(sortOrder: FileSortOrder?) {
+    override fun onSortingOrderChosen(selection: FileSortOrder?) {
         val sortButton = findViewById<TextView>(R.id.sort_button)
-        sortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder))
-        trashbinListAdapter?.setSortOrder(sortOrder)
+        sortButton.setText(DisplayUtils.getSortOrderStringId(selection))
+        trashbinListAdapter?.setSortOrder(selection)
     }
 
     override fun showTrashbinFolder(trashbinFiles: List<TrashbinFile?>?) {

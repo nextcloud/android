@@ -177,31 +177,30 @@ object DocumentsProviderUtils {
      */
     @Suppress("EXPERIMENTAL_API_USAGE")
     @VisibleForTesting
-    internal suspend fun getLoadedCursor(timeout: Long = 15_000, query: () -> Cursor?) =
-        withTimeout(timeout) {
-            suspendCancellableCoroutine<Cursor> { cont ->
-                val cursor = query() ?: throw IOException("Initial query returned no results")
-                cont.invokeOnCancellation { cursor.close() }
-                val loading = cursor.extras.getBoolean(EXTRA_LOADING, false)
-                if (loading) {
-                    Log_OC.e("TEST", "Cursor was loading, wait for update...")
-                    cursor.registerContentObserver(
-                        object : ContentObserver(null) {
-                            override fun onChange(selfChange: Boolean, uri: Uri?) {
-                                cursor.close()
-                                val newCursor = query()
-                                if (newCursor == null) {
-                                    cont.cancel(IOException("Re-query returned no results"))
-                                } else {
-                                    cont.resume(newCursor)
-                                }
+    internal suspend fun getLoadedCursor(timeout: Long = 15_000, query: () -> Cursor?) = withTimeout(timeout) {
+        suspendCancellableCoroutine<Cursor> { cont ->
+            val cursor = query() ?: throw IOException("Initial query returned no results")
+            cont.invokeOnCancellation { cursor.close() }
+            val loading = cursor.extras.getBoolean(EXTRA_LOADING, false)
+            if (loading) {
+                Log_OC.e("TEST", "Cursor was loading, wait for update...")
+                cursor.registerContentObserver(
+                    object : ContentObserver(null) {
+                        override fun onChange(selfChange: Boolean, uri: Uri?) {
+                            cursor.close()
+                            val newCursor = query()
+                            if (newCursor == null) {
+                                cont.cancel(IOException("Re-query returned no results"))
+                            } else {
+                                cont.resume(newCursor)
                             }
                         }
-                    )
-                } else {
-                    // not loading, return cursor right away
-                    cont.resume(cursor)
-                }
+                    }
+                )
+            } else {
+                // not loading, return cursor right away
+                cont.resume(cursor)
             }
         }
+    }
 }

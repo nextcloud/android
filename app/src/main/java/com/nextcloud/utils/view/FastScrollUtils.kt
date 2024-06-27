@@ -17,10 +17,7 @@ import javax.inject.Inject
 
 class FastScrollUtils @Inject constructor(private val viewThemeUtils: ViewThemeUtils) {
     @JvmOverloads
-    fun applyFastScroll(
-        recyclerView: RecyclerView,
-        viewHelper: FastScroller.ViewHelper? = null
-    ) {
+    fun applyFastScroll(recyclerView: RecyclerView, viewHelper: FastScroller.ViewHelper? = null) {
         val builder =
             FastScrollerBuilder(recyclerView).let {
                 viewThemeUtils.files.themeFastScrollerBuilder(

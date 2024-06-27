@@ -55,21 +55,16 @@ fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
     ModalBottomSheet(
         modifier = Modifier.padding(top = 32.dp),
         containerColor = Color.White,
-        onDismissRequest = {
-            dismiss()
-        },
+        onDismissRequest = { dismiss() },
         sheetState = sheetState
     ) {
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(16.dp)
-        ) {
+        LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
             stickyHeader {
                 Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = colorResource(id = R.color.light_grey), shape = RoundedCornerShape(8.dp))
+                    modifier = Modifier.fillMaxWidth().background(
+                        color = colorResource(id = R.color.light_grey),
+                        shape = RoundedCornerShape(8.dp)
+                    )
                 ) {
                     TextInputSelectButton(
                         Modifier.weight(1f),
@@ -95,10 +90,10 @@ fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(color = colorResource(id = R.color.light_grey), shape = RoundedCornerShape(8.dp))
-                        .padding(16.dp)
+                    modifier = Modifier.fillMaxSize().background(
+                        color = colorResource(id = R.color.light_grey),
+                        shape = RoundedCornerShape(8.dp)
+                    ).padding(16.dp)
                 ) {
                     Text(
                         text = if (showInput) {

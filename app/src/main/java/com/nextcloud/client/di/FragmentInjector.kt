@@ -12,11 +12,7 @@ import androidx.fragment.app.FragmentManager
 import dagger.android.support.AndroidSupportInjection
 
 internal class FragmentInjector : FragmentManager.FragmentLifecycleCallbacks() {
-    override fun onFragmentPreAttached(
-        fragmentManager: FragmentManager,
-        fragment: Fragment,
-        context: Context
-    ) {
+    override fun onFragmentPreAttached(fragmentManager: FragmentManager, fragment: Fragment, context: Context) {
         super.onFragmentPreAttached(fragmentManager, fragment, context)
         if (fragment is Injectable) {
             try {

@@ -227,10 +227,20 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
             context,
             if (playerControl?.isPlaying == true) {
                 R.drawable.ic_pause
-            } else { R.drawable.ic_play }
+            } else {
+                R.drawable.ic_play
+            }
         )
-        binding.forwardBtn.visibility = if (playerControl?.canSeekForward() == true) { VISIBLE } else { INVISIBLE }
-        binding.rewindBtn.visibility = if (playerControl?.canSeekBackward() == true) { VISIBLE } else { INVISIBLE }
+        binding.forwardBtn.visibility = if (playerControl?.canSeekForward() == true) {
+            VISIBLE
+        } else {
+            INVISIBLE
+        }
+        binding.rewindBtn.visibility = if (playerControl?.canSeekBackward() == true) {
+            VISIBLE
+        } else {
+            INVISIBLE
+        }
     }
 
     private fun doPauseResume() {

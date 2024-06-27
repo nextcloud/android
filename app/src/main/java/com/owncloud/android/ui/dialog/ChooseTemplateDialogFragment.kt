@@ -80,11 +80,13 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
     private var creator: Creator? = null
 
     enum class Type {
-        DOCUMENT, SPREADSHEET, PRESENTATION
+        DOCUMENT,
+        SPREADSHEET,
+        PRESENTATION
     }
 
     private var _binding: ChooseTemplateBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     override fun onStart() {
         super.onStart()

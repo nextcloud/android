@@ -36,10 +36,7 @@ class GeneratePDFUseCase @Inject constructor(private val logger: Logger) {
     /**
      * @return `true` if the PDF was generated successfully, `false` otherwise
      */
-    private fun writePdfToFile(
-        filePath: String,
-        document: PdfDocument
-    ): Boolean {
+    private fun writePdfToFile(filePath: String, document: PdfDocument): Boolean {
         return try {
             val fileOutputStream = FileOutputStream(filePath)
             document.writeTo(fileOutputStream)
@@ -52,10 +49,7 @@ class GeneratePDFUseCase @Inject constructor(private val logger: Logger) {
         }
     }
 
-    private fun fillDocumentPages(
-        document: PdfDocument,
-        imagePaths: List<String>
-    ) {
+    private fun fillDocumentPages(document: PdfDocument, imagePaths: List<String>) {
         imagePaths.forEach { path ->
             val bitmap = BitmapFactory.decodeFile(path)
             val pageInfo = PdfDocument.PageInfo.Builder(bitmap.width, bitmap.height, 1).create()
