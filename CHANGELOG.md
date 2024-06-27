@@ -1,3 +1,11 @@
+## 3.29.1 (June 27, 2024)
+
+- Bugfixes
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/93
+
 <!--
  ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
  ~ SPDX-FileCopyrightText: 2016-2024 Tobias Kaminsky <tobias@kaminsky.me>
