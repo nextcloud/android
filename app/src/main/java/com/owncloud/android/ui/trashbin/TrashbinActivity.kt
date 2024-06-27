@@ -25,6 +25,7 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.EspressoIdlingResource
 import com.owncloud.android.R
 import com.owncloud.android.databinding.TrashbinActivityBinding
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
@@ -177,6 +178,7 @@ class TrashbinActivity :
     }
 
     fun loadFolder() {
+        EspressoIdlingResource.increment()
         trashbinListAdapter?.let {
             if (it.itemCount > EMPTY_LIST_COUNT) {
                 binding.swipeContainingList.isRefreshing = true
@@ -186,6 +188,7 @@ class TrashbinActivity :
 
             trashbinPresenter?.loadFolder()
         }
+        EspressoIdlingResource.decrement()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -285,19 +288,23 @@ class TrashbinActivity :
 
     @VisibleForTesting
     fun showInitialLoading() {
+        EspressoIdlingResource.increment()
         binding.emptyList.emptyListView.visibility = View.GONE
         binding.list.visibility = View.GONE
         binding.loadingContent.visibility = View.VISIBLE
+        EspressoIdlingResource.decrement()
     }
 
     @VisibleForTesting
     fun showUser() {
+        EspressoIdlingResource.increment()
         binding.loadingContent.visibility = View.GONE
         binding.list.visibility = View.VISIBLE
         binding.swipeContainingList.isRefreshing = false
         binding.emptyList.emptyListViewText.text = user.get().accountName
         binding.emptyList.emptyListViewText.visibility = View.VISIBLE
         binding.emptyList.emptyListView.visibility = View.VISIBLE
+        EspressoIdlingResource.decrement()
     }
 
     override fun showError(message: Int) {
