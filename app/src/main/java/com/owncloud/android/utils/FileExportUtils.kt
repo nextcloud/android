@@ -25,13 +25,7 @@ import java.io.InputStream
 
 class FileExportUtils {
     @Throws(IllegalStateException::class)
-    fun exportFile(
-        fileName: String,
-        mimeType: String,
-        contentResolver: ContentResolver,
-        ocFile: OCFile?,
-        file: File?
-    ) {
+    fun exportFile(fileName: String, mimeType: String, contentResolver: ContentResolver, ocFile: OCFile?, file: File?) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             exportFileAndroid10AndAbove(
                 fileName,

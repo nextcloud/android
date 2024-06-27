@@ -97,7 +97,9 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
 
     @Parcelize
     enum class Result : Parcelable {
-        CANCEL, FULL_ACCESS, MEDIA_READ_ONLY
+        CANCEL,
+        FULL_ACCESS,
+        MEDIA_READ_ONLY
     }
 
     companion object {

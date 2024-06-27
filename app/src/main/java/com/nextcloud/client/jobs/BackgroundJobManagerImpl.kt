@@ -409,9 +409,7 @@ internal class BackgroundJobManagerImpl(
             workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID)
     }
 
-    override fun schedulePeriodicFilesSyncJob(
-        syncedFolderID: Long
-    ) {
+    override fun schedulePeriodicFilesSyncJob(syncedFolderID: Long) {
         val arguments = Data.Builder()
             .putLong(FilesSyncWork.SYNCED_FOLDER_ID, syncedFolderID)
             .build()

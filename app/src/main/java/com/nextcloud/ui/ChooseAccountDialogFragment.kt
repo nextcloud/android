@@ -6,7 +6,6 @@
  *
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.ui
 
 import android.annotation.SuppressLint
@@ -55,7 +54,7 @@ class ChooseAccountDialogFragment :
     private var currentStatus: Status? = null
 
     private var _binding: DialogChooseAccountBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     @Inject
     lateinit var clientFactory: ClientFactory
@@ -187,12 +186,11 @@ class ChooseAccountDialogFragment :
      */
     companion object {
         @JvmStatic
-        fun newInstance(user: User) =
-            ChooseAccountDialogFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_CURRENT_USER_PARAM, user)
-                }
+        fun newInstance(user: User) = ChooseAccountDialogFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(ARG_CURRENT_USER_PARAM, user)
             }
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {

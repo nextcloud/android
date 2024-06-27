@@ -282,17 +282,11 @@ class FileUploadHelper {
         cancelAndRestartUploadJob(accountManager.getUser(accountName).get())
     }
 
-    fun addUploadTransferProgressListener(
-        listener: OnDatatransferProgressListener,
-        targetKey: String
-    ) {
+    fun addUploadTransferProgressListener(listener: OnDatatransferProgressListener, targetKey: String) {
         mBoundListeners[targetKey] = listener
     }
 
-    fun removeUploadTransferProgressListener(
-        listener: OnDatatransferProgressListener,
-        targetKey: String
-    ) {
+    fun removeUploadTransferProgressListener(listener: OnDatatransferProgressListener, targetKey: String) {
         if (mBoundListeners[targetKey] === listener) {
             mBoundListeners.remove(targetKey)
         }

@@ -40,7 +40,7 @@ class AccountRemovalDialog : DialogFragment(), AvatarGenerationListener, Injecta
     private var user: User? = null
     private lateinit var alertDialog: AlertDialog
     private var _binding: AccountRemovalDialogBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

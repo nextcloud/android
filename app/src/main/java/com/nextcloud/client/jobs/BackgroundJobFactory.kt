@@ -100,10 +100,7 @@ class BackgroundJobFactory @Inject constructor(
         }
     }
 
-    private fun createFilesExportWork(
-        context: Context,
-        params: WorkerParameters
-    ): ListenableWorker {
+    private fun createFilesExportWork(context: Context, params: WorkerParameters): ListenableWorker {
         return FilesExportWork(
             context,
             accountManager.user,
@@ -113,10 +110,7 @@ class BackgroundJobFactory @Inject constructor(
         )
     }
 
-    private fun createContentObserverJob(
-        context: Context,
-        workerParameters: WorkerParameters
-    ): ListenableWorker {
+    private fun createContentObserverJob(context: Context, workerParameters: WorkerParameters): ListenableWorker {
         return ContentObserverWork(
             context,
             workerParameters,

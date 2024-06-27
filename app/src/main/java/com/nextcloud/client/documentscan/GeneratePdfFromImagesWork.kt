@@ -112,7 +112,8 @@ class GeneratePdfFromImagesWork(
             user,
             arrayOf(pdfPath),
             arrayOf(uploadPath),
-            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE, // MIME type will be detected from file name
+            // MIME type will be detected from file name
+            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,

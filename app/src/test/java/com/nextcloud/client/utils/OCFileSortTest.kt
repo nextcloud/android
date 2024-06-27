@@ -33,7 +33,7 @@ class OCFileSortTest {
     fun testFileSortOrder() {
         val toSort = getShuffledList()
 
-        FileSortOrder.sort_a_to_z.sortCloudFiles(toSort)
+        FileSortOrder.SORT_A_TO_Z.sortCloudFiles(toSort)
 
         verifySort(toSort)
     }

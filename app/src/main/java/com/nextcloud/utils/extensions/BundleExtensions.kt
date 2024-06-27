@@ -14,7 +14,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import java.io.Serializable
 
 @Suppress("TopLevelPropertyNaming")
-private const val tag = "BundleExtension"
+private const val TAG = "BundleExtension"
 
 fun <T : Serializable?> Bundle?.getSerializableArgument(key: String, type: Class<T>): T? {
     if (this == null) {
@@ -33,7 +33,7 @@ fun <T : Serializable?> Bundle?.getSerializableArgument(key: String, type: Class
             }
         }
     } catch (e: ClassCastException) {
-        Log_OC.e(tag, e.localizedMessage)
+        Log_OC.e(TAG, e.localizedMessage)
         null
     }
 }
@@ -51,7 +51,7 @@ fun <T : Parcelable?> Bundle?.getParcelableArgument(key: String, type: Class<T>)
             this.getParcelable(key)
         }
     } catch (e: ClassCastException) {
-        Log_OC.e(tag, e.localizedMessage)
+        Log_OC.e(TAG, e.localizedMessage)
         e.printStackTrace()
         null
     }

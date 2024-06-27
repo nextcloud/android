@@ -200,7 +200,8 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
             icon = match.loadIcon(requireActivity().packageManager)
             label = match.loadLabel(requireActivity().packageManager)
             sendButtonData = SendButtonData(
-                icon, label,
+                icon,
+                label,
                 match.activityInfo.packageName,
                 match.activityInfo.name
             )

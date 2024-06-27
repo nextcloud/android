@@ -91,8 +91,12 @@ class FileDetailsSharingProcessFragment :
          * fragment instance to be called while modifying existing share information
          */
         @JvmStatic
-        fun newInstance(share: OCShare, screenType: Int, isReshareShown: Boolean, isExpirationDateShown: Boolean):
-            FileDetailsSharingProcessFragment {
+        fun newInstance(
+            share: OCShare,
+            screenType: Int,
+            isReshareShown: Boolean,
+            isExpirationDateShown: Boolean
+        ): FileDetailsSharingProcessFragment {
             val args = Bundle()
             args.putParcelable(ARG_OCSHARE, share)
             args.putInt(ARG_SCREEN_TYPE, screenType)

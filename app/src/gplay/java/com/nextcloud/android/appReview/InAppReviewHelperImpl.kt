@@ -85,11 +85,7 @@ class InAppReviewHelperImpl(val appPreferences: AppPreferences) : InAppReviewHel
         }
     }
 
-    private fun launchAppReviewFlow(
-        manager: ReviewManager,
-        activity: AppCompatActivity,
-        reviewInfo: ReviewInfo
-    ) {
+    private fun launchAppReviewFlow(manager: ReviewManager, activity: AppCompatActivity, reviewInfo: ReviewInfo) {
         val flow = manager.launchReviewFlow(activity, reviewInfo)
         flow.addOnCompleteListener { _ ->
             // The flow has finished. The API does not indicate whether the user

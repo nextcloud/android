@@ -274,17 +274,17 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
     private fun checkWritableFolder() {
         if (!syncedFolder!!.isEnabled) {
             binding?.settingInstantBehaviourContainer?.isEnabled = false
-            binding?.settingInstantBehaviourContainer?.alpha = alphaDisabled
+            binding?.settingInstantBehaviourContainer?.alpha = ALPHA_DISABLED
             return
         }
         if (syncedFolder!!.localPath != null && File(syncedFolder!!.localPath).canWrite()) {
             binding?.settingInstantBehaviourContainer?.isEnabled = true
-            binding?.settingInstantBehaviourContainer?.alpha = alphaEnabled
+            binding?.settingInstantBehaviourContainer?.alpha = ALPHA_ENABLED
             binding?.settingInstantBehaviourSummary?.text =
                 uploadBehaviorItemStrings[syncedFolder!!.uploadActionInteger]
         } else {
             binding?.settingInstantBehaviourContainer?.isEnabled = false
-            binding?.settingInstantBehaviourContainer?.alpha = alphaDisabled
+            binding?.settingInstantBehaviourContainer?.alpha = ALPHA_DISABLED
             syncedFolder?.setUploadAction(
                 resources.getTextArray(R.array.pref_behaviour_entryValues)[0].toString()
             )
@@ -294,9 +294,9 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
     private fun setupViews(optionalBinding: SyncedFoldersSettingsLayoutBinding?, enable: Boolean) {
         val alpha: Float = if (enable) {
-            alphaEnabled
+            ALPHA_ENABLED
         } else {
-            alphaDisabled
+            ALPHA_DISABLED
         }
 
         optionalBinding?.let { binding ->
@@ -518,8 +518,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
         private val TAG = SyncedFolderPreferencesDialogFragment::class.java.simpleName
         private const val BEHAVIOUR_DIALOG_STATE = "BEHAVIOUR_DIALOG_STATE"
         private const val NAME_COLLISION_POLICY_DIALOG_STATE = "NAME_COLLISION_POLICY_DIALOG_STATE"
-        private const val alphaEnabled = 1.0f
-        private const val alphaDisabled = 0.7f
+        private const val ALPHA_ENABLED = 1.0f
+        private const val ALPHA_DISABLED = 0.7f
 
         @JvmStatic
         fun newInstance(syncedFolder: SyncedFolderDisplayItem?, section: Int): SyncedFolderPreferencesDialogFragment? {

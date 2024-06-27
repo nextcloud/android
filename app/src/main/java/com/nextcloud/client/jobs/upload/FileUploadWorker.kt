@@ -269,7 +269,10 @@ class FileUploadWorker(
 
         // Only notify if it is not same file on remote that causes conflict
         if (uploadResult.code == ResultCode.SYNC_CONFLICT && FileUploadHelper().isSameFileOnRemote(
-                uploadFileOperation.user, File(uploadFileOperation.storagePath), uploadFileOperation.remotePath, context
+                uploadFileOperation.user,
+                File(uploadFileOperation.storagePath),
+                uploadFileOperation.remotePath,
+                context
             )
         ) {
             context.showToast(R.string.file_upload_worker_same_file_already_exists)

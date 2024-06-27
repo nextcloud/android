@@ -81,11 +81,7 @@ class FileDownloadHelper {
         backgroundJobManager.cancelFilesDownloadJob(currentUser, currentFile.fileId)
     }
 
-    fun saveFile(
-        file: OCFile,
-        currentDownload: DownloadFileOperation?,
-        storageManager: FileDataStorageManager?
-    ) {
+    fun saveFile(file: OCFile, currentDownload: DownloadFileOperation?, storageManager: FileDataStorageManager?) {
         val syncDate = System.currentTimeMillis()
 
         file.apply {

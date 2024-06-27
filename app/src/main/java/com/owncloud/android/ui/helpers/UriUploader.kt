@@ -53,7 +53,11 @@ class UriUploader(
 ) {
 
     enum class UriUploaderResultCode {
-        OK, ERROR_UNKNOWN, ERROR_NO_FILE_TO_UPLOAD, ERROR_READ_PERMISSION_NOT_GRANTED, ERROR_SENSITIVE_PATH
+        OK,
+        ERROR_UNKNOWN,
+        ERROR_NO_FILE_TO_UPLOAD,
+        ERROR_READ_PERMISSION_NOT_GRANTED,
+        ERROR_SENSITIVE_PATH
     }
 
     fun uploadUris(): UriUploaderResultCode {
@@ -121,11 +125,12 @@ class UriUploader(
             arrayOf(localPath ?: ""),
             arrayOf(remotePath),
             mBehaviour,
-            false, // do not create parent folder if not existent
+            // do not create parent folder if not existent
+            false,
             UploadFileOperation.CREATED_BY_USER,
-            false,
-            false,
-            NameCollisionPolicy.ASK_USER
+            requiresWifi = false,
+            requiresCharging = false,
+            nameCollisionPolicy = NameCollisionPolicy.ASK_USER
         )
     }
 
