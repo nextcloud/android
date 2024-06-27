@@ -135,7 +135,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Inject AppPreferences preferences;
     @Inject LocalBroadcastManager localBroadcastManager;
     @Inject SyncedFolderProvider syncedFolderProvider;
-    @Inject ViewThemeUtils viewThemeUtils;
 
     private AccountManager mAccountManager;
     private Stack<String> mParents = new Stack<>();
