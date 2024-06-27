@@ -30,26 +30,20 @@ import javax.inject.Inject
 class UnifiedSearchViewModel(application: Application) : AndroidViewModel(application), IUnifiedSearchViewModel {
     companion object {
         private const val TAG = "UnifiedSearchViewModel"
-        private const val DEFAULT_LIMIT = 5
         private const val FILES_PROVIDER_ID = "files"
     }
 
     private data class UnifiedSearchMetadata(
         var results: MutableList<SearchResult> = mutableListOf()
     ) {
-        fun nextCursor(): Int? = results.lastOrNull()?.cursor?.toInt()
-        fun name(): String? = results.lastOrNull()?.name
-        fun isFinished(): Boolean {
-            if (results.isEmpty()) {
-                return false
-            }
-            val lastResult = results.last()
-            return when {
-                !lastResult.isPaginated -> true
-                lastResult.entries.size < DEFAULT_LIMIT -> true
-                else -> false
+        fun nextCursor(): Int? {
+            return try {
+                results.lastOrNull()?.cursor?.toInt()
+            } catch (e: NumberFormatException) {
+                null
             }
         }
+        fun name(): String? = results.lastOrNull()?.name
     }
 
     private lateinit var currentAccountProvider: CurrentAccountProvider
@@ -62,7 +56,6 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         get() = getApplication<Application>().applicationContext
 
     private lateinit var repository: IUnifiedSearchRepository
-    private var loadingStarted: Boolean = false
     private var results: MutableMap<ProviderID, UnifiedSearchMetadata> = mutableMapOf()
 
     override val isLoading = MutableLiveData(false)
@@ -92,14 +85,6 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
             currentAccountProvider,
             runner
         )
-    }
-
-    open fun startLoading(query: String) {
-        if (!loadingStarted) {
-            loadingStarted = true
-            this.query.value = query
-            initialQuery()
-        }
     }
 
     /**
@@ -146,6 +131,7 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
                     isLoading.value = false
                 }
             }
+
             else -> block()
         }
     }
@@ -166,6 +152,7 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
                 val fullUrl = serverUrl + result.resourceUrl
                 Uri.parse(fullUrl)
             }
+
             else -> uri
         }
     }
@@ -183,10 +170,6 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
             )
             runner.postQuickTask(task, onResult = this::onFileRequestResult)
         }
-    }
-
-    open fun clearError() {
-        error.value = ""
     }
 
     fun onError(error: Throwable) {
@@ -213,11 +196,13 @@ class UnifiedSearchViewModel(application: Application) : AndroidViewModel(applic
         searchResults.value = results
             .filter { it.value.results.isNotEmpty() }
             .map { (key, value) ->
+                val isLastEntryHaveValue = results[key]?.results?.last()?.entries?.isEmpty() != true
+
                 UnifiedSearchSection(
                     providerID = key,
                     name = value.name()!!,
                     entries = value.results.flatMap { it.entries },
-                    hasMoreResults = !value.isFinished()
+                    hasMoreResults = isLastEntryHaveValue && results[key]?.nextCursor() != null
                 )
             }
             .sortedWith { o1, o2 ->
