@@ -11,6 +11,7 @@ package com.nextcloud.client.jobs
 import android.content.ContentResolver
 import android.content.Context
 import android.content.res.Resources
+import android.database.Cursor
 import android.text.TextUtils
 import androidx.exifinterface.media.ExifInterface
 import androidx.work.Worker
@@ -18,6 +19,7 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadHelper.Companion.instance
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
@@ -60,14 +62,18 @@ class FilesSyncWork(
         const val OVERRIDE_POWER_SAVING = "overridePowerSaving"
         const val CHANGED_FILES = "changedFiles"
         const val SYNCED_FOLDER_ID = "syncedFolderId"
+
+        var realScanIntervalMS = 1000L
     }
 
     private lateinit var syncedFolder: SyncedFolder
+    private var cursor: android.database.Cursor? = null
 
     @Suppress("MagicNumber")
     override fun doWork(): Result {
         val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
+
 
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class) + "_" + syncFolderId)
         Log_OC.d(TAG, "File-sync worker started for folder ID: $syncFolderId")
@@ -82,8 +88,14 @@ class FilesSyncWork(
             return result
         }
 
-        val resources = context.resources
-        val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
+        val filesystemDataProvider = FilesystemDataProvider(contentResolver)
+        FilesSyncHelper.insertNewFilesIntoFSDatabase(syncedFolder.localPath, syncedFolder, filesystemDataProvider)
+
+        cursor = filesystemDataProvider.getFilesCursorAscOrderedForSyncedFolder(syncedFolder)
+        checkFilesFormDBForChanges(syncedFolder, filesystemDataProvider, cursor)
+
+        // Todo: update syncedFolder.lastScanTimestampMs
+
         FilesSyncHelper.restartUploadsIfNeeded(
             uploadsStorageManager,
             userAccountManager,
@@ -98,9 +110,7 @@ class FilesSyncWork(
                 changedFiles.contentToString()
         )
 
-        // Create all the providers we'll need
-        val filesystemDataProvider = FilesystemDataProvider(contentResolver)
-        FilesSyncHelper.addNewFilesToDB(syncedFolder, filesystemDataProvider)
+
 
         Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished")
         val result = Result.success()
@@ -110,6 +120,11 @@ class FilesSyncWork(
             result
         )
         return result
+    }
+
+    override fun onStopped() {
+        this.cursor?.close()
+        super.onStopped()
     }
 
     private fun setSyncedFolder(syncedFolderID: Long): Boolean {
@@ -150,6 +165,12 @@ class FilesSyncWork(
             return true
         }
 
+        if ((syncedFolder.lastScanTimestampMs + realScanIntervalMS) > System.currentTimeMillis()){
+            Log_OC.d(TAG, "File-sync kill worker since started before scan " +
+                "Interval and nothing todo (${syncedFolder.localPath})!")
+            return true
+        }
+
         if (syncedFolder.isChargingOnly &&
             !powerManagementService.battery.isCharging &&
             !powerManagementService.battery.isFull
@@ -161,62 +182,58 @@ class FilesSyncWork(
         return false
     }
 
-    @Suppress("MagicNumber")
-    private fun collectChangedFiles(changedFiles: Array<String>?) {
-        if (!changedFiles.isNullOrEmpty()) {
-            FilesSyncHelper.insertChangedEntries(syncedFolder, changedFiles)
-        } else {
-            // Check every file in synced folder for changes and update
-            // filesystemDataProvider database (potentially needs a long time)
-            FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
+    private fun checkFilesFormDBForChanges(
+        syncedFolder: SyncedFolder,
+        filesystemDataProvider: FilesystemDataProvider,
+        cursor: Cursor?
+    ) {
+        // TODO When completely done with folder set syncedFolder lastScanTimestampMs
+        if (cursor == null) {
+            return
         }
+        if (cursor.moveToFirst()) {
+            do {
+                val fileData =
+                    filesystemDataProvider.getFileSystemDataSetFromCursor(cursor, syncedFolder)
+
+                if ((fileData.foundAt + realScanIntervalMS)
+                    > System.currentTimeMillis()
+                ) {
+                    break
+                }
+
+                if(FilesSyncHelper.checkFileForChanges(fileData, filesystemDataProvider)){
+                    scheduleForUpload(File(fileData.localPath), syncedFolder)
+                }
+            } while (cursor.moveToNext() && !cursor.isAfterLast)
+        }
+        cursor.close()
     }
 
-    @Suppress("LongMethod") // legacy code
-    private fun syncFolder(
-        context: Context,
-        resources: Resources,
-        lightVersion: Boolean,
-        filesystemDataProvider: FilesystemDataProvider,
-        currentLocale: Locale,
-        sFormatter: SimpleDateFormat,
+    private fun scheduleForUpload(
+        file: File,
         syncedFolder: SyncedFolder
     ) {
+
         val uploadAction: Int?
         val needsCharging: Boolean
         val needsWifi: Boolean
-        var file: File
         val accountName = syncedFolder.account
         val optionalUser = userAccountManager.getUser(accountName)
         if (!optionalUser.isPresent) {
             return
         }
         val user = optionalUser.get()
+
+        val resources = context.resources
+        val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
+
         val arbitraryDataProvider: ArbitraryDataProvider? = if (lightVersion) {
             ArbitraryDataProviderImpl(context)
         } else {
             null
         }
-        val paths = filesystemDataProvider.getFilesForUpload(
-            syncedFolder.localPath,
-            syncedFolder.id.toString()
-        )
 
-        if (paths.size == 0) {
-            return
-        }
-
-        val pathsAndMimes = paths.map { path ->
-            file = File(path)
-            val localPath = file.absolutePath
-            Triple(
-                localPath,
-                getRemotePath(file, syncedFolder, sFormatter, lightVersion, resources, currentLocale),
-                MimeTypeUtil.getBestMimeTypeByFilename(localPath)
-            )
-        }
-        val localPaths = pathsAndMimes.map { it.first }.toTypedArray()
-        val remotePaths = pathsAndMimes.map { it.second }.toTypedArray()
 
         if (lightVersion) {
             needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging)
@@ -231,27 +248,25 @@ class FilesSyncWork(
             needsWifi = syncedFolder.isWifiOnly
             uploadAction = syncedFolder.uploadAction
         }
-        FileUploadHelper.instance().uploadNewFiles(
+
+        val currentLocale = resources.configuration.locales.get(0)
+        val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
+        dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
+
+        //Todo: Check if startUpload works without restarting upload worker
+        instance().scheduleNewFileForUpload(
             user,
-            localPaths,
-            remotePaths,
-            uploadAction!!,
-            // create parent folder if not existent
-            true,
+            file.path,
+            getRemotePath(file, syncedFolder, dateFormat, lightVersion, resources, Locale.getDefault()),
+            uploadAction,
+            true, // create parent folder if not existent
             UploadFileOperation.CREATED_AS_INSTANT_PICTURE,
             needsWifi,
             needsCharging,
             syncedFolder.nameCollisionPolicy
         )
-
-        for (path in paths) {
-            // TODO batch update
-            filesystemDataProvider.updateFilesystemFileAsSentForUpload(
-                path,
-                syncedFolder.id.toString()
-            )
-        }
     }
+
 
     private fun getRemotePath(
         file: File,
@@ -313,7 +328,7 @@ class FilesSyncWork(
         return lastModificationTime
     }
 
-    private fun getUploadAction(action: String): Int? {
+    private fun getUploadAction(action: String): Int {
         return when (action) {
             "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
             "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE

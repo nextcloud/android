@@ -162,6 +162,57 @@ class FileUploadHelper {
         return showNotExistMessage
     }
 
+    private fun createUploadFromParams(
+        user: User,
+        localPath: String,
+        remotePath: String,
+        localBehavior: Int,
+        createRemoteFolder: Boolean,
+        createdBy: Int,
+        requiresWifi: Boolean,
+        requiresCharging: Boolean,
+        nameCollisionPolicy: NameCollisionPolicy
+    ): OCUpload {
+        return OCUpload(localPath, remotePath, user.accountName).apply {
+            this.nameCollisionPolicy = nameCollisionPolicy
+            isUseWifiOnly = requiresWifi
+            isWhileChargingOnly = requiresCharging
+            uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
+            this.createdBy = createdBy
+            isCreateRemoteFolder = createRemoteFolder
+            localAction = localBehavior
+        }
+    }
+
+    /**
+     * Used for quickly adding a file without restarting the Worker.
+     * To guarantee the file is uploaded, the Worker should be restarted.
+      */
+    fun scheduleNewFileForUpload(
+        user: User,
+        localPath: String,
+        remotePath: String,
+        localBehavior: Int,
+        createRemoteFolder: Boolean,
+        createdBy: Int,
+        requiresWifi: Boolean,
+        requiresCharging: Boolean,
+        nameCollisionPolicy: NameCollisionPolicy
+    ) {
+        val upload = createUploadFromParams(
+            user,
+            localPath,
+            remotePath,
+            localBehavior,
+            createRemoteFolder,
+            createdBy,
+            requiresWifi,
+            requiresCharging,
+            nameCollisionPolicy)
+        uploadsStorageManager.storeUpload(upload)
+    }
+
+
     @Suppress("LongParameterList")
     fun uploadNewFiles(
         user: User,
@@ -175,15 +226,16 @@ class FileUploadHelper {
         nameCollisionPolicy: NameCollisionPolicy
     ) {
         val uploads = localPaths.mapIndexed { index, localPath ->
-            OCUpload(localPath, remotePaths[index], user.accountName).apply {
-                this.nameCollisionPolicy = nameCollisionPolicy
-                isUseWifiOnly = requiresWifi
-                isWhileChargingOnly = requiresCharging
-                uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS
-                this.createdBy = createdBy
-                isCreateRemoteFolder = createRemoteFolder
-                localAction = localBehavior
-            }
+            createUploadFromParams(
+                user,
+                localPath,
+                remotePaths[index],
+                localBehavior,
+                createRemoteFolder,
+                createdBy,
+                requiresWifi,
+                requiresCharging,
+                nameCollisionPolicy)
         }
         uploadsStorageManager.storeUploads(uploads)
         backgroundJobManager.startFilesUploadJob(user)
