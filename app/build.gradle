@@ -382,7 +382,7 @@ dependencies {
     androidTestImplementation "androidx.test:rules:$androidxTestVersion"
     // Android JUnit Runner
     androidTestImplementation "androidx.test:runner:1.5.2"
-    androidTestUtil "androidx.test:orchestrator:1.4.2"
+    androidTestUtil "androidx.test:orchestrator:1.5.0"
     androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
     // Espresso
