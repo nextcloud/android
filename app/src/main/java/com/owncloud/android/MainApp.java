@@ -38,6 +38,7 @@ import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.appReview.InAppReviewHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -109,7 +110,6 @@ import javax.net.ssl.SSLEngine;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.util.Pair;
 import androidx.lifecycle.Lifecycle;
@@ -806,22 +806,25 @@ public class MainApp extends Application implements HasAndroidInjector {
 
             // show info pop-up
             try {
-                new AlertDialog.Builder(context, R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.drawer_synced_folders)
-                    .setMessage(R.string.synced_folders_new_info)
-                    .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
-                        // show Auto Upload
-                        Intent folderSyncIntent = new Intent(context, SyncedFoldersActivity.class);
-                        dialog.dismiss();
-                        context.startActivity(folderSyncIntent);
-                    })
-                    .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
-                    .setIcon(R.drawable.nav_synced_folders)
-                    .show();
+                showAutoUploadAlertDialog();
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.i(TAG, "Error showing Auto Upload Update dialog, so skipping it: " + e.getMessage());
             }
         }
+    }
+
+    private static void showAutoUploadAlertDialog() {
+        new MaterialAlertDialogBuilder(appContext.get())
+            .setTitle(R.string.drawer_synced_folders)
+            .setMessage(R.string.synced_folders_new_info)
+            .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
+                Intent folderSyncIntent = new Intent(appContext.get(), SyncedFoldersActivity.class);
+                dialog.dismiss();
+                appContext.get().startActivity(folderSyncIntent);
+            })
+            .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
+            .setIcon(R.drawable.nav_synced_folders)
+            .show();
     }
 
     private static void updateAutoUploadEntries(Clock clock) {

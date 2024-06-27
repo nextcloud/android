@@ -38,6 +38,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.URLUtil;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -493,7 +494,7 @@ public class SettingsActivity extends PreferenceActivity
                 preferenceCategoryMore.removePreference(preference);
             } else {
                 preference.setOnPreferenceClickListener(p -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
+                    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog);
                     AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
                         .setMessage(getString(R.string.remove_e2e_message))
                         .setCancelable(true)
@@ -980,7 +981,7 @@ public class SettingsActivity extends PreferenceActivity
                 ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
                 String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC).trim();
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
+                final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog);
                 AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
                     .setMessage(mnemonic)
                     .setNegativeButton(R.string.common_cancel, (dialog, i) -> dialog.dismiss())

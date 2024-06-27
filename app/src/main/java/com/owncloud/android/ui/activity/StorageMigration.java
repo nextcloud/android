@@ -19,6 +19,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.view.View;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -84,58 +85,45 @@ public class StorageMigration {
     }
 
     private void askToOverride() {
-
-        new AlertDialog.Builder(mContext)
+        new MaterialAlertDialogBuilder(mContext)
                 .setMessage(R.string.file_migration_directory_already_exists)
                 .setCancelable(true)
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        if (mListener != null) {
-                            mListener.onCancelMigration();
-                        }
+                .setOnCancelListener(dialogInterface -> {
+                    if (mListener != null) {
+                        mListener.onCancelMigration();
                     }
                 })
-                .setNegativeButton(R.string.common_cancel, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (mListener != null) {
-                            mListener.onCancelMigration();
-                        }
+                .setNegativeButton(R.string.common_cancel, (dialogInterface, i) -> {
+                    if (mListener != null) {
+                        mListener.onCancelMigration();
                     }
                 })
-                .setNeutralButton(R.string.file_migration_use_data_folder, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ProgressDialog progressDialog = createMigrationProgressDialog();
-                        progressDialog.show();
-                        new StoragePathSwitchTask(
-                                mContext,
-                                user,
-                                mSourceStoragePath,
-                                mTargetStoragePath,
-                                progressDialog,
-                                mListener).execute();
+                .setNeutralButton(R.string.file_migration_use_data_folder, (dialogInterface, i) -> {
+                    ProgressDialog progressDialog = createMigrationProgressDialog();
+                    progressDialog.show();
+                    new StoragePathSwitchTask(
+                            mContext,
+                            user,
+                            mSourceStoragePath,
+                            mTargetStoragePath,
+                            progressDialog,
+                            mListener).execute();
 
-                        progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+                    progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
 
-                    }
                 })
-                .setPositiveButton(R.string.file_migration_override_data_folder, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ProgressDialog progressDialog = createMigrationProgressDialog();
-                        progressDialog.show();
-                        new FileMigrationTask(
-                                mContext,
-                                user,
-                                mSourceStoragePath,
-                                mTargetStoragePath,
-                                progressDialog,
-                                mListener).execute();
+                .setPositiveButton(R.string.file_migration_override_data_folder, (dialogInterface, i) -> {
+                    ProgressDialog progressDialog = createMigrationProgressDialog();
+                    progressDialog.show();
+                    new FileMigrationTask(
+                            mContext,
+                            user,
+                            mSourceStoragePath,
+                            mTargetStoragePath,
+                            progressDialog,
+                            mListener).execute();
 
-                        progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
-                    }
+                    progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
                 })
                 .create()
                 .show();
@@ -223,21 +211,13 @@ public class StorageMigration {
         }
 
         private void askToStillMove() {
-            new AlertDialog.Builder(mContext)
+           new MaterialAlertDialogBuilder(mContext)
                     .setTitle(R.string.file_migration_source_not_readable_title)
                     .setMessage(mContext.getString(R.string.file_migration_source_not_readable, mStorageTarget))
-                    .setNegativeButton(R.string.common_no, new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    })
-                    .setPositiveButton(R.string.common_yes, new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            if (mListener != null) {
-                                mListener.onStorageMigrationFinished(mStorageTarget, true);
-                            }
+                    .setNegativeButton(R.string.common_no, (dialogInterface, i) -> dialogInterface.dismiss())
+                    .setPositiveButton(R.string.common_yes, (dialogInterface, i) -> {
+                        if (mListener != null) {
+                            mListener.onStorageMigrationFinished(mStorageTarget, true);
                         }
                     })
                     .create()
