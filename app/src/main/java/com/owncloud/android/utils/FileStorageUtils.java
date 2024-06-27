@@ -371,17 +371,13 @@ public final class FileStorageUtils {
         }
     }
 
-    @SuppressFBWarnings(value="OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE",
-            justification="False-positive on the output stream")
+    @SuppressFBWarnings(value = "OBL_UNSATISFIED_OBLIGATION_EXCEPTION_EDGE",
+        justification = "False-positive on the output stream")
     public static boolean copyFile(File src, File target) {
         boolean ret = true;
 
-        InputStream in = null;
-        OutputStream out = null;
-
-        try {
-            in = new FileInputStream(src);
-            out = new FileOutputStream(target);
+        try (InputStream in = new FileInputStream(src);
+             OutputStream out = new FileOutputStream(target)) {
             byte[] buf = new byte[1024];
             int len;
             while ((len = in.read(buf)) > 0) {
@@ -389,21 +385,6 @@ public final class FileStorageUtils {
             }
         } catch (IOException ex) {
             ret = false;
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Error closing input stream during copy", e);
-                }
-            }
-            if (out != null) {
-                try {
-                    out.close();
-                } catch (IOException e) {
-                    Log_OC.e(TAG, "Error closing output stream during copy", e);
-                }
-            }
         }
 
         return ret;

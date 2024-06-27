@@ -17,19 +17,17 @@ import android.print.PrintDocumentInfo;
 
 import com.owncloud.android.lib.common.utils.Log_OC;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Objects;
 
 public class PrintAdapter extends PrintDocumentAdapter {
     private static final String TAG = PrintAdapter.class.getSimpleName();
     private static final String PDF_NAME = "finalPrint.pdf";
 
-    private String filePath;
+    private final String filePath;
 
     public PrintAdapter(String filePath) {
         this.filePath = filePath;
@@ -58,11 +56,9 @@ public class PrintAdapter extends PrintDocumentAdapter {
                         ParcelFileDescriptor destination,
                         CancellationSignal cancellationSignal,
                         WriteResultCallback callback) {
-        InputStream in = null;
-        OutputStream out = null;
-        try {
-            in = new FileInputStream(new File(filePath));
-            out = new FileOutputStream(destination.getFileDescriptor());
+
+        try (InputStream in = new FileInputStream(filePath);
+             OutputStream out = new FileOutputStream(destination.getFileDescriptor())) {
 
             byte[] buf = new byte[16384];
             int size;
@@ -79,14 +75,6 @@ public class PrintAdapter extends PrintDocumentAdapter {
 
         } catch (IOException e) {
             Log_OC.e(TAG, "Error using temp file", e);
-        } finally {
-            try {
-                Objects.requireNonNull(in).close();
-                Objects.requireNonNull(out).close();
-
-            } catch (IOException | NullPointerException e) {
-                Log_OC.e(TAG, "Error closing streams", e);
-            }
         }
     }
 }
