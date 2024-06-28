@@ -808,7 +808,11 @@ public abstract class FileActivity extends DrawerActivity
             }
 
             if (fileListFragment instanceof OCFileListFragment ocFileListFragment && file != null) {
-                ocFileListFragment.updateOCFile(file);
+                if (ocFileListFragment.getAdapterFiles().contains(file)) {
+                    ocFileListFragment.updateOCFile(file);
+                } else {
+                    DisplayUtils.showSnackMessage(this, R.string.file_activity_shared_file_cannot_be_updated);
+                }
             }
         } else {
             // Detect Failure (403) --> maybe needs password
