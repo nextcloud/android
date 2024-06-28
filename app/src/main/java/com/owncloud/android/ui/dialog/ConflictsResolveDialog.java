@@ -62,6 +62,7 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject SyncedFolderProvider syncedFolderProvider;
 
+    private static final String TAG = "ConflictsResolveDialog";
     private static final String KEY_NEW_FILE = "file";
     private static final String KEY_EXISTING_FILE = "ocfile";
     private static final String KEY_USER = "user";
@@ -78,7 +79,10 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
 
         Bundle args = new Bundle();
         args.putParcelable(KEY_EXISTING_FILE, existingFile);
-        args.putSerializable(KEY_NEW_FILE, new File(newFile.getStoragePath()));
+
+        File file = new File(newFile.getStoragePath());
+        Log_OC.d(TAG,"ConflictsResolveDialog.putSerializable: " + file.getAbsolutePath().length());
+        args.putSerializable(KEY_NEW_FILE, file);
         args.putParcelable(KEY_USER, user);
         dialog.setArguments(args);
 
@@ -135,6 +139,9 @@ public class ConflictsResolveDialog extends DialogFragment implements Injectable
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        Log_OC.d(TAG,"onSaveInstanceState.existingFile: " + existingFile.getFileLength());
+        Log_OC.d(TAG,"onSaveInstanceState.newFile: " + newFile.length());
 
         outState.putParcelable(KEY_EXISTING_FILE, existingFile);
         outState.putSerializable(KEY_NEW_FILE, newFile);

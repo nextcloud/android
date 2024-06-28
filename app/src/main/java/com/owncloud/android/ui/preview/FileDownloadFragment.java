@@ -163,6 +163,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log_OC.d(TAG, "onSaveInstanceState: " + getFile().getFileLength());
         outState.putParcelable(FileDownloadFragment.EXTRA_FILE, getFile());
         outState.putParcelable(FileDownloadFragment.EXTRA_USER, user);
         outState.putBoolean(FileDownloadFragment.EXTRA_ERROR, mError);

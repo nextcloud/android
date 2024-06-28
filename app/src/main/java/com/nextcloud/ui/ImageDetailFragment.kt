@@ -30,6 +30,8 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageDetailsFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -62,6 +64,8 @@ class ImageDetailFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    private val tag = "ImageDetailFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = PreviewImageDetailsFragmentBinding.inflate(layoutInflater, container, false)
@@ -102,6 +106,8 @@ class ImageDetailFragment : Fragment(), Injectable {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        Log_OC.d(tag, "onSaveInstanceState: ${file.fileLength}")
+
         outState.putParcelable(ARG_FILE, file)
         outState.putParcelable(ARG_USER, user)
         outState.putParcelable(ARG_METADATA, metadata)

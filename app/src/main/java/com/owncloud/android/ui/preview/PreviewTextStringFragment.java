@@ -21,6 +21,7 @@ import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteO
 import com.nextcloud.client.account.UserAccountManager;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -37,6 +38,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
     @Inject UserAccountManager accountManager;
     @Inject ViewThemeUtils viewThemeUtils;
 
+    private final String tag = "PreviewTextStringFragment";
     private boolean isEditorWebviewLaunched = false;
 
     /**
@@ -70,6 +72,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
      */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        Log_OC.d(tag, "onSaveInstanceState: " + getFile().getFileLength());
         outState.putParcelable(PreviewTextStringFragment.EXTRA_FILE, getFile());
 
         super.onSaveInstanceState(outState);

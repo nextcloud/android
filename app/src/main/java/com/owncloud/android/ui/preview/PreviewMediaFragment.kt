@@ -254,7 +254,7 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        Log_OC.v(TAG, "onSaveInstanceState")
+        Log_OC.v(TAG, "onSaveInstanceState " + file.fileLength)
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         outState.run {

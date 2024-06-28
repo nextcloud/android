@@ -327,7 +327,7 @@ class PreviewMediaActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        Log_OC.v(TAG, "onSaveInstanceState")
+        Log_OC.d(TAG, "onSaveInstanceState: " + file.fileLength)
         outState.let { bundle ->
             bundle.putParcelable(EXTRA_FILE, file)
             bundle.putParcelable(EXTRA_USER, user)

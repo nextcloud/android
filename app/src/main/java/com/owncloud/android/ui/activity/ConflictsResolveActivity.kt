@@ -32,6 +32,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
+import com.owncloud.android.ui.preview.FileDownloadFragment
 import com.owncloud.android.utils.FileStorageUtils
 import javax.inject.Inject
 
@@ -143,6 +144,8 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        Log_OC.d(TAG, "onSaveInstanceState: " + existingFile?.fileLength)
+
         outState.putLong(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
         outState.putParcelable(EXTRA_EXISTING_FILE, existingFile)
         outState.putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)

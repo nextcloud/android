@@ -431,7 +431,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
+        Log_OC.d(TAG, "onSaveInstanceState " + file.getFileLength());
         outState.putParcelable(ARG_FILE, file);
         outState.putParcelable(ARG_USER, user);
     }

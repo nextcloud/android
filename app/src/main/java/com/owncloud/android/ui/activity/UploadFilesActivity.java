@@ -410,7 +410,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in
         // onRestoreInstanceState when there are Fragments involved
-        Log_OC.d(TAG, "onSaveInstanceState() start");
+        Log_OC.d(TAG, "onSaveInstanceState " + mCurrentDir.length());
         super.onSaveInstanceState(outState);
         outState.putString(UploadFilesActivity.KEY_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
         if (mOptionsMenu != null && mOptionsMenu.findItem(R.id.action_select_all) != null) {

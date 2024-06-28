@@ -80,6 +80,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     DisplayUtils.AvatarGenerationListener,
     Injectable, FileDetailsSharingMenuBottomSheetActions, QuickSharingPermissionsBottomSheetDialog.QuickPermissionSharingBottomSheetActions {
 
+    private final String tag = "FileDetailSharingFragment";
     private static final String ARG_FILE = "FILE";
     private static final String ARG_USER = "USER";
 
@@ -541,7 +542,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
+        Log_OC.d(tag, "onSaveInstanceState " + file.getFileLength());
         outState.putParcelable(ARG_FILE, file);
         outState.putParcelable(ARG_USER, user);
     }

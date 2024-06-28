@@ -850,7 +850,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
+        Log_OC.d(TAG, "onSaveInstanceState: " + mFile.getFileLength());
         outState.putParcelable(KEY_FILE, mFile);
         if (searchFragment) {
             outState.putParcelable(KEY_CURRENT_SEARCH_TYPE, currentSearchType);

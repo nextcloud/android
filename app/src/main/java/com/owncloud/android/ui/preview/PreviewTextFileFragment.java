@@ -136,6 +136,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        Log_OC.d(TAG, "onSaveInstanceState: " + getFile().getFileLength());
         outState.putParcelable(PreviewTextFileFragment.EXTRA_FILE, getFile());
         outState.putParcelable(PreviewTextFileFragment.EXTRA_USER, user);
         super.onSaveInstanceState(outState);

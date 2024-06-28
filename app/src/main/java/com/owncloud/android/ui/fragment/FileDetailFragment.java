@@ -355,6 +355,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        Log_OC.d(TAG, "onSaveInstanceState " + getFile().getFileLength());
         outState.putParcelable(ARG_FILE, getFile());
         outState.putParcelable(ARG_USER, user);
     }

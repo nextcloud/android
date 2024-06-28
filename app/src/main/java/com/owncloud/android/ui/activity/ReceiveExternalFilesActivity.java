@@ -264,7 +264,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        Log_OC.d(TAG, "onSaveInstanceState() start");
+        Log_OC.d(TAG, "onSaveInstanceState " + mFile.getFileLength());
         super.onSaveInstanceState(outState);
         outState.putString(KEY_PARENTS, generatePath(mParents));
         outState.putParcelable(KEY_FILE, mFile);
