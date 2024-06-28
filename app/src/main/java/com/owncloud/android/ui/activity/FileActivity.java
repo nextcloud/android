@@ -807,8 +807,8 @@ public abstract class FileActivity extends DrawerActivity
                 sharingFragment.onUpdateShareInformation(result, file);
             }
 
-            if (fileListFragment instanceof OCFileListFragment && file != null) {
-                ((OCFileListFragment) fileListFragment).updateOCFile(file);
+            if (fileListFragment instanceof OCFileListFragment ocFileListFragment && file != null) {
+                ocFileListFragment.updateOCFile(file);
             }
         } else {
             // Detect Failure (403) --> maybe needs password
