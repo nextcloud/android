@@ -41,10 +41,7 @@ import com.owncloud.android.lib.resources.assistant.model.Task
 @OptIn(ExperimentalFoundationApi::class)
 @Suppress("LongMethod", "MagicNumber")
 @Composable
-fun TaskView(
-    task: Task,
-    showDeleteTaskAlertDialog: (Long) -> Unit
-) {
+fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit) {
     var showTaskDetailBottomSheet by remember { mutableStateOf(false) }
     var showMoreActionsBottomSheet by remember { mutableStateOf(false) }
 

@@ -71,7 +71,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65
-        private var INSTANCE: NextcloudDatabase? = null
+        private var instance: NextcloudDatabase? = null
 
         @JvmStatic
         @Suppress("DeprecatedCallableAddReplaceWith")
@@ -82,8 +82,8 @@ abstract class NextcloudDatabase : RoomDatabase() {
 
         @JvmStatic
         fun getInstance(context: Context, clock: Clock): NextcloudDatabase {
-            if (INSTANCE == null) {
-                INSTANCE = Room
+            if (instance == null) {
+                instance = Room
                     .databaseBuilder(context, NextcloudDatabase::class.java, ProviderMeta.DB_NAME)
                     .allowMainThreadQueries()
                     .addLegacyMigrations(clock, context)
@@ -92,7 +92,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .fallbackToDestructiveMigration()
                     .build()
             }
-            return INSTANCE!!
+            return instance!!
         }
     }
 }

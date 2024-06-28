@@ -22,7 +22,10 @@ data class Template(
     val extension: String
 ) : Parcelable {
     enum class Type {
-        DOCUMENT, SPREADSHEET, PRESENTATION, UNKNOWN;
+        DOCUMENT,
+        SPREADSHEET,
+        PRESENTATION,
+        UNKNOWN;
 
         companion object {
             @JvmStatic

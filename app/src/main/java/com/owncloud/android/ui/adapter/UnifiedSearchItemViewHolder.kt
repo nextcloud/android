@@ -78,10 +78,7 @@ class UnifiedSearchItemViewHolder(
         binding.unifiedSearchItemLayout.setOnClickListener { listInterface.onSearchResultClicked(entry) }
     }
 
-    private fun getPlaceholder(
-        entry: SearchResultEntry,
-        mimetype: String?
-    ): Drawable {
+    private fun getPlaceholder(entry: SearchResultEntry, mimetype: String?): Drawable {
         val drawable = with(entry.icon) {
             when {
                 equals("icon-folder") ->

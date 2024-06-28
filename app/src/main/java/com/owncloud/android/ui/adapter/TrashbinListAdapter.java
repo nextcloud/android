@@ -83,7 +83,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         files.addAll(trashbinFiles);
 
         files = preferences.getSortOrderByType(FileSortOrder.Type.trashBinView,
-                                               FileSortOrder.sort_new_to_old).sortTrashbinFiles(files);
+                                               FileSortOrder.SORT_NEW_TO_OLD).sortTrashbinFiles(files);
 
         notifyDataSetChanged();
     }

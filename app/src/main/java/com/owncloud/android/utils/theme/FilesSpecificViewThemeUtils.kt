@@ -108,9 +108,7 @@ class FilesSpecificViewThemeUtils @Inject constructor(
         }
     }
 
-    private fun getThumbDrawable(
-        context: Context
-    ): Drawable {
+    private fun getThumbDrawable(context: Context): Drawable {
         val thumbDrawable =
             ResourcesCompat.getDrawable(
                 context.resources,

@@ -20,7 +20,9 @@ import org.junit.Test
 
 class TrashbinActivityIT : AbstractIT() {
     enum class TestCase {
-        ERROR, EMPTY, FILES
+        ERROR,
+        EMPTY,
+        FILES
     }
 
     @get:Rule

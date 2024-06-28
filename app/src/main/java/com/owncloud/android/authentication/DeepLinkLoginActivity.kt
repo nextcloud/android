@@ -33,7 +33,8 @@ class DeepLinkLoginActivity : AuthenticatorActivity(), Injectable {
                 val loginUrlInfo = parseLoginDataUrl(prefix, it.toString())
                 val loginText = findViewById<TextView>(R.id.loginInfo)
                 loginText.text = String.format(
-                    getString(R.string.direct_login_text), loginUrlInfo.username,
+                    getString(R.string.direct_login_text),
+                    loginUrlInfo.username,
                     loginUrlInfo.serverAddress
                 )
             } catch (e: IllegalArgumentException) {

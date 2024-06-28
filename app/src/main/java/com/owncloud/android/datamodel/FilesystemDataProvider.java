@@ -19,6 +19,7 @@ import com.owncloud.android.utils.SyncedFolderUtils;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
@@ -212,7 +213,8 @@ public class FilesystemDataProvider {
 
     private long getFileChecksum(String filepath) {
 
-        try (InputStream inputStream = new BufferedInputStream(new FileInputStream(filepath))) {
+        try (FileInputStream fileInputStream = new FileInputStream(filepath);
+            InputStream inputStream = new BufferedInputStream(fileInputStream)) {
             CRC32 crc = new CRC32();
             byte[] buf = new byte[1024 * 64];
             int size;

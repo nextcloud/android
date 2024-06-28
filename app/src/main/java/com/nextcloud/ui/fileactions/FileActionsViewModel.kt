@@ -54,10 +54,7 @@ class FileActionsViewModel @Inject constructor(
         @IdRes
         get() = _clickActionId
 
-    fun load(
-        arguments: Bundle,
-        componentsGetter: ComponentsGetter
-    ) {
+    fun load(arguments: Bundle, componentsGetter: ComponentsGetter) {
         val files: List<OCFile>? = arguments.getParcelableArrayList(ARG_FILES)
         val numberOfAllFiles: Int = arguments.getInt(ARG_ALL_FILES_COUNT, 1)
         val isOverflow = arguments.getBoolean(ARG_IS_OVERFLOW, false)
@@ -104,17 +101,11 @@ class FileActionsViewModel @Inject constructor(
             .getToHide(inSingleFileFragment)
     }
 
-    private fun getActionsToShow(
-        additionalFilter: IntArray?,
-        toHide: List<Int>
-    ) = FileAction.SORTED_VALUES
+    private fun getActionsToShow(additionalFilter: IntArray?, toHide: List<Int>) = FileAction.SORTED_VALUES
         .filter { additionalFilter == null || it.id !in additionalFilter }
         .filter { it.id !in toHide }
 
-    private fun updateStateLoaded(
-        files: Collection<OCFile>,
-        availableActions: List<FileAction>
-    ) {
+    private fun updateStateLoaded(files: Collection<OCFile>, availableActions: List<FileAction>) {
         val state: UiState = when (files.size) {
             1 -> {
                 val file = files.first()

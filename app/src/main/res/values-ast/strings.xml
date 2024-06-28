@@ -574,6 +574,7 @@
     <string name="upload_action_global_upload_pause">Posar toles descargues</string>
     <string name="upload_action_global_upload_resume">Siguir con toles descargues</string>
     <string name="upload_cannot_create_file">Nun se pue crear el ficheru llocal</string>
+    <string name="upload_direct_camera_video">Videu</string>
     <string name="upload_file_dialog_filename">Nome de ficheru</string>
     <string name="upload_file_dialog_filetype">Triba de ficheru</string>
     <string name="upload_global_pause_title">Toles descargues tán posaes</string>

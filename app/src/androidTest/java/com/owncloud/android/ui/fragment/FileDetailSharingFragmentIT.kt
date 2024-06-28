@@ -672,10 +672,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     // open bottom sheet with actions
-    private fun openAdvancedPermissions(
-        sut: FileDetailSharingFragment,
-        userShare: OCShare
-    ) {
+    private fun openAdvancedPermissions(sut: FileDetailSharingFragment, userShare: OCShare) {
         activity.handler.post {
             sut.showSharingMenuActionSheet(userShare)
         }
@@ -723,10 +720,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     /**
      * verify send new email note text
      */
-    private fun verifySendNewEmail(
-        sut: FileDetailSharingFragment,
-        userShare: OCShare
-    ) {
+    private fun verifySendNewEmail(sut: FileDetailSharingFragment, userShare: OCShare) {
         activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
 
         waitForIdleSync()

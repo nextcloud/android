@@ -25,8 +25,5 @@ interface DeckApi {
      * value otherwise
      * @see [Deck Server App](https://apps.nextcloud.com/apps/deck)
      */
-    fun createForwardToDeckActionIntent(
-        notification: Notification,
-        user: User
-    ): Optional<PendingIntent>
+    fun createForwardToDeckActionIntent(notification: Notification, user: User): Optional<PendingIntent>
 }

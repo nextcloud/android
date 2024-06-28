@@ -29,7 +29,7 @@ buildscript {
 
 plugins {
     id "org.jetbrains.kotlin.plugin.compose" version "2.0.0"
-    id "com.diffplug.spotless" version "6.20.0"
+    id "com.diffplug.spotless" version "6.25.0"
     id "org.jetbrains.kotlin.kapt" version "2.0.0"
     id 'com.google.devtools.ksp' version '2.0.0-1.0.22' apply false
 }
@@ -291,7 +291,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-service:2.8.2"
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
-    implementation "androidx.fragment:fragment-ktx:1.8.0"
+    implementation "androidx.fragment:fragment-ktx:1.8.1"
     implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.16.1'
@@ -363,7 +363,7 @@ dependencies {
     }
 
     if (perfAnalysis) {
-        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.13'
+        debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
     }
 
     // dependencies for local unit tests
@@ -411,7 +411,8 @@ dependencies {
     implementation "com.github.stateless4j:stateless4j:2.6.0"
 
     // upon each update first test: new registration, receive push
-    gplayImplementation "com.google.firebase:firebase-messaging:23.4.1"
+    gplayImplementation "com.google.firebase:firebase-messaging:24.0.0"
+    gplayImplementation 'com.google.android.gms:play-services-base:18.5.0'
     gplayImplementation 'com.google.android.play:review-ktx:2.0.1'
 
     implementation 'com.github.nextcloud.android-common:ui:0.17.0'

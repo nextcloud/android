@@ -8,5 +8,6 @@
 package com.nextcloud.client.jobs.download
 
 enum class FileDownloadError {
-    Failed, Cancelled
+    Failed,
+    Cancelled
 }

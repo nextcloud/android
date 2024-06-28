@@ -132,12 +132,9 @@ public class FileOperationsHelper {
     private String getUrlFromFile(String storagePath, Pattern pattern) {
         String url = null;
 
-        InputStreamReader fr = null;
-        BufferedReader br = null;
-        try {
-            fr = new InputStreamReader(new FileInputStream(storagePath), StandardCharsets.UTF_8);
-            br = new BufferedReader(fr);
-
+        try (FileInputStream inputStream = new FileInputStream(storagePath);
+             InputStreamReader fr = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+             BufferedReader br = new BufferedReader(fr)) {
             String line;
             while ((line = br.readLine()) != null) {
                 Matcher m = pattern.matcher(line);
@@ -148,23 +145,8 @@ public class FileOperationsHelper {
             }
         } catch (IOException e) {
             Log_OC.d(TAG, e.getMessage());
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Error closing buffered reader for URL file", e);
-                }
-            }
-
-            if (fr != null) {
-                try {
-                    fr.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Error closing file reader for URL file", e);
-                }
-            }
         }
+
         return url;
     }
 

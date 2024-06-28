@@ -475,10 +475,7 @@ open class FolderPickerActivity :
      * @param operation Creation operation performed.
      * @param result    Result of the creation.
      */
-    private fun onCreateFolderOperationFinish(
-        operation: CreateFolderOperation,
-        result: RemoteOperationResult<*>
-    ) {
+    private fun onCreateFolderOperationFinish(operation: CreateFolderOperation, result: RemoteOperationResult<*>) {
         if (result.isSuccess) {
             val fileListFragment = listOfFilesFragment
             fileListFragment?.onItemClicked(storageManager.getFileByPath(operation.remotePath))

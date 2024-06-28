@@ -42,7 +42,10 @@ trim_trailing_whitespace=false
 indent_size=2
 
 [*.{kt,kts}]
+ktlint_code_style = android_studio
 # IDE does not follow this Ktlint rule strictly, but the default ordering is pretty good anyway, so let's ditch it
 ktlint_standard_import-ordering = disabled
+ktlint_standard_no-consecutive-comments = disabled
+ktlint_function_naming_ignore_when_annotated_with = Composable
 ij_kotlin_allow_trailing_comma = false
 ij_kotlin_allow_trailing_comma_on_call_site = false

@@ -222,11 +222,12 @@ class SyncedFoldersActivity :
 
     private fun showPowerCheckDialog() {
         val alertDialog = AlertDialog.Builder(this)
-            .setView(findViewById(R.id.root_layout))
+            .setView(R.id.root_layout)
             .setPositiveButton(R.string.common_ok) { dialog, _ -> dialog.dismiss() }
             .setTitle(R.string.autoupload_disable_power_save_check)
             .setMessage(getString(R.string.power_save_check_dialog_message))
             .show()
+
         viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE))
     }
 
@@ -307,7 +308,8 @@ class SyncedFoldersActivity :
             }
             val syncFolderItems = sortSyncedFolderItems(
                 mergeFolderData(currentAccountSyncedFoldersList, mediaFolders)
-            )
+            ).filterNotNull()
+
             CoroutineScope(Dispatchers.Main).launch {
                 adapter.setSyncFolderItems(syncFolderItems)
                 adapter.notifyDataSetChanged()
@@ -315,7 +317,9 @@ class SyncedFoldersActivity :
                 if (!TextUtils.isEmpty(path)) {
                     val section = adapter.getSectionByLocalPathAndType(path, type)
                     if (section >= 0) {
-                        onSyncFolderSettingsClick(section, adapter[section])
+                        adapter.get(section)?.let {
+                            onSyncFolderSettingsClick(section, it)
+                        }
                     }
                 }
                 loadJob = null
@@ -559,7 +563,9 @@ class SyncedFoldersActivity :
         return result
     }
 
-    override fun onSyncStatusToggleClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem) {
+    override fun onSyncStatusToggleClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {
+        if (syncedFolderDisplayItem == null) return
+
         if (syncedFolderDisplayItem.id > SyncedFolder.UNPERSISTED_ID) {
             syncedFolderProvider.updateSyncedFolderEnabled(
                 syncedFolderDisplayItem.id,
@@ -577,7 +583,7 @@ class SyncedFoldersActivity :
         }
     }
 
-    override fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem) {
+    override fun onSyncFolderSettingsClick(section: Int, syncedFolderDisplayItem: SyncedFolderDisplayItem?) {
         val fragmentTransaction = supportFragmentManager.beginTransaction().apply {
             addToBackStack(null)
         }
@@ -596,7 +602,9 @@ class SyncedFoldersActivity :
         }
     }
 
-    override fun onVisibilityToggleClick(section: Int, syncedFolder: SyncedFolderDisplayItem) {
+    override fun onVisibilityToggleClick(section: Int, syncedFolder: SyncedFolderDisplayItem?) {
+        if (syncedFolder == null) return
+
         syncedFolder.isHidden = !syncedFolder.isHidden
         saveOrUpdateSyncedFolder(syncedFolder)
         adapter.setSyncFolderItem(section, syncedFolder)
@@ -676,7 +684,7 @@ class SyncedFoldersActivity :
             saveOrUpdateSyncedFolder(newCustomFolder)
             adapter.addSyncFolderItem(newCustomFolder)
         } else {
-            val item = adapter[syncedFolder.section]
+            val item = adapter.get(syncedFolder.section) ?: return
             updateSyncedFolderItem(
                 item,
                 syncedFolder.id,
@@ -793,11 +801,7 @@ class SyncedFoldersActivity :
         item.setExcludeHidden(excludeHidden)
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE -> {
                 // If request is cancelled, result arrays are empty.

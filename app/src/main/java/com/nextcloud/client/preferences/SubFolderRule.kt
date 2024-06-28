@@ -11,5 +11,7 @@
 package com.nextcloud.client.preferences
 
 enum class SubFolderRule {
-    YEAR_MONTH, YEAR, YEAR_MONTH_DAY
+    YEAR_MONTH,
+    YEAR,
+    YEAR_MONTH_DAY
 }

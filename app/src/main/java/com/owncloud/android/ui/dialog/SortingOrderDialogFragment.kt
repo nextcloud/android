@@ -41,7 +41,7 @@ class SortingOrderDialogFragment : DialogFragment(), Injectable {
         retainInstance = true
 
         binding = null
-        currentSortOrderName = requireArguments().getString(KEY_SORT_ORDER, FileSortOrder.sort_a_to_z.name)
+        currentSortOrderName = requireArguments().getString(KEY_SORT_ORDER, FileSortOrder.SORT_A_TO_Z.name)
     }
 
     /**
@@ -51,12 +51,12 @@ class SortingOrderDialogFragment : DialogFragment(), Injectable {
      */
     private fun setupDialogElements(binding: SortingOrderFragmentBinding) {
         val bindings = listOf(
-            binding.sortByNameAscending to FileSortOrder.sort_a_to_z,
-            binding.sortByNameDescending to FileSortOrder.sort_z_to_a,
-            binding.sortByModificationDateAscending to FileSortOrder.sort_old_to_new,
-            binding.sortByModificationDateDescending to FileSortOrder.sort_new_to_old,
-            binding.sortBySizeAscending to FileSortOrder.sort_small_to_big,
-            binding.sortBySizeDescending to FileSortOrder.sort_big_to_small
+            binding.sortByNameAscending to FileSortOrder.SORT_A_TO_Z,
+            binding.sortByNameDescending to FileSortOrder.SORT_Z_TO_A,
+            binding.sortByModificationDateAscending to FileSortOrder.SORT_OLD_TO_NEW,
+            binding.sortByModificationDateDescending to FileSortOrder.SORT_NEW_TO_OLD,
+            binding.sortBySizeAscending to FileSortOrder.SORT_SMALL_TO_BIG,
+            binding.sortBySizeDescending to FileSortOrder.SORT_BIG_TO_SMALL
         )
 
         bindings.forEach { (view, sortOrder) ->

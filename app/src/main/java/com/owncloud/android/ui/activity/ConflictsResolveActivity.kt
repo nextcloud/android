@@ -254,13 +254,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         private val TAG = ConflictsResolveActivity::class.java.simpleName
 
         @JvmStatic
-        fun createIntent(
-            file: OCFile?,
-            user: User?,
-            conflictUploadId: Long,
-            flag: Int?,
-            context: Context?
-        ): Intent {
+        fun createIntent(file: OCFile?, user: User?, conflictUploadId: Long, flag: Int?, context: Context?): Intent {
             val intent = Intent(context, ConflictsResolveActivity::class.java)
             if (flag != null) {
                 intent.flags = intent.flags or flag

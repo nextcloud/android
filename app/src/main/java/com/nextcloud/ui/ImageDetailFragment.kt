@@ -93,7 +93,8 @@ class ImageDetailFragment : Fragment(), Injectable {
         }
 
         nominatimClient = NominatimClient(
-            getString(R.string.osm_geocoder_url), getString(R.string.osm_geocoder_contact)
+            getString(R.string.osm_geocoder_url),
+            getString(R.string.osm_geocoder_contact)
         )
 
         return binding.root
