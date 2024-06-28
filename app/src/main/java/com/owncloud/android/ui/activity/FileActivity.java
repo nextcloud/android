@@ -229,7 +229,7 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     public void checkInternetConnection() {
-        if (connectivityService.isConnected()) {
+        if (connectivityService != null && connectivityService.isConnected()) {
             hideInfoBox();
         }
     }
