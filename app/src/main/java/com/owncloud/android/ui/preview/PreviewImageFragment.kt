@@ -530,7 +530,8 @@ class PreviewImageFragment : FileFragment(), Injectable {
 
                         try {
                             bitmapResult = BitmapUtils.decodeSampledBitmapFromFile(
-                                storagePath, minWidth,
+                                storagePath,
+                                minWidth,
                                 minHeight
                             )
 
