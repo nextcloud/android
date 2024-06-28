@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s non admite contas múltipes</string>
     <string name="auth_wrong_connection_title">Non foi posíbel estabelecer a conexión</string>
     <string name="authenticator_activity_cancel_login">Cancelar o acceso</string>
+    <string name="authenticator_activity_login_error">Houbo un problema ao procesar a súa solicitude de acceso. Ténteo de novo máis tarde.</string>
     <string name="authenticator_activity_please_complete_login_process">Complete o proceso de acceso no seu navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_on_wifi">Enviar só con wifi sen límite de datos</string>
@@ -99,7 +100,7 @@
     <string name="autoupload_configure">Configurar</string>
     <string name="autoupload_create_new_custom_folder">Crear un cartafol personalizado novo</string>
     <string name="autoupload_custom_folder">Configurar un cartafol personalizado</string>
-    <string name="autoupload_disable_power_save_check">Desactivar a verificación de aforro de enerxía</string>
+    <string name="autoupload_disable_power_save_check">Desactivar a comprobación de aforro de enerxía</string>
     <string name="autoupload_hide_folder">Agochar o cartafol</string>
     <string name="autoupload_worker_foreground_info">Preparando o envío automático</string>
     <string name="avatar">Avatar</string>
@@ -599,7 +600,7 @@
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">alternar</string>
-    <string name="power_save_check_dialog_message">A desactivación da verificación de aforro de enerxía pode provocar o envío de ficheiros cando estea coa batería baixa.</string>
+    <string name="power_save_check_dialog_message">A desactivación da comprobación de aforro de enerxía pode provocar o envío de ficheiros cando estea coa batería baixa.</string>
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="pref_behaviour_entries_keep_file">mantense no cartafol orixinal</string>
     <string name="pref_behaviour_entries_move">movido cara ao cartafol da aplicación</string>

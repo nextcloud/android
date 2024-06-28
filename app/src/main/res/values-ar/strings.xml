@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
     <string name="auth_wrong_connection_title">لا يمكن إنشاء إتصال</string>
     <string name="authenticator_activity_cancel_login">إلغاء الدخول</string>
+    <string name="authenticator_activity_login_error">حدث إشكال عند معالجة طلبك للدخول. يُرجى المحاولة مرةً أخرى.</string>
     <string name="authenticator_activity_please_complete_login_process">رجاءً، قم بإكمال عملية الدخول في مستعرض الوب عندك</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
     <string name="auto_upload_on_wifi">قم بالرفع عبر شبكة لاسلكية غير محدودة البيانات فقط</string>
