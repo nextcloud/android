@@ -126,6 +126,7 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
         super.onCreate(savedInstanceState)
 
         arguments?.let { bundle ->
+            file.logFileSize(TAG)
             file = bundle.getParcelableArgument(FILE, OCFile::class.java)
             user = bundle.getParcelableArgument(USER, User::class.java)
 
