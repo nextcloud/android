@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s støtter ikke flere kontoer</string>
     <string name="auth_wrong_connection_title">Klarte ikke å opprette tilkobling</string>
     <string name="authenticator_activity_cancel_login">Avbryt pålogging</string>
+    <string name="authenticator_activity_login_error">Det oppstod et problem under behandling av påloggingsforespørselen. Prøv igjen senere.</string>
     <string name="authenticator_activity_please_complete_login_process">Fullfør påloggingsprosessen i nettleseren din</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">beholdt i opprinnelig mappe da den kun har leserettigheter</string>
     <string name="auto_upload_on_wifi">Kun last opp på ubegrenset Wi-Fi</string>

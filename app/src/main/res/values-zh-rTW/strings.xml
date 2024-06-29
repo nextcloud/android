@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s 不支援多個帳號</string>
     <string name="auth_wrong_connection_title">無法建立連線</string>
     <string name="authenticator_activity_cancel_login">取消登入</string>
+    <string name="authenticator_activity_login_error">處理您的登入請求時出現問題。請稍後再試。</string>
     <string name="authenticator_activity_please_complete_login_process">請在瀏覽器中完成登入流程</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_on_wifi">僅在非計量收費的 Wi-Fi 上傳</string>
@@ -321,6 +322,7 @@
     <string name="error_showing_encryption_dialog">顯示加密設定對話方塊時發生錯誤！</string>
     <string name="error_starting_direct_camera_upload">無法啟動相機</string>
     <string name="error_starting_doc_scan">開始文件掃描時發生錯誤</string>
+    <string name="error_uploading_direct_camera_upload">上傳拍攝的媒體失敗</string>
     <string name="etm_accounts">帳號</string>
     <string name="etm_background_execution_count">時段執行於48小時內</string>
     <string name="etm_background_job_created">已建立</string>
@@ -904,7 +906,9 @@
     <string name="upload_chooser_title">上傳自……</string>
     <string name="upload_content_from_other_apps">從其它應用程式上傳</string>
     <string name="upload_direct_camera_photo">照片</string>
+    <string name="upload_direct_camera_promt">您想要拍攝照片或影片？</string>
     <string name="upload_direct_camera_upload">從相機上傳</string>
+    <string name="upload_direct_camera_video">影片</string>
     <string name="upload_file_dialog_filename">檔案名稱</string>
     <string name="upload_file_dialog_filetype">檔案類型</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google 地圖捷徑 (%s)</string>
