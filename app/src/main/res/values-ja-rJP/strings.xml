@@ -861,6 +861,7 @@
     <string name="upload_local_storage_full">ローカルストレージに空きがありません</string>
     <string name="upload_local_storage_not_copied">ローカルストレージへにファイルをコピーできませんでした</string>
     <string name="upload_lock_failed">フォルダのロックに失敗しました</string>
+    <string name="upload_manually_cancelled">アップロードはユーザーによってキャンセルされました</string>
     <string name="upload_old_android">暗号化は、Android 5.0以降で使えます。</string>
     <string name="upload_query_move_foreign_files">十分な空き容量が無い場合、選択したファイルは%1$sにコピーできません。コピーせず移動にしますか？</string>
     <string name="upload_scan_doc_upload">カメラから書類をスキャン</string>
