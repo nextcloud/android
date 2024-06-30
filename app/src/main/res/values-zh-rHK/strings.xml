@@ -354,6 +354,7 @@
     <string name="failed_update_ui">更新 UI 失敗</string>
     <string name="favorite">加到我的最愛</string>
     <string name="favorite_icon">我的最愛</string>
+    <string name="file_activity_shared_file_cannot_be_updated">無法更新分享了的檔案</string>
     <string name="file_already_exists">檔案名已存在</string>
     <string name="file_delete">刪除</string>
     <string name="file_detail_activity_error">取得檔案活動時發生錯誤</string>
@@ -927,6 +928,7 @@
     <string name="upload_local_storage_not_copied">無法複製檔案到近端資料夾</string>
     <string name="upload_lock_failed">鎖定資料夾失敗</string>
     <string name="upload_manually_cancelled">用戶已取消上傳</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">加密功能只適用於 Android 5.0 及以上版本</string>
     <string name="upload_query_move_foreign_files">空間不足導致無法將所選檔案複製到 %1$s 資料夾中。您想改為將檔案移到那裡嗎？</string>
     <string name="upload_quota_exceeded">超過儲存空間配額</string>
