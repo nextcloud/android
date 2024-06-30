@@ -354,6 +354,7 @@
     <string name="failed_update_ui">Produciuse un fallo ao actualizar a IU</string>
     <string name="favorite">Engadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Non foi posíbel actualizar o ficheiro compartido</string>
     <string name="file_already_exists">O nome de ficheiro xa existe</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Produciuse un erro ao recuperar actividades para o ficheiro</string>
