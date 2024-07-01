@@ -354,6 +354,7 @@
     <string name="failed_update_ui">更新使用者介面失敗</string>
     <string name="favorite">加到我的最愛</string>
     <string name="favorite_icon">我的最愛</string>
+    <string name="file_activity_shared_file_cannot_be_updated">無法更新已分享的檔案</string>
     <string name="file_already_exists">檔案名稱已存在</string>
     <string name="file_delete">刪除</string>
     <string name="file_detail_activity_error">取得檔案活動時發生錯誤</string>
