@@ -37,8 +37,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.URLUtil;
+import android.widget.Button;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -494,30 +497,32 @@ public class SettingsActivity extends PreferenceActivity
                 preferenceCategoryMore.removePreference(preference);
             } else {
                 preference.setOnPreferenceClickListener(p -> {
-                    final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog);
-                    AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
-                        .setMessage(getString(R.string.remove_e2e_message))
-                        .setCancelable(true)
-                        .setNegativeButton(R.string.common_cancel, ((dialog, i) -> dialog.dismiss()))
-                        .setPositiveButton(R.string.confirm_removal, (dialog, which) -> {
-                            EncryptionUtils.removeE2E(arbitraryDataProvider, user);
-                            preferenceCategoryMore.removePreference(preference);
-
-                            Preference pMnemonic = findPreference("mnemonic");
-                            if (pMnemonic != null) {
-                                preferenceCategoryMore.removePreference(pMnemonic);
-                            }
-
-                            dialog.dismiss();
-                        })
-                        .create();
-
-                    alertDialog.show();
-
+                    showRemoveE2EAlertDialog(preferenceCategoryMore, preference);
                     return true;
                 });
             }
         }
+    }
+
+    private void showRemoveE2EAlertDialog(PreferenceCategory preferenceCategoryMore, Preference preference) {
+        new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog)
+            .setTitle(R.string.prefs_e2e_mnemonic)
+            .setMessage(getString(R.string.remove_e2e_message))
+            .setCancelable(true)
+            .setNegativeButton(R.string.common_cancel, ((dialog, i) -> dialog.dismiss()))
+            .setPositiveButton(R.string.confirm_removal, (dialog, which) -> {
+                EncryptionUtils.removeE2E(arbitraryDataProvider, user);
+                preferenceCategoryMore.removePreference(preference);
+
+                Preference pMnemonic = findPreference("mnemonic");
+                if (pMnemonic != null) {
+                    preferenceCategoryMore.removePreference(pMnemonic);
+                }
+
+                dialog.dismiss();
+            })
+            .create()
+            .show();
     }
 
     private void setupHelpPreference(PreferenceCategory preferenceCategoryMore) {
@@ -980,20 +985,21 @@ public class SettingsActivity extends PreferenceActivity
 
                 ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
                 String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC).trim();
-
-                final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog);
-                AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
-                    .setMessage(mnemonic)
-                    .setNegativeButton(R.string.common_cancel, (dialog, i) -> dialog.dismiss())
-                    .setNeutralButton(R.string.common_copy, (dialog, i) ->
-                        ClipboardUtil.copyToClipboard(this, mnemonic, false))
-                    .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
-                    .create();
-
-                alertDialog.show();
-                viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                showMnemonicAlertDialogDialog(mnemonic);
             }
         }
+    }
+
+    private void showMnemonicAlertDialogDialog(String mnemonic) {
+        new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog)
+            .setTitle(R.string.prefs_e2e_mnemonic)
+            .setMessage(mnemonic)
+            .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
+            .setNegativeButton(R.string.common_cancel, (dialog, i) -> dialog.dismiss())
+            .setNeutralButton(R.string.common_copy, (dialog, i) ->
+                ClipboardUtil.copyToClipboard(this, mnemonic, false))
+            .create()
+            .show();
     }
 
     @Override
