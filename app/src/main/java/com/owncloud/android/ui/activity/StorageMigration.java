@@ -88,6 +88,30 @@ public class StorageMigration {
         return f.exists() && f.isDirectory();
     }
 
+    public static void a(ViewThemeUtils viewThemeUtils, Context context) {
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context)
+            .setMessage(R.string.file_migration_directory_already_exists)
+            .setCancelable(true)
+            .setOnCancelListener(dialogInterface -> {
+
+            })
+            .setNegativeButton(R.string.common_cancel, (dialogInterface, i) -> {
+
+            })
+            .setNeutralButton(R.string.file_migration_use_data_folder, (dialogInterface, i) -> {
+
+            })
+            .setPositiveButton(R.string.file_migration_override_data_folder, (dialogInterface, i) -> {
+
+            });
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(context, builder);
+
+        AlertDialog alertDialog = builder.create();
+
+        alertDialog.show();
+    }
+
     private void askToOverride() {
         final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext)
                 .setMessage(R.string.file_migration_directory_already_exists)
@@ -133,8 +157,7 @@ public class StorageMigration {
                 });
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(mContext, builder);
-        builder.create();
-        builder.show();
+        builder.create().show();
     }
 
     private ProgressDialog createMigrationProgressDialog() {
@@ -232,8 +255,7 @@ public class StorageMigration {
                     });
 
             viewThemeUtils.dialog.colorMaterialAlertDialogBackground(mContext, builder);
-            builder.create();
-            builder.show();
+            builder.create().show();
         }
 
         protected boolean[] saveAccountsSyncStatus() {

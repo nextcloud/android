@@ -230,9 +230,7 @@ class SyncedFoldersActivity :
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(this, builder)
 
-        val alertDialog = builder.create()
-        builder.show()
-        viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE))
+        builder.create().show()
     }
 
     /**
