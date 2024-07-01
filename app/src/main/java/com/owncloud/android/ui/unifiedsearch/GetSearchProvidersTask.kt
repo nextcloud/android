@@ -30,7 +30,7 @@ class GetSearchProvidersTask(
             result.isSuccess && result.resultData != null -> {
                 Result(
                     success = true,
-                    providers = result.resultData
+                    providers = result.resultData as SearchProviders
                 )
             }
             else -> Result()
