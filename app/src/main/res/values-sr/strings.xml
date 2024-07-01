@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s не подржава вишеструке налоге</string>
     <string name="auth_wrong_connection_title">Не могу да успоставим везу</string>
     <string name="authenticator_activity_cancel_login">Откажи пријављивање</string>
+    <string name="authenticator_activity_login_error">Дошло је до проблема при обради вашег захтева за пријаву. Молимо вас да касније покушате поново.</string>
     <string name="authenticator_activity_please_complete_login_process">Молимо вас да довршите процес пријаве у интернет прегледачу</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">остављен у оригиналној фасцикли јер је само за читање</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
@@ -321,6 +322,7 @@
     <string name="error_showing_encryption_dialog">Грешка приликом приказа дијалога за подешавање шифрирања!</string>
     <string name="error_starting_direct_camera_upload">Грешка при покретању камере</string>
     <string name="error_starting_doc_scan">Грешка приликом почетка скенирања документа</string>
+    <string name="error_uploading_direct_camera_upload">Није успело креиране медије</string>
     <string name="etm_accounts">Налози</string>
     <string name="etm_background_execution_count">Покренуто пута 48 сати</string>
     <string name="etm_background_job_created">Направљен</string>
@@ -352,6 +354,7 @@
     <string name="failed_update_ui">Неуспело освежавање сучеља</string>
     <string name="favorite">Додај у омиљене</string>
     <string name="favorite_icon">Омиљени</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Не може да се ажурира дељени фајл</string>
     <string name="file_already_exists">Име фајла већ постоји</string>
     <string name="file_delete">Обриши</string>
     <string name="file_detail_activity_error">Грешка при добављању активности за фајл</string>
@@ -904,7 +907,9 @@
     <string name="upload_chooser_title">Отпреми из…</string>
     <string name="upload_content_from_other_apps">Отпрема садржај из других апликација</string>
     <string name="upload_direct_camera_photo">Фотографија</string>
+    <string name="upload_direct_camera_promt">Желите ли да направите фотографију или видео клип?</string>
     <string name="upload_direct_camera_upload">Отпреми са камере</string>
+    <string name="upload_direct_camera_video">Видео снимак</string>
     <string name="upload_file_dialog_filename">Назив фајла</string>
     <string name="upload_file_dialog_filetype">Тип фајла</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Пречица Гугл мапа (%s)</string>
