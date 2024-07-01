@@ -14,10 +14,12 @@ import java.io.File
 
 fun OCFile?.logFileSize(tag: String) {
     val size = DisplayUtils.bytesToHumanReadable(this?.fileLength ?: -1)
-    Log_OC.d(tag, "onSaveInstanceState: $size")
+    val rawByte = this?.fileLength ?: -1
+    Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
 }
 
 fun File?.logFileSize(tag: String) {
     val size = DisplayUtils.bytesToHumanReadable(this?.length() ?: -1)
-    Log_OC.d(tag, "onSaveInstanceState: $size")
+    val rawByte = this?.length() ?: -1
+    Log_OC.d(tag, "onSaveInstanceState: $size, raw byte $rawByte")
 }
