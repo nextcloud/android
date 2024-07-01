@@ -87,10 +87,15 @@ class FilesSyncWork(
         }
 
         val filesystemDataProvider = FilesystemDataProvider(contentResolver)
+        var current = System.currentTimeMillis()
         FilesSyncHelper.insertNewFilesIntoFSDatabase(syncedFolder.localPath, syncedFolder, filesystemDataProvider)
-
+        Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) inserted new files into DB in " + (System.currentTimeMillis() - current) + "ms")
+        current = System.currentTimeMillis()
         cursor = filesystemDataProvider.getFilesCursorAscOrderedForSyncedFolder(syncedFolder)
+        Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) got files cursor in " + (System.currentTimeMillis() - current) + "ms")
+        current = System.currentTimeMillis()
         checkFilesFormDBForChanges(syncedFolder, filesystemDataProvider, cursor)
+        Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) checked files for changes in " + (System.currentTimeMillis() - current) + "ms")
 
         // Todo: update syncedFolder.lastScanTimestampMs
 
