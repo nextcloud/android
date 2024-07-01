@@ -204,11 +204,27 @@ class FileUploadHelper {
     }
 
     fun cancelFileUpload(remotePath: String, accountName: String) {
-        uploadsStorageManager.getUploadByRemotePath(remotePath).run {
-            removeFileUpload(remotePath, accountName)
-            uploadStatus = UploadStatus.UPLOAD_CANCELLED
-            uploadsStorageManager.storeUpload(this)
+        val upload = uploadsStorageManager.getUploadByRemotePath(remotePath)
+        if (upload != null) {
+            cancelFileUploads(listOf(upload), accountName)
+        }else{
+            Log_OC.e(TAG, "Error cancelling current upload because upload does not exist!")
         }
+    }
+
+    fun cancelFileUploads(uploads: List<OCUpload>, accountName: String) {
+        for (upload in uploads) {
+            upload.uploadStatus = UploadStatus.UPLOAD_CANCELLED
+            uploadsStorageManager.updateUpload(upload)
+        }
+
+        try {
+            val user = accountManager.getUser(accountName).get()
+            cancelAndRestartUploadJob(user)
+        } catch (e: NoSuchElementException) {
+            Log_OC.e(TAG, "Error restarting upload job because user does not exist!")
+        }
+
     }
 
     fun cancelAndRestartUploadJob(user: User) {
