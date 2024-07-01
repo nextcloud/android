@@ -25,6 +25,7 @@ import com.nextcloud.client.NominatimClient
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewImageDetailsFragmentBinding
@@ -62,6 +63,8 @@ class ImageDetailFragment : Fragment(), Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    private val tag = "ImageDetailFragment"
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = PreviewImageDetailsFragmentBinding.inflate(layoutInflater, container, false)
@@ -102,6 +105,7 @@ class ImageDetailFragment : Fragment(), Injectable {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        file.logFileSize(tag)
         outState.putParcelable(ARG_FILE, file)
         outState.putParcelable(ARG_USER, user)
         outState.putParcelable(ARG_METADATA, metadata)

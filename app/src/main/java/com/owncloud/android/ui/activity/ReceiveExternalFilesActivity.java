@@ -52,6 +52,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -264,7 +265,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
-        Log_OC.d(TAG, "onSaveInstanceState() start");
+        FileExtensionsKt.logFileSize(mFile, TAG);
         super.onSaveInstanceState(outState);
         outState.putString(KEY_PARENTS, generatePath(mParents));
         outState.putParcelable(KEY_FILE, mFile);

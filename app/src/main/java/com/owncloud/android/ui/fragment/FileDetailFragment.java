@@ -35,6 +35,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
@@ -355,6 +356,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
+        FileExtensionsKt.logFileSize(getFile(), TAG);
         outState.putParcelable(ARG_FILE, getFile());
         outState.putParcelable(ARG_USER, user);
     }

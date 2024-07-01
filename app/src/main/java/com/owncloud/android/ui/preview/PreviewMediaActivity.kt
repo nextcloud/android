@@ -65,6 +65,7 @@ import com.nextcloud.common.NextcloudClient
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.ResultListener
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
@@ -327,7 +328,7 @@ class PreviewMediaActivity :
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        Log_OC.v(TAG, "onSaveInstanceState")
+        file.logFileSize(TAG)
         outState.let { bundle ->
             bundle.putParcelable(EXTRA_FILE, file)
             bundle.putParcelable(EXTRA_USER, user)

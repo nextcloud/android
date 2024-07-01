@@ -66,6 +66,7 @@ import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
@@ -1067,8 +1068,8 @@ public class FileDisplayActivity extends FileActivity
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in
         // onRestoreInstanceState when there are Fragments involved
-        Log_OC.v(TAG, "onSaveInstanceState() start");
         super.onSaveInstanceState(outState);
+        FileExtensionsKt.logFileSize(mWaitingToPreview, TAG);
         outState.putParcelable(FileDisplayActivity.KEY_WAITING_TO_PREVIEW, mWaitingToPreview);
         outState.putBoolean(FileDisplayActivity.KEY_SYNC_IN_PROGRESS, mSyncInProgress);
         // outState.putBoolean(FileDisplayActivity.KEY_REFRESH_SHARES_IN_PROGRESS,
