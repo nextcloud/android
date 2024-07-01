@@ -818,7 +818,7 @@ public class MainApp extends Application implements HasAndroidInjector {
     }
 
     private static void showAutoUploadAlertDialog(Context context) {
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)
+        new MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)
             .setTitle(R.string.drawer_synced_folders)
             .setMessage(R.string.synced_folders_new_info)
             .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
@@ -827,10 +827,9 @@ public class MainApp extends Application implements HasAndroidInjector {
                 context.startActivity(folderSyncIntent);
             })
             .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
-            .setIcon(R.drawable.nav_synced_folders);
-
-        builder.create();
-        builder.show();
+            .setIcon(R.drawable.nav_synced_folders)
+            .create()
+            .show();
     }
 
     private static void updateAutoUploadEntries(Clock clock) {
