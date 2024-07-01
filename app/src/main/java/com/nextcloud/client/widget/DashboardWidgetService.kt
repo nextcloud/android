@@ -104,7 +104,7 @@ class StackRemoteViewsFactory(
                 val result = DashboardGetWidgetItemsRemoteOperation(widgetConfiguration.widgetId, LIMIT_SIZE)
                     .execute(client)
                 widgetItems = if (result.isSuccess) {
-                    result.resultData[widgetConfiguration.widgetId] ?: emptyList()
+                    result.resultData?.get(widgetConfiguration.widgetId) ?: emptyList()
                 } else {
                     emptyList()
                 }

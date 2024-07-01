@@ -40,7 +40,6 @@ import com.owncloud.android.lib.common.Template
 import com.owncloud.android.lib.common.TemplateList
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
-import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.activity.ExternalSiteWebView
 import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.adapter.TemplateAdapter
@@ -306,10 +305,13 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
                     user,
                     context.contentResolver
                 )
-                val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
+                val temp = FileStorageUtils.fillOCFile(newFileResult.resultData)
                 storageManager.saveFile(temp)
                 file = storageManager.getFileByPath(path)
-                result.resultData
+
+                if (result.resultData != null) {
+                    result.resultData!!
+                } else ""
             } catch (e: CreationException) {
                 Log_OC.e(TAG, "Error creating file from template!", e)
                 ""
@@ -361,10 +363,10 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
                     creator.id
                 )
                     .execute(client)
-                if (!result.isSuccess) {
-                    TemplateList()
+                if (result.isSuccess && result.resultData != null) {
+                    result.resultData!!
                 } else {
-                    result.resultData
+                    TemplateList()
                 }
             } catch (e: CreationException) {
                 Log_OC.e(TAG, "Could not fetch template", e)

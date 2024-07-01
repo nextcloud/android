@@ -21,7 +21,7 @@ internal class LoadUrlTask(
         val operation = StreamMediaFileOperation(fileId)
         val result = operation.execute(client)
         return when (result.isSuccess) {
-            true -> result.data[0] as String
+            true -> result.data?.get(0) as String
             false -> null
         }
     }

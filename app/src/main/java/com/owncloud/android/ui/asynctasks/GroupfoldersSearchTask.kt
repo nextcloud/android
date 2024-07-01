@@ -42,8 +42,8 @@ class GroupfoldersSearchTask(
                     user,
                     fragment.requireContext()
                 )
-                if (result.isSuccess) {
-                    result.resultData
+                if (result.isSuccess && result.resultData != null) {
+                    result.resultData!!
                 } else {
                     HashMap()
                 }

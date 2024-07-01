@@ -16,8 +16,8 @@ import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
 @Suppress("MagicNumber")
 class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : AssistantRepositoryType {
-    override fun getTaskTypes(): RemoteOperationResult<TaskTypes> {
-        return RemoteOperationResult<TaskTypes>(RemoteOperationResult.ResultCode.OK).apply {
+    override fun getTaskTypes(): RemoteOperationResult<TaskTypes?> {
+        return RemoteOperationResult<TaskTypes?>(RemoteOperationResult.ResultCode.OK).apply {
             resultData = TaskTypes(
                 listOf(
                     TaskType("1", "FreePrompt", "You can create free prompt text"),
@@ -31,7 +31,7 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
         return RemoteOperationResult<Void>(RemoteOperationResult.ResultCode.OK)
     }
 
-    override fun getTaskList(appId: String): RemoteOperationResult<TaskList> {
+    override fun getTaskList(appId: String): RemoteOperationResult<TaskList?> {
         val taskList = if (giveEmptyTasks) {
             TaskList(listOf())
         } else {
@@ -117,7 +117,7 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
             )
         }
 
-        return RemoteOperationResult<TaskList>(RemoteOperationResult.ResultCode.OK).apply {
+        return RemoteOperationResult<TaskList?>(RemoteOperationResult.ResultCode.OK).apply {
             resultData = taskList
         }
     }

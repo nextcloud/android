@@ -12,11 +12,11 @@ import com.owncloud.android.lib.resources.assistant.model.TaskList
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
 interface AssistantRepositoryType {
-    fun getTaskTypes(): RemoteOperationResult<TaskTypes>
+    fun getTaskTypes(): RemoteOperationResult<TaskTypes?>
 
     fun createTask(input: String, type: String): RemoteOperationResult<Void>
 
-    fun getTaskList(appId: String): RemoteOperationResult<TaskList>
+    fun getTaskList(appId: String): RemoteOperationResult<TaskList?>
 
     fun deleteTask(id: Long): RemoteOperationResult<Void>
 }

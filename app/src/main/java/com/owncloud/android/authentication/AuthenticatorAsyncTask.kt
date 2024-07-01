@@ -72,12 +72,12 @@ class AuthenticatorAsyncTask(activity: Activity) : AsyncTask<Any?, Void?, Remote
                     val permanentLocation = redirectionPath.lastPermanentLocation
                     result.lastPermanentLocation = permanentLocation
                 }
-                result.setResultData(userInfoResult.resultData)
+                result.resultData = userInfoResult.resultData 
             } else {
                 result = userInfoResult
             }
         } else {
-            result = RemoteOperationResult<UserInfo?>(RemoteOperationResult.ResultCode.UNKNOWN_ERROR)
+            result = RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR)
         }
 
         return result
