@@ -56,6 +56,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import androidx.annotation.NonNull;
@@ -119,10 +120,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
                 case CURRENT -> {
-                    for (OCUpload upload : group.getItems()) {
-                        uploadHelper.cancelFileUpload(upload.getRemotePath(), upload.getAccountName());
-                    }
-                    loadUploadItemsFromDb();
+                    new Thread(() -> {
+                        uploadHelper.cancelFileUploads(
+                            Arrays.asList(group.items),
+                            group.getItem(0).getAccountName());
+                        parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
+                    }).start();
                 }
                 case FINISHED -> {
                     uploadsStorageManager.clearSuccessfulUploads();
@@ -152,7 +155,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
                 // FIXME For e2e resume is not working
                 new Thread(() -> {
-                    FileUploadHelper.Companion.instance().retryFailedUploads(
+                    uploadHelper.retryFailedUploads(
                         uploadsStorageManager,
                         connectivityService,
                         accountManager,
@@ -196,7 +199,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     // FIXME For e2e resume is not working
     private void retryCancelledUploads() {
         new Thread(() -> {
-            boolean showNotExistMessage = FileUploadHelper.Companion.instance().retryCancelledUploads(
+            boolean showNotExistMessage = uploadHelper.retryCancelledUploads(
                 uploadsStorageManager,
                 connectivityService,
                 accountManager,
