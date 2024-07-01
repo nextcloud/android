@@ -190,8 +190,8 @@ public final class ErrorMessageAdapter {
 
     private static @Nullable
     String getMessageForUpdateShareOperations(RemoteOperationResult result, Resources res) {
-        if (!TextUtils.isEmpty(result.getMessage())) {
-            return result.getMessage();     // share API sends its own error messages
+        if (!TextUtils.isEmpty(result.message)) {
+            return result.message;     // share API sends its own error messages
         } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
             return res.getString(R.string.update_link_file_no_exist);
         } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
@@ -204,8 +204,8 @@ public final class ErrorMessageAdapter {
 
     private static @Nullable
     String getMessageForUnshareOperation(RemoteOperationResult result, Resources res) {
-        if (!TextUtils.isEmpty(result.getMessage())) {
-            return result.getMessage();     // share API sends its own error messages
+        if (!TextUtils.isEmpty(result.message)) {
+            return result.message;     // share API sends its own error messages
         } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
             return res.getString(R.string.unshare_link_file_no_exist);
         } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {
@@ -237,8 +237,8 @@ public final class ErrorMessageAdapter {
 
     private static @Nullable
     String getMessageForCreateShareOperations(RemoteOperationResult result, Resources res) {
-        if (!TextUtils.isEmpty(result.getMessage())) {
-            return result.getMessage();     // share API sends its own error messages
+        if (!TextUtils.isEmpty(result.message)) {
+            return result.message;     // share API sends its own error messages
         } else if (result.getCode() == ResultCode.SHARE_NOT_FOUND) {
             return res.getString(R.string.share_link_file_no_exist);
         } else if (result.getCode() == ResultCode.SHARE_FORBIDDEN) {

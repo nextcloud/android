@@ -167,7 +167,7 @@ class EncryptionUtilsV2 {
         storageManager: FileDataStorageManager,
         client: OwnCloudClient,
         oldCounter: Long,
-        signature: String,
+        signature: String?,
         user: User,
         context: Context,
         arbitraryDataProvider: ArbitraryDataProvider
@@ -333,7 +333,7 @@ class EncryptionUtilsV2 {
 
         if (result.isSuccess) {
             val v2 = EncryptionUtils.deserializeJSON(
-                result.resultData.metadata,
+                result.resultData?.metadata,
                 object : TypeToken<EncryptedFolderMetadataFile>() {}
             )
 
@@ -345,7 +345,7 @@ class EncryptionUtilsV2 {
                 storageManager,
                 client,
                 topMost.e2eCounter,
-                result.resultData.signature,
+                result.resultData?.signature,
                 user,
                 context,
                 arbitraryDataProvider
@@ -556,7 +556,7 @@ class EncryptionUtilsV2 {
 
         return if (getMetadataOperationResult.isSuccess) {
             // decrypt metadata
-            val metadataResponse = getMetadataOperationResult.resultData
+            val metadataResponse = getMetadataOperationResult.resultData!!
             val metadata = parseAnyMetadata(
                 metadataResponse,
                 user,
@@ -951,7 +951,7 @@ class EncryptionUtilsV2 {
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
         oldCounter: Long,
         // base 64 encoded BER
-        ans: String
+        ans: String?
     ) {
         // check counter
         if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {

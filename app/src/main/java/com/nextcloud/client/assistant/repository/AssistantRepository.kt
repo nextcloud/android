@@ -18,7 +18,7 @@ import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
 class AssistantRepository(private val client: NextcloudClient) : AssistantRepositoryType {
 
-    override fun getTaskTypes(): RemoteOperationResult<TaskTypes> {
+    override fun getTaskTypes(): RemoteOperationResult<TaskTypes?> {
         return GetTaskTypesRemoteOperation().execute(client)
     }
 
@@ -26,7 +26,7 @@ class AssistantRepository(private val client: NextcloudClient) : AssistantReposi
         return CreateTaskRemoteOperation(input, type).execute(client)
     }
 
-    override fun getTaskList(appId: String): RemoteOperationResult<TaskList> {
+    override fun getTaskList(appId: String): RemoteOperationResult<TaskList?> {
         return GetTaskListRemoteOperation(appId).execute(client)
     }
 

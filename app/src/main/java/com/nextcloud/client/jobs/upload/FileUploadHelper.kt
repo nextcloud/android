@@ -302,7 +302,7 @@ class FileUploadHelper {
         val operation = ReadFileRemoteOperation(remotePath)
         val result: RemoteOperationResult<*> = operation.execute(user, context)
         if (result.isSuccess) {
-            val remoteFile = result.data[0] as RemoteFile
+            val remoteFile = result.data?.get(0) as RemoteFile
             return remoteFile.size == localSize &&
                 localCreationTimestamp != null &&
                 localCreationTimestamp == remoteFile.creationTimestamp &&

@@ -172,7 +172,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 try {
                     val result = operation.execute(account, this)
                     if (result.isSuccess) {
-                        existingFile = FileStorageUtils.fillOCFile(result.data[0] as RemoteFile)
+                        existingFile = FileStorageUtils.fillOCFile(result.data?.get(0) as RemoteFile)
                         existingFile?.lastSyncDateForProperties = System.currentTimeMillis()
                         startDialog(remotePath)
                     } else {
