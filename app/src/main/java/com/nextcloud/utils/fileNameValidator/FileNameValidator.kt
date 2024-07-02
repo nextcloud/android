@@ -22,7 +22,7 @@ object FileNameValidator {
         "LPT¹", "LPT²", "LPT³"
     )
 
-    fun isValid(name: String, context: Context): String? {
+    fun isValid(name: String, context: Context, fileNames: MutableSet<String>? = null): String? {
         val invalidCharacter = name.find { it.toString().matches(reservedWindowsChars) || it.toString().matches(reservedUnixChars) }
         if (invalidCharacter != null) {
             return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
@@ -40,6 +40,14 @@ object FileNameValidator {
             return context.getString(R.string.filename_empty)
         }
 
+        if (isFileNameAlreadyExist(name, fileNames ?: mutableSetOf())) {
+            return context.getString(R.string.file_already_exists)
+        }
+
         return null
     }
+
+    fun isFileHidden(name: String): Boolean = !TextUtils.isEmpty(name) && name[0] == '.'
+
+    private fun isFileNameAlreadyExist(name: String, fileNames: MutableSet<String>): Boolean = fileNames.contains(name)
 }
