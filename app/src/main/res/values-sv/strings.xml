@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s har inte stöd för multipla konton</string>
     <string name="auth_wrong_connection_title">Kunde inte upprätta anslutning</string>
     <string name="authenticator_activity_cancel_login">Avbryt inloggning</string>
+    <string name="authenticator_activity_login_error">Det uppstod ett problem när din inloggningsförfrågan behandlades. Försök igen senare.</string>
     <string name="authenticator_activity_please_complete_login_process">Slutför inloggningsprocessen i din webbläsare</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
@@ -353,6 +354,7 @@
     <string name="failed_update_ui">Misslyckades med att uppdatera UI</string>
     <string name="favorite">Lägg till favoriter</string>
     <string name="favorite_icon">Favoritisera</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Delad fil kan inte uppdateras</string>
     <string name="file_already_exists">Filnamnet finns redan</string>
     <string name="file_delete">Ta bort</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
