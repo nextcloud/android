@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s does not support multiple accounts</string>
     <string name="auth_wrong_connection_title">Could not establish connection</string>
     <string name="authenticator_activity_cancel_login">Cancel Login</string>
+    <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
@@ -353,6 +354,7 @@
     <string name="failed_update_ui">Failed to update UI</string>
     <string name="favorite">Add to favourites</string>
     <string name="favorite_icon">Favourite</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Shared file cannot be updated</string>
     <string name="file_already_exists">Filename already exists</string>
     <string name="file_delete">Delete</string>
     <string name="file_detail_activity_error">Error retrieving activities for file</string>

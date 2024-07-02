@@ -21,6 +21,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -136,6 +137,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        FileExtensionsKt.logFileSize(getFile(), TAG);
         outState.putParcelable(PreviewTextFileFragment.EXTRA_FILE, getFile());
         outState.putParcelable(PreviewTextFileFragment.EXTRA_USER, user);
         super.onSaveInstanceState(outState);

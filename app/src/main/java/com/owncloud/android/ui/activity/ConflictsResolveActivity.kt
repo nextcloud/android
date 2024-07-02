@@ -20,6 +20,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -143,6 +144,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        existingFile.logFileSize(TAG)
         outState.putLong(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
         outState.putParcelable(EXTRA_EXISTING_FILE, existingFile)
         outState.putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
