@@ -7,10 +7,13 @@
 
 package com.nextcloud.utils.fileNameValidator
 
+import android.content.Context
 import android.text.TextUtils
+import com.owncloud.android.R
 
 object FileNameValidator {
     private val reservedWindowsChars = "[<>:\"/\\\\|?*]".toRegex()
+    private val reservedUnixChars = "[/<>|:&]".toRegex()
     private val reservedWindowsNames = listOf(
         "CON", "PRN", "AUX", "NUL",
         "COM0", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
@@ -18,23 +21,23 @@ object FileNameValidator {
         "LPT0", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9",
         "LPT¹", "LPT²", "LPT³"
     )
-    private val reservedUnixChars = "[/<>|:&]".toRegex()
 
-    fun isValid(name: String): FileNameValidationResult? {
-        if (name.contains(reservedWindowsChars) || name.contains(reservedUnixChars)) {
-            return FileNameValidationResult.INVALID_CHARACTER
+    fun isValid(name: String, context: Context): String? {
+        val invalidCharacter = name.find { it.toString().matches(reservedWindowsChars) || it.toString().matches(reservedUnixChars) }
+        if (invalidCharacter != null) {
+            return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
         }
 
         if (reservedWindowsNames.contains(name.uppercase())) {
-            return FileNameValidationResult.RESERVED_NAME
+            return context.getString(R.string.file_name_validator_error_reserved_names)
         }
 
         if (name.endsWith(" ") || name.endsWith(".")) {
-            return FileNameValidationResult.ENDS_WITH_SPACE_OR_PERIOD
+            return context.getString(R.string.file_name_validator_error_ends_with_space_period)
         }
 
         if (TextUtils.isEmpty(name)) {
-            return FileNameValidationResult.EMPTY
+            return context.getString(R.string.filename_empty)
         }
 
         return null

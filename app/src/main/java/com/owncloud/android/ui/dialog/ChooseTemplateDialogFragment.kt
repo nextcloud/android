@@ -221,12 +221,12 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         val path = parentFolder?.remotePath + name
         val selectedTemplate = adapter?.selectedTemplate
 
-        val errorMessageId: Int? = FileNameValidator.isValid(name)?.messageId
+        val errorMessage = FileNameValidator.isValid(name, requireContext())
 
         if (selectedTemplate == null) {
             DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
-        } else if (errorMessageId != null) {
-            DisplayUtils.showSnackMessage(requireActivity(), errorMessageId)
+        } else if (errorMessage != null) {
+            DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
         } else if (name.equals(DOT + selectedTemplate.extension, ignoreCase = true)) {
             DisplayUtils.showSnackMessage(binding.list, R.string.enter_filename)
         } else if (!name.endsWith(selectedTemplate.extension)) {
@@ -245,12 +245,13 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             DOT + selectedTemplate.extension,
             ignoreCase = true
         )
-        val errorMessageId: Int? = FileNameValidator.isValid(name)?.messageId
+        val errorMessage = FileNameValidator.isValid(name, requireContext())
+
         val error = when {
             name.isEmpty() || isNameJustExtension -> null
-            name[0] == '.' -> R.string.hidden_file_name_warning
-            errorMessageId != null -> errorMessageId
-            fileNames.contains(name) -> R.string.file_already_exists
+            name[0] == '.' -> getText(R.string.hidden_file_name_warning)
+            errorMessage != null -> errorMessage
+            fileNames.contains(name) -> getText(R.string.file_already_exists)
             else -> null
         }
 
@@ -258,7 +259,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         positiveButton?.isClickable = (error == null)
         binding.filenameContainer.isErrorEnabled = (error != null)
         if (error != null) {
-            binding.filenameContainer.error = getText(error)
+            binding.filenameContainer.error = error
         }
     }
 
