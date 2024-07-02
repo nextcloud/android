@@ -38,6 +38,7 @@ import android.os.StrictMode;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.appReview.InAppReviewHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -109,7 +110,6 @@ import javax.net.ssl.SSLEngine;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.util.Pair;
 import androidx.lifecycle.Lifecycle;
@@ -353,8 +353,8 @@ public class MainApp extends Application implements HasAndroidInjector {
         } catch (Exception e) {
             Log_OC.d("Debug", "Failed to disable uri exposure");
         }
-
-        initSyncOperations(preferences,
+        initSyncOperations(this,
+                           preferences,
                            uploadsStorageManager,
                            accountManager,
                            connectivityService,
@@ -367,10 +367,11 @@ public class MainApp extends Application implements HasAndroidInjector {
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
-        backgroundJobManager.scheduleMediaFoldersDetectionJob();
-        backgroundJobManager.startMediaFoldersDetectionJob();
-
-        backgroundJobManager.schedulePeriodicHealthStatus();
+        if (backgroundJobManager != null) {
+            backgroundJobManager.scheduleMediaFoldersDetectionJob();
+            backgroundJobManager.startMediaFoldersDetectionJob();
+            backgroundJobManager.schedulePeriodicHealthStatus();
+        }
 
         registerGlobalPassCodeProtection();
     }
@@ -492,11 +493,14 @@ public class MainApp extends Application implements HasAndroidInjector {
 
     public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(appContext.get());
+        if (accountManager == null) {
+            return;
+        }
+
         List<User> users = accountManager.getAllUsers();
         for (User user : users) {
-            if (arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
+            if (backgroundJobManager != null && arbitraryDataProvider.getBooleanValue(user, PREFERENCE_CONTACTS_AUTOMATIC_BACKUP)) {
                 backgroundJobManager.schedulePeriodicContactsBackup(user);
-
             }
         }
     }
@@ -582,6 +586,7 @@ public class MainApp extends Application implements HasAndroidInjector {
     }
 
     public static void initSyncOperations(
+        final Context context,
         final AppPreferences preferences,
         final UploadsStorageManager uploadsStorageManager,
         final UserAccountManager accountManager,
@@ -592,7 +597,7 @@ public class MainApp extends Application implements HasAndroidInjector {
         final ViewThemeUtils viewThemeUtils,
         final WalledCheckCache walledCheckCache,
         final SyncedFolderProvider syncedFolderProvider) {
-        updateToAutoUpload();
+        updateToAutoUpload(context);
         cleanOldEntries(clock);
         updateAutoUploadEntries(clock);
 
@@ -798,30 +803,33 @@ public class MainApp extends Application implements HasAndroidInjector {
         return String.format(appString, version, brandedName);
     }
 
-    private static void updateToAutoUpload() {
-        Context context = getAppContext();
+    private static void updateToAutoUpload(Context context) {
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         if (preferences.instantPictureUploadEnabled() || preferences.instantVideoUploadEnabled()) {
             preferences.removeLegacyPreferences();
 
             // show info pop-up
             try {
-                new AlertDialog.Builder(context, R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.drawer_synced_folders)
-                    .setMessage(R.string.synced_folders_new_info)
-                    .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
-                        // show Auto Upload
-                        Intent folderSyncIntent = new Intent(context, SyncedFoldersActivity.class);
-                        dialog.dismiss();
-                        context.startActivity(folderSyncIntent);
-                    })
-                    .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
-                    .setIcon(R.drawable.nav_synced_folders)
-                    .show();
+                showAutoUploadAlertDialog(context);
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.i(TAG, "Error showing Auto Upload Update dialog, so skipping it: " + e.getMessage());
             }
         }
+    }
+
+    private static void showAutoUploadAlertDialog(Context context) {
+        new MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)
+            .setTitle(R.string.drawer_synced_folders)
+            .setMessage(R.string.synced_folders_new_info)
+            .setPositiveButton(R.string.drawer_open, (dialog, which) -> {
+                Intent folderSyncIntent = new Intent(context, SyncedFoldersActivity.class);
+                dialog.dismiss();
+                context.startActivity(folderSyncIntent);
+            })
+            .setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss())
+            .setIcon(R.drawable.nav_synced_folders)
+            .create()
+            .show();
     }
 
     private static void updateAutoUploadEntries(Clock clock) {

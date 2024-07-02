@@ -37,6 +37,7 @@ import android.widget.Toast;
 
 import com.google.android.material.behavior.HideBottomViewOnScrollBehavior;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
@@ -134,7 +135,6 @@ import androidx.annotation.Nullable;
 import androidx.annotation.OptIn;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -539,15 +539,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void showDirectCameraUploadAlertDialog(FileDisplayActivity fileDisplayActivity) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(fileDisplayActivity);
-        AlertDialog dialog = builder.setIcon(R.mipmap.ic_launcher)
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(fileDisplayActivity)
             .setTitle(R.string.upload_direct_camera_promt)
-            .setNegativeButton(R.string.upload_direct_camera_video, (iface, id) ->
-                fileDisplayActivity.getFileOperationsHelper().uploadFromCamera(fileDisplayActivity,FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA, true))
-            .setPositiveButton(R.string.upload_direct_camera_photo, (iface, id) ->
-                fileDisplayActivity.getFileOperationsHelper().uploadFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA, false))
-            .create();
-        dialog.show();
+            .setIcon(R.mipmap.ic_launcher)
+            .setPositiveButton(R.string.upload_direct_camera_video, (dialog, which) -> fileDisplayActivity.getFileOperationsHelper().uploadFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_VIDEO_CAMERA, true))
+            .setNegativeButton(R.string.upload_direct_camera_photo, (dialog, which) -> fileDisplayActivity.getFileOperationsHelper().uploadFromCamera(fileDisplayActivity, FileDisplayActivity.REQUEST_CODE__UPLOAD_FROM_CAMERA, false));
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(fileDisplayActivity, builder);
+
+        builder.create();
+        builder.show();
     }
 
     @Override

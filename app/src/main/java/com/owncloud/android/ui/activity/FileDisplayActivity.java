@@ -21,7 +21,6 @@ import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
@@ -45,6 +44,7 @@ import android.view.ViewTreeObserver;
 import android.view.WindowManager;
 
 import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.appReview.InAppReviewHelper;
 import com.nextcloud.client.account.User;
@@ -328,10 +328,15 @@ public class FileDisplayActivity extends FileActivity
             MainApp.setStoragePath(newStorage);
 
             try {
-                AlertDialog alertDialog = new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog).setTitle(R.string.wrong_storage_path).setMessage(R.string.wrong_storage_path_desc).setPositiveButton(R.string.dialog_close, (dialog, which) -> dialog.dismiss()).setIcon(R.drawable.ic_settings).create();
+                final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+                    .setTitle(R.string.wrong_storage_path)
+                    .setMessage(R.string.wrong_storage_path_desc)
+                    .setPositiveButton(R.string.dialog_close, (dialog, which) -> dialog.dismiss())
+                    .setIcon(R.drawable.ic_settings);
 
-                alertDialog.show();
-                viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                viewThemeUtils.dialog.colorMaterialAlertDialogBackground(getApplicationContext(), builder);
+
+                builder.create().show();
             } catch (WindowManager.BadTokenException e) {
                 Log_OC.e(TAG, "Error showing wrong storage info, so skipping it: " + e.getMessage());
             }
@@ -405,18 +410,12 @@ public class FileDisplayActivity extends FileActivity
         if (preferences.instantPictureUploadEnabled() || preferences.instantVideoUploadEnabled()) {
             preferences.removeLegacyPreferences();
             // show info pop-up
-            new AlertDialog.Builder(this, R.style.Theme_ownCloud_Dialog).setTitle(R.string.drawer_synced_folders).setMessage(R.string.synced_folders_new_info).setPositiveButton(R.string.drawer_open, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    // show instant upload
-                    Intent syncedFoldersIntent = new Intent(getApplicationContext(), SyncedFoldersActivity.class);
-                    dialog.dismiss();
-                    startActivity(syncedFoldersIntent);
-                }
-            }).setNegativeButton(R.string.drawer_close, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            }).setIcon(R.drawable.nav_synced_folders).show();
+            new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog).setTitle(R.string.drawer_synced_folders).setMessage(R.string.synced_folders_new_info).setPositiveButton(R.string.drawer_open, (dialog, which) -> {
+                // show instant upload
+                Intent syncedFoldersIntent = new Intent(getApplicationContext(), SyncedFoldersActivity.class);
+                dialog.dismiss();
+                startActivity(syncedFoldersIntent);
+            }).setNegativeButton(R.string.drawer_close, (dialog, which) -> dialog.dismiss()).setIcon(R.drawable.nav_synced_folders).show();
         }
     }
 
@@ -2400,12 +2399,15 @@ public class FileDisplayActivity extends FileActivity
         for (int i = 0; i < userNames.length; i++) {
             userNames[i] = users.get(i).getAccountName();
         }
-        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this);
         builder.setTitle(R.string.common_choose_account).setItems(userNames, (dialog, which) -> {
             User user = users.get(which);
             openFile(user, fileId);
             showLoadingDialog(getString(R.string.retrieving_file));
         });
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(getApplicationContext(), builder);
+
         final AlertDialog dialog = builder.create();
         dismissLoadingDialog();
         dialog.show();
