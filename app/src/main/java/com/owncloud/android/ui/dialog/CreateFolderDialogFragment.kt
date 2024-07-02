@@ -69,7 +69,10 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
             val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
 
-            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton!!)
+            positiveButton?.let {
+                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
+            }
+
             viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton)
         }
     }
@@ -147,7 +150,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
 
     override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
-            val newFolderName = (getDialog()!!.findViewById<View>(R.id.user_input) as TextView)
+            val newFolderName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
                 .text.toString().trim { it <= ' ' }
 
             val errorMessageId: Int? = FileNameValidator.isValid(newFolderName)?.messageId
