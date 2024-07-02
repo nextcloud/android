@@ -122,7 +122,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
     }
 
     public static void deleteAllFilesOnServer() {
-        RemoteOperationResult result = new ReadFolderRemoteOperation("/").execute(client);
+        RemoteOperationResult result = new ReadFolderRemoteOperation("/").execute(nextcloudClient);
         assertTrue(result.getLogMessage(), result.isSuccess());
 
         for (Object object : result.getData()) {
