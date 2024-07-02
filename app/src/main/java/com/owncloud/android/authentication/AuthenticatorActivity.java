@@ -398,7 +398,10 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             try {
                 JsonObject jsonObject = JsonParser.parseString(response).getAsJsonObject();
                 String loginUrl = getLoginUrl(jsonObject);
-                runOnUiThread(() -> launchDefaultWebBrowser(loginUrl));
+                runOnUiThread(() -> {
+                    initLoginInfoView();
+                    launchDefaultWebBrowser(loginUrl);
+                });
                 token = jsonObject.getAsJsonObject("poll").get("token").getAsString();
             } catch (Throwable t) {
                 Log_OC.d(TAG, "Error caught at anonymouslyPostLoginRequest: " + t);
