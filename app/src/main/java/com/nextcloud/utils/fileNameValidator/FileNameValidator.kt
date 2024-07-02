@@ -22,8 +22,11 @@ object FileNameValidator {
         "LPT¹", "LPT²", "LPT³"
     )
 
+    @Suppress("ReturnCount")
     fun isValid(name: String, context: Context, fileNames: MutableSet<String>? = null): String? {
-        val invalidCharacter = name.find { it.toString().matches(reservedWindowsChars) || it.toString().matches(reservedUnixChars) }
+        val invalidCharacter = name.find {
+            it.toString().matches(reservedWindowsChars) || it.toString().matches(reservedUnixChars)
+        }
         if (invalidCharacter != null) {
             return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
         }
