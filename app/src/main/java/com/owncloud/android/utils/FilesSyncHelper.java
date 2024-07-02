@@ -108,7 +108,7 @@ public final class FilesSyncHelper {
         }
     }
 
-    private static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
+    public static void insertAllDBEntriesForSyncedFolder(SyncedFolder syncedFolder) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
@@ -143,18 +143,6 @@ public final class FilesSyncHelper {
             }
 
             Log_OC.d(TAG,"File-sync finished full check for custom folder "+syncedFolder.getLocalPath()+" within "+(System.nanoTime() - startTime)+ "ns");
-        }
-    }
-
-    public static void insertAllDBEntries(SyncedFolder syncedFolder,
-                                          PowerManagementService powerManagementService) {
-        if (syncedFolder.isEnabled() &&
-            !(syncedFolder.isChargingOnly() &&
-                !powerManagementService.getBattery().isCharging() &&
-                !powerManagementService.getBattery().isFull()
-            )
-        ) {
-            insertAllDBEntriesForSyncedFolder(syncedFolder);
         }
     }
 
@@ -248,66 +236,13 @@ public final class FilesSyncHelper {
                                               final UserAccountManager accountManager,
                                               final ConnectivityService connectivityService,
                                               final PowerManagementService powerManagementService) {
-        boolean accountExists;
-
-        boolean whileChargingOnly = true;
-        boolean useWifiOnly = true;
-
-        // Make all in progress downloads failed to restart upload worker
-        uploadsStorageManager.failInProgressUploads(UploadResult.SERVICE_INTERRUPTED);
-
-        OCUpload[] failedUploads = uploadsStorageManager.getFailedUploads();
-
-        for (OCUpload failedUpload : failedUploads) {
-            accountExists = false;
-            if (!failedUpload.isWhileChargingOnly()) {
-                whileChargingOnly = false;
-            }
-            if (!failedUpload.isUseWifiOnly()) {
-                useWifiOnly = false;
-            }
-
-            // check if accounts still exists
-            for (Account account : accountManager.getAccounts()) {
-                if (account.name.equals(failedUpload.getAccountName())) {
-                    accountExists = true;
-                    break;
-                }
-            }
-
-            if (!accountExists) {
-                uploadsStorageManager.removeUpload(failedUpload);
-            }
-        }
-
-        failedUploads = uploadsStorageManager.getFailedUploads();
-        if (failedUploads.length == 0) {
-            //nothing to do
-            return;
-        }
-
-        if (whileChargingOnly) {
-            final BatteryStatus batteryStatus = powerManagementService.getBattery();
-            final boolean charging = batteryStatus.isCharging() || batteryStatus.isFull();
-            if (!charging) {
-                //all uploads requires charging
-                return;
-            }
-        }
-
-        if (useWifiOnly && !connectivityService.getConnectivity().isWifi()) {
-            //all uploads requires wifi
-            return;
-        }
-
+        
         new Thread(() -> {
-            if (connectivityService.getConnectivity().isConnected()) {
-                FileUploadHelper.Companion.instance().retryFailedUploads(
-                    uploadsStorageManager,
-                    connectivityService,
-                    accountManager,
-                    powerManagementService);
-            }
+            FileUploadHelper.Companion.instance().retryFailedUploads(
+                uploadsStorageManager,
+                connectivityService,
+                accountManager,
+                powerManagementService);
         }).start();
     }
 
