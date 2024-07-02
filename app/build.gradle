@@ -378,7 +378,7 @@ dependencies {
 
     // dependencies for instrumented tests
     // JUnit4 Rules
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation "androidx.test:rules:$androidxTestVersion"
     // Android JUnit Runner
     androidTestImplementation "androidx.test:runner:1.5.2"
