@@ -24,11 +24,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.KeyboardUtils;
@@ -159,18 +159,15 @@ public class RenameFileDialogFragment
                 newFileName = binding.userInput.getText().toString().trim();
             }
 
-            if (TextUtils.isEmpty(newFileName)) {
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_empty);
+            String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, requireContext(), null);
+            if (errorMessage != null) {
+                DisplayUtils.showSnackMessage(requireActivity(), errorMessage);
                 return;
             }
 
-            if (!FileUtils.isValidName(newFileName)) {
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.filename_forbidden_charaters_from_server);
-
-                return;
+            if (requireActivity() instanceof ComponentsGetter componentsGetter) {
+                componentsGetter.getFileOperationsHelper().renameFile(mTargetFile, newFileName);
             }
-
-            ((ComponentsGetter) requireActivity()).getFileOperationsHelper().renameFile(mTargetFile, newFileName);
         }
     }
 
@@ -196,13 +193,12 @@ public class RenameFileDialogFragment
             newFileName = binding.userInput.getText().toString().trim();
         }
 
-        if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
+        String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, requireContext(), fileNames);
+
+        if (FileNameValidator.INSTANCE.isFileHidden(newFileName)) {
             binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
-        } else if (TextUtils.isEmpty(newFileName)) {
-            binding.userInputContainer.setError(getString(R.string.filename_empty));
-            positiveButton.setEnabled(false);
-        } else if (fileNames.contains(newFileName)) {
-            binding.userInputContainer.setError(getText(R.string.file_already_exists));
+        } else if (errorMessage != null) {
+            binding.userInputContainer.setError(errorMessage);
             positiveButton.setEnabled(false);
         } else if (binding.userInputContainer.getError() != null) {
             binding.userInputContainer.setError(null);
