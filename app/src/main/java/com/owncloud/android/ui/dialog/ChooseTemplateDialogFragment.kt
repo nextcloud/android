@@ -223,16 +223,24 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
 
         val errorMessage = FileNameValidator.isValid(name, requireContext())
 
-        if (selectedTemplate == null) {
-            DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
-        } else if (errorMessage != null) {
-            DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
-        } else if (name.equals(DOT + selectedTemplate.extension, ignoreCase = true)) {
-            DisplayUtils.showSnackMessage(binding.list, R.string.enter_filename)
-        } else if (!name.endsWith(selectedTemplate.extension)) {
-            createFromTemplate(selectedTemplate, path + DOT + selectedTemplate.extension)
-        } else {
-            createFromTemplate(selectedTemplate, path)
+        when {
+            selectedTemplate == null -> {
+                DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
+            }
+            errorMessage != null -> {
+                DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
+            }
+            name.equals(DOT + selectedTemplate.extension, ignoreCase = true) -> {
+                DisplayUtils.showSnackMessage(binding.list, R.string.enter_filename)
+            }
+            else -> {
+                val fullPath = if (!name.endsWith(selectedTemplate.extension)) {
+                    path + DOT + selectedTemplate.extension
+                } else {
+                    path
+                }
+                createFromTemplate(selectedTemplate, fullPath)
+            }
         }
     }
 
@@ -245,28 +253,27 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             DOT + selectedTemplate.extension,
             ignoreCase = true
         )
-        val errorMessage = FileNameValidator.isValid(name, requireContext())
+        val fileNameValidatorResult = FileNameValidator.isValid(name, requireContext())
 
-        val error = when {
+        val errorMessage = when {
             isNameJustExtension -> null
-            errorMessage != null -> errorMessage
+            fileNameValidatorResult != null -> fileNameValidatorResult
             else -> null
         }
 
-        if (error != null || name.equals(DOT + selectedTemplate?.extension, ignoreCase = true)) {
-            binding.filenameContainer.error = error ?: getString(R.string.enter_filename)
-            positiveButton?.isEnabled = false
-            positiveButton?.isClickable = false
-            binding.filenameContainer.isErrorEnabled = true
-        } else if (FileNameValidator.isFileHidden(name)) {
-            positiveButton?.isEnabled = true
-            positiveButton?.isClickable = true
-            binding.filenameContainer.isErrorEnabled = true
-            binding.filenameContainer.error = getText(R.string.hidden_file_name_warning)
-        } else {
-            positiveButton?.isEnabled = true
-            positiveButton?.isClickable = true
-            binding.filenameContainer.isErrorEnabled = false
+        val isNameValid = (errorMessage == null) && !name.equals(DOT + selectedTemplate?.extension, ignoreCase = true)
+        val isHiddenFileName = FileNameValidator.isFileHidden(name)
+
+        binding.filenameContainer.isErrorEnabled = !isNameValid || isHiddenFileName
+        binding.filenameContainer.error = when {
+            !isNameValid -> errorMessage ?: getString(R.string.enter_filename)
+            isHiddenFileName -> getText(R.string.hidden_file_name_warning)
+            else -> null
+        }
+
+        positiveButton?.apply {
+            isEnabled = isNameValid && !isHiddenFileName
+            isClickable = isEnabled
         }
     }
 
