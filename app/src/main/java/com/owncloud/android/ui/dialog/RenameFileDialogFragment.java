@@ -24,13 +24,11 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.fileNameValidator.FileNameValidationResult;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.files.FileUtils;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.KeyboardUtils;
@@ -161,9 +159,9 @@ public class RenameFileDialogFragment
                 newFileName = binding.userInput.getText().toString().trim();
             }
 
-            FileNameValidationResult fileNameValidationResult = FileNameValidator.INSTANCE.isValid(newFileName);
-            if (fileNameValidationResult != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), fileNameValidationResult.getMessageId());
+            String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, requireContext());
+            if (errorMessage != null) {
+                DisplayUtils.showSnackMessage(requireActivity(), errorMessage);
                 return;
             }
 
@@ -195,12 +193,12 @@ public class RenameFileDialogFragment
             newFileName = binding.userInput.getText().toString().trim();
         }
 
-        FileNameValidationResult fileNameValidationResult = FileNameValidator.INSTANCE.isValid(newFileName);
+        String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, requireContext());
 
         if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
             binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
-        } else if (fileNameValidationResult != null) {
-            binding.userInputContainer.setError(getString(fileNameValidationResult.getMessageId()));
+        } else if (errorMessage != null) {
+            binding.userInputContainer.setError(errorMessage);
             positiveButton.setEnabled(false);
         } else if (fileNames.contains(newFileName)) {
             binding.userInputContainer.setError(getText(R.string.file_already_exists));

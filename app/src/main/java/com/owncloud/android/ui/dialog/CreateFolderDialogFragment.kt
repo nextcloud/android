@@ -117,18 +117,18 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
 
     private fun checkFileNameAfterEachType(fileNames: MutableSet<String>) {
         val newFileName = binding.userInput.text?.toString()?.trim() ?: ""
-        val errorMessageId: Int? = FileNameValidator.isValid(newFileName)?.messageId
+        val errorMessage: String? = FileNameValidator.isValid(newFileName, requireContext())
 
         val error = when {
             newFileName.isEmpty() -> null
-            newFileName[0] == '.' -> R.string.hidden_file_name_warning
-            errorMessageId != null -> errorMessageId
-            fileNames.contains(newFileName) -> R.string.file_already_exists
+            newFileName[0] == '.' -> getString(R.string.hidden_file_name_warning)
+            errorMessage != null -> errorMessage
+            fileNames.contains(newFileName) -> getString(R.string.file_already_exists)
             else -> null
         }
 
         if (error != null) {
-            binding.userInputContainer.error = getString(error)
+            binding.userInputContainer.error = error
             positiveButton?.isEnabled = false
             if (positiveButton == null) {
                 bindButton()
@@ -153,10 +153,10 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             val newFolderName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
                 .text.toString().trim { it <= ' ' }
 
-            val errorMessageId: Int? = FileNameValidator.isValid(newFolderName)?.messageId
+            val errorMessage: String? = FileNameValidator.isValid(newFolderName, requireContext())
 
-            if (errorMessageId != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), errorMessageId)
+            if (errorMessage != null) {
+                DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
                 return
             }
 
