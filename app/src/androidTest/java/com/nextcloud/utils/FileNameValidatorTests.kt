@@ -16,7 +16,7 @@ import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
-class FileNameValidatorTests: AbstractIT() {
+class FileNameValidatorTests : AbstractIT() {
 
     @Test
     fun testInvalidCharacter() {
