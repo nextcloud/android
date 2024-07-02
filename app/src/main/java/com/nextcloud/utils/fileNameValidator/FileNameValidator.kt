@@ -49,5 +49,5 @@ object FileNameValidator {
 
     fun isFileHidden(name: String): Boolean = !TextUtils.isEmpty(name) && name[0] == '.'
 
-    private fun isFileNameAlreadyExist(name: String, fileNames: MutableSet<String>): Boolean = fileNames.contains(name)
+    fun isFileNameAlreadyExist(name: String, fileNames: MutableSet<String>): Boolean = fileNames.contains(name)
 }
