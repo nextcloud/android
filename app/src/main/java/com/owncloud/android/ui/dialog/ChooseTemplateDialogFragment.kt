@@ -248,18 +248,25 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         val errorMessage = FileNameValidator.isValid(name, requireContext())
 
         val error = when {
-            name.isEmpty() || isNameJustExtension -> null
-            name[0] == '.' -> getText(R.string.hidden_file_name_warning)
+            isNameJustExtension -> null
             errorMessage != null -> errorMessage
-            fileNames.contains(name) -> getText(R.string.file_already_exists)
             else -> null
         }
 
-        positiveButton?.isEnabled = (error == null)
-        positiveButton?.isClickable = (error == null)
-        binding.filenameContainer.isErrorEnabled = (error != null)
-        if (error != null) {
-            binding.filenameContainer.error = error
+        if (error != null || name.equals(DOT + selectedTemplate?.extension, ignoreCase = true)) {
+            binding.filenameContainer.error = error ?: getString(R.string.enter_filename)
+            positiveButton?.isEnabled = false
+            positiveButton?.isClickable = false
+            binding.filenameContainer.isErrorEnabled = true
+        } else if (FileNameValidator.isFileHidden(name)) {
+            positiveButton?.isEnabled = true
+            positiveButton?.isClickable = true
+            binding.filenameContainer.isErrorEnabled = true
+            binding.filenameContainer.error = getText(R.string.hidden_file_name_warning)
+        } else {
+            positiveButton?.isEnabled = true
+            positiveButton?.isClickable = true
+            binding.filenameContainer.isErrorEnabled = false
         }
     }
 

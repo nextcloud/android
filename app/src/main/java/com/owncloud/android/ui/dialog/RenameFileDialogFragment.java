@@ -159,7 +159,7 @@ public class RenameFileDialogFragment
                 newFileName = binding.userInput.getText().toString().trim();
             }
 
-            String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, requireContext());
+            String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, requireContext(), null);
             if (errorMessage != null) {
                 DisplayUtils.showSnackMessage(requireActivity(), errorMessage);
                 return;
@@ -193,15 +193,12 @@ public class RenameFileDialogFragment
             newFileName = binding.userInput.getText().toString().trim();
         }
 
-        String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, requireContext());
+        String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, requireContext(), fileNames);
 
-        if (!TextUtils.isEmpty(newFileName) && newFileName.charAt(0) == '.') {
+        if (FileNameValidator.INSTANCE.isFileHidden(newFileName)) {
             binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
         } else if (errorMessage != null) {
             binding.userInputContainer.setError(errorMessage);
-            positiveButton.setEnabled(false);
-        } else if (fileNames.contains(newFileName)) {
-            binding.userInputContainer.setError(getText(R.string.file_already_exists));
             positiveButton.setEnabled(false);
         } else if (binding.userInputContainer.getError() != null) {
             binding.userInputContainer.setError(null);

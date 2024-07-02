@@ -117,13 +117,11 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
 
     private fun checkFileNameAfterEachType(fileNames: MutableSet<String>) {
         val newFileName = binding.userInput.text?.toString()?.trim() ?: ""
-        val errorMessage: String? = FileNameValidator.isValid(newFileName, requireContext())
+        val errorMessage: String? = FileNameValidator.isValid(newFileName, requireContext(), fileNames)
 
         val error = when {
             newFileName.isEmpty() -> null
-            newFileName[0] == '.' -> getString(R.string.hidden_file_name_warning)
             errorMessage != null -> errorMessage
-            fileNames.contains(newFileName) -> getString(R.string.file_already_exists)
             else -> null
         }
 
@@ -133,6 +131,10 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             if (positiveButton == null) {
                 bindButton()
             }
+        } else if (FileNameValidator.isFileHidden(newFileName)) {
+            binding.userInputContainer.error = requireContext().getString(R.string.hidden_file_name_warning)
+            binding.userInputContainer.isErrorEnabled = true
+            positiveButton?.isEnabled = true
         } else {
             binding.userInputContainer.error = null
             binding.userInputContainer.isErrorEnabled = false
