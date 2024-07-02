@@ -89,7 +89,6 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
 
         val inflater = requireActivity().layoutInflater
         binding = EditBoxDialogBinding.inflate(inflater, null, false)
-        val view: View = binding.root
 
         binding.userInput.setText(R.string.empty)
         viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer)
@@ -110,23 +109,23 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             }
         })
 
-        val builder = buildMaterialAlertDialog(view)
+        val builder = buildMaterialAlertDialog(binding.root)
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.context, builder)
         return builder.create()
     }
 
     private fun checkFileNameAfterEachType(fileNames: MutableSet<String>) {
         val newFileName = binding.userInput.text?.toString()?.trim() ?: ""
-        val errorMessage: String? = FileNameValidator.isValid(newFileName, requireContext(), fileNames)
+        val fileNameValidatorResult: String? = FileNameValidator.isValid(newFileName, requireContext(), fileNames)
 
-        val error = when {
+        val errorMessage = when {
             newFileName.isEmpty() -> null
-            errorMessage != null -> errorMessage
+            fileNameValidatorResult != null -> fileNameValidatorResult
             else -> null
         }
 
-        if (error != null) {
-            binding.userInputContainer.error = error
+        if (errorMessage != null) {
+            binding.userInputContainer.error = errorMessage
             positiveButton?.isEnabled = false
             if (positiveButton == null) {
                 bindButton()
