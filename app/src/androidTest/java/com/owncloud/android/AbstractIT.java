@@ -301,6 +301,10 @@ public abstract class AbstractIT {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }
 
+    protected void onIdleSync(Runnable recipient) {
+        InstrumentationRegistry.getInstrumentation().waitForIdle(recipient);
+    }
+
     protected void openDrawer(IntentsTestRule activityRule) {
         Activity sut = activityRule.launchActivity(null);
 

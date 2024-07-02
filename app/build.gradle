@@ -391,6 +391,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-web:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-accessibility:$espressoVersion"
     androidTestImplementation "androidx.test.espresso:espresso-intents:$espressoVersion"
+    implementation "androidx.test.espresso:espresso-idling-resource:$espressoVersion"
 
     // Mocking support
     androidTestImplementation 'com.github.tmurakami:dexopener:2.0.5' // required to allow mocking on API 27 and older
