@@ -248,6 +248,7 @@
             <trusting group="androidx.transition" name="transition" version="1.5.0"/>
             <trusting group="androidx.webkit" name="webkit" version="1.11.0"/>
             <trusting group="^androidx[.]compose($|([.].*))" regex="true"/>
+            <trusting group="^androidx[.]test($|([.].*))" regex="true"/>
             <trusting group="^com[.]android($|([.].*))" regex="true"/>
          </trusted-key>
          <trusted-key id="A6D6C97108B8585F91B158748671A8DF71296252" group="^com[.]squareup($|([.].*))" regex="true"/>
