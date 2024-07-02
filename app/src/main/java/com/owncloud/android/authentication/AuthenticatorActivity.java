@@ -364,7 +364,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START && token != null) {
             Log_OC.d(TAG, "Start poolLogin");
-            poolLogin(clientFactory.createPlainClient());
+            poolLogin();
         }
     });
 
@@ -1653,21 +1653,22 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private boolean isLoginProcessCompleted = false;
     private boolean isRedirectedToTheDefaultBrowser = false;
 
-    private void poolLogin(PlainClient client) {
+    private void poolLogin() {
         loginFlowExecutorService.scheduleWithFixedDelay(() -> {
             if (!isLoginProcessCompleted) {
-                performLoginFlowV2(client);
+                performLoginFlowV2();
             }
         }, 0, 30, TimeUnit.SECONDS);
     }
 
-    private void performLoginFlowV2(PlainClient client) {
+    private void performLoginFlowV2() {
         String postRequestUrl = baseUrl + "/poll";
 
         RequestBody requestBody = new FormBody.Builder()
             .add("token", token)
             .build();
 
+        PlainClient client = clientFactory.createPlainClient();
         PostMethod post = new PostMethod(postRequestUrl, false, requestBody);
         int status = post.execute(client);
         String response = post.getResponseBodyAsString();
