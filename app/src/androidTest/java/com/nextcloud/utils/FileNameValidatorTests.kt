@@ -84,4 +84,76 @@ class FileNameValidatorTests : AbstractIT() {
         assertTrue(FileNameValidator.isFileNameAlreadyExist("existingFile", existingFiles))
         assertFalse(FileNameValidator.isFileNameAlreadyExist("newFile", existingFiles))
     }
+
+    @Test
+    fun testValidFolderAndFilePaths() {
+        val folderPath = "validFolder"
+        val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
+
+        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        assertTrue(result)
+    }
+
+    @Test
+    fun testFolderPathWithReservedName() {
+        val folderPath = "CON"
+        val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
+
+        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        assertFalse(result)
+    }
+
+    @Test
+    fun testFilePathWithReservedName() {
+        val folderPath = "validFolder"
+        val filePaths = listOf("file1.txt", "PRN.doc", "file3.jpg")
+
+        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        assertFalse(result)
+    }
+
+    @Test
+    fun testFolderPathWithInvalidCharacter() {
+        val folderPath = "invalid<Folder"
+        val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
+
+        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        assertFalse(result)
+    }
+
+    @Test
+    fun testFilePathWithInvalidCharacter() {
+        val folderPath = "validFolder"
+        val filePaths = listOf("file1.txt", "file|2.doc", "file3.jpg")
+
+        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        assertFalse(result)
+    }
+
+    @Test
+    fun testFolderPathEndingWithSpace() {
+        val folderPath = "folderWithSpace "
+        val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
+
+        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        assertFalse(result)
+    }
+
+    @Test
+    fun testFilePathEndingWithPeriod() {
+        val folderPath = "validFolder"
+        val filePaths = listOf("file1.txt", "file2.doc", "file3.")
+
+        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        assertFalse(result)
+    }
+
+    @Test
+    fun testFilePathWithNestedFolder() {
+        val folderPath = "validFolder\\secondValidFolder\\CON"
+        val filePaths = listOf("file1.txt", "file2.doc", "file3.")
+
+        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        assertFalse(result)
+    }
 }

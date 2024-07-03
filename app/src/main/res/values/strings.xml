@@ -1219,6 +1219,8 @@
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
 
+
+    <string name="file_name_validator_error_copy_or_move">Folder path contains reserved names or invalid character</string>
     <string name="file_name_validator_error_invalid_character">File name contains invalid characters: %s</string>
     <string name="file_name_validator_error_reserved_names">File name is a reserved name</string>
     <string name="file_name_validator_error_ends_with_space_period">File name ends with a space or a period</string>

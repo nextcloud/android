@@ -15,6 +15,8 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Resources
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.os.Parcelable
 import android.view.ActionMode
 import android.view.Menu
@@ -23,6 +25,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FilesFolderPickerBinding
 import com.owncloud.android.databinding.FilesPickerBinding
@@ -441,6 +444,7 @@ open class FolderPickerActivity :
         }
     }
 
+    @Suppress("MagicNumber")
     private fun processOperation(action: String?) {
         val i = intent
         val resultData = Intent()
@@ -451,6 +455,18 @@ open class FolderPickerActivity :
         }
 
         targetFilePaths?.let { filePaths ->
+
+            val isPathValid = FileNameValidator.checkPath(file.remotePath, filePaths, capabilities, this)
+            if (!isPathValid) {
+                DisplayUtils.showSnackMessage(this, R.string.file_name_validator_error_copy_or_move)
+                Handler(Looper.getMainLooper()).postDelayed({
+                    setResult(RESULT_CANCELED, resultData)
+                    finish()
+
+                }, 1000L)
+                return
+            }
+
             action?.let { action ->
                 fileOperationsHelper.moveOrCopyFiles(action, filePaths, file)
             }
