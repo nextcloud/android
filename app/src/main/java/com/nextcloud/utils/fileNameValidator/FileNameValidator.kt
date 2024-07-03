@@ -45,8 +45,7 @@ object FileNameValidator {
         if (capability.forbiddenFilenameCharacters.isTrue) {
             val invalidCharacter = name.find {
                 it.toString().matches(reservedWindowsChars) ||
-                it.toString().matches(reservedUnixChars) ||
-                capability.forbiddenFilenameCharacterList.contains(it.toString())
+                it.toString().matches(reservedUnixChars)
             }
             if (invalidCharacter != null) {
                 return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)

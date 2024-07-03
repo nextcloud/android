@@ -122,5 +122,11 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT)
     val dropAccount: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_SECURITY_GUARD)
-    val securityGuard: Int?
+    val securityGuard: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS)
+    val forbiddenFileNameCharacters: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES)
+    val forbiddenFileNames: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS)
+    val forbiddenFileNameExtensions: Int?
 )
