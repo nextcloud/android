@@ -19,12 +19,14 @@ import android.content.DialogInterface.OnClickListener;
 import android.os.AsyncTask;
 import android.view.View;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.FileStorageUtils;
+import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 
@@ -37,10 +39,11 @@ import androidx.core.content.res.ResourcesCompat;
 public class StorageMigration {
     private static final String TAG = StorageMigration.class.getName();
 
-    private Context mContext;
-    private User user;
-    private String mSourceStoragePath;
-    private String mTargetStoragePath;
+    private final Context mContext;
+    private final User user;
+    private final String mSourceStoragePath;
+    private final String mTargetStoragePath;
+    private final ViewThemeUtils viewThemeUtils;
 
     private StorageMigrationProgressListener mListener;
 
@@ -49,11 +52,12 @@ public class StorageMigration {
         void onCancelMigration();
     }
 
-    public StorageMigration(Context context, User user, String sourcePath, String targetPath) {
+    public StorageMigration(Context context, User user, String sourcePath, String targetPath, ViewThemeUtils viewThemeUtils) {
         mContext = context;
         this.user = user;
         mSourceStoragePath = sourcePath;
         mTargetStoragePath = targetPath;
+        this.viewThemeUtils = viewThemeUtils;
     }
 
     public void setStorageMigrationProgressListener(StorageMigrationProgressListener listener) {
@@ -72,7 +76,8 @@ public class StorageMigration {
                     mSourceStoragePath,
                     mTargetStoragePath,
                     progressDialog,
-                    mListener).execute();
+                    mListener,
+                    viewThemeUtils).execute();
 
             progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
         }
@@ -83,62 +88,76 @@ public class StorageMigration {
         return f.exists() && f.isDirectory();
     }
 
-    private void askToOverride() {
+    public static void a(ViewThemeUtils viewThemeUtils, Context context) {
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context)
+            .setMessage(R.string.file_migration_directory_already_exists)
+            .setCancelable(true)
+            .setOnCancelListener(dialogInterface -> {
 
-        new AlertDialog.Builder(mContext)
+            })
+            .setNegativeButton(R.string.common_cancel, (dialogInterface, i) -> {
+
+            })
+            .setNeutralButton(R.string.file_migration_use_data_folder, (dialogInterface, i) -> {
+
+            })
+            .setPositiveButton(R.string.file_migration_override_data_folder, (dialogInterface, i) -> {
+
+            });
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(context, builder);
+
+        AlertDialog alertDialog = builder.create();
+
+        alertDialog.show();
+    }
+
+    private void askToOverride() {
+        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext)
                 .setMessage(R.string.file_migration_directory_already_exists)
                 .setCancelable(true)
-                .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                    @Override
-                    public void onCancel(DialogInterface dialogInterface) {
-                        if (mListener != null) {
-                            mListener.onCancelMigration();
-                        }
+                .setOnCancelListener(dialogInterface -> {
+                    if (mListener != null) {
+                        mListener.onCancelMigration();
                     }
                 })
-                .setNegativeButton(R.string.common_cancel, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (mListener != null) {
-                            mListener.onCancelMigration();
-                        }
+                .setNegativeButton(R.string.common_cancel, (dialogInterface, i) -> {
+                    if (mListener != null) {
+                        mListener.onCancelMigration();
                     }
                 })
-                .setNeutralButton(R.string.file_migration_use_data_folder, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ProgressDialog progressDialog = createMigrationProgressDialog();
-                        progressDialog.show();
-                        new StoragePathSwitchTask(
-                                mContext,
-                                user,
-                                mSourceStoragePath,
-                                mTargetStoragePath,
-                                progressDialog,
-                                mListener).execute();
+                .setNeutralButton(R.string.file_migration_use_data_folder, (dialogInterface, i) -> {
+                    ProgressDialog progressDialog = createMigrationProgressDialog();
+                    progressDialog.show();
+                    new StoragePathSwitchTask(
+                            mContext,
+                            user,
+                            mSourceStoragePath,
+                            mTargetStoragePath,
+                            progressDialog,
+                            mListener,
+                            viewThemeUtils).execute();
 
-                        progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+                    progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
 
-                    }
                 })
-                .setPositiveButton(R.string.file_migration_override_data_folder, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        ProgressDialog progressDialog = createMigrationProgressDialog();
-                        progressDialog.show();
-                        new FileMigrationTask(
-                                mContext,
-                                user,
-                                mSourceStoragePath,
-                                mTargetStoragePath,
-                                progressDialog,
-                                mListener).execute();
+                .setPositiveButton(R.string.file_migration_override_data_folder, (dialogInterface, i) -> {
+                    ProgressDialog progressDialog = createMigrationProgressDialog();
+                    progressDialog.show();
+                    new FileMigrationTask(
+                            mContext,
+                            user,
+                            mSourceStoragePath,
+                            mTargetStoragePath,
+                            progressDialog,
+                            mListener,
+                            viewThemeUtils).execute();
 
-                        progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
-                    }
-                })
-                .create()
-                .show();
+                    progressDialog.getButton(ProgressDialog.BUTTON_POSITIVE).setVisibility(View.GONE);
+                });
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(mContext, builder);
+        builder.create().show();
     }
 
     private ProgressDialog createMigrationProgressDialog() {
@@ -168,20 +187,22 @@ public class StorageMigration {
 
         protected String mAuthority;
         protected Account[] mOcAccounts;
+        protected ViewThemeUtils viewThemeUtils;
 
         public FileMigrationTaskBase(Context context,
                                      User user,
                                      String source,
                                      String target,
                                      ProgressDialog progressDialog,
-                                     StorageMigrationProgressListener listener) throws SecurityException {
+                                     StorageMigrationProgressListener listener,
+                                     ViewThemeUtils viewThemeUtils) throws SecurityException {
             mContext = context;
             this.user = user;
             mStorageSource = source;
             mStorageTarget = target;
             mProgressDialog = progressDialog;
             mListener = listener;
-
+            this.viewThemeUtils = viewThemeUtils;
             mAuthority = mContext.getString(R.string.authority);
             mOcAccounts = AccountManager.get(mContext).getAccountsByType(MainApp.getAccountType(context));
         }
@@ -223,25 +244,18 @@ public class StorageMigration {
         }
 
         private void askToStillMove() {
-            new AlertDialog.Builder(mContext)
+            final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(mContext)
                     .setTitle(R.string.file_migration_source_not_readable_title)
                     .setMessage(mContext.getString(R.string.file_migration_source_not_readable, mStorageTarget))
-                    .setNegativeButton(R.string.common_no, new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
+                    .setNegativeButton(R.string.common_no, (dialogInterface, i) -> dialogInterface.dismiss())
+                    .setPositiveButton(R.string.common_yes, (dialogInterface, i) -> {
+                        if (mListener != null) {
+                            mListener.onStorageMigrationFinished(mStorageTarget, true);
                         }
-                    })
-                    .setPositiveButton(R.string.common_yes, new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            if (mListener != null) {
-                                mListener.onStorageMigrationFinished(mStorageTarget, true);
-                            }
-                        }
-                    })
-                    .create()
-                    .show();
+                    });
+
+            viewThemeUtils.dialog.colorMaterialAlertDialogBackground(mContext, builder);
+            builder.create().show();
         }
 
         protected boolean[] saveAccountsSyncStatus() {
@@ -292,8 +306,9 @@ public class StorageMigration {
                                      String source,
                                      String target,
                                      ProgressDialog progressDialog,
-                                     StorageMigrationProgressListener listener) {
-            super(context, user, source, target, progressDialog, listener);
+                                     StorageMigrationProgressListener listener,
+                                     ViewThemeUtils viewThemeUtils) {
+            super(context, user, source, target, progressDialog, listener, viewThemeUtils);
         }
 
         @Override
@@ -340,8 +355,9 @@ public class StorageMigration {
                                  String source,
                                  String target,
                                  ProgressDialog progressDialog,
-                                 StorageMigrationProgressListener listener) {
-            super(context, user, source, target, progressDialog, listener);
+                                 StorageMigrationProgressListener listener,
+                                 ViewThemeUtils viewThemeUtils) {
+            super(context, user, source, target, progressDialog, listener, viewThemeUtils);
         }
 
         @Override

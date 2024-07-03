@@ -902,7 +902,9 @@
     <string name="upload_cannot_create_file">Ezin da sortu fitxategi lokala</string>
     <string name="upload_chooser_title">Igo hemendik…</string>
     <string name="upload_content_from_other_apps">Igo edukia beste aplikazioetatik</string>
+    <string name="upload_direct_camera_photo">Argazkia</string>
     <string name="upload_direct_camera_upload">Igo kameratik</string>
+    <string name="upload_direct_camera_video">Bideoa</string>
     <string name="upload_file_dialog_filename">Fitxategiaren izena</string>
     <string name="upload_file_dialog_filetype">Fitxategi mota</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps lasterbidearen fitxategia(%s)</string>
