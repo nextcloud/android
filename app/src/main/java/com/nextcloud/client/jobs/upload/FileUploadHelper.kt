@@ -119,12 +119,14 @@ class FileUploadHelper {
         failedUploads: Array<OCUpload>
     ): Boolean {
         var showNotExistMessage = false
-        val hasGeneralConnection = checkConnectivity(connectivityService)
+        val isOnline = checkConnectivity(connectivityService)
         val connectivity = connectivityService.connectivity
-        val battery = powerManagementService.battery
-        val accountNames = accountManager.accounts.filter {
-            accountManager.getUser(it.name).isPresent
-        }.map { it.name }.toHashSet()
+        val batteryStatus = powerManagementService.battery
+        val accountNames = accountManager.accounts.filter { account ->
+            accountManager.getUser(account.name).isPresent
+        }.map { account ->
+            account.name
+        }.toHashSet()
 
         for (failedUpload in failedUploads) {
             if (!accountNames.contains(failedUpload.accountName)) {
@@ -132,15 +134,15 @@ class FileUploadHelper {
                 continue
             }
 
-            val conditions =
-                checkUploadConditions(failedUpload, connectivity, battery, powerManagementService, hasGeneralConnection)
+            val uploadResult =
+                checkUploadConditions(failedUpload, connectivity, batteryStatus, powerManagementService, isOnline)
 
-            if (conditions != UploadResult.UPLOADED) {
-                if (failedUpload.lastResult != conditions) {
-                    failedUpload.lastResult = conditions
+            if (uploadResult != UploadResult.UPLOADED) {
+                if (failedUpload.lastResult != uploadResult) {
+                    failedUpload.lastResult = uploadResult
                     uploadsStorageManager.updateUpload(failedUpload)
                 }
-                if (conditions == UploadResult.FILE_NOT_FOUND) {
+                if (uploadResult == UploadResult.FILE_NOT_FOUND) {
                     showNotExistMessage = true
                 }
                 continue
@@ -150,9 +152,11 @@ class FileUploadHelper {
             uploadsStorageManager.updateUpload(failedUpload)
         }
 
-        accountNames.forEach {
-            val user = accountManager.getUser(it)
-            if (user.isPresent) backgroundJobManager.startFilesUploadJob(user.get())
+        accountNames.forEach { accountName ->
+            val user = accountManager.getUser(accountName)
+            if (user.isPresent) {
+                backgroundJobManager.startFilesUploadJob(user.get())
+            }
         }
 
         return showNotExistMessage
@@ -225,7 +229,7 @@ class FileUploadHelper {
     }
 
     private fun checkConnectivity(connectivityService: ConnectivityService): Boolean {
-        // check that internet is not behind walled garden
+        // check that connection isn't walled off and that the server is reachable
         return connectivityService.getConnectivity().isConnected && !connectivityService.isInternetWalled()
     }
 
@@ -247,22 +251,22 @@ class FileUploadHelper {
             conditions = UploadResult.NETWORK_CONNECTION
         }
 
-        // check that local file exists and skip the upload otherwise
+        // check that local file exists; skip the upload otherwise
         if (!File(upload.localPath).exists()) {
             conditions = UploadResult.FILE_NOT_FOUND
         }
 
-        // check that connectivity conditions are met and skip the upload otherwise
+        // check that connectivity conditions are met; delay upload otherwise
         if (upload.isUseWifiOnly && (!connectivity.isWifi || connectivity.isMetered)) {
             conditions = UploadResult.DELAYED_FOR_WIFI
         }
 
-        // check if charging conditions are met and delays the upload otherwise
+        // check if charging conditions are met; delay upload otherwise
         if (upload.isWhileChargingOnly && !battery.isCharging && !battery.isFull) {
             conditions = UploadResult.DELAYED_FOR_CHARGING
         }
 
-        // check that device is not in power save mode
+        // check that device is not in power save mode; delay upload otherwise
         if (powerManagementService.isPowerSavingEnabled) {
             conditions = UploadResult.DELAYED_IN_POWER_SAVE_MODE
         }
