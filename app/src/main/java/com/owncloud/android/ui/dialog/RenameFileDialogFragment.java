@@ -14,7 +14,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +21,7 @@ import android.view.View;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.common.collect.Sets;
+import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
@@ -29,6 +29,7 @@ import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.KeyboardUtils;
@@ -56,6 +57,7 @@ public class RenameFileDialogFragment
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject FileDataStorageManager fileDataStorageManager;
     @Inject KeyboardUtils keyboardUtils;
+    @Inject CurrentAccountProvider currentAccount;
 
     private EditBoxDialogBinding binding;
     private OCFile mTargetFile;
@@ -150,6 +152,10 @@ public class RenameFileDialogFragment
         }
     }
 
+    private OCCapability getOCCapability() {
+        return fileDataStorageManager.getCapability(currentAccount.getUser().getAccountName());
+    }
+
     @Override
     public void onClick(DialogInterface dialog, int which) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
@@ -159,7 +165,7 @@ public class RenameFileDialogFragment
                 newFileName = binding.userInput.getText().toString().trim();
             }
 
-            String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, requireContext(), null);
+            String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, getOCCapability(), requireContext(), null);
             if (errorMessage != null) {
                 DisplayUtils.showSnackMessage(requireActivity(), errorMessage);
                 return;
@@ -193,7 +199,7 @@ public class RenameFileDialogFragment
             newFileName = binding.userInput.getText().toString().trim();
         }
 
-        String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, requireContext(), fileNames);
+        String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, getOCCapability(), requireContext(), fileNames);
 
         if (FileNameValidator.INSTANCE.isFileHidden(newFileName)) {
             binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));

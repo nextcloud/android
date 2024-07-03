@@ -22,6 +22,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.common.collect.Sets
+import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
@@ -29,6 +30,7 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.EditBoxDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
@@ -51,6 +53,9 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
 
     @Inject
     lateinit var keyboardUtils: KeyboardUtils
+
+    @Inject
+    lateinit var currentAccount: CurrentAccountProvider
 
     private var mParentFolder: OCFile? = null
     private var positiveButton: MaterialButton? = null
@@ -114,9 +119,13 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
         return builder.create()
     }
 
+    private fun getOCCapability(): OCCapability = fileDataStorageManager.getCapability(currentAccount.user.accountName)
+
     private fun checkFileNameAfterEachType(fileNames: MutableSet<String>) {
         val newFileName = binding.userInput.text?.toString()?.trim() ?: ""
-        val fileNameValidatorResult: String? = FileNameValidator.isValid(newFileName, requireContext(), fileNames)
+
+        val fileNameValidatorResult: String? =
+            FileNameValidator.isValid(newFileName, getOCCapability(), requireContext(), fileNames)
 
         val errorMessage = when {
             newFileName.isEmpty() -> null
@@ -154,7 +163,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             val newFolderName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
                 .text.toString().trim { it <= ' ' }
 
-            val errorMessage: String? = FileNameValidator.isValid(newFolderName, requireContext())
+            val errorMessage: String? = FileNameValidator.isValid(newFolderName, getOCCapability(), requireContext())
 
             if (errorMessage != null) {
                 DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
