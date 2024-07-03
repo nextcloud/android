@@ -58,17 +58,16 @@ object FileNameValidator {
     }
 
     private fun checkInvalidCharacters(name: String, capability: OCCapability, context: Context): String? {
-        if (capability.forbiddenFilenameCharacters.isTrue) {
-            val invalidCharacter = name.find {
-                it.toString().matches(reservedWindowsChars) ||
-                    it.toString().matches(reservedUnixChars)
-            }
-            if (invalidCharacter != null) {
-                return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
-            }
+        if (capability.forbiddenFilenameCharacters.isFalse) return null
+
+        val invalidCharacter = name.find {
+            val input = it.toString()
+            input.matches(reservedWindowsChars) || input.matches(reservedUnixChars)
         }
 
-        return null
+        if (invalidCharacter == null) return null
+
+        return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
     }
 
     fun isFileHidden(name: String): Boolean = !TextUtils.isEmpty(name) && name[0] == '.'
