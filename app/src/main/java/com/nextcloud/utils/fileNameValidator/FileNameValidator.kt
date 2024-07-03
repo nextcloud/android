@@ -9,6 +9,7 @@ package com.nextcloud.utils.fileNameValidator
 
 import android.content.Context
 import android.text.TextUtils
+import com.nextcloud.utils.extensions.removeFileExtension
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.status.OCCapability
 
@@ -46,7 +47,9 @@ object FileNameValidator {
             return it
         }
 
-        if (capability.forbiddenFilenames.isTrue && reservedWindowsNames.contains(name.uppercase())) {
+        if (capability.forbiddenFilenames.isTrue &&
+            (reservedWindowsNames.contains(name.uppercase()) || reservedWindowsNames.contains(name.removeFileExtension().uppercase()))
+        ) {
             return context.getString(R.string.file_name_validator_error_reserved_names)
         }
 
@@ -55,6 +58,24 @@ object FileNameValidator {
         }
 
         return null
+    }
+
+    fun checkPath(folderPath: String, filePaths: List<String>, capability: OCCapability, context: Context): Boolean {
+        val folderPaths = folderPath.split("/", "\\")
+
+        for (item in folderPaths) {
+            if (isValid(item, capability, context) != null) {
+                return false
+            }
+        }
+
+        for (item in filePaths) {
+            if (isValid(item, capability, context) != null) {
+                return false
+            }
+        }
+
+        return true
     }
 
     private fun checkInvalidCharacters(name: String, capability: OCCapability, context: Context): String? {
