@@ -42,14 +42,8 @@ object FileNameValidator {
             return context.getString(R.string.file_name_validator_error_ends_with_space_period)
         }
 
-        if (capability.forbiddenFilenameCharacters.isTrue) {
-            val invalidCharacter = name.find {
-                it.toString().matches(reservedWindowsChars) ||
-                it.toString().matches(reservedUnixChars)
-            }
-            if (invalidCharacter != null) {
-                return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
-            }
+        checkInvalidCharacters(name, capability, context)?.let {
+            return it
         }
 
         if (capability.forbiddenFilenames.isTrue && reservedWindowsNames.contains(name.uppercase())) {
@@ -58,6 +52,20 @@ object FileNameValidator {
 
         if (capability.forbiddenFilenameExtension.isTrue) {
             // TODO add logic
+        }
+
+        return null
+    }
+
+    private fun checkInvalidCharacters(name: String, capability: OCCapability, context: Context): String? {
+        if (capability.forbiddenFilenameCharacters.isTrue) {
+            val invalidCharacter = name.find {
+                it.toString().matches(reservedWindowsChars) ||
+                    it.toString().matches(reservedUnixChars)
+            }
+            if (invalidCharacter != null) {
+                return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
+            }
         }
 
         return null
