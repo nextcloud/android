@@ -10,6 +10,7 @@ package com.nextcloud.utils.fileNameValidator
 import android.content.Context
 import android.text.TextUtils
 import com.owncloud.android.R
+import com.owncloud.android.lib.resources.status.OCCapability
 
 object FileNameValidator {
     private val reservedWindowsChars = "[<>:\"/\\\\|?*]".toRegex()
@@ -23,28 +24,39 @@ object FileNameValidator {
     )
 
     @Suppress("ReturnCount")
-    fun isValid(name: String, context: Context, fileNames: MutableSet<String>? = null): String? {
-        val invalidCharacter = name.find {
-            it.toString().matches(reservedWindowsChars) || it.toString().matches(reservedUnixChars)
-        }
-        if (invalidCharacter != null) {
-            return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
-        }
-
-        if (reservedWindowsNames.contains(name.uppercase())) {
-            return context.getString(R.string.file_name_validator_error_reserved_names)
-        }
-
-        if (name.endsWith(" ") || name.endsWith(".")) {
-            return context.getString(R.string.file_name_validator_error_ends_with_space_period)
-        }
-
+    fun isValid(
+        name: String,
+        capability: OCCapability,
+        context: Context,
+        fileNames: MutableSet<String>? = null
+    ): String? {
         if (TextUtils.isEmpty(name)) {
             return context.getString(R.string.filename_empty)
         }
 
         if (isFileNameAlreadyExist(name, fileNames ?: mutableSetOf())) {
             return context.getString(R.string.file_already_exists)
+        }
+
+        if (name.endsWith(" ") || name.endsWith(".")) {
+            return context.getString(R.string.file_name_validator_error_ends_with_space_period)
+        }
+
+        if (capability.forbiddenFilenameCharacters.isTrue) {
+            val invalidCharacter = name.find {
+                it.toString().matches(reservedWindowsChars) || it.toString().matches(reservedUnixChars)
+            }
+            if (invalidCharacter != null) {
+                return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
+            }
+        }
+
+        if (capability.forbiddenFilenames.isTrue && reservedWindowsNames.contains(name.uppercase())) {
+            return context.getString(R.string.file_name_validator_error_reserved_names)
+        }
+
+        if (capability.forbiddenFilenameExtension.isTrue) {
+            // TODO add logic
         }
 
         return null

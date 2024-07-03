@@ -44,6 +44,7 @@ import com.owncloud.android.lib.common.TemplateList
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ExternalSiteWebView
 import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.adapter.TemplateAdapter
@@ -216,12 +217,14 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         }
     }
 
+    private fun getOCCapability(): OCCapability = fileDataStorageManager.getCapability(currentAccount.user.accountName)
+
     override fun onClick(v: View) {
         val name = binding.filename.text.toString()
         val path = parentFolder?.remotePath + name
         val selectedTemplate = adapter?.selectedTemplate
 
-        val errorMessage = FileNameValidator.isValid(name, requireContext())
+        val errorMessage = FileNameValidator.isValid(name, getOCCapability(), requireContext())
 
         when {
             selectedTemplate == null -> {
@@ -253,7 +256,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             DOT + selectedTemplate.extension,
             ignoreCase = true
         )
-        val fileNameValidatorResult = FileNameValidator.isValid(name, requireContext())
+        val fileNameValidatorResult = FileNameValidator.isValid(name, getOCCapability(), requireContext())
 
         val errorMessage = when {
             isNameJustExtension -> null
