@@ -8,214 +8,198 @@
  * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.view.LayoutInflater;
-import android.view.View;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.common.collect.Sets;
-import com.nextcloud.client.account.CurrentAccountProvider;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.fileNameValidator.FileNameValidator;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.EditBoxDialogBinding;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.resources.status.OCCapability;
-import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.KeyboardUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.util.List;
-import java.util.Set;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
+import android.app.Dialog
+import android.content.DialogInterface
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.common.collect.Sets
+import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.fileNameValidator.FileNameValidator.isFileHidden
+import com.nextcloud.utils.fileNameValidator.FileNameValidator.isValid
+import com.owncloud.android.R
+import com.owncloud.android.databinding.EditBoxDialogBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.status.OCCapability
+import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.KeyboardUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
 /**
- *  Dialog to input a new name for an {@link OCFile} being renamed.
- *  Triggers the rename operation.
+ * Dialog to input a new name for an [OCFile] being renamed.
+ * Triggers the rename operation.
  */
-public class RenameFileDialogFragment
-    extends DialogFragment implements DialogInterface.OnClickListener, TextWatcher, Injectable {
+class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListener, TextWatcher, Injectable {
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-    private static final String ARG_TARGET_FILE = "TARGET_FILE";
-    private static final String ARG_PARENT_FOLDER = "PARENT_FOLDER";
+    @Inject
+    lateinit var fileDataStorageManager: FileDataStorageManager
 
-    @Inject ViewThemeUtils viewThemeUtils;
-    @Inject FileDataStorageManager fileDataStorageManager;
-    @Inject KeyboardUtils keyboardUtils;
-    @Inject CurrentAccountProvider currentAccount;
+    @Inject
+    lateinit var keyboardUtils: KeyboardUtils
 
-    private EditBoxDialogBinding binding;
-    private OCFile mTargetFile;
-    private MaterialButton positiveButton;
-    private Set<String> fileNames;
+    @Inject
+    lateinit var currentAccount: CurrentAccountProvider
 
-    /**
-     * Public factory method to create new RenameFileDialogFragment instances.
-     *
-     * @param file File to rename.
-     * @return Dialog ready to show.
-     */
-    public static RenameFileDialogFragment newInstance(OCFile file, OCFile parentFolder) {
-        RenameFileDialogFragment frag = new RenameFileDialogFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_TARGET_FILE, file);
-        args.putParcelable(ARG_PARENT_FOLDER, parentFolder);
-        frag.setArguments(args);
-        return frag;
+    private lateinit var binding: EditBoxDialogBinding
+    private var mTargetFile: OCFile? = null
+    private var positiveButton: MaterialButton? = null
+    private var fileNames: MutableSet<String>? = null
+
+    override fun onStart() {
+        super.onStart()
+        initAlertDialog()
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        initAlertDialog();
+    override fun onResume() {
+        super.onResume()
+        keyboardUtils.showKeyboardForEditText(requireDialog().window, binding.userInput)
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        keyboardUtils.showKeyboardForEditText(requireDialog().getWindow(), binding.userInput);
-    }
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        mTargetFile = requireArguments().getParcelableArgument(ARG_TARGET_FILE, OCFile::class.java)
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mTargetFile = BundleExtensionsKt.getParcelableArgument(requireArguments(), ARG_TARGET_FILE, OCFile.class);
+        val inflater = requireActivity().layoutInflater
+        binding = EditBoxDialogBinding.inflate(inflater, null, false)
 
-        // Inflate the layout for the dialog
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        binding = EditBoxDialogBinding.inflate(inflater, null, false);
-        View view = binding.getRoot();
-
-        // Setup layout
-        String currentName = mTargetFile.getFileName();
-        binding.userInput.setText(currentName);
-        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
-        int extensionStart = mTargetFile.isFolder() ? -1 : currentName.lastIndexOf('.');
-        int selectionEnd = extensionStart >= 0 ? extensionStart : currentName.length();
-        binding.userInput.setSelection(0, selectionEnd);
-
-        OCFile parentFolder = BundleExtensionsKt.getParcelableArgument(getArguments(), ARG_PARENT_FOLDER, OCFile.class);
-        List<OCFile> folderContent = fileDataStorageManager.getFolderContent(parentFolder, false);
-        fileNames = Sets.newHashSetWithExpectedSize(folderContent.size());
-
-        for (OCFile file : folderContent) {
-            fileNames.add(file.getFileName());
+        val currentName = mTargetFile?.fileName
+        binding.userInput.setText(currentName)
+        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer)
+        val extensionStart = if (mTargetFile?.isFolder == true) -1 else currentName?.lastIndexOf('.')
+        val selectionEnd = if ((extensionStart ?: -1) >= 0) extensionStart else currentName?.length
+        if (selectionEnd != null) {
+            binding.userInput.setSelection(0, selectionEnd)
         }
 
-        // Add TextChangedListener to handle showing/hiding the input warning message
-        binding.userInput.addTextChangedListener(this);
+        val parentFolder = arguments.getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
+        val folderContent = fileDataStorageManager.getFolderContent(parentFolder, false)
+        fileNames = Sets.newHashSetWithExpectedSize(folderContent.size)
 
-        // Build the dialog
-        MaterialAlertDialogBuilder builder = buildMaterialAlertDialog(view);
+        for (file in folderContent) {
+            fileNames?.add(file.fileName)
+        }
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.getContext(), builder);
+        binding.userInput.addTextChangedListener(this)
 
-        return builder.create();
+        val builder = buildMaterialAlertDialog(binding.root)
+
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInputContainer.context, builder)
+
+        return builder.create()
     }
 
-    private MaterialAlertDialogBuilder buildMaterialAlertDialog(View view) {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity());
+    private fun buildMaterialAlertDialog(view: View): MaterialAlertDialogBuilder {
+        val builder = MaterialAlertDialogBuilder(requireActivity())
 
         builder
             .setView(view)
             .setPositiveButton(R.string.file_rename, this)
             .setNegativeButton(R.string.common_cancel, this)
-            .setTitle(R.string.rename_dialog_title);
+            .setTitle(R.string.rename_dialog_title)
 
-        return builder;
+        return builder
     }
 
-    private void initAlertDialog() {
-        AlertDialog alertDialog = (AlertDialog) getDialog();
+    private fun initAlertDialog() {
+        val alertDialog = dialog as AlertDialog?
 
         if (alertDialog != null) {
-            positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
+            val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
 
-            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
-            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+            positiveButton?.let {
+                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
+            }
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton)
         }
     }
 
-    private OCCapability getOCCapability() {
-        return fileDataStorageManager.getCapability(currentAccount.getUser().getAccountName());
-    }
+    private val oCCapability: OCCapability
+        get() = fileDataStorageManager.getCapability(currentAccount.user.accountName)
 
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
+    override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
-            String newFileName = "";
+            var newFileName = ""
 
-            if (binding.userInput.getText() != null) {
-                newFileName = binding.userInput.getText().toString().trim();
+            if (binding.userInput.text != null) {
+                newFileName = binding.userInput.text.toString().trim { it <= ' ' }
             }
 
-            String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, getOCCapability(), requireContext(), null);
+            val errorMessage = isValid(newFileName, oCCapability, requireContext(), null)
             if (errorMessage != null) {
-                DisplayUtils.showSnackMessage(requireActivity(), errorMessage);
-                return;
+                DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
+                return
             }
 
-            if (requireActivity() instanceof ComponentsGetter componentsGetter) {
-                componentsGetter.getFileOperationsHelper().renameFile(mTargetFile, newFileName);
+            if (requireActivity() is ComponentsGetter) {
+                val componentsGetter = requireActivity() as ComponentsGetter
+                componentsGetter.getFileOperationsHelper().renameFile(mTargetFile, newFileName)
             }
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-    }
-
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
+    override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) = Unit
 
     /**
      * When user enters a hidden file name, the 'hidden file' message is shown.
      * Otherwise, the message is ensured to be hidden.
      */
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        String newFileName = "";
-        if (binding.userInput.getText() != null) {
-            newFileName = binding.userInput.getText().toString().trim();
+    override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+        var newFileName = ""
+        if (binding.userInput.text != null) {
+            newFileName = binding.userInput.text.toString().trim { it <= ' ' }
         }
 
-        String errorMessage = FileNameValidator.INSTANCE.isValid(newFileName, getOCCapability(), requireContext(), fileNames);
+        val errorMessage = isValid(newFileName, oCCapability, requireContext(), fileNames)
 
-        if (FileNameValidator.INSTANCE.isFileHidden(newFileName)) {
-            binding.userInputContainer.setError(getText(R.string.hidden_file_name_warning));
+        if (isFileHidden(newFileName)) {
+            binding.userInputContainer.error = getText(R.string.hidden_file_name_warning)
         } else if (errorMessage != null) {
-            binding.userInputContainer.setError(errorMessage);
-            positiveButton.setEnabled(false);
-        } else if (binding.userInputContainer.getError() != null) {
-            binding.userInputContainer.setError(null);
+            binding.userInputContainer.error = errorMessage
+            positiveButton?.isEnabled = false
+        } else if (binding.userInputContainer.error != null) {
+            binding.userInputContainer.error = null
             // Called to remove extra padding
-            binding.userInputContainer.setErrorEnabled(false);
-            positiveButton.setEnabled(true);
+            binding.userInputContainer.isErrorEnabled = false
+            positiveButton?.isEnabled = true
         }
     }
 
-    @Override
-    public void afterTextChanged(Editable s) {
+    override fun afterTextChanged(s: Editable) = Unit
 
+    companion object {
+        private const val ARG_TARGET_FILE = "TARGET_FILE"
+        private const val ARG_PARENT_FOLDER = "PARENT_FOLDER"
+
+        /**
+         * Public factory method to create new RenameFileDialogFragment instances.
+         *
+         * @param file File to rename.
+         * @return Dialog ready to show.
+         */
+        @JvmStatic
+        fun newInstance(file: OCFile?, parentFolder: OCFile?): RenameFileDialogFragment {
+            val bundle = Bundle().apply {
+                putParcelable(ARG_TARGET_FILE, file)
+                putParcelable(ARG_PARENT_FOLDER, parentFolder)
+            }
+
+            return RenameFileDialogFragment().apply {
+                arguments = bundle
+            }
+        }
     }
 }
