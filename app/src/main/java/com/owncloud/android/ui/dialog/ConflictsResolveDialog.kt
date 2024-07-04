@@ -61,7 +61,7 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         CANCEL,
         KEEP_BOTH,
         KEEP_LOCAL,
-        KEEP_SERVER,
+        KEEP_SERVER
     }
 
     override fun onAttach(context: Context) {
@@ -141,7 +141,6 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
                 listener?.conflictDecisionMade(Decision.CANCEL)
             }
             .setTitle(String.format(getString(R.string.conflict_file_headline), existingFile?.fileName))
-
 
         setupUI()
         setOnClickListeners()
