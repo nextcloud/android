@@ -124,17 +124,26 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
             if (files.size == SINGLE_SELECTION) {
                 val file = files[0]
                 messageStringId =
-                    if (file.isFolder) R.string.confirmation_remove_folder_alert else R.string.confirmation_remove_file_alert
+                    if (file.isFolder) {
+                        R.string.confirmation_remove_folder_alert
+                    } else {
+                        R.string.confirmation_remove_file_alert
+                    }
             } else {
                 messageStringId =
-                    if (containsFolder) R.string.confirmation_remove_folders_alert else R.string.confirmation_remove_files_alert
+                    if (containsFolder) {
+                        R.string.confirmation_remove_folders_alert
+                    } else {
+                        R.string.confirmation_remove_files_alert
+                    }
             }
 
             val bundle = Bundle().apply {
                 putInt(ARG_MESSAGE_RESOURCE_ID, messageStringId)
                 if (files.size == SINGLE_SELECTION) {
                     putStringArray(
-                        ARG_MESSAGE_ARGUMENTS, arrayOf(
+                        ARG_MESSAGE_ARGUMENTS,
+                        arrayOf(
                             files[0].fileName
                         )
                     )
