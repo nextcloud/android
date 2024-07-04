@@ -7,165 +7,143 @@
  * SPDX-FileCopyrightText: 2015 David A. Velasco <dvelasco@solidgear.es>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import android.app.Dialog;
-import android.content.ComponentName;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.owncloud.android.R;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.CopyToClipboardActivity;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
+import android.app.Dialog
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.content.pm.ResolveInfo
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.owncloud.android.R
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.CopyToClipboardActivity
+import java.util.Collections
 
 /**
  * Dialog showing a list activities able to resolve a given Intent,
  * filtering out the activities matching give package names.
  */
-public class ShareLinkToDialog  extends DialogFragment {
+class ShareLinkToDialog : DialogFragment() {
+    private var mAdapter: ActivityAdapter? = null
+    private var mIntent: Intent? = null
 
-    private final static String TAG =  ShareLinkToDialog.class.getSimpleName();
-    private final static String ARG_INTENT =  ShareLinkToDialog.class.getSimpleName() +
-            ".ARG_INTENT";
-    private final static String ARG_PACKAGES_TO_EXCLUDE =  ShareLinkToDialog.class.getSimpleName() +
-            ".ARG_PACKAGES_TO_EXCLUDE";
-
-    private ActivityAdapter mAdapter;
-    private Intent mIntent;
-
-    public static ShareLinkToDialog newInstance(Intent intent, String... packagesToExclude) {
-        ShareLinkToDialog f = new ShareLinkToDialog();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_INTENT, intent);
-        args.putStringArray(ARG_PACKAGES_TO_EXCLUDE, packagesToExclude);
-        f.setArguments(args);
-        return f;
+    init {
+        Log_OC.d(TAG, "constructor")
     }
 
-    public ShareLinkToDialog() {
-        super();
-        Log_OC.d(TAG, "constructor");
-    }
+    @Suppress("SpreadOperator")
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        mIntent = arguments.getParcelableArgument(ARG_INTENT, Intent::class.java) ?: throw NullPointerException()
+        val packagesToExclude = arguments?.getStringArray(ARG_PACKAGES_TO_EXCLUDE)
+        val packagesToExcludeList = listOf(*packagesToExclude ?: arrayOfNulls(0))
+        val pm = activity?.packageManager ?: throw NullPointerException()
 
-    @Override
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        mIntent = BundleExtensionsKt.getParcelableArgument(getArguments(), ARG_INTENT, Intent.class);
-        String[] packagesToExclude = getArguments().getStringArray(ARG_PACKAGES_TO_EXCLUDE);
-        List<String> packagesToExcludeList = Arrays.asList(packagesToExclude != null ?
-                packagesToExclude : new String[0]);
-
-        PackageManager pm = getActivity().getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(mIntent, PackageManager.MATCH_DEFAULT_ONLY);
-        Iterator<ResolveInfo> it = activities.iterator();
-        ResolveInfo resolveInfo;
+        val activities = pm.queryIntentActivities(mIntent!!, PackageManager.MATCH_DEFAULT_ONLY)
+        val it = activities.iterator()
+        var resolveInfo: ResolveInfo
         while (it.hasNext()) {
-            resolveInfo = it.next();
-            if (packagesToExcludeList.contains(resolveInfo.activityInfo.packageName.toLowerCase(Locale.ROOT))) {
-                it.remove();
+            resolveInfo = it.next()
+            if (packagesToExcludeList.contains(resolveInfo.activityInfo.packageName.lowercase())) {
+                it.remove()
             }
         }
 
-        boolean sendAction = mIntent.getBooleanExtra(Intent.ACTION_SEND, false);
+        val sendAction = mIntent?.getBooleanExtra(Intent.ACTION_SEND, false)
 
-        if (!sendAction) {
+        if (sendAction == false) {
             // add activity for copy to clipboard
-            Intent copyToClipboardIntent = new Intent(getActivity(), CopyToClipboardActivity.class);
-            List<ResolveInfo> copyToClipboard = pm.queryIntentActivities(copyToClipboardIntent, 0);
-            if (!copyToClipboard.isEmpty()) {
-                activities.add(copyToClipboard.get(0));
+            val copyToClipboardIntent = Intent(requireActivity(), CopyToClipboardActivity::class.java)
+            val copyToClipboard = pm.queryIntentActivities(copyToClipboardIntent, 0)
+            if (copyToClipboard.isNotEmpty()) {
+                activities.add(copyToClipboard[0])
             }
         }
 
-        Collections.sort(activities, new ResolveInfo.DisplayNameComparator(pm));
-        mAdapter = new ActivityAdapter(getActivity(), pm, activities);
+        Collections.sort(activities, ResolveInfo.DisplayNameComparator(pm))
+        mAdapter = ActivityAdapter(requireActivity(), pm, activities)
 
-        return createSelector(sendAction);
+        return createSelector(sendAction ?: false)
     }
 
-    private AlertDialog createSelector(final boolean sendAction) {
-
-        int titleId;
-        if (sendAction) {
-            titleId = R.string.activity_chooser_send_file_title;
+    private fun createSelector(sendAction: Boolean): AlertDialog {
+        val titleId = if (sendAction) {
+            R.string.activity_chooser_send_file_title
         } else {
-            titleId = R.string.activity_chooser_title;
+            R.string.activity_chooser_title
         }
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity())
-                    .setTitle(titleId)
-                    .setAdapter(mAdapter, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            // Add the information of the chosen activity to the intent to send
-                            ResolveInfo chosen = mAdapter.getItem(which);
-                            ActivityInfo actInfo = chosen.activityInfo;
-                            ComponentName name=new ComponentName(
-                                actInfo.applicationInfo.packageName,
-                                actInfo.name);
-                            mIntent.setComponent(name);
-
-                            // Send the file
-                            getActivity().startActivity(mIntent);
-                        }
-        });
-        return builder.create();
+        return MaterialAlertDialogBuilder(requireActivity())
+            .setTitle(titleId)
+            .setAdapter(mAdapter) { _, which ->
+                // Add the information of the chosen activity to the intent to send
+                val chosen = mAdapter?.getItem(which)
+                val actInfo = chosen?.activityInfo ?: return@setAdapter
+                val name = ComponentName(
+                    actInfo.applicationInfo.packageName,
+                    actInfo.name
+                )
+                mIntent?.setComponent(name)
+                activity?.startActivity(mIntent)
+            }
+            .create()
     }
 
-    class ActivityAdapter extends ArrayAdapter<ResolveInfo> {
-
-        private PackageManager mPackageManager;
-
-        ActivityAdapter(Context context, PackageManager pm, List<ResolveInfo> apps) {
-            super(context, R.layout.activity_row, apps);
-            this.mPackageManager = pm;
+    internal inner class ActivityAdapter(
+        context: Context,
+        private val mPackageManager: PackageManager,
+        apps: List<ResolveInfo>
+    ) : ArrayAdapter<ResolveInfo?>(context, R.layout.activity_row, apps) {
+        override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+            val view = convertView ?: newView(parent)
+            bindView(position, view)
+            return view
         }
 
-        @Override
-        public @NonNull View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-            View view = convertView;
+        private fun newView(parent: ViewGroup): View {
+            return (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater)
+                .inflate(R.layout.activity_row, parent, false)
+        }
 
-            if (view == null) {
-                view = newView(parent);
+        private fun bindView(position: Int, row: View) {
+            row.findViewById<TextView>(R.id.title).run {
+                text = getItem(position)?.loadLabel(mPackageManager)
             }
-            bindView(position, view);
-            return view;
-        }
 
-        private View newView(ViewGroup parent) {
-            return((LayoutInflater)getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).
-                    inflate(R.layout.activity_row, parent, false);
+            row.findViewById<ImageView>(R.id.icon).run {
+                setImageDrawable(getItem(position)?.loadIcon(mPackageManager))
+            }
         }
+    }
 
-        private void bindView(int position, View row) {
-            TextView label = row.findViewById(R.id.title);
-            label.setText(getItem(position).loadLabel(mPackageManager));
-            ImageView icon = row.findViewById(R.id.icon);
-            icon.setImageDrawable(getItem(position).loadIcon(mPackageManager));
+    companion object {
+        private val TAG: String = ShareLinkToDialog::class.java.simpleName
+        private val ARG_INTENT = ShareLinkToDialog::class.java.simpleName +
+            ".ARG_INTENT"
+        private val ARG_PACKAGES_TO_EXCLUDE = ShareLinkToDialog::class.java.simpleName +
+            ".ARG_PACKAGES_TO_EXCLUDE"
+
+        @JvmStatic
+        fun newInstance(intent: Intent?, vararg packagesToExclude: String?): ShareLinkToDialog {
+            val bundle = Bundle().apply {
+                putParcelable(ARG_INTENT, intent)
+                putStringArray(ARG_PACKAGES_TO_EXCLUDE, packagesToExclude)
+            }
+
+            return ShareLinkToDialog().apply {
+                arguments = bundle
+            }
         }
     }
 }
