@@ -48,7 +48,10 @@ object FileNameValidator {
         }
 
         if (capability.forbiddenFilenames.isTrue &&
-            (reservedWindowsNames.contains(name.uppercase()) || reservedWindowsNames.contains(name.removeFileExtension().uppercase()))
+            (
+                reservedWindowsNames.contains(name.uppercase()) ||
+                    reservedWindowsNames.contains(name.removeFileExtension().uppercase())
+                )
         ) {
             return context.getString(R.string.file_name_validator_error_reserved_names)
         }
@@ -60,6 +63,7 @@ object FileNameValidator {
         return null
     }
 
+    @Suppress("ReturnCount")
     fun checkPath(folderPath: String, filePaths: List<String>, capability: OCCapability, context: Context): Boolean {
         val folderPaths = folderPath.split("/", "\\")
 
@@ -78,6 +82,7 @@ object FileNameValidator {
         return true
     }
 
+    @Suppress("ReturnCount")
     private fun checkInvalidCharacters(name: String, capability: OCCapability, context: Context): String? {
         if (capability.forbiddenFilenameCharacters.isFalse) return null
 

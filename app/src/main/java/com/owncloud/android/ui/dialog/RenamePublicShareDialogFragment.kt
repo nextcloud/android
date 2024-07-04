@@ -5,122 +5,116 @@
  * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.LayoutInflater;
-import android.view.View;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.client.di.Injectable;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.EditBoxDialogBinding;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.ui.activity.ComponentsGetter;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.KeyboardUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.DialogFragment;
+import android.app.Dialog
+import android.content.DialogInterface
+import android.os.Bundle
+import android.text.TextUtils
+import android.view.View
+import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.owncloud.android.R
+import com.owncloud.android.databinding.EditBoxDialogBinding
+import com.owncloud.android.lib.resources.shares.OCShare
+import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.KeyboardUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import javax.inject.Inject
 
 /**
  * Dialog to rename a public share.
  */
-public class RenamePublicShareDialogFragment
-    extends DialogFragment implements DialogInterface.OnClickListener, Injectable {
+class RenamePublicShareDialogFragment : DialogFragment(), DialogInterface.OnClickListener, Injectable {
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
-    private static final String ARG_PUBLIC_SHARE = "PUBLIC_SHARE";
+    @Inject
+    lateinit var keyboardUtils: KeyboardUtils
 
-    @Inject ViewThemeUtils viewThemeUtils;
-    @Inject KeyboardUtils keyboardUtils;
+    private lateinit var binding: EditBoxDialogBinding
+    private var publicShare: OCShare? = null
 
-    private EditBoxDialogBinding binding;
-    private OCShare publicShare;
+    override fun onStart() {
+        super.onStart()
 
-    public static RenamePublicShareDialogFragment newInstance(OCShare share) {
-        RenamePublicShareDialogFragment frag = new RenamePublicShareDialogFragment();
-        Bundle args = new Bundle();
-        args.putParcelable(ARG_PUBLIC_SHARE, share);
-        frag.setArguments(args);
-        return frag;
-    }
+        val alertDialog = dialog as AlertDialog? ?: return
 
-    @Override
-    public void onStart() {
-        super.onStart();
+        val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
+        val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as? MaterialButton
 
-        AlertDialog alertDialog = (AlertDialog) getDialog();
+        positiveButton?.let {
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton)
+        }
 
-        if (alertDialog != null) {
-            MaterialButton positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
-            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
-            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
+        negativeButton?.let {
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton)
         }
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        keyboardUtils.showKeyboardForEditText(requireDialog().getWindow(), binding.userInput);
+    override fun onResume() {
+        super.onResume()
+        keyboardUtils.showKeyboardForEditText(requireDialog().window, binding.userInput)
     }
 
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        publicShare = BundleExtensionsKt.getParcelableArgument(requireArguments(), ARG_PUBLIC_SHARE, OCShare.class);
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        publicShare = requireArguments().getParcelableArgument(ARG_PUBLIC_SHARE, OCShare::class.java)
 
-        // Inflate the layout for the dialog
-        LayoutInflater inflater = requireActivity().getLayoutInflater();
-        binding = EditBoxDialogBinding.inflate(inflater, null, false);
-        View view = binding.getRoot();
+        val inflater = requireActivity().layoutInflater
+        binding = EditBoxDialogBinding.inflate(inflater, null, false)
+        val view: View = binding.root
 
-        // Setup layout
-        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer);
-        binding.userInput.setText(publicShare.getLabel());
+        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer)
+        binding.userInput.setText(publicShare?.label)
 
-        // Build the dialog
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext());
-        builder.setView(view)
+        val builder = MaterialAlertDialogBuilder(view.context)
+            .setView(view)
             .setPositiveButton(R.string.file_rename, this)
             .setNegativeButton(R.string.common_cancel, this)
-            .setTitle(R.string.public_share_name);
+            .setTitle(R.string.public_share_name)
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInput.getContext(), builder);
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInput.context, builder)
 
-        return builder.create();
+        return builder.create()
     }
 
-    @Override
-    public void onClick(DialogInterface dialog, int which) {
-        if (which == AlertDialog.BUTTON_POSITIVE) {
-            String newName = "";
-            if (binding.userInput.getText() != null) {
-                newName = binding.userInput.getText().toString().trim();
-            }
+    override fun onClick(dialog: DialogInterface, which: Int) {
+        when (which) {
+            AlertDialog.BUTTON_POSITIVE -> {
+                var newName = ""
+                if (binding.userInput.text != null) {
+                    newName = binding.userInput.text.toString().trim { it <= ' ' }
+                }
 
-            if (TextUtils.isEmpty(newName)) {
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.label_empty);
-                return;
-            }
+                if (TextUtils.isEmpty(newName)) {
+                    DisplayUtils.showSnackMessage(requireActivity(), R.string.label_empty)
+                    return
+                }
 
-            ((ComponentsGetter) requireActivity()).getFileOperationsHelper().setLabelToPublicShare(publicShare,
-                                                                                                   newName);
+                (requireActivity() as ComponentsGetter).fileOperationsHelper.setLabelToPublicShare(
+                    publicShare,
+                    newName
+                )
+            }
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
+    companion object {
+        private const val ARG_PUBLIC_SHARE = "PUBLIC_SHARE"
+
+        fun newInstance(share: OCShare?): RenamePublicShareDialogFragment {
+            val bundle = Bundle().apply {
+                putParcelable(ARG_PUBLIC_SHARE, share)
+            }
+
+            return RenamePublicShareDialogFragment().apply {
+                arguments = bundle
+            }
+        }
     }
 }

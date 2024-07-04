@@ -462,7 +462,6 @@ open class FolderPickerActivity :
                 Handler(Looper.getMainLooper()).postDelayed({
                     setResult(RESULT_CANCELED, resultData)
                     finish()
-
                 }, 1000L)
                 return
             }
