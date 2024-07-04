@@ -146,7 +146,7 @@
     <string name="common_ok">Aceptar</string>
     <string name="common_pending">Pendente</string>
     <string name="common_remove">Eliminar</string>
-    <string name="common_rename">Renomear</string>
+    <string name="common_rename">Cambiar o nome</string>
     <string name="common_save">Gardar</string>
     <string name="common_send">Enviar</string>
     <string name="common_share">Compartir</string>
@@ -407,14 +407,14 @@
     <string name="file_migration_waiting_for_unfinished_sync">Agardando que rematen as sincronizacións…</string>
     <string name="file_not_found">Non se atopou o ficheiro</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
-    <string name="file_rename">Renomear</string>
+    <string name="file_rename">Cambiar o nome</string>
     <string name="file_upload_worker_same_file_already_exists">Xa existe o mesmo ficheiro, non se detectou ningún conflito</string>
     <string name="file_version_restored_error">Produciuse un erro ao restaurar a versión do ficheiro</string>
     <string name="file_version_restored_successfully">Versión do ficheiro restaurada satisfactoriamente.</string>
     <string name="filedetails_details">Detalles</string>
     <string name="filedetails_download">Descargar</string>
     <string name="filedetails_export">Exportar</string>
-    <string name="filedetails_renamed_in_upload_msg">O ficheiro foi renomeado a %1$s durante o envío</string>
+    <string name="filedetails_renamed_in_upload_msg">Cambiouselle o nome do ficheiro a %1$s durante o envío</string>
     <string name="filedetails_sync_file">Sincronizar</string>
     <string name="filedisplay_no_file_selected">Non seleccionou ningún ficheiro</string>
     <string name="filename_empty">O nome de ficheiro non pode estar baleiro</string>
@@ -437,7 +437,7 @@
     <string name="forbidden_permissions_create">para crear este ficheiro</string>
     <string name="forbidden_permissions_delete">para eliminar este ficheiro</string>
     <string name="forbidden_permissions_move">para mover este ficheiro</string>
-    <string name="forbidden_permissions_rename">para renomear este ficheiro</string>
+    <string name="forbidden_permissions_rename">para cambiarlle o nome a este ficheiro</string>
     <string name="foreground_service_upload">Enviando ficheiros…</string>
     <string name="foreign_files_fail">Non foi posíbel mover algúns ficheiros</string>
     <string name="foreign_files_local_text">Local: %1$s</string>
@@ -693,8 +693,8 @@
     <string name="remove_push_notification">Retirar</string>
     <string name="remove_success_msg">Eliminado</string>
     <string name="rename_dialog_title">Introduza un nome novo</string>
-    <string name="rename_local_fail_msg">Non foi posíbel renomear a copia local, ténteo cun un nome diferente</string>
-    <string name="rename_server_fail_msg">Non foi posíbel renomear, o nome xa está ocupado</string>
+    <string name="rename_local_fail_msg">Non foi posíbel cambiarlle o nome a copia local, ténteo cun un nome diferente</string>
+    <string name="rename_server_fail_msg">Non foi posíbel cambiarlle o nome, o nome xa está ocupado</string>
     <string name="request_account_deletion">Solicitar a eliminación da conta </string>
     <string name="request_account_deletion_button">Solicitat a eliminación</string>
     <string name="request_account_deletion_details">Solicitar a eliminación definitiva da conta polo provedor de servizos</string>
