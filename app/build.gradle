@@ -299,7 +299,7 @@ dependencies {
     implementation 'com.googlecode.ez-vcard:ez-vcard:0.12.1'
     implementation 'org.lukhnos:nnio:0.3.1'
     implementation 'org.bouncycastle:bcpkix-jdk18on:1.78.1'
-    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.google.code.gson:gson:2.11.0'
     implementation 'com.github.nextcloud-deps:sectioned-recyclerview:0.6.1'
     implementation 'com.github.chrisbanes:PhotoView:2.3.0'
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.28'
@@ -310,7 +310,7 @@ dependencies {
     }
     implementation 'com.caverock:androidsvg:1.4'
     implementation 'androidx.annotation:annotation:1.8.0'
-    implementation 'com.vanniktech:emoji-google:0.18.0'
+    implementation 'com.vanniktech:emoji-google:0.21.0'
 
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido2:$fidoVersion"
@@ -378,11 +378,11 @@ dependencies {
 
     // dependencies for instrumented tests
     // JUnit4 Rules
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
     androidTestImplementation "androidx.test:rules:$androidxTestVersion"
     // Android JUnit Runner
-    androidTestImplementation "androidx.test:runner:1.5.2"
-    androidTestUtil "androidx.test:orchestrator:1.4.2"
+    androidTestImplementation "androidx.test:runner:1.6.1"
+    androidTestUtil "androidx.test:orchestrator:1.5.0"
     androidTestImplementation "androidx.test:core-ktx:$androidxTestVersion"
 
     // Espresso

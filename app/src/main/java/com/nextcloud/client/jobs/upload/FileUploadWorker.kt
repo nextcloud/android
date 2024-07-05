@@ -130,7 +130,7 @@ class FileUploadWorker(
     @Suppress("ReturnCount")
     private fun retrievePagesBySortingUploadsByID(): Result {
         val accountName = inputData.getString(ACCOUNT) ?: return Result.failure()
-        var uploadsPerPage = uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(-1, accountName)
+        var uploadsPerPage = uploadsStorageManager.getCurrentUploadsForAccountPageAscById(-1, accountName)
         val totalUploadSize = uploadsStorageManager.getTotalUploadSize(accountName)
 
         Log_OC.d(TAG, "Total upload size: $totalUploadSize")
@@ -148,7 +148,7 @@ class FileUploadWorker(
             val lastId = uploadsPerPage.last().uploadId
             uploadFiles(totalUploadSize, uploadsPerPage, accountName)
             uploadsPerPage =
-                uploadsStorageManager.getCurrentAndPendingUploadsForAccountPageAscById(lastId, accountName)
+                uploadsStorageManager.getCurrentUploadsForAccountPageAscById(lastId, accountName)
         }
 
         if (isStopped) {

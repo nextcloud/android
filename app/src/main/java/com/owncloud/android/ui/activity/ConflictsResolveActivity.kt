@@ -150,7 +150,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         outState.putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
     }
 
-    override fun conflictDecisionMade(decision: Decision) {
+    override fun conflictDecisionMade(decision: Decision?) {
         listener?.conflictDecisionMade(decision)
     }
 
@@ -205,10 +205,10 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         if (prev != null) {
             fragmentTransaction.remove(prev)
         }
-        if (existingFile != null && storageManager.fileExists(remotePath)) {
+        if (existingFile != null && storageManager.fileExists(remotePath) && newFile != null) {
             val dialog = ConflictsResolveDialog.newInstance(
                 existingFile,
-                newFile,
+                newFile!!,
                 userOptional.get()
             )
             dialog.show(fragmentTransaction, "conflictDialog")
