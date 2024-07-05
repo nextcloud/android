@@ -33,6 +33,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.FileUtil
 import java.io.File
+import java.util.concurrent.Semaphore
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions")
@@ -58,6 +59,8 @@ class FileUploadHelper {
 
         private var instance: FileUploadHelper? = null
 
+        private val retryFailedUploadsSemaphore = Semaphore(1)
+
         fun instance(): FileUploadHelper {
             return instance ?: synchronized(this) {
                 instance ?: FileUploadHelper().also { instance = it }
@@ -75,19 +78,27 @@ class FileUploadHelper {
         accountManager: UserAccountManager,
         powerManagementService: PowerManagementService
     ) {
-        val failedUploads = uploadsStorageManager.failedUploads
-        if (failedUploads == null || failedUploads.isEmpty()) {
-            Log_OC.d(TAG, "Failed uploads are empty or null")
-            return
-        }
+        if (retryFailedUploadsSemaphore.tryAcquire()) {
+            try {
+                val failedUploads = uploadsStorageManager.failedUploads
+                if (failedUploads == null || failedUploads.isEmpty()) {
+                    Log_OC.d(TAG, "Failed uploads are empty or null")
+                    return
+                }
 
-        retryUploads(
-            uploadsStorageManager,
-            connectivityService,
-            accountManager,
-            powerManagementService,
-            failedUploads
-        )
+                retryUploads(
+                    uploadsStorageManager,
+                    connectivityService,
+                    accountManager,
+                    powerManagementService,
+                    failedUploads
+                )
+            } finally {
+                retryFailedUploadsSemaphore.release()
+            }
+        } else {
+            Log_OC.d(TAG, "Skip retryFailedUploads since it is already running")
+        }
     }
 
     fun retryCancelledUploads(
@@ -139,6 +150,10 @@ class FileUploadHelper {
 
             if (uploadResult != UploadResult.UPLOADED) {
                 if (failedUpload.lastResult != uploadResult) {
+                    // Setting Upload status else cancelled uploads will behave wrong, when retrying
+                    // Needs to happen first since lastResult wil be overwritten by setter
+                    failedUpload.uploadStatus = UploadStatus.UPLOAD_FAILED
+
                     failedUpload.lastResult = uploadResult
                     uploadsStorageManager.updateUpload(failedUpload)
                 }
@@ -204,10 +219,25 @@ class FileUploadHelper {
     }
 
     fun cancelFileUpload(remotePath: String, accountName: String) {
-        uploadsStorageManager.getUploadByRemotePath(remotePath).run {
-            removeFileUpload(remotePath, accountName)
-            uploadStatus = UploadStatus.UPLOAD_CANCELLED
-            uploadsStorageManager.storeUpload(this)
+        val upload = uploadsStorageManager.getUploadByRemotePath(remotePath)
+        if (upload != null) {
+            cancelFileUploads(listOf(upload), accountName)
+        } else {
+            Log_OC.e(TAG, "Error cancelling current upload because upload does not exist!")
+        }
+    }
+
+    fun cancelFileUploads(uploads: List<OCUpload>, accountName: String) {
+        for (upload in uploads) {
+            upload.uploadStatus = UploadStatus.UPLOAD_CANCELLED
+            uploadsStorageManager.updateUpload(upload)
+        }
+
+        try {
+            val user = accountManager.getUser(accountName).get()
+            cancelAndRestartUploadJob(user)
+        } catch (e: NoSuchElementException) {
+            Log_OC.e(TAG, "Error restarting upload job because user does not exist!")
         }
     }
 
