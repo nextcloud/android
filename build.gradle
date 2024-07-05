@@ -10,7 +10,7 @@
  */
 buildscript {
     ext {
-        androidLibraryVersion ="50ef03422e17bbcbdbbdc868a27749f548488ec6"
+        androidLibraryVersion ="fa4f046d4a6a9ae05c6774893016bd9d3a215524"
         androidPluginVersion = '8.5.0'
         androidxMediaVersion = '1.3.1'
         androidxTestVersion = "1.6.1"
