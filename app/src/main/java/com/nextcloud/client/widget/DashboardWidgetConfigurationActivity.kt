@@ -129,63 +129,57 @@ class DashboardWidgetConfigurationActivity :
     }
 
     private fun loadWidgets(user: User) {
-        CoroutineScope(Dispatchers.IO).launch {
-            withContext(Dispatchers.Main) {
-                binding.emptyView.root.visibility = View.GONE
-                if (accountManager.allUsers.size > 1) {
-                    binding.accountName.text = user.accountName
-                }
-            }
+        binding.emptyView.root.visibility = View.GONE
+        if (accountManager.allUsers.size > 1) {
+            binding.accountName.text = user.accountName
+        }
 
-            try {
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
                 val client = clientFactory.createNextcloudClient(user)
                 val result = DashboardListWidgetsRemoteOperation().execute(client)
 
                 withContext(Dispatchers.Main) {
-                    if (result.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND) {
-                        withContext(Dispatchers.Main) {
-                            mAdapter.setWidgetList(null)
-                            binding.emptyView.root.visibility = View.VISIBLE
-                            binding.emptyView.emptyListViewHeadline.setText(R.string.widgets_not_available_title)
-
-                            binding.emptyView.emptyListIcon.apply {
-                                setImageResource(R.drawable.ic_list_empty_error)
-                                visibility = View.VISIBLE
-                            }
-                            binding.emptyView.emptyListViewText.apply {
-                                text = String.format(
-                                    getString(R.string.widgets_not_available),
-                                    getString(R.string.app_name)
-                                )
-                                visibility = View.VISIBLE
-                            }
-                        }
-                    } else {
+                    if (result.isSuccess) {
                         mAdapter.setWidgetList(result.resultData)
+                    } else if (result.code == RemoteOperationResult.ResultCode.FILE_NOT_FOUND) {
+                        mAdapter.setWidgetList(null)
+                        binding.emptyView.root.visibility = View.VISIBLE
+                        binding.emptyView.emptyListViewHeadline.setText(R.string.widgets_not_available_title)
+
+                        binding.emptyView.emptyListIcon.apply {
+                            setImageResource(R.drawable.ic_list_empty_error)
+                            visibility = View.VISIBLE
+                        }
+                        binding.emptyView.emptyListViewText.apply {
+                            text = String.format(
+                                getString(R.string.widgets_not_available),
+                                getString(R.string.app_name)
+                            )
+                            visibility = View.VISIBLE
+                        }
                     }
                 }
-            } catch (e: CreationException) {
-                Log_OC.e(this, "Error loading widgets for user $user", e)
+            }
+        } catch (e: CreationException) {
+            Log_OC.e(this, "Error loading widgets for user $user", e)
 
-                withContext(Dispatchers.Main) {
-                    mAdapter.setWidgetList(null)
-                    binding.emptyView.root.visibility = View.VISIBLE
+            mAdapter.setWidgetList(null)
+            binding.emptyView.root.visibility = View.VISIBLE
 
-                    binding.emptyView.emptyListIcon.apply {
-                        setImageResource(R.drawable.ic_list_empty_error)
-                        visibility = View.VISIBLE
-                    }
-                    binding.emptyView.emptyListViewText.apply {
-                        setText(R.string.common_error)
-                        visibility = View.VISIBLE
-                    }
-                    binding.emptyView.emptyListViewAction.apply {
-                        visibility = View.VISIBLE
-                        setText(R.string.reload)
-                        setOnClickListener {
-                            loadWidgets(user)
-                        }
-                    }
+            binding.emptyView.emptyListIcon.apply {
+                setImageResource(R.drawable.ic_list_empty_error)
+                visibility = View.VISIBLE
+            }
+            binding.emptyView.emptyListViewText.apply {
+                setText(R.string.common_error)
+                visibility = View.VISIBLE
+            }
+            binding.emptyView.emptyListViewAction.apply {
+                visibility = View.VISIBLE
+                setText(R.string.reload)
+                setOnClickListener {
+                    loadWidgets(user)
                 }
             }
         }
