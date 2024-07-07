@@ -1,0 +1,42 @@
+# SPDX-FileCopyrightText: 2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later
+version = 1
+SPDX-PackageName = "Nextcloud Android"
+SPDX-PackageSupplier = "Nextcloud Android team <android@nextcloud.com>"
+SPDX-PackageDownloadLocation = "https://github.com/nextcloud/android"
+
+[[annotations]]
+path = "gradle/wrapper/gradle-wrapper.jar"
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2015-2021 the original authors"
+SPDX-License-Identifier = "Apache-2.0"
+
+[[annotations]]
+path = ["user_manual/images/android-1.png", "user_manual/images/android-2.png", "user_manual/images/android-3.png", "user_manual/images/android-4.png", "user_manual/images/android-10.png", "user_manual/images/davdroid-1-button-in-nextcloud-app.png", "user_manual/images/davdroid-2-install-davdroid.png", "user_manual/images/davdroid-3-enter-password.png", "user_manual/images/davdroid-4-specify-owner-email.png"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2024 Nextcloud GmbH and Nextcloud contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
+
+[[annotations]]
+path = ["user_manual/conf.py", "user_manual/android_app.rst", "user_manual/index.rst", "user_manual/conf.py", "user_manual/Makefile"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2015-2016 ownCloud Inc., 2016-2024 Nextcloud GmbH"
+SPDX-License-Identifier = "GPL-2.0-only"
+
+[[annotations]]
+path = ["user_manual/images/android-11.png", "user_manual/images/android-12.png", "user_manual/images/android-13.png", "user_manual/images/android-14.png", "user_manual/images/android-15.png", "user_manual/images/android-5.png", "user_manual/images/android-6.png", "user_manual/images/android-8.png", "user_manual/images/android-9.png"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2015-2016 ownCloud Inc."
+SPDX-License-Identifier = "GPL-2.0-only"
+
+[[annotations]]
+path = ["app/src/**/res/mipmap-**dpi/ic_launcher.png", "app/src/**/ic_launcher-web.png", "src/generic/fastlane/metadata/android/en-US/images/icon.png", "src/versionDev/fastlane/metadata/android/en-US/images/icon.png", "app/src/main/ic_launcher-web-round.png"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2017-2024 Nextcloud GmbH <https://nextcloud.com/trademarks/>"
+SPDX-License-Identifier = "LicenseRef-NextcloudTrademarks"
+
+[[annotations]]
+path = [".idea/**", "app/schemas/com.nextcloud.client.database.NextcloudDatabase/**.json", "app/screenshots/gplay/debug/**.png", "app/src/main/res/values-**/strings.xml", "src/**/fastlane/metadata/android/**/**.txt", "src/versionDev/fastlane/metadata/android/**/changelogs/**.txt", "app/src/androidTest/assets/**", "app/src/test/resources/mockito-extensions/org.mockito.plugins.MockMaker", "app/src/**/google-services.json", "app/src/main/res/drawable-**dpi/checker_16_16.png", "app/src/main/res/raw/encryption_key_words.txt", "app/src/main/resources/ical4j.properties", "app/src/main/res/drawable-**dpi/apk.png", "app/src/main/res/drawable-**dpi/fdroid.png", "app/src/main/res/drawable-**dpi/playstore.png", "app/src/main/res/drawable-**dpi/background.png", "app/src/main/res/drawable-**dpi/background_nc18.png"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2016-2024 Nextcloud GmbH and Nextcloud contributors"
+SPDX-License-Identifier = "AGPL-3.0-or-later"
