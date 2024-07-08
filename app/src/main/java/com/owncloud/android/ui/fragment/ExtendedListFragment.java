@@ -116,10 +116,10 @@ public class ExtendedListFragment extends Fragment implements
     protected ImageView mEmptyListIcon;
 
     // Save the state of the scroll in browsing
-    private ArrayList<Integer> mIndexes;
-    private ArrayList<Integer> mFirstPositions;
-    private ArrayList<Integer> mTops;
-    private int mHeightCell;
+    private ArrayList<Integer> mIndexes = new ArrayList<>();
+    private ArrayList<Integer> mFirstPositions = new ArrayList<>();
+    private ArrayList<Integer> mTops = new ArrayList<>();
+    private int mHeightCell = 0;
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener;
 
@@ -405,27 +405,23 @@ public class ExtendedListFragment extends Fragment implements
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
-            mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
-            mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
-            mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
-            setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
-
-            if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && getRecyclerView().getAdapter() != null) {
-                switchToGridView();
-            }
-
-            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-            Log_OC.v(TAG, "Setting grid position " + referencePosition);
-            scrollToPosition(referencePosition);
-        } else {
-            mIndexes = new ArrayList<>();
-            mFirstPositions = new ArrayList<>();
-            mTops = new ArrayList<>();
-            mHeightCell = 0;
+        if (savedInstanceState == null) {
+            return;
         }
+
+        mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
+        mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
+        mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
+        mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
+        setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
+
+        if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && getRecyclerView().getAdapter() != null) {
+            switchToGridView();
+        }
+
+        int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
+        Log_OC.v(TAG, "Setting grid position " + referencePosition);
+        scrollToPosition(referencePosition);
     }
 
 
@@ -485,8 +481,9 @@ public class ExtendedListFragment extends Fragment implements
      * Save index and top position
      */
     protected void saveIndexAndTopPosition(int index) {
-
-        mIndexes.add(index);
+        if (mIndexes != null) {
+            mIndexes.add(index);
+        }
 
         RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
         int firstPosition;
@@ -519,8 +516,7 @@ public class ExtendedListFragment extends Fragment implements
             searchView.onActionViewCollapsed();
 
             Activity activity;
-            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
+            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity fileDisplayActivity) {
                 fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isDrawerIndicatorAvailable());
                 fileDisplayActivity.hideSearchView(fileDisplayActivity.getCurrentDir());
             }
