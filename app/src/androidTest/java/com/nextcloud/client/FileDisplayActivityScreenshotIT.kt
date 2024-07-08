@@ -32,7 +32,8 @@ class FileDisplayActivityScreenshotIT : AbstractIT() {
 
     @get:Rule
     val permissionRule = GrantPermissionRule.grant(
-        Manifest.permission.WRITE_EXTERNAL_STORAGE
+        Manifest.permission.WRITE_EXTERNAL_STORAGE,
+        Manifest.permission.MANAGE_EXTERNAL_STORAGE
     )
 
     @Test
