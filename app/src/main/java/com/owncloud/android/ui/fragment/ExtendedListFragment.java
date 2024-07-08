@@ -69,6 +69,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
@@ -397,12 +398,9 @@ public class ExtendedListFragment extends Fragment implements
         mEmptyListIcon = binding.emptyList.emptyListIcon;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         if (savedInstanceState == null) {
             return;
         }
@@ -421,7 +419,6 @@ public class ExtendedListFragment extends Fragment implements
         Log_OC.v(TAG, "Setting grid position " + referencePosition);
         scrollToPosition(referencePosition);
     }
-
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
