@@ -10,10 +10,8 @@ package com.owncloud.android.ui.trashbin
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
-import androidx.test.core.app.ActivityScenario
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.nextcloud.utils.EspressoIdlingResource
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
@@ -31,11 +29,8 @@ class TrashbinActivityIT : AbstractIT() {
         FILES
     }
 
-    private var scenario: ActivityScenario<TrashbinActivity>? = null
-    val intent = Intent(ApplicationProvider.getApplicationContext(), TrashbinActivity::class.java)
-
     @get:Rule
-    val activityRule = ActivityScenarioRule<TrashbinActivity>(intent)
+    var activityRule = IntentsTestRule(TrashbinActivity::class.java, true, false)
 
     @Before
     fun registerIdlingResource() {
@@ -45,76 +40,65 @@ class TrashbinActivityIT : AbstractIT() {
     @After
     fun unregisterIdlingResource() {
         IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
-        scenario?.close()
     }
 
     @Test
     @ScreenshotTest
     fun error() {
-        scenario = activityRule.scenario
-        scenario?.onActivity { sut ->
-            val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
-            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-            onIdleSync {
-                sut.runOnUiThread { sut.loadFolder() }
-                screenshot(sut)
-            }
+        val sut: TrashbinActivity = activityRule.launchActivity(null)
+        val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
+        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+        onIdleSync {
+            sut.runOnUiThread { sut.loadFolder() }
+            screenshot(sut)
         }
     }
 
     @Test
     @ScreenshotTest
     fun files() {
-        scenario = activityRule.scenario
-        scenario?.onActivity { sut ->
-            val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
-            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-            onIdleSync {
-                sut.runOnUiThread { sut.loadFolder() }
-                screenshot(sut)
-            }
+        val sut: TrashbinActivity = activityRule.launchActivity(null)
+        val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
+        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+        onIdleSync {
+            sut.runOnUiThread { sut.loadFolder() }
+            screenshot(sut)
         }
     }
 
     @Test
     @ScreenshotTest
     fun empty() {
-        scenario = activityRule.scenario
-        scenario?.onActivity { sut ->
-            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-            onIdleSync {
-                sut.runOnUiThread { sut.loadFolder() }
-                screenshot(sut)
-            }
+        val sut: TrashbinActivity = activityRule.launchActivity(null)
+        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+        onIdleSync {
+            sut.runOnUiThread { sut.loadFolder() }
+            screenshot(sut)
         }
     }
 
     @Test
     @ScreenshotTest
     fun loading() {
-        scenario = activityRule.scenario
-        scenario?.onActivity { sut ->
-            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-            onIdleSync {
-                sut.runOnUiThread { sut.showInitialLoading() }
-                screenshot(sut)
-            }
+        val sut: TrashbinActivity = activityRule.launchActivity(null)
+        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+        onIdleSync {
+            sut.runOnUiThread { sut.showInitialLoading() }
+            screenshot(sut)
         }
     }
 
     @Test
     @ScreenshotTest
     fun normalUser() {
-        scenario = activityRule.scenario
-        scenario?.onActivity { sut ->
-            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-            onIdleSync {
-                sut.runOnUiThread { sut.showUser() }
-                screenshot(sut)
-            }
+        val sut: TrashbinActivity = activityRule.launchActivity(null)
+        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+        onIdleSync {
+            sut.runOnUiThread { sut.showUser() }
+            screenshot(sut)
         }
     }
 
@@ -128,18 +112,16 @@ class TrashbinActivityIT : AbstractIT() {
         platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.localhost")
         platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, "differentUser")
 
-        val intent = Intent(targetContext, TrashbinActivity::class.java)
-        intent.putExtra(Intent.EXTRA_USER, "differentUser@https://nextcloud.localhost")
+        val intent = Intent().apply {
+            putExtra(Intent.EXTRA_USER, "differentUser@https://nextcloud.localhost")
+        }
+        val sut: TrashbinActivity = activityRule.launchActivity(intent)
 
-        val sutScenario = ActivityScenario.launch<TrashbinActivity>(intent)
-        sutScenario.onActivity { sut ->
-            sut.intent = intent
-            val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-            sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-            onIdleSync {
-                sut.runOnUiThread { sut.showUser() }
-                screenshot(sut)
-            }
+        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+        onIdleSync {
+            sut.runOnUiThread { sut.showUser() }
+            screenshot(sut)
         }
     }
 }
