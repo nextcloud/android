@@ -99,8 +99,6 @@ public class ExtendedListFragment extends Fragment implements
     public static final float minColumnSize = 2.0f;
 
     private int maxColumnSize = 5;
-    private int maxColumnSizePortrait = 5;
-    private int maxColumnSizeLandscape = 10;
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
@@ -127,7 +125,7 @@ public class ExtendedListFragment extends Fragment implements
 
     protected SearchView searchView;
     private ImageView closeButton;
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
 
@@ -178,7 +176,7 @@ public class ExtendedListFragment extends Fragment implements
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
 
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(Looper.getMainLooper());
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         Activity activity;
@@ -679,9 +677,9 @@ public class ExtendedListFragment extends Fragment implements
         super.onConfigurationChanged(newConfig);
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            maxColumnSize = maxColumnSizeLandscape;
+            maxColumnSize = 10;
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            maxColumnSize = maxColumnSizePortrait;
+            maxColumnSize = 5;
         }
 
         if (isGridEnabled() && getColumnsCount() > maxColumnSize) {
