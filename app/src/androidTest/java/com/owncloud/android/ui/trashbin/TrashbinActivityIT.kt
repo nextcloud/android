@@ -55,7 +55,6 @@ class TrashbinActivityIT : AbstractIT() {
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             onIdleSync {
                 sut.runOnUiThread { sut.loadFolder() }
-                shortSleep()
                 screenshot(sut)
             }
         }
@@ -70,7 +69,6 @@ class TrashbinActivityIT : AbstractIT() {
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             onIdleSync {
                 sut.runOnUiThread { sut.loadFolder() }
-                shortSleep()
                 screenshot(sut)
             }
         }
@@ -85,7 +83,6 @@ class TrashbinActivityIT : AbstractIT() {
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             onIdleSync {
                 sut.runOnUiThread { sut.loadFolder() }
-                shortSleep()
                 screenshot(sut)
             }
         }
@@ -100,7 +97,6 @@ class TrashbinActivityIT : AbstractIT() {
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             onIdleSync {
                 sut.runOnUiThread { sut.showInitialLoading() }
-                shortSleep()
                 screenshot(sut)
             }
         }
@@ -115,7 +111,6 @@ class TrashbinActivityIT : AbstractIT() {
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             onIdleSync {
                 sut.runOnUiThread { sut.showUser() }
-                shortSleep()
                 screenshot(sut)
             }
         }
@@ -141,7 +136,6 @@ class TrashbinActivityIT : AbstractIT() {
             sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
             onIdleSync {
                 sut.runOnUiThread { sut.showUser() }
-                shortSleep()
                 screenshot(sut)
             }
         }
