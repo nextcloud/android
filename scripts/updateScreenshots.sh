@@ -9,7 +9,11 @@ if [[ $(grep NC_TEST_SERVER_BASEURL ~/.gradle/gradle.properties   | grep -v "#" 
     exit 1
 fi
 
-
+## emulator
+if [[ ! $(emulator -list-avds | grep uiComparison -c) -eq 0 ]]; then
+    avdmanager delete avd -n uiComparison
+    (sleep 5; echo "no") | avdmanager create avd -n uiComparison -c 100M -k "system-images;android-27;google_apis;x86" --abi "google_apis/x86"
+fi
 
 if [ "$1" == "debug" ]; then
   emulator -writable-system -avd uiComparison -no-snapshot -gpu swiftshader_indirect -no-audio -skin 500x833 1>/dev/null &
