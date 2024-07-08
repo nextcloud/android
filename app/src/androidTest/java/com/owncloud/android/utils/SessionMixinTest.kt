@@ -19,7 +19,7 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
-class SessionMixinTest: AbstractIT() {
+class SessionMixinTest : AbstractIT() {
 
     private lateinit var userAccountManager: UserAccountManager
     private lateinit var session: SessionMixin
