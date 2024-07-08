@@ -23,7 +23,7 @@ jobs:
             matrix:
                 scheme: [ Light ]
                 color: [ blue ]
-                api-level: [ 29 ]
+                api-level: [ 27 ]
         steps:
             -   uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
 
