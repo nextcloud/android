@@ -362,7 +362,7 @@ class FileUploadHelper {
      * Removes any existing file in the same directory that has the same name as the provided new file.
      *
      * This function checks the parent directory of the given `newFile` for any file with the same name.
-     * If such a file is found, it is removed using the `fileOperationsHelper`.
+     * If such a file is found, it is removed using the `RemoveFileOperation`.
      *
      * @param newFile The new file that is being added to the directory.
      * @param clientFactory Needed for creating client
@@ -375,8 +375,14 @@ class FileUploadHelper {
         user: User,
         onCompleted: () -> Unit
     ) {
-        val parentFile: OCFile? = fileStorageManager.getFileById(newFile.parentId)
-        val folderContent: List<OCFile> = fileStorageManager.getFolderContent(parentFile, false)
+        val parentFolder: OCFile? = fileStorageManager.getFileById(newFile.parentId)
+
+        if (parentFolder == null) {
+            onCompleted()
+            return
+        }
+
+        val folderContent: List<OCFile> = fileStorageManager.getFolderContent(parentFolder, false)
         val duplicatedFile = folderContent.firstOrNull { it.fileName == newFile.fileName }
 
         if (duplicatedFile == null) {
