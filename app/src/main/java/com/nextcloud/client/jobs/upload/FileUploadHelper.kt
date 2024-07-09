@@ -358,7 +358,7 @@ class FileUploadHelper {
         backgroundJobManager.startFilesUploadJob(user)
     }
 
-    fun removeAnyOtherFileHaveSameName(
+    fun removeDuplicatedFile(
         newFile: OCFile,
         clientFactory: ClientFactory,
         user: User,
@@ -367,15 +367,13 @@ class FileUploadHelper {
         val parentFile: OCFile? = fileStorageManager.getFileById(newFile.parentId)
         val folderContent: List<OCFile> = fileStorageManager.getFolderContent(parentFile, false)
 
-        val replacedFile: OCFile? = folderContent.find { it.fileName == newFile.fileName }
-
-        replacedFile?.let {
+        folderContent.firstOrNull { it.fileName == newFile.fileName }?.let { duplicateFile ->
             val job = CoroutineScope(Dispatchers.IO)
 
             job.launch {
                 val client = clientFactory.create(user)
                 val removeFileOperation = RemoveFileOperation(
-                    it,
+                    duplicateFile,
                     false,
                     user,
                     true,

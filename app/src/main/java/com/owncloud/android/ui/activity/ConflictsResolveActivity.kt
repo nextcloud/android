@@ -92,7 +92,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
             newFile?.let {
                 val user = user.orElseThrow { RuntimeException() }
-                FileUploadHelper.instance().removeAnyOtherFileHaveSameName(file, clientFactory, user, onCompleted = {
+                FileUploadHelper.instance().removeDuplicatedFile(file, clientFactory, user, onCompleted = {
                     removeWorkerObserver()
                 })
             }
