@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
     <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
     <string name="authenticator_activity_cancel_login">Annuler la connexion</string>
+    <string name="authenticator_activity_login_error">Un problème est survenu lors du traitement de votre demande de connexion. Veuillez réessayer plus tard.</string>
     <string name="authenticator_activity_please_complete_login_process">Veuillez finaliser la connexion dans votre navigateur</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
@@ -321,6 +322,7 @@
     <string name="error_showing_encryption_dialog">Erreur d\'affichage de la boîte de dialogue de configuration du chiffrement !</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
     <string name="error_starting_doc_scan">Erreur lors de la numérisation du document</string>
+    <string name="error_uploading_direct_camera_upload">Échec du téléversement du média capturé</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_execution_count">Temps d’exécution en 48h</string>
     <string name="etm_background_job_created">Créée</string>
@@ -352,6 +354,7 @@
     <string name="failed_update_ui">Échec de la mise à jour de l\'interface utilisateur</string>
     <string name="favorite">Ajouter aux favoris</string>
     <string name="favorite_icon">Favoris</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Le fichier partagé ne peut pas être mis à jour</string>
     <string name="file_already_exists">Ce nom de fichier existe déjà</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l’activité du fichier</string>
@@ -672,6 +675,7 @@
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
     <string name="qr_could_not_be_read">Le code QR ne peut être lu</string>
+    <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Le dossier est introuvable, l\'opération de synchronisation est annulée.</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
@@ -902,7 +906,10 @@
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
     <string name="upload_chooser_title">Téléverser depuis…</string>
     <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
+    <string name="upload_direct_camera_photo">Photo</string>
+    <string name="upload_direct_camera_promt">Vous souhaitez prendre une photo ou une vidéo ?</string>
     <string name="upload_direct_camera_upload">Téléverser depuis l\'appareil photo</string>
+    <string name="upload_direct_camera_video">Vidéo</string>
     <string name="upload_file_dialog_filename">Nom de fichier</string>
     <string name="upload_file_dialog_filetype">Type de fichier</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Raccourci(%s) Google Maps</string>
@@ -921,6 +928,7 @@
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
     <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
     <string name="upload_manually_cancelled">Le téléversement a été annulé par l\'utilisateur</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Le chiffrement n\'est disponible que pour les versions d\'Android&gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="upload_quota_exceeded">Quota de stockage dépassé</string>
