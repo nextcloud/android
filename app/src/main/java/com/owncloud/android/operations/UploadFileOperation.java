@@ -881,6 +881,10 @@ public class UploadFileOperation extends SyncOperation {
             result = unlockFolderResult;
         }
 
+        if (unlockFolderResult != null && unlockFolderResult.isSuccess()) {
+            Log_OC.d(TAG, "Folder successfully unlocked: " + e2eFiles.getParentFile().getFileName());
+        }
+
         e2eFiles.deleteEncryptedTempFile();
 
         return result;

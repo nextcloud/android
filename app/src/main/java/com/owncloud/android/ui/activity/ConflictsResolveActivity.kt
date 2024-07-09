@@ -13,12 +13,15 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadNotificationManager
 import com.nextcloud.model.HTTPStatusCodes
+import com.nextcloud.model.WorkerState
+import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
@@ -83,6 +86,24 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         }
     }
 
+    private val workerObserver = Observer<WorkerState> { state ->
+        if (state is WorkerState.Upload) {
+            Log_OC.d(TAG, "Upload observation started")
+
+            newFile?.let {
+                val user = user.orElseThrow { RuntimeException() }
+                FileUploadHelper.instance().removeAnyOtherFileHaveSameName(file, clientFactory, user, onCompleted = {
+                    removeWorkerObserver()
+                })
+            }
+        }
+    }
+
+    private fun removeWorkerObserver() {
+        Log_OC.d(TAG, "Upload observation stopped")
+        WorkerStateLiveData.instance().removeObserver(workerObserver)
+    }
+
     private fun setupOnConflictDecisionMadeListener(upload: OCUpload?) {
         listener = OnConflictDecisionMadeListener { decision: Decision? ->
             val file = newFile // local file got changed, so either upload it or replace it again by server
@@ -101,9 +122,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                         NameCollisionPolicy.OVERWRITE
                     )
 
-                    file?.let {
-                        FileUploadHelper.instance().removeAnyOtherFileHaveSameName(file, fileOperationsHelper)
-                    }
+                    WorkerStateLiveData.instance().observe(this, workerObserver)
                 }
 
                 Decision.KEEP_BOTH -> {

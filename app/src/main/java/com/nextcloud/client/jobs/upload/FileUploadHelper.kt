@@ -16,6 +16,7 @@ import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
+import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.MainApp
@@ -31,9 +32,12 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
-import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.FileUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import java.util.concurrent.Semaphore
 import javax.inject.Inject
@@ -319,7 +323,7 @@ class FileUploadHelper {
             // For file conflicts check old file remote path
             upload.remotePath == currentUploadFileOperation.remotePath ||
                 upload.remotePath == currentUploadFileOperation.oldFile!!
-                .remotePath
+                    .remotePath
         } else {
             upload.remotePath == currentUploadFileOperation.remotePath
         }
@@ -354,12 +358,41 @@ class FileUploadHelper {
         backgroundJobManager.startFilesUploadJob(user)
     }
 
-    fun removeAnyOtherFileHaveSameName(newFile: OCFile, fileOperationsHelper: FileOperationsHelper) {
+    fun removeAnyOtherFileHaveSameName(
+        newFile: OCFile,
+        clientFactory: ClientFactory,
+        user: User,
+        onCompleted: () -> Unit
+    ) {
         val parentFile: OCFile? = fileStorageManager.getFileById(newFile.parentId)
         val folderContent: List<OCFile> = fileStorageManager.getFolderContent(parentFile, false)
 
-        folderContent.firstOrNull { it.fileName == newFile.fileName }?.let { replacedFile ->
-            fileOperationsHelper.removeFiles(listOf(replacedFile), false, true)
+        val replacedFile: OCFile? = folderContent.find { it.fileName == newFile.fileName }
+
+        replacedFile?.let {
+            val job = CoroutineScope(Dispatchers.IO)
+
+            job.launch {
+                val client = clientFactory.create(user)
+                val removeFileOperation = RemoveFileOperation(
+                    it,
+                    false,
+                    user,
+                    true,
+                    MainApp.getAppContext(),
+                    fileStorageManager
+                )
+
+                val result = removeFileOperation.execute(client)
+
+                if (result.isSuccess) {
+                    Log_OC.d(TAG, "Replaced file successfully removed")
+
+                    launch(Dispatchers.Main) {
+                        onCompleted()
+                    }
+                }
+            }
         }
     }
 
