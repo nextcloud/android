@@ -369,12 +369,7 @@ class FileUploadHelper {
      * @param user Needed for creating client
      * @param onCompleted Gets called when this function completed
      */
-    fun removeDuplicatedFile(
-        newFile: OCFile,
-        clientFactory: ClientFactory,
-        user: User,
-        onCompleted: () -> Unit
-    ) {
+    fun removeDuplicatedFile(newFile: OCFile, clientFactory: ClientFactory, user: User, onCompleted: () -> Unit) {
         val parentFolder: OCFile? = fileStorageManager.getFileById(newFile.parentId)
 
         if (parentFolder == null) {
