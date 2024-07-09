@@ -31,6 +31,7 @@ import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.WebViewUtil;
@@ -97,6 +98,23 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     public void closeView() {
         getWebView().destroy();
         finish();
+    }
+
+    public void reload() {
+        if (getWebView().getVisibility() != View.VISIBLE) {
+            return;
+        }
+
+        Optional<User> user = getUser();
+        if (!user.isPresent()) {
+            return;
+        }
+
+        OCFile file = getFile();
+        if (file != null) {
+            TextEditorLoadUrlTask task = new TextEditorLoadUrlTask(this, user.get(), file, editorUtils);
+            task.execute();
+        }
     }
 
     @Override
@@ -280,6 +298,11 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         @JavascriptInterface
         public void loaded() {
             runOnUiThread(EditorWebView.this::hideLoading);
+        }
+
+        @JavascriptInterface
+        public void reload() {
+            EditorWebView.this.reload();
         }
     }
 
