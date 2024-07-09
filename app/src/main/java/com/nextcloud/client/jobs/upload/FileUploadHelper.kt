@@ -358,6 +358,17 @@ class FileUploadHelper {
         backgroundJobManager.startFilesUploadJob(user)
     }
 
+    /**
+     * Removes any existing file in the same directory that has the same name as the provided new file.
+     *
+     * This function checks the parent directory of the given `newFile` for any file with the same name.
+     * If such a file is found, it is removed using the `fileOperationsHelper`.
+     *
+     * @param newFile The new file that is being added to the directory.
+     * @param clientFactory Needed for creating client
+     * @param user Needed for creating client
+     * @param onCompleted Gets called when this function completed
+     */
     fun removeDuplicatedFile(
         newFile: OCFile,
         clientFactory: ClientFactory,
@@ -366,30 +377,34 @@ class FileUploadHelper {
     ) {
         val parentFile: OCFile? = fileStorageManager.getFileById(newFile.parentId)
         val folderContent: List<OCFile> = fileStorageManager.getFolderContent(parentFile, false)
+        val duplicatedFile = folderContent.firstOrNull { it.fileName == newFile.fileName }
 
-        folderContent.firstOrNull { it.fileName == newFile.fileName }?.let { duplicateFile ->
-            val job = CoroutineScope(Dispatchers.IO)
+        if (duplicatedFile == null) {
+            onCompleted()
+            return
+        }
 
-            job.launch {
-                val client = clientFactory.create(user)
-                val removeFileOperation = RemoveFileOperation(
-                    duplicateFile,
-                    false,
-                    user,
-                    true,
-                    MainApp.getAppContext(),
-                    fileStorageManager
-                )
+        val job = CoroutineScope(Dispatchers.IO)
 
-                val result = removeFileOperation.execute(client)
+        job.launch {
+            val client = clientFactory.create(user)
+            val removeFileOperation = RemoveFileOperation(
+                duplicatedFile,
+                false,
+                user,
+                true,
+                MainApp.getAppContext(),
+                fileStorageManager
+            )
 
-                if (result.isSuccess) {
-                    Log_OC.d(TAG, "Replaced file successfully removed")
+            val result = removeFileOperation.execute(client)
 
-                    launch(Dispatchers.Main) {
-                        onCompleted()
-                    }
-                }
+            if (result.isSuccess) {
+                Log_OC.d(TAG, "Replaced file successfully removed")
+            }
+
+            launch(Dispatchers.Main) {
+                onCompleted()
             }
         }
     }
