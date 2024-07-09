@@ -86,7 +86,6 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     private fun setupOnConflictDecisionMadeListener(upload: OCUpload?) {
         listener = OnConflictDecisionMadeListener { decision: Decision? ->
             val file = newFile // local file got changed, so either upload it or replace it again by server
-            // version
             val user = user.orElseThrow { RuntimeException() }
             when (decision) {
                 Decision.CANCEL -> {}
@@ -94,12 +93,17 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                     upload?.let {
                         FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
                     }
+
                     FileUploadHelper.instance().uploadUpdatedFile(
                         user,
                         arrayOf(file),
                         localBehaviour,
                         NameCollisionPolicy.OVERWRITE
                     )
+
+                    file?.let {
+                        FileUploadHelper.instance().removeAnyOtherFileHaveSameName(file, fileOperationsHelper)
+                    }
                 }
 
                 Decision.KEEP_BOTH -> {

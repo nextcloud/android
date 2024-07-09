@@ -19,6 +19,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUpload
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.MainApp
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
@@ -31,6 +32,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.UploadFileOperation
+import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.FileUtil
 import java.io.File
 import java.util.concurrent.Semaphore
@@ -47,6 +49,9 @@ class FileUploadHelper {
 
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
+
+    @Inject
+    lateinit var fileStorageManager: FileDataStorageManager
 
     init {
         MainApp.getAppComponent().inject(this)
@@ -314,7 +319,7 @@ class FileUploadHelper {
             // For file conflicts check old file remote path
             upload.remotePath == currentUploadFileOperation.remotePath ||
                 upload.remotePath == currentUploadFileOperation.oldFile!!
-                    .remotePath
+                .remotePath
         } else {
             upload.remotePath == currentUploadFileOperation.remotePath
         }
@@ -347,6 +352,15 @@ class FileUploadHelper {
         }
         uploadsStorageManager.storeUploads(uploads)
         backgroundJobManager.startFilesUploadJob(user)
+    }
+
+    fun removeAnyOtherFileHaveSameName(newFile: OCFile, fileOperationsHelper: FileOperationsHelper) {
+        val parentFile: OCFile? = fileStorageManager.getFileById(newFile.parentId)
+        val folderContent: List<OCFile> = fileStorageManager.getFolderContent(parentFile, false)
+
+        folderContent.firstOrNull { it.fileName == newFile.fileName }?.let { replacedFile ->
+            fileOperationsHelper.removeFiles(listOf(replacedFile), false, true)
+        }
     }
 
     fun retryUpload(upload: OCUpload, user: User) {
