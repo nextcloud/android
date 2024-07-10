@@ -1220,7 +1220,8 @@
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
 
 
-    <string name="file_name_validator_error_copy_or_move">Folder path contains reserved names or invalid character</string>
+    <string name="file_name_validator_upload_content_error">Some contents cannot able to uploaded due to contains reserved names or invalid character.</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Folder path contains reserved names or invalid character</string>
     <string name="file_name_validator_error_invalid_character">File name contains invalid characters: %s</string>
     <string name="file_name_validator_error_reserved_names">%s is a reserved name</string>
     <string name="file_name_validator_error_ends_with_space_period">File name ends with a space or a period</string>
