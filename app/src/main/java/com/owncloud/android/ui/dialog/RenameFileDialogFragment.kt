@@ -25,7 +25,7 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.isFileHidden
-import com.nextcloud.utils.fileNameValidator.FileNameValidator.isValid
+import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFileName
 import com.owncloud.android.R
 import com.owncloud.android.databinding.EditBoxDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -138,7 +138,7 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
                 newFileName = binding.userInput.text.toString().trim { it <= ' ' }
             }
 
-            val errorMessage = isValid(newFileName, oCCapability, requireContext(), null)
+            val errorMessage = checkFileName(newFileName, oCCapability, requireContext(), null)
             if (errorMessage != null) {
                 DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
                 return
@@ -163,7 +163,7 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
             newFileName = binding.userInput.text.toString().trim { it <= ' ' }
         }
 
-        val errorMessage = isValid(newFileName, oCCapability, requireContext(), fileNames)
+        val errorMessage = checkFileName(newFileName, oCCapability, requireContext(), fileNames)
 
         if (isFileHidden(newFileName)) {
             binding.userInputContainer.error = getText(R.string.hidden_file_name_warning)

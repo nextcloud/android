@@ -662,7 +662,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private String checkFileNameBeforeUpload(String[] selectedFilePaths) {
         for (String filePath : selectedFilePaths) {
             File file = new File(filePath);
-            String filenameErrorMessage = FileNameValidator.INSTANCE.isValid(file.getName(), getCapabilities(), this, null);
+            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getName(), getCapabilities(), this, null);
 
             if (filenameErrorMessage != null) {
                 return filenameErrorMessage;

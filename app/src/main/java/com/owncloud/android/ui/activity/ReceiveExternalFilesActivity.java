@@ -669,7 +669,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
             mUploadPath = stringBuilder.toString();
 
-            boolean isPathValid = FileNameValidator.INSTANCE.checkPath(mUploadPath, new ArrayList<>(), getCapabilities(), this);
+            boolean isPathValid = FileNameValidator.INSTANCE.checkFolderPath(mUploadPath, getCapabilities(), this);
             if (!isPathValid) {
                 DisplayUtils.showSnackMessage(this, R.string.file_name_validator_error_copy_or_move);
                 return;

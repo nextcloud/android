@@ -224,7 +224,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
         val path = parentFolder?.remotePath + name
         val selectedTemplate = adapter?.selectedTemplate
 
-        val errorMessage = FileNameValidator.isValid(name, getOCCapability(), requireContext())
+        val errorMessage = FileNameValidator.checkFileName(name, getOCCapability(), requireContext())
 
         when {
             selectedTemplate == null -> {
@@ -256,7 +256,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
             DOT + selectedTemplate.extension,
             ignoreCase = true
         )
-        val fileNameValidatorResult = FileNameValidator.isValid(name, getOCCapability(), requireContext())
+        val fileNameValidatorResult = FileNameValidator.checkFileName(name, getOCCapability(), requireContext())
 
         val errorMessage = when {
             isNameJustExtension -> null
