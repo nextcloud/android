@@ -629,7 +629,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
     public void openActionsMenu(final int filesCount, final Set<OCFile> checkedFiles, final boolean isOverflow) {
         throttler.run("overflowClick", () -> {
             final FragmentManager childFragmentManager = getChildFragmentManager();
-            FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow)
+
+            List<Integer> toHide = new ArrayList<>();
+            if (isAPKorAAB(checkedFiles)) {
+                toHide.add(R.id.action_send_share_file);
+                toHide.add(R.id.action_export_file);
+                toHide.add(R.id.action_sync_file);
+                toHide.add(R.id.action_download_file);
+            }
+            
+            FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, toHide)
                 .setResultListener(childFragmentManager, this, (id) -> {
                     onFileActionChosen(id, checkedFiles);
                 })
@@ -1046,6 +1055,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void fileOnItemClick(OCFile file) {
+        if (isAPKorAAB(Set.of(file))) {
+            Snackbar.make(getRecyclerView(),
+                          R.string.gplay_restriction,
+                          Snackbar.LENGTH_LONG).show();
+            return;
+        }
         if (PreviewImageFragment.canBePreviewed(file)) {
             // preview image - it handles the download, if needed
             if (searchFragment) {
@@ -2105,5 +2120,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public boolean isEmpty() {
         return mAdapter == null || mAdapter.isEmpty();
+    }
+
+    private boolean isAPKorAAB(Set<OCFile> files) {
+        for (OCFile file : files) {
+            if (file.isAPKorAAB()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

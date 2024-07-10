@@ -20,6 +20,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -1048,6 +1049,14 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
             this.e2eCounter = -1;
         } else {
             this.e2eCounter = e2eCounter;
+        }
+    }
+    
+    public boolean isAPKorAAB() {
+        if ("gplay".equals(BuildConfig.FLAVOR)) {
+            return getFileName().endsWith(".apk") || getFileName().endsWith(".aab");
+        } else {
+            return false;
         }
     }
 }
