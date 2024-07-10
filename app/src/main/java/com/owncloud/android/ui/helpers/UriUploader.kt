@@ -15,6 +15,7 @@ import android.net.Uri
 import android.os.Parcelable
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -23,6 +24,7 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 
 /**
@@ -70,9 +72,26 @@ class UriUploader(
                 Log_OC.e(TAG, "Sensitive URI detected, aborting upload.")
                 code = UriUploaderResultCode.ERROR_SENSITIVE_PATH
             } else {
-                val uris = mUrisToUpload.filterNotNull()
+                var isInvalidPathMessageDisplayed = false
+                val uris = mUrisToUpload
+                    .filterNotNull()
                     .map { it as Uri }
                     .map { Pair(it, getRemotePathForUri(it)) }
+                    .filter { (_, filename) ->
+                        val isValid = (FileNameValidator.checkFileName(
+                            filename.removePrefix("/"),
+                            mActivity.capabilities,
+                            mActivity, null
+                        ) == null)
+                        if (!isValid && !isInvalidPathMessageDisplayed) {
+                            isInvalidPathMessageDisplayed = true
+                            DisplayUtils.showSnackMessage(
+                                mActivity,
+                                R.string.file_name_validator_upload_content_error
+                            )
+                        }
+                        isValid
+                    }
 
                 val fileUris = uris
                     .filter { it.first.scheme == ContentResolver.SCHEME_FILE }
