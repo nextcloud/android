@@ -41,7 +41,7 @@ class FileNameValidatorTests : AbstractIT() {
     @Test
     fun testReservedName() {
         val result = FileNameValidator.isValid("CON", capability, targetContext)
-        assertEquals(targetContext.getString(R.string.file_name_validator_error_reserved_names), result)
+        assertEquals(targetContext.getString(R.string.file_name_validator_error_reserved_names, "CON"), result)
     }
 
     @Test
@@ -154,6 +154,22 @@ class FileNameValidatorTests : AbstractIT() {
         val filePaths = listOf("file1.txt", "file2.doc", "file3.")
 
         val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        assertFalse(result)
+    }
+
+    @Test
+    fun testOnlyFolderPath() {
+        val folderPath = "/A1/Aaaww/W/C2/"
+
+        val result = FileNameValidator.checkPath(folderPath, listOf(), capability, targetContext)
+        assertTrue(result)
+    }
+
+    @Test
+    fun testOnlyFolderPathWithOneReservedName() {
+        val folderPath = "/A1/Aaaww/CON/W/C2/"
+
+        val result = FileNameValidator.checkPath(folderPath, listOf(), capability, targetContext)
         assertFalse(result)
     }
 }

@@ -55,6 +55,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ReceiveExternalFilesBinding;
@@ -661,8 +662,17 @@ public class ReceiveExternalFilesActivity extends FileActivity
         if (id == R.id.uploader_choose_folder) {
             mUploadPath = "";   // first element in mParents is root dir, represented by "";
             // init mUploadPath with "/" results in a "//" prefix
+
+            StringBuilder stringBuilder = new StringBuilder();
             for (String p : mParents) {
-                mUploadPath += p + OCFile.PATH_SEPARATOR;
+                stringBuilder.append(p).append(OCFile.PATH_SEPARATOR);
+            }
+            mUploadPath = stringBuilder.toString();
+
+            boolean isPathValid = FileNameValidator.INSTANCE.checkPath(mUploadPath, new ArrayList<>(), getCapabilities(), this);
+            if (!isPathValid) {
+                DisplayUtils.showSnackMessage(this, R.string.file_name_validator_error_copy_or_move);
+                return;
             }
 
             if (mUploadFromTmpFile) {

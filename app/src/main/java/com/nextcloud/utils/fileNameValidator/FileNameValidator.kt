@@ -65,7 +65,7 @@ object FileNameValidator {
 
     @Suppress("ReturnCount")
     fun checkPath(folderPath: String, filePaths: List<String>, capability: OCCapability, context: Context): Boolean {
-        val folderPaths = folderPath.split("/", "\\")
+        val folderPaths = folderPath.split("/", "\\").filter { it.isNotEmpty() }
 
         for (item in folderPaths) {
             if (isValid(item, capability, context) != null) {
