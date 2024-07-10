@@ -53,7 +53,7 @@ object FileNameValidator {
                     reservedWindowsNames.contains(name.removeFileExtension().uppercase())
                 )
         ) {
-            return context.getString(R.string.file_name_validator_error_reserved_names)
+            return context.getString(R.string.file_name_validator_error_reserved_names, name.substringBefore("."))
         }
 
         if (capability.forbiddenFilenameExtension.isTrue) {
