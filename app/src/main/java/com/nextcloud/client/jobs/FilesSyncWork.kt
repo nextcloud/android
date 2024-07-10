@@ -148,7 +148,7 @@ class FilesSyncWork(
 
     private fun setSyncedFolder(syncedFolderID: Long): Boolean {
         val syncedFolderTmp = syncedFolderProvider.getSyncedFolderByID(syncedFolderID)
-        if (syncedFolderTmp == null || !syncedFolderTmp.isEnabled || !syncedFolderTmp.isExisting) {
+        if (syncedFolderTmp == null || !syncedFolderTmp.isEnabled) {
             return false
         }
         syncedFolder = syncedFolderTmp
