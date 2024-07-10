@@ -125,7 +125,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
         val newFileName = binding.userInput.text?.toString()?.trim() ?: ""
 
         val fileNameValidatorResult: String? =
-            FileNameValidator.isValid(newFileName, getOCCapability(), requireContext(), fileNames)
+            FileNameValidator.checkFileName(newFileName, getOCCapability(), requireContext(), fileNames)
 
         val errorMessage = when {
             newFileName.isEmpty() -> null
@@ -163,7 +163,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             val newFolderName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
                 .text.toString().trim { it <= ' ' }
 
-            val errorMessage: String? = FileNameValidator.isValid(newFolderName, getOCCapability(), requireContext())
+            val errorMessage: String? = FileNameValidator.checkFileName(newFolderName, getOCCapability(), requireContext())
 
             if (errorMessage != null) {
                 DisplayUtils.showSnackMessage(requireActivity(), errorMessage)

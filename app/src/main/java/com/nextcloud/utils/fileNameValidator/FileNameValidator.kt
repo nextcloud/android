@@ -25,35 +25,35 @@ object FileNameValidator {
     )
 
     @Suppress("ReturnCount")
-    fun isValid(
-        name: String,
+    fun checkFileName(
+        filename: String,
         capability: OCCapability,
         context: Context,
-        fileNames: MutableSet<String>? = null
+        existedFileNames: MutableSet<String>? = null
     ): String? {
-        if (TextUtils.isEmpty(name)) {
+        if (TextUtils.isEmpty(filename)) {
             return context.getString(R.string.filename_empty)
         }
 
-        if (isFileNameAlreadyExist(name, fileNames ?: mutableSetOf())) {
+        if (isFileNameAlreadyExist(filename, existedFileNames ?: mutableSetOf())) {
             return context.getString(R.string.file_already_exists)
         }
 
-        if (name.endsWith(" ") || name.endsWith(".")) {
+        if (filename.endsWith(" ") || filename.endsWith(".")) {
             return context.getString(R.string.file_name_validator_error_ends_with_space_period)
         }
 
-        checkInvalidCharacters(name, capability, context)?.let {
+        checkInvalidCharacters(filename, capability, context)?.let {
             return it
         }
 
         if (capability.forbiddenFilenames.isTrue &&
             (
-                reservedWindowsNames.contains(name.uppercase()) ||
-                    reservedWindowsNames.contains(name.removeFileExtension().uppercase())
+                reservedWindowsNames.contains(filename.uppercase()) ||
+                    reservedWindowsNames.contains(filename.removeFileExtension().uppercase())
                 )
         ) {
-            return context.getString(R.string.file_name_validator_error_reserved_names, name.substringBefore("."))
+            return context.getString(R.string.file_name_validator_error_reserved_names, filename.substringBefore("."))
         }
 
         if (capability.forbiddenFilenameExtension.isTrue) {
@@ -63,23 +63,22 @@ object FileNameValidator {
         return null
     }
 
-    @Suppress("ReturnCount")
-    fun checkPath(folderPath: String, filePaths: List<String>, capability: OCCapability, context: Context): Boolean {
-        val folderPaths = folderPath.split("/", "\\").filter { it.isNotEmpty() }
+    fun checkFolderAndFilePaths(
+        folderPath: String,
+        filePaths: List<String>,
+        capability: OCCapability,
+        context: Context
+    ): Boolean {
+        return checkFolderPath(folderPath, capability, context) && checkFilePaths(filePaths, capability, context)
+    }
 
-        for (item in folderPaths) {
-            if (isValid(item, capability, context) != null) {
-                return false
-            }
-        }
+    fun checkFilePaths(filePaths: List<String>, capability: OCCapability, context: Context): Boolean {
+        return filePaths.all { checkFileName(it, capability, context) == null }
+    }
 
-        for (item in filePaths) {
-            if (isValid(item, capability, context) != null) {
-                return false
-            }
-        }
-
-        return true
+    fun checkFolderPath(folderPath: String, capability: OCCapability, context: Context): Boolean {
+        return folderPath.split("[/\\\\]".toRegex())
+            .none { it.isNotEmpty() && checkFileName(it, capability, context) != null }
     }
 
     @Suppress("ReturnCount")

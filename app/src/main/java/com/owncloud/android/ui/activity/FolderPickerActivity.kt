@@ -455,9 +455,7 @@ open class FolderPickerActivity :
         }
 
         targetFilePaths?.let { filePaths ->
-
-            val isPathValid = FileNameValidator.checkPath(file.remotePath, filePaths, capabilities, this)
-            if (!isPathValid) {
+            if (!isFolderAndFilePathsValid(filePaths)) {
                 DisplayUtils.showSnackMessage(this, R.string.file_name_validator_error_copy_or_move)
                 Handler(Looper.getMainLooper()).postDelayed({
                     setResult(RESULT_CANCELED, resultData)
@@ -475,6 +473,12 @@ open class FolderPickerActivity :
 
         setResult(RESULT_OK, resultData)
         finish()
+    }
+
+    private fun isFolderAndFilePathsValid(filePaths: List<String>): Boolean {
+        val isFolderPathValid = FileNameValidator.checkFolderPath(file.remotePath, capabilities, this)
+        val isFilePathsValid = FileNameValidator.checkFilePaths(filePaths, capabilities, this)
+        return isFilePathsValid && isFolderPathValid
     }
 
     override fun onRemoteOperationFinish(operation: RemoteOperation<*>?, result: RemoteOperationResult<*>) {

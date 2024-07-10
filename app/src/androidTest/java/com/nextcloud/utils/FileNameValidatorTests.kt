@@ -34,41 +34,41 @@ class FileNameValidatorTests : AbstractIT() {
 
     @Test
     fun testInvalidCharacter() {
-        val result = FileNameValidator.isValid("file<name", capability, targetContext)
+        val result = FileNameValidator.checkFileName("file<name", capability, targetContext)
         assertEquals("File name contains invalid characters: <", result)
     }
 
     @Test
     fun testReservedName() {
-        val result = FileNameValidator.isValid("CON", capability, targetContext)
+        val result = FileNameValidator.checkFileName("CON", capability, targetContext)
         assertEquals(targetContext.getString(R.string.file_name_validator_error_reserved_names, "CON"), result)
     }
 
     @Test
     fun testEndsWithSpaceOrPeriod() {
-        val result = FileNameValidator.isValid("filename ", capability, targetContext)
+        val result = FileNameValidator.checkFileName("filename ", capability, targetContext)
         assertEquals(targetContext.getString(R.string.file_name_validator_error_ends_with_space_period), result)
 
-        val result2 = FileNameValidator.isValid("filename.", capability, targetContext)
+        val result2 = FileNameValidator.checkFileName("filename.", capability, targetContext)
         assertEquals(targetContext.getString(R.string.file_name_validator_error_ends_with_space_period), result2)
     }
 
     @Test
     fun testEmptyFileName() {
-        val result = FileNameValidator.isValid("", capability, targetContext)
+        val result = FileNameValidator.checkFileName("", capability, targetContext)
         assertEquals(targetContext.getString(R.string.filename_empty), result)
     }
 
     @Test
     fun testFileAlreadyExists() {
         val existingFiles = mutableSetOf("existingFile")
-        val result = FileNameValidator.isValid("existingFile", capability, targetContext, existingFiles)
+        val result = FileNameValidator.checkFileName("existingFile", capability, targetContext, existingFiles)
         assertEquals(targetContext.getString(R.string.file_already_exists), result)
     }
 
     @Test
     fun testValidFileName() {
-        val result = FileNameValidator.isValid("validFileName", capability, targetContext)
+        val result = FileNameValidator.checkFileName("validFileName", capability, targetContext)
         assertNull(result)
     }
 
@@ -90,7 +90,7 @@ class FileNameValidatorTests : AbstractIT() {
         val folderPath = "validFolder"
         val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
 
-        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        val result = FileNameValidator.checkFolderAndFilePaths(folderPath, filePaths, capability, targetContext)
         assertTrue(result)
     }
 
@@ -99,7 +99,7 @@ class FileNameValidatorTests : AbstractIT() {
         val folderPath = "CON"
         val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
 
-        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        val result = FileNameValidator.checkFolderAndFilePaths(folderPath, filePaths, capability, targetContext)
         assertFalse(result)
     }
 
@@ -108,7 +108,7 @@ class FileNameValidatorTests : AbstractIT() {
         val folderPath = "validFolder"
         val filePaths = listOf("file1.txt", "PRN.doc", "file3.jpg")
 
-        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        val result = FileNameValidator.checkFolderAndFilePaths(folderPath, filePaths, capability, targetContext)
         assertFalse(result)
     }
 
@@ -117,7 +117,7 @@ class FileNameValidatorTests : AbstractIT() {
         val folderPath = "invalid<Folder"
         val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
 
-        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        val result = FileNameValidator.checkFolderAndFilePaths(folderPath, filePaths, capability, targetContext)
         assertFalse(result)
     }
 
@@ -126,7 +126,7 @@ class FileNameValidatorTests : AbstractIT() {
         val folderPath = "validFolder"
         val filePaths = listOf("file1.txt", "file|2.doc", "file3.jpg")
 
-        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        val result = FileNameValidator.checkFolderAndFilePaths(folderPath, filePaths, capability, targetContext)
         assertFalse(result)
     }
 
@@ -135,7 +135,7 @@ class FileNameValidatorTests : AbstractIT() {
         val folderPath = "folderWithSpace "
         val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
 
-        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        val result = FileNameValidator.checkFolderAndFilePaths(folderPath, filePaths, capability, targetContext)
         assertFalse(result)
     }
 
@@ -144,7 +144,7 @@ class FileNameValidatorTests : AbstractIT() {
         val folderPath = "validFolder"
         val filePaths = listOf("file1.txt", "file2.doc", "file3.")
 
-        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        val result = FileNameValidator.checkFolderAndFilePaths(folderPath, filePaths, capability, targetContext)
         assertFalse(result)
     }
 
@@ -153,7 +153,7 @@ class FileNameValidatorTests : AbstractIT() {
         val folderPath = "validFolder\\secondValidFolder\\CON"
         val filePaths = listOf("file1.txt", "file2.doc", "file3.")
 
-        val result = FileNameValidator.checkPath(folderPath, filePaths, capability, targetContext)
+        val result = FileNameValidator.checkFolderAndFilePaths(folderPath, filePaths, capability, targetContext)
         assertFalse(result)
     }
 
@@ -161,7 +161,7 @@ class FileNameValidatorTests : AbstractIT() {
     fun testOnlyFolderPath() {
         val folderPath = "/A1/Aaaww/W/C2/"
 
-        val result = FileNameValidator.checkPath(folderPath, listOf(), capability, targetContext)
+        val result = FileNameValidator.checkFolderAndFilePaths(folderPath, listOf(), capability, targetContext)
         assertTrue(result)
     }
 
@@ -169,7 +169,7 @@ class FileNameValidatorTests : AbstractIT() {
     fun testOnlyFolderPathWithOneReservedName() {
         val folderPath = "/A1/Aaaww/CON/W/C2/"
 
-        val result = FileNameValidator.checkPath(folderPath, listOf(), capability, targetContext)
+        val result = FileNameValidator.checkFolderAndFilePaths(folderPath, listOf(), capability, targetContext)
         assertFalse(result)
     }
 }
