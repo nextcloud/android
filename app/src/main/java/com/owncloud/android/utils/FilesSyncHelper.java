@@ -27,15 +27,20 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import org.lukhnos.nnio.file.AccessDeniedException;
 import org.lukhnos.nnio.file.FileVisitResult;
+import org.lukhnos.nnio.file.FileVisitor;
 import org.lukhnos.nnio.file.Path;
 import org.lukhnos.nnio.file.Paths;
 import org.lukhnos.nnio.file.SimpleFileVisitor;
 import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 import org.lukhnos.nnio.file.Files;
+import org.lukhnos.nnio.file.impl.FileBasedPathImpl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -51,6 +56,40 @@ public final class FilesSyncHelper {
         // utility class -> private constructor
     }
 
+    /**
+     * Copy of {@link Files#walkFileTree(Path, FileVisitor)} that walks the file tree in random order.
+     *
+     * @see org.lukhnos.nnio.file.Files#walkFileTree(Path, FileVisitor)
+     */
+    public static void walkFileTreeRandomly(Path start, FileVisitor<? super Path> visitor) throws IOException {
+        File file = start.toFile();
+        if (!file.canRead()) {
+            visitor.visitFileFailed(start, new AccessDeniedException(file.toString()));
+        } else {
+            if (Files.isDirectory(start)) {
+                FileVisitResult preVisitDirectoryResult = visitor.preVisitDirectory(start, (BasicFileAttributes)null);
+                if (preVisitDirectoryResult == FileVisitResult.CONTINUE) {
+                    File[] children = start.toFile().listFiles();
+                    Collections.shuffle(Arrays.asList(children));
+                    if (children != null) {
+                        File[] var5 = children;
+                        int var6 = children.length;
+
+                        for(int var7 = 0; var7 < var6; ++var7) {
+                            File child = var5[var7];
+                            walkFileTreeRandomly(FileBasedPathImpl.get(child), visitor);
+                        }
+
+                        visitor.postVisitDirectory(start, (IOException)null);
+                    }
+                }
+            } else {
+                visitor.visitFile(start, new BasicFileAttributes(file));
+            }
+
+        }
+    }
+
     private static void insertCustomFolderIntoDB(Path path,
                                                  SyncedFolder syncedFolder,
                                                  FilesystemDataProvider filesystemDataProvider,
@@ -60,7 +99,8 @@ public final class FilesSyncHelper {
         final long enabledTimestampMs = syncedFolder.getEnabledTimestampMs();
 
         try {
-            Files.walkFileTree(path, new SimpleFileVisitor<>() {
+
+            walkFileTreeRandomly(path, new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                     File file = path.toFile();
