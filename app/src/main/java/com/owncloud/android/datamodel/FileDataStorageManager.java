@@ -204,13 +204,15 @@ public class FileDataStorageManager {
         }
 
         if (!file.isFolder()) {
-            result.add(file);
+            if (!file.isAPKorAAB()) {
+                result.add(file);
+            }
             return result;
         }
 
         List<OCFile> filesInsideFolder = getFolderContent(file.getFileId(), false);
         for (OCFile item: filesInsideFolder) {
-            if (!item.isFolder()) {
+            if (!item.isFolder() && !item.isAPKorAAB()) {
                 result.add(item);
             } else {
                 result.addAll(getAllFilesRecursivelyInsideFolder(item));

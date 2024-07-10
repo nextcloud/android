@@ -1184,4 +1184,5 @@
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
     <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
+    <string name="gplay_restriction">Google restricted downloading APK/AAB files!</string>
 </resources>
