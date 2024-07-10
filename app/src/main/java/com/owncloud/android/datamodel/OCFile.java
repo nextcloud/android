@@ -1053,7 +1053,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
     
     public boolean isAPKorAAB() {
-        if (BuildConfig.FLAVOR.equals("gplay")) {
+        if ("gplay".equals(BuildConfig.FLAVOR)) {
             return getFileName().endsWith(".apk") || getFileName().endsWith(".aab");
         } else {
             return false;
