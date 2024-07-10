@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2024 Jonas Mayer <jonas.mayer@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
@@ -17,6 +18,7 @@ import android.provider.MediaStore;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
@@ -299,6 +301,35 @@ public final class FilesSyncHelper {
                 jobManager.startImmediateFilesSyncJob(syncedFolder.getId(),overridePowerSaving,changedFiles);
             }
         }
+    }
+
+    public static long calculateScanInterval(
+        SyncedFolder syncedFolder,
+        ConnectivityService connectivityService,
+        PowerManagementService powerManagementService
+                                            ) {
+        long defaultInterval = BackgroundJobManagerImpl.DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES * 1000 * 60;
+        if (!connectivityService.isConnected() || connectivityService.isInternetWalled()) {
+            return defaultInterval * 2;
+        }
+
+        if ((syncedFolder.isWifiOnly() && !connectivityService.getConnectivity().isWifi())) {
+            return defaultInterval * 4;
+        }
+
+        if (powerManagementService.getBattery().getLevel() < 80){
+            return defaultInterval * 2;
+        }
+
+        if (powerManagementService.getBattery().getLevel() < 50){
+            return defaultInterval * 4;
+        }
+
+        if (powerManagementService.getBattery().getLevel() < 15){
+            return defaultInterval * 8;
+        }
+
+        return defaultInterval;
     }
 }
 

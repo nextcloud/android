@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2024 Jonas Mayer <jonas.mayer@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
@@ -148,9 +149,8 @@ class FilesSyncWork(
             return true
         }
 
-        // or sync worker already running and no changed files to be processed
-        val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)
-        if (alreadyRunning && changedFiles.isNullOrEmpty()) {
+        // or sync worker already running
+        if (backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)) {
             Log_OC.d(
                 TAG,
                 "File-sync kill worker since another instance of the worker " +
@@ -161,6 +161,15 @@ class FilesSyncWork(
 
         if (!setSyncedFolder(syncedFolderID)) {
             Log_OC.d(TAG, "File-sync kill worker since syncedFolder ($syncedFolderID) is not enabled!")
+            return true
+        }
+
+        val passedScanInterval = (syncedFolder.lastScanTimestampMs +
+            FilesSyncHelper.calculateScanInterval(syncedFolder, connectivityService, powerManagementService)) <= System.currentTimeMillis()
+
+        if (!passedScanInterval && changedFiles.isNullOrEmpty() && !overridePowerSaving){
+            Log_OC.d(TAG, "File-sync kill worker since started before scan " +
+                "Interval and nothing todo (${syncedFolder.localPath})!")
             return true
         }
 
