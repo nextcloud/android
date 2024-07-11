@@ -323,7 +323,7 @@ class FileUploadHelper {
             // For file conflicts check old file remote path
             upload.remotePath == currentUploadFileOperation.remotePath ||
                 upload.remotePath == currentUploadFileOperation.oldFile!!
-                .remotePath
+                    .remotePath
         } else {
             upload.remotePath == currentUploadFileOperation.remotePath
         }
@@ -368,12 +368,7 @@ class FileUploadHelper {
      * @param client Needed for executing RemoveFileOperation
      * @param user Needed for creating client
      */
-    fun removeDuplicatedFile(
-        duplicatedFile: OCFile,
-        client: OwnCloudClient,
-        user: User,
-        onCompleted: () -> Unit
-    ) {
+    fun removeDuplicatedFile(duplicatedFile: OCFile, client: OwnCloudClient, user: User, onCompleted: () -> Unit) {
         val job = CoroutineScope(Dispatchers.IO)
 
         job.launch {
