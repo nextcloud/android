@@ -325,7 +325,7 @@ public final class FilesSyncHelper {
             return defaultInterval * 4;
         }
 
-        if (powerManagementService.getBattery().getLevel() < 15){
+        if (powerManagementService.getBattery().getLevel() < 20){
             return defaultInterval * 8;
         }
 
