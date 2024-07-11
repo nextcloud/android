@@ -69,6 +69,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
@@ -99,8 +100,6 @@ public class ExtendedListFragment extends Fragment implements
     public static final float minColumnSize = 2.0f;
 
     private int maxColumnSize = 5;
-    private int maxColumnSizePortrait = 5;
-    private int maxColumnSizeLandscape = 10;
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
@@ -116,10 +115,10 @@ public class ExtendedListFragment extends Fragment implements
     protected ImageView mEmptyListIcon;
 
     // Save the state of the scroll in browsing
-    private ArrayList<Integer> mIndexes;
-    private ArrayList<Integer> mFirstPositions;
-    private ArrayList<Integer> mTops;
-    private int mHeightCell;
+    private ArrayList<Integer> mIndexes = new ArrayList<>();
+    private ArrayList<Integer> mFirstPositions = new ArrayList<>();
+    private ArrayList<Integer> mTops = new ArrayList<>();
+    private int mHeightCell = 0;
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener;
 
@@ -127,7 +126,7 @@ public class ExtendedListFragment extends Fragment implements
 
     protected SearchView searchView;
     private ImageView closeButton;
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
 
@@ -178,7 +177,7 @@ public class ExtendedListFragment extends Fragment implements
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
 
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(Looper.getMainLooper());
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         Activity activity;
@@ -399,35 +398,27 @@ public class ExtendedListFragment extends Fragment implements
         mEmptyListIcon = binding.emptyList.emptyListIcon;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
-            mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
-            mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
-            mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
-            setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
-
-            if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && getRecyclerView().getAdapter() != null) {
-                switchToGridView();
-            }
-
-            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-            Log_OC.v(TAG, "Setting grid position " + referencePosition);
-            scrollToPosition(referencePosition);
-        } else {
-            mIndexes = new ArrayList<>();
-            mFirstPositions = new ArrayList<>();
-            mTops = new ArrayList<>();
-            mHeightCell = 0;
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState == null) {
+            return;
         }
-    }
 
+        mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
+        mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
+        mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
+        mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
+        setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
+
+        if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && getRecyclerView().getAdapter() != null) {
+            switchToGridView();
+        }
+
+        int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
+        Log_OC.v(TAG, "Setting grid position " + referencePosition);
+        scrollToPosition(referencePosition);
+    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
@@ -485,8 +476,9 @@ public class ExtendedListFragment extends Fragment implements
      * Save index and top position
      */
     protected void saveIndexAndTopPosition(int index) {
-
-        mIndexes.add(index);
+        if (mIndexes != null) {
+            mIndexes.add(index);
+        }
 
         RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
         int firstPosition;
@@ -519,8 +511,7 @@ public class ExtendedListFragment extends Fragment implements
             searchView.onActionViewCollapsed();
 
             Activity activity;
-            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
+            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity fileDisplayActivity) {
                 fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isDrawerIndicatorAvailable());
                 fileDisplayActivity.hideSearchView(fileDisplayActivity.getCurrentDir());
             }
@@ -683,9 +674,9 @@ public class ExtendedListFragment extends Fragment implements
         super.onConfigurationChanged(newConfig);
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            maxColumnSize = maxColumnSizeLandscape;
+            maxColumnSize = 10;
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            maxColumnSize = maxColumnSizePortrait;
+            maxColumnSize = 5;
         }
 
         if (isGridEnabled() && getColumnsCount() > maxColumnSize) {
