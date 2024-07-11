@@ -16,7 +16,6 @@ import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
-import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.MainApp
@@ -27,6 +26,7 @@ import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -323,7 +323,7 @@ class FileUploadHelper {
             // For file conflicts check old file remote path
             upload.remotePath == currentUploadFileOperation.remotePath ||
                 upload.remotePath == currentUploadFileOperation.oldFile!!
-                    .remotePath
+                .remotePath
         } else {
             upload.remotePath == currentUploadFileOperation.remotePath
         }
@@ -364,31 +364,19 @@ class FileUploadHelper {
      * This function checks the parent directory of the given `newFile` for any file with the same name.
      * If such a file is found, it is removed using the `RemoveFileOperation`.
      *
-     * @param newFile The new file that is being added to the directory.
-     * @param clientFactory Needed for creating client
+     * @param duplicatedFile File to be deleted
+     * @param client Needed for executing RemoveFileOperation
      * @param user Needed for creating client
-     * @param onCompleted Gets called when this function completed
      */
-    fun removeDuplicatedFile(newFile: OCFile, clientFactory: ClientFactory, user: User, onCompleted: () -> Unit) {
-        val parentFolder: OCFile? = fileStorageManager.getFileById(newFile.parentId)
-
-        if (parentFolder == null) {
-            onCompleted()
-            return
-        }
-
-        val folderContent: List<OCFile> = fileStorageManager.getFolderContent(parentFolder, false)
-        val duplicatedFile = folderContent.firstOrNull { it.fileName == newFile.fileName }
-
-        if (duplicatedFile == null) {
-            onCompleted()
-            return
-        }
-
+    fun removeDuplicatedFile(
+        duplicatedFile: OCFile,
+        client: OwnCloudClient,
+        user: User,
+        onCompleted: () -> Unit
+    ) {
         val job = CoroutineScope(Dispatchers.IO)
 
         job.launch {
-            val client = clientFactory.create(user)
             val removeFileOperation = RemoveFileOperation(
                 duplicatedFile,
                 false,
@@ -402,10 +390,10 @@ class FileUploadHelper {
 
             if (result.isSuccess) {
                 Log_OC.d(TAG, "Replaced file successfully removed")
-            }
 
-            launch(Dispatchers.Main) {
-                onCompleted()
+                launch(Dispatchers.Main) {
+                    onCompleted()
+                }
             }
         }
     }

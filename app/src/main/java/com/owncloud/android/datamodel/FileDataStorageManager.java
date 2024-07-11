@@ -228,6 +228,23 @@ public class FileDataStorageManager {
         }
     }
 
+    public OCFile findDuplicatedFile(OCFile parentFolder, OCFile newFile) {
+        List<OCFile> folderContent = getFolderContent(parentFolder, false);
+        if (folderContent == null || folderContent.isEmpty()) {
+            return null;
+        }
+
+        OCFile duplicatedFile = null;
+        for (OCFile file : folderContent) {
+            if (file.getFileName().equals(newFile.getFileName())) {
+                duplicatedFile = file;
+                break;
+            }
+        }
+
+        return duplicatedFile;
+    }
+
     public List<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
         List<OCFile> imageList = new ArrayList<>();
 

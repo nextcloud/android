@@ -19,6 +19,7 @@ import android.text.TextUtils;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
@@ -162,6 +163,7 @@ public class UploadFileOperation extends SyncOperation {
     private final PowerManagementService powerManagementService;
 
     private boolean encryptedAncestor;
+    private OCFile duplicatedEncryptedFile;
 
     public static OCFile obtainNewOCFileToUpload(String remotePath, String localPath, String mimeType) {
         OCFile newFile = new OCFile(remotePath);
@@ -492,7 +494,7 @@ public class UploadFileOperation extends SyncOperation {
 
             List<String> fileNames = getCollidedFileNames(object);
 
-            RemoteOperationResult collisionResult = checkNameCollision(client, fileNames, parentFile.isEncrypted());
+            RemoteOperationResult collisionResult = checkNameCollision(parentFile, client, fileNames, parentFile.isEncrypted());
             if (collisionResult != null) {
                 result = collisionResult;
                 return collisionResult;
@@ -849,9 +851,16 @@ public class UploadFileOperation extends SyncOperation {
         e2eFiles.deleteTemporalFile();
     }
 
+    private void deleteDuplicatedFileAndSendRefreshFolderEvent(OwnCloudClient client) {
+        FileUploadHelper.Companion.instance().removeDuplicatedFile(duplicatedEncryptedFile, client, user, () -> {
+            duplicatedEncryptedFile = null;
+            sendRefreshFolderEventBroadcast();
+            return null;
+        });
+    }
+
     private RemoteOperationResult cleanupE2EUpload(FileLock fileLock, E2EFiles e2eFiles, RemoteOperationResult result, Object object, OwnCloudClient client, String token) {
         mUploadStarted.set(false);
-        sendRefreshFolderEventBroadcast();
 
         if (fileLock != null) {
             try {
@@ -883,6 +892,12 @@ public class UploadFileOperation extends SyncOperation {
 
         if (unlockFolderResult != null && unlockFolderResult.isSuccess()) {
             Log_OC.d(TAG, "Folder successfully unlocked: " + e2eFiles.getParentFile().getFileName());
+
+            if (duplicatedEncryptedFile != null) {
+                deleteDuplicatedFileAndSendRefreshFolderEvent(client);
+            } else {
+                sendRefreshFolderEventBroadcast();
+            }
         }
 
         e2eFiles.deleteEncryptedTempFile();
@@ -952,7 +967,7 @@ public class UploadFileOperation extends SyncOperation {
             }
 
             // check name collision
-            RemoteOperationResult collisionResult = checkNameCollision(client, null, false);
+            RemoteOperationResult collisionResult = checkNameCollision(null, client, null, false);
             if (collisionResult != null) {
                 result = collisionResult;
                 return collisionResult;
@@ -1139,7 +1154,8 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     @CheckResult
-    private RemoteOperationResult checkNameCollision(OwnCloudClient client,
+    private RemoteOperationResult checkNameCollision(OCFile parentFile,
+                                                     OwnCloudClient client,
                                                      List<String> fileNames,
                                                      boolean encrypted)
         throws OperationCancelledException {
@@ -1160,6 +1176,10 @@ public class UploadFileOperation extends SyncOperation {
                     }
                     break;
                 case OVERWRITE:
+                    if (parentFile != null && encrypted) {
+                        duplicatedEncryptedFile = getStorageManager().findDuplicatedFile(parentFile, mFile);
+                    }
+
                     Log_OC.d(TAG, "Overwriting file");
                     break;
                 case ASK_USER:
