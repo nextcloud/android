@@ -276,7 +276,7 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.excludeHidden = excludeHidden;
     }
 
-    public boolean containsFile(String filePath){
+    public boolean containsTypedFile(String filePath){
         boolean isCorrectMediaType =
                 (getType() == MediaFolderType.IMAGE && MimeTypeUtil.isImage(new File(filePath))) ||
                 (getType() == MediaFolderType.VIDEO && MimeTypeUtil.isVideo(new File(filePath))) ||
