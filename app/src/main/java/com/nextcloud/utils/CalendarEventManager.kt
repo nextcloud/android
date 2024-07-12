@@ -7,33 +7,36 @@
 
 package com.nextcloud.utils
 
+import android.Manifest
 import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.CalendarContract
-import com.nextcloud.utils.extensions.parseDateTimeRange
 import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
+import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 
 class CalendarEventManager(private val context: Context) {
 
     fun openCalendarEvent(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
-        val createdAt = searchResult.attributes["createdAt"]
-        val eventStartDate = searchResult.parseDateTimeRange()
-
-        if (eventStartDate == null) {
-            context.showToast(R.string.unified_search_fragment_calendar_event_cannot_be_found_on_device)
-            listInterface.onSearchResultClicked(searchResult)
-            return
+        val createdAt = searchResult.attributes["createdAt"]?.toLongOrNull()
+        val haveReadCalendarPermission = checkSelfPermission(context, Manifest.permission.READ_CALENDAR)
+        val eventId: Long? = if (haveReadCalendarPermission && createdAt != null) {
+            getCalendarEventId(searchResult.title, createdAt)
+        } else {
+            null
         }
 
-        val eventId: Long? = getCalendarEventId(searchResult.title, eventStartDate)
-
         if (eventId == null) {
-            context.showToast(R.string.unified_search_fragment_calendar_event_cannot_be_found_on_device)
+            val messageId = if (haveReadCalendarPermission) {
+                R.string.unified_search_fragment_calendar_event_cannot_be_found_on_device
+            } else {
+                R.string.unified_search_fragment_calendar_permission_needed_redirecting_web
+            }
+            context.showToast(messageId)
             listInterface.onSearchResultClicked(searchResult)
         } else {
             val uri: Uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId)

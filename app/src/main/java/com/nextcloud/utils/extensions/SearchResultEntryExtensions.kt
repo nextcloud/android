@@ -7,13 +7,8 @@
 
 package com.nextcloud.utils.extensions
 
-import android.annotation.SuppressLint
 import com.nextcloud.model.SearchResultEntryType
 import com.owncloud.android.lib.common.SearchResultEntry
-import java.text.ParseException
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.TimeZone
 
 fun SearchResultEntry.getType(): SearchResultEntryType {
     return if (icon == "icon-folder") {
@@ -28,20 +23,5 @@ fun SearchResultEntry.getType(): SearchResultEntryType {
         SearchResultEntryType.Deck
     } else {
         SearchResultEntryType.Unknown
-    }
-}
-
-@SuppressLint("SimpleDateFormat")
-fun SearchResultEntry.parseDateTimeRange(): Long? {
-    val cleanedSubline: String = subline.replace('\u202F', ' ')
-    val formatter = SimpleDateFormat("MMM d, yyyy h:mm a")
-    val startDate = cleanedSubline.substringBefore(" -")
-
-    try {
-        val date: Date? = formatter.parse(startDate)
-        formatter.timeZone = TimeZone.getTimeZone("UTC")
-        return date?.time
-    } catch (e: ParseException) {
-        return null
     }
 }
