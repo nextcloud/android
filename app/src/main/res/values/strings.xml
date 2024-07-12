@@ -298,9 +298,6 @@
     <string name="default_credentials_wrong">Incorrect credentials</string>
     <string name="credentials_disabled">Credentials disabled</string>
 
-    <string name="unified_search_fragment_calendar_event_cannot_be_found_on_device">The calendar event cannot be found on your device. Redirecting to web…</string>
-    <string name="unified_search_fragment_contact_cannot_be_found_on_device">Contact cannot be found on your device. Redirecting to web…</string>
-
     <string name="pass_code_configure_your_pass_code">Enter your passcode</string>
     <string name="pass_code_configure_your_pass_code_explanation">The passcode will be requested every time the app is started</string>
     <string name="pass_code_reenter_your_pass_code">Please reenter your passcode</string>
@@ -1212,4 +1209,11 @@
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
     <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
+
+
+    <string name="unified_search_fragment_calendar_event_cannot_be_found_on_device">The calendar event cannot be found on your device. Redirecting to web…</string>
+    <string name="unified_search_fragment_contact_cannot_be_found_on_device">Contact cannot be found on your device. Redirecting to web…</string>
+    <string name="unified_search_fragment_contact_permission_needed_redirecting_web">Permission to access contacts is required to open them. Redirecting to web…</string>
+    <string name="unified_search_fragment_contact_permission_needed">Permission to access contacts is required to open them.</string>
+    <string name="unified_search_fragment_calendar_permission_needed">Permission to access calendar is required to view events.</string>
 </resources>

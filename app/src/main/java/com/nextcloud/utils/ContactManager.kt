@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -15,14 +16,26 @@ import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
+import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 
 class ContactManager(private val context: Context) {
 
     fun openContact(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
-        val contactIds = getContactIds(searchResult.title)
+        val contactId = searchResult.attributes["uid"]
+        val haveReadContactsPermission = checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
+        val contactIds = if (haveReadContactsPermission) {
+            getContactId(contactId!!)
+        } else {
+            listOf()
+        }
 
         if (contactIds.isEmpty()) {
-            context.showToast(R.string.unified_search_fragment_contact_cannot_be_found_on_device)
+            val messageId = if (haveReadContactsPermission) {
+                R.string.unified_search_fragment_contact_cannot_be_found_on_device
+            } else {
+                R.string.unified_search_fragment_contact_permission_needed_redirecting_web
+            }
+            context.showToast(messageId)
             listInterface.onSearchResultClicked(searchResult)
         } else {
             val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactIds.first().toString())
@@ -33,15 +46,14 @@ class ContactManager(private val context: Context) {
         }
     }
 
-    private fun getContactIds(contactName: String): List<Long> {
+    private fun getContactId(contactName: String): List<Long> {
         val result = arrayListOf<Long>()
 
         val projection = arrayOf(
             ContactsContract.Contacts._ID,
-            ContactsContract.Contacts.DISPLAY_NAME
         )
 
-        val selection = "${ContactsContract.Contacts.DISPLAY_NAME} = ?"
+        val selection = "${ContactsContract.Contacts._ID} = ?"
         val selectionArgs = arrayOf(contactName)
 
         val cursor = context.contentResolver.query(

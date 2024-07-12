@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.updatePadding
@@ -44,6 +46,7 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.filterOutHiddenFiles
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -132,12 +135,35 @@ class UnifiedSearchFragment :
 
         setupFileDisplayActivity()
         setupAdapter()
+        checkPermissions()
     }
 
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val item = menu.findItem(R.id.action_search)
         setupSearchView(item)
+    }
+
+    private val contactPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+        if (!isGranted) {
+            DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_contact_permission_needed)
+        }
+    }
+
+    private val calendarPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+        if (!isGranted) {
+            DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_calendar_permission_needed)
+        }
+    }
+
+    private fun checkPermissions() {
+        if (!checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS)) {
+            contactPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
+        }
+
+        if (!checkSelfPermission(requireActivity(), Manifest.permission.READ_CALENDAR)) {
+            calendarPermissionLauncher.launch(Manifest.permission.READ_CALENDAR)
+        }
     }
 
     private fun setupSearchView(item: MenuItem) {

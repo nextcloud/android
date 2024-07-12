@@ -21,6 +21,7 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 class CalendarEventManager(private val context: Context) {
 
     fun openCalendarEvent(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
+        val createdAt = searchResult.attributes["createdAt"]
         val eventStartDate = searchResult.parseDateTimeRange()
 
         if (eventStartDate == null) {
