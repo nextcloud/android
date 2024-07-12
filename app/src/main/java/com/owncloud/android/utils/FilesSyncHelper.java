@@ -8,7 +8,6 @@
  */
 package com.owncloud.android.utils;
 
-import android.accounts.Account;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
@@ -16,7 +15,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
@@ -27,8 +25,6 @@ import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.lukhnos.nnio.file.FileVisitResult;
@@ -152,7 +148,7 @@ public final class FilesSyncHelper {
         final FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
         for (String changedFileURI : changedFiles){
             String changedFile = getFileFromURI(changedFileURI);
-            if (syncedFolder.isEnabled() && syncedFolder.containsFile(changedFile)){
+            if (syncedFolder.containsTypedFile(changedFile)){
                 File file = new File(changedFile);
                 filesystemDataProvider.storeOrUpdateFileValue(changedFile,
                                                               file.lastModified(),file.isDirectory(),

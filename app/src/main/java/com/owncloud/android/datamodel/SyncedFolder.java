@@ -12,7 +12,9 @@ package com.owncloud.android.datamodel;
 
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.files.services.NameCollisionPolicy;
+import com.owncloud.android.utils.MimeTypeUtil;
 
+import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -274,8 +276,12 @@ public class SyncedFolder implements Serializable, Cloneable {
         this.excludeHidden = excludeHidden;
     }
 
-    public boolean containsFile(String filePath){
-        return filePath.contains(localPath);
+    public boolean containsTypedFile(String filePath){
+        boolean isCorrectMediaType =
+                (getType() == MediaFolderType.IMAGE && MimeTypeUtil.isImage(new File(filePath))) ||
+                (getType() == MediaFolderType.VIDEO && MimeTypeUtil.isVideo(new File(filePath))) ||
+                getType() == MediaFolderType.CUSTOM;
+        return filePath.contains(localPath) && isCorrectMediaType;
     }
 
     public long getLastScanTimestampMs() { return lastScanTimestampMs; }
