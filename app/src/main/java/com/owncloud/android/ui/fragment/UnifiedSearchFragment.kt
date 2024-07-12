@@ -10,8 +10,6 @@ package com.owncloud.android.ui.fragment
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -48,7 +46,7 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.filterOutHiddenFiles
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
+import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -103,8 +101,11 @@ class UnifiedSearchFragment :
     lateinit var viewThemeUtils: ViewThemeUtils
 
     private var listOfHiddenFiles = ArrayList<String>()
-    private var searchResultEntry: SearchResultEntry? = null
     private var showMoreActions = false
+    private val permissions = arrayOf(
+        Manifest.permission.READ_CONTACTS,
+        Manifest.permission.READ_CALENDAR
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,6 +138,7 @@ class UnifiedSearchFragment :
 
         setupFileDisplayActivity()
         setupAdapter()
+        checkPermissions()
     }
 
     @Deprecated("Deprecated in Java")
@@ -145,48 +147,17 @@ class UnifiedSearchFragment :
         setupSearchView(item)
     }
 
-    override fun checkPermission(searchResultEntry: SearchResultEntry) {
-        this.searchResultEntry = searchResultEntry
-
-        if (!checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS)) {
-            DisplayUtils.showSnackMessage(
-                binding.root,
-                R.string.unified_search_fragment_contact_permission_needed_redirecting_web
-            )
-            contactPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
-        }
-
-        if (!checkSelfPermission(requireActivity(), Manifest.permission.READ_CALENDAR)) {
-            DisplayUtils.showSnackMessage(
-                binding.root,
-                R.string.unified_search_fragment_calendar_permission_needed_redirecting_web
-            )
-            calendarPermissionLauncher.launch(Manifest.permission.READ_CALENDAR)
+    private fun checkPermissions() {
+        if (!PermissionUtil.checkPermissions(requireContext(), permissions)) {
+            permissionLauncher.launch(permissions)
         }
     }
 
-    @Suppress("MagicNumber")
-    private fun triggerOnSearchClick() {
-        searchResultEntry?.let {
-            Handler(Looper.getMainLooper()).postDelayed({
-                onSearchResultClicked(it)
-            }, 1500)
-        }
-    }
-
-    private val contactPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (!isGranted) {
-                DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_contact_permission_needed)
-                triggerOnSearchClick()
-            }
-        }
-
-    private val calendarPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-            if (!isGranted) {
-                DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_calendar_permission_needed)
-                triggerOnSearchClick()
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val granted = permissions.entries.all { it.value }
+            if (!granted) {
+                DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_permission_needed)
             }
         }
 

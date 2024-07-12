@@ -22,24 +22,24 @@ import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 class ContactManager(private val context: Context) {
 
     fun openContact(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
-        val haveReadContactsPermission = checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
-        if (!haveReadContactsPermission) {
-            listInterface.checkPermission(searchResult)
-            return
-        }
-
+        val havePermission = checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
         val displayName = searchResult.displayName()
-        val contactIds = if (displayName != null) {
-            getContactId(displayName)
+        val contactId: Long? = if (havePermission && displayName != null) {
+            getContactId(displayName).firstOrNull()
         } else {
-            listOf()
+            null
         }
 
-        if (contactIds.isEmpty()) {
-            context.showToast(R.string.unified_search_fragment_contact_cannot_be_found_on_device)
+        if (contactId == null) {
+            val messageId = if (havePermission) {
+                R.string.unified_search_fragment_contact_cannot_be_found_on_device
+            } else {
+                R.string.unified_search_fragment_permission_needed
+            }
+            context.showToast(messageId)
             listInterface.onSearchResultClicked(searchResult)
         } else {
-            val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactIds.first().toString())
+            val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactId.toString())
             val intent = Intent(Intent.ACTION_VIEW).apply {
                 setData(uri)
             }

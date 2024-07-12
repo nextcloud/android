@@ -1213,8 +1213,7 @@
 
     <string name="unified_search_fragment_calendar_event_cannot_be_found_on_device">The calendar event cannot be found on your device. Redirecting to web…</string>
     <string name="unified_search_fragment_contact_cannot_be_found_on_device">Contact cannot be found on your device. Redirecting to web…</string>
-    <string name="unified_search_fragment_contact_permission_needed_redirecting_web">Permission to access contacts is required to open them. Redirecting to web…</string>
-    <string name="unified_search_fragment_calendar_permission_needed_redirecting_web">Permission to access calendar is required to view events. Redirecting to web…</string>
+    <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirecting to web…</string>
     <string name="unified_search_fragment_contact_permission_needed">Permission to access contacts is required to open them.</string>
     <string name="unified_search_fragment_calendar_permission_needed">Permission to access calendar is required to view events.</string>
 </resources>
