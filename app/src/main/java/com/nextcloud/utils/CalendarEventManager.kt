@@ -33,7 +33,7 @@ class CalendarEventManager(private val context: Context) {
 
         if (eventId == null) {
             val messageId = if (havePermission) {
-                R.string.unified_search_fragment_calendar_event_cannot_be_found_on_device
+                R.string.unified_search_fragment_calendar_event_not_found
             } else {
                 R.string.unified_search_fragment_permission_needed
             }

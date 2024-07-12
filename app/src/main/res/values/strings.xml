@@ -1211,9 +1211,9 @@
     <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
 
 
-    <string name="unified_search_fragment_calendar_event_cannot_be_found_on_device">The calendar event cannot be found on your device. Redirecting to web…</string>
-    <string name="unified_search_fragment_contact_cannot_be_found_on_device">Contact cannot be found on your device. Redirecting to web…</string>
-    <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirecting to web…</string>
-    <string name="unified_search_fragment_contact_permission_needed">Permission to access contacts is required to open them.</string>
-    <string name="unified_search_fragment_calendar_permission_needed">Permission to access calendar is required to view events.</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Event not found. Redirecting to web…</string>
+    <string name="unified_search_fragment_contact_not_found">Contact not found. Redirecting to web…</string>
+    <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
+    <string name="unified_search_fragment_contact_permission_needed">Contact permission needed to open contact in device</string>
+    <string name="unified_search_fragment_calendar_permission_needed">Calendar permission needed to open calendar event in device</string>
 </resources>

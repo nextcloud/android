@@ -10,7 +10,12 @@ package com.nextcloud.model
 import com.owncloud.android.R
 
 enum class SearchResultEntryType {
-    CalendarEvent, Folder, Note, Contact, Deck, Unknown;
+    CalendarEvent,
+    Folder,
+    Note,
+    Contact,
+    Deck,
+    Unknown;
 
     fun getIconId(): Int? {
         return when (this) {

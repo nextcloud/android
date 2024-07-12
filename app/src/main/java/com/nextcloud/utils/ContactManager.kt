@@ -32,7 +32,7 @@ class ContactManager(private val context: Context) {
 
         if (contactId == null) {
             val messageId = if (havePermission) {
-                R.string.unified_search_fragment_contact_cannot_be_found_on_device
+                R.string.unified_search_fragment_contact_not_found
             } else {
                 R.string.unified_search_fragment_permission_needed
             }

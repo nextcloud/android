@@ -102,10 +102,6 @@ class UnifiedSearchFragment :
 
     private var listOfHiddenFiles = ArrayList<String>()
     private var showMoreActions = false
-    private val permissions = arrayOf(
-        Manifest.permission.READ_CONTACTS,
-        Manifest.permission.READ_CALENDAR
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -148,6 +144,7 @@ class UnifiedSearchFragment :
     }
 
     private fun checkPermissions() {
+        val permissions = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_CALENDAR)
         if (!PermissionUtil.checkPermissions(requireContext(), permissions)) {
             permissionLauncher.launch(permissions)
         }
