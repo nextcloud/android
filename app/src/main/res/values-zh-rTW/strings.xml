@@ -446,6 +446,7 @@
     <string name="foreign_files_success">已經移動所有檔案</string>
     <string name="forward">向前</string>
     <string name="fourHours">4小時</string>
+    <string name="gplay_restriction">Google 限制 APK/AAB 檔案的下載！</string>
     <string name="grid_file_features_live_photo_content_description">此圖示表示原況照片的可得性</string>
     <string name="hidden_file_name_warning">此名稱會將檔案變為隱藏</string>
     <string name="hint_name">名稱</string>

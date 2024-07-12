@@ -446,6 +446,7 @@
     <string name="foreign_files_success">Alle Dateien wurden verschoben</string>
     <string name="forward">Weiterleiten</string>
     <string name="fourHours">4 Stunden</string>
+    <string name="gplay_restriction">Google hat das Herunterladen von APK/AAB-Dateien eingeschränkt!</string>
     <string name="grid_file_features_live_photo_content_description">Dieses Symbol zeigt die Verfügbarkeit von Live-Fotos an</string>
     <string name="hidden_file_name_warning">Dateiname führt dazu, das die Datei versteckt sein wird.</string>
     <string name="hint_name">Name</string>
