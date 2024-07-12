@@ -21,10 +21,10 @@ import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 class ContactManager(private val context: Context) {
 
     fun openContact(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
-        val contactId = searchResult.attributes["uid"]
+        val displayName = searchResult.attributes["displayName"]
         val haveReadContactsPermission = checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
-        val contactIds = if (haveReadContactsPermission) {
-            getContactId(contactId!!)
+        val contactIds = if (haveReadContactsPermission && displayName != null) {
+            getContactId(displayName)
         } else {
             listOf()
         }
@@ -46,15 +46,11 @@ class ContactManager(private val context: Context) {
         }
     }
 
-    private fun getContactId(contactName: String): List<Long> {
+    private fun getContactId(displayName: String): List<Long> {
         val result = arrayListOf<Long>()
-
-        val projection = arrayOf(
-            ContactsContract.Contacts._ID,
-        )
-
-        val selection = "${ContactsContract.Contacts._ID} = ?"
-        val selectionArgs = arrayOf(contactName)
+        val projection = arrayOf(ContactsContract.Contacts._ID)
+        val selection = "${ContactsContract.Contacts.DISPLAY_NAME} = ?"
+        val selectionArgs = arrayOf(displayName)
 
         val cursor = context.contentResolver.query(
             ContactsContract.Contacts.CONTENT_URI,
@@ -66,7 +62,6 @@ class ContactManager(private val context: Context) {
 
         cursor?.use {
             val idIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID)
-
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idIndex)
                 result.add(id)
