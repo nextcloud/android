@@ -22,7 +22,7 @@ import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 class CalendarEventManager(private val context: Context) {
 
     fun openCalendarEvent(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
-        val createdAt = searchResult.attributes["createdAt"]?.toLongOrNull()
+        val createdAt = searchResult.attributes["createdAt"]?.toLongOrNull()?.times(1000L)
         val haveReadCalendarPermission = checkSelfPermission(context, Manifest.permission.READ_CALENDAR)
         val eventId: Long? = if (haveReadCalendarPermission && createdAt != null) {
             getCalendarEventId(searchResult.title, createdAt)
