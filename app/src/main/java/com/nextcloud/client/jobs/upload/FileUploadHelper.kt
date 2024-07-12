@@ -19,19 +19,25 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUpload
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.MainApp
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.db.UploadResult
 import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.utils.FileUtil
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
 import java.util.concurrent.Semaphore
 import javax.inject.Inject
@@ -47,6 +53,9 @@ class FileUploadHelper {
 
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
+
+    @Inject
+    lateinit var fileStorageManager: FileDataStorageManager
 
     init {
         MainApp.getAppComponent().inject(this)
@@ -347,6 +356,41 @@ class FileUploadHelper {
         }
         uploadsStorageManager.storeUploads(uploads)
         backgroundJobManager.startFilesUploadJob(user)
+    }
+
+    /**
+     * Removes any existing file in the same directory that has the same name as the provided new file.
+     *
+     * This function checks the parent directory of the given `newFile` for any file with the same name.
+     * If such a file is found, it is removed using the `RemoveFileOperation`.
+     *
+     * @param duplicatedFile File to be deleted
+     * @param client Needed for executing RemoveFileOperation
+     * @param user Needed for creating client
+     */
+    fun removeDuplicatedFile(duplicatedFile: OCFile, client: OwnCloudClient, user: User, onCompleted: () -> Unit) {
+        val job = CoroutineScope(Dispatchers.IO)
+
+        job.launch {
+            val removeFileOperation = RemoveFileOperation(
+                duplicatedFile,
+                false,
+                user,
+                true,
+                MainApp.getAppContext(),
+                fileStorageManager
+            )
+
+            val result = removeFileOperation.execute(client)
+
+            if (result.isSuccess) {
+                Log_OC.d(TAG, "Replaced file successfully removed")
+
+                launch(Dispatchers.Main) {
+                    onCompleted()
+                }
+            }
+        }
     }
 
     fun retryUpload(upload: OCUpload, user: User) {

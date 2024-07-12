@@ -45,6 +45,7 @@ import com.owncloud.android.lib.resources.files.model.FileLockType;
 import com.owncloud.android.lib.resources.files.model.GeoLocation;
 import com.owncloud.android.lib.resources.files.model.ImageDimension;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
+import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
@@ -226,6 +227,23 @@ public class FileDataStorageManager {
         } else {
             return new ArrayList<>();
         }
+    }
+
+    public OCFile findDuplicatedFile(OCFile parentFolder, ServerFileInterface newFile) {
+        List<OCFile> folderContent = getFolderContent(parentFolder, false);
+        if (folderContent == null || folderContent.isEmpty()) {
+            return null;
+        }
+
+        OCFile duplicatedFile = null;
+        for (OCFile file : folderContent) {
+            if (file.getFileName().equals(newFile.getFileName())) {
+                duplicatedFile = file;
+                break;
+            }
+        }
+
+        return duplicatedFile;
     }
 
     public List<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
