@@ -446,6 +446,7 @@
     <string name="foreign_files_success">Foron movidos todos os ficheiros</string>
     <string name="forward">Reenviar</string>
     <string name="fourHours">4 horas</string>
+    <string name="gplay_restriction">Google restrinxiu a descarga de ficheiros APK/AAB.</string>
     <string name="grid_file_features_live_photo_content_description">Esta icona indica a dispoñibilidade de Live Photo</string>
     <string name="hidden_file_name_warning">O nome dará lugar a un ficheiro agochado</string>
     <string name="hint_name">Nome</string>
