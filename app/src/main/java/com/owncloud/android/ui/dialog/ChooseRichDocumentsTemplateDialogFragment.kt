@@ -1,4 +1,5 @@
 /*
+ * Nextcloud - Android Client
  *
  * Nextcloud Android client application
  *
