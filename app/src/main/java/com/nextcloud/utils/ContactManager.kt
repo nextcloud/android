@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 Your Name <your@email.com>
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -37,25 +37,23 @@ class ContactManager(private val context: Context) {
             ContactsContract.Contacts.DISPLAY_NAME
         )
 
+        val selection = "${ContactsContract.Contacts.DISPLAY_NAME} = ?"
+        val selectionArgs = arrayOf(contactName)
+
         val cursor = context.contentResolver.query(
             ContactsContract.Contacts.CONTENT_URI,
             projection,
-            null,
-            null,
+            selection,
+            selectionArgs,
             null
         )
 
         cursor?.use {
             val idIndex = cursor.getColumnIndex(ContactsContract.Contacts._ID)
-            val nameIndex = cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME)
 
             while (cursor.moveToNext()) {
                 val id = cursor.getLong(idIndex)
-                val title = cursor.getString(nameIndex)
-
-                if (title == contactName) {
-                    result.add(id)
-                }
+                result.add(id)
             }
         }
 

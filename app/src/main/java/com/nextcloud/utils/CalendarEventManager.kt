@@ -19,8 +19,15 @@ import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 class CalendarEventManager(private val context: Context) {
 
     fun openCalendarEvent(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
-        val eventStartDate = searchResult.parseDateTimeRange()!!
+        val eventStartDate = searchResult.parseDateTimeRange()
+
+        if (eventStartDate == null) {
+            listInterface.onSearchResultClicked(searchResult)
+            return
+        }
+
         val eventId: Long? = getCalendarEventId(searchResult.title, eventStartDate)
+
         if (eventId == null) {
             listInterface.onSearchResultClicked(searchResult)
         } else {
@@ -37,31 +44,24 @@ class CalendarEventManager(private val context: Context) {
             CalendarContract.Events.DTSTART,
         )
 
+        val selection = "${CalendarContract.Events.TITLE} = ? AND ${CalendarContract.Events.DTSTART} = ?"
+        val selectionArgs = arrayOf(eventTitle, eventStartDate.toString())
+
         val cursor = context.contentResolver.query(
             CalendarContract.Events.CONTENT_URI,
             projection,
-            null,
-            null,
+            selection,
+            selectionArgs,
             "${CalendarContract.Events.DTSTART} ASC"
         )
 
         cursor?.use {
-            val idIndex = cursor.getColumnIndex(CalendarContract.Events._ID)
-            val titleIndex = cursor.getColumnIndex(CalendarContract.Events.TITLE)
-            val dtstartIndex = cursor.getColumnIndex(CalendarContract.Events.DTEND)
-
-            while (cursor.moveToNext()) {
-                val title = cursor.getString(titleIndex)
-                val startDate = cursor.getLong(dtstartIndex)
-
-                // Jun 19, 2024 9:30 AM - 10:00 AM
-                if (eventTitle == title && startDate == eventStartDate) {
-                   return cursor.getLong(idIndex)
-                }
+            if (cursor.moveToFirst()) {
+                val idIndex = cursor.getColumnIndex(CalendarContract.Events._ID)
+                return cursor.getLong(idIndex)
             }
         }
 
         return null
     }
-
 }

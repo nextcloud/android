@@ -8,11 +8,29 @@
 package com.nextcloud.utils.extensions
 
 import android.annotation.SuppressLint
+import com.nextcloud.model.SearchResultEntryType
 import com.owncloud.android.lib.common.SearchResultEntry
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.TimeZone
 
+fun SearchResultEntry.getType(): SearchResultEntryType {
+    return if (icon == "icon-folder") {
+        SearchResultEntryType.Folder
+    } else if (icon.startsWith("icon-note")) {
+        SearchResultEntryType.Note
+    } else if (icon.startsWith("icon-contacts")) {
+        SearchResultEntryType.Contact
+    } else if (icon.startsWith("icon-calendar")) {
+        SearchResultEntryType.CalendarEvent
+    } else if (icon.startsWith("icon-deck")) {
+        SearchResultEntryType.Deck
+    } else {
+        SearchResultEntryType.Unknown
+    }
+}
+
+// FIXME
 @SuppressLint("SimpleDateFormat")
 fun SearchResultEntry.parseDateTimeRange(): Long? {
     // Define the input and output date formats
