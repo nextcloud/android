@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.CalendarContract
+import com.nextcloud.utils.extensions.createdAt
 import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.SearchResultEntry
@@ -22,21 +23,21 @@ import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 class CalendarEventManager(private val context: Context) {
 
     fun openCalendarEvent(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
-        val createdAt = searchResult.attributes["createdAt"]?.toLongOrNull()?.times(1000L)
         val haveReadCalendarPermission = checkSelfPermission(context, Manifest.permission.READ_CALENDAR)
-        val eventId: Long? = if (haveReadCalendarPermission && createdAt != null) {
+        if (!haveReadCalendarPermission) {
+            listInterface.checkPermission(searchResult)
+            return
+        }
+
+        val createdAt = searchResult.createdAt()
+        val eventId: Long? = if (createdAt != null) {
             getCalendarEventId(searchResult.title, createdAt)
         } else {
             null
         }
 
         if (eventId == null) {
-            val messageId = if (haveReadCalendarPermission) {
-                R.string.unified_search_fragment_calendar_event_cannot_be_found_on_device
-            } else {
-                R.string.unified_search_fragment_calendar_permission_needed_redirecting_web
-            }
-            context.showToast(messageId)
+            context.showToast(R.string.unified_search_fragment_calendar_event_cannot_be_found_on_device)
             listInterface.onSearchResultClicked(searchResult)
         } else {
             val uri: Uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventId)

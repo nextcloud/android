@@ -12,6 +12,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
+import com.nextcloud.utils.extensions.displayName
 import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.SearchResultEntry
@@ -21,21 +22,21 @@ import com.owncloud.android.utils.PermissionUtil.checkSelfPermission
 class ContactManager(private val context: Context) {
 
     fun openContact(searchResult: SearchResultEntry, listInterface: UnifiedSearchListInterface) {
-        val displayName = searchResult.attributes["displayName"]
         val haveReadContactsPermission = checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
-        val contactIds = if (haveReadContactsPermission && displayName != null) {
+        if (!haveReadContactsPermission) {
+            listInterface.checkPermission(searchResult)
+            return
+        }
+
+        val displayName = searchResult.displayName()
+        val contactIds = if (displayName != null) {
             getContactId(displayName)
         } else {
             listOf()
         }
 
         if (contactIds.isEmpty()) {
-            val messageId = if (haveReadContactsPermission) {
-                R.string.unified_search_fragment_contact_cannot_be_found_on_device
-            } else {
-                R.string.unified_search_fragment_contact_permission_needed_redirecting_web
-            }
-            context.showToast(messageId)
+            context.showToast(R.string.unified_search_fragment_contact_cannot_be_found_on_device)
             listInterface.onSearchResultClicked(searchResult)
         } else {
             val uri = Uri.withAppendedPath(ContactsContract.Contacts.CONTENT_URI, contactIds.first().toString())

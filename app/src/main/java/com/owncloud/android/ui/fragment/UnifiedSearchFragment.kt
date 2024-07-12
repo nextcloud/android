@@ -10,6 +10,8 @@ package com.owncloud.android.ui.fragment
 import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -101,7 +103,7 @@ class UnifiedSearchFragment :
     lateinit var viewThemeUtils: ViewThemeUtils
 
     private var listOfHiddenFiles = ArrayList<String>()
-
+    private var searchResultEntry: SearchResultEntry? = null
     private var showMoreActions = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -135,7 +137,6 @@ class UnifiedSearchFragment :
 
         setupFileDisplayActivity()
         setupAdapter()
-        checkPermissions()
     }
 
     @Deprecated("Deprecated in Java")
@@ -144,27 +145,50 @@ class UnifiedSearchFragment :
         setupSearchView(item)
     }
 
-    private val contactPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-        if (!isGranted) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_contact_permission_needed)
-        }
-    }
+    override fun checkPermission(searchResultEntry: SearchResultEntry) {
+        this.searchResultEntry = searchResultEntry
 
-    private val calendarPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
-        if (!isGranted) {
-            DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_calendar_permission_needed)
-        }
-    }
-
-    private fun checkPermissions() {
         if (!checkSelfPermission(requireActivity(), Manifest.permission.READ_CONTACTS)) {
+            DisplayUtils.showSnackMessage(
+                binding.root,
+                R.string.unified_search_fragment_contact_permission_needed_redirecting_web
+            )
             contactPermissionLauncher.launch(Manifest.permission.READ_CONTACTS)
         }
 
         if (!checkSelfPermission(requireActivity(), Manifest.permission.READ_CALENDAR)) {
+            DisplayUtils.showSnackMessage(
+                binding.root,
+                R.string.unified_search_fragment_calendar_permission_needed_redirecting_web
+            )
             calendarPermissionLauncher.launch(Manifest.permission.READ_CALENDAR)
         }
     }
+
+    @Suppress("MagicNumber")
+    private fun triggerOnSearchClick() {
+        searchResultEntry?.let {
+            Handler(Looper.getMainLooper()).postDelayed({
+                onSearchResultClicked(it)
+            }, 1500)
+        }
+    }
+
+    private val contactPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (!isGranted) {
+                DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_contact_permission_needed)
+                triggerOnSearchClick()
+            }
+        }
+
+    private val calendarPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
+            if (!isGranted) {
+                DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_calendar_permission_needed)
+                triggerOnSearchClick()
+            }
+        }
 
     private fun setupSearchView(item: MenuItem) {
         (item.actionView as? SearchView?)?.run {

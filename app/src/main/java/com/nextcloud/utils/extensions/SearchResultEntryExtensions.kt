@@ -25,3 +25,7 @@ fun SearchResultEntry.getType(): SearchResultEntryType {
         SearchResultEntryType.Unknown
     }
 }
+
+fun SearchResultEntry.createdAt(): Long? = attributes["createdAt"]?.toLongOrNull()?.times(1000L)
+
+fun SearchResultEntry.displayName(): String? = attributes["displayName"]
