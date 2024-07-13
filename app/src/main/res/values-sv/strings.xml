@@ -446,6 +446,7 @@
     <string name="foreign_files_success">Alla filer flyttades</string>
     <string name="forward">Vidarebefordra</string>
     <string name="fourHours">4 timmar</string>
+    <string name="gplay_restriction">Google begränsad nedladdning av APK/AAB-filer!</string>
     <string name="grid_file_features_live_photo_content_description">Den här ikonen indikerar tillgängligheten för ett livefoto</string>
     <string name="hidden_file_name_warning">Namngivning kommer att resultera i en dold fil</string>
     <string name="hint_name">Namn</string>

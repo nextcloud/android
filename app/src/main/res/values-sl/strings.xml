@@ -158,7 +158,7 @@
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_server_file">Strežniška datoteka</string>
     <string name="contact_backup_title">Varnostna kopija stikov</string>
-    <string name="contact_no_permission">Potrebno je dovoljeno do stikov.</string>
+    <string name="contact_no_permission">Zahtevano je dovoljenje za dostop do stikov.</string>
     <string name="contactlist_item_icon">Ikona uporabnika za seznam stikov</string>
     <string name="contactlist_no_permission">Ni ustreznih dovoljenj, uvoz je prekinjen.</string>
     <string name="contacts">Stiki</string>
@@ -250,10 +250,10 @@
     <string name="ecosystem_apps_display_more">Več</string>
     <string name="ecosystem_apps_display_notes">Beležke</string>
     <string name="ecosystem_apps_display_talk">Pogovor Talk</string>
-    <string name="ecosystem_apps_more">Več Nexcloud Aplikacij</string>
+    <string name="ecosystem_apps_more">Več programov Nexcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Beležke</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
-    <string name="email_pick_failed">E-poštnega naslova ni bilo mogoče izbrati.</string>
+    <string name="email_pick_failed">Elektronskega naslova ni mogoče izbrati.</string>
     <string name="encrypted">Nastavi kot šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Nastavitev šifriranja</string>
     <string name="end_to_end_encryption_decrypting">Poteka odšifriranje…</string>
@@ -603,7 +603,7 @@
     <string name="prefs_remove_e2e">Krajevno odstrani šifriranje</string>
     <string name="prefs_setup_e2e">Nastavi celovito šifriranje E2E</string>
     <string name="prefs_show_ecosystem_apps">Pokaži preklopnika programov</string>
-    <string name="prefs_show_ecosystem_apps_summary">Predlogi aplikacij Nextcloud v navigacijskem naslovu</string>
+    <string name="prefs_show_ecosystem_apps_summary">Predlogi programov Nextcloud v naslovu</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
     <string name="prefs_storage_path">Mapa podatkovne shrambe</string>
@@ -632,7 +632,7 @@
     <string name="remote">(oddaljeno) </string>
     <string name="remote_file_fetch_failed">Iskanje datoteke je spodletelo!</string>
     <string name="remove_e2e">Na tej napravi lahko odstranite krajevno celovito šifriranje E2E</string>
-    <string name="remove_e2e_message">V tem odjemalcu lahko lokalno odstranite šifriranje E2E. Šifrirane datoteke bodo ostale na strežniku, vendar ne bodo več sinhronizirane s tem računalnikom.</string>
+    <string name="remove_e2e_message">V tem odjemalcu je mogoče krajevno odstraniti šifriranje E2E. Šifrirane datoteke bodo ostale shranjene na strežniku, vendar s to napravo ne bodo več usklajevane.</string>
     <string name="remove_fail_msg">Brisanje je spodletelo</string>
     <string name="remove_notification_failed">Odstranjevanje obvestil je spodletelo.</string>
     <string name="remove_push_notification">Odstrani</string>
@@ -924,9 +924,9 @@
     <string name="wait_a_moment">Počakajte trenutek …</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
-    <string name="webview_version_check_alert_dialog_message">Prosimo, posodobite aplikacijo Android System WebView za prijavo</string>
+    <string name="webview_version_check_alert_dialog_message">Za prijavo je treba posodobiti p rogram Android System WebView</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Posodobi</string>
-    <string name="webview_version_check_alert_dialog_title">Posodobite Android System WebView</string>
+    <string name="webview_version_check_alert_dialog_title">Posodobi program Android System WebView</string>
     <string name="what_s_new_image">Kaj je nova slika</string>
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
