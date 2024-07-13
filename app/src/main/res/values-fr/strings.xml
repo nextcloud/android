@@ -446,6 +446,7 @@
     <string name="foreign_files_success">Tous les fichiers ont été déplacés</string>
     <string name="forward">Suivant</string>
     <string name="fourHours">4 heures</string>
+    <string name="gplay_restriction">Google restreint le téléchargement des fichiers APK / AAB !</string>
     <string name="grid_file_features_live_photo_content_description">Cette icône indique la disponibilité de live photo</string>
     <string name="hidden_file_name_warning">Le nom résultera en un fichier caché</string>
     <string name="hint_name">Nom</string>
