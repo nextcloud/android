@@ -13,7 +13,7 @@
     <color name="list_item_lastmod_and_filesize_text">@color/secondary_text_color</color>
     <color name="black">#000000</color>
     <color name="white">#ffffff</color>
-    <color name="white_helper_text">#B3FFFFFF</color>
+    <color name="white_helper_text">#000</color>
     <color name="text_color">#333333</color>
     <color name="light_grey">#F5F5F5</color>
     <color name="grid_file_features_icon_color">#303034</color>

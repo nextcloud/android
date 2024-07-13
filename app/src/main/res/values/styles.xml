@@ -333,8 +333,8 @@
     </style>
 
     <style name="ThemeOverlay.App.Login.TextInputLayout" parent="">
-        <item name="colorPrimary">@color/white</item>
-        <item name="colorOnSurface">@color/white</item>
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorOnSurface">@color/black</item>
         <item name="colorError">@color/hwSecurityRed</item>
         <item name="textAppearanceSubtitle1">@style/TextAppearance.Material3.BodyLarge</item>
         <item name="textAppearanceCaption">@style/TextAppearance.Material3.BodySmall</item>
