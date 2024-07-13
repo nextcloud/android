@@ -11,4 +11,5 @@ import android.widget.TextView
 
 internal interface ListGridItemViewHolder : ListGridImageViewHolder {
     val fileName: TextView
+    val extension: TextView
 }
