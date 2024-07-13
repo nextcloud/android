@@ -446,6 +446,7 @@
     <string name="foreign_files_success">Alle filene ble flyttet</string>
     <string name="forward">Fremover</string>
     <string name="fourHours">4 timer</string>
+    <string name="gplay_restriction">Google begrenset nedlasting APK / AAB filer!</string>
     <string name="grid_file_features_live_photo_content_description">Dette ikonet indikerer tilgjengeligheten av live photo</string>
     <string name="hidden_file_name_warning">Navn gir skjult fil</string>
     <string name="hint_name">Navn</string>

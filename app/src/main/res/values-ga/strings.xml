@@ -446,6 +446,7 @@
     <string name="foreign_files_success">Bogadh gach comhad</string>
     <string name="forward">Ar aghaidh</string>
     <string name="fourHours">4 uair an chloig</string>
+    <string name="gplay_restriction">Chuir Google cosc ar chomhaid APK/AAB a íoslódáil!</string>
     <string name="grid_file_features_live_photo_content_description">Léiríonn an deilbhín seo infhaighteacht grianghraf beo</string>
     <string name="hidden_file_name_warning">Beidh comhad folaithe mar thoradh ar an ainm</string>
     <string name="hint_name">Ainm</string>

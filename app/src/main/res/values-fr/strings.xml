@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s ne prend pas en charge les comptes multiples</string>
     <string name="auth_wrong_connection_title">Impossible d\'établir la connexion</string>
     <string name="authenticator_activity_cancel_login">Annuler la connexion</string>
+    <string name="authenticator_activity_login_error">Un problème est survenu lors du traitement de votre demande de connexion. Veuillez réessayer plus tard.</string>
     <string name="authenticator_activity_please_complete_login_process">Veuillez finaliser la connexion dans votre navigateur</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
@@ -321,6 +322,7 @@
     <string name="error_showing_encryption_dialog">Erreur d\'affichage de la boîte de dialogue de configuration du chiffrement !</string>
     <string name="error_starting_direct_camera_upload">Erreur au démarrage de l\'appareil photo</string>
     <string name="error_starting_doc_scan">Erreur lors de la numérisation du document</string>
+    <string name="error_uploading_direct_camera_upload">Échec du téléversement du média capturé</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_execution_count">Temps d’exécution en 48h</string>
     <string name="etm_background_job_created">Créée</string>
@@ -352,6 +354,7 @@
     <string name="failed_update_ui">Échec de la mise à jour de l\'interface utilisateur</string>
     <string name="favorite">Ajouter aux favoris</string>
     <string name="favorite_icon">Favoris</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Le fichier partagé ne peut pas être mis à jour</string>
     <string name="file_already_exists">Ce nom de fichier existe déjà</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l’activité du fichier</string>
@@ -672,6 +675,7 @@
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
     <string name="qr_could_not_be_read">Le code QR ne peut être lu</string>
+    <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Le dossier est introuvable, l\'opération de synchronisation est annulée.</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
@@ -846,7 +850,7 @@
     <string name="sync_fail_ticker_unauthorized">Synchronisation échouée, reconnectez-vous</string>
     <string name="sync_file_nothing_to_do_msg">Ce fichier est déjà synchronisé</string>
     <string name="sync_folder_failed_content">La synchronisation du dossier %1$s n\'a pas pu être terminée</string>
-    <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers envoyés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\n\nEn raison de cette modification, tous les fichiers envoyés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\n\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
+    <string name="sync_foreign_files_forgotten_explanation">Depuis la version 1.3.16, les fichiers téléversés depuis cet appareil sont copiés dans le dossier local %1$s pour éviter une perte de données lorsqu\'un même fichier est synchronisé avec plusieurs comptes.\n\nEn raison de cette modification, tous les fichiers téléversés avec des versions antérieures de cette application ont été copiés dans le dossier %2$s. Cependant, une erreur a empêché l\'achèvement de cette opération pendant la synchronisation du compte. Vous pouvez soit laisser les fichiers tels quels et supprimer le lien vers %3$s, soit déplacer les fichiers dans le dossier %1$s et garder le lien vers %4$s.\n\nCi-dessous la liste des fichiers locaux, et les fichiers distants dans %5$s auxquels ils étaient liés.</string>
     <string name="sync_foreign_files_forgotten_ticker">Certains fichiers locaux ont été ignorés</string>
     <string name="sync_in_progress">Récupération de la version la plus récente du fichier.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Choisir quoi synchroniser</string>
@@ -902,7 +906,10 @@
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
     <string name="upload_chooser_title">Téléverser depuis…</string>
     <string name="upload_content_from_other_apps">Téléverser du contenu à partir d\'autres applications</string>
+    <string name="upload_direct_camera_photo">Photo</string>
+    <string name="upload_direct_camera_promt">Vous souhaitez prendre une photo ou une vidéo ?</string>
     <string name="upload_direct_camera_upload">Téléverser depuis l\'appareil photo</string>
+    <string name="upload_direct_camera_video">Vidéo</string>
     <string name="upload_file_dialog_filename">Nom de fichier</string>
     <string name="upload_file_dialog_filetype">Type de fichier</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Raccourci(%s) Google Maps</string>
@@ -921,6 +928,7 @@
     <string name="upload_local_storage_not_copied">Le fichier n\'a pas pu être copié sur le stockage local</string>
     <string name="upload_lock_failed">Impossible de verrouiller le dossier</string>
     <string name="upload_manually_cancelled">Le téléversement a été annulé par l\'utilisateur</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Le chiffrement n\'est disponible que pour les versions d\'Android&gt;= 5.0</string>
     <string name="upload_query_move_foreign_files">Il n\'y a pas assez d\'espace pour copier les fichiers sélectionnés dans le dossier %1$s. Souhaitez-vous plutôt les déplacer ?</string>
     <string name="upload_quota_exceeded">Quota de stockage dépassé</string>
@@ -947,21 +955,21 @@
     <string name="uploader_upload_failed_ticker">Échec du téléversement</string>
     <string name="uploader_upload_files_behaviour">Option de téléversement :</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Déplacer le fichier dans le dossier %1$s</string>
-    <string name="uploader_upload_files_behaviour_not_writable">Le dossier source est en lecture seule : le fichier sera uniquement envoyé</string>
+    <string name="uploader_upload_files_behaviour_not_writable">Le dossier source est en lecture seule ; le fichier sera uniquement téléversé</string>
     <string name="uploader_upload_files_behaviour_only_upload">Conserver le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="uploader_upload_forbidden_permissions">d\'envoyer dans ce dossier</string>
     <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">Téléversement de %2$s : %1$d%%</string>
     <string name="uploader_upload_in_progress_ticker">Téléversement en cours…</string>
-    <string name="uploader_upload_succeeded_content_single">%1$s envoyé</string>
+    <string name="uploader_upload_succeeded_content_single">%1$s téléversé</string>
     <string name="uploader_wrn_no_account_quit_btn_text">Quitter</string>
     <string name="uploader_wrn_no_account_setup_btn_text">Configuration</string>
     <string name="uploader_wrn_no_account_text">Aucun compte %1$s sur l’appareil. Veuillez configurer un compte au préalable.</string>
     <string name="uploader_wrn_no_account_title">Aucun compte n’a été trouvé</string>
     <string name="uploads_view_group_current_uploads">En cours</string>
     <string name="uploads_view_group_failed_uploads">Échec / En attente de reprise</string>
-    <string name="uploads_view_group_finished_uploads">Envoyé</string>
+    <string name="uploads_view_group_finished_uploads">Téléversé</string>
     <string name="uploads_view_group_manually_cancelled_uploads">Annulé</string>
     <string name="uploads_view_later_waiting_to_upload">En attente de téléversement</string>
     <string name="uploads_view_title">Téléversements</string>
@@ -981,7 +989,7 @@
     <string name="uploads_view_upload_status_unknown_fail">Erreur inconnue </string>
     <string name="uploads_view_upload_status_virus_detected">Un virus a été détecté. Le téléversement ne peut donc pas être réalisé !</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">En attente de sortie du mode d’économie d’énergie</string>
-    <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge de l\'appareil</string>
+    <string name="uploads_view_upload_status_waiting_for_charging">En attente de recharge</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">En attente d\'une connexion Wifi non limitée</string>
     <string name="user_icon">Utilisateur</string>
     <string name="user_info_address">Adresse</string>
@@ -1007,7 +1015,7 @@
     <string name="whats_your_status">Quel est votre statut ?</string>
     <string name="widgets_not_available">Les widgets ne sont disponibles que sur %1$s 25 ou plus tard</string>
     <string name="widgets_not_available_title">Non disponible</string>
-    <string name="worker_download">Réception de fichiers…</string>
+    <string name="worker_download">Téléchargement des fichiers…</string>
     <string name="write_email">Envoyer un e-mail</string>
     <string name="wrong_storage_path">Le dossier de stockage des données n\'existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
