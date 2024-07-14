@@ -35,6 +35,8 @@
     <string name="app_widget_description">แสดงหนึ่งวิดเจ็ตจากแดชบอร์ด</string>
     <string name="appbar_search_in">ค้นหาใน %s</string>
     <string name="assistant_screen_all_task_type">ทั้งหมด</string>
+    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">พิมพ์ข้อความของคุณ</string>
+    <string name="assistant_screen_running_task_text">อยู่ระหว่างการดำเนินการ</string>
     <string name="assistant_screen_successful_task_text">เสร็จแล้ว</string>
     <string name="assistant_screen_unknown_task_status_text">ไม่ทราบ</string>
     <string name="associated_account_not_found">ไม่พบบัญชีที่เกี่ยวข้อง!</string>
@@ -171,7 +173,10 @@
     <string name="create">สร้าง</string>
     <string name="create_dir_fail_msg">ไม่สามารถสร้างโฟลเดอร์</string>
     <string name="create_new">ใหม่</string>
+    <string name="create_new_document">สร้างเอกสาร odt ใหม่</string>
     <string name="create_new_folder">โฟลเดอร์ใหม่</string>
+    <string name="create_new_presentation">สร้างงานนำเสนอ odp ใหม่</string>
+    <string name="create_new_spreadsheet">สร้างตารางคำนวณ ods ใหม่</string>
     <string name="credentials_disabled">ข้อมูลประจำตัวถูกปิดใช้งาน</string>
     <string name="daily_backup">สำรองข้อมูลรายวัน</string>
     <string name="data_to_back_up">ข้อมูลที่จะสำรอง</string>
@@ -221,6 +226,7 @@
     <string name="drawer_item_home">หน้าหลัก</string>
     <string name="drawer_item_notifications">การแจ้งเตือน</string>
     <string name="drawer_item_on_device">บนอุปกรณ์</string>
+    <string name="drawer_item_personal_files">ไฟล์ส่วนตัว</string>
     <string name="drawer_item_recently_modified">แก้ไขล่าสุด</string>
     <string name="drawer_item_shared">ถูกแชร์</string>
     <string name="drawer_item_trashbin">ไฟล์ที่ถูกลบ</string>
@@ -231,8 +237,9 @@
     <string name="drawer_quota_unlimited">ใช้ไป %1$s</string>
     <string name="drawer_synced_folders">อัปโหลดอัตโนมัติ</string>
     <string name="e2e_offline">ใช้โดยไม่มีการเชื่อมต่ออินเทอร์เน็ตไม่ได้</string>
-    <string name="ecosystem_apps_display_more">มาก</string>
+    <string name="ecosystem_apps_display_more">เพิ่มเติม</string>
     <string name="ecosystem_apps_display_notes">โน้ต</string>
+    <string name="ecosystem_apps_more">แอพ Nextcloud เพิ่มเติม</string>
     <string name="ecosystem_apps_notes">Nextcloud โน้ต</string>
     <string name="end_to_end_encryption_decrypting">กำลังถอดรหัส…</string>
     <string name="end_to_end_encryption_dialog_close">ปิด</string>
@@ -468,12 +475,17 @@
     <string name="prefs_help">ช่วยเหลือ</string>
     <string name="prefs_imprint">ประทับ</string>
     <string name="prefs_license">สัญญาอนุญาต</string>
+    <string name="prefs_lock">รหัสในการเข้าแอพ</string>
     <string name="prefs_lock_none">ไม่มี</string>
+    <string name="prefs_lock_using_device_credentials">รหัสผ่านโทรศัพท์</string>
+    <string name="prefs_lock_using_passcode">รหัสที่ตั้ง</string>
     <string name="prefs_manage_accounts">บริหารจัดการบัญชี</string>
+    <string name="prefs_recommend">แนะนำแอพให้คนอื่น</string>
     <string name="prefs_show_hidden_files">แสดงไฟล์ที่ซ่อนอยู่</string>
     <string name="prefs_theme_title">ธีม</string>
     <string name="prefs_value_theme_dark">เข้ม</string>
     <string name="prefs_value_theme_light">สว่าง</string>
+    <string name="prefs_value_theme_system">ตั้งตามระบบ</string>
     <string name="preview_image_description">แสดงรูปภาพตัวอย่าง</string>
     <string name="privacy">ความเป็นส่วนตัว</string>
     <string name="recommend_subject">ลอง %1$s บนอุปกรณ์ของคุณ!</string>
@@ -534,9 +546,11 @@
     <string name="storage_camera">กล้อง</string>
     <string name="storage_description_default">ค่าเริ่มต้น</string>
     <string name="storage_downloads">ดาวน์โหลด</string>
+    <string name="sub_folder_rule_year">ปี</string>
     <string name="subject_shared_with_you">\"%1$s\" ได้ถูกแชร์กับคุณ</string>
     <string name="subject_user_shared_with_you">%1$s ได้แชร์ \"%2$s\" กับคุณ</string>
     <string name="sync_conflicts_in_favourites_ticker">ตรวจพบความขัดแย้ง</string>
+    <string name="sync_current_folder_was_removed">โฟลเดอร์ %1$s ไม่มีอยู่อีกต่อไป </string>
     <string name="sync_fail_content">ไม่สามารถซิงค์ %1$s</string>
     <string name="sync_fail_in_favourites_ticker">ไฟล์ Kept-in-sync ล้มเหลว</string>
     <string name="sync_fail_ticker">การผสานข้อมูลล้มเหลว</string>
@@ -574,7 +588,9 @@
     <string name="upload_direct_camera_upload">อัปโหลดจากกล้อง</string>
     <string name="upload_file_dialog_filename">ชื่อไฟล์</string>
     <string name="upload_file_dialog_filetype">ประเภทไฟล์</string>
+    <string name="upload_files">อัพโหลดไฟล์จากเครื่อง</string>
     <string name="upload_list_delete">ลบ</string>
+    <string name="upload_scan_doc_upload">แสกนเอกสารโดยใช้กล้อง</string>
     <string name="upload_sync_conflict">เกิดข้อขัดแย้งของการซิงค์ โปรดแก้ไขด้วยตนเอง</string>
     <string name="upload_unknown_error">ข้อผิดพลาดที่ไม่รู้จัก</string>
     <string name="uploader_btn_alternative_text">เลือก</string>
@@ -628,6 +644,7 @@
     <string name="what_s_new_image">รูปภาพมีอะไรใหม่</string>
     <string name="whats_new_skip">ข้าม</string>
     <string name="whats_new_title">มีอะไรใหม่ใน %1$s</string>
+    <string name="whats_your_status">สถานะของคุณ</string>
     <string name="worker_download">กำลังดาวน์โหลดไฟล์…</string>
     <string name="write_email">ส่งอีเมล</string>
     <string name="wrong_storage_path">โฟลเดอร์จัดเก็บข้อมูลไม่มีอยู่!</string>
