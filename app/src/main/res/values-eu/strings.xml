@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s(e)k ez ditu hainbat kontu onartzen</string>
     <string name="auth_wrong_connection_title">Ezin izan da konexioa ezarri</string>
     <string name="authenticator_activity_cancel_login">Utzi saioa hasiera</string>
+    <string name="authenticator_activity_login_error">Arazo bat egon da zure saioa hasteko eskaera prozesatzean. Mesedez saiatu geroxeago.</string>
     <string name="authenticator_activity_please_complete_login_process">Mesedez, osatu saioa hasteko prozesua zure nabigatzailean</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Jatorrizko karpetan mantendu da, soilik irakurtzeko delako</string>
     <string name="auto_upload_on_wifi">Kargatu soilik mugarik gabeko Wi-Fi bidez</string>
@@ -321,6 +322,7 @@
     <string name="error_showing_encryption_dialog">Errore bat gertatu da enkriptatzea konfiguratzeko elkarrizketa-koadroa erakustean!</string>
     <string name="error_starting_direct_camera_upload">Errorea kamera abiaraztean</string>
     <string name="error_starting_doc_scan">Errorea dokumentuen eskaneatzea abiaraztean</string>
+    <string name="error_uploading_direct_camera_upload">Harturiko multimedia fitxategia igotzeak huts egin du</string>
     <string name="etm_accounts">Kontuak</string>
     <string name="etm_background_execution_count">Denbora 48 ordutan egiten da</string>
     <string name="etm_background_job_created">Sortua</string>
@@ -352,6 +354,7 @@
     <string name="failed_update_ui">Erabiltzaile Interfazea (UI) eguneratzeak huts egin du</string>
     <string name="favorite">Gehitu gogokoetara</string>
     <string name="favorite_icon">Gogokoa</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Ezin da partekaturiko fitxategia eguneratu</string>
     <string name="file_already_exists">Fitxategi-izena dagoeneko existitzen da.</string>
     <string name="file_delete">Ezabatu</string>
     <string name="file_detail_activity_error">Errorea fitxategiaren jarduerak berreskuratzean</string>
@@ -443,6 +446,7 @@
     <string name="foreign_files_success">Fitxategi guztiak mugitu dira</string>
     <string name="forward">Birbidali</string>
     <string name="fourHours">4 ordu</string>
+    <string name="gplay_restriction">Google-k muga jarri die APK/AAB fitxategien deskargei!</string>
     <string name="grid_file_features_live_photo_content_description">Ikono honek zuzeneko argazkiaren erabilgarritasuna adierazten du</string>
     <string name="hidden_file_name_warning">Izen honek ezkutuko fitxategi bat sortzea eragingo du</string>
     <string name="hint_name">Izena</string>
@@ -672,6 +676,7 @@
     <string name="push_notifications_old_login">Ez dago push jakinarazpenik saio zaharkituaren ondorioz. Mesedez, kontua berriz gehitu.</string>
     <string name="push_notifications_temp_error">Push jakinarazpenak ez daude eskuragarri.</string>
     <string name="qr_could_not_be_read">Ezin da QR kodea irakurri!</string>
+    <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Ezin da karpeta aurkitu, sinkronizazio lana bertan behera geratu da</string>
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
     <string name="recommend_text">%1$s zure gailuan erabiltzera gonbidatu nahi zaitut.\n Hemendik deskargatu: %2$s</string>
     <string name="recommend_urls">%1$s edo %2$s</string>
@@ -903,6 +908,7 @@
     <string name="upload_chooser_title">Igo hemendik…</string>
     <string name="upload_content_from_other_apps">Igo edukia beste aplikazioetatik</string>
     <string name="upload_direct_camera_photo">Argazkia</string>
+    <string name="upload_direct_camera_promt">Argazki edo bideorik egin nahi duzu?</string>
     <string name="upload_direct_camera_upload">Igo kameratik</string>
     <string name="upload_direct_camera_video">Bideoa</string>
     <string name="upload_file_dialog_filename">Fitxategiaren izena</string>
@@ -923,6 +929,7 @@
     <string name="upload_local_storage_not_copied">Ezin izan da fitxategia kopiatu biltegiratze lokalera</string>
     <string name="upload_lock_failed">Karpeta blokeatzeak huts egin du</string>
     <string name="upload_manually_cancelled">Igoera bertan behera utzi du erabiltzaileak</string>
+    <string name="upload_notification_manager_start_text">%1$d/%2$d-%3$s</string>
     <string name="upload_old_android">Zifratzea >= Android 5.0 bertsioarekin soilik da posible</string>
     <string name="upload_query_move_foreign_files">Hautatutako fitxategiak ezin dira %1$sra kopiatu ez dagoelako toki nahikorik. Kopiatu ordez bertara mugitu nahi dituzu?</string>
     <string name="upload_quota_exceeded">Biltegiratze kuota gainditu da</string>
