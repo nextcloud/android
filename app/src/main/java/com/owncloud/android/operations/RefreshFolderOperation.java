@@ -697,6 +697,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         if (localFile != null) {
             updatedFile.setFileId(localFile.getFileId());
             updatedFile.setLastSyncDateForData(localFile.getLastSyncDateForData());
+            updatedFile.setInternalFolderSyncTimestamp(localFile.getInternalFolderSyncTimestamp());
             updatedFile.setModificationTimestampAtLastSyncForData(
                 localFile.getModificationTimestampAtLastSyncForData()
                                                                  );

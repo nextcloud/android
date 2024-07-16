@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 81,
-    "identityHash": "082a63031678a67879428f688f02d3b5",
+    "version": 83,
+    "identityHash": "365a8731a100a61ae5029beb74acd02e",
     "entities": [
       {
         "tableName": "arbitrary_data",
@@ -44,7 +44,7 @@
       },
       {
         "tableName": "capabilities",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `assistant` INTEGER, `account` TEXT, `version_mayor` INTEGER, `version_minor` INTEGER, `version_micro` INTEGER, `version_string` TEXT, `version_edition` TEXT, `extended_support` INTEGER, `core_pollinterval` INTEGER, `sharing_api_enabled` INTEGER, `sharing_public_enabled` INTEGER, `sharing_public_password_enforced` INTEGER, `sharing_public_expire_date_enabled` INTEGER, `sharing_public_expire_date_days` INTEGER, `sharing_public_expire_date_enforced` INTEGER, `sharing_public_send_mail` INTEGER, `sharing_public_upload` INTEGER, `sharing_user_send_mail` INTEGER, `sharing_resharing` INTEGER, `sharing_federation_outgoing` INTEGER, `sharing_federation_incoming` INTEGER, `files_bigfilechunking` INTEGER, `files_undelete` INTEGER, `files_versioning` INTEGER, `external_links` INTEGER, `server_name` TEXT, `server_color` TEXT, `server_text_color` TEXT, `server_element_color` TEXT, `server_slogan` TEXT, `server_logo` TEXT, `background_url` TEXT, `end_to_end_encryption` INTEGER, `end_to_end_encryption_keys_exist` INTEGER, `end_to_end_encryption_api_version` TEXT, `activity` INTEGER, `background_default` INTEGER, `background_plain` INTEGER, `richdocument` INTEGER, `richdocument_mimetype_list` TEXT, `richdocument_direct_editing` INTEGER, `richdocument_direct_templates` INTEGER, `richdocument_optional_mimetype_list` TEXT, `sharing_public_ask_for_optional_password` INTEGER, `richdocument_product_name` TEXT, `direct_editing_etag` TEXT, `user_status` INTEGER, `user_status_supports_emoji` INTEGER, `etag` TEXT, `files_locking_version` TEXT, `groupfolders` INTEGER, `drop_account` INTEGER, `security_guard` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `assistant` INTEGER, `account` TEXT, `version_mayor` INTEGER, `version_minor` INTEGER, `version_micro` INTEGER, `version_string` TEXT, `version_edition` TEXT, `extended_support` INTEGER, `core_pollinterval` INTEGER, `sharing_api_enabled` INTEGER, `sharing_public_enabled` INTEGER, `sharing_public_password_enforced` INTEGER, `sharing_public_expire_date_enabled` INTEGER, `sharing_public_expire_date_days` INTEGER, `sharing_public_expire_date_enforced` INTEGER, `sharing_public_send_mail` INTEGER, `sharing_public_upload` INTEGER, `sharing_user_send_mail` INTEGER, `sharing_resharing` INTEGER, `sharing_federation_outgoing` INTEGER, `sharing_federation_incoming` INTEGER, `files_bigfilechunking` INTEGER, `files_undelete` INTEGER, `files_versioning` INTEGER, `external_links` INTEGER, `server_name` TEXT, `server_color` TEXT, `server_text_color` TEXT, `server_element_color` TEXT, `server_slogan` TEXT, `server_logo` TEXT, `background_url` TEXT, `end_to_end_encryption` INTEGER, `end_to_end_encryption_keys_exist` INTEGER, `end_to_end_encryption_api_version` TEXT, `activity` INTEGER, `background_default` INTEGER, `background_plain` INTEGER, `richdocument` INTEGER, `richdocument_mimetype_list` TEXT, `richdocument_direct_editing` INTEGER, `richdocument_direct_templates` INTEGER, `richdocument_optional_mimetype_list` TEXT, `sharing_public_ask_for_optional_password` INTEGER, `richdocument_product_name` TEXT, `direct_editing_etag` TEXT, `user_status` INTEGER, `user_status_supports_emoji` INTEGER, `etag` TEXT, `files_locking_version` TEXT, `groupfolders` INTEGER, `drop_account` INTEGER, `security_guard` INTEGER, `forbidden_filename_characters` INTEGER, `forbidden_filenames` INTEGER, `forbidden_filename_extensions` INTEGER, `forbidden_filename_basenames` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -369,6 +369,30 @@
             "columnName": "security_guard",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "forbiddenFileNameCharacters",
+            "columnName": "forbidden_filename_characters",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "forbiddenFileNames",
+            "columnName": "forbidden_filenames",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "forbiddenFileNameExtensions",
+            "columnName": "forbidden_filename_extensions",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "forbiddenFilenameBaseNames",
+            "columnName": "forbidden_filename_basenames",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -438,7 +462,7 @@
       },
       {
         "tableName": "filelist",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `filename` TEXT, `encrypted_filename` TEXT, `path` TEXT, `path_decrypted` TEXT, `parent` INTEGER, `created` INTEGER, `modified` INTEGER, `content_type` TEXT, `content_length` INTEGER, `media_path` TEXT, `file_owner` TEXT, `last_sync_date` INTEGER, `last_sync_date_for_data` INTEGER, `modified_at_last_sync_for_data` INTEGER, `etag` TEXT, `etag_on_server` TEXT, `share_by_link` INTEGER, `permissions` TEXT, `remote_id` TEXT, `local_id` INTEGER NOT NULL DEFAULT -1, `update_thumbnail` INTEGER, `is_downloading` INTEGER, `favorite` INTEGER, `hidden` INTEGER, `is_encrypted` INTEGER, `etag_in_conflict` TEXT, `shared_via_users` INTEGER, `mount_type` INTEGER, `has_preview` INTEGER, `unread_comments_count` INTEGER, `owner_id` TEXT, `owner_display_name` TEXT, `note` TEXT, `sharees` TEXT, `rich_workspace` TEXT, `metadata_size` TEXT, `metadata_live_photo` TEXT, `locked` INTEGER, `lock_type` INTEGER, `lock_owner` TEXT, `lock_owner_display_name` TEXT, `lock_owner_editor` TEXT, `lock_timestamp` INTEGER, `lock_timeout` INTEGER, `lock_token` TEXT, `tags` TEXT, `metadata_gps` TEXT, `e2e_counter` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `filename` TEXT, `encrypted_filename` TEXT, `path` TEXT, `path_decrypted` TEXT, `parent` INTEGER, `created` INTEGER, `modified` INTEGER, `content_type` TEXT, `content_length` INTEGER, `media_path` TEXT, `file_owner` TEXT, `last_sync_date` INTEGER, `last_sync_date_for_data` INTEGER, `modified_at_last_sync_for_data` INTEGER, `etag` TEXT, `etag_on_server` TEXT, `share_by_link` INTEGER, `permissions` TEXT, `remote_id` TEXT, `local_id` INTEGER NOT NULL DEFAULT -1, `update_thumbnail` INTEGER, `is_downloading` INTEGER, `favorite` INTEGER, `hidden` INTEGER, `is_encrypted` INTEGER, `etag_in_conflict` TEXT, `shared_via_users` INTEGER, `mount_type` INTEGER, `has_preview` INTEGER, `unread_comments_count` INTEGER, `owner_id` TEXT, `owner_display_name` TEXT, `note` TEXT, `sharees` TEXT, `rich_workspace` TEXT, `metadata_size` TEXT, `metadata_live_photo` TEXT, `locked` INTEGER, `lock_type` INTEGER, `lock_owner` TEXT, `lock_owner_display_name` TEXT, `lock_owner_editor` TEXT, `lock_timestamp` INTEGER, `lock_timeout` INTEGER, `lock_token` TEXT, `tags` TEXT, `metadata_gps` TEXT, `e2e_counter` INTEGER, `internal_two_way_sync_timestamp` INTEGER, `internal_two_way_sync_result` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -733,6 +757,18 @@
             "fieldPath": "e2eCounter",
             "columnName": "e2e_counter",
             "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "internalTwoWaySync",
+            "columnName": "internal_two_way_sync_timestamp",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "internalTwoWaySyncResult",
+            "columnName": "internal_two_way_sync_result",
+            "affinity": "TEXT",
             "notNull": false
           }
         ],
@@ -1203,7 +1239,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '082a63031678a67879428f688f02d3b5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '365a8731a100a61ae5029beb74acd02e')"
     ]
   }
 }

@@ -424,8 +424,12 @@ public class StorageMigration {
                 throw new MigrationException(R.string.file_migration_failed_dir_already_exists);
             }
 
-            if (dstFile.getFreeSpace() < FileStorageUtils.getFolderSize(new File(srcFile, MainApp.getDataFolder()))) {
-                throw new MigrationException(R.string.file_migration_failed_not_enough_space);
+            try {
+                if (dstFile.getFreeSpace() < FileStorageUtils.getFolderSize(new File(srcFile, MainApp.getDataFolder()))) {
+                    throw new MigrationException(R.string.file_migration_failed_not_enough_space);
+                }
+            } catch (MigrationException e) {
+                throw new RuntimeException(e);
             }
         }
 

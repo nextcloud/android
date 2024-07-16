@@ -295,6 +295,8 @@ public class SynchronizeFileOperation extends SyncOperation {
     }
 
     private void requestForDownload(OCFile file) {
+        Log_OC.d("InternalTwoWaySyncWork", "download file: " + file.getFileName());
+        
         FileDownloadHelper.Companion.instance().downloadFile(
             mUser,
             file);
