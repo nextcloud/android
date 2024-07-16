@@ -56,8 +56,8 @@ class ContactManager(private val context: Context) {
         val phoneNumber = searchResult.phoneNumber()
 
         contactIds.forEach {
-            val targetEmail = getEmailById(it)
-            val targetPhoneNumber = getPhoneNumberById(it)
+            val targetEmail = getEmailById(it) ?: ""
+            val targetPhoneNumber = getPhoneNumberById(it) ?: ""
             if (targetEmail == email && targetPhoneNumber == phoneNumber) {
                 return it
             }
