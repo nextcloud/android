@@ -106,7 +106,6 @@ public class FileIT extends AbstractOnServerIT {
         assertTrue(new SynchronizeFolderOperation(targetContext,
                                                   folderPath,
                                                   user,
-                                                  System.currentTimeMillis(),
                                                   fileDataStorageManager)
                        .execute(targetContext)
                        .isSuccess());

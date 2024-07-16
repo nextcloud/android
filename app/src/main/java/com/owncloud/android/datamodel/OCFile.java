@@ -116,6 +116,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Nullable
     private GeoLocation geolocation;
     private List<String> tags = new ArrayList<>();
+    private boolean folderSync;
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
@@ -1049,5 +1050,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         } else {
             this.e2eCounter = e2eCounter;
         }
+    }
+
+    public boolean isFolderSync() {
+        return folderSync;
+    }
+
+    public void setFolderSync(boolean folderSync) {
+        this.folderSync = folderSync;
     }
 }

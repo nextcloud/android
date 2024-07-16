@@ -707,7 +707,6 @@ public class OperationsService extends Service {
                             this,                       // TODO remove this dependency from construction time
                             remotePath,
                             user,
-                            System.currentTimeMillis(),  // TODO remove this dependency from construction time
                             fileDataStorageManager
                         );
                         break;

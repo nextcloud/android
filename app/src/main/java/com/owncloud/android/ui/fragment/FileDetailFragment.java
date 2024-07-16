@@ -261,6 +261,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             binding.favorite.setOnClickListener(this);
             binding.overflowMenu.setOnClickListener(this);
             binding.lastModificationTimestamp.setOnClickListener(this);
+            binding.folderSyncButton.setOnClickListener(this);
 
             updateFileDetails(false, false);
         }
@@ -467,8 +468,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             boolean showDetailedTimestamp = !preferences.isShowDetailedTimestampEnabled();
             preferences.setShowDetailedTimestampEnabled(showDetailedTimestamp);
             setFileModificationTimestamp(getFile(), showDetailedTimestamp);
-
-            Log_OC.e(TAG, "Incorrect view clicked!");
+        } else if (id == R.id.folder_sync_button) {
+            getFile().setFolderSync(binding.folderSyncButton.isChecked());
+            storageManager.saveFile(getFile());
         } else {
             Log_OC.e(TAG, "Incorrect view clicked!");
         }
@@ -552,6 +554,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             if (fabMain != null) {
                 fabMain.hide();
             }
+            
+            binding.syncBlock.setVisibility(file.isFolder() ? View.VISIBLE : View.GONE);
+            binding.folderSyncButton.setChecked(file.isFolderSync());
         }
 
         setupViewPager();

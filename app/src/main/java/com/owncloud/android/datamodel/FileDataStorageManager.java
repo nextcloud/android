@@ -556,6 +556,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHAREES, gson.toJson(fileOrFolder.getSharees()));
         cv.put(ProviderTableMeta.FILE_TAGS, gson.toJson(fileOrFolder.getTags()));
         cv.put(ProviderTableMeta.FILE_RICH_WORKSPACE, fileOrFolder.getRichWorkspace());
+        cv.put(ProviderTableMeta.FILE_FOLDER_SYNC, fileOrFolder.isFolderSync());
         return cv;
     }
 
@@ -600,6 +601,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_METADATA_GPS, gson.toJson(file.getGeoLocation()));
         cv.put(ProviderTableMeta.FILE_METADATA_LIVE_PHOTO, file.getLinkedFileIdForLivePhoto());
         cv.put(ProviderTableMeta.FILE_E2E_COUNTER, file.getE2eCounter());
+        cv.put(ProviderTableMeta.FILE_FOLDER_SYNC, file.isFolderSync());
 
         return cv;
     }
@@ -1033,6 +1035,7 @@ public class FileDataStorageManager {
         ocFile.setLivePhoto(fileEntity.getMetadataLivePhoto());
         ocFile.setHidden(nullToZero(fileEntity.getHidden()) == 1);
         ocFile.setE2eCounter(fileEntity.getE2eCounter());
+        ocFile.setFolderSync(nullToZero(fileEntity.getFolderSync()) == 1);
 
         String sharees = fileEntity.getSharees();
         // Surprisingly JSON deserialization causes significant overhead.
@@ -2456,6 +2459,17 @@ public class FileDataStorageManager {
 
     public List<OCFile> getFilesWithSyncConflict(User user) {
         List<FileEntity> fileEntities = fileDao.getFilesWithSyncConflict(user.getAccountName());
+        List<OCFile> files = new ArrayList<>(fileEntities.size());
+
+        for (FileEntity fileEntity : fileEntities) {
+            files.add(createFileInstance(fileEntity));
+        }
+
+        return files;
+    }
+    
+    public List<OCFile> getInternalTwoWaySyncFolders(User user) {
+        List<FileEntity> fileEntities = fileDao.getInternalTwoWaySyncFolders(user.getAccountName());
         List<OCFile> files = new ArrayList<>(fileEntities.size());
 
         for (FileEntity fileEntity : fileEntities) {

@@ -41,8 +41,6 @@ import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-
 /**
  *  Remote operation performing the synchronization of the list of files contained
  *  in a folder identified with its remote path.
@@ -54,9 +52,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 public class SynchronizeFolderOperation extends SyncOperation {
 
     private static final String TAG = SynchronizeFolderOperation.class.getSimpleName();
-
-    /** Time stamp for the synchronization process in progress */
-    private long mCurrentSyncTime;
 
     /** Remote path of the folder to synchronize */
     private String mRemotePath;
@@ -95,17 +90,14 @@ public class SynchronizeFolderOperation extends SyncOperation {
      * @param context         Application context.
      * @param remotePath      Path to synchronize.
      * @param user            Nextcloud account where the folder is located.
-     * @param currentSyncTime Time stamp for the synchronization process in progress.
      */
     public SynchronizeFolderOperation(Context context,
                                       String remotePath,
                                       User user,
-                                      long currentSyncTime,
                                       FileDataStorageManager storageManager) {
         super(storageManager);
 
         mRemotePath = remotePath;
-        mCurrentSyncTime = currentSyncTime;
         this.user = user;
         mContext = context;
         mRemoteFolderChanged = false;
@@ -365,7 +357,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     private void updateLocalStateData(OCFile remoteFile, OCFile localFile, OCFile updatedFile) {
-        updatedFile.setLastSyncDateForProperties(mCurrentSyncTime);
+        updatedFile.setLastSyncDateForProperties(System.currentTimeMillis());
         if (localFile != null) {
             updatedFile.setFileId(localFile.getFileId());
             updatedFile.setLastSyncDateForData(localFile.getLastSyncDateForData());

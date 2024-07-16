@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 81;
+    public static final int DB_VERSION = 82;
 
     private ProviderMeta() {
         // No instance
@@ -120,6 +120,7 @@ public class ProviderMeta {
         public static final String FILE_LOCK_TOKEN = "lock_token";
         public static final String FILE_TAGS = "tags";
         public static final String FILE_E2E_COUNTER = "e2e_counter";
+        public static final String FILE_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync";
 
         public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
                 _ID,
@@ -171,7 +172,8 @@ public class ProviderMeta {
                 FILE_METADATA_LIVE_PHOTO,
                 FILE_E2E_COUNTER,
                 FILE_TAGS,
-                FILE_METADATA_GPS));
+                FILE_METADATA_GPS,
+                FILE_INTERNAL_TWO_WAY_SYNC));
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table

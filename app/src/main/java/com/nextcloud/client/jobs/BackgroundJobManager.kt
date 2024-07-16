@@ -168,4 +168,5 @@ interface BackgroundJobManager {
     fun schedulePeriodicHealthStatus()
     fun startHealthStatus()
     fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean
+    fun scheduleInternal2WaySync()
 }

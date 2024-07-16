@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 81,
-    "identityHash": "082a63031678a67879428f688f02d3b5",
+    "identityHash": "b6c3477fa84f2c11b16548f5b06e2259",
     "entities": [
       {
         "tableName": "arbitrary_data",
@@ -438,7 +438,7 @@
       },
       {
         "tableName": "filelist",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `filename` TEXT, `encrypted_filename` TEXT, `path` TEXT, `path_decrypted` TEXT, `parent` INTEGER, `created` INTEGER, `modified` INTEGER, `content_type` TEXT, `content_length` INTEGER, `media_path` TEXT, `file_owner` TEXT, `last_sync_date` INTEGER, `last_sync_date_for_data` INTEGER, `modified_at_last_sync_for_data` INTEGER, `etag` TEXT, `etag_on_server` TEXT, `share_by_link` INTEGER, `permissions` TEXT, `remote_id` TEXT, `local_id` INTEGER NOT NULL DEFAULT -1, `update_thumbnail` INTEGER, `is_downloading` INTEGER, `favorite` INTEGER, `hidden` INTEGER, `is_encrypted` INTEGER, `etag_in_conflict` TEXT, `shared_via_users` INTEGER, `mount_type` INTEGER, `has_preview` INTEGER, `unread_comments_count` INTEGER, `owner_id` TEXT, `owner_display_name` TEXT, `note` TEXT, `sharees` TEXT, `rich_workspace` TEXT, `metadata_size` TEXT, `metadata_live_photo` TEXT, `locked` INTEGER, `lock_type` INTEGER, `lock_owner` TEXT, `lock_owner_display_name` TEXT, `lock_owner_editor` TEXT, `lock_timestamp` INTEGER, `lock_timeout` INTEGER, `lock_token` TEXT, `tags` TEXT, `metadata_gps` TEXT, `e2e_counter` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `filename` TEXT, `encrypted_filename` TEXT, `path` TEXT, `path_decrypted` TEXT, `parent` INTEGER, `created` INTEGER, `modified` INTEGER, `content_type` TEXT, `content_length` INTEGER, `media_path` TEXT, `file_owner` TEXT, `last_sync_date` INTEGER, `last_sync_date_for_data` INTEGER, `modified_at_last_sync_for_data` INTEGER, `etag` TEXT, `etag_on_server` TEXT, `share_by_link` INTEGER, `permissions` TEXT, `remote_id` TEXT, `local_id` INTEGER NOT NULL DEFAULT -1, `update_thumbnail` INTEGER, `is_downloading` INTEGER, `favorite` INTEGER, `hidden` INTEGER, `is_encrypted` INTEGER, `etag_in_conflict` TEXT, `shared_via_users` INTEGER, `mount_type` INTEGER, `has_preview` INTEGER, `unread_comments_count` INTEGER, `owner_id` TEXT, `owner_display_name` TEXT, `note` TEXT, `sharees` TEXT, `rich_workspace` TEXT, `metadata_size` TEXT, `metadata_live_photo` TEXT, `locked` INTEGER, `lock_type` INTEGER, `lock_owner` TEXT, `lock_owner_display_name` TEXT, `lock_owner_editor` TEXT, `lock_timestamp` INTEGER, `lock_timeout` INTEGER, `lock_token` TEXT, `tags` TEXT, `metadata_gps` TEXT, `e2e_counter` INTEGER, `folder_sync` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -732,6 +732,12 @@
           {
             "fieldPath": "e2eCounter",
             "columnName": "e2e_counter",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "folderSync",
+            "columnName": "folder_sync",
             "affinity": "INTEGER",
             "notNull": false
           }
@@ -1203,7 +1209,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '082a63031678a67879428f688f02d3b5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b6c3477fa84f2c11b16548f5b06e2259')"
     ]
   }
 }
