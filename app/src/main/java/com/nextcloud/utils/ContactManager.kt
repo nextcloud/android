@@ -27,11 +27,8 @@ class ContactManager(private val context: Context) {
         val havePermission = checkSelfPermission(context, Manifest.permission.READ_CONTACTS)
         val displayName = searchResult.displayName()
         val contactId: Long? = if (havePermission && displayName != null) {
-            val contactIds = getContactIds(displayName)
-            if (contactIds.size > 1) {
-                getContactId(searchResult, contactIds)
-            } else {
-                contactIds.firstOrNull()
+            getContactIds(displayName).let { contactIds ->
+                if (contactIds.size > 1) getContactId(searchResult, contactIds) else contactIds.firstOrNull()
             }
         } else {
             null
@@ -58,11 +55,11 @@ class ContactManager(private val context: Context) {
         val email = searchResult.email()
         val phoneNumber = searchResult.phoneNumber()
 
-        for (contactId in contactIds) {
-            val targetEmail = getEmailById(contactId)
-            val targetPhoneNumber = getPhoneNumberById(contactId)
+        contactIds.forEach {
+            val targetEmail = getEmailById(it)
+            val targetPhoneNumber = getPhoneNumberById(it)
             if (targetEmail == email && targetPhoneNumber == phoneNumber) {
-                return contactId
+                return it
             }
         }
 
@@ -70,45 +67,51 @@ class ContactManager(private val context: Context) {
     }
 
     private fun getEmailById(contactId: Long): String? {
-        var email: String? = null
+        var result: String? = null
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Email.ADDRESS)
+        val selection = "${ContactsContract.CommonDataKinds.Email.CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(contactId.toString())
+
         val cursor = context.contentResolver.query(
             ContactsContract.CommonDataKinds.Email.CONTENT_URI,
-            arrayOf(ContactsContract.CommonDataKinds.Email.ADDRESS),
-            "${ContactsContract.CommonDataKinds.Email.CONTACT_ID} = ?",
-            arrayOf(contactId.toString()),
+            projection,
+            selection,
+            selectionArgs,
             null
         )
 
         cursor?.use {
-            if (it.moveToFirst()) {
-                val emailIndex = it.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)
-                if (emailIndex != -1) {
-                    email = it.getString(emailIndex)
-                }
+            val emailIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Email.ADDRESS)
+            while (cursor.moveToNext()) {
+                result = cursor.getString(emailIndex)
             }
         }
-        return email
+
+        return result
     }
 
     private fun getPhoneNumberById(contactId: Long): String? {
-        var phoneNumber: String? = null
+        var result: String? = null
+        val projection = arrayOf(ContactsContract.CommonDataKinds.Phone.NUMBER)
+        val selection = "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} = ?"
+        val selectionArgs = arrayOf(contactId.toString())
+
         val cursor = context.contentResolver.query(
             ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-            arrayOf(ContactsContract.CommonDataKinds.Phone.NUMBER),
-            "${ContactsContract.CommonDataKinds.Phone.CONTACT_ID} = ?",
-            arrayOf(contactId.toString()),
+            projection,
+            selection,
+            selectionArgs,
             null
         )
 
         cursor?.use {
-            if (it.moveToFirst()) {
-                val phoneIndex = it.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                if (phoneIndex != -1) {
-                    phoneNumber = it.getString(phoneIndex)
-                }
+            val phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+            while (cursor.moveToNext()) {
+                result = cursor.getString(phoneIndex)
             }
         }
-        return phoneNumber
+
+        return result
     }
 
     private fun getContactIds(displayName: String): List<Long> {
