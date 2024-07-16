@@ -25,16 +25,19 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.extensions.isServerVersionNewerOrEqual
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchItemViewHolder
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
@@ -100,6 +103,9 @@ class UnifiedSearchFragment :
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
+    @Inject
+    lateinit var accountManager: UserAccountManager
+
     private var listOfHiddenFiles = ArrayList<String>()
     private var showMoreActions = false
 
@@ -134,8 +140,13 @@ class UnifiedSearchFragment :
 
         setupFileDisplayActivity()
         setupAdapter()
-        checkPermissions()
+        if (isServerVersionThirtyOrAbove()) {
+            checkPermissions()
+        }
     }
+
+    private fun isServerVersionThirtyOrAbove(): Boolean =
+        accountManager.isServerVersionNewerOrEqual(NextcloudVersion.nextcloud_30)
 
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -248,6 +259,7 @@ class UnifiedSearchFragment :
     private fun setupAdapter() {
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
         adapter = UnifiedSearchListAdapter(
+            isServerVersionThirtyOrAbove(),
             storageManager,
             this,
             this,

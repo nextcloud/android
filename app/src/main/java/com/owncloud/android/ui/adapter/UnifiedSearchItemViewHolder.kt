@@ -20,20 +20,21 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.model.SearchResultEntryType
+import com.nextcloud.utils.CalendarEventManager
+import com.nextcloud.utils.ContactManager
+import com.nextcloud.utils.extensions.getType
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.interfaces.UnifiedSearchListInterface
 import com.owncloud.android.utils.BitmapUtils
-import com.nextcloud.utils.CalendarEventManager
-import com.nextcloud.utils.ContactManager
-import com.nextcloud.utils.extensions.getType
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.glide.CustomGlideStreamLoader
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
 class UnifiedSearchItemViewHolder(
+    private val isServerVersionThirtyOrAbove: Boolean,
     val binding: UnifiedSearchItemBinding,
     val user: User,
     val clientFactory: ClientFactory,
@@ -90,16 +91,20 @@ class UnifiedSearchItemViewHolder(
     }
 
     private fun searchEntryOnClick(entry: SearchResultEntry, entryType: SearchResultEntryType) {
-        when (entryType) {
-            SearchResultEntryType.Contact -> {
-                contactManager.openContact(entry, listInterface)
+        if (isServerVersionThirtyOrAbove) {
+            when (entryType) {
+                SearchResultEntryType.Contact -> {
+                    contactManager.openContact(entry, listInterface)
+                }
+                SearchResultEntryType.CalendarEvent -> {
+                    calendarEventManager.openCalendarEvent(entry, listInterface)
+                }
+                else -> {
+                    listInterface.onSearchResultClicked(entry)
+                }
             }
-            SearchResultEntryType.CalendarEvent -> {
-                calendarEventManager.openCalendarEvent(entry, listInterface)
-            }
-            else -> {
-                listInterface.onSearchResultClicked(entry)
-            }
+        } else {
+            listInterface.onSearchResultClicked(entry)
         }
     }
 
