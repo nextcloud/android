@@ -34,4 +34,3 @@ fun SearchResultEntry.displayName(): String? = attributes["displayName"]
 fun SearchResultEntry.email(): String? = attributes["email"]
 
 fun SearchResultEntry.phoneNumber(): String? = attributes["phoneNumber"]
-
