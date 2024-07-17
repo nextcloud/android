@@ -24,3 +24,7 @@ fun String.removeFileExtension(): String {
         this
     }
 }
+
+fun dot(): String = "."
+
+fun space(): String = " "
