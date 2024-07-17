@@ -2053,9 +2053,9 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT, capability.getDropAccount().getValue());
         contentValues.put(ProviderTableMeta.CAPABILITIES_SECURITY_GUARD, capability.getSecurityGuard().getValue());
 
-        contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS, capability.getForbiddenFilenameCharacters().getValue());
-        contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES, capability.getForbiddenFilenames().getValue());
-        contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS, capability.getForbiddenFilenameExtension().getValue());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS, capability.getForbiddenFilenameCharactersJson());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES, capability.getForbiddenFilenamesJson());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS, capability.getForbiddenFilenameExtensionJson());
 
         return contentValues;
     }
@@ -2226,9 +2226,9 @@ public class FileDataStorageManager {
             capability.setDropAccount(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_DROP_ACCOUNT));
             capability.setSecurityGuard(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_SECURITY_GUARD));
 
-            capability.setForbiddenFilenameCharacters(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS));
-            capability.setForbiddenFilenames(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES));
-            capability.setForbiddenFilenameExtension(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS));
+            capability.setForbiddenFilenameCharactersJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS));
+            capability.setForbiddenFilenamesJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES));
+            capability.setForbiddenFilenameExtensionJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS));
 
         }
         return capability;

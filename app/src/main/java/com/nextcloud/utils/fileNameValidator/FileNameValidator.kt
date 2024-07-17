@@ -10,22 +10,15 @@ package com.nextcloud.utils.fileNameValidator
 import android.content.Context
 import android.text.TextUtils
 import com.nextcloud.utils.extensions.dot
+import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
+import com.nextcloud.utils.extensions.forbiddenFilenameExtension
+import com.nextcloud.utils.extensions.forbiddenFilenames
 import com.nextcloud.utils.extensions.removeFileExtension
 import com.nextcloud.utils.extensions.space
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.status.OCCapability
 
 object FileNameValidator {
-    private val reservedWindowsChars = "[<>:\"/\\\\|?*]".toRegex()
-    private val reservedUnixChars = "[/<>|:&]".toRegex()
-    private val reservedWindowsNames = listOf(
-        "CON", "PRN", "AUX", "NUL",
-        "COM0", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
-        "COM¹", "COM²", "COM³",
-        "LPT0", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9",
-        "LPT¹", "LPT²", "LPT³"
-    )
-    private val forbiddenFileExtensions = listOf(".filepart", ".part")
 
     /**
      * Checks the validity of a file name.
@@ -61,25 +54,28 @@ object FileNameValidator {
             return it
         }
 
-        if (capability.forbiddenFilenames.isTrue &&
-            (
-                reservedWindowsNames.contains(filename.uppercase()) ||
-                    reservedWindowsNames.contains(filename.removeFileExtension().uppercase())
+        capability.forbiddenFilenamesJson?.let {
+            val forbiddenFilenames = capability.forbiddenFilenames()
+            if (forbiddenFilenames.contains(filename.uppercase()) || forbiddenFilenames.contains(
+                    filename.removeFileExtension().uppercase()
                 )
-        ) {
-            return context.getString(R.string.file_name_validator_error_reserved_names, filename.substringBefore(dot()))
+            ) {
+                return context.getString(
+                    R.string.file_name_validator_error_reserved_names,
+                    filename.substringBefore(dot())
+                )
+            }
         }
 
-        if (capability.forbiddenFilenameExtension.isTrue && forbiddenFileExtensions.any {
-                filename.endsWith(
-                    it,
-                    ignoreCase = true
+        capability.forbiddenFilenameExtensionJson?.let {
+            val forbiddenFilenameExtension = capability.forbiddenFilenameExtension()
+
+            if (forbiddenFilenameExtension.any { filename.endsWith(it, ignoreCase = true) }) {
+                return context.getString(
+                    R.string.file_name_validator_error_forbidden_file_extensions,
+                    filename.substringAfter(dot())
                 )
-            }) {
-            return context.getString(
-                R.string.file_name_validator_error_forbidden_file_extensions,
-                filename.substringAfter(dot())
-            )
+            }
         }
 
         return null
@@ -114,16 +110,19 @@ object FileNameValidator {
 
     @Suppress("ReturnCount")
     private fun checkInvalidCharacters(name: String, capability: OCCapability, context: Context): String? {
-        if (capability.forbiddenFilenameCharacters.isFalse) return null
+        capability.forbiddenFilenameCharactersJson?.let {
+            val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
 
-        val invalidCharacter = name.find {
-            val input = it.toString()
-            input.matches(reservedWindowsChars) || input.matches(reservedUnixChars)
+            val invalidCharacter = forbiddenFilenameCharacters.find { forbiddenSuffix ->
+                name.endsWith(forbiddenSuffix, ignoreCase = true)
+            }
+
+            if (invalidCharacter == null) return null
+
+            return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
         }
 
-        if (invalidCharacter == null) return null
-
-        return context.getString(R.string.file_name_validator_error_invalid_character, invalidCharacter)
+        return null
     }
 
     fun isFileHidden(name: String): Boolean = !TextUtils.isEmpty(name) && name[0] == '.'
