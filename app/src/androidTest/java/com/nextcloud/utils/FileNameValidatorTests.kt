@@ -45,6 +45,15 @@ class FileNameValidatorTests : AbstractIT() {
     }
 
     @Test
+    fun testForbiddenFilenameExtension() {
+        val result = FileNameValidator.checkFileName("my_fav_file.filepart", capability, targetContext)
+        assertEquals(
+            targetContext.getString(R.string.file_name_validator_error_forbidden_file_extensions, "filepart"),
+            result
+        )
+    }
+
+    @Test
     fun testEndsWithSpaceOrPeriod() {
         val result = FileNameValidator.checkFileName("filename ", capability, targetContext)
         assertEquals(targetContext.getString(R.string.file_name_validator_error_ends_with_space_period), result)
