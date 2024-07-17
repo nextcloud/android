@@ -34,6 +34,8 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.utils.HashUtil;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -47,6 +49,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.DownloadFileOperation;
@@ -59,6 +62,7 @@ import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.FileUtil;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import org.nextcloud.providers.cursors.FileCursor;
 import org.nextcloud.providers.cursors.RootCursor;
@@ -468,6 +472,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         Log_OC.d(TAG, "createDocument(), id=" + documentId);
 
         Document folderDocument = toDocument(documentId);
+
+        OCCapability capabilities = CapabilityUtils.getCapability(accountManager.getUser(), getNonNullContext());
+        String errorMessage = FileNameValidator.INSTANCE.checkFileName(displayName, capabilities, getNonNullContext(),null);;
+        if (errorMessage != null) {
+            ContextExtensionsKt.showToast(getNonNullContext(), errorMessage);
+            return null;
+        }
 
         if (DocumentsContract.Document.MIME_TYPE_DIR.equalsIgnoreCase(mimeType)) {
             return createFolder(folderDocument, displayName);
