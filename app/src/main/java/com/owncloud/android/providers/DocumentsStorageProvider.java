@@ -99,6 +99,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
     @Inject UserAccountManager accountManager;
 
+    private boolean isFolderPathValid = true;
+
     @VisibleForTesting
     static final String DOCUMENTID_SEPARATOR = "/";
     private static final int DOCUMENTID_PARTS = 2;
@@ -190,6 +192,11 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public ParcelFileDescriptor openDocument(String documentId, String mode, CancellationSignal cancellationSignal)
         throws FileNotFoundException {
         Log_OC.d(TAG, "openDocument(), id=" + documentId);
+
+        if (!isFolderPathValid) {
+            Log_OC.d(TAG, "Folder path is not valid, operation is cancelled");
+            return null;
+        }
 
         Document document = toDocument(documentId);
         Context context = getNonNullContext();
@@ -351,8 +358,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String renameDocument(String documentId, String displayName) throws FileNotFoundException {
         Log_OC.d(TAG, "renameDocument(), id=" + documentId);
 
-        Document document = toDocument(documentId);
+        String errorMessage = checkFileName(displayName);
+        if (errorMessage != null) {
+            ContextExtensionsKt.showToast(getNonNullContext(), errorMessage);
+            return null;
+        }
 
+        Document document = toDocument(documentId);
         RemoteOperationResult result = new RenameFileOperation(document.getRemotePath(),
                                                                displayName,
                                                                document.getStorageManager())
@@ -373,12 +385,19 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public String copyDocument(String sourceDocumentId, String targetParentDocumentId) throws FileNotFoundException {
         Log_OC.d(TAG, "copyDocument(), id=" + sourceDocumentId);
+        isFolderPathValid = true;
 
-        Document document = toDocument(sourceDocumentId);
-
-        FileDataStorageManager storageManager = document.getStorageManager();
         Document targetFolder = toDocument(targetParentDocumentId);
 
+        String filename = targetFolder.getFile().getFileName();
+        isFolderPathValid = checkFolderPath(filename);
+        if (!isFolderPathValid) {
+            ContextExtensionsKt.showToast(getNonNullContext(), R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
+            return null;
+        }
+
+        Document document = toDocument(sourceDocumentId);
+        FileDataStorageManager storageManager = document.getStorageManager();
         RemoteOperationResult result = new CopyFileOperation(document.getRemotePath(),
                                                              targetFolder.getRemotePath(),
                                                              document.getStorageManager())
@@ -425,10 +444,18 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String moveDocument(String sourceDocumentId, String sourceParentDocumentId, String targetParentDocumentId)
         throws FileNotFoundException {
         Log_OC.d(TAG, "moveDocument(), id=" + sourceDocumentId);
+        isFolderPathValid = true;
 
-        Document document = toDocument(sourceDocumentId);
         Document targetFolder = toDocument(targetParentDocumentId);
 
+        String filename = targetFolder.getFile().getFileName();
+        isFolderPathValid = checkFolderPath(filename);
+        if (!isFolderPathValid) {
+            ContextExtensionsKt.showToast(getNonNullContext(), R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
+            return null;
+        }
+
+        Document document = toDocument(sourceDocumentId);
         RemoteOperationResult result = new MoveFileOperation(document.getRemotePath(),
                                                              targetFolder.getRemotePath(),
                                                              document.getStorageManager())
@@ -467,18 +494,29 @@ public class DocumentsStorageProvider extends DocumentsProvider {
         return result;
     }
 
+    private OCCapability getCapabilities() {
+        return CapabilityUtils.getCapability(accountManager.getUser(), getNonNullContext());
+    }
+
+    private boolean checkFolderPath(String filename) {
+        return FileNameValidator.INSTANCE.checkFolderPath(filename, getCapabilities(), getNonNullContext());
+    }
+
+    private String checkFileName(String filename) {
+        return FileNameValidator.INSTANCE.checkFileName(filename, getCapabilities(), getNonNullContext(),null);
+    }
+
     @Override
     public String createDocument(String documentId, String mimeType, String displayName) throws FileNotFoundException {
         Log_OC.d(TAG, "createDocument(), id=" + documentId);
 
-        Document folderDocument = toDocument(documentId);
-
-        OCCapability capabilities = CapabilityUtils.getCapability(accountManager.getUser(), getNonNullContext());
-        String errorMessage = FileNameValidator.INSTANCE.checkFileName(displayName, capabilities, getNonNullContext(),null);;
+        String errorMessage = checkFileName(displayName);
         if (errorMessage != null) {
             ContextExtensionsKt.showToast(getNonNullContext(), errorMessage);
             return null;
         }
+
+        Document folderDocument = toDocument(documentId);
 
         if (DocumentsContract.Document.MIME_TYPE_DIR.equalsIgnoreCase(mimeType)) {
             return createFolder(folderDocument, displayName);
