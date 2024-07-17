@@ -70,7 +70,12 @@ object FileNameValidator {
             return context.getString(R.string.file_name_validator_error_reserved_names, filename.substringBefore(dot()))
         }
 
-        if (capability.forbiddenFilenameExtension.isTrue && forbiddenFileExtensions.contains(filename.uppercase())) {
+        if (capability.forbiddenFilenameExtension.isTrue && forbiddenFileExtensions.any {
+                filename.endsWith(
+                    it,
+                    ignoreCase = true
+                )
+            }) {
             return context.getString(
                 R.string.file_name_validator_error_forbidden_file_extensions,
                 filename.substringAfter(dot())
