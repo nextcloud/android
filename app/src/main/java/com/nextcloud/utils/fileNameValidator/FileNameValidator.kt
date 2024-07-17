@@ -9,7 +9,9 @@ package com.nextcloud.utils.fileNameValidator
 
 import android.content.Context
 import android.text.TextUtils
+import com.nextcloud.utils.extensions.dot
 import com.nextcloud.utils.extensions.removeFileExtension
+import com.nextcloud.utils.extensions.space
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.status.OCCapability
 
@@ -50,7 +52,7 @@ object FileNameValidator {
             return context.getString(R.string.file_already_exists)
         }
 
-        if (filename.endsWith(" ") || filename.endsWith(".")) {
+        if (filename.endsWith(space()) || filename.endsWith(dot())) {
             return context.getString(R.string.file_name_validator_error_ends_with_space_period)
         }
 
