@@ -25,6 +25,7 @@ object FileNameValidator {
         "LPT0", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9",
         "LPT¹", "LPT²", "LPT³"
     )
+    private val forbiddenFileExtensions = listOf(".filepart", ".part")
 
     /**
      * Checks the validity of a file name.
@@ -66,11 +67,14 @@ object FileNameValidator {
                     reservedWindowsNames.contains(filename.removeFileExtension().uppercase())
                 )
         ) {
-            return context.getString(R.string.file_name_validator_error_reserved_names, filename.substringBefore("."))
+            return context.getString(R.string.file_name_validator_error_reserved_names, filename.substringBefore(dot()))
         }
 
-        if (capability.forbiddenFilenameExtension.isTrue) {
-            // TODO add logic
+        if (capability.forbiddenFilenameExtension.isTrue && forbiddenFileExtensions.contains(filename.uppercase())) {
+            return context.getString(
+                R.string.file_name_validator_error_forbidden_file_extensions,
+                filename.substringAfter(dot())
+            )
         }
 
         return null
