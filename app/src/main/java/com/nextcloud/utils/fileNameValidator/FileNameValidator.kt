@@ -46,7 +46,6 @@ object FileNameValidator {
             return context.getString(R.string.filename_empty)
         }
 
-        // TODO Native Files app can create forbidden file names we need to check it as well
         existedFileNames?.let {
             if (isFileNameAlreadyExist(filename, existedFileNames)) {
                 return context.getString(R.string.file_already_exists)
