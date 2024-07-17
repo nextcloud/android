@@ -385,7 +385,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     @Override
     public String copyDocument(String sourceDocumentId, String targetParentDocumentId) throws FileNotFoundException {
         Log_OC.d(TAG, "copyDocument(), id=" + sourceDocumentId);
-        isFolderPathValid = true;
 
         Document targetFolder = toDocument(targetParentDocumentId);
 
@@ -444,7 +443,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public String moveDocument(String sourceDocumentId, String sourceParentDocumentId, String targetParentDocumentId)
         throws FileNotFoundException {
         Log_OC.d(TAG, "moveDocument(), id=" + sourceDocumentId);
-        isFolderPathValid = true;
 
         Document targetFolder = toDocument(targetParentDocumentId);
 
