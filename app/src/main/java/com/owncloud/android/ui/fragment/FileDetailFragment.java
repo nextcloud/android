@@ -469,7 +469,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             preferences.setShowDetailedTimestampEnabled(showDetailedTimestamp);
             setFileModificationTimestamp(getFile(), showDetailedTimestamp);
         } else if (id == R.id.folder_sync_button) {
-            getFile().setFolderSync(binding.folderSyncButton.isChecked());
+            if (binding.folderSyncButton.isChecked()) {
+                getFile().setInternalFolderSyncTimestamp(0L);    
+            } else {
+                getFile().setInternalFolderSyncTimestamp(-1L);
+            }
+            
             storageManager.saveFile(getFile());
         } else {
             Log_OC.e(TAG, "Incorrect view clicked!");
@@ -556,7 +561,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             }
             
             binding.syncBlock.setVisibility(file.isFolder() ? View.VISIBLE : View.GONE);
-            binding.folderSyncButton.setChecked(file.isFolderSync());
+            binding.folderSyncButton.setChecked(file.isInternalFolderSync());
         }
 
         setupViewPager();

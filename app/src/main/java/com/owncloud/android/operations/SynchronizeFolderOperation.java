@@ -385,8 +385,18 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
-    private void classifyFileForLaterSyncOrDownload(OCFile remoteFile, OCFile localFile) {
-        if (!remoteFile.isFolder()) {
+    private void classifyFileForLaterSyncOrDownload(OCFile remoteFile, OCFile localFile) throws OperationCancelledException {
+        if (remoteFile.isFolder()) {
+            /// to download children files recursively
+            synchronized (mCancellationRequested) {
+                if (mCancellationRequested.get()) {
+                    throw new OperationCancelledException();
+                }
+                startSyncFolderOperation(remoteFile.getRemotePath());
+            }
+
+        } else {
+            /// prepare content synchronization for files (any file, not just favorites)
             SynchronizeFileOperation operation = new SynchronizeFileOperation(
                 localFile,
                 remoteFile,

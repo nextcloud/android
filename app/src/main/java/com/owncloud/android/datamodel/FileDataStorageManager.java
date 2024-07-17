@@ -556,7 +556,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHAREES, gson.toJson(fileOrFolder.getSharees()));
         cv.put(ProviderTableMeta.FILE_TAGS, gson.toJson(fileOrFolder.getTags()));
         cv.put(ProviderTableMeta.FILE_RICH_WORKSPACE, fileOrFolder.getRichWorkspace());
-        cv.put(ProviderTableMeta.FILE_FOLDER_SYNC, fileOrFolder.isFolderSync());
+        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC, fileOrFolder.getInternalFolderSyncTimestamp());
         return cv;
     }
 
@@ -601,7 +601,7 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_METADATA_GPS, gson.toJson(file.getGeoLocation()));
         cv.put(ProviderTableMeta.FILE_METADATA_LIVE_PHOTO, file.getLinkedFileIdForLivePhoto());
         cv.put(ProviderTableMeta.FILE_E2E_COUNTER, file.getE2eCounter());
-        cv.put(ProviderTableMeta.FILE_FOLDER_SYNC, file.isFolderSync());
+        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC, file.getInternalFolderSyncTimestamp());
 
         return cv;
     }
@@ -1035,7 +1035,7 @@ public class FileDataStorageManager {
         ocFile.setLivePhoto(fileEntity.getMetadataLivePhoto());
         ocFile.setHidden(nullToZero(fileEntity.getHidden()) == 1);
         ocFile.setE2eCounter(fileEntity.getE2eCounter());
-        ocFile.setFolderSync(nullToZero(fileEntity.getFolderSync()) == 1);
+        ocFile.setInternalFolderSyncTimestamp(fileEntity.getInternalTwoWaySync());
 
         String sharees = fileEntity.getSharees();
         // Surprisingly JSON deserialization causes significant overhead.
