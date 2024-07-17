@@ -46,10 +46,11 @@ object FileNameValidator {
             return context.getString(R.string.filename_empty)
         }
 
-        // TODO must only work for live type
         // TODO Native Files app can create forbidden file names we need to check it as well
-        if (isFileNameAlreadyExist(filename, existedFileNames ?: mutableSetOf())) {
-            return context.getString(R.string.file_already_exists)
+        existedFileNames?.let {
+            if (isFileNameAlreadyExist(filename, existedFileNames)) {
+                return context.getString(R.string.file_already_exists)
+            }
         }
 
         if (filename.endsWith(space()) || filename.endsWith(dot())) {
