@@ -8,6 +8,7 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
+import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncViewHolderBinding
@@ -19,11 +20,25 @@ class InternalTwoWaySyncViewHolder(val binding: InternalTwoWaySyncViewHolderBind
     fun bind(folder: OCFile, context: Context) {
 
         binding.apply {
+            size.text = DisplayUtils.bytesToHumanReadable(folder.fileLength)
             name.text = folder.decryptedFileName
+            
+            if (folder.internalFolderSyncResult.isEmpty()) {
+                syncResult.visibility = View.GONE
+                syncResultDivider.visibility = View.GONE
+            } else {
+                syncResult.visibility = View.VISIBLE
+                syncResultDivider.visibility = View.VISIBLE
+                syncResult.text = folder.internalFolderSyncResult
+            }
+            
             if (folder.internalFolderSyncTimestamp == 0L) {
                 syncTimestamp.text = context.getString(R.string.internal_two_way_sync_not_yet)
             } else {
-                syncTimestamp.text = DisplayUtils.unixTimeToHumanReadable(folder.internalFolderSyncTimestamp)
+                syncTimestamp.text = DisplayUtils.getRelativeTimestamp(
+                    context,
+                    folder.internalFolderSyncTimestamp
+                )
             }
         }
     }
