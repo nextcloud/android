@@ -113,9 +113,7 @@ object FileNameValidator {
         capability.forbiddenFilenameCharactersJson?.let {
             val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
 
-            val invalidCharacter = forbiddenFilenameCharacters.find { forbiddenSuffix ->
-                name.endsWith(forbiddenSuffix, ignoreCase = true)
-            }
+            val invalidCharacter = forbiddenFilenameCharacters.firstOrNull { name.contains(it) }
 
             if (invalidCharacter == null) return null
 
