@@ -556,7 +556,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHAREES, gson.toJson(fileOrFolder.getSharees()));
         cv.put(ProviderTableMeta.FILE_TAGS, gson.toJson(fileOrFolder.getTags()));
         cv.put(ProviderTableMeta.FILE_RICH_WORKSPACE, fileOrFolder.getRichWorkspace());
-        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC, fileOrFolder.getInternalFolderSyncTimestamp());
+        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP, fileOrFolder.getInternalFolderSyncTimestamp());
+        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_RESULT, fileOrFolder.getInternalFolderSyncResult());
         return cv;
     }
 
@@ -601,7 +602,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_METADATA_GPS, gson.toJson(file.getGeoLocation()));
         cv.put(ProviderTableMeta.FILE_METADATA_LIVE_PHOTO, file.getLinkedFileIdForLivePhoto());
         cv.put(ProviderTableMeta.FILE_E2E_COUNTER, file.getE2eCounter());
-        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC, file.getInternalFolderSyncTimestamp());
+        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP, file.getInternalFolderSyncTimestamp());
+        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_RESULT, file.getInternalFolderSyncResult());
 
         return cv;
     }

@@ -117,6 +117,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private GeoLocation geolocation;
     private List<String> tags = new ArrayList<>();
     private Long internalFolderSyncTimestamp = -1L;
+    private String internalFolderSyncResult = "";
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
@@ -1062,5 +1063,13 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public void setInternalFolderSyncTimestamp(Long internalFolderSyncTimestamp) {
         this.internalFolderSyncTimestamp = internalFolderSyncTimestamp;
+    }
+
+    public String getInternalFolderSyncResult() {
+        return internalFolderSyncResult;
+    }
+
+    public void setInternalFolderSyncResult(String internalFolderSyncResult) {
+        this.internalFolderSyncResult = internalFolderSyncResult;
     }
 }

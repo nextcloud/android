@@ -36,18 +36,19 @@ class InternalTwoWaySyncWork(
 
             for (folder in folders) {
                 Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
-                val success = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager)
+                val operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager)
                     .execute(context)
-                    .isSuccess
 
-                if (!success) {
+                if (operation.isSuccess) {
+                    Log_OC.d(TAG, "Folder ${folder.remotePath}: finished!")
+                } else {
                     Log_OC.d(TAG, "Folder ${folder.remotePath} failed!")
                     result = false
-                } else {
-                    folder.internalFolderSyncTimestamp = System.currentTimeMillis()
-                    fileDataStorageManager.saveFile(folder)
-                    Log_OC.d(TAG, "Folder ${folder.remotePath}: finished!")
                 }
+                
+                folder.internalFolderSyncResult = operation.code.toString()
+                folder.internalFolderSyncTimestamp = System.currentTimeMillis()
+                fileDataStorageManager.saveFile(folder)
             }
         } else {
             Log_OC.d(TAG, "Not starting due to constraints!")
