@@ -2480,4 +2480,18 @@ public class FileDataStorageManager {
 
         return files;
     }
+    
+    public boolean isPartOfInternalTwoWaySync(OCFile file) {
+        if (file.isInternalFolderSync()) {
+            return true;
+        }
+
+        while (file != null && !OCFile.ROOT_PATH.equals(file.getDecryptedRemotePath())) {
+            if (file.isInternalFolderSync()) {
+                return true;
+            }
+            file = getFileById(file.getParentId());
+        }
+        return false;
+    }
 }

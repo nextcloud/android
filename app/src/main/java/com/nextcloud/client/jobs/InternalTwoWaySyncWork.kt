@@ -10,7 +10,7 @@ package com.nextcloud.client.jobs
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -20,43 +20,54 @@ import com.owncloud.android.operations.SynchronizeFolderOperation
 class InternalTwoWaySyncWork(
     private val context: Context,
     params: WorkerParameters,
-    private val user: User,
+    private val userAccountManager: UserAccountManager,
     private val powerManagementService: PowerManagementService,
     private val connectivityService: ConnectivityService
 ) : Worker(context, params) {
     override fun doWork(): Result {
-        val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
+        Log_OC.d(TAG, "Worker started!")
         
-        val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user)
+        
+        
+        
         
         var result = true
 
         if (!powerManagementService.isPowerSavingEnabled || 
             connectivityService.isConnected && !connectivityService.isInternetWalled) {
 
-            for (folder in folders) {
-                Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
-                val operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager)
-                    .execute(context)
-
-                if (operation.isSuccess) {
-                    Log_OC.d(TAG, "Folder ${folder.remotePath}: finished!")
-                } else {
-                    Log_OC.d(TAG, "Folder ${folder.remotePath} failed!")
-                    result = false
-                }
+            val users = userAccountManager.allUsers
+            
+            for (user in users) {
+                val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
+                val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user)
                 
-                folder.internalFolderSyncResult = operation.code.toString()
-                folder.internalFolderSyncTimestamp = System.currentTimeMillis()
-                fileDataStorageManager.saveFile(folder)
+                for (folder in folders) {
+                    Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
+                    val operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager)
+                        .execute(context)
+
+                    if (operation.isSuccess) {
+                        Log_OC.d(TAG, "Folder ${folder.remotePath}: finished!")
+                    } else {
+                        Log_OC.d(TAG, "Folder ${folder.remotePath} failed!")
+                        result = false
+                    }
+
+                    folder.internalFolderSyncResult = operation.code.toString()
+                    folder.internalFolderSyncTimestamp = System.currentTimeMillis()
+                    fileDataStorageManager.saveFile(folder)
+                }
             }
         } else {
             Log_OC.d(TAG, "Not starting due to constraints!")
         }
         
         return if (result) {
+            Log_OC.d(TAG, "Worker finished with success!")
             Result.success()
         } else {
+            Log_OC.d(TAG, "Worker finished with failure!")
             Result.failure()
         }
     }

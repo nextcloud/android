@@ -562,10 +562,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             
             binding.syncBlock.setVisibility(file.isFolder() ? View.VISIBLE : View.GONE);
             
-            
-            
-            binding.folderSyncButton.setChecked(file.isInternalFolderSync());
-            // TODO if any parent folder sync -> checked, but disabled
+            if (file.isInternalFolderSync()) {
+                binding.folderSyncButton.setChecked(file.isInternalFolderSync());    
+            } else {
+                if (storageManager.isPartOfInternalTwoWaySync(file)) {
+                    binding.folderSyncButton.setChecked(true);
+                    binding.folderSyncButton.setEnabled(false);
+                }
+            }
         }
 
         setupViewPager();

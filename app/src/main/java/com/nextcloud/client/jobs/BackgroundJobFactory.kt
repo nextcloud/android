@@ -283,7 +283,7 @@ class BackgroundJobFactory @Inject constructor(
         return InternalTwoWaySyncWork(
             context,
             params,
-            accountManager.user,
+            accountManager,
             powerManagementService,
             connectivityService
         )
