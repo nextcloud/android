@@ -10,6 +10,7 @@ package com.nextcloud.utils.fileNameValidator
 import android.content.Context
 import android.text.TextUtils
 import com.nextcloud.utils.extensions.dot
+import com.nextcloud.utils.extensions.forbiddenFilenameBaseNames
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtension
 import com.nextcloud.utils.extensions.forbiddenFilenames
@@ -52,6 +53,19 @@ object FileNameValidator {
 
         checkInvalidCharacters(filename, capability, context)?.let {
             return it
+        }
+
+        capability.forbiddenFilenameBaseNames?.let {
+            val forbiddenFilenameBaseNames = capability.forbiddenFilenameBaseNames()
+            if (forbiddenFilenameBaseNames.contains(filename.lowercase()) || forbiddenFilenameBaseNames.contains(
+                    filename.removeFileExtension().lowercase()
+                )
+            ) {
+                return context.getString(
+                    R.string.file_name_validator_error_reserved_names,
+                    filename.substringBefore(dot())
+                )
+            }
         }
 
         capability.forbiddenFilenamesJson?.let {
