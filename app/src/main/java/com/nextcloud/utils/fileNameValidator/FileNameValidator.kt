@@ -57,7 +57,8 @@ object FileNameValidator {
         }
 
         capability.forbiddenFilenameBaseNames?.let {
-            val forbiddenFilenameBaseNames = capability.forbiddenFilenameBaseNames()
+            val forbiddenFilenameBaseNames = capability.forbiddenFilenameBaseNames().map { it.lowercase() }
+
             if (forbiddenFilenameBaseNames.contains(filename.lowercase()) || forbiddenFilenameBaseNames.contains(
                     filename.removeFileExtension().lowercase()
                 )
@@ -70,7 +71,8 @@ object FileNameValidator {
         }
 
         capability.forbiddenFilenamesJson?.let {
-            val forbiddenFilenames = capability.forbiddenFilenames()
+            val forbiddenFilenames = capability.forbiddenFilenames().map { it.lowercase() }
+
             if (forbiddenFilenames.contains(filename.uppercase()) || forbiddenFilenames.contains(
                     filename.removeFileExtension().uppercase()
                 )
