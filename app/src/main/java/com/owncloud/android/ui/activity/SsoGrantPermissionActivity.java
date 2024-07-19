@@ -107,7 +107,18 @@ public class SsoGrantPermissionActivity extends BaseActivity {
                 Log_OC.e(TAG, "Error retrieving app icon", e);
             }
 
-            showDialog();
+            MaterialAlertDialogBuilder builder = getMaterialAlertDialogBuilder();
+
+            builder
+                .setView(binding.getRoot())
+                .setCancelable(false)
+                .setPositiveButton(R.string.permission_allow, (dialog, which) -> grantPermission())
+                .setNegativeButton(R.string.permission_deny, (dialog, which) -> exitFailed());
+
+            viewThemeUtils.dialog.colorMaterialAlertDialogBackground(this, builder);
+
+            dialog = builder.create();
+            dialog.show();
 
             Log_OC.v(TAG, "TOKEN-REQUEST: Calling Package: " + packageName);
             Log_OC.v(TAG, "TOKEN-REQUEST: App Name: " + appName);
@@ -118,17 +129,8 @@ public class SsoGrantPermissionActivity extends BaseActivity {
         }
     }
 
-    public void showDialog() {
-        final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
-            .setView(binding.getRoot())
-            .setCancelable(false)
-            .setPositiveButton(R.string.permission_allow, (dialog, which) -> grantPermission())
-            .setNegativeButton(R.string.permission_deny, (dialog, which) -> exitFailed());
-
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(this, builder);
-
-        dialog = builder.create();
-        dialog.show();
+    public MaterialAlertDialogBuilder getMaterialAlertDialogBuilder() {
+        return new MaterialAlertDialogBuilder(this);
     }
 
     @Override
