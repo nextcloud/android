@@ -88,6 +88,29 @@ class UploadFilesActivityIT : AbstractIT() {
         screenshot(sut)
     }
 
+    @Test
+    @ScreenshotTest
+    fun search() {
+        val sut: UploadFilesActivity = activityRule.launchActivity(null)
+
+        sut.runOnUiThread {
+            sut.fileListFragment.setFiles(
+                directories +
+                    listOf(
+                        File("1.txt"),
+                        File("2.pdf"),
+                        File("3.mp3")
+                    )
+            )
+
+            sut.fileListFragment.performSearch("1.txt", arrayListOf(), false)
+        }
+
+        waitForIdleSync()
+        longSleep()
+
+        screenshot(sut.fileListFragment.binding.listRoot)
+    }
     fun fileSelected() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
 
