@@ -128,5 +128,7 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES)
     val forbiddenFileNames: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS)
-    val forbiddenFileNameExtensions: Int?
+    val forbiddenFileNameExtensions: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES)
+    val forbiddenFilenameBaseNames: Int?
 )

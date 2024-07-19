@@ -262,6 +262,7 @@ public class ProviderMeta {
         public static final String CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS = "forbidden_filename_characters";
         public static final String CAPABILITIES_FORBIDDEN_FILENAMES = "forbidden_filenames";
         public static final String CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS = "forbidden_filename_extensions";
+        public static final String CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES = "forbidden_filename_basenames";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";
