@@ -456,7 +456,10 @@ open class FolderPickerActivity :
 
         targetFilePaths?.let { filePaths ->
             if (!isFolderAndFilePathsValid(filePaths)) {
-                DisplayUtils.showSnackMessage(this, R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters)
+                DisplayUtils.showSnackMessage(
+                    this,
+                    R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters
+                )
                 Handler(Looper.getMainLooper()).postDelayed({
                     setResult(RESULT_CANCELED, resultData)
                     finish()

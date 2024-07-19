@@ -25,7 +25,8 @@ object FileNameValidator {
      * Checks the validity of a file name.
      *
      * @param filename The name of the file to validate.
-     * @param capability The capabilities affecting the validation criteria such as forbiddenFilenames, forbiddenCharacters.
+     * @param capability The capabilities affecting the validation criteria
+     * such as forbiddenFilenames, forbiddenCharacters.
      * @param context The context used for retrieving error messages.
      * @param existedFileNames Set of existing file names to avoid duplicates.
      * @return An error message if the filename is invalid, null otherwise.

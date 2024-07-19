@@ -78,11 +78,14 @@ class UriUploader(
                     .map { it as Uri }
                     .map { Pair(it, getRemotePathForUri(it)) }
                     .filter { (_, filename) ->
-                        val isValid = (FileNameValidator.checkFileName(
-                            filename.removePrefix("/"),
-                            mActivity.capabilities,
-                            mActivity, null
-                        ) == null)
+                        val isValid = (
+                            FileNameValidator.checkFileName(
+                                filename.removePrefix("/"),
+                                mActivity.capabilities,
+                                mActivity,
+                                null
+                            ) == null
+                            )
                         if (!isValid && !isInvalidPathMessageDisplayed) {
                             isInvalidPathMessageDisplayed = true
                             DisplayUtils.showSnackMessage(
