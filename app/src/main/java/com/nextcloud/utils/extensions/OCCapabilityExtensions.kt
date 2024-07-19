@@ -21,6 +21,7 @@ fun OCCapability.forbiddenFilenameExtension(): List<String> = jsonToList(forbidd
 
 fun OCCapability.forbiddenFilenameBaseNames(): List<String> = jsonToList(forbiddenFilenameBaseNames)
 
+@Suppress("ReturnCount")
 private fun jsonToList(json: String?): List<String> {
     if (json == null) return emptyList()
 

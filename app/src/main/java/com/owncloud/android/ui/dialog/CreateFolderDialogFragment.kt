@@ -163,7 +163,8 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             val newFolderName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
                 .text.toString().trim { it <= ' ' }
 
-            val errorMessage: String? = FileNameValidator.checkFileName(newFolderName, getOCCapability(), requireContext())
+            val errorMessage: String? =
+                FileNameValidator.checkFileName(newFolderName, getOCCapability(), requireContext())
 
             if (errorMessage != null) {
                 DisplayUtils.showSnackMessage(requireActivity(), errorMessage)

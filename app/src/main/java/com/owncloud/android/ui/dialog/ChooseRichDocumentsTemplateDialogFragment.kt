@@ -306,10 +306,12 @@ class ChooseRichDocumentsTemplateDialogFragment :
             requireContext(),
             fileNames
         )
-        val isExtension = (selectedTemplate == null || !name.equals(
-            DOT + selectedTemplate.extension,
-            ignoreCase = true
-        ))
+        val isExtension = (
+            selectedTemplate == null || !name.equals(
+                DOT + selectedTemplate.extension,
+                ignoreCase = true
+            )
+            )
         val isEnable = isExtension && errorMessage == null
 
         positiveButton?.let {
