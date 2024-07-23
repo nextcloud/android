@@ -69,13 +69,19 @@ public class SsoGrantPermissionActivity extends BaseActivity {
 
     private AlertDialog dialog;
 
+    private DialogSsoGrantPermissionBinding binding;
+
+    public DialogSsoGrantPermissionBinding getBinding() {
+        return binding;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         viewThemeUtils = themeUtilsFactory.withDefaultSchemes();
 
-        DialogSsoGrantPermissionBinding binding = DialogSsoGrantPermissionBinding.inflate(getLayoutInflater());
+        binding = DialogSsoGrantPermissionBinding.inflate(getLayoutInflater());
 
         ComponentName callingActivity = getCallingActivity();
 
@@ -101,7 +107,9 @@ public class SsoGrantPermissionActivity extends BaseActivity {
                 Log_OC.e(TAG, "Error retrieving app icon", e);
             }
 
-            final MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(this)
+            MaterialAlertDialogBuilder builder = getMaterialAlertDialogBuilder();
+
+            builder
                 .setView(binding.getRoot())
                 .setCancelable(false)
                 .setPositiveButton(R.string.permission_allow, (dialog, which) -> grantPermission())
@@ -119,6 +127,10 @@ public class SsoGrantPermissionActivity extends BaseActivity {
             Log_OC.e(TAG, "Calling Package is null");
             setResultAndExit("Request was not executed properly. Use startActivityForResult()");
         }
+    }
+
+    public MaterialAlertDialogBuilder getMaterialAlertDialogBuilder() {
+        return new MaterialAlertDialogBuilder(this);
     }
 
     @Override
