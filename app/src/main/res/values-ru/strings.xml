@@ -34,7 +34,7 @@
     <string name="add_to_cloud">Добавить в %1$s</string>
     <string name="advanced_settings">Дополнительные настройки</string>
     <string name="allow_resharing">Разрешить повторную публикацию</string>
-    <string name="app_config_base_url_title">Базовый URL</string>
+    <string name="app_config_base_url_title">Базовый Url</string>
     <string name="app_config_proxy_host_title">Имя прокси хоста</string>
     <string name="app_config_proxy_port_title">Порт прокси</string>
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
