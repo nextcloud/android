@@ -48,7 +48,13 @@
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">利用可能なタスクがありません。タスクの種類を選択して、新しいタスクを作成してください。</string>
     <string name="assistant_screen_scheduled_task_status_text">スケジュール済</string>
     <string name="assistant_screen_successful_task_text">完了</string>
+    <string name="assistant_screen_task_create_success_message">タスクは正常に作成されました。</string>
+    <string name="assistant_screen_task_delete_fail_message">タスクの削除中にエラーが発生しました。</string>
+    <string name="assistant_screen_task_delete_success_message">タスクは正常に削除されました。</string>
+    <string name="assistant_screen_task_list_error_state_message">タスクリストを取得できません。インターネット接続を確認してください。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">タスクを削除</string>
+    <string name="assistant_screen_task_types_error_state_message">タスクタイプを取得できません。インターネット接続を確認してください。</string>
+    <string name="assistant_screen_top_bar_title">アシスタント</string>
     <string name="assistant_screen_unknown_task_status_text">不明</string>
     <string name="assistant_task_detail_screen_input_button_title">入力</string>
     <string name="assistant_task_detail_screen_output_button_title">出力</string>
@@ -82,6 +88,7 @@
     <string name="auth_unknown_host_title">ホストを見つけられませんでした。</string>
     <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
     <string name="auth_wrong_connection_title">接続を確立できませんでした</string>
+    <string name="authenticator_activity_cancel_login">ログインをキャンセル</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">読み取り専用のため元のフォルダに残しました</string>
     <string name="auto_upload_on_wifi">定額制 Wi-Fi でのみアップロード</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -244,6 +251,7 @@
     <string name="drawer_header_background">ドロワーヘッダーの背景イメージ</string>
     <string name="drawer_item_activities">アクティビティ</string>
     <string name="drawer_item_all_files">すべてのファイル</string>
+    <string name="drawer_item_assistant">アシスタント</string>
     <string name="drawer_item_favorites">お気に入り</string>
     <string name="drawer_item_gallery">メディア</string>
     <string name="drawer_item_home">ホーム</string>
@@ -260,6 +268,7 @@
     <string name="drawer_synced_folders">自動アップロード</string>
     <string name="e2e_not_yet_setup">E2E暗号化が未設定</string>
     <string name="e2e_offline">インターネット接続なしには不可能です</string>
+    <string name="ecosystem_apps_display_assistant">アシスタント</string>
     <string name="ecosystem_apps_display_more">さらに表示</string>
     <string name="ecosystem_apps_display_notes">ノート</string>
     <string name="ecosystem_apps_display_talk">トーク</string>
