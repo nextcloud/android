@@ -929,7 +929,7 @@
     <string name="upload_notification_manager_start_text">%1$d/%2$d - %3$s</string>
     <string name="upload_old_android">암호화는 안드로이드 5.0 이상 가능합니다</string>
     <string name="upload_query_move_foreign_files">공간이 부족해서 선택한 파일을 %1$s 폴더로 복사할 수 없습니다. 대신 이동하시겠습니까?</string>
-    <string name="upload_quota_exceeded">저장소 할당량을 전부 사용함</string>
+    <string name="upload_quota_exceeded">저장소 할당량 초과됨</string>
     <string name="upload_scan_doc_upload">카메라로부터 문서 스캔</string>
     <string name="upload_sync_conflict">동기화 충돌, 수동으로 해결해주세요.</string>
     <string name="upload_unknown_error">알 수 없는 오류</string>
