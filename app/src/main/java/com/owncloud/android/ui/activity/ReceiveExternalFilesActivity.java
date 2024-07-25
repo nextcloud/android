@@ -899,6 +899,10 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     public void uploadFiles() {
+        if (mStreamsToUpload == null) {
+            DisplayUtils.showSnackMessage(this, R.string.receive_external_files_activity_unable_to_find_file_to_upload);
+            return;
+        }
 
         UriUploader uploader = new UriUploader(
             this,
