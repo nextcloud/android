@@ -19,7 +19,7 @@ fun OCCapability.forbiddenFilenameCharacters(): List<String> = jsonToList(forbid
 
 fun OCCapability.forbiddenFilenameExtension(): List<String> = jsonToList(forbiddenFilenameExtensionJson)
 
-fun OCCapability.forbiddenFilenameBaseNames(): List<String> = jsonToList(forbiddenFilenameBaseNames)
+fun OCCapability.forbiddenFilenameBaseNames(): List<String> = jsonToList(forbiddenFilenameBaseNamesJson)
 
 @Suppress("ReturnCount")
 private fun jsonToList(json: String?): List<String> {
