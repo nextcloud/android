@@ -56,7 +56,7 @@ object FileNameValidator {
             return it
         }
 
-        capability.forbiddenFilenameBaseNames?.let {
+        capability.forbiddenFilenameBaseNames().let {
             val forbiddenFilenameBaseNames = capability.forbiddenFilenameBaseNames().map { it.lowercase() }
 
             if (forbiddenFilenameBaseNames.contains(filename.lowercase()) || forbiddenFilenameBaseNames.contains(

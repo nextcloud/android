@@ -2056,7 +2056,7 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS, capability.getForbiddenFilenameCharactersJson());
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES, capability.getForbiddenFilenamesJson());
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS, capability.getForbiddenFilenameExtensionJson());
-        contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES, capability.getForbiddenFilenameBaseNames());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES, capability.getForbiddenFilenameBaseNamesJson());
 
         return contentValues;
     }
@@ -2230,7 +2230,7 @@ public class FileDataStorageManager {
             capability.setForbiddenFilenameCharactersJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS));
             capability.setForbiddenFilenamesJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES));
             capability.setForbiddenFilenameExtensionJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS));
-            capability.setForbiddenFilenameBaseNames(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES));
+            capability.setForbiddenFilenameBaseNamesJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES));
         }
 
         return capability;
