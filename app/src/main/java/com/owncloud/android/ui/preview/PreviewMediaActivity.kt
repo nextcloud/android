@@ -749,16 +749,16 @@ class PreviewMediaActivity :
     override fun onStop() {
         Log_OC.v(TAG, "onStop")
 
-        val file = file
-        if (MimeTypeUtil.isAudio(file) && mediaPlayerServiceConnection?.isPlaying == false) {
-            stopAudio()
-        } else if (MimeTypeUtil.isVideo(file) && exoPlayer != null && exoPlayer?.isPlaying == true) {
-            savedPlaybackPosition = exoPlayer?.currentPosition ?: 0L
-            exoPlayer?.pause()
+        file?.let {
+            if (MimeTypeUtil.isAudio(it) && mediaPlayerServiceConnection?.isPlaying == false) {
+                stopAudio()
+            } else if (MimeTypeUtil.isVideo(it) && exoPlayer != null && exoPlayer?.isPlaying == true) {
+                savedPlaybackPosition = exoPlayer?.currentPosition ?: 0L
+                exoPlayer?.pause()
+            }
         }
 
         mediaPlayerServiceConnection?.unbind()
-
         super.onStop()
     }
 
