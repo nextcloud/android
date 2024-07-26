@@ -116,7 +116,7 @@ object FileNameValidator {
         return checkFolderPath(folderPath, capability, context) && checkFilePaths(filePaths, capability, context)
     }
 
-    fun checkFilePaths(filePaths: List<String>, capability: OCCapability, context: Context): Boolean {
+    private fun checkFilePaths(filePaths: List<String>, capability: OCCapability, context: Context): Boolean {
         return filePaths.all { checkFileName(it, capability, context) == null }
     }
 
