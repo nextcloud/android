@@ -26,7 +26,7 @@ class FileNameValidatorTests : AbstractIT() {
     fun setup() {
         capability = capability.apply {
             forbiddenFilenamesJson = """[".htaccess",".htaccess"]"""
-            forbiddenFilenameBaseNames = """
+            forbiddenFilenameBaseNamesJson = """
                                     ["con", "prn", "aux", "nul", "com0", "com1", "com2", "com3", "com4", 
                                     "com5", "com6", "com7", "com8", "com9", "com¹", "com²", "com³", 
                                     "lpt0", "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6", "lpt7", 
