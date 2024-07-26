@@ -25,12 +25,3 @@ fun SearchResultEntry.getType(): SearchResultEntryType {
         SearchResultEntryType.Unknown
     }
 }
-
-@Suppress("MagicNumber")
-fun SearchResultEntry.createdAt(): Long? = attributes["createdAt"]?.toLongOrNull()?.times(1000L)
-
-fun SearchResultEntry.displayName(): String? = attributes["displayName"]
-
-fun SearchResultEntry.email(): String? = attributes["email"]
-
-fun SearchResultEntry.phoneNumber(): String? = attributes["phoneNumber"]

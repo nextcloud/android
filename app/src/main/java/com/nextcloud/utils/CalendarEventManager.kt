@@ -13,7 +13,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.CalendarContract
-import com.nextcloud.utils.extensions.createdAt
 import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.SearchResultEntry
@@ -74,3 +73,6 @@ class CalendarEventManager(private val context: Context) {
         return null
     }
 }
+
+@Suppress("MagicNumber")
+private fun SearchResultEntry.createdAt(): Long? = attributes["createdAt"]?.toLongOrNull()?.times(1000L)

@@ -12,9 +12,6 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.provider.ContactsContract
-import com.nextcloud.utils.extensions.displayName
-import com.nextcloud.utils.extensions.email
-import com.nextcloud.utils.extensions.phoneNumber
 import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.SearchResultEntry
@@ -139,3 +136,9 @@ class ContactManager(private val context: Context) {
         return result
     }
 }
+
+private fun SearchResultEntry.displayName(): String? = attributes["displayName"]
+
+private fun SearchResultEntry.email(): String? = attributes["email"]
+
+private fun SearchResultEntry.phoneNumber(): String? = attributes["phoneNumber"]

@@ -34,7 +34,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
 class UnifiedSearchItemViewHolder(
-    private val isServerVersionThirtyOrAbove: Boolean,
+    private val supportsOpeningCalendarContactsLocally: Boolean,
     val binding: UnifiedSearchItemBinding,
     val user: User,
     val clientFactory: ClientFactory,
@@ -91,14 +91,16 @@ class UnifiedSearchItemViewHolder(
     }
 
     private fun searchEntryOnClick(entry: SearchResultEntry, entryType: SearchResultEntryType) {
-        if (isServerVersionThirtyOrAbove) {
+        if (supportsOpeningCalendarContactsLocally) {
             when (entryType) {
                 SearchResultEntryType.Contact -> {
                     contactManager.openContact(entry, listInterface)
                 }
+
                 SearchResultEntryType.CalendarEvent -> {
                     calendarEventManager.openCalendarEvent(entry, listInterface)
                 }
+
                 else -> {
                     listInterface.onSearchResultClicked(entry)
                 }
@@ -114,17 +116,11 @@ class UnifiedSearchItemViewHolder(
         mimetype: String?
     ): Drawable {
         val iconId = entryType.run {
-            getIconId()
+            iconId()
         }
 
         val defaultDrawable = MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, viewThemeUtils)
-
-        val drawable: Drawable = if (iconId == null) {
-            defaultDrawable
-        } else {
-            ResourcesCompat.getDrawable(context.resources, iconId, null) ?: defaultDrawable
-        }
-
+        val drawable: Drawable = ResourcesCompat.getDrawable(context.resources, iconId, null) ?: defaultDrawable
         return viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY)
     }
 
