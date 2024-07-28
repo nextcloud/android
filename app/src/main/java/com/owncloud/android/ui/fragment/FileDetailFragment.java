@@ -285,6 +285,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             additionalFilter.add(R.id.action_send_file);
             additionalFilter.add(R.id.action_sync_file);
         }
+        if (getFile().isAPKorAAB()) {
+            additionalFilter.add(R.id.action_download_file);
+            additionalFilter.add(R.id.action_export_file);
+        }
         final FragmentManager fragmentManager = getChildFragmentManager();
         FileActionsBottomSheet.newInstance(file, true, additionalFilter)
             .setResultListener(fragmentManager, this, this::optionsItemSelected)
