@@ -677,6 +677,7 @@
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
     <string name="qr_could_not_be_read">QR-Code konnte nicht gelesen werden!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Ordner nicht gefunden, Synchronisierungsvorgang wurde abgebrochen</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Datei zum Hochladen konnte nicht gefunden werden</string>
     <string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone</string>
     <string name="recommend_text">Ich empfehle Ihnen %1$s auf Ihrem Smartphone zu nutzen.\nHerunterladen: %2$s</string>
     <string name="recommend_urls">%1$s oder %2$s</string>

@@ -677,6 +677,7 @@
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
     <string name="qr_could_not_be_read">QR code could not be read!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Folder cannot be found, sync operation is cancelled</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Unable to find file to upload</string>
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
