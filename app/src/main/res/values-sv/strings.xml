@@ -678,6 +678,7 @@
     <string name="push_notifications_temp_error">Push-aviseringar är inte tillgängligt för tillfället.</string>
     <string name="qr_could_not_be_read">QR-koden kunde inte läsas!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Mappen kan inte hittas, synkroniseringen avbryts</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Kan inte hitta filen att ladda upp</string>
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
     <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nHämta här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
@@ -930,6 +931,7 @@
     <string name="upload_local_storage_not_copied">Filen kunde inte kopieras till lokal lagringsplats</string>
     <string name="upload_lock_failed">Misslyckades låsa mappen</string>
     <string name="upload_manually_cancelled">Uppladdningen avbröts av användaren</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Kryptering är endast möjlig med &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Otillräckligt utrymme förhindrar kopiering av de valda filerna till %1$s -mappen. Vill du flytta dem dit i stället?</string>
     <string name="upload_quota_exceeded">Lagringskvot överskriden</string>

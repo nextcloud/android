@@ -200,6 +200,7 @@
     <string name="create_new_document">Nový dokument</string>
     <string name="create_new_presentation">Nová prezentace</string>
     <string name="create_new_spreadsheet">Nová tabulka</string>
+    <string name="create_rich_workspace">Přidat popis složky</string>
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="daily_backup">Každodenní záloha</string>
     <string name="data_to_back_up">Data k zálohování</string>
@@ -881,6 +882,7 @@
     <string name="upload_local_storage_full">Místní úložiště je plné</string>
     <string name="upload_local_storage_not_copied">Soubor se nepodařilo zkopírovat na místní úložiště</string>
     <string name="upload_lock_failed">Uzamčení složky se nezdařilo</string>
+    <string name="upload_manually_cancelled">Odeslání bylo zrušeno uživatelem</string>
     <string name="upload_old_android">Šifrování je možné pouze na systému Android verze 5.0 a novějším</string>
     <string name="upload_query_move_foreign_files">Pro zkopírování vybraných souborů do složky %1$s není dostatek volného místa. Chcete je tam namísto toho přesunout?</string>
     <string name="upload_quota_exceeded">Kvóta úložiště překročena</string>

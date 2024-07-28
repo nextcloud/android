@@ -681,6 +681,7 @@
     <string name="push_notifications_temp_error">إشعارات الدفع غير متوفرة حاليا.</string>
     <string name="qr_could_not_be_read">لايمكن قراءة رمز QR</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">تعذّر إيجاد المجلد. عملية المزامنة تمّ إلغاؤها</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">تعذّر إيجاد ملف لرفعه</string>
     <string name="recommend_subject">جرب %1$s على جهازك !</string>
     <string name="recommend_text">أريد أن أدعوك لاستخدام %1$s على جهازك
 التنزيل هنا %2$s</string>

@@ -677,6 +677,7 @@
     <string name="push_notifications_temp_error">Níl fógraí brúigh ar fáil faoi láthair.</string>
     <string name="qr_could_not_be_read">Níorbh fhéidir an cód QR a léamh!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Ní féidir fillteán a aimsiú, tá an oibríocht sioncronaithe curtha ar ceal</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Ní féidir an comhad a aimsiú le huaslódáil</string>
     <string name="recommend_subject">Bain triail as %1$s ar do ghléas!</string>
     <string name="recommend_text">Ba mhaith liom cuireadh a thabhairt duit %1$s a úsáid ar do ghléas.\nÍoslódáil anseo: %2$s</string>
     <string name="recommend_urls">%1$s nó %2$s</string>
