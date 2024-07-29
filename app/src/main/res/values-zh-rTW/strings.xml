@@ -677,6 +677,7 @@
     <string name="push_notifications_temp_error">推播通知目前無法使用。</string>
     <string name="qr_could_not_be_read">無法讀取 QR Code！</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">找不到資料夾，同步操作已取消</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">找不到要上傳的檔案</string>
     <string name="recommend_subject">在您的裝置上試用 %1$s！</string>
     <string name="recommend_text">我想邀請您在您的裝置上使用 %1$s。\n在此下載：%2$s</string>
     <string name="recommend_urls">%1$s 或 %2$s</string>
