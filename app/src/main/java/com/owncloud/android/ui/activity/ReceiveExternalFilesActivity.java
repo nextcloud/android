@@ -880,7 +880,7 @@ public class ReceiveExternalFilesActivity extends FileActivity
     }
 
     private boolean somethingToUpload() {
-        return (mStreamsToUpload != null && mStreamsToUpload.size() > 0 && mStreamsToUpload.get(0) != null ||
+        return (mStreamsToUpload != null && !mStreamsToUpload.isEmpty() && mStreamsToUpload.get(0) != null ||
             mUploadFromTmpFile);
     }
 
@@ -901,6 +901,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
     public void uploadFiles() {
         if (mStreamsToUpload == null) {
             DisplayUtils.showSnackMessage(this, R.string.receive_external_files_activity_unable_to_find_file_to_upload);
+            return;
+        }
+
+        if (mStreamsToUpload.size() > FileUploadHelper.MAX_FILE_COUNT) {
+            DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
             return;
         }
 
