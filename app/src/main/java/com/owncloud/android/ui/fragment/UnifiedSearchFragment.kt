@@ -144,11 +144,10 @@ class UnifiedSearchFragment :
         }
     }
 
-    private fun supportsOpeningCalendarContactsLocally(): Boolean =
-        storageManager
-            .getCapability(accountManager.user)
-            .version
-            .isNewerOrEqual(NextcloudVersion.nextcloud_30)
+    private fun supportsOpeningCalendarContactsLocally(): Boolean = storageManager
+        .getCapability(accountManager.user)
+        .version
+        .isNewerOrEqual(NextcloudVersion.nextcloud_30)
 
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
