@@ -33,7 +33,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
  */
 @Suppress("LongParameterList")
 class UnifiedSearchListAdapter(
-    private val isServerVersionThirtyOrAbove: Boolean,
+    private val supportsOpeningCalendarContactsLocally: Boolean,
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
     private val filesAction: UnifiedSearchItemViewHolder.FilesAction,
@@ -74,7 +74,7 @@ class UnifiedSearchListAdapter(
                     false
                 )
                 UnifiedSearchItemViewHolder(
-                    isServerVersionThirtyOrAbove,
+                    supportsOpeningCalendarContactsLocally,
                     binding,
                     user,
                     clientFactory,

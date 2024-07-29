@@ -30,7 +30,6 @@ import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.client.network.ClientFactory
-import com.nextcloud.utils.extensions.isServerVersionNewerOrEqual
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ListFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -140,13 +139,16 @@ class UnifiedSearchFragment :
 
         setupFileDisplayActivity()
         setupAdapter()
-        if (isServerVersionThirtyOrAbove()) {
+        if (supportsOpeningCalendarContactsLocally()) {
             checkPermissions()
         }
     }
 
-    private fun isServerVersionThirtyOrAbove(): Boolean =
-        accountManager.isServerVersionNewerOrEqual(NextcloudVersion.nextcloud_30)
+    private fun supportsOpeningCalendarContactsLocally(): Boolean =
+        storageManager
+            .getCapability(accountManager.user)
+            .version
+            .isNewerOrEqual(NextcloudVersion.nextcloud_30)
 
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -259,7 +261,7 @@ class UnifiedSearchFragment :
     private fun setupAdapter() {
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
         adapter = UnifiedSearchListAdapter(
-            isServerVersionThirtyOrAbove(),
+            supportsOpeningCalendarContactsLocally(),
             storageManager,
             this,
             this,
