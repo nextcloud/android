@@ -189,6 +189,9 @@
             android:name=".ui.activity.SyncedFoldersActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.activity.InternalTwoWaySyncActivity"
+            android:exported="false" />
+        <activity
             android:name="com.nextcloud.client.widget.DashboardWidgetConfigurationActivity"
             android:exported="false">
             <intent-filter>

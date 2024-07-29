@@ -964,9 +964,9 @@ class EncryptionUtilsV2 {
 
         val base64 = EncryptionUtils.encodeStringToBase64String(json)
 
-        // if (!verifySignedMessage(ans, base64, certs)) {
-        //     throw IllegalStateException("Signature does not match")
-        // }
+        if (!verifySignedMessage(ans, base64, certs)) {
+            throw IllegalStateException("Signature does not match")
+        }
 
         val hashedMetadataKey = hashMetadataKey(decryptedFolderMetadataFile.metadata.metadataKey)
         if (!decryptedFolderMetadataFile.metadata.keyChecksums.contains(hashedMetadataKey)) {

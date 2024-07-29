@@ -556,6 +556,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_SHAREES, gson.toJson(fileOrFolder.getSharees()));
         cv.put(ProviderTableMeta.FILE_TAGS, gson.toJson(fileOrFolder.getTags()));
         cv.put(ProviderTableMeta.FILE_RICH_WORKSPACE, fileOrFolder.getRichWorkspace());
+        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP, fileOrFolder.getInternalFolderSyncTimestamp());
+        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_RESULT, fileOrFolder.getInternalFolderSyncResult());
         return cv;
     }
 
@@ -600,6 +602,8 @@ public class FileDataStorageManager {
         cv.put(ProviderTableMeta.FILE_METADATA_GPS, gson.toJson(file.getGeoLocation()));
         cv.put(ProviderTableMeta.FILE_METADATA_LIVE_PHOTO, file.getLinkedFileIdForLivePhoto());
         cv.put(ProviderTableMeta.FILE_E2E_COUNTER, file.getE2eCounter());
+        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP, file.getInternalFolderSyncTimestamp());
+        cv.put(ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_RESULT, file.getInternalFolderSyncResult());
 
         return cv;
     }
@@ -1033,6 +1037,7 @@ public class FileDataStorageManager {
         ocFile.setLivePhoto(fileEntity.getMetadataLivePhoto());
         ocFile.setHidden(nullToZero(fileEntity.getHidden()) == 1);
         ocFile.setE2eCounter(fileEntity.getE2eCounter());
+        ocFile.setInternalFolderSyncTimestamp(fileEntity.getInternalTwoWaySync());
 
         String sharees = fileEntity.getSharees();
         // Surprisingly JSON deserialization causes significant overhead.
@@ -2463,5 +2468,30 @@ public class FileDataStorageManager {
         }
 
         return files;
+    }
+    
+    public List<OCFile> getInternalTwoWaySyncFolders(User user) {
+        List<FileEntity> fileEntities = fileDao.getInternalTwoWaySyncFolders(user.getAccountName());
+        List<OCFile> files = new ArrayList<>(fileEntities.size());
+
+        for (FileEntity fileEntity : fileEntities) {
+            files.add(createFileInstance(fileEntity));
+        }
+
+        return files;
+    }
+    
+    public boolean isPartOfInternalTwoWaySync(OCFile file) {
+        if (file.isInternalFolderSync()) {
+            return true;
+        }
+
+        while (file != null && !OCFile.ROOT_PATH.equals(file.getDecryptedRemotePath())) {
+            if (file.isInternalFolderSync()) {
+                return true;
+            }
+            file = getFileById(file.getParentId());
+        }
+        return false;
     }
 }
