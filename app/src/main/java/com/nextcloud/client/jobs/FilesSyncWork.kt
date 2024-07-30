@@ -93,13 +93,7 @@ class FilesSyncWork(
         )
 
         if (canExitEarly(changedFiles, syncFolderId)) {
-            val result = Result.success()
-            backgroundJobManager.logEndOfWorker(
-                BackgroundJobManagerImpl.formatClassTag(this::class) +
-                    "_" + syncFolderId,
-                result
-            )
-            return result
+            return logEndOfWorker(syncFolderId)
         }
 
         val user = userAccountManager.getUser(syncedFolder.account)
@@ -133,6 +127,10 @@ class FilesSyncWork(
             powerManagementService
         )
 
+        return logEndOfWorker(syncFolderId)
+    }
+
+    private fun logEndOfWorker(syncFolderId: Long): Result {
         Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished")
         val result = Result.success()
         backgroundJobManager.logEndOfWorker(
