@@ -750,14 +750,13 @@ class PreviewMediaActivity :
         Log_OC.v(TAG, "onStop")
 
         file?.let {
-            if (MimeTypeUtil.isAudio(it) && mediaPlayerServiceConnection?.isPlaying == false) {
-                stopAudio()
-            } else if (MimeTypeUtil.isVideo(it) && exoPlayer != null && exoPlayer?.isPlaying == true) {
+            if (MimeTypeUtil.isVideo(it) && exoPlayer != null && exoPlayer?.isPlaying == true) {
                 savedPlaybackPosition = exoPlayer?.currentPosition ?: 0L
-                exoPlayer?.pause()
             }
         }
 
+        exoPlayer?.pause()
+        stopAudio()
         mediaPlayerServiceConnection?.unbind()
         super.onStop()
     }
