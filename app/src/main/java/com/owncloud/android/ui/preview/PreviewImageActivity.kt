@@ -50,6 +50,7 @@ import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
 import com.owncloud.android.ui.preview.model.PreviewImageActivityState
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import java.io.Serializable
@@ -494,6 +495,16 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
     }
 
     private fun startEditImageActivity() {
+        if (file == null) {
+            DisplayUtils.showSnackMessage(this, R.string.preview_image_file_is_not_exist)
+            return
+        }
+
+        if (!file.isDown) {
+            DisplayUtils.showSnackMessage(this, R.string.preview_image_file_is_not_downloaded)
+            return
+        }
+
         val intent = Intent(this, EditImageActivity::class.java).apply {
             putExtra(EditImageActivity.EXTRA_FILE, file)
         }
