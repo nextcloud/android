@@ -755,7 +755,11 @@ class PreviewMediaActivity :
             }
         }
 
-        exoPlayer?.pause()
+
+        if (exoPlayer?.isPlaying == true) {
+            exoPlayer?.pause()
+        }
+
         stopAudio()
         mediaPlayerServiceConnection?.unbind()
         super.onStop()
