@@ -678,6 +678,7 @@
     <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións automáticas.</string>
     <string name="qr_could_not_be_read">Non foi posíbel ler o código QR.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Non é posíbel atopar o cartafol, a operación de sincronización foi cancelada</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Non é posíbel atopar o ficheiro para enviar</string>
     <string name="recommend_subject">Probe %1$s no seu dispositivo!</string>
     <string name="recommend_text">Quixera convidalo a usar %1$s no seu dispositivo.\nDescargueo aquí: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
