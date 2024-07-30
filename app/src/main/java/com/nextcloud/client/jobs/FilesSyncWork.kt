@@ -73,6 +73,28 @@ class FilesSyncWork(
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class) + "_" + syncFolderId)
         Log_OC.d(TAG, "File-sync worker started for folder ID: $syncFolderId")
 
+
+
+        // Create all the providers we'll need
+        val resources = context.resources
+        val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
+        val filesystemDataProvider = FilesystemDataProvider(contentResolver)
+        val currentLocale = resources.configuration.locale
+        val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
+        dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
+
+        // Always first try to schedule uploads to make sure files are uploaded even if worker was killed to early
+        uploadFilesFromFolder(
+            context,
+            resources,
+            lightVersion,
+            filesystemDataProvider,
+            currentLocale,
+            dateFormat,
+            syncedFolder
+        )
+
+
         if (canExitEarly(changedFiles, syncFolderId)) {
             val result = Result.success()
             backgroundJobManager.logEndOfWorker(
@@ -83,14 +105,11 @@ class FilesSyncWork(
             return result
         }
 
-        val resources = context.resources
-        val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
-        FilesSyncHelper.restartUploadsIfNeeded(
-            uploadsStorageManager,
-            userAccountManager,
-            connectivityService,
-            powerManagementService
-        )
+
+        val user = userAccountManager.getUser(syncedFolder.account)
+        if (user.isPresent){
+            backgroundJobManager.startFilesUploadJob(user.get())
+        }
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
         Log_OC.d(
@@ -101,13 +120,7 @@ class FilesSyncWork(
         collectChangedFiles(changedFiles)
         Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished checking files.")
 
-        // Create all the providers we'll need
-        val filesystemDataProvider = FilesystemDataProvider(contentResolver)
-        val currentLocale = resources.configuration.locale
-        val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
-        dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
-
-        syncFolder(
+        uploadFilesFromFolder(
             context,
             resources,
             lightVersion,
@@ -115,6 +128,13 @@ class FilesSyncWork(
             currentLocale,
             dateFormat,
             syncedFolder
+        )
+
+        FilesSyncHelper.restartUploadsIfNeeded(
+            uploadsStorageManager,
+            userAccountManager,
+            connectivityService,
+            powerManagementService
         )
 
         Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished")
@@ -196,7 +216,7 @@ class FilesSyncWork(
     }
 
     @Suppress("LongMethod") // legacy code
-    private fun syncFolder(
+    private fun uploadFilesFromFolder(
         context: Context,
         resources: Resources,
         lightVersion: Boolean,
