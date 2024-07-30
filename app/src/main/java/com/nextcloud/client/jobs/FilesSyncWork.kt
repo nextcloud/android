@@ -73,8 +73,6 @@ class FilesSyncWork(
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class) + "_" + syncFolderId)
         Log_OC.d(TAG, "File-sync worker started for folder ID: $syncFolderId")
 
-
-
         // Create all the providers we'll need
         val resources = context.resources
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
@@ -94,7 +92,6 @@ class FilesSyncWork(
             syncedFolder
         )
 
-
         if (canExitEarly(changedFiles, syncFolderId)) {
             val result = Result.success()
             backgroundJobManager.logEndOfWorker(
@@ -105,9 +102,8 @@ class FilesSyncWork(
             return result
         }
 
-
         val user = userAccountManager.getUser(syncedFolder.account)
-        if (user.isPresent){
+        if (user.isPresent) {
             backgroundJobManager.startFilesUploadJob(user.get())
         }
 
@@ -184,12 +180,17 @@ class FilesSyncWork(
             return true
         }
 
-        val passedScanInterval = (syncedFolder.lastScanTimestampMs +
-            FilesSyncHelper.calculateScanInterval(syncedFolder, connectivityService, powerManagementService)) <= System.currentTimeMillis()
+        val passedScanInterval = (
+            syncedFolder.lastScanTimestampMs +
+                FilesSyncHelper.calculateScanInterval(syncedFolder, connectivityService, powerManagementService)
+            ) <= System.currentTimeMillis()
 
-        if (!passedScanInterval && changedFiles.isNullOrEmpty() && !overridePowerSaving){
-            Log_OC.d(TAG, "File-sync kill worker since started before scan " +
-                "Interval and nothing todo (${syncedFolder.localPath})!")
+        if (!passedScanInterval && changedFiles.isNullOrEmpty() && !overridePowerSaving) {
+            Log_OC.d(
+                TAG,
+                "File-sync kill worker since started before scan " +
+                    "Interval and nothing todo (${syncedFolder.localPath})!"
+            )
             return true
         }
 
