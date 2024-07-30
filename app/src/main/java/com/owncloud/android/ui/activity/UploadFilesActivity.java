@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
@@ -653,6 +654,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public void onConfirmation(String callerTag) {
         Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
+        if (mFileListFragment.getCheckedFilePaths().length > FileUploadHelper.MAX_FILE_COUNT) {
+            DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
+            return;
+        }
+
         if (QUERY_TO_MOVE_DIALOG_TAG.equals(callerTag)) {
             // return the list of selected files to the caller activity (success),
             // signaling that they should be moved to the ownCloud folder, instead of copied
