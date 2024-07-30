@@ -253,7 +253,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
             previewImagePagerAdapter?.let {
                 if (it.itemCount <= 1) {
-                    finish()
+                    backToDisplayActivity()
                     return
                 }
             }
@@ -262,8 +262,8 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
                 initViewPager(user.get())
             }
 
-            previewImagePagerAdapter?.delete(deletePosition)
             viewPager?.setCurrentItem(nextPosition, true)
+            previewImagePagerAdapter?.delete(deletePosition)
         } else if (operation is SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result)
         }
@@ -343,6 +343,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
     }
 
     private fun backToDisplayActivity() {
+        sendRefreshSearchEventBroadcast()
         finish()
     }
 
@@ -355,7 +356,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         }
 
         startActivity(intent)
-        finish()
+        backToDisplayActivity()
     }
 
     override fun showDetails(file: OCFile, activeTab: Int) {
