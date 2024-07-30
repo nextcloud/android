@@ -486,7 +486,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             mCurrentDialog = null;
         }
 
-        if (!hasEnoughSpaceAvailable) {
+        if (hasEnoughSpaceAvailable) {
             // return the list of files (success)
             Intent data = new Intent();
 
