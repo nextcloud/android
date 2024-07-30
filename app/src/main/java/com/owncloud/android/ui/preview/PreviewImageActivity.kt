@@ -258,8 +258,12 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
                 }
             }
 
-            viewPager?.setCurrentItem(nextPosition, true)
+            if (user.isPresent) {
+                initViewPager(user.get())
+            }
+
             previewImagePagerAdapter?.delete(deletePosition)
+            viewPager?.setCurrentItem(nextPosition, true)
         } else if (operation is SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result)
         }
