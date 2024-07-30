@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.fragment
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,6 +17,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.updatePadding
@@ -23,6 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.AsyncRunner
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
@@ -33,6 +36,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.UnifiedSearchItemViewHolder
 import com.owncloud.android.ui.adapter.UnifiedSearchListAdapter
@@ -44,6 +48,7 @@ import com.owncloud.android.ui.unifiedsearch.UnifiedSearchSection
 import com.owncloud.android.ui.unifiedsearch.UnifiedSearchViewModel
 import com.owncloud.android.ui.unifiedsearch.filterOutHiddenFiles
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.PermissionUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -97,8 +102,10 @@ class UnifiedSearchFragment :
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
-    private var listOfHiddenFiles = ArrayList<String>()
+    @Inject
+    lateinit var accountManager: UserAccountManager
 
+    private var listOfHiddenFiles = ArrayList<String>()
     private var showMoreActions = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -132,13 +139,36 @@ class UnifiedSearchFragment :
 
         setupFileDisplayActivity()
         setupAdapter()
+        if (supportsOpeningCalendarContactsLocally()) {
+            checkPermissions()
+        }
     }
+
+    private fun supportsOpeningCalendarContactsLocally(): Boolean = storageManager
+        .getCapability(accountManager.user)
+        .version
+        .isNewerOrEqual(NextcloudVersion.nextcloud_30)
 
     @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         val item = menu.findItem(R.id.action_search)
         setupSearchView(item)
     }
+
+    private fun checkPermissions() {
+        val permissions = arrayOf(Manifest.permission.READ_CONTACTS, Manifest.permission.READ_CALENDAR)
+        if (!PermissionUtil.checkPermissions(requireContext(), permissions)) {
+            permissionLauncher.launch(permissions)
+        }
+    }
+
+    private val permissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val granted = permissions.entries.all { it.value }
+            if (!granted) {
+                DisplayUtils.showSnackMessage(binding.root, R.string.unified_search_fragment_permission_needed)
+            }
+        }
 
     private fun setupSearchView(item: MenuItem) {
         (item.actionView as? SearchView?)?.run {
@@ -230,6 +260,7 @@ class UnifiedSearchFragment :
     private fun setupAdapter() {
         val gridLayoutManager = GridLayoutManager(requireContext(), 1)
         adapter = UnifiedSearchListAdapter(
+            supportsOpeningCalendarContactsLocally(),
             storageManager,
             this,
             this,

@@ -95,6 +95,10 @@ object PermissionUtil {
         else -> checkSelfPermission(context, Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
+    fun checkPermissions(context: Context, permissions: Array<String>): Boolean = permissions.all {
+        ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
+    }
+
     /**
      * Request relevant external storage permission depending on SDK, if needed.
      *
