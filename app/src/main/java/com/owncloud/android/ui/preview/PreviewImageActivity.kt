@@ -273,7 +273,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
     private fun observeWorkerState() {
         WorkerStateLiveData.instance().observe(this) { state: WorkerState? ->
-            when(state) {
+            when (state) {
                 is WorkerState.Download -> {
                     Log_OC.d(TAG, "Download worker started")
                     isDownloadWorkStarted = true

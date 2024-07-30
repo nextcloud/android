@@ -8,5 +8,7 @@
 package com.owncloud.android.ui.preview.model
 
 enum class PreviewImageActivityState {
-    WaitingForBinder, Edit, Idle
+    WaitingForBinder,
+    Edit,
+    Idle
 }
