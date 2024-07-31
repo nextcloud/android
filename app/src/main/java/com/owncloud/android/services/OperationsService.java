@@ -774,23 +774,27 @@ public class OperationsService extends Service {
      * @param operation Finished operation.
      * @param result    Result of the operation.
      */
-    protected void dispatchResultToOperationListeners(
-        final RemoteOperation operation, final RemoteOperationResult result
-                                                     ) {
+    protected void dispatchResultToOperationListeners(final RemoteOperation operation, final RemoteOperationResult result) {
+        if (mOperationsBinder == null) {
+            Log_OC.d(TAG, "mOperationsBinder is null dispatchResultToOperationListeners cancelled");
+            return;
+        }
+
         int count = 0;
-        Iterator<OnRemoteOperationListener> listeners = mOperationsBinder.mBoundListeners.keySet().iterator();
-        while (listeners.hasNext()) {
-            final OnRemoteOperationListener listener = listeners.next();
+
+        for (OnRemoteOperationListener listener : mOperationsBinder.mBoundListeners.keySet()) {
             final Handler handler = mOperationsBinder.mBoundListeners.get(listener);
             if (handler != null) {
                 handler.post(() -> listener.onRemoteOperationFinish(operation, result));
                 count += 1;
             }
         }
+
         if (count == 0) {
             Pair<RemoteOperation, RemoteOperationResult> undispatched = new Pair<>(operation, result);
             mUndispatchedFinishedOperations.put(operation.hashCode(), undispatched);
         }
+
         Log_OC.d(TAG, "Called " + count + " listeners");
     }
 }
