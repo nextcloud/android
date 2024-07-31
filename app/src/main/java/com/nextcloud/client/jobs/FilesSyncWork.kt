@@ -81,6 +81,11 @@ class FilesSyncWork(
         val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
         dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
 
+        if (!setSyncedFolder(syncFolderId)) {
+            Log_OC.d(TAG, "File-sync kill worker since syncedFolder ($syncFolderId) is not enabled!")
+            return logEndOfWorker(syncFolderId)
+        }
+
         // Always first try to schedule uploads to make sure files are uploaded even if worker was killed to early
         uploadFilesFromFolder(
             context,
@@ -155,6 +160,7 @@ class FilesSyncWork(
         // If we are in power save mode better to postpone scan and upload
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
+            Log_OC.d(TAG, "File-sync kill worker since powerSaving is enabled!")
             return true
         }
 
@@ -170,11 +176,6 @@ class FilesSyncWork(
                 "File-sync kill worker since another instance of the worker " +
                     "($syncedFolderID) seems to be running already!"
             )
-            return true
-        }
-
-        if (!setSyncedFolder(syncedFolderID)) {
-            Log_OC.d(TAG, "File-sync kill worker since syncedFolder ($syncedFolderID) is not enabled!")
             return true
         }
 
@@ -212,6 +213,8 @@ class FilesSyncWork(
             // filesystemDataProvider database (potentially needs a long time)
             FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
         }
+        syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
+        syncedFolderProvider.updateSyncFolder(syncedFolder)
     }
 
     @Suppress("LongMethod") // legacy code

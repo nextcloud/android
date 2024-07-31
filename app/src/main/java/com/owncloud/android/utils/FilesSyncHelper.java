@@ -95,8 +95,7 @@ public final class FilesSyncHelper {
     private static void insertCustomFolderIntoDB(Path path,
                                                  SyncedFolder syncedFolder,
                                                  FilesystemDataProvider filesystemDataProvider,
-                                                 long lastCheck,
-                                                 long thisCheck) {
+                                                 long lastCheck) {
 
         final long enabledTimestampMs = syncedFolder.getEnabledTimestampMs();
 
@@ -140,7 +139,6 @@ public final class FilesSyncHelper {
                     return FileVisitResult.CONTINUE;
                 }
             });
-            syncedFolder.setLastScanTimestampMs(thisCheck);
         } catch (IOException e) {
             Log_OC.e(TAG, "Something went wrong while indexing files for auto upload", e);
         }
@@ -155,7 +153,6 @@ public final class FilesSyncHelper {
         if (syncedFolder.isEnabled() && (syncedFolder.isExisting() || enabledTimestampMs >= 0)) {
             MediaFolderType mediaType = syncedFolder.getType();
             final long lastCheckTimestampMs = syncedFolder.getLastScanTimestampMs();
-            final long thisCheckTimestampMs = System.currentTimeMillis();
 
             Log_OC.d(TAG,"File-sync start check folder "+syncedFolder.getLocalPath());
             long startTime = System.nanoTime();
@@ -163,21 +160,21 @@ public final class FilesSyncHelper {
             if (mediaType == MediaFolderType.IMAGE) {
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
                                                     syncedFolder,
-                                                    lastCheckTimestampMs, thisCheckTimestampMs);
+                                                    lastCheckTimestampMs);
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                                                     syncedFolder,
-                                                    lastCheckTimestampMs, thisCheckTimestampMs);
+                                                    lastCheckTimestampMs);
             } else if (mediaType == MediaFolderType.VIDEO) {
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.INTERNAL_CONTENT_URI,
                                                     syncedFolder,
-                                                    lastCheckTimestampMs, thisCheckTimestampMs);
+                                                    lastCheckTimestampMs);
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                                                     syncedFolder,
-                                                    lastCheckTimestampMs, thisCheckTimestampMs);
+                                                    lastCheckTimestampMs);
             } else {
                     FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
                     Path path = Paths.get(syncedFolder.getLocalPath());
-                    FilesSyncHelper.insertCustomFolderIntoDB(path, syncedFolder, filesystemDataProvider, lastCheckTimestampMs, thisCheckTimestampMs);
+                    FilesSyncHelper.insertCustomFolderIntoDB(path, syncedFolder, filesystemDataProvider, lastCheckTimestampMs);
             }
 
             Log_OC.d(TAG,"File-sync finished full check for custom folder "+syncedFolder.getLocalPath()+" within "+(System.nanoTime() - startTime)+ "ns");
@@ -219,7 +216,7 @@ public final class FilesSyncHelper {
     }
 
     private static void insertContentIntoDB(Uri uri, SyncedFolder syncedFolder,
-                                            long lastCheckTimestampMs, long thisCheckTimestampMs) {
+                                            long lastCheckTimestampMs) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
@@ -266,7 +263,6 @@ public final class FilesSyncHelper {
                 }
             }
             cursor.close();
-            syncedFolder.setLastScanTimestampMs(thisCheckTimestampMs);
         }
     }
 
