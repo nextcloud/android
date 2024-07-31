@@ -18,15 +18,11 @@ import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
-import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -34,9 +30,6 @@ import androidx.core.view.MenuItemCompat;
 
 public class PreviewTextStringFragment extends PreviewTextFragment {
     private static final String EXTRA_FILE = "FILE";
-
-    @Inject UserAccountManager accountManager;
-    @Inject ViewThemeUtils viewThemeUtils;
 
     private final static String TAG = "PreviewTextStringFragment";
     private boolean isEditorWebviewLaunched = false;

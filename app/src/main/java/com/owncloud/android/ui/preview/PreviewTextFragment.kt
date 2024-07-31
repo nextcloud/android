@@ -90,8 +90,7 @@ abstract class PreviewTextFragment : FileFragment(), SearchView.OnQueryTextListe
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
-    @JvmField
-    protected var binding: TextFilePreviewBinding? = null
+    protected lateinit var binding: TextFilePreviewBinding
 
     /**
      * {@inheritDoc}
@@ -102,9 +101,9 @@ abstract class PreviewTextFragment : FileFragment(), SearchView.OnQueryTextListe
 
         binding = TextFilePreviewBinding.inflate(inflater, container, false)
 
-        binding?.emptyListProgress?.visibility = View.VISIBLE
+        binding.emptyListProgress.visibility = View.VISIBLE
 
-        return binding?.root
+        return binding.root
     }
 
     override fun onStart() {
@@ -112,11 +111,6 @@ abstract class PreviewTextFragment : FileFragment(), SearchView.OnQueryTextListe
         Log_OC.e(TAG, "onStart")
 
         loadAndShowTextPreview()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        binding = null
     }
 
     abstract fun loadAndShowTextPreview()
@@ -149,19 +143,17 @@ abstract class PreviewTextFragment : FileFragment(), SearchView.OnQueryTextListe
     }
 
     private fun markText(query: String) {
-        binding?.let {
-            if (!TextUtils.isEmpty(query)) {
-                val coloredText = StringUtils.searchAndColor(
-                    originalText,
-                    query,
-                    ContextCompat.getColor(requireContext(), R.color.primary)
-                )
+        if (!TextUtils.isEmpty(query)) {
+            val coloredText = StringUtils.searchAndColor(
+                originalText,
+                query,
+                ContextCompat.getColor(requireContext(), R.color.primary)
+            )
 
-                it.textPreview.setHtmlContent(coloredText.replace("\n", "<br \\>"))
-            } else {
-                val activity = activity ?: return
-                setText(it.textPreview, originalText, file, activity, false, false, viewThemeUtils)
-            }
+            binding.textPreview.setHtmlContent(coloredText.replace("\n", "<br \\>"))
+        } else {
+            val activity = activity ?: return
+            setText(binding.textPreview, originalText, file, activity, false, false, viewThemeUtils)
         }
     }
 
