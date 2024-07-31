@@ -11,7 +11,6 @@ import com.owncloud.android.lib.common.SearchResultEntry
 import com.owncloud.android.ui.unifiedsearch.ProviderID
 
 interface UnifiedSearchListInterface {
-
     fun onSearchResultClicked(searchResultEntry: SearchResultEntry)
     fun onLoadMoreClicked(providerID: ProviderID)
 }

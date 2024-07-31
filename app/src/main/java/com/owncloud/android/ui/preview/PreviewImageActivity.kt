@@ -1,15 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2020-2024 Andy Scherzinger <info@andy-scherzinger.de>
- * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
- * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-FileCopyrightText: 2016 ownCloud Inc.
- * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
- * SPDX-FileCopyrightText: 2013 David A. Velasco <dvelasco@solidgear.es>
- * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.owncloud.android.ui.preview
 
@@ -56,6 +49,8 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.OCFileListFragment
+import com.owncloud.android.ui.preview.model.PreviewImageActivityState
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeTypeUtil
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
 import java.io.Serializable
@@ -65,16 +60,18 @@ import kotlin.math.max
 /**
  * Holds a swiping gallery where image files contained in an Nextcloud directory are shown.
  */
+@Suppress("TooManyFunctions")
 class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnRemoteOperationListener, Injectable {
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
     private var previewImagePagerAdapter: PreviewImagePagerAdapter? = null
     private var savedPosition = 0
     private var hasSavedPosition = false
-    private var requestWaitingForBinder = false
     private var downloadFinishReceiver: DownloadFinishReceiver? = null
     private var fullScreenAnchorView: View? = null
+
     private var isDownloadWorkStarted = false
+    private var screenState = PreviewImageActivityState.Idle
 
     @Inject
     lateinit var preferences: AppPreferences
@@ -115,7 +112,10 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         // to keep our UI controls visibility in line with system bars visibility
         setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
-        requestWaitingForBinder = savedInstanceState?.getBoolean(KEY_WAITING_FOR_BINDER) ?: false
+        val requestWaitingForBinder = savedInstanceState?.getBoolean(KEY_WAITING_FOR_BINDER) ?: false
+        if (requestWaitingForBinder) {
+            screenState = PreviewImageActivityState.WaitingForBinder
+        }
 
         observeWorkerState()
     }
@@ -181,7 +181,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         if (position == 0 && !file.isDown) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
             // adapter does not result in a call to #onPageSelected(0)
-            requestWaitingForBinder = true
+            screenState = PreviewImageActivityState.WaitingForBinder
         }
     }
 
@@ -241,7 +241,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putBoolean(KEY_WAITING_FOR_BINDER, requestWaitingForBinder)
+        outState.putBoolean(KEY_WAITING_FOR_BINDER, screenState == PreviewImageActivityState.WaitingForBinder)
         outState.putBoolean(KEY_SYSTEM_VISIBLE, isSystemUIVisible)
     }
 
@@ -254,9 +254,13 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
             previewImagePagerAdapter?.let {
                 if (it.itemCount <= 1) {
-                    finish()
+                    backToDisplayActivity()
                     return
                 }
+            }
+
+            if (user.isPresent) {
+                initViewPager(user.get())
             }
 
             viewPager?.setCurrentItem(nextPosition, true)
@@ -274,24 +278,48 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
     private fun observeWorkerState() {
         WorkerStateLiveData.instance().observe(this) { state: WorkerState? ->
-            if (state is WorkerState.Download) {
-                Log_OC.d(TAG, "Download worker started")
-                isDownloadWorkStarted = true
+            when (state) {
+                is WorkerState.Download -> {
+                    Log_OC.d(TAG, "Download worker started")
+                    isDownloadWorkStarted = true
 
-                if (requestWaitingForBinder) {
-                    requestWaitingForBinder = false
-                    Log_OC.d(
-                        TAG,
-                        "Simulating reselection of current page after connection " +
-                            "of download binder"
-                    )
-                    selectPage(viewPager?.currentItem)
+                    if (screenState == PreviewImageActivityState.WaitingForBinder) {
+                        selectPageOnDownload()
+                    }
                 }
-            } else {
-                Log_OC.d(TAG, "Download worker stopped")
-                isDownloadWorkStarted = false
+
+                is WorkerState.Idle -> {
+                    Log_OC.d(TAG, "Download worker stopped")
+                    isDownloadWorkStarted = false
+
+                    if (screenState == PreviewImageActivityState.Edit) {
+                        onImageDownloadComplete(state.currentFile)
+                    }
+                }
+
+                else -> {
+                    Log_OC.d(TAG, "Download worker stopped")
+                    isDownloadWorkStarted = false
+                }
             }
         }
+    }
+
+    private fun selectPageOnDownload() {
+        screenState = PreviewImageActivityState.Idle
+        Log_OC.d(
+            TAG,
+            "Simulating reselection of current page after connection " +
+                "of download binder"
+        )
+        selectPage(viewPager?.currentItem)
+    }
+
+    private fun onImageDownloadComplete(downloadedFile: OCFile?) {
+        dismissLoadingDialog()
+        screenState = PreviewImageActivityState.Idle
+        file = downloadedFile
+        startEditImageActivity()
     }
 
     override fun onResume() {
@@ -316,6 +344,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
     }
 
     private fun backToDisplayActivity() {
+        sendRefreshSearchEventBroadcast()
         finish()
     }
 
@@ -328,7 +357,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         }
 
         startActivity(intent)
-        finish()
+        backToDisplayActivity()
     }
 
     override fun showDetails(file: OCFile, activeTab: Int) {
@@ -356,7 +385,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         val currentFile = previewImagePagerAdapter?.getFileAt(position)
 
         if (!isDownloadWorkStarted) {
-            requestWaitingForBinder = true
+            screenState = PreviewImageActivityState.WaitingForBinder
         } else {
             if (currentFile != null) {
                 if (currentFile.isEncrypted && !currentFile.isDown &&
@@ -457,12 +486,29 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
     fun startImageEditor(file: OCFile) {
         if (file.isDown) {
-            val editImageIntent = Intent(this, EditImageActivity::class.java)
-            editImageIntent.putExtra(EditImageActivity.EXTRA_FILE, file)
-            startActivity(editImageIntent)
+            startEditImageActivity()
         } else {
+            showLoadingDialog(getString(R.string.preview_image_downloading_image_for_edit))
+            screenState = PreviewImageActivityState.Edit
             requestForDownload(file, EditImageActivity.OPEN_IMAGE_EDITOR)
         }
+    }
+
+    private fun startEditImageActivity() {
+        if (file == null) {
+            DisplayUtils.showSnackMessage(this, R.string.preview_image_file_is_not_exist)
+            return
+        }
+
+        if (!file.isDown) {
+            DisplayUtils.showSnackMessage(this, R.string.preview_image_file_is_not_downloaded)
+            return
+        }
+
+        val intent = Intent(this, EditImageActivity::class.java).apply {
+            putExtra(EditImageActivity.EXTRA_FILE, file)
+        }
+        startActivity(intent)
     }
 
     override fun onBrowsedDownTo(folder: OCFile) {

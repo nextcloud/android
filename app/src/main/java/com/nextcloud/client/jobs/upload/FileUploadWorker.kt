@@ -124,7 +124,7 @@ class FileUploadWorker(
     }
 
     private fun setIdleWorkerState() {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.Idle)
+        WorkerStateLiveData.instance().setWorkState(WorkerState.Idle(currentUploadFileOperation?.file))
     }
 
     @Suppress("ReturnCount")

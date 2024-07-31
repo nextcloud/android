@@ -129,6 +129,7 @@
     <string name="uploader_error_message_source_file_not_found">File selected for upload not found. Please check whether the file exists.</string>
     <string name="uploader_error_message_source_file_not_copied">Could not copy file to a temporary folder. Try to resend it.</string>
     <string name="uploader_upload_files_behaviour">Upload option:</string>
+    <string name="max_file_count_warning_message">You have reached the maximum file upload limit. Please upload fewer than 500 files at a time.</string>
     <string name="uploader_upload_files_behaviour_move_to_nextcloud_folder">Move file to %1$s folder</string>
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
@@ -419,6 +420,9 @@
     <string name="preview_media_unhandled_http_code_message">File is currently locked by another user or process and therefore not deletable. Please try again later.</string>
 
     <string name="preview_sorry">Sorry</string>
+    <string name="preview_image_file_is_not_exist">File is not exist</string>
+    <string name="preview_image_file_is_not_downloaded">File is not downloaded</string>
+    <string name="preview_image_downloading_image_for_edit">Downloading image to start the edit screen, please wait…</string>
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_unknown_format">Unable to show image</string>
     <string name="preview_image_error_no_local_file">There is no local file to preview</string>
@@ -1209,4 +1213,9 @@
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
     <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
+
+
+    <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
+    <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
+    <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
 </resources>

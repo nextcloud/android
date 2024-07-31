@@ -8,11 +8,12 @@
 package com.nextcloud.model
 
 import com.nextcloud.client.account.User
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
 import com.owncloud.android.operations.DownloadFileOperation
 
 sealed class WorkerState {
-    object Idle : WorkerState()
-    class Download(var user: User?, var currentDownload: DownloadFileOperation?) : WorkerState()
-    class Upload(var user: User?, var uploads: List<OCUpload>) : WorkerState()
+    data class Idle(var currentFile: OCFile?) : WorkerState()
+    data class Download(var user: User?, var currentDownload: DownloadFileOperation?) : WorkerState()
+    data class Upload(var user: User?, var uploads: List<OCUpload>) : WorkerState()
 }
