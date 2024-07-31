@@ -65,7 +65,7 @@ class FilesSyncWork(
 
     private lateinit var syncedFolder: SyncedFolder
 
-    @Suppress("MagicNumber")
+    @Suppress("MagicNumber", "ReturnCount")
     override fun doWork(): Result {
         val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
