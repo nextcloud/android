@@ -128,7 +128,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         }
     }
 
-    void loadAndShowTextPreview() {
+    public void loadAndShowTextPreview() {
         originalText = getFile().getRichWorkspace();
         setText(binding.textPreview, originalText, getFile(), requireActivity(), true, false, viewThemeUtils);
 
