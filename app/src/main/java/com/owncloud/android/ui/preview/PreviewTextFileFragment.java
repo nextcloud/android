@@ -221,7 +221,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 if (searchView != null) {
                     searchView.setOnQueryTextListener(PreviewTextFileFragment.this);
 
-                    if (searchOpen) {
+                    if (searchOpen && searchView != null) {
                         searchView.setQuery(searchQuery, true);
                     }
                 }
