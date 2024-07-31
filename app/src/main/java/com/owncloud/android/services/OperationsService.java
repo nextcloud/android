@@ -776,18 +776,15 @@ public class OperationsService extends Service {
      * @param result    Result of the operation.
      */
     protected void dispatchResultToOperationListeners(final RemoteOperation operation, final RemoteOperationResult result) {
-        if (mOperationsBinder == null) {
-            Log_OC.d(TAG, "mOperationsBinder is null dispatchResultToOperationListeners cancelled");
-            return;
-        }
-
         int count = 0;
 
-        for (OnRemoteOperationListener listener : mOperationsBinder.mBoundListeners.keySet()) {
-            final Handler handler = mOperationsBinder.mBoundListeners.get(listener);
-            if (handler != null) {
-                handler.post(() -> listener.onRemoteOperationFinish(operation, result));
-                count += 1;
+        if (mOperationsBinder != null) {
+            for (OnRemoteOperationListener listener : mOperationsBinder.mBoundListeners.keySet()) {
+                final Handler handler = mOperationsBinder.mBoundListeners.get(listener);
+                if (handler != null) {
+                    handler.post(() -> listener.onRemoteOperationFinish(operation, result));
+                    count += 1;
+                }
             }
         }
 
