@@ -92,7 +92,7 @@ public class IndexedForest<V> {
     public /* synchronized */ Pair<String, String> putIfAbsent(String accountName, String remotePath, V value) {
         String targetKey = buildKey(accountName, remotePath);
 
-        Node<V> valuedNode = new Node(targetKey, value);
+        Node<V> valuedNode = new Node<>(targetKey, value);
         Node<V> previousValue = mMap.putIfAbsent(
             targetKey,
             valuedNode
@@ -111,13 +111,13 @@ public class IndexedForest<V> {
             boolean linked = false;
             while (!OCFile.ROOT_PATH.equals(currentPath) && !linked) {
                 parentPath = new File(currentPath).getParent();
-                if (!parentPath.endsWith(OCFile.PATH_SEPARATOR)) {
+                if (parentPath != null && !parentPath.endsWith(OCFile.PATH_SEPARATOR)) {
                     parentPath += OCFile.PATH_SEPARATOR;
                 }
                 parentKey = buildKey(accountName, parentPath);
                 parentNode = mMap.get(parentKey);
                 if (parentNode == null) {
-                    parentNode = new Node(parentKey, null);
+                    parentNode = new Node<>(parentKey, null);
                     parentNode.addChild(currentNode);
                     mMap.put(parentKey, parentNode);
                 } else {
