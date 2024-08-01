@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2024 Jonas Mayer <jonas.mayer@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
@@ -64,7 +65,7 @@ class FilesSyncWork(
 
     private lateinit var syncedFolder: SyncedFolder
 
-    @Suppress("MagicNumber")
+    @Suppress("MagicNumber", "ReturnCount")
     override fun doWork(): Result {
         val syncFolderId = inputData.getLong(SYNCED_FOLDER_ID, -1)
         val changedFiles = inputData.getStringArray(CHANGED_FILES)
@@ -72,24 +73,38 @@ class FilesSyncWork(
         backgroundJobManager.logStartOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class) + "_" + syncFolderId)
         Log_OC.d(TAG, "File-sync worker started for folder ID: $syncFolderId")
 
-        if (canExitEarly(changedFiles, syncFolderId)) {
-            val result = Result.success()
-            backgroundJobManager.logEndOfWorker(
-                BackgroundJobManagerImpl.formatClassTag(this::class) +
-                    "_" + syncFolderId,
-                result
-            )
-            return result
-        }
-
+        // Create all the providers we'll need
         val resources = context.resources
         val lightVersion = resources.getBoolean(R.bool.syncedFolder_light)
-        FilesSyncHelper.restartUploadsIfNeeded(
-            uploadsStorageManager,
-            userAccountManager,
-            connectivityService,
-            powerManagementService
+        val filesystemDataProvider = FilesystemDataProvider(contentResolver)
+        val currentLocale = resources.configuration.locale
+        val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
+        dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
+
+        if (!setSyncedFolder(syncFolderId)) {
+            Log_OC.d(TAG, "File-sync kill worker since syncedFolder ($syncFolderId) is not enabled!")
+            return logEndOfWorker(syncFolderId)
+        }
+
+        // Always first try to schedule uploads to make sure files are uploaded even if worker was killed to early
+        uploadFilesFromFolder(
+            context,
+            resources,
+            lightVersion,
+            filesystemDataProvider,
+            currentLocale,
+            dateFormat,
+            syncedFolder
         )
+
+        if (canExitEarly(changedFiles, syncFolderId)) {
+            return logEndOfWorker(syncFolderId)
+        }
+
+        val user = userAccountManager.getUser(syncedFolder.account)
+        if (user.isPresent) {
+            backgroundJobManager.startFilesUploadJob(user.get())
+        }
 
         // Get changed files from ContentObserverWork (only images and videos) or by scanning filesystem
         Log_OC.d(
@@ -100,13 +115,7 @@ class FilesSyncWork(
         collectChangedFiles(changedFiles)
         Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished checking files.")
 
-        // Create all the providers we'll need
-        val filesystemDataProvider = FilesystemDataProvider(contentResolver)
-        val currentLocale = resources.configuration.locale
-        val dateFormat = SimpleDateFormat("yyyy:MM:dd HH:mm:ss", currentLocale)
-        dateFormat.timeZone = TimeZone.getTimeZone(TimeZone.getDefault().id)
-
-        syncFolder(
+        uploadFilesFromFolder(
             context,
             resources,
             lightVersion,
@@ -116,6 +125,17 @@ class FilesSyncWork(
             syncedFolder
         )
 
+        FilesSyncHelper.restartUploadsIfNeeded(
+            uploadsStorageManager,
+            userAccountManager,
+            connectivityService,
+            powerManagementService
+        )
+
+        return logEndOfWorker(syncFolderId)
+    }
+
+    private fun logEndOfWorker(syncFolderId: Long): Result {
         Log_OC.d(TAG, "File-sync worker (${syncedFolder.remotePath}) finished")
         val result = Result.success()
         backgroundJobManager.logEndOfWorker(
@@ -140,6 +160,7 @@ class FilesSyncWork(
         // If we are in power save mode better to postpone scan and upload
         val overridePowerSaving = inputData.getBoolean(OVERRIDE_POWER_SAVING, false)
         if ((powerManagementService.isPowerSavingEnabled && !overridePowerSaving)) {
+            Log_OC.d(TAG, "File-sync kill worker since powerSaving is enabled!")
             return true
         }
 
@@ -148,9 +169,8 @@ class FilesSyncWork(
             return true
         }
 
-        // or sync worker already running and no changed files to be processed
-        val alreadyRunning = backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)
-        if (alreadyRunning && changedFiles.isNullOrEmpty()) {
+        // or sync worker already running
+        if (backgroundJobManager.bothFilesSyncJobsRunning(syncedFolderID)) {
             Log_OC.d(
                 TAG,
                 "File-sync kill worker since another instance of the worker " +
@@ -159,8 +179,17 @@ class FilesSyncWork(
             return true
         }
 
-        if (!setSyncedFolder(syncedFolderID)) {
-            Log_OC.d(TAG, "File-sync kill worker since syncedFolder ($syncedFolderID) is not enabled!")
+        val passedScanInterval = (
+            syncedFolder.lastScanTimestampMs +
+                FilesSyncHelper.calculateScanInterval(syncedFolder, connectivityService, powerManagementService)
+            ) <= System.currentTimeMillis()
+
+        if (!passedScanInterval && changedFiles.isNullOrEmpty() && !overridePowerSaving) {
+            Log_OC.d(
+                TAG,
+                "File-sync kill worker since started before scan " +
+                    "Interval and nothing todo (${syncedFolder.localPath})!"
+            )
             return true
         }
 
@@ -184,10 +213,12 @@ class FilesSyncWork(
             // filesystemDataProvider database (potentially needs a long time)
             FilesSyncHelper.insertAllDBEntriesForSyncedFolder(syncedFolder)
         }
+        syncedFolder.lastScanTimestampMs = System.currentTimeMillis()
+        syncedFolderProvider.updateSyncFolder(syncedFolder)
     }
 
     @Suppress("LongMethod") // legacy code
-    private fun syncFolder(
+    private fun uploadFilesFromFolder(
         context: Context,
         resources: Resources,
         lightVersion: Boolean,
