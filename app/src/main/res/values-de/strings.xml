@@ -512,6 +512,7 @@
     <string name="manage_space_clear_data">Daten löschen</string>
     <string name="manage_space_description">Einstellungen, Datenbank und Server-Zertifikate von %1$s\'s Daten werden dauerhaft gelöscht.\n\nHerunter geladene Dateien bleiben unangetastet.\n\nDieser Vorgang kann eine Zeit dauern.</string>
     <string name="manage_space_title">Verwalte Speicherplatz</string>
+    <string name="max_file_count_warning_message">Sie haben die maximale Anzahl an Datei-Uploads erreicht. Bitte laden Sie weniger als 500 Dateien gleichzeitig hoch.</string>
     <string name="media_err_invalid_progressive_playback">Die Mediendatei kann nicht gestreamt werden</string>
     <string name="media_err_io">Konnte die Mediendatei nicht lesen</string>
     <string name="media_err_malformed">Mediendatei ist nicht korrekt encodiert</string>
@@ -666,8 +667,11 @@
     <string name="prefs_value_theme_light">Hell</string>
     <string name="prefs_value_theme_system">Systemvorgaben verwenden</string>
     <string name="preview_image_description">Bildvorschau</string>
+    <string name="preview_image_downloading_image_for_edit">Bild wird für das Bearbeiten heruntergeladen, bitte warten…</string>
     <string name="preview_image_error_no_local_file">Keine lokale Datei für die Vorschau vorhanden</string>
     <string name="preview_image_error_unknown_format">Bild kann nicht angezeigt werden</string>
+    <string name="preview_image_file_is_not_downloaded">Datei nicht heruntergeladen</string>
+    <string name="preview_image_file_is_not_exist">Datei existiert nicht</string>
     <string name="preview_media_unhandled_http_code_message">Die Datei ist derzeit von einem anderen Benutzer oder Prozess gesperrt und kann daher nicht gelöscht werden. Bitte später noch einmal versuchen.</string>
     <string name="preview_sorry">Entschuldigung</string>
     <string name="privacy">Datenschutz</string>
@@ -885,6 +889,9 @@
     <string name="trashbin_file_remove">Endgültig löschen</string>
     <string name="trashbin_loading_failed">Laden des Papierkorbs fehlgeschlagen!</string>
     <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Termin nicht gefunden, Sie können jederzeit die Synchronisierung wiederholen. Weiterleiten zum Web…</string>
+    <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web…</string>
+    <string name="unified_search_fragment_permission_needed">Berechtigungen für das Öffnen der Suchergebnisse notwendig, ansonsten werden Sie zum Web weitergeleitet</string>
     <string name="unlock_file">Datei entsperren</string>
     <string name="unread_comments">Es gibt  ungelesene Kommentare</string>
     <string name="unset_encrypted">Verschlüsselung aufheben</string>

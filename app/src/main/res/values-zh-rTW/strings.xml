@@ -512,6 +512,7 @@
     <string name="manage_space_clear_data">清除資料</string>
     <string name="manage_space_description">來自 %1$s 的設定，資料庫與伺服器憑證相關資料將被永久刪除，已下載的檔案將不會變動，此過程需要花費一些時間。</string>
     <string name="manage_space_title">管理空間</string>
+    <string name="max_file_count_warning_message">您已達最大檔案上傳限制。一次上傳僅能上傳少於 500 個檔案。</string>
     <string name="media_err_invalid_progressive_playback">此媒體檔案無法被串流播放</string>
     <string name="media_err_io">無法讀取媒體檔案</string>
     <string name="media_err_malformed">媒體檔案編碼不正確</string>
@@ -666,8 +667,11 @@
     <string name="prefs_value_theme_light">淺色</string>
     <string name="prefs_value_theme_system">跟隨系統</string>
     <string name="preview_image_description">圖片預覽</string>
+    <string name="preview_image_downloading_image_for_edit">正在下載影像以啟動編輯畫面，請稍候……</string>
     <string name="preview_image_error_no_local_file">沒有可供預覽的本機檔案</string>
     <string name="preview_image_error_unknown_format">無法顯示圖片</string>
+    <string name="preview_image_file_is_not_downloaded">檔案未下載</string>
+    <string name="preview_image_file_is_not_exist">檔案不存在</string>
     <string name="preview_media_unhandled_http_code_message">檔案目前已被其他使用者或處理程序鎖定，因此無法刪除。請稍後再試。</string>
     <string name="preview_sorry">很抱歉</string>
     <string name="privacy">隱私權</string>
@@ -885,6 +889,9 @@
     <string name="trashbin_file_remove">永久刪除</string>
     <string name="trashbin_loading_failed">載入回收桶失敗！</string>
     <string name="trashbin_not_emptied">無法永久刪除檔案！</string>
+    <string name="unified_search_fragment_calendar_event_not_found">找不到活動，您隨時可以同步更新。正在重新導向至網路……</string>
+    <string name="unified_search_fragment_contact_not_found">找不到聯絡人，您隨時可以同步更新。正在重新導向至網路……</string>
+    <string name="unified_search_fragment_permission_needed">開啟搜尋結果需要權限，否則其將會重新導向至網路……</string>
     <string name="unlock_file">解鎖檔案</string>
     <string name="unread_comments">有未讀留言</string>
     <string name="unset_encrypted">取消加密</string>
