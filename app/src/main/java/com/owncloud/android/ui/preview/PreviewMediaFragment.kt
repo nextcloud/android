@@ -13,6 +13,7 @@ package com.owncloud.android.ui.preview
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
@@ -125,14 +126,8 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let { bundle ->
-            file.logFileSize(TAG)
-            file = bundle.getParcelableArgument(FILE, OCFile::class.java)
-            user = bundle.getParcelableArgument(USER, User::class.java)
-
-            savedPlaybackPosition = bundle.getLong(PLAYBACK_POSITION)
-            autoplay = bundle.getBoolean(AUTOPLAY)
-            isLivePhoto = bundle.getBoolean(IS_LIVE_PHOTO)
+        arguments?.let {
+            initArguments(it)
         }
 
         mediaPlayerServiceConnection = PlayerServiceConnection(requireContext())
@@ -147,6 +142,43 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
         setLoadingView()
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Log_OC.v(TAG, "onActivityCreated")
+
+        checkArgumentsAfterViewCreation(savedInstanceState)
+
+        if (file != null) {
+            prepareExoPlayerView()
+        }
+
+        toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        addMenuHost()
+        prepareMedia()
+    }
+
+    private fun checkArgumentsAfterViewCreation(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            checkNotNull(file) { "Instanced with a NULL OCFile" }
+            checkNotNull(user) { "Instanced with a NULL ownCloud Account" }
+        } else {
+            file = savedInstanceState.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
+            user = savedInstanceState.getParcelableArgument(EXTRA_USER, User::class.java)
+            savedPlaybackPosition = savedInstanceState.getInt(EXTRA_PLAY_POSITION).toLong()
+            autoplay = savedInstanceState.getBoolean(EXTRA_PLAYING)
+        }
+    }
+
+    private fun initArguments(bundle: Bundle) {
+        file.logFileSize(TAG)
+        file = bundle.getParcelableArgument(FILE, OCFile::class.java)
+        user = bundle.getParcelableArgument(USER, User::class.java)
+
+        savedPlaybackPosition = bundle.getLong(PLAYBACK_POSITION)
+        autoplay = bundle.getBoolean(AUTOPLAY)
+        isLivePhoto = bundle.getBoolean(IS_LIVE_PHOTO)
     }
 
     private fun setLoadingView() {
@@ -165,37 +197,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
         }
 
         binding.progress.visibility = View.GONE
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        Log_OC.v(TAG, "onActivityCreated")
-
-        var file = file
-        if (savedInstanceState == null) {
-            checkNotNull(file) { "Instanced with a NULL OCFile" }
-            checkNotNull(user) { "Instanced with a NULL ownCloud Account" }
-        } else {
-            file = savedInstanceState.getParcelableArgument(EXTRA_FILE, OCFile::class.java)
-            setFile(file)
-            user = savedInstanceState.getParcelableArgument(EXTRA_USER, User::class.java)
-            savedPlaybackPosition = savedInstanceState.getInt(EXTRA_PLAY_POSITION).toLong()
-            autoplay = savedInstanceState.getBoolean(EXTRA_PLAYING)
-        }
-
-        if (file != null) {
-            if (MimeTypeUtil.isVideo(file)) {
-                binding.exoplayerView.visibility = View.VISIBLE
-                binding.imagePreview.visibility = View.GONE
-            } else {
-                binding.exoplayerView.visibility = View.GONE
-                binding.imagePreview.visibility = View.VISIBLE
-                extractAndSetCoverArt(file)
-            }
-        }
-
-        toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        addMenuHost()
     }
 
     /**
@@ -275,59 +276,61 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
         }
     }
 
-    @Suppress("TooGenericExceptionCaught")
-    override fun onStart() {
-        super.onStart()
-        Log_OC.v(TAG, "onStart")
-        val context = if (context != null) {
-            requireContext()
-        } else {
-            MainApp.getAppContext()
+    private fun prepareMedia() {
+        if (file == null || !isAdded) {
+            Log_OC.d(TAG, "File is null or fragment not attached to a context.")
+            return
         }
 
-        val file = file
-        if (file != null) {
-            // bind to any existing player
-            mediaPlayerServiceConnection?.bind()
+        mediaPlayerServiceConnection?.bind()
 
-            if (MimeTypeUtil.isAudio(file)) {
-                binding.mediaController.setMediaPlayer(mediaPlayerServiceConnection)
-                binding.mediaController.visibility = View.VISIBLE
-                mediaPlayerServiceConnection?.start(user!!, file, autoplay, savedPlaybackPosition)
-                binding.emptyView.emptyListView.visibility = View.GONE
-                binding.progress.visibility = View.GONE
-            } else if (MimeTypeUtil.isVideo(file)) {
-                if (mediaPlayerServiceConnection?.isConnected == true) {
-                    // always stop player
-                    stopAudio()
-                }
-                if (exoPlayer != null) {
-                    playVideo()
-                } else {
-                    val handler = Handler(Looper.getMainLooper())
-                    Executors.newSingleThreadExecutor().execute {
-                        try {
-                            nextcloudClient = clientFactory.createNextcloudClient(accountManager.user)
-                            handler.post {
-                                exoPlayer = createNextcloudExoplayer(context, nextcloudClient!!)
-                                exoPlayer?.addListener(
-                                    ExoplayerListener(
-                                        context,
-                                        binding.exoplayerView,
-                                        exoPlayer!!
-                                    ) {
-                                        goBackToLivePhoto()
-                                    }
-                                )
-                                playVideo()
-                            }
-                        } catch (e: CreationException) {
-                            handler.post { Log_OC.e(TAG, "error setting up ExoPlayer", e) }
+        if (MimeTypeUtil.isAudio(file)) {
+            prepareForAudio()
+        } else if (MimeTypeUtil.isVideo(file)) {
+            prepareForVideo(context ?: MainApp.getAppContext())
+        }
+    }
+
+    @Suppress("DEPRECATION", "TooGenericExceptionCaught")
+    private fun prepareForVideo(context: Context) {
+        if (mediaPlayerServiceConnection?.isConnected == true) {
+            // always stop player
+            stopAudio()
+        }
+        if (exoPlayer != null) {
+            playVideo()
+        } else {
+            val handler = Handler(Looper.getMainLooper())
+            Executors.newSingleThreadExecutor().execute {
+                try {
+                    nextcloudClient = clientFactory.createNextcloudClient(accountManager.user)
+                    handler.post {
+                        nextcloudClient?.let { client ->
+                            createExoPlayer(context, client)
+                            playVideo()
                         }
                     }
+                } catch (e: CreationException) {
+                    handler.post { Log_OC.e(TAG, "error setting up ExoPlayer", e) }
                 }
             }
         }
+    }
+
+    private fun createExoPlayer(context: Context, client: NextcloudClient) {
+        exoPlayer = createNextcloudExoplayer(context, client)
+        exoPlayer?.let {
+            val listener = ExoplayerListener(context, binding.exoplayerView, it) { goBackToLivePhoto() }
+            it.addListener(listener)
+        }
+    }
+
+    private fun prepareForAudio() {
+        binding.mediaController.setMediaPlayer(mediaPlayerServiceConnection)
+        binding.mediaController.visibility = View.VISIBLE
+        mediaPlayerServiceConnection?.start(user!!, file, autoplay, savedPlaybackPosition)
+        binding.emptyView.emptyListView.visibility = View.GONE
+        binding.progress.visibility = View.GONE
     }
 
     private fun goBackToLivePhoto() {
@@ -337,6 +340,17 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
 
         showActionBar()
         requireActivity().supportFragmentManager.popBackStack()
+    }
+
+    private fun prepareExoPlayerView() {
+        if (MimeTypeUtil.isVideo(file)) {
+            binding.exoplayerView.visibility = View.VISIBLE
+            binding.imagePreview.visibility = View.GONE
+        } else {
+            binding.exoplayerView.visibility = View.GONE
+            binding.imagePreview.visibility = View.VISIBLE
+            extractAndSetCoverArt(file)
+        }
     }
 
     private fun showActionBar() {
