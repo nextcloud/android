@@ -512,6 +512,7 @@
     <string name="manage_space_clear_data">Sonraí soiléire</string>
     <string name="manage_space_description">Scriosfar socruithe, bunachar sonraí agus teastais an fhreastalaí ó shonraí %1$s go buan. \n\nCoimeádfar comhaid íosluchtaithe gan teagmháil.\n\nTógfaidh an próiseas seo tamall.</string>
     <string name="manage_space_title">Bainistigh spás</string>
+    <string name="max_file_count_warning_message">Tá an uasteorainn uaslódáil comhad sroichte agat. Uaslódáil níos lú ná 500 comhad ag an am céanna.</string>
     <string name="media_err_invalid_progressive_playback">Ní féidir an comhad meán a shruthú</string>
     <string name="media_err_io">Níorbh fhéidir an comhad meán a léamh</string>
     <string name="media_err_malformed">Tá ionchódú mícheart ar an gcomhad meán</string>
@@ -666,8 +667,11 @@
     <string name="prefs_value_theme_light">Solas</string>
     <string name="prefs_value_theme_system">Lean an córas</string>
     <string name="preview_image_description">Réamhamharc ar an íomhá</string>
+    <string name="preview_image_downloading_image_for_edit">Íomhá á híoslódáil chun an scáileán eagarthóireachta a thosú, fan go fóill...</string>
     <string name="preview_image_error_no_local_file">Níl aon chomhad áitiúil le réamhamharc</string>
     <string name="preview_image_error_unknown_format">Ní féidir íomhá a thaispeáint</string>
+    <string name="preview_image_file_is_not_downloaded">Níl an comhad a íoslódáil</string>
+    <string name="preview_image_file_is_not_exist">Níl an comhad ann</string>
     <string name="preview_media_unhandled_http_code_message">Tá an comhad faoi ghlas faoi láthair ag úsáideoir nó próiseas eile agus mar sin ní féidir é a scriosadh. Bain triail eile as ar ball le do thoil.</string>
     <string name="preview_sorry">Tá brón orm</string>
     <string name="privacy">Príobháideacht</string>
@@ -885,6 +889,9 @@
     <string name="trashbin_file_remove">Scrios go buan</string>
     <string name="trashbin_loading_failed">Theip ar lódáil an bhosca bruscair!</string>
     <string name="trashbin_not_emptied">Níorbh fhéidir na comhaid a scriosadh go buan!</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Níor aimsíodh an t-imeacht, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
+    <string name="unified_search_fragment_contact_not_found">Níor aimsíodh an teagmhálaí, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
+    <string name="unified_search_fragment_permission_needed">Teastaíonn ceadanna chun toradh cuardaigh a oscailt nó déanfar é a atreorú chuig an ngréasán…</string>
     <string name="unlock_file">Díghlasáil an comhad</string>
     <string name="unread_comments">Tá tuairimí neamhléite ann</string>
     <string name="unset_encrypted">Díshuiteáil criptiú</string>
