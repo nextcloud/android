@@ -483,9 +483,7 @@ public abstract class AbstractIT {
         return createName("");
     }
 
-    private String createName(String prefix) {
-        String name = TestNameDetector.getTestClass() + "_" + TestNameDetector.getTestName();
-
+    public String createName(String name, String prefix) {
         if (!TextUtils.isEmpty(prefix)) {
             name = name + "_" + prefix;
         }
@@ -499,6 +497,11 @@ public abstract class AbstractIT {
         }
 
         return name;
+    }
+
+    private String createName(String prefix) {
+        String name = TestNameDetector.getTestClass() + "_" + TestNameDetector.getTestName();
+        return createName(name, prefix);
     }
 
     public static String getUserId(User user) {
