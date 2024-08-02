@@ -22,6 +22,8 @@ import org.junit.Before
 import org.junit.Test
 
 class TrashbinActivityIT : AbstractIT() {
+    private val testClassName = "com.owncloud.android.ui.trashbin.TrashbinActivityIT"
+
     enum class TestCase {
         ERROR, EMPTY, FILES
     }
@@ -45,7 +47,8 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
-                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_error")
+                    val screenShotName = createName(testClassName + "_" + "error", "")
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         }
@@ -60,7 +63,8 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
-                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_files")
+                    val screenShotName = createName(testClassName + "_" + "files", "")
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         }
@@ -75,7 +79,8 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
-                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_empty")
+                    val screenShotName = createName(testClassName + "_" + "empty", "")
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         }
@@ -90,7 +95,8 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.showInitialLoading() }
-                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_loading")
+                    val screenShotName = createName(testClassName + "_" + "loading", "")
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         }
@@ -105,7 +111,8 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.showUser() }
-                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_normalUser")
+                    val screenShotName = createName(testClassName + "_" + "normalUser", "")
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         }
@@ -132,7 +139,8 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.showUser() }
-                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_differentUser")
+                    val screenShotName = createName(testClassName + "_" + "differentUser", "")
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         }
