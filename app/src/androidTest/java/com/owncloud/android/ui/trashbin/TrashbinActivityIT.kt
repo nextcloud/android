@@ -10,8 +10,8 @@ package com.owncloud.android.ui.trashbin
 import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
+import androidx.test.core.app.launchActivity
 import androidx.test.espresso.IdlingRegistry
-import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.nextcloud.utils.EspressoIdlingResource
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
@@ -19,16 +19,12 @@ import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 class TrashbinActivityIT : AbstractIT() {
     enum class TestCase {
         ERROR, EMPTY, FILES
     }
-
-    @get:Rule
-    var activityRule = IntentsTestRule(TrashbinActivity::class.java, true, false)
 
     @Before
     fun registerIdlingResource() {
@@ -43,60 +39,75 @@ class TrashbinActivityIT : AbstractIT() {
     @Test
     @ScreenshotTest
     fun error() {
-        val sut: TrashbinActivity = activityRule.launchActivity(null)
-        val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-        onIdleSync {
-            sut.runOnUiThread { sut.loadFolder() }
-            screenshot(sut)
+        launchActivity<TrashbinActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
+                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+                onIdleSync {
+                    sut.runOnUiThread { sut.loadFolder() }
+                    screenshot(sut)
+                }
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun files() {
-        val sut: TrashbinActivity = activityRule.launchActivity(null)
-        val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-        onIdleSync {
-            sut.runOnUiThread { sut.loadFolder() }
-            screenshot(sut)
+        launchActivity<TrashbinActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
+                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+                onIdleSync {
+                    sut.runOnUiThread { sut.loadFolder() }
+                    screenshot(sut)
+                }
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun empty() {
-        val sut: TrashbinActivity = activityRule.launchActivity(null)
-        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-        onIdleSync {
-            sut.runOnUiThread { sut.loadFolder() }
-            screenshot(sut)
+        launchActivity<TrashbinActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+                onIdleSync {
+                    sut.runOnUiThread { sut.loadFolder() }
+                    screenshot(sut)
+                }
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun loading() {
-        val sut: TrashbinActivity = activityRule.launchActivity(null)
-        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-        onIdleSync {
-            sut.runOnUiThread { sut.showInitialLoading() }
-            screenshot(sut)
+        launchActivity<TrashbinActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+                onIdleSync {
+                    sut.runOnUiThread { sut.showInitialLoading() }
+                    screenshot(sut)
+                }
+            }
         }
     }
 
     @Test
     @ScreenshotTest
     fun normalUser() {
-        val sut: TrashbinActivity = activityRule.launchActivity(null)
-        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-        onIdleSync {
-            sut.runOnUiThread { sut.showUser() }
-            screenshot(sut)
+        launchActivity<TrashbinActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+                onIdleSync {
+                    sut.runOnUiThread { sut.showUser() }
+                    screenshot(sut)
+                }
+            }
         }
     }
 
@@ -105,21 +116,25 @@ class TrashbinActivityIT : AbstractIT() {
     fun differentUser() {
         val temp = Account("differentUser@https://nextcloud.localhost", MainApp.getAccountType(targetContext))
 
-        val platformAccountManager = AccountManager.get(targetContext)
-        platformAccountManager.addAccountExplicitly(temp, "password", null)
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.localhost")
-        platformAccountManager.setUserData(temp, AccountUtils.Constants.KEY_USER_ID, "differentUser")
+        AccountManager.get(targetContext).apply {
+            addAccountExplicitly(temp, "password", null)
+            setUserData(temp, AccountUtils.Constants.KEY_OC_BASE_URL, "https://nextcloud.localhost")
+            setUserData(temp, AccountUtils.Constants.KEY_USER_ID, "differentUser")
+        }
 
-        val intent = Intent().apply {
+        val intent = Intent(targetContext, TrashbinActivity::class.java).apply {
             putExtra(Intent.EXTRA_USER, "differentUser@https://nextcloud.localhost")
         }
-        val sut: TrashbinActivity = activityRule.launchActivity(intent)
 
-        val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
-        sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
-        onIdleSync {
-            sut.runOnUiThread { sut.showUser() }
-            screenshot(sut)
+        launchActivity<TrashbinActivity>(intent).use { scenario ->
+            scenario.onActivity { sut ->
+                val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
+                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
+                onIdleSync {
+                    sut.runOnUiThread { sut.showUser() }
+                    screenshot(sut)
+                }
+            }
         }
     }
 }
