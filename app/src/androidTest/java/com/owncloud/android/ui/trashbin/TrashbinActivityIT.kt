@@ -47,7 +47,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
-                    screenshot(sut)
+                    screenshotViaName(sut, "TrashbinActivity_error")
                 }
             }
         }
@@ -62,7 +62,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
-                    screenshot(sut)
+                    screenshotViaName(sut, "TrashbinActivity_files")
                 }
             }
         }
@@ -77,7 +77,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
-                    screenshot(sut)
+                    screenshotViaName(sut, "TrashbinActivity_empty")
                 }
             }
         }
@@ -92,7 +92,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.showInitialLoading() }
-                    screenshot(sut)
+                    screenshotViaName(sut, "TrashbinActivity_loading")
                 }
             }
         }
@@ -107,7 +107,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.showUser() }
-                    screenshot(sut)
+                    screenshotViaName(sut, "TrashbinActivity_normalUser")
                 }
             }
         }
@@ -134,7 +134,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.showUser() }
-                    screenshot(sut)
+                    screenshotViaName(sut, "TrashbinActivity_differentUser")
                 }
             }
         }
