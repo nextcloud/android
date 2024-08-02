@@ -457,6 +457,12 @@ public abstract class AbstractIT {
         screenshot(view, "");
     }
 
+    protected void screenshotViaName(Activity activity, String name) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            Screenshot.snapActivity(activity).setName(name).record();
+        }
+    }
+
     protected void screenshot(View view, String prefix) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             Screenshot.snap(view).setName(createName(prefix)).record();
