@@ -18,14 +18,13 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestRule;
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
+import androidx.test.core.app.ActivityScenario;
 
 
 public class AuthenticatorActivityIT extends AbstractIT {
+    private final String testClassName = "com.nextcloud.client.AuthenticatorActivityIT";
+
     private static final String URL = "cloud.nextcloud.com";
-    @Rule public IntentsTestRule<AuthenticatorActivity> activityRule = new IntentsTestRule<>(AuthenticatorActivity.class,
-                                                                                             true,
-                                                                                             false);
 
     @Rule
     public final TestRule permissionRule = GrantStoragePermissionRule.grant();
@@ -33,9 +32,13 @@ public class AuthenticatorActivityIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void login() {
-        AuthenticatorActivity sut = activityRule.launchActivity(null);
-        ((TextView) sut.findViewById(R.id.host_url_input)).setText(URL);
-        sut.runOnUiThread(() -> sut.getAccountSetupBinding().hostUrlInput.clearFocus());
-        screenshot(sut);
+        try (ActivityScenario<AuthenticatorActivity> scenario = ActivityScenario.launch(AuthenticatorActivity.class)) {
+            scenario.onActivity(sut -> onIdleSync(() -> {
+                ((TextView) sut.findViewById(R.id.host_url_input)).setText(URL);
+                sut.runOnUiThread(() -> sut.getAccountSetupBinding().hostUrlInput.clearFocus());
+                String screenShotName = createName(testClassName + "_" + "login", "");
+                screenshotViaName(sut, screenShotName);
+            }));
+        }
     }
 }
