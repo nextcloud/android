@@ -47,7 +47,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
-                    screenshotViaName(sut, "TrashbinActivity_error")
+                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_error")
                 }
             }
         }
@@ -62,7 +62,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
-                    screenshotViaName(sut, "TrashbinActivity_files")
+                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_files")
                 }
             }
         }
@@ -77,7 +77,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
-                    screenshotViaName(sut, "TrashbinActivity_empty")
+                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_empty")
                 }
             }
         }
@@ -92,7 +92,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.showInitialLoading() }
-                    screenshotViaName(sut, "TrashbinActivity_loading")
+                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_loading")
                 }
             }
         }
@@ -107,7 +107,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.showUser() }
-                    screenshotViaName(sut, "TrashbinActivity_normalUser")
+                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_normalUser")
                 }
             }
         }
@@ -134,7 +134,7 @@ class TrashbinActivityIT : AbstractIT() {
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
                     sut.runOnUiThread { sut.showUser() }
-                    screenshotViaName(sut, "TrashbinActivity_differentUser")
+                    screenshotViaName(sut, "com.owncloud.android.ui.trashbin.TrashbinActivityIT_differentUser")
                 }
             }
         }
