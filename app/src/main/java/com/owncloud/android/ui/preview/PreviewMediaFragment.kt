@@ -156,7 +156,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
 
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         addMenuHost()
-        prepareMedia()
     }
 
     private fun checkArgumentsAfterViewCreation(savedInstanceState: Bundle?) {
@@ -274,6 +273,11 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
                 putBoolean(EXTRA_PLAYING, mediaPlayerServiceConnection?.isPlaying ?: false)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        prepareMedia()
     }
 
     private fun prepareMedia() {
