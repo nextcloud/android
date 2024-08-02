@@ -60,8 +60,8 @@ class TrashbinActivityIT : AbstractIT() {
         launchActivity<TrashbinActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
-                sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
+                    sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                     sut.runOnUiThread { sut.loadFolder() }
                     val screenShotName = createName(testClassName + "_" + "files", "")
                     screenshotViaName(sut, screenShotName)
