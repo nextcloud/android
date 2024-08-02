@@ -407,14 +407,19 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     private void updateSubtitle(GalleryFragmentBottomSheetDialog.MediaState mediaState) {
         requireActivity().runOnUiThread(() -> {
-            String subTitle = requireContext().getResources().getString(R.string.subtitle_photos_videos);
-            if (mediaState == GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY) {
-                subTitle = requireContext().getResources().getString(R.string.subtitle_photos_only);
-            } else if (mediaState == GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY) {
-                subTitle = requireContext().getResources().getString(R.string.subtitle_videos_only);
+            if (!isAdded()) {
+                return;
             }
-            if (requireActivity() instanceof ToolbarActivity) {
-                ((ToolbarActivity) requireActivity()).updateToolbarSubtitle(subTitle);
+
+            String subTitle = getResources().getString(R.string.subtitle_photos_videos);
+            if (mediaState == GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_PHOTOS_ONLY) {
+                subTitle = getResources().getString(R.string.subtitle_photos_only);
+            } else if (mediaState == GalleryFragmentBottomSheetDialog.MediaState.MEDIA_STATE_VIDEOS_ONLY) {
+                subTitle = getResources().getString(R.string.subtitle_videos_only);
+            }
+
+            if (requireActivity() instanceof ToolbarActivity toolbarActivity) {
+                toolbarActivity.updateToolbarSubtitle(subTitle);
             }
         });
     }

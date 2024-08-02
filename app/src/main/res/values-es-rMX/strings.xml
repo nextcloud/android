@@ -512,6 +512,7 @@
     <string name="manage_space_clear_data">Borrar datos</string>
     <string name="manage_space_description">Las configuraciones, base de datos y certificados del servidor de los datos de %1$s serán eliminados permanentemente.\n\nLos archivos descargados se mantendrán sin cambios.\n\nEste proceso puede tomar algo de tiempo. </string>
     <string name="manage_space_title">Administrar espacio</string>
+    <string name="max_file_count_warning_message">Ha alcanzado el límite de carga máxima de archivos. Por favor, cargue menos de 500 archivos a la vez.</string>
     <string name="media_err_invalid_progressive_playback">No se puede transmitir el archivo multimedia</string>
     <string name="media_err_io">No fue posible leer el archivo de medios</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificación incorrecta</string>
@@ -666,8 +667,11 @@
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir el del sistema</string>
     <string name="preview_image_description">Vista previa de imagen</string>
+    <string name="preview_image_downloading_image_for_edit">Descargando la imagen para abrir la pantalla de edición, por favor espere...</string>
     <string name="preview_image_error_no_local_file">No existe un archivo local a previsualizar</string>
     <string name="preview_image_error_unknown_format">No es posible mostrar la imagen</string>
+    <string name="preview_image_file_is_not_downloaded">El archivo no está descargado</string>
+    <string name="preview_image_file_is_not_exist">El archivo no existe</string>
     <string name="preview_media_unhandled_http_code_message">El archivo se encuentra bloqueado actualmente por otro usuario o proceso y, por lo tanto, no es posible eliminarlo. Por favor, intente de nuevo más tarde.</string>
     <string name="preview_sorry">Disculpa</string>
     <string name="privacy">Privacidad</string>
@@ -677,6 +681,7 @@
     <string name="push_notifications_temp_error">En este momento las notificaciones push no están disponibles.</string>
     <string name="qr_could_not_be_read">¡No se pudo leer el código QR!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">No se pudo encontrar la carpeta, la sincronización se ha cancelado</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">No se pudo encontrar el archivo a cargar</string>
     <string name="recommend_subject">¡Prueba %1$s en tu dispositivo!</string>
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu dispositivo\nDescárgalo aquí:%2$s </string>
     <string name="recommend_urls">%1$s ó %2$s</string>
@@ -884,6 +889,9 @@
     <string name="trashbin_file_remove">Borrar permanentemente</string>
     <string name="trashbin_loading_failed">¡No se pudo cargar la papelera de reciclaje!</string>
     <string name="trashbin_not_emptied">¡Los archivos no pudieron ser eliminados permanentemente!</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Evento no encontrado, siempre puede sincronizar para actualizar. Redirigiendo a la web...</string>
+    <string name="unified_search_fragment_contact_not_found">Contacto no encontrado, siempre puede sincronizar para actualizar. Redirigiendo a la web...</string>
+    <string name="unified_search_fragment_permission_needed">Permisos requeridos para abrir los resultados de búsqueda, de lo contrario se redirigirá a la web...</string>
     <string name="unlock_file">Archivo desbloqueado</string>
     <string name="unread_comments">Existen comentarios sin leer</string>
     <string name="unset_encrypted">Desestablecer encripción</string>

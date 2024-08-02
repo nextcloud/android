@@ -512,6 +512,7 @@
     <string name="manage_space_clear_data">Limpar os datos</string>
     <string name="manage_space_description">Van ser eliminados definitivamente os axustes , base de datos e certificados do servidor de %1$s.\n\nOs ficheiros descargados conservaranse sen cambios.\n\nEste proceso pode levar bastante tempo.</string>
     <string name="manage_space_title">Xestionar o espazo</string>
+    <string name="max_file_count_warning_message">Acadou o límite máximo de envío de ficheiros. Envíe menos de 500 ficheiros dunha sentada.</string>
     <string name="media_err_invalid_progressive_playback">Non é posíbel transmitir o ficheiro multimedia</string>
     <string name="media_err_io">Non foi posíbel ler o ficheiro multimedia</string>
     <string name="media_err_malformed">O ficheiro multimedia ten unha codificación incorrecta</string>
@@ -594,7 +595,7 @@
     <string name="permission_storage_access">Precísanse permisos adicionais para enviar e descargar ficheiros.</string>
     <string name="picture_set_as_no_app">Non se atopou unha aplicación coa que definir unha imaxe</string>
     <string name="pin_home">Fixar na pantalla de Inicio</string>
-    <string name="pin_shortcut_label">Aberto %1$s</string>
+    <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">marcadordeposición.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -667,8 +668,11 @@
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir o sistema</string>
     <string name="preview_image_description">Vista previa da imaxe</string>
+    <string name="preview_image_downloading_image_for_edit">Descargando a imaxe para iniciar a pantalla de edición, agarde…</string>
     <string name="preview_image_error_no_local_file">Non hai ficheiro local que ver</string>
     <string name="preview_image_error_unknown_format">Non é posíbel amosar a imaxe</string>
+    <string name="preview_image_file_is_not_downloaded">O ficheiro non está descargado</string>
+    <string name="preview_image_file_is_not_exist">O ficheiro non existe</string>
     <string name="preview_media_unhandled_http_code_message">O ficheiro está bloqueado actualmente por outro usuario ou proceso e, polo tanto, non é posíbel eliminalo. Ténteo de novo máis tarde.</string>
     <string name="preview_sorry">Desculpe.</string>
     <string name="privacy">Privacidade</string>

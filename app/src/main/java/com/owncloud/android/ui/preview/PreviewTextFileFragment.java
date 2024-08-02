@@ -18,7 +18,6 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
@@ -29,7 +28,6 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.mozilla.universalchardet.ReaderFactory;
 
@@ -44,8 +42,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -63,9 +59,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
     private TextLoadAsyncTask textLoadAsyncTask;
     private User user;
-
-    @Inject UserAccountManager accountManager;
-    @Inject ViewThemeUtils viewThemeUtils;
 
     public static PreviewTextFileFragment create(User user, OCFile file, boolean openSearch, String searchQuery) {
         Bundle args = new Bundle();
@@ -144,7 +137,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
     }
 
     @Override
-    void loadAndShowTextPreview() {
+    public void loadAndShowTextPreview() {
         textLoadAsyncTask = new TextLoadAsyncTask(new WeakReference<>(binding.textPreview),
                                                   new WeakReference<>(binding.emptyListProgress));
         textLoadAsyncTask.execute(getFile().getStoragePath());
@@ -228,7 +221,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 if (searchView != null) {
                     searchView.setOnQueryTextListener(PreviewTextFileFragment.this);
 
-                    if (searchOpen) {
+                    if (searchOpen && searchView != null) {
                         searchView.setQuery(searchQuery, true);
                     }
                 }

@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2024 Jonas Mayer <jonas.mayer@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
@@ -17,6 +18,7 @@ import android.provider.MediaStore;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.BackgroundJobManagerImpl;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.MainApp;
@@ -27,15 +29,20 @@ import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 
+import org.lukhnos.nnio.file.AccessDeniedException;
 import org.lukhnos.nnio.file.FileVisitResult;
+import org.lukhnos.nnio.file.FileVisitor;
 import org.lukhnos.nnio.file.Path;
 import org.lukhnos.nnio.file.Paths;
 import org.lukhnos.nnio.file.SimpleFileVisitor;
 import org.lukhnos.nnio.file.attribute.BasicFileAttributes;
 import org.lukhnos.nnio.file.Files;
+import org.lukhnos.nnio.file.impl.FileBasedPathImpl;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 
@@ -51,16 +58,50 @@ public final class FilesSyncHelper {
         // utility class -> private constructor
     }
 
+    /**
+     * Copy of {@link Files#walkFileTree(Path, FileVisitor)} that walks the file tree in random order.
+     *
+     * @see org.lukhnos.nnio.file.Files#walkFileTree(Path, FileVisitor)
+     */
+    public static void walkFileTreeRandomly(Path start, FileVisitor<? super Path> visitor) throws IOException {
+        File file = start.toFile();
+        if (!file.canRead()) {
+            visitor.visitFileFailed(start, new AccessDeniedException(file.toString()));
+        } else {
+            if (Files.isDirectory(start)) {
+                FileVisitResult preVisitDirectoryResult = visitor.preVisitDirectory(start, (BasicFileAttributes)null);
+                if (preVisitDirectoryResult == FileVisitResult.CONTINUE) {
+                    File[] children = start.toFile().listFiles();
+                    Collections.shuffle(Arrays.asList(children));
+                    if (children != null) {
+                        File[] var5 = children;
+                        int var6 = children.length;
+
+                        for(int var7 = 0; var7 < var6; ++var7) {
+                            File child = var5[var7];
+                            walkFileTreeRandomly(FileBasedPathImpl.get(child), visitor);
+                        }
+
+                        visitor.postVisitDirectory(start, (IOException)null);
+                    }
+                }
+            } else {
+                visitor.visitFile(start, new BasicFileAttributes(file));
+            }
+
+        }
+    }
+
     private static void insertCustomFolderIntoDB(Path path,
                                                  SyncedFolder syncedFolder,
                                                  FilesystemDataProvider filesystemDataProvider,
-                                                 long lastCheck,
-                                                 long thisCheck) {
+                                                 long lastCheck) {
 
         final long enabledTimestampMs = syncedFolder.getEnabledTimestampMs();
 
         try {
-            Files.walkFileTree(path, new SimpleFileVisitor<>() {
+
+            walkFileTreeRandomly(path, new SimpleFileVisitor<>() {
                 @Override
                 public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) {
                     File file = path.toFile();
@@ -98,7 +139,6 @@ public final class FilesSyncHelper {
                     return FileVisitResult.CONTINUE;
                 }
             });
-            syncedFolder.setLastScanTimestampMs(thisCheck);
         } catch (IOException e) {
             Log_OC.e(TAG, "Something went wrong while indexing files for auto upload", e);
         }
@@ -113,7 +153,6 @@ public final class FilesSyncHelper {
         if (syncedFolder.isEnabled() && (syncedFolder.isExisting() || enabledTimestampMs >= 0)) {
             MediaFolderType mediaType = syncedFolder.getType();
             final long lastCheckTimestampMs = syncedFolder.getLastScanTimestampMs();
-            final long thisCheckTimestampMs = System.currentTimeMillis();
 
             Log_OC.d(TAG,"File-sync start check folder "+syncedFolder.getLocalPath());
             long startTime = System.nanoTime();
@@ -121,21 +160,21 @@ public final class FilesSyncHelper {
             if (mediaType == MediaFolderType.IMAGE) {
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.INTERNAL_CONTENT_URI,
                                                     syncedFolder,
-                                                    lastCheckTimestampMs, thisCheckTimestampMs);
+                                                    lastCheckTimestampMs);
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                                                     syncedFolder,
-                                                    lastCheckTimestampMs, thisCheckTimestampMs);
+                                                    lastCheckTimestampMs);
             } else if (mediaType == MediaFolderType.VIDEO) {
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.INTERNAL_CONTENT_URI,
                                                     syncedFolder,
-                                                    lastCheckTimestampMs, thisCheckTimestampMs);
+                                                    lastCheckTimestampMs);
                 FilesSyncHelper.insertContentIntoDB(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
                                                     syncedFolder,
-                                                    lastCheckTimestampMs, thisCheckTimestampMs);
+                                                    lastCheckTimestampMs);
             } else {
                     FilesystemDataProvider filesystemDataProvider = new FilesystemDataProvider(contentResolver);
                     Path path = Paths.get(syncedFolder.getLocalPath());
-                    FilesSyncHelper.insertCustomFolderIntoDB(path, syncedFolder, filesystemDataProvider, lastCheckTimestampMs, thisCheckTimestampMs);
+                    FilesSyncHelper.insertCustomFolderIntoDB(path, syncedFolder, filesystemDataProvider, lastCheckTimestampMs);
             }
 
             Log_OC.d(TAG,"File-sync finished full check for custom folder "+syncedFolder.getLocalPath()+" within "+(System.nanoTime() - startTime)+ "ns");
@@ -177,7 +216,7 @@ public final class FilesSyncHelper {
     }
 
     private static void insertContentIntoDB(Uri uri, SyncedFolder syncedFolder,
-                                            long lastCheckTimestampMs, long thisCheckTimestampMs) {
+                                            long lastCheckTimestampMs) {
         final Context context = MainApp.getAppContext();
         final ContentResolver contentResolver = context.getContentResolver();
 
@@ -224,7 +263,6 @@ public final class FilesSyncHelper {
                 }
             }
             cursor.close();
-            syncedFolder.setLastScanTimestampMs(thisCheckTimestampMs);
         }
     }
 
@@ -259,6 +297,35 @@ public final class FilesSyncHelper {
                 jobManager.startImmediateFilesSyncJob(syncedFolder.getId(),overridePowerSaving,changedFiles);
             }
         }
+    }
+
+    public static long calculateScanInterval(
+        SyncedFolder syncedFolder,
+        ConnectivityService connectivityService,
+        PowerManagementService powerManagementService
+                                            ) {
+        long defaultInterval = BackgroundJobManagerImpl.DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES * 1000 * 60;
+        if (!connectivityService.isConnected() || connectivityService.isInternetWalled()) {
+            return defaultInterval * 2;
+        }
+
+        if ((syncedFolder.isWifiOnly() && !connectivityService.getConnectivity().isWifi())) {
+            return defaultInterval * 4;
+        }
+
+        if (powerManagementService.getBattery().getLevel() < 80){
+            return defaultInterval * 2;
+        }
+
+        if (powerManagementService.getBattery().getLevel() < 50){
+            return defaultInterval * 4;
+        }
+
+        if (powerManagementService.getBattery().getLevel() < 20){
+            return defaultInterval * 8;
+        }
+
+        return defaultInterval;
     }
 }
 
