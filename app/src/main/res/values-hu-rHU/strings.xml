@@ -621,6 +621,7 @@
     <string name="preview_image_description">Kép előnézete</string>
     <string name="preview_image_error_no_local_file">Nincs helyi fájl az előnézethez</string>
     <string name="preview_image_error_unknown_format">A kép nem jeleníthető meg</string>
+    <string name="preview_image_file_is_not_exist">A fájl nem létezik</string>
     <string name="preview_sorry">Sajnáljuk</string>
     <string name="privacy">Adatvédelem</string>
     <string name="public_share_name">Új név</string>

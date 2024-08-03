@@ -512,6 +512,7 @@
     <string name="manage_space_clear_data">Rensa data</string>
     <string name="manage_space_description">Inställningar, databas och servercertifikat från %1$s\'s data kommer att raderas permanent. \n\nHämtade filer kommer inte att raderas eller ändras.\n\nDenna process kan ta ett tag.</string>
     <string name="manage_space_title">Hantera utrymme</string>
+    <string name="max_file_count_warning_message">Du har nått den maximala filuppladdningsgränsen. Ladda upp färre än 500 filer åt gången.</string>
     <string name="media_err_invalid_progressive_playback">Media-filen kan inte strömmas</string>
     <string name="media_err_io">Kunde inte läsa mediafilen</string>
     <string name="media_err_malformed">Mediafilen har felaktig kodning</string>
@@ -667,8 +668,10 @@
     <string name="prefs_value_theme_light">Ljust</string>
     <string name="prefs_value_theme_system">Följ systemet</string>
     <string name="preview_image_description">Förhandsvisa bild</string>
+    <string name="preview_image_downloading_image_for_edit">Laddar ner bild för att starta redigeringsskärmen, vänta...</string>
     <string name="preview_image_error_no_local_file">Där finns ingen lokal fil att förhandsvisa</string>
     <string name="preview_image_error_unknown_format">Kan inte visa bild</string>
+    <string name="preview_image_file_is_not_downloaded">Filen laddas inte ned</string>
     <string name="preview_media_unhandled_http_code_message">Filen är för närvarande låst av en annan användare eller process och kan därför inte raderas. Försök igen senare.</string>
     <string name="preview_sorry">Tyvärr</string>
     <string name="privacy">Privat</string>
@@ -886,6 +889,9 @@
     <string name="trashbin_file_remove">Ta bort permanent</string>
     <string name="trashbin_loading_failed">Laddning av papperskorg misslyckades!</string>
     <string name="trashbin_not_emptied">Filer kunde inte tas bort permanent!</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Händelsen hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
+    <string name="unified_search_fragment_contact_not_found">Kontakten hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
+    <string name="unified_search_fragment_permission_needed">Behörigheter krävs för att öppna sökresultatet, annars omdirigeras det till webben...</string>
     <string name="unlock_file">Lås upp fil</string>
     <string name="unread_comments">Olästa kommentarer finns</string>
     <string name="unset_encrypted">Ta bort som krypterad</string>

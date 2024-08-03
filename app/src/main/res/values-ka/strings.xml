@@ -617,6 +617,7 @@
     <string name="preview_image_description">Image preview</string>
     <string name="preview_image_error_no_local_file">There is no local file to preview</string>
     <string name="preview_image_error_unknown_format">Unable to show image</string>
+    <string name="preview_image_file_is_not_exist">File does not exist</string>
     <string name="preview_sorry">Sorry</string>
     <string name="privacy">Privacy</string>
     <string name="public_share_name">New name</string>

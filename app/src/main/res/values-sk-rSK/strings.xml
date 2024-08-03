@@ -661,6 +661,7 @@
     <string name="preview_image_description">Ukážka obrazu</string>
     <string name="preview_image_error_no_local_file">Nepodarilo sa zobraziť lokálny súbor</string>
     <string name="preview_image_error_unknown_format">Nemožno zobraziť obrázok</string>
+    <string name="preview_image_file_is_not_exist">Súbor neexistuje</string>
     <string name="preview_sorry">Prepáčte</string>
     <string name="privacy">Súkromie</string>
     <string name="public_share_name">Nový názov</string>
