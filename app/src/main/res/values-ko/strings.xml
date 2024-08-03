@@ -665,6 +665,7 @@
     <string name="preview_image_description">사진 미리 보기</string>
     <string name="preview_image_error_no_local_file">미리 볼 로컬 파일 없음</string>
     <string name="preview_image_error_unknown_format">이 사진을 미리 볼 수 없음</string>
+    <string name="preview_image_file_is_not_exist">파일이 존재하지 않음</string>
     <string name="preview_media_unhandled_http_code_message">파일이 현재 다른 사용자나 프로세스에 의해 잠겨 있으므로 삭제할 수 없습니다. 나중에 다시 시도 해주십시오.</string>
     <string name="preview_sorry">죄송합니다</string>
     <string name="privacy">개인 정보</string>

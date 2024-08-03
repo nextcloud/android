@@ -604,6 +604,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="preview_image_description">Kuvan esikatselu</string>
     <string name="preview_image_error_no_local_file">Paikallista tiedostoa ei ole esikatselua varten</string>
     <string name="preview_image_error_unknown_format">Kuvan näyttäminen ei onnistunut</string>
+    <string name="preview_image_file_is_not_exist">Tiedostoa ei ole olemassa</string>
     <string name="preview_sorry">Anteeksi</string>
     <string name="privacy">Yksityisyys</string>
     <string name="public_share_name">Uusi nimi</string>

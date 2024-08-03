@@ -668,6 +668,7 @@
     <string name="preview_image_description">Prévisualisation de l\'image</string>
     <string name="preview_image_error_no_local_file">Il n\'y a aucun fichier local à prévisualiser</string>
     <string name="preview_image_error_unknown_format">L\'image ne peut pas être affichée</string>
+    <string name="preview_image_file_is_not_exist">Le fichier n’existe pas</string>
     <string name="preview_media_unhandled_http_code_message">Ce fichier est actuellement vérouillé par un autre utilisateur ou processus et ne peut donc pas être supprimé. Veuillez réessayer plus tard.</string>
     <string name="preview_sorry">Désolé</string>
     <string name="privacy">Vie privée</string>

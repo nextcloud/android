@@ -671,7 +671,7 @@
     <string name="preview_image_error_no_local_file">Não há arquivos locais para exibir</string>
     <string name="preview_image_error_unknown_format">Não foi possível exibir a imagem</string>
     <string name="preview_image_file_is_not_downloaded">O arquivo não foi baixado</string>
-    <string name="preview_image_file_is_not_exist">O arquivo não existe</string>
+    <string name="preview_image_file_is_not_exist">Arquivo não existe</string>
     <string name="preview_media_unhandled_http_code_message">O arquivo está atualmente bloqueado por outro usuário ou processo e, portanto, não pode ser excluído. Por favor, tente novamente mais tarde.</string>
     <string name="preview_sorry">Desculpe</string>
     <string name="privacy">Privacidade</string>

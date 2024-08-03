@@ -642,6 +642,7 @@
     <string name="preview_image_description">Náhled obrázku</string>
     <string name="preview_image_error_no_local_file">Není zde žádný místní soubor pro který zobrazit náhled</string>
     <string name="preview_image_error_unknown_format">Obrázek se nedaří zobrazit</string>
+    <string name="preview_image_file_is_not_exist">Soubor neexistuje</string>
     <string name="preview_sorry">Je nám líto</string>
     <string name="privacy">Soukromí</string>
     <string name="public_share_name">Nový název</string>

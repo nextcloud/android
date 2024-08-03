@@ -546,6 +546,7 @@
     <string name="preview_image_description">Paveikslėlio peržiūra</string>
     <string name="preview_image_error_no_local_file">Nėra vietinio failo peržiūrai</string>
     <string name="preview_image_error_unknown_format">Nepavyko parodyti paveikslo</string>
+    <string name="preview_image_file_is_not_exist">Failo nėra</string>
     <string name="preview_sorry">Atsiprašome</string>
     <string name="privacy">Privatumas</string>
     <string name="public_share_name">Naujas pavadinimas</string>

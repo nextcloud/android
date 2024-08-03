@@ -512,6 +512,7 @@
     <string name="manage_space_clear_data">Nullstill data</string>
     <string name="manage_space_description">Innstillinger, database og serversertifikater fra %1$s\'s filer vil bli slettet. \n\nNedlastede filer blir urørt.\n\nDette kan ta noe tid.</string>
     <string name="manage_space_title">Håndter plass</string>
+    <string name="max_file_count_warning_message">Du har nådd den maksimale grensen for filopplasting. Vennligst last opp færre enn 500 filer om gangen.</string>
     <string name="media_err_invalid_progressive_playback">Mediafilen kan ikke strømmes</string>
     <string name="media_err_io">Mediafilen kunne ikke leses</string>
     <string name="media_err_malformed">Mediafilen er ikke riktig kodet</string>
@@ -666,8 +667,11 @@
     <string name="prefs_value_theme_light">Lys</string>
     <string name="prefs_value_theme_system">Følg system</string>
     <string name="preview_image_description">Bildeforhåndsvisning</string>
+    <string name="preview_image_downloading_image_for_edit">Laster ned bilde for å starte redigeringsskjermen, vennligst vent...</string>
     <string name="preview_image_error_no_local_file">Ingen lokal fil å forhåndsvise</string>
     <string name="preview_image_error_unknown_format">Kunne ikke vise bilde</string>
+    <string name="preview_image_file_is_not_downloaded">Filen er ikke lastet ned</string>
+    <string name="preview_image_file_is_not_exist">Fil finnes ikke</string>
     <string name="preview_media_unhandled_http_code_message">Filen er for øyeblikket låst av en annen bruker eller prosess og kan derfor ikke slettes. Prøv igjen senere.</string>
     <string name="preview_sorry">Beklager</string>
     <string name="privacy">Personvern</string>
@@ -677,6 +681,7 @@
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
     <string name="qr_could_not_be_read">QR-koden kunne ikke leses!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Finner ikke mappen, synkroniseringsoperasjonen avbrytes</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Finner ikke filen som skal lastes opp</string>
     <string name="recommend_subject">Prøv %1$s på denne enheten.</string>
     <string name="recommend_text">Jeg inviterer deg til å bruke %1$s på enheten din.\nLast ned her: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
@@ -884,6 +889,9 @@
     <string name="trashbin_file_remove">Slett for godt</string>
     <string name="trashbin_loading_failed">Lasting av papirkurv feilet</string>
     <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Finner ikke hendelsen, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
+    <string name="unified_search_fragment_contact_not_found">Finner ikke kontakten, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
+    <string name="unified_search_fragment_permission_needed">Tillatelser kreves for å åpne søkeresultatet, ellers vil det omdirigeres til web...</string>
     <string name="unlock_file">Lås opp fil</string>
     <string name="unread_comments">Det er uleste kommentarer</string>
     <string name="unset_encrypted">Ikke satt kryptering</string>
