@@ -512,6 +512,7 @@
     <string name="manage_space_clear_data">Limpar dados</string>
     <string name="manage_space_description">Configurações, banco de dados e certificados do servidor de dados de %1$s serão excluídos permanentemente.\n\nArquivos baixados serão mantidos intocados.\n\nEste processo pode levar um tempo.</string>
     <string name="manage_space_title">Gerenciar o espaço</string>
+    <string name="max_file_count_warning_message">Você atingiu o limite máximo de upload de arquivos. Envie menos de 500 arquivos por vez.</string>
     <string name="media_err_invalid_progressive_playback">O arquivo de mídia não pode ser transmitido </string>
     <string name="media_err_io">Não foi possível ler o arquivo de mídia</string>
     <string name="media_err_malformed">O arquivo de mídia tem uma codificação incorreta</string>
@@ -666,8 +667,11 @@
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir o sistema</string>
     <string name="preview_image_description">Pré-visualização da imagem</string>
+    <string name="preview_image_downloading_image_for_edit">Baixando a imagem para iniciar a tela de edição, aguarde…</string>
     <string name="preview_image_error_no_local_file">Não há arquivos locais para exibir</string>
     <string name="preview_image_error_unknown_format">Não foi possível exibir a imagem</string>
+    <string name="preview_image_file_is_not_downloaded">O arquivo não foi baixado</string>
+    <string name="preview_image_file_is_not_exist">O arquivo não existe</string>
     <string name="preview_media_unhandled_http_code_message">O arquivo está atualmente bloqueado por outro usuário ou processo e, portanto, não pode ser excluído. Por favor, tente novamente mais tarde.</string>
     <string name="preview_sorry">Desculpe</string>
     <string name="privacy">Privacidade</string>
@@ -885,6 +889,9 @@
     <string name="trashbin_file_remove">Remover permanentemente</string>
     <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Evento não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para a web…</string>
+    <string name="unified_search_fragment_contact_not_found">Contato não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para web…</string>
+    <string name="unified_search_fragment_permission_needed">São necessárias permissões para abrir o resultado da pesquisa, caso contrário ele será redirecionado para a web…</string>
     <string name="unlock_file">Desbloquear arquivo</string>
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Definir como não criptografado</string>

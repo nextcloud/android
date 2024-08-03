@@ -12,6 +12,7 @@ import android.accounts.AccountManager
 import android.accounts.OnAccountsUpdateListener
 import android.app.PendingIntent
 import android.content.Context
+import android.util.Pair
 import androidx.core.util.component1
 import androidx.core.util.component2
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
@@ -197,10 +198,13 @@ class FileDownloadWorker(
                     user?.accountName,
                     file.remotePath,
                     operation
-                )
+                ) ?: Pair(null, null)
 
-                if (downloadKey != null) {
+                downloadKey?.let {
                     requestedDownloads.add(downloadKey)
+                }
+
+                linkedToRemotePath?.let {
                     localBroadcastManager.sendBroadcast(intents.newDownloadIntent(operation, linkedToRemotePath))
                 }
             }
