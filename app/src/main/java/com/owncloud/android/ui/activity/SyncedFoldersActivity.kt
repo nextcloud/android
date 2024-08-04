@@ -697,6 +697,7 @@ class SyncedFoldersActivity :
                 syncedFolder.isSubfolderByDate,
                 syncedFolder.uploadAction,
                 syncedFolder.nameCollisionPolicy.serialize(),
+                syncedFolder.uploadDelayTimeMs,
                 syncedFolder.isEnabled,
                 syncedFolder.subFolderRule,
                 syncedFolder.isExcludeHidden
@@ -784,6 +785,7 @@ class SyncedFoldersActivity :
         subfolderByDate: Boolean,
         uploadAction: Int,
         nameCollisionPolicy: Int,
+        uploadDelayTimeMs: Long,
         enabled: Boolean,
         subFolderRule: SubFolderRule,
         excludeHidden: Boolean
