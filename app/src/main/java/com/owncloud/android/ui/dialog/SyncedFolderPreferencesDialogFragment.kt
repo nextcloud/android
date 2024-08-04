@@ -9,8 +9,10 @@ package com.owncloud.android.ui.dialog
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.res.Resources
 import android.graphics.Typeface
 import android.os.Bundle
 import android.text.TextUtils
@@ -220,7 +222,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantNameCollisionPolicySummary.text =
                 nameCollisionPolicyItemStrings[nameCollisionPolicyIndex]
             binding.settingInstantUploadDelaySummary.text =
-                getDelaySummary(it.uploadDelayTimeMs)
+                getDelaySummary(requireContext(), it.uploadDelayTimeMs)
         }
     }
 
@@ -402,7 +404,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
         binding.settingInstantBehaviourContainer.setOnClickListener { showBehaviourDialog() }
         binding.settingInstantNameCollisionPolicyContainer.setOnClickListener { showNameCollisionPolicyDialog() }
-        binding.settingInstantUploadDelayContainer.setOnClickListener( showUploadDelayDialog() )
+        binding.settingInstantUploadDelayContainer.setOnClickListener { showUploadDelayDialog() }
     }
 
     private fun showBehaviourDialog() {
@@ -455,12 +457,14 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
                 getString(R.string.pref_instant_upload_delay_hint)
             )
 
-            dialog.setListener(DurationPickerDialogFragment.Listener { resultCode: Int, duration: Long ->
-                if (resultCode == Activity.RESULT_OK) {
-                    it.uploadDelayTimeMs = duration
-                    binding?.settingInstantUploadDelaySummary?.text = getDelaySummary(duration)
+            dialog.setListener(object: DurationPickerDialogFragment.Listener {
+                override fun onDurationPickerResult(resultCode: Int, duration: Long) {
+                    if (resultCode == Activity.RESULT_OK) {
+                        it.uploadDelayTimeMs = duration
+                        binding?.settingInstantUploadDelaySummary?.text = getDelaySummary(requireContext(), duration)
+                    }
+                    dialog.dismiss()
                 }
-                dialog.dismiss()
             })
             dialog.show(parentFragmentManager, "UPLOAD_DELAY_PICKER_DIALOG")
         }
@@ -594,27 +598,27 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
         }
 
         @Suppress("MagicNumber")
-        private fun getDelaySummary(duration: Long): String {
+        private fun getDelaySummary(context: Context, duration: Long): String {
             if (duration == 0L) {
-                return getString(R.string.pref_instant_upload_delay_disabled)
+                return context.getString(R.string.pref_instant_upload_delay_disabled)
             }
             val durationParts = TimeUtils.getDurationParts(duration)
             val durationSummary = StringBuilder()
             if (durationParts.days > 0) {
                 durationSummary.append(durationParts.days)
-                durationSummary.append(getString(R.string.common_days_short))
+                durationSummary.append(context.getString(R.string.common_days_short))
                 durationSummary.append(' ')
             }
             if (durationParts.hours > 0) {
                 durationSummary.append(durationParts.hours)
-                durationSummary.append(getString(R.string.common_hours_short))
+                durationSummary.append(context.getString(R.string.common_hours_short))
                 durationSummary.append(' ')
             }
             if (durationParts.minutes > 0) {
                 durationSummary.append(durationParts.minutes)
-                durationSummary.append(getString(R.string.common_minutes_short))
+                durationSummary.append(context.getString(R.string.common_minutes_short))
             }
-            return getString(R.string.pref_instant_upload_delay_enabled, durationSummary.toString().trim { it <= ' ' })
+            return context.getString(R.string.pref_instant_upload_delay_enabled, durationSummary.toString().trim())
         }
     }
 }
