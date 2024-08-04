@@ -1,25 +1,10 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2022 Tobias Kaminsky
- * Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.client.documentscan
 
 import android.app.NotificationManager
@@ -32,14 +17,14 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.AnonymousUser
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.notifications.NotificationUtils
-import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import java.security.SecureRandom
@@ -123,13 +108,12 @@ class GeneratePdfFromImagesWork(
     private fun uploadFile(user: User, uploadFolder: String, pdfPath: String) {
         val uploadPath = uploadFolder + OCFile.PATH_SEPARATOR + File(pdfPath).name
 
-        FileUploader.uploadNewFile(
-            appContext,
+        FileUploadHelper().uploadNewFiles(
             user,
-            pdfPath,
-            uploadPath,
-            FileUploader.LOCAL_BEHAVIOUR_DELETE, // MIME type will be detected from file name
-            MimeType.PDF,
+            arrayOf(pdfPath),
+            arrayOf(uploadPath),
+            // MIME type will be detected from file name
+            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,

@@ -1,25 +1,11 @@
 /*
- *   Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author Bartosz Przybylski
- *   @author Chris Narkiewicz
- *   Copyright (C) 2016  Bartosz Przybylski <bart.p.pl@gmail.com>
- *   Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2020-2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019-2021 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2016 Bartosz Przybylski <bart.p.pl@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.providers;
 
 import android.accounts.AuthenticatorException;
@@ -43,7 +29,8 @@ import android.widget.Toast;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.files.downloader.DownloadTask;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.utils.HashUtil;
@@ -52,8 +39,6 @@ import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.OwnCloudClient;
@@ -101,7 +86,6 @@ import static android.os.ParcelFileDescriptor.MODE_READ_ONLY;
 import static android.os.ParcelFileDescriptor.MODE_WRITE_ONLY;
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
-import static com.owncloud.android.files.services.FileUploader.LOCAL_BEHAVIOUR_DELETE;
 
 public class DocumentsStorageProvider extends DocumentsProvider {
 
@@ -211,8 +195,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         int accessMode = ParcelFileDescriptor.parseMode(mode);
         boolean writeOnly = (accessMode & MODE_WRITE_ONLY) != 0;
-        boolean wasNotYetStored = ocFile.getStoragePath() == null;
-        boolean needsDownload = (!writeOnly || wasNotYetStored) && (!ocFile.isDown() || hasServerChange(document));
+        boolean needsDownload = !ocFile.existsOnDevice() || (!writeOnly && hasServerChange(document));
         if (needsDownload) {
             if (ocFile.getLocalModificationTimestamp() > ocFile.getLastSyncDateForData()) {
                 // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
@@ -260,7 +243,8 @@ public class DocumentsStorageProvider extends DocumentsProvider {
             Handler handler = new Handler(context.getMainLooper());
             try {
                 return ParcelFileDescriptor.open(file, accessMode, handler, error -> {
-                    if (error == null) { // no error
+                    if (error == null) {
+                        // no error
                         // As we can't upload the file synchronously, let's at least update its metadata here already.
                         ocFile.setFileLength(file.length());
                         ocFile.setModificationTimestamp(System.currentTimeMillis());
@@ -268,14 +252,13 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
                         // TODO disable upload notifications as DocumentsProvider users already show them
                         // upload file with FileUploader service (off main thread)
-                        FileUploader.uploadUpdateFile(
-                            context,
+                        FileUploadHelper.Companion.instance().uploadUpdatedFile(
                             user,
-                            ocFile,
-                            LOCAL_BEHAVIOUR_DELETE,
-                            NameCollisionPolicy.OVERWRITE,
-                            false);
-                    } else { // error, no upload needed
+                            new OCFile[]{ ocFile },
+                            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
+                            NameCollisionPolicy.OVERWRITE);
+                    } else {
+                        // error, no upload needed
                         Log_OC.e(TAG, "File was closed with an error: " + ocFile.getFileName(), error);
                     }
                 });
@@ -307,7 +290,6 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     /**
      * Updates the OC File after a successful download.
      *
-     * TODO unify with code from {@link FileDownloader} and {@link DownloadTask}.
      */
     private void saveDownloadedFile(FileDataStorageManager storageManager, DownloadFileOperation dfo, OCFile file) {
         long syncDate = System.currentTimeMillis();
@@ -344,7 +326,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
     public AssetFileDescriptor openDocumentThumbnail(String documentId,
                                                      Point sizeHint,
                                                      CancellationSignal signal)
-            throws FileNotFoundException {
+        throws FileNotFoundException {
         Log_OC.d(TAG, "openDocumentThumbnail(), id=" + documentId);
 
         Document document = toDocument(documentId);

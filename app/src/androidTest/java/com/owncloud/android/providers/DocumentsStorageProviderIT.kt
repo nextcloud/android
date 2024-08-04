@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2020 Torsten Grote <t@grobox.de>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ */
 package com.owncloud.android.providers
 
 import android.provider.DocumentsContract
@@ -76,8 +82,8 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         val file1 = rootDir.createFile(type1, name1)!!
 
         // check assumptions
-        @Suppress("ForbiddenComment")
-        file1.assertRegularFile(name1, 0L, null/* FIXME: type1 */, rootDir)
+        /* FIXME: mimeType */
+        file1.assertRegularFile(name1, 0L, null, rootDir)
         file1.assertRecentlyModified()
 
         // file1 is found in root
@@ -213,6 +219,40 @@ class DocumentsStorageProviderIT : AbstractOnServerIT() {
         assertEquals(HttpStatus.SC_NO_CONTENT, client.executeMethod(putMethod))
         client.exhaustResponse(putMethod.responseBodyAsStream)
         putMethod.releaseConnection() // let the connection available for other methods
+
+        // read back content bytes
+        val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)
+        assertEquals(String(content2), String(bytes))
+    }
+
+    @Test
+    fun testServerSuccessive() {
+        // create random file
+        val file1 = rootDir.createFile("text/plain", RandomStringGenerator.make())!!
+        file1.assertRegularFile(size = 0L)
+
+        val createdETag = file1.getOCFile(storageManager)!!.etagOnServer
+
+        assertTrue(createdETag.isNotEmpty())
+
+        val content1 = "initial content".toByteArray()
+
+        // write content bytes to file
+        contentResolver.openOutputStream(file1.uri, "wt").use {
+            it!!.write(content1)
+        }
+
+        // refresh
+        while (file1.getOCFile(storageManager)!!.etagOnServer == createdETag) {
+            shortSleep()
+            rootDir.listFiles()
+        }
+
+        val content2 = "new content".toByteArray()
+
+        contentResolver.openOutputStream(file1.uri, "wt").use {
+            it!!.write(content2)
+        }
 
         // read back content bytes
         val bytes = contentResolver.openInputStream(file1.uri)?.readBytes() ?: ByteArray(0)

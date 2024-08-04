@@ -1,25 +1,10 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2019 Tobias Kaminsky
- * Copyright (C) 2019 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.preview;
 
 import android.os.AsyncTask;
@@ -33,8 +18,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -42,7 +28,6 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.mozilla.universalchardet.ReaderFactory;
 
@@ -57,8 +42,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
-
-import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -76,9 +59,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
 
     private TextLoadAsyncTask textLoadAsyncTask;
     private User user;
-
-    @Inject UserAccountManager accountManager;
-    @Inject ViewThemeUtils viewThemeUtils;
 
     public static PreviewTextFileFragment create(User user, OCFile file, boolean openSearch, String searchQuery) {
         Bundle args = new Bundle();
@@ -117,11 +97,11 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         Bundle args = getArguments();
 
         if (file == null) {
-            file = args.getParcelable(EXTRA_FILE);
+            file = BundleExtensionsKt.getParcelableArgument(args, EXTRA_FILE, OCFile.class);
         }
 
         if (user == null) {
-            user = args.getParcelable(EXTRA_USER);
+            user = BundleExtensionsKt.getParcelableArgument(args, EXTRA_USER, User.class);
         }
 
         if (args.containsKey(EXTRA_SEARCH_QUERY)) {
@@ -137,8 +117,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 throw new IllegalStateException("Instanced with a NULL ownCloud Account");
             }
         } else {
-            file = savedInstanceState.getParcelable(EXTRA_FILE);
-            user = savedInstanceState.getParcelable(EXTRA_USER);
+            file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_FILE, OCFile.class);
+            user = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_USER, User.class);
         }
 
         handler = new Handler();
@@ -150,13 +130,14 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        FileExtensionsKt.logFileSize(getFile(), TAG);
         outState.putParcelable(PreviewTextFileFragment.EXTRA_FILE, getFile());
         outState.putParcelable(PreviewTextFileFragment.EXTRA_USER, user);
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    void loadAndShowTextPreview() {
+    public void loadAndShowTextPreview() {
         textLoadAsyncTask = new TextLoadAsyncTask(new WeakReference<>(binding.textPreview),
                                                   new WeakReference<>(binding.emptyListProgress));
         textLoadAsyncTask.execute(getFile().getStoragePath());
@@ -240,7 +221,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
                 if (searchView != null) {
                     searchView.setOnQueryTextListener(PreviewTextFileFragment.this);
 
-                    if (searchOpen) {
+                    if (searchOpen && searchView != null) {
                         searchView.setQuery(searchQuery, true);
                     }
                 }
@@ -300,11 +281,10 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             Arrays.asList(
                 R.id.action_rename_file,
                 R.id.action_sync_file,
-                R.id.action_select_all,
-                R.id.action_move,
-                R.id.action_copy,
+                R.id.action_move_or_copy,
                 R.id.action_favorite,
-                R.id.action_unset_favorite
+                R.id.action_unset_favorite,
+                R.id.action_pin_to_homescreen
                          ));
         if (getFile() != null && getFile().isSharedWithMe() && !getFile().canReshare()) {
             additionalFilter.add(R.id.action_send_share_file);
@@ -331,6 +311,8 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
             seeDetails();
         } else if (itemId == R.id.action_sync_file) {
             containerActivity.getFileOperationsHelper().syncFile(getFile());
+        } else if(itemId == R.id.action_cancel_sync){
+            containerActivity.getFileOperationsHelper().cancelTransference(getFile());
         } else if (itemId == R.id.action_edit) {
             containerActivity.getFileOperationsHelper().openFileWithTextEditor(getFile(), getContext());
         }

@@ -1,27 +1,18 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Mario Danic
- * @author Chris Narkiewicz
- *
- * Copyright (C) 2017 Mario Danic
- * Copyright (C) 2012 Bartek Przybylski
- * Copyright (C) 2012-2016 ownCloud Inc.
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro.brey@nextcloud.com>
+ * SPDX-FileCopyrightText: 2018-2021 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2017 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2014 Luke Owncloud <owncloud@ohrt.org
+ * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2012 Bartosz Przybylski <bart.p.pl@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.ui.fragment;
 
 import android.animation.LayoutTransition;
@@ -78,6 +69,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
@@ -108,8 +100,6 @@ public class ExtendedListFragment extends Fragment implements
     public static final float minColumnSize = 2.0f;
 
     private int maxColumnSize = 5;
-    private int maxColumnSizePortrait = 5;
-    private int maxColumnSizeLandscape = 10;
 
     @Inject AppPreferences preferences;
     @Inject UserAccountManager accountManager;
@@ -125,10 +115,10 @@ public class ExtendedListFragment extends Fragment implements
     protected ImageView mEmptyListIcon;
 
     // Save the state of the scroll in browsing
-    private ArrayList<Integer> mIndexes;
-    private ArrayList<Integer> mFirstPositions;
-    private ArrayList<Integer> mTops;
-    private int mHeightCell;
+    private ArrayList<Integer> mIndexes = new ArrayList<>();
+    private ArrayList<Integer> mFirstPositions = new ArrayList<>();
+    private ArrayList<Integer> mTops = new ArrayList<>();
+    private int mHeightCell = 0;
 
     private SwipeRefreshLayout.OnRefreshListener mOnRefreshListener;
 
@@ -136,11 +126,15 @@ public class ExtendedListFragment extends Fragment implements
 
     protected SearchView searchView;
     private ImageView closeButton;
-    private Handler handler = new Handler(Looper.getMainLooper());
+    private final Handler handler = new Handler(Looper.getMainLooper());
 
     private float mScale = AppPreferencesImpl.DEFAULT_GRID_COLUMN;
 
     private ListFragmentBinding binding;
+
+    public ListFragmentBinding getBinding() {
+        return binding;
+    }
 
     protected void setRecyclerViewAdapter(RecyclerView.Adapter recyclerViewAdapter) {
         mRecyclerView.setAdapter(recyclerViewAdapter);
@@ -183,7 +177,7 @@ public class ExtendedListFragment extends Fragment implements
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
 
-        final Handler handler = new Handler();
+        final Handler handler = new Handler(Looper.getMainLooper());
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         Activity activity;
@@ -246,11 +240,16 @@ public class ExtendedListFragment extends Fragment implements
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        performSearch(query, false);
-        return true;
+        RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
+        if (adapter instanceof OCFileListAdapter) {
+            ArrayList<String> listOfHiddenFiles = ((OCFileListAdapter) adapter).listOfHiddenFiles;
+            performSearch(query, listOfHiddenFiles, false);
+            return true;
+        }
+        return false;
     }
 
-    public void performSearch(final String query, boolean isBackPressed) {
+    public void performSearch(final String query, final ArrayList<String> listOfHiddenFiles, boolean isBackPressed) {
         handler.removeCallbacksAndMessages(null);
         RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
         Activity activity = getActivity();
@@ -269,7 +268,7 @@ public class ExtendedListFragment extends Fragment implements
                                 .getVersion()
                                 .isNewerOrEqual(OwnCloudVersion.nextcloud_20)
                             ) {
-                                ((FileDisplayActivity) activity).performUnifiedSearch(query);
+                                ((FileDisplayActivity) activity).performUnifiedSearch(query, listOfHiddenFiles);
                             } else {
                                 EventBus.getDefault().post(
                                     new SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH)
@@ -297,9 +296,13 @@ public class ExtendedListFragment extends Fragment implements
 
     @Override
     public boolean onClose() {
-        performSearch("", true);
-
-        return false;
+        RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
+        if (adapter instanceof OCFileListAdapter) {
+            ArrayList<String> listOfHiddenFiles = ((OCFileListAdapter) adapter).listOfHiddenFiles;
+            performSearch("", listOfHiddenFiles,true);
+            return false;
+        }
+        return true;
     }
 
     @Override
@@ -395,35 +398,27 @@ public class ExtendedListFragment extends Fragment implements
         mEmptyListIcon = binding.emptyList.emptyListIcon;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-        if (savedInstanceState != null) {
-            mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
-            mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
-            mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
-            mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
-            setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
-
-            if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && getRecyclerView().getAdapter() != null) {
-                switchToGridView();
-            }
-
-            int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
-            Log_OC.v(TAG, "Setting grid position " + referencePosition);
-            scrollToPosition(referencePosition);
-        } else {
-            mIndexes = new ArrayList<>();
-            mFirstPositions = new ArrayList<>();
-            mTops = new ArrayList<>();
-            mHeightCell = 0;
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        if (savedInstanceState == null) {
+            return;
         }
-    }
 
+        mIndexes = savedInstanceState.getIntegerArrayList(KEY_INDEXES);
+        mFirstPositions = savedInstanceState.getIntegerArrayList(KEY_FIRST_POSITIONS);
+        mTops = savedInstanceState.getIntegerArrayList(KEY_TOPS);
+        mHeightCell = savedInstanceState.getInt(KEY_HEIGHT_CELL);
+        setMessageForEmptyList(savedInstanceState.getString(KEY_EMPTY_LIST_MESSAGE));
+
+        if (savedInstanceState.getBoolean(KEY_IS_GRID_VISIBLE, false) && getRecyclerView().getAdapter() != null) {
+            switchToGridView();
+        }
+
+        int referencePosition = savedInstanceState.getInt(KEY_SAVED_LIST_POSITION);
+        Log_OC.v(TAG, "Setting grid position " + referencePosition);
+        scrollToPosition(referencePosition);
+    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle savedInstanceState) {
@@ -450,24 +445,27 @@ public class ExtendedListFragment extends Fragment implements
      * Restore index and position
      */
     protected void restoreIndexAndTopPosition() {
-        if (mIndexes.size() > 0) {
-            // needs to be checked; not every browse-up had a browse-down before
-
-            int index = mIndexes.remove(mIndexes.size() - 1);
-            final int firstPosition = mFirstPositions.remove(mFirstPositions.size() - 1);
-            int top = mTops.remove(mTops.size() - 1);
-
-            Log_OC.v(TAG, "Setting selection to position: " + firstPosition + "; top: "
-                + top + "; index: " + index);
-
-            scrollToPosition(firstPosition);
+        if (mIndexes == null || mIndexes.isEmpty()) {
+            Log_OC.d(TAG,"Indexes is null or empty");
+            return;
         }
+
+        // needs to be checked; not every browse-up had a browse-down before
+
+        int index = mIndexes.remove(mIndexes.size() - 1);
+        final int firstPosition = mFirstPositions.remove(mFirstPositions.size() - 1);
+        int top = mTops.remove(mTops.size() - 1);
+
+        Log_OC.v(TAG, "Setting selection to position: " + firstPosition + "; top: "
+            + top + "; index: " + index);
+
+        scrollToPosition(firstPosition);
     }
 
     private void scrollToPosition(int position) {
         LinearLayoutManager linearLayoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
 
-        if (mRecyclerView != null) {
+        if (linearLayoutManager != null) {
             int visibleItemCount = linearLayoutManager.findLastCompletelyVisibleItemPosition() -
                 linearLayoutManager.findFirstCompletelyVisibleItemPosition();
             linearLayoutManager.scrollToPositionWithOffset(position, (visibleItemCount / 2) * mHeightCell);
@@ -478,8 +476,9 @@ public class ExtendedListFragment extends Fragment implements
      * Save index and top position
      */
     protected void saveIndexAndTopPosition(int index) {
-
-        mIndexes.add(index);
+        if (mIndexes != null) {
+            mIndexes.add(index);
+        }
 
         RecyclerView.LayoutManager layoutManager = mRecyclerView.getLayoutManager();
         int firstPosition;
@@ -512,8 +511,7 @@ public class ExtendedListFragment extends Fragment implements
             searchView.onActionViewCollapsed();
 
             Activity activity;
-            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity) {
-                FileDisplayActivity fileDisplayActivity = (FileDisplayActivity) activity;
+            if ((activity = getActivity()) != null && activity instanceof FileDisplayActivity fileDisplayActivity) {
                 fileDisplayActivity.setDrawerIndicatorEnabled(fileDisplayActivity.isDrawerIndicatorAvailable());
                 fileDisplayActivity.hideSearchView(fileDisplayActivity.getCurrentDir());
             }
@@ -676,9 +674,9 @@ public class ExtendedListFragment extends Fragment implements
         super.onConfigurationChanged(newConfig);
 
         if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            maxColumnSize = maxColumnSizeLandscape;
+            maxColumnSize = 10;
         } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
-            maxColumnSize = maxColumnSizePortrait;
+            maxColumnSize = 5;
         }
 
         if (isGridEnabled() && getColumnsCount() > maxColumnSize) {

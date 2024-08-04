@@ -1,36 +1,28 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author LukeOwncloud
- * @author masensio
- * @author David A. Velasco
- * @author Tobias Kaminsky
- * Copyright (C) 2016 ownCloud Inc.
- * Copyright (C) 2018 Nextcloud GmbH.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Alice Gaudon <alice@gaudon.pro>
+ * SPDX-FileCopyrightText: 2018 Nextcloud GmbH
+ * SPDX-FileCopyrightText: 2017 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2016 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2014 Luke Owncloud <owncloud@ohrt.org>
+ * SPDX-FileCopyrightText: 2015-2016 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2015-2016 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.db;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.UploadsStorageManager.UploadStatus;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.UploadFileOperation;
@@ -171,7 +163,7 @@ public class OCUpload implements Parcelable {
         accountName = "";
         fileSize = -1;
         uploadId = -1;
-        localAction = FileUploader.LOCAL_BEHAVIOUR_COPY;
+        localAction = FileUploadWorker.LOCAL_BEHAVIOUR_COPY;
         nameCollisionPolicy = NameCollisionPolicy.DEFAULT;
         createRemoteFolder = false;
         uploadStatus = UploadStatus.UPLOAD_IN_PROGRESS;
@@ -182,9 +174,9 @@ public class OCUpload implements Parcelable {
         folderUnlockToken = "";
     }
 
-    public void setDataFixed(FileUploader.FileUploaderBinder binder) {
+    public void setDataFixed(FileUploadHelper uploadHelper) {
         fixedUploadStatus = uploadStatus;
-        fixedUploadingNow = binder != null && binder.isUploadingNow(this);
+        fixedUploadingNow = uploadHelper != null && uploadHelper.isUploadingNow(this);
         fixedUploadEndTimeStamp = uploadEndTimestamp;
         fixedUploadId = uploadId;
     }
@@ -387,6 +379,10 @@ public class OCUpload implements Parcelable {
 
     public boolean isUseWifiOnly() {
         return this.useWifiOnly;
+    }
+
+    public boolean exists() {
+        return new File(localPath).exists();
     }
 
     public boolean isWhileChargingOnly() {

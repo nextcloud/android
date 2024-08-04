@@ -1,26 +1,12 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Alejandro Bautista
- * @author Chris Narkiewicz
- * @author Andy Scherzinger
- *
- * Copyright (C) 2017 Alejandro Bautista
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2020 Andy Scherzinger
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2019 Alex Plutta <alex.plutta@googlemail.com>
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2017 Alejandro Morales <aleister09@gmail.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.adapter;
 
@@ -271,8 +257,7 @@ public class ActivityListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                 .into(imageView);
         } else {
             if (MimeTypeUtil.isFolder(previewObject.getMimeType())) {
-                imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context,
-                                                                             viewThemeUtils));
+                imageView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context, viewThemeUtils));
             } else {
                 imageView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(previewObject.getMimeType(),
                                                                         "",

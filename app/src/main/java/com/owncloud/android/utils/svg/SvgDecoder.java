@@ -1,14 +1,13 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * Copyright 2014 Google, Inc. All rights reserved.
- * Licenced under the BSD licence
+ * SPDX-FileCopyrightText: 2014 Google, Inc. All rights reserved.
+ * SPDX-License-Identifier: BSD-2-Clause
  *
  * Borrowed from:
  * https://github.com/bumptech/glide/blob/master/samples/svg/src/main/java/com/bumptech/glide/samples/svg/
  * SvgDecoder.java
  */
-
 package com.owncloud.android.utils.svg;
 
 import com.bumptech.glide.load.ResourceDecoder;

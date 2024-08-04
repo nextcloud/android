@@ -7,15 +7,12 @@
     <string name="account_creation_failed">Akaunt döretmeklik şowsuz boldy</string>
     <string name="account_icon">Hasap nyşany</string>
     <string name="account_not_found">Hasap tapylmady</string>
-    <string name="action_clear_failed_uploads">Şowsuz ýüklemeleri arassalaň</string>
     <string name="action_edit">Redaktirläň</string>
     <string name="action_empty_notifications">ähli bildirişleri arassala</string>
     <string name="action_send_share">Iber / Paýlaş</string>
     <string name="action_switch_grid_view">Gözenegiň görnüşi</string>
     <string name="action_switch_list_view">Sanaw görnüşi</string>
-    <string name="actionbar_copy">Göçüriň</string>
     <string name="actionbar_mkdir">Täze papka döretmek</string>
-    <string name="actionbar_move">Göçüriň</string>
     <string name="actionbar_open_with">Şunyň bilen açyň</string>
     <string name="actionbar_search">Gözlemek</string>
     <string name="actionbar_see_details">Jikme-jiklikleri</string>
@@ -33,6 +30,8 @@
     <string name="add_to_cloud">Goşuň%1$s</string>
     <string name="allow_resharing">Täzeden paýlaşmaga rugsat beriň</string>
     <string name="appbar_search_in">Gözlemek%siçinde</string>
+    <string name="assistant_screen_successful_task_text">Tamamlanan</string>
+    <string name="assistant_screen_unknown_task_status_text">Näbelli</string>
     <string name="associated_account_not_found">Baglanyşyk hasaby tapylmady!</string>
     <string name="auth_access_failed">Şowsuz Giriş%1$s:</string>
     <string name="auth_account_does_not_exist">Akaunt entek bu enjamda goşulmaýar</string>
@@ -131,14 +130,12 @@
     <string name="community_testing_bug_text">Näsazlyk tapdyňyzmy? Ýa-da täsinlikler?</string>
     <string name="community_testing_headline">Synag arkaly kömek ediň</string>
     <string name="community_testing_report_text">GitHub-da mesele barada habar beriň</string>
-    <string name="community_testing_version_text">Indiki wersiýasy näme boljakdygyny synap görmek bilen kömek etmek isleýärsiňizmi?</string>
     <string name="configure_new_media_folder_detection_notifications">Sazlamak</string>
     <string name="confirmation_remove_file_alert">Hakykatdanam pozmak isleýärsiňizmi%1$s?</string>
     <string name="confirmation_remove_files_alert">Saýlanan zatlary hakykatdanam pozmak isleýärsiňizmi?</string>
     <string name="confirmation_remove_folder_alert">Hakykatdan hem %1$sonuň mazmuny hem pozmak isleýärsiňizmi?</string>
     <string name="confirmation_remove_folders_alert">Saýlanan elementleri we olaryň mazmunyny hakykatdanam pozmak isleýärsiňizmi?</string>
     <string name="confirmation_remove_local">Diňe ýerli</string>
-    <string name="conflict_dialog_error">Jedelli gepleşikleri döretmekdäki ýalňyşlyk!</string>
     <string name="conflict_file_headline">Jedelli faýl%1$s</string>
     <string name="conflict_message_description">Eger siz iki wersiýasyny hem saýlasaňyz, ýerli faýlyň adyna san goşular.</string>
     <string name="contactlist_item_icon">Aragatnaşyk sanawy üçin ulanyjy nyşany</string>
@@ -155,24 +152,15 @@
     <string name="copy_file_not_found">Göçürip bolmaýar. Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>
     <string name="copy_link">Link-y nusgalaň</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Häzirki wagtda goldanmaýan şifrlenen bukjany göçüriň / geçiriň.</string>
-    <string name="copy_to">Göçüriň…</string>
     <string name="could_not_download_image">Doly suraty göçürip alyp bolmady</string>
     <string name="could_not_retrieve_shares">Paýlary alyp bolmady</string>
     <string name="could_not_retrieve_url">URL alyp bolmady</string>
     <string name="create">Dörediň</string>
     <string name="create_dir_fail_msg">Bukjany döredip bolmady</string>
-    <string name="create_new">Täzesini dörediň</string>
-    <string name="create_new_document">Täze resminama dörediň</string>
-    <string name="create_new_folder">Täze bukja dörediň</string>
-    <string name="create_new_presentation">Täze prezentasiýany dörediň</string>
-    <string name="create_new_spreadsheet">Täze elektron tablisany dörediň</string>
-    <string name="create_rich_workspace">Bukja barada maglumat goşuň</string>
-    <string name="creates_rich_workspace">bukja barada maglumatlar döredilýär</string>
+    <string name="create_new_folder">Täze papka döretmek</string>
     <string name="credentials_disabled">Şahsyýet maglumatlary ýapyldy</string>
-    <string name="date_unknown">Näbelli</string>
     <string name="default_credentials_wrong">Nädogry şahsyýet maglumatlary</string>
     <string name="delete_account">Hasaby aýyryň</string>
-    <string name="delete_account_warning">%sHasaby aýyryň we ähli ýerli faýllary pozuň? \ N \ n Öçürip bolmaýar.</string>
     <string name="delete_entries">Ýazgylary pozuň</string>
     <string name="deselect_all">Hemmesini aýyryň</string>
     <string name="dev_version_new_version_available">Täze wersiýa bar</string>
@@ -216,6 +204,7 @@
     <string name="drawer_quota">%1$s-yň %2$sulanylan</string>
     <string name="drawer_quota_unlimited">%1$sulanyldy</string>
     <string name="drawer_synced_folders">Awto ýüklemek</string>
+    <string name="ecosystem_apps_display_more">Has köp</string>
     <string name="encrypted">Şifrlenen görnüşde düzüň</string>
     <string name="end_to_end_encryption_confirm_button">Şifrlemäni gurnamak</string>
     <string name="end_to_end_encryption_decrypting">Şifri açmak...</string>
@@ -244,7 +233,6 @@
     <string name="etm_accounts">Hasaplar</string>
     <string name="etm_background_job_name">Işiň ady</string>
     <string name="etm_background_job_progress">Ösüş</string>
-    <string name="etm_background_job_started">Başlady</string>
     <string name="etm_background_job_state">Ýagdaýy</string>
     <string name="etm_background_job_user">Ulanyjy</string>
     <string name="etm_background_job_uuid">UUID</string>
@@ -315,6 +303,7 @@
     <string name="file_rename">Adyny üýtgetmek</string>
     <string name="file_version_restored_error">Faýl wersiýasyny dikeltmekdäki ýalňyşlyklar!</string>
     <string name="file_version_restored_successfully">Faýl wersiýasy üstünlikli dikeldildi.</string>
+    <string name="filedetails_details">Jikme-jiklikler</string>
     <string name="filedetails_download">Göçürip almak</string>
     <string name="filedetails_renamed_in_upload_msg">%1$sFaýl ýüklenende üýtgedildi</string>
     <string name="filedetails_sync_file">Sinhronlamak</string>
@@ -324,20 +313,18 @@
     <string name="filename_forbidden_charaters_from_server">Faýlyň ady azyndan bir nädogry belgini öz içine alýar</string>
     <string name="filename_hint">Faýlyň ady</string>
     <string name="first_run_1_text">Maglumatlaryňyzy ygtybarly we gözegçilik astynda saklaň</string>
-    <string name="first_run_2_text">Ygtybarly hyzmatdaşlyk &amp;faýl alyş-çalşygy</string>
-    <string name="first_run_3_text">Ulanylyşy aňsat web poçtasy, senenama &amp;aragatnaşyklary</string>
-    <string name="first_run_4_text">Ekrany paýlaşmak, onlaýn ýygnaklar &amp;web konferensiýalary</string>
     <string name="folder_already_exists">Bukja eýýäm bar</string>
     <string name="folder_confirm_create">Dörediň</string>
     <string name="folder_list_empty_headline">Bu ýerde bukjalar ýok</string>
-    <string name="folder_picker_choose_button_text">Saýlaň</string>
+    <string name="folder_picker_choose_button_text">saýlamak</string>
+    <string name="folder_picker_copy_button_text">Göçüriň</string>
+    <string name="folder_picker_move_button_text">Göçüriň</string>
     <string name="forbidden_permissions">%sSize rugsat berilmeýär</string>
     <string name="forbidden_permissions_copy">bu faýly göçürmek</string>
     <string name="forbidden_permissions_create">bu faýly döretmek</string>
     <string name="forbidden_permissions_delete">bu faýly pozmak</string>
     <string name="forbidden_permissions_move">bu faýly geçirmek</string>
     <string name="forbidden_permissions_rename">bu faýlyň adyny üýtgetmek</string>
-    <string name="foreground_service_download">Faýllary göçürip almaklyk...</string>
     <string name="foreground_service_upload">Faýl ýüklemek…</string>
     <string name="foreign_files_fail">Käbir faýllary süýşürip bolmaýar</string>
     <string name="foreign_files_local_text">Ýerli:%1$s</string>
@@ -400,7 +387,6 @@
     <string name="move_file_invalid_into_descendent">Bir bukjany öz esasy bukjalarynyň birine geçirmek mümkin däl</string>
     <string name="move_file_invalid_overwrite">Faýl niýetlenen bukjada eýýäm bar</string>
     <string name="move_file_not_found">Faýly göçürip bolmaýar. Barlygyny ýa-da ýokdugyny barlaň.</string>
-    <string name="move_to">Göçmek…</string>
     <string name="network_error_connect_timeout_exception">Serwere garaşylýarka ýalňyşlyk ýüze çykdy. Amal edip bolmady</string>
     <string name="network_error_socket_exception">Serwere birikdirilende ýalňyşlyk ýüze çykdy</string>
     <string name="network_error_socket_timeout_exception">Serwere garaşýarka ýalňyşlyk ýüze çykdy. Iş tamamlap bolmady.</string>
@@ -414,7 +400,6 @@
     <string name="no_browser_available">Salgylary dolandyrmak üçin programma ýok</string>
     <string name="no_mutliple_accounts_allowed">Diňe bir hasabyňyza rugsat berildi</string>
     <string name="no_pdf_app_available">PDF bilen işlemek üçin programma ýok</string>
-    <string name="note_confirm">Iber</string>
     <string name="note_could_not_sent">Bellik iberip bolmady</string>
     <string name="note_icon_hint">Bellik nyşany</string>
     <string name="notification_action_failed">Hereket ýerine ýetirilmedi.</string>
@@ -470,16 +455,14 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Täze wersiýanyň adyny üýtgediň</string>
     <string name="pref_instant_name_collision_policy_title">Faýl eýýäm bar bolsa näme etmeli?</string>
     <string name="prefs_add_account">Hasap goşuň</string>
-    <string name="prefs_calendar_contacts">Senenama aragatnaşyklaryny sinhronlaň&amp;</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">Hasap üçin serwer salgysy DAVx5 (öň DAVdroid ady bilen tanalýardy) üçin çözülip bilinmedi</string>
     <string name="prefs_calendar_contacts_no_store_error">Ne F-Droid, ne-de Google Play ýüklenmedik</string>
     <string name="prefs_calendar_contacts_summary">Häzirki hasap üçin DAVx5 (öň DAVdroid ady bilen tanalýardy) (v1.3.0 +) guruň</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Senenama &amp;kontaktlary sinhronlaşdyryldy</string>
     <string name="prefs_category_about">Hakynda</string>
     <string name="prefs_category_details">Jikme-jiklikler</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Esasy</string>
     <string name="prefs_category_more">Has köp</string>
+    <string name="prefs_daily_contact_backup_summary">Kontaktlaryňyzyň gündelik ätiýaçlyk nusgasy</string>
     <string name="prefs_e2e_mnemonic">e2e ýatlatma</string>
     <string name="prefs_e2e_no_device_credentials">Mnemonik görkezmek üçin enjam şahsyýet maglumatlaryny açmagyňyzy haýyş edýäris.</string>
     <string name="prefs_enable_media_scan_notifications">Mediýa skaner habarnamalaryny görkeziň</string>
@@ -489,7 +472,6 @@
     <string name="prefs_imprint">Yz</string>
     <string name="prefs_instant_behaviour_dialogTitle">Asyl faýl bolar ...</string>
     <string name="prefs_instant_behaviour_title">Asyl faýl bolar ...</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Ýyl we aý esasynda bukjalarda saklaň</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Aşakdaky bukjalary ulanyň</string>
     <string name="prefs_license">ygtyýarnamasy</string>
     <string name="prefs_lock">Programma kody</string>
@@ -548,14 +530,11 @@
     <string name="screenshot_04_accounts_heading">Siziň ähli hasaplaryňyz</string>
     <string name="screenshot_04_accounts_subline">bir ýerde</string>
     <string name="screenshot_05_autoUpload_heading">Awtomatiki ýüklemek</string>
-    <string name="screenshot_05_autoUpload_subline">siziň suratlaryňyz üçin&amp;wideolar</string>
-    <string name="screenshot_06_davdroid_heading">Senenama &amp;aragatnaşyklar</string>
     <string name="screenshot_06_davdroid_subline">DAVx5 bilen sinhronlaň</string>
     <string name="select_all">Hemmesini saýlaň</string>
     <string name="select_one_template">Bir şablon saýlaň</string>
     <string name="select_template">Şablon saýlaň</string>
     <string name="send">Iber</string>
-    <string name="send_note">Alyja bellik iberiň</string>
     <string name="sendbutton_description">\"Ibermek\" düwmesiniň nyşanyny</string>
     <string name="set_as">Hökmünde ornaşdyryň</string>
     <string name="set_picture_as">Suraty ulanmak hökmünde</string>
@@ -600,12 +579,6 @@
     <string name="signup_with_provider">Prowaýder bilen ýazylyň</string>
     <string name="single_sign_on_request_token" formatted="true">Nextcloud hasabyňyza girmäge rugsat beriň?%1$s%2$s</string>
     <string name="sort_by">Tertipleşdir</string>
-    <string name="sort_by_modification_date_ascending">Täze ilkinji</string>
-    <string name="sort_by_modification_date_descending">Ilki bilen iň köne</string>
-    <string name="sort_by_name_ascending">A - Z</string>
-    <string name="sort_by_name_descending">Z - A</string>
-    <string name="sort_by_size_ascending">Ilki bilen iň kiçisi </string>
-    <string name="sort_by_size_descending">Ilki bilen iň ulusy</string>
     <string name="ssl_validator_btn_details_hide">Gizläň</string>
     <string name="ssl_validator_btn_details_see">Jikme-jiklikler</string>
     <string name="ssl_validator_header">Serweriň şahsyýetini tassyklap bolmady</string>
@@ -641,9 +614,6 @@
     <string name="storage_movies">Wideo</string>
     <string name="storage_music">Saz</string>
     <string name="storage_pictures">Suratlar</string>
-    <string name="store_full_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma.\n\n Aýratynlyklary:\n * Serweriňiziň temasyna laýyk gelýän aňsat, döwrebap interfeýs\n * Nextcloud serweriňize faýl ýükläň\n* Olary beýlekiler bilen paýlaşyň\n * Halaýan faýllaryňyzy we bukjalaryňyzy sinhronlaň\ n * Serweriňizdäki ähli bukjalarda gözläň\ n * Enjamyňyz tarapyndan düşürilen suratlar we wideolar üçin awtomatiki ýüklemek\n * Duýduryşlary bilen ähli täzelikleriň habarynda boluň \n * Bir näçe hasaplaryňyz üçin goldaw \n * Barmak yzy ýa-da PIN kodynyň kömegi bilen siziň maglumatlaryňyza ygtybarly girmek \n  Integrasiýa DAVx5 bilen (öň DAVdroid ady bilen tanalýardy) &amp;Aragatnaşyklaryň senenamasyny sinhronlamasyny aňsat gurnamak üçin \n\n Haýyş edýäris ähli ýüze çykýan meseleleri habar beriň https://github.com/nextcloud/android/issues we bu programmany ara alyp maslahatlaşmak üçin
-
-https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud” şahsy umumy düýp faýl sinhronlamasy &amp;we aragatnaşyk serweri. Bu mugt programma üpjünçiligi, ony özbaşdak ýerleşdirip bilersiňiz ýa-da siziň üçin buny ýerine ýetirjek kompaniýa töläp bilersiňiz. Şeýlelik bilen, suratlaryňyzy, senenamaňyzy we aragatnaşyk maglumatlaryňyzy, resminamalaryňyzy we beýleki zatlary dolandyrýarsyňyz. \ N \ n Nextcloud-dan https://nextcloud.com sahypasyna giriň.</string>
     <string name="store_full_dev_desc">Özüňizi gözegçilikde saklaýan öndürijilik platformasy. \ NBu, durnuksyzlyga we maglumatlaryň ýitmegine sebäp bolup biljek islendik täze synag edilmedik funksiýanyň gündelik nusgasyny görkezýän resmi ösüş wersiýasy. Programma synamak isleýän ulanyjylar üçin we näsazlyklar ýüze çykan halatynda habar bermek üçin. Önümçilikli işiňiz üçin ulanmaň! \ N \ n Bu resmi dev we adaty wersiýa F-droid-de bar we şol bir wagtyň özünde gurup bolýar.</string>
     <string name="store_short_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma</string>
     <string name="store_short_dev_desc">Sizi gözegçilikde saklaýan, öndürijiligi ýokarlandyrmak üçin öz-özüni dolandyrýan platforma (deslapky wersiýa)</string>
@@ -674,7 +644,6 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="synced_folders_configure_folders">Papkalary sazlaň</string>
     <string name="synced_folders_new_info">Derrew ýüklemek düýbünden täzelendi. Awto ýüklemäňizi esasy menýuda täzeden düzüň. \ N \ n Täze we giňeldilen awto ýüklemekden lezzet alyň.</string>
     <string name="synced_folders_no_results">Mediýa bukjalary tapylmady</string>
-    <string name="synced_folders_preferences">Awto ýüklemek üçin ileri tutmalar</string>
     <string name="synced_folders_preferences_folder_path">%1$süçin</string>
     <string name="synced_folders_type">Görnüşi</string>
     <string name="synced_icon">Sinhronlandy</string>
@@ -685,7 +654,6 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="thumbnail">Kiçi surat</string>
     <string name="thumbnail_for_existing_file_description">Bar bolan faýl üçin kiçijik surat</string>
     <string name="thumbnail_for_new_file_desc">Täze faýl üçin kiçijik surat</string>
-    <string name="timeout_richDocuments">Ýüklemek gaty uzaga çekýär ...</string>
     <string name="today">Şu gün</string>
     <string name="trashbin_activity_title">Pozulan faýllar</string>
     <string name="trashbin_empty_headline">Pozulan faýllar ýok</string>
@@ -695,7 +663,6 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="trashbin_not_emptied">Faýllary hemişelik pozup bolmaz!</string>
     <string name="unread_comments">Okalmadyk teswirler bar</string>
     <string name="unset_encrypted">Şifrlemäni açmak</string>
-    <string name="unset_favorite">Halanýanlardan aýyryň</string>
     <string name="unshare_link_file_error">Bu faýly ýa-da bukjany paýlaşmaga synanyşanda ýalňyşlyk ýüze çykdy.</string>
     <string name="unshare_link_file_no_exist">Paýlaşyp bolmaýar. Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>
     <string name="unshare_link_forbidden_permissions">bu faýly paýlaşmak üçin</string>
@@ -705,6 +672,7 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="update_link_file_no_exist">Täzelenip bolmaýar Faýlyň bardygyny ýa-da ýokdugyny barlaň.</string>
     <string name="update_link_forbidden_permissions">bu paýy täzelemek üçin</string>
     <string name="updating_share_failed">Paý paýy täzelendi</string>
+    <string name="upload_action_failed_clear">Şowsuz ýüklemeleri arassalaň</string>
     <string name="upload_cannot_create_file">Ýerli faýl döredip bolmaýar</string>
     <string name="upload_chooser_title">Ýüklemek…</string>
     <string name="upload_content_from_other_apps">Mazmuny beýleki programmalardan ýükläň</string>
@@ -758,6 +726,7 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="uploads_view_group_current_uploads">Häzirki</string>
     <string name="uploads_view_group_failed_uploads">Şowsuz / täzeden başlamaga garaşýar</string>
     <string name="uploads_view_group_finished_uploads">Ýüklendi</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Ýatyryldy</string>
     <string name="uploads_view_later_waiting_to_upload">Ýüklemek üçin garaşýar</string>
     <string name="uploads_view_title">Ýüklemeler</string>
     <string name="uploads_view_upload_status_cancelled">Ýatyryldy</string>
@@ -793,6 +762,7 @@ https://help.nextcloud.com/c/clients/android\n\n Täze Nextcloud? “Nextcloud�
     <string name="what_s_new_image">Täze şekil näme</string>
     <string name="whats_new_skip">Geçmek</string>
     <string name="whats_new_title">Täze%1$s-da</string>
+    <string name="worker_download">Faýllary göçürip almaklyk...</string>
     <string name="wrong_storage_path">Maglumat saklaýyş bukjasy ýok!</string>
     <string name="wrong_storage_path_desc">Bu başga bir enjamda ätiýaçlyk dikeldişi sebäpli bolup biler. Asyl görnüşine gaýdyp gelmek. Maglumat saklaýyş bukjasyny sazlamak üçin sazlamalary barlaň.</string>
     </resources>

@@ -1,23 +1,9 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.trashbin
 
@@ -34,7 +20,9 @@ import org.junit.Test
 
 class TrashbinActivityIT : AbstractIT() {
     enum class TestCase {
-        ERROR, EMPTY, FILES
+        ERROR,
+        EMPTY,
+        FILES
     }
 
     @get:Rule
@@ -89,7 +77,7 @@ class TrashbinActivityIT : AbstractIT() {
         shortSleep()
         waitForIdleSync()
 
-        screenshot(sut)
+        screenshot(sut.binding.emptyList.emptyListView)
     }
 
     @Test
@@ -105,10 +93,11 @@ class TrashbinActivityIT : AbstractIT() {
 
         shortSleep()
 
-        screenshot(sut)
+        screenshot(sut.binding.listFragmentLayout)
     }
 
     @Test
+    @ScreenshotTest
     fun normalUser() {
         val sut: TrashbinActivity = activityRule.launchActivity(null)
 
@@ -124,6 +113,7 @@ class TrashbinActivityIT : AbstractIT() {
     }
 
     @Test
+    @ScreenshotTest
     fun differentUser() {
         val temp = Account("differentUser@https://nextcloud.localhost", MainApp.getAccountType(targetContext))
 

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2024 Jonas Mayer <jonas.a.mayer@gmx.net>
+  ~ SPDX-FileCopyrightText: 2024 Nextcloud GmbH
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_upload_list_failed_retry"
+        android:icon="@drawable/ic_sync"
+        android:title="@string/upload_action_failed_retry" />
+
+    <item
+        android:id="@+id/action_upload_list_failed_clear"
+        android:title="@string/upload_action_failed_clear"
+        android:icon="@drawable/ic_close" />
+</menu>

@@ -1,31 +1,24 @@
 /*
- * ownCloud Android client application
- * <p>
- * Copyright (C) 2016 ownCloud Inc.
- * <p>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- * <p>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * <p>
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023 alperozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.utils;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -131,51 +124,34 @@ public final class MimeTypeUtil {
         return determineIconIdByMimeTypeList(possibleMimeTypes);
     }
 
-    /**
-     * Returns the resource identifier of an image to use as icon associated to a type of folder.
-     *
-     * @param isSharedViaUsers flag if the folder is shared via the users system
-     * @param isSharedViaLink  flag if the folder is publicly shared via link
-     * @param isEncrypted      flag if the folder is encrypted
-     * @return Identifier of an image resource.
-     */
-    public static Drawable getFolderTypeIcon(boolean isSharedViaUsers,
-                                             boolean isSharedViaLink,
-                                             boolean isEncrypted,
-                                             boolean isGroupFolder,
-                                             WebdavEntry.MountType mountType,
-                                             Context context,
-                                             ViewThemeUtils viewThemeUtils) {
-        int drawableId;
+    public static Drawable getDefaultFolderIcon(Context context, ViewThemeUtils viewThemeUtils) {
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.folder);
+        assert(drawable != null);
 
-        if (WebdavEntry.MountType.GROUP == mountType || isGroupFolder) {
-            drawableId = R.drawable.folder_group;
-        } else if (isSharedViaLink && !isEncrypted) {
-            drawableId = R.drawable.folder_shared_link;
-        } else if (isSharedViaUsers) {
-            drawableId = R.drawable.folder_shared_users;
-        } else if (isEncrypted) {
-            drawableId = R.drawable.folder_encrypted;
-        } else if (WebdavEntry.MountType.EXTERNAL == mountType) {
-            drawableId = R.drawable.folder_external;
-        } else {
-            drawableId = R.drawable.folder;
-        }
-
-        Drawable drawable = ContextCompat.getDrawable(context, drawableId);
-        viewThemeUtils.platform.tintPrimaryDrawable(context, drawable);
+        viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY);
         return drawable;
     }
 
-    public static Drawable getDefaultFolderIcon(Context context,
-                                                ViewThemeUtils viewThemeUtils) {
-        return getFolderTypeIcon(false,
-                                 false,
-                                 false,
-                                 false,
-                                 WebdavEntry.MountType.INTERNAL,
-                                 context,
-                                 viewThemeUtils);
+    public static LayerDrawable getFileIcon(Boolean isDarkModeActive, Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
+        Drawable folderDrawable = getDefaultFolderIcon(context, viewThemeUtils);
+        assert(folderDrawable != null);
+
+        LayerDrawable folderLayerDrawable = new LayerDrawable(new Drawable[] { folderDrawable } );
+
+        if (overlayIconId == null) {
+            return folderLayerDrawable;
+        }
+
+        DrawableUtil drawableUtil = new DrawableUtil();
+
+        Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
+        assert(overlayDrawable != null);
+
+        if (isDarkModeActive) {
+            overlayDrawable = drawableUtil.changeColor(overlayDrawable, R.color.dark);
+        }
+
+        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable);
     }
 
     /**
@@ -490,6 +466,10 @@ public final class MimeTypeUtil {
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.ms-visio.template", R.drawable.file_doc);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.ms-word.document.macroEnabled.12", R.drawable.file_doc);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.ms-word.template.macroEnabled.12", R.drawable.file_doc);
+        MIMETYPE_TO_ICON_MAPPING.put("application/vnd.oasis.opendocument.formula", R.drawable.file_analytics);
+        MIMETYPE_TO_ICON_MAPPING.put("application/vnd.oasis.opendocument.formula-template", R.drawable.file_analytics);
+        MIMETYPE_TO_ICON_MAPPING.put("application/vnd.oasis.opendocument.graphics", R.drawable.file_analytics);
+        MIMETYPE_TO_ICON_MAPPING.put("application/vnd.oasis.opendocument.graphics-template", R.drawable.file_analytics);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.oasis.opendocument.presentation", R.drawable.file_ppt);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.oasis.opendocument.presentation-template", R.drawable.file_ppt);
         MIMETYPE_TO_ICON_MAPPING.put("application/vnd.oasis.opendocument.spreadsheet", R.drawable.file_xls);

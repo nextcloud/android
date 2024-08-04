@@ -1,6 +1,11 @@
 ## Script originally from https://github.com/tir38/android-lint-entropy-reducer at 07.05.2017
 # heavily modified since then
 
+# SPDX-FileCopyrightText: 2017-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2017 Jason Atwood 
+# SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+
 Encoding.default_external = Encoding::UTF_8
 Encoding.default_internal = Encoding::UTF_8
 
@@ -15,7 +20,7 @@ require 'open3'
 
 # run Spotbugs
 puts "running Spotbugs..."
-system './gradlew spotbugsGplayDebug 1>/dev/null 2>&1'
+system './gradlew spotbugsGplayDebug'
 
 # find number of warnings
 current_warning_count = `./scripts/analysis/spotbugsSummary.py --total`.to_i

@@ -1,44 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ownCloud Android client application
-
-  Copyright (C) 2015 ownCloud Inc.
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License version 2,
-  as published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  -->
-
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018 Álvaro Brey <alvaro@alvarobrey.com>
+  ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2016 Divay Prakash <divayprakash3@gmail.com>
+  ~ SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
+  ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2013 David A. Velasco <dvelasco@solidgear.es>
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+-->
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.owncloud.android.ui.components.CustomViewPager
+    <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragmentPager"
+        android:orientation="horizontal"
 		android:layout_width="match_parent"
-        android:layout_height="match_parent"
-		/>
+        android:layout_height="match_parent" />
 
     <include
         layout="@layout/drawer"
         android:layout_width="@dimen/drawer_width"
         android:layout_height="match_parent"
         android:layout_gravity="start"/>
-
-    <!-- LinearLayout
-        android:id="@+id/fragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-            <!- - Preview: layout=@layout/preview_image_fragment - ->
-    </LinearLayout -->
 
 </androidx.drawerlayout.widget.DrawerLayout>

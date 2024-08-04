@@ -1,5 +1,7 @@
+# SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 build:
-  maxIssues: 0
+  maxIssues: 2
   weights:
     # complexity: 2
     # LongParameterList: 1
@@ -59,7 +61,7 @@ complexity:
     excludes: ['**/androidTest/**']
   LabeledExpression:
     active: false
-    ignoredLabels: ""
+    ignoredLabels: []
   LargeClass:
     active: true
     threshold: 600
@@ -69,7 +71,7 @@ complexity:
     excludes: ['**/androidTest/**']
   LongParameterList:
     active: true
-    functionThreshold: 6
+    functionThreshold: 7
     constructorThreshold: 6
     ignoreDefaultParameters: false
   MethodOverloading:
@@ -132,7 +134,7 @@ exceptions:
   active: true
   ExceptionRaisedInUnexpectedLocation:
     active: false
-    methodNames: 'toString,hashCode,equals,finalize'
+    methodNames: [toString,hashCode,equals,finalize]
   InstanceOfCheckForException:
     active: false
   NotImplementedDeclaration:
@@ -145,14 +147,14 @@ exceptions:
     active: false
   SwallowedException:
     active: false
-    ignoredExceptionTypes: 'InterruptedException,NumberFormatException,ParseException,MalformedURLException'
+    ignoredExceptionTypes: [InterruptedException,NumberFormatException,ParseException,MalformedURLException]
   ThrowingExceptionFromFinally:
     active: false
   ThrowingExceptionInMain:
     active: false
   ThrowingExceptionsWithoutMessageOrCause:
     active: false
-    exceptions: 'IllegalArgumentException,IllegalStateException,IOException'
+    exceptions: [IllegalArgumentException,IllegalStateException,IOException]
   ThrowingNewInstanceOfSameException:
     active: false
   TooGenericExceptionCaught:
@@ -190,7 +192,7 @@ naming:
     enumEntryPattern: '^[A-Z][_a-zA-Z0-9]*'
   ForbiddenClassName:
     active: false
-    forbiddenName: ''
+    forbiddenName: []
   FunctionMaxLength:
     active: false
     maximumFunctionNameLength: 30
@@ -199,7 +201,7 @@ naming:
     minimumFunctionNameLength: 3
   FunctionNaming:
     active: true
-    functionPattern: '^([a-z$][a-zA-Z$0-9]*)|(`.*`)$'
+    functionPattern: '^([a-z$A-Z][a-zA-Z$0-9]*)|(`.*`)$'
     excludeClassPattern: '$^'
     ignoreOverridden: true
     excludes:
@@ -291,7 +293,7 @@ style:
     active: false
   DataClassContainsFunctions:
     active: false
-    conversionFunctionPrefix: 'to'
+    conversionFunctionPrefix: [to]
   EqualsNullCall:
     active: false
   EqualsOnSignatureLine:
@@ -306,19 +308,19 @@ style:
     values: 'TODO:,FIXME:,STOPSHIP:'
   ForbiddenImport:
     active: false
-    imports: ''
+    imports: []
   ForbiddenVoid:
     active: false
   FunctionOnlyReturningConstant:
     active: false
     ignoreOverridableFunction: true
-    excludedFunctions: 'describeContents'
+    excludedFunctions: [describeContents]
   LoopWithTooManyJumpStatements:
     active: false
     maxJumpCount: 1
   MagicNumber:
     active: true
-    ignoreNumbers: '-1,0,1,2'
+    ignoreNumbers: ["-1","0","1","2"]
     ignoreHashCodeFunction: true
     ignorePropertyDeclaration: false
     ignoreConstantDeclaration: true
@@ -362,7 +364,7 @@ style:
   ReturnCount:
     active: true
     max: 2
-    excludedFunctions: "equals"
+    excludedFunctions: [equals]
     excludeLabeled: false
     excludeReturnFromLambda: true
   SafeCast:
@@ -409,4 +411,4 @@ style:
     active: false
   WildcardImport:
     active: true
-    excludeImports: 'java.util.*,kotlinx.android.synthetic.*'
+    excludeImports: [java.util.*,kotlinx.android.synthetic.*]

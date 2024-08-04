@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2021-2023 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+
 DRONE_PULL_REQUEST=$1
 LOG_USERNAME=$2
 LOG_PASSWORD=$3
@@ -28,7 +32,10 @@ scripts/wait_for_server.sh "server"
 adb logcat -c
 adb logcat > logcat.txt &
 LOGCAT_PID=$!
-./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest
+./gradlew createGplayDebugCoverageReport \
+-Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest \
+-Dorg.gradle.jvmargs="--add-opens java.base/java.nio=ALL-UNNAMED --add-opens java.base/java.nio.channels=ALL-UNNAMED --add-exports java.base/sun.nio.ch=ALL-UNNAMED"
+
 stat=$?
 # stop saving logcat
 kill $LOGCAT_PID

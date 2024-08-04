@@ -1,24 +1,10 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.dialog;
 
 import android.app.Dialog;
@@ -28,8 +14,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.EditBoxDialogBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -52,8 +40,6 @@ public class RenamePublicShareDialogFragment
 
     private static final String ARG_PUBLIC_SHARE = "PUBLIC_SHARE";
 
-    public static final String RENAME_PUBLIC_SHARE_FRAGMENT = "RENAME_PUBLIC_SHARE_FRAGMENT";
-
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject KeyboardUtils keyboardUtils;
 
@@ -75,21 +61,23 @@ public class RenamePublicShareDialogFragment
         AlertDialog alertDialog = (AlertDialog) getDialog();
 
         if (alertDialog != null) {
-            viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE),
-                                                     alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL));
+            MaterialButton positiveButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            MaterialButton negativeButton = (MaterialButton) alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(positiveButton);
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton);
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        keyboardUtils.showKeyboardForEditText(binding.userInput);
+        keyboardUtils.showKeyboardForEditText(requireDialog().getWindow(), binding.userInput);
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        publicShare = requireArguments().getParcelable(ARG_PUBLIC_SHARE);
+        publicShare = BundleExtensionsKt.getParcelableArgument(requireArguments(), ARG_PUBLIC_SHARE, OCShare.class);
 
         // Inflate the layout for the dialog
         LayoutInflater inflater = requireActivity().getLayoutInflater();
@@ -104,7 +92,7 @@ public class RenamePublicShareDialogFragment
         MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(view.getContext());
         builder.setView(view)
             .setPositiveButton(R.string.file_rename, this)
-            .setNeutralButton(R.string.common_cancel, this)
+            .setNegativeButton(R.string.common_cancel, this)
             .setTitle(R.string.public_share_name);
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.userInput.getContext(), builder);

@@ -1,24 +1,10 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Mario Danic
- * @author Chris Narkiewicz
- * Copyright (C) 2017 Mario Danic
- * Copyright (C) 2017 Nextcloud
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
+ * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.utils;
 
@@ -32,7 +18,9 @@ import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.common.DNSCache;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.ReceiverFlag;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 
 /**
@@ -61,15 +49,15 @@ public final class ReceiversHelper {
                 DNSCache.clear();
                 walledCheckCache.clear();
                 if (connectivityService.getConnectivity().isConnected()) {
-                    FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
-                                                        accountManager,
-                                                        connectivityService,
-                                                        powerManagementService);
+                    FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
+                                                           accountManager,
+                                                           connectivityService,
+                                                           powerManagementService);
                 }
             }
         };
 
-        context.registerReceiver(broadcastReceiver, intentFilter);
+        ContextExtensionsKt.registerBroadcastReceiver(context, broadcastReceiver, intentFilter, ReceiverFlag.NotExported);
     }
 
     public static void registerPowerChangeReceiver(
@@ -88,15 +76,15 @@ public final class ReceiversHelper {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (Intent.ACTION_POWER_CONNECTED.equals(intent.getAction())) {
-                    FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
-                                                        accountManager,
-                                                        connectivityService,
-                                                        powerManagementService);
+                    FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
+                                                           accountManager,
+                                                           connectivityService,
+                                                           powerManagementService);
                 }
             }
         };
 
-        context.registerReceiver(broadcastReceiver, intentFilter);
+        ContextExtensionsKt.registerBroadcastReceiver(context, broadcastReceiver, intentFilter, ReceiverFlag.NotExported);
     }
 
     public static void registerPowerSaveReceiver(
@@ -114,14 +102,14 @@ public final class ReceiversHelper {
             @Override
             public void onReceive(Context context, Intent intent) {
                 if (!powerManagementService.isPowerSavingEnabled()) {
-                    FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
-                                                        accountManager,
-                                                        connectivityService,
-                                                        powerManagementService);
+                    FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
+                                                           accountManager,
+                                                           connectivityService,
+                                                           powerManagementService);
                 }
             }
         };
 
-        context.registerReceiver(broadcastReceiver, intentFilter);
+        ContextExtensionsKt.registerBroadcastReceiver(context, broadcastReceiver, intentFilter, ReceiverFlag.NotExported);
     }
 }

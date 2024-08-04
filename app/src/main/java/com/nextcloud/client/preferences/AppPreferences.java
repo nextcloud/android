@@ -1,42 +1,34 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz, EZ Aquarii
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2023 Jonas Mayer <jonas.a.mayer@gmx.net>
+ * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2021 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: GPL-3.0-or-later AND AGPL-3.0-or-later
  */
-
 package com.nextcloud.client.preferences;
 
+import com.nextcloud.appReview.AppReviewShownModel;
+import com.nextcloud.client.jobs.LogEntry;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.FileSortOrder;
 
+import java.util.List;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
  * This interface provides single point of entry for access to all application
- * preferences and allows clients to subscribe for specific configuration
- * changes.
+ * preferences and allows clients to subscribe for specific configuration changes.
  */
 public interface AppPreferences {
 
     /**
      * Preferences listener. Callbacks should be invoked on main thread.
-     *
-     * Maintainers should extend this interface with callbacks for specific
-     * events.
+     * Maintainers should extend this interface with callbacks for specific events.
      */
     interface Listener {
         default void onDarkThemeModeChanged(DarkMode mode) {
@@ -67,9 +59,13 @@ public interface AppPreferences {
 
     boolean instantPictureUploadEnabled();
     boolean instantVideoUploadEnabled();
+    boolean isDarkModeEnabled();
 
     boolean isShowHiddenFilesEnabled();
     void setShowHiddenFilesEnabled(boolean enabled);
+
+    boolean isShowEcosystemApps();
+    void setShowEcosystemApps(boolean enabled);
 
     /**
      * Gets the selected file extension position the user selected to do the
@@ -309,6 +305,10 @@ public interface AppPreferences {
      */
     int getLastSeenVersionCode();
 
+    void saveLogEntry(List<LogEntry> logEntryList);
+
+    List<LogEntry> readLogEntry();
+
     /**
      * Saves the version code as the last seen version code.
      *
@@ -370,6 +370,10 @@ public interface AppPreferences {
 
     void setCalendarLastBackup(long timestamp);
 
+    boolean isGlobalUploadPaused();
+
+    void setGlobalUploadPaused(boolean globalPausedState);
+
     void setPdfZoomTipShownCount(int count);
 
     int getPdfZoomTipShownCount();
@@ -377,4 +381,14 @@ public interface AppPreferences {
     boolean isStoragePermissionRequested();
 
     void setStoragePermissionRequested(boolean value);
+
+    void setInAppReviewData(@NonNull AppReviewShownModel appReviewShownModel);
+
+    @Nullable
+    AppReviewShownModel getInAppReviewData();
+
+    void setLastSelectedMediaFolder(@NonNull String path);
+
+    @NonNull
+    String getLastSelectedMediaFolder();
 }

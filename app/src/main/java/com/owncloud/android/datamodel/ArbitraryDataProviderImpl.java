@@ -5,18 +5,7 @@
  * Copyright (C) 2017 Mario Danic
  * Copyright (C) 2017 Nextcloud.
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.datamodel;
 
@@ -64,6 +53,17 @@ public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
     }
 
     @Override
+    public void incrementValue(@NonNull String accountName, @NonNull String key) {
+        int oldValue = getIntegerValue(accountName, key);
+
+        int value = 1;
+        if (oldValue > 0) {
+            value = oldValue + 1;
+        }
+        storeOrUpdateKeyValue(accountName, key, value);
+    }
+
+    @Override
     public void storeOrUpdateKeyValue(@NonNull final String accountName, @NonNull final String key, final boolean newValue) {
         storeOrUpdateKeyValue(accountName, key, String.valueOf(newValue));
     }
@@ -78,6 +78,13 @@ public class ArbitraryDataProviderImpl implements ArbitraryDataProvider {
         } else {
             arbitraryDataDao.insertValue(accountName, key, newValue);
         }
+    }
+
+    @Override
+    public void storeOrUpdateKeyValue(@NonNull User user,
+                                      @NonNull String key,
+                                      @NonNull String newValue) {
+        storeOrUpdateKeyValue(user.getAccountName(), key, newValue);
     }
 
     @Override

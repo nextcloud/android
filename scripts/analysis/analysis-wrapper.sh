@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2016 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+
 BRANCH=$1
 LOG_USERNAME=$2
 LOG_PASSWORD=$3
@@ -52,18 +56,6 @@ else
     echo "$oldComments" | while read -r comment ; do
         curl_gh -X DELETE "https://api.github.com/repos/nextcloud/$repository/issues/comments/$comment"
     done
-
-    # check library, only if base branch is master
-    baseBranch=$(scripts/analysis/getBranchBase.sh "${PR_NUMBER}" | tr -d "\"")
-    if [ $baseBranch = "master" -a $(grep "androidLibraryVersion = \"master-SNAPSHOT\"" build.gradle -c) -ne 1 ]; then
-        checkLibraryMessage="<h1>Android-library is not set to master branch in build.gradle</h1>"
-        checkLibrary=1
-    elif [ $baseBranch != "master" -a $baseBranch = $stableBranch -a $(grep "androidLibraryVersion.*SNAPSHOT" build.gradle -c) -ne 0 ]; then
-        checkLibraryMessage="<h1>Android-library is set to a SNAPSHOT in build.gradle</h1>"
-        checkLibrary=1
-    else
-        checkLibrary=0
-    fi
 
     # lint and spotbugs file must exist
     if [ ! -s app/build/reports/lint/lint.html ] ; then
@@ -128,10 +120,10 @@ else
 
     # check for NotNull
     if [[ $(grep org.jetbrains.annotations app/src/main/* -irl | wc -l) -gt 0 ]] ; then
-        notNull="org.jetbrains.annotations.NotNull is used. Please use androidx.annotation.NonNull instead.<br><br>"
+        notNull="org.jetbrains.annotations.* is used. Please use androidx.annotation.* instead.<br><br>"
     fi
 
-    bodyContent="$codacyResult $lintResult $spotbugsResult $checkLibraryMessage $lintMessage $spotbugsMessage $gplayLimitation $notNull"
+    bodyContent="$codacyResult $lintResult $spotbugsResult $lintMessage $spotbugsMessage $gplayLimitation $notNull"
     echo "$bodyContent" >> "$GITHUB_STEP_SUMMARY"
     payload="{ \"body\" : \"$bodyContent\" }"
     curl_gh -X POST "https://api.github.com/repos/nextcloud/$repository/issues/${PR_NUMBER}/comments" -d "$payload"

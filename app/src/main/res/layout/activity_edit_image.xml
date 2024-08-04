@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2023 ZetaTom
+  ~ SPDX-FileCopyrightText: 2023 Nextcloud GmbH
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/black"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/Theme.ownCloud.Toolbar.AppWidgetContainer"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.canhub.cropper.CropImageView
+        android:id="@+id/cropImageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_rect"
+        android:backgroundTint="@color/grey_900"
+        android:elevation="4dp"
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/rotate_left"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:contentDescription="@string/image_editor_rotate_ccw"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            app:srcCompat="@drawable/outline_rotate_90_degrees_ccw_24"
+            app:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/rotate_right"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:contentDescription="@string/image_editor_rotate_cw"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:rotationY="-180"
+            app:srcCompat="@drawable/outline_rotate_90_degrees_ccw_24"
+            app:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/flip_vertical"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:contentDescription="@string/image_editor_flip_vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:rotation="90"
+            app:srcCompat="@drawable/outline_flip_24"
+            app:tint="@color/white" />
+
+        <ImageButton
+            android:id="@+id/flip_horizontal"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="?android:selectableItemBackgroundBorderless"
+            android:contentDescription="@string/image_editor_flip_horizontal"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            app:srcCompat="@drawable/outline_flip_24"
+            app:tint="@color/white" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

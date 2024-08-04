@@ -1,30 +1,18 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Andy Scherzinger
- * Copyright (C) 2016 ownCloud Inc.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2018-2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2017 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -35,6 +23,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -46,9 +35,10 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.caverock.androidsvg.SVG;
 import com.google.android.material.button.MaterialButton;
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.NotificationListItemBinding;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.resources.notifications.models.Action;
 import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.lib.resources.notifications.models.RichObject;
@@ -68,6 +58,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -80,11 +71,11 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
     private final ForegroundColorSpan foregroundColorSpanBlack;
 
     private final List<Notification> notificationsList;
-    private final OwnCloudClient client;
+    private final NextcloudClient client;
     private final NotificationsActivity notificationsActivity;
     private final ViewThemeUtils viewThemeUtils;
 
-    public NotificationListAdapter(OwnCloudClient client,
+    public NotificationListAdapter(NextcloudClient client,
                                    NotificationsActivity notificationsActivity,
                                    ViewThemeUtils viewThemeUtils) {
         this.notificationsList = new ArrayList<>();
@@ -121,7 +112,8 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             subject = subject + " ↗";
             holder.binding.subject.setTypeface(holder.binding.subject.getTypeface(),
                                                Typeface.BOLD);
-            holder.binding.subject.setOnClickListener(v -> openLink(notification.getLink()));
+            holder.binding.subject.setOnClickListener(v -> DisplayUtils.startLinkIntent(notificationsActivity,
+                                                                                        notification.getLink()));
             holder.binding.subject.setText(subject);
         } else {
             if (!TextUtils.isEmpty(notification.subjectRich)) {
@@ -141,20 +133,22 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             }
         }
 
-        holder.binding.message.setText(notification.getMessage());
+        if (notification.getMessage() != null && !notification.getMessage().isEmpty()) {
+            holder.binding.message.setText(notification.getMessage());
+            holder.binding.message.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.message.setVisibility(View.GONE);
+        }
 
         if (!TextUtils.isEmpty(notification.getIcon())) {
             downloadIcon(notification.getIcon(), holder.binding.icon, notificationsActivity);
         }
 
-        int nightModeFlag =
-            notificationsActivity.getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK;
-        if (Configuration.UI_MODE_NIGHT_YES == nightModeFlag) {
-            holder.binding.icon.setColorFilter(Color.WHITE, PorterDuff.Mode.SRC_IN);
-        } else {
-            holder.binding.icon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN);
-        }
+        viewThemeUtils.platform.colorImageView(holder.binding.icon, ColorRole.ON_SURFACE_VARIANT);
+        viewThemeUtils.platform.colorImageView(holder.binding.dismiss, ColorRole.ON_SURFACE_VARIANT);
+        viewThemeUtils.platform.colorTextView(holder.binding.subject, ColorRole.ON_SURFACE);
+        viewThemeUtils.platform.colorTextView(holder.binding.message, ColorRole.ON_SURFACE_VARIANT);
+        viewThemeUtils.platform.colorTextView(holder.binding.datetime, ColorRole.ON_SURFACE_VARIANT);
 
         setButtons(holder, notification);
 
@@ -172,12 +166,18 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                                                                          LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(
-            resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
+            resources.getDimensionPixelOffset(R.dimen.standard_quarter_margin),
             0,
             resources.getDimensionPixelOffset(R.dimen.standard_half_margin),
             0);
 
         List<Action> overflowActions = new ArrayList<>();
+
+        if (notification.getActions().size() > 0) {
+            holder.binding.buttons.setVisibility(View.VISIBLE);
+        } else {
+            holder.binding.buttons.setVisibility(View.GONE);
+        }
 
         if (notification.getActions().size() > 2) {
             for (Action action : notification.getActions()) {
@@ -217,7 +217,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
 
             // further actions
             final MaterialButton moreButton = new MaterialButton(notificationsActivity);
-            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(moreButton);
+            moreButton.setBackgroundColor(ResourcesCompat.getColor(resources,
+                                                               android.R.color.transparent,
+                                                               null));
+            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(moreButton);
 
             moreButton.setAllCaps(false);
 
@@ -262,7 +265,10 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 if (action.primary) {
                     viewThemeUtils.material.colorMaterialButtonPrimaryFilled(button);
                 } else {
-                    viewThemeUtils.material.colorMaterialButtonPrimaryTonal(button);
+                    button.setBackgroundColor(ResourcesCompat.getColor(resources,
+                                                                       android.R.color.transparent,
+                                                                       null));
+                    viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(button);
                 }
 
                 button.setAllCaps(false);
@@ -271,7 +277,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 button.setCornerRadiusResource(R.dimen.button_corner_radius);
 
                 button.setLayoutParams(params);
-                button.setGravity(Gravity.CENTER);
 
                 button.setOnClickListener(v -> {
                     setButtonEnabled(holder, false);
@@ -314,8 +319,7 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
                 closingBrace = openingBrace + name.length();
 
                 ssb.setSpan(styleSpanBold, openingBrace, closingBrace, 0);
-                ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace,
-                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                ssb.setSpan(foregroundColorSpanBlack, openingBrace, closingBrace, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             }
             openingBrace = text.indexOf('{', closingBrace);
         }
@@ -365,12 +369,6 @@ public class NotificationListAdapter extends RecyclerView.Adapter<NotificationLi
             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
             .load(uri)
             .into(itemViewType);
-    }
-
-    private void openLink(String link) {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(link));
-
-        DisplayUtils.startIntentIfAppAvailable(intent, notificationsActivity, R.string.no_browser_available);
     }
 
     @Override

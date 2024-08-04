@@ -1,23 +1,16 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2020-2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2012 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
@@ -37,10 +30,13 @@ import android.widget.TextView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadFilesLayoutBinding;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.adapter.StoragePathAdapter;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
@@ -61,6 +57,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
@@ -73,7 +70,7 @@ import androidx.fragment.app.FragmentTransaction;
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_USER;
 
 /**
- * Displays local files and let the user choose what of them wants to upload to the current ownCloud account.
+ * Displays local files and let the user choose what of them wants to upload to the current Nextcloud account.
  */
 public class UploadFilesActivity extends DrawerActivity implements LocalFileListFragment.ContainerActivity,
     OnClickListener, ConfirmationDialogFragmentListener, SortingOrderDialogFragment.OnSortingOrderListener,
@@ -258,6 +255,8 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
 
         checkWritableFolder(mCurrentDir);
 
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
+
         Log_OC.d(TAG, "onCreate() end");
     }
 
@@ -369,49 +368,51 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (isSearchOpen() && mSearchView != null) {
-            mSearchView.setQuery("", false);
-            mFileListFragment.onClose();
-            mSearchView.onActionViewCollapsed();
-            setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
-        } else {
-            if (mDirectories.getCount() <= SINGLE_DIR) {
-                finish();
-                return;
-            }
+    private final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            if (isSearchOpen() && mSearchView != null) {
+                mSearchView.setQuery("", false);
+                mFileListFragment.onClose();
+                mSearchView.onActionViewCollapsed();
+                setDrawerIndicatorEnabled(isDrawerIndicatorAvailable());
+            } else {
+                if (mDirectories.getCount() <= SINGLE_DIR) {
+                    finish();
+                    return;
+                }
 
-            File parentFolder = mCurrentDir.getParentFile();
-            if (!parentFolder.canRead()) {
-                checkLocalStoragePathPickerPermission();
-                return;
-            }
+                File parentFolder = mCurrentDir.getParentFile();
+                if (!parentFolder.canRead()) {
+                    checkLocalStoragePathPickerPermission();
+                    return;
+                }
 
-            popDirname();
-            mFileListFragment.onNavigateUp();
-            mCurrentDir = mFileListFragment.getCurrentDirectory();
-            checkWritableFolder(mCurrentDir);
+                popDirname();
+                mFileListFragment.onNavigateUp();
+                mCurrentDir = mFileListFragment.getCurrentDirectory();
+                checkWritableFolder(mCurrentDir);
 
-            if (mCurrentDir.getParentFile() == null) {
-                ActionBar actionBar = getSupportActionBar();
-                if (actionBar != null) {
-                    actionBar.setDisplayHomeAsUpEnabled(false);
+                if (mCurrentDir.getParentFile() == null) {
+                    ActionBar actionBar = getSupportActionBar();
+                    if (actionBar != null) {
+                        actionBar.setDisplayHomeAsUpEnabled(false);
+                    }
+                }
+
+                // invalidate checked state when navigating directories
+                if (!mLocalFolderPickerMode) {
+                    setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
                 }
             }
-
-            // invalidate checked state when navigating directories
-            if (!mLocalFolderPickerMode) {
-                setSelectAllMenuItem(mOptionsMenu.findItem(R.id.action_select_all), false);
-            }
         }
-    }
+    };
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         // responsibility of restore is preferred in onCreate() before than in
         // onRestoreInstanceState when there are Fragments involved
-        Log_OC.d(TAG, "onSaveInstanceState() start");
+        FileExtensionsKt.logFileSize(mCurrentDir, TAG);
         super.onSaveInstanceState(outState);
         outState.putString(UploadFilesActivity.KEY_DIRECTORY_PATH, mCurrentDir.getAbsolutePath());
         if (mOptionsMenu != null && mOptionsMenu.findItem(R.id.action_select_all) != null) {
@@ -481,7 +482,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
      */
     @Override
     public void onCheckAvailableSpaceFinish(boolean hasEnoughSpaceAvailable, String... filesToUpload) {
-        if (mCurrentDialog != null) {
+        if (mCurrentDialog != null && ActivityExtensionsKt.isDialogFragmentReady(this, mCurrentDialog)) {
             mCurrentDialog.dismiss();
             mCurrentDialog = null;
         }
@@ -494,7 +495,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 data.putExtra(EXTRA_CHOSEN_FILES, new String[]{filesToUpload[0]});
                 setResult(RESULT_OK_AND_DELETE, data);
 
-                preferences.setUploaderBehaviour(FileUploader.LOCAL_BEHAVIOUR_DELETE);
+                preferences.setUploaderBehaviour(FileUploadWorker.LOCAL_BEHAVIOUR_DELETE);
             } else {
                 data.putExtra(EXTRA_CHOSEN_FILES, mFileListFragment.getCheckedFilePaths());
                 data.putExtra(LOCAL_BASE_PATH, mCurrentDir.getAbsolutePath());
@@ -526,11 +527,9 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
         } else {
             // show a dialog to query the user if wants to move the selected files
             // to the ownCloud folder instead of copying
-            String[] args = {getString(R.string.app_name)};
+            String[] args = { getString(R.string.app_name) };
             ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(
-                R.string.upload_query_move_foreign_files, args, 0, R.string.common_yes, -1,
-                R.string.common_no
-                                                                                      );
+                R.string.upload_query_move_foreign_files, args, 0, R.string.common_yes,  R.string.common_no, -1);
             dialog.setOnConfirmationListener(this);
             dialog.show(getSupportFragmentManager(), QUERY_TO_MOVE_DIALOG_TAG);
         }
@@ -655,6 +654,11 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     @Override
     public void onConfirmation(String callerTag) {
         Log_OC.d(TAG, "Positive button in dialog was clicked; dialog tag is " + callerTag);
+        if (mFileListFragment.getCheckedFilePaths().length > FileUploadHelper.MAX_FILE_COUNT) {
+            DisplayUtils.showSnackMessage(this, R.string.max_file_count_warning_message);
+            return;
+        }
+
         if (QUERY_TO_MOVE_DIALOG_TAG.equals(callerTag)) {
             // return the list of selected files to the caller activity (success),
             // signaling that they should be moved to the ownCloud folder, instead of copied

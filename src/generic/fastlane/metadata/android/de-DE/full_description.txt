@@ -1,24 +1,19 @@
-Die selbst gehostete Produktivitätsplattform gibt Ihnen die volle Kontrolle.
+Die selbst gehostete Produktivitätsplattform, mit der Sie die Kontrolle behalten.
 
 Funktionen:
-* Einfache, moderne Oberfläche. Angepasst an das Design Ihres Servers
-*
-.
+* Einfache, moderne Benutzeroberfläche, passend zum Design Ihres Servers
+* Laden Sie Dateien auf Ihren Nextcloud-Server hoch
+* Teilen Sie sie mit anderen
+ * Halten Sie Ihre Lieblingsdateien und -ordner synchronisiert
+* Durchsuchen Sie alle Ordner auf Ihrem Server
+* Automatisches Hochladen von Fotos und Videos, die mit Ihrem Gerät aufgenommen wurden
+* Bleiben Sie mittels Benachrichtigungen auf dem Laufenden
+* Unterstützung für mehrere Konten
+* Sicherer Zugriff auf Ihre Daten mit Fingerabdruck oder PIN
+* Integration mit DAVx5 (früher bekannt als DAVdroid) zur einfachen Einrichtung der Kalender- und Kontaktsynchronisierung
 
-Eigenschaften:
-* Einfache, moderne an Ihr Design angepasste Oberfläche
-* Laden Sie Ihre Dateien auf Ihren Nextcloud Server
-* Teilen Sie Ihre Dateien mit anderen
-* Halten Sie Ihre favorisierten Dateien und Ordner synchron
-* Suche über alle Ordner auf Ihrem Server
-* Automatisches Hochladen von Fotos und Videos von Ihrem Gerät
-* Bleiben Sie auf dem Laufenden durch Benachrichtigungen
-* Mehrere Konten gleichzeitig
-* Geschützter Zugriff durch Fingerabdruck oder PIN
-* Integration mit DAVx5 (ehemals DAVdroid) für einfaches Konfigurieren der Kalender- & Kontakte-Synchronisierung
+Bitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues und diskutieren Sie über diese App unter https://help.nextcloud.com/c/clients/android
 
-Bitte melden Sie alle Probleme unter https://github.com/nextcloud/android/issues oder diskutieren Sie über die App auf https://help.nextcloud.com/c/clients/android
+Neu bei Nextcloud? Nextcloud ist ein privater Dateisynchronisierungs-, Freigabe- und Kommunikationsserver. Es handelt sich um kostenlose Software, die Sie selbst, oder gegen Gebühr bei einem Dienstleister hosten können. So oder so haben Sie die Kontrolle über Ihre Fotos, Ihre Kalender- und Kontaktdaten, Ihre Dokumente und alles andere.
 
-Was ist die Nextcloud? Die Nextcloud ist ein privater Dateiaustausch & -synchronisierungs Server. Nextcloud ist Open Source und kann auf einem eigenen Server installiert werden. So behalten Sie die Kontrolle über Ihre Fotos, Ihre Kalender und Kontakte, Ihre Dokumente und alle anderen Daten.
-
-Schauen Sie sich Nextcloud an unter https://nextcloud.com.
+Sehen Sie sich Nextcloud unter https://nextcloud.com an

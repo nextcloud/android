@@ -1,25 +1,10 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *  @author Álvaro Brey
- *  Copyright (C) 2022 Álvaro Brey
- *  Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.client.documentscan
 
 import android.app.Application
@@ -30,13 +15,13 @@ import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.IoDispatcher
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.logger.Logger
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.helpers.FileOperationsHelper
-import com.owncloud.android.utils.MimeType
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -184,17 +169,11 @@ class DocumentScanViewModel @Inject constructor(
             uploadFolder + OCFile.PATH_SEPARATOR + File(it).name
         }.toTypedArray()
 
-        val mimetypes = pageList.map {
-            MimeType.JPEG
-        }.toTypedArray()
-
-        FileUploader.uploadNewFile(
-            getApplication(),
+        FileUploadHelper.instance().uploadNewFiles(
             currentAccountProvider.user,
             pageList.toTypedArray(),
             uploadPaths,
-            mimetypes,
-            FileUploader.LOCAL_BEHAVIOUR_DELETE,
+            FileUploadWorker.LOCAL_BEHAVIOUR_DELETE,
             true,
             UploadFileOperation.CREATED_BY_USER,
             false,
@@ -210,9 +189,7 @@ class DocumentScanViewModel @Inject constructor(
         }
     }
 
-    private
-
-    companion object {
+    private companion object {
         private const val TAG = "DocumentScanViewModel"
     }
 

@@ -1,23 +1,9 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.fragment
 
@@ -35,8 +21,8 @@ import com.owncloud.android.R
 import com.owncloud.android.ui.TextDrawable
 
 internal class AvatarTestFragment : Fragment() {
-    lateinit var list1: LinearLayout
-    lateinit var list2: LinearLayout
+    private lateinit var list1: LinearLayout
+    private lateinit var list2: LinearLayout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.avatar_fragment, null)
@@ -48,7 +34,7 @@ internal class AvatarTestFragment : Fragment() {
     }
 
     fun addAvatar(name: String, avatarRadius: Float, width: Int, targetContext: Context) {
-        val margin = padding
+        val margin = PADDING
         val imageView = ImageView(targetContext)
         imageView.setImageDrawable(TextDrawable.createNamedAvatar(name, avatarRadius))
 
@@ -61,7 +47,7 @@ internal class AvatarTestFragment : Fragment() {
     }
 
     fun addBitmap(bitmap: Bitmap, width: Int, list: Int, targetContext: Context) {
-        val margin = padding
+        val margin = PADDING
         val imageView = ImageView(targetContext)
         imageView.setImageBitmap(bitmap)
 
@@ -78,6 +64,6 @@ internal class AvatarTestFragment : Fragment() {
     }
 
     companion object {
-        private const val padding = 10
+        private const val PADDING = 10
     }
 }

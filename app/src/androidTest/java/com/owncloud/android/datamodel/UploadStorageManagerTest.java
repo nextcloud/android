@@ -1,3 +1,11 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2017 JARP <jarp@customer-187-174-218-184.uninet-ide.com.mx
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ */
 package com.owncloud.android.datamodel;
 
 import android.accounts.Account;
@@ -27,6 +35,7 @@ import org.junit.runner.RunWith;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.UUID;
 
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
@@ -41,7 +50,6 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by JARP on 6/7/17.
  */
-
 @RunWith(AndroidJUnit4.class)
 @SmallTest
 public class UploadStorageManagerTest extends AbstractIT {
@@ -174,15 +182,22 @@ public class UploadStorageManagerTest extends AbstractIT {
         }
     }
 
+    public String generateUniqueNumber() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString();
+    }
+
     private OCUpload createUpload(Account account) {
         OCUpload upload = new OCUpload(File.separator + "very long long long long long long long long long long long " +
                                            "long long long long long long long long long long long long long long " +
                                            "long long long long long long long long long long long long long long " +
-                                           "long long long long long long long LocalPath",
+                                           "long long long long long long long LocalPath " +
+                                           generateUniqueNumber(),
                                        OCFile.PATH_SEPARATOR + "very long long long long long long long long long " +
                                            "long long long long long long long long long long long long long long " +
                                            "long long long long long long long long long long long long long long " +
-                                           "long long long long long long long long long long long long RemotePath",
+                                           "long long long long long long long long long long long long RemotePath " +
+                                           generateUniqueNumber(),
                                        account.name);
 
         upload.setFileSize(new Random().nextInt(20000) * 10000);

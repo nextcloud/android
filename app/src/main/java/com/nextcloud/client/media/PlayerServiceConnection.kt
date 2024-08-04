@@ -1,21 +1,8 @@
-/**
- * Nextcloud Android client application
+/*
+ * Nextcloud - Android Client
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.media
 
@@ -28,7 +15,6 @@ import android.os.IBinder
 import android.widget.MediaController
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.OCFile
-import java.lang.IllegalStateException
 
 @Suppress("TooManyFunctions") // implementing large interface
 class PlayerServiceConnection(private val context: Context) : MediaController.MediaPlayerControl {
@@ -52,12 +38,14 @@ class PlayerServiceConnection(private val context: Context) : MediaController.Me
     }
 
     fun start(user: User, file: OCFile, playImmediately: Boolean, position: Long) {
-        val i = Intent(context, PlayerService::class.java)
-        i.putExtra(PlayerService.EXTRA_USER, user)
-        i.putExtra(PlayerService.EXTRA_FILE, file)
-        i.putExtra(PlayerService.EXTRA_AUTO_PLAY, playImmediately)
-        i.putExtra(PlayerService.EXTRA_START_POSITION_MS, position)
-        i.action = PlayerService.ACTION_PLAY
+        val i = Intent(context, PlayerService::class.java).apply {
+            putExtra(PlayerService.EXTRA_USER, user)
+            putExtra(PlayerService.EXTRA_FILE, file)
+            putExtra(PlayerService.EXTRA_AUTO_PLAY, playImmediately)
+            putExtra(PlayerService.EXTRA_START_POSITION_MS, position)
+            action = PlayerService.ACTION_PLAY
+        }
+
         startForegroundService(i)
     }
 

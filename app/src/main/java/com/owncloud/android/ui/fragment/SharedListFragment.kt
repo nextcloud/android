@@ -1,22 +1,9 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2019 Tobias Kaminsky
- * Copyright (C) 2019 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.fragment
 
@@ -73,6 +60,7 @@ class SharedListFragment : OCFileListFragment(), Injectable {
                 val fileDisplayActivity = activity as FileDisplayActivity
                 fileDisplayActivity.updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_shared))
                 fileDisplayActivity.setMainFabVisible(false)
+                fileDisplayActivity.initSyncBroadcastReceiver()
             }
         }
     }
@@ -87,8 +75,8 @@ class SharedListFragment : OCFileListFragment(), Injectable {
             val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
             if (!fetchResult.isSuccess) {
                 logger.e(SHARED_TAG, "Error fetching file")
-                if (fetchResult.isException) {
-                    logger.e(SHARED_TAG, "exception: ", fetchResult.exception)
+                if (fetchResult.isException && fetchResult.exception != null) {
+                    logger.e(SHARED_TAG, "exception: ", fetchResult.exception!!)
                 }
                 null
             } else {
@@ -101,6 +89,7 @@ class SharedListFragment : OCFileListFragment(), Injectable {
                     isSharedWithSharee = partialFile.isSharedWithSharee
                     sharees = partialFile.sharees
                 }
+                savedFile
             }
         }
     }
@@ -114,6 +103,25 @@ class SharedListFragment : OCFileListFragment(), Injectable {
                 block(file)
             } else {
                 DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
+            }
+        }
+    }
+
+    private fun fetchAllAndRun(partialFiles: MutableSet<OCFile>?, callback: (MutableSet<OCFile>?) -> Unit) {
+        lifecycleScope.launch {
+            isLoading = true
+            if (partialFiles != null) {
+                val files = partialFiles.toMutableSet().mapNotNull { partialFile ->
+                    fetchFileData(partialFile).also { fetched ->
+                        if (fetched == null) {
+                            DisplayUtils.showSnackMessage(requireActivity(), R.string.error_retrieving_file)
+                        }
+                    }
+                }
+                isLoading = false
+                callback(files.toHashSet())
+            } else {
+                isLoading = false
             }
         }
     }
@@ -143,16 +151,32 @@ class SharedListFragment : OCFileListFragment(), Injectable {
     }
 
     override fun onItemClicked(file: OCFile) {
-        fetchFileAndRun(file) { fetched ->
-            super.onItemClicked(fetched)
+        // if in multi select keep mock file
+        if (adapter.isMultiSelect()) {
+            super.onItemClicked(file)
+        } else {
+            fetchFileAndRun(file) { fetched ->
+                super.onItemClicked(fetched)
+            }
         }
     }
 
-    override fun onLongItemClicked(file: OCFile): Boolean {
-        fetchFileAndRun(file) { fetched ->
-            super.onLongItemClicked(fetched)
+    override fun onFileActionChosen(itemId: Int, checkedFiles: MutableSet<OCFile>?): Boolean {
+        // fetch all files and run selected action
+        if (itemId != R.id.action_select_all_action_menu && itemId != R.id.action_deselect_all_action_menu) {
+            fetchAllAndRun(checkedFiles) { files ->
+                exitSelectionMode()
+                super.onFileActionChosen(itemId, files)
+            }
+            return true
+        } else {
+            return super.onFileActionChosen(itemId, checkedFiles)
         }
-        return true
+    }
+
+    override fun onRefresh() {
+        exitSelectionMode()
+        super.onRefresh()
     }
 
     companion object {

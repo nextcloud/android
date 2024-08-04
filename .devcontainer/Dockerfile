@@ -1,10 +1,10 @@
-FROM ubuntu:focal
+FROM ubuntu:noble@sha256:2e863c44b718727c860746568e1d54afd13b2fa71b160f5cd9058fc436217b30
 
 ARG DEBIAN_FRONTEND=noninteractive
 ENV ANDROID_HOME=/usr/lib/android-sdk
 
 RUN apt-get update -y
-RUN apt-get install -y unzip wget openjdk-11-jdk vim
+RUN apt-get install -y unzip wget openjdk-17-jdk vim
 
 RUN wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -O /tmp/commandlinetools.zip
 RUN cd /tmp && unzip commandlinetools.zip

@@ -1,27 +1,13 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *  @author Álvaro Brey
- *  Copyright (C) 2022 Álvaro Brey
- *  Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.client.database.migrations;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteException;
@@ -31,11 +17,11 @@ import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.providers.FileContentProvider;
 
 import java.util.Locale;
 
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class LegacyMigrationHelper {
 
@@ -52,12 +38,29 @@ public class LegacyMigrationHelper {
     private static final String UPGRADE_VERSION_MSG = "OUT of the ADD in onUpgrade; oldVersion == %d, newVersion == %d";
 
     private final Clock clock;
+    private final Context context;
 
-    public LegacyMigrationHelper(Clock clock) {
+    public LegacyMigrationHelper(Clock clock, Context context) {
         this.clock = clock;
+        this.context = context;
     }
 
-    public void onUpgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
+    public void tryUpgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
+        try {
+            upgrade(db, oldVersion, newVersion);
+        } catch (Throwable t) {
+            Log_OC.i(TAG, "Migration upgrade failed due to " + t);
+            clearStorage();
+        }
+    }
+
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
+    private void clearStorage() {
+        context.getCacheDir().delete();
+        ((ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE)).clearApplicationUserData();
+    }
+
+    private void upgrade(SupportSQLiteDatabase db, int oldVersion, int newVersion) {
         Log_OC.i(TAG, "Entering in onUpgrade");
         boolean upgraded = false;
 

@@ -1,24 +1,11 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Felix Nüsse
- *
- * Copyright (C) 2022 Felix Nüsse
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2022 Felix Nüsse <felix.nuesse@t-online.de>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.utils
 
 import android.app.PendingIntent
@@ -33,8 +20,10 @@ import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
 import androidx.core.graphics.drawable.IconCompat
 import androidx.core.graphics.drawable.toBitmap
+import com.nextcloud.client.account.User
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
@@ -49,7 +38,12 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
      *
      * @param file The file/folder to which a pinned shortcut should be added to the home screen.
      */
-    fun addShortcutToHomescreen(file: OCFile, viewThemeUtils: ViewThemeUtils) {
+    fun addShortcutToHomescreen(
+        file: OCFile,
+        viewThemeUtils: ViewThemeUtils,
+        user: User,
+        syncedFolderProvider: SyncedFolderProvider
+    ) {
         if (ShortcutManagerCompat.isRequestPinShortcutSupported(mContext)) {
             val intent = Intent(mContext, FileDisplayActivity::class.java)
             intent.action = FileDisplayActivity.OPEN_FILE
@@ -64,15 +58,12 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
                 thumbnail = bitmapToAdaptiveBitmap(thumbnail)
                 icon = IconCompat.createWithAdaptiveBitmap(thumbnail)
             } else if (file.isFolder) {
-                val bitmapIcon = MimeTypeUtil.getFolderTypeIcon(
-                    file.isSharedWithMe || file.isSharedWithSharee,
-                    file.isSharedViaLink,
-                    file.isEncrypted,
-                    file.isGroupFolder,
-                    file.mountType,
-                    mContext,
-                    viewThemeUtils
-                ).toBitmap()
+                val isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user)
+                val isDarkModeActive = syncedFolderProvider.preferences.isDarkModeEnabled
+
+                val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
+                val drawable = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, mContext, viewThemeUtils)
+                val bitmapIcon = drawable.toBitmap()
                 icon = IconCompat.createWithBitmap(bitmapIcon)
             } else {
                 icon = IconCompat.createWithResource(

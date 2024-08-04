@@ -1,30 +1,14 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Mario Danic
- * @author Andy Scherzinger
- * @author Chris Narkiewicz  <hello@ezaquarii.com>
- * @author Chawki Chouib  <chouibc@gmail.com>
- * Copyright (C) 2017 Mario Danic
- * Copyright (C) 2017 Andy Scherzinger
- * Copyright (C) 2017 Nextcloud GmbH.
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2020 Chawki Chouib  <chouibc@gmail.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2017-2020 Andy Scherzinger <info@andy-scherzinger>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2020 Chawki Chouib <chouibc@gmail.com>
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
+ * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.activity;
 
 import android.graphics.drawable.Drawable;
@@ -47,6 +31,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UserInfoDetailsTableItemBinding;
 import com.owncloud.android.databinding.UserInfoLayoutBinding;
@@ -56,7 +41,7 @@ import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.users.GetUserInfoRemoteOperation;
-import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
+import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.TokenPushEvent;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.PushUtils;
@@ -106,16 +91,16 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
             return;
         }
 
-        user = bundle.getParcelable(KEY_ACCOUNT);
+        user = BundleExtensionsKt.getParcelableArgument(bundle, KEY_ACCOUNT, User.class);
         if(user == null) {
             finish();
             return;
         }
 
         if (savedInstanceState != null && savedInstanceState.containsKey(KEY_USER_DATA)) {
-            userInfo = savedInstanceState.getParcelable(KEY_USER_DATA);
+            userInfo = BundleExtensionsKt.getParcelableArgument(savedInstanceState, KEY_USER_DATA, UserInfo.class);
         } else if (bundle.containsKey(KEY_ACCOUNT)) {
-            userInfo = bundle.getParcelable(KEY_USER_DATA);
+            userInfo =  BundleExtensionsKt.getParcelableArgument(bundle, KEY_USER_DATA, UserInfo.class);
         }
 
         mCurrentAccountAvatarRadiusDimension = getResources().getDimension(R.dimen.user_icon_radius);
@@ -173,7 +158,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         } else if (itemId == R.id.action_open_account) {
             accountClicked(user.hashCode());
         } else if (itemId == R.id.action_delete_account) {
-            openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
+            openAccountRemovalDialog(user, getSupportFragmentManager());
         } else {
             retval = super.onOptionsItemSelected(item);
         }
@@ -302,8 +287,8 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
         }
     }
 
-    public static void openAccountRemovalConfirmationDialog(User user, FragmentManager fragmentManager) {
-        AccountRemovalConfirmationDialog dialog = AccountRemovalConfirmationDialog.newInstance(user);
+    public static void openAccountRemovalDialog(User user, FragmentManager fragmentManager) {
+        AccountRemovalDialog dialog = AccountRemovalDialog.newInstance(user);
         dialog.show(fragmentManager, "dialog");
     }
 

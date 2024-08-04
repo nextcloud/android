@@ -1,52 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  Nextcloud Android client application
-
-  Copyright (C) 2012 Bartek Przybylski
-  Copyright (C) 2015 ownCloud Inc.
-  Copyright (C) 2020 Andy Scherzinger
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License version 2,
-  as published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger>
+  ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2012-2015 David A. Velasco <dvelasco@solidgear.es>
+  ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski <bart.p.pl@gmail.com>
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal">
 
-    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
+    <com.google.android.material.card.MaterialCardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/standard_double_margin"
-        card_view:cardCornerRadius="4dp"
+        card_view:strokeWidth="0dp"
+        card_view:cardCornerRadius="16dp"
         card_view:cardElevation="@dimen/dialog_elevation">
 
         <LinearLayout
+            android:id="@+id/card_view_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="@dimen/standard_padding"
-            android:paddingTop="@dimen/standard_padding"
-            android:paddingEnd="@dimen/standard_padding"
-            android:paddingBottom="@dimen/standard_half_padding">
+            android:padding="@dimen/standard_padding">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/header"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -56,7 +47,7 @@
                     android:textSize="@dimen/two_line_primary_text_size"
                     android:textStyle="bold" />
 
-                <TextView
+                <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/explanation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,41 +60,26 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt0"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
-                        android:focusable="true"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no"
                         tools:text="123">
+                    </com.owncloud.android.ui.components.PassCodeEditText>
 
-                        <requestFocus />
-                    </com.google.android.material.textfield.TextInputEditText>
-
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt1"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt2"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <com.owncloud.android.ui.components.PassCodeEditText
                         android:id="@+id/txt3"
                         style="@style/PassCodeStyle"
-                        android:cursorVisible="false"
-                        android:hint="@string/hidden_character"
-                        android:imeOptions="flagNoExtractUi"
                         android:importantForAutofill="no" />
                 </LinearLayout>
 
@@ -111,12 +87,14 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/cancel"
-                style="@style/Button.Borderless"
+                style="@style/Widget.Material3.Button.TextButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:text="@string/common_cancel" />
+
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
+
 </ScrollView>

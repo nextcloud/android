@@ -2,6 +2,9 @@
 
 # see http://EditorConfig.org
 
+# SPDX-FileCopyrightText: 2018-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+
 # This is the file in the root of the project.
 # For sub folders you can have other files that override only some settings.
 # For these, this settings should be false.
@@ -39,7 +42,10 @@ trim_trailing_whitespace=false
 indent_size=2
 
 [*.{kt,kts}]
+ktlint_code_style = android_studio
 # IDE does not follow this Ktlint rule strictly, but the default ordering is pretty good anyway, so let's ditch it
-disabled_rules=import-ordering
+ktlint_standard_import-ordering = disabled
+ktlint_standard_no-consecutive-comments = disabled
+ktlint_function_naming_ignore_when_annotated_with = Composable
 ij_kotlin_allow_trailing_comma = false
 ij_kotlin_allow_trailing_comma_on_call_site = false

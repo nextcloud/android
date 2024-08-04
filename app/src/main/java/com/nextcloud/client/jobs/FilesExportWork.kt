@@ -1,25 +1,10 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2022 Tobias Kaminsky
- * Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.client.jobs
 
 import android.app.DownloadManager
@@ -29,18 +14,16 @@ import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
-import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.files.services.FileDownloader
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadType
-import com.owncloud.android.ui.dialog.SendShareDialog
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileExportUtils
 import com.owncloud.android.utils.FileStorageUtils
@@ -69,9 +52,7 @@ class FilesExportWork(
 
         val successfulExports = exportFiles(fileIDs)
 
-        // show notification
         showSuccessNotification(successfulExports)
-
         return Result.success()
     }
 
@@ -105,33 +86,34 @@ class FilesExportWork(
 
     @Throws(IllegalStateException::class)
     private fun exportFile(ocFile: OCFile) {
-        FileExportUtils().exportFile(ocFile.fileName, ocFile.mimeType, contentResolver, ocFile, null)
+        FileExportUtils().exportFile(
+            ocFile.fileName,
+            ocFile.mimeType,
+            contentResolver,
+            ocFile,
+            null
+        )
     }
 
     private fun downloadFile(ocFile: OCFile) {
-        val i = Intent(appContext, FileDownloader::class.java)
-        i.putExtra(FileDownloader.EXTRA_USER, user)
-        i.putExtra(FileDownloader.EXTRA_FILE, ocFile)
-        i.putExtra(SendShareDialog.PACKAGE_NAME, "")
-        i.putExtra(SendShareDialog.ACTIVITY_NAME, "")
-        i.putExtra(FileDownloader.DOWNLOAD_TYPE, DownloadType.EXPORT)
-        appContext.startService(i)
+        FileDownloadHelper.instance().downloadFile(
+            user,
+            ocFile,
+            downloadType = DownloadType.EXPORT
+        )
     }
 
     private fun showErrorNotification(successfulExports: Int) {
-        if (successfulExports == 0) {
-            showNotification(
-                appContext.resources.getQuantityString(R.plurals.export_failed, successfulExports, successfulExports)
-            )
+        val message = if (successfulExports == 0) {
+            appContext.resources.getQuantityString(R.plurals.export_failed, successfulExports, successfulExports)
         } else {
-            showNotification(
-                appContext.resources.getQuantityString(
-                    R.plurals.export_partially_failed,
-                    successfulExports,
-                    successfulExports
-                )
+            appContext.resources.getQuantityString(
+                R.plurals.export_partially_failed,
+                successfulExports,
+                successfulExports
             )
         }
+        showNotification(message)
     }
 
     private fun showSuccessNotification(successfulExports: Int) {
@@ -152,9 +134,7 @@ class FilesExportWork(
             NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
         )
             .setSmallIcon(R.drawable.notification_icon)
-            .setLargeIcon(BitmapFactory.decodeResource(appContext.resources, R.drawable.notification_icon))
-            .setSubText(user.accountName)
-            .setContentText(message)
+            .setContentTitle(message)
             .setAutoCancel(true)
 
         viewThemeUtils.androidx.themeNotificationCompatBuilder(appContext, notificationBuilder)
@@ -166,7 +146,8 @@ class FilesExportWork(
             appContext,
             notificationId,
             actionIntent,
-            PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_CANCEL_CURRENT or
+                PendingIntent.FLAG_IMMUTABLE
         )
         notificationBuilder.addAction(
             NotificationCompat.Action(
@@ -176,7 +157,8 @@ class FilesExportWork(
             )
         )
 
-        val notificationManager = appContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val notificationManager = appContext
+            .getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(notificationId, notificationBuilder.build())
     }
 

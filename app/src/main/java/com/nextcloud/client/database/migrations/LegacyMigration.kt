@@ -1,27 +1,13 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *  @author Álvaro Brey
- *  Copyright (C) 2022 Álvaro Brey
- *  Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.client.database.migrations
 
+import android.content.Context
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
@@ -36,12 +22,13 @@ private const val MIN_SUPPORTED_DB_VERSION = 24
 class LegacyMigration(
     private val from: Int,
     private val to: Int,
-    private val clock: Clock
+    private val clock: Clock,
+    private val context: Context
 ) : Migration(from, to) {
 
     override fun migrate(database: SupportSQLiteDatabase) {
-        LegacyMigrationHelper(clock)
-            .onUpgrade(database, from, to)
+        LegacyMigrationHelper(clock, context)
+            .tryUpgrade(database, from, to)
     }
 }
 
@@ -50,11 +37,13 @@ class LegacyMigration(
  *
  * This is needed because the [Migration] does not know which versions it's dealing with
  */
+@Suppress("ForEachOnRange")
 fun RoomDatabase.Builder<NextcloudDatabase>.addLegacyMigrations(
-    clock: Clock
+    clock: Clock,
+    context: Context
 ): RoomDatabase.Builder<NextcloudDatabase> {
     (MIN_SUPPORTED_DB_VERSION until NextcloudDatabase.FIRST_ROOM_DB_VERSION - 1)
-        .map { from -> LegacyMigration(from, from + 1, clock) }
+        .map { from -> LegacyMigration(from, from + 1, clock, context) }
         .forEach { migration -> this.addMigrations(migration) }
     return this
 }

@@ -8,18 +8,7 @@
  * Copyright (C) 2018 Andy Scherzinger
  * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.jobs
 
@@ -68,7 +57,8 @@ class MediaFoldersDetectionWork constructor(
     private val userAccountManager: UserAccountManager,
     private val preferences: AppPreferences,
     private val clock: Clock,
-    private val viewThemeUtils: ViewThemeUtils
+    private val viewThemeUtils: ViewThemeUtils,
+    private val syncedFolderProvider: SyncedFolderProvider
 ) : Worker(context, params) {
 
     companion object {
@@ -86,7 +76,6 @@ class MediaFoldersDetectionWork constructor(
     @Suppress("LongMethod", "ComplexMethod", "NestedBlockDepth") // legacy code
     override fun doWork(): Result {
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
-        val syncedFolderProvider = SyncedFolderProvider(contentResolver, preferences, clock)
         val gson = Gson()
         val mediaFoldersModel: MediaFoldersModel
         val imageMediaFolders = MediaProvider.getImageFolders(
@@ -105,12 +94,19 @@ class MediaFoldersDetectionWork constructor(
         )
         val imageMediaFolderPaths: MutableList<String> = ArrayList()
         val videoMediaFolderPaths: MutableList<String> = ArrayList()
+
         for (imageMediaFolder in imageMediaFolders) {
-            imageMediaFolderPaths.add(imageMediaFolder.absolutePath)
+            imageMediaFolder.absolutePath?.let {
+                imageMediaFolderPaths.add(it)
+            }
         }
+
         for (videoMediaFolder in videoMediaFolders) {
-            imageMediaFolderPaths.add(videoMediaFolder.absolutePath)
+            videoMediaFolder.absolutePath?.let {
+                imageMediaFolderPaths.add(it)
+            }
         }
+
         val arbitraryDataString = arbitraryDataProvider.getValue(ACCOUNT_NAME_GLOBAL, KEY_MEDIA_FOLDERS)
         if (!TextUtils.isEmpty(arbitraryDataString)) {
             mediaFoldersModel = gson.fromJson(arbitraryDataString, MediaFoldersModel::class.java)

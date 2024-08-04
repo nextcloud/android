@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ */
 package com.nextcloud.client.core
 
 import android.app.Service
@@ -65,7 +71,7 @@ class LocalConnectionTest {
 
         // THEN
         //      no binding is performed
-        verify(exactly = 0) { context.bindService(any(), any(), any()) }
+        verify(exactly = 0) { context.bindService(any(), any(), Context.BIND_AUTO_CREATE) }
     }
 
     @Test
@@ -76,12 +82,12 @@ class LocalConnectionTest {
 
         // WHEN
         //      bind requested
-        every { context.bindService(mockIntent, any(), any()) } returns true
+        every { context.bindService(mockIntent!!, any(), Context.BIND_AUTO_CREATE) } returns true
         connection.bind()
 
         // THEN
         //      service bound
-        verify { context.bindService(mockIntent, any(), any()) }
+        verify { context.bindService(mockIntent!!, any(), Context.BIND_AUTO_CREATE) }
     }
 
     @Test

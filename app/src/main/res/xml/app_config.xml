@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+
+<restrictions xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <restriction
+        android:key="proxy_host"
+        android:defaultValue=""
+        android:restrictionType="string"
+        android:title="@string/app_config_proxy_host_title" />
+
+    <restriction
+        android:key="proxy_port"
+        android:defaultValue="-1"
+        android:restrictionType="integer"
+        android:title="@string/app_config_proxy_port_title" />
+
+    <restriction
+        android:key="base_url"
+        android:defaultValue=""
+        android:restrictionType="string"
+        android:title="@string/app_config_base_url_title" />
+
+</restrictions>

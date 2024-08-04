@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2023 ZetaTom
+  ~ SPDX-FileCopyrightText: 2023 Nextcloud GmbH
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:width="80dp"
+        android:height="94dp"
+        android:drawable="@drawable/photo_pin_background" />
+    <item
+        android:id="@+id/photo_pin_image"
+        android:width="76dp"
+        android:height="76dp"
+        android:drawable="@drawable/outline_image_24"
+        android:gravity="center_horizontal"
+        android:top="2dp" />
+</layer-list>

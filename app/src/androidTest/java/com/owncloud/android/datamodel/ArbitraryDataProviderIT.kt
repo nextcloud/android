@@ -1,23 +1,9 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.datamodel
 
@@ -26,12 +12,11 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 class ArbitraryDataProviderIT : AbstractIT() {
-    private val arbitraryDataProvider = ArbitraryDataProviderImpl(targetContext)
 
     @Test
-    fun testNull() {
+    fun testEmpty() {
         val key = "DUMMY_KEY"
-        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, null)
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, "")
 
         assertEquals("", arbitraryDataProvider.getValue(user.accountName, key))
     }
@@ -74,5 +59,25 @@ class ArbitraryDataProviderIT : AbstractIT() {
         value = -1
         arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, key, value.toString())
         assertEquals(value, arbitraryDataProvider.getIntegerValue(user.accountName, key))
+    }
+
+    @Test
+    fun testIncrement() {
+        val key = "INCREMENT"
+
+        // key does not exist
+        assertEquals(-1, arbitraryDataProvider.getIntegerValue(user.accountName, key))
+
+        // increment -> 1
+        arbitraryDataProvider.incrementValue(user.accountName, key)
+        assertEquals(1, arbitraryDataProvider.getIntegerValue(user.accountName, key))
+
+        // increment -> 2
+        arbitraryDataProvider.incrementValue(user.accountName, key)
+        assertEquals(2, arbitraryDataProvider.getIntegerValue(user.accountName, key))
+
+        // delete
+        arbitraryDataProvider.deleteKeyForAccount(user.accountName, key)
+        assertEquals(-1, arbitraryDataProvider.getIntegerValue(user.accountName, key))
     }
 }

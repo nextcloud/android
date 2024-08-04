@@ -1,21 +1,12 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud - Android Client
  *
- *   Copyright (C) 2016 ownCloud Inc.
- *   Copyright (C) 2022 Nextcloud GmbH
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2018-2021 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-FileCopyrightText: 2016 ownCloud Inc.
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.ui.helpers
 
@@ -23,8 +14,8 @@ import android.content.ContentResolver
 import android.net.Uri
 import android.os.Parcelable
 import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.owncloud.android.R
-import com.owncloud.android.files.services.FileUploader
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
@@ -35,16 +26,16 @@ import com.owncloud.android.ui.fragment.TaskRetainerFragment
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 
 /**
- * This class examines URIs pointing to files to upload and then requests [FileUploader] to upload them.
+ * This class examines URIs pointing to files to upload and then requests [FileUploadHelper] to upload them.
  *
  *
- * URIs with scheme file:// do not require any previous processing, their path is sent to [FileUploader] to find
+ * URIs with scheme file:// do not require any previous processing, their path is sent to [FileUploadHelper] to find
  * the source file.
  *
  *
  * URIs with scheme content:// are handling assuming that file is in private storage owned by a different app, and that
  * persistence permission is not granted. Due to this, contents of the file are temporary copied by the OC app, and then
- * passed [FileUploader].
+ * passed [FileUploadHelper].
  */
 @Suppress(
     "Detekt.LongParameterList",
@@ -62,7 +53,11 @@ class UriUploader(
 ) {
 
     enum class UriUploaderResultCode {
-        OK, ERROR_UNKNOWN, ERROR_NO_FILE_TO_UPLOAD, ERROR_READ_PERMISSION_NOT_GRANTED, ERROR_SENSITIVE_PATH
+        OK,
+        ERROR_UNKNOWN,
+        ERROR_NO_FILE_TO_UPLOAD,
+        ERROR_READ_PERMISSION_NOT_GRANTED,
+        ERROR_SENSITIVE_PATH
     }
 
     fun uploadUris(): UriUploaderResultCode {
@@ -114,7 +109,7 @@ class UriUploader(
     private fun isSensitiveUri(uri: Uri): Boolean = uri.toString().contains(mActivity.packageName)
 
     /**
-     * Requests the upload of a file in the local file system to [FileUploader] service.
+     * Requests the upload of a file in the local file system to [FileUploadHelper] service.
      *
      * The original file will be left in its original location, and will not be duplicated.
      * As a side effect, the user will see the file as not uploaded when accesses to the OC app.
@@ -125,18 +120,17 @@ class UriUploader(
      * @param remotePath    Absolute path in the current OC account to set to the uploaded file.
      */
     private fun requestUpload(localPath: String?, remotePath: String) {
-        FileUploader.uploadNewFile(
-            mActivity,
+        FileUploadHelper.instance().uploadNewFiles(
             user,
-            localPath,
-            remotePath,
+            arrayOf(localPath ?: ""),
+            arrayOf(remotePath),
             mBehaviour,
-            null, // MIME type will be detected from file name
-            false, // do not create parent folder if not existent
+            // do not create parent folder if not existent
+            false,
             UploadFileOperation.CREATED_BY_USER,
-            false,
-            false,
-            NameCollisionPolicy.ASK_USER
+            requiresWifi = false,
+            requiresCharging = false,
+            nameCollisionPolicy = NameCollisionPolicy.ASK_USER
         )
     }
 

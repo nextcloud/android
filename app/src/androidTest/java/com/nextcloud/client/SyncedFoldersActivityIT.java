@@ -1,32 +1,20 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.client;
 
 import android.app.Activity;
 import android.content.Intent;
 
+import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.AbstractIT;
+import com.owncloud.android.databinding.SyncedFoldersLayoutBinding;
 import com.owncloud.android.datamodel.MediaFolderType;
+import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
 import com.owncloud.android.ui.activity.SyncedFoldersActivity;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
@@ -50,9 +38,11 @@ public class SyncedFoldersActivityIT extends AbstractIT {
     @Test
     @ScreenshotTest
     public void open() {
-        Activity sut = activityRule.launchActivity(null);
-
-        screenshot(sut);
+        SyncedFoldersActivity activity = activityRule.launchActivity(null);
+        activity.adapter.clear();
+        SyncedFoldersLayoutBinding sut = activity.binding;
+        shortSleep();
+        screenshot(sut.emptyList.emptyListView);
     }
 
     @Test
@@ -73,7 +63,10 @@ public class SyncedFoldersActivityIT extends AbstractIT {
                                                                    1000,
                                                                    "Name",
                                                                    MediaFolderType.IMAGE,
-                                                                   false);
+                                                                   false,
+                                                                   SubFolderRule.YEAR_MONTH,
+                                                                   false,
+                                                                   SyncedFolder.NOT_SCANNED_YET);
         SyncedFolderPreferencesDialogFragment sut = SyncedFolderPreferencesDialogFragment.newInstance(item, 0);
 
         Intent intent = new Intent(targetContext, SyncedFoldersActivity.class);

@@ -1,27 +1,13 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2018 Tobias Kaminsky
- * Copyright (C) 2018 Nextcloud GmbH.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky
+ * SPDX-FileCopyrightText: 2018 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.operations;
 
-import com.owncloud.android.lib.common.OwnCloudClient;
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -30,7 +16,7 @@ import com.owncloud.android.lib.resources.comments.CommentFileRemoteOperation;
 /**
  * Comment file
  */
-public class CommentFileOperation extends RemoteOperation {
+public class CommentFileOperation extends RemoteOperation<Void> {
 
     private final String message;
     private final long fileId;
@@ -51,8 +37,8 @@ public class CommentFileOperation extends RemoteOperation {
      * @param client Client object to communicate with the remote ownCloud server.
      */
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result = new CommentFileRemoteOperation(message, fileId).execute(client);
+    public RemoteOperationResult<Void> run(NextcloudClient client) {
+        RemoteOperationResult<Void> result = new CommentFileRemoteOperation(message, fileId).execute(client);
 
         if (!result.isSuccess()) {
             Log_OC.e(this, "File with Id " + fileId + " could not be commented");

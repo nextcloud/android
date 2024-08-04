@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<resources>
+
+    <style name="BaseTheme.ownCloud.Toolbar" parent="Theme.Material3.Dark">
+        <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
+        <item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+        <item name="android:colorBackground">@color/bg_default</item>
+        <item name="android:windowBackground">@color/bg_default</item>
+        <item name="colorAccent">@color/color_accent</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary</item>
+        <item name="searchViewStyle">@style/ownCloud.SearchView</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="windowNoTitle">true</item>
+        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
+        <item name="popupMenuStyle">@style/Nextcloud.Widget.PopupMenu</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
+        <item name="actionModeStyle">@style/App.ActionMode</item>
+    </style>
+</resources>

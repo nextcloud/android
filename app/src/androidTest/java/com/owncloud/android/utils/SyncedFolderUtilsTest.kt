@@ -1,25 +1,12 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Andy Scherzinger
- * Copyright (C) 2020 Andy Scherzinger
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.utils
 
+import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
@@ -186,7 +173,10 @@ class SyncedFolderUtilsTest : AbstractIT() {
             true,
             0L,
             MediaFolderType.IMAGE,
-            false
+            false,
+            SubFolderRule.YEAR_MONTH,
+            false,
+            SyncedFolder.NOT_SCANNED_YET
         )
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }
@@ -209,7 +199,10 @@ class SyncedFolderUtilsTest : AbstractIT() {
             true,
             0L,
             MediaFolderType.IMAGE,
-            false
+            false,
+            SubFolderRule.YEAR_MONTH,
+            false,
+            SyncedFolder.NOT_SCANNED_YET
         )
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
     }

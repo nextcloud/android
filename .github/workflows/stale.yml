@@ -1,4 +1,10 @@
 # synced from @nextcloud/android-config
+
+# SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 name: 'Close stale issues'
 on:
   schedule:
@@ -14,7 +20,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@1160a2240286f5da8ec72b1c0816ce2481aabf84 # v8.0.0
+      - uses: actions/stale@28ca1036281a5e5922ead5184a1bbf96e5fc984e # v9.0.0
         with:
           days-before-stale: 28
           days-before-close: 14
@@ -26,3 +32,4 @@ jobs:
             Please take a look again and update the issue with new details,
             otherwise the issue will be automatically closed in 2 weeks. Thank you!
           exempt-all-pr-milestones: true
+          labels-to-remove-when-unstale: 'needs info'

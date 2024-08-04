@@ -1,22 +1,13 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud - Android Client
  *
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2023 Jonas Mayer <jonas.a.mayer@gmx.net>
+ * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.ui.notifications;
 
 import android.app.NotificationManager;
@@ -25,6 +16,7 @@ import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Process;
 
+import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.security.SecureRandom;
@@ -61,8 +53,8 @@ public final class NotificationUtils {
      * @param context       Context that will use the builder to create notifications
      * @return An instance of the regular {@link NotificationCompat.Builder}.
      */
-    public static NotificationCompat.Builder newNotificationBuilder(Context context, final ViewThemeUtils viewThemeUtils) {
-        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context);
+    public static NotificationCompat.Builder newNotificationBuilder(Context context, String channelId, final ViewThemeUtils viewThemeUtils) {
+        final NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId);
         viewThemeUtils.androidx.themeNotificationCompatBuilder(context, builder);
         return builder;
     }
@@ -80,5 +72,12 @@ public final class NotificationUtils {
             notificationManager.cancel(notificationId);
             ((HandlerThread) Thread.currentThread()).getLooper().quit();
         }, delayInMillis);
+    }
+
+    public static String createUploadNotificationTag(OCFile file){
+        return createUploadNotificationTag(file.getRemotePath(), file.getStoragePath());
+    }
+    public static String createUploadNotificationTag(String remotePath, String localPath){
+        return remotePath + localPath;
     }
 }

@@ -1,43 +1,27 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *  @author Álvaro Brey
- *  Copyright (C) 2022 Álvaro Brey
- *  Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.preview
 
 import android.app.Activity
 import android.app.Dialog
 import android.os.Build
-import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.annotation.OptIn
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.Player
-import com.google.android.exoplayer2.ui.StyledPlayerView
+import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer
 import com.nextcloud.common.NextcloudClient
-import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogPreviewVideoBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 
@@ -49,15 +33,16 @@ import com.owncloud.android.lib.common.utils.Log_OC
  * @param sourceExoPlayer the ExoPlayer playing the video
  * @param sourceView the original non-fullscreen surface that [sourceExoPlayer] is linked to
  */
+@OptIn(UnstableApi::class)
 class PreviewVideoFullscreenDialog(
     private val activity: Activity,
     nextcloudClient: NextcloudClient,
     private val sourceExoPlayer: ExoPlayer,
-    private val sourceView: StyledPlayerView
+    private val sourceView: PlayerView
 ) : Dialog(sourceView.context, android.R.style.Theme_Black_NoTitleBar_Fullscreen) {
 
     private val binding: DialogPreviewVideoBinding = DialogPreviewVideoBinding.inflate(layoutInflater)
-    private var playingStateListener: Player.Listener? = null
+    private var playingStateListener: androidx.media3.common.Player.Listener? = null
 
     /**
      * exoPlayer instance used for this view, either the original one or a new one in specific cases.
@@ -112,11 +97,10 @@ class PreviewVideoFullscreenDialog(
         setOnShowListener {
             enableImmersiveMode()
             switchTargetViewFromSource()
-            setListeners()
+            binding.videoPlayer.setFullscreenButtonClickListener { onBackPressed() }
             if (isPlaying) {
                 mExoPlayer.play()
             }
-            binding.videoPlayer.showController()
         }
         super.show()
     }
@@ -125,31 +109,8 @@ class PreviewVideoFullscreenDialog(
         if (shouldUseRotatedVideoWorkaround) {
             mExoPlayer.seekTo(sourceExoPlayer.currentPosition)
         } else {
-            StyledPlayerView.switchTargetView(sourceExoPlayer, sourceView, binding.videoPlayer)
+            PlayerView.switchTargetView(sourceExoPlayer, sourceView, binding.videoPlayer)
         }
-    }
-
-    private fun setListeners() {
-        binding.root.findViewById<View>(R.id.exo_exit_fs).setOnClickListener { onBackPressed() }
-        val pauseButton: View = binding.root.findViewById(R.id.exo_pause)
-        pauseButton.setOnClickListener { sourceExoPlayer.pause() }
-        val playButton: View = binding.root.findViewById(R.id.exo_play)
-        playButton.setOnClickListener { sourceExoPlayer.play() }
-
-        val playListener = object : Player.Listener {
-            override fun onIsPlayingChanged(isPlaying: Boolean) {
-                super.onIsPlayingChanged(isPlaying)
-                if (isPlaying) {
-                    playButton.visibility = View.GONE
-                    pauseButton.visibility = View.VISIBLE
-                } else {
-                    playButton.visibility = View.VISIBLE
-                    pauseButton.visibility = View.GONE
-                }
-            }
-        }
-        mExoPlayer.addListener(playListener)
-        playingStateListener = playListener
     }
 
     override fun onBackPressed() {
@@ -175,7 +136,7 @@ class PreviewVideoFullscreenDialog(
         if (shouldUseRotatedVideoWorkaround) {
             sourceExoPlayer.seekTo(mExoPlayer.currentPosition)
         } else {
-            StyledPlayerView.switchTargetView(sourceExoPlayer, binding.videoPlayer, sourceView)
+            PlayerView.switchTargetView(sourceExoPlayer, binding.videoPlayer, sourceView)
         }
     }
 

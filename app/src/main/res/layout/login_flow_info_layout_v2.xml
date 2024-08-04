@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+  -->
+
+<LinearLayout
+    android:id="@+id/login_flow_info_v2"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:orientation="vertical"
+    android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:text="@string/authenticator_activity_please_complete_login_process"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="@dimen/splash_text_size"
+        android:layout_marginBottom="@dimen/standard_double_margin"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/cancel_button"
+        app:backgroundTint="@color/white"
+        android:textColor="@color/black"
+        android:theme="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        app:strokeColor="@color/white"
+        android:layout_marginBottom="@dimen/standard_double_margin"
+        android:layout_height="wrap_content"
+        app:cornerRadius="@dimen/button_corner_radius"
+        android:text="@string/authenticator_activity_cancel_login" />
+
+</LinearLayout>

@@ -1,21 +1,8 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Chris Narkiewicz
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.jobs
 
@@ -35,10 +22,10 @@ import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.files.downloader.PostUploadAction
-import com.nextcloud.client.files.downloader.TransferManagerConnection
-import com.nextcloud.client.files.downloader.UploadRequest
-import com.nextcloud.client.files.downloader.UploadTrigger
+import com.nextcloud.client.files.UploadRequest
+import com.nextcloud.client.jobs.transfer.TransferManagerConnection
+import com.nextcloud.client.jobs.upload.PostUploadAction
+import com.nextcloud.client.jobs.upload.UploadTrigger
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -81,7 +68,8 @@ class ContactsBackupWork(
     @Suppress("ReturnCount") // pre-existing issue
     override fun doWork(): Result {
         val accountName = inputData.getString(KEY_ACCOUNT) ?: ""
-        if (TextUtils.isEmpty(accountName)) { // no account provided
+        if (TextUtils.isEmpty(accountName)) {
+            // no account provided
             return Result.failure()
         }
         val optionalUser = accountManager.getUser(accountName)
@@ -175,7 +163,8 @@ class ContactsBackupWork(
         connection.enqueue(request)
     }
 
-    private fun expireFiles(daysToExpire: Int, backupFolderString: String, user: User) { // -1 disables expiration
+    private fun expireFiles(daysToExpire: Int, backupFolderString: String, user: User) {
+        // -1 disables expiration
         if (daysToExpire > -1) {
             val storageManager = FileDataStorageManager(
                 user,

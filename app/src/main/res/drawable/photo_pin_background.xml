@@ -1,0 +1,23 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2023 ZetaTom
+  ~ SPDX-FileCopyrightText: 2023 Nextcloud GmbH
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="40dp"
+    android:height="46.61dp"
+    android:viewportWidth="40"
+    android:viewportHeight="46.61">
+    <path
+        android:fillColor="@color/grey_600"
+        android:pathData="M1.523,20a18.477,18.477 0,1 0,36.954 0a18.477,18.477 0,1 0,-36.954 0z"
+        android:strokeWidth="3.0454"
+        android:strokeColor="@color/grey_600" />
+    <path
+        android:fillColor="@color/grey_600"
+        android:pathData="m1.5,20c0,17.795 18.5,25 18.5,25s18.5,-7.205 18.5,-25"
+        android:strokeWidth="3"
+        android:strokeColor="@color/grey_600" />
+</vector>

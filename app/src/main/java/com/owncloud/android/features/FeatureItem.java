@@ -1,25 +1,9 @@
 /*
- *   Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author Bartosz Przybylski
- *   Copyright (C) 2015 Bartosz Przybylski
- *   Copyright (C) 2015 ownCloud Inc.
- *   Copyright (C) 2016 Nextcloud.
- *
- *   This program is free software; you can redistribute it and/or
- *   modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- *   License as published by the Free Software Foundation; either
- *   version 3 of the License, or any later version.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- *   You should have received a copy of the GNU Affero General Public
- *   License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.features;
 
 import android.os.Parcel;
@@ -27,10 +11,6 @@ import android.os.Parcelable;
 
 import com.owncloud.android.R;
 
-/**
- * @author Bartosz Przybylski
- * @author Tobias Kaminsky
- */
 public class FeatureItem implements Parcelable {
     private static final int DO_NOT_SHOW = -1;
     private int image;

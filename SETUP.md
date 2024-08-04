@@ -1,3 +1,7 @@
+<!--
+ ~ SPDX-FileCopyrightText: 2016-2024 Nextcloud GmbH and Nextcloud contributors
+ ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
 These instructions will help you to set up your development environment, get the source code of the Nextcloud for Android app and build it by yourself. If you want to help developing the app take a look to the [contribution guidelines][0].
 
 Sections 1) and 2) are common for any environment. The rest of the sections describe how to set up a project in different tool environments. Nowadays we recommend to use Android Studio (section 2), but you can also build the app from the command line (section 3).
@@ -51,7 +55,7 @@ To set up the project in Android Studio follow the next steps:
 
 * Open Android Studio and select 'Import Project (Eclipse ADT, Gradle, etc)'. Browse through your file system to the folder 'android' where the project is located. Android Studio will then create the '.iml' files it needs. If you ever close the project but the files are still there, you just select 'Open Project…'. The file chooser will show an Android face as the folder icon, which you can select to reopen the project.
 * Android Studio will try to build the project directly after importing it. To build it manually, follow the menu path 'Build'/'Make Project', or just click the 'Play' button in the toolbar to build and run it in a mobile device or an emulator. The resulting APK file will be saved in the 'build/outputs/apk/' subdirectory in the project folder.
-* Setup Android Studio editor configurtation for the project: ```Settings``` → ```Editor``` → ```Code Style``` → ```Scheme: Project``` and ```Enable EditorConfig support```
+* Setup Android Studio editor configuration for the project: ```Settings``` → ```Editor``` → ```Code Style``` → ```Scheme: Project``` and ```Enable EditorConfig support```
 
 
 ### 3. Working in a terminal with Gradle:

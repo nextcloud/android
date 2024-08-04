@@ -5,18 +5,7 @@
  * Copyright (C) 2022 TSI-mc
  * Copyright (C) 2022 Nextcloud GmbH
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.fragment
 
@@ -24,24 +13,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentGalleryBottomSheetBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
 class GalleryFragmentBottomSheetDialog(
     private val actions: GalleryFragmentBottomSheetActions
-) : BottomSheetDialogFragment(), Injectable {
+) : BottomSheetDialogFragment(R.layout.fragment_gallery_bottom_sheet), Injectable {
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
     private lateinit var binding: FragmentGalleryBottomSheetBinding
-    private lateinit var mBottomBehavior: BottomSheetBehavior<*>
     private var currentMediaState: MediaState = MediaState.MEDIA_STATE_DEFAULT
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentGalleryBottomSheetBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
@@ -50,43 +39,44 @@ class GalleryFragmentBottomSheetDialog(
         super.onViewCreated(view, savedInstanceState)
         setupLayout()
         setupClickListener()
-        mBottomBehavior = BottomSheetBehavior.from(binding.root.parent as View)
     }
 
-    public override fun onStart() {
-        super.onStart()
-        mBottomBehavior.state = BottomSheetBehavior.STATE_EXPANDED
-    }
+    private fun setupLayout() {
+        viewThemeUtils.platform.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
 
-    fun setupLayout() {
         listOf(
             binding.tickMarkShowImages,
-            binding.tickMarkShowVideo,
-            binding.hideImagesImageview,
-            binding.hideVideoImageView,
-            binding.selectMediaFolderImageView
+            binding.tickMarkShowVideos
         ).forEach {
-            viewThemeUtils.platform.colorImageView(it)
+            viewThemeUtils.platform.colorImageView(it, ColorRole.PRIMARY)
+        }
+
+        listOf(
+            binding.btnSelectMediaFolder,
+            binding.btnHideVideos,
+            binding.btnHideImages
+        ).forEach {
+            viewThemeUtils.material.colorMaterialButtonText(it)
         }
 
         when (currentMediaState) {
             MediaState.MEDIA_STATE_PHOTOS_ONLY -> {
                 binding.tickMarkShowImages.visibility = View.VISIBLE
-                binding.tickMarkShowVideo.visibility = View.GONE
+                binding.tickMarkShowVideos.visibility = View.GONE
             }
             MediaState.MEDIA_STATE_VIDEOS_ONLY -> {
                 binding.tickMarkShowImages.visibility = View.GONE
-                binding.tickMarkShowVideo.visibility = View.VISIBLE
+                binding.tickMarkShowVideos.visibility = View.VISIBLE
             }
             else -> {
                 binding.tickMarkShowImages.visibility = View.VISIBLE
-                binding.tickMarkShowVideo.visibility = View.VISIBLE
+                binding.tickMarkShowVideos.visibility = View.VISIBLE
             }
         }
     }
 
     private fun setupClickListener() {
-        binding.hideImages.setOnClickListener { v: View? ->
+        binding.btnHideImages.setOnClickListener {
             currentMediaState = if (currentMediaState == MediaState.MEDIA_STATE_VIDEOS_ONLY) {
                 MediaState.MEDIA_STATE_DEFAULT
             } else {
@@ -95,7 +85,7 @@ class GalleryFragmentBottomSheetDialog(
             notifyStateChange()
             dismiss()
         }
-        binding.hideVideo.setOnClickListener { v: View? ->
+        binding.btnHideVideos.setOnClickListener {
             currentMediaState = if (currentMediaState == MediaState.MEDIA_STATE_PHOTOS_ONLY) {
                 MediaState.MEDIA_STATE_DEFAULT
             } else {
@@ -104,7 +94,7 @@ class GalleryFragmentBottomSheetDialog(
             notifyStateChange()
             dismiss()
         }
-        binding.selectMediaFolder.setOnClickListener { v: View? ->
+        binding.btnSelectMediaFolder.setOnClickListener {
             actions.selectMediaFolder()
             dismiss()
         }

@@ -1,32 +1,17 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.trashbin
 
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import com.owncloud.android.ui.trashbin.TrashbinRepository.LoadFolderCallback
 
-class TrashbinLocalRepository(val testCase: TrashbinActivityIT.TestCase) : TrashbinRepository {
+class TrashbinLocalRepository(private val testCase: TrashbinActivityIT.TestCase) : TrashbinRepository {
     override fun emptyTrashbin(callback: TrashbinRepository.OperationCallback?) {
         TODO("Not yet implemented")
     }
@@ -44,15 +29,17 @@ class TrashbinLocalRepository(val testCase: TrashbinActivityIT.TestCase) : Trash
         when (testCase) {
             TrashbinActivityIT.TestCase.ERROR -> callback?.onError(R.string.trashbin_loading_failed)
             TrashbinActivityIT.TestCase.FILES -> {
-                val files = ArrayList<Any>()
+                val files = ArrayList<TrashbinFile>()
                 files.add(
                     TrashbinFile(
                         "test.png",
                         "image/png",
                         "/trashbin/test.png",
                         "subFolder/test.png",
-                        1395847838, // random date
-                        1395847908 // random date
+                        // random date
+                        1395847838,
+                        // random date
+                        1395847908
                     )
                 )
                 files.add(
@@ -61,8 +48,10 @@ class TrashbinLocalRepository(val testCase: TrashbinActivityIT.TestCase) : Trash
                         "image/jpeg",
                         "/trashbin/image.jpg",
                         "image.jpg",
-                        1395841858, // random date
-                        1395837858 // random date
+                        // random date
+                        1395841858,
+                        // random date
+                        1395837858
                     )
                 )
                 files.add(
@@ -71,14 +60,16 @@ class TrashbinLocalRepository(val testCase: TrashbinActivityIT.TestCase) : Trash
                         "DIR",
                         "/trashbin/folder/",
                         "folder",
-                        1395347858, // random date
-                        1395849858 // random date
+                        // random date
+                        1395347858,
+                        // random date
+                        1395849858
                     )
                 )
 
                 callback?.onSuccess(files)
             }
-            TrashbinActivityIT.TestCase.EMPTY -> callback?.onSuccess(ArrayList<Any>())
+            TrashbinActivityIT.TestCase.EMPTY -> callback?.onSuccess(ArrayList<TrashbinFile>())
         }
     }
 }

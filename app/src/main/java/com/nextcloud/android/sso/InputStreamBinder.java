@@ -1,25 +1,11 @@
 /*
- * Nextcloud SingleSignOn
+ * Nextcloud - Android Client
  *
- * @author David Luhmer
- * Copyright (C) 2019 David Luhmer
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 David Luhmer <david-dev@live.de>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  *
  * More information here: https://github.com/abeluck/android-streams-ipc
  */
-
 package com.nextcloud.android.sso;
 
 import android.accounts.Account;
@@ -457,16 +443,23 @@ public class InputStreamBinder extends IInputStreamService.Stub {
     }
 
     private boolean isValid(NextcloudRequest request) {
-        String callingPackageName = context.getPackageManager().getNameForUid(Binder.getCallingUid());
+        String[] callingPackageNames = context.getPackageManager().getPackagesForUid(Binder.getCallingUid());
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(SSO_SHARED_PREFERENCE,
                                                                            Context.MODE_PRIVATE);
-        String hash = sharedPreferences.getString(callingPackageName + DELIMITER + request.getAccountName(), "");
-        return validateToken(hash, request.getToken());
+        for (String callingPackageName : callingPackageNames) {
+            String hash = sharedPreferences.getString(callingPackageName + DELIMITER + request.getAccountName(), "");
+            if (hash.isEmpty())
+                continue;
+            if (validateToken(hash, request.getToken())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean validateToken(String hash, String token) {
-        if (hash.isEmpty() || !hash.contains("$")) {
+        if (!hash.contains("$")) {
             throw new IllegalStateException(EXCEPTION_INVALID_TOKEN);
         }
 

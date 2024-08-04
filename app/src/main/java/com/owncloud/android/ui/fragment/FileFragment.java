@@ -1,40 +1,28 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author David A. Velasco
- *   @author Andy Scherzinger
- *   Copyright (C) 2015  ownCloud Inc.
- *   Copyright (C) 2018 Andy Scherzinger
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2021 TSI-mc
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2013 David A. Velasco<dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.ui.fragment;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.ui.activity.ComponentsGetter;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import static com.owncloud.android.ui.activity.FileActivity.EXTRA_FILE;
-
 
 /**
  * Common methods for {@link Fragment}s containing {@link OCFile}s
@@ -45,10 +33,8 @@ public class FileFragment extends Fragment {
 
     protected ContainerActivity containerActivity;
 
-
     /**
      * Creates an empty fragment.
-     *
      * It's necessary to keep a public constructor without parameters; the system uses it when
      * tries to reinstantiate a fragment automatically.
      */
@@ -61,7 +47,9 @@ public class FileFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Bundle bundle = getArguments();
-        setFile(bundle.getParcelable(EXTRA_FILE));
+        if (bundle != null) {
+            setFile(BundleExtensionsKt.getParcelableArgument(bundle, EXTRA_FILE, OCFile.class));
+        }
     }
 
     /**
@@ -105,7 +93,7 @@ public class FileFragment extends Fragment {
 
         } catch (ClassCastException e) {
             throw new IllegalArgumentException(activity.toString() + " must implement " +
-                    ContainerActivity.class.getSimpleName(), e);
+                                                   ContainerActivity.class.getSimpleName(), e);
         }
     }
 
@@ -158,8 +146,8 @@ public class FileFragment extends Fragment {
          * This happens when a download or upload is started or ended for a file.
          *
          * This method is necessary by now to update the user interface of the double-pane layout
-         * in tablets because methods {@link FileDownloaderBinder#isDownloading(Account, OCFile)}
-         * and {@link FileUploaderBinder#isUploading(Account, OCFile)}
+         * in tablets because methods FileDownloaderBinder.isDownloading(Account, OCFile)
+         * and FilesUploadHelper.isUploading(Account, OCFile)
          * won't provide the needed response before the method where this is called finishes.
          *
          * TODO Remove this when the transfer state of a file is kept in the database

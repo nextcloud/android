@@ -1,24 +1,9 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Chris Narkiewicz
- *
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.client.device
 
 import android.content.Context
@@ -28,6 +13,8 @@ import android.os.BatteryManager
 import android.os.PowerManager
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.nextcloud.utils.extensions.registerBroadcastReceiver
+import com.owncloud.android.datamodel.ReceiverFlag
 
 internal class PowerManagementServiceImpl(
     private val context: Context,
@@ -67,7 +54,11 @@ internal class PowerManagementServiceImpl(
     @Suppress("MagicNumber") // 100% is 100, we're not doing Cobol
     override val battery: BatteryStatus
         get() {
-            val intent: Intent? = context.registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+            val intent: Intent? = context.registerBroadcastReceiver(
+                null,
+                IntentFilter(Intent.ACTION_BATTERY_CHANGED),
+                ReceiverFlag.NotExported
+            )
             val isCharging = intent?.let {
                 when (it.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0)) {
                     BatteryManager.BATTERY_PLUGGED_USB -> true

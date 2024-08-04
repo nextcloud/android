@@ -1,22 +1,9 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2017 Tobias Kaminsky
- * Copyright (C) 2017 Nextcloud GmbH.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 
 package com.owncloud.android.ui.activity;
@@ -29,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ProgressBar;
@@ -39,6 +28,7 @@ import com.owncloud.android.databinding.ExternalsiteWebviewBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.NextcloudWebViewClient;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.WebViewUtil;
 
 import java.io.InputStream;
 
@@ -140,8 +130,9 @@ public class ExternalSiteWebView extends FileActivity {
             });
         }
 
+        final ExternalSiteWebView self = this;
         getWebView().setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
-            public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                 InputStream resources = getResources().openRawResource(R.raw.custom_error);
                 String customError = DisplayUtils.getData(resources);
 
@@ -149,9 +140,25 @@ public class ExternalSiteWebView extends FileActivity {
                     getWebView().loadData(customError, "text/html; charset=UTF-8", null);
                 }
             }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+                if (!request.isRedirect()) {
+                    DisplayUtils.startLinkIntent(self, request.getUrl());
+                    return true;
+                }
+                return false;
+            }
         });
 
+        new WebViewUtil(getApplicationContext()).setProxyKKPlus(getWebView());
         getWebView().loadUrl(url);
+    }
+
+    @Override
+    protected void onDestroy() {
+        getWebView().destroy();
+        super.onDestroy();
     }
 
     protected void bindView() {
@@ -181,8 +188,7 @@ public class ExternalSiteWebView extends FileActivity {
         // user agent
         webSettings.setUserAgentString(MainApp.getUserAgent());
 
-        // no private data storing
-        webSettings.setSavePassword(false);
+        // do not store private data
         webSettings.setSaveFormData(false);
 
         // disable local file access
@@ -194,7 +200,7 @@ public class ExternalSiteWebView extends FileActivity {
 
         // caching disabled in debug mode
         if ((getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
-            getWebView().getSettings().setCacheMode(WebSettings.LOAD_NO_CACHE);
+            webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE);
         }
     }
 
@@ -213,8 +219,6 @@ public class ExternalSiteWebView extends FileActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval;
-
         if (item.getItemId() == android.R.id.home) {
             if (showSidebar) {
                 if (isDrawerOpen()) {
@@ -225,12 +229,10 @@ public class ExternalSiteWebView extends FileActivity {
             } else {
                 finish();
             }
-            retval = true;
+            return true;
         } else {
-            retval = super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
         }
-
-        return retval;
     }
 
     @Override

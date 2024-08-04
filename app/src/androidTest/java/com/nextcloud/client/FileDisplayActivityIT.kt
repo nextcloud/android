@@ -1,23 +1,9 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2019 Tobias Kaminsky
- * Copyright (C) 2019 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client
 
@@ -25,6 +11,7 @@ import android.app.Activity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.closeSoftKeyboard
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.DrawerActions
 import androidx.test.espresso.contrib.NavigationViewActions
@@ -136,7 +123,7 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
             .perform(NavigationViewActions.navigateTo(R.id.nav_shared))
         shortSleep()
         shortSleep()
-        screenshot(sut)
+        // screenshot(sut) // todo run without real server
     }
 
     @Test
@@ -238,12 +225,14 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         onView(withId(R.id.sort_button)).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.GONE)))
 
         // browse into folder
-        onView(withId(R.id.list_root)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
-                0,
-                click()
+        onView(withId(R.id.list_root))
+            .perform(closeSoftKeyboard())
+            .perform(
+                RecyclerViewActions.actionOnItemAtPosition<OCFileListItemViewHolder>(
+                    0,
+                    click()
+                )
             )
-        )
         shortSleep()
         checkToolbarTitle(topFolder)
         // sort button should now be visible

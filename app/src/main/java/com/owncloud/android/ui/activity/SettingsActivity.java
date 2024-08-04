@@ -1,27 +1,17 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author Bartek Przybylski
- *   @author David A. Velasco
- *   @author Chris Narkiewicz
- *
- *   Copyright (C) 2011  Bartek Przybylski
- *   Copyright (C) 2016 ownCloud Inc.
- *   Copyright (C) 2016 Nextcloud
- *   Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2022-2023 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2017-2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2015-2017 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2016 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2014 Jose Antonio Barros Ramos <jabarros@solidgear.es>
+ * SPDX-FileCopyrightText: 2013 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2011-2015 Bartosz Przybylski <bart.p.pl@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.ui.activity;
 
@@ -48,12 +38,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.URLUtil;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.etm.EtmActivity;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
@@ -91,14 +83,12 @@ import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
 /**
  * An Activity that allows the user to change the application's settings.
- * <p>
  * It proxies the necessary calls via {@link androidx.appcompat.app.AppCompatDelegate} to be used with AppCompat.
  */
 public class SettingsActivity extends PreferenceActivity
@@ -134,6 +124,7 @@ public class SettingsActivity extends PreferenceActivity
 
     private ListPreference lock;
     private ThemeableSwitchPreference showHiddenFiles;
+    private ThemeableSwitchPreference showEcosystemApps;
     private AppCompatDelegate delegate;
 
     private ListPreference prefStoragePath;
@@ -146,6 +137,7 @@ public class SettingsActivity extends PreferenceActivity
     @Inject UserAccountManager accountManager;
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
+    @Inject ConnectivityService connectivityService;
 
 
     @SuppressWarnings("deprecation")
@@ -357,9 +349,7 @@ public class SettingsActivity extends PreferenceActivity
                     String imprintWeb = getString(R.string.url_imprint);
 
                     if (!imprintWeb.isEmpty()) {
-                        Uri uriUrl = Uri.parse(imprintWeb);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
+                        DisplayUtils.startLinkIntent(this, imprintWeb);
                     }
                     //ImprintDialog.newInstance(true).show(preference.get, "IMPRINT_DIALOG");
                     return true;
@@ -434,10 +424,14 @@ public class SettingsActivity extends PreferenceActivity
                 preferenceCategoryMore.removePreference(preference);
             } else {
                 preference.setOnPreferenceClickListener(p -> {
-                    Intent i = new Intent(MainApp.getAppContext(), SetupEncryptionActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                    i.putExtra("EXTRA_USER", user);
-                    startActivityForResult(i, ACTION_E2E);
+                    if (connectivityService.getConnectivity().isConnected()) {
+                        Intent i = new Intent(MainApp.getAppContext(), SetupEncryptionActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        i.putExtra("EXTRA_USER", user);
+                        startActivityForResult(i, ACTION_E2E);
+                    } else {
+                        DisplayUtils.showSnackMessage(this, R.string.e2e_offline);
+                    }
 
                     return true;
                 });
@@ -467,7 +461,7 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupE2EMnemonicPreference(PreferenceCategory preferenceCategoryMore) {
-        String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
+        String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC).trim();
 
         Preference pMnemonic = findPreference("mnemonic");
         if (pMnemonic != null) {
@@ -499,30 +493,32 @@ public class SettingsActivity extends PreferenceActivity
                 preferenceCategoryMore.removePreference(preference);
             } else {
                 preference.setOnPreferenceClickListener(p -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
-                    AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
-                        .setMessage(getString(R.string.remove_e2e_message))
-                        .setCancelable(true)
-                        .setNegativeButton(R.string.common_cancel, ((dialog, i) -> dialog.dismiss()))
-                        .setPositiveButton(R.string.confirm_removal, (dialog, which) -> {
-                            EncryptionUtils.removeE2E(arbitraryDataProvider, user);
-                            preferenceCategoryMore.removePreference(preference);
-
-                            Preference pMnemonic = findPreference("mnemonic");
-                            if (pMnemonic != null) {
-                                preferenceCategoryMore.removePreference(pMnemonic);
-                            }
-
-                            dialog.dismiss();
-                        })
-                        .create();
-
-                    alertDialog.show();
-
+                    showRemoveE2EAlertDialog(preferenceCategoryMore, preference);
                     return true;
                 });
             }
         }
+    }
+
+    private void showRemoveE2EAlertDialog(PreferenceCategory preferenceCategoryMore, Preference preference) {
+        new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog)
+            .setTitle(R.string.prefs_e2e_mnemonic)
+            .setMessage(getString(R.string.remove_e2e_message))
+            .setCancelable(true)
+            .setNegativeButton(R.string.common_cancel, ((dialog, i) -> dialog.dismiss()))
+            .setPositiveButton(R.string.confirm_removal, (dialog, which) -> {
+                EncryptionUtils.removeE2E(arbitraryDataProvider, user);
+                preferenceCategoryMore.removePreference(preference);
+
+                Preference pMnemonic = findPreference("mnemonic");
+                if (pMnemonic != null) {
+                    preferenceCategoryMore.removePreference(pMnemonic);
+                }
+
+                dialog.dismiss();
+            })
+            .create()
+            .show();
     }
 
     private void setupHelpPreference(PreferenceCategory preferenceCategoryMore) {
@@ -531,12 +527,7 @@ public class SettingsActivity extends PreferenceActivity
         if (pHelp != null) {
             if (helpEnabled) {
                 pHelp.setOnPreferenceClickListener(preference -> {
-                    String helpWeb = getString(R.string.url_help);
-                    if (!helpWeb.isEmpty()) {
-                        Uri uriUrl = Uri.parse(helpWeb);
-                        Intent intent = new Intent(Intent.ACTION_VIEW, uriUrl);
-                        DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available);
-                    }
+                    DisplayUtils.startLinkIntent(this, R.string.url_help);
                     return true;
                 });
             } else {
@@ -561,6 +552,13 @@ public class SettingsActivity extends PreferenceActivity
     private void setupBackupPreference() {
         Preference pContactsBackup = findPreference("backup");
         if (pContactsBackup != null) {
+            boolean showCalendarBackup = getResources().getBoolean(R.bool.show_calendar_backup);
+            pContactsBackup.setTitle(showCalendarBackup
+                                         ? getString(R.string.backup_title)
+                                         : getString(R.string.contact_backup_title));
+            pContactsBackup.setSummary(showCalendarBackup
+                                           ? getString(R.string.prefs_daily_backup_summary)
+                                           : getString(R.string.prefs_daily_contact_backup_summary));
             pContactsBackup.setOnPreferenceClickListener(preference -> {
                 ContactsPreferenceActivity.startActivityWithoutSidebar(this);
                 return true;
@@ -598,12 +596,15 @@ public class SettingsActivity extends PreferenceActivity
         boolean fPassCodeEnabled = getResources().getBoolean(R.bool.passcode_enabled);
         boolean fDeviceCredentialsEnabled = getResources().getBoolean(R.bool.device_credentials_enabled);
         boolean fShowHiddenFilesEnabled = getResources().getBoolean(R.bool.show_hidden_files_enabled);
+        boolean fShowEcosystemAppsEnabled = !getResources().getBoolean(R.bool.is_branded_client);
         boolean fSyncedFolderLightEnabled = getResources().getBoolean(R.bool.syncedFolder_light);
         boolean fShowMediaScanNotifications = preferences.isShowMediaScanNotifications();
 
         setupLockPreference(preferenceCategoryDetails, fPassCodeEnabled, fDeviceCredentialsEnabled);
 
         setupHiddenFilesPreference(preferenceCategoryDetails, fShowHiddenFilesEnabled);
+
+        setupShowEcosystemAppsPreference(preferenceCategoryDetails, fShowEcosystemAppsEnabled);
 
         setupShowMediaScanNotifications(preferenceCategoryDetails, fShowMediaScanNotifications);
 
@@ -635,6 +636,20 @@ public class SettingsActivity extends PreferenceActivity
             preferenceCategoryDetails.removePreference(showHiddenFiles);
         }
     }
+
+    private void setupShowEcosystemAppsPreference(PreferenceCategory preferenceCategoryDetails,
+                                            boolean fShowEcosystemAppsEnabled) {
+        showEcosystemApps = (ThemeableSwitchPreference) findPreference("show_ecosystem_apps");
+        if (fShowEcosystemAppsEnabled) {
+            showEcosystemApps.setOnPreferenceClickListener(preference -> {
+                preferences.setShowEcosystemApps(showEcosystemApps.isChecked());
+                return true;
+            });
+        } else {
+            preferenceCategoryDetails.removePreference(showEcosystemApps);
+        }
+    }
+
 
     private void setupLockPreference(PreferenceCategory preferenceCategoryDetails,
                                      boolean passCodeEnabled,
@@ -778,7 +793,7 @@ public class SettingsActivity extends PreferenceActivity
                 if (storagePath.equals(newPath)) {
                     return true;
                 }
-                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath);
+                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath, viewThemeUtils);
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
 
@@ -882,9 +897,7 @@ public class SettingsActivity extends PreferenceActivity
                 startActivity(installIntent);
             } else {
                 // no f-droid market app or Play store installed --> launch browser for f-droid url
-                Intent downloadIntent = new Intent(Intent.ACTION_VIEW,
-                                                   Uri.parse("https://f-droid.org/repository/browse/?fdid=at.bitfire.davdroid"));
-                DisplayUtils.startIntentIfAppAvailable(downloadIntent, this, R.string.no_browser_available);
+                DisplayUtils.startLinkIntent(this, "https://f-droid.org/packages/at.bitfire.davdroid/");
 
                 DisplayUtils.showSnackMessage(this, R.string.prefs_calendar_contacts_no_store_error);
             }
@@ -967,21 +980,22 @@ public class SettingsActivity extends PreferenceActivity
                 RequestCredentialsActivity.KEY_CHECK_RESULT_TRUE) {
 
                 ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-                String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(this, R.style.FallbackTheming_Dialog);
-                AlertDialog alertDialog = builder.setTitle(R.string.prefs_e2e_mnemonic)
-                    .setMessage(mnemonic)
-                    .setNegativeButton(R.string.common_cancel, (dialog, i) -> dialog.dismiss())
-                    .setNeutralButton(R.string.common_copy, (dialog, i) ->
-                        ClipboardUtil.copyToClipboard(this, mnemonic, false))
-                    .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
-                    .create();
-
-                alertDialog.show();
-                viewThemeUtils.platform.colorTextButtons(alertDialog.getButton(AlertDialog.BUTTON_POSITIVE));
+                String mnemonic = arbitraryDataProvider.getValue(user.getAccountName(), EncryptionUtils.MNEMONIC).trim();
+                showMnemonicAlertDialogDialog(mnemonic);
             }
         }
+    }
+
+    private void showMnemonicAlertDialogDialog(String mnemonic) {
+        new MaterialAlertDialogBuilder(this, R.style.FallbackTheming_Dialog)
+            .setTitle(R.string.prefs_e2e_mnemonic)
+            .setMessage(mnemonic)
+            .setPositiveButton(R.string.common_ok, (dialog, which) -> dialog.dismiss())
+            .setNegativeButton(R.string.common_cancel, (dialog, i) -> dialog.dismiss())
+            .setNeutralButton(R.string.common_copy, (dialog, i) ->
+                ClipboardUtil.copyToClipboard(this, mnemonic, false))
+            .create()
+            .show();
     }
 
     @Override

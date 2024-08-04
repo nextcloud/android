@@ -1,27 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ownCloud Android client application
-
-  Copyright (C) 2015  ownCloud Inc.
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License version 2,
-  as published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2020 Andy Scherzinger <info@andy-scherzinger>
+  ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2013 David A. Velasco <dvelasco@solidgear.es>
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="false">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/live_photo_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start|top"
+        android:layout_marginStart="@dimen/standard_quarter_margin"
+        android:layout_marginTop="@dimen/live_photo_indicator_margin"
+        android:background="@drawable/rounded_rect"
+        android:backgroundTint="#E5E5E5"
+        android:drawablePadding="@dimen/standard_quarter_margin"
+        android:gravity="center"
+        android:paddingHorizontal="@dimen/live_photo_indicator_horizontal_padding"
+        android:paddingVertical="@dimen/live_photo_indicator_vertical_padding"
+        android:text="@string/file_list_live"
+        android:textColor="@color/black"
+        android:translationZ="2dp"
+        android:visibility="gone"
+        app:drawableStartCompat="@drawable/ic_live_photo"
+        tools:visibility="visible" />
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/image"

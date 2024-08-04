@@ -1,25 +1,11 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2017 Tobias Kaminsky
- * Copyright (C) 2022 Álvaro Brey Vilas
- * Copyright (C) 2017 Nextcloud GmbH.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
+ * SPDX-License-Identifier: MIT
  */
-
 package com.nextcloud.client.utils
 
 import com.owncloud.android.datamodel.OCFile
@@ -47,7 +33,7 @@ class OCFileSortTest {
     fun testFileSortOrder() {
         val toSort = getShuffledList()
 
-        FileSortOrder.sort_a_to_z.sortCloudFiles(toSort)
+        FileSortOrder.SORT_A_TO_Z.sortCloudFiles(toSort)
 
         verifySort(toSort)
     }

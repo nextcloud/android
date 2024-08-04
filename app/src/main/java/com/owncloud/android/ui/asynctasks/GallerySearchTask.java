@@ -1,24 +1,10 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2019 Tobias Kaminsky
- * Copyright (C) 2019 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.asynctasks;
 
 import android.os.AsyncTask;
@@ -34,19 +20,15 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.ui.fragment.GalleryFragment;
-import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.utils.FileStorageUtils;
 
 import java.lang.ref.WeakReference;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-
-import androidx.lifecycle.Lifecycle;
 
 public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.Result> {
 
@@ -221,3 +203,4 @@ public class GallerySearchTask extends AsyncTask<Void, Void, GallerySearchTask.R
         }
     }
 }
+

@@ -1,25 +1,13 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2019 Kilian Périsset <kilian.perisset@infomaniak.com>
+ * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ */
 package com.owncloud.android.ui.activity;
 
-/*
- * Nextcloud Android client application
- *
- * @author Kilian Périsset
- * Copyright (C) 2019 Kilian Périsset (Infomaniak Network SA)
- * Copyright (C) 2019 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
- */
+import android.content.Intent;
 
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.R;
@@ -130,9 +118,30 @@ public class FolderPickerActivityIT extends AbstractIT {
         sut.setFile(origin);
 
         sut.runOnUiThread(() -> {
-            sut.findViewById(R.id.folder_picker_btn_choose).requestFocus();
+            sut.findViewById(R.id.folder_picker_btn_copy).requestFocus();
         });
         waitForIdleSync();
         screenshot(sut);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testMoveOrCopy() {
+        Intent intent = new Intent();
+        FolderPickerActivity targetActivity = activityRule.launchActivity(intent);
+
+        waitForIdleSync();
+        screenshot(targetActivity);
+    }
+
+    @Test
+    @ScreenshotTest
+    public void testChooseLocationAction() {
+        Intent intent = new Intent();
+        intent.putExtra(FolderPickerActivity.EXTRA_ACTION, FolderPickerActivity.CHOOSE_LOCATION);
+        FolderPickerActivity targetActivity = activityRule.launchActivity(intent);
+
+        waitForIdleSync();
+        screenshot(targetActivity);
     }
 }

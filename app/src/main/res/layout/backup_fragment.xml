@@ -1,24 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  Nextcloud Android client application
-
-  Copyright (C) 2017 Tobias Kaminsky
-  Copyright (C) 2017 Nextcloud.
-
-  This program is free software; you can redistribute it and/or
-  modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-  License as published by the Free Software Foundation; either
-  version 3 of the License, or any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-
-  You should have received a copy of the GNU Affero General Public
-  License along with this program. If not, see <http://www.gnu.org/licenses/>.
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2017 Nextcloud GmbH
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/contacts_linear_layout"
     android:layout_width="match_parent"
@@ -30,14 +19,14 @@
         android:layout_margin="@dimen/standard_margin"
         android:orientation="vertical">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/data_to_back_up_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/data_to_back_up"
             android:textStyle="bold" />
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/contacts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,22 +35,21 @@
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_primary_text_size" />
 
-        <androidx.appcompat.widget.SwitchCompat
+        <com.google.android.material.materialswitch.MaterialSwitch
             android:id="@+id/calendar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="48dp"
             android:text="@string/calendar"
             android:textColor="@color/text_color"
-            android:textSize="@dimen/two_line_primary_text_size"
-            />
+            android:textSize="@dimen/two_line_primary_text_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/backup_settings_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,7 +61,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dp">
 
-                <androidx.appcompat.widget.SwitchCompat
+                <com.google.android.material.materialswitch.MaterialSwitch
                     android:id="@+id/daily_backup"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -89,14 +77,14 @@
                     android:orientation="vertical"
                     android:gravity="center_vertical">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/daily_backup"
                         android:textColor="@color/text_color"
                         android:textSize="@dimen/two_line_primary_text_size" />
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/last_backup_with_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -113,32 +101,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/standard_margin"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="1.0">
+            android:gravity="end"
+            android:orientation="horizontal">
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/contacts_datepicker"
-                style="@style/OutlinedButton"
-                android:layout_width="0dp"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="@dimen/backup_button_width"
                 android:layout_height="match_parent"
-                android:layout_weight="0.5"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/restore_backup"
                 android:visibility="invisible"
-                app:cornerRadius="@dimen/button_corner_radius"
                 tools:visibility="visible" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/backup_now"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/backup_button_width"
                 android:layout_height="match_parent"
                 android:layout_marginStart="@dimen/standard_half_margin"
-                android:layout_weight="0.5"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/contacts_backup_button"
-                android:theme="@style/Button.Primary"
-                app:cornerRadius="@dimen/button_corner_radius" />
+                android:theme="@style/Widget.Material3.Button.IconButton.Filled" />
 
         </LinearLayout>
 

@@ -1,24 +1,17 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ownCloud Android client application
-
-  Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2015 ownCloud Inc.
-  Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License version 2,
-  as published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2022 Álvaro Brey  <alvaro@alvarobrey.com>
+  ~ SPDX-FileCopyrightText: 2016-2022 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2020 Joris Bodin <joris.bodin@infomaniak.com>
+  ~ SPDX-FileCopyrightText: 2017-2020 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+  ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- General ownCloud app style -->
     <style name="BaseTheme.ownCloud" parent="Theme.Material3.DayNight">
         <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
         <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
@@ -70,7 +63,7 @@
         <item name="colorPrimary">@color/text_color</item>
         <item name="colorOnSurface">@color/text_color</item>
         <item name="colorError">@color/hwSecurityRed</item>
-        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+        <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
     </style>
 
     <style name="TextInputLayoutInputWarning" parent="Widget.App.TextInputLayout">
@@ -91,38 +84,18 @@
         <item name="android:datePickerMode">calendar</item>
     </style>
 
-    <style name="FallbackTheming.Dialog" parent="Theme.Material3.DayNight.Dialog">
+    <style name="FallbackTheming.Dialog" parent="ThemeOverlay.Material3.Dialog.Alert">
+        <item name="colorSecondaryContainer">#757575</item>
         <item name="colorPrimary">#424242</item>
-        <item name="colorPrimaryDark">#212121</item>
-        <item name="colorAccent">#757575</item>
         <item name="windowNoTitle">false</item>
         <item name="android:windowBackground">@color/bg_default</item>
         <item name="android:textAllCaps">false</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Fallback.TonalButton</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
-        <item name="android:buttonBarButtonStyle">@style/FallbackTheming.Dialog.ButtonStyle</item>
     </style>
 
-    <style name="FallbackTheming.Dialog.ButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
-        <item name="android:textColor">@color/text_color</item>
-    </style>
-
-    <!-- separate action bar style for activities without an action bar -->
-    <style name="BaseTheme.ownCloud.Toolbar" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="alertDialogTheme">@style/ownCloud.AlertDialog</item>
-        <item name="android:alertDialogTheme">@style/Theme.ownCloud.Dialog</item>
-        <item name="android:colorBackground">@color/bg_default</item>
-        <item name="android:windowBackground">@color/bg_default</item>
-        <item name="colorAccent">@color/color_accent</item>
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryDark">@color/primary</item>
-        <item name="searchViewStyle">@style/ownCloud.SearchView</item>
-        <item name="windowActionBar">false</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="windowNoTitle">true</item>
-        <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
-        <item name="popupMenuStyle">@style/Nextcloud.Widget.PopupMenu</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
-        <item name="actionModeStyle">@style/App.ActionMode</item>
+    <style name="Fallback.TonalButton" parent="Widget.Material3.Button.TonalButton">
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 
     <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
@@ -138,6 +111,11 @@
 
     <style name="Theme.ownCloud.Toolbar.Drawer" parent="Theme.ownCloud.Toolbar.DrawerBase">
         <item name="android:navigationBarColor">@color/bg_default</item>
+    </style>
+
+    <style name="Theme.ownCloud.Toolbar.NullBackground" parent="BaseTheme.ownCloud.Toolbar">
+        <item name="android:colorBackground">@null</item>
+        <item name="android:background">@null</item>
     </style>
 
     <style name="Theme.ownCloud.noActionBar.LoginBase" parent="Theme.ownCloud.Toolbar">
@@ -228,13 +206,6 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Button.Borderless.Destructive" parent="Widget.Material3.Button.TextButton">
-        <item name="android:textColor">@color/highlight_textColor_Warning</item>
-        <item name="android:textAllCaps">false</item>
-        <item name="android:typeface">sans</item>
-        <item name="android:textStyle">bold</item>
-    </style>
-
     <style name="Button.Borderless.Login" parent="Widget.Material3.Button.TextButton">
         <item name="android:textColor">@color/fg_inverse</item>
         <item name="android:textAllCaps">false</item>
@@ -284,7 +255,7 @@
     <style name="Theme.ownCloud.Launcher">
         <item name="android:statusBarColor">@color/primary</item>
         <item name="android:navigationBarColor">@color/primary</item>
-        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="android:windowBackground">@color/primary</item>
         <item name="android:textColorHint">@color/secondary_text_color</item>
     </style>
 
@@ -295,7 +266,6 @@
         <item name="android:shadowColor">@color/actionbar_shadow</item>
         <item name="android:shadowRadius">1</item>
         <item name="android:shadowDy">1</item>
-        <item name="android:backgroundSplit">@drawable/split_action_bg</item>
     </style>
 
     <!-- Dialogs -->
@@ -319,9 +289,11 @@
     </style>
 
     <style name="PassCodeStyle">
+        <item name="android:hint">@string/hidden_character</item>
         <item name="android:layout_width">50dp</item>
         <item name="android:layout_height">50dp</item>
         <item name="android:gravity">center</item>
+        <item name="android:cursorVisible">false</item>
         <item name="android:layout_margin">10dp</item>
         <item name="android:inputType">numberDecimal</item>
         <item name="android:numeric">decimal</item>
@@ -356,7 +328,7 @@
 
     <style name="Widget.App.Login.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Login.TextInputLayout</item>
-        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.SmallComponent</item>
         <item name="hintTextColor">?attr/colorOnSurface</item>
     </style>
 
@@ -364,9 +336,9 @@
         <item name="colorPrimary">@color/white</item>
         <item name="colorOnSurface">@color/white</item>
         <item name="colorError">@color/hwSecurityRed</item>
-        <item name="textAppearanceSubtitle1">@style/TextAppearance.MaterialComponents.Subtitle1</item>
-        <item name="textAppearanceCaption">@style/TextAppearance.MaterialComponents.Caption</item>
-        <item name="editTextStyle">@style/Widget.MaterialComponents.TextInputEditText.OutlinedBox</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Material3.BodyLarge</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Material3.BodySmall</item>
+        <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
     </style>
 
     <style name="TextInputLayoutLogin" parent="Widget.Material3.TextInputLayout.OutlinedBox">
@@ -454,10 +426,6 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="FullScreenExoControlButton" parent="ExoStyledControls.Button.Center">
-        <item name="android:background">@drawable/ripple</item>
-    </style>
-
     <style name="Widget.Nextcloud.AppWidget.Container" parent="android:Widget">
         <item name="android:id">@android:id/background</item>
         <item name="android:background">?android:attr/colorBackground</item>
@@ -469,11 +437,11 @@
     </style>
 
 
-    <style name="ThemeOverlay.App.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="ThemeOverlay.App.BottomSheetDialog" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/App.BottomSheetDialog</item>
     </style>
 
-    <style name="App.BottomSheetDialog" parent="Widget.MaterialComponents.BottomSheet.Modal">
+    <style name="App.BottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">
         <item name="backgroundTint">@color/bg_default</item>
     </style>
 
@@ -486,6 +454,18 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <!-- Splash screen style attributes: https://developer.android.com/develop/ui/views/launch/splash-screen#set-theme -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background color -->
+        <item name="windowSplashScreenBackground">@color/primary</item>
 
+        <!-- Set the splash screen animated icon  -->
+        <!-- Setting a transparent icon because of branding reason, showing icon is not accepted -->
+        <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/Theme.ownCloud.Launcher</item>
+    </style>
 
 </resources>

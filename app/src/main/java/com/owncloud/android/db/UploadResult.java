@@ -1,22 +1,13 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author masensio
- * Copyright (C) 2016 ownCloud Inc.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2016-2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2017 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2016 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2016 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2015-2016 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.db;
 
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
@@ -44,7 +35,9 @@ public enum UploadResult {
     OLD_ANDROID_API(18),
     SYNC_CONFLICT(19),
     CANNOT_CREATE_FILE(20),
-    LOCAL_STORAGE_NOT_COPIED(21);
+    LOCAL_STORAGE_NOT_COPIED(21),
+    QUOTA_EXCEEDED(22),
+    SAME_FILE_CONFLICT(23);
 
     private final int value;
 
@@ -104,6 +97,10 @@ public enum UploadResult {
                 return CANNOT_CREATE_FILE;
             case 21:
                 return LOCAL_STORAGE_NOT_COPIED;
+            case 22:
+                return QUOTA_EXCEEDED;
+            case 23:
+                return SAME_FILE_CONFLICT;
         }
         return UNKNOWN;
     }
@@ -162,6 +159,8 @@ public enum UploadResult {
                 return VIRUS_DETECTED;
             case CANNOT_CREATE_FILE:
                 return CANNOT_CREATE_FILE;
+            case QUOTA_EXCEEDED:
+                return QUOTA_EXCEEDED;
             default:
                 return UNKNOWN;
         }

@@ -1,43 +1,33 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android;
 
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.db.OCUpload;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
+import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.resources.files.model.GeoLocation;
+import com.owncloud.android.lib.resources.files.model.ImageDimension;
+import com.owncloud.android.lib.resources.status.NextcloudVersion;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoveFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.utils.FileStorageUtils;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -52,12 +42,12 @@ import androidx.annotation.NonNull;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertNotNull;
 import static junit.framework.TestCase.assertTrue;
 
 /**
- * Tests related to file uploads
+ * Tests related to file uploads.
  */
-
 public class UploadIT extends AbstractOnServerIT {
     private static final String FOLDER = "/testUpload/";
 
@@ -66,6 +56,11 @@ public class UploadIT extends AbstractOnServerIT {
                                   targetContext.getContentResolver());
 
     private ConnectivityService connectivityServiceMock = new ConnectivityService() {
+        @Override
+        public boolean isConnected() {
+            return false;
+        }
+
         @Override
         public boolean isInternetWalled() {
             return false;
@@ -101,29 +96,6 @@ public class UploadIT extends AbstractOnServerIT {
         createDummyFiles();
     }
 
-    @After
-    public void after() {
-        RemoteOperationResult result = new RefreshFolderOperation(getStorageManager().getFileByPath("/"),
-                                                                  System.currentTimeMillis() / 1000L,
-                                                                  false,
-                                                                  true,
-                                                                  getStorageManager(),
-                                                                  user,
-                                                                  targetContext)
-            .execute(client);
-
-        // cleanup only if folder exists
-        if (result.isSuccess() && getStorageManager().getFileByDecryptedRemotePath(FOLDER) != null) {
-            new RemoveFileOperation(getStorageManager().getFileByDecryptedRemotePath(FOLDER),
-                                    false,
-                                    user,
-                                    false,
-                                    targetContext,
-                                    getStorageManager())
-                .execute(client);
-        }
-    }
-
     @Test
     public void testEmptyUpload() {
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
@@ -148,7 +120,7 @@ public class UploadIT extends AbstractOnServerIT {
                                          FOLDER + "nonEmpty.txt",
                                          account.name);
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_COPY);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_COPY);
 
         File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
@@ -164,7 +136,7 @@ public class UploadIT extends AbstractOnServerIT {
                                          FOLDER + "nonEmpty.txt",
                                          account.name);
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_MOVE);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_MOVE);
 
         File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
@@ -180,7 +152,7 @@ public class UploadIT extends AbstractOnServerIT {
                                          FOLDER + "nonEmpty.txt",
                                          account.name);
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_FORGET);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_FORGET);
 
         File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
@@ -196,7 +168,7 @@ public class UploadIT extends AbstractOnServerIT {
                                          FOLDER + "nonEmpty.txt",
                                          account.name);
 
-        uploadOCUpload(ocUpload, FileUploader.LOCAL_BEHAVIOUR_DELETE);
+        uploadOCUpload(ocUpload, FileUploadWorker.LOCAL_BEHAVIOUR_DELETE);
 
         File originalFile = new File(FileStorageUtils.getTemporalPath(account.name) + "/nonEmpty.txt");
         OCFile uploadedFile = fileDataStorageManager.getFileByDecryptedRemotePath(FOLDER + "nonEmpty.txt");
@@ -236,7 +208,7 @@ public class UploadIT extends AbstractOnServerIT {
             null,
             ocUpload,
             NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
             true,
@@ -284,7 +256,7 @@ public class UploadIT extends AbstractOnServerIT {
             null,
             ocUpload,
             NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             false,
             true,
@@ -302,6 +274,11 @@ public class UploadIT extends AbstractOnServerIT {
     @Test
     public void testUploadOnWifiOnlyButNoWifi() {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
+            @Override
+            public boolean isConnected() {
+                return false;
+            }
+
             @Override
             public boolean isInternetWalled() {
                 return false;
@@ -324,7 +301,7 @@ public class UploadIT extends AbstractOnServerIT {
             null,
             ocUpload,
             NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             true,
             false,
@@ -354,7 +331,7 @@ public class UploadIT extends AbstractOnServerIT {
             null,
             ocUpload,
             NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             true,
             false,
@@ -382,6 +359,11 @@ public class UploadIT extends AbstractOnServerIT {
     public void testUploadOnWifiOnlyButMeteredWifi() {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
+            public boolean isConnected() {
+                return false;
+            }
+
+            @Override
             public boolean isInternetWalled() {
                 return false;
             }
@@ -404,7 +386,7 @@ public class UploadIT extends AbstractOnServerIT {
             null,
             ocUpload,
             NameCollisionPolicy.DEFAULT,
-            FileUploader.LOCAL_BEHAVIOUR_COPY,
+            FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
             targetContext,
             true,
             false,
@@ -421,7 +403,9 @@ public class UploadIT extends AbstractOnServerIT {
     }
 
     @Test
-    public void testCreationAndUploadTimestamp() throws IOException {
+    public void testCreationAndUploadTimestamp() throws IOException, AccountUtils.AccountNotFoundException {
+        testOnlyOnServer(NextcloudVersion.nextcloud_27);
+
         File file = getDummyFile("empty.txt");
         String remotePath = "/testFile.txt";
         OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
@@ -435,7 +419,7 @@ public class UploadIT extends AbstractOnServerIT {
                 null,
                 ocUpload,
                 NameCollisionPolicy.DEFAULT,
-                FileUploader.LOCAL_BEHAVIOUR_COPY,
+                FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
                 targetContext,
                 false,
                 false,
@@ -469,7 +453,61 @@ public class UploadIT extends AbstractOnServerIT {
         assertEquals(remotePath, ocFile.getRemotePath());
         assertEquals(creationTimestamp, ocFile.getCreationTimestamp());
         assertTrue(uploadTimestamp - 10 < ocFile.getUploadTimestamp() ||
-                       uploadTimestamp + 10 > ocFile.getUploadTimestamp());
+                           uploadTimestamp + 10 > ocFile.getUploadTimestamp());
+    }
+
+    @Test
+    public void testMetadata() throws IOException, AccountUtils.AccountNotFoundException {
+        testOnlyOnServer(NextcloudVersion.nextcloud_27);
+
+        File file = getFile("gps.jpg");
+        String remotePath = "/metadata.jpg";
+        OCUpload ocUpload = new OCUpload(file.getAbsolutePath(), remotePath, account.name);
+
+        assertTrue(
+                new UploadFileOperation(
+                    uploadsStorageManager,
+                    connectivityServiceMock,
+                    powerManagementServiceMock,
+                    user,
+                    null,
+                    ocUpload,
+                    NameCollisionPolicy.DEFAULT,
+                    FileUploadWorker.LOCAL_BEHAVIOUR_COPY,
+                    targetContext,
+                    false,
+                    false,
+                    getStorageManager()
+                )
+                        .setRemoteFolderToBeCreated()
+                        .execute(client)
+                        .isSuccess()
+                  );
+
+        // RefreshFolderOperation
+        assertTrue(new RefreshFolderOperation(getStorageManager().getFileByDecryptedRemotePath("/"),
+                                              System.currentTimeMillis() / 1000,
+                                              false,
+                                              false,
+                                              getStorageManager(),
+                                              user,
+                                              targetContext).execute(client).isSuccess());
+
+        List<OCFile> files = getStorageManager().getFolderContent(getStorageManager().getFileByDecryptedRemotePath("/"),
+                                                                  false);
+
+        OCFile ocFile = null;
+        for (OCFile f : files) {
+            if (f.getFileName().equals("metadata.jpg")) {
+                ocFile = f;
+                break;
+            }
+        }
+
+        assertNotNull(ocFile);
+        assertEquals(remotePath, ocFile.getRemotePath());
+        assertEquals(new GeoLocation(64, -46), ocFile.getGeoLocation());
+        assertEquals(new ImageDimension(300f, 200f), ocFile.getImageDimension());
     }
 
     private void verifyStoragePath(OCFile file) {

@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ */
 package com.owncloud.android.ui.fragment;
 
 import android.content.Context;
@@ -16,6 +22,7 @@ import android.widget.TextView;
 
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.features.FeatureItem;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -26,7 +33,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
-
 
 public class FeatureFragment extends Fragment implements Injectable {
     private FeatureItem item;
@@ -45,7 +51,11 @@ public class FeatureFragment extends Fragment implements Injectable {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
         super.onCreate(savedInstanceState);
-        item = getArguments() != null ? (FeatureItem) getArguments().getParcelable("feature") : null;
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            item = BundleExtensionsKt.getParcelableArgument(bundle, "feature", FeatureItem.class);
+        }
     }
 
     @Nullable

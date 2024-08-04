@@ -1,23 +1,9 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2022 Tobias Kaminsky
- * Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.adapter
 
@@ -27,20 +13,24 @@ import android.graphics.drawable.ColorDrawable
 import android.os.AsyncTask
 import android.view.View
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.elyeproj.loaderviewlibrary.LoaderImageView
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
+import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.createRoundedOutline
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.AsyncGalleryImageDrawable
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.GalleryImageGenerationTask.GalleryListener
-import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.fragment.GalleryFragment
 import com.owncloud.android.ui.fragment.SearchType
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface
 import com.owncloud.android.utils.BitmapUtils
@@ -51,6 +41,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList", "TooManyFunctions")
 class OCFileListDelegate(
+    private val fileUploadHelper: FileUploadHelper,
     private val context: Context,
     private val ocFileListFragmentInterface: OCFileListFragmentInterface,
     private val user: User,
@@ -61,12 +52,13 @@ class OCFileListDelegate(
     private val transferServiceGetter: ComponentsGetter,
     private val showMetadata: Boolean,
     private var showShareAvatar: Boolean,
-    private var viewThemeUtils: ViewThemeUtils
+    private var viewThemeUtils: ViewThemeUtils,
+    private val syncFolderProvider: SyncedFolderProvider? = null
 ) {
     private val checkedFiles: MutableSet<OCFile> = HashSet()
     private var highlightedItem: OCFile? = null
     var isMultiSelect = false
-    private val asyncTasks: MutableList<ThumbnailGenerationTask> = ArrayList()
+    private val asyncTasks: MutableList<ThumbnailsCacheManager.ThumbnailGenerationTask> = ArrayList()
     private val asyncGalleryTasks: MutableList<ThumbnailsCacheManager.GalleryImageGenerationTask> = ArrayList()
     fun setHighlightedItem(highlightedItem: OCFile?) {
         this.highlightedItem = highlightedItem
@@ -118,7 +110,10 @@ class OCFileListDelegate(
             width
         )
 
-        imageView.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
+        imageView.setOnClickListener {
+            ocFileListFragmentInterface.onItemClicked(file)
+            GalleryFragment.setLastMediaItemPosition(galleryRowHolder.absoluteAdapterPosition)
+        }
     }
 
     @Suppress("ComplexMethod")
@@ -137,13 +132,13 @@ class OCFileListDelegate(
                 }
             }
             try {
-                val task = GalleryImageGenerationTask(
+                val task = ThumbnailsCacheManager.GalleryImageGenerationTask(
                     thumbnailView,
                     user,
                     storageManager,
                     asyncGalleryTasks,
                     file.remoteId,
-                    context.resources.getColor(R.color.bg_default)
+                    ContextCompat.getColor(context, R.color.bg_default)
                 )
                 var drawable = MimeTypeUtil.getFileTypeIcon(
                     file.mimeType,
@@ -162,7 +157,7 @@ class OCFileListDelegate(
                     drawable = ColorDrawable(Color.GRAY)
                 }
                 val thumbnail = BitmapUtils.drawableToBitmap(drawable, width / 2, width / 2)
-                val asyncDrawable = AsyncGalleryImageDrawable(
+                val asyncDrawable = ThumbnailsCacheManager.AsyncGalleryImageDrawable(
                     context.resources,
                     thumbnail,
                     task
@@ -202,9 +197,11 @@ class OCFileListDelegate(
     fun bindGridViewHolder(
         gridViewHolder: ListGridImageViewHolder,
         file: OCFile,
+        currentDirectory: OCFile?,
         searchType: SearchType?
     ) {
         // thumbnail
+        gridViewHolder.imageFileName?.text = file.fileName
         gridViewHolder.thumbnail.tag = file.fileId
         DisplayUtils.setThumbnail(
             file,
@@ -216,8 +213,10 @@ class OCFileListDelegate(
             context,
             gridViewHolder.shimmerThumbnail,
             preferences,
-            viewThemeUtils
+            viewThemeUtils,
+            syncFolderProvider
         )
+
         // item layout + click listeners
         bindGridItemLayout(file, gridViewHolder)
 
@@ -232,18 +231,21 @@ class OCFileListDelegate(
         }
 
         // download state
-        gridViewHolder.localFileIndicator.visibility = View.INVISIBLE // default first
+        gridViewHolder.localFileIndicator.visibility = View.GONE // default first
 
         // metadata (downloaded, favorite)
         bindGridMetadataViews(file, gridViewHolder)
 
         // shares
-        val shouldHideShare = gridView ||
+        val shouldHideShare = (
             hideItemOptions ||
-            file.isFolder && !file.canReshare() ||
-            !file.isFolder && file.isEncrypted ||
-            file.isEncrypted && !EncryptionUtils.supportsSecureFiledrop(file, user) ||
-            searchType == SearchType.FAVORITE_SEARCH
+                !file.isFolder &&
+                file.isEncrypted ||
+                file.isEncrypted &&
+                !EncryptionUtils.supportsSecureFiledrop(file, user) ||
+                searchType == SearchType.FAVORITE_SEARCH ||
+                file.isFolder && currentDirectory?.isEncrypted ?: false
+            ) // sharing an encrypted subfolder is not possible
         if (shouldHideShare) {
             gridViewHolder.shared.visibility = View.GONE
         } else {
@@ -264,31 +266,60 @@ class OCFileListDelegate(
     }
 
     private fun bindGridItemLayout(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
-        if (highlightedItem != null && file.fileId == highlightedItem!!.fileId) {
-            gridViewHolder.itemLayout.setBackgroundColor(
-                context.resources
-                    .getColor(R.color.selected_item_background)
-            )
-        } else if (isCheckedFile(file)) {
-            gridViewHolder.itemLayout.setBackgroundColor(
-                context.resources
-                    .getColor(R.color.selected_item_background)
-            )
+        setItemLayoutBackgroundColor(file, gridViewHolder)
+        setCheckBoxImage(file, gridViewHolder)
+        setItemLayoutOnClickListeners(file, gridViewHolder)
+
+        gridViewHolder.more?.setOnClickListener {
+            ocFileListFragmentInterface.onOverflowIconClicked(file, it)
+        }
+    }
+
+    private fun setItemLayoutOnClickListeners(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+        gridViewHolder.itemLayout.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
+
+        if (!hideItemOptions) {
+            gridViewHolder.itemLayout.apply {
+                isLongClickable = true
+                setOnLongClickListener {
+                    ocFileListFragmentInterface.onLongItemClicked(
+                        file
+                    )
+                }
+            }
+        }
+    }
+
+    private fun setItemLayoutBackgroundColor(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+        val cornerRadius = context.resources.getDimension(R.dimen.selected_grid_container_radius)
+
+        val isDarkModeActive = (syncFolderProvider?.preferences?.isDarkModeEnabled == true)
+        val selectedItemBackgroundColorId: Int = if (isDarkModeActive) {
+            R.color.action_mode_background
+        } else {
+            R.color.selected_item_background
+        }
+
+        val itemLayoutBackgroundColorId: Int = if (file.fileId == highlightedItem?.fileId || isCheckedFile(file)) {
+            selectedItemBackgroundColorId
+        } else {
+            R.color.bg_default
+        }
+
+        gridViewHolder.itemLayout.apply {
+            outlineProvider = createRoundedOutline(context, cornerRadius)
+            clipToOutline = true
+            setBackgroundColor(ContextCompat.getColor(context, itemLayoutBackgroundColorId))
+        }
+    }
+
+    private fun setCheckBoxImage(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+        if (isCheckedFile(file)) {
             gridViewHolder.checkbox.setImageDrawable(
-                viewThemeUtils.platform.tintPrimaryDrawable(context, R.drawable.ic_checkbox_marked)
+                viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_checkbox_marked, ColorRole.PRIMARY)
             )
         } else {
-            gridViewHolder.itemLayout.setBackgroundColor(context.resources.getColor(R.color.bg_default))
             gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline)
-        }
-        gridViewHolder.itemLayout.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
-        if (!hideItemOptions) {
-            gridViewHolder.itemLayout.isLongClickable = true
-            gridViewHolder.itemLayout.setOnLongClickListener {
-                ocFileListFragmentInterface.onLongItemClicked(
-                    file
-                )
-            }
         }
     }
 
@@ -304,25 +335,32 @@ class OCFileListDelegate(
 
     private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
-        val fileDownloaderBinder = transferServiceGetter.fileDownloaderBinder
-        val fileUploaderBinder = transferServiceGetter.fileUploaderBinder
-        when {
+
+        val icon: Int? = when {
             operationsServiceBinder?.isSynchronizing(user, file) == true ||
-                fileDownloaderBinder?.isDownloading(user, file) == true ||
-                fileUploaderBinder?.isUploading(user, file) == true -> {
+                FileDownloadHelper.instance().isDownloading(user, file) ||
+                fileUploadHelper.isUploading(user, file) -> {
                 // synchronizing, downloading or uploading
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
+                R.drawable.ic_synchronizing
             }
+
             file.etagInConflict != null -> {
-                // conflict
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synchronizing_error)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
+                R.drawable.ic_synchronizing_error
             }
+
             file.isDown -> {
-                // downloaded
-                gridViewHolder.localFileIndicator.setImageResource(R.drawable.ic_synced)
-                gridViewHolder.localFileIndicator.visibility = View.VISIBLE
+                R.drawable.ic_synced
+            }
+
+            else -> {
+                null
+            }
+        }
+
+        gridViewHolder.localFileIndicator.run {
+            icon?.let {
+                setImageResource(icon)
+                visibility = View.VISIBLE
             }
         }
     }

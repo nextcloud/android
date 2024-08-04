@@ -5,18 +5,7 @@
  * Copyright (C) 2018 Tobias Kaminsky
  * Copyright (C) 2018 Nextcloud
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.adapter;
 
@@ -32,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -54,6 +44,7 @@ import java.util.concurrent.Executors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 /**
@@ -186,11 +177,10 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                 } else {
                     gridViewHolder.checkbox.setVisibility(View.VISIBLE);
                     if (isCheckedFile(file)) {
-                        gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources()
-                                                                         .getColor(R.color.selected_item_background));
+                        gridViewHolder.itemLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.selected_item_background));
 
                         gridViewHolder.checkbox.setImageDrawable(
-                            viewThemeUtils.platform.tintPrimaryDrawable(mContext, R.drawable.ic_checkbox_marked));
+                            viewThemeUtils.platform.tintDrawable(mContext, R.drawable.ic_checkbox_marked, ColorRole.PRIMARY));
                     } else {
                         gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
                         gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);
@@ -510,6 +500,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
 
             itemView.findViewById(R.id.sharedAvatars).setVisibility(View.GONE);
             itemView.findViewById(R.id.overflow_menu).setVisibility(View.GONE);
+            itemView.findViewById(R.id.tagsGroup).setVisibility(View.GONE);
         }
     }
 

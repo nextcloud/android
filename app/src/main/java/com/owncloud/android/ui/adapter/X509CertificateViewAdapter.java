@@ -1,21 +1,12 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author masensio
- *   @author David A. Velasco
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Stefan Niedermann <info@niedermann.it>
+ * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2015 Wikinaut <mail@wikinaut.de>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.ui.adapter;
 
@@ -46,7 +37,7 @@ import androidx.annotation.NonNull;
  */
 public class X509CertificateViewAdapter implements SslUntrustedCertDialog.CertificateViewAdapter {
 
-    private X509Certificate mCertificate;
+    private final X509Certificate mCertificate;
 
     private static final String TAG = X509CertificateViewAdapter.class.getSimpleName();
 
@@ -55,7 +46,7 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
     }
 
     @Override
-    public void updateCertificateView(SslUntrustedCertLayoutBinding binding) {
+    public void updateCertificateView(@NonNull SslUntrustedCertLayoutBinding binding) {
         if (mCertificate != null) {
             binding.nullCert.setVisibility(View.GONE);
             showSubject(mCertificate.getSubjectX500Principal(), binding);
@@ -106,7 +97,7 @@ public class X509CertificateViewAdapter implements SslUntrustedCertDialog.Certif
 
     private String getDigestHexBytesWithColonsAndNewLines(Context context, final String digestType, final byte [] cert) {
         final byte[] rawDigest;
-        final String newLine = System.getProperty("line.separator");
+        final String newLine = System.lineSeparator();
 
         rawDigest = getDigest(digestType, cert);
 

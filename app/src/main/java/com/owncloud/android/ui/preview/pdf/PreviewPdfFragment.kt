@@ -1,24 +1,10 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Álvaro Brey Vilas
- * Copyright (C) 2022 Álvaro Brey Vilas
- * Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-
 package com.owncloud.android.ui.preview.pdf
 
 import android.content.Intent
@@ -34,9 +20,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.di.ViewModelFactory
 import com.nextcloud.utils.MenuUtils
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.PreviewPdfFragmentBinding
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.preview.PreviewBitmapActivity
 import com.owncloud.android.utils.DisplayUtils
@@ -74,8 +62,14 @@ class PreviewPdfFragment : Fragment(), Injectable {
 
         setupObservers()
 
-        file = requireArguments().getParcelable(ARG_FILE)!!
-        viewModel.process(file)
+        file = requireArguments().getParcelableArgument(ARG_FILE, OCFile::class.java)!!
+        try {
+            viewModel.process(file)
+        } catch (e: SecurityException) {
+            Log_OC.e(this, "onViewCreated: trying to open password protected PDF", e)
+            parentFragmentManager.popBackStack()
+            DisplayUtils.showSnackMessage(binding.root, R.string.pdf_password_protected)
+        }
     }
 
     private fun setupObservers() {
@@ -92,7 +86,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
                 requireContext().startActivity(intent)
             }
         }
-        viewModel.shouldShowZoomTip.observe(viewLifecycleOwner) { shouldShow ->
+        viewModel.showZoomTip.observe(viewLifecycleOwner) { shouldShow ->
             if (shouldShow) {
                 snack = DisplayUtils.showSnackMessage(binding.root, R.string.pdf_zoom_tip)
                 viewModel.onZoomTipShown()
@@ -106,8 +100,7 @@ class PreviewPdfFragment : Fragment(), Injectable {
         setHasOptionsMenu(true)
     }
 
-    private fun getScreenWidth(): Int =
-        requireContext().resources.displayMetrics.widthPixels
+    private fun getScreenWidth(): Int = requireContext().resources.displayMetrics.widthPixels
 
     override fun onPrepareOptionsMenu(menu: Menu) {
         super.onPrepareOptionsMenu(menu)

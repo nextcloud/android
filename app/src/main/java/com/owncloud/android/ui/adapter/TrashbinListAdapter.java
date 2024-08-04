@@ -1,22 +1,9 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * Copyright (C) 2018 Tobias Kaminsky
- * Copyright (C) 2018 Nextcloud GmbH.
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky
+ * SPDX-FileCopyrightText: 2018 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.adapter;
 
@@ -88,17 +75,15 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         this.viewThemeUtils = viewThemeUtils;
     }
 
-    public void setTrashbinFiles(List<Object> trashbinFiles, boolean clear) {
+    public void setTrashbinFiles(List<TrashbinFile> trashbinFiles, boolean clear) {
         if (clear) {
             files.clear();
         }
 
-        for (Object file : trashbinFiles) {
-            files.add((TrashbinFile) file);
-        }
+        files.addAll(trashbinFiles);
 
         files = preferences.getSortOrderByType(FileSortOrder.Type.trashBinView,
-            FileSortOrder.sort_new_to_old).sortTrashbinFiles(files);
+                                               FileSortOrder.SORT_NEW_TO_OLD).sortTrashbinFiles(files);
 
         notifyDataSetChanged();
     }
@@ -221,8 +206,7 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private void setThumbnail(TrashbinFile file, ImageView thumbnailView) {
         if (file.isFolder()) {
-            thumbnailView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context,
-                                                                             viewThemeUtils));
+            thumbnailView.setImageDrawable(MimeTypeUtil.getDefaultFolderIcon(context, viewThemeUtils));
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
@@ -238,14 +222,19 @@ public class TrashbinListAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
                         thumbnailView.setImageBitmap(thumbnail);
                     }
                 } else {
+                    thumbnailView.setImageDrawable(MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                                                file.getFileName(),
+                                                                                context,
+                                                                                viewThemeUtils));
+
                     // generate new thumbnail
                     if (ThumbnailsCacheManager.cancelPotentialThumbnailWork(file, thumbnailView)) {
                         try {
                             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                                    new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
-                                                                                       storageManager,
-                                                                                       user,
-                                                                                       asyncTasks);
+                                new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
+                                                                                   storageManager,
+                                                                                   user,
+                                                                                   asyncTasks);
 
                             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                                     new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),

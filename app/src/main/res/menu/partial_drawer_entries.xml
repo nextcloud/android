@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ownCloud Android client application
-
-  Copyright (C) 2016 ownCloud Inc.
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License version 2,
-  as published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018-2024 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-FileCopyrightText: 2024 Bhavesh Kumawat <kumawatbhavesh1000@gmail.com>
+  ~ SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
+  ~ SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <!--
@@ -25,20 +18,27 @@
     <group
         android:id="@+id/drawer_menu_standard"
         android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_all_files"
             android:icon="@drawable/all_files"
             android:orderInCategory="0"
-            android:title="@string/drawer_item_all_files"/>
+            android:title="@string/drawer_item_all_files" />
+
+        <item
+            android:id="@+id/nav_personal_files"
+            android:icon="@drawable/ic_user"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_personal_files" />
         <item
             android:id="@+id/nav_activity"
             android:icon="@drawable/ic_activity"
-            android:title="@string/drawer_item_activities"/>
+            android:title="@string/drawer_item_activities" />
         <item
             android:id="@+id/nav_favorites"
             android:icon="@drawable/nav_favorites"
             android:orderInCategory="0"
-            android:title="@string/drawer_item_favorites"/>
+            android:title="@string/drawer_item_favorites" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/nav_photos"
@@ -48,6 +48,11 @@
             android:orderInCategory="0"
             android:icon="@drawable/nav_shared"
             android:title="@string/drawer_item_shared" />
+        <item
+            android:id="@+id/nav_groupfolders"
+            android:orderInCategory="0"
+            android:icon="@drawable/ic_group"
+            android:title="@string/drawer_item_groupfolders" />
         <item
             android:id="@+id/nav_on_device"
             android:icon="@drawable/nav_on_device"
@@ -64,6 +69,13 @@
             android:id="@+id/nav_notifications"
             android:icon="@drawable/nav_notifications"
             android:title="@string/drawer_item_notifications"/>
+
+        <item
+            android:id="@+id/nav_assistant"
+            android:icon="@drawable/ic_assistant"
+            android:orderInCategory="0"
+            android:title="@string/drawer_item_assistant" />
+
         <item
             android:id="@+id/nav_uploads"
             android:icon="@drawable/uploads"
@@ -117,4 +129,17 @@
             android:orderInCategory="200"
             android:title=""/>
     </group>
+
+    <!--
+      one more dummy element required
+      After making the quota details opaque
+      it is hiding some part of the element of the drawer above it
+    -->
+    <group>
+        <item
+            android:enabled="false"
+            android:orderInCategory="200"
+            android:title=""/>
+    </group>
+
 </menu>

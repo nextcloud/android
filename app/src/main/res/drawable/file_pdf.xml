@@ -1,41 +1,17 @@
 <!--
+  ~ Nextcloud - Android Client
   ~
-  ~ Nextcloud Android client application
-  ~
-  ~ @author Tobias Kaminsky
-  ~ Copyright (C) 2020 Tobias Kaminsky
-  ~ Copyright (C) 2020 Nextcloud GmbH
-  ~
-  ~ This program is free software: you can redistribute it and/or modify
-  ~ it under the terms of the GNU Affero General Public License as published by
-  ~ the Free Software Foundation, either version 3 of the License, or
-  ~ (at your option) any later version.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  ~ GNU Affero General Public License for more details.
-  ~
-  ~ You should have received a copy of the GNU Affero General Public License
-  ~ along with this program. If not, see <https://www.gnu.org/licenses/>.
-  -->
+  ~ SPDX-FileCopyrightText: 2018-2024 Google LLC
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
 
-<vector
-    android:height="16dp"
-    android:viewportHeight="16"
-    android:viewportWidth="16"
-    android:width="16dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
     <path
         android:fillColor="#dc5047"
-        android:pathData="m2.5,1c-0.28,0 -0.5,0.22 -0.5,0.5v13c0,0.28 0.22,0.5 0.5,0.5h11c0.28,0 0.5,-0.22 0.5,-0.5v-10.5l-3,-3z" />
-    <path
-        android:fillColor="#fff"
-        android:pathData="m4.9093,8.443v1.057h-0.6181v-3h1.1703q0.3379,0 0.5934,0.1236 0.2576,0.1236 0.3956,0.3523 0.1381,0.2266 0.1381,0.5172 0,0.4409 -0.3029,0.6964 -0.3008,0.2534 -0.8345,0.2534zM4.9093,7.9423h0.5522q0.2452,0 0.3729,-0.1154 0.1298,-0.1154 0.1298,-0.3297 0,-0.2205 -0.1298,-0.3565t-0.3585,-0.1401h-0.5666z" />
-    <path
-        android:fillColor="#fff"
-        android:pathData="m7.011,9.5v-3h0.9231q0.3956,0 0.7067,0.1793 0.3132,0.1772 0.4883,0.5069 0.1751,0.3276 0.1751,0.7459v0.1381q0,0.4183 -0.1731,0.7438 -0.171,0.3255 -0.4842,0.5048 -0.3132,0.1793 -0.7067,0.1813zM7.6291,7.0007v2.0027h0.2988q0.3626,0 0.5543,-0.2369 0.1916,-0.2369 0.1957,-0.6779v-0.1586q0,-0.4574 -0.1896,-0.6923 -0.1896,-0.2369 -0.5543,-0.2369z" />
-    <path
-        android:fillColor="#fff"
-        android:pathData="m11.56,8.274h-1.1868v1.226h-0.6181v-3h1.9533v0.5007h-1.3352v0.7747h1.1868z" />
+        android:pathData="M76,12H20C15.6,12 12,15.6 12,20V76C12,80.4 15.6,84 20,84H76C80.4,84 84,80.4 84,76V20C84,15.6 80.4,12 76,12ZM38,46C38,49.2 35.2,52 32,52H28V60H22V36H32C35.2,36 38,38.8 38,42V46ZM58,54C58,57.2 55.2,60 52,60H42V36H52C55.2,36 58,38.8 58,42V54ZM74,42H68V46H74V52H68V60H62V36H74V42ZM48,42H52V54H48V42ZM28,42H32V46H28V42Z" />
+
 </vector>

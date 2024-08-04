@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2019-2024 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
 <resources>
     <!-- Beta indicator -->
     <bool name="is_beta">false</bool>
@@ -17,13 +23,18 @@
     <string name="db_name">nextcloud</string>
     <string name="data_folder">nextcloud</string>
     <string name="default_display_name_for_root_folder">Nextcloud</string>
-    <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s</string>
+    <string name="nextcloud_user_agent">Mozilla/5.0 (Android) Nextcloud-android/%1$s%2$s</string>
     <string name="only_office_user_agent">Mozilla/5.0 (Android %1$s) Mobile Nextcloud-android/%2$s</string>
+    <string name="name_for_branded_user_agent"></string>
 
     <!-- URLs and flags related -->
     <bool name="show_server_url_input">true</bool>
     <bool name="show_provider_or_own_installation">true</bool>
     <string name="provider_registration_server">https://www.nextcloud.com/register</string>
+
+    <!-- specify built in proxy -->
+    <string name="proxy_host"></string>
+    <integer name="proxy_port">-1</integer>
 
     <!-- Flags to enable/disable some features -->
     <string name="send_files_to_other_apps">on</string>
@@ -31,11 +42,15 @@
     <bool name="share_with_users_feature">true</bool>
     <bool name="show_external_links">true</bool>
     <bool name="show_outdated_server_warning">true</bool>
+    <bool name="is_branded_client">false</bool>
+    <bool name="is_branded_plus_client">false</bool>
 
     <!-- Calendar & Contacts backup -->
     <string name="contacts_backup_folder">/.Contacts-Backup</string>
     <integer name="contacts_backup_expire">-1</integer>
     <string name="calendar_backup_folder">/.Calendar-Backup</string>
+    <!-- flag to enable/disable contact backup -->
+    <bool name="show_calendar_backup">true</bool>
 
     <!-- What's new -->
     <bool name="show_whats_new">true</bool>
@@ -82,7 +97,7 @@
     <string name="syncedFolder_remote_folder">@string/auto_upload_path</string>
     <bool name="syncedFolder_light_on_charging">false</bool>
     <bool name="syncedFolder_light_use_subfolders">false</bool>
-    <string name="syncedFolder_light_upload_behaviour">FileUploader.LOCAL_BEHAVIOUR_FORGET</string>
+    <string name="syncedFolder_light_upload_behaviour">FilesUploadWorker.LOCAL_BEHAVIOUR_FORGET</string>
 
     <!--Destination mail for sending log files -->
     <string name="mail_logger"></string>
@@ -113,6 +128,15 @@
 
     <!-- Push server url -->
     <string name="push_server_url" translatable="false"></string>
+
+    <!-- if contains values, will be used to show branding title below app icon in splash screen -->
+    <string name="splashScreenBold"></string>
+    <string name="splashScreenNormal"></string>
+
+    <!-- Geocoding -->
+    <string name="osm_geocoder_url" translatable="false">https://nominatim.openstreetmap.org/</string>
+    <string name="osm_geocoder_contact" translatable="false">android@nextcloud.com</string>
+
 
     <!-- Dev settings -->
     <string name="dev_link">https://download.nextcloud.com/android/dev/nextcloud-dev-</string>

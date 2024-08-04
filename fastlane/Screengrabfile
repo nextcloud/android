@@ -1,3 +1,6 @@
+# SPDX-FileCopyrightText: 2017-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+
 app_package_name 'com.nextcloud.client'
 use_tests_in_packages ['com.owncloud.android.screenshots']
 test_instrumentation_runner 'androidx.test.runner.AndroidJUnitRunner'

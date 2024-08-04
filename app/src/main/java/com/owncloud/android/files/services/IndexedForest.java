@@ -1,23 +1,12 @@
-/**
- *   ownCloud Android client application
+/*
+ * Nextcloud - Android Client
  *
- *   @author David A. Velasco
- *   Copyright (C) 2016 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2017-2018 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2016 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2015 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.files.services;
 
 import android.util.Pair;
@@ -34,17 +23,19 @@ import java.util.concurrent.ConcurrentMap;
 
 /**
  *  Helper structure to keep the trees of folders containing any file downloading or synchronizing.
- *
  *  A map provides the indexation based in hashing.
- *
  *  A tree is created per account.
  */
 public class IndexedForest<V> {
 
     private ConcurrentMap<String, Node<V>> mMap = new ConcurrentHashMap<>();
 
+    public ConcurrentMap<String, Node<V>> getAll() {
+        return mMap;
+    }
+
     @SuppressWarnings("PMD.ShortClassName")
-    private class Node<V> {
+    public class Node<V> {
         private String mKey;
         private Node<V> mParent;
         private Set<Node<V>> mChildren = new HashSet<>();    // TODO be careful with hash()
@@ -101,7 +92,7 @@ public class IndexedForest<V> {
     public /* synchronized */ Pair<String, String> putIfAbsent(String accountName, String remotePath, V value) {
         String targetKey = buildKey(accountName, remotePath);
 
-        Node<V> valuedNode = new Node(targetKey, value);
+        Node<V> valuedNode = new Node<>(targetKey, value);
         Node<V> previousValue = mMap.putIfAbsent(
             targetKey,
             valuedNode
@@ -120,13 +111,13 @@ public class IndexedForest<V> {
             boolean linked = false;
             while (!OCFile.ROOT_PATH.equals(currentPath) && !linked) {
                 parentPath = new File(currentPath).getParent();
-                if (!parentPath.endsWith(OCFile.PATH_SEPARATOR)) {
+                if (parentPath != null && !parentPath.endsWith(OCFile.PATH_SEPARATOR)) {
                     parentPath += OCFile.PATH_SEPARATOR;
                 }
                 parentKey = buildKey(accountName, parentPath);
                 parentNode = mMap.get(parentKey);
                 if (parentNode == null) {
-                    parentNode = new Node(parentKey, null);
+                    parentNode = new Node<>(parentKey, null);
                     parentNode.addChild(currentNode);
                     mMap.put(parentKey, parentNode);
                 } else {

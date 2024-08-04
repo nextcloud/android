@@ -1,100 +1,80 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Nextcloud Android client application
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
   ~
-  ~  @author Álvaro Brey
-  ~  Copyright (C) 2022 Álvaro Brey
-  ~  Copyright (C) 2022 Nextcloud GmbH
-  ~
-  ~ This program is free software; you can redistribute it and/or
-  ~ modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
-  ~ License as published by the Free Software Foundation; either
-  ~ version 3 of the License, or any later version.
-  ~
-  ~ This program is distributed in the hope that it will be useful,
-  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
-  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-  ~ GNU AFFERO GENERAL PUBLIC LICENSE for more details.
-  ~
-  ~ You should have received a copy of the GNU Affero General Public
-  ~ License along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  ~
-  -->
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  ~ SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+  ~ SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.BottomSheet"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <LinearLayout
         android:id="@+id/bottom_sheet"
-        android:layout_height="match_parent"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:minHeight="@dimen/bottom_sheet_min_height"
-        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <com.google.android.material.bottomsheet.BottomSheetDragHandleView
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:indeterminate="true"
             android:id="@+id/bottom_sheet_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:indeterminate="true"
             tools:visibility="gone" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/bottom_sheet_content"
+        <LinearLayout
+            android:id="@+id/bottom_sheet_header"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="visible">
 
-            <FrameLayout
-                android:id="@+id/thumbnail_container"
+            <include
+                android:id="@+id/thumbnail_layout"
+                layout="@layout/file_thumbnail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/standard_padding"
-                app:layout_constraintBottom_toBottomOf="@+id/title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/title">
-
-                <include
-                    android:id="@+id/thumbnail_layout"
-                    layout="@layout/file_thumbnail" />
-            </FrameLayout>
+                android:layout_marginStart="12dp" />
 
             <TextView
                 android:id="@+id/title"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:ellipsize="middle"
                 android:lines="1"
-                android:padding="@dimen/standard_padding"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/thumbnail_container"
-                app:layout_constraintTop_toTopOf="parent"
                 android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                 tools:text="Test file name which is very very very very very long.pdf" />
 
-            <androidx.core.widget.NestedScrollView
+        </LinearLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/file_actions_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title">
+                android:orientation="vertical" />
 
-                <LinearLayout
-                    android:id="@+id/file_actions_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" />
-            </androidx.core.widget.NestedScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

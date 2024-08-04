@@ -1,23 +1,9 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.adapter
 
@@ -30,9 +16,13 @@ import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
-import com.owncloud.android.R
+import com.nextcloud.model.SearchResultEntryType
+import com.nextcloud.utils.CalendarEventManager
+import com.nextcloud.utils.ContactManager
+import com.nextcloud.utils.extensions.getType
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResultEntry
@@ -44,15 +34,23 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 
 @Suppress("LongParameterList")
 class UnifiedSearchItemViewHolder(
+    private val supportsOpeningCalendarContactsLocally: Boolean,
     val binding: UnifiedSearchItemBinding,
     val user: User,
     val clientFactory: ClientFactory,
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
+    private val filesAction: FilesAction,
     val context: Context,
     private val viewThemeUtils: ViewThemeUtils
-) :
-    SectionedViewHolder(binding.root) {
+) : SectionedViewHolder(binding.root) {
+
+    interface FilesAction {
+        fun showFilesAction(searchResultEntry: SearchResultEntry)
+    }
+
+    private val contactManager = ContactManager(context)
+    private val calendarEventManager = CalendarEventManager(context)
 
     fun bind(entry: SearchResultEntry) {
         binding.title.text = entry.title
@@ -66,7 +64,8 @@ class UnifiedSearchItemViewHolder(
 
         val mimetype = MimeTypeUtil.getBestMimeTypeByFilename(entry.title)
 
-        val placeholder = getPlaceholder(entry, mimetype)
+        val entryType = entry.getType()
+        val placeholder = getPlaceholder(entry, entryType, mimetype)
 
         Glide.with(context).using(CustomGlideStreamLoader(user, clientFactory))
             .load(entry.thumbnailUrl)
@@ -77,30 +76,52 @@ class UnifiedSearchItemViewHolder(
             .listener(RoundIfNeededListener(entry))
             .into(binding.thumbnail)
 
-        binding.unifiedSearchItemLayout.setOnClickListener { listInterface.onSearchResultClicked(entry) }
+        if (entry.isFile) {
+            binding.more.visibility = View.VISIBLE
+            binding.more.setOnClickListener {
+                filesAction.showFilesAction(entry)
+            }
+        } else {
+            binding.more.visibility = View.GONE
+        }
+
+        binding.unifiedSearchItemLayout.setOnClickListener {
+            searchEntryOnClick(entry, entryType)
+        }
+    }
+
+    private fun searchEntryOnClick(entry: SearchResultEntry, entryType: SearchResultEntryType) {
+        if (supportsOpeningCalendarContactsLocally) {
+            when (entryType) {
+                SearchResultEntryType.Contact -> {
+                    contactManager.openContact(entry, listInterface)
+                }
+
+                SearchResultEntryType.CalendarEvent -> {
+                    calendarEventManager.openCalendarEvent(entry, listInterface)
+                }
+
+                else -> {
+                    listInterface.onSearchResultClicked(entry)
+                }
+            }
+        } else {
+            listInterface.onSearchResultClicked(entry)
+        }
     }
 
     private fun getPlaceholder(
         entry: SearchResultEntry,
+        entryType: SearchResultEntryType,
         mimetype: String?
     ): Drawable {
-        val drawable = with(entry.icon) {
-            when {
-                equals("icon-folder") ->
-                    ResourcesCompat.getDrawable(context.resources, R.drawable.folder, null)
-                startsWith("icon-note") ->
-                    ResourcesCompat.getDrawable(context.resources, R.drawable.ic_edit, null)
-                startsWith("icon-contacts") ->
-                    ResourcesCompat.getDrawable(context.resources, R.drawable.file_vcard, null)
-                startsWith("icon-calendar") ->
-                    ResourcesCompat.getDrawable(context.resources, R.drawable.file_calendar, null)
-                startsWith("icon-deck") ->
-                    ResourcesCompat.getDrawable(context.resources, R.drawable.ic_deck, null)
-                else ->
-                    MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, viewThemeUtils)
-            }
+        val iconId = entryType.run {
+            iconId()
         }
-        return viewThemeUtils.platform.tintPrimaryDrawable(context, drawable)!!
+
+        val defaultDrawable = MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, viewThemeUtils)
+        val drawable: Drawable = ResourcesCompat.getDrawable(context.resources, iconId, null) ?: defaultDrawable
+        return viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY)
     }
 
     private inner class RoundIfNeededListener(private val entry: SearchResultEntry) :

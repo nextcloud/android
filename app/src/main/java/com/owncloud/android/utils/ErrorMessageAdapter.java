@@ -1,21 +1,11 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author masensio
- *   Copyright (C) 2016 ownCloud GmbH.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2017-2021 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2016 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
 package com.owncloud.android.utils;
 
@@ -303,9 +293,9 @@ public final class ErrorMessageAdapter {
 
         } else {
             if (result.getCode() == ResultCode.FORBIDDEN) {
-                // Error --> No permissions
-                return String.format(res.getString(R.string.forbidden_permissions),
-                                     res.getString(R.string.forbidden_permissions_delete));
+                return String.format(res.getString(R.string.forbidden_permissions), res.getString(R.string.forbidden_permissions_delete));
+            } else if (result.getCode() == ResultCode.LOCKED) {
+                return res.getString(R.string.preview_media_unhandled_http_code_message);
             }
         }
 
@@ -423,7 +413,7 @@ public final class ErrorMessageAdapter {
                 message = res.getString(R.string.auth_not_configured_title);
 
             } else if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
-                message = res.getString(R.string.auth_incorrect_path_title);
+                message = res.getString(R.string.file_not_found);
 
             } else if (result.getCode() == ResultCode.OAUTH2_ERROR) {
                 message = res.getString(R.string.auth_oauth_error);
@@ -436,6 +426,9 @@ public final class ErrorMessageAdapter {
 
             } else if (result.getCode() == ResultCode.ACCOUNT_NOT_THE_SAME) {
                 message = res.getString(R.string.auth_account_not_the_same);
+
+            } else if (result.getCode() == ResultCode.QUOTA_EXCEEDED) {
+                message = res.getString(R.string.upload_quota_exceeded);
 
             }
 

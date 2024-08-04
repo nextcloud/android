@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2020-2021 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ */
 package com.nextcloud.client.notifications
 
 import android.app.Notification
@@ -45,7 +51,7 @@ class AppNotificationManagerImpl @Inject constructor(
         val icon = BitmapFactory.decodeResource(resources, R.drawable.notification_icon)
         return builder(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
             .setContentTitle(resources.getString(R.string.app_name))
-            .setContentText(resources.getString(R.string.foreground_service_download))
+            .setContentText(resources.getString(R.string.worker_download))
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(icon)
             .build()

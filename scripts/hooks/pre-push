@@ -1,5 +1,10 @@
 #!/bin/bash
 # Pre-push: Don't allow commits without Signed-off-by. Skip with "git push --no-verify".
+
+# SPDX-FileCopyrightText: 2021-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2021 Álvaro Brey Vilas <alvaro.brey@nextcloud.com>
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 set -euo pipefail
 
 z40=0000000000000000000000000000000000000000 # magic deleted ref

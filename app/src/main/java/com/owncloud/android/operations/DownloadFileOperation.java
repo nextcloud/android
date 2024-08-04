@@ -1,24 +1,14 @@
 /*
- *   ownCloud Android client application
+ * Nextcloud - Android Client
  *
- *   @author David A. Velasco
- *   @author masensio
- *   Copyright (C) 2015 ownCloud Inc.
- *
- *   This program is free software: you can redistribute it and/or modify
- *   it under the terms of the GNU General Public License version 2,
- *   as published by the Free Software Foundation.
- *
- *   This program is distributed in the hope that it will be useful,
- *   but WITHOUT ANY WARRANTY; without even the implied warranty of
- *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *   GNU General Public License for more details.
- *
- *   You should have received a copy of the GNU General Public License
- *   along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2020-2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2015 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2012 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.operations;
 
 import android.content.Context;
@@ -26,9 +16,12 @@ import android.text.TextUtils;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.client.account.User;
-import com.owncloud.android.datamodel.DecryptedFolderMetadata;
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFile;
+import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.network.OnDatatransferProgressListener;
 import com.owncloud.android.lib.common.operations.OperationCancelledException;
@@ -42,10 +35,15 @@ import com.owncloud.android.utils.FileStorageUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.ref.WeakReference;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import javax.crypto.Cipher;
+
+import static com.owncloud.android.utils.EncryptionUtils.decodeStringToBase64Bytes;
 
 /**
  * Remote DownloadOperation performing the download of a file to an ownCloud server
@@ -61,7 +59,7 @@ public class DownloadFileOperation extends RemoteOperation {
     private String packageName;
     private DownloadType downloadType;
 
-    private Context context;
+    private final WeakReference<Context> context;
     private Set<OnDatatransferProgressListener> dataTransferListeners = new HashSet<>();
     private long modificationTimestamp;
     private DownloadFileRemoteOperation downloadOperation;
@@ -89,12 +87,22 @@ public class DownloadFileOperation extends RemoteOperation {
         this.behaviour = behaviour;
         this.activityName = activityName;
         this.packageName = packageName;
-        this.context = context;
+        this.context = new WeakReference<>(context);
         this.downloadType = downloadType;
     }
 
     public DownloadFileOperation(User user, OCFile file, Context context) {
         this(user, file, null, null, null, context, DownloadType.DOWNLOAD);
+    }
+
+    public boolean isMatching(String accountName, long fileId) {
+        return getFile().getFileId() == fileId && getUser().getAccountName().equals(accountName);
+    }
+
+    public void cancelMatchingOperation(String accountName, long fileId) {
+        if (isMatching(accountName, fileId)) {
+            cancel();
+        }
     }
 
     public String getSavePath() {
@@ -159,6 +167,11 @@ public class DownloadFileOperation extends RemoteOperation {
             }
         }
 
+        Context operationContext = context.get();
+        if (operationContext == null) {
+            return new RemoteOperationResult(RemoteOperationResult.ResultCode.UNKNOWN_ERROR);
+        }
+
         RemoteOperationResult result;
         File newFile = null;
         boolean moved;
@@ -179,6 +192,8 @@ public class DownloadFileOperation extends RemoteOperation {
 
         result = downloadOperation.execute(client);
 
+
+
         if (result.isSuccess()) {
             modificationTimestamp = downloadOperation.getModificationTimestamp();
             etag = downloadOperation.getEtag();
@@ -193,46 +208,72 @@ public class DownloadFileOperation extends RemoteOperation {
 
             // decrypt file
             if (file.isEncrypted()) {
-                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user, context.getContentResolver());
+                FileDataStorageManager fileDataStorageManager = new FileDataStorageManager(user, operationContext.getContentResolver());
 
-                OCFile parent = fileDataStorageManager.getFileByPath(file.getParentRemotePath());
+                OCFile parent = fileDataStorageManager.getFileByEncryptedRemotePath(file.getParentRemotePath());
 
-                DecryptedFolderMetadata metadata = EncryptionUtils.downloadFolderMetadata(parent,
-                                                                                          client,
-                                                                                          context,
-                                                                                          user);
+                Object object = EncryptionUtils.downloadFolderMetadata(parent,
+                                                                       client,
+                                                                       operationContext,
+                                                                       user);
 
-                if (metadata == null) {
+                if (object == null) {
                     return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
                 }
-                byte[] key = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                        .get(file.getEncryptedFileName()).getEncrypted().getKey());
-                byte[] iv = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                        .get(file.getEncryptedFileName()).getInitializationVector());
-                byte[] authenticationTag = EncryptionUtils.decodeStringToBase64Bytes(metadata.getFiles()
-                        .get(file.getEncryptedFileName()).getAuthenticationTag());
+
+                String keyString;
+                String nonceString;
+                String authenticationTagString;
+                if (object instanceof DecryptedFolderMetadataFile) {
+                    DecryptedFile decryptedFile = ((DecryptedFolderMetadataFile) object)
+                        .getMetadata()
+                        .getFiles()
+                        .get(file.getEncryptedFileName());
+
+                    if (decryptedFile == null) {
+                        return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
+                    }
+
+                    keyString = decryptedFile.getKey();
+                    nonceString = decryptedFile.getNonce();
+                    authenticationTagString = decryptedFile.getAuthenticationTag();
+                } else {
+                    com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFile decryptedFile =
+                        ((DecryptedFolderMetadataFileV1) object)
+                            .getFiles()
+                            .get(file.getEncryptedFileName());
+
+                    if (decryptedFile == null) {
+                        return new RemoteOperationResult(RemoteOperationResult.ResultCode.METADATA_NOT_FOUND);
+                    }
+
+                    keyString = decryptedFile.getEncrypted().getKey();
+                    nonceString = decryptedFile.getInitializationVector();
+                    authenticationTagString = decryptedFile.getAuthenticationTag();
+                }
+
+                byte[] key = decodeStringToBase64Bytes(keyString);
+                byte[] iv = decodeStringToBase64Bytes(nonceString);
 
                 try {
-                    byte[] decryptedBytes = EncryptionUtils.decryptFile(tmpFile, key, iv, authenticationTag);
-
-                    try (FileOutputStream fileOutputStream = new FileOutputStream(tmpFile)) {
-                        fileOutputStream.write(decryptedBytes);
-                    }
+                    Cipher cipher = EncryptionUtils.getCipher(Cipher.DECRYPT_MODE, key, iv);
+                    EncryptionUtils.decryptFile(cipher, tmpFile, newFile, authenticationTagString, new ArbitraryDataProviderImpl(operationContext), user);
                 } catch (Exception e) {
                     return new RemoteOperationResult(e);
                 }
             }
 
-            if (downloadType == DownloadType.DOWNLOAD) {
+            if (downloadType == DownloadType.DOWNLOAD && !file.isEncrypted()) {
                 moved = tmpFile.renameTo(newFile);
-                newFile.setLastModified(file.getModificationTimestamp());
+                boolean isLastModifiedSet = newFile.setLastModified(file.getModificationTimestamp());
+                Log_OC.d(TAG, "Last modified set: " + isLastModifiedSet);
                 if (!moved) {
                     result = new RemoteOperationResult(RemoteOperationResult.ResultCode.LOCAL_STORAGE_NOT_MOVED);
                 }
             } else if (downloadType == DownloadType.EXPORT) {
                 new FileExportUtils().exportFile(file.getFileName(),
                                                  file.getMimeType(),
-                                                 context.getContentResolver(),
+                                                 operationContext.getContentResolver(),
                                                  null,
                                                  tmpFile);
                 if (!tmpFile.delete()) {
@@ -240,6 +281,7 @@ public class DownloadFileOperation extends RemoteOperation {
                 }
             }
         }
+
         Log_OC.i(TAG, "Download of " + file.getRemotePath() + " to " + getSavePath() + ": " +
                 result.getLogMessage());
 
@@ -254,7 +296,7 @@ public class DownloadFileOperation extends RemoteOperation {
     }
 
 
-    public void addDatatransferProgressListener (OnDatatransferProgressListener listener) {
+    public void addDownloadDataTransferProgressListener(OnDatatransferProgressListener listener) {
         synchronized (dataTransferListeners) {
             dataTransferListeners.add(listener);
         }

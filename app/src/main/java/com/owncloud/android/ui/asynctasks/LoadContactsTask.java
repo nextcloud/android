@@ -1,37 +1,26 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2021 Tobias Kaminsky
- * Copyright (C) 2021 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2021 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2021 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.asynctasks;
 
 import android.os.AsyncTask;
+import android.os.Build;
 
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 import com.owncloud.android.ui.fragment.contactsbackup.VCardComparator;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -61,7 +50,11 @@ public class LoadContactsTask extends AsyncTask<Void, Void, Boolean> {
         if (!isCancelled()) {
             File file = new File(ocFile.getStoragePath());
             try {
-                vCards.addAll(Ezvcard.parse(file).all());
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    vCards.addAll(Ezvcard.parse(new BufferedInputStream(Files.newInputStream(file.toPath()))).all());
+                } else {
+                    vCards.addAll(Ezvcard.parse(new BufferedInputStream(new FileInputStream((file)))).all());
+                }
                 Collections.sort(vCards, new VCardComparator());
             } catch (IOException e) {
                 Log_OC.e(this, "IO Exception: " + file.getAbsolutePath());

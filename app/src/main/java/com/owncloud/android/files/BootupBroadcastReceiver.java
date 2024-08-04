@@ -1,26 +1,14 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author David A. Velasco
- * @author Chris Narkiewicz
- * Copyright (C) 2012 Bartek Przybylski
- * Copyright (C) 2015 ownCloud Inc.
- * Copyright (C) 2017 Mario Danic
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-FileCopyrightText: 2012 Bartosz Przybylski <bart.p.pl@gmail.com>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.files;
 
 import android.content.BroadcastReceiver;
@@ -35,6 +23,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.network.WalledCheckCache;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.MainApp;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -42,7 +31,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
-
 
 /**
  * App-registered receiver catching the broadcast intent reporting that the system was
@@ -61,6 +49,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
     @Inject Clock clock;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject WalledCheckCache walledCheckCache;
+    @Inject SyncedFolderProvider syncedFolderProvider;
 
     /**
      * Receives broadcast intent reporting that the system was just boot up. *
@@ -73,7 +62,8 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
         AndroidInjection.inject(this, context);
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            MainApp.initSyncOperations(preferences,
+            MainApp.initSyncOperations(context,
+                                       preferences,
                                        uploadsStorageManager,
                                        accountManager,
                                        connectivityService,
@@ -81,7 +71,9 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
                                        backgroundJobManager,
                                        clock,
                                        viewThemeUtils,
-                                       walledCheckCache);
+                                       walledCheckCache,
+                                       syncedFolderProvider
+                                       );
             MainApp.initContactsBackup(accountManager, backgroundJobManager);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());

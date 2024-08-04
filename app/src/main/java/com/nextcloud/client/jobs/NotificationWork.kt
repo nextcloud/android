@@ -1,24 +1,9 @@
 /*
-* Nextcloud application
-*
-* @author Mario Danic
-* @author Chris Narkiewicz
-* Copyright (C) 2017-2018 Mario Danic <mario@lovelyhq.com>
-* Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
-*
-* This program is free software: you can redistribute it and/or modify
-* it under the terms of the GNU General Public License as published by
-* the Free Software Foundation, either version 3 of the License, or
-* at your option) any later version.
-*
-* This program is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.
-*
-* You should have received a copy of the GNU General Public License
-* along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ */
 package com.nextcloud.client.jobs
 
 import android.accounts.AuthenticatorException
@@ -44,6 +29,7 @@ import com.nextcloud.client.integrations.deck.DeckApi
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.DecryptedPushMessage
 import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.OwnCloudClientFactory
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -142,7 +128,7 @@ class NotificationWork constructor(
 
         val deckActionOverrideIntent = deckApi.createForwardToDeckActionIntent(notification, user)
 
-        val pendingIntent: PendingIntent
+        val pendingIntent: PendingIntent?
         if (deckActionOverrideIntent.isPresent) {
             pendingIntent = deckActionOverrideIntent.get()
         } else {
@@ -198,7 +184,8 @@ class NotificationWork constructor(
                     disableIntent
                 )
             )
-        } else { // Actions
+        } else {
+            // Actions
             for (action in notification.getActions()) {
                 val actionIntent = Intent(context, NotificationReceiver::class.java)
                 actionIntent.putExtra(NUMERIC_NOTIFICATION_ID, notification.getNotificationId())
@@ -250,12 +237,11 @@ class NotificationWork constructor(
         }
         val user = optionalUser.get()
         try {
-            val client = OwnCloudClientManagerFactory.getDefaultSingleton()
-                .getClientFor(user.toOwnCloudAccount(), context)
+            val client = OwnCloudClientFactory.createNextcloudClient(user, context)
             val result = GetNotificationRemoteOperation(decryptedPushMessage.nid)
                 .execute(client)
             if (result.isSuccess) {
-                val notification = result.notificationData[0]
+                val notification = result.resultData
                 sendNotification(notification, account)
             }
         } catch (e: Exception) {
@@ -301,6 +287,7 @@ class NotificationWork constructor(
                                 val user = optionalUser.get()
                                 val client = OwnCloudClientManagerFactory.getDefaultSingleton()
                                     .getClientFor(user.toOwnCloudAccount(), context)
+                                val nextcloudClient = OwnCloudClientFactory.createNextcloudClient(user, context)
                                 val actionType = intent.getStringExtra(KEY_NOTIFICATION_ACTION_TYPE)
                                 val actionLink = intent.getStringExtra(KEY_NOTIFICATION_ACTION_LINK)
                                 val success: Boolean = if (!actionType.isNullOrEmpty() && !actionLink.isNullOrEmpty()) {
@@ -308,7 +295,7 @@ class NotificationWork constructor(
                                     resultCode == HttpStatus.SC_OK || resultCode == HttpStatus.SC_ACCEPTED
                                 } else {
                                     DeleteNotificationRemoteOperation(numericNotificationId)
-                                        .execute(client).isSuccess
+                                        .execute(nextcloudClient).isSuccess
                                 }
                                 if (success) {
                                     if (oldNotification == null) {

@@ -1,25 +1,10 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *  @author Álvaro Brey
- *  Copyright (C) 2022 Álvaro Brey
- *  Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.ui.fileactions
 
 import androidx.annotation.DrawableRes
@@ -39,8 +24,7 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
 
     // File moving
     RENAME_FILE(R.id.action_rename_file, R.string.common_rename, R.drawable.ic_rename),
-    MOVE(R.id.action_move, R.string.actionbar_move, R.drawable.ic_move),
-    COPY(R.id.action_copy, R.string.actionbar_copy, R.drawable.ic_content_copy),
+    MOVE_OR_COPY(R.id.action_move_or_copy, R.string.actionbar_move_or_copy, R.drawable.ic_external),
 
     // favorites
     FAVORITE(R.id.action_favorite, R.string.favorite, R.drawable.ic_star),
@@ -83,8 +67,7 @@ enum class FileAction(@IdRes val id: Int, @StringRes val title: Int, @DrawableRe
             SEE_DETAILS,
             LOCK_FILE,
             RENAME_FILE,
-            MOVE,
-            COPY,
+            MOVE_OR_COPY,
             DOWNLOAD_FILE,
             EXPORT_FILE,
             STREAM_MEDIA,

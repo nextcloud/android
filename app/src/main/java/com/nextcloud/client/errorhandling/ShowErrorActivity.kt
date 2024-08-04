@@ -1,26 +1,12 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Andy Scherzinger
- * Copyright (C) 2019 Andy Scherzinger <info@andy-scherzinger.de>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.errorhandling
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -65,17 +51,11 @@ class ShowErrorActivity : AppCompatActivity() {
 
     private fun reportIssue() {
         ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), false)
-        val issueLink = getString(R.string.report_issue_link)
-        if (issueLink.isNotEmpty()) {
-            val uriUrl = Uri.parse(
-                String.format(
-                    issueLink,
-                    URLEncoder.encode(binding.textViewError.text.toString())
-                )
-            )
-            val intent = Intent(Intent.ACTION_VIEW, uriUrl)
-            DisplayUtils.startIntentIfAppAvailable(intent, this, R.string.no_browser_available)
-        }
+        val issueLink = String.format(
+            getString(R.string.report_issue_link),
+            URLEncoder.encode(binding.textViewError.text.toString(), Charsets.UTF_8.name())
+        )
+        DisplayUtils.startLinkIntent(this, issueLink)
         Toast.makeText(this, R.string.copied_to_clipboard, Toast.LENGTH_LONG).show()
     }
 
@@ -87,7 +67,8 @@ class ShowErrorActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.error_share -> {
-                onClickedShare(); true
+                onClickedShare()
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

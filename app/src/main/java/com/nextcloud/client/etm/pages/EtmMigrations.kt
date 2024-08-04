@@ -1,3 +1,9 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ */
 package com.nextcloud.client.etm.pages
 
 import android.os.Bundle
@@ -14,7 +20,7 @@ import java.util.Locale
 
 class EtmMigrations : EtmBaseFragment() {
     private var _binding: FragmentEtmMigrationsBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,7 +68,8 @@ class EtmMigrations : EtmBaseFragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.etm_migrations_delete -> {
-                onDeleteMigrationsClicked(); true
+                onDeleteMigrationsClicked()
+                true
             }
             else -> super.onOptionsItemSelected(item)
         }

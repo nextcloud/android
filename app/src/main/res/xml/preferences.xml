@@ -1,22 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ownCloud Android client application
-
-  Copyright (C) 2012  Bartek Przybylski
-  Copyright (C) 2012-2013 ownCloud Inc.
-  Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License version 2,
-  as published by the Free Software Foundation.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2017-2022 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+  ~ SPDX-FileCopyrightText: 2012-2013 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
 				  android:key="preference_screen">
@@ -50,9 +40,13 @@
 			android:dialogTitle="@string/prefs_lock_title"
 			android:defaultValue="none"/>
 		<com.owncloud.android.ui.ThemeableSwitchPreference
-
 			android:title="@string/prefs_show_hidden_files"
 			android:key="show_hidden_files"/>
+        <com.owncloud.android.ui.ThemeableSwitchPreference
+            android:defaultValue="true"
+            android:title="@string/prefs_show_ecosystem_apps"
+            android:key="show_ecosystem_apps"
+            android:summary="@string/prefs_show_ecosystem_apps_summary"/>
         <com.owncloud.android.ui.ThemeableSwitchPreference
             android:title="@string/prefs_enable_media_scan_notifications"
             android:summary="@string/prefs_enable_media_scan_notifications_summary"

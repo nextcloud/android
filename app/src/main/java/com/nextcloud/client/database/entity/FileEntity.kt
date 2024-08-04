@@ -1,25 +1,10 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- *  @author Álvaro Brey
- *  Copyright (C) 2022 Álvaro Brey
- *  Copyright (C) 2022 Nextcloud GmbH
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
- *
+ * SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+ * SPDX-FileCopyrightText: 2022 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.client.database.entity
 
 import androidx.room.ColumnInfo
@@ -78,8 +63,13 @@ data class FileEntity(
     val isDownloading: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_FAVORITE)
     val favorite: Int?,
+
+    @ColumnInfo(name = ProviderTableMeta.FILE_HIDDEN)
+    val hidden: Int?,
+
     @ColumnInfo(name = ProviderTableMeta.FILE_IS_ENCRYPTED)
     val isEncrypted: Int?,
+
     @ColumnInfo(name = ProviderTableMeta.FILE_ETAG_IN_CONFLICT)
     val etagInConflict: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_SHARED_WITH_SHAREE)
@@ -102,6 +92,8 @@ data class FileEntity(
     val richWorkspace: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_SIZE)
     val metadataSize: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_LIVE_PHOTO)
+    val metadataLivePhoto: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCKED)
     val locked: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TYPE)
@@ -117,5 +109,11 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TIMEOUT)
     val lockTimeout: Int?,
     @ColumnInfo(name = ProviderTableMeta.FILE_LOCK_TOKEN)
-    val lockToken: String?
+    val lockToken: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_TAGS)
+    val tags: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_GPS)
+    val metadataGPS: String?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_E2E_COUNTER)
+    val e2eCounter: Long?
 )

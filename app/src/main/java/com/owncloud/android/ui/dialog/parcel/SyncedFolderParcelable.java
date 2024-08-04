@@ -1,31 +1,19 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Andy Scherzinger
- * Copyright (C) 2016 Andy Scherzinger
- * Copyright (C) 2016 Nextcloud
- * <p>
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- * <p>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- * <p>
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2016 Andy Scherzinger
+ * SPDX-FileCopyrightText: 2016 Nextcloud
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.dialog.parcel;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
+import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 
 /**
@@ -47,6 +35,8 @@ public class SyncedFolderParcelable implements Parcelable {
     private long id;
     private String account;
     private int section;
+    private SubFolderRule subFolderRule;
+    private boolean excludeHidden;
     private long uploadDelayTimeMs;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
@@ -67,6 +57,8 @@ public class SyncedFolderParcelable implements Parcelable {
         uploadDelayTimeMs = syncedFolderDisplayItem.getUploadDelayTimeMs();
         this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
+        subFolderRule = syncedFolderDisplayItem.getSubfolderRule();
+        excludeHidden = syncedFolderDisplayItem.isExcludeHidden();
     }
 
     private SyncedFolderParcelable(Parcel read) {
@@ -85,6 +77,8 @@ public class SyncedFolderParcelable implements Parcelable {
         nameCollisionPolicy = NameCollisionPolicy.deserialize(read.readInt());
         section = read.readInt();
         hidden = read.readInt() != 0;
+        subFolderRule = SubFolderRule.values()[read.readInt()];
+        excludeHidden = read.readInt() != 0;
         uploadDelayTimeMs = read.readLong();
     }
 
@@ -103,12 +97,14 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(existing ? 1 : 0);
         dest.writeInt(enabled ? 1 : 0);
         dest.writeInt(subfolderByDate ? 1 : 0);
-        dest.writeInt(type.getId());
+        dest.writeInt(type.id);
         dest.writeString(account);
         dest.writeInt(uploadAction);
         dest.writeInt(nameCollisionPolicy.serialize());
         dest.writeInt(section);
         dest.writeInt(hidden ? 1 : 0);
+        dest.writeInt(subFolderRule.ordinal());
+        dest.writeInt(excludeHidden ? 1 : 0);
         dest.writeLong(uploadDelayTimeMs);
     }
 
@@ -133,11 +129,11 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public Integer getUploadActionInteger() {
         switch (uploadAction) {
-            case FileUploader.LOCAL_BEHAVIOUR_FORGET:
+            case FileUploadWorker.LOCAL_BEHAVIOUR_FORGET:
                 return 0;
-            case FileUploader.LOCAL_BEHAVIOUR_MOVE:
+            case FileUploadWorker.LOCAL_BEHAVIOUR_MOVE:
                 return 1;
-            case FileUploader.LOCAL_BEHAVIOUR_DELETE:
+            case FileUploadWorker.LOCAL_BEHAVIOUR_DELETE:
                 return 2;
         }
         return 0;
@@ -146,13 +142,13 @@ public class SyncedFolderParcelable implements Parcelable {
     public void setUploadAction(String uploadAction) {
         switch (uploadAction) {
             case "LOCAL_BEHAVIOUR_FORGET":
-                this.uploadAction = FileUploader.LOCAL_BEHAVIOUR_FORGET;
+                this.uploadAction = FileUploadWorker.LOCAL_BEHAVIOUR_FORGET;
                 break;
             case "LOCAL_BEHAVIOUR_MOVE":
-                this.uploadAction = FileUploader.LOCAL_BEHAVIOUR_MOVE;
+                this.uploadAction = FileUploadWorker.LOCAL_BEHAVIOUR_MOVE;
                 break;
             case "LOCAL_BEHAVIOUR_DELETE":
-                this.uploadAction = FileUploader.LOCAL_BEHAVIOUR_DELETE;
+                this.uploadAction = FileUploadWorker.LOCAL_BEHAVIOUR_DELETE;
                 break;
             default:
                 // do nothing
@@ -224,6 +220,8 @@ public class SyncedFolderParcelable implements Parcelable {
         return this.section;
     }
 
+    public SubFolderRule getSubFolderRule() { return this.subFolderRule; }
+
     public void setFolderName(String folderName) {
         this.folderName = folderName;
     }
@@ -282,5 +280,14 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setSection(int section) {
         this.section = section;
+    }
+    public void setSubFolderRule(SubFolderRule subFolderRule) { this.subFolderRule = subFolderRule; }
+
+    public boolean isExcludeHidden() {
+        return excludeHidden;
+    }
+
+    public void setExcludeHidden(boolean excludeHidden) {
+        this.excludeHidden = excludeHidden;
     }
 }

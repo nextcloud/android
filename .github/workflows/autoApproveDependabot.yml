@@ -1,4 +1,9 @@
 # synced from @nextcloud/android-config
+
+# SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2023 Álvaro Brey <alvaro@alvarobrey.com>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 name: Auto approve dependabot
 
 on:
@@ -25,6 +30,6 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: hmarr/auto-approve-action@44888193675f29a83e04faf4002fa8c0b537b1e4 # v3.2.1
+      - uses: hmarr/auto-approve-action@f0939ea97e9205ef24d872e76833fa908a770363 # v4.0.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

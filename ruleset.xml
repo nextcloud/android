@@ -1,4 +1,10 @@
 <?xml version="1.0"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~ 
+  ~ SPDX-FileCopyrightText: 2019-2024 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
 <ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="Android"
     xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
     xsi:noNamespaceSchemaLocation="http://pmd.sf.net/ruleset_xml_schema.xsd"

@@ -1,25 +1,10 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2019 Tobias Kaminsky
- * Copyright (C) 2019 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.activity;
 
 import android.app.DownloadManager;
@@ -28,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.view.View;
@@ -39,13 +25,20 @@ import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.client.account.User;
-import com.nextcloud.java.util.Optional;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.RichdocumentsWebviewBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.ui.asynctasks.TextEditorLoadUrlTask;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.WebViewUtil;
+
+import java.util.Optional;
+
+import javax.inject.Inject;
 
 public abstract class EditorWebView extends ExternalSiteWebView {
     public static final int REQUEST_LOCAL_FILE = 101;
@@ -55,6 +48,8 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     protected String fileName;
 
     RichdocumentsWebviewBinding binding;
+
+    @Inject SyncedFolderProvider syncedFolderProvider;
 
     protected void loadUrl(String url) {
         onUrlLoaded(url);
@@ -75,13 +70,18 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         this.url = loadedUrl;
 
         if (!url.isEmpty()) {
+            new WebViewUtil(getApplicationContext()).setProxyKKPlus(this.getWebView());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            }
             this.getWebView().loadUrl(url);
 
             new Handler().postDelayed(() -> {
                 if (this.getWebView().getVisibility() != View.VISIBLE) {
                     Snackbar snackbar = DisplayUtils.createSnackbar(findViewById(android.R.id.content),
                                                                     R.string.timeout_richDocuments, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.common_back, v -> closeView());
+                        .setAction(R.string.common_cancel, v -> closeView());
 
                     viewThemeUtils.material.themeSnackbar(snackbar);
                     setLoadingSnackbar(snackbar);
@@ -100,6 +100,23 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         finish();
     }
 
+    public void reload() {
+        if (getWebView().getVisibility() != View.VISIBLE) {
+            return;
+        }
+
+        Optional<User> user = getUser();
+        if (!user.isPresent()) {
+            return;
+        }
+
+        OCFile file = getFile();
+        if (file != null) {
+            TextEditorLoadUrlTask task = new TextEditorLoadUrlTask(this, user.get(), file, editorUtils);
+            task.execute();
+        }
+    }
+
     @Override
     protected void bindView() {
         binding = RichdocumentsWebviewBinding.inflate(getLayoutInflater());
@@ -110,7 +127,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         super.postOnCreate();
 
         getWebView().setWebChromeClient(new WebChromeClient() {
-            EditorWebView activity = EditorWebView.this;
+            final EditorWebView activity = EditorWebView.this;
 
             @Override
             public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback,
@@ -137,7 +154,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             }
         });
 
-        setFile(getIntent().getParcelableExtra(ExternalSiteWebView.EXTRA_FILE));
+        setFile(IntentExtensionsKt.getParcelableArgument(getIntent(), ExternalSiteWebView.EXTRA_FILE, OCFile.class));
 
         if (getFile() == null) {
             Toast.makeText(getApplicationContext(),
@@ -173,14 +190,8 @@ public abstract class EditorWebView extends ExternalSiteWebView {
     }
 
     protected void handleActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode) {
-            case REQUEST_LOCAL_FILE:
-                handleLocalFile(data, resultCode);
-                break;
-
-            default:
-                // unexpected, do nothing
-                break;
+        if (requestCode == REQUEST_LOCAL_FILE) {
+            handleLocalFile(data, resultCode);
         }
     }
 
@@ -221,14 +232,11 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         // Todo minimize: only icon by mimetype
         OCFile file = getFile();
         if (file.isFolder()) {
-            binding.thumbnail.setImageDrawable(MimeTypeUtil.getFolderTypeIcon(file.isSharedWithMe() ||
-                                                                                  file.isSharedWithSharee(),
-                                                                              file.isSharedViaLink(),
-                                                                              file.isEncrypted(),
-                                                                              file.isGroupFolder(),
-                                                                              file.getMountType(),
-                                                                              this,
-                                                                              viewThemeUtils));
+            boolean isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+
+            Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
+            LayerDrawable drawable = MimeTypeUtil.getFileIcon(preferences.isDarkModeEnabled(), overlayIconId, this, viewThemeUtils);
+            binding.thumbnail.setImageDrawable(drawable);
         } else {
             if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
                 // Thumbnail in cache?
@@ -245,7 +253,7 @@ public abstract class EditorWebView extends ExternalSiteWebView {
                 }
 
                 if ("image/png".equalsIgnoreCase(file.getMimeType())) {
-                    binding.thumbnail.setBackgroundColor(getResources().getColor(R.color.bg_default));
+                    binding.thumbnail.setBackgroundColor(getResources().getColor(R.color.bg_default, getTheme()));
                 }
             } else {
                 Drawable icon = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
@@ -272,10 +280,6 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         downloadmanager.enqueue(request);
     }
 
-    public Snackbar getLoadingSnackbar() {
-        return this.loadingSnackbar;
-    }
-
     public void setLoadingSnackbar(Snackbar loadingSnackbar) {
         this.loadingSnackbar = loadingSnackbar;
     }
@@ -294,6 +298,11 @@ public abstract class EditorWebView extends ExternalSiteWebView {
         @JavascriptInterface
         public void loaded() {
             runOnUiThread(EditorWebView.this::hideLoading);
+        }
+
+        @JavascriptInterface
+        public void reload() {
+            EditorWebView.this.reload();
         }
     }
 

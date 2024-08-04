@@ -1,29 +1,16 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.fragment
 
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import com.nextcloud.test.TestActivity
+import com.nextcloud.ui.ImageDetailFragment
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -40,13 +27,18 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @get:Rule
     val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
 
-    val file = OCFile("/")
+    var file = getFile("gps.jpg")
+    val oCFile = OCFile("/").apply {
+        storagePath = file.absolutePath
+        fileId = 12
+        fileDataStorageManager.saveFile(this)
+    }
 
     @Test
     @ScreenshotTest
     fun showFileDetailActivitiesFragment() {
         val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(FileDetailActivitiesFragment.newInstance(file, user))
+        sut.addFragment(FileDetailActivitiesFragment.newInstance(oCFile, user))
 
         waitForIdleSync()
         shortSleep()
@@ -58,7 +50,7 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
     @ScreenshotTest
     fun showFileDetailSharingFragment() {
         val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(FileDetailSharingFragment.newInstance(file, user))
+        sut.addFragment(FileDetailSharingFragment.newInstance(oCFile, user))
 
         waitForIdleSync()
         shortSleep()
@@ -68,14 +60,26 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
 
     @Test
     @ScreenshotTest
-    @Suppress("MagicNumber")
-    fun showDetailsActivities() {
+    fun showFileDetailDetailsFragment() {
         val activity = testActivityRule.launchActivity(null)
-        val sut = FileDetailFragment.newInstance(file, user, 0)
+        val sut = ImageDetailFragment.newInstance(oCFile, user)
         activity.addFragment(sut)
 
+        shortSleep()
+        shortSleep()
         waitForIdleSync()
 
+        activity.runOnUiThread {
+            sut.hideMap()
+        }
+
+        screenshot(activity)
+    }
+
+    @Test
+    @ScreenshotTest
+    @Suppress("MagicNumber")
+    fun showDetailsActivities() {
         val date = GregorianCalendar()
         date.set(2005, 4, 17, 10, 35, 30) // random date
 
@@ -128,20 +132,23 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
             )
         )
 
-        activity.runOnUiThread {
-            sut.fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
+        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
+        testActivityRule.launchActivity(null).apply {
+            addFragment(sut)
+            waitForIdleSync()
+            runOnUiThread {
+                sut.fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
+            }
+            longSleep()
+            screenshot(sut.fileDetailActivitiesFragment.binding.swipeContainingList)
         }
-
-        shortSleep()
-        shortSleep()
-        screenshot(activity)
     }
 
     // @Test
     // @ScreenshotTest
     fun showDetailsActivitiesNone() {
         val activity = testActivityRule.launchActivity(null)
-        val sut = FileDetailFragment.newInstance(file, user, 0)
+        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
         activity.addFragment(sut)
 
         waitForIdleSync()
@@ -152,19 +159,20 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
 
         shortSleep()
         shortSleep()
-        screenshot(activity)
+        screenshot(sut.fileDetailActivitiesFragment.binding.list)
     }
 
     @Test
     @ScreenshotTest
     fun showDetailsActivitiesError() {
         val activity = testActivityRule.launchActivity(null)
-        val sut = FileDetailFragment.newInstance(file, user, 0)
+        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
         activity.addFragment(sut)
 
         waitForIdleSync()
 
         activity.runOnUiThread {
+            sut.fileDetailActivitiesFragment.disableLoadingActivities()
             sut
                 .fileDetailActivitiesFragment
                 .setErrorContent(targetContext.resources.getString(R.string.file_detail_activity_error))
@@ -172,14 +180,14 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
 
         shortSleep()
         shortSleep()
-        screenshot(activity)
+        screenshot(sut.fileDetailActivitiesFragment.binding.emptyList.emptyListView)
     }
 
     @Test
     @ScreenshotTest
     fun showDetailsSharing() {
         val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(FileDetailFragment.newInstance(file, user, 1))
+        sut.addFragment(FileDetailFragment.newInstance(oCFile, user, 1))
 
         waitForIdleSync()
 

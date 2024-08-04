@@ -1,23 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- Nextcloud Android client application
-
- @author TSI-mc
- Copyright (C) 2021 TSI-mc
- Copyright (C) 2021 Nextcloud GmbH
-
- This program is free software: you can redistribute it and/or modify
- it under the terms of the GNU Affero General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
-
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Affero General Public License for more details.
-
- You should have received a copy of the GNU Affero General Public License
- along with this program. If not, see <https://www.gnu.org/licenses/>.
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2021 TSI-mc
+  ~ SPDX-FileCopyrightText: 2021 Nextcloud GmbH
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -62,23 +49,23 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/share_process_edit_share_link">
 
-                <androidx.appcompat.widget.AppCompatRadioButton
+                <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/share_process_permission_read_only"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
                     android:text="@string/link_share_view_only" />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
+                <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/share_process_permission_upload_editing"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
                     android:text="@string/link_share_allow_upload_and_editing" />
 
-                <androidx.appcompat.widget.AppCompatRadioButton
+                <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/share_process_permission_file_drop"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
                     android:text="@string/link_share_file_drop" />
@@ -97,19 +84,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/share_process_permission_radio_group" />
 
-            <androidx.appcompat.widget.AppCompatCheckBox
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/share_process_allow_resharing_checkbox"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/allow_resharing"
                 android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/share_process_advance_permission_title"
                 tools:visibility="visible" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/share_process_set_password_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -144,7 +130,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/share_process_set_exp_date_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -178,7 +164,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/share_process_select_exp_date" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/share_process_hide_download_checkbox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -191,7 +177,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/share_process_exp_date_divider"
                 tools:visibility="visible" />
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/share_process_change_name_switch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -285,8 +271,8 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/share_process_btn_cancel"
-        style="@style/OutlinedButton"
-        android:layout_width="0dp"
+        style="@style/Widget.Material3.Button.OutlinedButton"
+        android:layout_width="@dimen/button_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/standard_margin"
         android:layout_marginEnd="@dimen/standard_half_margin"
@@ -295,21 +281,19 @@
         app:cornerRadius="@dimen/button_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/share_process_btn_next"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/share_process_btn_next" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/share_process_btn_next"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/button_extra_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/standard_half_margin"
         android:layout_marginEnd="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_margin"
         android:text="@string/common_next"
-        android:theme="@style/Button.Primary"
+        android:theme="@style/Widget.Material3.Button.IconButton.Filled"
         app:cornerRadius="@dimen/button_corner_radius"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/share_process_btn_cancel" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

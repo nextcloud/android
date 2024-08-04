@@ -1,4 +1,9 @@
 # synced from @nextcloud/android-config
+
+# SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
+# SPDX-License-Identifier: GPL-3.0-or-later
+
 name: Scorecard supply-chain security
 on:
   branch_protection_rule:
@@ -10,6 +15,10 @@ on:
 # Declare default permissions as read only.
 permissions: read-all
 
+concurrency: 
+  group: scorecard-supply-chain-security-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   analysis:
     name: Scorecard analysis
@@ -20,12 +29,12 @@ jobs:
 
     steps:
       - name: "Checkout code"
-        uses: actions/checkout@8e5e7e5ab8b370d6c329ec480221332ada57f0ab # v3.5.2
+        uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
         with:
           persist-credentials: false
 
       - name: "Run analysis"
-        uses: ossf/scorecard-action@80e868c13c90f172d68d1f4501dee99e2479f7af # v2.1.3
+        uses: ossf/scorecard-action@62b2cac7ed8198b15735ed49ab1e5cf35480ba46 # v2.4.0
         with:
           results_file: results.sarif
           results_format: sarif
@@ -33,6 +42,6 @@ jobs:
 
       # Upload the results to GitHub's code scanning dashboard.
       - name: "Upload to code-scanning"
-        uses: github/codeql-action/upload-sarif@7df0ce34898d659f95c0c4a09eaa8d4e32ee64db # v2.2.12
+        uses: github/codeql-action/upload-sarif@afb54ba388a7dca6ecae48f608c4ff05ff4cc77a # v3.25.15
         with:
           sarif_file: results.sarif

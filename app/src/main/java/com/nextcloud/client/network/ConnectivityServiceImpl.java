@@ -4,18 +4,7 @@
  * @author Chris Narkiewicz
  * Copyright (C) 2021 Chris Narkiewicz <hello@ezaquarii.com>
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 
 package com.nextcloud.client.network;
@@ -47,7 +36,6 @@ class ConnectivityServiceImpl implements ConnectivityService {
     private final GetRequestBuilder requestBuilder;
     private final WalledCheckCache walledCheckCache;
 
-
     static class GetRequestBuilder implements Function1<String, GetMethod> {
         @Override
         public GetMethod invoke(String url) {
@@ -65,6 +53,21 @@ class ConnectivityServiceImpl implements ConnectivityService {
         this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
         this.walledCheckCache = walledCheckCache;
+    }
+
+    @Override
+    public boolean isConnected() {
+        Network nw = platformConnectivityManager.getActiveNetwork();
+        NetworkCapabilities actNw = platformConnectivityManager.getNetworkCapabilities(nw);
+
+        if (actNw == null) {
+            return false;
+        }
+
+        return actNw.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_ETHERNET) ||
+            actNw.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH);
     }
 
     @Override

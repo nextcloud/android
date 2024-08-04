@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#
+# SPDX-FileCopyrightText: 2021 Ralf Kistner <ralf@embarkmobile.com>
+# SPDX-License-Identifier: CC0-1.0
+#
+
 # Originally written by Ralf Kistner <ralf@embarkmobile.com>, but placed in the public domain
 
 bootanim=""

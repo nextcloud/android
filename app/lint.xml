@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Nextcloud Talk - Android Client
+  ~ 
+  ~ SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-FileCopyrightText: 2022 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2022 Álvaro Brey <alvaro@alvarobrey.com>
+  ~ SPDX-FileCopyrightText: 2022 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
 <lint>
     <issue id="UnusedAttribute">
         <ignore regexp="importantForAutofill"/>
@@ -47,7 +56,8 @@
 
     <issue id="TrustAllX509TrustManager">
         <ignore path="**/bouncycastle/est/jcajce/*.class" />
-        <ignore path="**/bcpkix-jdk15to18-1.72.jar" />
+        <ignore path="**/bcpkix-jdk15to18-1.**.jar" />
+        <ignore path="**/bcpkix-jdk18on-1.**.jar" />
     </issue>
 
     <issue id="RestrictedApi" severity="error">

@@ -1,28 +1,14 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * @author Chris Narkiewicz <hello@ezaquarii.com>
- *
- * Copyright (C) 2018 Tobias Kaminsky
- * Copyright (C) 2018 Nextcloud
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2018 Nextcloud
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -47,8 +33,10 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
  */
 @Suppress("LongParameterList")
 class UnifiedSearchListAdapter(
+    private val supportsOpeningCalendarContactsLocally: Boolean,
     private val storageManager: FileDataStorageManager,
     private val listInterface: UnifiedSearchListInterface,
+    private val filesAction: UnifiedSearchItemViewHolder.FilesAction,
     private val user: User,
     private val clientFactory: ClientFactory,
     private val context: Context,
@@ -86,11 +74,13 @@ class UnifiedSearchListAdapter(
                     false
                 )
                 UnifiedSearchItemViewHolder(
+                    supportsOpeningCalendarContactsLocally,
                     binding,
                     user,
                     clientFactory,
                     storageManager,
                     listInterface,
+                    filesAction,
                     context,
                     viewThemeUtils
                 )
@@ -115,14 +105,16 @@ class UnifiedSearchListAdapter(
     }
 
     override fun onBindHeaderViewHolder(holder: SectionedViewHolder, section: Int, expanded: Boolean) {
-        val headerViewHolder = holder as UnifiedSearchHeaderViewHolder
-        headerViewHolder.bind(sections[section])
+        (holder as UnifiedSearchHeaderViewHolder).run {
+            bind(sections[section])
+        }
     }
 
     override fun onBindFooterViewHolder(holder: SectionedViewHolder, section: Int) {
         if (sections[section].hasMoreResults) {
-            val footerViewHolder = holder as UnifiedSearchFooterViewHolder
-            footerViewHolder.bind(sections[section])
+            (holder as UnifiedSearchFooterViewHolder).run {
+                bind(sections[section])
+            }
         }
     }
 
@@ -138,21 +130,24 @@ class UnifiedSearchListAdapter(
         absolutePosition: Int
     ) {
         // TODO different binding (and also maybe diff UI) for non-file results
-        val itemViewHolder = holder as UnifiedSearchItemViewHolder
-        val entry = sections[section].entries[relativePosition]
-        itemViewHolder.bind(entry)
+        (holder as UnifiedSearchItemViewHolder).run {
+            val entry = sections[section].entries[relativePosition]
+            bind(entry)
+        }
     }
 
     override fun onViewAttachedToWindow(holder: SectionedViewHolder) {
         if (holder is UnifiedSearchItemViewHolder) {
-            val thumbnailShimmer = holder.binding.thumbnailShimmer
-            if (thumbnailShimmer.visibility == View.VISIBLE) {
-                thumbnailShimmer.setImageResource(R.drawable.background)
-                thumbnailShimmer.resetLoader()
+            holder.binding.thumbnailShimmer.run {
+                if (visibility == View.VISIBLE) {
+                    setImageResource(R.drawable.background)
+                    resetLoader()
+                }
             }
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setData(sections: List<UnifiedSearchSection>) {
         this.sections = sections
         notifyDataSetChanged()

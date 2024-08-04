@@ -1,24 +1,10 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.fragment
 
@@ -48,20 +34,33 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
     fun showFiles() {
         val sut = testActivityRule.launchActivity(null)
 
-        val textFile = OCFile("/1.png")
-        textFile.mimeType = "image/png"
-        textFile.fileLength = 1024000
-        textFile.modificationTimestamp = 1188206955000
-        textFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
-        sut.storageManager.saveFile(textFile)
+        OCFile("/1.png").apply {
+            mimeType = "image/png"
+            fileLength = 1024000
+            modificationTimestamp = 1188206955000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
 
-        val imageFile = OCFile("/image.png")
-        imageFile.mimeType = "image/png"
-        imageFile.isPreviewAvailable = false
-        imageFile.fileLength = 3072000
-        imageFile.modificationTimestamp = 746443755000
-        imageFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
-        sut.storageManager.saveFile(imageFile)
+        OCFile("/image.png").apply {
+            mimeType = "image/png"
+            isPreviewAvailable = false
+            fileLength = 3072000
+            modificationTimestamp = 746443755000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            tags = listOf("Top secret")
+            sut.storageManager.saveFile(this)
+        }
+
+        OCFile("/live photo.png").apply {
+            mimeType = "image/png"
+            isPreviewAvailable = false
+            fileLength = 3072000
+            modificationTimestamp = 746443755000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            setLivePhoto("/video.mov")
+            sut.storageManager.saveFile(this)
+        }
 
         OCFile("/video.mp4").apply {
             mimeType = "video/mp4"
@@ -69,6 +68,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             fileLength = 12092000
             modificationTimestamp = 746143952000
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            tags = listOf("Confidential", "+5")
             sut.storageManager.saveFile(this)
         }
 
@@ -238,6 +238,22 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             sut.storageManager.saveFile(this)
         }
 
+        OCFile("/sharedViaLink/").apply {
+            mimeType = MimeType.DIRECTORY
+            isSharedViaLink = true
+            modificationTimestamp = 1619003571000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
+
+        OCFile("/share/").apply {
+            mimeType = MimeType.DIRECTORY
+            isSharedWithSharee = true
+            modificationTimestamp = 1619303571000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
+
         OCFile("/groupFolder/").apply {
             mimeType = MimeType.DIRECTORY
             modificationTimestamp = 1615003571000
@@ -251,6 +267,15 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             isEncrypted = true
             decryptedRemotePath = "/encrypted/"
             modificationTimestamp = 1614003571000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
+
+        OCFile("/locked/").apply {
+            mimeType = MimeType.DIRECTORY
+            isLocked = true
+            decryptedRemotePath = "/locked/"
+            modificationTimestamp = 1613003571000
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             sut.storageManager.saveFile(this)
         }

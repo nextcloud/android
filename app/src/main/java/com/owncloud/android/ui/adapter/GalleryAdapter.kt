@@ -6,20 +6,9 @@
  * @author TSI-mc
  * Copyright (C) 2022 Tobias Kaminsky
  * Copyright (C) 2022 Nextcloud GmbH
- * Copyright (C) 2022 TSI-mc
+ * Copyright (C) 2023 TSI-mc
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 
 package com.owncloud.android.ui.adapter
@@ -29,6 +18,7 @@ import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.VisibleForTesting
 import com.afollestad.sectionedrecyclerview.SectionedRecyclerViewAdapter
@@ -63,7 +53,7 @@ class GalleryAdapter(
     transferServiceGetter: ComponentsGetter,
     viewThemeUtils: ViewThemeUtils,
     var columns: Int,
-    val defaultThumbnailSize: Int
+    private val defaultThumbnailSize: Int
 ) : SectionedRecyclerViewAdapter<SectionedViewHolder>(), CommonOCFileListAdapterInterface, PopupTextProvider {
     var files: List<GalleryItems> = mutableListOf()
     private val ocFileListDelegate: OCFileListDelegate
@@ -73,6 +63,7 @@ class GalleryAdapter(
         storageManager = transferServiceGetter.storageManager
 
         ocFileListDelegate = OCFileListDelegate(
+            transferServiceGetter.fileUploaderHelper,
             context,
             ocFileListFragmentInterface,
             user,
@@ -129,7 +120,7 @@ class GalleryAdapter(
         return files.size
     }
 
-    override fun getPopupText(position: Int): String {
+    override fun getPopupText(p0: View, position: Int): CharSequence {
         return DisplayUtils.getDateByPattern(
             files[getRelativePosition(position).section()].date,
             context,

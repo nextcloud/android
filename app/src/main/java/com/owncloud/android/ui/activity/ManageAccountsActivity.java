@@ -1,26 +1,13 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Andy Scherzinger
- * @author Chris Narkiewicz  <hello@ezaquarii.com>
- * @author Chawki Chouib  <chouibc@gmail.com>
- * Copyright (C) 2016 ownCloud Inc.
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2020 Chawki Chouib  <chouibc@gmail.com>
- * <p/>
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- * <p/>
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * <p/>
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2020 Chawki Chouib <chouibc@gmail.com>
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2016-2018 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
@@ -28,13 +15,10 @@ import android.accounts.AccountManager;
 import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -42,23 +26,25 @@ import com.google.common.collect.Sets;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.onboarding.FirstRunActivity;
-import com.nextcloud.java.util.Optional;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
+import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.files.services.FileDownloader;
-import com.owncloud.android.files.services.FileUploader;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.UserInfo;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.operations.DownloadFileOperation;
 import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.ui.adapter.UserListAdapter;
 import com.owncloud.android.ui.adapter.UserListItem;
-import com.owncloud.android.ui.dialog.AccountRemovalConfirmationDialog;
+import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 
@@ -68,6 +54,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -104,13 +91,14 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     private final Handler handler = new Handler();
     private String accountName;
     private UserListAdapter userListAdapter;
-    private ServiceConnection downloadServiceConnection;
-    private ServiceConnection uploadServiceConnection;
     private Set<String> originalUsers;
     private String originalCurrentUser;
 
     private ArbitraryDataProvider arbitraryDataProvider;
     private boolean multipleAccountsSupported;
+
+    private String workerAccountName;
+    private DownloadFileOperation workerCurrentDownload;
 
     @Inject BackgroundJobManager backgroundJobManager;
     @Inject UserAccountManager accountManager;
@@ -158,9 +146,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
 
         recyclerView.setAdapter(userListAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        initializeComponentGetters();
+        observeWorkerState();
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -168,7 +155,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         if (resultCode == KEY_DELETE_CODE && data != null) {
             Bundle bundle = data.getExtras();
             if (bundle != null && bundle.containsKey(UserInfoActivity.KEY_ACCOUNT)) {
-                final Account account = bundle.getParcelable(UserInfoActivity.KEY_ACCOUNT);
+                final Account account = BundleExtensionsKt.getParcelableArgument(bundle, UserInfoActivity.KEY_ACCOUNT, Account.class);
                 if (account != null) {
                     User user = accountManager.getUser(account.name).orElseThrow(RuntimeException::new);
                     accountName = account.name;
@@ -233,22 +220,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             return true;
         } else {
             return !user.getAccountName().equals(originalCurrentUser);
-        }
-    }
-
-    /**
-     * Initialize ComponentsGetters.
-     */
-    private void initializeComponentGetters() {
-        downloadServiceConnection = newTransferenceServiceConnection();
-        if (downloadServiceConnection != null) {
-            bindService(new Intent(this, FileDownloader.class), downloadServiceConnection,
-                        Context.BIND_AUTO_CREATE);
-        }
-        uploadServiceConnection = newTransferenceServiceConnection();
-        if (uploadServiceConnection != null) {
-            bindService(new Intent(this, FileUploader.class), uploadServiceConnection,
-                        Context.BIND_AUTO_CREATE);
         }
     }
 
@@ -335,13 +306,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             // after remove account
             Optional<User> user = accountManager.getUser(accountName);
             if (!user.isPresent()) {
-                // Cancel transfers of the removed account
-                if (mUploaderBinder != null) {
-                    mUploaderBinder.cancel(accountName);
-                }
-                if (mDownloaderBinder != null) {
-                    mDownloaderBinder.cancel(accountName);
-                }
+                fileUploadHelper.cancel(accountName);
+                FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload);
             }
 
             User currentUser = getUserAccountManager().getUser();
@@ -371,27 +337,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        if (downloadServiceConnection != null) {
-            unbindService(downloadServiceConnection);
-            downloadServiceConnection = null;
-        }
-        if (uploadServiceConnection != null) {
-            unbindService(uploadServiceConnection);
-            uploadServiceConnection = null;
-        }
-
-        super.onDestroy();
-    }
-
     public Handler getHandler() {
         return handler;
-    }
-
-    @Override
-    public FileUploader.FileUploaderBinder getFileUploaderBinder() {
-        return mUploaderBinder;
     }
 
     @Override
@@ -407,10 +354,6 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
     @Override
     public FileOperationsHelper getFileOperationsHelper() {
         return null;
-    }
-
-    protected ServiceConnection newTransferenceServiceConnection() {
-        return new ManageAccountsServiceConnection();
     }
 
     private void performAccountRemoval(User user) {
@@ -430,14 +373,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
         arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), PENDING_FOR_REMOVAL, String.valueOf(true));
 
-        // Cancel transfers
-        if (mUploaderBinder != null) {
-            mUploaderBinder.cancel(user);
-        }
-        if (mDownloaderBinder != null) {
-            mDownloaderBinder.cancel(user.getAccountName());
-        }
-
+        FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload);
+        fileUploadHelper.cancel(user.getAccountName());
         backgroundJobManager.startAccountRemovalJob(user.getAccountName(), false);
 
         // immediately select a new account
@@ -470,9 +407,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
     }
 
-    public static void openAccountRemovalConfirmationDialog(User user, FragmentManager fragmentManager) {
-        AccountRemovalConfirmationDialog dialog =
-            AccountRemovalConfirmationDialog.newInstance(user);
+    public static void openAccountRemovalDialog(User user, FragmentManager fragmentManager) {
+        AccountRemovalDialog dialog = AccountRemovalDialog.newInstance(user);
         dialog.show(fragmentManager, "dialog");
     }
 
@@ -509,7 +445,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
                 if (itemId == R.id.action_open_account) {
                     accountClicked(user.hashCode());
                 } else if (itemId == R.id.action_delete_account) {
-                    openAccountRemovalConfirmationDialog(user, getSupportFragmentManager());
+                    openAccountRemovalDialog(user, getSupportFragmentManager());
                 } else {
                     openAccount(user);
                 }
@@ -522,38 +458,18 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
     }
 
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(this, state -> {
+            if (state instanceof WorkerState.Download) {
+                Log_OC.d(TAG, "Download worker started");
+                workerAccountName = ((WorkerState.Download) state).getUser().getAccountName();
+                workerCurrentDownload = ((WorkerState.Download) state).getCurrentDownload();
+            }
+        });
+    }
+
     @Override
     public void onAccountClicked(User user) {
         openAccount(user);
     }
-
-    /**
-     * Defines callbacks for service binding, passed to bindService()
-     */
-    private class ManageAccountsServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-
-            if (component.equals(new ComponentName(ManageAccountsActivity.this, FileDownloader.class))) {
-                mDownloaderBinder = (FileDownloader.FileDownloaderBinder) service;
-
-            } else if (component.equals(new ComponentName(ManageAccountsActivity.this, FileUploader.class))) {
-                Log_OC.d(TAG, "Upload service connected");
-                mUploaderBinder = (FileUploader.FileUploaderBinder) service;
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(ManageAccountsActivity.this, FileDownloader.class))) {
-                Log_OC.d(TAG, "Download service suddenly disconnected");
-                mDownloaderBinder = null;
-            } else if (component.equals(new ComponentName(ManageAccountsActivity.this, FileUploader.class))) {
-                Log_OC.d(TAG, "Upload service suddenly disconnected");
-                mUploaderBinder = null;
-            }
-        }
-    }
-
 }

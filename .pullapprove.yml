@@ -1,5 +1,6 @@
 version: 2
-
+# SPDX-FileCopyrightText: 2017-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 # General settings to apply
 always_pending:
   title_regex: '(WIP|wip)'

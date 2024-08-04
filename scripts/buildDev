@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# SPDX-FileCopyrightText: 2017-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+#
 date=$(date +%Y%m%d)
 oldLibraryCommit=$(grep "androidLibraryVersion\ =" build.gradle)
 libraryCommit=$(curl https://api.github.com/repos/nextcloud/android-library/commits/master | jq .sha | sed s'/\"//g')
@@ -9,6 +14,7 @@ sed -i "/versionDev/,/\}/ s/versionName .*/versionName \"$date\"/" app/build.gra
 
 # change library
 sed -i s"#androidLibraryVersion\ =.*#androidLibraryVersion =\"$libraryCommit\"#" build.gradle
+./gradlew --console=plain --dependency-verification lenient -q --write-verification-metadata sha256,pgp help
 
 # build signed apk
 source ndk.env

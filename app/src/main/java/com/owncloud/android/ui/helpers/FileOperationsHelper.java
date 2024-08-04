@@ -1,34 +1,18 @@
 /*
- * ownCloud Android client application
+ * Nextcloud - Android Client
  *
- * @author masensio
- * @author David A. Velasco
- * @author Juan Carlos González Cabrero
- * @author Andy Scherzinger
- * @author Chris Narkiewicz
- * @author TSI-mc
- *
- * Copyright (C) 2015 ownCloud Inc.
- * Copyright (C) 2018 Andy Scherzinger
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2021 TSI-mc
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License version 2,
- * as published by the Free Software Foundation.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2018-2020 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2016 Atsushi Matsuo <matsuo@dds.co.jp>
+ * SPDX-FileCopyrightText: 2015 ownCloud Inc.
+ * SPDX-FileCopyrightText: 2014 María Asensio Valverde <masensio@solidgear.es>
+ * SPDX-FileCopyrightText: 2014 David A. Velasco <dvelasco@solidgear.es>
+ * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-
 package com.owncloud.android.ui.helpers;
 
-import android.Manifest;
 import android.accounts.Account;
 import android.app.Activity;
 import android.content.ActivityNotFoundException;
@@ -38,7 +22,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
 import android.os.StatFs;
 import android.provider.MediaStore;
@@ -49,8 +32,9 @@ import android.webkit.MimeTypeMap;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
-import com.nextcloud.java.util.Optional;
 import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -59,8 +43,6 @@ import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.files.StreamMediaFileOperation;
-import com.owncloud.android.files.services.FileDownloader.FileDownloaderBinder;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.CheckEtagRemoteOperation;
@@ -86,7 +68,6 @@ import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.UriUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -105,6 +86,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -149,12 +132,9 @@ public class FileOperationsHelper {
     private String getUrlFromFile(String storagePath, Pattern pattern) {
         String url = null;
 
-        InputStreamReader fr = null;
-        BufferedReader br = null;
-        try {
-            fr = new InputStreamReader(new FileInputStream(storagePath), StandardCharsets.UTF_8);
-            br = new BufferedReader(fr);
-
+        try (FileInputStream inputStream = new FileInputStream(storagePath);
+             InputStreamReader fr = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+             BufferedReader br = new BufferedReader(fr)) {
             String line;
             while ((line = br.readLine()) != null) {
                 Matcher m = pattern.matcher(line);
@@ -165,23 +145,8 @@ public class FileOperationsHelper {
             }
         } catch (IOException e) {
             Log_OC.d(TAG, e.getMessage());
-        } finally {
-            if (br != null) {
-                try {
-                    br.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Error closing buffered reader for URL file", e);
-                }
-            }
-
-            if (fr != null) {
-                try {
-                    fr.close();
-                } catch (IOException e) {
-                    Log_OC.d(TAG, "Error closing file reader for URL file", e);
-                }
-            }
         }
+
         return url;
     }
 
@@ -523,6 +488,8 @@ public class FileOperationsHelper {
                 showShareFile(file);
             }
         }
+
+        fileActivity.refreshList();
     }
 
     /**
@@ -569,13 +536,22 @@ public class FileOperationsHelper {
      * @param note                   note message for the receiver. Null or empty for no message
      * @param label                  new label
      */
-    public void shareFileWithSharee(OCFile file, String shareeName, ShareType shareType, int permissions,
-                                    boolean hideFileDownload, String password, long expirationTimeInMillis,
-                                    String note, String label) {
+    public void shareFileWithSharee(OCFile file,
+                                    String shareeName,
+                                    ShareType shareType,
+                                    int permissions,
+                                    boolean hideFileDownload,
+                                    String password,
+                                    long expirationTimeInMillis,
+                                    String note,
+                                    String label,
+                                    boolean showLoadingDialog) {
         if (file != null) {
             // TODO check capability?
-            fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
-                                               getString(R.string.wait_a_moment));
+            if (showLoadingDialog) {
+                fileActivity.showLoadingDialog(fileActivity.getApplicationContext().
+                                                   getString(R.string.wait_a_moment));
+            }
 
             Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(OperationsService.ACTION_CREATE_SHARE_WITH_SHAREE);
@@ -800,7 +776,9 @@ public class FileOperationsHelper {
         OCCapability capability = fileActivity.getStorageManager().getCapability(fileActivity.getAccount().name);
         SendShareDialog mSendShareDialog = SendShareDialog.newInstance(file, hideNcSharingOptions, capability);
         mSendShareDialog.setFileOperationsHelper(this);
-        mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
+        if (fm.findFragmentByTag("TAG_SEND_SHARE_DIALOG") == null) {
+            mSendShareDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
+        }
     }
 
     public void sendFiles(Set<OCFile> files) {
@@ -809,7 +787,7 @@ public class FileOperationsHelper {
         FragmentTransaction ft = fm.beginTransaction();
         ft.addToBackStack(null);
 
-        SendFilesDialog sendFilesDialog = SendFilesDialog.newInstance(files);
+        SendFilesDialog sendFilesDialog = SendFilesDialog.Companion.newInstance(files);
         sendFilesDialog.show(ft, "TAG_SEND_SHARE_DIALOG");
     }
 
@@ -847,13 +825,9 @@ public class FileOperationsHelper {
                 if (file.isDown()) {
                     File externalFile = new File(file.getStoragePath());
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        uri = FileProvider.getUriForFile(context,
-                                                         context.getResources().getString(R.string.file_provider_authority), externalFile);
-                    } else {
-                        uri = Uri.fromFile(externalFile);
-                    }
+                    intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    uri = FileProvider.getUriForFile(context,
+                                                     context.getResources().getString(R.string.file_provider_authority), externalFile);
                 } else {
                     uri = Uri.parse(UriUtils.URI_CONTENT_SCHEME +
                                         context.getResources().getString(R.string.image_cache_provider_authority) +
@@ -935,15 +909,15 @@ public class FileOperationsHelper {
     }
 
     public void renameFile(OCFile file, String newFilename) {
-        // RenameFile
         Intent service = new Intent(fileActivity, OperationsService.class);
+
         service.setAction(OperationsService.ACTION_RENAME);
         service.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
         service.putExtra(OperationsService.EXTRA_REMOTE_PATH, file.getRemotePath());
         service.putExtra(OperationsService.EXTRA_NEWNAME, newFilename);
         mWaitingForOpId = fileActivity.getOperationsServiceBinder().queueNewOperation(service);
 
-        fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
+        fileActivity.refreshList();
     }
 
 
@@ -999,38 +973,21 @@ public class FileOperationsHelper {
             }
         }
 
-        // for both files and folders
-        FileDownloaderBinder downloaderBinder = fileActivity.getFileDownloaderBinder();
-        if (downloaderBinder != null && downloaderBinder.isDownloading(currentUser, file)) {
-            downloaderBinder.cancel(currentUser.toPlatformAccount(), file);
+        if (FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
+            List<OCFile> files = fileActivity.getStorageManager().getAllFilesRecursivelyInsideFolder(file);
+            FileDownloadHelper.Companion.instance().cancelPendingOrCurrentDownloads(currentUser, files);
         }
-        FileUploaderBinder uploaderBinder = fileActivity.getFileUploaderBinder();
-        if (uploaderBinder != null && uploaderBinder.isUploading(currentUser, file)) {
-            uploaderBinder.cancel(currentUser.toPlatformAccount(), file);
+
+        if (FileUploadHelper.Companion.instance().isUploading(currentUser, file)) {
+            try {
+                FileUploadHelper.Companion.instance().cancelFileUpload(file.getRemotePath(), currentUser.getAccountName());
+            } catch (NoSuchElementException e) {
+                Log_OC.e(TAG, "Error cancelling current upload because user does not exist!");
+            }
         }
     }
 
-    /**
-     * Start operations to move one or several files
-     *
-     * @param filePaths    Remote paths of files to move
-     * @param targetFolder Folder where the files while be moved into
-     */
-    public void moveFiles(final List<String> filePaths, final OCFile targetFolder) {
-        copyOrMoveFiles(OperationsService.ACTION_MOVE_FILE, filePaths, targetFolder);
-    }
-
-    /**
-     * Start operations to copy one or several files
-     *
-     * @param filePaths    Remote paths of files to move
-     * @param targetFolder Folder where the files while be copied into
-     */
-    public void copyFiles(final List<String> filePaths, final OCFile targetFolder) {
-        copyOrMoveFiles(OperationsService.ACTION_COPY_FILE, filePaths, targetFolder);
-    }
-
-    private void copyOrMoveFiles(final String action, final List<String> filePaths, final OCFile targetFolder) {
+    public void moveOrCopyFiles(String action, final List<String> filePaths, final OCFile targetFolder) {
         for (String path : filePaths) {
             Intent service = new Intent(fileActivity, OperationsService.class);
             service.setAction(action);
@@ -1041,7 +998,6 @@ public class FileOperationsHelper {
         }
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_a_moment));
     }
-
 
     public void exportFiles(Collection<OCFile> files,
                             Context context,
@@ -1082,34 +1038,42 @@ public class FileOperationsHelper {
         fileActivity.showLoadingDialog(fileActivity.getString(R.string.wait_checking_credentials));
     }
 
-    public void uploadFromCamera(Activity activity, int requestCode) {
-        Intent pictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+    public void uploadFromCamera(Activity activity, int requestCode, boolean isVideo) {
+        Intent intent;
+        if (isVideo) {
 
-        File photoFile = createImageFile(activity);
+            // FIXME Not working on Emulator
+            intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+        } else {
+            intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        }
 
-        Uri photoUri = FileProvider.getUriForFile(activity.getApplicationContext(),
-                                                  activity.getResources().getString(R.string.file_provider_authority), photoFile);
-        pictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+        File cameraFile = createCameraFile(activity, isVideo);
 
-        if (pictureIntent.resolveActivity(activity.getPackageManager()) != null) {
-            if (PermissionUtil.checkSelfPermission(activity, Manifest.permission.CAMERA)) {
-                activity.startActivityForResult(pictureIntent, requestCode);
-            } else {
-                PermissionUtil.requestCameraPermission(activity, PermissionUtil.PERMISSIONS_CAMERA);
-            }
+        Uri cameraUri = FileProvider.getUriForFile(activity.getApplicationContext(),
+                                                  activity.getResources().getString(R.string.file_provider_authority), cameraFile);
+        intent.putExtra(MediaStore.EXTRA_OUTPUT, cameraUri);
+
+        if (intent.resolveActivity(activity.getPackageManager()) != null) {
+            activity.startActivityForResult(intent, requestCode);
         } else {
             DisplayUtils.showSnackMessage(activity, "No Camera found");
         }
     }
 
-    public static File createImageFile(Activity activity) {
-        File storageDir = activity.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        return new File(storageDir + "/directCameraUpload.jpg");
+    public static File createCameraFile(Activity activity, boolean isVideo) {
+        String directory = isVideo ? Environment.DIRECTORY_MOVIES : Environment.DIRECTORY_PICTURES;
+        File storageDir = activity.getExternalFilesDir(directory);
+        String fileName = isVideo ? "/directCameraUpload.mp4" : "/directCameraUpload.jpg";
+        return new File(storageDir + fileName);
     }
 
     public static String getCapturedImageName() {
         return getTimestampedFileName(".jpg");
+    }
+
+    public static String getCapturedVideoName() {
+        return getTimestampedFileName(".mp4");
     }
 
     /**

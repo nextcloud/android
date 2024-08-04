@@ -1,33 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- Nextcloud Android client application
-
-  @author Tobias Kaminsky
-  Copyright (C) 2018 Tobias Kaminsky
-  Copyright (C) 2018 Nextcloud GmbH.
-
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation, either version 3 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program. If not, see <https://www.gnu.org/licenses/>.
+  ~ Nextcloud Talk - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018-2024 Nextcloud GmbH and Nextcloud contributors
+  ~ SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2023 TSI-mc
+  ~ SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-License-Identifier: GPL-3.0-or-later AND AGPL-3.0-or-later
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
+    android:paddingStart="@dimen/standard_padding"
     android:paddingTop="@dimen/standard_padding"
-    android:paddingRight="@dimen/standard_padding"
+    android:paddingEnd="@dimen/standard_padding"
     android:paddingBottom="@dimen/standard_padding"
-    android:paddingLeft="@dimen/standard_padding"
     tools:ignore="UseCompoundDrawables">
 
     <ImageView
@@ -36,17 +25,15 @@
         android:layout_height="@dimen/notification_icon_height"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="@dimen/notification_icon_layout_right_end_margin"
-        android:padding="2dp"
-        android:alpha="0.5"
         android:contentDescription="@string/notification_icon"
         android:src="@drawable/ic_notification" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_alignTop="@id/icon"
-        android:layout_toEndOf="@id/icon">
+        android:layout_toEndOf="@id/icon"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,14 +47,17 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:textAppearance="?android:attr/textAppearanceListItem"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/txt_size_16sp"
+                android:paddingBottom="@dimen/standard_half_padding"
                 tools:text="@string/placeholder_filename" />
 
             <ImageView
                 android:id="@+id/dismiss"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_close"
-                android:contentDescription="@string/dismiss_notification_description" />
+                android:contentDescription="@string/dismiss_notification_description"
+                android:src="@drawable/ic_close" />
         </LinearLayout>
 
         <TextView
@@ -75,28 +65,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            tools:text="@string/placeholder_sentence"
-            android:alpha="0.57"
-            android:textAppearance="?android:attr/textAppearanceListItem"/>
-
-        <LinearLayout
-            android:id="@+id/buttons"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/alternate_half_margin"
-            android:layout_marginStart="@dimen/notification_list_item_grid_layout_left_start_margin"
-            android:columnCount="3"
-            android:orientation="horizontal"/>
+            android:paddingBottom="@dimen/standard_quarter_padding"
+            android:textAppearance="?android:attr/textAppearanceListItem"
+            android:textColor="@color/secondary_text_color"
+            android:textSize="@dimen/txt_size_14sp"
+            tools:text="@string/placeholder_sentence" />
 
         <TextView
             android:id="@+id/datetime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
             android:ellipsize="end"
-            tools:text="@string/placeholder_sentence"
-            android:alpha="0.5"
-            android:textColor="?android:attr/textColorSecondary"/>
+            android:textColor="@color/secondary_text_color"
+            android:textSize="@dimen/text_size_13sp"
+            tools:text="@string/placeholder_sentence" />
+
+        <LinearLayout
+            android:id="@+id/buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_quarter_margin"
+            android:layout_marginEnd="@dimen/notification_list_item_grid_layout_left_start_margin"
+            android:columnCount="3"
+            android:gravity="start"
+            android:orientation="horizontal" />
 
     </LinearLayout>
 

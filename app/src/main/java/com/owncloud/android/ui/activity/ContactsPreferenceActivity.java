@@ -1,24 +1,10 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * @author Chris Narkiewicz <hello@ezaquarii.com>
- * Copyright (C) 2017 Tobias Kaminsky
- * Copyright (C) 2017 Nextcloud GmbH.
- * Copyright (C) 2020 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.activity;
 
@@ -28,6 +14,7 @@ import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.ui.fragment.FileFragment;
@@ -36,6 +23,7 @@ import com.owncloud.android.ui.fragment.contactsbackup.BackupListFragment;
 
 import javax.inject.Inject;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -103,18 +91,21 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         Intent intent = getIntent();
         if (savedInstanceState == null) {
             FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            if (intent == null || intent.getParcelableExtra(EXTRA_FILE) == null ||
-                intent.getParcelableExtra(EXTRA_USER) == null) {
+            if (intent == null ||
+                IntentExtensionsKt.getParcelableArgument(intent, EXTRA_FILE, OCFile.class) == null ||
+                IntentExtensionsKt.getParcelableArgument(intent, EXTRA_USER, User.class) == null) {
                 BackupFragment fragment = BackupFragment.create(showSidebar);
                 transaction.add(R.id.frame_container, fragment);
             } else {
-                OCFile file = intent.getParcelableExtra(EXTRA_FILE);
-                User user = intent.getParcelableExtra(EXTRA_USER);
+                OCFile file = IntentExtensionsKt.getParcelableArgument(intent, EXTRA_FILE, OCFile.class);
+                User user =  IntentExtensionsKt.getParcelableArgument(intent, EXTRA_USER, User.class);
                 BackupListFragment contactListFragment = BackupListFragment.newInstance(file, user);
                 transaction.add(R.id.frame_container, contactListFragment);
             }
             transaction.commit();
         }
+
+        getOnBackPressedDispatcher().addCallback(this, onBackPressedCallback);
     }
 
     @Override
@@ -137,12 +128,14 @@ public class ContactsPreferenceActivity extends FileActivity implements FileFrag
         // not needed
     }
 
-    @Override
-    public void onBackPressed() {
-        if (getSupportFragmentManager().findFragmentByTag(BackupListFragment.TAG) != null) {
-            getSupportFragmentManager().popBackStack(BACKUP_TO_LIST, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        } else {
-            finish();
+    private final OnBackPressedCallback onBackPressedCallback = new OnBackPressedCallback(true) {
+        @Override
+        public void handleOnBackPressed() {
+            if (getSupportFragmentManager().findFragmentByTag(BackupListFragment.TAG) != null) {
+                getSupportFragmentManager().popBackStack(BACKUP_TO_LIST, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            } else {
+                finish();
+            }
         }
-    }
+    };
 }

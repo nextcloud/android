@@ -1,26 +1,14 @@
 /*
- *  Copyright (C) 2015  Jon Griffiths (jon_p_griffiths@yahoo.com)
- *  Copyright (C) 2013  Dominik Schürmann <dominik@dominikschuermann.de>
- *  Copyright (C) 2010-2011  Lukas Aichbauer
+ * Nextcloud - Android Client
  *
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2015 Jon Griffiths (jon_p_griffiths@yahoo.com)
+ * SPDX-FileCopyrightText: 2013 Dominik Schürmann <dominik@dominikschuermann.de>
+ * SPDX-FileCopyrightText: 2010-2011 Lukas Aichbauer
+ * SPDX-License-Identifier: GPL-3.0-or-later
  */
-
 package third_parties.sufficientlysecure;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -41,12 +29,13 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.files.downloader.PostUploadAction;
-import com.nextcloud.client.files.downloader.Request;
-import com.nextcloud.client.files.downloader.TransferManagerConnection;
-import com.nextcloud.client.files.downloader.UploadRequest;
-import com.nextcloud.client.files.downloader.UploadTrigger;
+import com.nextcloud.client.files.Request;
+import com.nextcloud.client.files.UploadRequest;
+import com.nextcloud.client.jobs.transfer.TransferManagerConnection;
+import com.nextcloud.client.jobs.upload.PostUploadAction;
+import com.nextcloud.client.jobs.upload.UploadTrigger;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -99,6 +88,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
+
+import androidx.appcompat.app.AlertDialog;
 
 @SuppressLint("NewApi")
 public class SaveCalendar {
@@ -281,40 +272,23 @@ public class SaveCalendar {
         final int ok = android.R.string.ok;
         final int cancel = android.R.string.cancel;
         final int suggest = R.string.suggest;
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        AlertDialog dlg = builder.setIcon(R.mipmap.ic_launcher)
+        AlertDialog dlg = new MaterialAlertDialogBuilder(activity).setIcon(R.mipmap.ic_launcher)
             .setTitle(R.string.enter_destination_filename)
             .setView(input)
-            .setPositiveButton(ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface iface, int id) {
-                    result[0] = input.getText().toString();
-                }
+            .setPositiveButton(ok, (iface, id) -> result[0] = input.getText().toString())
+            .setNeutralButton(suggest, (iface, id) -> {
             })
-            .setNeutralButton(suggest, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface iface, int id) {
-                }
-            })
-            .setNegativeButton(cancel, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface iface, int id) {
-                    result[0] = "";
-                }
-            })
-            .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                public void onCancel(DialogInterface iface) {
-                    result[0] = "";
-                }
-            })
+            .setNegativeButton(cancel, (iface, id) -> result[0] = "")
+            .setOnCancelListener(iface -> result[0] = "")
             .create();
         int state = WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE;
         dlg.getWindow().setSoftInputMode(state);
         dlg.show();
         // Overriding 'Suggest' here prevents it from closing the dialog
         dlg.getButton(DialogInterface.BUTTON_NEUTRAL)
-            .setOnClickListener(new View.OnClickListener() {
-                public void onClick(View onClick) {
-                    input.setText(suggestedFile);
-                    input.setSelection(input.getText().length());
-                }
+            .setOnClickListener(onClick -> {
+                input.setText(suggestedFile);
+                input.setSelection(input.getText().length());
             });
     }
 

@@ -4,20 +4,8 @@
  * @author Infomaniak Network SA
  * Copyright (C) 2020 Infomaniak Network SA
  *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.nextcloud.ui
 
 import android.annotation.SuppressLint
@@ -35,6 +23,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
+import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogChooseAccountBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -65,7 +54,7 @@ class ChooseAccountDialogFragment :
     private var currentStatus: Status? = null
 
     private var _binding: DialogChooseAccountBinding? = null
-    private val binding get() = _binding!!
+    val binding get() = _binding!!
 
     @Inject
     lateinit var clientFactory: ClientFactory
@@ -76,7 +65,7 @@ class ChooseAccountDialogFragment :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            currentUser = it.getParcelable(ARG_CURRENT_USER_PARAM)
+            currentUser = it.getParcelableArgument(ARG_CURRENT_USER_PARAM, User::class.java)
         }
     }
 
@@ -129,6 +118,11 @@ class ChooseAccountDialogFragment :
                 true,
                 viewThemeUtils
             )
+
+            // hide "add account" when no multi account
+            if (!resources.getBoolean(R.bool.multiaccount_support)) {
+                binding.addAccount.visibility = View.GONE
+            }
 
             binding.accountsList.adapter = adapter
 
@@ -192,12 +186,11 @@ class ChooseAccountDialogFragment :
      */
     companion object {
         @JvmStatic
-        fun newInstance(user: User) =
-            ChooseAccountDialogFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(ARG_CURRENT_USER_PARAM, user)
-                }
+        fun newInstance(user: User) = ChooseAccountDialogFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable(ARG_CURRENT_USER_PARAM, user)
             }
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -232,7 +225,7 @@ class ChooseAccountDialogFragment :
 
         binding.currentAccount.status.let {
             if (newStatus.message.isNullOrBlank()) {
-                it.text = ""
+                it.text = getString(R.string.empty)
                 it.visibility = View.GONE
             } else {
                 it.text = newStatus.message

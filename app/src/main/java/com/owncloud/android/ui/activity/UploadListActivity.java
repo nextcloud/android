@@ -1,37 +1,20 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * @author Chris Narkiewicz
- * Copyright (C) 2018 Tobias Kaminsky
- * Copyright (C) 2018 Nextcloud
- * Copyright (C) 2019 Chris Narkiewicz <hello@ezaquarii.com>
- *
- * This program is free software; you can redistribute it and/or
- * modify it under the terms of the GNU AFFERO GENERAL PUBLIC LICENSE
- * License as published by the Free Software Foundation; either
- * version 3 of the License, or any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU AFFERO GENERAL PUBLIC LICENSE for more details.
- *
- * You should have received a copy of the GNU Affero General Public
- * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2018 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.activity;
 
 import android.accounts.Account;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -42,20 +25,25 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.jobs.BackgroundJobManager;
+import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.utils.Throttler;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.SyncedFolder;
+import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
-import com.owncloud.android.files.services.FileUploader;
-import com.owncloud.android.files.services.FileUploader.FileUploaderBinder;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.operations.CheckCurrentCredentialsOperation;
 import com.owncloud.android.ui.adapter.UploadListAdapter;
 import com.owncloud.android.ui.decoration.MediaGridItemDecoration;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -64,11 +52,11 @@ import javax.inject.Inject;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
- * Activity listing pending, active, and completed uploads. User can delete
- * completed uploads from view. Content of this list of coming from
- * {@link UploadsStorageManager}.
+ * Activity listing pending, active, and completed uploads. User can delete completed uploads from view. Content of this
+ * list of coming from {@link UploadsStorageManager}.
  */
 public class UploadListActivity extends FileActivity {
 
@@ -97,6 +85,9 @@ public class UploadListActivity extends FileActivity {
 
     @Inject
     BackgroundJobManager backgroundJobManager;
+
+    @Inject
+    SyncedFolderProvider syncedFolderProvider;
 
     @Inject
     LocalBroadcastManager localBroadcastManager;
@@ -144,6 +135,20 @@ public class UploadListActivity extends FileActivity {
         setupDrawer(R.id.nav_uploads);
 
         setupContent();
+        observeWorkerState();
+    }
+
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(this, state -> {
+            if (state instanceof WorkerState.Upload) {
+                Log_OC.d(TAG, "Upload worker started");
+                handleUploadWorkerState();
+            }
+        });
+    }
+
+    private void handleUploadWorkerState() {
+        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void setupContent() {
@@ -178,6 +183,7 @@ public class UploadListActivity extends FileActivity {
         swipeListRefreshLayout.setOnRefreshListener(this::refresh);
 
         loadItems();
+        uploadListAdapter.loadUploadItemsFromDb();
     }
 
     private void loadItems() {
@@ -192,16 +198,25 @@ public class UploadListActivity extends FileActivity {
     }
 
     private void refresh() {
-        backgroundJobManager.startImmediateFilesSyncJob(false, true);
+        FilesSyncHelper.startFilesSyncForAllFolders(syncedFolderProvider,
+                                                    backgroundJobManager,
+                                                    true,
+                                                    new String[]{});
 
-        // retry failed uploads
-        new Thread(() -> FileUploader.retryFailedUploads(
-            this,
-            uploadsStorageManager,
-            connectivityService,
-            userAccountManager,
-            powerManagementService
-                                                        )).start();
+        if (uploadsStorageManager.getFailedUploads().length > 0) {
+            new Thread(() -> {
+                FileUploadHelper.Companion.instance().retryFailedUploads(
+                    uploadsStorageManager,
+                    connectivityService,
+                    accountManager,
+                    powerManagementService);
+                this.runOnUiThread(() -> {
+                    uploadListAdapter.loadUploadItemsFromDb();
+                });
+            }).start();
+            DisplayUtils.showSnackMessage(this, R.string.uploader_local_files_uploaded);
+        }
+
 
         // update UI
         uploadListAdapter.loadUploadItemsFromDb();
@@ -223,9 +238,9 @@ public class UploadListActivity extends FileActivity {
         // Listen for upload messages
         uploadMessagesReceiver = new UploadMessagesReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter();
-        uploadIntentFilter.addAction(FileUploader.getUploadsAddedMessage());
-        uploadIntentFilter.addAction(FileUploader.getUploadStartMessage());
-        uploadIntentFilter.addAction(FileUploader.getUploadFinishMessage());
+        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadsAddedMessage());
+        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadStartMessage());
+        uploadIntentFilter.addAction(FileUploadWorker.Companion.getUploadFinishMessage());
         localBroadcastManager.registerReceiver(uploadMessagesReceiver, uploadIntentFilter);
 
         Log_OC.v(TAG, "onResume() end");
@@ -247,13 +262,47 @@ public class UploadListActivity extends FileActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_upload_list, menu);
-
+        updateGlobalPauseIcon(menu.getItem(0));
         return true;
+    }
+
+    @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
+    private void updateGlobalPauseIcon(MenuItem pauseMenuItem) {
+        if (pauseMenuItem.getItemId() != R.id.action_toggle_global_pause) {
+            return;
+        }
+
+        int iconId;
+        String title;
+        if (preferences.isGlobalUploadPaused()) {
+            iconId = R.drawable.ic_global_resume;
+            title = getString(R.string.upload_action_global_upload_resume);
+        } else {
+            iconId = R.drawable.ic_global_pause;
+            title = getString(R.string.upload_action_global_upload_pause);
+        }
+
+        pauseMenuItem.setIcon(iconId);
+        pauseMenuItem.setTitle(title);
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private void toggleGlobalPause(MenuItem pauseMenuItem) {
+        preferences.setGlobalUploadPaused(!preferences.isGlobalUploadPaused());
+        updateGlobalPauseIcon(pauseMenuItem);
+
+        for (User user : accountManager.getAllUsers()) {
+            if (user != null) {
+                FileUploadHelper.Companion.instance().cancelAndRestartUploadJob(user);
+            }
+        }
+
+        uploadListAdapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
+
         int itemId = item.getItemId();
 
         if (itemId == android.R.id.home) {
@@ -262,24 +311,23 @@ public class UploadListActivity extends FileActivity {
             } else {
                 openDrawer();
             }
-        } else if (itemId == R.id.action_clear_failed_uploads) {
-            uploadsStorageManager.clearFailedButNotDelayedUploads();
-            uploadListAdapter.loadUploadItemsFromDb();
+        } else if (itemId == R.id.action_toggle_global_pause) {
+            toggleGlobalPause(item);
         } else {
-            retval = super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
         }
 
-        return retval;
+        return true;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == FileActivity.REQUEST_CODE__UPDATE_CREDENTIALS && resultCode == RESULT_OK) {
-            FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
-                                                userAccountManager,
-                                                connectivityService,
-                                                powerManagementService);
+            FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
+                                                   userAccountManager,
+                                                   connectivityService,
+                                                   powerManagementService);
         }
     }
 
@@ -299,51 +347,14 @@ public class UploadListActivity extends FileActivity {
 
             } else {
                 // already updated -> just retry!
-                FilesSyncHelper.restartJobsIfNeeded(uploadsStorageManager,
-                                                    userAccountManager,
-                                                    connectivityService,
-                                                    powerManagementService);
+                FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
+                                                       userAccountManager,
+                                                       connectivityService,
+                                                       powerManagementService);
             }
 
         } else {
             super.onRemoteOperationFinish(operation, result);
-        }
-    }
-
-
-    @Override
-    protected ServiceConnection newTransferenceServiceConnection() {
-        return new UploadListServiceConnection();
-    }
-
-    /**
-     * Defines callbacks for service binding, passed to bindService()
-     */
-    private class UploadListServiceConnection implements ServiceConnection {
-
-        @Override
-        public void onServiceConnected(ComponentName component, IBinder service) {
-            if (service instanceof FileUploaderBinder) {
-                if (mUploaderBinder == null) {
-                    mUploaderBinder = (FileUploaderBinder) service;
-                    Log_OC.d(TAG, "UploadListActivity connected to Upload service. component: " +
-                            component + " service: " + service);
-                } else {
-                    Log_OC.d(TAG, "mUploaderBinder already set. mUploaderBinder: " +
-                            mUploaderBinder + " service:" + service);
-                }
-            } else {
-                Log_OC.d(TAG, "UploadListActivity not connected to Upload service. component: " +
-                        component + " service: " + service);
-            }
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName component) {
-            if (component.equals(new ComponentName(UploadListActivity.this, FileUploader.class))) {
-                Log_OC.d(TAG, "UploadListActivity suddenly disconnected from Upload service");
-                mUploaderBinder = null;
-            }
         }
     }
 

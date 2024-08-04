@@ -1,0 +1,30 @@
+# SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
+# SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
+# SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+
+name: "Detect wrong settings"
+
+on:
+    pull_request:
+        branches: [ master, stable-* ]
+
+# Declare default permissions as read only.
+permissions: read-all
+
+concurrency:
+    group: detect-wrong-settings-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
+jobs:
+    detectWrongSettings:
+        runs-on: ubuntu-22.04
+
+        steps:
+            -   uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+            -   name: Set up JDK 17
+                uses: actions/setup-java@99b8673ff64fbf99d8d325f52d9a5bdedb8483e9 # v4.2.1
+                with:
+                    distribution: "temurin"
+                    java-version: 17
+            -   name: Detect SNAPSHOT
+                run: scripts/analysis/detectWrongSettings.sh

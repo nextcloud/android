@@ -1,25 +1,10 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * Copyright (C) 2019 Tobias Kaminsky
- * Copyright (C) 2019 Nextcloud GmbH
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
-
 package com.owncloud.android.ui.preview;
 
 import android.os.Bundle;
@@ -33,14 +18,11 @@ import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
-import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -49,8 +31,8 @@ import androidx.core.view.MenuItemCompat;
 public class PreviewTextStringFragment extends PreviewTextFragment {
     private static final String EXTRA_FILE = "FILE";
 
-    @Inject UserAccountManager accountManager;
-    @Inject ViewThemeUtils viewThemeUtils;
+    private final static String TAG = "PreviewTextStringFragment";
+    private boolean isEditorWebviewLaunched = false;
 
     /**
      * Creates an empty fragment for previews.
@@ -83,6 +65,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
      */
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
+        FileExtensionsKt.logFileSize(getFile(), TAG);
         outState.putParcelable(PreviewTextStringFragment.EXTRA_FILE, getFile());
 
         super.onSaveInstanceState(outState);
@@ -107,6 +90,16 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        if (isEditorWebviewLaunched && containerActivity instanceof FileDisplayActivity fileDisplayActivity) {
+            fileDisplayActivity.getSupportFragmentManager().popBackStack();
+            fileDisplayActivity.onRefresh();
+        }
+
+        super.onStart();
+    }
+
     /**
      * {@inheritDoc}
      */
@@ -128,7 +121,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         }
     }
 
-    void loadAndShowTextPreview() {
+    public void loadAndShowTextPreview() {
         originalText = getFile().getRichWorkspace();
         setText(binding.textPreview, originalText, getFile(), requireActivity(), true, false, viewThemeUtils);
 
@@ -146,6 +139,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
                 containerActivity.getFileOperationsHelper().openRichWorkspaceWithTextEditor(getFile(),
                                                                                             url,
                                                                                             getContext());
+                isEditorWebviewLaunched = true;
             } else {
                 DisplayUtils.showSnackMessage(getView(), "Error");
             }

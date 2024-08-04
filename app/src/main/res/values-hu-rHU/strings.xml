@@ -7,17 +7,14 @@
     <string name="account_creation_failed">A fiók létrehozása sikertelen</string>
     <string name="account_icon">Fiók ikon</string>
     <string name="account_not_found">A fiók nem található!</string>
-    <string name="action_clear_failed_uploads">Sikertelen feltöltések eltávolítása</string>
     <string name="action_edit">Szerkesztés</string>
     <string name="action_empty_notifications">Összes értesítés törlése</string>
     <string name="action_empty_trashbin">Kuka ürítése</string>
     <string name="action_send_share">Küldés/megosztás</string>
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
-    <string name="actionbar_calendar_contacts_restore">Névjegyek és naptár helyreállítása</string>
-    <string name="actionbar_copy">Másolás</string>
     <string name="actionbar_mkdir">Új mappa</string>
-    <string name="actionbar_move">Áthelyezés</string>
+    <string name="actionbar_move_or_copy">Áthelyezés vagy Másolás</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
     <string name="actionbar_search">Keresés</string>
     <string name="actionbar_see_details">Részletek</string>
@@ -36,8 +33,16 @@
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
     <string name="advanced_settings">Speciális beállítások</string>
     <string name="allow_resharing">Újra megosztás engedélyezése</string>
+    <string name="app_config_proxy_port_title">Proxy portja</string>
     <string name="app_widget_description">Egy modult jelenít meg a irányítópultról</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
+    <string name="assistant_screen_all_task_type">Összes</string>
+    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Gépeljen be szöveget</string>
+    <string name="assistant_screen_failed_task_text">Sikertelen</string>
+    <string name="assistant_screen_scheduled_task_status_text">Ütemezve</string>
+    <string name="assistant_screen_successful_task_text">Teljesített</string>
+    <string name="assistant_screen_task_delete_success_message">Feladat sikeresen törölve</string>
+    <string name="assistant_screen_unknown_task_status_text">Ismeretlen</string>
     <string name="associated_account_not_found">A kapcsolódó fiók nem található!</string>
     <string name="auth_access_failed">Hozzáférési hiba: %1$s</string>
     <string name="auth_account_does_not_exist">Az eszközön még nem létezik a fiók</string>
@@ -79,7 +84,6 @@
     <string name="avatar">Avatár</string>
     <string name="away">Távol</string>
     <string name="backup_settings">Biztonsági mentés beállításai</string>
-    <string name="backup_title">Névjegyek és naptár biztonsági mentése</string>
     <string name="battery_optimization_close">Bezárás</string>
     <string name="battery_optimization_disable">Letiltás</string>
     <string name="battery_optimization_message">Az eszközön lehet, hogy be van kapcsolva az akkumulátor optimalizálás. Az automatikus feltöltés csak akkor működik megfelelően, ha tiltólistára teszi ezt az alkalmazást.</string>
@@ -92,7 +96,6 @@
     <string name="check_back_later_or_reload">Nézzen vissza később vagy töltse újra.</string>
     <string name="checkbox">Jelölőmező</string>
     <string name="choose_local_folder">Válasszon helyi mappát…</string>
-    <string name="choose_location">Válasszon helyet</string>
     <string name="choose_remote_folder">Válasszon távoli mappát…</string>
     <string name="choose_template_helper_text">Válasszon egy sablont, és írja be a fájl nevét.</string>
     <string name="choose_which_file">Válasszon melyik fájl legyen megtartva!</string>
@@ -122,7 +125,6 @@
     <string name="common_remove">Törlés</string>
     <string name="common_rename">Átnevezés</string>
     <string name="common_save">Mentés</string>
-    <string name="common_select">Kiválasztás</string>
     <string name="common_send">Küldés</string>
     <string name="common_share">Megosztás</string>
     <string name="common_skip">Kihagyás</string>
@@ -146,7 +148,6 @@
     <string name="community_testing_bug_text">Hibát talált? Vagy furcsaságot?</string>
     <string name="community_testing_headline">Segítsen a teszteléssel</string>
     <string name="community_testing_report_text">Jelentse az esetet a GitHubon</string>
-    <string name="community_testing_version_text">Segítene a következő verzió tesztelésében?</string>
     <string name="configure_new_media_folder_detection_notifications">Beállítás</string>
     <string name="confirm_removal">Helyi titkosítás eltávolítása</string>
     <string name="confirmation_remove_file_alert">Biztos, hogy törli ezt: %1$s?</string>
@@ -154,11 +155,12 @@
     <string name="confirmation_remove_folder_alert">Biztos, hogy törli ezt: %1$s és a tartalmát?</string>
     <string name="confirmation_remove_folders_alert">Biztos, hogy törli a kiválasztott elemeket és tartalmukat?</string>
     <string name="confirmation_remove_local">Csak a helyi példány</string>
-    <string name="conflict_dialog_error">Hiba az ütközési párbeszédablak létrehozásakor!</string>
     <string name="conflict_file_headline">Ütköző fájl: %1$s</string>
     <string name="conflict_local_file">Helyi fájl</string>
     <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl nevéhez egy szám lesz hozzáfűzve.</string>
     <string name="conflict_server_file">Kiszolgálón lévő fájl</string>
+    <string name="contact_backup_title">Névjegyek biztonsági mentése</string>
+    <string name="contact_no_permission">Névjegy engedély szükséges.</string>
     <string name="contactlist_item_icon">Felhasználó ikon a névjegylistához</string>
     <string name="contactlist_no_permission">Nincs jogosultság megadva, semmi sem lett importálva.</string>
     <string name="contacts">Névjegyek</string>
@@ -174,26 +176,21 @@
     <string name="copy_file_not_found">Nem lehet másolni. Ellenőrizze, hogy létezik-e a fájl.</string>
     <string name="copy_link">Hivatkozás másolása</string>
     <string name="copy_move_to_encrypted_folder_not_supported">A titkosított mappába másolás/áthelyezés jelenleg nem támogatott.</string>
-    <string name="copy_to">Másolás ide…</string>
     <string name="could_not_download_image">Nem sikerült letölteni a teljes képet</string>
     <string name="could_not_retrieve_shares">Nem sikerült lekérni a megosztásokat</string>
     <string name="could_not_retrieve_url">Az URL nem kérhető le</string>
     <string name="create">Létrehozás</string>
     <string name="create_dir_fail_msg">A mappa létrehozása sikertelen</string>
-    <string name="create_new">Új létrehozása</string>
-    <string name="create_new_document">Új dokumentum létrehozása</string>
-    <string name="create_new_folder">Új mappa létrehozása</string>
-    <string name="create_new_presentation">Új bemutató létrehozása</string>
-    <string name="create_new_spreadsheet">Új munkafüzet létrehozása</string>
-    <string name="create_rich_workspace">Mappainformációk hozzáadása</string>
-    <string name="creates_rich_workspace">létrehozza a mappainformációkat</string>
+    <string name="create_new">Új</string>
+    <string name="create_new_document">Új dokumentum</string>
+    <string name="create_new_folder">Új mappa</string>
+    <string name="create_new_presentation">Új bemutató</string>
+    <string name="create_new_spreadsheet">Új munkafüzet</string>
     <string name="credentials_disabled">Hitelesítő adatok letiltva</string>
     <string name="daily_backup">Napi biztonsági mentés</string>
     <string name="data_to_back_up">Mentendő adatok</string>
-    <string name="date_unknown">Ismeretlen</string>
     <string name="default_credentials_wrong">Hibás hitelesítési adatok</string>
     <string name="delete_account">Fiók eltávolítása</string>
-    <string name="delete_account_warning">A(z) %s fiók törlése az összes helyi fájlal együtt?\n\nA törlés nem vonható vissza.</string>
     <string name="delete_entries">Bejegyzések törlése</string>
     <string name="delete_link">Hivatkozás törlése</string>
     <string name="deselect_all">Kijelölés megszüntetése</string>
@@ -205,6 +202,7 @@
     <string name="did_not_check_for_dupes">Nem keresett ismételt elemeket.</string>
     <string name="digest_algorithm_not_available">Ez a feldolgozó algoritmus nem elérhető a telefonján.</string>
     <string name="direct_login_failed">A közvetlen hivatkozáson keresztül történő bejelentkezés sikertelen!</string>
+    <string name="direct_login_text">Bejelentkezés ezzel: %1$s, ide: %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">Letiltás</string>
     <string name="dismiss">Elutasítás</string>
     <string name="dismiss_notification_description">Értesítés mellőzése</string>
@@ -236,9 +234,11 @@
     <string name="drawer_item_all_files">Összes fájl</string>
     <string name="drawer_item_favorites">Kedvencek</string>
     <string name="drawer_item_gallery">Média</string>
+    <string name="drawer_item_groupfolders">Csoportmappák</string>
     <string name="drawer_item_home">Saját mappa</string>
     <string name="drawer_item_notifications">Értesítések</string>
     <string name="drawer_item_on_device">Az eszközön</string>
+    <string name="drawer_item_personal_files">Személyes fájlok</string>
     <string name="drawer_item_recently_modified">Utoljára módosítva</string>
     <string name="drawer_item_shared">Megosztott</string>
     <string name="drawer_item_trashbin">Törölt fájlok</string>
@@ -249,6 +249,14 @@
     <string name="drawer_quota_unlimited">%1$s használt</string>
     <string name="drawer_synced_folders">Automatikus feltöltés</string>
     <string name="e2e_not_yet_setup">A végpontok közti titkosítás még nincs beállítva</string>
+    <string name="e2e_offline">Internetkapcsolat nélkül nem lehetséges</string>
+    <string name="ecosystem_apps_display_more">Továbbiak</string>
+    <string name="ecosystem_apps_display_notes">Jegyzetek</string>
+    <string name="ecosystem_apps_display_talk">Beszélgetés</string>
+    <string name="ecosystem_apps_more">További nextcloudos alkalmazások</string>
+    <string name="ecosystem_apps_notes">Nextcloud Jegyzetek</string>
+    <string name="ecosystem_apps_talk">Nextcloud Beszélgetés</string>
+    <string name="email_pick_failed">Az e-mail-cím kiválasztása sikertelen.</string>
     <string name="encrypted">Titkosítás bekapcsolása</string>
     <string name="end_to_end_encryption_confirm_button">Titkosítás beállítása</string>
     <string name="end_to_end_encryption_decrypting">Visszafejtés…</string>
@@ -282,11 +290,9 @@
     <string name="error_showing_encryption_dialog">Hiba a titkosítás beállítóablakának megjelenítése során!</string>
     <string name="error_starting_direct_camera_upload">Hiba a kamera indításakor</string>
     <string name="error_starting_doc_scan">Hiba a dokumentumbeolvasás elindítása során</string>
-    <string name="error_starting_scan_doc">Hiba a dokumentumbeolvasás használata sorá</string>
     <string name="etm_accounts">Fiókok</string>
     <string name="etm_background_job_name">Feladat neve</string>
     <string name="etm_background_job_progress">Folyamat</string>
-    <string name="etm_background_job_started">Elindítva</string>
     <string name="etm_background_job_state">Állapot</string>
     <string name="etm_background_job_user">Felhasználó</string>
     <string name="etm_background_job_uuid">Egyedi azonosító</string>
@@ -334,6 +340,7 @@
     <string name="file_list_empty_shared_headline">Még semmi sincs megosztva</string>
     <string name="file_list_empty_unified_search_no_results">Nincs találat a kereséséhez</string>
     <string name="file_list_folder">mappa</string>
+    <string name="file_list_live">ÉLŐ</string>
     <string name="file_list_loading">Betöltés…</string>
     <string name="file_list_no_app_for_file_type">Nincs alkalmazás beállítva ehhez a fájltípushoz.</string>
     <string name="file_list_seconds_ago">másodperce</string>
@@ -367,6 +374,7 @@
     <string name="file_rename">Átnevezés</string>
     <string name="file_version_restored_error">Hiba a fájl verziójának visszaállításakor!</string>
     <string name="file_version_restored_successfully">Fájl verzió sikeresen visszaállítva.</string>
+    <string name="filedetails_details">Részletek</string>
     <string name="filedetails_download">Letöltés</string>
     <string name="filedetails_export">Exportálás</string>
     <string name="filedetails_renamed_in_upload_msg">A fájl feltöltés közben átnevezve erre: %1$s</string>
@@ -377,20 +385,19 @@
     <string name="filename_forbidden_charaters_from_server">A fájlnév legalább egy érvénytelen karaktert tartalmaz</string>
     <string name="filename_hint">Fájlnév</string>
     <string name="first_run_1_text">Tartsa az adatait biztonságban és a saját felügyelete alatt</string>
-    <string name="first_run_2_text">Biztonságos csoportmunka és fájlmegosztás</string>
-    <string name="first_run_3_text">Könnyen használható webes levelezés, naptárkezelés és névjegyek</string>
-    <string name="first_run_4_text">Képernyőmegosztás, online megbeszélések és webes konferenciák</string>
     <string name="folder_already_exists">A mappa már létezik</string>
     <string name="folder_confirm_create">Létrehozás</string>
     <string name="folder_list_empty_headline">Itt nincsenek mappák</string>
     <string name="folder_picker_choose_button_text">Válasszon</string>
+    <string name="folder_picker_choose_caption_text">Válasszon célmappát</string>
+    <string name="folder_picker_copy_button_text">Másolás</string>
+    <string name="folder_picker_move_button_text">Áthelyezés</string>
     <string name="forbidden_permissions">Nem engedélyezett %s</string>
     <string name="forbidden_permissions_copy">a fájl másolása</string>
     <string name="forbidden_permissions_create">fájl létrehozása</string>
     <string name="forbidden_permissions_delete">fájl törlése</string>
     <string name="forbidden_permissions_move">a fájl áthelyezése</string>
     <string name="forbidden_permissions_rename">fájl átnevezése</string>
-    <string name="foreground_service_download">Fájlok letöltése…</string>
     <string name="foreground_service_upload">Fájlok feltöltése…</string>
     <string name="foreign_files_fail">Néhány fájl nem helyezhető át</string>
     <string name="foreign_files_local_text">Helyi: %1$s</string>
@@ -408,6 +415,19 @@
     <string name="icon_for_empty_list">Az üres lista ikonja</string>
     <string name="icon_of_dashboard_widget">Irányítópult-modul ikonja</string>
     <string name="icon_of_widget_entry">Modulbejegyzés ikonja</string>
+    <string name="image_editor_file_edited_suffix">szerkesztve</string>
+    <string name="image_editor_flip_horizontal">Tükrözés vízszintesen</string>
+    <string name="image_editor_flip_vertical">Tükrözés függőlegesen</string>
+    <string name="image_editor_rotate_ccw">Forgatás balra</string>
+    <string name="image_editor_rotate_cw">Forgatás jobbra</string>
+    <string name="image_editor_unable_to_edit_image">A kép nem szerkeszthető.</string>
+    <string name="image_preview_filedetails">Fájl részletei</string>
+    <string name="image_preview_image_taking_conditions">Képkészítési körülmények</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="in_folder">%1$s mappában</string>
     <string name="instant_upload_existing">A meglévő fájlokat is töltse fel</string>
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
@@ -420,7 +440,7 @@
     <string name="link_name">Hivatkozás neve</string>
     <string name="link_share_allow_upload_and_editing">Feltöltés és szerkesztés engedélyezése</string>
     <string name="link_share_editing">Szerkesztés</string>
-    <string name="link_share_file_drop">Fájllerakat (csak feltöltés)</string>
+    <string name="link_share_file_drop">Fájlelhelyezés (csak feltöltés)</string>
     <string name="link_share_view_only">Csak megtekintés</string>
     <string name="list_layout">Listás elrendezés</string>
     <string name="load_more_results">További találatok betöltése</string>
@@ -435,6 +455,7 @@
     <string name="locked_by_app">Zárolta: %1$s alkalmazás</string>
     <string name="log_send_mail_subject">%1$s androidos alkalmazás naplói</string>
     <string name="log_send_no_mail_app">Nincs alkalmazás a napló küldéshez. Telepítsen egy levelezőprogramot.</string>
+    <string name="logged_in_as">Bejelentkezve mint %1$s</string>
     <string name="login">Bejelentkezés</string>
     <string name="login_url_helper_text">A %1$s webes felületére mutató hivatkozás, amikor megnyitja a böngészőben.</string>
     <string name="logs_menu_delete">Naplók törlése</string>
@@ -471,7 +492,6 @@
     <string name="move_file_invalid_into_descendent">Nem helyezhető át egy mappa a saját almappájába</string>
     <string name="move_file_invalid_overwrite">A fájl már létezik a célmappában</string>
     <string name="move_file_not_found">A fájl nem helyezhető át. Ellenőrizze, hogy létezik-e.</string>
-    <string name="move_to">Áthelyezés ide…</string>
     <string name="network_error_connect_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>
     <string name="network_error_socket_exception">Hiba történt a kiszolgálóhoz kapcsolódás közben.</string>
     <string name="network_error_socket_timeout_exception">Hiba történt a kiszolgálóra várakozás közben. A művelet nem teljesíthető.</string>
@@ -487,11 +507,11 @@
     <string name="no_calendar_exists">Nem létezik naptár</string>
     <string name="no_email_app_available">Nem érhető el alkalmazás a levélcímek kezeléséhez</string>
     <string name="no_items">Nincsenek elemek</string>
+    <string name="no_map_app_availble">Nincs elérhető alkalmazás a térképek kezeléséhez</string>
     <string name="no_mutliple_accounts_allowed">Csak egy fiók engedélyezett</string>
     <string name="no_pdf_app_available">Nincs elérhető alkalmazás PDF kezeléséhez</string>
     <string name="no_send_app">Nem érhető el alkalmazás a kiválasztott fájlok küldéséhez</string>
     <string name="no_share_permission_selected">Válasszon legalább egy jogosultságot a megosztáshoz.</string>
-    <string name="note_confirm">Küldés</string>
     <string name="note_could_not_sent">A jegyzet nem küldhető el</string>
     <string name="note_icon_hint">Megjegyzés ikon</string>
     <string name="notification_action_failed">A művelet végrehajtása sikertelen.</string>
@@ -525,6 +545,7 @@
     <string name="pass_code_removed">Számkód törölve</string>
     <string name="pass_code_stored">Számkód eltárolva</string>
     <string name="pass_code_wrong">Hibás számkód</string>
+    <string name="pdf_password_protected">A jelszóval védett PDF nem nyitható meg. Használjon külső PDF-megjelenítőt.</string>
     <string name="pdf_zoom_tip">A nagyításhoz koppintson a lapra</string>
     <string name="permission_allow">Engedélyezés</string>
     <string name="permission_deny">Megtagadás</string>
@@ -550,17 +571,14 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Új verzió átnevezése</string>
     <string name="pref_instant_name_collision_policy_title">Mit tegyen, ha a fájl már létezik?</string>
     <string name="prefs_add_account">Fiók hozzáadása</string>
-    <string name="prefs_calendar_contacts">Naptár és névjegyek szinkronizálása</string>
-    <string name="prefs_calendar_contacts_address_resolve_error">A fiók kiszolgálócíme nem oldható fel a DAVx5 (régi nevén DAVdroid) számára</string>
     <string name="prefs_calendar_contacts_no_store_error">Sem az F-Droid, sem a Google Play nincs telepítve</string>
     <string name="prefs_calendar_contacts_summary">DAVx5 (régi nevén DAVdroid) (v1.3.0+) beállítása a jelenlegi fiókhoz</string>
-    <string name="prefs_calendar_contacts_sync_setup_successful">Szinkronizálás beállítva a naptárhoz és a névjegyekhez</string>
     <string name="prefs_category_about">Névjegy</string>
     <string name="prefs_category_details">Részletek</string>
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
-    <string name="prefs_daily_backup_summary">Napi biztonsági mentés a naptáráról és a névjegyeiről</string>
+    <string name="prefs_daily_contact_backup_summary">Névjegyek napi biztonsági mentése</string>
     <string name="prefs_davx5_setup_error">Váratlan hiba a DAVx5 (előző nevén DAVdroid) beállítása során</string>
     <string name="prefs_e2e_active">A végpontok közti titkosítás beállítva!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonikus kód</string>
@@ -572,8 +590,9 @@
     <string name="prefs_imprint">Impresszum</string>
     <string name="prefs_instant_behaviour_dialogTitle">Az eredeti fájl…</string>
     <string name="prefs_instant_behaviour_title">Az eredeti fájl…</string>
-    <string name="prefs_instant_upload_path_use_subfolders_summary">Tárolás év és hónap szerinti almappákban</string>
+    <string name="prefs_instant_upload_path_use_date_subfolders_summary">Tárolás dátum szerinti almappákban</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Almappák használata</string>
+    <string name="prefs_instant_upload_subfolder_rule_title">Almappabeállítások</string>
     <string name="prefs_keys_exist">Végpontok közti titkosítás hozzáadása ehhez a klienshez</string>
     <string name="prefs_license">Licenc</string>
     <string name="prefs_lock">Alkalmazás számkód</string>
@@ -587,6 +606,8 @@
     <string name="prefs_recommend">Ajánlás egy barátnak</string>
     <string name="prefs_remove_e2e">Titkosítás eltávolítása helyileg</string>
     <string name="prefs_setup_e2e">Végpontok közti titkosítás beállítása</string>
+    <string name="prefs_show_ecosystem_apps">Alkalmazásváltó megjelenítése</string>
+    <string name="prefs_show_ecosystem_apps_summary">Nextcloud alkalmazásjavaslatok a navigációs fejlécben</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_sourcecode">Forráskód beszerzése</string>
     <string name="prefs_storage_path">Adattároló mappa</string>
@@ -600,6 +621,7 @@
     <string name="preview_image_description">Kép előnézete</string>
     <string name="preview_image_error_no_local_file">Nincs helyi fájl az előnézethez</string>
     <string name="preview_image_error_unknown_format">A kép nem jeleníthető meg</string>
+    <string name="preview_image_file_is_not_exist">A fájl nem létezik</string>
     <string name="preview_sorry">Sajnáljuk</string>
     <string name="privacy">Adatvédelem</string>
     <string name="public_share_name">Új név</string>
@@ -617,12 +639,17 @@
     <string name="remove_e2e">Helyileg eltávolíthatja a végpontok közti titkosítást ennél a kliensnél</string>
     <string name="remove_e2e_message">Helyileg eltávolíthatja a végpontok közti titkosítást ennél a kliensnél. A titkosított fájlok továbbra is a kiszolgálón maradnak, de már nem lesznek szinkronizálva erre a számítógépre.</string>
     <string name="remove_fail_msg">Törlés sikertelen</string>
+    <string name="remove_local_account">Helyi fiók eltávolítása</string>
+    <string name="remove_local_account_details">A fiók eltávolítása az eszközről, és az összes helyi fájl törlése</string>
     <string name="remove_notification_failed">Az értesítés eltávolítása sikertelen.</string>
     <string name="remove_push_notification">Eltávolítás</string>
     <string name="remove_success_msg">Törölve</string>
     <string name="rename_dialog_title">Adjon meg egy új nevet</string>
     <string name="rename_local_fail_msg">A helyi másolat nem nevezhető át, próbáljon meg egy másik nevet</string>
     <string name="rename_server_fail_msg">Nem nevezhető át, ez a név már foglalt</string>
+    <string name="request_account_deletion">Fióktörlés kérése</string>
+    <string name="request_account_deletion_button">Törlés kérése</string>
+    <string name="request_account_deletion_details">A fiók végleges törlésének kérése a szolgáltatótól</string>
     <string name="reshare_not_allowed">Az újra megosztás nem engedélyezett</string>
     <string name="resharing_is_not_allowed">Az újra megosztás nem engedélyezett</string>
     <string name="resized_image_not_possible_download">Nincs elérhető átméretezett kép. Letölti a teljes képet?</string>
@@ -643,7 +670,6 @@
     <string name="screenshot_04_accounts_heading">Az összes fiókja</string>
     <string name="screenshot_04_accounts_subline">egy helyen</string>
     <string name="screenshot_05_autoUpload_heading">Automatikus feltöltés</string>
-    <string name="screenshot_05_autoUpload_subline">a képeinek és videóinak</string>
     <string name="screenshot_06_davdroid_heading">Naptár és névjegyek</string>
     <string name="screenshot_06_davdroid_subline">Szinkronizálás DAVx5-tel</string>
     <string name="search_error">Hiba a keresési találatok lekérésekor</string>
@@ -652,7 +678,6 @@
     <string name="select_one_template">Válasszon egy sablont</string>
     <string name="select_template">Válasszon sablont</string>
     <string name="send">Küldés</string>
-    <string name="send_note">Jegyzet küldése a címzettnek</string>
     <string name="send_share">Megosztás küldése</string>
     <string name="sendbutton_description">Küldés gomb ikon</string>
     <string name="set_as">Beállítás mint</string>
@@ -662,7 +687,6 @@
     <string name="set_status_message">Állapotüzenet beállítása</string>
     <string name="setup_e2e">A végpontok közti titkosítás beállítása során kap egy 12 véletlenszerű szóból álló mnemonikus kódot, amelyre akkor lesz szüksége, ha más eszközökön akarja megnyitni a fájlokat. Ez csak ezen az eszközön lesz tárolva, és újra megjeleníthető ezen a képernyőn. Jegyezze le, és tárolja biztonságos helyen!</string>
     <string name="share">Megosztás</string>
-    <string name="share_copy_link">Megosztás és hivatkozás másolása</string>
     <string name="share_dialog_title">Megosztás</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Lejárat: %1$s</string>
@@ -710,12 +734,6 @@
     <string name="signup_with_provider">Regisztráció egy szolgáltatóval</string>
     <string name="single_sign_on_request_token" formatted="true">Engedélyezi, hogy a(z) %1$s hozzáférjen a(z) %2$s Nextcloud fiókjához?</string>
     <string name="sort_by">Rendezés elve</string>
-    <string name="sort_by_modification_date_ascending">Legújabb elöl</string>
-    <string name="sort_by_modification_date_descending">Régebbi elöl</string>
-    <string name="sort_by_name_ascending">A – Z</string>
-    <string name="sort_by_name_descending">Z – A</string>
-    <string name="sort_by_size_ascending">Legkisebb elöl</string>
-    <string name="sort_by_size_descending">Legnagyobb elöl</string>
     <string name="ssl_validator_btn_details_hide">Elrejtés</string>
     <string name="ssl_validator_btn_details_see">Részletek</string>
     <string name="ssl_validator_header">A kiszolgáló személyazonosságát nem sikerült azonosítani</string>
@@ -753,25 +771,6 @@
     <string name="storage_permission_full_access">Teljes hozzáférés</string>
     <string name="storage_permission_media_read_only">Írásvédett média</string>
     <string name="storage_pictures">Képek</string>
-    <string name="store_full_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.
-
-Szolgáltatások:
-* Egyszerű, modern felület, mely igazodik a kiszolgáló témájához.
-* Fájlok feltöltése a Nextcloud kiszolgálódra
-* Fájlmegosztás másokkal
-* Kedvenc fájljaid és mappáid szinkronizálása
-* Keresés a kiszolgáló mappái között
-* Az eszközöddel készített videók és képek automatikus feltöltése
-* Értesítések fogadása
-* Több fiók támogatása
-* Biztonságosa adatelérés PIN-kód vagy ujjlenyomat segítségével
-* Kapcsolódás DAVx5-tel (régi nevén DAVdroid) a naptár és névjegy szinkronizálás megkönnyítéséhez
-
-Jelents minden hibát a https://github.com/nextcloud/android/issues címen, és beszélgess az appról itt: https://help.nextcloud.com/c/clients/android
-
-Új neked a Nextcloud? A Nextcloud egy privát fájlszinkronizáló, -megosztó és kommunikációs kiszolgáló. Teljesen szabad szoftver, melyet te magad is futtathatsz, vagy fizethetsz más cégeknek, hogy megtegyék neked. Segítségével teljesen ura lehetsz saját képeidnek, naptáradnak, névjegyeidnek, fájljaidnak és minden egyebednek.
-
-A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="store_full_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást.\nEz a hivatalos fejlesztői változat, amely napi mintát ad a nem tesztelt, új funkciókról, melyek instabilitást és adatvesztést okozhatnak. Az alkalmazások azoknak a felhasználóknak készült, akik hajlandóak tesztelni, és hibákat bejelenteni, ha azok előfordulnak. Ne használja éles munkához!\n\nMind a hivatalos fejlesztői, mind a szokásos verzió elérhető az F-droidon, és egyszerre is telepíthetőek.</string>
     <string name="store_short_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást</string>
     <string name="store_short_dev_desc">A saját üzemeltetésű irodai platform, amely az Ön kezébe adja az irányítást (fejlesztői előzetes verzió)</string>
@@ -779,10 +778,12 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="stream_not_possible_headline">A belső közvetítés nem lehetséges</string>
     <string name="stream_not_possible_message">Helyette töltse le a médiát, vagy használjon külső alkalmazást.</string>
     <string name="strict_mode">Szigorú mód: a HTTP kapcsolatok nem engedélyezettek.</string>
+    <string name="sub_folder_rule_day">Év/hónap/nap</string>
+    <string name="sub_folder_rule_month">Év/hónap</string>
+    <string name="sub_folder_rule_year">Év</string>
     <string name="subject_shared_with_you">Megosztották Önnel: „%1$s”</string>
     <string name="subject_user_shared_with_you">%1$s megosztotta Önnel: „%2$s”</string>
     <string name="subtitle_photos_only">Csak fényképek</string>
-    <string name="subtitle_photos_videos">Fényképek és videók</string>
     <string name="subtitle_videos_only">Csak videók</string>
     <string name="suggest">Javaslat</string>
     <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>
@@ -807,7 +808,6 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="synced_folders_configure_folders">Mappák beállítása</string>
     <string name="synced_folders_new_info">Az azonnali feltöltés teljesen át lett dolgozva. Állítsa be újra az automatikus feltöltést a főmenüben.\n\nÉlvezze az új és kibővített automatikus feltöltést.</string>
     <string name="synced_folders_no_results">Nem találhatók médiamappák.</string>
-    <string name="synced_folders_preferences">Automatikus feltöltés beállításai</string>
     <string name="synced_folders_preferences_folder_path">Neki: %1$s</string>
     <string name="synced_folders_type">Típus</string>
     <string name="synced_icon">Szinkronizálva</string>
@@ -818,19 +818,20 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="thumbnail">Bélyegkép</string>
     <string name="thumbnail_for_existing_file_description">Létező fájl bélyegképe</string>
     <string name="thumbnail_for_new_file_desc">Új fájl bélyegképe</string>
-    <string name="timeout_richDocuments">A betöltés sokáig tart…</string>
+    <string name="timeout_richDocuments">A feladat a vártnál tovább tart</string>
     <string name="today">Ma</string>
     <string name="trashbin_activity_title">Törölt fájlok</string>
     <string name="trashbin_empty_headline">Nincs törölt fájl</string>
     <string name="trashbin_empty_message">Innen vissza tudja állítani a törölt fájljait.</string>
     <string name="trashbin_file_not_deleted">A(z) %1$s fájl nem törölhető!</string>
     <string name="trashbin_file_not_restored">A(z) %1$s fájl nem állítható vissza!</string>
+    <string name="trashbin_file_remove">Végleges törlés</string>
     <string name="trashbin_loading_failed">A kuka betöltése sikertelen.</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
     <string name="unlock_file">Fájl feloldása</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>
-    <string name="unset_favorite">Eltávolítás a kedvencekből</string>
+    <string name="unset_favorite">Eltávolítás a kedvencek közül</string>
     <string name="unshare_link_file_error">Hiba történt a mappa megosztásának visszavonásakor.</string>
     <string name="unshare_link_file_no_exist">A megosztás visszavonása sikertelen. Ellenőrizze, hogy a fájl létezik-e.</string>
     <string name="unshare_link_forbidden_permissions">fájl megosztásának visszavonása</string>
@@ -840,6 +841,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="update_link_file_no_exist">Nem lehet frissíteni. Ellenőrizze, hogy a fájl létezik-e</string>
     <string name="update_link_forbidden_permissions">megosztás frissítése</string>
     <string name="updating_share_failed">A megosztás frissítése sikertelen</string>
+    <string name="upload_action_failed_clear">Sikertelen feltöltések eltávolítása</string>
+    <string name="upload_action_failed_retry">Sikertelen feltöltések újrapróbálása</string>
     <string name="upload_cannot_create_file">A helyi fájlt nem lehet létrehozni</string>
     <string name="upload_chooser_title">Feltöltés innen…</string>
     <string name="upload_content_from_other_apps">Más alkalmazásból származó tartalom feltöltése</string>
@@ -861,6 +864,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="upload_lock_failed">A mappa zárolása sikertelen</string>
     <string name="upload_old_android">A titkosítás csak 5.0-s vagy újabb Android esetén lehetséges</string>
     <string name="upload_query_move_foreign_files">Nincs elég hely a fájlok ebbe a mappába másolásához: %1$s. Áthelyezi inkább őket?</string>
+    <string name="upload_quota_exceeded">Tárhelykvóta túllépve</string>
     <string name="upload_scan_doc_upload">Dokumentum beolvasása a kamerával</string>
     <string name="upload_sync_conflict">Szinkronizálási ütközés, javítsa kézzel</string>
     <string name="upload_unknown_error">Ismeretlen hiba</string>
@@ -872,6 +876,8 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="uploader_error_message_source_file_not_found">A feltöltésre kiválasztott fájl nem található. Ellenőrizze, hogy létezik-e.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Ezt a fájlt nem lehet feltölteni</string>
     <string name="uploader_error_title_no_file_to_upload">Nincs feltöltendő fájl</string>
+    <string name="uploader_file_not_found_message">A fájl nem található. Biztos, hogy létezik ez a fájl, vagy egy előző ütközés nem lett feloldva?</string>
+    <string name="uploader_file_not_found_on_server_message">A fájl nem található a kiszolgálón. Lehet, hogy egy másik felhasználó törölte a fájlt.</string>
     <string name="uploader_info_dirname">Mappa neve</string>
     <string name="uploader_top_message">Válasszon feltöltési mappát</string>
     <string name="uploader_upload_failed_content_single">%1$s feltöltése sikertelen.</string>
@@ -895,6 +901,7 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="uploads_view_group_current_uploads">Jelenlegi</string>
     <string name="uploads_view_group_failed_uploads">Sikertelen/Függőben lévő újraindítás</string>
     <string name="uploads_view_group_finished_uploads">Feltöltve</string>
+    <string name="uploads_view_group_manually_cancelled_uploads">Megszakítva</string>
     <string name="uploads_view_later_waiting_to_upload">Várakozás a feltöltésre</string>
     <string name="uploads_view_title">Feltöltések</string>
     <string name="uploads_view_upload_status_cancelled">Megszakítva</string>
@@ -929,12 +936,16 @@ A Nextcloud itt érhető el: https://nextcloud.com</string>
     <string name="wait_a_moment">Egy pillanat…</string>
     <string name="wait_checking_credentials">Tárolt hitelesítő adatok ellenőrzése</string>
     <string name="wait_for_tmp_copy_from_private_storage">Fájl másolása a privát tárolóról</string>
+    <string name="webview_version_check_alert_dialog_message">A bejelentkezéshez frissítse az Android System WebView alkalmazást</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Frissítés</string>
+    <string name="webview_version_check_alert_dialog_title">Az Android System WebView frissítése</string>
     <string name="what_s_new_image">Újdonságok kép</string>
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>
     <string name="whats_your_status">Mi az állapota?</string>
     <string name="widgets_not_available">A modulok csak %1$s 25 vagy újabb esetén érhetők el</string>
     <string name="widgets_not_available_title">Nem érhető el</string>
+    <string name="worker_download">Fájlok letöltése…</string>
     <string name="write_email">E-mail küldése</string>
     <string name="wrong_storage_path">Adattároló mappa nem létezik!</string>
     <string name="wrong_storage_path_desc">Ennek oka lehet egy másik eszköz biztonsági mentésének visszaállítása. Visszatérés az alapértelmezettre. Ellenőrizze a beállításokat az adattárolási mappa beállításához.</string>

@@ -1,25 +1,10 @@
 /*
+ * Nextcloud - Android Client
  *
- * Nextcloud Android client application
- *
- * @author Tobias Kaminsky
- * @author TSI-mc
- * Copyright (C) 2020 Tobias Kaminsky
- * Copyright (C) 2020 Nextcloud GmbH
- * Copyright (C) 2021 TSI-mc
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
+ * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
+ * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2021 TSI-mc
+ * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.fragment
 
@@ -43,13 +28,13 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
-import com.owncloud.android.lib.resources.shares.OCShare.CREATE_PERMISSION_FLAG
-import com.owncloud.android.lib.resources.shares.OCShare.DELETE_PERMISSION_FLAG
-import com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FILE
-import com.owncloud.android.lib.resources.shares.OCShare.MAXIMUM_PERMISSIONS_FOR_FOLDER
-import com.owncloud.android.lib.resources.shares.OCShare.NO_PERMISSION
-import com.owncloud.android.lib.resources.shares.OCShare.READ_PERMISSION_FLAG
-import com.owncloud.android.lib.resources.shares.OCShare.SHARE_PERMISSION_FLAG
+import com.owncloud.android.lib.resources.shares.OCShare.Companion.CREATE_PERMISSION_FLAG
+import com.owncloud.android.lib.resources.shares.OCShare.Companion.DELETE_PERMISSION_FLAG
+import com.owncloud.android.lib.resources.shares.OCShare.Companion.MAXIMUM_PERMISSIONS_FOR_FILE
+import com.owncloud.android.lib.resources.shares.OCShare.Companion.MAXIMUM_PERMISSIONS_FOR_FOLDER
+import com.owncloud.android.lib.resources.shares.OCShare.Companion.NO_PERMISSION
+import com.owncloud.android.lib.resources.shares.OCShare.Companion.READ_PERMISSION_FLAG
+import com.owncloud.android.lib.resources.shares.OCShare.Companion.SHARE_PERMISSION_FLAG
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
@@ -84,6 +69,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
             remoteId = "00000001"
             parentId = activity.storageManager.getFileByEncryptedRemotePath("/").fileId
             permissions = OCFile.PERMISSION_CAN_RESHARE
+            fileDataStorageManager.saveFile(this)
         }
 
         folder = OCFile("/test").apply {
@@ -166,7 +152,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 7
             shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Personal circle"
+            sharedWithDisplayName = "Personal team"
             permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
@@ -175,7 +161,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 8
             shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Public circle"
+            sharedWithDisplayName = "Public team"
             permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
@@ -184,7 +170,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 9
             shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Closed circle"
+            sharedWithDisplayName = "Closed team"
             permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
@@ -193,7 +179,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         OCShare(file.decryptedRemotePath).apply {
             remoteId = 10
             shareType = ShareType.CIRCLE
-            sharedWithDisplayName = "Secret circle"
+            sharedWithDisplayName = "Secret team"
             permissions = SHARE_PERMISSION_FLAG
             userId = getUserId(user)
             activity.storageManager.saveShare(this)
@@ -352,7 +338,8 @@ class FileDetailSharingFragmentIT : AbstractIT() {
         val secondary = FileDetailFragment.newInstance(file, parentFolder, user)
         activity.addSecondaryFragment(secondary, FileDisplayActivity.TAG_LIST_OF_FILES)
         activity.addView(
-            FloatingActionButton(activity).apply { // needed for some reason
+            FloatingActionButton(activity).apply {
+                // needed for some reason
                 visibility = View.GONE
                 id = R.id.fab_main
             }
@@ -685,10 +672,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     }
 
     // open bottom sheet with actions
-    private fun openAdvancedPermissions(
-        sut: FileDetailSharingFragment,
-        userShare: OCShare
-    ) {
+    private fun openAdvancedPermissions(sut: FileDetailSharingFragment, userShare: OCShare) {
         activity.handler.post {
             sut.showSharingMenuActionSheet(userShare)
         }
@@ -736,10 +720,7 @@ class FileDetailSharingFragmentIT : AbstractIT() {
     /**
      * verify send new email note text
      */
-    private fun verifySendNewEmail(
-        sut: FileDetailSharingFragment,
-        userShare: OCShare
-    ) {
+    private fun verifySendNewEmail(sut: FileDetailSharingFragment, userShare: OCShare) {
         activity.runOnUiThread { sut.showSharingMenuActionSheet(userShare) }
 
         waitForIdleSync()
