@@ -706,7 +706,7 @@ class SyncedFoldersActivity :
                 syncedFolder.isEnabled,
                 syncedFolder.subFolderRule,
                 syncedFolder.isExcludeHidden,
-                syncedFolder.uploadDelayTimeMs,
+                syncedFolder.uploadDelayTimeMs
             )
             saveOrUpdateSyncedFolder(item)
 
