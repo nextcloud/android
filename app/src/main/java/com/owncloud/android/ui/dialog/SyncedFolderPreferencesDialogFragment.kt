@@ -18,126 +18,91 @@
  * You should have received a copy of the GNU Affero General Public
  * License along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Typeface;
-import android.os.Bundle;
-import android.text.TextUtils;
-import android.text.style.StyleSpan;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
-
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.nextcloud.client.di.Injectable;
-import com.owncloud.android.R;
-import com.owncloud.android.databinding.SyncedFoldersSettingsLayoutBinding;
-import com.owncloud.android.datamodel.MediaFolderType;
-import com.owncloud.android.datamodel.SyncedFolderDisplayItem;
-import com.owncloud.android.files.services.NameCollisionPolicy;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.ui.activity.FolderPickerActivity;
-import com.owncloud.android.ui.activity.UploadFilesActivity;
-import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable;
-import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.FileStorageUtils;
-import com.owncloud.android.utils.TimeUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
-
-import java.io.File;
-
-import javax.inject.Inject;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.widget.AppCompatCheckBox;
-import androidx.appcompat.widget.SwitchCompat;
-import androidx.fragment.app.DialogFragment;
-
-import static com.owncloud.android.datamodel.SyncedFolderDisplayItem.UNPERSISTED_ID;
-import static com.owncloud.android.ui.activity.UploadFilesActivity.REQUEST_CODE_KEY;
+import android.app.Activity
+import android.app.Dialog
+import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Typeface
+import android.os.Bundle
+import android.text.TextUtils
+import android.text.style.StyleSpan
+import android.view.View
+import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.appcompat.widget.SwitchCompat
+import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
+import com.owncloud.android.databinding.SyncedFoldersSettingsLayoutBinding
+import com.owncloud.android.datamodel.MediaFolderType
+import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.datamodel.SyncedFolderDisplayItem
+import com.owncloud.android.files.services.NameCollisionPolicy
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.ui.activity.FolderPickerActivity
+import com.owncloud.android.ui.activity.UploadFilesActivity
+import com.owncloud.android.ui.dialog.DurationPickerDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
+import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.TimeUtils.getDurationParts
+import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.io.File
+import javax.inject.Inject
 
 /**
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different
  * parameters.
  */
-public class SyncedFolderPreferencesDialogFragment extends DialogFragment implements Injectable {
+class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
+    @Inject
+    var viewThemeUtils: ViewThemeUtils? = null
 
-    public static final String SYNCED_FOLDER_PARCELABLE = "SyncedFolderParcelable";
-    public static final int REQUEST_CODE__SELECT_REMOTE_FOLDER = 0;
-    public static final int REQUEST_CODE__SELECT_LOCAL_FOLDER = 1;
+    private var mUploadBehaviorItemStrings: Array<CharSequence>
+    private var mNameCollisionPolicyItemStrings: Array<CharSequence>
+    private var mEnabledSwitch: SwitchCompat? = null
+    private var mUploadOnWifiCheckbox: AppCompatCheckBox? = null
+    private var mUploadOnChargingCheckbox: AppCompatCheckBox? = null
+    private var mUploadExistingCheckbox: AppCompatCheckBox? = null
+    private var mUploadUseSubfoldersCheckbox: AppCompatCheckBox? = null
+    private var mUploadBehaviorSummary: TextView? = null
+    private var mNameCollisionPolicySummary: TextView? = null
+    private var mLocalFolderPath: TextView? = null
+    private var mLocalFolderSummary: TextView? = null
+    private var mRemoteFolderSummary: TextView? = null
+    private var mUploadDelaySummary: TextView? = null
 
-    private final static String TAG = SyncedFolderPreferencesDialogFragment.class.getSimpleName();
-    private static final String BEHAVIOUR_DIALOG_STATE = "BEHAVIOUR_DIALOG_STATE";
-    private static final String NAME_COLLISION_POLICY_DIALOG_STATE = "NAME_COLLISION_POLICY_DIALOG_STATE";
-    private final static float alphaEnabled = 1.0f;
-    private final static float alphaDisabled = 0.7f;
+    private var mSyncedFolder: SyncedFolderParcelable? = null
+    private var mCancel: MaterialButton? = null
+    private var mSave: MaterialButton? = null
+    private var behaviourDialogShown = false
+    private var nameCollisionPolicyDialogShown = false
+    private var behaviourDialog: AlertDialog? = null
+    private var binding: SyncedFoldersSettingsLayoutBinding? = null
 
-    @Inject ViewThemeUtils viewThemeUtils;
-
-    private CharSequence[] mUploadBehaviorItemStrings;
-    private CharSequence[] mNameCollisionPolicyItemStrings;
-    private SwitchCompat mEnabledSwitch;
-    private AppCompatCheckBox mUploadOnWifiCheckbox;
-    private AppCompatCheckBox mUploadOnChargingCheckbox;
-    private AppCompatCheckBox mUploadExistingCheckbox;
-    private AppCompatCheckBox mUploadUseSubfoldersCheckbox;
-    private TextView mUploadBehaviorSummary;
-    private TextView mNameCollisionPolicySummary;
-    private TextView mLocalFolderPath;
-    private TextView mLocalFolderSummary;
-    private TextView mRemoteFolderSummary;
-    private TextView mUploadDelaySummary;
-
-    private SyncedFolderParcelable mSyncedFolder;
-    private MaterialButton mCancel;
-    private MaterialButton mSave;
-    private boolean behaviourDialogShown;
-    private boolean nameCollisionPolicyDialogShown;
-    private AlertDialog behaviourDialog;
-    private SyncedFoldersSettingsLayoutBinding binding;
-
-    public static SyncedFolderPreferencesDialogFragment newInstance(SyncedFolderDisplayItem syncedFolder, int section) {
-        if (syncedFolder == null) {
-            throw new IllegalArgumentException("SyncedFolder is mandatory but NULL!");
-        }
-
-        Bundle args = new Bundle();
-        args.putParcelable(SYNCED_FOLDER_PARCELABLE, new SyncedFolderParcelable(syncedFolder, section));
-
-        SyncedFolderPreferencesDialogFragment dialogFragment = new SyncedFolderPreferencesDialogFragment();
-        dialogFragment.setArguments(args);
-        dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog);
-
-        return dialogFragment;
-    }
-
-    @Override
-    public void onAttach(@NonNull Activity activity) {
-        super.onAttach(activity);
-        if (!(activity instanceof OnSyncedFolderPreferenceListener)) {
-            throw new IllegalArgumentException("The host activity must implement "
-                                                   + OnSyncedFolderPreferenceListener.class.getCanonicalName());
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
+        require(activity is OnSyncedFolderPreferenceListener) {
+            ("The host activity must implement "
+                + OnSyncedFolderPreferenceListener::class.java.canonicalName)
         }
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         // keep the state of the fragment on configuration changes
-        setRetainInstance(true);
+        retainInstance = true
 
-        binding = null;
+        binding = null
 
-        mSyncedFolder = getArguments().getParcelable(SYNCED_FOLDER_PARCELABLE);
-        mUploadBehaviorItemStrings = getResources().getTextArray(R.array.pref_behaviour_entries);
-        mNameCollisionPolicyItemStrings = getResources().getTextArray(R.array.pref_name_collision_policy_entries);
+        mSyncedFolder = arguments!!.getParcelable(SYNCED_FOLDER_PARCELABLE)
+        mUploadBehaviorItemStrings = resources.getTextArray(R.array.pref_behaviour_entries)
+        mNameCollisionPolicyItemStrings = resources.getTextArray(R.array.pref_name_collision_policy_entries)
     }
 
     /**
@@ -145,99 +110,103 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
      *
      * @param binding the parent binding
      */
-    private void setupDialogElements(SyncedFoldersSettingsLayoutBinding binding) {
-        if (mSyncedFolder.getType().getId() > MediaFolderType.CUSTOM.getId()) {
+    private fun setupDialogElements(binding: SyncedFoldersSettingsLayoutBinding) {
+        if (mSyncedFolder!!.type.id > MediaFolderType.CUSTOM.id) {
             // hide local folder chooser and delete for non-custom folders
-            binding.localFolderContainer.setVisibility(View.GONE);
-            binding.delete.setVisibility(View.GONE);
-        } else if (mSyncedFolder.getId() <= UNPERSISTED_ID) {
+            binding.localFolderContainer.visibility = View.GONE
+            binding.delete.visibility = View.GONE
+        } else if (mSyncedFolder!!.id <= SyncedFolder.UNPERSISTED_ID) {
             // Hide delete/enabled for unpersisted custom folders
-            binding.delete.setVisibility(View.GONE);
-            binding.syncEnabled.setVisibility(View.GONE);
+            binding.delete.visibility = View.GONE
+            binding.syncEnabled.visibility = View.GONE
 
             // auto set custom folder to enabled
-            mSyncedFolder.setEnabled(true);
+            mSyncedFolder!!.isEnabled = true
 
             // switch text to create headline
-            binding.syncedFoldersSettingsTitle.setText(R.string.autoupload_create_new_custom_folder);
+            binding.syncedFoldersSettingsTitle.setText(R.string.autoupload_create_new_custom_folder)
 
             // disable save button
-            binding.save.setEnabled(false);
+            binding.save.isEnabled = false
         } else {
-            binding.localFolderContainer.setVisibility(View.GONE);
+            binding.localFolderContainer.visibility = View.GONE
         }
 
         // find/saves UI elements
-        mEnabledSwitch = binding.syncEnabled;
-        viewThemeUtils.androidx.colorSwitchCompat(mEnabledSwitch);
+        mEnabledSwitch = binding.syncEnabled
+        viewThemeUtils!!.androidx.colorSwitchCompat(mEnabledSwitch!!)
 
-        mLocalFolderPath = binding.syncedFoldersSettingsLocalFolderPath;
+        mLocalFolderPath = binding.syncedFoldersSettingsLocalFolderPath
 
-        mLocalFolderSummary = binding.localFolderSummary;
-        mRemoteFolderSummary = binding.remoteFolderSummary;
+        mLocalFolderSummary = binding.localFolderSummary
+        mRemoteFolderSummary = binding.remoteFolderSummary
 
-        mUploadOnWifiCheckbox = binding.settingInstantUploadOnWifiCheckbox;
+        mUploadOnWifiCheckbox = binding.settingInstantUploadOnWifiCheckbox
 
-        mUploadOnChargingCheckbox = binding.settingInstantUploadOnChargingCheckbox;
+        mUploadOnChargingCheckbox = binding.settingInstantUploadOnChargingCheckbox
 
-        mUploadExistingCheckbox = binding.settingInstantUploadExistingCheckbox;
+        mUploadExistingCheckbox = binding.settingInstantUploadExistingCheckbox
 
-        mUploadUseSubfoldersCheckbox = binding.settingInstantUploadPathUseSubfoldersCheckbox;
+        mUploadUseSubfoldersCheckbox = binding.settingInstantUploadPathUseSubfoldersCheckbox
 
-        viewThemeUtils.platform.themeCheckbox(mUploadOnWifiCheckbox,
-                                              mUploadOnChargingCheckbox,
-                                              mUploadExistingCheckbox,
-                                              mUploadUseSubfoldersCheckbox);
+        viewThemeUtils!!.platform.themeCheckbox(
+            mUploadOnWifiCheckbox!!,
+            mUploadOnChargingCheckbox!!,
+            mUploadExistingCheckbox!!,
+            mUploadUseSubfoldersCheckbox!!
+        )
 
-        mUploadBehaviorSummary = binding.settingInstantBehaviourSummary;
+        mUploadBehaviorSummary = binding.settingInstantBehaviourSummary
 
-        mNameCollisionPolicySummary = binding.settingInstantNameCollisionPolicySummary;
+        mNameCollisionPolicySummary = binding.settingInstantNameCollisionPolicySummary
 
-        mUploadDelaySummary = binding.settingInstantUploadDelaySummary;
+        mUploadDelaySummary = binding.settingInstantUploadDelaySummary
 
-        mCancel = binding.cancel;
-        mSave = binding.save;
+        mCancel = binding.cancel
+        mSave = binding.save
 
-        viewThemeUtils.platform.colorTextButtons(mCancel, mSave);
+        viewThemeUtils!!.platform.colorTextButtons(mCancel!!, mSave!!)
 
         // Set values
-        setEnabled(mSyncedFolder.isEnabled());
+        setEnabled(mSyncedFolder!!.isEnabled)
 
-        if (!TextUtils.isEmpty(mSyncedFolder.getLocalPath())) {
-            mLocalFolderPath.setText(
-                DisplayUtils.createTextWithSpan(
-                    String.format(
-                        getString(R.string.synced_folders_preferences_folder_path),
-                        mSyncedFolder.getLocalPath()),
-                    mSyncedFolder.getFolderName(),
-                    new StyleSpan(Typeface.BOLD)));
-            mLocalFolderSummary.setText(FileStorageUtils.pathToUserFriendlyDisplay(
-                mSyncedFolder.getLocalPath(),
-                getActivity(),
-                getResources()));
+        if (!TextUtils.isEmpty(mSyncedFolder!!.localPath)) {
+            mLocalFolderPath!!.text = DisplayUtils.createTextWithSpan(
+                String.format(
+                    getString(R.string.synced_folders_preferences_folder_path),
+                    mSyncedFolder!!.localPath
+                ),
+                mSyncedFolder!!.folderName,
+                StyleSpan(Typeface.BOLD)
+            )
+            mLocalFolderSummary!!.text = FileStorageUtils.pathToUserFriendlyDisplay(
+                mSyncedFolder!!.localPath,
+                activity,
+                resources
+            )
         } else {
-            mLocalFolderSummary.setText(R.string.choose_local_folder);
+            mLocalFolderSummary!!.setText(R.string.choose_local_folder)
         }
 
-        if (!TextUtils.isEmpty(mSyncedFolder.getLocalPath())) {
-            mRemoteFolderSummary.setText(mSyncedFolder.getRemotePath());
+        if (!TextUtils.isEmpty(mSyncedFolder!!.localPath)) {
+            mRemoteFolderSummary!!.text = mSyncedFolder!!.remotePath
         } else {
-            mRemoteFolderSummary.setText(R.string.choose_remote_folder);
+            mRemoteFolderSummary!!.setText(R.string.choose_remote_folder)
         }
 
-        mUploadOnWifiCheckbox.setChecked(mSyncedFolder.isWifiOnly());
-        mUploadOnChargingCheckbox.setChecked(mSyncedFolder.isChargingOnly());
+        mUploadOnWifiCheckbox!!.isChecked = mSyncedFolder!!.isWifiOnly
+        mUploadOnChargingCheckbox!!.isChecked = mSyncedFolder!!.isChargingOnly
 
-        mUploadExistingCheckbox.setChecked(mSyncedFolder.isExisting());
-        mUploadUseSubfoldersCheckbox.setChecked(mSyncedFolder.isSubfolderByDate());
+        mUploadExistingCheckbox!!.isChecked = mSyncedFolder!!.isExisting
+        mUploadUseSubfoldersCheckbox!!.isChecked = mSyncedFolder!!.isSubfolderByDate
 
-        mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
+        mUploadBehaviorSummary!!.text = mUploadBehaviorItemStrings[mSyncedFolder!!.uploadActionInteger]
 
-        final int nameCollisionPolicyIndex =
-            getSelectionIndexForNameCollisionPolicy(mSyncedFolder.getNameCollisionPolicy());
-        mNameCollisionPolicySummary.setText(mNameCollisionPolicyItemStrings[nameCollisionPolicyIndex]);
+        val nameCollisionPolicyIndex =
+            getSelectionIndexForNameCollisionPolicy(mSyncedFolder!!.nameCollisionPolicy)
+        mNameCollisionPolicySummary!!.text = mNameCollisionPolicyItemStrings[nameCollisionPolicyIndex]
 
-        mUploadDelaySummary.setText(getDelaySummary(mSyncedFolder.getUploadDelayTimeMs()));
+        mUploadDelaySummary!!.text = getDelaySummary(mSyncedFolder!!.uploadDelayTimeMs)
     }
 
     /**
@@ -245,11 +214,11 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
      *
      * @param enabled if enabled or disabled
      */
-    private void setEnabled(boolean enabled) {
-        mSyncedFolder.setEnabled(enabled);
-        mEnabledSwitch.setChecked(enabled);
+    private fun setEnabled(enabled: Boolean) {
+        mSyncedFolder!!.isEnabled = enabled
+        mEnabledSwitch!!.isChecked = enabled
 
-        setupViews(binding, enabled);
+        setupViews(binding, enabled)
     }
 
     /**
@@ -259,10 +228,10 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
      *
      * @param path the remote path to be set
      */
-    public void setRemoteFolderSummary(String path) {
-        mSyncedFolder.setRemotePath(path);
-        mRemoteFolderSummary.setText(path);
-        checkAndUpdateSaveButtonState();
+    fun setRemoteFolderSummary(path: String?) {
+        mSyncedFolder!!.remotePath = path
+        mRemoteFolderSummary!!.text = path
+        checkAndUpdateSaveButtonState()
     }
 
     /**
@@ -272,88 +241,89 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
      *
      * @param path the local path to be set
      */
-    public void setLocalFolderSummary(String path) {
-        mSyncedFolder.setLocalPath(path);
-        mLocalFolderSummary.setText(FileStorageUtils.pathToUserFriendlyDisplay(path, getActivity(), getResources()));
-        mLocalFolderPath.setText(
-            DisplayUtils.createTextWithSpan(
-                String.format(
-                    getString(R.string.synced_folders_preferences_folder_path),
-                    mSyncedFolder.getLocalPath()),
-                new File(mSyncedFolder.getLocalPath()).getName(),
-                new StyleSpan(Typeface.BOLD)));
-        checkAndUpdateSaveButtonState();
+    fun setLocalFolderSummary(path: String?) {
+        mSyncedFolder!!.localPath = path
+        mLocalFolderSummary!!.text = FileStorageUtils.pathToUserFriendlyDisplay(path, activity, resources)
+        mLocalFolderPath!!.text = DisplayUtils.createTextWithSpan(
+            String.format(
+                getString(R.string.synced_folders_preferences_folder_path),
+                mSyncedFolder!!.localPath
+            ),
+            File(mSyncedFolder!!.localPath).name,
+            StyleSpan(Typeface.BOLD)
+        )
+        checkAndUpdateSaveButtonState()
     }
 
-    private void checkAndUpdateSaveButtonState() {
-        if (mSyncedFolder.getLocalPath() != null && mSyncedFolder.getRemotePath() != null) {
-            binding.save.setEnabled(true);
+    private fun checkAndUpdateSaveButtonState() {
+        if (mSyncedFolder!!.localPath != null && mSyncedFolder!!.remotePath != null) {
+            binding!!.save.isEnabled = true
         } else {
-            binding.save.setEnabled(false);
+            binding!!.save.isEnabled = false
         }
 
-        checkWritableFolder();
+        checkWritableFolder()
     }
 
-    private void checkWritableFolder() {
-        if (!mSyncedFolder.isEnabled()) {
-            binding.settingInstantBehaviourContainer.setEnabled(false);
-            binding.settingInstantBehaviourContainer.setAlpha(alphaDisabled);
-            return;
+    private fun checkWritableFolder() {
+        if (!mSyncedFolder!!.isEnabled) {
+            binding!!.settingInstantBehaviourContainer.isEnabled = false
+            binding!!.settingInstantBehaviourContainer.alpha = alphaDisabled
+            return
         }
 
-        if (mSyncedFolder.getLocalPath() != null && new File(mSyncedFolder.getLocalPath()).canWrite()) {
-            binding.settingInstantBehaviourContainer.setEnabled(true);
-            binding.settingInstantBehaviourContainer.setAlpha(alphaEnabled);
-            mUploadBehaviorSummary.setText(mUploadBehaviorItemStrings[mSyncedFolder.getUploadActionInteger()]);
+        if (mSyncedFolder!!.localPath != null && File(mSyncedFolder!!.localPath).canWrite()) {
+            binding!!.settingInstantBehaviourContainer.isEnabled = true
+            binding!!.settingInstantBehaviourContainer.alpha = alphaEnabled
+            mUploadBehaviorSummary!!.text = mUploadBehaviorItemStrings[mSyncedFolder!!.uploadActionInteger]
         } else {
-            binding.settingInstantBehaviourContainer.setEnabled(false);
-            binding.settingInstantBehaviourContainer.setAlpha(alphaDisabled);
+            binding!!.settingInstantBehaviourContainer.isEnabled = false
+            binding!!.settingInstantBehaviourContainer.alpha = alphaDisabled
 
-            mSyncedFolder.setUploadAction(
-                getResources().getTextArray(R.array.pref_behaviour_entryValues)[0].toString());
+            mSyncedFolder!!.setUploadAction(
+                resources.getTextArray(R.array.pref_behaviour_entryValues)[0].toString()
+            )
 
-            mUploadBehaviorSummary.setText(R.string.auto_upload_file_behaviour_kept_in_folder);
+            mUploadBehaviorSummary!!.setText(R.string.auto_upload_file_behaviour_kept_in_folder)
         }
     }
 
-    private void setupViews(SyncedFoldersSettingsLayoutBinding binding, boolean enable) {
-        float alpha;
-        if (enable) {
-            alpha = alphaEnabled;
+    private fun setupViews(binding: SyncedFoldersSettingsLayoutBinding?, enable: Boolean) {
+        val alpha = if (enable) {
+            alphaEnabled
         } else {
-            alpha = alphaDisabled;
+            alphaDisabled
         }
-        binding.settingInstantUploadOnWifiContainer.setEnabled(enable);
-        binding.settingInstantUploadOnWifiContainer.setAlpha(alpha);
+        binding!!.settingInstantUploadOnWifiContainer.isEnabled = enable
+        binding.settingInstantUploadOnWifiContainer.alpha = alpha
 
-        binding.settingInstantUploadOnChargingContainer.setEnabled(enable);
-        binding.settingInstantUploadOnChargingContainer.setAlpha(alpha);
+        binding.settingInstantUploadOnChargingContainer.isEnabled = enable
+        binding.settingInstantUploadOnChargingContainer.alpha = alpha
 
-        binding.settingInstantUploadExistingContainer.setEnabled(enable);
-        binding.settingInstantUploadExistingContainer.setAlpha(alpha);
+        binding.settingInstantUploadExistingContainer.isEnabled = enable
+        binding.settingInstantUploadExistingContainer.alpha = alpha
 
-        binding.settingInstantUploadPathUseSubfoldersContainer.setEnabled(enable);
-        binding.settingInstantUploadPathUseSubfoldersContainer.setAlpha(alpha);
+        binding.settingInstantUploadPathUseSubfoldersContainer.isEnabled = enable
+        binding.settingInstantUploadPathUseSubfoldersContainer.alpha = alpha
 
-        binding.remoteFolderContainer.setEnabled(enable);
-        binding.remoteFolderContainer.setAlpha(alpha);
+        binding.remoteFolderContainer.isEnabled = enable
+        binding.remoteFolderContainer.alpha = alpha
 
-        binding.localFolderContainer.setEnabled(enable);
-        binding.localFolderContainer.setAlpha(alpha);
+        binding.localFolderContainer.isEnabled = enable
+        binding.localFolderContainer.alpha = alpha
 
-        binding.settingInstantNameCollisionPolicyContainer.setEnabled(enable);
-        binding.settingInstantNameCollisionPolicyContainer.setAlpha(alpha);
+        binding.settingInstantNameCollisionPolicyContainer.isEnabled = enable
+        binding.settingInstantNameCollisionPolicyContainer.alpha = alpha
 
-        binding.settingInstantUploadDelayContainer.setEnabled(enable);
-        binding.settingInstantUploadDelayContainer.setAlpha(alpha);
+        binding.settingInstantUploadDelayContainer.isEnabled = enable
+        binding.settingInstantUploadDelayContainer.alpha = alpha
 
-        mUploadOnWifiCheckbox.setEnabled(enable);
-        mUploadOnChargingCheckbox.setEnabled(enable);
-        mUploadExistingCheckbox.setEnabled(enable);
-        mUploadUseSubfoldersCheckbox.setEnabled(enable);
+        mUploadOnWifiCheckbox!!.isEnabled = enable
+        mUploadOnChargingCheckbox!!.isEnabled = enable
+        mUploadExistingCheckbox!!.isEnabled = enable
+        mUploadUseSubfoldersCheckbox!!.isEnabled = enable
 
-        checkWritableFolder();
+        checkWritableFolder()
     }
 
     /**
@@ -361,315 +331,280 @@ public class SyncedFolderPreferencesDialogFragment extends DialogFragment implem
      *
      * @param binding the parent binding
      */
-    private void setupListeners(SyncedFoldersSettingsLayoutBinding binding) {
-        mSave.setOnClickListener(new OnSyncedFolderSaveClickListener());
-        mCancel.setOnClickListener(new OnSyncedFolderCancelClickListener());
-        binding.delete.setOnClickListener(new OnSyncedFolderDeleteClickListener());
+    private fun setupListeners(binding: SyncedFoldersSettingsLayoutBinding) {
+        mSave!!.setOnClickListener(OnSyncedFolderSaveClickListener())
+        mCancel!!.setOnClickListener(OnSyncedFolderCancelClickListener())
+        binding.delete.setOnClickListener(OnSyncedFolderDeleteClickListener())
 
-        binding.settingInstantUploadOnWifiContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSyncedFolder.setWifiOnly(!mSyncedFolder.isWifiOnly());
-                    mUploadOnWifiCheckbox.toggle();
-                }
-            });
+        binding.settingInstantUploadOnWifiContainer.setOnClickListener {
+            mSyncedFolder!!.isWifiOnly = !mSyncedFolder!!.isWifiOnly
+            mUploadOnWifiCheckbox!!.toggle()
+        }
 
-        binding.settingInstantUploadOnChargingContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSyncedFolder.setChargingOnly(!mSyncedFolder.isChargingOnly());
-                    mUploadOnChargingCheckbox.toggle();
-                }
-            });
+        binding.settingInstantUploadOnChargingContainer.setOnClickListener {
+            mSyncedFolder!!.isChargingOnly = !mSyncedFolder!!.isChargingOnly
+            mUploadOnChargingCheckbox!!.toggle()
+        }
 
-        binding.settingInstantUploadExistingContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSyncedFolder.setExisting(!mSyncedFolder.isExisting());
-                    mUploadExistingCheckbox.toggle();
-                }
-            });
+        binding.settingInstantUploadExistingContainer.setOnClickListener {
+            mSyncedFolder!!.isExisting = !mSyncedFolder!!.isExisting
+            mUploadExistingCheckbox!!.toggle()
+        }
 
-        binding.settingInstantUploadPathUseSubfoldersContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mSyncedFolder.setSubfolderByDate(!mSyncedFolder.isSubfolderByDate());
-                    mUploadUseSubfoldersCheckbox.toggle();
-                }
-            });
+        binding.settingInstantUploadPathUseSubfoldersContainer.setOnClickListener {
+            mSyncedFolder!!.isSubfolderByDate = !mSyncedFolder!!.isSubfolderByDate
+            mUploadUseSubfoldersCheckbox!!.toggle()
+        }
 
-        binding.remoteFolderContainer.setOnClickListener(v -> {
-            Intent action = new Intent(getActivity(), FolderPickerActivity.class);
-            getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_REMOTE_FOLDER);
-        });
+        binding.remoteFolderContainer.setOnClickListener { v: View? ->
+            val action = Intent(activity, FolderPickerActivity::class.java)
+            activity!!.startActivityForResult(action, REQUEST_CODE__SELECT_REMOTE_FOLDER)
+        }
 
-        binding.localFolderContainer.setOnClickListener(v -> {
-            Intent action = new Intent(getActivity(), UploadFilesActivity.class);
-            action.putExtra(UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE, true);
-            action.putExtra(REQUEST_CODE_KEY, REQUEST_CODE__SELECT_LOCAL_FOLDER);
-            getActivity().startActivityForResult(action, REQUEST_CODE__SELECT_LOCAL_FOLDER);
-        });
+        binding.localFolderContainer.setOnClickListener { v: View? ->
+            val action = Intent(activity, UploadFilesActivity::class.java)
+            action.putExtra(UploadFilesActivity.KEY_LOCAL_FOLDER_PICKER_MODE, true)
+            action.putExtra(UploadFilesActivity.REQUEST_CODE_KEY, REQUEST_CODE__SELECT_LOCAL_FOLDER)
+            activity!!.startActivityForResult(action, REQUEST_CODE__SELECT_LOCAL_FOLDER)
+        }
 
-        binding.syncEnabled.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                setEnabled(!mSyncedFolder.isEnabled());
-            }
-        });
+        binding.syncEnabled.setOnClickListener { setEnabled(!mSyncedFolder!!.isEnabled) }
 
-        binding.settingInstantBehaviourContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showBehaviourDialog();
-                }
-            });
+        binding.settingInstantBehaviourContainer.setOnClickListener { showBehaviourDialog() }
 
-        binding.settingInstantNameCollisionPolicyContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    showNameCollisionPolicyDialog();
-                }
-            });
+        binding.settingInstantNameCollisionPolicyContainer.setOnClickListener { showNameCollisionPolicyDialog() }
 
-        binding.settingInstantUploadDelayContainer.setOnClickListener(
-            new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    showUploadDelayDialog();
-                }
-            }
-        );
+        binding.settingInstantUploadDelayContainer.setOnClickListener { showUploadDelayDialog() }
     }
 
-    private void showBehaviourDialog() {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+    private fun showBehaviourDialog() {
+        val builder = MaterialAlertDialogBuilder(activity!!)
         builder.setTitle(R.string.prefs_instant_behaviour_dialogTitle)
-            .setSingleChoiceItems(getResources().getTextArray(R.array.pref_behaviour_entries),
-                                  mSyncedFolder.getUploadActionInteger(),
-                                  new
-                                      DialogInterface.OnClickListener() {
-                                          public void onClick(DialogInterface dialog, int which) {
-                                              mSyncedFolder.setUploadAction(
-                                                  getResources().getTextArray(
-                                                      R.array.pref_behaviour_entryValues)[which].toString());
-                                              mUploadBehaviorSummary.setText(SyncedFolderPreferencesDialogFragment
-                                                                                 .this.mUploadBehaviorItemStrings[which]);
-                                              behaviourDialogShown = false;
-                                              dialog.dismiss();
-                                          }
-                                      })
-            .setOnCancelListener(new DialogInterface.OnCancelListener() {
-                @Override
-                public void onCancel(DialogInterface dialog) {
-                    behaviourDialogShown = false;
-                }
-            });
-        behaviourDialogShown = true;
+            .setSingleChoiceItems(
+                resources.getTextArray(R.array.pref_behaviour_entries),
+                mSyncedFolder!!.uploadActionInteger
+            ) { dialog, which ->
+                mSyncedFolder!!.setUploadAction(
+                    resources.getTextArray(
+                        R.array.pref_behaviour_entryValues
+                    )[which].toString()
+                )
+                mUploadBehaviorSummary!!.text = mUploadBehaviorItemStrings[which]
+                behaviourDialogShown = false
+                dialog.dismiss()
+            }
+            .setOnCancelListener { behaviourDialogShown = false }
+        behaviourDialogShown = true
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(getActivity(), builder);
+        viewThemeUtils!!.dialog.colorMaterialAlertDialogBackground(activity!!, builder)
 
-        behaviourDialog = builder.create();
-        behaviourDialog.show();
+        behaviourDialog = builder.create()
+        behaviourDialog!!.show()
     }
 
-    private void showNameCollisionPolicyDialog() {
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(getActivity());
+    private fun showNameCollisionPolicyDialog() {
+        val builder = MaterialAlertDialogBuilder(activity!!)
 
         builder.setTitle(R.string.pref_instant_name_collision_policy_dialogTitle)
-            .setSingleChoiceItems(getResources().getTextArray(R.array.pref_name_collision_policy_entries),
-                                  getSelectionIndexForNameCollisionPolicy(mSyncedFolder.getNameCollisionPolicy()),
-                                  new OnNameCollisionDialogClickListener())
-            .setOnCancelListener(dialog -> nameCollisionPolicyDialogShown = false);
+            .setSingleChoiceItems(
+                resources.getTextArray(R.array.pref_name_collision_policy_entries),
+                getSelectionIndexForNameCollisionPolicy(mSyncedFolder!!.nameCollisionPolicy),
+                OnNameCollisionDialogClickListener()
+            )
+            .setOnCancelListener { dialog: DialogInterface? -> nameCollisionPolicyDialogShown = false }
 
-        nameCollisionPolicyDialogShown = true;
+        nameCollisionPolicyDialogShown = true
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(getActivity(), builder);
+        viewThemeUtils!!.dialog.colorMaterialAlertDialogBackground(activity!!, builder)
 
-        behaviourDialog = builder.create();
-        behaviourDialog.show();
+        behaviourDialog = builder.create()
+        behaviourDialog!!.show()
     }
 
-    private void showUploadDelayDialog() {
-        DurationPickerDialogFragment dialog = DurationPickerDialogFragment.Companion.newInstance(
-            mSyncedFolder.getUploadDelayTimeMs(),
+    private fun showUploadDelayDialog() {
+        val dialog = newInstance(
+            mSyncedFolder!!.uploadDelayTimeMs,
             getString(R.string.pref_instant_upload_delay_dialogTitle),
-            getString(R.string.pref_instant_upload_delay_hint));
+            getString(R.string.pref_instant_upload_delay_hint)
+        )
 
-        dialog.setListener((resultCode, duration) -> {
+        dialog.setListener(DurationPickerDialogFragment.Listener { resultCode: Int, duration: Long ->
             if (resultCode == Activity.RESULT_OK) {
-                mSyncedFolder.setUploadDelayTimeMs(duration);
-                mUploadDelaySummary.setText(getDelaySummary(duration));
+                mSyncedFolder!!.uploadDelayTimeMs = duration
+                mUploadDelaySummary!!.text = getDelaySummary(duration)
             }
-            dialog.dismiss();
-        });
-        dialog.show(getParentFragmentManager(), "UPLOAD_DELAY_PICKER_DIALOG");
+            dialog.dismiss()
+        })
+        dialog.show(parentFragmentManager, "UPLOAD_DELAY_PICKER_DIALOG")
     }
 
-    @Override
-    @NonNull
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Log_OC.d(TAG, "onCreateView, savedInstanceState is " + savedInstanceState);
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        Log_OC.d(TAG, "onCreateView, savedInstanceState is $savedInstanceState")
 
-        binding = SyncedFoldersSettingsLayoutBinding.inflate(requireActivity().getLayoutInflater(), null, false);
+        binding = SyncedFoldersSettingsLayoutBinding.inflate(requireActivity().layoutInflater, null, false)
 
-        setupDialogElements(binding);
-        setupListeners(binding);
+        setupDialogElements(binding!!)
+        setupListeners(binding!!)
 
-        MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(binding.getRoot().getContext());
-        builder.setView(binding.getRoot());
+        val builder = MaterialAlertDialogBuilder(binding!!.getRoot().context)
+        builder.setView(binding!!.getRoot())
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(), builder);
+        viewThemeUtils!!.dialog.colorMaterialAlertDialogBackground(binding!!.getRoot().context, builder)
 
-        return builder.create();
+        return builder.create()
     }
 
-    @Override
-    public void onDestroyView() {
-        Log_OC.d(TAG, "destroy SyncedFolderPreferencesDialogFragment view");
-        if (getDialog() != null && getRetainInstance()) {
-            getDialog().setDismissMessage(null);
+    override fun onDestroyView() {
+        Log_OC.d(TAG, "destroy SyncedFolderPreferencesDialogFragment view")
+        if (dialog != null && retainInstance) {
+            dialog!!.setDismissMessage(null)
         }
 
-        if (behaviourDialog != null && behaviourDialog.isShowing()) {
-            behaviourDialog.dismiss();
+        if (behaviourDialog != null && behaviourDialog!!.isShowing) {
+            behaviourDialog!!.dismiss()
         }
 
-        super.onDestroyView();
+        super.onDestroyView()
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putBoolean(BEHAVIOUR_DIALOG_STATE, behaviourDialogShown);
-        outState.putBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, nameCollisionPolicyDialogShown);
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putBoolean(BEHAVIOUR_DIALOG_STATE, behaviourDialogShown)
+        outState.putBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, nameCollisionPolicyDialogShown)
 
-        super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(outState)
     }
 
-    @Override
-    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
         behaviourDialogShown = savedInstanceState != null &&
-            savedInstanceState.getBoolean(BEHAVIOUR_DIALOG_STATE, false);
+            savedInstanceState.getBoolean(BEHAVIOUR_DIALOG_STATE, false)
         nameCollisionPolicyDialogShown = savedInstanceState != null &&
-            savedInstanceState.getBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, false);
+            savedInstanceState.getBoolean(NAME_COLLISION_POLICY_DIALOG_STATE, false)
 
         if (behaviourDialogShown) {
-            showBehaviourDialog();
+            showBehaviourDialog()
         }
         if (nameCollisionPolicyDialogShown) {
-            showNameCollisionPolicyDialog();
+            showNameCollisionPolicyDialog()
         }
 
-        super.onViewStateRestored(savedInstanceState);
+        super.onViewStateRestored(savedInstanceState)
     }
 
-    public interface OnSyncedFolderPreferenceListener {
-        void onSaveSyncedFolderPreference(SyncedFolderParcelable syncedFolder);
+    interface OnSyncedFolderPreferenceListener {
+        fun onSaveSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?)
 
-        void onCancelSyncedFolderPreference();
+        fun onCancelSyncedFolderPreference()
 
-        void onDeleteSyncedFolderPreference(SyncedFolderParcelable syncedFolder);
+        fun onDeleteSyncedFolderPreference(syncedFolder: SyncedFolderParcelable?)
     }
 
-    private class OnSyncedFolderSaveClickListener implements OnClickListener {
-        @Override
-        public void onClick(View v) {
-            dismiss();
-            ((OnSyncedFolderPreferenceListener) getActivity()).onSaveSyncedFolderPreference(mSyncedFolder);
-        }
-    }
-
-    private class OnSyncedFolderCancelClickListener implements OnClickListener {
-        @Override
-        public void onClick(View v) {
-            dismiss();
-            ((OnSyncedFolderPreferenceListener) getActivity()).onCancelSyncedFolderPreference();
+    private inner class OnSyncedFolderSaveClickListener : View.OnClickListener {
+        override fun onClick(v: View) {
+            dismiss()
+            (activity as OnSyncedFolderPreferenceListener?)!!.onSaveSyncedFolderPreference(mSyncedFolder)
         }
     }
 
-    private class OnSyncedFolderDeleteClickListener implements OnClickListener {
-        @Override
-        public void onClick(View v) {
-            dismiss();
-            ((OnSyncedFolderPreferenceListener) getActivity()).onDeleteSyncedFolderPreference(mSyncedFolder);
+    private inner class OnSyncedFolderCancelClickListener : View.OnClickListener {
+        override fun onClick(v: View) {
+            dismiss()
+            (activity as OnSyncedFolderPreferenceListener?)!!.onCancelSyncedFolderPreference()
         }
     }
 
-    private class OnNameCollisionDialogClickListener implements DialogInterface.OnClickListener {
-        @Override
-        public void onClick(DialogInterface dialog, int which) {
-            mSyncedFolder.setNameCollisionPolicy(getNameCollisionPolicyForSelectionIndex(which));
-
-            mNameCollisionPolicySummary.setText(
-                SyncedFolderPreferencesDialogFragment.this.mNameCollisionPolicyItemStrings[which]);
-            nameCollisionPolicyDialogShown = false;
-            dialog.dismiss();
+    private inner class OnSyncedFolderDeleteClickListener : View.OnClickListener {
+        override fun onClick(v: View) {
+            dismiss()
+            (activity as OnSyncedFolderPreferenceListener?)!!.onDeleteSyncedFolderPreference(mSyncedFolder)
         }
     }
 
-    /**
-     * Get index for name collision selection dialog.
-     *
-     * @return 0 if ASK_USER, 1 if OVERWRITE, 2 if RENAME, 3 if SKIP, Otherwise: 0
-     */
-    static private Integer getSelectionIndexForNameCollisionPolicy(NameCollisionPolicy nameCollisionPolicy) {
-        switch (nameCollisionPolicy) {
-            case OVERWRITE:
-                return 1;
-            case RENAME:
-                return 2;
-            case CANCEL:
-                return 3;
-            case ASK_USER:
-            default:
-                return 0;
+    private inner class OnNameCollisionDialogClickListener : DialogInterface.OnClickListener {
+        override fun onClick(dialog: DialogInterface, which: Int) {
+            mSyncedFolder!!.nameCollisionPolicy =
+                getNameCollisionPolicyForSelectionIndex(which)
+
+            mNameCollisionPolicySummary!!.text = mNameCollisionPolicyItemStrings[which]
+            nameCollisionPolicyDialogShown = false
+            dialog.dismiss()
         }
     }
 
-    /**
-     * Get index for name collision selection dialog. Inverse of getSelectionIndexForNameCollisionPolicy.
-     *
-     * @return ASK_USER if 0, OVERWRITE if 1, RENAME if 2, SKIP if 3. Otherwise: ASK_USER
-     */
-    static private NameCollisionPolicy getNameCollisionPolicyForSelectionIndex(int index) {
-        switch (index) {
-            case 1:
-                return NameCollisionPolicy.OVERWRITE;
-            case 2:
-                return NameCollisionPolicy.RENAME;
-            case 3:
-                return NameCollisionPolicy.CANCEL;
-            case 0:
-            default:
-                return NameCollisionPolicy.ASK_USER;
+    private fun getDelaySummary(duration: Long): String {
+        if (duration == 0L) {
+            return getString(R.string.pref_instant_upload_delay_disabled)
         }
+        val durationParts = getDurationParts(duration)
+        val durationSummary = StringBuilder()
+        if (durationParts.days > 0) {
+            durationSummary.append(durationParts.days)
+            durationSummary.append(getString(R.string.common_days_short))
+            durationSummary.append(' ')
+        }
+        if (durationParts.hours > 0) {
+            durationSummary.append(durationParts.hours)
+            durationSummary.append(getString(R.string.common_hours_short))
+            durationSummary.append(' ')
+        }
+        if (durationParts.minutes > 0) {
+            durationSummary.append(durationParts.minutes)
+            durationSummary.append(getString(R.string.common_minutes_short))
+        }
+        return getString(R.string.pref_instant_upload_delay_enabled, durationSummary.toString().trim { it <= ' ' })
     }
 
-    private String getDelaySummary(long duration) {
-        if (duration == 0) {
-            return getString(R.string.pref_instant_upload_delay_disabled);
+    companion object {
+        const val SYNCED_FOLDER_PARCELABLE: String = "SyncedFolderParcelable"
+        const val REQUEST_CODE__SELECT_REMOTE_FOLDER: Int = 0
+        const val REQUEST_CODE__SELECT_LOCAL_FOLDER: Int = 1
+
+        private val TAG: String = SyncedFolderPreferencesDialogFragment::class.java.simpleName
+        private const val BEHAVIOUR_DIALOG_STATE = "BEHAVIOUR_DIALOG_STATE"
+        private const val NAME_COLLISION_POLICY_DIALOG_STATE = "NAME_COLLISION_POLICY_DIALOG_STATE"
+        private const val alphaEnabled = 1.0f
+        private const val alphaDisabled = 0.7f
+
+        fun newInstance(syncedFolder: SyncedFolderDisplayItem?, section: Int): SyncedFolderPreferencesDialogFragment {
+            requireNotNull(syncedFolder) { "SyncedFolder is mandatory but NULL!" }
+
+            val args = Bundle()
+            args.putParcelable(SYNCED_FOLDER_PARCELABLE, SyncedFolderParcelable(syncedFolder, section))
+
+            val dialogFragment = SyncedFolderPreferencesDialogFragment()
+            dialogFragment.arguments = args
+            dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
+
+            return dialogFragment
         }
-        TimeUtils.DurationParts durationParts = TimeUtils.getDurationParts(duration);
-        StringBuilder durationSummary = new StringBuilder();
-        if (durationParts.getDays() > 0) {
-            durationSummary.append(durationParts.getDays());
-            durationSummary.append(getString(R.string.common_days_short));
-            durationSummary.append(' ');
+
+        /**
+         * Get index for name collision selection dialog.
+         *
+         * @return 0 if ASK_USER, 1 if OVERWRITE, 2 if RENAME, 3 if SKIP, Otherwise: 0
+         */
+        private fun getSelectionIndexForNameCollisionPolicy(nameCollisionPolicy: NameCollisionPolicy): Int {
+            return when (nameCollisionPolicy) {
+                NameCollisionPolicy.OVERWRITE -> 1
+                NameCollisionPolicy.RENAME -> 2
+                NameCollisionPolicy.CANCEL -> 3
+                NameCollisionPolicy.ASK_USER -> 0
+                else -> 0
+            }
         }
-        if (durationParts.getHours() > 0) {
-            durationSummary.append(durationParts.getHours());
-            durationSummary.append(getString(R.string.common_hours_short));
-            durationSummary.append(' ');
+
+        /**
+         * Get index for name collision selection dialog. Inverse of getSelectionIndexForNameCollisionPolicy.
+         *
+         * @return ASK_USER if 0, OVERWRITE if 1, RENAME if 2, SKIP if 3. Otherwise: ASK_USER
+         */
+        private fun getNameCollisionPolicyForSelectionIndex(index: Int): NameCollisionPolicy {
+            return when (index) {
+                1 -> NameCollisionPolicy.OVERWRITE
+                2 -> NameCollisionPolicy.RENAME
+                3 -> NameCollisionPolicy.CANCEL
+                0 -> NameCollisionPolicy.ASK_USER
+                else -> NameCollisionPolicy.ASK_USER
+            }
         }
-        if (durationParts.getMinutes() > 0) {
-            durationSummary.append(durationParts.getMinutes());
-            durationSummary.append(getString(R.string.common_minutes_short));
-        }
-        return getString(R.string.pref_instant_upload_delay_enabled, durationSummary.toString().trim());
     }
 }
