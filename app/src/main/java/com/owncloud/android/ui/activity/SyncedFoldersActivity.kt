@@ -703,10 +703,10 @@ class SyncedFoldersActivity :
                 syncedFolder.isSubfolderByDate,
                 syncedFolder.uploadAction,
                 syncedFolder.nameCollisionPolicy.serialize(),
+                syncedFolder.uploadDelayTimeMs,
                 syncedFolder.isEnabled,
                 syncedFolder.subFolderRule,
-                syncedFolder.isExcludeHidden,
-                syncedFolder.uploadDelayTimeMs
+                syncedFolder.isExcludeHidden
             )
             saveOrUpdateSyncedFolder(item)
 
@@ -792,10 +792,10 @@ class SyncedFoldersActivity :
         subfolderByDate: Boolean,
         uploadAction: Int,
         nameCollisionPolicy: Int,
+        uploadDelayTimeMs: Long,
         enabled: Boolean,
         subFolderRule: SubFolderRule,
-        excludeHidden: Boolean,
-        uploadDelayTimeMs: Long
+        excludeHidden: Boolean
     ) {
         item.id = id
         item.localPath = localPath
