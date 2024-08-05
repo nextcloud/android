@@ -45,6 +45,7 @@ import javax.inject.Inject
  * Dialog to show the preferences/configuration of a synced folder allowing the user to change the different
  * parameters.
  */
+@Suppress("TooManyFunctions")
 class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
     @JvmField
