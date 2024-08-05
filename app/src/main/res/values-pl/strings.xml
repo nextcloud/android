@@ -661,6 +661,7 @@
     <string name="preview_image_description">Podgląd</string>
     <string name="preview_image_error_no_local_file">Brak lokalnego pliku do podglądu</string>
     <string name="preview_image_error_unknown_format">Nie można wyświetlić obrazu</string>
+    <string name="preview_image_file_is_not_exist">Plik nie istnieje</string>
     <string name="preview_media_unhandled_http_code_message">Plik jest obecnie zablokowany przez innego użytkownika lub proces i dlatego nie można go usunąć. Spróbuj ponownie później.</string>
     <string name="preview_sorry">Przykro nam</string>
     <string name="privacy">Prywatność</string>

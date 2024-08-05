@@ -657,6 +657,7 @@
     <string name="preview_image_description">Попередній перегляд зображення</string>
     <string name="preview_image_error_no_local_file">Відсутній файл на пристрої для попереднього показу</string>
     <string name="preview_image_error_unknown_format">Неможливо показати зображення</string>
+    <string name="preview_image_file_is_not_exist">Файл відсутній</string>
     <string name="preview_media_unhandled_http_code_message">Цей файл неможливо вилучити, оскільки його заблоковано іншим користувачем або процесом. Спробуйте пізніше.</string>
     <string name="preview_sorry">Перепрошуємо</string>
     <string name="privacy">Конфіденційність</string>

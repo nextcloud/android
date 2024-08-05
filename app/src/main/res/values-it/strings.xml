@@ -641,6 +641,7 @@
     <string name="preview_image_description">Anteprima dell\'immagine</string>
     <string name="preview_image_error_no_local_file">Non esiste un file locale per l\'anteprima</string>
     <string name="preview_image_error_unknown_format">Impossibile mostrare l\'immagine</string>
+    <string name="preview_image_file_is_not_exist">Il file non esiste</string>
     <string name="preview_sorry">Spiacenti</string>
     <string name="privacy">Riservatezza</string>
     <string name="public_share_name">Nuovo nome</string>
