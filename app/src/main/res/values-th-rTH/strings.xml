@@ -547,6 +547,8 @@
     <string name="storage_camera">กล้อง</string>
     <string name="storage_description_default">ค่าเริ่มต้น</string>
     <string name="storage_downloads">ดาวน์โหลด</string>
+    <string name="sub_folder_rule_day">ปี/เดือน/วัน</string>
+    <string name="sub_folder_rule_month">ปี/เดือน</string>
     <string name="sub_folder_rule_year">ปี</string>
     <string name="subject_shared_with_you">\"%1$s\" ได้ถูกแชร์กับคุณ</string>
     <string name="subject_user_shared_with_you">%1$s ได้แชร์ \"%2$s\" กับคุณ</string>
@@ -559,7 +561,9 @@
     <string name="sync_folder_failed_content">การซิงค์โฟลเดอร์ %1$s ไม่สามารถเสร็จสิ้นได้</string>
     <string name="sync_foreign_files_forgotten_ticker">มีไฟล์ต้นทางบางไฟล์ถูกลืม</string>
     <string name="sync_not_enough_space_dialog_action_choose">เลือกสิ่งที่จะซิงค์</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">เพิ่มพื้นที่ว่าง</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s เป็น %2$s แต่มีแค่ %3$s ที่ใช้งานได้บนอุปกรณ์</string>
+    <string name="sync_not_enough_space_dialog_title">พื้นที่ไม่เพียงพอ</string>
     <string name="sync_status_button">ปุ่มสถานะการซิงค์</string>
     <string name="sync_string_files">ไฟล์</string>
     <string name="synced_folder_settings_button">ปุ่มการตั้งค่า</string>
