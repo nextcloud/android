@@ -20,6 +20,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.jobs.NotificationWork
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.EspressoIdlingResource
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationsLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -192,6 +193,8 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
 
     @VisibleForTesting
     fun populateList(notifications: List<Notification>?) {
+        EspressoIdlingResource.increment()
+
         initializeAdapter()
         adapter?.setNotificationItems(notifications)
         binding.loadingContent.visibility = View.GONE
@@ -207,6 +210,8 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
             binding.swipeContainingList.visibility = View.GONE
             binding.swipeContainingEmpty.visibility = View.VISIBLE
         }
+
+        EspressoIdlingResource.decrement()
     }
 
     private fun fetchAndSetData() {
@@ -292,6 +297,8 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
 
     @VisibleForTesting
     fun setEmptyContent(headline: String?, message: String?) {
+        EspressoIdlingResource.increment()
+
         binding.swipeContainingList.visibility = View.GONE
         binding.loadingContent.visibility = View.GONE
         binding.swipeContainingEmpty.visibility = View.VISIBLE
@@ -301,6 +308,8 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification)
         binding.emptyList.emptyListViewText.visibility = View.VISIBLE
         binding.emptyList.emptyListIcon.visibility = View.VISIBLE
+
+        EspressoIdlingResource.decrement()
     }
 
     override fun onResume() {
