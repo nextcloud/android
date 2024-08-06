@@ -179,6 +179,7 @@ class TrashbinActivity :
 
     fun loadFolder() {
         EspressoIdlingResource.increment()
+
         trashbinListAdapter?.let {
             if (it.itemCount > EMPTY_LIST_COUNT) {
                 binding.swipeContainingList.isRefreshing = true
@@ -186,9 +187,14 @@ class TrashbinActivity :
                 showInitialLoading()
             }
 
-            trashbinPresenter?.loadFolder()
+            trashbinPresenter?.loadFolder(onCompleted = {
+                EspressoIdlingResource.decrement()
+                hideInitialLoading()
+            }, onError = {
+                EspressoIdlingResource.decrement()
+                hideInitialLoading()
+            })
         }
-        EspressoIdlingResource.decrement()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -289,21 +295,36 @@ class TrashbinActivity :
     @VisibleForTesting
     fun showInitialLoading() {
         EspressoIdlingResource.increment()
+
         binding.emptyList.emptyListView.visibility = View.GONE
         binding.list.visibility = View.GONE
         binding.loadingContent.visibility = View.VISIBLE
+
+        EspressoIdlingResource.decrement()
+    }
+
+    @VisibleForTesting
+    fun hideInitialLoading() {
+        EspressoIdlingResource.increment()
+
+        binding.emptyList.emptyListView.visibility = View.VISIBLE
+        binding.list.visibility = View.VISIBLE
+        binding.loadingContent.visibility = View.GONE
+
         EspressoIdlingResource.decrement()
     }
 
     @VisibleForTesting
     fun showUser() {
         EspressoIdlingResource.increment()
+
         binding.loadingContent.visibility = View.GONE
         binding.list.visibility = View.VISIBLE
         binding.swipeContainingList.isRefreshing = false
         binding.emptyList.emptyListViewText.text = user.get().accountName
         binding.emptyList.emptyListViewText.visibility = View.VISIBLE
         binding.emptyList.emptyListView.visibility = View.VISIBLE
+
         EspressoIdlingResource.decrement()
     }
 
