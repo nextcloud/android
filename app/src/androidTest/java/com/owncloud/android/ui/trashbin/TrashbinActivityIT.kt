@@ -11,17 +11,25 @@ import android.accounts.Account
 import android.accounts.AccountManager
 import android.content.Intent
 import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.utils.EspressoIdlingResource
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.MainApp
 import com.owncloud.android.lib.common.accounts.AccountUtils
 import com.owncloud.android.utils.ScreenshotTest
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
 class TrashbinActivityIT : AbstractIT() {
+    private val scope = CoroutineScope(Dispatchers.IO)
     private val testClassName = "com.owncloud.android.ui.trashbin.TrashbinActivityIT"
 
     enum class TestCase {
@@ -48,7 +56,13 @@ class TrashbinActivityIT : AbstractIT() {
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
                     val screenShotName = createName(testClassName + "_" + "error", "")
-                    screenshotViaName(sut, screenShotName)
+                    scope.launch {
+                        onView(isRoot()).check(matches(isDisplayed()))
+
+                        launch(Dispatchers.Main) {
+                            screenshotViaName(sut, screenShotName)
+                        }
+                    }
                 }
             }
         }
@@ -80,7 +94,13 @@ class TrashbinActivityIT : AbstractIT() {
                 onIdleSync {
                     sut.runOnUiThread { sut.loadFolder() }
                     val screenShotName = createName(testClassName + "_" + "empty", "")
-                    screenshotViaName(sut, screenShotName)
+                    scope.launch {
+                        onView(isRoot()).check(matches(isDisplayed()))
+
+                        launch(Dispatchers.Main) {
+                            screenshotViaName(sut, screenShotName)
+                        }
+                    }
                 }
             }
         }
@@ -96,7 +116,13 @@ class TrashbinActivityIT : AbstractIT() {
                 onIdleSync {
                     sut.runOnUiThread { sut.showInitialLoading() }
                     val screenShotName = createName(testClassName + "_" + "loading", "")
-                    screenshotViaName(sut, screenShotName)
+                    scope.launch {
+                        onView(isRoot()).check(matches(isDisplayed()))
+
+                        launch(Dispatchers.Main) {
+                            screenshotViaName(sut, screenShotName)
+                        }
+                    }
                 }
             }
         }
@@ -112,7 +138,13 @@ class TrashbinActivityIT : AbstractIT() {
                 onIdleSync {
                     sut.runOnUiThread { sut.showUser() }
                     val screenShotName = createName(testClassName + "_" + "normalUser", "")
-                    screenshotViaName(sut, screenShotName)
+                    scope.launch {
+                        onView(isRoot()).check(matches(isDisplayed()))
+
+                        launch(Dispatchers.Main) {
+                            screenshotViaName(sut, screenShotName)
+                        }
+                    }
                 }
             }
         }
@@ -140,7 +172,13 @@ class TrashbinActivityIT : AbstractIT() {
                 onIdleSync {
                     sut.runOnUiThread { sut.showUser() }
                     val screenShotName = createName(testClassName + "_" + "differentUser", "")
-                    screenshotViaName(sut, screenShotName)
+                    scope.launch {
+                        onView(isRoot()).check(matches(isDisplayed()))
+
+                        launch(Dispatchers.Main) {
+                            screenshotViaName(sut, screenShotName)
+                        }
+                    }
                 }
             }
         }

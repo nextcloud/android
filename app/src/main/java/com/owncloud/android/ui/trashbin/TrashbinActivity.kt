@@ -189,10 +189,8 @@ class TrashbinActivity :
 
             trashbinPresenter?.loadFolder(onCompleted = {
                 EspressoIdlingResource.decrement()
-                hideInitialLoading()
             }, onError = {
                 EspressoIdlingResource.decrement()
-                hideInitialLoading()
             })
         }
     }
@@ -299,17 +297,6 @@ class TrashbinActivity :
         binding.emptyList.emptyListView.visibility = View.GONE
         binding.list.visibility = View.GONE
         binding.loadingContent.visibility = View.VISIBLE
-
-        EspressoIdlingResource.decrement()
-    }
-
-    @VisibleForTesting
-    fun hideInitialLoading() {
-        EspressoIdlingResource.increment()
-
-        binding.emptyList.emptyListView.visibility = View.VISIBLE
-        binding.list.visibility = View.VISIBLE
-        binding.loadingContent.visibility = View.GONE
 
         EspressoIdlingResource.decrement()
     }
