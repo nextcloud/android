@@ -7,32 +7,44 @@
  */
 package com.owncloud.android.ui.activity
 
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.IdlingRegistry
+import com.nextcloud.utils.EspressoIdlingResource
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.lib.resources.notifications.models.RichObject
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.Rule
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import java.util.GregorianCalendar
 
 class NotificationsActivityIT : AbstractIT() {
-    @get:Rule
-    var activityRule = IntentsTestRule(NotificationsActivity::class.java, true, false)
+    private val testClassName = "com.owncloud.android.ui.activity.NotificationsActivityIT"
+
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
 
     @Test
     @ScreenshotTest
     fun empty() {
-        val sut: NotificationsActivity = activityRule.launchActivity(null)
-
-        waitForIdleSync()
-
-        sut.runOnUiThread { sut.populateList(ArrayList<Notification>()) }
-
-        shortSleep()
-
-        screenshot(sut)
+        launchActivity<NotificationsActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    sut.runOnUiThread { sut.populateList(ArrayList()) }
+                    val screenShotName = createName(testClassName + "_" + "empty", "")
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 
     @Test
@@ -117,24 +129,24 @@ class NotificationsActivityIT : AbstractIT() {
             )
         )
 
-        activityRule.launchActivity(null).apply {
-            runOnUiThread {
-                populateList(notifications)
+        launchActivity<NotificationsActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                sut.runOnUiThread {  sut.populateList(notifications) }
+                val screenShotName = createName(testClassName + "_" + "showNotifications", "")
+                screenshotViaName(sut, screenShotName)
             }
-            shortSleep()
-            screenshot(binding.list)
         }
     }
 
     @Test
     @ScreenshotTest
     fun error() {
-        val sut: NotificationsActivity = activityRule.launchActivity(null)
-
-        shortSleep()
-
-        sut.runOnUiThread { sut.setEmptyContent("Error", "Error! Please try again later!") }
-
-        screenshot(sut)
+        launchActivity<NotificationsActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                sut.runOnUiThread { sut.setEmptyContent("Error", "Error! Please try again later!") }
+                val screenShotName = createName(testClassName + "_" + "error", "")
+                screenshotViaName(sut, screenShotName)
+            }
+        }
     }
 }
