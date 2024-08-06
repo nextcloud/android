@@ -7,6 +7,7 @@
  */
 package com.owncloud.android.ui.activity
 
+import androidx.annotation.UiThread
 import androidx.test.core.app.launchActivity
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
@@ -19,16 +20,12 @@ import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.lib.resources.notifications.models.RichObject
 import com.owncloud.android.utils.ScreenshotTest
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import java.util.GregorianCalendar
 
 class NotificationsActivityIT : AbstractIT() {
-    private val scope = CoroutineScope(Dispatchers.IO)
     private val testClassName = "com.owncloud.android.ui.activity.NotificationsActivityIT"
 
     @Before
@@ -42,27 +39,23 @@ class NotificationsActivityIT : AbstractIT() {
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun empty() {
         launchActivity<NotificationsActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
-                    sut.runOnUiThread { sut.populateList(ArrayList()) }
+                    sut.populateList(ArrayList())
                     val screenShotName = createName(testClassName + "_" + "empty", "")
-
-                    scope.launch {
-                        onView(isRoot()).check(matches(isDisplayed()))
-
-                        launch(Dispatchers.Main) {
-                            screenshotViaName(sut, screenShotName)
-                        }
-                    }
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     @SuppressWarnings("MagicNumber")
     fun showNotifications() {
@@ -146,33 +139,27 @@ class NotificationsActivityIT : AbstractIT() {
 
         launchActivity<NotificationsActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                sut.runOnUiThread { sut.populateList(notifications) }
-                val screenShotName = createName(testClassName + "_" + "showNotifications", "")
-                scope.launch {
+                onIdleSync {
+                    sut.populateList(notifications)
+                    val screenShotName = createName(testClassName + "_" + "showNotifications", "")
                     onView(isRoot()).check(matches(isDisplayed()))
-
-                    launch(Dispatchers.Main) {
-                        screenshotViaName(sut, screenShotName)
-                    }
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun error() {
         launchActivity<NotificationsActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                sut.runOnUiThread { sut.setEmptyContent("Error", "Error! Please try again later!") }
-                val screenShotName = createName(testClassName + "_" + "error", "")
-
-                scope.launch {
+                onIdleSync {
+                    sut.setEmptyContent("Error", "Error! Please try again later!")
+                    val screenShotName = createName(testClassName + "_" + "error", "")
                     onView(isRoot()).check(matches(isDisplayed()))
-
-                    launch(Dispatchers.Main) {
-                        screenshotViaName(sut, screenShotName)
-                    }
+                    screenshotViaName(sut, screenShotName)
                 }
             }
         }
