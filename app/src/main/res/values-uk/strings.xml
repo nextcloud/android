@@ -162,7 +162,7 @@
     <string name="community_contribute_headline">Беруть активну участь</string>
     <string name="community_contribute_translate_text">застосунок</string>
     <string name="community_contribute_translate_translate">Перекласти</string>
-    <string name="community_dev_direct_download">Пряме звантаження збріки для розробників</string>
+    <string name="community_dev_direct_download">Отримати збріку для розробників напряму</string>
     <string name="community_dev_fdroid">Отримати версію для розробника з крамниці F-Droid</string>
     <string name="community_rc_fdroid">Отримати передрелізну версію з крамниці F-Droid</string>
     <string name="community_rc_play_store">Отримати передрелізну версію з каталогу застосунків Google Play</string>
@@ -200,7 +200,7 @@
     <string name="copy_file_not_found">Неможливо скопіювати. Будь ласка, перевірте, чи файл існує.</string>
     <string name="copy_link">Копіювати посилання</string>
     <string name="copy_move_to_encrypted_folder_not_supported">Копіювання/переміщення в зашифрований каталог - в даний час не підтримується.</string>
-    <string name="could_not_download_image">Неможливо звантажити повне зображення</string>
+    <string name="could_not_download_image">Неможливо отримати повне зображення</string>
     <string name="could_not_retrieve_shares">Не вдалося отримати спільні дані</string>
     <string name="could_not_retrieve_url">Неможливо отримати посилання</string>
     <string name="create">Створити</string>
@@ -243,7 +243,7 @@
     <string name="dontClear">Не очистувати</string>
     <string name="download_cannot_create_file">Неможливо створити файл на пристрої</string>
     <string name="download_download_invalid_local_file_name">Недійсна назва локального файлу</string>
-    <string name="download_latest_dev_version">Звантажити останню версію для розробників</string>
+    <string name="download_latest_dev_version">Отримати останню версію для розробників</string>
     <string name="downloader_download_failed_content">Не вдалося звантажити %1$s</string>
     <string name="downloader_download_failed_credentials_error">Не вдалося звантажити, увійдіть знову</string>
     <string name="downloader_download_failed_ticker">Не вдалося звантажити</string>
@@ -409,7 +409,7 @@
     <string name="file_version_restored_error">Помилка під час відновлення версії файлу!</string>
     <string name="file_version_restored_successfully">Успішно відновлено версію файлу.</string>
     <string name="filedetails_details">Деталі</string>
-    <string name="filedetails_download">Звантажити</string>
+    <string name="filedetails_download">Отримати</string>
     <string name="filedetails_export">Експортувати</string>
     <string name="filedetails_renamed_in_upload_msg">Під час завантаження назву файлу було змінено %1$s</string>
     <string name="filedetails_sync_file">Синхронізація</string>
@@ -655,8 +655,10 @@
     <string name="prefs_value_theme_light">Світла</string>
     <string name="prefs_value_theme_system">Системна</string>
     <string name="preview_image_description">Попередній перегляд зображення</string>
+    <string name="preview_image_downloading_image_for_edit">Отримання зображення для редагування. Зачекайте...</string>
     <string name="preview_image_error_no_local_file">Відсутній файл на пристрої для попереднього показу</string>
     <string name="preview_image_error_unknown_format">Неможливо показати зображення</string>
+    <string name="preview_image_file_is_not_downloaded">Файл не звантажено</string>
     <string name="preview_image_file_is_not_exist">Файл відсутній</string>
     <string name="preview_media_unhandled_http_code_message">Цей файл неможливо вилучити, оскільки його заблоковано іншим користувачем або процесом. Спробуйте пізніше.</string>
     <string name="preview_sorry">Перепрошуємо</string>
@@ -667,6 +669,7 @@
     <string name="push_notifications_temp_error">Зараз сповіщення push недоступні.</string>
     <string name="qr_could_not_be_read">Неможливо прочитати QR-код!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Неможливо знайти каталог, синхронізацію скасовано</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Неможливо знайти файл для завантаження</string>
     <string name="recommend_subject">Спробуйте %1$s на Вашому пристрої!</string>
     <string name="recommend_text">Запрошую вас почати використовувати %1$s на вашому пристрої.\nЗвантажити можна тут: %2$s</string>
     <string name="recommend_urls">%1$s або %2$s</string>
@@ -873,6 +876,9 @@
     <string name="trashbin_file_remove">Вилучити назавжди</string>
     <string name="trashbin_loading_failed">Неможливо відкрити кошик!</string>
     <string name="trashbin_not_emptied">Неможливо вилучити файли!</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Подію не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
+    <string name="unified_search_fragment_contact_not_found">Контакт не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
+    <string name="unified_search_fragment_permission_needed">Для отримання результатів пошуку потрібні окреми дозволи, або перейти на вебсайт...</string>
     <string name="unlock_file">Розблокувати файл</string>
     <string name="unread_comments">Доступні непрочитані коментарі</string>
     <string name="unset_encrypted">Зняти шифрування</string>
