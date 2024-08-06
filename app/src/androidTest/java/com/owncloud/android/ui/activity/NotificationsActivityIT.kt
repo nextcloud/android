@@ -131,7 +131,7 @@ class NotificationsActivityIT : AbstractIT() {
 
         launchActivity<NotificationsActivity>().use { scenario ->
             scenario.onActivity { sut ->
-                sut.runOnUiThread {  sut.populateList(notifications) }
+                sut.runOnUiThread { sut.populateList(notifications) }
                 val screenShotName = createName(testClassName + "_" + "showNotifications", "")
                 screenshotViaName(sut, screenShotName)
             }
