@@ -27,10 +27,11 @@
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/template_container"
         android:checkable="true"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        app:cardElevation="0dp"
         app:strokeColor="@color/card_border_selector"
         app:strokeWidth="2dp">
 
