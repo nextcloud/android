@@ -25,6 +25,8 @@ fun String.removeFileExtension(): String {
     }
 }
 
-fun dot(): String = "."
-
-fun space(): String = " "
+object StringConstants {
+    const val SLASH = "/"
+    const val DOT = "."
+    const val SPACE = " "
+}
