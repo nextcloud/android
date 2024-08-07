@@ -948,12 +948,11 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 messageResId = R.string.uploader_error_message_read_permission_not_granted;
             } else if (resultCode == UriUploader.UriUploaderResultCode.ERROR_UNKNOWN) {
                 messageResId = R.string.common_error_unknown;
+            } else if (resultCode == UriUploader.UriUploaderResultCode.INVALID_FILE_NAME) {
+                messageResId = R.string.file_name_validator_upload_content_error;
             }
 
-            showErrorDialog(
-                messageResId,
-                messageResTitle
-                           );
+            showErrorDialog(messageResId, messageResTitle);
         }
     }
 

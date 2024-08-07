@@ -24,7 +24,6 @@ import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
 
 /**
@@ -59,7 +58,8 @@ class UriUploader(
         ERROR_UNKNOWN,
         ERROR_NO_FILE_TO_UPLOAD,
         ERROR_READ_PERMISSION_NOT_GRANTED,
-        ERROR_SENSITIVE_PATH
+        ERROR_SENSITIVE_PATH,
+        INVALID_FILE_NAME
     }
 
     fun uploadUris(): UriUploaderResultCode {
@@ -72,28 +72,21 @@ class UriUploader(
                 Log_OC.e(TAG, "Sensitive URI detected, aborting upload.")
                 code = UriUploaderResultCode.ERROR_SENSITIVE_PATH
             } else {
-                var isInvalidPathMessageDisplayed = false
+                var isFilenameValid = true
+
                 val uris = mUrisToUpload
                     .filterNotNull()
                     .map { it as Uri }
                     .map { Pair(it, getRemotePathForUri(it)) }
                     .filter { (_, filename) ->
-                        val isValid = (
-                            FileNameValidator.checkFileName(
-                                filename.removePrefix("/"),
-                                mActivity.capabilities,
-                                mActivity,
-                                null
-                            ) == null
-                            )
-                        if (!isValid && !isInvalidPathMessageDisplayed) {
-                            isInvalidPathMessageDisplayed = true
-                            DisplayUtils.showSnackMessage(
-                                mActivity,
-                                R.string.file_name_validator_upload_content_error
-                            )
-                        }
-                        isValid
+                        isFilenameValid = FileNameValidator.checkFileName(
+                            filename.removePrefix("/"),
+                            mActivity.capabilities,
+                            mActivity,
+                            null
+                        ) == null
+
+                        isFilenameValid
                     }
 
                 val fileUris = uris
@@ -109,7 +102,11 @@ class UriUploader(
                     val (contentUris, contentRemotePaths) = contentUrisNew.unzip()
                     copyThenUpload(contentUris.toTypedArray(), contentRemotePaths.toTypedArray())
                 } else if (fileUris.isEmpty()) {
-                    code = UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD
+                    code = if (!isFilenameValid) {
+                        UriUploaderResultCode.INVALID_FILE_NAME
+                    } else {
+                        UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD
+                    }
                 }
             }
         } catch (e: SecurityException) {
