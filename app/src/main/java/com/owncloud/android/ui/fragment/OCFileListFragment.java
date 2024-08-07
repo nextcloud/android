@@ -60,6 +60,7 @@ import com.nextcloud.utils.ShortcutUtil;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -1246,6 +1247,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
             return true;
         } else if (itemId == R.id.action_move_or_copy) {
+            boolean isFilenamesCorrect = checkFilenames(checkedFiles);
+
+            if (!isFilenamesCorrect) {
+                DisplayUtils.showSnackMessage(requireActivity(),R.string.file_name_validator_rename_before_move_or_copy);
+                return false;
+            }
+
             pickFolderForMoveOrCopy(checkedFiles);
             return true;
         } else if (itemId == R.id.action_select_all_action_menu) {
@@ -1262,6 +1270,25 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         return false;
+    }
+
+    private OCCapability getCapabilities() {
+        final User currentUser = accountManager.getUser();
+        return mContainerActivity.getStorageManager().getCapability(currentUser.getAccountName());
+    }
+
+    private boolean checkFilenames(Set<OCFile> checkedFiles) {
+        boolean result = true;
+
+        for (OCFile file : checkedFiles) {
+            String errorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext(), null);
+            if (errorMessage != null) {
+                result = false;
+                break;
+            }
+        }
+
+        return result;
     }
 
     private void pickFolderForMoveOrCopy(final Set<OCFile> checkedFiles) {
