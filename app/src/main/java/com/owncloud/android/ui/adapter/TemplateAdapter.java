@@ -104,7 +104,8 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
             super(binding.getRoot());
             this.binding = binding;
             viewThemeUtils.files.themeTemplateCardView(this.binding.templateContainer);
-            itemView.setOnClickListener(this);
+            binding.templateLayout.setOnClickListener(this);
+            binding.templateContainer.setOnClickListener(this);
         }
 
         @Override
