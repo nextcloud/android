@@ -15,8 +15,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.content.res.Resources
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.os.Parcelable
 import android.view.ActionMode
 import android.view.Menu
@@ -382,14 +380,36 @@ open class FolderPickerActivity :
     private fun toggleChooseEnabled() {
         if (this is FilePickerActivity) {
             return
+        }
+
+        val selectedFolderPathTitle = getSelectedFolderPathTitle()
+        val isFolderPathValid = if (selectedFolderPathTitle != null) {
+            FileNameValidator.checkFolderPath(selectedFolderPathTitle, capabilities, this)
         } else {
-            folderPickerBinding.folderPickerBtnCopy.isEnabled = checkFolderSelectable()
-            folderPickerBinding.folderPickerBtnMove.isEnabled = checkFolderSelectable()
+            true
+        }
+
+        checkButtonStates(isFolderPathValid)
+
+        if (!isFolderPathValid) {
+            DisplayUtils.showSnackMessage(
+                this,
+                R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters
+            )
+            return
+        }
+    }
+
+    private fun checkButtonStates(isConditionMet: Boolean) {
+        folderPickerBinding.run {
+            folderPickerBtnChoose.isEnabled = isConditionMet
+            folderPickerBtnCopy.isEnabled = isFolderSelectable() && isConditionMet
+            folderPickerBtnMove.isEnabled = isFolderSelectable() && isConditionMet
         }
     }
 
     // for copy and move, disable selecting parent folder of target files
-    private fun checkFolderSelectable(): Boolean {
+    private fun isFolderSelectable(): Boolean {
         return when {
             action != MOVE_OR_COPY -> true
             targetFilePaths.isNullOrEmpty() -> true
@@ -410,11 +430,15 @@ open class FolderPickerActivity :
             val atRoot = (currentDir == null || currentDir.parentId == 0L)
             actionBar.setDisplayHomeAsUpEnabled(!atRoot)
             actionBar.setHomeButtonEnabled(!atRoot)
-            val title = if (atRoot) captionText ?: "" else currentDir?.fileName
-            title?.let {
-                viewThemeUtils.files.themeActionBar(this, actionBar, title)
+            getSelectedFolderPathTitle()?.let {
+                viewThemeUtils.files.themeActionBar(this, actionBar, it)
             }
         }
+    }
+
+    private fun getSelectedFolderPathTitle(): String? {
+        val atRoot = (currentDir == null || currentDir.parentId == 0L)
+        return if (atRoot) captionText ?: "" else currentDir?.fileName
     }
 
     private fun initControls() {
