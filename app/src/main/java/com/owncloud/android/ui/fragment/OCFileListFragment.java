@@ -222,7 +222,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected boolean mHideFab = true;
     protected ActionMode mActiveActionMode;
     protected boolean mIsActionModeNew;
-    protected OCFileListFragment.MultiChoiceModeListener mMultiChoiceModeListener;
+    protected MultiChoiceModeListener mMultiChoiceModeListener;
 
     protected SearchType currentSearchType;
     protected boolean searchFragment;
@@ -1247,10 +1247,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mContainerActivity.getFileOperationsHelper().toggleFavoriteFiles(checkedFiles, false);
             return true;
         } else if (itemId == R.id.action_move_or_copy) {
-            boolean isFilenamesCorrect = checkFilenames(checkedFiles);
+            String invalidFilename = checkInvalidFilenames(checkedFiles);
 
-            if (!isFilenamesCorrect) {
-                DisplayUtils.showSnackMessage(requireActivity(), R.string.file_name_validator_rename_before_move_or_copy);
+            if (invalidFilename != null) {
+                DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.file_name_validator_rename_before_move_or_copy, invalidFilename));
                 return false;
             }
 
@@ -1279,7 +1279,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void browseToRoot() {
-        OCFile root = mContainerActivity.getStorageManager().getFileByEncryptedRemotePath(OCFile.ROOT_PATH);
+        OCFile root = mContainerActivity.getStorageManager().getFileByEncryptedRemotePath(ROOT_PATH);
         browseToFolder(root,0);
     }
 
@@ -1288,18 +1288,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return mContainerActivity.getStorageManager().getCapability(currentUser.getAccountName());
     }
 
-    private boolean checkFilenames(Set<OCFile> checkedFiles) {
-        boolean result = true;
-
+    private String checkInvalidFilenames(Set<OCFile> checkedFiles) {
         for (OCFile file : checkedFiles) {
             String errorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext(), null);
             if (errorMessage != null) {
-                result = false;
-                break;
+                return errorMessage;
             }
         }
 
-        return result;
+        return null;
     }
 
     private void pickFolderForMoveOrCopy(final Set<OCFile> checkedFiles) {
@@ -1588,7 +1585,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         }
 
-        if (SearchType.FILE_SEARCH != currentSearchType && getActivity() != null) {
+        if (FILE_SEARCH != currentSearchType && getActivity() != null) {
             getActivity().invalidateOptionsMenu();
         }
     }
@@ -1597,27 +1594,27 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (event != null) {
             switch (event.getSearchType()) {
                 case FILE_SEARCH:
-                    setEmptyListMessage(SearchType.FILE_SEARCH);
+                    setEmptyListMessage(FILE_SEARCH);
                     break;
 
                 case FAVORITE_SEARCH:
-                    setEmptyListMessage(SearchType.FAVORITE_SEARCH);
+                    setEmptyListMessage(FAVORITE_SEARCH);
                     break;
 
                 case RECENTLY_MODIFIED_SEARCH:
-                    setEmptyListMessage(SearchType.RECENTLY_MODIFIED_SEARCH);
+                    setEmptyListMessage(RECENTLY_MODIFIED_SEARCH);
                     break;
 
                 case SHARED_FILTER:
-                    setEmptyListMessage(SearchType.SHARED_FILTER);
+                    setEmptyListMessage(SHARED_FILTER);
                     break;
 
                 default:
-                    setEmptyListMessage(SearchType.NO_SEARCH);
+                    setEmptyListMessage(NO_SEARCH);
                     break;
             }
         } else {
-            setEmptyListMessage(SearchType.NO_SEARCH);
+            setEmptyListMessage(NO_SEARCH);
         }
     }
 
@@ -1654,7 +1651,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     private void resetSearchAttributes() {
         searchFragment = false;
         searchEvent = null;
-        currentSearchType = SearchType.NO_SEARCH;
+        currentSearchType = NO_SEARCH;
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
@@ -1673,8 +1670,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             RemoteOperationResult remoteOperationResult = toggleFavoriteOperation.execute(client);
 
             if (remoteOperationResult.isSuccess()) {
-                boolean removeFromList = currentSearchType == SearchType.FAVORITE_SEARCH && !event.getShouldFavorite();
-                setEmptyListMessage(SearchType.FAVORITE_SEARCH);
+                boolean removeFromList = currentSearchType == FAVORITE_SEARCH && !event.getShouldFavorite();
+                setEmptyListMessage(FAVORITE_SEARCH);
                 mAdapter.setFavoriteAttributeForItemID(event.getRemotePath(), event.getShouldFavorite(), removeFromList);
             }
 
@@ -1712,7 +1709,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         searchFragment = true;
         setEmptyListLoadingMessage();
         mAdapter.setData(new ArrayList<>(),
-                         SearchType.NO_SEARCH,
+                         NO_SEARCH,
                          mContainerActivity.getStorageManager(),
                          mFile,
                          true);
