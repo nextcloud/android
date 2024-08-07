@@ -317,22 +317,26 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             mIsFirstAuthAttempt = savedInstanceState.getBoolean(KEY_AUTH_IS_FIRST_ATTEMPT_TAG);
         }
 
-        boolean webViewLoginMethod;
+        boolean webViewLoginMethod = false;
         String webloginUrl = null;
 
         if (MainApp.isClientBrandedPlus()) {
             RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
             AppConfigManager appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
-            webloginUrl = appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus());
+
+            if (!TextUtils.isEmpty(appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus()))) {
+                webloginUrl = appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus()) + WEB_LOGIN;
+            }
         }
 
-        if (webloginUrl != null) {
+        if (!TextUtils.isEmpty(webloginUrl)) {
             webViewLoginMethod = true;
         } else if (getIntent().getBooleanExtra(EXTRA_USE_PROVIDER_AS_WEBLOGIN, false)) {
             webViewLoginMethod = true;
             webloginUrl = getString(R.string.provider_registration_server);
-        } else {
-            webViewLoginMethod = !TextUtils.isEmpty(getResources().getString(R.string.webview_login_url));
+        } else if (!TextUtils.isEmpty(getResources().getString(R.string.webview_login_url))) {
+            webViewLoginMethod = true;
+            webloginUrl = getResources().getString(R.string.webview_login_url);
             showWebViewLoginUrl = getResources().getBoolean(R.bool.show_server_url_input);
         }
 
