@@ -71,14 +71,16 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
         val dialog = dialog
 
         if (dialog is AlertDialog) {
-            positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton
-            val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
-
+            positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
             positiveButton?.let {
+                it.isEnabled = false
                 viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
             }
 
-            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton)
+            val negativeButton = dialog.getButton(AlertDialog.BUTTON_NEGATIVE) as? MaterialButton
+            negativeButton?.let {
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(it)
+            }
         }
     }
 
@@ -128,7 +130,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             FileNameValidator.checkFileName(newFileName, getOCCapability(), requireContext(), fileNames)
 
         val errorMessage = when {
-            newFileName.isEmpty() -> null
+            newFileName.isEmpty() -> getString(R.string.folder_name_empty)
             fileNameValidatorResult != null -> fileNameValidatorResult
             else -> null
         }
