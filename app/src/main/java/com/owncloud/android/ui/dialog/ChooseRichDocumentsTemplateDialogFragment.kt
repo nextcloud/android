@@ -435,7 +435,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
         @Deprecated("Deprecated in Java")
         override fun onPostExecute(templateList: List<Template>) {
             val fragment = chooseTemplateDialogFragmentWeakReference.get()
-            if (fragment == null) {
+            if (fragment == null || !fragment.isAdded) {
                 Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!")
                 return
             }
