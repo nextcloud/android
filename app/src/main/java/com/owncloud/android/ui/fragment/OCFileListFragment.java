@@ -1250,7 +1250,13 @@ public class OCFileListFragment extends ExtendedListFragment implements
             boolean isFilenamesCorrect = checkFilenames(checkedFiles);
 
             if (!isFilenamesCorrect) {
-                DisplayUtils.showSnackMessage(requireActivity(),R.string.file_name_validator_rename_before_move_or_copy);
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.file_name_validator_rename_before_move_or_copy);
+                return false;
+            }
+
+            if (!FileNameValidator.INSTANCE.checkParentRemotePaths(new ArrayList<>(checkedFiles), getCapabilities(), requireContext())) {
+                browseToRoot();
+                DisplayUtils.showSnackMessage(requireActivity(), R.string.file_name_validator_current_path_is_invalid);
                 return false;
             }
 
@@ -1270,6 +1276,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         return false;
+    }
+
+    private void browseToRoot() {
+        OCFile root = mContainerActivity.getStorageManager().getFileByEncryptedRemotePath(OCFile.ROOT_PATH);
+        browseToFolder(root,0);
     }
 
     private OCCapability getCapabilities() {

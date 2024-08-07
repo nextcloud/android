@@ -9,14 +9,14 @@ package com.nextcloud.utils.fileNameValidator
 
 import android.content.Context
 import android.text.TextUtils
-import com.nextcloud.utils.extensions.dot
+import com.nextcloud.utils.extensions.StringConstants
 import com.nextcloud.utils.extensions.forbiddenFilenameBaseNames
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtension
 import com.nextcloud.utils.extensions.forbiddenFilenames
 import com.nextcloud.utils.extensions.removeFileExtension
-import com.nextcloud.utils.extensions.space
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
 
 object FileNameValidator {
@@ -48,7 +48,7 @@ object FileNameValidator {
             }
         }
 
-        if (filename.endsWith(space()) || filename.endsWith(dot())) {
+        if (filename.endsWith(StringConstants.SPACE) || filename.endsWith(StringConstants.DOT)) {
             return context.getString(R.string.file_name_validator_error_ends_with_space_period)
         }
 
@@ -65,7 +65,7 @@ object FileNameValidator {
             ) {
                 return context.getString(
                     R.string.file_name_validator_error_reserved_names,
-                    filename.substringBefore(dot())
+                    filename.substringBefore(StringConstants.DOT)
                 )
             }
         }
@@ -79,7 +79,7 @@ object FileNameValidator {
             ) {
                 return context.getString(
                     R.string.file_name_validator_error_reserved_names,
-                    filename.substringBefore(dot())
+                    filename.substringBefore(StringConstants.DOT)
                 )
             }
         }
@@ -90,7 +90,7 @@ object FileNameValidator {
             if (forbiddenFilenameExtension.any { filename.endsWith(it, ignoreCase = true) }) {
                 return context.getString(
                     R.string.file_name_validator_error_forbidden_file_extensions,
-                    filename.substringAfter(dot())
+                    filename.substringAfter(StringConstants.DOT)
                 )
             }
         }
@@ -114,6 +114,17 @@ object FileNameValidator {
         context: Context
     ): Boolean {
         return checkFolderPath(folderPath, capability, context) && checkFilePaths(filePaths, capability, context)
+    }
+
+    fun checkParentRemotePaths(filePaths: List<OCFile>, capability: OCCapability, context: Context): Boolean {
+        return filePaths.all {
+            if (it.parentRemotePath != StringConstants.SLASH) {
+                val parentFolderName = it.parentRemotePath.replace(StringConstants.SLASH, "")
+                checkFileName(parentFolderName, capability, context) == null
+            } else {
+                true
+            }
+        }
     }
 
     private fun checkFilePaths(filePaths: List<String>, capability: OCCapability, context: Context): Boolean {
