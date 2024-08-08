@@ -501,6 +501,7 @@ class PreviewMediaActivity :
             }
 
             R.id.action_remove_file -> {
+                exoPlayer?.stop()
                 val dialog = RemoveFilesDialogFragment.newInstance(file)
                 dialog.show(supportFragmentManager, ConfirmationDialogFragment.FTAG_CONFIRMATION)
             }
