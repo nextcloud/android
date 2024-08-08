@@ -296,6 +296,12 @@ public class ReceiveExternalFilesActivity extends FileActivity
     @Override
     public void selectFile(OCFile file) {
         if (file.isFolder()) {
+            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), this, null);
+            if (filenameErrorMessage != null) {
+                DisplayUtils.showSnackMessage(this, filenameErrorMessage);
+                return;
+            }
+
             if (file.isEncrypted() &&
                 !FileOperationsHelper.isEndToEndEncryptionSetup(this, getUser().orElseThrow(IllegalAccessError::new))) {
                 DisplayUtils.showSnackMessage(this, R.string.e2e_not_yet_setup);
