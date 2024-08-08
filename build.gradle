@@ -24,7 +24,7 @@ buildscript {
         kotlin_version = '2.0.0'
         markwonVersion = "4.6.2"
         mockitoVersion = "4.11.0"
-        mockitoKotlinVersion = "4.1.0"
+        mockitoKotlinVersion = "5.4.0"
         mockkVersion = "1.13.12"
         prismVersion = "2.0.0"
         roomVersion = "2.6.1"
