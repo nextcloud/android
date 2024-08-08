@@ -176,7 +176,7 @@ class TrashbinActivity :
         )
     }
 
-    fun loadFolder() {
+    fun loadFolder(onComplete: () -> Unit = {}, onError: () -> Unit = {}) {
         trashbinListAdapter?.let {
             if (it.itemCount > EMPTY_LIST_COUNT) {
                 binding.swipeContainingList.isRefreshing = true
@@ -184,7 +184,7 @@ class TrashbinActivity :
                 showInitialLoading()
             }
 
-            trashbinPresenter?.loadFolder()
+            trashbinPresenter?.loadFolder(onComplete, onError)
         }
     }
 
