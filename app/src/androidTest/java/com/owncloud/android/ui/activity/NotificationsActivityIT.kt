@@ -45,7 +45,9 @@ class NotificationsActivityIT : AbstractIT() {
         launchActivity<NotificationsActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
+                    EspressoIdlingResource.increment()
                     sut.populateList(ArrayList())
+                    EspressoIdlingResource.decrement()
                     val screenShotName = createName(testClassName + "_" + "empty", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
@@ -140,7 +142,9 @@ class NotificationsActivityIT : AbstractIT() {
         launchActivity<NotificationsActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
+                    EspressoIdlingResource.increment()
                     sut.populateList(notifications)
+                    EspressoIdlingResource.decrement()
                     val screenShotName = createName(testClassName + "_" + "showNotifications", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
@@ -156,7 +160,9 @@ class NotificationsActivityIT : AbstractIT() {
         launchActivity<NotificationsActivity>().use { scenario ->
             scenario.onActivity { sut ->
                 onIdleSync {
+                    EspressoIdlingResource.increment()
                     sut.setEmptyContent("Error", "Error! Please try again later!")
+                    EspressoIdlingResource.decrement()
                     val screenShotName = createName(testClassName + "_" + "error", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
