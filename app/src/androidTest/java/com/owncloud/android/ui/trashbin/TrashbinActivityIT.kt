@@ -54,7 +54,11 @@ class TrashbinActivityIT : AbstractIT() {
                 val trashbinRepository = TrashbinLocalRepository(TestCase.ERROR)
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
-                    sut.loadFolder()
+                    EspressoIdlingResource.increment()
+                    sut.loadFolder(
+                        onComplete = { EspressoIdlingResource.decrement() },
+                        onError = { EspressoIdlingResource.decrement() }
+                    )
                     val screenShotName = createName(testClassName + "_" + "error", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
@@ -72,7 +76,11 @@ class TrashbinActivityIT : AbstractIT() {
                 val trashbinRepository = TrashbinLocalRepository(TestCase.FILES)
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
-                    sut.loadFolder()
+                    EspressoIdlingResource.increment()
+                    sut.loadFolder(
+                        onComplete = { EspressoIdlingResource.decrement() },
+                        onError = { EspressoIdlingResource.decrement() }
+                    )
                     onView(isRoot()).check(matches(isDisplayed()))
                     val screenShotName = createName(testClassName + "_" + "files", "")
                     screenshotViaName(sut, screenShotName)
@@ -90,7 +98,11 @@ class TrashbinActivityIT : AbstractIT() {
                 val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
-                    sut.loadFolder()
+                    EspressoIdlingResource.increment()
+                    sut.loadFolder(
+                        onComplete = { EspressoIdlingResource.decrement() },
+                        onError = { EspressoIdlingResource.decrement() }
+                    )
                     onView(isRoot()).check(matches(isDisplayed()))
                     val screenShotName = createName(testClassName + "_" + "empty", "")
                     screenshotViaName(sut, screenShotName)
@@ -108,7 +120,9 @@ class TrashbinActivityIT : AbstractIT() {
                 val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
+                    EspressoIdlingResource.increment()
                     sut.showInitialLoading()
+                    EspressoIdlingResource.decrement()
                     val screenShotName = createName(testClassName + "_" + "loading", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
@@ -126,7 +140,9 @@ class TrashbinActivityIT : AbstractIT() {
                 val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
+                    EspressoIdlingResource.increment()
                     sut.showUser()
+                    EspressoIdlingResource.decrement()
                     val screenShotName = createName(testClassName + "_" + "normalUser", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
@@ -156,7 +172,9 @@ class TrashbinActivityIT : AbstractIT() {
                 val trashbinRepository = TrashbinLocalRepository(TestCase.EMPTY)
                 sut.trashbinPresenter = TrashbinPresenter(trashbinRepository, sut)
                 onIdleSync {
+                    EspressoIdlingResource.increment()
                     sut.showUser()
+                    EspressoIdlingResource.decrement()
                     val screenShotName = createName(testClassName + "_" + "differentUser", "")
                     onView(isRoot()).check(matches(isDisplayed()))
                     screenshotViaName(sut, screenShotName)
