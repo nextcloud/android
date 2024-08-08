@@ -356,7 +356,7 @@ dependencies {
 
     implementation 'org.osmdroid:osmdroid-android:6.1.18'
 
-    implementation('org.mnode.ical4j:ical4j:3.0.0') {
+    implementation('org.mnode.ical4j:ical4j:3.2.19') {
         ['org.apache.commons', 'commons-logging'].each {
             exclude group: "$it"
         }
