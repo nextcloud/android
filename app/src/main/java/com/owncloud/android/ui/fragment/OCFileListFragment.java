@@ -991,6 +991,14 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void folderOnItemClick(OCFile file, int position) {
+        if (requireActivity() instanceof FolderPickerActivity) {
+            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getFileName(), getCapabilities(), requireContext(), null);
+            if (filenameErrorMessage != null) {
+                DisplayUtils.showSnackMessage(requireActivity(), filenameErrorMessage);
+                return;
+            }
+        }
+
         if (file.isEncrypted()) {
             User user = ((FileActivity) mContainerActivity).getUser().orElseThrow(RuntimeException::new);
 
