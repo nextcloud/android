@@ -52,6 +52,9 @@ class FileUploadHelper {
     companion object {
         private val TAG = FileUploadWorker::class.java.simpleName
 
+        @Suppress("MagicNumber")
+        const val MAX_FILE_COUNT = 500
+
         val mBoundListeners = HashMap<String, OnDatatransferProgressListener>()
 
         private var instance: FileUploadHelper? = null
