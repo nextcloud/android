@@ -1,11 +1,11 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2024 Your Name <your@email.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-package com.nextcloud.utils
+package com.owncloud.android.utils
 
 import androidx.test.espresso.idling.CountingIdlingResource
 
