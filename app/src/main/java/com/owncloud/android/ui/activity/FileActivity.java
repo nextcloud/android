@@ -759,10 +759,10 @@ public abstract class FileActivity extends DrawerActivity
                 sharingFragment.onUpdateShareInformation(result);
             }
         } else if (sharingFragment != null && sharingFragment.getView() != null) {
-            if (TextUtils.isEmpty(result.message)) {
+            if (TextUtils.isEmpty(result.getMessage())) {
                 snackbar = Snackbar.make(sharingFragment.getView(), defaultError, Snackbar.LENGTH_LONG);
             } else {
-                snackbar = Snackbar.make(sharingFragment.getView(), result.message, Snackbar.LENGTH_LONG);
+                snackbar = Snackbar.make(sharingFragment.getView(), result.getMessage(), Snackbar.LENGTH_LONG);
             }
 
             viewThemeUtils.material.themeSnackbar(snackbar);

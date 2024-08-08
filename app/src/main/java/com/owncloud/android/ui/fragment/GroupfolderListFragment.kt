@@ -21,6 +21,7 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.EmptyRecyclerView
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.GroupfolderListAdapter
@@ -116,7 +117,7 @@ class GroupfolderListFragment : OCFileListFragment(), Injectable, GroupfolderLis
                 }
                 null
             } else {
-                val remoteFile = fetchResult.resultData
+                val remoteFile = fetchResult.data[0] as RemoteFile
                 val file = FileStorageUtils.fillOCFile(remoteFile)
                 FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
                 val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)

@@ -40,6 +40,7 @@ import com.owncloud.android.lib.common.Template
 import com.owncloud.android.lib.common.TemplateList
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
+import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.activity.ExternalSiteWebView
 import com.owncloud.android.ui.activity.TextEditorWebView
 import com.owncloud.android.ui.adapter.TemplateAdapter
@@ -305,7 +306,7 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
                     user,
                     context.contentResolver
                 )
-                val temp = FileStorageUtils.fillOCFile(newFileResult.resultData)
+                val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
                 storageManager.saveFile(temp)
                 file = storageManager.getFileByPath(path)
 
