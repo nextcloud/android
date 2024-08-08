@@ -162,7 +162,10 @@
          <trusted-key id="5CBA19E56141E78D54BF716F08A4A4958D61FC3D" group="com.sksamuel.scrimage"/>
          <trusted-key id="5F6C2148AD4911FE308110E5F0D0AE433308B042" group="io.gitlab.arturbosch.detekt"/>
          <trusted-key id="600D21219963F228200A72375365A8A69292AF1A" group="org.scala-lang.modules" name="scala-xml_2.13" version="2.1.0"/>
-         <trusted-key id="6016620F8A8FFBBBCC6D44F21AE999FF489B55CB" group="com.github.albfernandez" name="juniversalchardet" version="2.0.3"/>
+         <trusted-key id="6016620F8A8FFBBBCC6D44F21AE999FF489B55CB">
+            <trusting group="com.github.albfernandez" name="juniversalchardet" version="2.0.3"/>
+            <trusting group="com.github.albfernandez" name="juniversalchardet" version="2.5.0"/>
+         </trusted-key>
          <trusted-key id="60200AC4AE761F1614D6C46766D68DAA073BE985">
             <trusting group="ch.qos.logback"/>
             <trusting group="org.slf4j"/>

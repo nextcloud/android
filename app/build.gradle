@@ -292,7 +292,7 @@ dependencies {
     implementation "androidx.work:work-runtime:$workRuntime"
     implementation "androidx.work:work-runtime-ktx:$workRuntime"
     implementation "androidx.fragment:fragment-ktx:1.8.2"
-    implementation 'com.github.albfernandez:juniversalchardet:2.0.3' // need this version for Android <7
+    implementation 'com.github.albfernandez:juniversalchardet:2.5.0' // need this version for Android <7
     compileOnly 'com.google.code.findbugs:annotations:3.0.1u2'
     implementation 'commons-io:commons-io:2.16.1'
     implementation 'org.greenrobot:eventbus:3.3.1'
