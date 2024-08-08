@@ -29,7 +29,7 @@ class SessionMixin(
     private val activity: Activity,
     private val accountManager: UserAccountManager
 ) : ActivityMixin {
-    lateinit var currentAccount: Account
+    var currentAccount: Account = getDefaultAccount()
         private set
 
     val capabilities: OCCapability?
