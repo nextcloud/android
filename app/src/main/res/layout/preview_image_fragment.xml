@@ -15,7 +15,7 @@
     android:id="@+id/top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true">
+    android:animateLayoutChanges="false">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/live_photo_indicator"

@@ -81,6 +81,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import pl.droidsonroids.gif.GifDrawable;
 
@@ -127,7 +128,7 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
      * This method hides to client objects the need of doing the construction in two steps.
      *
      * @param imageFile             An {@link OCFile} to preview as an image in the fragment
-     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter} ;
+     * @param ignoreFirstSavedState Flag to work around an unexpected behaviour of {@link FragmentStateAdapter} ;
      *                                                           TODO better solution
      */
     public static PreviewImageFragment newInstance(@NonNull OCFile imageFile,
@@ -232,8 +233,17 @@ public class PreviewImageFragment extends FileFragment implements Injectable {
         if (savedInstanceState != null) {
             if (!ignoreFirstSavedState) {
                 OCFile file = BundleExtensionsKt.getParcelableArgument(savedInstanceState, EXTRA_FILE, OCFile.class);
+                if (file == null) {
+                    return;
+                }
+
                 setFile(file);
-                binding.image.setScale(Math.min(binding.image.getMaximumScale(), savedInstanceState.getFloat(EXTRA_ZOOM)));
+
+                try {
+                    binding.image.setScale(Math.min(binding.image.getMaximumScale(), savedInstanceState.getFloat(EXTRA_ZOOM)));
+                } catch (IllegalArgumentException e) {
+                    Log_OC.d(TAG, "Error caught at setScale: " + e);
+                }
             } else {
                 ignoreFirstSavedState = false;
             }

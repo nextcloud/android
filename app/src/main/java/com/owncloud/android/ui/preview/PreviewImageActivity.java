@@ -59,7 +59,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
@@ -68,7 +68,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 @SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class PreviewImageActivity extends FileActivity implements
     FileFragment.ContainerActivity,
-    ViewPager.OnPageChangeListener,
     OnRemoteOperationListener,
     Injectable {
 
@@ -78,13 +77,12 @@ public class PreviewImageActivity extends FileActivity implements
     private static final String KEY_SYSTEM_VISIBLE = "TRUE";
 
     private OCFile livePhotoFile;
-    private ViewPager viewPager;
+    private ViewPager2 viewPager;
     private PreviewImagePagerAdapter previewImagePagerAdapter;
     private int savedPosition;
     private boolean hasSavedPosition;
     private boolean requestWaitingForBinder;
     private DownloadFinishReceiver downloadFinishReceiver;
-    private UploadFinishReceiver uploadFinishReceiver;
     private View fullScreenAnchorView;
     private boolean isDownloadWorkStarted = false;
 
@@ -158,7 +156,7 @@ public class PreviewImageActivity extends FileActivity implements
         if (virtualFolderType != null && virtualFolderType != VirtualFolderType.NONE) {
             VirtualFolderType type = (VirtualFolderType) virtualFolderType;
 
-            previewImagePagerAdapter = new PreviewImagePagerAdapter(getSupportFragmentManager(),
+            previewImagePagerAdapter = new PreviewImagePagerAdapter(this,
                                                                     type,
                                                                     user,
                                                                     getStorageManager());
@@ -168,11 +166,11 @@ public class PreviewImageActivity extends FileActivity implements
 
             if (parentFolder == null) {
                 // should not be necessary
-                parentFolder = getStorageManager().getFileByPath(OCFile.ROOT_PATH);
+                parentFolder = getStorageManager().getFileByEncryptedRemotePath(OCFile.ROOT_PATH);
             }
 
             previewImagePagerAdapter = new PreviewImagePagerAdapter(
-                getSupportFragmentManager(),
+                this,
                 livePhotoFile,
                 parentFolder,
                 user,
@@ -185,11 +183,16 @@ public class PreviewImageActivity extends FileActivity implements
         viewPager = findViewById(R.id.fragmentPager);
 
         int position = hasSavedPosition ? savedPosition : previewImagePagerAdapter.getFilePosition(getFile());
-        position = position >= 0 ? position : 0;
+        position = Math.max(position, 0);
 
         viewPager.setAdapter(previewImagePagerAdapter);
-        viewPager.addOnPageChangeListener(this);
-        viewPager.setCurrentItem(position);
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                selectPage(position);
+            }
+        });
+        viewPager.setCurrentItem(position, false);
 
         if (position == 0 && !getFile().isDown()) {
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
@@ -247,7 +250,7 @@ public class PreviewImageActivity extends FileActivity implements
             if (file != null) {
                 /// Refresh the activity according to the Account and OCFile set
                 setFile(file);  // reset after getting it fresh from storageManager
-                getSupportActionBar().setTitle(getFile().getFileName());
+                updateActionBarTitle(getFile().getFileName());
                 //if (!stateWasRecovered) {
                 initViewPager(optionalUser.get());
                 //}
@@ -271,15 +274,16 @@ public class PreviewImageActivity extends FileActivity implements
         super.onRemoteOperationFinish(operation, result);
 
         if (operation instanceof RemoveFileOperation) {
-            // initialize the pager with the new file list
-            initViewPager(getUser().get());
-            if (viewPager.getAdapter().getCount() > 0) {
-                // Trigger page reselection, to update the title
-                onPageSelected(viewPager.getCurrentItem());
-            } else {
-                // Last file has been deleted, so finish the activity
+            int deletePosition = viewPager.getCurrentItem();
+            int nextPosition = deletePosition > 0 ? deletePosition - 1 : 0;
+
+            if (previewImagePagerAdapter.getItemCount() <= 1) {
                 finish();
+                return;
             }
+
+            viewPager.setCurrentItem(nextPosition, true);
+            previewImagePagerAdapter.delete(deletePosition);
         } else if (operation instanceof SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result);
         }
@@ -301,7 +305,7 @@ public class PreviewImageActivity extends FileActivity implements
                     requestWaitingForBinder = false;
                     Log_OC.d(TAG, "Simulating reselection of current page after connection " +
                         "of download binder");
-                    onPageSelected(viewPager.getCurrentItem());
+                    selectPage(viewPager.getCurrentItem());
                 }
             } else {
                 Log_OC.d(TAG, "Download worker stopped");
@@ -328,7 +332,7 @@ public class PreviewImageActivity extends FileActivity implements
         IntentFilter downloadIntentFilter = new IntentFilter(FileDownloadWorker.Companion.getDownloadFinishMessage());
         localBroadcastManager.registerReceiver(downloadFinishReceiver, downloadIntentFilter);
 
-        uploadFinishReceiver = new UploadFinishReceiver();
+        UploadFinishReceiver uploadFinishReceiver = new UploadFinishReceiver();
         IntentFilter uploadIntentFilter = new IntentFilter(FileUploadWorker.Companion.getUploadFinishMessage());
         localBroadcastManager.registerReceiver(uploadFinishReceiver, uploadIntentFilter);
     }
@@ -384,8 +388,7 @@ public class PreviewImageActivity extends FileActivity implements
      *
      *  @param  position        Position index of the new selected page
      */
-    @Override
-    public void onPageSelected(int position) {
+    public void selectPage(int position) {
         savedPosition = position;
         hasSavedPosition = true;
 
@@ -414,36 +417,15 @@ public class PreviewImageActivity extends FileActivity implements
         }
     }
 
-    /**
-     * Called when the scroll state changes. Useful for discovering when the user begins dragging,
-     * when the pager is automatically settling to the current page. when it is fully stopped/idle.
-     *
-     * @param   state       The new scroll state (SCROLL_STATE_IDLE, _DRAGGING, _SETTLING
-     */
-    @Override
-    public void onPageScrollStateChanged(int state) {
-        // not used at the moment
-    }
-
-    /**
-     * This method will be invoked when the current page is scrolled, either as part of a
-     * programmatically initiated smooth scroll or a user initiated touch scroll.
-     *
-     * @param   position                Position index of the first page currently being displayed.
-     *                                  Page position+1 will be visible if positionOffset is
-     *                                  nonzero.
-     * @param   positionOffset          Value from [0, 1) indicating the offset from the page
-     *                                  at position.
-     * @param   positionOffsetPixels    Value in pixels indicating the offset from position.
-     */
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        // not used at the moment
+    public void updateActionBarTitle(String title) {
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle(title);
+        }
     }
 
     /**
      * Class waiting for broadcast events from the {@link FileDownloadWorker} service.
-     *
+     * <p>
      * Updates the UI when a download is started or finished, provided that it is relevant for the
      * folder displayed in the gallery.
      */
@@ -465,8 +447,9 @@ public class PreviewImageActivity extends FileActivity implements
         String accountName = intent.getStringExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME);
         String downloadedRemotePath = intent.getStringExtra(FileDownloadWorker.EXTRA_REMOTE_PATH);
         String downloadBehaviour = intent.getStringExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR);
+
         if (getAccount().name.equals(accountName) && downloadedRemotePath != null) {
-            OCFile file = getStorageManager().getFileByPath(downloadedRemotePath);
+            OCFile file = getStorageManager().getFileByEncryptedRemotePath(downloadedRemotePath);
             boolean downloadWasFine = intent.getBooleanExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, false);
 
             if (EditImageActivity.OPEN_IMAGE_EDITOR.equals(downloadBehaviour)) {
@@ -476,16 +459,19 @@ public class PreviewImageActivity extends FileActivity implements
                 if (position >= 0) {
                     if (downloadWasFine) {
                         previewImagePagerAdapter.updateFile(position, file);
-
                     } else {
                         previewImagePagerAdapter.updateWithDownloadError(position);
                     }
-                    previewImagePagerAdapter.notifyDataSetChanged();   // will trigger the creation of new fragments
+                    previewImagePagerAdapter.notifyItemChanged(position);
                 } else if (downloadWasFine) {
-                    initViewPager(getUser().get());
-                    int newPosition = previewImagePagerAdapter.getFilePosition(file);
-                    if (newPosition >= 0) {
-                        viewPager.setCurrentItem(newPosition);
+                    Optional<User> user = getUser();
+
+                    if (user.isPresent()) {
+                        initViewPager(user.get());
+                        int newPosition = previewImagePagerAdapter.getFilePosition(file);
+                        if (newPosition >= 0) {
+                            viewPager.setCurrentItem(newPosition);
+                        }
                     }
                 }
             }
@@ -502,17 +488,9 @@ public class PreviewImageActivity extends FileActivity implements
 
         if (visible) {
             hideSystemUI(fullScreenAnchorView);
-            // actionBar.hide(); // propagated through
-            // OnSystemUiVisibilityChangeListener()
         } else {
             showSystemUI(fullScreenAnchorView);
-            // actionBar.show(); // propagated through
-            // OnSystemUiVisibilityChangeListener()
         }
-    }
-
-    public void switchToFullScreen() {
-        hideSystemUI(fullScreenAnchorView);
     }
 
     public void startImageEditor(OCFile file) {
