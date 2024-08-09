@@ -142,7 +142,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result.isSuccess)
 
-        assertEquals(file.length(), result.resultData?.length)
+        assertEquals(file.length(), result.data.size)
 
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
@@ -159,7 +159,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result2.isSuccess)
 
-        assertEquals(0, result.resultData?.length)
+        assertEquals(0, result.data.size)
     }
 
     /**
@@ -195,7 +195,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result.isSuccess)
 
-        assertEquals(file.length(), result.resultData?.length)
+        assertEquals(file.length(), result.data.size)
 
         val file2 = getDummyFile("empty.txt")
         val ocUpload2 = OCUpload(file2.absolutePath, "/testFile.txt", account.name)
@@ -225,12 +225,12 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result2.isSuccess)
 
-        assertEquals(file.length(), result2.resultData?.length)
+        assertEquals(file.length(), result2.data.size)
 
         val result3 = ReadFileRemoteOperation("/testFile (2).txt").execute(client)
         assertTrue(result3.isSuccess)
 
-        assertEquals(file2.length(), result3.resultData?.length)
+        assertEquals(file2.length(), result3.data.size)
         assertTrue(renameListenerWasTriggered)
     }
 
@@ -258,7 +258,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result.isSuccess)
 
-        assertEquals(file.length(), result.resultData?.length)
+        assertEquals(file.length(), result.data.size)
 
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
@@ -275,12 +275,12 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result2.isSuccess)
 
-        assertEquals(file.length(), result2.resultData?.length)
+        assertEquals(file.length(), result2.data.size)
 
         val result3 = ReadFileRemoteOperation("/testFile (2).txt").execute(client)
         assertTrue(result3.isSuccess)
 
-        assertEquals(ocFile2.fileLength, result3.resultData?.length)
+        assertEquals(ocFile2.fileLength, result3.data.size)
     }
 
     /**
@@ -314,7 +314,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result.isSuccess)
 
-        assertEquals(file.length(), result.resultData?.length)
+        assertEquals(file.length(), result.data.size)
 
         val ocUpload2 = OCUpload(getDummyFile("empty.txt").absolutePath, "/testFile.txt", account.name)
 
@@ -339,7 +339,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result2.isSuccess)
 
-        assertEquals(file.length(), result2.resultData?.length)
+        assertEquals(file.length(), result2.data.size)
     }
 
     /**
@@ -366,7 +366,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result.isSuccess)
 
-        assertEquals(file.length(), result.resultData?.length)
+        assertEquals(file.length(), result.data.size)
 
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
@@ -383,7 +383,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result2.isSuccess)
 
-        assertEquals(file.length(), result2.resultData?.length)
+        assertEquals(file.length(), result2.data.size)
     }
 
     /**
@@ -417,7 +417,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result.isSuccess)
 
-        assertEquals(file.length(), result.resultData?.length)
+        assertEquals(file.length(), result.data.size)
 
         val ocUpload2 = OCUpload(getDummyFile("empty.txt").absolutePath, "/testFile.txt", account.name)
 
@@ -443,7 +443,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result2.isSuccess)
 
-        assertEquals(file.length(), result2.resultData?.length)
+        assertEquals(file.length(), result2.data.size)
     }
 
     /**
@@ -470,7 +470,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result.isSuccess)
 
-        assertEquals(file.length(), result.resultData?.length)
+        assertEquals(file.length(), result.data.size)
 
         val ocFile2 = OCFile("/testFile.txt")
         ocFile2.storagePath = getDummyFile("empty.txt").absolutePath
@@ -487,6 +487,6 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
         assertTrue(result2.isSuccess)
 
-        assertEquals(file.length(), result2.resultData?.length)
+        assertEquals(file.length(), result2.data.size)
     }
 }
