@@ -7,35 +7,57 @@
  */
 package com.owncloud.android.ui.activity
 
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.annotation.UiThread
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.AbstractIT
 import com.owncloud.android.lib.resources.notifications.models.Action
 import com.owncloud.android.lib.resources.notifications.models.Notification
 import com.owncloud.android.lib.resources.notifications.models.RichObject
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.Rule
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
 import java.util.GregorianCalendar
 
 class NotificationsActivityIT : AbstractIT() {
-    @get:Rule
-    var activityRule = IntentsTestRule(NotificationsActivity::class.java, true, false)
+    private val testClassName = "com.owncloud.android.ui.activity.NotificationsActivityIT"
 
-    @Test
-    @ScreenshotTest
-    fun empty() {
-        val sut: NotificationsActivity = activityRule.launchActivity(null)
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
 
-        waitForIdleSync()
-
-        sut.runOnUiThread { sut.populateList(ArrayList<Notification>()) }
-
-        shortSleep()
-
-        screenshot(sut)
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
+    @UiThread
+    @ScreenshotTest
+    fun empty() {
+        launchActivity<NotificationsActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.populateList(ArrayList())
+                    EspressoIdlingResource.decrement()
+                    val screenShotName = createName(testClassName + "_" + "empty", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
+    }
+
+    @Test
+    @UiThread
     @ScreenshotTest
     @SuppressWarnings("MagicNumber")
     fun showNotifications() {
@@ -117,24 +139,35 @@ class NotificationsActivityIT : AbstractIT() {
             )
         )
 
-        activityRule.launchActivity(null).apply {
-            runOnUiThread {
-                populateList(notifications)
+        launchActivity<NotificationsActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.populateList(notifications)
+                    EspressoIdlingResource.decrement()
+                    val screenShotName = createName(testClassName + "_" + "showNotifications", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
             }
-            shortSleep()
-            screenshot(binding.list)
         }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun error() {
-        val sut: NotificationsActivity = activityRule.launchActivity(null)
-
-        shortSleep()
-
-        sut.runOnUiThread { sut.setEmptyContent("Error", "Error! Please try again later!") }
-
-        screenshot(sut)
+        launchActivity<NotificationsActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.setEmptyContent("Error", "Error! Please try again later!")
+                    EspressoIdlingResource.decrement()
+                    val screenShotName = createName(testClassName + "_" + "error", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 }
