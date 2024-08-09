@@ -30,10 +30,10 @@ class GetRemoteFileTask(
     override fun invoke(): Result {
         val result = ReadFileRemoteOperation(fileUrl).execute(client)
         if (result.isSuccess) {
-            val remoteFile = result.getData().get(0) as RemoteFile
-            val temp = FileStorageUtils.fillOCFile(remoteFile)
+            val list = result.data
+            val temp = FileStorageUtils.fillOCFile(list[0] as RemoteFile)
             val remoteOcFile = storageManager.saveFileWithParent(temp, context)
-            if (remoteOcFile.isFolder()) {
+            if (remoteOcFile.isFolder) {
                 // perform folder synchronization
                 val synchFolderOp: RemoteOperation<Any> = RefreshFolderOperation(
                     remoteOcFile,

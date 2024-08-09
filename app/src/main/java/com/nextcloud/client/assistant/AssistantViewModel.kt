@@ -89,8 +89,10 @@ class AssistantViewModel(
             val taskTypesResult = repository.getTaskTypes()
 
             if (taskTypesResult.isSuccess) {
-                val excludedTaskTypes = taskTypesResult.resultData.types.filter { item -> item.id !in excludedIds }
-                result.addAll(excludedTaskTypes)
+                val excludedTaskTypes = taskTypesResult.resultData?.types?.filter { item -> item.id !in excludedIds }
+                if (excludedTaskTypes != null) {
+                    result.addAll(excludedTaskTypes)
+                }
                 _taskTypes.update {
                     result.toList()
                 }
@@ -108,7 +110,7 @@ class AssistantViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.getTaskList(appId)
             if (result.isSuccess) {
-                taskList = result.resultData.tasks
+                taskList = result.resultData?.tasks
 
                 filterTaskList(_selectedTaskType.value?.id)
 

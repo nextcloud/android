@@ -1228,9 +1228,9 @@ public abstract class DrawerActivity extends ToolbarActivity
             Thread t = new Thread(() -> {
                 // fetch capabilities as early as possible
                 if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
-                    && getStorageManager() != null) {
+                    && getStorageManager() != null && getUser().get() != null) {
                     GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
-                    getCapabilities.execute(getBaseContext());
+                    getCapabilities.executeNextcloudClient(getUser().get(), getBaseContext());
                 }
 
                 User user = accountManager.getUser();

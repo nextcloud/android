@@ -309,7 +309,10 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
                 val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
                 storageManager.saveFile(temp)
                 file = storageManager.getFileByPath(path)
-                result.resultData
+
+                if (result.resultData != null) {
+                    result.resultData!!
+                } else ""
             } catch (e: CreationException) {
                 Log_OC.e(TAG, "Error creating file from template!", e)
                 ""
@@ -361,10 +364,10 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
                     creator.id
                 )
                     .execute(client)
-                if (!result.isSuccess) {
-                    TemplateList()
+                if (result.isSuccess && result.resultData != null) {
+                    result.resultData!!
                 } else {
-                    result.resultData
+                    TemplateList()
                 }
             } catch (e: CreationException) {
                 Log_OC.e(TAG, "Could not fetch template", e)
