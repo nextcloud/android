@@ -301,6 +301,10 @@ public abstract class AbstractIT {
         InstrumentationRegistry.getInstrumentation().waitForIdleSync();
     }
 
+    protected void onIdleSync(Runnable recipient) {
+        InstrumentationRegistry.getInstrumentation().waitForIdle(recipient);
+    }
+
     protected void openDrawer(IntentsTestRule activityRule) {
         Activity sut = activityRule.launchActivity(null);
 
@@ -453,6 +457,12 @@ public abstract class AbstractIT {
         screenshot(view, "");
     }
 
+    protected void screenshotViaName(Activity activity, String name) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            Screenshot.snapActivity(activity).setName(name).record();
+        }
+    }
+
     protected void screenshot(View view, String prefix) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             Screenshot.snap(view).setName(createName(prefix)).record();
@@ -473,9 +483,7 @@ public abstract class AbstractIT {
         return createName("");
     }
 
-    private String createName(String prefix) {
-        String name = TestNameDetector.getTestClass() + "_" + TestNameDetector.getTestName();
-
+    public String createName(String name, String prefix) {
         if (!TextUtils.isEmpty(prefix)) {
             name = name + "_" + prefix;
         }
@@ -489,6 +497,11 @@ public abstract class AbstractIT {
         }
 
         return name;
+    }
+
+    private String createName(String prefix) {
+        String name = TestNameDetector.getTestClass() + "_" + TestNameDetector.getTestName();
+        return createName(name, prefix);
     }
 
     public static String getUserId(User user) {

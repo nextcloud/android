@@ -25,7 +25,7 @@ interface TrashbinContract {
 
     interface Presenter {
         val isRoot: Boolean
-        fun loadFolder()
+        fun loadFolder(onCompleted: () -> Unit = {}, onError: () -> Unit = {})
         fun navigateUp()
         fun enterFolder(folder: String?)
         fun restoreTrashbinFile(file: TrashbinFile?)
