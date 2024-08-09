@@ -976,10 +976,104 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return true;
     }
 
+    private void folderOnItemClick(OCFile file, int position) {
+        if (file.isEncrypted()) {
+            User user = ((FileActivity) mContainerActivity).getUser().orElseThrow(RuntimeException::new);
+
+            // check if e2e app is enabled
+            OCCapability ocCapability = mContainerActivity.getStorageManager()
+                .getCapability(user.getAccountName());
+
+            if (ocCapability.getEndToEndEncryption().isFalse() ||
+                ocCapability.getEndToEndEncryption().isUnknown()) {
+                Snackbar.make(getRecyclerView(), R.string.end_to_end_encryption_not_enabled,
+                              Snackbar.LENGTH_LONG).show();
+                return;
+            }
+            // check if keys are stored
+            if (FileOperationsHelper.isEndToEndEncryptionSetup(requireContext(), user)) {
+                // update state and view of this fragment
+                searchFragment = false;
+                mHideFab = false;
+
+                if (mContainerActivity instanceof FolderPickerActivity &&
+                    ((FolderPickerActivity) mContainerActivity)
+                        .isDoNotEnterEncryptedFolder()) {
+                    Snackbar.make(getRecyclerView(),
+                                  R.string.copy_move_to_encrypted_folder_not_supported,
+                                  Snackbar.LENGTH_LONG).show();
+                } else {
+                    browseToFolder(file, position);
+                }
+            } else {
+                Log_OC.d(TAG, "no public key for " + user.getAccountName());
+
+                FragmentManager fragmentManager = getParentFragmentManager();
+                if (fragmentManager.findFragmentByTag(SETUP_ENCRYPTION_DIALOG_TAG) == null) {
+                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
+                    dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
+                    dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
+                }
+            }
+        } else {
+            // update state and view of this fragment
+            searchFragment = false;
+            setEmptyListLoadingMessage();
+            browseToFolder(file, position);
+        }
+    }
+
+    private void fileOnItemClick(OCFile file) {
+        if (PreviewImageFragment.canBePreviewed(file)) {
+            // preview image - it handles the download, if needed
+            if (searchFragment) {
+                VirtualFolderType type = switch (currentSearchType) {
+                    case FAVORITE_SEARCH -> VirtualFolderType.FAVORITE;
+                    case GALLERY_SEARCH -> VirtualFolderType.GALLERY;
+                    default -> VirtualFolderType.NONE;
+                };
+                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, type, !file.isDown());
+            } else {
+                ((FileDisplayActivity) mContainerActivity).startImagePreview(file, !file.isDown());
+            }
+        } else if (file.isDown() && MimeTypeUtil.isVCard(file)) {
+            ((FileDisplayActivity) mContainerActivity).startContactListFragment(file);
+        } else if (file.isDown() && MimeTypeUtil.isPDF(file)) {
+            ((FileDisplayActivity) mContainerActivity).startPdfPreview(file);
+        } else if (PreviewTextFileFragment.canBePreviewed(file)) {
+            setFabVisible(false);
+            ((FileDisplayActivity) mContainerActivity).startTextPreview(file, false);
+        } else if (file.isDown()) {
+            if (PreviewMediaActivity.Companion.canBePreviewed(file)) {
+                setFabVisible(false);
+                ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, false, true);
+            } else {
+                mContainerActivity.getFileOperationsHelper().openFile(file);
+            }
+        } else {
+            User account = accountManager.getUser();
+            OCCapability capability = mContainerActivity.getStorageManager().getCapability(account.getAccountName());
+
+            if (PreviewMediaActivity.Companion.canBePreviewed(file) && !file.isEncrypted()) {
+                setFabVisible(false);
+                ((FileDisplayActivity) mContainerActivity).startMediaPreview(file, 0, true, true, true, true);
+            } else if (editorUtils.isEditorAvailable(accountManager.getUser(), file.getMimeType()) && !file.isEncrypted()) {
+                mContainerActivity.getFileOperationsHelper().openFileWithTextEditor(file, getContext());
+            } else if (capability.getRichDocumentsMimeTypeList().contains(file.getMimeType()) &&
+                capability.getRichDocumentsDirectEditing().isTrue() && !file.isEncrypted()) {
+                mContainerActivity.getFileOperationsHelper().openFileAsRichDocument(file, getContext());
+            } else if (mContainerActivity instanceof FileDisplayActivity fileDisplayActivity) {
+                fileDisplayActivity.startDownloadForPreview(file, mFile);
+            }
+        }
+    }
+
     @Override
     @OptIn(markerClass = UnstableApi.class)
     public void onItemClicked(OCFile file) {
-        ((FileActivity) mContainerActivity).checkInternetConnection();
+        if (mContainerActivity != null && mContainerActivity instanceof FileActivity fileActivity) {
+            fileActivity.checkInternetConnection();
+        }
 
         if (getCommonAdapter().isMultiSelect()) {
             toggleItemToCheckedList(file);
@@ -1108,6 +1202,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 }
             } else {
                 Log_OC.d(TAG, "Null object in ListAdapter!");
+                return;
+            }
+
+            int position = getCommonAdapter().getItemPosition(file);
+
+            if (file.isFolder()) {
+                folderOnItemClick(file, position);
+            } else if (mFileSelectable) {
+                Intent intent = new Intent();
+                intent.putExtra(FolderPickerActivity.EXTRA_FILES, file);
+                requireActivity().setResult(Activity.RESULT_OK, intent);
+                requireActivity().finish();
+            } else if (!mOnlyFoldersClickable) {
+                fileOnItemClick(file);
             }
         }
     }
