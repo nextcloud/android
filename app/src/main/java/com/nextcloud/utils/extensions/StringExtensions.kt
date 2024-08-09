@@ -15,3 +15,18 @@ fun String.getRandomString(length: Int): String {
 
     return this + result
 }
+
+fun String.removeFileExtension(): String {
+    val dotIndex = lastIndexOf('.')
+    return if (dotIndex != -1) {
+        substring(0, dotIndex)
+    } else {
+        this
+    }
+}
+
+object StringConstants {
+    const val SLASH = "/"
+    const val DOT = "."
+    const val SPACE = " "
+}

@@ -23,6 +23,7 @@ import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FilesFolderPickerBinding
 import com.owncloud.android.databinding.FilesPickerBinding
@@ -379,14 +380,36 @@ open class FolderPickerActivity :
     private fun toggleChooseEnabled() {
         if (this is FilePickerActivity) {
             return
+        }
+
+        val selectedFolderPathTitle = getSelectedFolderPathTitle()
+        val isFolderPathValid = if (selectedFolderPathTitle != null) {
+            FileNameValidator.checkFolderPath(selectedFolderPathTitle, capabilities, this)
         } else {
-            folderPickerBinding.folderPickerBtnCopy.isEnabled = checkFolderSelectable()
-            folderPickerBinding.folderPickerBtnMove.isEnabled = checkFolderSelectable()
+            true
+        }
+
+        checkButtonStates(isFolderPathValid)
+
+        if (!isFolderPathValid) {
+            DisplayUtils.showSnackMessage(
+                this,
+                R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters
+            )
+            return
+        }
+    }
+
+    private fun checkButtonStates(isConditionMet: Boolean) {
+        folderPickerBinding.run {
+            folderPickerBtnChoose.isEnabled = isConditionMet
+            folderPickerBtnCopy.isEnabled = isFolderSelectable() && isConditionMet
+            folderPickerBtnMove.isEnabled = isFolderSelectable() && isConditionMet
         }
     }
 
     // for copy and move, disable selecting parent folder of target files
-    private fun checkFolderSelectable(): Boolean {
+    private fun isFolderSelectable(): Boolean {
         return when {
             action != MOVE_OR_COPY -> true
             targetFilePaths.isNullOrEmpty() -> true
@@ -407,11 +430,15 @@ open class FolderPickerActivity :
             val atRoot = (currentDir == null || currentDir.parentId == 0L)
             actionBar.setDisplayHomeAsUpEnabled(!atRoot)
             actionBar.setHomeButtonEnabled(!atRoot)
-            val title = if (atRoot) captionText ?: "" else currentDir?.fileName
-            title?.let {
-                viewThemeUtils.files.themeActionBar(this, actionBar, title)
+            getSelectedFolderPathTitle()?.let {
+                viewThemeUtils.files.themeActionBar(this, actionBar, it)
             }
         }
+    }
+
+    private fun getSelectedFolderPathTitle(): String? {
+        val atRoot = (currentDir == null || currentDir.parentId == 0L)
+        return if (atRoot) captionText ?: "" else currentDir?.fileName
     }
 
     private fun initControls() {
@@ -441,6 +468,7 @@ open class FolderPickerActivity :
         }
     }
 
+    @Suppress("MagicNumber")
     private fun processOperation(action: String?) {
         val i = intent
         val resultData = Intent()

@@ -27,6 +27,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ChooseTemplateBinding
@@ -211,22 +212,23 @@ class ChooseRichDocumentsTemplateDialogFragment :
             Type.PRESENTATION -> {
                 R.string.create_new_presentation
             }
-
-            else -> R.string.select_template
         }
     }
 
     @Suppress("DEPRECATION")
     private fun createFromTemplate(template: Template, path: String) {
-        waitDialog = newInstance(R.string.wait_a_moment, false)
-        waitDialog?.show(parentFragmentManager, WAIT_DIALOG_TAG)
+        waitDialog = newInstance(R.string.wait_a_moment, false).also {
+            it.show(parentFragmentManager, WAIT_DIALOG_TAG)
+        }
         CreateFileFromTemplateTask(this, client, template, path, currentAccount.user).execute()
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun setTemplateList(templateList: List<Template>?) {
-        adapter?.setTemplateList(templateList)
-        adapter?.notifyDataSetChanged()
+        adapter?.let {
+            it.setTemplateList(templateList)
+            it.notifyDataSetChanged()
+        }
     }
 
     private val fileNameText: String
@@ -248,9 +250,18 @@ class ChooseRichDocumentsTemplateDialogFragment :
 
         val selectedTemplate = adapter?.selectedTemplate
 
+        val errorMessage = FileNameValidator.checkFileName(
+            name,
+            fileDataStorageManager.getCapability(currentAccount.user),
+            requireContext(),
+            fileNames
+        )
+
         if (selectedTemplate == null) {
             DisplayUtils.showSnackMessage(binding.list, R.string.select_one_template)
-        } else if (name.isEmpty() || name.equals(DOT + selectedTemplate.extension, ignoreCase = true)) {
+        } else if (errorMessage != null) {
+            DisplayUtils.showSnackMessage(requireActivity(), errorMessage)
+        } else if (name.equals(DOT + selectedTemplate.extension, ignoreCase = true)) {
             DisplayUtils.showSnackMessage(binding.list, R.string.enter_filename)
         } else if (!name.endsWith(selectedTemplate.extension)) {
             createFromTemplate(selectedTemplate, path + DOT + selectedTemplate.extension)
@@ -283,31 +294,37 @@ class ChooseRichDocumentsTemplateDialogFragment :
     }
 
     private fun checkEnablingCreateButton() {
+        if (positiveButton == null) {
+            return
+        }
+
+        val selectedTemplate = adapter?.selectedTemplate
+        val name = fileNameText
+        val errorMessage = FileNameValidator.checkFileName(
+            name,
+            fileDataStorageManager.getCapability(currentAccount.user),
+            requireContext(),
+            fileNames
+        )
+        val isExtension = (
+            selectedTemplate == null || !name.equals(
+                DOT + selectedTemplate.extension,
+                ignoreCase = true
+            )
+            )
+        val isEnable = isExtension && errorMessage == null
+
         positiveButton?.let {
-            val selectedTemplate = adapter?.selectedTemplate
-            val name = fileNameText
-            val isNameJustExtension = selectedTemplate != null && name.equals(
-                DOT + selectedTemplate.extension,
-                ignoreCase = true
-            )
-            val isNameEmpty = name.isEmpty() || isNameJustExtension
-            val state = selectedTemplate != null && !isNameEmpty && fileNames?.contains(name) == false
+            it.isEnabled = isEnable
+            it.isClickable = isEnable
+        }
 
-            it.isEnabled = selectedTemplate != null && name.isNotEmpty() && !name.equals(
-                DOT + selectedTemplate.extension,
-                ignoreCase = true
-            )
-            it.isEnabled = state
-            it.isClickable = state
-
-            binding.filenameContainer.isErrorEnabled = !state
-
-            if (!state) {
-                if (isNameEmpty) {
-                    binding.filenameContainer.error = getText(R.string.filename_empty)
-                } else {
-                    binding.filenameContainer.error = getText(R.string.file_already_exists)
-                }
+        binding.filenameContainer.run {
+            isErrorEnabled = !isEnable
+            error = if (!isEnable) {
+                errorMessage ?: getText(R.string.filename_empty)
+            } else {
+                null
             }
         }
     }
@@ -418,7 +435,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
         @Deprecated("Deprecated in Java")
         override fun onPostExecute(templateList: List<Template>) {
             val fragment = chooseTemplateDialogFragmentWeakReference.get()
-            if (fragment == null) {
+            if (fragment == null || !fragment.isAdded) {
                 Log_OC.e(TAG, "Error streaming file: no previewMediaFragment!")
                 return
             }

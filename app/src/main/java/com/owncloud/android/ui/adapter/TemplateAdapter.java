@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018 Nextcloud GmbH
@@ -8,6 +9,7 @@
  */
 package com.owncloud.android.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -35,11 +37,11 @@ import androidx.recyclerview.widget.RecyclerView;
 public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHolder> {
 
     private TemplateList templateList = new TemplateList();
-    private ClickListener clickListener;
-    private Context context;
-    private CurrentAccountProvider currentAccountProvider;
-    private ClientFactory clientFactory;
-    private String mimetype;
+    private final ClickListener clickListener;
+    private final Context context;
+    private final CurrentAccountProvider currentAccountProvider;
+    private final ClientFactory clientFactory;
+    private final String mimetype;
     private Template selectedTemplate;
     private final ViewThemeUtils viewThemeUtils;
 
@@ -78,6 +80,7 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
         this.templateList = templateList;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setTemplateAsActive(Template template) {
         selectedTemplate = template;
         notifyDataSetChanged();
@@ -101,7 +104,8 @@ public class TemplateAdapter extends RecyclerView.Adapter<TemplateAdapter.ViewHo
             super(binding.getRoot());
             this.binding = binding;
             viewThemeUtils.files.themeTemplateCardView(this.binding.templateContainer);
-            itemView.setOnClickListener(this);
+            binding.templateLayout.setOnClickListener(this);
+            binding.templateContainer.setOnClickListener(this);
         }
 
         @Override
