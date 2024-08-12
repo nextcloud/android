@@ -31,6 +31,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -59,6 +60,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -204,6 +206,8 @@ public class MainApp extends Application implements HasAndroidInjector {
 
     private static AppComponent appComponent;
 
+    private final NetworkChangeReceiver networkChangeReceiver = new NetworkChangeReceiver();
+
     /**
      * Temporary hack
      */
@@ -225,6 +229,15 @@ public class MainApp extends Application implements HasAndroidInjector {
      */
     public PowerManagementService getPowerManagementService() {
         return powerManagementService;
+    }
+
+    private void registerNetworkChangeReceiver() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeReceiver, filter);
+    }
+
+    public static void setIsNetworkAvailable(boolean isNetworkAvailable) {
+        // TODO start pending operations if isNetworkAvailable
     }
 
     private String getAppProcessName() {
@@ -375,6 +388,7 @@ public class MainApp extends Application implements HasAndroidInjector {
         }
 
         registerGlobalPassCodeProtection();
+        registerNetworkChangeReceiver();
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
