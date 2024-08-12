@@ -13,6 +13,10 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewOutlineProvider
 
+fun View.setVisibleIf(condition: Boolean) {
+    this.visibility = if (condition) View.VISIBLE else View.GONE
+}
+
 fun createRoundedOutline(context: Context, cornerRadiusValue: Float): ViewOutlineProvider {
     return object : ViewOutlineProvider() {
         override fun getOutline(view: View, outline: Outline) {

@@ -142,7 +142,8 @@ public class FileDataStorageManager {
         offlineOperationDao.insert(entity);
 
         OCFile file = new OCFile(path);
-        saveFile(file);
+        file.setMimeType(MimeType.DIRECTORY);
+        saveFileWithParent(file, MainApp.getAppContext());
     }
 
     private @Nullable

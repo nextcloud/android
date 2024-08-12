@@ -32,6 +32,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.GridImageBinding;
@@ -107,6 +108,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private FileDataStorageManager mStorageManager;
     private User user;
     private OCFileListFragmentInterface ocFileListFragmentInterface;
+
 
     private OCFile currentDirectory;
     private static final String TAG = OCFileListAdapter.class.getSimpleName();
@@ -433,14 +435,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             checkVisibilityOfMoreButtons(gridViewHolder);
             checkVisibilityOfFileFeaturesLayout(gridViewHolder);
 
-            if (holder instanceof ListItemViewHolder) {
-                bindListItemViewHolder((ListItemViewHolder) gridViewHolder, file);
+            if (holder instanceof ListItemViewHolder itemViewHolder) {
+                bindListItemViewHolder(itemViewHolder, file);
             }
 
-            if (holder instanceof ListGridItemViewHolder) {
-                bindListGridItemViewHolder((ListGridItemViewHolder) holder, file);
-                checkVisibilityOfMoreButtons((ListGridItemViewHolder) holder);
-                checkVisibilityOfFileFeaturesLayout((ListGridItemViewHolder) holder);
+            if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
+                bindListGridItemViewHolder(gridItemViewHolder, file);
+                checkVisibilityOfMoreButtons(gridItemViewHolder);
+                checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
+
+                if (gridItemViewHolder.getMore() != null) {
+                    ViewExtensionsKt.setVisibleIf(gridItemViewHolder.getMore(), file.getRemoteId() != null);
+                }
             }
 
             updateLivePhotoIndicators(gridViewHolder, file);
@@ -529,6 +535,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 holder.getFileName().setVisibility(View.VISIBLE);
             }
         }
+
+        if (holder.getMore() != null) {
+            ViewExtensionsKt.setVisibleIf(holder.getMore(),file.getRemoteId() != null);
+        }
+
+        ViewExtensionsKt.setVisibleIf(holder.getShared(), file.getRemoteId() != null);
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -628,7 +640,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getLastModification().setVisibility(View.GONE);
         }
 
-        if (isMultiSelect() || gridView || hideItemOptions) {
+        if (isMultiSelect() || gridView || hideItemOptions || file.getRemoteId() == null) {
             holder.getOverflowMenu().setVisibility(View.GONE);
         } else {
             holder.getOverflowMenu().setVisibility(View.VISIBLE);
@@ -641,6 +653,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         } else {
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
+
+        ViewExtensionsKt.setVisibleIf(holder.getOverflowMenu(),file.getRemoteId() != null);
+        ViewExtensionsKt.setVisibleIf(holder.getShared(),file.getRemoteId() != null);
     }
 
     @Override
