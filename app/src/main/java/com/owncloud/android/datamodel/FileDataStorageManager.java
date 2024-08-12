@@ -130,7 +130,7 @@ public class FileDataStorageManager {
         return getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, path);
     }
 
-    public void addCreateFolderOfflineOperation(String path, long parentId) {
+    public void addCreateFolderOfflineOperation(String path, Long parentId) {
         OfflineOperationType type = new OfflineOperationType.CreateFolder(path);
 
         OfflineOperationEntity entity = new OfflineOperationEntity();
@@ -140,6 +140,9 @@ public class FileDataStorageManager {
         entity.setType(type);
 
         offlineOperationDao.insert(entity);
+
+        OCFile file = new OCFile(path);
+        saveFile(file);
     }
 
     private @Nullable
