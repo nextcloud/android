@@ -36,6 +36,8 @@ import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.database.dao.OfflineOperationDao;
 import com.nextcloud.client.database.entity.FileEntity;
+import com.nextcloud.client.database.entity.OfflineOperationEntity;
+import com.nextcloud.model.OfflineOperationType;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -126,6 +128,18 @@ public class FileDataStorageManager {
     public @Nullable
     OCFile getFileByDecryptedRemotePath(String path) {
         return getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, path);
+    }
+
+    public void addCreateFolderOfflineOperation(String path, long parentId) {
+        OfflineOperationType type = new OfflineOperationType.CreateFolder(path);
+
+        OfflineOperationEntity entity = new OfflineOperationEntity();
+
+        entity.setParentOCFileId(parentId);
+        entity.setCreatedAt(System.currentTimeMillis() / 1000L);
+        entity.setType(type);
+
+        offlineOperationDao.insert(entity);
     }
 
     private @Nullable

@@ -19,15 +19,12 @@ data class OfflineOperationEntity(
     @ColumnInfo(name = ProviderTableMeta._ID)
     val id: Int? = null,
 
-    @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_PARENT_ID)
-    val parentId: Int? = null,
-
     @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_PARENT_OC_FILE_ID)
-    val parentOCFileId: Long? = null,
+    var parentOCFileId: Long? = null,
 
     @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_TYPE)
-    val type: OfflineOperationType? = null,
+    var type: OfflineOperationType? = null,
 
     @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_CREATED_AT)
-    val createdAt: Long? = null,
+    var createdAt: Long? = null,
 )
