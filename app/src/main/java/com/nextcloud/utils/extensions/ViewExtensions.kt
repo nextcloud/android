@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -14,7 +14,7 @@ import android.view.View
 import android.view.ViewOutlineProvider
 
 fun View.setVisibleIf(condition: Boolean) {
-    this.visibility = if (condition) View.VISIBLE else View.GONE
+    visibility = if (condition) View.VISIBLE else View.GONE
 }
 
 fun createRoundedOutline(context: Context, cornerRadiusValue: Float): ViewOutlineProvider {
