@@ -32,6 +32,7 @@ public class ProviderMeta {
     }
 
     static public class ProviderTableMeta implements BaseColumns {
+        public static final String OFFLINE_OPERATION_TABLE_NAME = "offline_operations";
         public static final String FILE_TABLE_NAME = "filelist";
         public static final String OCSHARES_TABLE_NAME = "ocshares";
         public static final String CAPABILITIES_TABLE_NAME = "capabilities";
@@ -285,6 +286,14 @@ public class ProviderMeta {
         public static final String UPLOADS_IS_WHILE_CHARGING_ONLY = "is_while_charging_only";
         public static final String UPLOADS_IS_WIFI_ONLY = "is_wifi_only";
         public static final String UPLOADS_FOLDER_UNLOCK_TOKEN = "folder_unlock_token";
+
+        // Columns of offline operation table
+        public static final String OFFLINE_OPERATION_PARENT_ID = "offline_operations_parent_id";
+        public static final String OFFLINE_OPERATION_PARENT_OC_FILE_ID = "offline_operations_parent_oc_file_id";
+        public static final String OFFLINE_OPERATION_TYPE = "offline_operations_type";
+        public static final String OFFLINE_OPERATION_CREATED_AT = "offline_operations_created_at";
+
+
 
         // Columns of synced folder table
         public static final String SYNCED_FOLDER_LOCAL_PATH = "local_path";
