@@ -207,6 +207,7 @@ public class MainApp extends Application implements HasAndroidInjector {
     private static AppComponent appComponent;
 
     private final NetworkChangeReceiver networkChangeReceiver = new NetworkChangeReceiver();
+    private static boolean isNetworkAvailable = false;
 
     /**
      * Temporary hack
@@ -236,8 +237,13 @@ public class MainApp extends Application implements HasAndroidInjector {
         registerReceiver(networkChangeReceiver, filter);
     }
 
-    public static void setIsNetworkAvailable(boolean isNetworkAvailable) {
+    public static void setIsNetworkAvailable(boolean value) {
         // TODO start pending operations if isNetworkAvailable
+        isNetworkAvailable = value;
+    }
+
+    public static boolean isNetworkAvailable() {
+        return isNetworkAvailable;
     }
 
     private String getAppProcessName() {
