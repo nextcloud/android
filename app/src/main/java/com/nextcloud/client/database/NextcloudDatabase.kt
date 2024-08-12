@@ -16,11 +16,13 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.database.dao.FileDao
+import com.nextcloud.client.database.dao.OfflineOperationDao
 import com.nextcloud.client.database.entity.ArbitraryDataEntity
 import com.nextcloud.client.database.entity.CapabilityEntity
 import com.nextcloud.client.database.entity.ExternalLinkEntity
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.database.entity.FilesystemEntity
+import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.database.entity.ShareEntity
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
@@ -41,7 +43,8 @@ import com.owncloud.android.db.ProviderMeta
         ShareEntity::class,
         SyncedFolderEntity::class,
         UploadEntity::class,
-        VirtualEntity::class
+        VirtualEntity::class,
+        OfflineOperationEntity::class
     ],
     version = ProviderMeta.DB_VERSION,
     autoMigrations = [
@@ -61,7 +64,8 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 79, to = 80),
         AutoMigration(from = 80, to = 81),
         AutoMigration(from = 81, to = 82),
-        AutoMigration(from = 82, to = 83)
+        AutoMigration(from = 82, to = 83),
+        AutoMigration(from = 83, to = 84)
     ],
     exportSchema = true
 )
@@ -70,6 +74,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
 
     abstract fun arbitraryDataDao(): ArbitraryDataDao
     abstract fun fileDao(): FileDao
+    abstract fun offlineOperationDao(): OfflineOperationDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65

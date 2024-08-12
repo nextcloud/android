@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 83;
+    public static final int DB_VERSION = 84;
 
     private ProviderMeta() {
         // No instance
@@ -48,24 +48,24 @@ public class ProviderMeta {
         private static final String CONTENT_PREFIX = "content://";
 
         public static final Uri CONTENT_URI = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/");
+                                                            + MainApp.getAuthority() + "/");
         public static final Uri CONTENT_URI_FILE = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/file");
+                                                                 + MainApp.getAuthority() + "/file");
         public static final Uri CONTENT_URI_DIR = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/dir");
+                                                                + MainApp.getAuthority() + "/dir");
         public static final Uri CONTENT_URI_SHARE = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/shares");
+                                                                  + MainApp.getAuthority() + "/shares");
         public static final Uri CONTENT_URI_CAPABILITIES = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/capabilities");
+                                                                         + MainApp.getAuthority() + "/capabilities");
         public static final Uri CONTENT_URI_UPLOADS = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/uploads");
+                                                                    + MainApp.getAuthority() + "/uploads");
         public static final Uri CONTENT_URI_SYNCED_FOLDERS = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/synced_folders");
+                                                                           + MainApp.getAuthority() + "/synced_folders");
         public static final Uri CONTENT_URI_EXTERNAL_LINKS = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/external_links");
+                                                                           + MainApp.getAuthority() + "/external_links");
         public static final Uri CONTENT_URI_VIRTUAL = Uri.parse(CONTENT_PREFIX + MainApp.getAuthority() + "/virtual");
         public static final Uri CONTENT_URI_FILESYSTEM = Uri.parse(CONTENT_PREFIX
-                + MainApp.getAuthority() + "/filesystem");
+                                                                       + MainApp.getAuthority() + "/filesystem");
 
 
         public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.owncloud.file";
@@ -125,58 +125,58 @@ public class ProviderMeta {
         public static final String FILE_INTERNAL_TWO_WAY_SYNC_RESULT = "internal_two_way_sync_result";
 
         public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
-                _ID,
-                FILE_PARENT,
-                FILE_NAME,
-                FILE_ENCRYPTED_NAME,
-                FILE_CREATION,
-                FILE_MODIFIED,
-                FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
-                FILE_CONTENT_LENGTH,
-                FILE_CONTENT_TYPE,
-                FILE_STORAGE_PATH,
-                FILE_PATH,
-                FILE_PATH_DECRYPTED,
-                FILE_ACCOUNT_OWNER,
-                FILE_LAST_SYNC_DATE,
-                FILE_LAST_SYNC_DATE_FOR_DATA,
-                FILE_KEEP_IN_SYNC,
-                FILE_ETAG,
-                FILE_ETAG_ON_SERVER,
-                FILE_SHARED_VIA_LINK,
-                FILE_SHARED_WITH_SHAREE,
-                FILE_PERMISSIONS,
-                FILE_REMOTE_ID,
-                FILE_LOCAL_ID,
-                FILE_UPDATE_THUMBNAIL,
-                FILE_IS_DOWNLOADING,
-                FILE_ETAG_IN_CONFLICT,
-                FILE_FAVORITE,
-                FILE_HIDDEN,
-                FILE_IS_ENCRYPTED,
-                FILE_MOUNT_TYPE,
-                FILE_HAS_PREVIEW,
-                FILE_UNREAD_COMMENTS_COUNT,
-                FILE_OWNER_ID,
-                FILE_OWNER_DISPLAY_NAME,
-                FILE_NOTE,
-                FILE_SHAREES,
-                FILE_RICH_WORKSPACE,
-                FILE_LOCKED,
-                FILE_LOCK_TYPE,
-                FILE_LOCK_OWNER,
-                FILE_LOCK_OWNER_DISPLAY_NAME,
-                FILE_LOCK_OWNER_EDITOR,
-                FILE_LOCK_TIMESTAMP,
-                FILE_LOCK_TIMEOUT,
-                FILE_LOCK_TOKEN,
-                FILE_METADATA_SIZE,
-                FILE_METADATA_LIVE_PHOTO,
-                FILE_E2E_COUNTER,
-                FILE_TAGS,
-                FILE_METADATA_GPS,
-                FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP,
-                FILE_INTERNAL_TWO_WAY_SYNC_RESULT));
+            _ID,
+            FILE_PARENT,
+            FILE_NAME,
+            FILE_ENCRYPTED_NAME,
+            FILE_CREATION,
+            FILE_MODIFIED,
+            FILE_MODIFIED_AT_LAST_SYNC_FOR_DATA,
+            FILE_CONTENT_LENGTH,
+            FILE_CONTENT_TYPE,
+            FILE_STORAGE_PATH,
+            FILE_PATH,
+            FILE_PATH_DECRYPTED,
+            FILE_ACCOUNT_OWNER,
+            FILE_LAST_SYNC_DATE,
+            FILE_LAST_SYNC_DATE_FOR_DATA,
+            FILE_KEEP_IN_SYNC,
+            FILE_ETAG,
+            FILE_ETAG_ON_SERVER,
+            FILE_SHARED_VIA_LINK,
+            FILE_SHARED_WITH_SHAREE,
+            FILE_PERMISSIONS,
+            FILE_REMOTE_ID,
+            FILE_LOCAL_ID,
+            FILE_UPDATE_THUMBNAIL,
+            FILE_IS_DOWNLOADING,
+            FILE_ETAG_IN_CONFLICT,
+            FILE_FAVORITE,
+            FILE_HIDDEN,
+            FILE_IS_ENCRYPTED,
+            FILE_MOUNT_TYPE,
+            FILE_HAS_PREVIEW,
+            FILE_UNREAD_COMMENTS_COUNT,
+            FILE_OWNER_ID,
+            FILE_OWNER_DISPLAY_NAME,
+            FILE_NOTE,
+            FILE_SHAREES,
+            FILE_RICH_WORKSPACE,
+            FILE_LOCKED,
+            FILE_LOCK_TYPE,
+            FILE_LOCK_OWNER,
+            FILE_LOCK_OWNER_DISPLAY_NAME,
+            FILE_LOCK_OWNER_EDITOR,
+            FILE_LOCK_TIMESTAMP,
+            FILE_LOCK_TIMEOUT,
+            FILE_LOCK_TOKEN,
+            FILE_METADATA_SIZE,
+            FILE_METADATA_LIVE_PHOTO,
+            FILE_E2E_COUNTER,
+            FILE_TAGS,
+            FILE_METADATA_GPS,
+            FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP,
+            FILE_INTERNAL_TWO_WAY_SYNC_RESULT));
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table
@@ -201,7 +201,7 @@ public class ProviderMeta {
         public static final String OCSHARES_SHARE_LABEL = "share_label";
 
         public static final String OCSHARES_DEFAULT_SORT_ORDER = OCSHARES_FILE_SOURCE
-                + " collate nocase asc";
+            + " collate nocase asc";
 
         // Columns of capabilities table
         public static final String CAPABILITIES_ACCOUNT_NAME = "account";
@@ -218,11 +218,11 @@ public class ProviderMeta {
         public static final String CAPABILITIES_SHARING_PUBLIC_ASK_FOR_OPTIONAL_PASSWORD =
             "sharing_public_ask_for_optional_password";
         public static final String CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENABLED =
-                "sharing_public_expire_date_enabled";
+            "sharing_public_expire_date_enabled";
         public static final String CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_DAYS =
-                "sharing_public_expire_date_days";
+            "sharing_public_expire_date_days";
         public static final String CAPABILITIES_SHARING_PUBLIC_EXPIRE_DATE_ENFORCED =
-                "sharing_public_expire_date_enforced";
+            "sharing_public_expire_date_enforced";
         public static final String CAPABILITIES_SHARING_PUBLIC_SEND_MAIL = "sharing_public_send_mail";
         public static final String CAPABILITIES_SHARING_PUBLIC_UPLOAD = "sharing_public_upload";
         public static final String CAPABILITIES_SHARING_USER_SEND_MAIL = "sharing_user_send_mail";
@@ -288,11 +288,12 @@ public class ProviderMeta {
         public static final String UPLOADS_FOLDER_UNLOCK_TOKEN = "folder_unlock_token";
 
         // Columns of offline operation table
-        public static final String OFFLINE_OPERATION_PARENT_ID = "offline_operations_parent_id";
         public static final String OFFLINE_OPERATION_PARENT_OC_FILE_ID = "offline_operations_parent_oc_file_id";
+        public static final String OFFLINE_OPERATION_PARENT_PATH = "offline_operations_parent_path";
         public static final String OFFLINE_OPERATION_TYPE = "offline_operations_type";
+        public static final String OFFLINE_OPERATION_PATH = "offline_operations_path";
         public static final String OFFLINE_OPERATION_CREATED_AT = "offline_operations_created_at";
-
+        public static final String OFFLINE_OPERATION_FILE_NAME = "offline_operations_file_name";
 
 
         // Columns of synced folder table
