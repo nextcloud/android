@@ -5,7 +5,8 @@
   ~ SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/empty_list_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -13,6 +14,7 @@
     android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/empty_linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
