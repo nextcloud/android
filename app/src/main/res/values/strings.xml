@@ -23,6 +23,7 @@
     <string name="menu_item_sort_by_date_oldest_first">Oldest first</string>
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
 
     <string name="ecosystem_apps_display_assistant">Assistant</string>
 

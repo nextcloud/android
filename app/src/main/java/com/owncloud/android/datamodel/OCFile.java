@@ -775,6 +775,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.downloading;
     }
 
+    public boolean isOfflineOperation() {
+        return getRemoteId() == null;
+    }
+
     public String getEtagInConflict() {
         return this.etagInConflict;
     }

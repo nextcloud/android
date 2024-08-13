@@ -16,6 +16,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
@@ -445,7 +447,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
 
                 if (gridItemViewHolder.getMore() != null) {
-                    ViewExtensionsKt.setVisibleIf(gridItemViewHolder.getMore(), file.getRemoteId() != null);
+                    ViewExtensionsKt.setVisibleIf(gridItemViewHolder.getMore(), !file.isOfflineOperation());
                 }
             }
 
@@ -537,10 +539,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         if (holder.getMore() != null) {
-            ViewExtensionsKt.setVisibleIf(holder.getMore(),file.getRemoteId() != null);
+            ViewExtensionsKt.setVisibleIf(holder.getMore(), !file.isOfflineOperation());
         }
 
-        ViewExtensionsKt.setVisibleIf(holder.getShared(), file.getRemoteId() != null);
+        ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -611,15 +613,27 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 localSize = localFile.length();
             }
 
-            holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(localSize));
             holder.getFileSize().setVisibility(View.VISIBLE);
-            holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
+
+            if (file.isOfflineOperation()) {
+                holder.getFileSize().setText(MainApp.string(R.string.oc_file_list_adapter_offline_operation_description_text));
+                holder.getFileSizeSeparator().setVisibility(View.GONE);
+            } else {
+                holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(localSize));
+                holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
+            }
         } else {
             final long fileLength = file.getFileLength();
             if (fileLength >= 0) {
-                holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(fileLength));
                 holder.getFileSize().setVisibility(View.VISIBLE);
-                holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
+
+                if (file.isOfflineOperation()) {
+                    holder.getFileSize().setText(MainApp.string(R.string.oc_file_list_adapter_offline_operation_description_text));
+                    holder.getFileSizeSeparator().setVisibility(View.GONE);
+                } else {
+                    holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(fileLength));
+                    holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
+                }
             } else {
                 holder.getFileSize().setVisibility(View.GONE);
                 holder.getFileSizeSeparator().setVisibility(View.GONE);
@@ -654,9 +668,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
 
-        // TODO make folder color gray and disable click event
-        ViewExtensionsKt.setVisibleIf(holder.getOverflowMenu(),file.getRemoteId() != null);
-        ViewExtensionsKt.setVisibleIf(holder.getShared(),file.getRemoteId() != null);
+        applyVisualsForOfflineOperations(holder, file);
+    }
+
+    private void applyVisualsForOfflineOperations(ListItemViewHolder holder, OCFile file) {
+        ViewExtensionsKt.setVisibleIf(holder.getOverflowMenu(), !file.isOfflineOperation());
+        ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
+
+        if (file.isOfflineOperation()) {
+            holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+        } else {
+            holder.getThumbnail().setColorFilter(holder.getThumbnail().getColorFilter());
+        }
     }
 
     @Override
