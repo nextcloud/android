@@ -8,10 +8,16 @@
 package com.nextcloud.utils.extensions
 
 import android.content.Context
+import android.graphics.Color
 import android.graphics.Outline
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewOutlineProvider
+
+fun View.disableIf(condition: Boolean) {
+    isEnabled = condition
+    setBackgroundColor(if (condition) Color.TRANSPARENT else Color.GRAY)
+}
 
 fun View.setVisibleIf(condition: Boolean) {
     visibility = if (condition) View.VISIBLE else View.GONE

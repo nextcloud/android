@@ -654,6 +654,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
 
+        // TODO make folder color gray and disable click event
         ViewExtensionsKt.setVisibleIf(holder.getOverflowMenu(),file.getRemoteId() != null);
         ViewExtensionsKt.setVisibleIf(holder.getShared(),file.getRemoteId() != null);
     }
