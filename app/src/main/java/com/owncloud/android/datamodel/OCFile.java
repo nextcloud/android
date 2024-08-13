@@ -775,6 +775,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.downloading;
     }
 
+    public boolean isRootDirectory() {
+        return decryptedRemotePath.equals(ROOT_PATH);
+    }
+
     public boolean isOfflineOperation() {
         return getRemoteId() == null;
     }

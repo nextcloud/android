@@ -212,7 +212,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
     }
 
     private void filterActionsForOfflineOperations() {
-        if (!file.isOfflineOperation()) {
+        if (!file.isOfflineOperation() || file.isRootDirectory()) {
             return;
         }
 
