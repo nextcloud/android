@@ -12,23 +12,24 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
-import com.nextcloud.client.jobs.BackgroundJobManager
-import com.owncloud.android.MainApp
-import javax.inject.Inject
 
-class NetworkChangeReceiver : BroadcastReceiver() {
+interface NetworkChangeListener {
+    fun onConnectionChanged(isConnected: Boolean)
+}
 
-    @Inject
-    lateinit var backgroundJobManager: BackgroundJobManager
+class NetworkChangeReceiver(private val listener: NetworkChangeListener) : BroadcastReceiver() {
 
-    override fun onReceive(context: Context, intent: Intent?) {
-        MainApp.setIsNetworkAvailable(isNetworkAvailable(context), backgroundJobManager)
+    companion object {
+        fun isNetworkAvailable(context: Context): Boolean {
+            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+            val activeNetwork = connectivityManager.activeNetwork
+            val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
+            return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+        }
     }
 
-    private fun isNetworkAvailable(context: Context): Boolean {
-        val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-        val activeNetwork = connectivityManager.activeNetwork
-        val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
-        return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
+    override fun onReceive(context: Context, intent: Intent?) {
+        val isConnected = isNetworkAvailable(context)
+        listener.onConnectionChanged(isConnected)
     }
 }

@@ -60,6 +60,7 @@ import com.nextcloud.client.onboarding.OnboardingService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nmc.android.ui.LauncherActivity;
@@ -131,7 +132,7 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  * Main Application of the project.
  * Contains methods to build the "static" strings. These strings were before constants in different classes.
  */
-public class MainApp extends Application implements HasAndroidInjector {
+public class MainApp extends Application implements HasAndroidInjector, NetworkChangeListener {
     public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_26;
     public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_17;
 
@@ -206,8 +207,7 @@ public class MainApp extends Application implements HasAndroidInjector {
 
     private static AppComponent appComponent;
 
-    private final NetworkChangeReceiver networkChangeReceiver = new NetworkChangeReceiver();
-    private static boolean isNetworkAvailable = false;
+    private NetworkChangeReceiver networkChangeReceiver;
 
     /**
      * Temporary hack
@@ -235,17 +235,6 @@ public class MainApp extends Application implements HasAndroidInjector {
     private void registerNetworkChangeReceiver() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeReceiver, filter);
-    }
-
-    public static void setIsNetworkAvailable(boolean value, BackgroundJobManager backgroundJobManager) {
-        isNetworkAvailable = value;
-        if (isNetworkAvailable) {
-            backgroundJobManager.startOfflineOperations();
-        }
-    }
-
-    public static boolean isNetworkAvailable() {
-        return isNetworkAvailable;
     }
 
     private String getAppProcessName() {
@@ -396,6 +385,7 @@ public class MainApp extends Application implements HasAndroidInjector {
         }
 
         registerGlobalPassCodeProtection();
+        networkChangeReceiver = new NetworkChangeReceiver(this);
         registerNetworkChangeReceiver();
     }
 
@@ -994,6 +984,13 @@ public class MainApp extends Application implements HasAndroidInjector {
             case LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             case DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
             case SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        }
+    }
+
+    @Override
+    public void onConnectionChanged(boolean isConnected) {
+        if (isConnected) {
+            backgroundJobManager.startOfflineOperations();
         }
     }
 }
