@@ -7,9 +7,6 @@
 
 package com.nextcloud.model
 
-sealed class OfflineOperationType {
-    /**
-     * path represents decryptedRemotePath + folder name + OCFile.PATH_SEPARATOR
-     */
-    data class CreateFolder(val path: String) : OfflineOperationType()
+enum class OfflineOperationType {
+    CreateFolder;
 }

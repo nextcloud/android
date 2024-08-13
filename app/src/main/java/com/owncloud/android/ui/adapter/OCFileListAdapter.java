@@ -86,6 +86,7 @@ import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
@@ -682,7 +683,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         if (file.isOfflineOperation()) {
             holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         } else {
-            holder.getThumbnail().setColorFilter(holder.getThumbnail().getColorFilter());
+            int color = ContextCompat.getColor(MainApp.getAppContext(), R.color.color_accent);
+            holder.getThumbnail().setColorFilter(color, PorterDuff.Mode.SRC_IN);
         }
     }
 

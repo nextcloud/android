@@ -11,6 +11,7 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
+import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.model.OfflineOperationType
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -37,9 +38,8 @@ class OfflineOperationsWorker(
         val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
         offlineOperations.forEach { operation ->
             when (operation.type) {
-                is OfflineOperationType.CreateFolder -> {
-                    val createFolderOperation = (operation.type as OfflineOperationType.CreateFolder)
-                    createFolder(createFolderOperation, client, onCompleted = {
+                OfflineOperationType.CreateFolder -> {
+                    createFolder(operation, client, onCompleted = {
                         fileDataStorageManager.offlineOperationDao.delete(operation)
                     })
                 }
@@ -57,7 +57,7 @@ class OfflineOperationsWorker(
 
     @Suppress("TooGenericExceptionCaught", "Deprecation")
     private fun createFolder(
-        operation: OfflineOperationType.CreateFolder,
+        operation: OfflineOperationEntity,
         client: OwnCloudClient,
         onCompleted: () -> Unit
     ) {

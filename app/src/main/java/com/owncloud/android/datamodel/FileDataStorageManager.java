@@ -131,13 +131,12 @@ public class FileDataStorageManager {
     }
 
     public void addCreateFolderOfflineOperation(String path, Long parentId) {
-        OfflineOperationType type = new OfflineOperationType.CreateFolder(path);
-
         OfflineOperationEntity entity = new OfflineOperationEntity();
 
+        entity.setPath(path);
         entity.setParentOCFileId(parentId);
         entity.setCreatedAt(System.currentTimeMillis() / 1000L);
-        entity.setType(type);
+        entity.setType(OfflineOperationType.CreateFolder);
 
         offlineOperationDao.insert(entity);
 
