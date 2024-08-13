@@ -97,7 +97,7 @@ public class FileDataStorageManager {
     private final ContentProviderClient contentProviderClient;
     private final User user;
 
-    private final OfflineOperationDao offlineOperationDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).offlineOperationDao();
+    public final OfflineOperationDao offlineOperationDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).offlineOperationDao();
     private final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     private final Gson gson = new Gson();
 

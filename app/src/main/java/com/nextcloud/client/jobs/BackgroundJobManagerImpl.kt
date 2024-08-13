@@ -26,6 +26,7 @@ import com.nextcloud.client.core.Clock
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.download.FileDownloadWorker
+import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkRunning
@@ -80,7 +81,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PDF_GENERATION = "pdf_generation"
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
         const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
-
+        const val JOB_OFFLINE_OPERATIONS = "offline_operations"
         const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
         const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
 
@@ -409,6 +410,17 @@ internal class BackgroundJobManagerImpl(
     override fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean {
         return workManager.isWorkRunning(JOB_PERIODIC_FILES_SYNC + "_" + syncedFolderID) &&
             workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID)
+    }
+
+    override fun startOfflineOperations() {
+        val request = oneTimeRequestBuilder(OfflineOperationsWorker::class, JOB_OFFLINE_OPERATIONS)
+            .build()
+
+        workManager.enqueueUniqueWork(
+            JOB_OFFLINE_OPERATIONS,
+            ExistingWorkPolicy.REPLACE,
+            request
+        )
     }
 
     override fun schedulePeriodicFilesSyncJob(syncedFolderID: Long) {

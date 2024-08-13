@@ -237,9 +237,11 @@ public class MainApp extends Application implements HasAndroidInjector {
         registerReceiver(networkChangeReceiver, filter);
     }
 
-    public static void setIsNetworkAvailable(boolean value) {
-        // TODO start pending operations if isNetworkAvailable
+    public static void setIsNetworkAvailable(boolean value, BackgroundJobManager backgroundJobManager) {
         isNetworkAvailable = value;
+        if (isNetworkAvailable) {
+            backgroundJobManager.startOfflineOperations();
+        }
     }
 
     public static boolean isNetworkAvailable() {

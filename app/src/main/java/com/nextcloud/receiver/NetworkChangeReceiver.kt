@@ -12,11 +12,17 @@ import android.content.Context
 import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import com.nextcloud.client.jobs.BackgroundJobManager
 import com.owncloud.android.MainApp
+import javax.inject.Inject
 
 class NetworkChangeReceiver : BroadcastReceiver() {
+
+    @Inject
+    lateinit var backgroundJobManager: BackgroundJobManager
+
     override fun onReceive(context: Context, intent: Intent?) {
-        MainApp.setIsNetworkAvailable(isNetworkAvailable(context))
+        MainApp.setIsNetworkAvailable(isNetworkAvailable(context), backgroundJobManager)
     }
 
     private fun isNetworkAvailable(context: Context): Boolean {
