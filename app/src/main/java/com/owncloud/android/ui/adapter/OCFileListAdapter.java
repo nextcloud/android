@@ -680,11 +680,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void setColorFilterForOfflineOperations(ListGridImageViewHolder holder, OCFile file) {
+        if (!file.isFolder()) {
+            return;
+        }
+
         if (file.isOfflineOperation()) {
             holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         } else {
-            int color = ContextCompat.getColor(MainApp.getAppContext(), R.color.color_accent);
-            holder.getThumbnail().setColorFilter(color, PorterDuff.Mode.SRC_IN);
+            Drawable drawable = viewThemeUtils.platform.tintDrawable(MainApp.getAppContext(), holder.getThumbnail().getDrawable(), ColorRole.PRIMARY);
+            holder.getThumbnail().setImageDrawable(drawable);
         }
     }
 

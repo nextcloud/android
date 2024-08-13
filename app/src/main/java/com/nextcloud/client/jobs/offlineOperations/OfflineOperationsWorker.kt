@@ -72,7 +72,7 @@ class OfflineOperationsWorker(
                 Log_OC.d(TAG, "Create folder operation terminated, result: $result")
             }
         } catch (e: Exception) {
-            Log_OC.d(TAG, "Error caught at createFolder: $e")
+            Log_OC.d(TAG, "Create folder operation terminated, exception is: $e")
         }
     }
 }
