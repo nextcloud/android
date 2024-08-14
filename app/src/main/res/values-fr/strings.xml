@@ -275,7 +275,7 @@
     <string name="drawer_item_trashbin">Fichiers supprimés</string>
     <string name="drawer_item_uploads_list">Téléversements</string>
     <string name="drawer_logout">Déconnexion</string>
-    <string name="drawer_open">Ouvrir la barre latérale</string>
+    <string name="drawer_open">Ouvrir le panneau latéral</string>
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
     <string name="drawer_synced_folders">Téléversement automatique</string>

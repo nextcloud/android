@@ -443,6 +443,7 @@
     <string name="foreign_files_success">Усі файли переміщено</string>
     <string name="forward">Вперед</string>
     <string name="fourHours">4 години</string>
+    <string name="gplay_restriction">Ґуґл обмежив звантаження файлів APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">Цей значок означає доступність живого фото</string>
     <string name="hidden_file_name_warning">Назву буде наведено у прихованому файлі</string>
     <string name="hint_name">Ім\'я</string>
@@ -504,6 +505,7 @@
     <string name="manage_space_clear_data">Очистити дані</string>
     <string name="manage_space_description">Налаштування, база даних та дані сертифікатів серверу від %1$s буде вилучено без можливості відновлення.\n\nФайли, які було звантажено, буде збережено.\n\nЦей процес триватиме певний час.</string>
     <string name="manage_space_title">Керувати простором</string>
+    <string name="max_file_count_warning_message">Досягнуто обмеження на кількість завантаження файлів. За раз можна завантажувати не більше 500 файлів.  </string>
     <string name="media_err_invalid_progressive_playback">Неможливо транслювати мультимедійний файл</string>
     <string name="media_err_io">Неможливо відкрити мультимедійний файл</string>
     <string name="media_err_malformed">Мультимедійний файл має неправильно кодування</string>
