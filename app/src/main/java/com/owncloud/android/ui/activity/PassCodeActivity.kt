@@ -29,7 +29,6 @@ import com.owncloud.android.databinding.PasscodelockBinding
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.components.PassCodeEditText
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import java.util.Arrays
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions", "MagicNumber")
@@ -69,7 +68,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         private set
 
     private val passCodeEditTexts = arrayOfNulls<PassCodeEditText>(4)
-    private var passCodeDigits: Array<String?>? = arrayOf("", "", "", "")
+    private var passCodeDigits: Array<String> = arrayOf("", "", "", "")
     private var confirmingPassCode = false
     private var changed = true // to control that only one blocks jump
 
@@ -117,7 +116,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         } else if (ACTION_REQUEST_WITH_RESULT == intent.action) {
             if (savedInstanceState != null) {
                 confirmingPassCode = savedInstanceState.getBoolean(KEY_CONFIRMING_PASSCODE)
-                passCodeDigits = savedInstanceState.getStringArray(KEY_PASSCODE_DIGITS)
+                passCodeDigits = savedInstanceState.getStringArray(KEY_PASSCODE_DIGITS) ?: arrayOf("", "", "", "")
             }
             if (confirmingPassCode) {
                 // the app was in the passcode confirmation
@@ -185,7 +184,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
                 passCodeEditTexts[passCodeIndex - 1]?.requestFocus()
 
                 if (!confirmingPassCode) {
-                    passCodeDigits?.set(passCodeIndex - 1, "")
+                    passCodeDigits[passCodeIndex - 1] = ""
                 }
 
                 passCodeEditTexts[passCodeIndex - 1]?.setText(R.string.empty)
@@ -258,8 +257,6 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     }
 
     private fun showErrorAndRestart(errorMessage: Int, headerMessage: Int, explanationVisibility: Int) {
-        passCodeDigits?.let { Arrays.fill(it, null) }
-
         Snackbar.make(findViewById(android.R.id.content), getString(errorMessage), Snackbar.LENGTH_LONG).show()
         binding.header.setText(headerMessage) // TODO check if really needed
         binding.explanation.visibility = explanationVisibility // TODO check if really needed
@@ -279,14 +276,14 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
 
     private fun checkPassCode(): Boolean {
         val savedPassCodeDigits = preferences?.passCode
-        return passCodeDigits?.zip(savedPassCodeDigits.orEmpty()) { input, saved ->
-            input != null && input == saved
-        }?.all { it } ?: false
+        return passCodeDigits.zip(savedPassCodeDigits.orEmpty()) { input, saved ->
+            input == saved
+        }.all { it }
     }
 
     private fun confirmPassCode(): Boolean {
         return passCodeEditTexts.indices.all { i ->
-            passCodeEditTexts[i]?.text.toString() == passCodeDigits!![i]
+            passCodeEditTexts[i]?.text.toString() == passCodeDigits[i]
         }
     }
 
@@ -320,7 +317,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         val resultIntent = Intent()
         resultIntent.putExtra(
             KEY_PASSCODE,
-            passCodeDigits!![0] + passCodeDigits!![1] + passCodeDigits!![2] + passCodeDigits!![3]
+            passCodeDigits[0] + passCodeDigits[1] + passCodeDigits[2] + passCodeDigits[3]
         )
         setResult(RESULT_OK, resultIntent)
         passCodeManager?.updateLockTimestamp()
@@ -397,7 +394,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
                     val passCodeText = passCodeEditTexts[mIndex]?.text
 
                     if (passCodeText != null) {
-                        passCodeDigits!![mIndex] = passCodeText.toString()
+                        passCodeDigits[mIndex] = passCodeText.toString()
                     }
                 }
 
