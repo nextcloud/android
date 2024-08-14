@@ -660,7 +660,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     @Override
     public void onHeaderClicked() {
-        if (!getAdapter().isMultiSelect() && mContainerActivity instanceof FileDisplayActivity) {
+        if (getAdapter() != null && !getAdapter().isMultiSelect() && mContainerActivity instanceof FileDisplayActivity) {
             ((FileDisplayActivity) mContainerActivity).startRichWorkspacePreview(getCurrentFile());
         }
     }
@@ -1088,7 +1088,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             fileActivity.checkInternetConnection();
         }
 
-        if (getCommonAdapter().isMultiSelect()) {
+        if (getCommonAdapter() != null && getCommonAdapter().isMultiSelect()) {
             toggleItemToCheckedList(file);
         } else {
             if (file == null) {
@@ -1096,9 +1096,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 return;
             }
 
-            int position = getCommonAdapter().getItemPosition(file);
-
-            if (file.isFolder()) {
+            if (getCommonAdapter() != null && file.isFolder()) {
+                int position = getCommonAdapter().getItemPosition(file);
                 folderOnItemClick(file, position);
             } else if (mFileSelectable) {
                 Intent intent = new Intent();
