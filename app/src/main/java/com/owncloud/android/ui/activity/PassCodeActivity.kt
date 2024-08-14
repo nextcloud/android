@@ -19,6 +19,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
@@ -346,7 +347,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         binding.txt2.isEnabled = false
         binding.txt3.isEnabled = false
 
-        CoroutineScope(Dispatchers.IO).launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             delay(delayValue * 1000L)
 
             launch(Dispatchers.Main) {
@@ -355,8 +356,11 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
                 binding.txt1.isEnabled = true
                 binding.txt2.isEnabled = true
                 binding.txt3.isEnabled = true
+
+                binding.txt0.requestFocus()
+                binding.txt0.showKeyboard()
             }
-        }.start()
+        }
     }
 
     public override fun onSaveInstanceState(outState: Bundle) {
