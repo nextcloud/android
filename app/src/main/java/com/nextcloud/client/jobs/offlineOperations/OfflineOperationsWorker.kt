@@ -41,7 +41,7 @@ class OfflineOperationsWorker(
             "$jobName -----------------------------------\nOfflineOperationsWorker started\n-----------------------------------"
         )
 
-        if (NetworkChangeReceiver.isNetworkAvailable(context)) {
+        if (!NetworkChangeReceiver.isNetworkAvailable(context)) {
             Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no internet connection.")
             return Result.success()
         }
