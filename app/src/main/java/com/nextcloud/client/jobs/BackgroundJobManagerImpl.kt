@@ -100,6 +100,7 @@ internal class BackgroundJobManagerImpl(
         const val NOT_SET_VALUE = "not set"
         const val PERIODIC_BACKUP_INTERVAL_MINUTES = 24 * 60L
         const val DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES = 15L
+        const val OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES = 5L
         const val DEFAULT_IMMEDIATE_JOB_DELAY_SEC = 3L
 
         private const val KEEP_LOG_MILLIS = 1000 * 60 * 60 * 24 * 3L
@@ -429,7 +430,7 @@ internal class BackgroundJobManagerImpl(
         val request = periodicRequestBuilder(
             jobClass = OfflineOperationsWorker::class,
             jobName = JOB_PERIODIC_OFFLINE_OPERATIONS,
-            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES,
+            intervalMins = OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES,
             constraints = constraints
         )
             .setInputData(inputData)
