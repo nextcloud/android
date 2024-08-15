@@ -1600,7 +1600,7 @@ public class FileDisplayActivity extends FileActivity
             } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
                 OCFileListFragment fileListFragment = getListOfFilesFragment();
                 if (fileListFragment != null) {
-                    fileListFragment.onRefresh();
+                    new Handler(Looper.getMainLooper()).postDelayed(fileListFragment::onRefresh, 3000);
                 }
             }
         });
