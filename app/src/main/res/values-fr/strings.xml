@@ -512,6 +512,7 @@
     <string name="manage_space_clear_data">Effacer les données</string>
     <string name="manage_space_description">Les paramètres, la base de données et les certificats du serveur provenant de %1$s seront définitivement effacés. \n\nLes fichiers téléchargés ne seront pas impactés.\n\nCette opération peut prendre du temps.</string>
     <string name="manage_space_title">Gestion de l\'espace</string>
+    <string name="max_file_count_warning_message">Vous avez atteint la limite maximum de téléversement. Veuillez téléverser moins de 500 fichiers à la fois.</string>
     <string name="media_err_invalid_progressive_playback">Le fichier ne peut être streamer</string>
     <string name="media_err_io">Impossible de lire le fichier média</string>
     <string name="media_err_malformed">Le fichier média n\'est pas correctement encodé</string>
@@ -666,8 +667,10 @@
     <string name="prefs_value_theme_light">Clair</string>
     <string name="prefs_value_theme_system">Selon le système</string>
     <string name="preview_image_description">Prévisualisation de l\'image</string>
+    <string name="preview_image_downloading_image_for_edit">Téléchargement de l\'image afin de lancer l\'écran d\'édition, veuillez patienter…</string>
     <string name="preview_image_error_no_local_file">Il n\'y a aucun fichier local à prévisualiser</string>
     <string name="preview_image_error_unknown_format">L\'image ne peut pas être affichée</string>
+    <string name="preview_image_file_is_not_downloaded">Le fichier n\'est pas téléchargé</string>
     <string name="preview_image_file_is_not_exist">Le fichier n’existe pas</string>
     <string name="preview_media_unhandled_http_code_message">Ce fichier est actuellement vérouillé par un autre utilisateur ou processus et ne peut donc pas être supprimé. Veuillez réessayer plus tard.</string>
     <string name="preview_sorry">Désolé</string>
@@ -678,6 +681,7 @@
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
     <string name="qr_could_not_be_read">Le code QR ne peut être lu</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Le dossier est introuvable, l\'opération de synchronisation est annulée.</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Impossible de trouver le fichier à téléverser</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
@@ -885,6 +889,9 @@
     <string name="trashbin_file_remove">Supprimer définitivement</string>
     <string name="trashbin_loading_failed">Le chargement de la corbeille a échoué !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Événement introuvable; vous pouvez toujours synchroniser pour mettre à jour. Redirection au web…</string>
+    <string name="unified_search_fragment_contact_not_found">Contact introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web...</string>
+    <string name="unified_search_fragment_permission_needed">Des permissions sont requises pour ouvrir le résultat de recherche, autrement ceci redirigera au web…</string>
     <string name="unlock_file">Déverrouiller le fichier</string>
     <string name="unread_comments">Il y a des commentaire non lus</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>

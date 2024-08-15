@@ -197,6 +197,7 @@
     <string name="create_new_folder">Nieuwe map</string>
     <string name="create_new_presentation">Nieuwe presentatie</string>
     <string name="create_new_spreadsheet">Nieuw werkblad</string>
+    <string name="create_rich_workspace">Mapomschrijving toevoegen</string>
     <string name="credentials_disabled">Inloggegevens uitgeschakeld</string>
     <string name="daily_backup">Dagelijkse back-up</string>
     <string name="data_to_back_up">Te back-uppen data</string>
