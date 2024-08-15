@@ -13,7 +13,8 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewOutlineProvider
 
-fun View.setVisibleIf(condition: Boolean) {
+fun View?.setVisibleIf(condition: Boolean) {
+    if (this == null) return
     visibility = if (condition) View.VISIBLE else View.GONE
 }
 

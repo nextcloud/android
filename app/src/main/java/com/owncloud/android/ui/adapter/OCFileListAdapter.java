@@ -25,7 +25,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -102,8 +101,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final Activity activity;
     private final AppPreferences preferences;
     private List<OCFile> mFiles = new ArrayList<>();
-    private List<OCFile> mFilesAll = new ArrayList<>();
-    private boolean hideItemOptions;
+    private final List<OCFile> mFilesAll = new ArrayList<>();
+    private final boolean hideItemOptions;
     private long lastTimestamp;
     private boolean gridView;
     public ArrayList<String> listOfHiddenFiles = new ArrayList<>();
@@ -115,10 +114,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private OCFile currentDirectory;
     private static final String TAG = OCFileListAdapter.class.getSimpleName();
 
-    private static final int VIEWTYPE_FOOTER = 0;
-    private static final int VIEWTYPE_ITEM = 1;
-    private static final int VIEWTYPE_IMAGE = 2;
-    private static final int VIEWTYPE_HEADER = 3;
+    private static final int VIEW_TYPE_FOOTER = 0;
+    private static final int VIEW_TYPE_ITEM = 1;
+    private static final int VIEW_TYPE_IMAGE = 2;
+    private static final int VIEW_TYPE_HEADER = 3;
 
     private boolean onlyOnDevice;
     private final OCFileListDelegate ocFileListDelegate;
@@ -343,23 +342,23 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public int getItemViewType(int position) {
         if (shouldShowHeader() && position == 0) {
-            return VIEWTYPE_HEADER;
+            return VIEW_TYPE_HEADER;
         }
 
         if (shouldShowHeader() && position == mFiles.size() + 1 ||
             (!shouldShowHeader() && position == mFiles.size())) {
-            return VIEWTYPE_FOOTER;
+            return VIEW_TYPE_FOOTER;
         }
 
         OCFile item = getItem(position);
         if (item == null) {
-            return VIEWTYPE_ITEM;
+            return VIEW_TYPE_ITEM;
         }
 
         if (MimeTypeUtil.isImageOrVideo(item)) {
-            return VIEWTYPE_IMAGE;
+            return VIEW_TYPE_IMAGE;
         } else {
-            return VIEWTYPE_ITEM;
+            return VIEW_TYPE_ITEM;
         }
     }
 
@@ -382,7 +381,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     );
                 }
             }
-            case VIEWTYPE_IMAGE -> {
+            case VIEW_TYPE_IMAGE -> {
                 if (gridView) {
                     return new OCFileListViewHolder(
                         GridImageBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
@@ -393,12 +392,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     );
                 }
             }
-            case VIEWTYPE_FOOTER -> {
+            case VIEW_TYPE_FOOTER -> {
                 return new OCFileListFooterViewHolder(
                     ListFooterBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
                 );
             }
-            case VIEWTYPE_HEADER -> {
+            case VIEW_TYPE_HEADER -> {
                 ListHeaderBinding binding = ListHeaderBinding.inflate(
                     LayoutInflater.from(parent.getContext()),
                     parent,
@@ -434,7 +433,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             ocFileListDelegate.bindGridViewHolder(gridViewHolder, file, currentDirectory, searchType);
-            checkVisibilityOfMoreButtons(gridViewHolder);
+            ViewExtensionsKt.setVisibleIf(gridViewHolder.getMore(), !isMultiSelect());
             checkVisibilityOfFileFeaturesLayout(gridViewHolder);
 
             if (holder instanceof ListItemViewHolder itemViewHolder) {
@@ -443,7 +442,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (holder instanceof ListGridItemViewHolder gridItemViewHolder) {
                 bindListGridItemViewHolder(gridItemViewHolder, file);
-                checkVisibilityOfMoreButtons(gridItemViewHolder);
+                ViewExtensionsKt.setVisibleIf(gridItemViewHolder.getMore(), !isMultiSelect());
                 checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
             }
 
@@ -467,19 +466,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         fileFeaturesLayout.setVisibility(fileFeaturesVisibility);
-    }
-
-    private void checkVisibilityOfMoreButtons(ListViewHolder holder) {
-        ImageButton moreButton = holder.getMore();
-        if (moreButton == null) {
-            return;
-        }
-
-        if (isMultiSelect()) {
-            moreButton.setVisibility(View.GONE);
-        } else {
-            moreButton.setVisibility(View.VISIBLE);
-        }
     }
 
     private void mergeOCFilesForLivePhoto() {
