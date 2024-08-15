@@ -16,6 +16,9 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 
 @Dao
 interface OfflineOperationDao {
+    @Query("SELECT (SELECT COUNT(*) FROM offline_operations) == 0")
+    fun isEmpty(): Boolean
+
     @Query("SELECT * FROM offline_operations")
     fun getAll(): List<OfflineOperationEntity>
 

@@ -21,7 +21,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.CreateFolderOperation
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
@@ -39,7 +38,6 @@ class OfflineOperationsWorker(
         const val JOB_NAME = "job_name"
     }
 
-    private val scope = CoroutineScope(Dispatchers.IO)
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     private val clientFactory = ClientFactoryImpl(context)
 
@@ -51,18 +49,18 @@ class OfflineOperationsWorker(
         )
 
         if (!NetworkChangeReceiver.isNetworkAvailable(context)) {
-            Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no internet connection.")
+            Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no internet connection")
+            return@coroutineScope Result.success()
+        }
+
+        val isEmpty = fileDataStorageManager.offlineOperationDao.isEmpty()
+        if (isEmpty) {
+            Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no offline operations were found")
             return@coroutineScope Result.success()
         }
 
         val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
-        if (offlineOperations.isEmpty()) {
-            Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no offline operations were found.")
-            return@coroutineScope Result.success()
-        }
-
         val client = clientFactory.create(user)
-
         val operations = offlineOperations.map { operation ->
             async(Dispatchers.IO) {
                 when (operation.type) {
@@ -71,7 +69,6 @@ class OfflineOperationsWorker(
                         Pair(isSuccess, operation)
                     }
                     else -> {
-                        Log_OC.d(TAG, "OfflineOperationsWorker terminated, unsupported operation type")
                         Pair(false, operation)
                     }
                 }
@@ -79,22 +76,17 @@ class OfflineOperationsWorker(
         }
 
         operations.awaitAll().forEach { (isSuccess, operation) ->
+            val operationLog = "path: ${operation.path}, type: ${operation.type}"
+
             if (isSuccess) {
-                Log_OC.d(
-                    TAG,
-                    "Create folder operation completed, folder path: ${operation.path}, type: ${operation.type}"
-                )
+                Log_OC.d(TAG, "Operation completed, $operationLog")
                 fileDataStorageManager.offlineOperationDao.delete(operation)
             } else {
-                Log_OC.d(
-                    TAG,
-                    "Create folder operation terminated, folder path: ${operation.path}, type: ${operation.type}"
-                )
+                Log_OC.d(TAG, "Operation terminated, $operationLog")
             }
         }
 
         Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")
-        // TODO update UI after operation completions
         WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
         return@coroutineScope Result.success()
     }
@@ -111,7 +103,6 @@ class OfflineOperationsWorker(
                 val result = createFolderOperation.execute(client)
                 result.isSuccess
             } catch (e: Exception) {
-                Log_OC.d(TAG, "Create folder operation terminated, exception is: $e")
                 false
             }
         }
