@@ -16,6 +16,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
+import com.google.common.io.Resources
 import com.owncloud.android.datamodel.ReceiverFlag
 
 @SuppressLint("UnspecifiedRegisterReceiverFlag")
@@ -24,6 +25,24 @@ fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: Inte
         registerReceiver(receiver, filter, flag.getId())
     } else {
         registerReceiver(receiver, filter)
+    }
+}
+
+/**
+ *
+ * @return The height of the status bar in pixel.
+ *
+ * @throws Resources.NotFoundException If the resource identifier for `status_bar_height` is not found.
+ *
+ */
+@SuppressLint("DiscouragedApi", "InternalInsetResource")
+fun Context.statusBarHeight(): Int {
+    return try {
+        resources.getDimensionPixelSize(
+            resources.getIdentifier("status_bar_height", "dimen", "android")
+        )
+    } catch (e: android.content.res.Resources.NotFoundException) {
+        0
     }
 }
 
