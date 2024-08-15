@@ -22,11 +22,10 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.CreateFolderOperation
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 
 class OfflineOperationsWorker(
@@ -44,7 +43,7 @@ class OfflineOperationsWorker(
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     private val clientFactory = ClientFactoryImpl(context)
 
-    override suspend fun doWork(): Result {
+    override suspend fun doWork(): Result = coroutineScope {
         val jobName = inputData.getString(JOB_NAME)
         Log_OC.d(
             TAG,
@@ -53,34 +52,33 @@ class OfflineOperationsWorker(
 
         if (!NetworkChangeReceiver.isNetworkAvailable(context)) {
             Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no internet connection.")
-            return Result.success()
+            return@coroutineScope Result.success()
         }
 
         val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
         if (offlineOperations.isEmpty()) {
             Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no offline operations were found.")
-            return Result.success()
+            return@coroutineScope Result.success()
         }
 
         val client = clientFactory.create(user)
-        val deferredResults = arrayListOf<Deferred<Pair<Boolean, OfflineOperationEntity>>>()
-        scope.launch {
-            offlineOperations.forEach { operation ->
+
+        val operations = offlineOperations.map { operation ->
+            async(Dispatchers.IO) {
                 when (operation.type) {
                     OfflineOperationType.CreateFolder -> {
-                        deferredResults.add(async { Pair(createFolder(operation, client), operation) })
+                        val isSuccess = createFolder(operation, client)
+                        Pair(isSuccess, operation)
                     }
-
-                    null -> {
+                    else -> {
                         Log_OC.d(TAG, "OfflineOperationsWorker terminated, unsupported operation type")
-                        deferredResults.add(async { Pair(false, operation) })
+                        Pair(false, operation)
                     }
                 }
             }
         }
 
-        val results = awaitAll(*deferredResults.toTypedArray())
-        results.forEach { (isSuccess, operation) ->
+        operations.awaitAll().forEach { (isSuccess, operation) ->
             if (isSuccess) {
                 Log_OC.d(
                     TAG,
@@ -98,7 +96,7 @@ class OfflineOperationsWorker(
         Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")
         // TODO update UI after operation completions
         WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
-        return Result.success()
+        return@coroutineScope Result.success()
     }
 
     @Suppress("TooGenericExceptionCaught", "Deprecation")
