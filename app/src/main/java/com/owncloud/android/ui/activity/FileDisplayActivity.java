@@ -1597,6 +1597,11 @@ public class FileDisplayActivity extends FileActivity
                 fileDownloadProgressListener = null;
             } else if (state instanceof WorkerState.UploadFinished) {
                 refreshList();
+            } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
+                OCFileListFragment fileListFragment = getListOfFilesFragment();
+                if (fileListFragment != null) {
+                    fileListFragment.onRefresh();
+                }
             }
         });
     }
