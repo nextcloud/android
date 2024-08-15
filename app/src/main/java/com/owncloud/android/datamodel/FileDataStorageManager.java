@@ -216,6 +216,11 @@ public class FileDataStorageManager {
         saveFileWithParent(file, MainApp.getAppContext());
     }
 
+    public void deleteOfflineOperation(OCFile file) {
+        offlineOperationDao.deleteByPath(file.getDecryptedRemotePath());
+        removeFile(file, true, true);
+    }
+
     private @Nullable
     OCFile getFileByPath(String type, String path) {
         final boolean shouldUseEncryptedPath = ProviderTableMeta.FILE_PATH.equals(type);

@@ -1598,12 +1598,16 @@ public class FileDisplayActivity extends FileActivity
             } else if (state instanceof WorkerState.UploadFinished) {
                 refreshList();
             } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
-                OCFileListFragment fileListFragment = getListOfFilesFragment();
-                if (fileListFragment != null) {
-                    new Handler(Looper.getMainLooper()).postDelayed(fileListFragment::onRefresh, 3000);
-                }
+                refreshWithDelay();
             }
         });
+    }
+
+    public void refreshWithDelay() {
+        OCFileListFragment fileListFragment = getListOfFilesFragment();
+        if (fileListFragment != null) {
+            new Handler(Looper.getMainLooper()).postDelayed(fileListFragment::onRefresh, 3000);
+        }
     }
 
     private void handleDownloadWorkerState() {

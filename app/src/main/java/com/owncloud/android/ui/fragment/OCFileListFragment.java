@@ -123,6 +123,7 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -628,22 +629,28 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
     public void openActionsMenu(final int filesCount, final Set<OCFile> checkedFiles, final boolean isOverflow) {
         throttler.run("overflowClick", () -> {
-            final FragmentManager childFragmentManager = getChildFragmentManager();
-
             List<Integer> toHide = new ArrayList<>();
+
+            for (OCFile file : checkedFiles) {
+                if (file.isOfflineOperation()) {
+                    toHide = new ArrayList<>(
+                        Arrays.asList(R.id.action_favorite, R.id.action_move_or_copy, R.id.action_sync_file, R.id.action_encrypted, R.id.action_unset_encrypted)
+                    );
+                    break;
+                }
+            }
+
             if (isAPKorAAB(checkedFiles)) {
                 toHide.add(R.id.action_send_share_file);
                 toHide.add(R.id.action_export_file);
                 toHide.add(R.id.action_sync_file);
                 toHide.add(R.id.action_download_file);
             }
-            
+
+            final FragmentManager childFragmentManager = getChildFragmentManager();
             FileActionsBottomSheet.newInstance(filesCount, checkedFiles, isOverflow, toHide)
-                .setResultListener(childFragmentManager, this, (id) -> {
-                    onFileActionChosen(id, checkedFiles);
-                })
+                .setResultListener(childFragmentManager, this, (id) -> onFileActionChosen(id, checkedFiles))
                 .show(childFragmentManager, "actions");
-            ;
         });
     }
 
@@ -1108,10 +1115,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     @OptIn(markerClass = UnstableApi.class)
     public void onItemClicked(OCFile file) {
-        if (mContainerActivity != null && mContainerActivity instanceof FileActivity fileActivity) {
-            fileActivity.checkInternetConnection();
-        }
-
         if (getCommonAdapter() != null && getCommonAdapter().isMultiSelect()) {
             toggleItemToCheckedList(file);
         } else {
@@ -1239,6 +1242,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 mContainerActivity.getFileOperationsHelper().toggleFileLock(singleFile, false);
             } else if (itemId == R.id.action_pin_to_homescreen) {
                 shortcutUtil.addShortcutToHomescreen(singleFile, viewThemeUtils, accountManager.getUser(), syncedFolderProvider);
+                return true;
+            } else if (itemId == R.id.action_retry) {
+                backgroundJobManager.startOfflineOperations();
                 return true;
             }
         }
@@ -1980,6 +1986,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
      */
     public void selectAllFiles(boolean select) {
         OCFileListAdapter ocFileListAdapter = (OCFileListAdapter) getRecyclerView().getAdapter();
+        if (ocFileListAdapter == null) {
+            return;
+        }
 
         if (select) {
             ocFileListAdapter.addAllFilesToCheckedFiles();

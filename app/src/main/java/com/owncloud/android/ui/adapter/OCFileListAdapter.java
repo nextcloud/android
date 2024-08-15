@@ -86,7 +86,6 @@ import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
@@ -446,10 +445,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 bindListGridItemViewHolder(gridItemViewHolder, file);
                 checkVisibilityOfMoreButtons(gridItemViewHolder);
                 checkVisibilityOfFileFeaturesLayout(gridItemViewHolder);
-
-                if (gridItemViewHolder.getMore() != null) {
-                    ViewExtensionsKt.setVisibleIf(gridItemViewHolder.getMore(), !file.isOfflineOperation());
-                }
             }
 
             updateLivePhotoIndicators(gridViewHolder, file);
@@ -539,11 +534,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        if (holder.getMore() != null) {
-            ViewExtensionsKt.setVisibleIf(holder.getMore(), !file.isOfflineOperation());
-        }
         ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
-
         setColorFilterForOfflineOperations(holder, file);
     }
 
@@ -656,7 +647,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getLastModification().setVisibility(View.GONE);
         }
 
-        if (isMultiSelect() || gridView || hideItemOptions || file.getRemoteId() == null) {
+        if (isMultiSelect() || gridView || hideItemOptions) {
             holder.getOverflowMenu().setVisibility(View.GONE);
         } else {
             holder.getOverflowMenu().setVisibility(View.VISIBLE);
@@ -674,7 +665,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void applyVisualsForOfflineOperations(ListItemViewHolder holder, OCFile file) {
-        ViewExtensionsKt.setVisibleIf(holder.getOverflowMenu(), !file.isOfflineOperation());
         ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
         setColorFilterForOfflineOperations(holder, file);
     }

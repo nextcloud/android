@@ -17,9 +17,11 @@ import android.view.ActionMode
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.client.di.Injectable
+import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
 
 /**
@@ -76,8 +78,19 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
     }
 
     private fun removeFiles(onlyLocalCopy: Boolean) {
-        val cg = activity as ComponentsGetter?
-        cg?.fileOperationsHelper?.removeFiles(mTargetFiles, onlyLocalCopy, false)
+        val (offlineFiles, files) = mTargetFiles?.partition { it.isOfflineOperation } ?: Pair(emptyList(), emptyList())
+
+        offlineFiles.forEach {
+            MainApp.getFileDataStorageManager()?.deleteOfflineOperation(it)
+        }
+
+        if (files.isNotEmpty()) {
+            val cg = activity as ComponentsGetter?
+            cg?.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
+        }
+
+        val activity = requireActivity() as? FileDisplayActivity
+        activity?.refreshWithDelay()
         finishActionMode()
     }
 

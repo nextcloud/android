@@ -30,4 +30,7 @@ interface OfflineOperationDao {
 
     @Delete
     fun delete(entity: OfflineOperationEntity)
+
+    @Query("DELETE FROM offline_operations WHERE offline_operations_path = :path")
+    fun deleteByPath(path: String)
 }
