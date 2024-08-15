@@ -80,6 +80,7 @@ class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
 
         private val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:MM:ssZ", Locale.getDefault())
         var backgroundJobs: List<JobInfo> = emptyList()
+            @SuppressLint("NotifyDataSetChanged")
             set(value) {
                 field = value
                 notifyDataSetChanged()

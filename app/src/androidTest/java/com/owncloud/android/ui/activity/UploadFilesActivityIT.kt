@@ -8,9 +8,16 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
+import androidx.annotation.UiThread
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.test.GrantStoragePermissionRule
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
@@ -20,6 +27,8 @@ import org.junit.Test
 import java.io.File
 
 class UploadFilesActivityIT : AbstractIT() {
+    private val testClassName = "com.owncloud.android.ui.activity.UploadFilesActivityIT"
+
     @get:Rule
     var activityRule = IntentsTestRule(UploadFilesActivity::class.java, true, false)
 
@@ -37,6 +46,16 @@ class UploadFilesActivityIT : AbstractIT() {
     @After
     fun tearDown() {
         directories.forEach { it.deleteRecursively() }
+    }
+
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
@@ -86,6 +105,33 @@ class UploadFilesActivityIT : AbstractIT() {
         waitForIdleSync()
 
         screenshot(sut)
+    }
+
+    @Test
+    @UiThread
+    @ScreenshotTest
+    fun search() {
+        val sut: UploadFilesActivity = activityRule.launchActivity(null)
+
+        sut.runOnUiThread {
+            sut.fileListFragment.setFiles(
+                directories +
+                    listOf(
+                        File("1.txt"),
+                        File("2.pdf"),
+                        File("3.mp3")
+                    )
+            )
+
+            onIdleSync {
+                EspressoIdlingResource.increment()
+                sut.fileListFragment.performSearch("1.txt", arrayListOf(), false)
+                EspressoIdlingResource.decrement()
+                val screenShotName = createName(testClassName + "_" + "search", "")
+                onView(isRoot()).check(matches(isDisplayed()))
+                screenshotViaName(sut, screenShotName)
+            }
+        }
     }
 
     fun fileSelected() {

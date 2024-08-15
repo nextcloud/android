@@ -13,6 +13,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 enum class SearchType : Parcelable {
     NO_SEARCH,
+    LOCAL_SEARCH,
     REGULAR_FILTER,
     FILE_SEARCH,
     FAVORITE_SEARCH,

@@ -246,6 +246,10 @@ public class ExtendedListFragment extends Fragment implements
             performSearch(query, listOfHiddenFiles, false);
             return true;
         }
+        if (adapter instanceof LocalFileListAdapter) {
+            performSearch(query, new ArrayList<>(), false);
+            return true;
+        }
         return false;
     }
 
@@ -253,6 +257,7 @@ public class ExtendedListFragment extends Fragment implements
         handler.removeCallbacksAndMessages(null);
         RecyclerView.Adapter adapter = getRecyclerView().getAdapter();
         Activity activity = getActivity();
+
         if (activity != null) {
             if (activity instanceof FileDisplayActivity) {
                 if (isBackPressed && TextUtils.isEmpty(query)) {
@@ -274,8 +279,7 @@ public class ExtendedListFragment extends Fragment implements
                                     new SearchEvent(query, SearchRemoteOperation.SearchType.FILE_SEARCH)
                                                           );
                             }
-                        } else if (adapter instanceof LocalFileListAdapter) {
-                            LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
+                        } else if (adapter instanceof LocalFileListAdapter localFileListAdapter) {
                             localFileListAdapter.filter(query);
                         }
                     });
@@ -284,10 +288,12 @@ public class ExtendedListFragment extends Fragment implements
                         searchView.clearFocus();
                     }
                 }
-            } else if (activity instanceof UploadFilesActivity) {
+            } else if (activity instanceof UploadFilesActivity uploadFilesActivity) {
                 LocalFileListAdapter localFileListAdapter = (LocalFileListAdapter) adapter;
-                localFileListAdapter.filter(query);
-                ((UploadFilesActivity) activity).showToolbarSpinner();
+                if (localFileListAdapter != null) {
+                    localFileListAdapter.filter(query);
+                    uploadFilesActivity.getFileListFragment().setLoading(false);
+                }
             } else if (activity instanceof FolderPickerActivity) {
                 ((FolderPickerActivity) activity).search(query);
             }
@@ -630,6 +636,10 @@ public class ExtendedListFragment extends Fragment implements
                     setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
                                            R.string.file_list_empty_gallery,
                                            R.drawable.file_image);
+                } else if (searchType == SearchType.LOCAL_SEARCH) {
+                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                                           R.string.file_list_empty_local_search,
+                                           R.drawable.ic_search_light_grey);
                 }
             }
         });
