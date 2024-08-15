@@ -19,6 +19,7 @@ import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.receiver.NetworkChangeReceiver
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.CreateFolderOperation
 import kotlinx.coroutines.Dispatchers
@@ -65,23 +66,24 @@ class OfflineOperationsWorker(
             async(Dispatchers.IO) {
                 when (operation.type) {
                     OfflineOperationType.CreateFolder -> {
-                        val isSuccess = createFolder(operation, client)
-                        Pair(isSuccess, operation)
+                        val result = createFolder(operation, client)
+                        Pair(result, operation)
                     }
                     else -> {
-                        Pair(false, operation)
+                        Pair(null, operation)
                     }
                 }
             }
         }
 
-        operations.awaitAll().forEach { (isSuccess, operation) ->
+        operations.awaitAll().forEach { (result, operation) ->
             val operationLog = "path: ${operation.path}, type: ${operation.type}"
 
-            if (isSuccess) {
+            if (result?.isSuccess == true) {
                 Log_OC.d(TAG, "Operation completed, $operationLog")
                 fileDataStorageManager.offlineOperationDao.delete(operation)
-            } else {
+            } else if (result?.code == RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS) {
+                // TODO check folder conflicts
                 Log_OC.d(TAG, "Operation terminated, $operationLog")
             }
         }
@@ -95,15 +97,15 @@ class OfflineOperationsWorker(
     private suspend fun createFolder(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
-    ): Boolean {
+    ): RemoteOperationResult<*>? {
         return withContext(Dispatchers.IO) {
             val createFolderOperation = CreateFolderOperation(operation.path, user, context, fileDataStorageManager)
 
             try {
-                val result = createFolderOperation.execute(client)
-                result.isSuccess
+                createFolderOperation.execute(client)
             } catch (e: Exception) {
-                false
+                Log_OC.d(TAG, "Create folder operation terminated, $e")
+                null
             }
         }
     }
