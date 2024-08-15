@@ -488,7 +488,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         positiveButton?.visibility = View.VISIBLE
         negativeButton?.visibility = View.VISIBLE
 
-        positiveButton?.let {  positiveButton ->
+        positiveButton?.let { positiveButton ->
             negativeButton?.let { negativeButton ->
                 viewThemeUtils.platform.colorTextButtons(positiveButton, negativeButton)
             }
