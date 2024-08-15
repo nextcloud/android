@@ -82,6 +82,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_IMMEDIATE_CALENDAR_BACKUP = "immediate_calendar_backup"
         const val JOB_IMMEDIATE_FILES_EXPORT = "immediate_files_export"
         const val JOB_OFFLINE_OPERATIONS = "offline_operations"
+        const val JOB_PERIODIC_OFFLINE_OPERATIONS = "periodic_offline_operations"
         const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
         const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
 
@@ -199,13 +200,15 @@ internal class BackgroundJobManagerImpl(
     private fun oneTimeRequestBuilder(
         jobClass: KClass<out ListenableWorker>,
         jobName: String,
-        user: User? = null
+        user: User? = null,
+        constraints: Constraints = Constraints.Builder().build()
     ): OneTimeWorkRequest.Builder {
         val builder = OneTimeWorkRequest.Builder(jobClass.java)
             .addTag(TAG_ALL)
             .addTag(formatNameTag(jobName, user))
             .addTag(formatTimeTag(clock.currentTime))
             .addTag(formatClassTag(jobClass))
+            .setConstraints(constraints)
         user?.let { builder.addTag(formatUserTag(it)) }
         return builder
     }
@@ -218,7 +221,8 @@ internal class BackgroundJobManagerImpl(
         jobName: String,
         intervalMins: Long = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES,
         flexIntervalMins: Long = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES,
-        user: User? = null
+        user: User? = null,
+        constraints: Constraints = Constraints.Builder().build()
     ): PeriodicWorkRequest.Builder {
         val builder = PeriodicWorkRequest.Builder(
             jobClass.java,
@@ -231,6 +235,7 @@ internal class BackgroundJobManagerImpl(
             .addTag(formatNameTag(jobName, user))
             .addTag(formatTimeTag(clock.currentTime))
             .addTag(formatClassTag(jobClass))
+            .setConstraints(constraints)
         user?.let { builder.addTag(formatUserTag(it)) }
         return builder
     }
@@ -412,9 +417,44 @@ internal class BackgroundJobManagerImpl(
             workManager.isWorkRunning(JOB_IMMEDIATE_FILES_SYNC + "_" + syncedFolderID)
     }
 
-    override fun startOfflineOperations() {
-        val request = oneTimeRequestBuilder(OfflineOperationsWorker::class, JOB_OFFLINE_OPERATIONS)
+    override fun startPeriodicallyOfflineOperation() {
+        val inputData = Data.Builder()
+            .putString(OfflineOperationsWorker.JOB_NAME, JOB_PERIODIC_OFFLINE_OPERATIONS)
             .build()
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val request = periodicRequestBuilder(
+            jobClass = OfflineOperationsWorker::class,
+            jobName = JOB_PERIODIC_OFFLINE_OPERATIONS,
+            intervalMins = DEFAULT_PERIODIC_JOB_INTERVAL_MINUTES,
+            constraints = constraints
+        )
+            .setInputData(inputData)
+            .build()
+
+        workManager.enqueueUniquePeriodicWork(
+            JOB_PERIODIC_OFFLINE_OPERATIONS,
+            ExistingPeriodicWorkPolicy.UPDATE,
+            request,
+        )
+    }
+
+    override fun startOfflineOperations() {
+        val inputData = Data.Builder()
+            .putString(OfflineOperationsWorker.JOB_NAME, JOB_OFFLINE_OPERATIONS)
+            .build()
+
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val request =
+            oneTimeRequestBuilder(OfflineOperationsWorker::class, JOB_OFFLINE_OPERATIONS, constraints = constraints)
+                .setInputData(inputData)
+                .build()
 
         workManager.enqueueUniqueWork(
             JOB_OFFLINE_OPERATIONS,

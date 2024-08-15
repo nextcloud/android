@@ -382,10 +382,11 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             backgroundJobManager.startMediaFoldersDetectionJob();
             backgroundJobManager.schedulePeriodicHealthStatus();
             backgroundJobManager.scheduleInternal2WaySync();
+            backgroundJobManager.startPeriodicallyOfflineOperation();
         }
 
         registerGlobalPassCodeProtection();
-        networkChangeReceiver = new NetworkChangeReceiver(this);
+        networkChangeReceiver = new NetworkChangeReceiver(this, connectivityService);
         registerNetworkChangeReceiver();
     }
 
@@ -681,6 +682,10 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_PUSH,
                               R.string.notification_channel_push_name, R.string
                                   .notification_channel_push_description, context, NotificationManager.IMPORTANCE_DEFAULT);
+
+                createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS,
+                              R.string.notification_channel_background_operations_name, R.string
+                                  .notification_channel_background_operations_description, context, NotificationManager.IMPORTANCE_DEFAULT);
 
                 createChannel(notificationManager, NotificationUtils.NOTIFICATION_CHANNEL_GENERAL, R.string
                                   .notification_channel_general_name, R.string.notification_channel_general_description,
@@ -988,8 +993,13 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     }
 
     @Override
-    public void onConnectionChanged(boolean isConnected) {
-        if (isConnected) {
+    public void networkAndServerConnectionListener(boolean isNetworkAndServerAvailable) {
+        if (backgroundJobManager == null) {
+            Log_OC.d(TAG, "Offline operations terminated, backgroundJobManager cannot be null");
+            return;
+        }
+
+        if (isNetworkAndServerAvailable) {
             backgroundJobManager.startOfflineOperations();
         }
     }

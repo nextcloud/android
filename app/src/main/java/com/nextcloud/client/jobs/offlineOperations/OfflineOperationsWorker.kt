@@ -27,15 +27,26 @@ class OfflineOperationsWorker(
 
     companion object {
         private val TAG = OfflineOperationsWorker::class.java.simpleName
+        const val JOB_NAME = "job_name"
     }
 
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     private val clientFactory = ClientFactoryImpl(context)
 
     override suspend fun doWork(): Result {
-        val client = clientFactory.create(user)
+        val jobName = inputData.getString(JOB_NAME)
+        Log_OC.d(
+            TAG,
+            "$jobName -----------------------------------\nOfflineOperationsWorker started\n-----------------------------------"
+        )
 
         val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
+        if (offlineOperations.isEmpty()) {
+            Log_OC.d(TAG, "OfflineOperationsWorker completed successfully, no offline operations were found.")
+            return Result.success()
+        }
+
+        val client = clientFactory.create(user)
         offlineOperations.forEach { operation ->
             when (operation.type) {
                 OfflineOperationType.CreateFolder -> {
