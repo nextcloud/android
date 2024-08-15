@@ -16,11 +16,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.owncloud.android.databinding.GridImageBinding
 
-internal class OCFileListGridImageViewHolder(var binding: GridImageBinding) :
+internal class OCFileListViewHolder(var binding: GridImageBinding) :
     RecyclerView.ViewHolder(
         binding.root
     ),
-    ListGridImageViewHolder {
+    ListViewHolder {
 
     override val thumbnail: ImageView
         get() = binding.thumbnail

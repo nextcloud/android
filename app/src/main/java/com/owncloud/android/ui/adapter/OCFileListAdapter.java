@@ -99,8 +99,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private static final int showFilenameColumnThreshold = 4;
     private final String userId;
-    private Activity activity;
-    private AppPreferences preferences;
+    private final Activity activity;
+    private final AppPreferences preferences;
     private List<OCFile> mFiles = new ArrayList<>();
     private List<OCFile> mFilesAll = new ArrayList<>();
     private boolean hideItemOptions;
@@ -109,7 +109,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public ArrayList<String> listOfHiddenFiles = new ArrayList<>();
     private FileDataStorageManager mStorageManager;
     private User user;
-    private OCFileListFragmentInterface ocFileListFragmentInterface;
+    private final OCFileListFragmentInterface ocFileListFragmentInterface;
 
 
     private OCFile currentDirectory;
@@ -384,7 +384,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             case VIEWTYPE_IMAGE -> {
                 if (gridView) {
-                    return new OCFileListGridImageViewHolder(
+                    return new OCFileListViewHolder(
                         GridImageBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false)
                     );
                 } else {
@@ -425,7 +425,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
             headerViewHolder.getHeaderView().setOnClickListener(v -> ocFileListFragmentInterface.onHeaderClicked());
         } else {
-            ListGridImageViewHolder gridViewHolder = (ListGridImageViewHolder) holder;
+            ListViewHolder gridViewHolder = (ListViewHolder) holder;
             OCFile file = getItem(position);
 
             if (file == null) {
@@ -451,7 +451,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
-    private void checkVisibilityOfFileFeaturesLayout(ListGridImageViewHolder holder) {
+    private void checkVisibilityOfFileFeaturesLayout(ListViewHolder holder) {
         int fileFeaturesVisibility = View.GONE;
         LinearLayout fileFeaturesLayout = holder.getFileFeaturesLayout();
 
@@ -469,7 +469,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         fileFeaturesLayout.setVisibility(fileFeaturesVisibility);
     }
 
-    private void checkVisibilityOfMoreButtons(ListGridImageViewHolder holder) {
+    private void checkVisibilityOfMoreButtons(ListViewHolder holder) {
         ImageButton moreButton = holder.getMore();
         if (moreButton == null) {
             return;
@@ -509,13 +509,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         filesToRemove.clear();
     }
 
-    private void updateLivePhotoIndicators(ListGridImageViewHolder holder, OCFile file) {
+    private void updateLivePhotoIndicators(ListViewHolder holder, OCFile file) {
         boolean isLivePhoto = file.getLinkedFileIdForLivePhoto() != null;
 
         if (holder instanceof OCFileListItemViewHolder) {
             holder.getLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
             holder.getLivePhotoIndicatorSeparator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
-        } else if (holder instanceof OCFileListGridImageViewHolder) {
+        } else if (holder instanceof OCFileListViewHolder) {
             holder.getGridLivePhotoIndicator().setVisibility(isLivePhoto ? (View.VISIBLE) : (View.GONE));
         }
     }
@@ -669,7 +669,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         setColorFilterForOfflineOperations(holder, file);
     }
 
-    private void setColorFilterForOfflineOperations(ListGridImageViewHolder holder, OCFile file) {
+    private void setColorFilterForOfflineOperations(ListViewHolder holder, OCFile file) {
         if (!file.isFolder()) {
             return;
         }
@@ -684,8 +684,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public void onViewAttachedToWindow(@NonNull RecyclerView.ViewHolder holder) {
-        if (holder instanceof ListGridImageViewHolder) {
-            LoaderImageView thumbnailShimmer = ((ListGridImageViewHolder) holder).getShimmerThumbnail();
+        if (holder instanceof ListViewHolder) {
+            LoaderImageView thumbnailShimmer = ((ListViewHolder) holder).getShimmerThumbnail();
             if (thumbnailShimmer.getVisibility() == View.VISIBLE) {
                 thumbnailShimmer.setImageResource(R.drawable.background);
                 thumbnailShimmer.resetLoader();

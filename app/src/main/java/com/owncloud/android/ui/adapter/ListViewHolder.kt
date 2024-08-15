@@ -14,7 +14,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 
-interface ListGridImageViewHolder {
+interface ListViewHolder {
     val thumbnail: ImageView
     fun showVideoOverlay()
     val shimmerThumbnail: LoaderImageView
