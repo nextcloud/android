@@ -17,12 +17,13 @@ import android.view.ActionMode
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.client.di.Injectable
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
+import javax.inject.Inject
 
 /**
  * Dialog requiring confirmation before removing a collection of given OCFiles.
@@ -31,6 +32,9 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDia
 class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDialogFragmentListener, Injectable {
     private var mTargetFiles: Collection<OCFile>? = null
     private var actionMode: ActionMode? = null
+
+    @Inject
+    lateinit var fileDataStorageManager: FileDataStorageManager
 
     override fun onStart() {
         super.onStart()
@@ -81,7 +85,7 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
         val (offlineFiles, files) = mTargetFiles?.partition { it.isOfflineOperation } ?: Pair(emptyList(), emptyList())
 
         offlineFiles.forEach {
-            MainApp.getFileDataStorageManager()?.deleteOfflineOperation(it)
+            fileDataStorageManager.deleteOfflineOperation(it)
         }
 
         if (files.isNotEmpty()) {

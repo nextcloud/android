@@ -68,7 +68,6 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.MediaFolder;
 import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.MediaProvider;
@@ -233,8 +232,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         return powerManagementService;
     }
 
-    private static FileDataStorageManager fileDataStorageManager;
-
     private void registerNetworkChangeReceiver() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeReceiver, filter);
@@ -391,11 +388,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         registerGlobalPassCodeProtection();
         networkChangeReceiver = new NetworkChangeReceiver(this, connectivityService);
         registerNetworkChangeReceiver();
-        fileDataStorageManager = new FileDataStorageManager(accountManager.getUser(), getContentResolver());
-    }
-
-    public static FileDataStorageManager getFileDataStorageManager() {
-        return fileDataStorageManager;
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
