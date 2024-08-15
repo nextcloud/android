@@ -295,6 +295,7 @@ public class ProviderMeta {
         public static final String OFFLINE_OPERATION_CREATED_AT = "offline_operations_created_at";
         public static final String OFFLINE_OPERATION_FILE_NAME = "offline_operations_file_name";
 
+
         // Columns of synced folder table
         public static final String SYNCED_FOLDER_LOCAL_PATH = "local_path";
         public static final String SYNCED_FOLDER_REMOTE_PATH = "remote_path";

@@ -17,6 +17,8 @@ import com.nextcloud.model.OfflineOperationType
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.receiver.NetworkChangeReceiver
+import com.nextcloud.utils.extensions.showToast
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -69,6 +71,7 @@ class OfflineOperationsWorker(
                         val result = createFolder(operation, client)
                         Pair(result, operation)
                     }
+
                     else -> {
                         Pair(null, operation)
                     }
@@ -83,8 +86,9 @@ class OfflineOperationsWorker(
                 Log_OC.d(TAG, "Operation completed, $operationLog")
                 fileDataStorageManager.offlineOperationDao.delete(operation)
             } else if (result?.code == RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS) {
-                // TODO check folder conflicts
+                context.showToast(context.getString(R.string.folder_already_exists_server, operation.filename))
                 Log_OC.d(TAG, "Operation terminated, $operationLog")
+                fileDataStorageManager.offlineOperationDao.delete(operation)
             }
         }
 
