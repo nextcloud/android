@@ -423,15 +423,10 @@ internal class BackgroundJobManagerImpl(
             .putString(OfflineOperationsWorker.JOB_NAME, JOB_PERIODIC_OFFLINE_OPERATIONS)
             .build()
 
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
-            .build()
-
         val request = periodicRequestBuilder(
             jobClass = OfflineOperationsWorker::class,
             jobName = JOB_PERIODIC_OFFLINE_OPERATIONS,
             intervalMins = OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES,
-            constraints = constraints
         )
             .setInputData(inputData)
             .build()

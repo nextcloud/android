@@ -14,6 +14,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.model.OfflineOperationType
+import com.nextcloud.receiver.NetworkChangeReceiver
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -40,9 +41,14 @@ class OfflineOperationsWorker(
             "$jobName -----------------------------------\nOfflineOperationsWorker started\n-----------------------------------"
         )
 
+        if (NetworkChangeReceiver.isNetworkAvailable(context)) {
+            Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no internet connection.")
+            return Result.success()
+        }
+
         val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
         if (offlineOperations.isEmpty()) {
-            Log_OC.d(TAG, "OfflineOperationsWorker completed successfully, no offline operations were found.")
+            Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no offline operations were found.")
             return Result.success()
         }
 
@@ -53,6 +59,8 @@ class OfflineOperationsWorker(
                     createFolder(operation, client, onCompleted = {
                         fileDataStorageManager.offlineOperationDao.delete(operation)
                     })
+
+                    // TODO update UI after operation completions
                 }
 
                 null -> {
