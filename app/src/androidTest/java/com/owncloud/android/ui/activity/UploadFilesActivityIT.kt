@@ -8,9 +8,15 @@
 package com.owncloud.android.ui.activity
 
 import android.content.Intent
+import androidx.annotation.UiThread
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.test.GrantStoragePermissionRule
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.After
@@ -20,6 +26,8 @@ import org.junit.Test
 import java.io.File
 
 class UploadFilesActivityIT : AbstractIT() {
+    private val testClassName = "com.owncloud.android.ui.activity.UploadFilesActivityIT"
+
     @get:Rule
     var activityRule = IntentsTestRule(UploadFilesActivity::class.java, true, false)
 
@@ -89,6 +97,7 @@ class UploadFilesActivityIT : AbstractIT() {
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun search() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
@@ -103,14 +112,17 @@ class UploadFilesActivityIT : AbstractIT() {
                     )
             )
 
-            sut.fileListFragment.performSearch("1.txt", arrayListOf(), false)
+            onIdleSync {
+                EspressoIdlingResource.increment()
+                sut.fileListFragment.performSearch("1.txt", arrayListOf(), false)
+                EspressoIdlingResource.decrement()
+                val screenShotName = createName(testClassName + "_" + "search", "")
+                onView(isRoot()).check(matches(isDisplayed()))
+                screenshotViaName(sut, screenShotName)
+            }
         }
-
-        waitForIdleSync()
-        longSleep()
-
-        screenshot(sut.fileListFragment.binding.listRoot)
     }
+
     fun fileSelected() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
 
