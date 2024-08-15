@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 Your Name <your@email.com>
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -14,11 +14,20 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.model.OfflineOperationType
+import com.nextcloud.model.WorkerState
+import com.nextcloud.model.WorkerStateLiveData
 import com.nextcloud.receiver.NetworkChangeReceiver
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.CreateFolderOperation
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class OfflineOperationsWorker(
     private val user: User,
@@ -31,6 +40,7 @@ class OfflineOperationsWorker(
         const val JOB_NAME = "job_name"
     }
 
+    private val scope = CoroutineScope(Dispatchers.IO)
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     private val clientFactory = ClientFactoryImpl(context)
 
@@ -53,45 +63,59 @@ class OfflineOperationsWorker(
         }
 
         val client = clientFactory.create(user)
-        offlineOperations.forEach { operation ->
-            when (operation.type) {
-                OfflineOperationType.CreateFolder -> {
-                    createFolder(operation, client, onCompleted = {
-                        fileDataStorageManager.offlineOperationDao.delete(operation)
-                    })
+        val deferredResults = arrayListOf<Deferred<Pair<Boolean, OfflineOperationEntity>>>()
+        scope.launch {
+            offlineOperations.forEach { operation ->
+                when (operation.type) {
+                    OfflineOperationType.CreateFolder -> {
+                        deferredResults.add(async { Pair(createFolder(operation, client), operation) })
+                    }
 
-                    // TODO update UI after operation completions
-                }
-
-                null -> {
-                    Log_OC.d(TAG, "OfflineOperationsWorker terminated, unsupported operation type")
-                    return Result.failure()
+                    null -> {
+                        Log_OC.d(TAG, "OfflineOperationsWorker terminated, unsupported operation type")
+                        deferredResults.add(async { Pair(false, operation) })
+                    }
                 }
             }
         }
 
+        val results = awaitAll(*deferredResults.toTypedArray())
+        results.forEach { (isSuccess, operation) ->
+            if (isSuccess) {
+                Log_OC.d(
+                    TAG,
+                    "Create folder operation completed, folder path: ${operation.path}, type: ${operation.type}"
+                )
+                fileDataStorageManager.offlineOperationDao.delete(operation)
+            } else {
+                Log_OC.d(
+                    TAG,
+                    "Create folder operation terminated, folder path: ${operation.path}, type: ${operation.type}"
+                )
+            }
+        }
+
         Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")
+        // TODO update UI after operation completions
+        WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
         return Result.success()
     }
 
     @Suppress("TooGenericExceptionCaught", "Deprecation")
-    private fun createFolder(
+    private suspend fun createFolder(
         operation: OfflineOperationEntity,
-        client: OwnCloudClient,
-        onCompleted: () -> Unit
-    ) {
-        val createFolderOperation = CreateFolderOperation(operation.path, user, context, fileDataStorageManager)
+        client: OwnCloudClient
+    ): Boolean {
+        return withContext(Dispatchers.IO) {
+            val createFolderOperation = CreateFolderOperation(operation.path, user, context, fileDataStorageManager)
 
-        try {
-            val result = createFolderOperation.execute(client)
-            if (result.isSuccess) {
-                Log_OC.d(TAG, "Create folder operation completed, folder path: ${operation.path}")
-                onCompleted()
-            } else {
-                Log_OC.d(TAG, "Create folder operation terminated, result: $result")
+            try {
+                val result = createFolderOperation.execute(client)
+                result.isSuccess
+            } catch (e: Exception) {
+                Log_OC.d(TAG, "Create folder operation terminated, exception is: $e")
+                false
             }
-        } catch (e: Exception) {
-            Log_OC.d(TAG, "Create folder operation terminated, exception is: $e")
         }
     }
 }
