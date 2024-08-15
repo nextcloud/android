@@ -1,13 +1,8 @@
 /*
- * Nextcloud Android client application
+ * Nextcloud - Android Client
  *
- * @author Tobias Kaminsky
- * @author TSI-mc
- * Copyright (C) 2017 Tobias Kaminsky
- * Copyright (C) 2017 Nextcloud GmbH.
- * Copyright (C) 2023 TSI-mc
- *
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.owncloud.android.ui.dialog
 
@@ -52,9 +47,8 @@ import javax.inject.Inject
  */
 class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
-    @JvmField
     @Inject
-    var viewThemeUtils: ViewThemeUtils? = null
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     private var user: User? = null
     private var arbitraryDataProvider: ArbitraryDataProvider? = null
@@ -77,15 +71,14 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         val alertDialog = dialog as AlertDialog?
 
         if (alertDialog != null) {
-            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton?
-            negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton?
-
-            if (positiveButton != null) {
-                viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(positiveButton!!)
+            positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton?
+            positiveButton?.let {
+                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
             }
 
-            if (negativeButton != null) {
-                viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(negativeButton!!)
+            negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as? MaterialButton?
+            negativeButton?.let {
+                viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(it)
             }
         }
     }
@@ -111,30 +104,25 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         binding = SetupEncryptionDialogBinding.inflate(inflater, null, false)
 
         // Setup layout
-        viewThemeUtils?.material?.colorTextInputLayout(binding.encryptionPasswordInputContainer)
+        viewThemeUtils.material.colorTextInputLayout(binding.encryptionPasswordInputContainer)
 
-        return createDialog(binding.root)
+        val builder = buildMaterialAlertDialog(binding.root)
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(requireContext(), builder)
+        return builder.create().apply {
+            setCanceledOnTouchOutside(false)
+            setOnShowListener { dialog1: DialogInterface ->
+                val button = (dialog1 as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE)
+                button.setOnClickListener { positiveButtonOnClick(this) }
+            }
+        }
     }
 
-    private fun createDialog(v: View): Dialog {
-        val builder = MaterialAlertDialogBuilder(v.context)
-
-        builder
+    private fun buildMaterialAlertDialog(v: View): MaterialAlertDialogBuilder {
+        return MaterialAlertDialogBuilder(requireContext())
             .setView(v)
             .setPositiveButton(R.string.common_ok, null)
             .setNegativeButton(R.string.common_cancel) { dialog: DialogInterface, _: Int -> dialog.cancel() }
             .setTitle(R.string.end_to_end_encryption_title)
-
-        viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(v.context, builder)
-
-        val dialog: Dialog = builder.create()
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.setOnShowListener { dialog1: DialogInterface ->
-            val button = (dialog1 as AlertDialog).getButton(AlertDialog.BUTTON_POSITIVE)
-            button.setOnClickListener { positiveButtonOnClick(dialog) }
-        }
-
-        return dialog
     }
 
     private fun positiveButtonOnClick(dialog: DialogInterface) {
@@ -243,23 +231,26 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
     private val resultIntent: Intent
         get() {
-            val intentCreated = Intent()
-            intentCreated.putExtra(SUCCESS, true)
-            intentCreated.putExtra(ARG_POSITION, requireArguments().getInt(ARG_POSITION))
-            return intentCreated
+            return Intent().apply {
+                putExtra(SUCCESS, true)
+                putExtra(ARG_POSITION, requireArguments().getInt(ARG_POSITION))
+            }
         }
     private val resultBundle: Bundle
         get() {
-            val bundle = Bundle()
-            bundle.putBoolean(SUCCESS, true)
-            bundle.putInt(ARG_POSITION, requireArguments().getInt(ARG_POSITION))
-            return bundle
+            return Bundle().apply {
+                putBoolean(SUCCESS, true)
+                putInt(ARG_POSITION, requireArguments().getInt(ARG_POSITION))
+            }
         }
 
     override fun onCancel(dialog: DialogInterface) {
         super.onCancel(dialog)
-        val bundle = Bundle()
-        bundle.putBoolean(RESULT_KEY_CANCELLED, true)
+
+        val bundle = Bundle().apply {
+            putBoolean(RESULT_KEY_CANCELLED, true)
+        }
+
         parentFragmentManager.setFragmentResult(RESULT_REQUEST_KEY, bundle)
     }
 
@@ -270,11 +261,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
     @SuppressLint("StaticFieldLeak")
     inner class DownloadKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, String?>() {
-        private val mWeakContext: WeakReference<Context>
-
-        init {
-            mWeakContext = WeakReference(context)
-        }
+        private val mWeakContext: WeakReference<Context> = WeakReference(context)
 
         @Suppress("ReturnCount", "LongMethod")
         @Deprecated("Deprecated in Java")
@@ -289,26 +276,26 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
             val publicKeyResult = publicKeyOperation.executeNextcloudClient(user, context)
 
-            if (publicKeyResult.isSuccess) {
-                Log_OC.d(TAG, "public key successful downloaded for " + user.accountName)
-
-                val publicKeyFromServer = publicKeyResult.resultData
-                if (arbitraryDataProvider != null) {
-                    arbitraryDataProvider?.storeOrUpdateKeyValue(
-                        user.accountName,
-                        EncryptionUtils.PUBLIC_KEY,
-                        publicKeyFromServer
-                    )
-                } else {
-                    return null
-                }
-            } else {
+            if (!publicKeyResult.isSuccess) {
                 return null
             }
 
+            Log_OC.d(TAG, "public key successful downloaded for " + user.accountName)
+
+            if (arbitraryDataProvider == null) {
+                return null
+            }
+
+            val publicKeyFromServer = publicKeyResult.resultData
+            arbitraryDataProvider?.storeOrUpdateKeyValue(
+                user.accountName,
+                EncryptionUtils.PUBLIC_KEY,
+                publicKeyFromServer
+            )
+
             val privateKeyResult = GetPrivateKeyRemoteOperation().executeNextcloudClient(user, context)
             if (privateKeyResult.isSuccess) {
-                Log_OC.d(TAG, "private key successful downloaded for " + user!!.accountName)
+                Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
                 return privateKeyResult.resultData.getKey()
             }
@@ -333,6 +320,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 Log_OC.e(TAG, "Context lost after fetching private keys.")
                 return
             }
+
             if (privateKey == null) {
                 // first show info
                 try {
@@ -355,11 +343,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
     @SuppressLint("StaticFieldLeak")
     inner class GenerateNewKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, String>() {
-        private val mWeakContext: WeakReference<Context>
-
-        init {
-            mWeakContext = WeakReference(context)
-        }
+        private val mWeakContext: WeakReference<Context> = WeakReference(context)
 
         @Deprecated("Deprecated in Java")
         override fun onPreExecute() {
@@ -470,12 +454,16 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
     private fun generateMnemonicString(withWhitespace: Boolean): String {
         val stringBuilder = StringBuilder()
-        for (string in keyWords!!) {
-            stringBuilder.append(string)
-            if (withWhitespace) {
-                stringBuilder.append(' ')
+
+        keyWords?.let {
+            for (string in it) {
+                stringBuilder.append(string)
+                if (withWhitespace) {
+                    stringBuilder.append(' ')
+                }
             }
         }
+
         return stringBuilder.toString()
     }
 
@@ -487,13 +475,20 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         }
         requireDialog().setTitle(R.string.end_to_end_encryption_passphrase_title)
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_keywords_description)
-        viewThemeUtils!!.material.colorTextInputLayout(binding.encryptionPasswordInputContainer)
+        viewThemeUtils.material.colorTextInputLayout(binding.encryptionPasswordInputContainer)
         binding.encryptionPassphrase.text = generateMnemonicString(true)
         binding.encryptionPassphrase.visibility = View.VISIBLE
-        positiveButton!!.setText(R.string.end_to_end_encryption_confirm_button)
-        positiveButton!!.visibility = View.VISIBLE
-        negativeButton!!.visibility = View.VISIBLE
-        viewThemeUtils!!.platform.colorTextButtons(positiveButton!!, negativeButton!!)
+
+        positiveButton?.setText(R.string.end_to_end_encryption_confirm_button)
+        positiveButton?.visibility = View.VISIBLE
+        negativeButton?.visibility = View.VISIBLE
+
+        positiveButton?.let {  positiveButton ->
+            negativeButton?.let { negativeButton ->
+                viewThemeUtils.platform.colorTextButtons(positiveButton, negativeButton)
+            }
+        }
+
         keyResult = KEY_GENERATE
     }
 
@@ -511,9 +506,8 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
         positiveButton?.setText(R.string.end_to_end_encryption_dialog_close)
         positiveButton?.visibility = View.VISIBLE
-
-        if (positiveButton != null) {
-            viewThemeUtils?.platform?.colorTextButtons(positiveButton!!)
+        positiveButton?.let {
+            viewThemeUtils.platform.colorTextButtons(it)
         }
     }
 
@@ -545,12 +539,14 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
          */
         @JvmStatic
         fun newInstance(user: User?, position: Int): SetupEncryptionDialogFragment {
-            val fragment = SetupEncryptionDialogFragment()
-            val args = Bundle()
-            args.putParcelable(ARG_USER, user)
-            args.putInt(ARG_POSITION, position)
-            fragment.arguments = args
-            return fragment
+            val bundle = Bundle().apply {
+                putParcelable(ARG_USER, user)
+                putInt(ARG_POSITION, position)
+            }
+
+            return SetupEncryptionDialogFragment().apply {
+                arguments = bundle
+            }
         }
     }
 }
