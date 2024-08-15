@@ -89,8 +89,11 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
             cg?.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
         }
 
-        val activity = requireActivity() as? FileDisplayActivity
-        activity?.refreshWithDelay()
+        if (offlineFiles.isNotEmpty()) {
+            val activity = requireActivity() as? FileDisplayActivity
+            activity?.refreshFolderWithDelay()
+        }
+
         finishActionMode()
     }
 
