@@ -10,6 +10,7 @@ package com.owncloud.android.ui.activity
 import android.content.Intent
 import androidx.annotation.UiThread
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -45,6 +46,16 @@ class UploadFilesActivityIT : AbstractIT() {
     @After
     fun tearDown() {
         directories.forEach { it.deleteRecursively() }
+    }
+
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
