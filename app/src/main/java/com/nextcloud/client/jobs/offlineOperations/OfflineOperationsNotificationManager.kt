@@ -24,6 +24,7 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         private const val ID = 121
     }
 
+    @Suppress("MagicNumber")
     fun start(totalOperationSize: Int, currentOperationIndex: Int, filename: String) {
         val title = if (totalOperationSize > 1) {
             String.format(
@@ -45,6 +46,7 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         showNotification()
     }
 
+    @Suppress("MagicNumber")
     fun update(totalOperationSize: Int, currentOperationIndex: Int) {
         val percent = (currentOperationIndex * 100) / totalOperationSize
         notificationBuilder.run {
