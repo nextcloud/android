@@ -26,7 +26,7 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
     <string name="folder_already_exists_server">%s folder already exists on the server, no changes were made</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
-
+    <string name="folder_not_created_yet">Folder not created yet</string>
     <string name="app_config_base_url_title">Base Url</string>
     <string name="app_config_proxy_host_title">Proxy Host Name</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
