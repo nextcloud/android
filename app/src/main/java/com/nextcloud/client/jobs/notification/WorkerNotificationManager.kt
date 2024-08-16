@@ -35,7 +35,7 @@ open class WorkerNotificationManager(
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
             setStyle(NotificationCompat.BigTextStyle())
-            setPriority(NotificationCompat.PRIORITY_LOW)
+            priority = NotificationCompat.PRIORITY_LOW
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)
@@ -47,16 +47,21 @@ open class WorkerNotificationManager(
     }
 
     @Suppress("MagicNumber")
-    fun setProgress(percent: Int, progressTextId: Int, indeterminate: Boolean) {
-        val progressText = String.format(
-            context.getString(progressTextId),
-            percent
-        )
-
+    fun setProgress(percent: Int, progressTextId: Int?, indeterminate: Boolean) {
         notificationBuilder.run {
             setProgress(100, percent, indeterminate)
             setContentTitle(currentOperationTitle)
-            setContentText(progressText)
+        }
+
+        progressTextId?.let {
+            val progressText = String.format(
+                context.getString(progressTextId),
+                percent
+            )
+
+            notificationBuilder.run {
+                setContentText(progressText)
+            }
         }
     }
 

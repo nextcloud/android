@@ -1606,7 +1606,7 @@ public class FileDisplayActivity extends FileActivity
     public void refreshFolderWithDelay() {
         OCFileListFragment fileListFragment = getListOfFilesFragment();
         if (fileListFragment != null) {
-            new Handler(Looper.getMainLooper()).postDelayed(fileListFragment::onRefresh, 3000);
+            new Handler(Looper.getMainLooper()).postDelayed(fileListFragment::onRefresh, 1500);
         }
     }
 

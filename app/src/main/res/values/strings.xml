@@ -30,7 +30,8 @@
     <string name="app_config_base_url_title">Base Url</string>
     <string name="app_config_proxy_host_title">Proxy Host Name</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
-
+    <string name="offline_operations_worker_notification_manager_ticker">Offline Operations</string>
+    <string name="offline_operations_worker_progress_text" translatable="false">%1$d / %2$d - %3$s</string>
     <string name="anonymous_account_type" translatable="false">AnonymousAccountType</string>
 
     <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>

@@ -24,6 +24,7 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.CreateFolderOperation
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
@@ -32,6 +33,7 @@ import kotlinx.coroutines.withContext
 class OfflineOperationsWorker(
     private val user: User,
     private val context: Context,
+    viewThemeUtils: ViewThemeUtils,
     params: WorkerParameters
 ) : CoroutineWorker(context, params) {
 
@@ -42,6 +44,7 @@ class OfflineOperationsWorker(
 
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     private val clientFactory = ClientFactoryImpl(context)
+    private val notificationManager = OfflineOperationsNotificationManager(context, viewThemeUtils)
 
     override suspend fun doWork(): Result = coroutineScope {
         val jobName = inputData.getString(JOB_NAME)
@@ -65,7 +68,9 @@ class OfflineOperationsWorker(
 
         val client = clientFactory.create(user)
         val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
-        offlineOperations.forEach { operation ->
+        offlineOperations.forEachIndexed { index, operation ->
+            notificationManager.prepareForStart(offlineOperations.size, index, "filename")
+
             when (operation.type) {
                 OfflineOperationType.CreateFolder -> {
                     val createFolderOperation = async(Dispatchers.IO) { createFolder(operation, client) }
@@ -80,6 +85,8 @@ class OfflineOperationsWorker(
                         Log_OC.d(TAG, "Operation terminated, $operationLog")
                         fileDataStorageManager.offlineOperationDao.delete(operation)
                     }
+
+                    notificationManager.updateNotification(offlineOperations.size, index)
                 }
 
                 else -> {
@@ -89,6 +96,7 @@ class OfflineOperationsWorker(
         }
 
         Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")
+        notificationManager.dismissNotification()
         WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
         return@coroutineScope Result.success()
     }
@@ -109,4 +117,6 @@ class OfflineOperationsWorker(
             }
         }
     }
+
+
 }
