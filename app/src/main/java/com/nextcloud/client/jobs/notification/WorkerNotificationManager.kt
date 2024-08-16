@@ -47,21 +47,16 @@ open class WorkerNotificationManager(
     }
 
     @Suppress("MagicNumber")
-    fun setProgress(percent: Int, progressTextId: Int?, indeterminate: Boolean) {
+    fun setProgress(percent: Int, progressTextId: Int, indeterminate: Boolean) {
+        val progressText = String.format(
+            context.getString(progressTextId),
+            percent
+        )
+
         notificationBuilder.run {
             setProgress(100, percent, indeterminate)
             setContentTitle(currentOperationTitle)
-        }
-
-        progressTextId?.let {
-            val progressText = String.format(
-                context.getString(progressTextId),
-                percent
-            )
-
-            notificationBuilder.run {
-                setContentText(progressText)
-            }
+            setContentText(progressText)
         }
     }
 

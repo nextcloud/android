@@ -24,7 +24,7 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         private const val ID = 121
     }
 
-    fun prepareForStart(totalOperationSize: Int, currentOperationIndex: Int, filename: String) {
+    fun start(totalOperationSize: Int, currentOperationIndex: Int, filename: String) {
         val title = if (totalOperationSize > 1) {
             String.format(
                 context.getString(R.string.offline_operations_worker_progress_text),
@@ -45,9 +45,11 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         showNotification()
     }
 
-    fun updateNotification(totalOperationSize: Int, currentOperationIndex: Int) {
+    fun update(totalOperationSize: Int, currentOperationIndex: Int) {
         val percent = (currentOperationIndex * 100) / totalOperationSize
-        setProgress(percent, null, false)
+        notificationBuilder.run {
+            setProgress(100, percent, false)
+        }
         showNotification()
     }
 }

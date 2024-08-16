@@ -69,7 +69,7 @@ class OfflineOperationsWorker(
         val client = clientFactory.create(user)
         val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
         offlineOperations.forEachIndexed { index, operation ->
-            notificationManager.prepareForStart(offlineOperations.size, index, "filename")
+            notificationManager.start(offlineOperations.size, index, operation.filename ?: "")
 
             when (operation.type) {
                 OfflineOperationType.CreateFolder -> {
@@ -85,14 +85,14 @@ class OfflineOperationsWorker(
                         Log_OC.d(TAG, "Operation terminated, $operationLog")
                         fileDataStorageManager.offlineOperationDao.delete(operation)
                     }
-
-                    notificationManager.updateNotification(offlineOperations.size, index)
                 }
 
                 else -> {
                     Log_OC.d(TAG, "Operation terminated, not supported operation type")
                 }
             }
+
+            notificationManager.update(offlineOperations.size, index)
         }
 
         Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")
