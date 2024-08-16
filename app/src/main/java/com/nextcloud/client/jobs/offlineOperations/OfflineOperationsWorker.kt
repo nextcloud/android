@@ -117,6 +117,4 @@ class OfflineOperationsWorker(
             }
         }
     }
-
-
 }
