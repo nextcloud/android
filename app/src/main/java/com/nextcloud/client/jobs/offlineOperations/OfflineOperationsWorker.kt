@@ -26,7 +26,6 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.CreateFolderOperation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 
@@ -64,33 +63,28 @@ class OfflineOperationsWorker(
             return@coroutineScope Result.success()
         }
 
-        val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
         val client = clientFactory.create(user)
-        val operations = offlineOperations.map { operation ->
-            async(Dispatchers.IO) {
-                when (operation.type) {
-                    OfflineOperationType.CreateFolder -> {
-                        val result = createFolder(operation, client)
-                        Pair(result, operation)
-                    }
+        val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
+        offlineOperations.forEach { operation ->
+            when (operation.type) {
+                OfflineOperationType.CreateFolder -> {
+                    val createFolderOperation = async(Dispatchers.IO) { createFolder(operation, client) }
+                    val result = createFolderOperation.await()
 
-                    else -> {
-                        Pair(null, operation)
+                    val operationLog = "path: ${operation.path}, type: ${operation.type}"
+                    if (result?.isSuccess == true) {
+                        Log_OC.d(TAG, "Operation completed, $operationLog")
+                        fileDataStorageManager.offlineOperationDao.delete(operation)
+                    } else if (result?.code == RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS) {
+                        context.showToast(context.getString(R.string.folder_already_exists_server, operation.filename))
+                        Log_OC.d(TAG, "Operation terminated, $operationLog")
+                        fileDataStorageManager.offlineOperationDao.delete(operation)
                     }
                 }
-            }
-        }
 
-        operations.awaitAll().forEach { (result, operation) ->
-            val operationLog = "path: ${operation.path}, type: ${operation.type}"
-
-            if (result?.isSuccess == true) {
-                Log_OC.d(TAG, "Operation completed, $operationLog")
-                fileDataStorageManager.offlineOperationDao.delete(operation)
-            } else if (result?.code == RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS) {
-                context.showToast(context.getString(R.string.folder_already_exists_server, operation.filename))
-                Log_OC.d(TAG, "Operation terminated, $operationLog")
-                fileDataStorageManager.offlineOperationDao.delete(operation)
+                else -> {
+                    Log_OC.d(TAG, "Operation terminated, not supported operation type")
+                }
             }
         }
 
