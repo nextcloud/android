@@ -221,6 +221,18 @@ public class FileDataStorageManager {
         removeFile(file, true, true);
     }
 
+    public void renameCreateFolderOfflineOperation(OCFile file, String newFolderName) {
+        deleteOfflineOperation(file);
+
+        OCFile parentFolder = getFileById(file.getParentId());
+        if (parentFolder == null) {
+            return;
+        }
+
+        String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
+        addCreateFolderOfflineOperation(newPath, newFolderName, file.getParentId());
+    }
+
     private @Nullable
     OCFile getFileByPath(String type, String path) {
         final boolean shouldUseEncryptedPath = ProviderTableMeta.FILE_PATH.equals(type);
