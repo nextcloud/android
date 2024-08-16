@@ -48,7 +48,9 @@ class OfflineOperationsWorker(
         val jobName = inputData.getString(JOB_NAME)
         Log_OC.d(
             TAG,
-            "$jobName -----------------------------------\nOfflineOperationsWorker started\n-----------------------------------"
+            "$jobName -----------------------------------\n" +
+                "OfflineOperationsWorker started" +
+                "\n-----------------------------------"
         )
 
         if (!NetworkChangeReceiver.isNetworkAvailable(context)) {

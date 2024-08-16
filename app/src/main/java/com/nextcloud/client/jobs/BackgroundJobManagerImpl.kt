@@ -426,7 +426,7 @@ internal class BackgroundJobManagerImpl(
         val request = periodicRequestBuilder(
             jobClass = OfflineOperationsWorker::class,
             jobName = JOB_PERIODIC_OFFLINE_OPERATIONS,
-            intervalMins = OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES,
+            intervalMins = OFFLINE_OPERATIONS_PERIODIC_JOB_INTERVAL_MINUTES
         )
             .setInputData(inputData)
             .build()
@@ -434,7 +434,7 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(
             JOB_PERIODIC_OFFLINE_OPERATIONS,
             ExistingPeriodicWorkPolicy.UPDATE,
-            request,
+            request
         )
     }
 

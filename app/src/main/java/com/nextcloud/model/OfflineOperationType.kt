@@ -8,5 +8,5 @@
 package com.nextcloud.model
 
 enum class OfflineOperationType {
-    CreateFolder;
+    CreateFolder
 }

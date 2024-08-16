@@ -32,5 +32,5 @@ data class OfflineOperationEntity(
     var filename: String? = null,
 
     @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_CREATED_AT)
-    var createdAt: Long? = null,
+    var createdAt: Long? = null
 )
