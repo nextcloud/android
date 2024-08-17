@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">Aucun fichier</string>
     <string name="file_list_empty_headline_search">Aucun résultat dans ce dossier</string>
     <string name="file_list_empty_headline_server_search">Aucun résultat</string>
+    <string name="file_list_empty_local_search">Aucun fichier ou dossier ne correspond à votre recherche</string>
     <string name="file_list_empty_moving">Il n\'y a rien ici. Vous pouvez ajouter un dossier.</string>
     <string name="file_list_empty_on_device">Les fichiers/dossiers téléchargés apparaîtront ici.</string>
     <string name="file_list_empty_recently_modified">Aucun fichier modifié n\'a été trouvé dans les 7 derniers jours</string>
