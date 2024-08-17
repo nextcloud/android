@@ -27,6 +27,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.utils.IntentUtil.createSendIntent
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SendShareFragmentBinding
 import com.owncloud.android.datamodel.OCFile
@@ -196,7 +197,7 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
         var label: CharSequence
         val matches = requireActivity().packageManager.queryIntentActivities(sendIntent, 0)
         val sendButtonDataList: MutableList<SendButtonData> = ArrayList(matches.size)
-        for (match in matches) {
+        for (match in matches.filterNot { m -> BuildConfig.APPLICATION_ID == m.activityInfo.packageName }) {
             icon = match.loadIcon(requireActivity().packageManager)
             label = match.loadLabel(requireActivity().packageManager)
             sendButtonData = SendButtonData(
