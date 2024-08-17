@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">Овде нема фајлова</string>
     <string name="file_list_empty_headline_search">Нема резултата у овој фасцикли</string>
     <string name="file_list_empty_headline_server_search">Нема резултата</string>
+    <string name="file_list_empty_local_search">Ни један фајл или фолдер не одговара условима претраге</string>
     <string name="file_list_empty_moving">Овде нема ничег. Можете додати фасциклу.</string>
     <string name="file_list_empty_on_device">Преузети фајлови и фасцикле ће се појавити овде.</string>
     <string name="file_list_empty_recently_modified">Нема фајлова измењених у последњих 7 дана</string>

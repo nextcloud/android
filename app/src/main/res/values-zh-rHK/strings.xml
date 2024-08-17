@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">目前沒有檔案</string>
     <string name="file_list_empty_headline_search">在這資料夾中沒有結果</string>
     <string name="file_list_empty_headline_server_search">沒有符合搜尋的項目</string>
+    <string name="file_list_empty_local_search">沒有檔案或資料夾與搜尋匹配</string>
     <string name="file_list_empty_moving">這裡空無一物，你可以新增一個資料夾。</string>
     <string name="file_list_empty_on_device">下載的檔案跟資料夾會顯示這裡。</string>
     <string name="file_list_empty_recently_modified">沒有找到最近 7 日修改的檔案</string>
