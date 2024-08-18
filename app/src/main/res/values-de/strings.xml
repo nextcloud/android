@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline"> Keine Dateien vorhanden </string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
     <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
+    <string name="file_list_empty_local_search">Keine Datei und kein Ordner entsprechen Ihrer Suche</string>
     <string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen.</string>
     <string name="file_list_empty_on_device">Heruntergeladene Dateien und Ordner werden hier angezeigt werden.</string>
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>

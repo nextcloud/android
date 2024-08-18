@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">Inga filer här</string>
     <string name="file_list_empty_headline_search">Tomt i denna mapp</string>
     <string name="file_list_empty_headline_server_search">Inga resultat</string>
+    <string name="file_list_empty_local_search">Ingen fil eller mapp matchar din sökning</string>
     <string name="file_list_empty_moving">Inget här. Du kan lägga till en mapp.</string>
     <string name="file_list_empty_on_device">Nedladdade filer och mappar kommer att visas här.</string>
     <string name="file_list_empty_recently_modified">Hittade inga ändrade filer de senaste 7 dagarna</string>

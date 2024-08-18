@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
     <string name="file_list_empty_headline_server_search">لا يوجد أي نتيجة</string>
+    <string name="file_list_empty_local_search">لا يوجد ملف أو مجلد يتطابق مع بحثك</string>
     <string name="file_list_empty_moving">لا يوجد شيء هنا. يمكنك إضافة مجلد.</string>
     <string name="file_list_empty_on_device">الملفات والمجلدات التي تم تنزيلها سوف تظهر هنا.</string>
     <string name="file_list_empty_recently_modified">لا يوجد ملفات معدلة خلال 7 أيام ماضية</string>
