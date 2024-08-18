@@ -462,6 +462,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 return true;
             });
 
+
         User account = accountManager.getUser();
         filterDrawerMenu(navigationView.getMenu(), account);
     }
@@ -1050,6 +1051,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
         updateExternalLinksInDrawer();
         updateQuotaLink();
+    }
+
+    public int getCheckedMenuItem() {
+        return mCheckedMenuItem;
     }
 
     @Override

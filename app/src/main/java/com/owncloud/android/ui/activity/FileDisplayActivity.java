@@ -1168,7 +1168,12 @@ public class FileDisplayActivity extends FileActivity
             setDrawerMenuItemChecked(R.id.nav_on_device);
             setupToolbar();
         } else {
-            setDrawerMenuItemChecked(R.id.nav_all_files);
+            int lastMenuItem = getCheckedMenuItem();
+            if (lastMenuItem == Menu.NONE) {
+                lastMenuItem = R.id.nav_all_files;
+            }
+
+            setDrawerMenuItemChecked(lastMenuItem);
             setupHomeSearchToolbarWithSortAndListButtons();
         }
     }
