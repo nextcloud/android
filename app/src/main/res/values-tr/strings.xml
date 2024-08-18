@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
     <string name="file_list_empty_headline_search">Bu klasörde herhangi bir sonuç yok</string>
     <string name="file_list_empty_headline_server_search">Herhangi bir sonuç bulunamadı</string>
+    <string name="file_list_empty_local_search">Aramanıza uygun bir dosya ya da klasör bulunamadı</string>
     <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
     <string name="file_list_empty_on_device">İndirilmiş dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_recently_modified">Son 7 gün içinde düzenlenmiş bir dosya bulunamadı</string>

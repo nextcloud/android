@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">Níl aon chomhaid anseo</string>
     <string name="file_list_empty_headline_search">Níl aon torthaí san fhillteán seo</string>
     <string name="file_list_empty_headline_server_search">Gan torthaí</string>
+    <string name="file_list_empty_local_search">Níl aon chomhad nó fillteán ag teacht le do chuardach</string>
     <string name="file_list_empty_moving">Ní dhéanfaidh aon ní anseo. Is féidir leat fillteán a chur leis.</string>
     <string name="file_list_empty_on_device">Taispeánfar comhaid agus fillteáin íosluchtaithe anseo.</string>
     <string name="file_list_empty_recently_modified">Níor aimsíodh aon chomhad a athraíodh le 7 lá anuas</string>
