@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">Ingen filer her</string>
     <string name="file_list_empty_headline_search">Ingen resultater i denne mappen</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
+    <string name="file_list_empty_local_search">Ingen fil eller mappe som samsvarer med søket ditt</string>
     <string name="file_list_empty_moving">Ingenting her. Du kan legge til en mappe!</string>
     <string name="file_list_empty_on_device">Nedlastede filer og mapper vil vises her.</string>
     <string name="file_list_empty_recently_modified">Fant ingen filer endret de siste 7 dagene</string>

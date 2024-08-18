@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">Aquí non hai ficheiros</string>
     <string name="file_list_empty_headline_search">Non hai resultados neste cartafol</string>
     <string name="file_list_empty_headline_server_search">Sen resultados</string>
+    <string name="file_list_empty_local_search">Non hai ningún ficheiro ou cartafol que coincida coa busca</string>
     <string name="file_list_empty_moving">Aquí non hai nada. Pode engadir un cartafol.</string>
     <string name="file_list_empty_on_device">Aquí amosaranse os ficheiros e cartafoles descargados</string>
     <string name="file_list_empty_recently_modified">Non se atoparon ficheiros modificados nos últimos 7 días.</string>
