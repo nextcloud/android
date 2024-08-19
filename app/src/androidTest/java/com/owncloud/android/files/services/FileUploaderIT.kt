@@ -29,7 +29,7 @@ import junit.framework.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
-abstract class FileUploaderIT : AbstractOnServerIT() {
+class FileUploaderIT : AbstractOnServerIT() {
     private var uploadsStorageManager: UploadsStorageManager? = null
 
     private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
@@ -87,7 +87,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     //             .isSuccess
     //     )
     //
-    //     val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+    //     val result = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
     //     assertTrue(result.isSuccess)
     //
     //     assertEquals(file.length(), (result.data[0] as RemoteFile).length)
@@ -112,7 +112,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     //             .isSuccess
     //     )
     //
-    //     val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+    //     val result2 = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
     //     assertTrue(result2.isSuccess)
     //
     //     assertEquals(0, (result2.data[0] as RemoteFile).length)
@@ -139,7 +139,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         longSleep()
 
-        val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result.isSuccess)
 
         assertEquals(file.length(), result.resultData?.length)
@@ -156,7 +156,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         shortSleep()
 
-        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result2.isSuccess)
 
         assertEquals(0, result.resultData?.length)
@@ -192,7 +192,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 .isSuccess
         )
 
-        val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result.isSuccess)
 
         assertEquals(file.length(), result.resultData?.length)
@@ -222,12 +222,12 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 .isSuccess
         )
 
-        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result2.isSuccess)
 
         assertEquals(file.length(), result2.resultData?.length)
 
-        val result3 = ReadFileRemoteOperation("/testFile (2).txt").execute(client)
+        val result3 = ReadFileRemoteOperation("/testFile (2).txt").execute(nextcloudClient)
         assertTrue(result3.isSuccess)
 
         assertEquals(file2.length(), result3.resultData?.length)
@@ -255,7 +255,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         longSleep()
 
-        val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result.isSuccess)
 
         assertEquals(file.length(), result.resultData?.length)
@@ -272,12 +272,12 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         shortSleep()
 
-        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result2.isSuccess)
 
         assertEquals(file.length(), result2.resultData?.length)
 
-        val result3 = ReadFileRemoteOperation("/testFile (2).txt").execute(client)
+        val result3 = ReadFileRemoteOperation("/testFile (2).txt").execute(nextcloudClient)
         assertTrue(result3.isSuccess)
 
         assertEquals(ocFile2.fileLength, result3.resultData?.length)
@@ -311,7 +311,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 .isSuccess
         )
 
-        val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result.isSuccess)
 
         assertEquals(file.length(), result.resultData?.length)
@@ -336,7 +336,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 .execute(client).isSuccess
         )
 
-        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result2.isSuccess)
 
         assertEquals(file.length(), result2.resultData?.length)
@@ -363,7 +363,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         longSleep()
 
-        val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result.isSuccess)
 
         assertEquals(file.length(), result.resultData?.length)
@@ -380,7 +380,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         shortSleep()
 
-        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result2.isSuccess)
 
         assertEquals(file.length(), result2.resultData?.length)
@@ -414,7 +414,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
                 .isSuccess
         )
 
-        val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result.isSuccess)
 
         assertEquals(file.length(), result.resultData?.length)
@@ -440,7 +440,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
         assertFalse(uploadResult.isSuccess)
         assertTrue(uploadResult.exception is OperationCancelledException)
 
-        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result2.isSuccess)
 
         assertEquals(file.length(), result2.resultData?.length)
@@ -467,7 +467,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         longSleep()
 
-        val result = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result.isSuccess)
 
         assertEquals(file.length(), result.resultData?.length)
@@ -484,7 +484,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         shortSleep()
 
-        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(client)
+        val result2 = ReadFileRemoteOperation("/testFile.txt").execute(nextcloudClient)
         assertTrue(result2.isSuccess)
 
         assertEquals(file.length(), result2.resultData?.length)

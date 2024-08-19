@@ -53,9 +53,9 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
         assertEquals(0, sut.getAllFiles().size());
 
-        capability = (OCCapability) new GetCapabilitiesRemoteOperation(null)
-            .execute(client)
-            .getSingleData();
+        capability = new GetCapabilitiesRemoteOperation(null)
+            .execute(nextcloudClient)
+            .getResultData();
     }
 
     @After
@@ -82,9 +82,9 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
     @Test
     public void testFolderContent() throws IOException {
         assertEquals(0, sut.getAllFiles().size());
-        assertTrue(new CreateFolderRemoteOperation("/1/1/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/1/1/", true).execute(nextcloudClient).isSuccess());
 
-        assertTrue(new CreateFolderRemoteOperation("/1/2/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/1/2/", true).execute(nextcloudClient).isSuccess());
 
         assertTrue(new UploadFileRemoteOperation(getDummyFile("chunkedFile.txt").getAbsolutePath(),
                                                  "/1/1/chunkedFile.txt",
@@ -302,7 +302,7 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
     @Test
     public void testSaveNewFile() {
-        assertTrue(new CreateFolderRemoteOperation("/1/1/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/1/1/", true).execute(nextcloudClient).isSuccess());
 
         assertTrue(new RefreshFolderOperation(sut.getFileByDecryptedRemotePath("/"),
                                               System.currentTimeMillis() / 1000,
@@ -336,7 +336,7 @@ abstract public class FileDataStorageManagerIT extends AbstractOnServerIT {
 
     @Test(expected = IllegalArgumentException.class)
     public void testSaveNewFile_NonExistingParent() {
-        assertTrue(new CreateFolderRemoteOperation("/1/1/", true).execute(client).isSuccess());
+        assertTrue(new CreateFolderRemoteOperation("/1/1/", true).execute(nextcloudClient).isSuccess());
 
         OCFile newFile = new OCFile("/1/1/1.txt");
 
