@@ -1,0 +1,29 @@
+/*
+ * Nextcloud - Android Client
+ *
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
+ */
+
+package com.nextcloud.utils.extensions
+
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.utils.FileStorageUtils
+
+fun RemoteOperationResult<*>?.toOCFile(): List<OCFile>? {
+    return this?.data?.toOCFileList()
+}
+
+private fun ArrayList<Any>.toOCFileList(): List<OCFile> {
+    return this.mapNotNull {
+        val remoteFile = (it as? RemoteFile)
+
+        remoteFile?.let {
+            remoteFile.toOCFile()
+        }
+    }
+}
+
+private fun RemoteFile?.toOCFile(): OCFile = FileStorageUtils.fillOCFile(this)
