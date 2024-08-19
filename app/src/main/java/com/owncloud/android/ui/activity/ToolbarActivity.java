@@ -223,7 +223,9 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
      * Hides the toolbar's info box.
      */
     public final void hideInfoBox() {
-        mInfoBox.setVisibility(View.GONE);
+        if (mInfoBox != null) {
+            mInfoBox.setVisibility(View.GONE);
+        }
     }
 
     public void setPreviewImageVisibility(boolean isVisibility) {
