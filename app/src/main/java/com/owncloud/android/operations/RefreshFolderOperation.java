@@ -10,12 +10,15 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Pair;
 
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -42,6 +45,7 @@ import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.users.GetPredefinedStatusesRemoteOperation;
 import com.owncloud.android.lib.resources.users.PredefinedStatus;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.utils.DataHolderUtil;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -49,6 +53,7 @@ import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -80,7 +85,7 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * Time stamp for the synchronization process in progress
      */
-    private long mCurrentSyncTime;
+    private final long mCurrentSyncTime;
 
     /**
      * Remote folder to synchronize
@@ -90,17 +95,17 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * Access to the local database
      */
-    private FileDataStorageManager mStorageManager;
+    private final FileDataStorageManager mStorageManager;
 
     /**
      * Account where the file to synchronize belongs
      */
-    private User user;
+    private final User user;
 
     /**
      * Android context; necessary to send requests to the download service
      */
-    private Context mContext;
+    private final Context mContext;
 
     /**
      * Files and folders contained in the synchronized folder after a successful operation
@@ -121,12 +126,12 @@ public class RefreshFolderOperation extends RemoteOperation {
      * Map of remote and local paths to files that where locally stored in a location out of the ownCloud folder and
      * couldn't be copied automatically into it
      **/
-    private Map<String, String> mForgottenLocalFiles;
+    private final Map<String, String> mForgottenLocalFiles;
 
     /**
      * 'True' means that this operation is part of a full account synchronization
      */
-    private boolean mSyncFullAccount;
+    private final boolean mSyncFullAccount;
 
     /**
      * 'True' means that the remote folder changed and should be fetched
@@ -136,14 +141,14 @@ public class RefreshFolderOperation extends RemoteOperation {
     /**
      * 'True' means that Etag will be ignored
      */
-    private boolean mIgnoreETag;
+    private final boolean mIgnoreETag;
 
     /**
      * 'True' means that no share and no capabilities will be updated
      */
-    private boolean mOnlyFileMetadata;
+    private final boolean mOnlyFileMetadata;
 
-    private List<SynchronizeFileOperation> mFilesToSyncContents;
+    private final List<SynchronizeFileOperation> mFilesToSyncContents;
     // this will be used for every file when 'folder synchronization' replaces 'folder download'
 
 
@@ -222,6 +227,26 @@ public class RefreshFolderOperation extends RemoteOperation {
         return mChildren;
     }
 
+    private Pair<ArrayList<String>, ArrayList<String>> getConflictedRemoteIdsWithOfflineOperations(RemoteOperationResult operationResult) {
+        List<OfflineOperationEntity> offlineOperations = mStorageManager.offlineOperationDao.getAll();
+        List<OCFile> newFiles = RemoteOperationResultExtensionsKt.toOCFile(operationResult);
+        if (newFiles == null) return null;
+
+        ArrayList<String> conflictedOfflineOperationsPaths = new ArrayList<>();
+        ArrayList<String> newFilesRemoteIds = new ArrayList<>();
+
+        for (OCFile file: newFiles) {
+            for (OfflineOperationEntity offlineOperation: offlineOperations) {
+                if (file.getFileName().equals(offlineOperation.getFilename())) {
+                    newFilesRemoteIds.add(file.getRemoteId());
+                    conflictedOfflineOperationsPaths.add(offlineOperation.getPath());
+                }
+            }
+        }
+
+        return new Pair<>(newFilesRemoteIds, conflictedOfflineOperationsPaths);
+    }
+
     /**
      * Performs the synchronization.
      * <p>
@@ -260,6 +285,11 @@ public class RefreshFolderOperation extends RemoteOperation {
             mStorageManager.saveFile(mLocalFolder);
         }
 
+        Pair<ArrayList<String>, ArrayList<String>> conflictedRemoteIdsAndOfflineOperationPaths = getConflictedRemoteIdsWithOfflineOperations(result);
+        if (conflictedRemoteIdsAndOfflineOperationPaths != null && !conflictedRemoteIdsAndOfflineOperationPaths.first.isEmpty() && !conflictedRemoteIdsAndOfflineOperationPaths.second.isEmpty()) {
+            sendFolderSyncConflictEventBroadcast(conflictedRemoteIdsAndOfflineOperationPaths);
+        }
+
         if (!mSyncFullAccount && mRemoteFolderChanged) {
             sendLocalBroadcast(
                 EVENT_SINGLE_FOLDER_CONTENTS_SYNCED, mLocalFolder.getRemotePath(), result
@@ -277,7 +307,13 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
         return result;
+    }
 
+    private void sendFolderSyncConflictEventBroadcast(Pair<ArrayList<String>, ArrayList<String>> conflictedRemoteIdsAndOfflineOperationPaths) {
+        Intent intent = new Intent(FileDisplayActivity.FOLDER_SYNC_CONFLICT);
+        intent.putStringArrayListExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_NEW_FILES, conflictedRemoteIdsAndOfflineOperationPaths.first);
+        intent.putStringArrayListExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS, conflictedRemoteIdsAndOfflineOperationPaths.second);
+        LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
     private void updateOCVersion(OwnCloudClient client) {

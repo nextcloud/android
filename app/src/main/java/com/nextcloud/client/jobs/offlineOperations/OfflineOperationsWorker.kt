@@ -109,7 +109,7 @@ class OfflineOperationsWorker(
             notificationManager.update(operationSize, currentOperationIndex, operation.filename ?: "")
         } else if (result.code == RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS) {
             context.showToast(context.getString(R.string.folder_already_exists_server, operation.filename))
-            fileDataStorageManager.offlineOperationDao.delete(operation)
+            // fileDataStorageManager.offlineOperationDao.delete(operation)
         }
 
         val logMessage = if (result.isSuccess) "Operation completed" else "Operation terminated"

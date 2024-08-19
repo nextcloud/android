@@ -171,6 +171,9 @@ public class FileDisplayActivity extends FileActivity
     public static final String LIST_GROUPFOLDERS = "LIST_GROUPFOLDERS";
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
+    public static final String FOLDER_SYNC_CONFLICT = "FOLDER_SYNC_CONFLICT";
+    public static final String FOLDER_SYNC_CONFLICT_NEW_FILES = "FOLDER_SYNC_CONFLICT_NEW_FILES";
+    public static final String FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS = "FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS";
 
     private FilesBinding binding;
 
@@ -278,6 +281,7 @@ public class FileDisplayActivity extends FileActivity
         initSyncBroadcastReceiver();
         observeWorkerState();
         registerRefreshFolderEventReceiver();
+        registerRefreshSearchEventReceiver();
     }
 
     @SuppressWarnings("unchecked")
@@ -1347,6 +1351,26 @@ public class FileDisplayActivity extends FileActivity
                 }
             }
         }
+    }
+
+    private void registerRefreshSearchEventReceiver() {
+        IntentFilter filter = new IntentFilter(FOLDER_SYNC_CONFLICT);
+        LocalBroadcastManager.getInstance(this).registerReceiver(folderSyncConflictEventReceiver, filter);
+    }
+
+    private final BroadcastReceiver folderSyncConflictEventReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            ArrayList<String> remoteIds = intent.getStringArrayListExtra(FOLDER_SYNC_CONFLICT_NEW_FILES);
+            ArrayList<String> offlineOperationsPaths = intent.getStringArrayListExtra(FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS);
+
+            if (remoteIds != null && !remoteIds.isEmpty() && offlineOperationsPaths != null && !offlineOperationsPaths.isEmpty()) {
+                showFolderSyncConflictNotifications();
+            }
+        }
+    };
+
+    private void showFolderSyncConflictNotifications() {
     }
 
     private boolean checkForRemoteOperationError(RemoteOperationResult syncResult) {
