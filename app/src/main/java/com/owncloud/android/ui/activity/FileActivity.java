@@ -21,8 +21,10 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,6 +38,8 @@ import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.jobs.download.FileDownloadWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.receiver.NetworkChangeListener;
+import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -112,7 +116,7 @@ import static com.owncloud.android.ui.activity.FileDisplayActivity.TAG_PUBLIC_LI
  */
 public abstract class FileActivity extends DrawerActivity
     implements OnRemoteOperationListener, ComponentsGetter, SslUntrustedCertDialog.OnSslUntrustedCertListener,
-    LoadingVersionNumberTask.VersionDevInterface, FileDetailSharingFragment.OnEditShareListener {
+    LoadingVersionNumberTask.VersionDevInterface, FileDetailSharingFragment.OnEditShareListener, NetworkChangeListener {
 
     public static final String EXTRA_FILE = "com.owncloud.android.ui.activity.FILE";
     public static final String EXTRA_LIVE_PHOTO_FILE = "com.owncloud.android.ui.activity.LIVE.PHOTO.FILE";
@@ -176,6 +180,13 @@ public abstract class FileActivity extends DrawerActivity
     @Inject
     ArbitraryDataProvider arbitraryDataProvider;
 
+    private NetworkChangeReceiver networkChangeReceiver;
+
+    private void registerNetworkChangeReceiver() {
+        IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+        registerReceiver(networkChangeReceiver, filter);
+    }
+
     @Override
     public void showFiles(boolean onDeviceOnly, boolean personalFiles) {
         // must be specialized in subclasses
@@ -198,6 +209,7 @@ public abstract class FileActivity extends DrawerActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        networkChangeReceiver = new NetworkChangeReceiver(this);
         usersAndGroupsSearchConfig.reset();
         mHandler = new Handler();
         mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
@@ -227,11 +239,15 @@ public abstract class FileActivity extends DrawerActivity
         mOperationsServiceConnection = new OperationsServiceConnection();
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                     Context.BIND_AUTO_CREATE);
+        registerNetworkChangeReceiver();
     }
 
-    public void checkInternetConnection() {
-        if (connectivityService != null && connectivityService.isConnected()) {
+    @Override
+    public void onConnectionChanged(boolean isConnected) {
+        if (isConnected) {
             hideInfoBox();
+        } else {
+            showInfoBox(R.string.offline_mode);
         }
     }
 
@@ -265,6 +281,8 @@ public abstract class FileActivity extends DrawerActivity
             unbindService(mOperationsServiceConnection);
             mOperationsServiceBinder = null;
         }
+
+        unregisterReceiver(networkChangeReceiver);
 
         super.onDestroy();
     }
