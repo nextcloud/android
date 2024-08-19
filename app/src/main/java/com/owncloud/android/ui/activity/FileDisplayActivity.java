@@ -35,6 +35,7 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Parcelable;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -521,7 +522,8 @@ public class FileDisplayActivity extends FileActivity
         } else if (RESTART.equals(intent.getAction())) {
             finish();
             startActivity(intent);
-        } else // Verify the action and get the query
+        } else {
+            // Verify the action and get the query
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
                 setIntent(intent);
 
@@ -563,7 +565,10 @@ public class FileDisplayActivity extends FileActivity
 
                 setLeftFragment(new GroupfolderListFragment());
                 getSupportFragmentManager().executePendingTransactions();
+            } else {
+                handleOpenFileViaIntent(intent);
             }
+        }
     }
 
     private void onOpenFileIntent(Intent intent) {
@@ -2345,7 +2350,6 @@ public class FileDisplayActivity extends FileActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-
         checkForNewDevVersionNecessary(getApplicationContext());
     }
 
