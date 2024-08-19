@@ -353,7 +353,7 @@ dependencies {
     kapt "io.noties:prism4j-bundler:$prismVersion"
 
     // dependencies for image cropping and rotation
-    implementation 'com.vanniktech:android-image-cropper:4.5.0'
+    implementation 'com.vanniktech:android-image-cropper:4.6.0'
 
     implementation 'org.osmdroid:osmdroid-android:6.1.18'
 
