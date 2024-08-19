@@ -26,10 +26,13 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
     <string name="folder_already_exists_server">%s folder already exists on the server, no changes were made</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
+    <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="folder_not_created_yet">Folder not created yet</string>
     <string name="app_config_base_url_title">Base Url</string>
     <string name="app_config_proxy_host_title">Proxy Host Name</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
+    <string name="offline_operations_worker_notification_start_text">Starting Offline Operations</string>
+    <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline Operations</string>
     <string name="offline_operations_worker_progress_text" translatable="false">%1$d / %2$d - %3$s</string>
     <string name="anonymous_account_type" translatable="false">AnonymousAccountType</string>

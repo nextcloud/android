@@ -20,7 +20,7 @@ import com.nextcloud.receiver.NetworkChangeReceiver
 import com.nextcloud.utils.extensions.showToast
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.lib.common.OwnCloudClient
+import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.CreateFolderOperation
@@ -46,6 +46,7 @@ class OfflineOperationsWorker(
     private val clientFactory = ClientFactoryImpl(context)
     private val notificationManager = OfflineOperationsNotificationManager(context, viewThemeUtils)
 
+    @Suppress("Deprecation")
     override suspend fun doWork(): Result = coroutineScope {
         val jobName = inputData.getString(JOB_NAME)
         Log_OC.d(
@@ -68,23 +69,15 @@ class OfflineOperationsWorker(
 
         val client = clientFactory.create(user)
         val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
-        offlineOperations.forEachIndexed { index, operation ->
-            notificationManager.start(offlineOperations.size, index, operation.filename ?: "")
 
+        notificationManager.start()
+
+        offlineOperations.forEachIndexed { index, operation ->
             when (operation.type) {
                 OfflineOperationType.CreateFolder -> {
-                    val createFolderOperation = async(Dispatchers.IO) { createFolder(operation, client) }
-                    val result = createFolderOperation.await()
-
-                    val operationLog = "path: ${operation.path}, type: ${operation.type}"
-                    if (result?.isSuccess == true) {
-                        Log_OC.d(TAG, "Operation completed, $operationLog")
-                        fileDataStorageManager.offlineOperationDao.delete(operation)
-                    } else if (result?.code == RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS) {
-                        context.showToast(context.getString(R.string.folder_already_exists_server, operation.filename))
-                        Log_OC.d(TAG, "Operation terminated, $operationLog")
-                        fileDataStorageManager.offlineOperationDao.delete(operation)
-                    }
+                    val createFolderOperation = async(Dispatchers.IO) { createFolder(operation) }.await()
+                    val result = createFolderOperation?.execute(client)
+                    handleResult(operation, offlineOperations.size, index, result, createFolderOperation)
                 }
 
                 else -> {
@@ -99,16 +92,44 @@ class OfflineOperationsWorker(
         return@coroutineScope Result.success()
     }
 
-    @Suppress("TooGenericExceptionCaught", "Deprecation")
+    private fun handleResult(
+        operation: OfflineOperationEntity,
+        operationSize: Int,
+        currentOperationIndex: Int,
+        result: RemoteOperationResult<*>?,
+        remoteOperation: RemoteOperation<*>?
+    ) {
+        if (result == null) {
+            Log_OC.d(TAG, "Operation not completed, result is null")
+            return
+        }
+
+        if (result.isSuccess) {
+            fileDataStorageManager.offlineOperationDao.delete(operation)
+            notificationManager.update(operationSize, currentOperationIndex, operation.filename ?: "")
+        } else if (result.code == RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS) {
+            context.showToast(context.getString(R.string.folder_already_exists_server, operation.filename))
+            fileDataStorageManager.offlineOperationDao.delete(operation)
+        }
+
+        val logMessage = if (result.isSuccess) "Operation completed" else "Operation terminated"
+        val operationLog = "$logMessage path: ${operation.path}, type: ${operation.type}"
+        Log_OC.d(TAG, operationLog)
+
+        if (!result.isSuccess && remoteOperation != null) {
+            notificationManager.showNewNotification(result, remoteOperation)
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught")
     private suspend fun createFolder(
         operation: OfflineOperationEntity,
-        client: OwnCloudClient
-    ): RemoteOperationResult<*>? {
+    ): RemoteOperation<*>? {
         return withContext(Dispatchers.IO) {
             val createFolderOperation = CreateFolderOperation(operation.path, user, context, fileDataStorageManager)
 
             try {
-                createFolderOperation.execute(client)
+                createFolderOperation
             } catch (e: Exception) {
                 Log_OC.d(TAG, "Create folder operation terminated, $e")
                 null
