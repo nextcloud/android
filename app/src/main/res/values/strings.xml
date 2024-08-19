@@ -815,6 +815,8 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
     <string name="notification_channel_push_name">Push notifications</string>
+    <string name="notification_channel_background_operations_name">Background Operations</string>
+    <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
 

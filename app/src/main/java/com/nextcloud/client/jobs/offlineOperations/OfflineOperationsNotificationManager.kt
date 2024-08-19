@@ -7,13 +7,18 @@
 
 package com.nextcloud.client.jobs.offlineOperations
 
+import android.app.PendingIntent
 import android.content.Context
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.security.SecureRandom
+import kotlin.random.Random
 
 class OfflineOperationsNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
     WorkerNotificationManager(
@@ -70,5 +75,28 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
             setOngoing(false)
             notificationManager.notify(ERROR_ID, this.build())
         }
+    }
+
+    fun showConflictResolveNotification(file: OCFile, path: String) {
+        val intent = ConflictsResolveActivity.createIntent(file, path, context)
+
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            SecureRandom().nextInt(),
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+        notificationBuilder.run {
+            setContentTitle(file.fileName)
+            setContentIntent(pendingIntent).addAction(R.drawable.ic_cloud_upload,
+                context.getString(R.string.upload_list_resolve_conflict),
+                pendingIntent)
+        }
+
+        notificationManager.notify(
+            Random.nextInt(),
+            notificationBuilder.build()
+        )
     }
 }

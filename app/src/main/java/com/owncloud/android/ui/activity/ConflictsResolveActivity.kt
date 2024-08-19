@@ -40,15 +40,14 @@ import javax.inject.Inject
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external application.
  */
 class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener {
-    @JvmField
     @Inject
-    var uploadsStorageManager: UploadsStorageManager? = null
+    lateinit var uploadsStorageManager: UploadsStorageManager
 
-    @JvmField
     @Inject
-    var fileStorageManager: FileDataStorageManager? = null
+    lateinit var fileStorageManager: FileDataStorageManager
 
     private var conflictUploadId: Long = 0
+    private var offlineOperationPath: String? = null
     private var existingFile: OCFile? = null
     private var newFile: OCFile? = null
     private var localBehaviour = FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
@@ -61,7 +60,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
         getArguments(savedInstanceState)
 
-        val upload = uploadsStorageManager?.getUploadById(conflictUploadId)
+        val upload = uploadsStorageManager.getUploadById(conflictUploadId)
         if (upload != null) {
             localBehaviour = upload.localAction
         }
@@ -76,7 +75,9 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             conflictUploadId = savedInstanceState.getLong(EXTRA_CONFLICT_UPLOAD_ID)
             existingFile = savedInstanceState.getParcelableArgument(EXTRA_EXISTING_FILE, OCFile::class.java)
             localBehaviour = savedInstanceState.getInt(EXTRA_LOCAL_BEHAVIOUR)
+            offlineOperationPath = savedInstanceState.getString(EXTRA_OFFLINE_OPERATION_PATH)
         } else {
+            offlineOperationPath = intent.getStringExtra(EXTRA_OFFLINE_OPERATION_PATH)
             conflictUploadId = intent.getLongExtra(EXTRA_CONFLICT_UPLOAD_ID, -1)
             existingFile = intent.getParcelableArgument(EXTRA_EXISTING_FILE, OCFile::class.java)
             localBehaviour = intent.getIntExtra(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
@@ -91,49 +92,15 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             when (decision) {
                 Decision.CANCEL -> {}
                 Decision.KEEP_LOCAL -> {
-                    upload?.let {
-                        FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
-                    }
-                    FileUploadHelper.instance().uploadUpdatedFile(
-                        user,
-                        arrayOf(file),
-                        localBehaviour,
-                        NameCollisionPolicy.OVERWRITE
-                    )
+                    keepLocal(file, upload, user)
                 }
 
                 Decision.KEEP_BOTH -> {
-                    upload?.let {
-                        FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
-                    }
-                    FileUploadHelper.instance().uploadUpdatedFile(
-                        user,
-                        arrayOf(file),
-                        localBehaviour,
-                        NameCollisionPolicy.RENAME
-                    )
+                    keepBoth(file, upload, user)
                 }
 
                 Decision.KEEP_SERVER -> {
-                    if (!shouldDeleteLocal()) {
-                        // Overwrite local file
-                        file?.let {
-                            FileDownloadHelper.instance().downloadFile(
-                                getUser().orElseThrow { RuntimeException() },
-                                file,
-                                conflictUploadId = conflictUploadId
-                            )
-                        }
-                    }
-
-                    upload?.let {
-                        FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
-
-                        UploadNotificationManager(
-                            applicationContext,
-                            viewThemeUtils
-                        ).dismissOldErrorNotification(it.remotePath, it.localPath)
-                    }
+                    keepServer(file, upload)
                 }
 
                 else -> {}
@@ -142,12 +109,63 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         }
     }
 
+    private fun keepLocal(file: OCFile?, upload: OCUpload?, user: User) {
+        upload?.let {
+            FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
+        }
+
+        FileUploadHelper.instance().uploadUpdatedFile(
+            user,
+            arrayOf(file),
+            localBehaviour,
+            NameCollisionPolicy.OVERWRITE
+        )
+    }
+
+    private fun keepBoth(file: OCFile?, upload: OCUpload?, user: User) {
+        upload?.let {
+            FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
+        }
+
+        FileUploadHelper.instance().uploadUpdatedFile(
+            user,
+            arrayOf(file),
+            localBehaviour,
+            NameCollisionPolicy.RENAME
+        )
+    }
+
+    private fun keepServer(file: OCFile?, upload: OCUpload?) {
+        if (!shouldDeleteLocal()) {
+            // Overwrite local file
+            file?.let {
+                FileDownloadHelper.instance().downloadFile(
+                    user.orElseThrow { RuntimeException() },
+                    file,
+                    conflictUploadId = conflictUploadId
+                )
+            }
+        }
+
+        upload?.let {
+            FileUploadHelper.instance().removeFileUpload(it.remotePath, it.accountName)
+
+            UploadNotificationManager(
+                applicationContext,
+                viewThemeUtils
+            ).dismissOldErrorNotification(it.remotePath, it.localPath)
+        }
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         existingFile.logFileSize(TAG)
-        outState.putLong(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
-        outState.putParcelable(EXTRA_EXISTING_FILE, existingFile)
-        outState.putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
+
+        outState.run {
+            putLong(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
+            putParcelable(EXTRA_EXISTING_FILE, existingFile)
+            putInt(EXTRA_LOCAL_BEHAVIOUR, localBehaviour)
+        }
     }
 
     override fun conflictDecisionMade(decision: Decision?) {
@@ -157,17 +175,20 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     @Suppress("ReturnCount")
     override fun onStart() {
         super.onStart()
+
         if (account == null) {
             finish()
             return
         }
+
         if (newFile == null) {
             Log_OC.e(TAG, "No file received")
             finish()
             return
         }
+
         if (existingFile == null) {
-            val remotePath = fileStorageManager?.retrieveRemotePathConsideringEncryption(newFile) ?: return
+            val remotePath = fileStorageManager.retrieveRemotePathConsideringEncryption(newFile) ?: return
             val operation = ReadFileRemoteOperation(remotePath)
 
             @Suppress("TooGenericExceptionCaught")
@@ -188,7 +209,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 }
             }.start()
         } else {
-            val remotePath = fileStorageManager?.retrieveRemotePathConsideringEncryption(existingFile) ?: return
+            val remotePath = fileStorageManager.retrieveRemotePathConsideringEncryption(existingFile) ?: return
             startDialog(remotePath)
         }
     }
@@ -254,18 +275,28 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
          */
         const val EXTRA_LOCAL_BEHAVIOUR = "LOCAL_BEHAVIOUR"
         const val EXTRA_EXISTING_FILE = "EXISTING_FILE"
+        private const val EXTRA_OFFLINE_OPERATION_PATH = "EXTRA_OFFLINE_OPERATION_PATH"
+
         private val TAG = ConflictsResolveActivity::class.java.simpleName
 
         @JvmStatic
         fun createIntent(file: OCFile?, user: User?, conflictUploadId: Long, flag: Int?, context: Context?): Intent {
-            val intent = Intent(context, ConflictsResolveActivity::class.java)
-            if (flag != null) {
-                intent.flags = intent.flags or flag
+            return Intent(context, ConflictsResolveActivity::class.java).apply {
+                if (flag != null) {
+                    flags = flags or flag
+                }
+                putExtra(EXTRA_FILE, file)
+                putExtra(EXTRA_USER, user)
+                putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
             }
-            intent.putExtra(EXTRA_FILE, file)
-            intent.putExtra(EXTRA_USER, user)
-            intent.putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
-            return intent
+        }
+
+        @JvmStatic
+        fun createIntent(file: OCFile, offlineOperationPath: String, context: Context): Intent {
+            return Intent(context, ConflictsResolveActivity::class.java).apply {
+                putExtra(EXTRA_FILE, file)
+                putExtra(EXTRA_OFFLINE_OPERATION_PATH, offlineOperationPath)
+            }
         }
     }
 }

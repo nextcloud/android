@@ -55,6 +55,7 @@ import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.files.DeepLinkHandler;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.download.FileDownloadWorker;
+import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsNotificationManager;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.media.PlayerServiceConnection;
@@ -875,7 +876,7 @@ public class FileDisplayActivity extends FileActivity
                     if (hasEnoughSpaceAvailable) {
                         File file = new File(filesToUpload[0]);
                         File renamedFile;
-                        if(requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA) {
+                        if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA) {
                             renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedImageName());
                         } else {
                             renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedVideoName());
@@ -1363,14 +1364,23 @@ public class FileDisplayActivity extends FileActivity
         public void onReceive(Context context, Intent intent) {
             ArrayList<String> remoteIds = intent.getStringArrayListExtra(FOLDER_SYNC_CONFLICT_NEW_FILES);
             ArrayList<String> offlineOperationsPaths = intent.getStringArrayListExtra(FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS);
+            OfflineOperationsNotificationManager notificationManager = new OfflineOperationsNotificationManager(FileDisplayActivity.this, viewThemeUtils);
 
             if (remoteIds != null && !remoteIds.isEmpty() && offlineOperationsPaths != null && !offlineOperationsPaths.isEmpty()) {
-                showFolderSyncConflictNotifications();
+                showFolderSyncConflictNotifications(remoteIds, offlineOperationsPaths, notificationManager);
             }
         }
     };
 
-    private void showFolderSyncConflictNotifications() {
+    private void showFolderSyncConflictNotifications(ArrayList<String> remoteIds, ArrayList<String> offlineOperationsPaths, OfflineOperationsNotificationManager notificationManager) {
+        for (String remoteId : remoteIds) {
+            OCFile file = fileDataStorageManager.getFileByRemoteId(remoteId);
+            if (file != null) {
+                for (String path : offlineOperationsPaths) {
+                    notificationManager.showConflictResolveNotification(file, path);
+                }
+            }
+        }
     }
 
     private boolean checkForRemoteOperationError(RemoteOperationResult syncResult) {
