@@ -91,8 +91,6 @@ class OfflineOperationsWorker(
                     Log_OC.d(TAG, "Operation terminated, not supported operation type")
                 }
             }
-
-            notificationManager.update(offlineOperations.size, index)
         }
 
         Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")

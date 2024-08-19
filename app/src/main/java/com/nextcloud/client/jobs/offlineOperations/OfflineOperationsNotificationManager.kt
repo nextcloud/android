@@ -45,13 +45,4 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
 
         showNotification()
     }
-
-    @Suppress("MagicNumber")
-    fun update(totalOperationSize: Int, currentOperationIndex: Int) {
-        val percent = (currentOperationIndex * 100) / totalOperationSize
-        notificationBuilder.run {
-            setProgress(100, percent, false)
-        }
-        showNotification()
-    }
 }
