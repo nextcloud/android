@@ -16,6 +16,7 @@ import android.util.Pair;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -107,7 +108,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             }
             return new RemoteOperationResult(new IllegalStateException("E2E not supported"));
         } else {
-            return normalCreate(client);
+            return normalCreate(OwnCloudClientExtensionsKt.toNextcloudClient(client, context));
         }
     }
 
@@ -483,7 +484,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
                 new ReadFolderRemoteOperation(remotePath)
                 .execute(client);
 
-            createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getResultData().get(0);
+            createdRemoteFolder = remoteFolderOperationResult.getResultData().get(0);
             saveFolderInDB();
         } else {
             Log_OC.e(TAG, remotePath + " hasn't been created");

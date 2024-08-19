@@ -16,6 +16,7 @@ import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -40,8 +41,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  *  Remote operation performing the synchronization of the list of files contained
@@ -166,10 +165,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
 
         // remote request
-        ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
-        RemoteOperationResult result = operation.execute(client);
-        if (result.isSuccess()) {
-            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+        RemoteOperationResult<RemoteFile> result = new ReadFileRemoteOperation(mRemotePath)
+            .execute(OwnCloudClientExtensionsKt.toNextcloudClient(client, mContext));
+
+        if (result.isSuccess() && result.getResultData() != null) {
+            OCFile remoteFolder = FileStorageUtils.fillOCFile(result.getResultData());
 
             // check if remote and local folder are different
             mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
@@ -203,13 +203,13 @@ public class SynchronizeFolderOperation extends SyncOperation {
             throw new OperationCancelledException();
         }
 
-        ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult<List<RemoteFile>> result = new ReadFolderRemoteOperation(mRemotePath)
+            .execute(OwnCloudClientExtensionsKt.toNextcloudClient(client, mContext));
         Log_OC.d(TAG, "Synchronizing " + user.getAccountName() + mRemotePath);
         Log_OC.d(TAG, "Synchronizing remote id" + mLocalFolder.getRemoteId());
 
-        if (result.isSuccess()) {
-            synchronizeData(result.getData());
+        if (result.isSuccess() && result.getResultData() != null) {
+            synchronizeData(result.getResultData());
             if (mConflictsFound > 0  || mFailsInFileSyncsFound > 0) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
                     // should be a different result code, but will do the job
@@ -244,11 +244,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
      *
      * @param folderAndFiles Remote folder and children files in Folder
      */
-    private void synchronizeData(List<Object> folderAndFiles) throws OperationCancelledException {
+    private void synchronizeData(List<RemoteFile> folderAndFiles) throws OperationCancelledException {
 
 
         // parse data from remote folder
-        OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) folderAndFiles.get(0));
+        OCFile remoteFolder = FileStorageUtils.fillOCFile(folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
 

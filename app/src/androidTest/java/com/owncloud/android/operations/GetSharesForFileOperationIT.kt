@@ -12,7 +12,6 @@ import com.owncloud.android.lib.resources.files.CreateFolderRemoteOperation
 import com.owncloud.android.lib.resources.shares.CreateShareRemoteOperation
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.ShareType
-import junit.framework.TestCase
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -22,10 +21,10 @@ class GetSharesForFileOperationIT : AbstractOnServerIT() {
     @Test
     fun shares() {
         val remotePath = "/share/"
-        assertTrue(CreateFolderRemoteOperation(remotePath, true).execute(client).isSuccess)
+        assertTrue(CreateFolderRemoteOperation(remotePath, true).execute(nextcloudClient).isSuccess)
 
         // share folder to user "admin"
-        TestCase.assertTrue(
+        assertTrue(
             CreateShareRemoteOperation(
                 remotePath,
                 ShareType.USER,
@@ -38,7 +37,7 @@ class GetSharesForFileOperationIT : AbstractOnServerIT() {
         )
 
         // share folder via public link
-        TestCase.assertTrue(
+        assertTrue(
             CreateShareRemoteOperation(
                 remotePath,
                 ShareType.PUBLIC_LINK,
