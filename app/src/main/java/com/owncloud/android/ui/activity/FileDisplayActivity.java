@@ -55,7 +55,6 @@ import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.files.DeepLinkHandler;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.download.FileDownloadWorker;
-import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsNotificationManager;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.media.PlayerServiceConnection;
@@ -94,6 +93,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.activity.fileDisplayActivity.OfflineFolderConflictManager;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask;
@@ -282,7 +282,9 @@ public class FileDisplayActivity extends FileActivity
         initSyncBroadcastReceiver();
         observeWorkerState();
         registerRefreshFolderEventReceiver();
-        registerRefreshSearchEventReceiver();
+
+        OfflineFolderConflictManager offlineFolderConflictManager = new OfflineFolderConflictManager(this);
+        offlineFolderConflictManager.registerRefreshSearchEventReceiver();
     }
 
     @SuppressWarnings("unchecked")
@@ -1320,7 +1322,6 @@ public class FileDisplayActivity extends FileActivity
 
                         Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
 
-
                         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
                         if (ocFileListFragment != null) {
                             ocFileListFragment.setLoading(mSyncInProgress);
@@ -1349,35 +1350,6 @@ public class FileDisplayActivity extends FileActivity
                 } catch (RuntimeException re) {
                     // we did not send this intent, so ignoring
                     Log_OC.i(TAG, "Ignoring error deleting data");
-                }
-            }
-        }
-    }
-
-    private void registerRefreshSearchEventReceiver() {
-        IntentFilter filter = new IntentFilter(FOLDER_SYNC_CONFLICT);
-        LocalBroadcastManager.getInstance(this).registerReceiver(folderSyncConflictEventReceiver, filter);
-    }
-
-    private final BroadcastReceiver folderSyncConflictEventReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            ArrayList<String> remoteIds = intent.getStringArrayListExtra(FOLDER_SYNC_CONFLICT_NEW_FILES);
-            ArrayList<String> offlineOperationsPaths = intent.getStringArrayListExtra(FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS);
-            OfflineOperationsNotificationManager notificationManager = new OfflineOperationsNotificationManager(FileDisplayActivity.this, viewThemeUtils);
-
-            if (remoteIds != null && !remoteIds.isEmpty() && offlineOperationsPaths != null && !offlineOperationsPaths.isEmpty()) {
-                showFolderSyncConflictNotifications(remoteIds, offlineOperationsPaths, notificationManager);
-            }
-        }
-    };
-
-    private void showFolderSyncConflictNotifications(ArrayList<String> remoteIds, ArrayList<String> offlineOperationsPaths, OfflineOperationsNotificationManager notificationManager) {
-        for (String remoteId : remoteIds) {
-            OCFile file = fileDataStorageManager.getFileByRemoteId(remoteId);
-            if (file != null) {
-                for (String path : offlineOperationsPaths) {
-                    notificationManager.showConflictResolveNotification(file, path);
                 }
             }
         }
