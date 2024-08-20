@@ -7,13 +7,35 @@
 
 package com.nextcloud.utils.extensions
 
+import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.utils.FileStorageUtils
 
+fun RemoteOperationResult<*>?.getConflictedRemoteIdsWithOfflineOperations(
+    offlineOperations: List<OfflineOperationEntity>
+): Pair<ArrayList<String>, ArrayList<String?>>? {
+    val newFiles = toOCFile() ?: return null
+
+    val (remoteIds, offlineOperationsPaths) = newFiles
+        .flatMap { file ->
+            offlineOperations
+                .filter { it.filename == file.fileName }
+                .map { file.remoteId to it.path }
+        }
+        .unzip()
+
+    return ArrayList(remoteIds) to ArrayList(offlineOperationsPaths)
+}
+
+@Suppress("Deprecation")
 fun RemoteOperationResult<*>?.toOCFile(): List<OCFile>? {
-    return this?.data?.toOCFileList()
+    return if (this?.isSuccess == true) {
+       data?.toOCFileList()
+    } else {
+        null
+    }
 }
 
 private fun ArrayList<Any>.toOCFileList(): List<OCFile> {

@@ -24,7 +24,6 @@
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
-    <string name="folder_already_exists_server">%s folder already exists on the server, no changes were made</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="folder_not_created_yet">Folder not created yet</string>

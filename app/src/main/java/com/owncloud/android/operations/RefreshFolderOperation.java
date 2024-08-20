@@ -10,13 +10,11 @@ package com.owncloud.android.operations;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Pair;
 
 import com.google.common.collect.Maps;
 import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.RemoteOperationResultExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -53,7 +51,6 @@ import com.owncloud.android.utils.MimeType;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -227,26 +224,6 @@ public class RefreshFolderOperation extends RemoteOperation {
         return mChildren;
     }
 
-    private Pair<ArrayList<String>, ArrayList<String>> getConflictedRemoteIdsWithOfflineOperations(RemoteOperationResult operationResult) {
-        List<OfflineOperationEntity> offlineOperations = mStorageManager.offlineOperationDao.getAll();
-        List<OCFile> newFiles = RemoteOperationResultExtensionsKt.toOCFile(operationResult);
-        if (newFiles == null) return null;
-
-        ArrayList<String> conflictedOfflineOperationsPaths = new ArrayList<>();
-        ArrayList<String> newFilesRemoteIds = new ArrayList<>();
-
-        for (OCFile file: newFiles) {
-            for (OfflineOperationEntity offlineOperation: offlineOperations) {
-                if (file.getFileName().equals(offlineOperation.getFilename())) {
-                    newFilesRemoteIds.add(file.getRemoteId());
-                    conflictedOfflineOperationsPaths.add(offlineOperation.getPath());
-                }
-            }
-        }
-
-        return new Pair<>(newFilesRemoteIds, conflictedOfflineOperationsPaths);
-    }
-
     /**
      * Performs the synchronization.
      * <p>
@@ -285,9 +262,10 @@ public class RefreshFolderOperation extends RemoteOperation {
             mStorageManager.saveFile(mLocalFolder);
         }
 
-        Pair<ArrayList<String>, ArrayList<String>> conflictedRemoteIdsAndOfflineOperationPaths = getConflictedRemoteIdsWithOfflineOperations(result);
-        if (conflictedRemoteIdsAndOfflineOperationPaths != null && !conflictedRemoteIdsAndOfflineOperationPaths.first.isEmpty() && !conflictedRemoteIdsAndOfflineOperationPaths.second.isEmpty()) {
-            sendFolderSyncConflictEventBroadcast(conflictedRemoteIdsAndOfflineOperationPaths);
+        var offlineOperations = mStorageManager.offlineOperationDao.getAll();
+        var conflictData = RemoteOperationResultExtensionsKt.getConflictedRemoteIdsWithOfflineOperations(result, offlineOperations);
+        if (conflictData != null && !conflictData.getFirst().isEmpty() && !conflictData.getSecond().isEmpty()) {
+            sendFolderSyncConflictEventBroadcast(conflictData.getFirst(), conflictData.getSecond());
         }
 
         if (!mSyncFullAccount && mRemoteFolderChanged) {
@@ -309,10 +287,10 @@ public class RefreshFolderOperation extends RemoteOperation {
         return result;
     }
 
-    private void sendFolderSyncConflictEventBroadcast(Pair<ArrayList<String>, ArrayList<String>> conflictedRemoteIdsAndOfflineOperationPaths) {
+    private void sendFolderSyncConflictEventBroadcast(ArrayList<String> newFiles, ArrayList<String> offlineOperationPaths) {
         Intent intent = new Intent(FileDisplayActivity.FOLDER_SYNC_CONFLICT);
-        intent.putStringArrayListExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_NEW_FILES, conflictedRemoteIdsAndOfflineOperationPaths.first);
-        intent.putStringArrayListExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS, conflictedRemoteIdsAndOfflineOperationPaths.second);
+        intent.putStringArrayListExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_NEW_FILES, newFiles);
+        intent.putStringArrayListExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS, offlineOperationPaths);
         LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 
