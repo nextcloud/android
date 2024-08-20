@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">Ez dago fitxategirik hemen</string>
     <string name="file_list_empty_headline_search">Ez dago emailtzarik karpeta honetan</string>
     <string name="file_list_empty_headline_server_search">Emaitzik ez</string>
+    <string name="file_list_empty_local_search">Ez dago zure bilaketarekin bat datorren fitxategi edo karpetarik</string>
     <string name="file_list_empty_moving">Hemen ez dago ezer. Karpeta bat gehi dezakezu.</string>
     <string name="file_list_empty_on_device">Deskargaturiko fitxategiak eta karpetak hemen agertuko dira.</string>
     <string name="file_list_empty_recently_modified">Ez da aurkitu azken 7 egunetan aldatu den fitxategirik</string>
@@ -512,6 +513,7 @@
     <string name="manage_space_clear_data">Garbitu datuak</string>
     <string name="manage_space_description">%1$s(r)en ezarpenak, datu-basea eta zerbitzariaren ziurtagiriak betirako ezabatuko dira.\n\n Deskargatutako fitxategiak ez dira ukituko.\n\n Prozesu honek denbora behar du.</string>
     <string name="manage_space_title">Kudeatu lekua</string>
+    <string name="max_file_count_warning_message">Fitxategiak igotzeko gehienezko mugara iritsi zara. Mesedez, ez igo 500 fitxategi baino gutxiago aldi berean.</string>
     <string name="media_err_invalid_progressive_playback">Ezin da multimedia fitxategia transmititu</string>
     <string name="media_err_io">Ezin izan da multimedia fitxategia irakurri</string>
     <string name="media_err_malformed">Multimedia fitxategiak kodeketa desegokia du</string>
@@ -666,8 +668,10 @@
     <string name="prefs_value_theme_light">Argia</string>
     <string name="prefs_value_theme_system">Sistemaren berdina</string>
     <string name="preview_image_description">Irudi aurreikuspena</string>
+    <string name="preview_image_downloading_image_for_edit">Irudia deskargatzen editatzeko pantaila hasteko, itxaron mesedez…</string>
     <string name="preview_image_error_no_local_file">Ez dago aurreikusteko fitxategi lokalik</string>
     <string name="preview_image_error_unknown_format">Ezin izan da irudia erakutsi</string>
+    <string name="preview_image_file_is_not_downloaded">Fitxategia ez da deskargatu</string>
     <string name="preview_image_file_is_not_exist">Fitxategia ez da existitzen</string>
     <string name="preview_media_unhandled_http_code_message">Fitxategia beste erabiltzaile edo prozesu batek blokeatuta dago eta, beraz, ezin da ezabatzu. Saiatu berriro geroago.</string>
     <string name="preview_sorry">Barkatu</string>
@@ -678,6 +682,7 @@
     <string name="push_notifications_temp_error">Push jakinarazpenak ez daude eskuragarri.</string>
     <string name="qr_could_not_be_read">Ezin da QR kodea irakurri!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Ezin da karpeta aurkitu, sinkronizazio lana bertan behera geratu da</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Ezin da aurkitu igotzeko fitxategia</string>
     <string name="recommend_subject">Probatu %1$s zure gailuan!</string>
     <string name="recommend_text">%1$s zure gailuan erabiltzera gonbidatu nahi zaitut.\n Hemendik deskargatu: %2$s</string>
     <string name="recommend_urls">%1$s edo %2$s</string>
@@ -885,6 +890,9 @@
     <string name="trashbin_file_remove">Ezabatu betirako</string>
     <string name="trashbin_loading_failed">Zakarrontzia kargatzeak huts egin du!</string>
     <string name="trashbin_not_emptied">Fitxategiak ezin dira betirako ezabatu!</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Gertaera ez da aurkitu, beti sinkroniza dezakezu eguneratzeko. Webera birbideratzen…</string>
+    <string name="unified_search_fragment_contact_not_found">Kontaktua ez da aurkitu, beti sinkroniza dezakezu eguneratzeko. Webera birbideratzen…</string>
+    <string name="unified_search_fragment_permission_needed">Bilaketa-emaitza irekitzeko baimenak behar dira, bestela webera birbideratuko da...</string>
     <string name="unlock_file">Desblokeatu fitxategia</string>
     <string name="unread_comments">Irakurri gabeko iruzkinak daude</string>
     <string name="unset_encrypted">Kendu enkriptatzea</string>

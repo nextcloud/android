@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">No files here</string>
     <string name="file_list_empty_headline_search">No results in this folder</string>
     <string name="file_list_empty_headline_server_search">No results</string>
+    <string name="file_list_empty_local_search">No file or folder matching your search</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
     <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
