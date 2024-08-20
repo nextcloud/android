@@ -287,11 +287,18 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             }
 
             val publicKeyFromServer = publicKeyResult.resultData
-            arbitraryDataProvider?.storeOrUpdateKeyValue(
-                user.accountName,
-                EncryptionUtils.PUBLIC_KEY,
-                publicKeyFromServer
-            )
+            
+            if (publicKeyFromServer == null) {
+                Log_OC.d(TAG, "Public key download failed!")
+                keyResult = KEY_FAILED
+                return null
+            } else {
+                arbitraryDataProvider?.storeOrUpdateKeyValue(
+                    user.accountName,
+                    EncryptionUtils.PUBLIC_KEY,
+                    publicKeyFromServer
+                )
+            }
 
             val privateKeyResult = GetPrivateKeyRemoteOperation().executeNextcloudClient(user, context)
             if (privateKeyResult.isSuccess) {
