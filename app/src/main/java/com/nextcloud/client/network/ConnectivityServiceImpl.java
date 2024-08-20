@@ -13,6 +13,7 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.os.NetworkOnMainThreadException;
 
 import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.UserAccountManager;
@@ -53,6 +54,19 @@ class ConnectivityServiceImpl implements ConnectivityService {
         this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
         this.walledCheckCache = walledCheckCache;
+    }
+
+    @Override
+    public boolean isNetworkAndServerAvailable() throws NetworkOnMainThreadException {
+        Network activeNetwork = platformConnectivityManager.getActiveNetwork();
+        NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(activeNetwork);
+        boolean hasInternet = networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+
+        if (!hasInternet) {
+            return false;
+        }
+
+        return !isInternetWalled();
     }
 
     @Override

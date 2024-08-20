@@ -10,26 +10,29 @@ package com.nextcloud.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.net.ConnectivityManager
-import android.net.NetworkCapabilities
+import com.nextcloud.client.network.ConnectivityService
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 interface NetworkChangeListener {
-    fun onConnectionChanged(isConnected: Boolean)
+    fun networkAndServerConnectionListener(isNetworkAndServerAvailable: Boolean)
 }
 
-class NetworkChangeReceiver(private val listener: NetworkChangeListener) : BroadcastReceiver() {
+class NetworkChangeReceiver(
+    private val listener: NetworkChangeListener,
+    private val connectivityService: ConnectivityService,
+) : BroadcastReceiver() {
 
-    companion object {
-        fun isNetworkAvailable(context: Context): Boolean {
-            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val activeNetwork = connectivityManager.activeNetwork
-            val networkCapabilities = connectivityManager.getNetworkCapabilities(activeNetwork)
-            return networkCapabilities?.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) == true
-        }
-    }
-
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onReceive(context: Context, intent: Intent?) {
-        val isConnected = isNetworkAvailable(context)
-        listener.onConnectionChanged(isConnected)
+        GlobalScope.launch(Dispatchers.IO) {
+            val isNetworkAndServerAvailable = connectivityService.isNetworkAndServerAvailable()
+
+            launch(Dispatchers.Main) {
+                listener.networkAndServerConnectionListener(isNetworkAndServerAvailable)
+            }
+        }
     }
 }

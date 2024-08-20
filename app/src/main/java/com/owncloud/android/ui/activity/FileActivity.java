@@ -209,11 +209,11 @@ public abstract class FileActivity extends DrawerActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        networkChangeReceiver = new NetworkChangeReceiver(this);
+        networkChangeReceiver = new NetworkChangeReceiver(this, connectivityService);
         usersAndGroupsSearchConfig.reset();
         mHandler = new Handler();
         mFileOperationsHelper = new FileOperationsHelper(this, getUserAccountManager(), connectivityService, editorUtils);
-        User user = null;
+        User user;
 
         if (savedInstanceState != null) {
             mFile = BundleExtensionsKt.getParcelableArgument(savedInstanceState, FileActivity.EXTRA_FILE, OCFile.class);
@@ -243,8 +243,8 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     @Override
-    public void onConnectionChanged(boolean isConnected) {
-        if (isConnected) {
+    public void networkAndServerConnectionListener(boolean isNetworkAndServerAvailable) {
+        if (isNetworkAndServerAvailable) {
             hideInfoBox();
         } else {
             showInfoBox(R.string.offline_mode);
