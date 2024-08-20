@@ -90,28 +90,56 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
     private fun setupOnConflictDecisionMadeListener(upload: OCUpload?) {
         listener = OnConflictDecisionMadeListener { decision: Decision? ->
-            val file = newFile // local file got changed, so either upload it or replace it again by server
+
+            // local file got changed, so either upload it or replace it again by server
+            val file = newFile
+
             // version
             val user = user.orElseThrow { RuntimeException() }
+
             when (decision) {
-                Decision.CANCEL -> {}
-                Decision.KEEP_LOCAL -> {
-                    keepLocal(file, upload, user)
-                }
+                Decision.KEEP_LOCAL -> keepLocal(file, upload, user)
+                Decision.KEEP_BOTH -> keepBoth(file, upload, user)
+                Decision.KEEP_SERVER -> keepServer(file, upload)
 
-                Decision.KEEP_BOTH -> {
-                    keepBoth(file, upload, user)
-                }
+                Decision.KEEP_OFFLINE_FOLDER,
+                Decision.KEEP_SERVER_FOLDER,
+                Decision.KEEP_BOTH_FOLDER -> handleFolderConflict(decision)
 
-                Decision.KEEP_SERVER -> {
-                    keepServer(file, upload)
-                }
-
-                else -> {}
+                Decision.CANCEL -> Unit
+                else -> Unit
             }
+
             finish()
         }
     }
+
+    private fun handleFolderConflict(decision: Decision) {
+        offlineOperationPath?.let { path ->
+            newFile?.let { serverFile ->
+                val offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(path)
+
+                offlineOperation?.let { entity ->
+                    when(decision) {
+                        Decision.KEEP_OFFLINE_FOLDER -> {
+
+                        }
+
+                        Decision.KEEP_SERVER_FOLDER -> {
+
+                        }
+
+                        Decision.KEEP_BOTH_FOLDER -> {
+
+                        }
+
+                        else -> Unit
+                    }
+                }
+            }
+        }
+    }
+
 
     private fun keepLocal(file: OCFile?, upload: OCUpload?, user: User) {
         upload?.let {

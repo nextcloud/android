@@ -68,7 +68,10 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         CANCEL,
         KEEP_BOTH,
         KEEP_LOCAL,
-        KEEP_SERVER
+        KEEP_SERVER,
+        KEEP_OFFLINE_FOLDER,
+        KEEP_SERVER_FOLDER,
+        KEEP_BOTH_FOLDER
     }
 
     override fun onAttach(context: Context) {
@@ -152,13 +155,20 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         val builder = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
             .setPositiveButton(R.string.common_ok) { _: DialogInterface?, _: Int ->
-                if (binding.newCheckbox.isChecked && binding.existingCheckbox.isChecked) {
-                    listener?.conflictDecisionMade(Decision.KEEP_BOTH)
-                } else if (binding.newCheckbox.isChecked) {
-                    listener?.conflictDecisionMade(Decision.KEEP_LOCAL)
-                } else if (binding.existingCheckbox.isChecked) {
-                    listener?.conflictDecisionMade(Decision.KEEP_SERVER)
+                val decision = when {
+                    binding.newCheckbox.isChecked && binding.existingCheckbox.isChecked ->
+                        if (offlineOperation != null && serverFile != null) Decision.KEEP_BOTH_FOLDER else Decision.KEEP_BOTH
+
+                    binding.newCheckbox.isChecked ->
+                        if (offlineOperation != null && serverFile != null) Decision.KEEP_OFFLINE_FOLDER else Decision.KEEP_LOCAL
+
+                    binding.existingCheckbox.isChecked ->
+                        if (offlineOperation != null && serverFile != null) Decision.KEEP_SERVER_FOLDER else Decision.KEEP_SERVER
+
+                    else -> null
                 }
+
+                decision?.let { listener?.conflictDecisionMade(it) }
             }
             .setNegativeButton(R.string.common_cancel) { _: DialogInterface?, _: Int ->
                 listener?.conflictDecisionMade(Decision.CANCEL)
@@ -248,31 +258,35 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
     }
 
     private fun setOnClickListeners() {
-        val checkBoxClickListener = View.OnClickListener {
-            positiveButton?.isEnabled = binding.newCheckbox.isChecked || binding.existingCheckbox.isChecked
-        }
+        binding.run {
+            val checkBoxClickListener = View.OnClickListener {
+                positiveButton?.isEnabled = newCheckbox.isChecked || existingCheckbox.isChecked
+            }
 
-        binding.newCheckbox.setOnClickListener(checkBoxClickListener)
-        binding.existingCheckbox.setOnClickListener(checkBoxClickListener)
+            newCheckbox.setOnClickListener(checkBoxClickListener)
+            existingCheckbox.setOnClickListener(checkBoxClickListener)
 
-        binding.newFileContainer.setOnClickListener {
-            binding.newCheckbox.isChecked = !binding.newCheckbox.isChecked
-            positiveButton?.isEnabled = binding.newCheckbox.isChecked || binding.existingCheckbox.isChecked
-        }
-        binding.existingFileContainer.setOnClickListener {
-            binding.existingCheckbox.isChecked = !binding.existingCheckbox.isChecked
-            positiveButton?.isEnabled = binding.newCheckbox.isChecked || binding.existingCheckbox.isChecked
+            newFileContainer.setOnClickListener {
+                newCheckbox.isChecked = !newCheckbox.isChecked
+                positiveButton?.isEnabled = newCheckbox.isChecked || existingCheckbox.isChecked
+            }
+
+            existingFileContainer.setOnClickListener {
+                existingCheckbox.isChecked = !existingCheckbox.isChecked
+                positiveButton?.isEnabled = newCheckbox.isChecked || existingCheckbox.isChecked
+            }
         }
     }
 
     fun showDialog(activity: AppCompatActivity) {
         val prev = activity.supportFragmentManager.findFragmentByTag("dialog")
-        val ft = activity.supportFragmentManager.beginTransaction()
-        if (prev != null) {
-            ft.remove(prev)
+        activity.supportFragmentManager.beginTransaction().run {
+            if (prev != null) {
+                this.remove(prev)
+            }
+            addToBackStack(null)
+            show(this, "dialog")
         }
-        ft.addToBackStack(null)
-        show(ft, "dialog")
     }
 
     override fun onCancel(dialog: DialogInterface) {
