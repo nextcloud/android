@@ -11,9 +11,8 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import com.nextcloud.client.network.ConnectivityService
-import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 interface NetworkChangeListener {
@@ -25,9 +24,10 @@ class NetworkChangeReceiver(
     private val connectivityService: ConnectivityService,
 ) : BroadcastReceiver() {
 
-    @OptIn(DelicateCoroutinesApi::class)
+    private val scope = CoroutineScope(Dispatchers.IO)
+
     override fun onReceive(context: Context, intent: Intent?) {
-        GlobalScope.launch(Dispatchers.IO) {
+        scope.launch {
             val isNetworkAndServerAvailable = connectivityService.isNetworkAndServerAvailable()
 
             launch(Dispatchers.Main) {
