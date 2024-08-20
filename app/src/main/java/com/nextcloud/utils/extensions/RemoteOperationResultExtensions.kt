@@ -15,18 +15,18 @@ import com.owncloud.android.utils.FileStorageUtils
 
 fun RemoteOperationResult<*>?.getConflictedRemoteIdsWithOfflineOperations(
     offlineOperations: List<OfflineOperationEntity>
-): Pair<ArrayList<String>, ArrayList<String?>>? {
+): HashMap<String, String?>? {
     val newFiles = toOCFile() ?: return null
 
-    val (remoteIds, offlineOperationsPaths) = newFiles
+    val conflictedMap = newFiles
         .flatMap { file ->
             offlineOperations
                 .filter { it.filename == file.fileName }
                 .map { file.remoteId to it.path }
         }
-        .unzip()
+        .toMap(HashMap())
 
-    return ArrayList(remoteIds) to ArrayList(offlineOperationsPaths)
+    return conflictedMap.ifEmpty { null }
 }
 
 @Suppress("Deprecation")

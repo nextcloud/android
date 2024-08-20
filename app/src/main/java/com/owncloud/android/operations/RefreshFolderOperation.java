@@ -264,8 +264,8 @@ public class RefreshFolderOperation extends RemoteOperation {
 
         var offlineOperations = mStorageManager.offlineOperationDao.getAll();
         var conflictData = RemoteOperationResultExtensionsKt.getConflictedRemoteIdsWithOfflineOperations(result, offlineOperations);
-        if (conflictData != null && !conflictData.getFirst().isEmpty() && !conflictData.getSecond().isEmpty()) {
-            sendFolderSyncConflictEventBroadcast(conflictData.getFirst(), conflictData.getSecond());
+        if (conflictData != null && !conflictData.isEmpty()) {
+            sendFolderSyncConflictEventBroadcast(conflictData);
         }
 
         if (!mSyncFullAccount && mRemoteFolderChanged) {
@@ -287,10 +287,9 @@ public class RefreshFolderOperation extends RemoteOperation {
         return result;
     }
 
-    private void sendFolderSyncConflictEventBroadcast(ArrayList<String> newFiles, ArrayList<String> offlineOperationPaths) {
+    private void sendFolderSyncConflictEventBroadcast(HashMap<String, String> conflictData) {
         Intent intent = new Intent(FileDisplayActivity.FOLDER_SYNC_CONFLICT);
-        intent.putStringArrayListExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_NEW_FILES, newFiles);
-        intent.putStringArrayListExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS, offlineOperationPaths);
+        intent.putExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS, conflictData);
         LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
     }
 

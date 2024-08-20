@@ -13,6 +13,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsNotificationManager
+import com.nextcloud.utils.extensions.getSerializableArgument
 import com.owncloud.android.ui.activity.FileDisplayActivity
 
 class OfflineFolderConflictManager(private val activity: FileDisplayActivity) {
@@ -27,23 +28,25 @@ class OfflineFolderConflictManager(private val activity: FileDisplayActivity) {
     private val folderSyncConflictEventReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {
             intent.run {
-                val remoteIds = getStringArrayListExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_NEW_FILES)
-                val offlineOperationsPaths =
-                    getStringArrayListExtra(FileDisplayActivity.FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS)
+                @Suppress("UNCHECKED_CAST")
+                val map = getSerializableArgument(
+                    FileDisplayActivity.FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS,
+                    HashMap::class.java
+                ) as? HashMap<String, String>
 
-                if (!remoteIds.isNullOrEmpty() && !offlineOperationsPaths.isNullOrEmpty()) {
-                    showFolderSyncConflictNotifications(remoteIds, offlineOperationsPaths)
+                if (!map.isNullOrEmpty()) {
+                    showFolderSyncConflictNotifications(map)
                 }
             }
         }
     }
 
-    private fun showFolderSyncConflictNotifications(remoteIds: List<String>, offlineOperationsPaths: List<String>) {
-        remoteIds.mapNotNull { activity.storageManager.getFileByRemoteId(it) }
-            .forEach { file ->
-                offlineOperationsPaths.forEach { path ->
-                    notificationManager.showConflictResolveNotification(file, path)
-                }
+    private fun showFolderSyncConflictNotifications(remoteIdsToOperationPaths: HashMap<String, String>) {
+        remoteIdsToOperationPaths.forEach { (remoteId, path) ->
+            val file = activity.storageManager.getFileByRemoteId(remoteId)
+            file?.let {
+                notificationManager.showConflictResolveNotification(file, path)
             }
+        }
     }
 }

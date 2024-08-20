@@ -173,8 +173,7 @@ public class FileDisplayActivity extends FileActivity
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
     public static final String FOLDER_SYNC_CONFLICT = "FOLDER_SYNC_CONFLICT";
-    public static final String FOLDER_SYNC_CONFLICT_NEW_FILES = "FOLDER_SYNC_CONFLICT_NEW_FILES";
-    public static final String FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS = "FOLDER_SYNC_CONFLICT_OFFLINE_OPERATION_PATHS";
+    public static final String FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS = "FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS";
 
     private FilesBinding binding;
 
