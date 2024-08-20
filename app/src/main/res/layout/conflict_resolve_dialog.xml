@@ -17,19 +17,21 @@
     android:paddingBottom="@dimen/standard_padding">
 
     <TextView
-        android:id="@+id/in"
+        android:id="@+id/folder_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/in_folder"
         android:paddingBottom="@dimen/standard_padding" />
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/choose_which_file"
         android:textStyle="bold" />
 
     <TextView
+        android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/conflict_message_description" />

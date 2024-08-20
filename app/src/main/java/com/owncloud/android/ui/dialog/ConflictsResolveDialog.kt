@@ -21,6 +21,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
+import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
@@ -34,6 +35,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGeneration
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.LocalFileListAdapter
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
@@ -50,12 +52,17 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
     private var user: User? = null
     private val asyncTasks: MutableList<ThumbnailGenerationTask> = ArrayList()
     private var positiveButton: MaterialButton? = null
+    private var offlineOperation: OfflineOperationEntity? = null
+    private var serverFile: OCFile? = null
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
     @Inject
     lateinit var syncedFolderProvider: SyncedFolderProvider
+
+    @Inject
+    lateinit var fileDataStorageManager: FileDataStorageManager
 
     enum class Decision {
         CANCEL,
@@ -102,10 +109,22 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             existingFile = savedInstanceState.getParcelableArgument(KEY_EXISTING_FILE, OCFile::class.java)
             newFile = savedInstanceState.getSerializableArgument(KEY_NEW_FILE, File::class.java)
             user = savedInstanceState.getParcelableArgument(KEY_USER, User::class.java)
+
+            val offlineOperationPath = savedInstanceState.getString(KEY_OFFLINE_OPERATION_PATH) ?: return
+            offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(offlineOperationPath)
+
+            val serverFileRemoteId = savedInstanceState.getString(KEY_OFFLINE_SERVER_FILE_REMOTE_ID) ?: return
+            serverFile = fileDataStorageManager.getFileByRemoteId(serverFileRemoteId)
         } else if (arguments != null) {
             existingFile = arguments.getParcelableArgument(KEY_EXISTING_FILE, OCFile::class.java)
             newFile = arguments.getSerializableArgument(KEY_NEW_FILE, File::class.java)
             user = arguments.getParcelableArgument(KEY_USER, User::class.java)
+
+            val offlineOperationPath = arguments?.getString(KEY_OFFLINE_OPERATION_PATH) ?: return
+            offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(offlineOperationPath)
+
+            val serverFileRemoteId = arguments?.getString(KEY_OFFLINE_SERVER_FILE_REMOTE_ID) ?: return
+            serverFile = fileDataStorageManager.getFileByRemoteId(serverFileRemoteId)
         } else {
             Toast.makeText(context, "Failed to create conflict dialog", Toast.LENGTH_LONG).show()
         }
@@ -113,11 +132,15 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+
         existingFile.logFileSize(TAG)
         newFile.logFileSize(TAG)
-        outState.putParcelable(KEY_EXISTING_FILE, existingFile)
-        outState.putSerializable(KEY_NEW_FILE, newFile)
-        outState.putParcelable(KEY_USER, user)
+
+        outState.run {
+            putParcelable(KEY_EXISTING_FILE, existingFile)
+            putSerializable(KEY_NEW_FILE, newFile)
+            putParcelable(KEY_USER, user)
+        }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -126,8 +149,8 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         viewThemeUtils.platform.themeCheckbox(binding.newCheckbox)
         viewThemeUtils.platform.themeCheckbox(binding.existingCheckbox)
 
-        val builder = MaterialAlertDialogBuilder(requireActivity())
-        builder.setView(binding.root)
+        val builder = MaterialAlertDialogBuilder(requireContext())
+            .setView(binding.root)
             .setPositiveButton(R.string.common_ok) { _: DialogInterface?, _: Int ->
                 if (binding.newCheckbox.isChecked && binding.existingCheckbox.isChecked) {
                     listener?.conflictDecisionMade(Decision.KEEP_BOTH)
@@ -140,9 +163,15 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             .setNegativeButton(R.string.common_cancel) { _: DialogInterface?, _: Int ->
                 listener?.conflictDecisionMade(Decision.CANCEL)
             }
-            .setTitle(String.format(getString(R.string.conflict_file_headline), existingFile?.fileName))
 
-        setupUI()
+        if (existingFile != null && newFile != null) {
+            builder.setTitle(String.format(getString(R.string.conflict_file_headline), existingFile?.fileName))
+            setupUI()
+        } else if (offlineOperation != null && serverFile != null) {
+            builder.setTitle(getString(R.string.conflict_folder_headline))
+            setupUIForFolderConflict()
+        }
+
         setOnClickListeners()
 
         viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.existingFileContainer.context, builder)
@@ -150,18 +179,39 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         return builder.create()
     }
 
+    private fun setupUIForFolderConflict() {
+        binding.run {
+            folderName.visibility = View.GONE
+            title.visibility = View.GONE
+            description.text = getString(R.string.conflict_message_description_for_folder)
+            newCheckbox.text = getString(R.string.prefs_synced_folders_local_path_title)
+            existingCheckbox.text = getString(R.string.prefs_synced_folders_remote_path_title)
+
+            val folderIcon = MimeTypeUtil.getDefaultFolderIcon(requireContext(), viewThemeUtils)
+            newThumbnail.setImageDrawable(folderIcon)
+            newTimestamp.text =
+                DisplayUtils.getRelativeTimestamp(requireContext(), offlineOperation?.createdAt?.times(1000L) ?: 0)
+            newSize.text = DisplayUtils.bytesToHumanReadable(0)
+
+            existingThumbnail.setImageDrawable(folderIcon)
+            existingTimestamp.text =
+                DisplayUtils.getRelativeTimestamp(requireContext(), serverFile?.modificationTimestamp ?: 0)
+            existingSize.text = DisplayUtils.bytesToHumanReadable(serverFile?.fileLength ?: 0)
+        }
+    }
+
     private fun setupUI() {
         val parentFile = existingFile?.remotePath?.let { File(it).parentFile }
         if (parentFile != null) {
-            binding.`in`.text = String.format(getString(R.string.in_folder), parentFile.absolutePath)
+            binding.folderName.text = String.format(getString(R.string.in_folder), parentFile.absolutePath)
         } else {
-            binding.`in`.visibility = View.GONE
+            binding.folderName.visibility = View.GONE
         }
 
         // set info for new file
         binding.newSize.text = newFile?.length()?.let { DisplayUtils.bytesToHumanReadable(it) }
         binding.newTimestamp.text = newFile?.lastModified()?.let { DisplayUtils.getRelativeTimestamp(context, it) }
-        binding.newThumbnail.tag = newFile.hashCode()
+        binding.newThumbnail.tag = newFile?.hashCode()
         LocalFileListAdapter.setThumbnail(
             newFile,
             binding.newThumbnail,
@@ -251,6 +301,9 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         private const val KEY_EXISTING_FILE = "ocfile"
         private const val KEY_USER = "user"
 
+        private const val KEY_OFFLINE_SERVER_FILE_REMOTE_ID = "KEY_OFFLINE_SERVER_FILE_REMOTE_ID"
+        private const val KEY_OFFLINE_OPERATION_PATH = "KEY_OFFLINE_OPERATION_PATH"
+
         @JvmStatic
         fun newInstance(existingFile: OCFile?, newFile: OCFile, user: User?): ConflictsResolveDialog {
             val file = File(newFile.storagePath)
@@ -259,6 +312,19 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             val bundle = Bundle().apply {
                 putParcelable(KEY_EXISTING_FILE, existingFile)
                 putSerializable(KEY_NEW_FILE, file)
+                putParcelable(KEY_USER, user)
+            }
+
+            return ConflictsResolveDialog().apply {
+                arguments = bundle
+            }
+        }
+
+        @JvmStatic
+        fun newInstance(ocFile: OCFile, user: User, operationPath: String): ConflictsResolveDialog {
+            val bundle = Bundle().apply {
+                putString(KEY_OFFLINE_SERVER_FILE_REMOTE_ID, ocFile.remoteId)
+                putString(KEY_OFFLINE_OPERATION_PATH, operationPath)
                 putParcelable(KEY_USER, user)
             }
 

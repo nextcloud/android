@@ -13,6 +13,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
@@ -34,6 +36,8 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
 import com.owncloud.android.utils.FileStorageUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -187,14 +191,27 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             return
         }
 
+        offlineOperationPath?.let { path ->
+            newFile?.let { ocFile ->
+                val (ft, user) = prepareDialog()
+                val dialog = ConflictsResolveDialog.newInstance(
+                    ocFile,
+                    user,
+                    path
+                )
+                dialog.show(ft, "conflictDialog")
+                return
+            }
+        }
+
         if (existingFile == null) {
             val remotePath = fileStorageManager.retrieveRemotePathConsideringEncryption(newFile) ?: return
             val operation = ReadFileRemoteOperation(remotePath)
 
             @Suppress("TooGenericExceptionCaught")
-            Thread {
+            lifecycleScope.launch(Dispatchers.IO) {
                 try {
-                    val result = operation.execute(account, this)
+                    val result = operation.execute(account, this@ConflictsResolveActivity)
                     if (result.isSuccess) {
                         existingFile = FileStorageUtils.fillOCFile(result.data[0] as RemoteFile)
                         existingFile?.lastSyncDateForProperties = System.currentTimeMillis()
@@ -207,14 +224,14 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                     Log_OC.e(TAG, "Error when trying to fetch remote file", e)
                     showErrorAndFinish()
                 }
-            }.start()
+            }
         } else {
             val remotePath = fileStorageManager.retrieveRemotePathConsideringEncryption(existingFile) ?: return
             startDialog(remotePath)
         }
     }
 
-    private fun startDialog(remotePath: String) {
+    private fun prepareDialog(): Pair<FragmentTransaction, User> {
         val userOptional = user
         if (!userOptional.isPresent) {
             Log_OC.e(TAG, "User not present")
@@ -227,13 +244,20 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         if (prev != null) {
             fragmentTransaction.remove(prev)
         }
+
+        return fragmentTransaction to user.get()
+    }
+
+    private fun startDialog(remotePath: String) {
+        val (ft, user) = prepareDialog()
+
         if (existingFile != null && storageManager.fileExists(remotePath) && newFile != null) {
             val dialog = ConflictsResolveDialog.newInstance(
                 existingFile,
                 newFile!!,
-                userOptional.get()
+                user
             )
-            dialog.show(fragmentTransaction, "conflictDialog")
+            dialog.show(ft, "conflictDialog")
         } else {
             // Account was changed to a different one - just finish
             Log_OC.e(TAG, "Account was changed, finishing")
@@ -243,8 +267,8 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
     private fun showErrorAndFinish(code: Int? = null) {
         val message = parseErrorMessage(code)
-        runOnUiThread {
-            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+        lifecycleScope.launch(Dispatchers.Main) {
+            Toast.makeText(this@ConflictsResolveActivity, message, Toast.LENGTH_LONG).show()
             finish()
         }
     }
