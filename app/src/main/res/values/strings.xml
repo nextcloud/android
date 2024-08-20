@@ -30,6 +30,7 @@
     <string name="app_config_base_url_title">Base Url</string>
     <string name="app_config_proxy_host_title">Proxy Host Name</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
+    <string name="offline_operations_worker_notification_conflict_text">Conflict Folder: %s</string>
     <string name="offline_operations_worker_notification_start_text">Starting Offline Operations</string>
     <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Offline Operations</string>

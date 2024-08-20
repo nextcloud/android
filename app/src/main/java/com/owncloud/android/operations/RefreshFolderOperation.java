@@ -262,11 +262,7 @@ public class RefreshFolderOperation extends RemoteOperation {
             mStorageManager.saveFile(mLocalFolder);
         }
 
-        var offlineOperations = mStorageManager.offlineOperationDao.getAll();
-        var conflictData = RemoteOperationResultExtensionsKt.getConflictedRemoteIdsWithOfflineOperations(result, offlineOperations);
-        if (conflictData != null && !conflictData.isEmpty()) {
-            sendFolderSyncConflictEventBroadcast(conflictData);
-        }
+        checkFolderConflictData(result);
 
         if (!mSyncFullAccount && mRemoteFolderChanged) {
             sendLocalBroadcast(
@@ -285,6 +281,17 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
         return result;
+    }
+
+    private static HashMap<String, String> lastConflictData = new HashMap<>();
+
+    private void checkFolderConflictData(RemoteOperationResult result) {
+        var offlineOperations = mStorageManager.offlineOperationDao.getAll();
+        var conflictData = RemoteOperationResultExtensionsKt.getConflictedRemoteIdsWithOfflineOperations(result, offlineOperations);
+        if (conflictData != null && !conflictData.isEmpty() && !conflictData.equals(lastConflictData)) {
+            lastConflictData = new HashMap<>(conflictData);
+            sendFolderSyncConflictEventBroadcast(conflictData);
+        }
     }
 
     private void sendFolderSyncConflictEventBroadcast(HashMap<String, String> conflictData) {

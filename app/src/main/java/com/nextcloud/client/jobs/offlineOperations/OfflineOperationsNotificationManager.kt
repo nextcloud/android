@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs.offlineOperations
 
 import android.app.PendingIntent
 import android.content.Context
+import androidx.core.app.NotificationCompat
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -17,8 +18,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import java.security.SecureRandom
-import kotlin.random.Random
 
 class OfflineOperationsNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
     WorkerNotificationManager(
@@ -78,24 +77,35 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
     }
 
     fun showConflictResolveNotification(file: OCFile, path: String) {
+        val notificationId = file.fileId.toInt()
         val intent = ConflictsResolveActivity.createIntent(file, path, context)
 
         val pendingIntent = PendingIntent.getActivity(
             context,
-            SecureRandom().nextInt(),
+            notificationId,
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
 
-        notificationBuilder.run {
-            setContentTitle(file.fileName)
-            setContentIntent(pendingIntent).addAction(R.drawable.ic_cloud_upload,
-                context.getString(R.string.upload_list_resolve_conflict),
-                pendingIntent)
-        }
+        val action = NotificationCompat.Action(
+            R.drawable.ic_cloud_upload,
+            context.getString(R.string.upload_list_resolve_conflict),
+            pendingIntent
+        )
+
+        val title = context.getString(
+            R.string.offline_operations_worker_notification_conflict_text,
+            file.fileName
+        )
+
+        notificationBuilder
+            .clearActions()
+            .setContentTitle(title)
+            .setContentIntent(pendingIntent)
+            .addAction(action)
 
         notificationManager.notify(
-            Random.nextInt(),
+            notificationId,
             notificationBuilder.build()
         )
     }
