@@ -311,7 +311,9 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
 
                 if (result.resultData != null) {
                     result.resultData!!
-                } else ""
+                } else {
+                    ""
+                }
             } catch (e: CreationException) {
                 Log_OC.e(TAG, "Error creating file from template!", e)
                 ""

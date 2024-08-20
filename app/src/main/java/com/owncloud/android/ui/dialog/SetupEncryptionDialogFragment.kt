@@ -287,7 +287,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             }
 
             val publicKeyFromServer = publicKeyResult.resultData
-            
+
             if (publicKeyFromServer == null) {
                 Log_OC.d(TAG, "Public key download failed!")
                 keyResult = KEY_FAILED
