@@ -121,7 +121,8 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 offlineOperation?.let { entity ->
                     when(decision) {
                         Decision.KEEP_OFFLINE_FOLDER -> {
-
+                            fileOperationsHelper?.removeFiles(listOf(serverFile), false, false)
+                            backgroundJobManager.startOfflineOperations()
                         }
 
                         Decision.KEEP_SERVER_FOLDER -> {
