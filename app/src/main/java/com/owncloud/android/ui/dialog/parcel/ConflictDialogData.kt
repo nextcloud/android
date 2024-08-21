@@ -9,6 +9,7 @@ package com.owncloud.android.ui.dialog.parcel
 
 import android.os.Parcel
 import android.os.Parcelable
+import com.nextcloud.utils.extensions.readParcelableCompat
 
 data class ConflictDialogData(
     val folderName: String?,
@@ -64,14 +65,5 @@ data class ConflictFileData(
     companion object CREATOR : Parcelable.Creator<ConflictFileData> {
         override fun createFromParcel(parcel: Parcel): ConflictFileData = ConflictFileData(parcel)
         override fun newArray(size: Int): Array<ConflictFileData?> = arrayOfNulls(size)
-    }
-}
-
-inline fun <reified T : Parcelable> Parcel.readParcelableCompat(classLoader: ClassLoader?): T? {
-    return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
-        readParcelable(classLoader, T::class.java)
-    } else {
-        @Suppress("DEPRECATION")
-        readParcelable(classLoader)
     }
 }

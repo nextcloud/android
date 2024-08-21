@@ -106,16 +106,13 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (savedInstanceState != null) {
-            data = savedInstanceState.getParcelableArgument(CONFLICT_DATA, ConflictDialogData::class.java)
-            leftDataFile = savedInstanceState.getSerializableArgument(LEFT_FILE, File::class.java)
-            rightDataFile = savedInstanceState.getParcelableArgument(RIGHT_FILE, OCFile::class.java)
-            user = savedInstanceState.getParcelableArgument(USER, User::class.java)
-        } else if (arguments != null) {
-            data = arguments.getParcelableArgument(CONFLICT_DATA, ConflictDialogData::class.java)
-            leftDataFile = arguments.getSerializableArgument(LEFT_FILE, File::class.java)
-            rightDataFile = arguments.getParcelableArgument(RIGHT_FILE, OCFile::class.java)
-            user = arguments.getParcelableArgument(USER, User::class.java)
+        val bundle = savedInstanceState ?: arguments
+
+        if (bundle != null) {
+            data = bundle.getParcelableArgument(ARG_CONFLICT_DATA, ConflictDialogData::class.java)
+            leftDataFile = bundle.getSerializableArgument(ARG_LEFT_FILE, File::class.java)
+            rightDataFile = bundle.getParcelableArgument(ARG_RIGHT_FILE, OCFile::class.java)
+            user = bundle.getParcelableArgument(ARG_USER, User::class.java)
         } else {
             Toast.makeText(context, "Failed to create conflict dialog", Toast.LENGTH_LONG).show()
         }
@@ -124,45 +121,57 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.run {
-            putParcelable(CONFLICT_DATA, data)
+            putParcelable(ARG_CONFLICT_DATA, data)
         }
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = ConflictResolveDialogBinding.inflate(requireActivity().layoutInflater)
 
-        viewThemeUtils.platform.themeCheckbox(binding.leftCheckbox)
-        viewThemeUtils.platform.themeCheckbox(binding.rightCheckbox)
+        val builder = createDialogBuilder()
 
-        val builder = MaterialAlertDialogBuilder(requireContext())
+        setupUI()
+        setOnClickListeners()
+
+        viewThemeUtils.run {
+            platform.themeCheckbox(binding.leftCheckbox)
+            platform.themeCheckbox(binding.rightCheckbox)
+            dialog.colorMaterialAlertDialogBackground(requireContext(), builder)
+        }
+
+        return builder.create()
+    }
+
+    private fun createDialogBuilder(): MaterialAlertDialogBuilder {
+        return MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
             .setPositiveButton(R.string.common_ok) { _: DialogInterface?, _: Int ->
-                val decision = when {
-                    binding.leftCheckbox.isChecked && binding.rightCheckbox.isChecked ->
-                        if (data?.folderName == null) Decision.KEEP_BOTH_FOLDER else Decision.KEEP_BOTH
-
-                    binding.leftCheckbox.isChecked ->
-                        if (data?.folderName == null) Decision.KEEP_OFFLINE_FOLDER else Decision.KEEP_LOCAL
-
-                    binding.rightCheckbox.isChecked ->
-                        if (data?.folderName == null) Decision.KEEP_SERVER_FOLDER else Decision.KEEP_SERVER
-
-                    else -> null
-                }
-
-                decision?.let { listener?.conflictDecisionMade(it) }
+                okButtonClick()
             }
             .setNegativeButton(R.string.common_cancel) { _: DialogInterface?, _: Int ->
                 listener?.conflictDecisionMade(Decision.CANCEL)
             }
             .setTitle(data?.folderName)
+    }
 
-        setupUI()
-        setOnClickListeners()
+    private fun okButtonClick() {
+        binding.run {
+            val isFolderNameNotExists = (data?.folderName == null)
+            val decision = when {
+                leftCheckbox.isChecked && rightCheckbox.isChecked ->
+                    if (isFolderNameNotExists) Decision.KEEP_BOTH_FOLDER else Decision.KEEP_BOTH
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.rightFileContainer.context, builder)
+                leftCheckbox.isChecked ->
+                    if (isFolderNameNotExists) Decision.KEEP_OFFLINE_FOLDER else Decision.KEEP_LOCAL
 
-        return builder.create()
+                rightCheckbox.isChecked ->
+                    if (isFolderNameNotExists) Decision.KEEP_SERVER_FOLDER else Decision.KEEP_SERVER
+
+                else -> null
+            }
+
+            decision?.let { listener?.conflictDecisionMade(it) }
+        }
     }
 
     private fun setupUI() {
@@ -284,25 +293,26 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
     }
 
     companion object {
-        private const val CONFLICT_DATA = "CONFLICT_DATA"
-        private const val LEFT_FILE = "KEY_LEFT_FILE"
-        private const val RIGHT_FILE = "KEY_RIGHT_FILE"
-        private const val USER = "user"
+        private const val ARG_CONFLICT_DATA = "CONFLICT_DATA"
+        private const val ARG_LEFT_FILE = "LEFT_FILE"
+        private const val ARG_RIGHT_FILE = "RIGHT_FILE"
+        private const val ARG_USER = "USER"
 
         @JvmStatic
         fun newInstance(
             context: Context,
             leftFile: OCFile,
-            rightFile: OCFile?,
+            rightFile: OCFile,
             user: User?
         ): ConflictsResolveDialog {
             val file = File(leftFile.storagePath)
+            val conflictData = getFileConflictData(file, rightFile, context)
 
             val bundle = Bundle().apply {
-                putParcelable(CONFLICT_DATA, getConflictDataForFileConflict(file, rightFile, context))
-                putSerializable(LEFT_FILE, file)
-                putParcelable(RIGHT_FILE, rightFile)
-                putParcelable(USER, user)
+                putParcelable(ARG_CONFLICT_DATA, conflictData)
+                putSerializable(ARG_LEFT_FILE, file)
+                putParcelable(ARG_RIGHT_FILE, rightFile)
+                putParcelable(ARG_USER, user)
             }
 
             return ConflictsResolveDialog().apply {
@@ -314,13 +324,13 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         fun newInstance(
             context: Context,
             offlineOperation: OfflineOperationEntity,
-            rightFile: OCFile?,
+            rightFile: OCFile,
         ): ConflictsResolveDialog {
-            val conflictData = getConflictDataForFolderConflict(offlineOperation, rightFile, context)
+            val conflictData = getFolderConflictData(offlineOperation, rightFile, context)
 
             val bundle = Bundle().apply {
-                putParcelable(CONFLICT_DATA, conflictData)
-                putParcelable(RIGHT_FILE, rightFile)
+                putParcelable(ARG_CONFLICT_DATA, conflictData)
+                putParcelable(ARG_RIGHT_FILE, rightFile)
             }
 
             return ConflictsResolveDialog().apply {
@@ -329,9 +339,9 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         }
 
         @JvmStatic
-        fun getConflictDataForFolderConflict(
+        private fun getFolderConflictData(
             offlineOperation: OfflineOperationEntity,
-            rightFile: OCFile?,
+            rightFile: OCFile,
             context: Context
         ): ConflictDialogData {
             val folderName = null
@@ -343,8 +353,8 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             val leftCheckBoxData = ConflictFileData(leftTitle, leftTimestamp.toString(), leftFileSize)
 
             val rightTitle = context.getString(R.string.prefs_synced_folders_remote_path_title)
-            val rightTimestamp = DisplayUtils.getRelativeTimestamp(context, rightFile?.modificationTimestamp ?: 0)
-            val rightFileSize = DisplayUtils.bytesToHumanReadable(rightFile?.fileLength ?: 0)
+            val rightTimestamp = DisplayUtils.getRelativeTimestamp(context, rightFile.modificationTimestamp)
+            val rightFileSize = DisplayUtils.bytesToHumanReadable(rightFile.fileLength)
             val rightCheckBoxData = ConflictFileData(rightTitle, rightTimestamp.toString(), rightFileSize)
 
             val title = context.getString(R.string.conflict_folder_headline)
@@ -353,12 +363,12 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         }
 
         @JvmStatic
-        fun getConflictDataForFileConflict(
+        private fun getFileConflictData(
             file: File,
-            rightFile: OCFile?,
+            rightFile: OCFile,
             context: Context
         ): ConflictDialogData {
-            val parentFile = rightFile?.remotePath?.let { File(it).parentFile }
+            val parentFile = File(rightFile.remotePath).parentFile
             val folderName = if (parentFile != null) {
                 String.format(context.getString(R.string.in_folder), parentFile.absolutePath)
             } else {
@@ -371,8 +381,8 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             val leftCheckBoxData = ConflictFileData(leftTitle, leftTimestamp.toString(), leftFileSize)
 
             val rightTitle = context.getString(R.string.conflict_server_file)
-            val rightTimestamp = DisplayUtils.getRelativeTimestamp(context, rightFile?.modificationTimestamp ?: 0)
-            val rightFileSize = DisplayUtils.bytesToHumanReadable(rightFile?.fileLength ?: 0)
+            val rightTimestamp = DisplayUtils.getRelativeTimestamp(context, rightFile.modificationTimestamp)
+            val rightFileSize = DisplayUtils.bytesToHumanReadable(rightFile.fileLength)
             val rightCheckBoxData = ConflictFileData(rightTitle, rightTimestamp.toString(), rightFileSize)
 
             val title = context.getString(R.string.choose_which_file)

@@ -9,6 +9,7 @@
  */
 package com.owncloud.android.ui.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -114,33 +115,29 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     }
 
     private fun handleFolderConflict(decision: Decision) {
-        offlineOperationPath?.let { path ->
-            newFile?.let { serverFile ->
-                val offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(path)
+        val path = offlineOperationPath ?: return
+        val serverFile = newFile ?: return
+        val offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(path) ?: return
 
-                offlineOperation?.let { entity ->
-                    when(decision) {
-                        Decision.KEEP_OFFLINE_FOLDER -> {
-                            fileOperationsHelper?.removeFiles(listOf(serverFile), false, false)
-                            backgroundJobManager.startOfflineOperations()
-                        }
-
-                        Decision.KEEP_SERVER_FOLDER -> {
-                            fileDataStorageManager.offlineOperationDao.deleteByPath(path)
-                        }
-
-                        Decision.KEEP_BOTH_FOLDER -> {
-                            fileDataStorageManager.keepOfflineOperationAndServerFile(entity)
-                            backgroundJobManager.startOfflineOperations()
-                        }
-
-                        else -> Unit
-                    }
-
-                    offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
-                }
+        when(decision) {
+            Decision.KEEP_OFFLINE_FOLDER -> {
+                fileOperationsHelper?.removeFiles(listOf(serverFile), false, false)
+                backgroundJobManager.startOfflineOperations()
             }
+
+            Decision.KEEP_SERVER_FOLDER -> {
+                fileDataStorageManager.offlineOperationDao.deleteByPath(path)
+            }
+
+            Decision.KEEP_BOTH_FOLDER -> {
+                fileDataStorageManager.keepOfflineOperationAndServerFile(offlineOperation)
+                backgroundJobManager.startOfflineOperations()
+            }
+
+            else -> Unit
         }
+
+        offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
     }
 
     private fun keepLocal(file: OCFile?, upload: OCUpload?, user: User) {
@@ -230,7 +227,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                     return
                 }
 
-                val (ft, user) = prepareDialog()
+                val (ft, _) = prepareDialog()
                 val dialog = ConflictsResolveDialog.newInstance(
                     this,
                     offlineOperation,
@@ -268,6 +265,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         }
     }
 
+    @SuppressLint("CommitTransaction")
     private fun prepareDialog(): Pair<FragmentTransaction, User> {
         val userOptional = user
         if (!userOptional.isPresent) {
@@ -292,7 +290,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             val dialog = ConflictsResolveDialog.newInstance(
                 this,
                 newFile!!,
-                existingFile,
+                existingFile!!,
                 user
             )
             dialog.show(ft, "conflictDialog")
