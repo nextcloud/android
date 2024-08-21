@@ -1030,6 +1030,7 @@
     <string name="sync_not_enough_space_dialog_title">Not enough space</string>
     <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_folder_headline">Folder Conflict</string>
+    <string name="conflict_resolver_activity_keep_offline_folder_error_message">Error occurred during deleting the remote file</string>
     <string name="conflict_message_description_for_folder">If you select both versions, the local folder will have a number appended to its name.</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_local_file">Local file</string>

@@ -17,8 +17,10 @@ import android.widget.Toast
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
+import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsNotificationManager
+import com.nextcloud.client.jobs.operation.FileOperationHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadNotificationManager
@@ -36,6 +38,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -47,6 +50,9 @@ import javax.inject.Inject
 class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener {
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
+
+    @Inject
+    lateinit var fileOperationHelper: FileOperationHelper
 
     private var conflictUploadId: Long = 0
     private var offlineOperationPath: String? = null
@@ -97,15 +103,19 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             // version
             val user = user.orElseThrow { RuntimeException() }
 
+            val offlineOperation = if (offlineOperationPath != null) {
+                fileDataStorageManager.offlineOperationDao.getByPath(offlineOperationPath!!)
+            } else {
+                null
+            }
+
             when (decision) {
                 Decision.KEEP_LOCAL -> keepLocal(file, upload, user)
                 Decision.KEEP_BOTH -> keepBoth(file, upload, user)
                 Decision.KEEP_SERVER -> keepServer(file, upload)
-
-                Decision.KEEP_OFFLINE_FOLDER,
-                Decision.KEEP_SERVER_FOLDER,
-                Decision.KEEP_BOTH_FOLDER -> handleFolderConflict(decision)
-
+                Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(newFile, offlineOperation)
+                Decision.KEEP_SERVER_FOLDER -> keepServerFile(offlineOperation)
+                Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation)
                 Decision.CANCEL -> Unit
                 else -> Unit
             }
@@ -114,30 +124,37 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         }
     }
 
-    private fun handleFolderConflict(decision: Decision) {
-        val path = offlineOperationPath ?: return
-        val serverFile = newFile ?: return
-        val offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(path) ?: return
-
-        when(decision) {
-            Decision.KEEP_OFFLINE_FOLDER -> {
-                fileOperationsHelper?.removeFiles(listOf(serverFile), false, false)
-                backgroundJobManager.startOfflineOperations()
-            }
-
-            Decision.KEEP_SERVER_FOLDER -> {
-                fileDataStorageManager.offlineOperationDao.deleteByPath(path)
-            }
-
-            Decision.KEEP_BOTH_FOLDER -> {
-                fileDataStorageManager.keepOfflineOperationAndServerFile(offlineOperation)
-                backgroundJobManager.startOfflineOperations()
-            }
-
-            else -> Unit
-        }
-
+    private fun keepBothFolder(offlineOperation: OfflineOperationEntity?) {
+        offlineOperation ?: return
+        fileDataStorageManager.keepOfflineOperationAndServerFile(offlineOperation)
+        backgroundJobManager.startOfflineOperations()
         offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
+    }
+
+    private fun keepServerFile(offlineOperation: OfflineOperationEntity?) {
+        val path = offlineOperation?.path ?: return
+        fileDataStorageManager.offlineOperationDao.deleteByPath(path)
+
+        val id = offlineOperation.id ?: return
+        offlineOperationNotificationManager.dismissNotification(id)
+    }
+
+    private fun keepOfflineFolder(serverFile: OCFile?, offlineOperation: OfflineOperationEntity?) {
+        serverFile ?: return
+        offlineOperation ?: return
+
+        lifecycleScope.launch {
+            val success = fileOperationHelper.removeFile(serverFile, false, false)
+            if (success) {
+                backgroundJobManager.startOfflineOperations()
+                offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
+            } else {
+                DisplayUtils.showSnackMessage(
+                    this@ConflictsResolveActivity,
+                    R.string.conflict_resolver_activity_keep_offline_folder_error_message
+                )
+            }
+        }
     }
 
     private fun keepLocal(file: OCFile?, upload: OCUpload?, user: User) {
