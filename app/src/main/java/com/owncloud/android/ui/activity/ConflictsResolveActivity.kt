@@ -125,17 +125,18 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                         }
 
                         Decision.KEEP_SERVER_FOLDER -> {
-
+                            fileDataStorageManager.offlineOperationDao.deleteByPath(path)
                         }
 
                         Decision.KEEP_BOTH_FOLDER -> {
                             fileDataStorageManager.keepOfflineOperationAndServerFile(entity)
                             backgroundJobManager.startOfflineOperations()
-                            offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
                         }
 
                         else -> Unit
                     }
+
+                    offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
                 }
             }
         }
