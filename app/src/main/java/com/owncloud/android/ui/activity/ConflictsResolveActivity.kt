@@ -223,11 +223,18 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
         offlineOperationPath?.let { path ->
             newFile?.let { ocFile ->
+                val offlineOperation = fileDataStorageManager.offlineOperationDao.getByPath(path)
+
+                if (offlineOperation == null) {
+                    showErrorAndFinish()
+                    return
+                }
+
                 val (ft, user) = prepareDialog()
                 val dialog = ConflictsResolveDialog.newInstance(
-                    ocFile,
-                    user,
-                    path
+                    this,
+                    offlineOperation,
+                    ocFile
                 )
                 dialog.show(ft, "conflictDialog")
                 return
@@ -283,8 +290,9 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
 
         if (existingFile != null && storageManager.fileExists(remotePath) && newFile != null) {
             val dialog = ConflictsResolveDialog.newInstance(
-                existingFile,
+                this,
                 newFile!!,
+                existingFile,
                 user
             )
             dialog.show(ft, "conflictDialog")

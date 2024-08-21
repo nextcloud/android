@@ -25,6 +25,7 @@
 
     <TextView
         android:id="@+id/title"
+        android:layout_marginTop="@dimen/standard_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/choose_which_file"
@@ -32,11 +33,13 @@
 
     <TextView
         android:id="@+id/description"
+        android:layout_marginTop="@dimen/standard_margin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/conflict_message_description" />
 
     <LinearLayout
+        android:layout_marginTop="@dimen/standard_margin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
