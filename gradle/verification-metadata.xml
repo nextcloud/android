@@ -106,6 +106,7 @@
          <trusted-key id="3A1AAFA9B89A1D1DDD5F3A4B98AD2E19BFF4106D">
             <trusting group="org.osmdroid" name="osmdroid-android" version="6.1.16"/>
             <trusting group="org.osmdroid" name="osmdroid-android" version="6.1.18"/>
+            <trusting group="org.osmdroid" name="osmdroid-android" version="6.1.20"/>
          </trusted-key>
          <trusted-key id="3D9CDB50E2EAB3AA068D74A188518C11ADAEFC68">
             <trusting group="pl.droidsonroids.gif" name="android-gif-drawable" version="1.2.27"/>
