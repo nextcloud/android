@@ -242,7 +242,9 @@ class NotificationWork constructor(
                 .execute(client)
             if (result.isSuccess) {
                 val notification = result.resultData
-                sendNotification(notification, account)
+                if (notification != null) {
+                    sendNotification(notification, account)
+                }
             }
         } catch (e: Exception) {
             Log_OC.e(this, "Error creating account", e)

@@ -287,17 +287,24 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             }
 
             val publicKeyFromServer = publicKeyResult.resultData
-            arbitraryDataProvider?.storeOrUpdateKeyValue(
-                user.accountName,
-                EncryptionUtils.PUBLIC_KEY,
-                publicKeyFromServer
-            )
+
+            if (publicKeyFromServer == null) {
+                Log_OC.d(TAG, "Public key download failed!")
+                keyResult = KEY_FAILED
+                return null
+            } else {
+                arbitraryDataProvider?.storeOrUpdateKeyValue(
+                    user.accountName,
+                    EncryptionUtils.PUBLIC_KEY,
+                    publicKeyFromServer
+                )
+            }
 
             val privateKeyResult = GetPrivateKeyRemoteOperation().executeNextcloudClient(user, context)
             if (privateKeyResult.isSuccess) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
-                return privateKeyResult.resultData.getKey()
+                return privateKeyResult.resultData?.getKey()
             }
 
             return null
@@ -353,7 +360,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
         @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "ReturnCount", "LongMethod")
         @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg voids: Void?): String {
+        override fun doInBackground(vararg voids: Void?): String? {
             //  - create CSR, push to server, store returned public key in database
             //  - encrypt private key, push key to server, store unencrypted private key in database
             try {
@@ -377,8 +384,8 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 val operation = SendCSRRemoteOperation(urlEncoded)
                 val result = operation.executeNextcloudClient(user, context)
 
-                if (result.isSuccess) {
-                    publicKeyString = result.resultData
+                if (result.isSuccess && result.resultData != null) {
+                    publicKeyString = result.resultData!!
                     if (!EncryptionUtils.isMatchingKeys(keyPair, publicKeyString)) {
                         EncryptionUtils.reportE2eError(arbitraryDataProvider, user)
                         throw RuntimeException("Wrong CSR returned")

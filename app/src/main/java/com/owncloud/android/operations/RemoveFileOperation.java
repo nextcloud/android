@@ -12,6 +12,7 @@ package com.owncloud.android.operations;
 import android.content.Context;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
@@ -96,7 +97,7 @@ public class RemoveFileOperation extends SyncOperation {
             } else {
                 operation = new RemoveFileRemoteOperation(fileToRemove.getRemotePath());
             }
-            result = operation.execute(client);
+            result = operation.execute(OwnCloudClientExtensionsKt.toNextcloudClient(client, context));
             if (result.isSuccess() || result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 localRemovalFailed = !(getStorageManager().removeFile(fileToRemove, true, true));
             }

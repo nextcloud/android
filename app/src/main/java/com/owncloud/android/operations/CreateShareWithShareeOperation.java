@@ -136,7 +136,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
                                                      );
                     } else {
                         RemoteOperationResult e = new RemoteOperationResult(new IllegalStateException());
-                        e.setMessage(context.getString(R.string.secure_share_not_set_up));
+                        e.message = context.getString(R.string.secure_share_not_set_up);
 
                         return e;
                     }

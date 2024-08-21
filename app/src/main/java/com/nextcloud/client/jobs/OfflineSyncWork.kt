@@ -128,14 +128,14 @@ class OfflineSyncWork constructor(
             }
             ResultCode.ETAG_CHANGED -> {
                 Log_OC.d(TAG, "$folderName: eTag changed")
-                result.data[0] as String
+                result?.data?.get(0) as String
             }
             else -> if (connectivityService.isInternetWalled) {
                 Log_OC.d(TAG, "No connectivity, skipping sync")
                 null
             } else {
                 Log_OC.d(TAG, "$folderName: eTag changed")
-                result.data[0] as String
+                result.data?.get(0) as String
             }
         }
     }

@@ -19,7 +19,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation
-import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.lib.resources.shares.GetSharesRemoteOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.events.SearchEvent
@@ -80,7 +79,7 @@ class SharedListFragment : OCFileListFragment(), Injectable {
                 }
                 null
             } else {
-                val remoteFile = fetchResult.data[0] as RemoteFile
+                val remoteFile = fetchResult.resultData
                 val file = FileStorageUtils.fillOCFile(remoteFile)
                 FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
                 val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)

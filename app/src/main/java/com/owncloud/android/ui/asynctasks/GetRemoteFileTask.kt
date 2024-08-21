@@ -13,7 +13,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
-import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.operations.RefreshFolderOperation
 import com.owncloud.android.utils.FileStorageUtils
 
@@ -30,10 +29,10 @@ class GetRemoteFileTask(
     override fun invoke(): Result {
         val result = ReadFileRemoteOperation(fileUrl).execute(client)
         if (result.isSuccess) {
-            val remoteFile = result.getData().get(0) as RemoteFile
+            val remoteFile = result.resultData
             val temp = FileStorageUtils.fillOCFile(remoteFile)
             val remoteOcFile = storageManager.saveFileWithParent(temp, context)
-            if (remoteOcFile.isFolder()) {
+            if (remoteOcFile.isFolder) {
                 // perform folder synchronization
                 val synchFolderOp: RemoteOperation<Any> = RefreshFolderOperation(
                     remoteOcFile,

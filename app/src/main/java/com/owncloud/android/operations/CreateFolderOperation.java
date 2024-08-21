@@ -15,6 +15,8 @@ import android.content.Context;
 import android.util.Pair;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -41,6 +43,7 @@ import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
+import java.util.List;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
@@ -105,7 +108,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             }
             return new RemoteOperationResult(new IllegalStateException("E2E not supported"));
         } else {
-            return normalCreate(client);
+            return normalCreate(OwnCloudClientExtensionsKt.toNextcloudClient(client, context));
         }
     }
 
@@ -473,14 +476,15 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         return encryptedFileName;
     }
 
-    private RemoteOperationResult normalCreate(OwnCloudClient client) {
+    private RemoteOperationResult normalCreate(NextcloudClient client) {
         RemoteOperationResult result = new CreateFolderRemoteOperation(remotePath, true).execute(client);
 
         if (result.isSuccess()) {
-            RemoteOperationResult remoteFolderOperationResult = new ReadFolderRemoteOperation(remotePath)
+            RemoteOperationResult<List<RemoteFile>> remoteFolderOperationResult =
+                new ReadFolderRemoteOperation(remotePath)
                 .execute(client);
 
-            createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
+            createdRemoteFolder = remoteFolderOperationResult.getResultData().get(0);
             saveFolderInDB();
         } else {
             Log_OC.e(TAG, remotePath + " hasn't been created");

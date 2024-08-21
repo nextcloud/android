@@ -18,6 +18,7 @@ import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.operations.common.SyncOperation;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Provide a list shares for a specific file.
@@ -55,16 +56,12 @@ public class GetSharesForFileOperation extends SyncOperation {
         GetSharesForFileRemoteOperation operation = new GetSharesForFileRemoteOperation(path,
                                                                                         reshares,
                                                                                         subfiles);
-        RemoteOperationResult result = operation.execute(client);
+        RemoteOperationResult<List<OCShare>> result = operation.execute(client);
 
-        if (result.isSuccess()) {
-
+        if (result.isSuccess() && result.getResultData() != null) {
             // Update DB with the response
-            Log_OC.d(TAG, "File = " + path + " Share list size  " + result.getData().size());
-            ArrayList<OCShare> shares = new ArrayList<OCShare>();
-            for (Object obj : result.getData()) {
-                shares.add((OCShare) obj);
-            }
+            Log_OC.d(TAG, "File = " + path + " Share list size  " + result.getResultData().size());
+            ArrayList<OCShare> shares = new ArrayList<>(result.getResultData());
 
             getStorageManager().saveSharesDB(shares);
 
@@ -76,5 +73,4 @@ public class GetSharesForFileOperation extends SyncOperation {
 
         return result;
     }
-
 }

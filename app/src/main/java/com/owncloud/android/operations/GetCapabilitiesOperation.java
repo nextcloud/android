@@ -10,8 +10,8 @@
  */
 package com.owncloud.android.operations;
 
+import com.nextcloud.common.NextcloudClient;
 import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.resources.status.GetCapabilitiesRemoteOperation;
 import com.owncloud.android.lib.resources.status.OCCapability;
@@ -28,7 +28,7 @@ public class GetCapabilitiesOperation extends SyncOperation {
     }
 
     @Override
-    protected RemoteOperationResult run(OwnCloudClient client) {
+    public RemoteOperationResult<OCCapability> run(NextcloudClient client) {
         final FileDataStorageManager storageManager = getStorageManager();
 
         OCCapability currentCapability = null;
@@ -36,12 +36,12 @@ public class GetCapabilitiesOperation extends SyncOperation {
             currentCapability = storageManager.getCapability(storageManager.getUser().getAccountName());
         }
 
-        RemoteOperationResult result = new GetCapabilitiesRemoteOperation(currentCapability).execute(client);
+        RemoteOperationResult<OCCapability> result = new GetCapabilitiesRemoteOperation(currentCapability)
+            .execute(client);
 
-        if (result.isSuccess()
-                && result.getData() != null && result.getData().size() > 0) {
+        if (result.isSuccess() && result.getResultData() != null) {
             // Read data from the result
-            OCCapability capability = (OCCapability) result.getData().get(0);
+            OCCapability capability = result.getResultData();
 
             // Save the capabilities into database
             storageManager.saveCapabilities(capability);

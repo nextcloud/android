@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.nextcloud.android.lib.resources.directediting.DirectEditingObtainRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -309,7 +310,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         String oldDirectEditingEtag = arbitraryDataProvider.getValue(user,
                                                                      ArbitraryDataProvider.DIRECT_EDITING_ETAG);
 
-        RemoteOperationResult result = new GetCapabilitiesOperation(mStorageManager).execute(mContext);
+        RemoteOperationResult result = new GetCapabilitiesOperation(mStorageManager).executeNextcloudClient(user,
+                                                                                                            mContext);
         if (result.isSuccess()) {
             String newDirectEditingEtag = mStorageManager.getCapability(user.getAccountName()).getDirectEditingEtag();
 
@@ -364,16 +366,16 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private RemoteOperationResult checkForChanges(OwnCloudClient client) {
         mRemoteFolderChanged = true;
-        RemoteOperationResult result;
+        RemoteOperationResult<RemoteFile> result;
         String remotePath = mLocalFolder.getRemotePath();
 
         Log_OC.d(TAG, "Checking changes in " + user.getAccountName() + remotePath);
 
         // remote request
-        result = new ReadFileRemoteOperation(remotePath).execute(client);
+        result = new ReadFileRemoteOperation(remotePath).execute(OwnCloudClientExtensionsKt.toNextcloudClient(client, mContext));
 
         if (result.isSuccess()) {
-            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+            OCFile remoteFolder = FileStorageUtils.fillOCFile(result.getResultData());
 
             if (!mIgnoreETag) {
                 // check if remote and local folder are different
@@ -410,12 +412,13 @@ public class RefreshFolderOperation extends RemoteOperation {
 
     private RemoteOperationResult fetchAndSyncRemoteFolder(OwnCloudClient client) {
         String remotePath = mLocalFolder.getRemotePath();
-        RemoteOperationResult result = new ReadFolderRemoteOperation(remotePath).execute(client);
+        RemoteOperationResult<List<RemoteFile>> result = new ReadFolderRemoteOperation(remotePath)
+            .execute(OwnCloudClientExtensionsKt.toNextcloudClient(client, mContext));
         Log_OC.d(TAG, "Refresh folder " + user.getAccountName() + remotePath);
         Log_OC.d(TAG, "Refresh folder with remote id" + mLocalFolder.getRemoteId());
 
         if (result.isSuccess()) {
-            synchronizeData(result.getData());
+            synchronizeData(result.getResultData());
             if (mConflictsFound > 0 || mFailsInKeptInSyncFound > 0) {
                 result = new RemoteOperationResult(ResultCode.SYNC_CONFLICT);
                 // should be a different result code, but will do the job
@@ -449,7 +452,7 @@ public class RefreshFolderOperation extends RemoteOperation {
      *
      * @param folderAndFiles Remote folder and children files in Folder
      */
-    private void synchronizeData(List<Object> folderAndFiles) {
+    private void synchronizeData(List<RemoteFile> folderAndFiles) {
         // get 'fresh data' from the database
         mLocalFolder = mStorageManager.getFileByPath(mLocalFolder.getRemotePath());
 
@@ -459,7 +462,7 @@ public class RefreshFolderOperation extends RemoteOperation {
         }
 
         // parse data from remote folder
-        OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) folderAndFiles.get(0));
+        OCFile remoteFolder = FileStorageUtils.fillOCFile(folderAndFiles.get(0));
         remoteFolder.setParentId(mLocalFolder.getParentId());
         remoteFolder.setFileId(mLocalFolder.getFileId());
 

@@ -16,9 +16,7 @@ import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.httpclient.methods.Utf8PostMethod;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-
-public class CreateFileFromTemplateOperation extends RemoteOperation {
+public class CreateFileFromTemplateOperation extends RemoteOperation<String> {
     private static final String TAG = CreateFileFromTemplateOperation.class.getSimpleName();
     private static final int SYNC_READ_TIMEOUT = 40000;
     private static final int SYNC_CONNECTION_TIMEOUT = 5000;
@@ -37,8 +35,8 @@ public class CreateFileFromTemplateOperation extends RemoteOperation {
         this.templateId = templateId;
     }
 
-    protected RemoteOperationResult run(OwnCloudClient client) {
-        RemoteOperationResult result;
+    protected RemoteOperationResult<String> run(OwnCloudClient client) {
+        RemoteOperationResult<String> result;
         Utf8PostMethod postMethod = null;
 
         try {
@@ -59,17 +57,14 @@ public class CreateFileFromTemplateOperation extends RemoteOperation {
                 JSONObject respJSON = new JSONObject(response);
                 String url = respJSON.getJSONObject(NODE_OCS).getJSONObject(NODE_DATA).getString("url");
 
-                ArrayList<Object> templateArray = new ArrayList<>();
-                templateArray.add(url);
-
-                result = new RemoteOperationResult(true, postMethod);
-                result.setData(templateArray);
+                result = new RemoteOperationResult<>(true, postMethod);
+                result.setResultData(url);
             } else {
-                result = new RemoteOperationResult(false, postMethod);
+                result = new RemoteOperationResult<>(false, postMethod);
                 client.exhaustResponse(postMethod.getResponseBodyAsStream());
             }
         } catch (Exception e) {
-            result = new RemoteOperationResult(e);
+            result = new RemoteOperationResult<>(e);
             Log_OC.e(TAG, "Create file from template " + templateId + " failed: " + result.getLogMessage(),
                     result.getException());
         } finally {

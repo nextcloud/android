@@ -23,6 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.utils.extensions.OwnCloudClientExtensionsKt;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -1562,10 +1563,10 @@ public class UploadFileOperation extends SyncOperation {
             path = getRemotePath();
         }
 
-        ReadFileRemoteOperation operation = new ReadFileRemoteOperation(path);
-        RemoteOperationResult result = operation.execute(client);
-        if (result.isSuccess()) {
-            updateOCFile(file, (RemoteFile) result.getData().get(0));
+        RemoteOperationResult<RemoteFile> result = new ReadFileRemoteOperation(path)
+            .execute(OwnCloudClientExtensionsKt.toNextcloudClient(client, mContext));
+        if (result.isSuccess() && result.getResultData() != null) {
+            updateOCFile(file, result.getResultData());
             file.setLastSyncDateForProperties(syncDate);
         } else {
             Log_OC.e(TAG, "Error reading properties of file after successful upload; this is gonna hurt...");

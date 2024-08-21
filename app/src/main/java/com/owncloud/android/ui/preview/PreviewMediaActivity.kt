@@ -719,7 +719,7 @@ class PreviewMediaActivity :
             return if (!result.isSuccess) {
                 null
             } else {
-                Uri.parse(result.data[0] as String)
+                Uri.parse(result.data?.get(0) as String)
             }
         }
 

@@ -38,7 +38,6 @@ import com.owncloud.android.files.FetchTemplateOperation
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation
-import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.activity.ExternalSiteWebView
 import com.owncloud.android.ui.activity.RichDocumentsEditorWebView
 import com.owncloud.android.ui.adapter.RichDocumentsTemplateAdapter
@@ -325,7 +324,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
 
         @Suppress("ReturnCount")
         @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg voids: Void?): String {
+        override fun doInBackground(vararg voids: Void?): String? {
             val result = CreateFileFromTemplateOperation(path, template.id).execute(client)
 
             if (!result.isSuccess) {
@@ -339,7 +338,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
                 return ""
             }
 
-            val temp = FileStorageUtils.fillOCFile(newFileResult.data[0] as RemoteFile)
+            val temp = FileStorageUtils.fillOCFile(newFileResult.resultData)
 
             if (chooseTemplateDialogFragmentWeakReference.get() == null) {
                 return ""
@@ -352,7 +351,7 @@ class ChooseRichDocumentsTemplateDialogFragment :
             storageManager.saveFile(temp)
             file = storageManager.getFileByPath(path)
 
-            return result.data[0].toString()
+            return result.resultData
         }
 
         @Deprecated("Deprecated in Java")
@@ -408,8 +407,8 @@ class ChooseRichDocumentsTemplateDialogFragment :
             }
 
             val templateList: MutableList<Template> = ArrayList()
-            for (`object` in result.data) {
-                templateList.add(`object` as Template)
+            for (template in result.resultData!!) {
+                templateList.add(template)
             }
 
             return templateList

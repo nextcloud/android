@@ -386,7 +386,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
 
         if (exposedFileUri == null) {
-            return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.encodePath(localPath));
+            return Uri.parse(ContentResolver.SCHEME_FILE + "://" + WebdavUtils.INSTANCE.encodePath(localPath));
         }
 
         return exposedFileUri;

@@ -35,6 +35,7 @@ import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.OCFileListItemViewHolder
+import junit.framework.TestCase.assertTrue
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -53,15 +54,15 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
     // @ScreenshotTest // todo run without real server
     @Test
     fun showShares() {
-        Assert.assertTrue(ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess)
-        Assert.assertTrue(CreateFolderRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess)
-        Assert.assertTrue(CreateFolderRemoteOperation("/shareToGroup/", true).execute(client).isSuccess)
-        Assert.assertTrue(CreateFolderRemoteOperation("/shareViaLink/", true).execute(client).isSuccess)
-        Assert.assertTrue(CreateFolderRemoteOperation("/noShare/", true).execute(client).isSuccess)
+        assertTrue(ExistenceCheckRemoteOperation("/shareToAdmin/", true).execute(client).isSuccess)
+        assertTrue(CreateFolderRemoteOperation("/shareToAdmin/", true).execute(nextcloudClient).isSuccess)
+        assertTrue(CreateFolderRemoteOperation("/shareToGroup/", true).execute(nextcloudClient).isSuccess)
+        assertTrue(CreateFolderRemoteOperation("/shareViaLink/", true).execute(nextcloudClient).isSuccess)
+        assertTrue(CreateFolderRemoteOperation("/noShare/", true).execute(nextcloudClient).isSuccess)
         // assertTrue(new CreateFolderRemoteOperation("/shareToCircle/", true).execute(client).isSuccess());
 
         // share folder to user "admin"
-        Assert.assertTrue(
+        assertTrue(
             CreateShareRemoteOperation(
                 "/shareToAdmin/",
                 ShareType.USER,
@@ -73,7 +74,7 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         )
 
         // share folder via public link
-        Assert.assertTrue(
+        assertTrue(
             CreateShareRemoteOperation(
                 "/shareViaLink/",
                 ShareType.PUBLIC_LINK,
@@ -85,7 +86,7 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         )
 
         // share folder to group
-        Assert.assertTrue(
+        assertTrue(
             CreateShareRemoteOperation(
                 "/shareToGroup/",
                 ShareType.GROUP,
