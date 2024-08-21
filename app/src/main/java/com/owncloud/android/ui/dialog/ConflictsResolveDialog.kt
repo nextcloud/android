@@ -149,20 +149,20 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         binding = ConflictResolveDialogBinding.inflate(requireActivity().layoutInflater)
 
-        viewThemeUtils.platform.themeCheckbox(binding.newCheckbox)
-        viewThemeUtils.platform.themeCheckbox(binding.existingCheckbox)
+        viewThemeUtils.platform.themeCheckbox(binding.leftCheckbox)
+        viewThemeUtils.platform.themeCheckbox(binding.rightCheckbox)
 
         val builder = MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
             .setPositiveButton(R.string.common_ok) { _: DialogInterface?, _: Int ->
                 val decision = when {
-                    binding.newCheckbox.isChecked && binding.existingCheckbox.isChecked ->
+                    binding.leftCheckbox.isChecked && binding.rightCheckbox.isChecked ->
                         if (offlineOperation != null && serverFile != null) Decision.KEEP_BOTH_FOLDER else Decision.KEEP_BOTH
 
-                    binding.newCheckbox.isChecked ->
+                    binding.leftCheckbox.isChecked ->
                         if (offlineOperation != null && serverFile != null) Decision.KEEP_OFFLINE_FOLDER else Decision.KEEP_LOCAL
 
-                    binding.existingCheckbox.isChecked ->
+                    binding.rightCheckbox.isChecked ->
                         if (offlineOperation != null && serverFile != null) Decision.KEEP_SERVER_FOLDER else Decision.KEEP_SERVER
 
                     else -> null
@@ -184,7 +184,7 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
 
         setOnClickListeners()
 
-        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.existingFileContainer.context, builder)
+        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.rightFileContainer.context, builder)
 
         return builder.create()
     }
@@ -194,19 +194,19 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             folderName.visibility = View.GONE
             title.visibility = View.GONE
             description.text = getString(R.string.conflict_message_description_for_folder)
-            newCheckbox.text = getString(R.string.prefs_synced_folders_local_path_title)
-            existingCheckbox.text = getString(R.string.prefs_synced_folders_remote_path_title)
+            leftCheckbox.text = getString(R.string.prefs_synced_folders_local_path_title)
+            rightCheckbox.text = getString(R.string.prefs_synced_folders_remote_path_title)
 
             val folderIcon = MimeTypeUtil.getDefaultFolderIcon(requireContext(), viewThemeUtils)
-            newThumbnail.setImageDrawable(folderIcon)
-            newTimestamp.text =
+            leftThumbnail.setImageDrawable(folderIcon)
+            leftTimestamp.text =
                 DisplayUtils.getRelativeTimestamp(requireContext(), offlineOperation?.createdAt?.times(1000L) ?: 0)
-            newSize.text = DisplayUtils.bytesToHumanReadable(0)
+            leftFileSize.text = DisplayUtils.bytesToHumanReadable(0)
 
-            existingThumbnail.setImageDrawable(folderIcon)
-            existingTimestamp.text =
+            rightThumbnail.setImageDrawable(folderIcon)
+            rightTimestamp.text =
                 DisplayUtils.getRelativeTimestamp(requireContext(), serverFile?.modificationTimestamp ?: 0)
-            existingSize.text = DisplayUtils.bytesToHumanReadable(serverFile?.fileLength ?: 0)
+            rightFileSize.text = DisplayUtils.bytesToHumanReadable(serverFile?.fileLength ?: 0)
         }
     }
 
@@ -219,29 +219,29 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         }
 
         // set info for new file
-        binding.newSize.text = newFile?.length()?.let { DisplayUtils.bytesToHumanReadable(it) }
-        binding.newTimestamp.text = newFile?.lastModified()?.let { DisplayUtils.getRelativeTimestamp(context, it) }
-        binding.newThumbnail.tag = newFile?.hashCode()
+        binding.leftFileSize.text = newFile?.length()?.let { DisplayUtils.bytesToHumanReadable(it) }
+        binding.leftTimestamp.text = newFile?.lastModified()?.let { DisplayUtils.getRelativeTimestamp(context, it) }
+        binding.leftThumbnail.tag = newFile?.hashCode()
         LocalFileListAdapter.setThumbnail(
             newFile,
-            binding.newThumbnail,
+            binding.leftThumbnail,
             context,
             viewThemeUtils
         )
 
         // set info for existing file
-        binding.existingSize.text = existingFile?.fileLength?.let { DisplayUtils.bytesToHumanReadable(it) }
-        binding.existingTimestamp.text = existingFile?.modificationTimestamp?.let {
+        binding.rightFileSize.text = existingFile?.fileLength?.let { DisplayUtils.bytesToHumanReadable(it) }
+        binding.rightTimestamp.text = existingFile?.modificationTimestamp?.let {
             DisplayUtils.getRelativeTimestamp(
                 context,
                 it
             )
         }
 
-        binding.existingThumbnail.tag = existingFile?.fileId
+        binding.rightThumbnail.tag = existingFile?.fileId
         DisplayUtils.setThumbnail(
             existingFile,
-            binding.existingThumbnail,
+            binding.rightThumbnail,
             user,
             FileDataStorageManager(
                 user,
@@ -260,20 +260,20 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
     private fun setOnClickListeners() {
         binding.run {
             val checkBoxClickListener = View.OnClickListener {
-                positiveButton?.isEnabled = newCheckbox.isChecked || existingCheckbox.isChecked
+                positiveButton?.isEnabled = leftCheckbox.isChecked || rightCheckbox.isChecked
             }
 
-            newCheckbox.setOnClickListener(checkBoxClickListener)
-            existingCheckbox.setOnClickListener(checkBoxClickListener)
+            leftCheckbox.setOnClickListener(checkBoxClickListener)
+            rightCheckbox.setOnClickListener(checkBoxClickListener)
 
-            newFileContainer.setOnClickListener {
-                newCheckbox.isChecked = !newCheckbox.isChecked
-                positiveButton?.isEnabled = newCheckbox.isChecked || existingCheckbox.isChecked
+            leftFileContainer.setOnClickListener {
+                leftCheckbox.isChecked = !leftCheckbox.isChecked
+                positiveButton?.isEnabled = leftCheckbox.isChecked || rightCheckbox.isChecked
             }
 
-            existingFileContainer.setOnClickListener {
-                existingCheckbox.isChecked = !existingCheckbox.isChecked
-                positiveButton?.isEnabled = newCheckbox.isChecked || existingCheckbox.isChecked
+            rightFileContainer.setOnClickListener {
+                rightCheckbox.isChecked = !rightCheckbox.isChecked
+                positiveButton?.isEnabled = leftCheckbox.isChecked || rightCheckbox.isChecked
             }
         }
     }

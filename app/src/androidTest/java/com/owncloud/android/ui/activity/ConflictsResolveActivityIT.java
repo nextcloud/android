@@ -209,7 +209,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         getInstrumentation().waitForIdleSync();
 
-        onView(withId(R.id.existing_checkbox)).perform(click());
+        onView(withId(R.id.right_checkbox)).perform(click());
 
         DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
@@ -255,7 +255,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         getInstrumentation().waitForIdleSync();
 
-        onView(withId(R.id.new_checkbox)).perform(click());
+        onView(withId(R.id.left_checkbox)).perform(click());
 
         DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
@@ -300,8 +300,8 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         getInstrumentation().waitForIdleSync();
 
-        onView(withId(R.id.existing_checkbox)).perform(click());
-        onView(withId(R.id.new_checkbox)).perform(click());
+        onView(withId(R.id.right_checkbox)).perform(click());
+        onView(withId(R.id.left_checkbox)).perform(click());
 
         DialogFragment dialog = (DialogFragment) sut.getSupportFragmentManager().findFragmentByTag("conflictDialog");
         screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());

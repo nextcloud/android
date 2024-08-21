@@ -43,20 +43,20 @@
         android:baselineAligned="false">
 
         <LinearLayout
-            android:id="@+id/newFileContainer"
+            android:id="@+id/leftFileContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/new_checkbox"
+                android:id="@+id/left_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/conflict_local_file" />
 
             <ImageView
-                android:id="@+id/new_thumbnail"
+                android:id="@+id/left_thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_margin="@dimen/standard_half_margin"
@@ -64,33 +64,33 @@
                 android:contentDescription="@string/thumbnail_for_new_file_desc" />
 
             <TextView
-                android:id="@+id/new_timestamp"
+                android:id="@+id/left_timestamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="12. Dec 2020 - 23:10:20" />
 
             <TextView
-                android:id="@+id/new_size"
+                android:id="@+id/left_file_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="5 Mb" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/existingFileContainer"
+            android:id="@+id/rightFileContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatCheckBox
-                android:id="@+id/existing_checkbox"
+                android:id="@+id/right_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/conflict_server_file" />
 
             <ImageView
-                android:id="@+id/existing_thumbnail"
+                android:id="@+id/right_thumbnail"
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:layout_margin="@dimen/standard_half_margin"
@@ -98,13 +98,13 @@
                 android:contentDescription="@string/thumbnail_for_existing_file_description" />
 
             <TextView
-                android:id="@+id/existing_timestamp"
+                android:id="@+id/right_timestamp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="10. Dec 2020 - 10:10:10" />
 
             <TextView
-                android:id="@+id/existing_size"
+                android:id="@+id/right_file_size"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 tools:text="3 Mb" />
