@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">Nenhum arquivo aqui</string>
     <string name="file_list_empty_headline_search">Nenhum resultado nesta pasta</string>
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
+    <string name="file_list_empty_local_search">Nenhum arquivo ou pasta que corresponda à sua pesquisa</string>
     <string name="file_list_empty_moving">Não há nada aqui. Você pode adicionar uma pasta.</string>
     <string name="file_list_empty_on_device">Os arquivos e pastas baixados aparecerão aqui.</string>
     <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
