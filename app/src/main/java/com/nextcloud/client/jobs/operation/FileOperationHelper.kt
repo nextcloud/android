@@ -10,6 +10,7 @@ package com.nextcloud.client.jobs.operation
 import android.content.Context
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactoryImpl
+import com.nextcloud.utils.extensions.getErrorMessage
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -32,21 +33,36 @@ class FileOperationHelper(
     private val client = clientFactory.create(user)
 
     @Suppress("TooGenericExceptionCaught", "Deprecation")
-    suspend fun removeFile(file: OCFile, onlyLocalCopy: Boolean, inBackground: Boolean): Boolean = coroutineScope {
-        try {
-            async(Dispatchers.IO) {
-                RemoveFileOperation(
-                    file,
-                    onlyLocalCopy,
-                    user,
-                    inBackground,
-                    context,
-                    fileDataStorageManager
-                )
-            }.await().execute(client).isSuccess
-        } catch (e: Exception) {
-            Log_OC.e(TAG, "Error occurred while removing file: $e")
-            false
+    suspend fun removeFile(
+        file: OCFile,
+        onlyLocalCopy: Boolean,
+        inBackground: Boolean
+    ): Boolean =
+        coroutineScope {
+            try {
+                val operation = async(Dispatchers.IO) {
+                    RemoveFileOperation(
+                        file,
+                        onlyLocalCopy,
+                        user,
+                        inBackground,
+                        context,
+                        fileDataStorageManager
+                    )
+                }
+                val operationResult = operation.await()
+                val result = operationResult.execute(client)
+
+                return@coroutineScope if (result.isSuccess) {
+                    true
+                } else {
+                    val reason = (result to operationResult).getErrorMessage()
+                    Log_OC.e(TAG, "Error occurred while removing file: $reason")
+                    false
+                }
+            } catch (e: Exception) {
+                Log_OC.e(TAG, "Error occurred while removing file: $e")
+                false
+            }
         }
-    }
 }

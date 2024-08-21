@@ -8,10 +8,20 @@
 package com.nextcloud.utils.extensions
 
 import com.nextcloud.client.database.entity.OfflineOperationEntity
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.files.model.RemoteFile
+import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileStorageUtils
+
+fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): String {
+    val result = this?.first ?: return MainApp.string(R.string.unexpected_error_occurred)
+    val operation = this.second ?: return MainApp.string(R.string.unexpected_error_occurred)
+    return ErrorMessageAdapter.getErrorCauseMessage(result, operation, MainApp.getAppContext().resources)
+}
 
 fun RemoteOperationResult<*>?.getConflictedRemoteIdsWithOfflineOperations(
     offlineOperations: List<OfflineOperationEntity>
@@ -32,7 +42,7 @@ fun RemoteOperationResult<*>?.getConflictedRemoteIdsWithOfflineOperations(
 @Suppress("Deprecation")
 fun RemoteOperationResult<*>?.toOCFile(): List<OCFile>? {
     return if (this?.isSuccess == true) {
-       data?.toOCFileList()
+        data?.toOCFileList()
     } else {
         null
     }

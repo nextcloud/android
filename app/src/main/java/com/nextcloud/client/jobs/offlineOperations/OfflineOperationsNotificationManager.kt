@@ -12,12 +12,12 @@ import android.content.Context
 import androidx.core.app.NotificationCompat
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
+import com.nextcloud.utils.extensions.getErrorMessage
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.ui.activity.ConflictsResolveActivity
-import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
 class OfflineOperationsNotificationManager(private val context: Context, viewThemeUtils: ViewThemeUtils) :
@@ -67,7 +67,7 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
     }
 
     fun showNewNotification(result: RemoteOperationResult<*>, operation: RemoteOperation<*>) {
-        val reason = ErrorMessageAdapter.getErrorCauseMessage(result, operation, context.resources)
+        val reason = (result to operation).getErrorMessage()
         val text = context.getString(R.string.offline_operations_worker_notification_error_text, reason)
 
         notificationBuilder.run {

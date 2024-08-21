@@ -38,7 +38,6 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
-import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -144,15 +143,10 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         offlineOperation ?: return
 
         lifecycleScope.launch {
-            val success = fileOperationHelper.removeFile(serverFile, false, false)
-            if (success) {
+            val isSuccess = fileOperationHelper.removeFile(serverFile, false, false)
+            if (isSuccess) {
                 backgroundJobManager.startOfflineOperations()
                 offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
-            } else {
-                DisplayUtils.showSnackMessage(
-                    this@ConflictsResolveActivity,
-                    R.string.conflict_resolver_activity_keep_offline_folder_error_message
-                )
             }
         }
     }
