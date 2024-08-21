@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsNotificationManager
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.jobs.upload.UploadNotificationManager
@@ -24,7 +25,6 @@ import com.nextcloud.model.HTTPStatusCodes
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.db.OCUpload
@@ -47,14 +47,12 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
 
-    @Inject
-    lateinit var fileStorageManager: FileDataStorageManager
-
     private var conflictUploadId: Long = 0
     private var offlineOperationPath: String? = null
     private var existingFile: OCFile? = null
     private var newFile: OCFile? = null
     private var localBehaviour = FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
+    private lateinit var offlineOperationNotificationManager: OfflineOperationsNotificationManager
 
     @JvmField
     var listener: OnConflictDecisionMadeListener? = null
@@ -72,6 +70,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         // new file was modified locally in file system
         newFile = file
         setupOnConflictDecisionMadeListener(upload)
+        offlineOperationNotificationManager = OfflineOperationsNotificationManager(this, viewThemeUtils)
     }
 
     private fun getArguments(savedInstanceState: Bundle?) {
@@ -130,7 +129,9 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                         }
 
                         Decision.KEEP_BOTH_FOLDER -> {
-
+                            fileDataStorageManager.keepOfflineOperationAndServerFile(entity)
+                            backgroundJobManager.startOfflineOperations()
+                            offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
                         }
 
                         else -> Unit
@@ -139,7 +140,6 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
             }
         }
     }
-
 
     private fun keepLocal(file: OCFile?, upload: OCUpload?, user: User) {
         upload?.let {
@@ -233,7 +233,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         }
 
         if (existingFile == null) {
-            val remotePath = fileStorageManager.retrieveRemotePathConsideringEncryption(newFile) ?: return
+            val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(newFile) ?: return
             val operation = ReadFileRemoteOperation(remotePath)
 
             @Suppress("TooGenericExceptionCaught")
@@ -254,7 +254,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 }
             }
         } else {
-            val remotePath = fileStorageManager.retrieveRemotePathConsideringEncryption(existingFile) ?: return
+            val remotePath = fileDataStorageManager.retrieveRemotePathConsideringEncryption(existingFile) ?: return
             startDialog(remotePath)
         }
     }

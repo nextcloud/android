@@ -45,7 +45,8 @@ class OfflineFolderConflictManager(private val activity: FileDisplayActivity) {
         remoteIdsToOperationPaths.forEach { (remoteId, path) ->
             val file = activity.storageManager.getFileByRemoteId(remoteId)
             file?.let {
-                notificationManager.showConflictResolveNotification(file, path)
+                val entity = activity.storageManager.offlineOperationDao.getByPath(path)
+                notificationManager.showConflictResolveNotification(file, entity)
             }
         }
     }

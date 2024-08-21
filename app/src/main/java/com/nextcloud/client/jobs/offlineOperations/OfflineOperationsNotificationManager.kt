@@ -10,6 +10,7 @@ package com.nextcloud.client.jobs.offlineOperations
 import android.app.PendingIntent
 import android.content.Context
 import androidx.core.app.NotificationCompat
+import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -76,13 +77,19 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
         }
     }
 
-    fun showConflictResolveNotification(file: OCFile, path: String) {
-        val notificationId = file.fileId.toInt()
+    fun showConflictResolveNotification(file: OCFile, entity: OfflineOperationEntity?) {
+        val path = entity?.path
+        val id = entity?.id
+
+        if (path == null || id == null) {
+            return
+        }
+
         val intent = ConflictsResolveActivity.createIntent(file, path, context)
 
         val pendingIntent = PendingIntent.getActivity(
             context,
-            notificationId,
+            id,
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
@@ -104,9 +111,11 @@ class OfflineOperationsNotificationManager(private val context: Context, viewThe
             .setContentIntent(pendingIntent)
             .addAction(action)
 
-        notificationManager.notify(
-            notificationId,
-            notificationBuilder.build()
-        )
+        notificationManager.notify(id, notificationBuilder.build())
+    }
+
+    fun dismissNotification(id: Int?) {
+        if (id == null) return
+        notificationManager.cancel(id)
     }
 }
