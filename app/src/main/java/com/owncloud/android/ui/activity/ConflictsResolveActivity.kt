@@ -142,11 +142,14 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         serverFile ?: return
         offlineOperation ?: return
 
-        lifecycleScope.launch {
+        lifecycleScope.launch(Dispatchers.IO) {
             val isSuccess = fileOperationHelper.removeFile(serverFile, false, false)
             if (isSuccess) {
                 backgroundJobManager.startOfflineOperations()
-                offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
+
+                launch(Dispatchers.Main) {
+                    offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
+                }
             }
         }
     }

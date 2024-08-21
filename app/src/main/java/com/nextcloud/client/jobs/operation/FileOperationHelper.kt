@@ -17,7 +17,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.RemoveFileOperation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
 
 class FileOperationHelper(
     private val user: User,
@@ -37,10 +37,10 @@ class FileOperationHelper(
         file: OCFile,
         onlyLocalCopy: Boolean,
         inBackground: Boolean
-    ): Boolean =
-        coroutineScope {
+    ): Boolean {
+        return withContext(Dispatchers.IO) {
             try {
-                val operation = async(Dispatchers.IO) {
+                val operation = async {
                     RemoveFileOperation(
                         file,
                         onlyLocalCopy,
@@ -53,7 +53,7 @@ class FileOperationHelper(
                 val operationResult = operation.await()
                 val result = operationResult.execute(client)
 
-                return@coroutineScope if (result.isSuccess) {
+                return@withContext if (result.isSuccess) {
                     true
                 } else {
                     val reason = (result to operationResult).getErrorMessage()
@@ -65,4 +65,5 @@ class FileOperationHelper(
                 false
             }
         }
+    }
 }
