@@ -49,7 +49,10 @@
          <trusted-key id="13AC2213964ABE1D1C147C0E1939A2520BAB1D90" group="org.freemarker" name="freemarker" version="2.3.32"/>
          <trusted-key id="147B691A19097624902F4EA9689CBE64F4BC997F" group="^org[.]mockito($|([.].*))" regex="true"/>
          <trusted-key id="14E355EDBB6500C6744DA68AB93B601F0C028D54" group="com.facebook.testing.screenshot" name="core"/>
-         <trusted-key id="1597AB231B7ADD7E14B1D9C43F00DB67AE236E2E" group="org.conscrypt" name="conscrypt-android" version="2.5.2"/>
+         <trusted-key id="1597AB231B7ADD7E14B1D9C43F00DB67AE236E2E">
+            <trusting group="org.conscrypt" name="conscrypt-android" version="2.5.2"/>
+            <trusting group="org.conscrypt" name="conscrypt-android" version="2.5.3"/>
+         </trusted-key>
          <trusted-key id="17A35729EB6B8461BA734703C7588F09D6FCDB0D" group="com.drewnoakes" name="metadata-extractor" version="2.8.1"/>
          <trusted-key id="190D5A957FF22273E601F7A7C92C5FEC70161C62" group="org.apache" name="apache"/>
          <trusted-key id="19BEAB2D799C020F17C69126B16698A4ADF4D638" group="org.checkerframework"/>
