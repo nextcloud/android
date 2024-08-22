@@ -10,6 +10,7 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -24,19 +25,23 @@ fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): Str
 }
 
 fun RemoteOperationResult<*>?.getConflictedRemoteIdsWithOfflineOperations(
-    offlineOperations: List<OfflineOperationEntity>
-): HashMap<String, String?>? {
+    offlineOperations: List<OfflineOperationEntity>,
+    fileDataStorageManager: FileDataStorageManager
+): HashMap<String, String>? {
     val newFiles = toOCFile() ?: return null
+    val result = hashMapOf<String, String>()
 
-    val conflictedMap = newFiles
-        .flatMap { file ->
-            offlineOperations
-                .filter { it.filename == file.fileName }
-                .map { file.remoteId to it.path }
+    offlineOperations.forEach { operation ->
+        newFiles.forEach { file ->
+            if (fileDataStorageManager.fileExists(operation.path) && operation.filename == file.fileName) {
+                operation.path?.let { path ->
+                    result[file.remoteId] = path
+                }
+            }
         }
-        .toMap(HashMap())
+    }
 
-    return conflictedMap.ifEmpty { null }
+    return result.ifEmpty { null }
 }
 
 @Suppress("Deprecation")

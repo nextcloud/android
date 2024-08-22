@@ -60,14 +60,13 @@ class OfflineOperationsWorker(
             return@coroutineScope Result.success()
         }
 
-        val isEmpty = fileDataStorageManager.offlineOperationDao.isEmpty()
-        if (isEmpty) {
+        val operations = fileDataStorageManager.offlineOperationDao.getAll()
+        if (operations.isEmpty()) {
             Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no offline operations were found")
             return@coroutineScope Result.success()
         }
 
         val client = clientFactory.create(user)
-        val operations = fileDataStorageManager.offlineOperationDao.getAll()
 
         notificationManager.start()
 
