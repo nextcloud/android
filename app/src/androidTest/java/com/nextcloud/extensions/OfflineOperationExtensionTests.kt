@@ -19,37 +19,6 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 class OfflineOperationExtensionTests {
-
-    /*
-      private val entity = OfflineOperationEntity(
-        1,
-        null,
-        null,
-        OfflineOperationType.CreateFolder,
-        "/Folder/Folder2/Folder3/",
-        "Folder",
-        null
-    )
-
-    @Test
-    fun testGetParentPathFromPath() {
-        assert(entity.getParentPathFromPath() == "/Folder/")
-    }
-
-    @Test
-    fun testUpdatePath() {
-        assert(entity.updatePath("/MaxPa/") == "/MaxPa/Folder2/Folder3/")
-    }
-
-    @Test
-    fun testUpdatePathsIfParentPathMatches() {
-        entity.path = "/MaxPa/Folder2/Folder3/"
-        val oldPath = "/Folder/Folder2/Folder3/"
-        assert(entity.updatePathsIfParentPathMatches(oldPath, "/MaxPa/") == "/MaxPa/Folder2/Folder3/")
-    }
-
-     */
-
     @Test
     fun testUpdatePathsIfParentPathMatches() {
         val entity1 = OfflineOperationEntity(path = "/abc/def/file1/")

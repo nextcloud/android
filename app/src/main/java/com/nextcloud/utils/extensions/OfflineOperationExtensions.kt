@@ -10,14 +10,13 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.database.dao.OfflineOperationDao
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 
-fun OfflineOperationDao.updatePathsIfParentPathMatches(oldPath: String?, newTopDir: String?) {
+fun OfflineOperationDao.updatePathsIfParentPathMatches(oldPath: String?, newTopDir: String?, parentPath: String?) {
     if (oldPath.isNullOrEmpty() || newTopDir.isNullOrEmpty()) return
 
     getAll().forEach {
         val newPath = it.updatePathsIfParentPathMatches(oldPath, newTopDir)
         if (newPath != it.path) {
-
-            // TODO add parent path so it can upload
+            it.parentPath = parentPath
             it.path = newPath
             update(it)
         }
