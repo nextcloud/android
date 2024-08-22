@@ -114,8 +114,16 @@ class OfflineOperationsWorker(
         Log_OC.d(TAG, "$logMessage path: ${operation.path}, type: ${operation.type}")
 
         if (result.isSuccess) {
-            updateNextOperationsParentPaths(operations, operation)
-            fileDataStorageManager.offlineOperationDao.delete(operation)
+            fileDataStorageManager.offlineOperationDao.run {
+                operation.id?.let { id ->
+                    operation.path?.let { path ->
+                        updateParentPathById(operation.id, path)
+                    }
+                }
+
+                delete(operation)
+            }
+
             notificationManager.update(operations.size, currentOperationIndex, operation.filename ?: "")
         } else {
             val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
@@ -124,24 +132,5 @@ class OfflineOperationsWorker(
                 notificationManager.showNewNotification(result, remoteOperation)
             }
         }
-    }
-
-    private fun updateNextOperationsParentPaths(
-        operations: List<OfflineOperationEntity>,
-        currentOperation: OfflineOperationEntity
-    ) {
-        operations.forEach { nextOperation ->
-            val nextOperationParentPath = getParentPath(nextOperation.path ?: "")
-            if (nextOperationParentPath == currentOperation.path) {
-                nextOperation.parentPath = currentOperation.path
-                fileDataStorageManager.offlineOperationDao.update(nextOperation)
-            }
-        }
-    }
-
-    private fun getParentPath(path: String): String {
-        val trimmedPath = path.trim('/')
-        val firstDir = trimmedPath.split('/').firstOrNull() ?: ""
-        return "/$firstDir/"
     }
 }
