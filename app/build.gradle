@@ -28,10 +28,10 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.kotlin.plugin.compose" version "2.0.0"
+    id "org.jetbrains.kotlin.plugin.compose" version "2.0.10"
     id "com.diffplug.spotless" version "6.25.0"
-    id "org.jetbrains.kotlin.kapt" version "2.0.0"
-    id 'com.google.devtools.ksp' version '2.0.0-1.0.23' apply false
+    id "org.jetbrains.kotlin.kapt" version "2.0.10"
+    id 'com.google.devtools.ksp' version '2.0.10-1.0.24' apply false
 }
 
 apply plugin: 'com.android.application'
@@ -330,7 +330,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$daggerVersion"
     kapt "com.google.dagger:dagger-android-processor:$daggerVersion"
 
-    implementation 'org.conscrypt:conscrypt-android:2.5.2'
+    implementation 'org.conscrypt:conscrypt-android:2.5.3'
 
     implementation "androidx.media3:media3-ui:$androidxMediaVersion"
     implementation "androidx.media3:media3-exoplayer:$androidxMediaVersion"
@@ -355,7 +355,7 @@ dependencies {
     // dependencies for image cropping and rotation
     implementation 'com.vanniktech:android-image-cropper:4.6.0'
 
-    implementation 'org.osmdroid:osmdroid-android:6.1.18'
+    implementation 'org.osmdroid:osmdroid-android:6.1.20'
 
     implementation('org.mnode.ical4j:ical4j:3.0.0') {
         ['org.apache.commons', 'commons-logging'].each {
