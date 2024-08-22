@@ -6,6 +6,7 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <resources>
+    <string name="anonymous_account_type_warning_text">Trying to execute a sync operation with anonymous account, operation cancelled"</string>
     <string name="about_android">%1$s Android app</string>
     <string name="about_version">version %1$s</string>
     <string name="about_version_with_build">version %1$s, build #%2$s</string>

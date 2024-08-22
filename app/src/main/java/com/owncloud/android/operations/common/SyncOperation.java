@@ -13,6 +13,8 @@ import android.content.Context;
 import android.os.Handler;
 
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
@@ -46,10 +48,11 @@ public abstract class SyncOperation extends RemoteOperation {
      */
     public RemoteOperationResult execute(Context context) {
         if (storageManager.getUser().isAnonymous()) {
-            throw new IllegalArgumentException("Trying to execute a sync operation with a " +
-                                                   "storage manager for an anonymous account");
+            ContextExtensionsKt.showToast(context, R.string.anonymous_account_type_warning_text);
+            return new RemoteOperationResult(RemoteOperationResult.ResultCode.ACCOUNT_EXCEPTION);
+        } else {
+            return super.execute(this.storageManager.getUser(), context);
         }
-        return super.execute(this.storageManager.getUser(), context);
     }
 
     public RemoteOperationResult execute(@NonNull NextcloudClient client) {
