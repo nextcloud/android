@@ -68,7 +68,6 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -212,46 +211,6 @@ public class FileDataStorageManager {
         }
 
         // Update local DB
-        OCFile file = new OCFile(entity.getPath());
-        file.setMimeType(MimeType.DIRECTORY);
-        saveFileWithParent(file, MainApp.getAppContext());
-    }
-
-    public void deleteOfflineOperation(OCFile file) {
-        offlineOperationDao.deleteByPath(file.getDecryptedRemotePath());
-        removeFile(file, true, true);
-    }
-
-    public void renameCreateFolderOfflineOperation(OCFile file, String newFolderName) {
-        deleteOfflineOperation(file);
-
-        OCFile parentFolder = getFileById(file.getParentId());
-        if (parentFolder == null) {
-            return;
-        }
-
-        String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
-        addCreateFolderOfflineOperation(newPath, newFolderName, file.getParentId());
-    }
-
-    @SuppressLint("SimpleDateFormat")
-    public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity) {
-        Long parentOCFileId = entity.getParentOCFileId();
-        if (parentOCFileId == null) return;
-
-        OCFile parentFolder = getFileById(parentOCFileId);
-        if (parentFolder == null) return;
-
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy - HH:mm");
-        String currentDateTime = sdf.format(new Date());
-
-        String newFolderName = entity.getFilename() + " - " + currentDateTime;
-        String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
-        entity.setPath(newPath);
-        entity.setFilename(newFolderName);
-
-        offlineOperationDao.update(entity);
-
         OCFile file = new OCFile(entity.getPath());
         file.setMimeType(MimeType.DIRECTORY);
         saveFileWithParent(file, MainApp.getAppContext());

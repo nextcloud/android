@@ -66,37 +66,33 @@ class OfflineOperationsWorker(
         }
 
         val client = clientFactory.create(user)
-        val offlineOperations = fileDataStorageManager.offlineOperationDao.getAll()
+        val operations = fileDataStorageManager.offlineOperationDao.getAll()
 
         notificationManager.start()
 
-        offlineOperations.forEachIndexed { index, operation ->
+        operations.forEachIndexed { index, operation ->
             val result = try {
-                when (operation.type) {
-                    OfflineOperationType.CreateFolder -> {
-                        val createFolderOperation = async(Dispatchers.IO) {
-                            CreateFolderOperation(
-                                operation.path,
-                                user,
-                                context,
-                                fileDataStorageManager
-                            )
-                        }.await()
+                if (operation.type == OfflineOperationType.CreateFolder && operation.parentPath != null) {
+                    val createFolderOperation = async(Dispatchers.IO) {
+                        CreateFolderOperation(
+                            operation.path,
+                            user,
+                            context,
+                            fileDataStorageManager
+                        )
+                    }.await()
 
-                        createFolderOperation.execute(client) to createFolderOperation
-                    }
-
-                    else -> {
-                        Log_OC.d(TAG, "Operation terminated, not supported operation type")
-                        null
-                    }
+                    createFolderOperation.execute(client) to createFolderOperation
+                } else {
+                    Log_OC.d(TAG, "Operation terminated, not supported or incomplete operation")
+                    null
                 }
             } catch (e: Exception) {
                 Log_OC.d(TAG, "Operation terminated, exception caught: $e")
                 null
             }
 
-            handleResult(operation, offlineOperations.size, index, result?.first, result?.second)
+            handleResult(operation, operations, index, result?.first, result?.second)
         }
 
         Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")
@@ -107,7 +103,7 @@ class OfflineOperationsWorker(
 
     private fun handleResult(
         operation: OfflineOperationEntity,
-        operationSize: Int,
+        operations: List<OfflineOperationEntity>,
         currentOperationIndex: Int,
         result: RemoteOperationResult<*>?,
         remoteOperation: RemoteOperation<*>?
@@ -118,8 +114,9 @@ class OfflineOperationsWorker(
         Log_OC.d(TAG, "$logMessage path: ${operation.path}, type: ${operation.type}")
 
         if (result.isSuccess) {
+            updateNextOperationsParentPaths(operations, operation)
             fileDataStorageManager.offlineOperationDao.delete(operation)
-            notificationManager.update(operationSize, currentOperationIndex, operation.filename ?: "")
+            notificationManager.update(operations.size, currentOperationIndex, operation.filename ?: "")
         } else {
             val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
 
@@ -127,5 +124,24 @@ class OfflineOperationsWorker(
                 notificationManager.showNewNotification(result, remoteOperation)
             }
         }
+    }
+
+    private fun updateNextOperationsParentPaths(
+        operations: List<OfflineOperationEntity>,
+        currentOperation: OfflineOperationEntity
+    ) {
+        operations.forEach { nextOperation ->
+            val nextOperationParentPath = getParentPath(nextOperation.path ?: "")
+            if (nextOperationParentPath == currentOperation.path) {
+                nextOperation.parentPath = currentOperation.path
+                fileDataStorageManager.offlineOperationDao.update(nextOperation)
+            }
+        }
+    }
+
+    private fun getParentPath(path: String): String {
+        val trimmedPath = path.trim('/')
+        val firstDir = trimmedPath.split('/').firstOrNull() ?: ""
+        return "/$firstDir/"
     }
 }

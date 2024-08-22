@@ -40,6 +40,7 @@ import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -115,7 +116,6 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(newFile, offlineOperation)
                 Decision.KEEP_SERVER_FOLDER -> keepServerFile(offlineOperation)
                 Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation)
-                Decision.CANCEL -> Unit
                 else -> Unit
             }
 
