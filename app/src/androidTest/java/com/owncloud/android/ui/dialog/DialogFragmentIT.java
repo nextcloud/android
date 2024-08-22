@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.android.common.ui.theme.MaterialSchemes;
 import com.nextcloud.android.common.ui.theme.MaterialSchemesImpl;
@@ -37,6 +38,7 @@ import com.nextcloud.utils.EditorUtils;
 import com.owncloud.android.AbstractIT;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.EnforcedServer;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -626,6 +628,23 @@ public class DialogFragmentIT extends AbstractIT {
             if (child instanceof TextView) {
                 ((TextView) child).setCursorVisible(false);
             }
+        }
+    }
+    
+    @Test
+    public void testGson() {
+        ArrayList<EnforcedServer> t = new ArrayList<>();
+        t.add(new EnforcedServer("name", "url"));
+        t.add(new EnforcedServer("name2", "url1"));
+        
+        String s = new Gson().toJson(t);
+
+        ArrayList<EnforcedServer> t2 = new Gson().fromJson(s, new TypeToken<ArrayList<EnforcedServer>>() {
+        }.getType());
+
+        ArrayList<String> temp = new ArrayList<>();
+        for (EnforcedServer p : t2) {
+            temp.add(p.getName());
         }
     }
 }

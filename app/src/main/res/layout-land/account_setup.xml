@@ -80,6 +80,22 @@
                 </com.google.android.material.textfield.TextInputLayout>
             </FrameLayout>
 
+            <LinearLayout
+                android:id="@+id/multiple_servers_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <Spinner
+                    android:id="@+id/servers_spinner"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:foregroundTint="#FFFFFF"
+                    android:spinnerMode="dialog"
+                    android:textColor="@color/white_helper_text" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/host_url_input_helper_text"
                 android:layout_width="match_parent"
