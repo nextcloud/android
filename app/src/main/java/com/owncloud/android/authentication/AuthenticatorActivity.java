@@ -40,9 +40,12 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.webkit.URLUtil;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -51,8 +54,10 @@ import android.widget.Toast;
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
@@ -115,6 +120,7 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -356,7 +362,51 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             /// initialize block to be moved to single Fragment to check server and get info about it
 
             /// initialize block to be moved to single Fragment to retrieve and validate credentials
-            initAuthorizationPreFragment(savedInstanceState);
+            if (TextUtils.isEmpty(getString(R.string.enforce_servers))) {
+                initAuthorizationPreFragment(savedInstanceState);
+            } else {
+                showAuthStatus();
+                accountSetupBinding.hostUrlFrame.setVisibility(View.GONE);
+                accountSetupBinding.hostUrlInputHelperText.setVisibility(View.GONE);
+                accountSetupBinding.scanQr.setVisibility(View.GONE);
+                accountSetupBinding.multipleServersLayout.setVisibility(View.VISIBLE);
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.enforced_servers_spinner);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+                ArrayList<String> servers = new ArrayList<>();
+                servers.add("");
+                adapter.add(getString(R.string.please_select_a_server));
+
+                ArrayList<EnforcedServer> t = new Gson().fromJson(getString(R.string.enforce_servers),
+                                                                  new TypeToken<ArrayList<EnforcedServer>>() {
+                                                                  }
+                                                                      .getType());
+
+                for (EnforcedServer e : t) {
+                    adapter.add(e.getName());
+                    servers.add(e.getUrl());
+                }
+
+                accountSetupBinding.serversSpinner.setAdapter(adapter);
+                accountSetupBinding.serversSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        String url = servers.get(position);
+                        
+                        if (URLUtil.isValidUrl(url)) {
+                            accountSetupBinding.hostUrlInput.setText(url);
+                            checkOcServer();
+                        }
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        // do nothing
+                    }
+                });
+            }
         }
 
         initServerPreFragment(savedInstanceState);
