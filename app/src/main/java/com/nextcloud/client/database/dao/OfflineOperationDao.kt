@@ -36,7 +36,4 @@ interface OfflineOperationDao {
 
     @Query("SELECT * FROM offline_operations WHERE offline_operations_path = :path LIMIT 1")
     fun getByPath(path: String): OfflineOperationEntity?
-
-    @Query("UPDATE offline_operations SET offline_operations_parent_path = :parentPath WHERE _id = :id")
-    fun updateParentPathById(id: Int, parentPath: String)
 }

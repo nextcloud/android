@@ -10,6 +10,8 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.database.dao.OfflineOperationDao
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 
+private const val DELIMITER = '/'
+
 fun OfflineOperationDao.updatePathsIfParentPathMatches(oldPath: String?, newTopDir: String?, parentPath: String?) {
     if (oldPath.isNullOrEmpty() || newTopDir.isNullOrEmpty()) return
 
@@ -19,6 +21,17 @@ fun OfflineOperationDao.updatePathsIfParentPathMatches(oldPath: String?, newTopD
             it.parentPath = parentPath
             it.path = newPath
             update(it)
+        }
+    }
+}
+
+fun OfflineOperationDao.updateNextOperationsParentPaths(currentOperation: OfflineOperationEntity) {
+    getAll().forEach { nextOperation ->
+        val nextOperationParentPath = nextOperation.getParentPathFromPath()
+        val currentOperationParentPath = currentOperation.getParentPathFromPath()
+        if (nextOperationParentPath == currentOperationParentPath) {
+            nextOperation.parentPath = currentOperationParentPath
+            update(nextOperation)
         }
     }
 }
@@ -38,7 +51,7 @@ fun OfflineOperationEntity.updatePathsIfParentPathMatches(oldPath: String?, newT
 fun OfflineOperationEntity.updatePath(newParentPath: String?): String? {
     if (newParentPath.isNullOrEmpty() || path.isNullOrEmpty()) return null
 
-    val segments = path!!.trim('/').split('/').toMutableList()
+    val segments = path!!.trim(DELIMITER).split(DELIMITER).toMutableList()
 
     if (segments.size == 1) {
         return newParentPath
@@ -46,15 +59,13 @@ fun OfflineOperationEntity.updatePath(newParentPath: String?): String? {
 
     segments.removeAt(0)
 
-    return newParentPath + segments.joinToString(separator = "/") + "/"
+    return newParentPath + segments.joinToString(separator = DELIMITER.toString()) + DELIMITER
 }
 
-fun OfflineOperationEntity.getParentPathFromPath(): String? {
-    return path?.getParentPathFromPath()
-}
+fun OfflineOperationEntity.getParentPathFromPath(): String? = path?.getParentPathFromPath()
 
 private fun String?.getParentPathFromPath(): String {
-    val trimmedPath = this?.trim('/')
-    val firstDir = trimmedPath?.split('/')?.firstOrNull() ?: ""
-    return "/$firstDir/"
+    val trimmedPath = this?.trim(DELIMITER)
+    val firstDir = trimmedPath?.split(DELIMITER)?.firstOrNull() ?: ""
+    return DELIMITER + firstDir + DELIMITER
 }
