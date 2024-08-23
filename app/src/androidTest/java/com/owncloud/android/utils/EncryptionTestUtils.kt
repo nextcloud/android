@@ -118,7 +118,7 @@ nDO4ew==
         )
 
         val users = mutableListOf(
-            DecryptedUser(userId, cert)
+            DecryptedUser(userId, cert, null)
         )
 
         // val filedrop = mutableMapOf(

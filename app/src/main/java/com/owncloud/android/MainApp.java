@@ -784,6 +784,10 @@ public class MainApp extends Application implements HasAndroidInjector {
         return getUserAgent(R.string.nextcloud_user_agent);
     }
 
+    public static void showMessage(int messageId) {
+        ContextExtensionsKt.showToast(getAppContext(), messageId);
+    }
+
     // user agent
     private static String getUserAgent(@StringRes int agent) {
         String appString = string(agent);

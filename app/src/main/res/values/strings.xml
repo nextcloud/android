@@ -1078,6 +1078,10 @@
     <string name="webview_version_check_alert_dialog_message">Please update the Android System WebView app for a login</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
 
+    <string name="e2e_counter_too_old">Counter is too old</string>
+    <string name="e2e_hash_not_found">Hash not found</string>
+    <string name="e2e_signature_does_not_match">Signature does not match</string>
+
     <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
     <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
     <string name="create">Create</string>
