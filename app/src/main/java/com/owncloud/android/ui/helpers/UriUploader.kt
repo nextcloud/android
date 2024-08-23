@@ -62,6 +62,7 @@ class UriUploader(
         INVALID_FILE_NAME
     }
 
+    @Suppress("NestedBlockDepth")
     fun uploadUris(): UriUploaderResultCode {
         var code = UriUploaderResultCode.OK
         try {

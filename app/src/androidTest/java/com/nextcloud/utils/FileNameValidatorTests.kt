@@ -18,6 +18,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
+@Suppress("TooManyFunctions")
 class FileNameValidatorTests : AbstractIT() {
 
     private var capability: OCCapability = fileDataStorageManager.getCapability(account.name)
