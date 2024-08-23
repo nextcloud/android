@@ -12,6 +12,8 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -398,7 +400,8 @@ class EncryptionUtilsV2 {
     fun transformUser(user: EncryptedUser): DecryptedUser {
         return DecryptedUser(
             user.userId,
-            user.certificate
+            user.certificate,
+            user.encryptedMetadataKey
         )
     }
 
@@ -454,9 +457,10 @@ class EncryptionUtilsV2 {
     fun addShareeToMetadata(
         metadataFile: DecryptedFolderMetadataFile,
         userId: String,
-        cert: String
+        cert: String,
+        decryptedMetadataKey: String?
     ): DecryptedFolderMetadataFile {
-        metadataFile.users.add(DecryptedUser(userId, cert))
+        metadataFile.users.add(DecryptedUser(userId, cert, decryptedMetadataKey))
         metadataFile.metadata.metadataKey = EncryptionUtils.generateKey()
         metadataFile.metadata.keyChecksums.add(hashMetadataKey(metadataFile.metadata.metadataKey))
 
@@ -553,7 +557,6 @@ class EncryptionUtilsV2 {
         context: Context
     ): Pair<Boolean, DecryptedFolderMetadataFile> {
         val getMetadataOperationResult = GetMetadataRemoteOperation(folder.localId).execute(client)
-
         return if (getMetadataOperationResult.isSuccess) {
             // decrypt metadata
             val metadataResponse = getMetadataOperationResult.resultData
@@ -580,7 +583,7 @@ class EncryptionUtilsV2 {
                 val publicKey: String = arbitraryDataProvider.getValue(user.accountName, EncryptionUtils.PUBLIC_KEY)
 
                 createDecryptedFolderMetadataFile().apply {
-                    users = mutableListOf(DecryptedUser(client.userId, publicKey))
+                    users = mutableListOf(DecryptedUser(client.userId, publicKey, null))
                 }
             }
 
@@ -829,7 +832,7 @@ class EncryptionUtilsV2 {
 
         // upon migration there can only be one user, as there is no sharing yet in place
         val users = if (storageManager.getFileById(folder.parentId)?.isEncrypted == false) {
-            mutableListOf(DecryptedUser(userId, cert))
+            mutableListOf(DecryptedUser(userId, cert, null))
         } else {
             mutableListOf()
         }
@@ -943,61 +946,63 @@ class EncryptionUtilsV2 {
         }
     }
 
-    @Throws(IllegalStateException::class)
-    @Suppress("ThrowsCount")
-    @VisibleForTesting
+    @Suppress("ReturnCount")
     fun verifyMetadata(
         encryptedFolderMetadataFile: EncryptedFolderMetadataFile,
         decryptedFolderMetadataFile: DecryptedFolderMetadataFile,
         oldCounter: Long,
-        // base 64 encoded BER
-        ans: String
+        signature: String
     ) {
-        // check counter
         if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {
-            throw IllegalStateException("Counter is too old")
+            MainApp.showMessage(R.string.e2e_counter_too_old)
+            return
         }
 
-        // check signature
-        val json = EncryptionUtils.serializeJSON(encryptedFolderMetadataFile, true)
+        val message = EncryptionUtils.serializeJSON(encryptedFolderMetadataFile, true)
         val certs = decryptedFolderMetadataFile.users.map { EncryptionUtils.convertCertFromString(it.certificate) }
+        val signedData = getSignedData(signature, message)
 
-        val base64 = EncryptionUtils.encodeStringToBase64String(json)
-
-        // if (!verifySignedMessage(ans, base64, certs)) {
-        //     throw IllegalStateException("Signature does not match")
-        // }
+        if (!verifySignedData(signedData, certs)) {
+            MainApp.showMessage(R.string.e2e_signature_does_not_match)
+            return
+        }
 
         val hashedMetadataKey = hashMetadataKey(decryptedFolderMetadataFile.metadata.metadataKey)
         if (!decryptedFolderMetadataFile.metadata.keyChecksums.contains(hashedMetadataKey)) {
-            throw IllegalStateException("Hash not found")
-            // TODO E2E: fake this to present problem to user
+            MainApp.showMessage(R.string.e2e_hash_not_found)
+            return
+        }
+    }
+
+    fun getSignedData(base64encodedSignature: String, message: String): CMSSignedData {
+        val signature = EncryptionUtils.decodeStringToBase64Bytes(base64encodedSignature)
+        val asn1Signature = ASN1Sequence.fromByteArray(signature)
+        val contentInfo = ContentInfo.getInstance(asn1Signature)
+
+        val encodedMessage = EncryptionUtils.encodeStringToBase64String(message)
+        val messageData = encodedMessage.toByteArray()
+        val cmsProcessableByteArray = CMSProcessableByteArray(messageData)
+
+        return CMSSignedData(cmsProcessableByteArray, contentInfo)
+    }
+
+    fun verifySignedData(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
+        val signer: SignerInformation = data.signerInfos.signers.iterator().next() as SignerInformation
+
+        certs.forEach {
+            try {
+                if (signer.verify(JcaSimpleSignerInfoVerifierBuilder().build(it))) {
+                    return true
+                }
+            } catch (e: java.lang.Exception) {
+                Log_OC.e(TAG, "Error caught at verifySignedData: $e")
+            }
         }
 
-        // TODO E2E: check certs
+        return false
     }
 
-    fun createDecryptedFolderMetadataFile(): DecryptedFolderMetadataFile {
-        val metadata = DecryptedMetadata().apply {
-            keyChecksums.add(hashMetadataKey(metadataKey))
-        }
-
-        return DecryptedFolderMetadataFile(metadata)
-    }
-
-    /**
-     * SHA-256 hash of metadata-key
-     */
-    @Suppress("MagicNumber")
-    fun hashMetadataKey(metadataKey: ByteArray): String {
-        val bytes = MessageDigest
-            .getInstance("SHA-256")
-            .digest(metadataKey)
-
-        return BigInteger(1, bytes).toString(16).padStart(32, '0')
-    }
-
-    fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
+    private fun signMessage(cert: X509Certificate, key: PrivateKey, data: ByteArray): CMSSignedData {
         val content = CMSProcessableByteArray(data)
         val certs = JcaCertStore(listOf(cert))
 
@@ -1021,7 +1026,11 @@ class EncryptionUtilsV2 {
      * Sign the data with key, embed the certificate associated within the CMSSignedData
      * detached data not possible, as to restore asn.1
      */
-    fun signMessage(cert: X509Certificate, key: PrivateKey, message: EncryptedFolderMetadataFile): CMSSignedData {
+    private fun signMessage(
+        cert: X509Certificate,
+        key: PrivateKey,
+        message: EncryptedFolderMetadataFile
+    ): CMSSignedData {
         val json = EncryptionUtils.serializeJSON(message, true)
         val base64 = EncryptionUtils.encodeStringToBase64String(json)
         val data = base64.toByteArray()
@@ -1041,6 +1050,26 @@ class EncryptionUtilsV2 {
         return EncryptionUtils.encodeBytesToBase64String(ans)
     }
 
+    fun createDecryptedFolderMetadataFile(): DecryptedFolderMetadataFile {
+        val metadata = DecryptedMetadata().apply {
+            keyChecksums.add(hashMetadataKey(metadataKey))
+        }
+
+        return DecryptedFolderMetadataFile(metadata)
+    }
+
+    /**
+     * SHA-256 hash of metadata-key
+     */
+    @Suppress("MagicNumber")
+    fun hashMetadataKey(metadataKey: ByteArray): String {
+        val bytes = MessageDigest
+            .getInstance("SHA-256")
+            .digest(metadataKey)
+
+        return BigInteger(1, bytes).toString(16).padStart(32, '0')
+    }
+
     fun getMessageSignature(cert: String, privateKey: String, metadataFile: EncryptedFolderMetadataFile): String {
         return getMessageSignature(
             EncryptionUtils.convertCertFromString(cert),
@@ -1049,7 +1078,11 @@ class EncryptionUtilsV2 {
         )
     }
 
-    fun getMessageSignature(cert: X509Certificate, key: PrivateKey, message: EncryptedFolderMetadataFile): String {
+    private fun getMessageSignature(
+        cert: X509Certificate,
+        key: PrivateKey,
+        message: EncryptedFolderMetadataFile
+    ): String {
         val signedMessage = signMessage(cert, key, message)
         return extractSignedString(signedMessage)
     }
@@ -1057,37 +1090,6 @@ class EncryptionUtilsV2 {
     fun getMessageSignature(cert: X509Certificate, key: PrivateKey, string: String): String {
         val signedMessage = signMessage(cert, key, string)
         return extractSignedString(signedMessage)
-    }
-
-    /**
-     * Verify the signature but does not use the certificate in the signed object
-     */
-    fun verifySignedMessage(data: CMSSignedData, certs: List<X509Certificate>): Boolean {
-        val signer: SignerInformation = data.signerInfos.signers.iterator().next() as SignerInformation
-
-        certs.forEach {
-            try {
-                if (signer.verify(JcaSimpleSignerInfoVerifierBuilder().build(it))) {
-                    return true
-                }
-            } catch (e: java.lang.Exception) {
-                Log_OC.e("Encryption", "error", e)
-            }
-        }
-
-        return false
-    }
-
-    /**
-     * Verify the signature but does not use the certificate in the signed object
-     */
-    fun verifySignedMessage(base64encodedAns: String, originalMessage: String, certs: List<X509Certificate>): Boolean {
-        val ans = EncryptionUtils.decodeStringToBase64Bytes(base64encodedAns)
-        val contentInfo = ContentInfo.getInstance(ASN1Sequence.fromByteArray(ans))
-        val content = CMSProcessableByteArray(originalMessage.toByteArray())
-        val sig = CMSSignedData(content, contentInfo)
-
-        return verifySignedMessage(sig, certs)
     }
 
     companion object {

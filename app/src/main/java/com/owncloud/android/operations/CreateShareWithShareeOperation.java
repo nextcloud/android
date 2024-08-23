@@ -17,6 +17,7 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ClientFactoryImpl;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.utils.extensions.DecryptedUserExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -183,7 +184,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             if (metadata == null) {
                 String cert = EncryptionUtils.retrievePublicKeyForUser(user, context);
                 metadata = new EncryptionUtilsV2().createDecryptedFolderMetadataFile();
-                metadata.getUsers().add(new DecryptedUser(client.getUserId(), cert));
+                metadata.getUsers().add(new DecryptedUser(client.getUserId(), cert, null));
 
                 metadataExists = false;
             } else {
@@ -194,9 +195,12 @@ public class CreateShareWithShareeOperation extends SyncOperation {
 
             // add sharee to metadata
             String publicKey = EncryptionUtils.getPublicKey(user, shareeName, arbitraryDataProvider);
+
+            String decryptedMetadataKey = DecryptedUserExtensionsKt.findMetadataKeyByUserId(metadata.getUsers(), shareeName);
             DecryptedFolderMetadataFile newMetadata = encryptionUtilsV2.addShareeToMetadata(metadata,
                                                                                             shareeName,
-                                                                                            publicKey);
+                                                                                            publicKey,
+                                                                                            decryptedMetadataKey);
 
             // upload metadata
             metadata.getMetadata().setCounter(newCounter);
