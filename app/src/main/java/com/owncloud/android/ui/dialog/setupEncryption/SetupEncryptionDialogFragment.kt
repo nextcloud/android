@@ -37,6 +37,7 @@ import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.IOException
@@ -301,17 +302,14 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 return null
             }
 
-            Log_OC.d(TAG, "certificate and server public key successful downloaded for " + user.accountName)
-
             val serverKey = serverPublicKeyResult.resultData
             val certificateAsString = certificateResult.resultData
             val isCertificateValid = certificateValidator?.validate(serverKey, certificateAsString)
 
-            Log_OC.d(TAG, "------------- CERTIFICATE VERIFICATION -------------")
-            Log_OC.d(TAG, "Certificate (public-key WRONG ENDPOINT NAME) $certificateAsString")
-            Log_OC.d(TAG, "ServerKey (server-key that used to sign users public keys) $serverKey")
-            Log_OC.d(TAG, "Is Certificate valid $isCertificateValid")
-            Log_OC.d(TAG, "------------- ------------- -------------")
+            if (isCertificateValid == false) {
+                Log_OC.d(TAG, "Could not save certificate, certificate is not valid")
+                return null
+            }
 
             if (arbitraryDataProvider == null) {
                 return null
@@ -324,7 +322,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             )
 
             if (privateKeyResult.isSuccess) {
-                Log_OC.d(TAG, "private key successful downloaded for " + user!!.accountName)
+                Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
                 return encryptedPrivateKey?.getKey()
             }
