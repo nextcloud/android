@@ -40,7 +40,10 @@ class FileNameValidatorTests : AbstractIT() {
     @Test
     fun testInvalidCharacter() {
         val result = FileNameValidator.checkFileName("file<name", capability, targetContext)
-        assertEquals("File name contains invalid characters: <", result)
+        assertEquals(
+            String.format(targetContext.getString(R.string.file_name_validator_error_invalid_character), "<"),
+            result
+        )
     }
 
     @Test
