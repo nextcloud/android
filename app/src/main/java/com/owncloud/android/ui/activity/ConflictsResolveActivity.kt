@@ -154,6 +154,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         listener?.conflictDecisionMade(decision)
     }
 
+    @Suppress("ReturnCount")
     override fun onStart() {
         super.onStart()
         if (account == null) {

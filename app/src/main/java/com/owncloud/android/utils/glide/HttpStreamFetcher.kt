@@ -31,7 +31,8 @@ class HttpStreamFetcher internal constructor(
     @Throws(Exception::class)
     override fun loadData(priority: Priority): InputStream? {
         val client = clientFactory.create(user)
-        if (client != null) {
+
+        if (client != null && url.isNotBlank()) {
             var get: GetMethod? = null
             try {
                 get = GetMethod(url)
