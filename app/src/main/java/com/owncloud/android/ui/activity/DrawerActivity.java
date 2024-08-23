@@ -1231,47 +1231,48 @@ public abstract class DrawerActivity extends ToolbarActivity
             return;
         }
 
+        User user = accountManager.getUser();
+        if (user.isAnonymous()) {
+            Log_OC.d(TAG, "Trying to execute a sync operation with a storage manager for an anonymous account");
+            return;
+        }
+
         Thread t = new Thread(() -> {
-            User user = accountManager.getUser();
-            if (user.isAnonymous()) {
-                accountManager.startAccountCreation(this);
-            } else {
-                if ((getCapabilities() == null || getCapabilities().getAccountName() != null && getCapabilities().getAccountName().isEmpty()) && getStorageManager() != null) {
-                    GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
-                    getCapabilities.execute(getBaseContext());
-                }
+            if ((getCapabilities() == null || getCapabilities().getAccountName() != null && getCapabilities().getAccountName().isEmpty()) && getStorageManager() != null) {
+                GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
+                getCapabilities.execute(getBaseContext());
+            }
 
-                if (getStorageManager() != null && CapabilityUtils.getCapability(user, this).getExternalLinks().isTrue()) {
-                    int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT);
+            if (getStorageManager() != null && CapabilityUtils.getCapability(user, this).getExternalLinks().isTrue()) {
+                int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT);
 
-                    if (count > 10 || count == -1 || force) {
-                        if (force) {
-                            Log_OC.d("ExternalLinks", "force update");
+                if (count > 10 || count == -1 || force) {
+                    if (force) {
+                        Log_OC.d("ExternalLinks", "force update");
+                    }
+
+                    arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT, "0");
+
+                    Log_OC.d("ExternalLinks", "update via api");
+                    RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
+                    RemoteOperationResult result = getExternalLinksOperation.execute(user, this);
+
+                    if (result.isSuccess() && result.getData() != null) {
+                        externalLinksProvider.deleteAllExternalLinks();
+                        ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) result.getData();
+                        for (ExternalLink link : externalLinks) {
+                            externalLinksProvider.storeExternalLink(link);
                         }
-
-                        arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT, "0");
-
-                        Log_OC.d("ExternalLinks", "update via api");
-                        RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                        RemoteOperationResult result = getExternalLinksOperation.execute(user, this);
-
-                        if (result.isSuccess() && result.getData() != null) {
-                            externalLinksProvider.deleteAllExternalLinks();
-                            ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) result.getData();
-                            for (ExternalLink link : externalLinks) {
-                                externalLinksProvider.storeExternalLink(link);
-                            }
-                        }
-                    } else {
-                        arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
                     }
                 } else {
-                    externalLinksProvider.deleteAllExternalLinks();
-                    Log_OC.d("ExternalLinks", "links disabled");
+                    arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
                 }
-
-                runOnUiThread(this::updateExternalLinksInDrawer);
+            } else {
+                externalLinksProvider.deleteAllExternalLinks();
+                Log_OC.d("ExternalLinks", "links disabled");
             }
+
+            runOnUiThread(this::updateExternalLinksInDrawer);
         });
         t.start();
     }
