@@ -20,6 +20,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.OnRemoteOperationListener;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
+import com.owncloud.android.lib.common.utils.Log_OC;
 
 import androidx.annotation.NonNull;
 
@@ -48,7 +49,7 @@ public abstract class SyncOperation extends RemoteOperation {
      */
     public RemoteOperationResult execute(Context context) {
         if (storageManager.getUser().isAnonymous()) {
-            ContextExtensionsKt.showToast(context, R.string.anonymous_account_type_warning_text);
+            Log_OC.d("SyncOperation","Trying to execute a sync operation with anonymous account, operation cancelled");
             return new RemoteOperationResult(RemoteOperationResult.ResultCode.ACCOUNT_EXCEPTION);
         } else {
             return super.execute(this.storageManager.getUser(), context);
