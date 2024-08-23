@@ -1214,6 +1214,7 @@
     <string name="sub_folder_rule_day">Year/Month/Day</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
     <string name="share_not_allowed_when_file_drop">Resharing is not allowed during secure file drop</string>
+    <string name="gplay_restriction">Google restricted downloading APK/AAB files!</string>
     <string name="file_list_empty_local_search">No file or folder matching your search</string>
 
     <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
