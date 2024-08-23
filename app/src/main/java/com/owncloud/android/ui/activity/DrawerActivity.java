@@ -537,7 +537,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else if (itemId == R.id.nav_logout) {
             mCheckedMenuItem = -1;
             MenuItem isNewMenuItemChecked = menuItem.setChecked(false);
-            Log_OC.d(TAG, "onNavigationItemClicked nav_logout setChecked " + isNewMenuItemChecked);
+            Log_OC.d(TAG,"onNavigationItemClicked nav_logout setChecked " + isNewMenuItemChecked);
             final Optional<User> optionalUser = getUser();
             if (optionalUser.isPresent()) {
                 UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
@@ -1162,7 +1162,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
         if (callContext instanceof MenuItem menuItem) {
             MenuItem newIcon = menuItem.setIcon(avatarDrawable);
-            Log_OC.d(TAG, "avatarGenerated new icon: " + newIcon);
+            Log_OC.d(TAG,"avatarGenerated new icon: " + newIcon);
         } else if (callContext instanceof ImageView imageView) {
             imageView.setImageDrawable(avatarDrawable);
         } else if (callContext instanceof MaterialButton materialButton) {
@@ -1238,20 +1238,26 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
         Thread t = new Thread(() -> {
-            if ((getCapabilities() == null || getCapabilities().getAccountName() != null && getCapabilities().getAccountName().isEmpty()) && getStorageManager() != null) {
+            // fetch capabilities as early as possible
+            if ((getCapabilities() == null || getCapabilities().getAccountName() != null && getCapabilities().getAccountName().isEmpty())
+                && getStorageManager() != null) {
                 GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
                 getCapabilities.execute(getBaseContext());
             }
 
-            if (getStorageManager() != null && CapabilityUtils.getCapability(user, this).getExternalLinks().isTrue()) {
-                int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT);
+            if (getStorageManager() != null && CapabilityUtils.getCapability(user, this)
+                .getExternalLinks().isTrue()) {
+
+                int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL,
+                                                                  FileActivity.APP_OPENED_COUNT);
 
                 if (count > 10 || count == -1 || force) {
                     if (force) {
                         Log_OC.d("ExternalLinks", "force update");
                     }
 
-                    arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT, "0");
+                    arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
+                                                                FileActivity.APP_OPENED_COUNT, "0");
 
                     Log_OC.d("ExternalLinks", "update via api");
                     RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
@@ -1259,19 +1265,21 @@ public abstract class DrawerActivity extends ToolbarActivity
 
                     if (result.isSuccess() && result.getData() != null) {
                         externalLinksProvider.deleteAllExternalLinks();
-                        ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) result.getData();
+
+                        ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
+
                         for (ExternalLink link : externalLinks) {
                             externalLinksProvider.storeExternalLink(link);
                         }
                     }
                 } else {
-                    arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL, FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
+                    arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
+                                                                FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
                 }
             } else {
                 externalLinksProvider.deleteAllExternalLinks();
                 Log_OC.d("ExternalLinks", "links disabled");
             }
-
             runOnUiThread(this::updateExternalLinksInDrawer);
         });
         t.start();
