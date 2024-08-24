@@ -15,6 +15,7 @@ import android.net.Uri
 import android.os.Parcelable
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
+import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -57,9 +58,11 @@ class UriUploader(
         ERROR_UNKNOWN,
         ERROR_NO_FILE_TO_UPLOAD,
         ERROR_READ_PERMISSION_NOT_GRANTED,
-        ERROR_SENSITIVE_PATH
+        ERROR_SENSITIVE_PATH,
+        INVALID_FILE_NAME
     }
 
+    @Suppress("NestedBlockDepth")
     fun uploadUris(): UriUploaderResultCode {
         var code = UriUploaderResultCode.OK
         try {
@@ -70,9 +73,22 @@ class UriUploader(
                 Log_OC.e(TAG, "Sensitive URI detected, aborting upload.")
                 code = UriUploaderResultCode.ERROR_SENSITIVE_PATH
             } else {
-                val uris = mUrisToUpload.filterNotNull()
+                var isFilenameValid = true
+
+                val uris = mUrisToUpload
+                    .filterNotNull()
                     .map { it as Uri }
                     .map { Pair(it, getRemotePathForUri(it)) }
+                    .filter { (_, filename) ->
+                        isFilenameValid = FileNameValidator.checkFileName(
+                            filename.removePrefix("/"),
+                            mActivity.capabilities,
+                            mActivity,
+                            null
+                        ) == null
+
+                        isFilenameValid
+                    }
 
                 val fileUris = uris
                     .filter { it.first.scheme == ContentResolver.SCHEME_FILE }
@@ -87,7 +103,11 @@ class UriUploader(
                     val (contentUris, contentRemotePaths) = contentUrisNew.unzip()
                     copyThenUpload(contentUris.toTypedArray(), contentRemotePaths.toTypedArray())
                 } else if (fileUris.isEmpty()) {
-                    code = UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD
+                    code = if (!isFilenameValid) {
+                        UriUploaderResultCode.INVALID_FILE_NAME
+                    } else {
+                        UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD
+                    }
                 }
             }
         } catch (e: SecurityException) {

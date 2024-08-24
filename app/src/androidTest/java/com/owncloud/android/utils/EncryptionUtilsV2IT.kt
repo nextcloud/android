@@ -10,6 +10,7 @@ package com.owncloud.android.utils
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.MockUser
 import com.nextcloud.common.User
+import com.nextcloud.utils.extensions.findMetadataKeyByUserId
 import com.owncloud.android.EncryptionIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.e2e.v1.decrypted.Data
@@ -221,7 +222,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         val metadataKeyBase64 = EncryptionUtils.generateKeyString()
         val metadataKey = EncryptionUtils.decodeStringToBase64Bytes(metadataKeyBase64)
 
-        val user = DecryptedUser("t1", encryptionTestUtils.t1PublicKey)
+        val user = DecryptedUser("t1", encryptionTestUtils.t1PublicKey, null)
 
         val encryptedUser = encryptionUtilsV2.encryptUser(user, metadataKey)
         assertNotEquals(encryptedUser.encryptedMetadataKey, metadataKeyBase64)
@@ -273,6 +274,11 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             targetContext,
             arbitraryDataProvider
         )
+
+        // V1 doesn't have decryptedMetadataKey so that we can ignore it for comparison
+        for (user in decrypted.users) {
+            user.decryptedMetadataKey = null
+        }
 
         assertEquals(metadataFile, decrypted)
     }
@@ -489,7 +495,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
 
         var metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
 
-        metadataFile = encryptionUtilsV2.addShareeToMetadata(metadataFile, enc2.accountName, enc2Cert)
+        metadataFile = encryptionUtilsV2.addShareeToMetadata(metadataFile, enc2.accountName, enc2Cert, null)
 
         val encryptedMetadataFile = encryptionUtilsV2.encryptFolderMetadataFile(
             metadataFile,
@@ -541,7 +547,12 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         val enc1 = MockUser("enc1", "Nextcloud")
         val enc2 = MockUser("enc2", "Nextcloud")
         var metadataFile = generateDecryptedFolderMetadataFile(enc1, enc1Cert)
-        metadataFile = encryptionUtilsV2.addShareeToMetadata(metadataFile, enc2.accountName, enc2Cert)
+        metadataFile = encryptionUtilsV2.addShareeToMetadata(
+            metadataFile,
+            enc2.accountName,
+            enc2Cert,
+            metadataFile.users.findMetadataKeyByUserId(enc2.accountName)
+        )
 
         assertEquals(2, metadataFile.users.size)
 
@@ -586,7 +597,7 @@ class EncryptionUtilsV2IT : EncryptionIT() {
         )
 
         val users = mutableListOf(
-            DecryptedUser(user.accountName, cert)
+            DecryptedUser(user.accountName, cert, null)
         )
 
         metadata.keyChecksums.add(encryptionUtilsV2.hashMetadataKey(metadata.metadataKey))
@@ -734,8 +745,6 @@ class EncryptionUtilsV2IT : EncryptionIT() {
                 |Rei/RGBQ==","userId": "john"}],"version": "2"}
             """.trimMargin()
 
-        val base64Metadata = EncryptionUtils.encodeStringToBase64String(metadata)
-
         val privateKey = EncryptionUtils.PEMtoPrivateKey(encryptionTestUtils.t1PrivateKey)
         val certificateT1 = EncryptionUtils.convertCertFromString(encryptionTestUtils.t1PublicKey)
         val certificateEnc2 = EncryptionUtils.convertCertFromString(enc2Cert)
@@ -746,23 +755,18 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             metadata
         )
 
-        val base64Ans = encryptionUtilsV2.extractSignedString(signed)
-
-        // verify
         val certs = listOf(
             certificateEnc2,
             certificateT1
         )
-        assertTrue(encryptionUtilsV2.verifySignedMessage(signed, certs))
-        assertTrue(encryptionUtilsV2.verifySignedMessage(base64Ans, base64Metadata, certs))
+
+        assertTrue(encryptionUtilsV2.verifySignedData(signed, certs))
     }
 
     @Throws(Throwable::class)
     @Test
     fun sign() {
         val sut = "randomstring123"
-        val json = "randomstring123"
-        val jsonBase64 = EncryptionUtils.encodeStringToBase64String(json)
 
         val privateKey = EncryptionUtils.PEMtoPrivateKey(encryptionTestUtils.t1PrivateKey)
         val certificate = EncryptionUtils.convertCertFromString(encryptionTestUtils.t1PublicKey)
@@ -773,15 +777,12 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             sut
         )
 
-        val base64Ans = encryptionUtilsV2.extractSignedString(signed)
-
-        // verify
         val certs = listOf(
             EncryptionUtils.convertCertFromString(enc2Cert),
             certificate
         )
-        assertTrue(encryptionUtilsV2.verifySignedMessage(signed, certs))
-        assertTrue(encryptionUtilsV2.verifySignedMessage(base64Ans, jsonBase64, certs))
+
+        assertTrue(encryptionUtilsV2.verifySignedData(signed, certs))
     }
 
     @Test
@@ -856,6 +857,11 @@ class EncryptionUtilsV2IT : EncryptionIT() {
             targetContext,
             arbitraryDataProvider
         )
+
+        // V1 doesn't have decryptedMetadataKey so that we can ignore it for comparison
+        for (user in decryptedFolderMetadata2.users) {
+            user.decryptedMetadataKey = null
+        }
 
         // compare
         assertTrue(

@@ -6,7 +6,7 @@
 
 snapshotCount=$(./gradlew dependencies | grep SNAPSHOT -c)
 betaCount=$(grep "<bool name=\"is_beta\">true</bool>" app/src/main/res/values/setup.xml -c)
-libraryHash=$(grep androidLibraryVersion build.gradle | cut -f2 -d'"' | grep "^[0-9a-zA-Z]\{40\}$" -c)
+libraryHash=$(grep androidLibraryVersion build.gradle | cut -f2 -d'"' | grep -vi "snapshot"  | grep "^[0-9a-zA-Z]\{10,40\}$" -c)
 
 
 if [[ $snapshotCount -gt 0 ]] ; then

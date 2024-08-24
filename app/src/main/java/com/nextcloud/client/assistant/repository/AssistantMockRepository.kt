@@ -31,6 +31,7 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
         return RemoteOperationResult<Void>(RemoteOperationResult.ResultCode.OK)
     }
 
+    @Suppress("LongMethod")
     override fun getTaskList(appId: String): RemoteOperationResult<TaskList> {
         val taskList = if (giveEmptyTasks) {
             TaskList(listOf())
