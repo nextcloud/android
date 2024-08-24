@@ -363,7 +363,7 @@
     <string name="file_keep">Conserver</string>
     <string name="file_list_empty">Déposez du contenu ou synchronisez vos appareils.</string>
     <string name="file_list_empty_favorite_headline">Aucun favori</string>
-    <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers ajoutés à vos favoris seront affichés ici.</string>
+    <string name="file_list_empty_favorites_filter_list">Les fichiers et dossiers que vous marquez comme favoris apparaîtront ici.</string>
     <string name="file_list_empty_gallery">Aucune vidéo ou image n\'a été trouvée</string>
     <string name="file_list_empty_headline">Aucun fichier</string>
     <string name="file_list_empty_headline_search">Aucun résultat dans ce dossier</string>
@@ -910,7 +910,7 @@
     <string name="upload_action_cancelled_resume">Poursuivre les téléversements annulés</string>
     <string name="upload_action_failed_clear">Effacer les téléversements échoués</string>
     <string name="upload_action_failed_retry">Réessayer les téléversements qui ont échoué</string>
-    <string name="upload_action_file_not_exist_message">Certains fichiers n\'existent plus. Ces téléchargements ne peuvent pas être repris.</string>
+    <string name="upload_action_file_not_exist_message">Certains fichiers n\'existent plus. Ces téléversements ne peuvent pas être repris.</string>
     <string name="upload_action_global_upload_pause">Suspendre tous les téléversements</string>
     <string name="upload_action_global_upload_resume">Poursuivre tous les téléversements</string>
     <string name="upload_cannot_create_file">Impossible de créer le fichier local</string>
