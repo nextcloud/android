@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.nextcloud.client.account.User
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
-import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment
+import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment
 
 class SetupEncryptionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
