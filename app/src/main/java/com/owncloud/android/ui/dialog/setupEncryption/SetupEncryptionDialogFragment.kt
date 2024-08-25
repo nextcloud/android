@@ -4,7 +4,7 @@
  * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.dialog
+package com.owncloud.android.ui.dialog.setupEncryption
 
 import android.accounts.AccountManager
 import android.annotation.SuppressLint
@@ -22,6 +22,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SetupEncryptionDialogBinding
@@ -33,6 +34,7 @@ import com.owncloud.android.lib.resources.e2ee.CsrHelper
 import com.owncloud.android.lib.resources.users.DeletePublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetPrivateKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
+import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
 import com.owncloud.android.utils.EncryptionUtils
@@ -49,6 +51,14 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
+
+    @JvmField
+    @Inject
+    var clientFactory: ClientFactory? = null
+
+    @JvmField
+    @Inject
+    var certificateValidator: CertificateValidator? = null
 
     private var user: User? = null
     private var arbitraryDataProvider: ArbitraryDataProvider? = null
@@ -270,34 +280,50 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             // if available
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
+
             val context = mWeakContext.get() ?: return null
-            val publicKeyOperation = GetPublicKeyRemoteOperation()
+            val certificateOperation = GetPublicKeyRemoteOperation()
+            val serverPublicKeyOperation = GetServerPublicKeyRemoteOperation()
             val user = user ?: return null
 
-            val publicKeyResult = publicKeyOperation.executeNextcloudClient(user, context)
+            val privateKeyOperation = GetPrivateKeyRemoteOperation()
+            val privateKeyResult = privateKeyOperation.executeNextcloudClient(user, context)
+            val certificateResult = certificateOperation.executeNextcloudClient(user, context)
+            val serverPublicKeyResult = serverPublicKeyOperation.executeNextcloudClient(user, context)
 
-            if (!publicKeyResult.isSuccess) {
+            var encryptedPrivateKey: com.owncloud.android.lib.ocs.responses.PrivateKey? = null
+            if (privateKeyResult.isSuccess) {
+                encryptedPrivateKey = privateKeyResult.resultData
+            }
+
+            if (!certificateResult.isSuccess || !serverPublicKeyResult.isSuccess) {
+                Log_OC.d(TAG, "certificate or server public key not fetched")
                 return null
             }
 
-            Log_OC.d(TAG, "public key successful downloaded for " + user.accountName)
+            val serverKey = serverPublicKeyResult.resultData
+            val certificateAsString = certificateResult.resultData
+            val isCertificateValid = certificateValidator?.validate(serverKey, certificateAsString)
+
+            if (isCertificateValid == false) {
+                Log_OC.d(TAG, "Could not save certificate, certificate is not valid")
+                return null
+            }
 
             if (arbitraryDataProvider == null) {
                 return null
             }
 
-            val publicKeyFromServer = publicKeyResult.resultData
             arbitraryDataProvider?.storeOrUpdateKeyValue(
                 user.accountName,
                 EncryptionUtils.PUBLIC_KEY,
-                publicKeyFromServer
+                certificateAsString
             )
 
-            val privateKeyResult = GetPrivateKeyRemoteOperation().executeNextcloudClient(user, context)
             if (privateKeyResult.isSuccess) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
-                return privateKeyResult.resultData.getKey()
+                return encryptedPrivateKey?.getKey()
             }
 
             return null
