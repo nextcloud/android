@@ -279,8 +279,11 @@
     <string name="drawer_quota">تم استخدام %1$s من %2$s</string>
     <string name="drawer_quota_unlimited">%1$s مُسّتخدم</string>
     <string name="drawer_synced_folders">تحميل تلقائي</string>
+    <string name="e2e_counter_too_old">العدَّاد قديم جداً</string>
+    <string name="e2e_hash_not_found">تعذّر العثور على التجزئة hash</string>
     <string name="e2e_not_yet_setup">التشفير من الحدّ للحدّ E2E غير مُجهّز</string>
     <string name="e2e_offline">غير ممكن بدون اتصال انترنت</string>
+    <string name="e2e_signature_does_not_match">التوقيع غير مُطابق</string>
     <string name="ecosystem_apps_display_assistant">المُساعِد</string>
     <string name="ecosystem_apps_display_more">المزيد</string>
     <string name="ecosystem_apps_display_notes">الملاحظات Notes</string>
@@ -406,6 +409,14 @@
     <string name="file_migration_updating_index">تحديث الفهرس…</string>
     <string name="file_migration_use_data_folder">استعمل</string>
     <string name="file_migration_waiting_for_unfinished_sync">بإنتظار مزامنة كاملة…</string>
+    <string name="file_name_validator_current_path_is_invalid">اسم المجلد الحالي غير صحيح. قُم رجاءً بتغيير اسم المجلد. إعادة التوجيه إلى المجلد الجذر</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">مسار المجلد يحتوي على أسماء محجوزة أو حروف غير صالحة</string>
+    <string name="file_name_validator_error_ends_with_space_period">اسم ينتهي بفراغ أو نقطة</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s امتداد ملف غير مسموحٍ به</string>
+    <string name="file_name_validator_error_invalid_character">اسم يحتوي على حروف غير صالحة: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s اسم ممنوع</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. قُم رجاءً بتغيير اسم الملف قبل نقله أو نسخه</string>
+    <string name="file_name_validator_upload_content_error">بعض المحتويات لا يمكن تحميلها بسبب احتوائها على أسماء محجوزة أو حروف غير صالحة</string>
     <string name="file_not_found">تعذر العثور على الملف</string>
     <string name="file_not_synced">الملف لا يمكن مزامنته. عرض آخر إصدار متوفر.</string>
     <string name="file_rename">إعادة التسمية</string>
@@ -429,6 +440,7 @@
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
+    <string name="folder_name_empty">اسم المجلد لا يمكن أن يكون فارغاً</string>
     <string name="folder_picker_choose_button_text">إختَر</string>
     <string name="folder_picker_choose_caption_text">اختر مكان المجلد</string>
     <string name="folder_picker_copy_button_text">إنسَخ</string>

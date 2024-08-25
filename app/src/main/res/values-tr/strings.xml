@@ -279,8 +279,11 @@
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
     <string name="drawer_quota_unlimited">%1$s kullanılıyor</string>
     <string name="drawer_synced_folders">Otomatik yükleme</string>
+    <string name="e2e_counter_too_old">Sayaç çok eski</string>
+    <string name="e2e_hash_not_found">Karma bulunamadı</string>
     <string name="e2e_not_yet_setup">Uçtan uca şifreleme henüz kurulmamış</string>
     <string name="e2e_offline">İnternet bağlantısı olmadan yapılamaz</string>
+    <string name="e2e_signature_does_not_match">İmza eşleşmiyor</string>
     <string name="ecosystem_apps_display_assistant">Yardımcı</string>
     <string name="ecosystem_apps_display_more">Diğer</string>
     <string name="ecosystem_apps_display_notes">Notlar</string>
@@ -406,6 +409,14 @@
     <string name="file_migration_updating_index">Dizin güncelleniyor …</string>
     <string name="file_migration_use_data_folder">Kullanılsın</string>
     <string name="file_migration_waiting_for_unfinished_sync">Eşitleme işleminin tamamlanması bekleniyor …</string>
+    <string name="file_name_validator_current_path_is_invalid">Geçerli klasör adı geçersiz. Lütfen klasörü yeniden adlandırın. Kök klasöre yönlendiriliyorsunuz.</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Klasör yolunda ayrılmış adlar veya geçersiz karakterler var</string>
+    <string name="file_name_validator_error_ends_with_space_period">Ad bir boşluk ya da nokta ile bitiyor</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s dosya uzantısına izin verilmiyor.</string>
+    <string name="file_name_validator_error_invalid_character">Ad içinde geçersiz bir karakter var: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s adına izin verilmiyor</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Kopyalamadan ya da taşımadan önce lütfen dosyayı yeniden adlandırın</string>
+    <string name="file_name_validator_upload_content_error">Bazı içerikler, içinde ayrılmış adlar veya geçersiz karakterler bulunduğundan yüklenemedi</string>
     <string name="file_not_found">Dosya bulunamadı</string>
     <string name="file_not_synced">Dosya eşitlenemedi. Kullanılabilen son sürüm görüntüleniyor.</string>
     <string name="file_rename">Yeniden adlandır</string>
@@ -429,6 +440,7 @@
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
+    <string name="folder_name_empty">Klasör adı boş olamaz</string>
     <string name="folder_picker_choose_button_text">Seçin</string>
     <string name="folder_picker_choose_caption_text">Hedef klasörü seçin</string>
     <string name="folder_picker_copy_button_text">Kopyala</string>

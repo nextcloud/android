@@ -278,8 +278,11 @@
     <string name="drawer_quota">Використано %1$s із %2$s</string>
     <string name="drawer_quota_unlimited">%1$sвикористано</string>
     <string name="drawer_synced_folders">Автоматичне завантаження</string>
+    <string name="e2e_counter_too_old">Лічильний застарілий</string>
+    <string name="e2e_hash_not_found">Не знайдено</string>
     <string name="e2e_not_yet_setup">Наскрізне шифруванння ще не налаштовано</string>
     <string name="e2e_offline">Дія не можлива без доступу до з\'єднання з мережею</string>
+    <string name="e2e_signature_does_not_match">Підпис не збігається</string>
     <string name="ecosystem_apps_display_assistant">Помічник</string>
     <string name="ecosystem_apps_display_more">Більше</string>
     <string name="ecosystem_apps_display_notes">Нотатки</string>
@@ -365,6 +368,7 @@
     <string name="file_list_empty_headline">Тут відсутні файли</string>
     <string name="file_list_empty_headline_search">Жодного збігу у цьому каталозі</string>
     <string name="file_list_empty_headline_server_search">Жодного збігу</string>
+    <string name="file_list_empty_local_search">Не знайдено файли або каталоги згідно із запитом</string>
     <string name="file_list_empty_moving">Тут нічого немає. Ви можете створити каталог.</string>
     <string name="file_list_empty_on_device">Тут ти можете знайти каталоги та файли, які було звантажено.</string>
     <string name="file_list_empty_recently_modified">Відсутні зміни серед файлів за останні 7 днів</string>
@@ -402,6 +406,14 @@
     <string name="file_migration_updating_index">Оновлення індексу...</string>
     <string name="file_migration_use_data_folder">Використовувати</string>
     <string name="file_migration_waiting_for_unfinished_sync">Очікування повної синхронізації…</string>
+    <string name="file_name_validator_current_path_is_invalid">Перейменуйте назву поточого каталогу, оскільки його назва не є дійсною. Переспрямування до кореневого каталогу.</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Шлях до каталогу містить зарезервовані імена або недійсні символи</string>
+    <string name="file_name_validator_error_ends_with_space_period">Ім\'я закінчується на символ пробілу або крапку</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s не є дозволеним розширенням файлу</string>
+    <string name="file_name_validator_error_invalid_character">Ім\'я містить недійсний символ: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s не є дозволеним ім\'ям</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Перейменуйте файл перед переміщенням або копіюванням</string>
+    <string name="file_name_validator_upload_content_error">Окремі дані неможливо завантажити, оскільки він містить зарезервовані імена або недійсні символи</string>
     <string name="file_not_found">Файл не знайдено</string>
     <string name="file_not_synced">Неможливо синхронізувати файл. Буде показано останню доступну версію.</string>
     <string name="file_rename">Перейменувати</string>
@@ -425,6 +437,7 @@
     <string name="folder_already_exists">Каталог вже існує</string>
     <string name="folder_confirm_create">Створити</string>
     <string name="folder_list_empty_headline">Тут відсутні каталоги</string>
+    <string name="folder_name_empty">Ім\'я каталогу не може бути порожнім</string>
     <string name="folder_picker_choose_button_text">Вибрати</string>
     <string name="folder_picker_choose_caption_text">Виберіть каталог призначення</string>
     <string name="folder_picker_copy_button_text">Копія</string>
