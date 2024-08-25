@@ -330,7 +330,7 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
     }
 
     private fun prepareForAudio() {
-        binding.mediaController.setMediaPlayer(mediaPlayerServiceConnection)
+        binding.mediaController.setMediaPlayer(null)
         binding.mediaController.visibility = View.VISIBLE
         mediaPlayerServiceConnection?.start(user!!, file, autoplay, savedPlaybackPosition)
         binding.emptyView.emptyListView.visibility = View.GONE

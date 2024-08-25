@@ -17,6 +17,8 @@ import com.nextcloud.client.integrations.IntegrationsModule;
 import com.nextcloud.client.jobs.JobsModule;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
+import com.nextcloud.client.media.BackgroundPlayerService;
+import com.nextcloud.client.media.CustomExoPlayer;
 import com.nextcloud.client.network.NetworkModule;
 import com.nextcloud.client.onboarding.OnboardingModule;
 import com.nextcloud.client.preferences.PreferencesModule;
@@ -46,7 +48,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
     ThemeModule.class,
     DatabaseModule.class,
     DispatcherModule.class,
-    VariantModule.class
+    VariantModule.class,
 })
 @Singleton
 public interface AppComponent {
@@ -54,6 +56,8 @@ public interface AppComponent {
     void inject(MainApp app);
 
     void inject(MediaControlView mediaControlView);
+    void inject(CustomExoPlayer customExoPlayer);
+    void inject(BackgroundPlayerService backgroundPlayerService);
 
     void inject(ThemeableSwitchPreference switchPreference);
 

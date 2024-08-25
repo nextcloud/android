@@ -17,6 +17,9 @@ import com.nextcloud.client.jobs.transfer.FileTransferService;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.logger.ui.LogsViewModel;
+import com.nextcloud.client.media.BackgroundPlayerService;
+import com.nextcloud.client.media.CustomExoPlayer;
+import com.nextcloud.client.media.NextcloudExoPlayer;
 import com.nextcloud.client.media.PlayerService;
 import com.nextcloud.client.migrations.Migrations;
 import com.nextcloud.client.onboarding.FirstRunActivity;
@@ -481,7 +484,12 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract TestJob testJob();
-    
+
     @ContributesAndroidInjector
     abstract InternalTwoWaySyncActivity internalTwoWaySyncActivity();
+
+
+    @ContributesAndroidInjector
+    abstract BackgroundPlayerService backgroundPlayerService();
+
 }

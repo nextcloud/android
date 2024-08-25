@@ -42,7 +42,7 @@
         app:show_buffering="always" />
 
     <com.owncloud.android.media.MediaControlView
-        android:id="@+id/media_controller"
+        android:id="@+id/audio_controller_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -65,7 +65,9 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        >
 
         <include
             android:id="@+id/empty_view"

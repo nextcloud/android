@@ -23,10 +23,10 @@ import android.view.View
 import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import android.widget.LinearLayout
-import android.widget.MediaController.MediaPlayerControl
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.core.content.ContextCompat
+import androidx.media3.common.Player
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.MediaControlBinding
@@ -50,7 +50,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
     View.OnClickListener,
     OnSeekBarChangeListener {
 
-    private var playerControl: MediaPlayerControl? = null
+    private var playerControl: Player? = null
     private var binding: MediaControlBinding
     private var isDragging = false
 
@@ -62,7 +62,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
     }
 
     @Suppress("MagicNumber")
-    fun setMediaPlayer(player: MediaPlayerControl?) {
+    fun setMediaPlayer(player: Player?) {
         playerControl = player
         handler.sendEmptyMessage(SHOW_PROGRESS)
 
@@ -104,14 +104,16 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
      */
     private fun disableUnsupportedButtons() {
         try {
-            if (playerControl?.canPause() == false) {
-                binding.playBtn.setEnabled(false)
+            //TODO: should we check for nullability && see if we need try catch block
+            if (playerControl!!.isCommandAvailable(Player.COMMAND_PLAY_PAUSE).not()) {
+                binding.playBtn.isEnabled = false
             }
-            if (playerControl?.canSeekBackward() == false) {
-                binding.rewindBtn.setEnabled(false)
+
+            if (playerControl!!.isCommandAvailable(Player.COMMAND_SEEK_BACK).not()) {
+                binding.rewindBtn.isEnabled = false
             }
-            if (playerControl?.canSeekForward() == false) {
-                binding.forwardBtn.setEnabled(false)
+            if (playerControl!!.isCommandAvailable(Player.COMMAND_SEEK_FORWARD).not()) {
+                binding.forwardBtn.isEnabled = false
             }
         } catch (ex: IncompatibleClassChangeError) {
             // We were given an old version of the interface, that doesn't have
@@ -149,7 +151,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
     }
 
     @Suppress("MagicNumber")
-    private fun formatTime(timeMs: Int): String {
+    private fun formatTime(timeMs: Long): String {
         val totalSeconds = timeMs / 1000
         val seconds = totalSeconds % 60
         val minutes = totalSeconds / 60 % 60
@@ -164,8 +166,8 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
     }
 
     @Suppress("MagicNumber")
-    private fun setProgress(): Int {
-        var position = 0
+    private fun setProgress(): Long {
+        var position = 0L
         if (playerControl == null || isDragging) {
             position = 0
         }
@@ -178,7 +180,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
                 val pos = 1000L * position / duration
                 binding.progressBar.progress = pos.toInt()
             }
-            val percent = playerControl.bufferPercentage
+            val percent = playerControl.bufferedPercentage
             binding.progressBar.setSecondaryProgress(percent * 10)
             val endTime = if (duration > 0) formatTime(duration) else "--:--"
             binding.totalTimeText.text = endTime
@@ -202,22 +204,25 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
                 }
                 return true
             }
+
             KeyEvent.KEYCODE_MEDIA_PLAY -> {
-                if (uniqueDown && playerControl?.isPlaying == false) {
-                    playerControl?.start()
+                if (uniqueDown && playerControl?.playWhenReady == false) {
+                    playerControl?.play()
                     updatePausePlay()
                 }
                 return true
             }
+
             KeyEvent.KEYCODE_MEDIA_STOP,
             KeyEvent.KEYCODE_MEDIA_PAUSE
             -> {
-                if (uniqueDown && playerControl?.isPlaying == true) {
+                if (uniqueDown && playerControl?.playWhenReady == true) {
                     playerControl?.pause()
                     updatePausePlay()
                 }
                 return true
             }
+
             else -> return super.dispatchKeyEvent(event)
         }
     }
@@ -225,18 +230,21 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
     fun updatePausePlay() {
         binding.playBtn.icon = ContextCompat.getDrawable(
             context,
+            // isPlaying reflects if the playback is actually moving forward, If the media is buffering and it will play when ready
+            // it would still return that it is not playing. So, in case of buffering it will show the pause icon which would show that
+            // media is loading, when user has not paused but moved the progress to a different position this works as a buffering signal.
             if (playerControl?.isPlaying == true) {
                 R.drawable.ic_pause
             } else {
                 R.drawable.ic_play
             }
         )
-        binding.forwardBtn.visibility = if (playerControl?.canSeekForward() == true) {
+        binding.forwardBtn.visibility = if (playerControl!!.isCommandAvailable(Player.COMMAND_SEEK_FORWARD)) {
             VISIBLE
         } else {
             INVISIBLE
         }
-        binding.rewindBtn.visibility = if (playerControl?.canSeekBackward() == true) {
+        binding.rewindBtn.visibility = if (playerControl!!.isCommandAvailable(Player.COMMAND_SEEK_BACK)) {
             VISIBLE
         } else {
             INVISIBLE
@@ -245,10 +253,10 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
 
     private fun doPauseResume() {
         playerControl?.run {
-            if (isPlaying) {
+            if (playWhenReady) {
                 pause()
             } else {
-                start()
+                play()
             }
         }
         updatePausePlay()
@@ -267,16 +275,17 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
 
     @Suppress("MagicNumber")
     override fun onClick(v: View) {
-        var pos: Int
+        var pos: Long
 
         playerControl?.let { playerControl ->
-            val playing = playerControl.isPlaying
+            val playing = playerControl.playWhenReady
             val id = v.id
 
             when (id) {
                 R.id.playBtn -> {
                     doPauseResume()
                 }
+
                 R.id.rewindBtn -> {
                     pos = playerControl.currentPosition
                     pos -= 5000
@@ -286,6 +295,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
                     }
                     setProgress()
                 }
+
                 R.id.forwardBtn -> {
                     pos = playerControl.currentPosition
                     pos += 15000
@@ -315,8 +325,8 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
         playerControl?.let { playerControl ->
             val duration = playerControl.duration.toLong()
             val newPosition = duration * progress / 1000L
-            playerControl.seekTo(newPosition.toInt())
-            binding.currentTimeText.text = formatTime(newPosition.toInt())
+            playerControl.seekTo(newPosition)
+            binding.currentTimeText.text = formatTime(newPosition)
         }
     }
 
