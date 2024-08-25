@@ -17,8 +17,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.content.res.Resources
-import android.graphics.BitmapFactory
-import android.media.MediaMetadataRetriever
 import android.net.Uri
 import android.os.AsyncTask
 import android.os.Bundle
@@ -34,8 +32,6 @@ import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.drawerlayout.widget.DrawerLayout
@@ -50,7 +46,6 @@ import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper.Companion.instance
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
-import com.nextcloud.client.media.PlayerServiceConnection
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.common.NextcloudClient
@@ -61,7 +56,6 @@ import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FragmentPreviewMediaBinding
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.datamodel.ThumbnailsCacheManager
 import com.owncloud.android.files.StreamMediaFileOperation
 import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -105,7 +99,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
     private var autoplay = true
     private var isLivePhoto = false
     private val prepared = false
-    private var mediaPlayerServiceConnection: PlayerServiceConnection? = null
 
     private var videoUri: Uri? = null
 
@@ -129,8 +122,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
         arguments?.let {
             initArguments(it)
         }
-
-        mediaPlayerServiceConnection = PlayerServiceConnection(requireContext())
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -149,10 +140,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
         Log_OC.v(TAG, "onActivityCreated")
 
         checkArgumentsAfterViewCreation(savedInstanceState)
-
-        if (file != null) {
-            prepareExoPlayerView()
-        }
 
         toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         addMenuHost()
@@ -198,62 +185,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
         binding.progress.visibility = View.GONE
     }
 
-    /**
-     * tries to read the cover art from the audio file and sets it as cover art.
-     *
-     * @param file audio file with potential cover art
-     */
-
-    @Suppress("TooGenericExceptionCaught")
-    private fun extractAndSetCoverArt(file: OCFile) {
-        if (!MimeTypeUtil.isAudio(file)) return
-
-        if (file.storagePath == null) {
-            setThumbnailForAudio(file)
-        } else {
-            try {
-                val mmr = MediaMetadataRetriever().apply {
-                    setDataSource(file.storagePath)
-                }
-
-                val data = mmr.embeddedPicture
-                if (data != null) {
-                    val bitmap = BitmapFactory.decodeByteArray(data, 0, data.size)
-                    binding.imagePreview.setImageBitmap(bitmap) // associated cover art in bitmap
-                } else {
-                    setThumbnailForAudio(file)
-                }
-            } catch (t: Throwable) {
-                setGenericThumbnail()
-            }
-        }
-    }
-
-    private fun setThumbnailForAudio(file: OCFile) {
-        val thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-            ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId
-        )
-
-        if (thumbnail != null) {
-            binding.imagePreview.setImageBitmap(thumbnail)
-        } else {
-            setGenericThumbnail()
-        }
-    }
-
-    /**
-     * Set generic icon (logo) as placeholder for thumbnail in preview.
-     */
-    private fun setGenericThumbnail() {
-        AppCompatResources.getDrawable(requireContext(), R.drawable.logo)?.let { logo ->
-            if (!resources.getBoolean(R.bool.is_branded_client)) {
-                // only colour logo of non-branded client
-                DrawableCompat.setTint(logo, resources.getColor(R.color.primary, requireContext().theme))
-            }
-            binding.imagePreview.setImageDrawable(logo)
-        }
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         file.logFileSize(TAG)
@@ -263,15 +194,11 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
             putParcelable(EXTRA_FILE, file)
             putParcelable(EXTRA_USER, user)
 
-            if (MimeTypeUtil.isVideo(file) && exoPlayer != null) {
-                savedPlaybackPosition = exoPlayer?.currentPosition ?: 0L
-                autoplay = exoPlayer?.isPlaying ?: false
-                putLong(EXTRA_PLAY_POSITION, savedPlaybackPosition)
-                putBoolean(EXTRA_PLAYING, autoplay)
-            } else if (mediaPlayerServiceConnection != null && mediaPlayerServiceConnection?.isConnected == true) {
-                putInt(EXTRA_PLAY_POSITION, mediaPlayerServiceConnection?.currentPosition ?: 0)
-                putBoolean(EXTRA_PLAYING, mediaPlayerServiceConnection?.isPlaying ?: false)
-            }
+            savedPlaybackPosition = exoPlayer?.currentPosition ?: 0L
+            autoplay = exoPlayer?.isPlaying ?: false
+            putLong(EXTRA_PLAY_POSITION, savedPlaybackPosition)
+            putBoolean(EXTRA_PLAYING, autoplay)
+
         }
     }
 
@@ -285,22 +212,11 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
             Log_OC.d(TAG, "File is null or fragment not attached to a context.")
             return
         }
-
-        mediaPlayerServiceConnection?.bind()
-
-        if (MimeTypeUtil.isAudio(file)) {
-            prepareForAudio()
-        } else if (MimeTypeUtil.isVideo(file)) {
-            prepareForVideo(context ?: MainApp.getAppContext())
-        }
+        prepareForVideo(context ?: MainApp.getAppContext())
     }
 
     @Suppress("DEPRECATION", "TooGenericExceptionCaught")
     private fun prepareForVideo(context: Context) {
-        if (mediaPlayerServiceConnection?.isConnected == true) {
-            // always stop player
-            stopAudio()
-        }
         if (exoPlayer != null) {
             playVideo()
         } else {
@@ -329,12 +245,13 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
         }
     }
 
-    private fun prepareForAudio() {
-        binding.mediaController.setMediaPlayer(null)
-        binding.mediaController.visibility = View.VISIBLE
-        mediaPlayerServiceConnection?.start(user!!, file, autoplay, savedPlaybackPosition)
-        binding.emptyView.emptyListView.visibility = View.GONE
-        binding.progress.visibility = View.GONE
+    private fun releaseVideoPlayer() {
+        exoPlayer?.let {
+            savedPlaybackPosition = it.currentPosition
+            autoplay = it.playWhenReady
+            it.release()
+        }
+        exoPlayer = null
     }
 
     private fun goBackToLivePhoto() {
@@ -344,17 +261,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
 
         showActionBar()
         requireActivity().supportFragmentManager.popBackStack()
-    }
-
-    private fun prepareExoPlayerView() {
-        if (MimeTypeUtil.isVideo(file)) {
-            binding.exoplayerView.visibility = View.VISIBLE
-            binding.imagePreview.visibility = View.GONE
-        } else {
-            binding.exoplayerView.visibility = View.GONE
-            binding.imagePreview.visibility = View.VISIBLE
-            extractAndSetCoverArt(file)
-        }
     }
 
     private fun showActionBar() {
@@ -372,10 +278,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
             player = exoPlayer
             setFullscreenButtonClickListener { startFullScreenVideo() }
         }
-    }
-
-    private fun stopAudio() {
-        mediaPlayerServiceConnection?.stop()
     }
 
     private fun addMenuHost() {
@@ -490,12 +392,12 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
     }
 
     private fun seeDetails() {
-        stopPreview(false)
+        releaseVideoPlayer()
         containerActivity.showDetails(file)
     }
 
     private fun sendShareFile() {
-        stopPreview(false)
+        releaseVideoPlayer()
         containerActivity.fileOperationsHelper.sendShareFile(file)
     }
 
@@ -583,19 +485,7 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
     }
 
     override fun onStop() {
-        Log_OC.v(TAG, "onStop")
-        val file = file
-
-        if (MimeTypeUtil.isAudio(file) && mediaPlayerServiceConnection?.isPlaying == false) {
-            stopAudio()
-        } else if (MimeTypeUtil.isVideo(file) && exoPlayer != null && exoPlayer?.isPlaying == true) {
-            savedPlaybackPosition = exoPlayer?.currentPosition ?: 0L
-            exoPlayer?.pause()
-        }
-
-        mediaPlayerServiceConnection?.unbind()
-        toggleDrawerLockMode(containerActivity, DrawerLayout.LOCK_MODE_UNLOCKED)
-
+        releaseVideoPlayer()
         super.onStop()
     }
 
@@ -641,17 +531,8 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
      * Opens the previewed file with an external application.
      */
     private fun openFile() {
-        stopPreview(true)
-        containerActivity.fileOperationsHelper.openFile(file)
-    }
 
-    private fun stopPreview(stopAudio: Boolean) {
-        if (stopAudio && mediaPlayerServiceConnection != null) {
-            mediaPlayerServiceConnection?.stop()
-        } else if (exoPlayer != null) {
-            savedPlaybackPosition = exoPlayer?.currentPosition ?: 0L
-            exoPlayer?.stop()
-        }
+        containerActivity.fileOperationsHelper.openFile(file)
     }
 
     val position: Long

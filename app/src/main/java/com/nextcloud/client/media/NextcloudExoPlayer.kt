@@ -15,11 +15,8 @@ import androidx.media3.datasource.DefaultDataSource
 import androidx.media3.datasource.okhttp.OkHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.source.DefaultMediaSourceFactory
-import com.nextcloud.client.account.UserAccountManager
-import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.MainApp
-import javax.inject.Inject
 
 object NextcloudExoPlayer {
     private const val FIVE_SECONDS_IN_MILLIS = 5000L
@@ -48,5 +45,4 @@ object NextcloudExoPlayer {
             .setSeekForwardIncrementMs(FIVE_SECONDS_IN_MILLIS)
             .build()
     }
-
 }

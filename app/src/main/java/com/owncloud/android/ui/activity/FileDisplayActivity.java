@@ -1832,7 +1832,6 @@ public class FileDisplayActivity extends FileActivity
                     ((PreviewMediaFragment) fileFragment).updateFile(renamedFile);
                     if (PreviewMediaFragment.canBePreviewed(renamedFile)) {
                         long position = ((PreviewMediaFragment) fileFragment).getPosition();
-                        System.out.println("Start Fragment Media Preview");
                         startMediaPreview(renamedFile, position, true, true, true, false);
                     } else {
                         getFileOperationsHelper().openFile(renamedFile);

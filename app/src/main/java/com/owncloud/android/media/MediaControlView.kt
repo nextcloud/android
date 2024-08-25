@@ -104,7 +104,6 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
      */
     private fun disableUnsupportedButtons() {
         try {
-            //TODO: should we check for nullability && see if we need try catch block
             if (playerControl!!.isCommandAvailable(Player.COMMAND_PLAY_PAUSE).not()) {
                 binding.playBtn.isEnabled = false
             }
@@ -275,7 +274,6 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
 
     @Suppress("MagicNumber")
     override fun onClick(v: View) {
-        var pos: Long
 
         playerControl?.let { playerControl ->
             val playing = playerControl.playWhenReady
@@ -287,9 +285,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
                 }
 
                 R.id.rewindBtn -> {
-                    pos = playerControl.currentPosition
-                    pos -= 5000
-                    playerControl.seekTo(pos)
+                    playerControl.seekBack()
                     if (!playing) {
                         playerControl.pause() // necessary in some 2.3.x devices
                     }
@@ -297,10 +293,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
                 }
 
                 R.id.forwardBtn -> {
-                    pos = playerControl.currentPosition
-                    pos += 15000
-                    playerControl.seekTo(pos)
-
+                    playerControl.seekForward()
                     if (!playing) {
                         playerControl.pause() // necessary in some 2.3.x devices
                     }

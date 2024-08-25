@@ -18,7 +18,6 @@ import com.nextcloud.client.jobs.JobsModule;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.media.BackgroundPlayerService;
-import com.nextcloud.client.media.CustomExoPlayer;
 import com.nextcloud.client.network.NetworkModule;
 import com.nextcloud.client.onboarding.OnboardingModule;
 import com.nextcloud.client.preferences.PreferencesModule;
@@ -56,7 +55,6 @@ public interface AppComponent {
     void inject(MainApp app);
 
     void inject(MediaControlView mediaControlView);
-    void inject(CustomExoPlayer customExoPlayer);
     void inject(BackgroundPlayerService backgroundPlayerService);
 
     void inject(ThemeableSwitchPreference switchPreference);

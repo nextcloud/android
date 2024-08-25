@@ -59,7 +59,6 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.media.BackgroundPlayerService
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
-import com.nextcloud.client.media.PlayerServiceConnection
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.common.NextcloudClient
@@ -115,8 +114,6 @@ class PreviewMediaActivity :
     private var user: User? = null
     private var savedPlaybackPosition: Long = 0
     private var autoplay = true
-    private val prepared = false
-    private var mediaPlayerServiceConnection: PlayerServiceConnection? = null
     private var streamUri: Uri? = null
 
     @Inject
@@ -150,7 +147,6 @@ class PreviewMediaActivity :
         WindowCompat.setDecorFitsSystemWindows(window, false)
         applyWindowInsets()
         initArguments(savedInstanceState)
-        mediaPlayerServiceConnection = PlayerServiceConnection(this)
         showMediaTypeViews()
         configureSystemBars()
         emptyListView = binding.emptyView.emptyListView
@@ -286,17 +282,19 @@ class PreviewMediaActivity :
 
     private fun saveMediaInstanceState(bundle: Bundle) {
         bundle.run {
-            if (MimeTypeUtil.isVideo(file) && audioMediaController != null) {
+            if (MimeTypeUtil.isVideo(file)) {
+                videoPlayer?.let {
+                    savedPlaybackPosition = it.currentPosition
+                    autoplay = it.playWhenReady
+                }
+            } else {
                 audioMediaController?.let {
                     savedPlaybackPosition = it.currentPosition
-                    autoplay = it.isPlaying
+                    autoplay = it.playWhenReady
                 }
-                putLong(EXTRA_PLAY_POSITION, savedPlaybackPosition)
-                putBoolean(EXTRA_PLAYING, autoplay)
-            } else if (mediaPlayerServiceConnection != null && mediaPlayerServiceConnection!!.isConnected) {
-                putInt(EXTRA_PLAY_POSITION, mediaPlayerServiceConnection!!.currentPosition)
-                putBoolean(EXTRA_PLAYING, mediaPlayerServiceConnection!!.isPlaying)
             }
+            putLong(EXTRA_PLAY_POSITION, savedPlaybackPosition)
+            putBoolean(EXTRA_PLAYING, autoplay)
         }
     }
 
@@ -306,7 +304,6 @@ class PreviewMediaActivity :
         Log_OC.v(TAG, "onStart")
 
         if (MimeTypeUtil.isVideo(file)) {
-            //TODO: should we somehow release any previous audio sessions?
             initializeVideoPlayer()
         }
     }
@@ -467,9 +464,6 @@ class PreviewMediaActivity :
         }
     }
 
-    private fun stopAudio() {
-        mediaPlayerServiceConnection?.stop()
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.custom_menu_placeholder, menu)
@@ -783,8 +777,6 @@ class PreviewMediaActivity :
     }
 
     private fun stopPreview(stopAudio: Boolean) {
-        //TODO: stop removes the media item attached but not release the player
-        // do we want to keep this behaviour or release the player too just like in onStop?
         if (MimeTypeUtil.isAudio(file) && stopAudio) {
             audioMediaController?.pause()
         } else if (MimeTypeUtil.isVideo(file)) {

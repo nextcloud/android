@@ -127,14 +127,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="UnusedAttribute"
         tools:replace="android:allowBackup">
-        <service
-            android:name="com.nextcloud.client.media.BackgroundPlayerService"
-            android:foregroundServiceType="mediaPlayback"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="androidx.media3.session.MediaSessionService"/>
-            </intent-filter>
-        </service>
+
         <meta-data android:name="android.content.APP_RESTRICTIONS"
             android:resource="@xml/app_config" />
 
@@ -356,6 +349,15 @@
             android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.Media" />
+
+        <service
+            android:name="com.nextcloud.client.media.BackgroundPlayerService"
+            android:foregroundServiceType="mediaPlayback"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaSessionService"/>
+            </intent-filter>
+        </service>
 
         <service
             android:name=".authentication.AccountAuthenticatorService"

@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2024 Your Name <your@email.com>
+ * SPDX-FileCopyrightText: 2024 Parneet Singh <gurayaparneet@gmail.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
@@ -46,7 +46,6 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
             }
             nextcloudClient?.let {
                 exoPlayer = createNextcloudExoplayer(this@BackgroundPlayerService, nextcloudClient)
-                println(exoPlayer)
                 mediaSession =
                     MediaSession.Builder(applicationContext, exoPlayer).setCallback(object : MediaSession.Callback {
                         override fun onDisconnected(session: MediaSession, controller: MediaSession.ControllerInfo) {
@@ -54,7 +53,6 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
                         }
                     }).build()
             }
-            println("created client $nextcloudClient")
         }
     }
 
