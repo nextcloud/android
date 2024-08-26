@@ -1024,6 +1024,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
     }
 
     private void fileOnItemClick(OCFile file) {
+        if (isAPKorAAB(Set.of(file))) {
+            Snackbar.make(getRecyclerView(),
+                          R.string.gplay_restriction,
+                          Snackbar.LENGTH_LONG).show();
+            return;
+        }
         if (PreviewImageFragment.canBePreviewed(file)) {
             // preview image - it handles the download, if needed
             if (searchFragment) {
