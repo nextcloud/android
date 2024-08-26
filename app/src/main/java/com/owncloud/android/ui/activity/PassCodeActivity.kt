@@ -31,6 +31,9 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.components.PassCodeEditText
 import com.owncloud.android.ui.components.showKeyboard
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions", "MagicNumber")
