@@ -377,9 +377,15 @@ class PreviewMediaActivity :
     }
 
     private fun prepareAudioPlayer(uri: Uri) {
-        hideProgressLayout()
         audioMediaController?.let { audioPlayer ->
             audioPlayer.addListener(object : Player.Listener {
+
+                override fun onPlaybackStateChanged(playbackState: Int) {
+                    if(playbackState == Player.STATE_READY){
+                        hideProgressLayout()
+                    }
+                }
+
                 override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
                     val artworkBitmap = mediaMetadata.artworkData?.let { bytes: ByteArray ->
                         BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
