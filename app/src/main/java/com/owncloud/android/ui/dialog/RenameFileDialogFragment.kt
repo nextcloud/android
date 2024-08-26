@@ -24,14 +24,15 @@ import com.google.common.collect.Sets
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
-import com.nextcloud.utils.fileNameValidator.FileNameValidator.isFileHidden
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFileName
+import com.nextcloud.utils.fileNameValidator.FileNameValidator.isFileHidden
 import com.owncloud.android.R
 import com.owncloud.android.databinding.EditBoxDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -144,9 +145,14 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
                 return
             }
 
-            if (requireActivity() is ComponentsGetter) {
-                val componentsGetter = requireActivity() as ComponentsGetter
-                componentsGetter.getFileOperationsHelper().renameFile(mTargetFile, newFileName)
+            if (mTargetFile?.isOfflineOperation == true) {
+                fileDataStorageManager.renameCreateFolderOfflineOperation(mTargetFile, newFileName)
+                if (requireActivity() is FileDisplayActivity) {
+                    val activity = requireActivity() as FileDisplayActivity
+                    activity.refreshFolderWithDelay()
+                }
+            } else {
+                (requireActivity() as ComponentsGetter).fileOperationsHelper.renameFile(mTargetFile, newFileName)
             }
         }
     }
