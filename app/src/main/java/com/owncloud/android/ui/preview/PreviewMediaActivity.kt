@@ -47,6 +47,7 @@ import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.session.MediaController
+import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionToken
 import androidx.media3.ui.DefaultTimeBar
 import androidx.media3.ui.PlayerView
@@ -128,6 +129,7 @@ class PreviewMediaActivity :
     private lateinit var binding: ActivityPreviewMediaBinding
     private var emptyListView: ViewGroup? = null
     private var videoPlayer: ExoPlayer? = null
+    private var videoMediaSession: MediaSession? = null
     private var audioMediaController: MediaController? = null
     private var nextcloudClient: NextcloudClient? = null
     private lateinit var windowInsetsController: WindowInsetsControllerCompat
@@ -317,7 +319,7 @@ class PreviewMediaActivity :
                 nextcloudClient?.let { client ->
                     handler.post {
                         videoPlayer = createNextcloudExoplayer(this, client)
-
+                        videoMediaSession = MediaSession.Builder(this,videoPlayer as Player).build()
 
                         videoPlayer?.let { player ->
                             player.addListener(
@@ -343,7 +345,9 @@ class PreviewMediaActivity :
             savedPlaybackPosition = it.currentPosition
             autoplay = it.playWhenReady
             it.release()
+            videoMediaSession?.release()
         }
+        videoMediaSession = null
         videoPlayer = null
     }
 

@@ -37,8 +37,10 @@ import androidx.core.view.MenuProvider
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Lifecycle
 import androidx.media3.common.MediaItem
+import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.session.MediaSession
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -114,6 +116,7 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
     lateinit var binding: FragmentPreviewMediaBinding
     private var emptyListView: ViewGroup? = null
     private var exoPlayer: ExoPlayer? = null
+    private var mediaSession: MediaSession? = null
     private var nextcloudClient: NextcloudClient? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -243,6 +246,7 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
             val listener = ExoplayerListener(context, binding.exoplayerView, it) { goBackToLivePhoto() }
             it.addListener(listener)
         }
+        mediaSession = MediaSession.Builder(requireContext(),exoPlayer as Player).build()
     }
 
     private fun releaseVideoPlayer() {
@@ -250,7 +254,9 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
             savedPlaybackPosition = it.currentPosition
             autoplay = it.playWhenReady
             it.release()
+            mediaSession?.release()
         }
+        mediaSession = null
         exoPlayer = null
     }
 
