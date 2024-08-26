@@ -102,6 +102,9 @@ class FileUploadWorker(
             val result = retrievePagesBySortingUploadsByID()
             backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
             notificationManager.dismissNotification()
+            if (result == Result.success()) {
+                setIdleWorkerState()
+            }
             result
         } catch (t: Throwable) {
             Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
