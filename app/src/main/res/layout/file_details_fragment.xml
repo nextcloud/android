@@ -170,6 +170,39 @@
 
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/syncBlock"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_divider_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            android:paddingEnd="@dimen/zero"
+            android:paddingBottom="@dimen/standard_half_padding">
+
+            <CheckBox
+                android:id="@+id/folder_sync_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sync" />
+        </LinearLayout>
+        
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
