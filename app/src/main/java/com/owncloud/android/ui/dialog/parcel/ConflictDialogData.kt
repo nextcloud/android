@@ -46,7 +46,7 @@ data class ConflictDialogData(
 data class ConflictFileData(
     val title: String,
     val timestamp: String,
-    val fileSize: String,
+    val fileSize: String
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString() ?: "",

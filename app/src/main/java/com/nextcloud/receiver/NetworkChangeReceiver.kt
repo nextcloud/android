@@ -21,7 +21,7 @@ interface NetworkChangeListener {
 
 class NetworkChangeReceiver(
     private val listener: NetworkChangeListener,
-    private val connectivityService: ConnectivityService,
+    private val connectivityService: ConnectivityService
 ) : BroadcastReceiver() {
 
     private val scope = CoroutineScope(Dispatchers.IO)

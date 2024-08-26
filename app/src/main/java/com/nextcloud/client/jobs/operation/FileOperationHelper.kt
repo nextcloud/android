@@ -33,11 +33,7 @@ class FileOperationHelper(
     private val client = clientFactory.create(user)
 
     @Suppress("TooGenericExceptionCaught", "Deprecation")
-    suspend fun removeFile(
-        file: OCFile,
-        onlyLocalCopy: Boolean,
-        inBackground: Boolean
-    ): Boolean {
+    suspend fun removeFile(file: OCFile, onlyLocalCopy: Boolean, inBackground: Boolean): Boolean {
         return withContext(Dispatchers.IO) {
             try {
                 val operation = async {

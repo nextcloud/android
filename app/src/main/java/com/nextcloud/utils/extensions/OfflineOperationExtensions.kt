@@ -48,18 +48,19 @@ fun OfflineOperationEntity.updatePathsIfParentPathMatches(oldPath: String?, newT
     }
 }
 
+@Suppress("ReturnCount")
 fun OfflineOperationEntity.updatePath(newParentPath: String?): String? {
     if (newParentPath.isNullOrEmpty() || path.isNullOrEmpty()) return null
 
-    val segments = path!!.trim(DELIMITER).split(DELIMITER).toMutableList()
+    val segments = path?.trim(DELIMITER)?.split(DELIMITER)?.toMutableList()
 
-    if (segments.size == 1) {
+    if (segments?.size == 1) {
         return newParentPath
     }
 
-    segments.removeAt(0)
+    segments?.removeAt(0)
 
-    return newParentPath + segments.joinToString(separator = DELIMITER.toString()) + DELIMITER
+    return newParentPath + segments?.joinToString(separator = DELIMITER.toString()) + DELIMITER
 }
 
 fun OfflineOperationEntity.getParentPathFromPath(): String? = path?.getParentPathFromPath()

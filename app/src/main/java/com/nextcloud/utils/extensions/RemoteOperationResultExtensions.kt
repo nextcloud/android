@@ -18,12 +18,14 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.utils.ErrorMessageAdapter
 import com.owncloud.android.utils.FileStorageUtils
 
+@Suppress("ReturnCount")
 fun Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>?.getErrorMessage(): String {
     val result = this?.first ?: return MainApp.string(R.string.unexpected_error_occurred)
     val operation = this.second ?: return MainApp.string(R.string.unexpected_error_occurred)
     return ErrorMessageAdapter.getErrorCauseMessage(result, operation, MainApp.getAppContext().resources)
 }
 
+@Suppress("NestedBlockDepth")
 fun RemoteOperationResult<*>?.getConflictedRemoteIdsWithOfflineOperations(
     offlineOperations: List<OfflineOperationEntity>,
     fileDataStorageManager: FileDataStorageManager

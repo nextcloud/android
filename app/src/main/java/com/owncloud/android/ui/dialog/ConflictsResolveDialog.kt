@@ -299,12 +299,7 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         private const val ARG_USER = "USER"
 
         @JvmStatic
-        fun newInstance(
-            context: Context,
-            leftFile: OCFile,
-            rightFile: OCFile,
-            user: User?
-        ): ConflictsResolveDialog {
+        fun newInstance(context: Context, leftFile: OCFile, rightFile: OCFile, user: User?): ConflictsResolveDialog {
             val file = File(leftFile.storagePath)
             val conflictData = getFileConflictData(file, rightFile, context)
 
@@ -324,7 +319,7 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         fun newInstance(
             context: Context,
             offlineOperation: OfflineOperationEntity,
-            rightFile: OCFile,
+            rightFile: OCFile
         ): ConflictsResolveDialog {
             val conflictData = getFolderConflictData(offlineOperation, rightFile, context)
 
@@ -338,6 +333,7 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             }
         }
 
+        @Suppress("MagicNumber")
         @JvmStatic
         private fun getFolderConflictData(
             offlineOperation: OfflineOperationEntity,
@@ -363,11 +359,7 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         }
 
         @JvmStatic
-        private fun getFileConflictData(
-            file: File,
-            rightFile: OCFile,
-            context: Context
-        ): ConflictDialogData {
+        private fun getFileConflictData(file: File, rightFile: OCFile, context: Context): ConflictDialogData {
             val parentFile = File(rightFile.remotePath).parentFile
             val folderName = if (parentFile != null) {
                 String.format(context.getString(R.string.in_folder), parentFile.absolutePath)
