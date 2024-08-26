@@ -13,6 +13,7 @@ import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.widget.AppCompatEditText
 
 @SuppressLint("ClickableViewAccessibility")
@@ -25,7 +26,10 @@ class PassCodeEditText(context: Context, attrs: AttributeSet?) : AppCompatEditTe
     private fun disableFocusChangeViaTap() {
         setSelectAllOnFocus(false)
         setTextIsSelectable(false)
-        setOnTouchListener { _: View?, _: MotionEvent? -> true }
+        setOnTouchListener { _: View?, _: MotionEvent? ->
+            showKeyboard()
+            true
+        }
     }
 
     override fun onKeyPreIme(keyCode: Int, event: KeyEvent): Boolean {
@@ -36,4 +40,9 @@ class PassCodeEditText(context: Context, attrs: AttributeSet?) : AppCompatEditTe
         }
         return super.dispatchKeyEvent(event)
     }
+}
+
+fun PassCodeEditText.showKeyboard() {
+    val imm = this.context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+    imm.showSoftInput(this, InputMethodManager.SHOW_IMPLICIT)
 }
