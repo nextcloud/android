@@ -17,7 +17,7 @@ import org.junit.Test;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 
-public class UploadListActivityActivityIT extends AbstractIT {
+public class UploadStartedListActivityActivityIT extends AbstractIT {
     @Rule public IntentsTestRule<UploadListActivity> activityRule = new IntentsTestRule<>(UploadListActivity.class,
                                                                                           true,
                                                                                           false);

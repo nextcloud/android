@@ -52,7 +52,7 @@ import static org.junit.Assert.assertTrue;
  */
 @RunWith(AndroidJUnit4.class)
 @SmallTest
-public class UploadStorageManagerTest extends AbstractIT {
+public class UploadStartedStorageManagerTest extends AbstractIT {
     private UploadsStorageManager uploadsStorageManager;
     private CurrentAccountProvider currentAccountProvider = () -> null;
     private UserAccountManager userAccountManager;

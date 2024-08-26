@@ -31,7 +31,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Tests related to file uploads.
  */
-public class DownloadIT extends AbstractOnServerIT {
+public class DownloadStartedIT extends AbstractOnServerIT {
     private static final String FOLDER = "/testUpload/";
 
     @After

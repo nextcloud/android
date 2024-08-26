@@ -48,7 +48,7 @@ import static junit.framework.TestCase.assertTrue;
 /**
  * Tests related to file uploads.
  */
-public class UploadIT extends AbstractOnServerIT {
+public class UploadStartedIT extends AbstractOnServerIT {
     private static final String FOLDER = "/testUpload/";
 
     private UploadsStorageManager uploadsStorageManager =

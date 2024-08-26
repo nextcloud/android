@@ -26,7 +26,7 @@ import org.junit.Rule
 import org.junit.Test
 import java.io.File
 
-class UploadFilesActivityIT : AbstractIT() {
+class UploadStartedFilesActivityIT : AbstractIT() {
     private val testClassName = "com.owncloud.android.ui.activity.UploadFilesActivityIT"
 
     @get:Rule

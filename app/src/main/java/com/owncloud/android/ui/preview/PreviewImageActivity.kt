@@ -279,7 +279,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
     private fun observeWorkerState() {
         WorkerStateLiveData.instance().observe(this) { state: WorkerState? ->
             when (state) {
-                is WorkerState.Download -> {
+                is WorkerState.DownloadStarted -> {
                     Log_OC.d(TAG, "Download worker started")
                     isDownloadWorkStarted = true
 
@@ -288,7 +288,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
                     }
                 }
 
-                is WorkerState.Idle -> {
+                is WorkerState.DownloadFinished -> {
                     Log_OC.d(TAG, "Download worker stopped")
                     isDownloadWorkStarted = false
 
@@ -298,7 +298,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
                 }
 
                 else -> {
-                    Log_OC.d(TAG, "Download worker stopped")
+                    Log_OC.d(TAG, "Worker stopped")
                     isDownloadWorkStarted = false
                 }
             }

@@ -120,11 +120,11 @@ class FileUploadWorker(
     }
 
     private fun setWorkerState(user: User?, uploads: List<OCUpload>) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.Upload(user, uploads))
+        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadStarted(user, uploads))
     }
 
     private fun setIdleWorkerState() {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.Idle(currentUploadFileOperation?.file))
+        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadFinished(currentUploadFileOperation?.file))
     }
 
     @Suppress("ReturnCount")

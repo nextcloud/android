@@ -16,7 +16,6 @@ import android.accounts.AccountManagerCallback;
 import android.accounts.AccountManagerFuture;
 import android.accounts.OperationCanceledException;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.MenuItem;
@@ -460,10 +459,10 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
 
     private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(this, state -> {
-            if (state instanceof WorkerState.Download) {
+            if (state instanceof WorkerState.DownloadStarted) {
                 Log_OC.d(TAG, "Download worker started");
-                workerAccountName = ((WorkerState.Download) state).getUser().getAccountName();
-                workerCurrentDownload = ((WorkerState.Download) state).getCurrentDownload();
+                workerAccountName = ((WorkerState.DownloadStarted) state).getUser().getAccountName();
+                workerCurrentDownload = ((WorkerState.DownloadStarted) state).getCurrentDownload();
             }
         });
     }

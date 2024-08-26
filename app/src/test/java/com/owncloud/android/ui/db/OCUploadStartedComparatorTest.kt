@@ -23,10 +23,10 @@ import org.mockito.kotlin.whenever
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
-    OCUploadComparatorTest.Ordering::class,
-    OCUploadComparatorTest.ComparatorContract::class
+    OCUploadStartedComparatorTest.Ordering::class,
+    OCUploadStartedComparatorTest.ComparatorContract::class
 )
-class OCUploadComparatorTest {
+class OCUploadStartedComparatorTest {
 
     internal abstract class Base {
         companion object {
