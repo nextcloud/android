@@ -153,7 +153,6 @@
     <string name="confirmation_remove_folder_alert">Ali res želite izbrisati %1$s skupaj z vsebino?</string>
     <string name="confirmation_remove_folders_alert">Ali zares želite izbrisati izbrane predmete in vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
-    <string name="conflict_file_headline">Različice %1$s v sporu.</string>
     <string name="conflict_local_file">Krajevna datoteka</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_server_file">Strežniška datoteka</string>

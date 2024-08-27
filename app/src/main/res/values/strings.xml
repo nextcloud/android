@@ -1028,7 +1028,6 @@
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
     <string name="sync_not_enough_space_dialog_title">Not enough space</string>
-    <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_folder_headline">Folder Conflict</string>
     <string name="conflict_message_description_for_folder">If you select both versions, the local folder will have a number appended to its name.</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>

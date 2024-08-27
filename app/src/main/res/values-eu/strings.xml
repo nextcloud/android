@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Ziur zaude hautatutako elementuak eta beren edukiak ezabatu nahi dituzula?</string>
     <string name="confirmation_remove_local">Lokala bakarrik</string>
     <string name="conflict_dialog_error">Gatazkak konpontzeko elkarrizketa-koadroa ezin da sortu</string>
-    <string name="conflict_file_headline">%1$sfitxategi gatazkatsua</string>
     <string name="conflict_local_file">Fitxategi lokala</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_server_file">Zerbitzariko fitxategia</string>

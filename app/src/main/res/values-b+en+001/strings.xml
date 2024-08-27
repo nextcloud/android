@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="confirmation_remove_local">Local only</string>
     <string name="conflict_dialog_error">Conflict resolver dialog cannot be created</string>
-    <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_local_file">Local file</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_server_file">Server file</string>

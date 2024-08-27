@@ -178,7 +178,6 @@
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Solo local</string>
     <string name="conflict_dialog_error">El diálogo de resolución de conflictos no puede ser creado</string>
-    <string name="conflict_file_headline">Conflicto en archivo %1$s</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
     <string name="conflict_server_file">Archivo del servidor</string>

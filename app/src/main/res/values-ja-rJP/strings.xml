@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">本当に選択したアイテムとその内容を削除しますか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
     <string name="conflict_dialog_error">競合解決ダイアログを作成できません</string>
-    <string name="conflict_file_headline">%1$sはすでに存在します</string>
     <string name="conflict_local_file">ローカルファイル</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
     <string name="conflict_server_file">サーバーファイル</string>

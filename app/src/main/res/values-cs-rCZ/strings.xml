@@ -170,7 +170,6 @@
     <string name="confirmation_remove_folder_alert">Opravdu chcete %1$s a jeho obsah odstranit?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete vybrané položky a jejich obsah odstranit?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
-    <string name="conflict_file_headline">Kolidující soubor %1$s</string>
     <string name="conflict_local_file">Místní soubor</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
     <string name="conflict_server_file">Soubor na serveru</string>

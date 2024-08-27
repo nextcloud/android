@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri silmek istediğinize emin misiniz?</string>
     <string name="confirmation_remove_local">Yalnızca yerel</string>
     <string name="conflict_dialog_error">Çakışma çözümleme penceresi oluşturulamadı</string>
-    <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
     <string name="conflict_local_file">Yerel dosya</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
     <string name="conflict_server_file">Sunucu dosyası</string>

@@ -145,7 +145,6 @@
     <string name="confirmation_remove_folder_alert">Želite li zaista izbrisati %1$s i pripadajući sadržaj?</string>
     <string name="confirmation_remove_folders_alert">Želite li zaista izbrisati odabrane stavke i pripadajući sadržaj?</string>
     <string name="confirmation_remove_local">Samo lokalno</string>
-    <string name="conflict_file_headline">Nepodudarna datoteka %1$s</string>
     <string name="conflict_local_file">Lokalna datoteka</string>
     <string name="conflict_message_description">Ako odaberete obje inačice, lokalna će datoteka uz naziv imati i broj.</string>
     <string name="conflict_server_file">Datoteka na poslužitelju</string>

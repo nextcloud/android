@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Vil du virkelig fjerne de valgte elementene og dets innhold?</string>
     <string name="confirmation_remove_local">Kun lokalt</string>
     <string name="conflict_dialog_error">Dialogboksen Konfliktløser kan ikke opprettes</string>
-    <string name="conflict_file_headline">Konflikt med%1$s</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Hvis du velger begge versjonene vil den lokale filen få et tall lagt til på slutten av navnet.</string>
     <string name="conflict_server_file">Server fil</string>

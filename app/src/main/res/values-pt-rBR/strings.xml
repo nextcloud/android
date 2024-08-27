@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
     <string name="conflict_dialog_error">A caixa de diálogo de resolução de conflitos não pode ser criada</string>
-    <string name="conflict_file_headline">Arquivo conflitante %1$s</string>
     <string name="conflict_local_file">Arquivo local</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
     <string name="conflict_server_file">Arquivo do servidor</string>

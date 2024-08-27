@@ -164,7 +164,6 @@
     <string name="confirmation_remove_folder_alert">Er du sikker på at du vil slette %1$s med indhold?</string>
     <string name="confirmation_remove_folders_alert">Er du sikker på at du vil slette de valgte artikler med indhold?</string>
     <string name="confirmation_remove_local">Kun lokal</string>
-    <string name="conflict_file_headline">Fil i konflikt %1$s</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
     <string name="conflict_server_file">Server fil</string>

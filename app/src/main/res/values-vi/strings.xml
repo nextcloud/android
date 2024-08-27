@@ -146,7 +146,6 @@
     <string name="confirmation_remove_folder_alert">Bạn có thực sự muốn xóa %1$s và nội dung của nó?</string>
     <string name="confirmation_remove_folders_alert">Bạn có thực sự muốn xóa các mục đã chọn và nội dung của chúng không?</string>
     <string name="confirmation_remove_local">Chỉ cục bộ</string>
-    <string name="conflict_file_headline">Tập tin xung đột %1$s</string>
     <string name="conflict_local_file">Tệp cục bộ</string>
     <string name="conflict_message_description">Nếu bạn chọn cả hai phiên bản, tệp trên máy sẽ có một số được thêm vào tên của nó.</string>
     <string name="conflict_server_file">Tệp trên máy chủ</string>

@@ -169,7 +169,6 @@
     <string name="confirmation_remove_folder_alert">Vuoi davvero rimuovere %1$s e il relativo contenuto?</string>
     <string name="confirmation_remove_folders_alert">Vuoi davvero eliminare gli elementi selezionati e il loro contenuto?</string>
     <string name="confirmation_remove_local">Solo localmente</string>
-    <string name="conflict_file_headline">File %1$s in conflitto</string>
     <string name="conflict_local_file">File locale</string>
     <string name="conflict_message_description">Se selezioni entrambe le versioni, il file locale ha un numero aggiunto al suo nome.</string>
     <string name="conflict_server_file">File su server</string>
