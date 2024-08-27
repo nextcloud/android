@@ -33,4 +33,7 @@ interface OfflineOperationDao {
 
     @Query("SELECT * FROM offline_operations WHERE offline_operations_path = :path LIMIT 1")
     fun getByPath(path: String): OfflineOperationEntity?
+
+    @Query("SELECT * FROM offline_operations WHERE offline_operations_path LIKE :oldPath || '%'")
+    fun getSubDirs(oldPath: String): List<OfflineOperationEntity>
 }

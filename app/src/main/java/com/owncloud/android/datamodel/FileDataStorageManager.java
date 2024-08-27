@@ -77,7 +77,6 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Set;
 
 import androidx.annotation.NonNull;
@@ -147,12 +146,15 @@ public class FileDataStorageManager {
         entity.setType(OfflineOperationType.CreateFolder);
 
         offlineOperationDao.insert(entity);
+        createPendingDirectory(path);
 
+        return entity;
+    }
+
+    public void createPendingDirectory(String path) {
         OCFile file = new OCFile(path);
         file.setMimeType(MimeType.DIRECTORY);
         saveFileWithParent(file, MainApp.getAppContext());
-
-        return entity;
     }
 
     public void deleteOfflineOperation(OCFile file) {
@@ -162,8 +164,6 @@ public class FileDataStorageManager {
     }
 
     public void renameCreateFolderOfflineOperation(OCFile file, String newFolderName) {
-        deleteOfflineOperation(file);
-
         OCFile parentFolder = getFileById(file.getParentId());
         if (parentFolder == null) {
             return;
@@ -171,17 +171,18 @@ public class FileDataStorageManager {
 
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
         String oldPath = parentFolder.getDecryptedRemotePath() + file.getFileName() + OCFile.PATH_SEPARATOR;
+        OfflineOperationExtensionsKt.updatePathAndSubPaths(offlineOperationDao, oldPath, newPath);
 
-        String uploadedParentPath = null;
-        if (Objects.equals(parentFolder.getRemotePath(), OCFile.PATH_SEPARATOR)) {
-            uploadedParentPath = OCFile.PATH_SEPARATOR;
-        }
+        // Delete old parent
+        removeFile(file, true, true);
 
-        OfflineOperationEntity entity = addCreateFolderOfflineOperation(newPath, newFolderName, uploadedParentPath, file.getParentId());
-        String newTopDir = OfflineOperationExtensionsKt.getTopParentPathFromPath(entity);
+        // Create new parent
+        createPendingDirectory(newPath);
 
-        if (newTopDir != null) {
-            OfflineOperationExtensionsKt.updatePathsIfParentPathMatches(offlineOperationDao, oldPath, newTopDir, entity.getParentPath());
+        // Create updated sub-directories
+        var subDirs = offlineOperationDao.getSubDirs(newPath);
+        for (OfflineOperationEntity entity: subDirs) {
+            createPendingDirectory(entity.getPath());
         }
     }
 

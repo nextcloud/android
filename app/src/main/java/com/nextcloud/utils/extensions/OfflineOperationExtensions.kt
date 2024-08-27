@@ -12,6 +12,16 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 
 private const val DELIMITER = '/'
 
+fun OfflineOperationDao.updatePathAndSubPaths(oldPath: String, newPath: String) {
+    val operationsToUpdate = getSubDirs(oldPath)
+
+    operationsToUpdate.forEach { operation ->
+        val newOperationPath = operation.path?.replaceFirst(oldPath, newPath)
+        operation.path = newOperationPath
+        update(operation)
+    }
+}
+
 fun OfflineOperationDao.deleteSubDirIfParentPathMatches(filename: String) {
     val targetPath = DELIMITER + filename + DELIMITER
     getAll().forEach {
