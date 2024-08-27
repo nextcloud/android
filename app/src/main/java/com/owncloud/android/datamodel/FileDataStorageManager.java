@@ -171,7 +171,7 @@ public class FileDataStorageManager {
 
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
         String oldPath = parentFolder.getDecryptedRemotePath() + file.getFileName() + OCFile.PATH_SEPARATOR;
-        OfflineOperationExtensionsKt.updatePathAndSubPaths(offlineOperationDao, oldPath, newPath);
+        OfflineOperationExtensionsKt.updatePathAndSubPaths(offlineOperationDao, oldPath, newPath, file.getFileName(), newFolderName);
 
         // Delete old parent
         removeFile(file, true, true);
@@ -180,7 +180,7 @@ public class FileDataStorageManager {
         createPendingDirectory(newPath);
 
         // Create updated sub-directories
-        var subDirs = offlineOperationDao.getSubDirs(newPath);
+        var subDirs = offlineOperationDao.getSubDirs(newPath, newFolderName);
         for (OfflineOperationEntity entity: subDirs) {
             createPendingDirectory(entity.getPath());
         }
@@ -188,6 +188,12 @@ public class FileDataStorageManager {
 
     @SuppressLint("SimpleDateFormat")
     public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity) {
+        String oldFileName = entity.getFilename();
+        if (oldFileName == null) return;
+
+        String oldPath = entity.getPath();
+        if (oldPath == null) return;
+
         Long parentOCFileId = entity.getParentOCFileId();
         if (parentOCFileId == null) return;
 
@@ -198,24 +204,18 @@ public class FileDataStorageManager {
         String currentDateTime = DateExtensionsKt.currentDateRepresentation(new Date(), formatPattern);
 
         // Update path
-        String newFolderName = entity.getFilename() + " - " + currentDateTime;
+        String newFolderName = oldFileName + " - " + currentDateTime;
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
-        String oldPath = entity.getPath();
+        OfflineOperationExtensionsKt.updatePathAndSubPaths(offlineOperationDao, oldPath, newPath, oldFileName, newFolderName);
 
-        entity.setPath(newPath);
-        entity.setFilename(newFolderName);
-        offlineOperationDao.update(entity);
+        // Create updated directory
+        createPendingDirectory(newPath);
 
-        String newTopDir = OfflineOperationExtensionsKt.getTopParentPathFromPath(entity);
-
-        if (newTopDir != null && oldPath != null) {
-            OfflineOperationExtensionsKt.updatePathsIfParentPathMatches(offlineOperationDao, oldPath, newTopDir, entity.getParentPath());
+        // Create updated sub-directories
+        var subDirs = offlineOperationDao.getSubDirs(newPath, newFolderName);
+        for (OfflineOperationEntity subDir: subDirs) {
+            createPendingDirectory(subDir.getPath());
         }
-
-        // Update local DB
-        OCFile file = new OCFile(entity.getPath());
-        file.setMimeType(MimeType.DIRECTORY);
-        saveFileWithParent(file, MainApp.getAppContext());
     }
 
     private @Nullable
