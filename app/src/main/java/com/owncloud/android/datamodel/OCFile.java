@@ -117,6 +117,8 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     @Nullable
     private GeoLocation geolocation;
     private List<String> tags = new ArrayList<>();
+    private Long internalFolderSyncTimestamp = -1L;
+    private String internalFolderSyncResult = "";
 
     /**
      * URI to the local path of the file contents, if stored in the device; cached after first call to
@@ -1050,6 +1052,26 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         } else {
             this.e2eCounter = e2eCounter;
         }
+    }
+
+    public boolean isInternalFolderSync() {
+        return internalFolderSyncTimestamp >= 0;
+    }
+    
+    public Long getInternalFolderSyncTimestamp() {
+        return internalFolderSyncTimestamp;
+    }
+
+    public void setInternalFolderSyncTimestamp(Long internalFolderSyncTimestamp) {
+        this.internalFolderSyncTimestamp = internalFolderSyncTimestamp;
+    }
+
+    public String getInternalFolderSyncResult() {
+        return internalFolderSyncResult;
+    }
+
+    public void setInternalFolderSyncResult(String internalFolderSyncResult) {
+        this.internalFolderSyncResult = internalFolderSyncResult;
     }
     
     public boolean isAPKorAAB() {

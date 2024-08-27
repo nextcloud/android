@@ -279,8 +279,11 @@
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">Usado %1$s</string>
     <string name="drawer_synced_folders">Envío automático</string>
+    <string name="e2e_counter_too_old">O contador é demasiado antigo</string>
+    <string name="e2e_hash_not_found">Non se atopou o resumo criptográfico</string>
     <string name="e2e_not_yet_setup">E2E aínda non está configurado</string>
     <string name="e2e_offline">Non é posíbel sen conexión a internet</string>
+    <string name="e2e_signature_does_not_match">A sinatura non coincide</string>
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Máis</string>
     <string name="ecosystem_apps_display_notes">Notas</string>
@@ -406,6 +409,14 @@
     <string name="file_migration_updating_index">Actualizando o índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
     <string name="file_migration_waiting_for_unfinished_sync">Agardando que rematen as sincronizacións…</string>
+    <string name="file_name_validator_current_path_is_invalid">O nome actual do cartafol non é válido, cambie o nome do cartafol. Redireccionando á raíz</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">A ruta do cartafol contén nomes reservados ou caracteres non válidos</string>
+    <string name="file_name_validator_error_ends_with_space_period">O nome remata cun espazo ou un punto</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s é unha extensión de ficheiro prohibida.</string>
+    <string name="file_name_validator_error_invalid_character">O nome contén un carácter non válido: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s é un nome prohibido.</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Cambie o nome do ficheiro antes de mover ou copiar</string>
+    <string name="file_name_validator_upload_content_error">Non é posíbel enviar algúns contidos porque conteñen nomes reservados ou caracteres non válidos</string>
     <string name="file_not_found">Non se atopou o ficheiro</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
     <string name="file_rename">Cambiar o nome</string>
@@ -429,6 +440,7 @@
     <string name="folder_already_exists">Xa existe o cartafol</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">Aquí non hai cartafoles</string>
+    <string name="folder_name_empty">O nome do cartafol non pode estar baleiro</string>
     <string name="folder_picker_choose_button_text">Escoller</string>
     <string name="folder_picker_choose_caption_text">Escoller o cartafol de destino</string>
     <string name="folder_picker_copy_button_text">Copiar</string>

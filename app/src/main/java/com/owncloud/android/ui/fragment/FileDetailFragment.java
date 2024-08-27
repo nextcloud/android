@@ -261,6 +261,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             binding.favorite.setOnClickListener(this);
             binding.overflowMenu.setOnClickListener(this);
             binding.lastModificationTimestamp.setOnClickListener(this);
+            binding.folderSyncButton.setOnClickListener(this);
 
             updateFileDetails(false, false);
         }
@@ -471,8 +472,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             boolean showDetailedTimestamp = !preferences.isShowDetailedTimestampEnabled();
             preferences.setShowDetailedTimestampEnabled(showDetailedTimestamp);
             setFileModificationTimestamp(getFile(), showDetailedTimestamp);
-
-            Log_OC.e(TAG, "Incorrect view clicked!");
+        } else if (id == R.id.folder_sync_button) {
+            if (binding.folderSyncButton.isChecked()) {
+                getFile().setInternalFolderSyncTimestamp(0L);    
+            } else {
+                getFile().setInternalFolderSyncTimestamp(-1L);
+            }
+            
+            storageManager.saveFile(getFile());
         } else {
             Log_OC.e(TAG, "Incorrect view clicked!");
         }
@@ -555,6 +562,17 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             FloatingActionButton fabMain = requireActivity().findViewById(R.id.fab_main);
             if (fabMain != null) {
                 fabMain.hide();
+            }
+            
+            binding.syncBlock.setVisibility(file.isFolder() ? View.VISIBLE : View.GONE);
+            
+            if (file.isInternalFolderSync()) {
+                binding.folderSyncButton.setChecked(file.isInternalFolderSync());    
+            } else {
+                if (storageManager.isPartOfInternalTwoWaySync(file)) {
+                    binding.folderSyncButton.setChecked(true);
+                    binding.folderSyncButton.setEnabled(false);
+                }
             }
         }
 

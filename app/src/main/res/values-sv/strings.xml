@@ -279,8 +279,10 @@
     <string name="drawer_quota">%1$s av %2$s använt</string>
     <string name="drawer_quota_unlimited">%1$s använt</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
+    <string name="e2e_hash_not_found">Hash kunde inte hittas</string>
     <string name="e2e_not_yet_setup">E2E ej inställt än</string>
     <string name="e2e_offline">Inte möjligt utan internetuppkoppling</string>
+    <string name="e2e_signature_does_not_match">Signaturen matchar inte</string>
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mer</string>
     <string name="ecosystem_apps_display_notes">Anteckning</string>
@@ -406,6 +408,14 @@
     <string name="file_migration_updating_index">Uppdaterar index…</string>
     <string name="file_migration_use_data_folder">Använd</string>
     <string name="file_migration_waiting_for_unfinished_sync">Väntar på fullständig synkronisering…</string>
+    <string name="file_name_validator_current_path_is_invalid">Aktuellt mappnamn är ogiltigt. Byt namn på mappen. Omdirigerar till root</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Mappsökvägen innehåller reserverade namn eller ogiltiga tecken</string>
+    <string name="file_name_validator_error_ends_with_space_period">Namnet slutar med ett mellanslag eller en punkt</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s är ett förbjudet filtillägg</string>
+    <string name="file_name_validator_error_invalid_character">Namnet innehåller ett ogiltigt tecken: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s är ett förbjudet namn</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Byt namn på filen innan du flyttar eller kopierar</string>
+    <string name="file_name_validator_upload_content_error">En del innehåll kan inte laddas upp på grund av att det innehåller reserverade namn eller ogiltiga tecken</string>
     <string name="file_not_found">Filen hittades inte</string>
     <string name="file_not_synced">Filen kunde inte synkroniseras. Visar senaste tillgängliga versionen.</string>
     <string name="file_rename">Byt namn</string>
@@ -429,6 +439,7 @@
     <string name="folder_already_exists">Mapp finns redan</string>
     <string name="folder_confirm_create">Skapa</string>
     <string name="folder_list_empty_headline">Inga mappar här</string>
+    <string name="folder_name_empty">Mappnamnet får inte vara tomt</string>
     <string name="folder_picker_choose_button_text">Välj</string>
     <string name="folder_picker_choose_caption_text">Välj målmapp</string>
     <string name="folder_picker_copy_button_text">Kopiera</string>

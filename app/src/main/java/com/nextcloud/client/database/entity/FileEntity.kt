@@ -115,5 +115,9 @@ data class FileEntity(
     @ColumnInfo(name = ProviderTableMeta.FILE_METADATA_GPS)
     val metadataGPS: String?,
     @ColumnInfo(name = ProviderTableMeta.FILE_E2E_COUNTER)
-    val e2eCounter: Long?
+    val e2eCounter: Long?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP)
+    val internalTwoWaySync: Long?,
+    @ColumnInfo(name = ProviderTableMeta.FILE_INTERNAL_TWO_WAY_SYNC_RESULT)
+    val internalTwoWaySyncResult: String?
 )
