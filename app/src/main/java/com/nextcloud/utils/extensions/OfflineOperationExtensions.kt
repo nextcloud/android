@@ -12,11 +12,11 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 
 private const val DELIMITER = '/'
 
-fun OfflineOperationDao.deleteSubDirIfParentPathMatches(path: String) {
-    val topDir = path.getParentPathFromPath()
+fun OfflineOperationDao.deleteSubDirIfParentPathMatches(filename: String) {
+    val targetPath = DELIMITER + filename + DELIMITER
     getAll().forEach {
-        val entityTopDir = it.getParentPathFromPath()
-        if (entityTopDir == topDir) {
+        val entityParentPath = it.getParentPathFromPath()
+        if (entityParentPath == targetPath) {
             delete(it)
         }
     }
@@ -37,8 +37,8 @@ fun OfflineOperationDao.updatePathsIfParentPathMatches(oldPath: String?, newTopD
 
 fun OfflineOperationDao.updateNextOperationsParentPaths(currentOperation: OfflineOperationEntity) {
     getAll().forEach { nextOperation ->
-        val nextOperationParentPath = nextOperation.getParentPathFromPath()
-        val currentOperationParentPath = currentOperation.getParentPathFromPath()
+        val nextOperationParentPath = nextOperation.getTopParentPathFromPath()
+        val currentOperationParentPath = currentOperation.getTopParentPathFromPath()
         if (nextOperationParentPath == currentOperationParentPath) {
             nextOperation.parentPath = currentOperationParentPath
             update(nextOperation)
@@ -49,8 +49,8 @@ fun OfflineOperationDao.updateNextOperationsParentPaths(currentOperation: Offlin
 fun OfflineOperationEntity.updatePathsIfParentPathMatches(oldPath: String?, newTopDir: String?): String? {
     if (oldPath.isNullOrEmpty() || newTopDir.isNullOrEmpty()) return null
 
-    val topDir = getParentPathFromPath()
-    val oldTopDir = oldPath.getParentPathFromPath()
+    val topDir = getTopParentPathFromPath()
+    val oldTopDir = oldPath.getTopParentPathFromPath()
     return if (topDir == oldTopDir) {
         updatePath(newTopDir)
     } else {
@@ -73,10 +73,32 @@ fun OfflineOperationEntity.updatePath(newParentPath: String?): String? {
     return newParentPath + segments?.joinToString(separator = DELIMITER.toString()) + DELIMITER
 }
 
-fun OfflineOperationEntity.getParentPathFromPath(): String? = path?.getParentPathFromPath()
+fun OfflineOperationEntity.getTopParentPathFromPath(): String? = path?.getTopParentPathFromPath()
 
-private fun String?.getParentPathFromPath(): String {
-    val trimmedPath = this?.trim(DELIMITER)
-    val firstDir = trimmedPath?.split(DELIMITER)?.firstOrNull() ?: ""
+private fun String?.getTopParentPathFromPath(): String? {
+    if (this == null) return null
+    val trimmedPath = this.trim(DELIMITER)
+    val firstDir = trimmedPath.split(DELIMITER).firstOrNull() ?: return null
     return DELIMITER + firstDir + DELIMITER
+}
+
+private fun OfflineOperationEntity.getParentPathFromPath(): String? {
+    if (filename == null) return null
+    return path.getParentPathFromPath(filename!!)
+}
+
+private fun String?.getParentPathFromPath(filename: String): String? {
+    val pathParts = this?.trim(DELIMITER)?.split(DELIMITER) ?: return null
+    val targetIndex = pathParts.indexOf(filename)
+    val result = if (targetIndex >= 0) {
+        if (targetIndex == 0) filename else pathParts[targetIndex - 1]
+    } else {
+        null
+    }
+
+    return if (result != null) {
+        DELIMITER + result + DELIMITER
+    } else {
+        null
+    }
 }

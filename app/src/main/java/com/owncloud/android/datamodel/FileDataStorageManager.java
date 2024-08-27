@@ -156,7 +156,7 @@ public class FileDataStorageManager {
     }
 
     public void deleteOfflineOperation(OCFile file) {
-        OfflineOperationExtensionsKt.deleteSubDirIfParentPathMatches(offlineOperationDao, file.getDecryptedRemotePath());
+        OfflineOperationExtensionsKt.deleteSubDirIfParentPathMatches(offlineOperationDao, file.getFileName());
         offlineOperationDao.deleteByPath(file.getDecryptedRemotePath());
         removeFile(file, true, true);
     }
@@ -178,7 +178,7 @@ public class FileDataStorageManager {
         }
 
         OfflineOperationEntity entity = addCreateFolderOfflineOperation(newPath, newFolderName, uploadedParentPath, file.getParentId());
-        String newTopDir = OfflineOperationExtensionsKt.getParentPathFromPath(entity);
+        String newTopDir = OfflineOperationExtensionsKt.getTopParentPathFromPath(entity);
 
         if (newTopDir != null) {
             OfflineOperationExtensionsKt.updatePathsIfParentPathMatches(offlineOperationDao, oldPath, newTopDir, entity.getParentPath());
@@ -205,7 +205,7 @@ public class FileDataStorageManager {
         entity.setFilename(newFolderName);
         offlineOperationDao.update(entity);
 
-        String newTopDir = OfflineOperationExtensionsKt.getParentPathFromPath(entity);
+        String newTopDir = OfflineOperationExtensionsKt.getTopParentPathFromPath(entity);
 
         if (newTopDir != null && oldPath != null) {
             OfflineOperationExtensionsKt.updatePathsIfParentPathMatches(offlineOperationDao, oldPath, newTopDir, entity.getParentPath());

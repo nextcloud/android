@@ -9,7 +9,7 @@ package com.nextcloud.extensions
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.nextcloud.client.database.entity.OfflineOperationEntity
-import com.nextcloud.utils.extensions.getParentPathFromPath
+import com.nextcloud.utils.extensions.getTopParentPathFromPath
 import com.nextcloud.utils.extensions.updatePath
 import com.nextcloud.utils.extensions.updatePathsIfParentPathMatches
 import org.junit.Assert.assertEquals
@@ -59,28 +59,28 @@ class OfflineOperationExtensionTests {
     @Test
     fun testGetParentPathFromPath() {
         val entity = OfflineOperationEntity(path = "/abc/def/file/")
-        val parentPath = entity.getParentPathFromPath()
+        val parentPath = entity.getTopParentPathFromPath()
         assertEquals("/abc/", parentPath)
     }
 
     @Test
     fun testGetParentPathFromPathWithRootPath() {
         val entity = OfflineOperationEntity(path = "/")
-        val parentPath = entity.getParentPathFromPath()
+        val parentPath = entity.getTopParentPathFromPath()
         assertEquals("//", parentPath)
     }
 
     @Test
     fun testGetParentPathFromPathWithEmptyString() {
         val entity = OfflineOperationEntity(path = "")
-        val parentPath = entity.getParentPathFromPath()
+        val parentPath = entity.getTopParentPathFromPath()
         assertEquals("//", parentPath)
     }
 
     @Test
     fun testGetParentPathFromPathWithNullPath() {
         val entity = OfflineOperationEntity(path = null)
-        val parentPath = entity.getParentPathFromPath()
+        val parentPath = entity.getTopParentPathFromPath()
         assertNull(parentPath)
     }
 
