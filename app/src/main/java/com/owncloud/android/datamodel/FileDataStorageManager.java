@@ -156,6 +156,7 @@ public class FileDataStorageManager {
     }
 
     public void deleteOfflineOperation(OCFile file) {
+        OfflineOperationExtensionsKt.deleteSubDirIfParentPathMatches(offlineOperationDao, file.getDecryptedRemotePath());
         offlineOperationDao.deleteByPath(file.getDecryptedRemotePath());
         removeFile(file, true, true);
     }

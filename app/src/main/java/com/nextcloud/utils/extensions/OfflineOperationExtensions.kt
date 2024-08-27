@@ -12,6 +12,16 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 
 private const val DELIMITER = '/'
 
+fun OfflineOperationDao.deleteSubDirIfParentPathMatches(path: String) {
+    val topDir = path.getParentPathFromPath()
+    getAll().forEach {
+        val entityTopDir = it.getParentPathFromPath()
+        if (entityTopDir == topDir) {
+            delete(it)
+        }
+    }
+}
+
 fun OfflineOperationDao.updatePathsIfParentPathMatches(oldPath: String?, newTopDir: String?, parentPath: String?) {
     if (oldPath.isNullOrEmpty() || newTopDir.isNullOrEmpty()) return
 
