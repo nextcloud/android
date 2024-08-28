@@ -203,6 +203,7 @@ public class FileDataStorageManager {
         String newFolderName = oldFileName + " - " + currentDateTime;
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
         moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
+        offlineOperationsRepository.updateNextOperations();
     }
 
     private @Nullable
