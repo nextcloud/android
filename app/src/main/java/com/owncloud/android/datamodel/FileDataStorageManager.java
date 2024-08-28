@@ -38,10 +38,11 @@ import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.database.dao.OfflineOperationDao;
 import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
+import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
+import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepositoryType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
-import com.nextcloud.utils.extensions.OfflineOperationExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
 import com.owncloud.android.lib.common.network.WebdavEntry;
@@ -105,17 +106,20 @@ public class FileDataStorageManager {
     public final OfflineOperationDao offlineOperationDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).offlineOperationDao();
     private final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     private final Gson gson = new Gson();
+    private final OfflineOperationsRepositoryType offlineOperationsRepository;
 
     public FileDataStorageManager(User user, ContentResolver contentResolver) {
         this.contentProviderClient = null;
         this.contentResolver = contentResolver;
         this.user = user;
+        offlineOperationsRepository = new OfflineOperationsRepository(this);
     }
 
     public FileDataStorageManager(User user, ContentProviderClient contentProviderClient) {
         this.contentProviderClient = contentProviderClient;
         this.contentResolver = null;
         this.user = user;
+        offlineOperationsRepository = new OfflineOperationsRepository(this);
     }
 
     /**
@@ -158,7 +162,7 @@ public class FileDataStorageManager {
     }
 
     public void deleteOfflineOperation(OCFile file) {
-        OfflineOperationExtensionsKt.deleteOperation(offlineOperationDao, file, this);
+        offlineOperationsRepository.deleteOperation(file);
     }
 
     public void renameCreateFolderOfflineOperation(OCFile file, String newFolderName) {

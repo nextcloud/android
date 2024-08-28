@@ -12,12 +12,12 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.nextcloud.client.database.entity.OfflineOperationEntity
+import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository
 import com.nextcloud.client.network.ClientFactoryImpl
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.model.OfflineOperationType
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
-import com.nextcloud.utils.extensions.updateNextOperations
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -44,6 +44,7 @@ class OfflineOperationsWorker(
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
     private val clientFactory = ClientFactoryImpl(context)
     private val notificationManager = OfflineOperationsNotificationManager(context, viewThemeUtils)
+    private var repository = OfflineOperationsRepository(fileDataStorageManager)
 
     @Suppress("TooGenericExceptionCaught", "Deprecation")
     override suspend fun doWork(): Result = coroutineScope {
@@ -114,11 +115,8 @@ class OfflineOperationsWorker(
         Log_OC.d(TAG, "$logMessage path: ${operation.path}, type: ${operation.type}")
 
         if (result.isSuccess) {
-            fileDataStorageManager.offlineOperationDao.run {
-                updateNextOperations(fileDataStorageManager)
-                delete(operation)
-            }
-
+            repository.updateNextOperations()
+            fileDataStorageManager.offlineOperationDao.delete(operation)
             notificationManager.update(operations.size, currentOperationIndex, operation.filename ?: "")
         } else {
             val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
