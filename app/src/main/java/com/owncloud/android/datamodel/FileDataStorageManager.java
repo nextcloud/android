@@ -162,13 +162,22 @@ public class FileDataStorageManager {
     }
 
     public void renameCreateFolderOfflineOperation(OCFile file, String newFolderName) {
+        var entity = offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+        if (entity == null) {
+            return;
+        }
+
         OCFile parentFolder = getFileById(file.getParentId());
         if (parentFolder == null) {
             return;
         }
 
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
-        moveLocalFile(file,newPath,parentFolder.getDecryptedRemotePath());
+        entity.setPath(newPath);
+        entity.setFilename(newFolderName);
+        offlineOperationDao.update(entity);
+
+        moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
     }
 
     @SuppressLint("SimpleDateFormat")
