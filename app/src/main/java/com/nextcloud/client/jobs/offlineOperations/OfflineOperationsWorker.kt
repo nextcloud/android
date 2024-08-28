@@ -115,7 +115,7 @@ class OfflineOperationsWorker(
 
         if (result.isSuccess) {
             fileDataStorageManager.offlineOperationDao.run {
-                updateNextOperationsParentPaths(operation)
+                updateNextOperationsParentPaths(fileDataStorageManager)
                 delete(operation)
             }
 

@@ -13,7 +13,10 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 
 private const val DELIMITER = '/'
 
-fun OfflineOperationDao.getAllSubdirectories(fileId: Long, fileDataStorageManager: FileDataStorageManager): List<OfflineOperationEntity> {
+fun OfflineOperationDao.getAllSubdirectories(
+    fileId: Long,
+    fileDataStorageManager: FileDataStorageManager
+): List<OfflineOperationEntity> {
     val result = mutableListOf<OfflineOperationEntity>()
     val queue = ArrayDeque<Long>()
     queue.add(fileId)
@@ -40,7 +43,6 @@ fun OfflineOperationDao.getAllSubdirectories(fileId: Long, fileDataStorageManage
 
     return result
 }
-
 
 fun OfflineOperationDao.updatePathAndSubPaths(
     oldPath: String,
@@ -69,16 +71,28 @@ fun OfflineOperationDao.deleteSubDirIfParentPathMatches(filename: String) {
     }
 }
 
+fun OfflineOperationDao.updateNextOperationsParentPaths(
+    fileDataStorageManager: FileDataStorageManager
+) {
+    getAll()
+        .mapNotNull { nextOperation ->
+            nextOperation.parentOCFileId?.let { parentId ->
+                fileDataStorageManager.getFileById(parentId)?.let { ocFile ->
+                    ocFile.decryptedRemotePath?.let { updatedPath ->
+                        val newParentPath = ocFile.parentRemotePath
+                        val newPath = updatedPath + nextOperation.filename + DELIMITER
 
-fun OfflineOperationDao.updateNextOperationsParentPaths(currentOperation: OfflineOperationEntity) {
-    getAll().forEach { nextOperation ->
-        val nextOperationParentPath = nextOperation.getTopParentPathFromPath()
-        val currentOperationParentPath = currentOperation.getTopParentPathFromPath()
-        if (nextOperationParentPath == currentOperationParentPath) {
-            nextOperation.parentPath = currentOperationParentPath
-            update(nextOperation)
+                        if (newParentPath != nextOperation.parentPath || newPath != nextOperation.path) {
+                            nextOperation.apply {
+                                parentPath = newParentPath
+                                path = newPath
+                            }
+                        } else null
+                    }
+                }
+            }
         }
-    }
+        .forEach { update(it) }
 }
 
 fun OfflineOperationEntity.getTopParentPathFromPath(): String? {
