@@ -636,6 +636,7 @@
     <string name="prefs_category_dev">Geliştirici</string>
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
+    <string name="prefs_category_sync">Eşitle</string>
     <string name="prefs_daily_backup_summary">Takvim ve kişilerinizin günlük yedeği</string>
     <string name="prefs_daily_contact_backup_summary">Kişilerinizin günlük yedeği</string>
     <string name="prefs_davx5_setup_error">DAVx5 (eski adıyla DAVdroid) kurulurken beklenmeyen bir sorun çıktı</string>
@@ -860,6 +861,7 @@
     <string name="subtitle_photos_videos">Fötoğraflar ve görüntüler</string>
     <string name="subtitle_videos_only">Yalnızca görüntüler</string>
     <string name="suggest">Öner</string>
+    <string name="sync">Eşitle</string>
     <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>
     <string name="sync_current_folder_was_removed">%1$s klasörü artık yok</string>
     <string name="sync_fail_content">%1$s eşitlemesi tamamlanamadı</string>

@@ -472,6 +472,7 @@
     <string name="prefs_category_details">รายละเอียด</string>
     <string name="prefs_category_general">ทั่วไป</string>
     <string name="prefs_category_more">เพิ่มเติม</string>
+    <string name="prefs_category_sync">ซิงค์</string>
     <string name="prefs_help">ช่วยเหลือ</string>
     <string name="prefs_imprint">ประทับ</string>
     <string name="prefs_license">สัญญาอนุญาต</string>
@@ -552,6 +553,7 @@
     <string name="sub_folder_rule_year">ปี</string>
     <string name="subject_shared_with_you">\"%1$s\" ได้ถูกแชร์กับคุณ</string>
     <string name="subject_user_shared_with_you">%1$s ได้แชร์ \"%2$s\" กับคุณ</string>
+    <string name="sync">ซิงค์</string>
     <string name="sync_conflicts_in_favourites_ticker">ตรวจพบความขัดแย้ง</string>
     <string name="sync_current_folder_was_removed">โฟลเดอร์ %1$s ไม่มีอยู่อีกต่อไป </string>
     <string name="sync_fail_content">ไม่สามารถซิงค์ %1$s</string>

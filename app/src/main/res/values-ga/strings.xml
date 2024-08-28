@@ -487,6 +487,8 @@
     <string name="instant_upload_existing">Uaslódáil comhaid atá ann cheana féin freisin</string>
     <string name="instant_upload_on_charging">Íoslódáil ach amháin nuair a mhuirearú</string>
     <string name="instant_upload_path">/Uaslódáil Meandaracha</string>
+    <string name="internal_two_way_sync">Sioncronú inmheánach dhá bhealach</string>
+    <string name="internal_two_way_sync_not_yet">Níl go fóill, go luath le synced</string>
     <string name="invalid_url">URL neamhbhailí</string>
     <string name="invisible">Dofheicthe</string>
     <string name="label_empty">Ní féidir leis an lipéad a bheith folamh</string>
@@ -636,6 +638,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Ginearálta</string>
     <string name="prefs_category_more">Tuilleadh</string>
+    <string name="prefs_category_sync">Sioncrónaigh</string>
     <string name="prefs_daily_backup_summary">Cúltaca laethúil de do fhéilire agus do theagmhálaithe</string>
     <string name="prefs_daily_contact_backup_summary">Cúltaca laethúil de do theagmhálaithe</string>
     <string name="prefs_davx5_setup_error">Earráid gan choinne agus DAVx5 á shocrú (ar a dtugtaí DAVdroid roimhe seo)</string>
@@ -676,6 +679,7 @@
     <string name="prefs_synced_folders_local_path_title">Fillteán áitiúil</string>
     <string name="prefs_synced_folders_remote_path_title">Fillteán cianda</string>
     <string name="prefs_theme_title">Téama</string>
+    <string name="prefs_two_way_sync_summary">Bainistigh fillteáin inmheánacha le haghaidh sioncronaithe dhá bhealach</string>
     <string name="prefs_value_theme_dark">Dorcha</string>
     <string name="prefs_value_theme_light">Solas</string>
     <string name="prefs_value_theme_system">Lean an córas</string>
@@ -860,6 +864,7 @@
     <string name="subtitle_photos_videos">Grianghraif agus físeáin</string>
     <string name="subtitle_videos_only">Físeáin amháin</string>
     <string name="suggest">Mol</string>
+    <string name="sync">Sioncrónaigh</string>
     <string name="sync_conflicts_in_favourites_ticker">Coimhlint aimsithe</string>
     <string name="sync_current_folder_was_removed">Níl fillteán %1$s ann a thuilleadh</string>
     <string name="sync_fail_content">Níorbh fhéidir %1$s a shioncronú</string>

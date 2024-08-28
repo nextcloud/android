@@ -412,11 +412,11 @@
     <string name="file_name_validator_current_path_is_invalid">Der aktuelle Ordnername ist ungültig. Bitte benennen Sie den Ordner um. Weiterleitung zum Stammverzeichnis</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Der Ordnerpfad enthält reservierte Namen oder ungültige Zeichen</string>
     <string name="file_name_validator_error_ends_with_space_period">Der Name endet mit einem Leerzeichen oder einem Punkt</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s ist eine verbotene Dateierweiterung</string>
-    <string name="file_name_validator_error_invalid_character">Der Name enthält ein ungültiges Zeichen: %s</string>
-    <string name="file_name_validator_error_reserved_names">%s ist ein verbotener Name</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s ist eine unzulässige Dateierweiterung</string>
+    <string name="file_name_validator_error_invalid_character">Der Name enthält ein unzulässiges Zeichen: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s ist ein unzulässiger Name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Bitte Datei umbenennen, bevor diese verschoben oder kopiert wird</string>
-    <string name="file_name_validator_upload_content_error">Einige Inhalte können nicht hochgeladen werden, da sie reservierte Namen oder ungültige Zeichen enthalten</string>
+    <string name="file_name_validator_upload_content_error">Einige Inhalte können nicht hochgeladen werden, da sie reservierte Namen oder unzulässige Zeichen enthalten</string>
     <string name="file_not_found">Datei nicht gefunden</string>
     <string name="file_not_synced">Die gewünschte Datei konnte nicht synchronisiert werden. Die letzte verfügbare Version wird angezeigt. </string>
     <string name="file_rename">Umbenennen</string>
@@ -487,6 +487,8 @@
     <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
+    <string name="internal_two_way_sync">Interne 2-Wege-Synchronisierung</string>
+    <string name="internal_two_way_sync_not_yet">Bislang nicht, aber in Kürze synchronisiert</string>
     <string name="invalid_url">Ungültige URL</string>
     <string name="invisible">Unsichtbar</string>
     <string name="label_empty">Bezeichnung darf nicht leer sein</string>
@@ -636,6 +638,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
+    <string name="prefs_category_sync">Synchronisieren</string>
     <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender und Kontakte</string>
     <string name="prefs_daily_contact_backup_summary">Tägliche Sicherung Ihrer Kontakte</string>
     <string name="prefs_davx5_setup_error">Unerwarteter Fehler beim Einrichten von DAVx5 (früher bekannt als DAVdroid)</string>
@@ -676,6 +679,7 @@
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
     <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
     <string name="prefs_theme_title">Design</string>
+    <string name="prefs_two_way_sync_summary">Interne Ordner für 2-Wege-Synchronisierung verwalten</string>
     <string name="prefs_value_theme_dark">Dunkel</string>
     <string name="prefs_value_theme_light">Hell</string>
     <string name="prefs_value_theme_system">Systemvorgaben verwenden</string>
@@ -860,6 +864,7 @@
     <string name="subtitle_photos_videos">Fotos und Videos</string>
     <string name="subtitle_videos_only">Nur Videos</string>
     <string name="suggest">Vorschlagen</string>
+    <string name="sync">Synchronisieren</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
     <string name="sync_current_folder_was_removed">Der Ordner %1$s existiert nicht mehr</string>
     <string name="sync_fail_content">Synchronisierung von %1$s konnte nicht abgeschlossen werden</string>

@@ -584,6 +584,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Mai mult</string>
+    <string name="prefs_category_sync">Sincronizare</string>
     <string name="prefs_daily_contact_backup_summary">Salvarea zilnică a contactelor dvs.</string>
     <string name="prefs_e2e_active">Encripția end-to-end este setata!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
@@ -778,6 +779,7 @@
     <string name="subtitle_photos_only">Doar poze</string>
     <string name="subtitle_videos_only">Doar video</string>
     <string name="suggest">Sugerează</string>
+    <string name="sync">Sincronizare</string>
     <string name="sync_conflicts_in_favourites_ticker">S-au gasit conflicte</string>
     <string name="sync_current_folder_was_removed">Dosarul %1$s nu mai există</string>
     <string name="sync_fail_content">Nu s-a putut sincroniza %1$s</string>

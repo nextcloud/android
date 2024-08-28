@@ -623,6 +623,7 @@
     <string name="prefs_category_dev">Desarrollo</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
+    <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_daily_backup_summary">Respaldar diariamente el calendario y contactos</string>
     <string name="prefs_daily_contact_backup_summary">Respaldo diario de tus contactos</string>
     <string name="prefs_davx5_setup_error">Error inesperado al configurar DAVx5 (anteriormente conocido como DAVdroid)</string>
@@ -847,6 +848,7 @@
     <string name="subtitle_photos_videos">Fotos y videos</string>
     <string name="subtitle_videos_only">Sólo videos</string>
     <string name="suggest">Sugerir</string>
+    <string name="sync">Sincronizar</string>
     <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>
     <string name="sync_fail_content">No fue posible sincronizar %1$s</string>

@@ -544,6 +544,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Més</string>
+    <string name="prefs_category_sync">Sincronitza</string>
     <string name="prefs_daily_contact_backup_summary">Còpia de seguretat diària dels vostres contactes</string>
     <string name="prefs_davx5_setup_error">S\'ha produït un error inesperat en configurar DAVx5 (anteriorment anomenat DAVdroid)</string>
     <string name="prefs_e2e_active">S\'ha configurat el xifratge d\'extrem a extrem</string>
@@ -738,6 +739,7 @@
     <string name="subtitle_photos_only">Només fotografies</string>
     <string name="subtitle_videos_only">Només vídeos</string>
     <string name="suggest">Suggereix</string>
+    <string name="sync">Sincronitza</string>
     <string name="sync_conflicts_in_favourites_ticker">S\'han trobat conflictes</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ja no existeix</string>
     <string name="sync_fail_content">No s\'ha pogut sincronitzar %1$s</string>

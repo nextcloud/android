@@ -623,6 +623,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Algemeen</string>
     <string name="prefs_category_more">Meer</string>
+    <string name="prefs_category_sync">Synchroniseren</string>
     <string name="prefs_daily_backup_summary">Dagelijkse backup van je agenda en contactpersonen</string>
     <string name="prefs_daily_contact_backup_summary">Dagelijkse back-up van je contactpersonen</string>
     <string name="prefs_davx5_setup_error">Onverwachte fout bij het instellen van DAVx5 (voorheen bekend als DAVdroid)</string>
@@ -844,6 +845,7 @@
     <string name="subtitle_photos_videos">Foto\'s en video\'s</string>
     <string name="subtitle_videos_only">Enkel video\'s</string>
     <string name="suggest">Stel voor</string>
+    <string name="sync">Synchroniseren</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicten gevonden</string>
     <string name="sync_current_folder_was_removed">Map %1$s bestaat niet meer</string>
     <string name="sync_fail_content">Synchronisatie van %1$s kon niet worden voltooid</string>
