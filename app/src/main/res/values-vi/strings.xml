@@ -529,6 +529,7 @@
     <string name="prefs_category_dev">Phát triển</string>
     <string name="prefs_category_general">Tổng hợp</string>
     <string name="prefs_category_more">hơn</string>
+    <string name="prefs_category_sync">Đồng bộ</string>
     <string name="prefs_daily_contact_backup_summary">Sao lưu hàng ngày danh bạn của bạn</string>
     <string name="prefs_e2e_active">Mã hoá đầu cuối đã được thiết lập</string>
     <string name="prefs_e2e_mnemonic">E2E ghi nhớ</string>
@@ -715,6 +716,7 @@
     <string name="subtitle_photos_only">Chỉ chấp nhận hình ảnh</string>
     <string name="subtitle_videos_only">Chỉ chấp nhận video</string>
     <string name="suggest">Đề xuất</string>
+    <string name="sync">Đồng bộ</string>
     <string name="sync_conflicts_in_favourites_ticker">Tìm thấy xung đột</string>
     <string name="sync_current_folder_was_removed">Thư mục %1$s không còn tồn tại nữa</string>
     <string name="sync_fail_content">Không thể đồng bộ %1$s</string>

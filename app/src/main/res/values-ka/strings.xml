@@ -574,6 +574,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
+    <string name="prefs_category_sync">Sync</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
@@ -781,6 +782,7 @@
     <string name="subtitle_photos_only">Photos only</string>
     <string name="subtitle_videos_only">Videos only</string>
     <string name="suggest">Suggest</string>
+    <string name="sync">Sync</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist anymore</string>
     <string name="sync_fail_content">Could not sync %1$s</string>

@@ -615,6 +615,7 @@
     <string name="prefs_category_dev">Deweloperskie</string>
     <string name="prefs_category_general">Ogólne</string>
     <string name="prefs_category_more">Więcej</string>
+    <string name="prefs_category_sync">Synchronizuj</string>
     <string name="prefs_daily_backup_summary">Codzienna kopia zapasowa kalendarza i kontaktów</string>
     <string name="prefs_daily_contact_backup_summary">Codzienne tworzenie kopii zapasowej kontaktów</string>
     <string name="prefs_davx5_setup_error">Nieoczekiwany błąd podczas konfigurowania DAVx5 (wcześniej znanego jako DAVdroid)</string>
@@ -835,6 +836,7 @@
     <string name="subtitle_photos_videos">Zdjęcia i filmy</string>
     <string name="subtitle_videos_only">Tylko filmy</string>
     <string name="suggest">Propozycja</string>
+    <string name="sync">Synchronizuj</string>
     <string name="sync_conflicts_in_favourites_ticker">Znaleziono konflikty</string>
     <string name="sync_current_folder_was_removed">Katalog %1$s nie istnieje</string>
     <string name="sync_fail_content">Nie udała się synchronizacja %1$s</string>

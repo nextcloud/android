@@ -558,6 +558,7 @@
     <string name="prefs_category_dev">Diorenn</string>
     <string name="prefs_category_general">Hollek</string>
     <string name="prefs_category_more">Muioc\'h</string>
+    <string name="prefs_category_sync">Kemprenañ</string>
     <string name="prefs_daily_contact_backup_summary">Enrolladur deizek eus o darempredoù</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Evit diskwell mnemonic, aotreit titouroù identitelez o ardivink mar-plij.</string>
@@ -711,6 +712,7 @@
     <string name="stream_not_possible_message">Pellgargit ar media kentoc\'h pe implijit ur meziant diavaez mar-plij</string>
     <string name="subject_shared_with_you">\"%1$s\" a zo bet rannet deoc\'h</string>
     <string name="subject_user_shared_with_you">%1$s en deus rannet \"%2$s\" deoc\'h</string>
+    <string name="sync">Kemprenañ</string>
     <string name="sync_conflicts_in_favourites_ticker">Stourmoù kavet</string>
     <string name="sync_current_folder_was_removed">An teuliad %1$s n\'eus ket outañ ken</string>
     <string name="sync_fail_content">Dibosupl kemprenañ %1$s</string>

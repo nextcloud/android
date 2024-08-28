@@ -623,6 +623,7 @@
     <string name="prefs_category_dev">Разрабатываемая версия</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
+    <string name="prefs_category_sync">Синхронизировать</string>
     <string name="prefs_daily_backup_summary">Ежедневное резервное копирование календаря и контактов</string>
     <string name="prefs_daily_contact_backup_summary">Ежедневное сохранение контактов</string>
     <string name="prefs_davx5_setup_error">Неожиданная ошибка при настройке DAVx5 (ранее известного как DAVdroid)</string>
@@ -846,6 +847,7 @@
     <string name="subtitle_photos_videos">Фото и видео</string>
     <string name="subtitle_videos_only">Только видео</string>
     <string name="suggest">Посоветовать</string>
+    <string name="sync">Синхронизировать</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
     <string name="sync_fail_content">Не удалось синхронизировать «%1$s»</string>

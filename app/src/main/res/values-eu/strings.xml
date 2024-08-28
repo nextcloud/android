@@ -624,6 +624,7 @@
     <string name="prefs_category_dev">Garapena</string>
     <string name="prefs_category_general">Orokorra</string>
     <string name="prefs_category_more">Gehiago</string>
+    <string name="prefs_category_sync">Sinkronizatu</string>
     <string name="prefs_daily_backup_summary">Zure egutegiaren eta kontaktuen eguneroko babeskopia</string>
     <string name="prefs_daily_contact_backup_summary">Zure kontaktuen eguneroko babeskopia</string>
     <string name="prefs_davx5_setup_error">Ustekabeko errorea DAVx5 konfiguratzean (lehen DAVdroid izenez ezagutzen zena)</string>
@@ -848,6 +849,7 @@
     <string name="subtitle_photos_videos">Argazkiak eta bideoak</string>
     <string name="subtitle_videos_only">Bideoak soilik</string>
     <string name="suggest">Iradokitu</string>
+    <string name="sync">Sinkronizatu</string>
     <string name="sync_conflicts_in_favourites_ticker">Gatazkak aurkitu dira</string>
     <string name="sync_current_folder_was_removed">%1$s karpeta ez da existitzen jadanik</string>
     <string name="sync_fail_content">Ezin izan da %1$s sinkronizatu</string>

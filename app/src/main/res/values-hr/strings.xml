@@ -525,6 +525,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Općenito</string>
     <string name="prefs_category_more">Više</string>
+    <string name="prefs_category_sync">Sinkronizacija</string>
     <string name="prefs_daily_contact_backup_summary">Svakodnevno sigurnosno kopiranje vaših kontakata</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonička oznaka</string>
     <string name="prefs_e2e_no_device_credentials">Omogućite vjerodajnice uređaja kako biste prikazali mnemoničku oznaku.</string>
@@ -710,6 +711,7 @@
     <string name="subtitle_photos_only">Samo fotografije</string>
     <string name="subtitle_videos_only">Samo video materijali</string>
     <string name="suggest">Predloži</string>
+    <string name="sync">Sinkronizacija</string>
     <string name="sync_conflicts_in_favourites_ticker">Postoje nepodudaranja</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s više ne postoji</string>
     <string name="sync_fail_content">Nije moguće sinkronizirati %1$s</string>

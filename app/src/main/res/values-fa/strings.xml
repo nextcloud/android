@@ -593,6 +593,7 @@
     <string name="prefs_category_dev">توسعه</string>
     <string name="prefs_category_general">عمومی</string>
     <string name="prefs_category_more">بیش‌تر</string>
+    <string name="prefs_category_sync">همگام‌سازی</string>
     <string name="prefs_daily_backup_summary">پشتیبان‌گیری روزانه از مخاطب‌ها و تقویم شما</string>
     <string name="prefs_daily_contact_backup_summary">پشتیبان گیری روزانه از مخاطبین شما</string>
     <string name="prefs_davx5_setup_error">خطای غیرمنتظره هنگام راه‌اندازی DAVx5 (که قبلاً DAVdroid نامیده می‌شد)</string>
@@ -810,6 +811,7 @@
     <string name="subtitle_photos_videos">تصاویر و ویدیوها</string>
     <string name="subtitle_videos_only">ویدیو فقط</string>
     <string name="suggest">پیشنهاد دادن</string>
+    <string name="sync">همگام‌سازی</string>
     <string name="sync_conflicts_in_favourites_ticker">ناسازگاری ها یافت شدند</string>
     <string name="sync_current_folder_was_removed">پوشه %1$s دیگر وجود ندارد</string>
     <string name="sync_fail_content">نمی‌توان %1$s را همگام کرد</string>

@@ -564,6 +564,7 @@
     <string name="prefs_category_dev">Kehittäjä</string>
     <string name="prefs_category_general">Yleiset</string>
     <string name="prefs_category_more">Enemmän</string>
+    <string name="prefs_category_sync">Synkronoi</string>
     <string name="prefs_daily_contact_backup_summary">Päivittäinen varmuuskopio yhteystiedoistasi</string>
     <string name="prefs_davx5_setup_error">Odottamaton virhe määritettäessä DAVx5:tä (aiemmin DAVdroid)</string>
     <string name="prefs_e2e_active">Päästä päähän -salaus on määritetty!</string>
@@ -766,6 +767,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="subtitle_photos_videos">Kuvat ja videot</string>
     <string name="subtitle_videos_only">Vain videot</string>
     <string name="suggest">Ehdota</string>
+    <string name="sync">Synkronoi</string>
     <string name="sync_conflicts_in_favourites_ticker">Ristiriitoja löytynyt</string>
     <string name="sync_current_folder_was_removed">Kansiota %1$s ei ole enää olemassa</string>
     <string name="sync_fail_content">Ei voitu synkronoida %1$s</string>

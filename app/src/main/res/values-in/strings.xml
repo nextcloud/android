@@ -576,6 +576,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="prefs_category_dev">Pengembang</string>
     <string name="prefs_category_general">Umum</string>
     <string name="prefs_category_more">Lainnya</string>
+    <string name="prefs_category_sync">Sinkron</string>
     <string name="prefs_daily_contact_backup_summary">Cadangkan kontak harian</string>
     <string name="prefs_davx5_setup_error">Terjadi kesalahan saat menyiapkan DAVx⁵ (sebelumnya DAVdroid)</string>
     <string name="prefs_e2e_active">Enkripsi end-to-end telah disetel!</string>
@@ -771,6 +772,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="subtitle_photos_only">Hanya foto</string>
     <string name="subtitle_videos_only">Hanya video</string>
     <string name="suggest">Sarankan</string>
+    <string name="sync">Sinkron</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflik ditemukan</string>
     <string name="sync_current_folder_was_removed">Folder %1$s sudah tidak ada lagi</string>
     <string name="sync_fail_content">Tidak bisa mensingkronisasi %1$s</string>

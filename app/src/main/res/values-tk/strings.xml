@@ -462,6 +462,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Esasy</string>
     <string name="prefs_category_more">Has köp</string>
+    <string name="prefs_category_sync">Sinhronlamak</string>
     <string name="prefs_daily_contact_backup_summary">Kontaktlaryňyzyň gündelik ätiýaçlyk nusgasy</string>
     <string name="prefs_e2e_mnemonic">e2e ýatlatma</string>
     <string name="prefs_e2e_no_device_credentials">Mnemonik görkezmek üçin enjam şahsyýet maglumatlaryny açmagyňyzy haýyş edýäris.</string>
@@ -622,6 +623,7 @@
     <string name="stream_not_possible_message">Munuň ýerine mediýa göçürip alyň ýa-da daşarky programmany ulanyň.</string>
     <string name="subject_shared_with_you">\"%1$s\" siziň bilen paýlaşyldy</string>
     <string name="subject_user_shared_with_you">Siziň bilen %1$spaýlaşdy%2$s</string>
+    <string name="sync">Sinhronlamak</string>
     <string name="sync_conflicts_in_favourites_ticker">Çaknyşyklar tapyldy</string>
     <string name="sync_current_folder_was_removed">Papka indi ýok%1$s</string>
     <string name="sync_fail_content">Sinhronlap bolmady%1$s</string>
