@@ -114,7 +114,7 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 Decision.KEEP_SERVER -> keepServer(file, upload)
                 Decision.KEEP_OFFLINE_FOLDER -> keepOfflineFolder(newFile, offlineOperation)
                 Decision.KEEP_SERVER_FOLDER -> keepServerFile(offlineOperation)
-                Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation)
+                Decision.KEEP_BOTH_FOLDER -> keepBothFolder(offlineOperation, newFile)
                 else -> Unit
             }
 
@@ -122,16 +122,16 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         }
     }
 
-    private fun keepBothFolder(offlineOperation: OfflineOperationEntity?) {
+    private fun keepBothFolder(offlineOperation: OfflineOperationEntity?, serverFile: OCFile?) {
         offlineOperation ?: return
-        fileDataStorageManager.keepOfflineOperationAndServerFile(offlineOperation)
+        fileDataStorageManager.keepOfflineOperationAndServerFile(offlineOperation, serverFile)
         backgroundJobManager.startOfflineOperations()
         offlineOperationNotificationManager.dismissNotification(offlineOperation.id)
     }
 
     private fun keepServerFile(offlineOperation: OfflineOperationEntity?) {
-        val path = offlineOperation?.path ?: return
-        fileDataStorageManager.offlineOperationDao.deleteByPath(path)
+        offlineOperation ?: return
+        fileDataStorageManager.offlineOperationDao.delete(offlineOperation)
 
         val id = offlineOperation.id ?: return
         offlineOperationNotificationManager.dismissNotification(id)

@@ -45,23 +45,6 @@ fun OfflineOperationDao.getAllSubdirectories(
     return result
 }
 
-fun OfflineOperationDao.updatePathAndSubPaths(
-    oldPath: String,
-    newPath: String,
-    oldFileName: String,
-    newFileName: String
-) {
-    val operationsToUpdate = getSubDirs(oldPath, oldFileName)
-
-    operationsToUpdate.forEach { operation ->
-        val newOperationFileName = operation.filename?.replaceFirst(oldFileName, newFileName)
-        val newOperationPath = operation.path?.replaceFirst(oldPath, newPath)
-        operation.path = newOperationPath
-        operation.filename = newOperationFileName
-        update(operation)
-    }
-}
-
 fun OfflineOperationDao.deleteOperation(file: OCFile, fileDataStorageManager: FileDataStorageManager) {
     getAllSubdirectories(file.fileId, fileDataStorageManager).forEach {
         delete(it)

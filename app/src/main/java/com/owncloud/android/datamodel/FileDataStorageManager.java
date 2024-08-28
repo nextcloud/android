@@ -167,31 +167,16 @@ public class FileDataStorageManager {
             return;
         }
 
-
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
-        String oldPath = parentFolder.getDecryptedRemotePath() + file.getFileName() + OCFile.PATH_SEPARATOR;
-        OfflineOperationExtensionsKt.updatePathAndSubPaths(offlineOperationDao, oldPath, newPath, file.getFileName(), newFolderName);
-
-        // Delete old parent
-        removeFile(file, true, true);
-
-        // Create new parent
-        createPendingDirectory(newPath);
-
-        // Create updated sub-directories
-        var subDirs = offlineOperationDao.getSubDirs(newPath, newFolderName);
-        for (OfflineOperationEntity entity: subDirs) {
-            createPendingDirectory(entity.getPath());
-        }
+        moveLocalFile(file,newPath,parentFolder.getDecryptedRemotePath());
     }
 
     @SuppressLint("SimpleDateFormat")
-    public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity) {
+    public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity, OCFile file) {
+        if (file == null) return;
+
         String oldFileName = entity.getFilename();
         if (oldFileName == null) return;
-
-        String oldPath = entity.getPath();
-        if (oldPath == null) return;
 
         Long parentOCFileId = entity.getParentOCFileId();
         if (parentOCFileId == null) return;
@@ -202,19 +187,9 @@ public class FileDataStorageManager {
         DateFormatPattern formatPattern = DateFormatPattern.FullDateWithHours;
         String currentDateTime = DateExtensionsKt.currentDateRepresentation(new Date(), formatPattern);
 
-        // Update path
         String newFolderName = oldFileName + " - " + currentDateTime;
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
-        OfflineOperationExtensionsKt.updatePathAndSubPaths(offlineOperationDao, oldPath, newPath, oldFileName, newFolderName);
-
-        // Create updated directory
-        createPendingDirectory(newPath);
-
-        // Create updated sub-directories
-        var subDirs = offlineOperationDao.getSubDirs(newPath, newFolderName);
-        for (OfflineOperationEntity subDir: subDirs) {
-            createPendingDirectory(subDir.getPath());
-        }
+        moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
     }
 
     private @Nullable
