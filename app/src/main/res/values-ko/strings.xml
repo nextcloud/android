@@ -619,6 +619,7 @@
     <string name="prefs_category_dev">개발</string>
     <string name="prefs_category_general">일반</string>
     <string name="prefs_category_more">더 보기</string>
+    <string name="prefs_category_sync">동기화</string>
     <string name="prefs_daily_backup_summary">갤린더와 연락처 일간 백업</string>
     <string name="prefs_daily_contact_backup_summary">연락처 일간 백업</string>
     <string name="prefs_davx5_setup_error">DAVx5를 설정하는 동안 발생한 예기치 못한 오류</string>
@@ -840,6 +841,7 @@
     <string name="subtitle_photos_videos">사진과 동영상</string>
     <string name="subtitle_videos_only">동영상만</string>
     <string name="suggest">제안</string>
+    <string name="sync">동기화</string>
     <string name="sync_conflicts_in_favourites_ticker">충돌하는 항목 발견됨</string>
     <string name="sync_current_folder_was_removed">폴더 %1$s이(가) 더 이상 존재하지 않음</string>
     <string name="sync_fail_content">%1$s을(를) 동기화할 수 없음</string>

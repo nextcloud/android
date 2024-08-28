@@ -640,6 +640,7 @@
     <string name="prefs_category_dev">التطوير</string>
     <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
+    <string name="prefs_category_sync">زامن</string>
     <string name="prefs_daily_backup_summary">النسخ الاحتياطي اليومي لتقويمك و جهات اتصالك</string>
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_davx5_setup_error">خطأ غير متوقع عند تجهيز DAVx5 ( الذي كان معروفاً سابقاً باسم DAVdroid)</string>
@@ -884,6 +885,7 @@
     <string name="subtitle_photos_videos">الصور و الفيديوهات</string>
     <string name="subtitle_videos_only">مقاطع الفيديو فقط</string>
     <string name="suggest">اقتراح</string>
+    <string name="sync">زامن</string>
     <string name="sync_conflicts_in_favourites_ticker">هناك تعارض</string>
     <string name="sync_current_folder_was_removed">المجلد %1$s غير موجود بعد الآن</string>
     <string name="sync_fail_content">تعذرت عملية مزامنة %1$s</string>

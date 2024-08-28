@@ -472,6 +472,7 @@
     <string name="prefs_category_dev">Leasachadh</string>
     <string name="prefs_category_general">Coitcheann</string>
     <string name="prefs_category_more">Barrachd</string>
+    <string name="prefs_category_sync">Sioncronaich</string>
     <string name="prefs_daily_contact_backup_summary">Lethbhreac-glèidhidh làitheil dhan luchd-aithne agad</string>
     <string name="prefs_e2e_mnemonic">Gleus cuimhneachaidh E2E</string>
     <string name="prefs_e2e_no_device_credentials">Cuir an comas teisteas an uidheim airson an gleus cuimhneachaidh a shealltainn.</string>
@@ -634,6 +635,7 @@
     <string name="strict_mode">Modh teann: Chan eil ceangal HTTP ceadaichte!</string>
     <string name="subject_shared_with_you">Chaidh “%1$s” a cho-roinneadh leat</string>
     <string name="subject_user_shared_with_you">Cho-roinn %1$s “%2$s” leat</string>
+    <string name="sync">Sioncronaich</string>
     <string name="sync_conflicts_in_favourites_ticker">Lorg sinn còmhstri</string>
     <string name="sync_current_folder_was_removed">Chan eil am pasgan %1$s ann tuilleadh</string>
     <string name="sync_fail_content">Cha b’ urrainn dhuinn %1$s a shioncronachadh</string>

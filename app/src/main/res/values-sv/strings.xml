@@ -279,6 +279,7 @@
     <string name="drawer_quota">%1$s av %2$s använt</string>
     <string name="drawer_quota_unlimited">%1$s använt</string>
     <string name="drawer_synced_folders">Automatisk uppladdning</string>
+    <string name="e2e_counter_too_old">Räknaren är för gammal</string>
     <string name="e2e_hash_not_found">Hash kunde inte hittas</string>
     <string name="e2e_not_yet_setup">E2E ej inställt än</string>
     <string name="e2e_offline">Inte möjligt utan internetuppkoppling</string>
@@ -486,6 +487,8 @@
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
+    <string name="internal_two_way_sync">Intern tvåvägssynk</string>
+    <string name="internal_two_way_sync_not_yet">Inte än, synkroniseras snart</string>
     <string name="invalid_url">Ogiltig URL</string>
     <string name="invisible">Osynlig</string>
     <string name="label_empty">Etiketten kan inte vara tom</string>
@@ -635,6 +638,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Allmänt</string>
     <string name="prefs_category_more">Mer</string>
+    <string name="prefs_category_sync">Synkronisera</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kalender och dina kontakter </string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup av dina kontakter</string>
     <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx5 (tidigare känd som DAVdroid)</string>
@@ -676,6 +680,7 @@
     <string name="prefs_synced_folders_local_path_title">Lokal mapp</string>
     <string name="prefs_synced_folders_remote_path_title">Extern mapp</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_summary">Hantera interna mappar för tvåvägssynk</string>
     <string name="prefs_value_theme_dark">Mörkt</string>
     <string name="prefs_value_theme_light">Ljust</string>
     <string name="prefs_value_theme_system">Följ systemet</string>
@@ -860,6 +865,7 @@
     <string name="subtitle_photos_videos">Bilder och videor</string>
     <string name="subtitle_videos_only">Endast videos</string>
     <string name="suggest">Föreslå</string>
+    <string name="sync">Synkronisera</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter uppstod</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finns inte längre</string>
     <string name="sync_fail_content">Kunde inte synkronisera %1$s</string>

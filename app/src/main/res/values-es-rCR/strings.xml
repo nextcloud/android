@@ -334,6 +334,7 @@
     <string name="prefs_category_dev">Desarrollo</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">Más</string>
+    <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_daily_contact_backup_summary">Respaldo diario de tus contactos</string>
     <string name="prefs_gpl_v2">GNU Licencia Pública General, versión 2</string>
     <string name="prefs_help">Ayuda</string>
@@ -424,6 +425,7 @@
     <string name="storage_downloads">Descargas</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo</string>
     <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
+    <string name="sync">Sincronizar</string>
     <string name="sync_conflicts_in_favourites_ticker">Se encontraron conflictos</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s ya no existe</string>
     <string name="sync_fail_content">No fue posible sincronizar %1$s</string>

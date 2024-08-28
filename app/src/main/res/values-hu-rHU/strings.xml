@@ -578,6 +578,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Általános</string>
     <string name="prefs_category_more">Több</string>
+    <string name="prefs_category_sync">Szinkronizálás</string>
     <string name="prefs_daily_contact_backup_summary">Névjegyek napi biztonsági mentése</string>
     <string name="prefs_davx5_setup_error">Váratlan hiba a DAVx5 (előző nevén DAVdroid) beállítása során</string>
     <string name="prefs_e2e_active">A végpontok közti titkosítás beállítva!</string>
@@ -786,6 +787,7 @@
     <string name="subtitle_photos_only">Csak fényképek</string>
     <string name="subtitle_videos_only">Csak videók</string>
     <string name="suggest">Javaslat</string>
+    <string name="sync">Szinkronizálás</string>
     <string name="sync_conflicts_in_favourites_ticker">Ütközések vannak</string>
     <string name="sync_current_folder_was_removed">A(z) %1$s mappa már nem létezik</string>
     <string name="sync_fail_content">A(z) %1$s szinkronizálása sikertelen</string>

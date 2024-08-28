@@ -574,6 +574,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Splošno</string>
     <string name="prefs_category_more">Več</string>
+    <string name="prefs_category_sync">Uskladi</string>
     <string name="prefs_daily_contact_backup_summary">Dnevno usklajevanje stikov</string>
     <string name="prefs_davx5_setup_error">Nepričakovana napaka pri nastavljanju DAVx5 (prej poznano kot DAVdroid)</string>
     <string name="prefs_e2e_active">Celovito šifriranje E2E je nastavljeno!</string>
@@ -777,6 +778,7 @@
     <string name="subtitle_photos_only">Le slike</string>
     <string name="subtitle_videos_only">Le posnetki</string>
     <string name="suggest">Predlagaj</string>
+    <string name="sync">Uskladi</string>
     <string name="sync_conflicts_in_favourites_ticker">Zaznani spori</string>
     <string name="sync_current_folder_was_removed">Mapa %1$s ne obstaja več</string>
     <string name="sync_fail_content">Ni mogoče uskladiti %1$s</string>

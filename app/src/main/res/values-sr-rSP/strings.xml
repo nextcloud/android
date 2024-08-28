@@ -405,6 +405,7 @@
     <string name="prefs_category_dev">Razvojno</string>
     <string name="prefs_category_general">Opšte</string>
     <string name="prefs_category_more">Ostalo</string>
+    <string name="prefs_category_sync">Sinhronizuj</string>
     <string name="prefs_daily_contact_backup_summary">Dnevno arhiviranje vaših kontakata</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonik</string>
     <string name="prefs_e2e_no_device_credentials">Za prikazivanje mnemonika, omogućite akreditive na uređaju.</string>
@@ -555,6 +556,7 @@
     <string name="stream_not_possible_message">Ili preuzmite multimediju ili koristite neku eksternu aplikaciju.</string>
     <string name="subject_shared_with_you">„%1$s“ je podeljen sa vama</string>
     <string name="subject_user_shared_with_you">%1$s deli „%2$s“ sa vama</string>
+    <string name="sync">Sinhronizuj</string>
     <string name="sync_conflicts_in_favourites_ticker">Pronađeni konflikti</string>
     <string name="sync_current_folder_was_removed">Fascikla %1$s više ne postoji</string>
     <string name="sync_fail_content">Ne mogu da sinhronizujem %1$s</string>

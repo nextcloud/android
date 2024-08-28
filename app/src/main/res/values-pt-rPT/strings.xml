@@ -556,6 +556,7 @@
     <string name="prefs_category_dev">Desenvolvimento</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
+    <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_daily_contact_backup_summary">Cópia de segurança diária dos seus contactos</string>
     <string name="prefs_davx5_setup_error">Erro inesperado durante a configuração do DAVx5 (anteriormente conhecido como DAVdroid)</string>
     <string name="prefs_e2e_active">A encriptação ponta-a-ponta está configurada!</string>
@@ -753,6 +754,7 @@
     <string name="subtitle_photos_only">Apenas fotografias</string>
     <string name="subtitle_videos_only">Apenas vídeos</string>
     <string name="suggest">Sugerir </string>
+    <string name="sync">Sincronizar</string>
     <string name="sync_conflicts_in_favourites_ticker">Encontrados conflitos</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s já não existe</string>
     <string name="sync_fail_content">Não foi possível sincronizar %1$s</string>

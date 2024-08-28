@@ -399,6 +399,7 @@
     <string name="prefs_category_dev">Programado</string>
     <string name="prefs_category_general">Ĝeneralo</string>
     <string name="prefs_category_more">Pli</string>
+    <string name="prefs_category_sync">Sinkronigi</string>
     <string name="prefs_daily_contact_backup_summary">Ĉiutaga savkopio de via kontaktaro</string>
     <string name="prefs_e2e_mnemonic">E2E (tutvoja, angle „end-to-end“) memoriga helpilo</string>
     <string name="prefs_e2e_no_device_credentials">Por montri memorigan helpilon, ŝalti uzon de akreditiloj sur via aparato.</string>
@@ -533,6 +534,7 @@
     <string name="stream_not_possible_message">Elŝutu la aŭdovidan dosieron anstataŭe aŭ uzu eksteran aplikaĵon.</string>
     <string name="subject_shared_with_you">„%1$s“ estis kunhavigita kun vi</string>
     <string name="subject_user_shared_with_you">%1$s kunhavigis „%2$s“ kun vi</string>
+    <string name="sync">Sinkronigi</string>
     <string name="sync_conflicts_in_favourites_ticker">Konfliktoj okazis</string>
     <string name="sync_current_folder_was_removed">La dosierujo %1$s ne plu ekzistas</string>
     <string name="sync_fail_content">Ne eblis sinkronigi %1$s</string>
