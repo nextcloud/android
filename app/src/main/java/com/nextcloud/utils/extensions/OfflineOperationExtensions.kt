@@ -10,6 +10,7 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.client.database.dao.OfflineOperationDao
 import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 
 private const val DELIMITER = '/'
 
@@ -61,17 +62,22 @@ fun OfflineOperationDao.updatePathAndSubPaths(
     }
 }
 
-fun OfflineOperationDao.deleteSubDirIfParentPathMatches(filename: String) {
-    val targetPath = DELIMITER + filename + DELIMITER
-    getAll().forEach {
-        val entityParentPath = it.getParentPathFromPath()
-        if (entityParentPath == targetPath) {
-            delete(it)
+fun OfflineOperationDao.deleteOperation(file: OCFile, fileDataStorageManager: FileDataStorageManager) {
+    getAllSubdirectories(file.fileId, fileDataStorageManager).forEach {
+        delete(it)
+    }
+
+    file.decryptedRemotePath?.let {
+        val entity = getByPath(it)
+        entity?.let {
+            delete(entity)
         }
     }
+
+    fileDataStorageManager.removeFile(file, true, true)
 }
 
-fun OfflineOperationDao.updateNextOperationsParentPaths(
+fun OfflineOperationDao.updateNextOperations(
     fileDataStorageManager: FileDataStorageManager
 ) {
     getAll()
@@ -93,29 +99,4 @@ fun OfflineOperationDao.updateNextOperationsParentPaths(
             }
         }
         .forEach { update(it) }
-}
-
-fun OfflineOperationEntity.getTopParentPathFromPath(): String? {
-    if (path == null) return null
-    val trimmedPath = path!!.trim(DELIMITER)
-    val firstDir = trimmedPath.split(DELIMITER).firstOrNull() ?: return null
-    return DELIMITER + firstDir + DELIMITER
-}
-
-private fun OfflineOperationEntity.getParentPathFromPath(): String? {
-    if (filename == null) return null
-
-    val pathParts = path?.trim(DELIMITER)?.split(DELIMITER) ?: return null
-    val targetIndex = pathParts.indexOf(filename)
-    val result = if (targetIndex >= 0) {
-        if (targetIndex == 0) filename else pathParts[targetIndex - 1]
-    } else {
-        null
-    }
-
-    return if (result != null) {
-        DELIMITER + result + DELIMITER
-    } else {
-        null
-    }
 }

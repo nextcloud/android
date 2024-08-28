@@ -17,7 +17,7 @@ import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.model.OfflineOperationType
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
-import com.nextcloud.utils.extensions.updateNextOperationsParentPaths
+import com.nextcloud.utils.extensions.updateNextOperations
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
@@ -115,7 +115,7 @@ class OfflineOperationsWorker(
 
         if (result.isSuccess) {
             fileDataStorageManager.offlineOperationDao.run {
-                updateNextOperationsParentPaths(fileDataStorageManager)
+                updateNextOperations(fileDataStorageManager)
                 delete(operation)
             }
 
