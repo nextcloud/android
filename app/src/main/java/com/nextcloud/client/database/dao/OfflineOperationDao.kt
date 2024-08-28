@@ -38,8 +38,5 @@ interface OfflineOperationDao {
     fun getSubDirs(path: String, filename: String): List<OfflineOperationEntity>
 
     @Query("SELECT * FROM offline_operations WHERE offline_operations_parent_oc_file_id = :parentOCFileId")
-    fun getSubDirectories(parentOCFileId: Long): List<OfflineOperationEntity>
-
-    @Query("SELECT * FROM offline_operations WHERE _id = :id")
-    fun getById(id: Int): OfflineOperationEntity?
+    fun getSubDirectoriesByParentOCFileId(parentOCFileId: Long): List<OfflineOperationEntity>
 }

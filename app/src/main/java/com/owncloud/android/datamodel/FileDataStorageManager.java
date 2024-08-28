@@ -169,7 +169,6 @@ public class FileDataStorageManager {
             return;
         }
 
-        var aaa = OfflineOperationExtensionsKt.getAllSubdirectories(offlineOperationDao, file.getFileId());
 
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
         String oldPath = parentFolder.getDecryptedRemotePath() + file.getFileName() + OCFile.PATH_SEPARATOR;

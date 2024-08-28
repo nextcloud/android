@@ -9,27 +9,38 @@ package com.nextcloud.utils.extensions
 
 import com.nextcloud.client.database.dao.OfflineOperationDao
 import com.nextcloud.client.database.entity.OfflineOperationEntity
+import com.owncloud.android.datamodel.FileDataStorageManager
 
 private const val DELIMITER = '/'
 
-fun OfflineOperationDao.getAllSubdirectories(parentId: Long): List<OfflineOperationEntity> {
+fun OfflineOperationDao.getAllSubdirectories(fileId: Long, fileDataStorageManager: FileDataStorageManager): List<OfflineOperationEntity> {
     val result = mutableListOf<OfflineOperationEntity>()
     val queue = ArrayDeque<Long>()
-    queue.add(parentId)
+    queue.add(fileId)
+    val processedIds = mutableSetOf<Long>()
 
     while (queue.isNotEmpty()) {
-        val currentParentId = queue.removeFirst()
-        val subDirs = getSubDirectories(currentParentId)
+        val currentFileId = queue.removeFirst()
+        if (currentFileId in processedIds || currentFileId == 1L) continue
 
-        result.addAll(subDirs)
+        processedIds.add(currentFileId)
 
-        for (subDir in subDirs) {
-            subDir.id?.let { queue.add(it.toLong()) }
+        val subDirectories = getSubDirectoriesByParentOCFileId(currentFileId)
+        result.addAll(subDirectories)
+
+        subDirectories.forEach {
+            val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(it.path)
+            ocFile?.fileId?.let { newFileId ->
+                if (newFileId != 1L && newFileId !in processedIds) {
+                    queue.add(newFileId)
+                }
+            }
         }
     }
 
     return result
 }
+
 
 fun OfflineOperationDao.updatePathAndSubPaths(
     oldPath: String,
