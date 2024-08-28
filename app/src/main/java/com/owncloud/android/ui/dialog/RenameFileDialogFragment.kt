@@ -149,7 +149,7 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
                 fileDataStorageManager.renameCreateFolderOfflineOperation(mTargetFile, newFileName)
                 if (requireActivity() is FileDisplayActivity) {
                     val activity = requireActivity() as FileDisplayActivity
-                    activity.refreshFolderWithDelay()
+                    activity.refreshCurrentDirectory()
                 }
             } else {
                 (requireActivity() as ComponentsGetter).fileOperationsHelper.renameFile(mTargetFile, newFileName)

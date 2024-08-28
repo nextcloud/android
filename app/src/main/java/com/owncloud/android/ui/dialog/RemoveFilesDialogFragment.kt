@@ -97,7 +97,7 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
 
         if (offlineFiles.isNotEmpty()) {
             val activity = requireActivity() as? FileDisplayActivity
-            activity?.refreshFolderWithDelay()
+            activity?.refreshCurrentDirectory()
         }
 
         finishActionMode()

@@ -1603,15 +1603,16 @@ public class FileDisplayActivity extends FileActivity
             } else if (state instanceof WorkerState.UploadFinished) {
                 refreshList();
             } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
-                refreshFolderWithDelay();
+                refreshCurrentDirectory();
             }
         });
     }
 
-    public void refreshFolderWithDelay() {
-        OCFileListFragment fileListFragment = getListOfFilesFragment();
-        if (fileListFragment != null) {
-            new Handler(Looper.getMainLooper()).postDelayed(fileListFragment::onRefresh, 1500);
+    public void refreshCurrentDirectory() {
+        Fragment lastFragment = ActivityExtensionsKt.lastFragment(this);
+        if (lastFragment instanceof OCFileListFragment fragment) {
+            OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByDecryptedRemotePath(getCurrentDir().getRemotePath());
+            fragment.listDirectory(currentDir,false, false);
         }
     }
 
