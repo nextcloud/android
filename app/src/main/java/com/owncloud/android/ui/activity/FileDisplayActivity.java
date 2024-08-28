@@ -1609,10 +1609,14 @@ public class FileDisplayActivity extends FileActivity
     }
 
     public void refreshCurrentDirectory() {
-        Fragment lastFragment = ActivityExtensionsKt.lastFragment(this);
-        if (lastFragment instanceof OCFileListFragment fragment) {
-            OCFile currentDir = (getCurrentDir() == null) ? null : getStorageManager().getFileByDecryptedRemotePath(getCurrentDir().getRemotePath());
-            fragment.listDirectory(currentDir,false, false);
+        OCFile currentDir = (getCurrentDir() != null) ?
+            getStorageManager().getFileByDecryptedRemotePath(getCurrentDir().getRemotePath()) : null;
+
+        OCFileListFragment fileListFragment =
+            (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
+
+        if (fileListFragment != null) {
+            fileListFragment.listDirectory(currentDir, false, false);
         }
     }
 
