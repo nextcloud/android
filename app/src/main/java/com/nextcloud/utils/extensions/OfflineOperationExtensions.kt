@@ -12,6 +12,25 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 
 private const val DELIMITER = '/'
 
+fun OfflineOperationDao.getAllSubdirectories(parentId: Long): List<OfflineOperationEntity> {
+    val result = mutableListOf<OfflineOperationEntity>()
+    val queue = ArrayDeque<Long>()
+    queue.add(parentId)
+
+    while (queue.isNotEmpty()) {
+        val currentParentId = queue.removeFirst()
+        val subDirs = getSubDirectories(currentParentId)
+
+        result.addAll(subDirs)
+
+        for (subDir in subDirs) {
+            subDir.id?.let { queue.add(it.toLong()) }
+        }
+    }
+
+    return result
+}
+
 fun OfflineOperationDao.updatePathAndSubPaths(
     oldPath: String,
     newPath: String,

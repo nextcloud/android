@@ -36,4 +36,10 @@ interface OfflineOperationDao {
 
     @Query("SELECT * FROM offline_operations WHERE offline_operations_path LIKE '%' || :path || '%' OR offline_operations_file_name LIKE '%' || :filename || '%'")
     fun getSubDirs(path: String, filename: String): List<OfflineOperationEntity>
+
+    @Query("SELECT * FROM offline_operations WHERE offline_operations_parent_oc_file_id = :parentOCFileId")
+    fun getSubDirectories(parentOCFileId: Long): List<OfflineOperationEntity>
+
+    @Query("SELECT * FROM offline_operations WHERE _id = :id")
+    fun getById(id: Int): OfflineOperationEntity?
 }
