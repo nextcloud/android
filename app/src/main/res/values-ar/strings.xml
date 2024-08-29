@@ -487,6 +487,8 @@
     <string name="instant_upload_existing">ارفع الملفات الموجودة مسبقاً أيضاً</string>
     <string name="instant_upload_on_charging">ارفع وقت الشحن فقط</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync">مزامنة داخلية في الاتجاهين</string>
+    <string name="internal_two_way_sync_not_yet">ليس بعد. قريباً تتم المزامنة</string>
     <string name="invalid_url">رابط غير صالح</string>
     <string name="invisible">عدم الظهور</string>
     <string name="label_empty">لا يمكن أن تكون التسمية فارغة</string>
@@ -681,6 +683,7 @@
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
     <string name="prefs_theme_title">المظهر</string>
+    <string name="prefs_two_way_sync_summary">إدارة المجلدات الداخلية للمزامنة في الاتجاهين</string>
     <string name="prefs_value_theme_dark">غامق</string>
     <string name="prefs_value_theme_light">فاتح</string>
     <string name="prefs_value_theme_system">اتبع النظام</string>
