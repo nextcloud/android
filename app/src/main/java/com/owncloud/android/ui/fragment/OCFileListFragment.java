@@ -80,6 +80,7 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -93,8 +94,8 @@ import com.owncloud.android.ui.dialog.ConfirmationDialogFragment;
 import com.owncloud.android.ui.dialog.CreateFolderDialogFragment;
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment;
 import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
-import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
+import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 import com.owncloud.android.ui.events.CommentsEvent;
 import com.owncloud.android.ui.events.EncryptionEvent;
@@ -276,7 +277,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
             handleSearchEvent(searchEvent);
         }
 
+        setDrawerMenuItemChecked();
+
         super.onResume();
+    }
+
+    private void setDrawerMenuItemChecked() {
+        if (searchEvent != null && searchEvent.getSearchType() == SearchRemoteOperation.SearchType.FAVORITE_SEARCH) {
+            if (requireActivity() instanceof DrawerActivity activity) {
+                activity.setDrawerMenuItemChecked(R.id.nav_favorites);
+            }
+        }
     }
 
 
