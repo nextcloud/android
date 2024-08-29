@@ -927,12 +927,20 @@ public final class DisplayUtils {
         Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
             ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
 
+        if (thumbnail != null) {
+            // If thumbnail is already in cache, display it immediately
+            thumbnailView.setImageBitmap(thumbnail);
+            stopShimmer(shimmerThumbnail, thumbnailView);
+            return;
+        }
+
         for (ThumbnailsCacheManager.ThumbnailGenerationTask task : asyncTasks) {
             if (file.getRemoteId() != null && task.getImageKey() != null &&
                 file.getRemoteId().equals(task.getImageKey())) {
                 return;
             }
         }
+
         try {
             final ThumbnailsCacheManager.ThumbnailGenerationTask task =
                 new ThumbnailsCacheManager.ThumbnailGenerationTask(thumbnailView,
@@ -941,32 +949,34 @@ public final class DisplayUtils {
                                                                    asyncTasks,
                                                                    gridView,
                                                                    file.getRemoteId());
-            if (thumbnail == null) {
-                Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
-                                                                 file.getFileName(),
-                                                                 context,
-                                                                 viewThemeUtils);
-                if (drawable == null) {
-                    drawable = ResourcesCompat.getDrawable(context.getResources(),
-                                                           R.drawable.file_image,
-                                                           null);
-                }
-                if (drawable == null) {
-                    drawable = new ColorDrawable(Color.GRAY);
-                }
-
-                int px = ThumbnailsCacheManager.getThumbnailDimension();
-                thumbnail = BitmapUtils.drawableToBitmap(drawable, px, px);
+            Drawable drawable = MimeTypeUtil.getFileTypeIcon(file.getMimeType(),
+                                                             file.getFileName(),
+                                                             context,
+                                                             viewThemeUtils);
+            if (drawable == null) {
+                drawable = ResourcesCompat.getDrawable(context.getResources(),
+                                                       R.drawable.file_image,
+                                                       null);
             }
+            if (drawable == null) {
+                drawable = new ColorDrawable(Color.GRAY);
+            }
+
+            int px = ThumbnailsCacheManager.getThumbnailDimension();
+            thumbnail = BitmapUtils.drawableToBitmap(drawable, px, px);
             final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
                 new ThumbnailsCacheManager.AsyncThumbnailDrawable(context.getResources(),
                                                                   thumbnail, task);
 
-            if (shimmerThumbnail != null && shimmerThumbnail.getVisibility() == View.GONE) {
-                if (gridView) {
-                    configShimmerGridImageSize(shimmerThumbnail, preferences.getGridColumns());
-                }
-                startShimmer(shimmerThumbnail, thumbnailView);
+            if (shimmerThumbnail != null) {
+                shimmerThumbnail.postDelayed(() -> {
+                    if (thumbnailView.getDrawable() == null) {
+                        if (gridView) {
+                            configShimmerGridImageSize(shimmerThumbnail, preferences.getGridColumns());
+                        }
+                        startShimmer(shimmerThumbnail, thumbnailView);
+                    }
+                }, 100); // 100ms delay, adjust as needed
             }
 
             task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {

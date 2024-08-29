@@ -1016,6 +1016,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
+    public void onViewRecycled(@NonNull RecyclerView.ViewHolder holder) {
+        super.onViewRecycled(holder);
+        if (holder instanceof ListGridImageViewHolder listGridImageViewHolder) {
+            LoaderImageView thumbnailShimmer = listGridImageViewHolder.getShimmerThumbnail();
+            DisplayUtils.stopShimmer(thumbnailShimmer,  listGridImageViewHolder.getThumbnail());
+        }
+    }
+
+    @Override
     public void avatarGenerated(Drawable avatarDrawable, Object callContext) {
         ((ImageView) callContext).setImageDrawable(avatarDrawable);
     }
