@@ -32,6 +32,8 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -583,9 +585,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         setupViewPager();
+
         if (getView() != null) {
             getView().invalidate();
         }
+
+        observeWorkerState();
     }
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
@@ -685,14 +690,19 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             // show the progress bar for the transfer
             binding.progressBlock.setVisibility(View.VISIBLE);
             binding.progressText.setVisibility(View.VISIBLE);
-            if (FileDownloadHelper.Companion.instance().isDownloading(user, getFile())) {
-                binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
-            } else {
-                if (FileUploadHelper.Companion.instance().isUploading(user, getFile())) {
-                    binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
-                }
-            }
         }
+    }
+
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
+            if (state instanceof WorkerState.Download) {
+                binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
+            } else if (state instanceof WorkerState.Upload) {
+                binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
+            } else {
+                binding.progressBlock.setVisibility(View.GONE);
+            }
+        });
     }
 
     /**

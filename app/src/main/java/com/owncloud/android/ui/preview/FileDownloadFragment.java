@@ -23,6 +23,8 @@ import android.widget.TextView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
@@ -152,10 +154,11 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         if (mError) {
             setButtonsForRemote();
-        }
-        else {
+        } else {
             setButtonsForTransferring();
         }
+
+        observeWorkerState();
 
         return mView;
     }
@@ -219,11 +222,26 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         }
     }
 
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
+            if (state instanceof WorkerState.Idle) {
+                if (getView() == null) return;
+
+                // TODO Open downloaded file immediately
+
+            }
+        });
+    }
+
 
     /**
      * Enables or disables buttons for a file being downloaded
      */
     private void setButtonsForTransferring() {
+        if (getView() == null) {
+            return;
+        }
+
         getView().findViewById(R.id.cancelBtn).setVisibility(View.VISIBLE);
 
         // show the progress bar for the transfer
@@ -243,6 +261,10 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      * Currently, this is only used when a download was failed
      */
     private void setButtonsForRemote() {
+        if (getView() == null) {
+            return;
+        }
+
         getView().findViewById(R.id.cancelBtn).setVisibility(View.GONE);
 
         // hides the progress bar and message
