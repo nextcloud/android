@@ -976,7 +976,7 @@ public final class DisplayUtils {
                         }
                         startShimmer(shimmerThumbnail, thumbnailView);
                     }
-                }, 100); // 100ms delay, adjust as needed
+                }, 100);
             }
 
             task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {
