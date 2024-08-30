@@ -225,15 +225,13 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
-            if (state instanceof WorkerState.Idle idleState) {
-                if (idleState.getCurrentFile() == null) return;
+            if (state instanceof WorkerState.Idle) {
                 if (requireActivity() instanceof PreviewImageActivity activity && filePosition != null) {
                     activity.setPreviewImagePagerCurrentItem(filePosition);
                 }
             }
         });
     }
-
 
     /**
      * Enables or disables buttons for a file being downloaded
