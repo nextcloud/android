@@ -18,6 +18,7 @@ class OfflineOperationsRepository(
     private val dao = fileDataStorageManager.offlineOperationDao
     private val pathSeparator = '/'
 
+    @Suppress("NestedBlockDepth")
     override fun getAllSubdirectories(fileId: Long): List<OfflineOperationEntity> {
         val result = mutableListOf<OfflineOperationEntity>()
         val queue = ArrayDeque<Long>()
