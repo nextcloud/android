@@ -701,6 +701,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.fileId;
     }
 
+    public boolean isRoot() {
+        return isFolder() && getFileId() == 1;
+    }
+
     public long getParentId() {
         return this.parentId;
     }

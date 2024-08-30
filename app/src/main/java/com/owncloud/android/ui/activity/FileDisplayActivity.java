@@ -998,24 +998,38 @@ public class FileDisplayActivity extends FileActivity
     @Override
     public void onBackPressed() {
         final boolean isDrawerOpen = isDrawerOpen();
+        if (isDrawerOpen) {
+            super.onBackPressed();
+            return;
+        }
+
         final boolean isSearchOpen = isSearchOpen();
-
-        final Fragment leftFragment = getLeftFragment();
-
         if (isSearchOpen) {
             resetSearchAction();
-        } else if (isDrawerOpen) {
-            super.onBackPressed();
-        } else if (leftFragment instanceof OCFileListFragment listOfFiles) {
+            return;
+        }
 
-            // all closed
+        final Fragment leftFragment = getLeftFragment();
+        if (leftFragment instanceof OCFileListFragment listOfFiles) {
             OCFile currentDir = getCurrentDir();
+            OCFile parentDir = fileDataStorageManager.getFileById(currentDir.getParentId());
+
             if (isRoot(currentDir)) {
                 finish();
-                return;
+            } else if (parentDir != null && parentDir.isRoot()) {
+                openDrawer();
+            } else {
+                browseUp(listOfFiles);
+
+                if (parentDir != null) {
+                    OCFile grandParentDir = fileDataStorageManager.getFileById(parentDir.getParentId());
+                    if (grandParentDir != null) {
+                        if (grandParentDir.isRoot()) {
+                            filterCurrentDirectory();
+                        }
+                    }
+                }
             }
-            browseUp(listOfFiles);
-            filterCurrentDirectory();
         } else {
             popBack();
         }
