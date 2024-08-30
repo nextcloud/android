@@ -19,14 +19,15 @@ import com.nextcloud.model.OfflineOperationType
 import com.nextcloud.model.WorkerState
 import com.nextcloud.model.WorkerStateLiveData
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.withContext
 
 class OfflineOperationsWorker(
     private val user: User,
@@ -46,7 +47,7 @@ class OfflineOperationsWorker(
     private val notificationManager = OfflineOperationsNotificationManager(context, viewThemeUtils)
     private var repository = OfflineOperationsRepository(fileDataStorageManager)
 
-    @Suppress("TooGenericExceptionCaught", "Deprecation")
+    @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = coroutineScope {
         val jobName = inputData.getString(JOB_NAME)
         Log_OC.d(
@@ -58,66 +59,82 @@ class OfflineOperationsWorker(
 
         if (!connectivityService.isNetworkAndServerAvailable()) {
             Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no internet connection")
-            return@coroutineScope Result.success()
-        }
-
-        val operations = fileDataStorageManager.offlineOperationDao.getAll()
-        if (operations.isEmpty()) {
-            Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no offline operations were found")
-            return@coroutineScope Result.success()
+            return@coroutineScope Result.retry()
         }
 
         val client = clientFactory.create(user)
-
         notificationManager.start()
 
-        operations.forEachIndexed { index, operation ->
-            val result = try {
-                if (operation.type == OfflineOperationType.CreateFolder && operation.parentPath != null) {
-                    val createFolderOperation = async(Dispatchers.IO) {
+        var operations = fileDataStorageManager.offlineOperationDao.getAll()
+        val totalOperations = operations.size
+        var currentOperationIndex = 0
+
+        return@coroutineScope try {
+            while (operations.isNotEmpty()) {
+                val operation = operations.first()
+                val result = executeOperation(operation, client)
+                handleResult(operation, totalOperations, currentOperationIndex, result?.first, result?.second)
+
+                currentOperationIndex++
+                operations = fileDataStorageManager.offlineOperationDao.getAll()
+            }
+
+            Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")
+            notificationManager.dismissNotification()
+            WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
+            Result.success()
+        } catch (e: Exception) {
+            Log_OC.d(TAG, "OfflineOperationsWorker terminated: $e")
+            Result.failure()
+        }
+    }
+
+    @Suppress("Deprecation")
+    private suspend fun executeOperation(
+        operation: OfflineOperationEntity,
+        client: OwnCloudClient
+    ): Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>? {
+        return when (operation.type) {
+            OfflineOperationType.CreateFolder -> {
+                if (operation.parentPath != null) {
+                    val createFolderOperation = withContext(Dispatchers.IO) {
                         CreateFolderOperation(
                             operation.path,
                             user,
                             context,
                             fileDataStorageManager
                         )
-                    }.await()
-
+                    }
                     createFolderOperation.execute(client) to createFolderOperation
                 } else {
-                    Log_OC.d(TAG, "Operation terminated, not supported or incomplete operation")
+                    Log_OC.d(TAG, "CreateFolder operation incomplete, missing parentPath")
                     null
                 }
-            } catch (e: Exception) {
-                Log_OC.d(TAG, "Operation terminated, exception caught: $e")
-                null
             }
 
-            handleResult(operation, operations, index, result?.first, result?.second)
+            else -> {
+                Log_OC.d(TAG, "Unsupported operation type: ${operation.type}")
+                null
+            }
         }
-
-        Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")
-        notificationManager.dismissNotification()
-        WorkerStateLiveData.instance().setWorkState(WorkerState.OfflineOperationsCompleted)
-        return@coroutineScope Result.success()
     }
 
     private fun handleResult(
         operation: OfflineOperationEntity,
-        operations: List<OfflineOperationEntity>,
+        totalOperations: Int,
         currentOperationIndex: Int,
         result: RemoteOperationResult<*>?,
         remoteOperation: RemoteOperation<*>?
     ) {
         result ?: return Log_OC.d(TAG, "Operation not completed, result is null")
 
-        val logMessage = if (result.isSuccess) "Operation completed" else "Operation terminated"
+        val logMessage = if (result.isSuccess) "Operation completed" else "Operation failed"
         Log_OC.d(TAG, "$logMessage path: ${operation.path}, type: ${operation.type}")
 
         if (result.isSuccess) {
             repository.updateNextOperations(operation)
             fileDataStorageManager.offlineOperationDao.delete(operation)
-            notificationManager.update(operations.size, currentOperationIndex, operation.filename ?: "")
+            notificationManager.update(totalOperations, currentOperationIndex, operation.filename ?: "")
         } else {
             val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
 
