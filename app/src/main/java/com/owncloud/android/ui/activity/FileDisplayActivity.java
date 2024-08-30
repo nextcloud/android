@@ -1012,18 +1012,25 @@ public class FileDisplayActivity extends FileActivity
         final Fragment leftFragment = getLeftFragment();
         if (leftFragment instanceof OCFileListFragment listOfFiles) {
             OCFile currentDir = getCurrentDir();
-            OCFile parentDir = fileDataStorageManager.getFileById(currentDir.getParentId());
-
             if (isRoot(currentDir)) {
                 finish();
-            } else if (parentDir != null && parentDir.isRoot()) {
-                openDrawer();
-            } else {
-                browseUp(listOfFiles);
+                return;
+            }
 
-                OCFile secondParentDir = fileDataStorageManager.getNthParent(currentDir, 2);
-                if (secondParentDir != null && secondParentDir.isRoot()) {
-                    filterCurrentDirectory();
+            browseUp(listOfFiles);
+
+            if (menuItemId == R.id.nav_favorites || menuItemId == R.id.nav_shared) {
+                OCFile parentDir = fileDataStorageManager.getFileById(currentDir.getParentId());
+                if (parentDir != null && parentDir.isRoot()) {
+                    openDrawer();
+                } else {
+                    browseUp(listOfFiles);
+
+                    OCFile secondParentDir = fileDataStorageManager.getNthParent(currentDir, 2);
+                    if (secondParentDir != null && secondParentDir.isRoot()) {
+                        filterCurrentDirectory();
+                        setActionBarLeadingIcon(R.drawable.ic_menu);
+                    }
                 }
             }
         } else {

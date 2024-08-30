@@ -1114,6 +1114,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     @OptIn(markerClass = UnstableApi.class)
     public void onItemClicked(OCFile file) {
+        if (mContainerActivity != null && mContainerActivity instanceof FileActivity fileActivity) {
+            fileActivity.setActionBarLeadingIcon(R.drawable.ic_arrow_back);
+        }
+
         if (getCommonAdapter() != null && getCommonAdapter().isMultiSelect()) {
             toggleItemToCheckedList(file);
         } else {

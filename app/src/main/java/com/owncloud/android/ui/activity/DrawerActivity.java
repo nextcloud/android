@@ -273,8 +273,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         mDrawerLayout.addDrawerListener(mDrawerToggle);
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerToggle.setDrawerSlideAnimationEnabled(true);
+        setActionBarLeadingIcon(R.drawable.ic_arrow_back);
+    }
+
+    public void setActionBarLeadingIcon(int id) {
         Drawable backArrow = ResourcesCompat.getDrawable(getResources(),
-                                                         R.drawable.ic_arrow_back,
+                                                         id,
                                                          null);
 
         if (backArrow != null) {
