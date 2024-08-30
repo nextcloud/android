@@ -61,8 +61,11 @@ class OfflineOperationsRepository(
         fileDataStorageManager.removeFile(file, true, true)
     }
 
-    override fun updateNextOperations() {
-        dao.getAll()
+    override fun updateNextOperations(operation: OfflineOperationEntity) {
+        val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operation.path)
+        val fileId = ocFile?.fileId ?: return
+
+        getAllSubdirectories(fileId)
             .mapNotNull { nextOperation ->
                 nextOperation.parentOCFileId?.let { parentId ->
                     fileDataStorageManager.getFileById(parentId)?.let { ocFile ->

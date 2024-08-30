@@ -115,7 +115,7 @@ class OfflineOperationsWorker(
         Log_OC.d(TAG, "$logMessage path: ${operation.path}, type: ${operation.type}")
 
         if (result.isSuccess) {
-            repository.updateNextOperations()
+            repository.updateNextOperations(operation)
             fileDataStorageManager.offlineOperationDao.delete(operation)
             notificationManager.update(operations.size, currentOperationIndex, operation.filename ?: "")
         } else {

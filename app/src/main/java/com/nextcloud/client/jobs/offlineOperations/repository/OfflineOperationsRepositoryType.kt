@@ -13,5 +13,5 @@ import com.owncloud.android.datamodel.OCFile
 interface OfflineOperationsRepositoryType {
     fun getAllSubdirectories(fileId: Long): List<OfflineOperationEntity>
     fun deleteOperation(file: OCFile)
-    fun updateNextOperations()
+    fun updateNextOperations(operation: OfflineOperationEntity)
 }
