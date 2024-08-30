@@ -1021,13 +1021,9 @@ public class FileDisplayActivity extends FileActivity
             } else {
                 browseUp(listOfFiles);
 
-                if (parentDir != null) {
-                    OCFile grandParentDir = fileDataStorageManager.getFileById(parentDir.getParentId());
-                    if (grandParentDir != null) {
-                        if (grandParentDir.isRoot()) {
-                            filterCurrentDirectory();
-                        }
-                    }
+                OCFile secondParentDir = fileDataStorageManager.getNthParent(currentDir, 2);
+                if (secondParentDir != null && secondParentDir.isRoot()) {
+                    filterCurrentDirectory();
                 }
             }
         } else {

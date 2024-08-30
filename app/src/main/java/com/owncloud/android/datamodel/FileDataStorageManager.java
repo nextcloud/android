@@ -233,6 +233,22 @@ public class FileDataStorageManager {
         return null;
     }
 
+    public OCFile getNthParent(OCFile file, int n) {
+        if (file == null || !file.isFolder() ||  n < 1) {
+            return null;
+        }
+
+        OCFile currentFile = file;
+        for (int i = 0; i < n; i++) {
+            currentFile = getFileById(currentFile.getParentId());
+            if (currentFile == null) {
+                return null;
+            }
+        }
+
+        return currentFile;
+    }
+
     public @Nullable
     OCFile getFileByLocalPath(String path) {
         FileEntity fileEntity = fileDao.getFileByLocalPath(path, user.getAccountName());
