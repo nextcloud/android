@@ -1015,8 +1015,17 @@ public class FileDisplayActivity extends FileActivity
                 return;
             }
             browseUp(listOfFiles);
+            filterCurrentDirectory();
         } else {
             popBack();
+        }
+    }
+
+    private void filterCurrentDirectory() {
+        if (menuItemId == R.id.nav_favorites) {
+            filterFavoritesFiles(menuItemId);
+        } else if (menuItemId == R.id.nav_shared) {
+            startSharedSearch(menuItemId);
         }
     }
 

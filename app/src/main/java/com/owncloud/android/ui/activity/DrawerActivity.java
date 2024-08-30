@@ -526,8 +526,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
             closeDrawer();
         } else if (itemId == R.id.nav_favorites) {
-            handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH),
-                               menuItem.getItemId());
+            filterFavoritesFiles(menuItem.getItemId());
         } else if (itemId == R.id.nav_gallery) {
             startPhotoSearch(menuItem.getItemId());
         } else if (itemId == R.id.nav_on_device) {
@@ -554,7 +553,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 UserInfoActivity.openAccountRemovalDialog(optionalUser.get(), getSupportFragmentManager());
             }
         } else if (itemId == R.id.nav_shared) {
-            startSharedSearch(menuItem);
+            startSharedSearch(menuItem.getItemId());
         } else if (itemId == R.id.nav_recently_modified) {
             startRecentlyModifiedSearch(menuItem);
         } else if (itemId == R.id.nav_assistant) {
@@ -574,6 +573,10 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
             }
         }
+    }
+
+    public void filterFavoritesFiles(int menuItemId) {
+        handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
     }
 
     private void startComposeActivity(ComposeDestination destination, int titleId) {
@@ -616,11 +619,11 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void startSharedSearch(MenuItem menuItem) {
+    public void startSharedSearch(int menuItemId) {
         SearchEvent searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
         MainApp.showOnlyFilesOnDevice(false);
 
-        launchActivityForSearch(searchEvent, menuItem.getItemId());
+        launchActivityForSearch(searchEvent, menuItemId);
     }
 
     private void startRecentlyModifiedSearch(MenuItem menuItem) {
@@ -637,7 +640,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         launchActivityForSearch(searchEvent, id);
     }
 
-    private void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
+    public void handleSearchEvents(SearchEvent searchEvent, int menuItemId) {
         if (this instanceof FileDisplayActivity) {
             final Fragment leftFragment = ((FileDisplayActivity) this).getLeftFragment();
             if (leftFragment instanceof GalleryFragment || leftFragment instanceof SharedListFragment) {
