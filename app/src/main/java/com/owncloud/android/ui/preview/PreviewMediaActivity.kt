@@ -24,6 +24,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -149,6 +150,15 @@ class PreviewMediaActivity :
         WindowCompat.setDecorFitsSystemWindows(window, false)
         applyWindowInsets()
         initArguments(savedInstanceState)
+
+        if(MimeTypeUtil.isVideo(file)){
+            // release any background media session if exists
+            val intent = Intent(BackgroundPlayerService.STOP_MEDIA_SESSION_BROADCAST_ACTION).apply {
+                setPackage(packageName)
+            }
+            sendBroadcast(intent)
+        }
+
         showMediaTypeViews()
         configureSystemBars()
         emptyListView = binding.emptyView.emptyListView
@@ -242,7 +252,7 @@ class PreviewMediaActivity :
     private fun hideProgressLayout() {
         binding.progress.visibility = View.GONE
         binding.audioControllerView.visibility = View.VISIBLE
-        binding.emptyView.emptyListView.visibility = View.VISIBLE
+        // binding.emptyView.emptyListView.visibility = View.VISIBLE
     }
 
     private fun setVideoErrorMessage(headline: String, @StringRes message: Int) {
@@ -361,7 +371,7 @@ class PreviewMediaActivity :
                     playAudio()
                     binding.audioControllerView.setMediaPlayer(audioMediaController)
                 } catch (e: Exception) {
-                    println("exception raised while getting the media controller ${e.message}")
+                    Log_OC.e(TAG,"exception raised while getting the media controller ${e.message}")
                 }
             },
             MoreExecutors.directExecutor()
@@ -385,7 +395,7 @@ class PreviewMediaActivity :
             audioPlayer.addListener(object : Player.Listener {
 
                 override fun onPlaybackStateChanged(playbackState: Int) {
-                    if(playbackState == Player.STATE_READY){
+                    if (playbackState == Player.STATE_READY) {
                         hideProgressLayout()
                     }
                 }
@@ -408,7 +418,6 @@ class PreviewMediaActivity :
 
     private fun releaseAudioPlayer() {
         audioMediaController?.let { audioPlayer ->
-            audioPlayer.stop()
             audioPlayer.release()
         }
         audioMediaController = null
@@ -473,7 +482,6 @@ class PreviewMediaActivity :
             it.player = videoPlayer
         }
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.custom_menu_placeholder, menu)

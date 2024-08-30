@@ -46,6 +46,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper.Companion.instance
+import com.nextcloud.client.media.BackgroundPlayerService
 import com.nextcloud.client.media.ExoplayerListener
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
 import com.nextcloud.client.network.ClientFactory
@@ -121,6 +122,12 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // release any background media session if exists
+        val intent = Intent(BackgroundPlayerService.STOP_MEDIA_SESSION_BROADCAST_ACTION).apply {
+            setPackage(requireActivity().packageName)
+        }
+        requireActivity().sendBroadcast(intent)
 
         arguments?.let {
             initArguments(it)
@@ -246,7 +253,8 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
             val listener = ExoplayerListener(context, binding.exoplayerView, it) { goBackToLivePhoto() }
             it.addListener(listener)
         }
-        mediaSession = MediaSession.Builder(requireContext(),exoPlayer as Player).build()
+        // session id needs to be unique since this fragment is used in viewpager multiple fragments can exist at a time
+        mediaSession = MediaSession.Builder(requireContext(),exoPlayer as Player).setId(System.currentTimeMillis().toString()).build()
     }
 
     private fun releaseVideoPlayer() {
