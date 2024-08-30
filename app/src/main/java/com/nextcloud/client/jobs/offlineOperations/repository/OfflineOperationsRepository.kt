@@ -78,7 +78,9 @@ class OfflineOperationsRepository(
                                     parentPath = newParentPath
                                     path = newPath
                                 }
-                            } else null
+                            } else {
+                                null
+                            }
                         }
                     }
                 }
