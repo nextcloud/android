@@ -252,7 +252,7 @@ class PreviewMediaActivity :
     private fun hideProgressLayout() {
         binding.progress.visibility = View.GONE
         binding.audioControllerView.visibility = View.VISIBLE
-        // binding.emptyView.emptyListView.visibility = View.VISIBLE
+        binding.emptyView.emptyListView.visibility = View.VISIBLE
     }
 
     private fun setVideoErrorMessage(headline: String, @StringRes message: Int) {

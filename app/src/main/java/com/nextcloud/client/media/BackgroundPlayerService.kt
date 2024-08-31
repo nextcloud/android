@@ -11,9 +11,27 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Bundle
+import androidx.media3.common.Player
+import androidx.media3.common.Player.COMMAND_PLAY_PAUSE
+import androidx.media3.common.Player.COMMAND_SEEK_TO_NEXT
+import androidx.media3.common.Player.COMMAND_SEEK_TO_NEXT_MEDIA_ITEM
+import androidx.media3.common.Player.COMMAND_SEEK_TO_PREVIOUS
+import androidx.media3.common.Player.COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM
+import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.session.CommandButton
+import androidx.media3.session.DefaultMediaNotificationProvider
+import androidx.media3.session.DefaultMediaNotificationProvider.COMMAND_KEY_COMPACT_VIEW_INDEX
 import androidx.media3.session.MediaSession
+import androidx.media3.session.MediaSession.ConnectionResult
+import androidx.media3.session.MediaSession.ConnectionResult.AcceptedResultBuilder
 import androidx.media3.session.MediaSessionService
+import androidx.media3.session.SessionCommand
+import androidx.media3.session.SessionResult
+import com.google.common.collect.ImmutableList
+import com.google.common.util.concurrent.Futures
+import com.google.common.util.concurrent.ListenableFuture
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
@@ -27,7 +45,29 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+@UnstableApi
 class BackgroundPlayerService : MediaSessionService(), Injectable {
+    private var SESSION_COMMAND_ACTION_SEEK_BACK = "SESSION_COMMAND_ACTION_SEEK_BACK"
+    private var SESSION_COMMAND_ACTION_SEEK_FORWARD = "SESSION_COMMAND_ACTION_SEEK_FORWARD"
+
+    private var seekBackSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_BACK, Bundle.EMPTY)
+    private var seekForwardSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_FORWARD, Bundle.EMPTY)
+
+    val seekForward =
+        CommandButton.Builder()
+            .setDisplayName("Seek Forward")
+            .setIconResId(CommandButton.getIconResIdForIconConstant(CommandButton.ICON_SKIP_FORWARD_15))
+            .setSessionCommand(seekForwardSessionCommand)
+            .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 2) })
+            .build()
+
+    val seekBackward =
+        CommandButton.Builder()
+            .setDisplayName("Seek Backward")
+            .setIconResId(CommandButton.getIconResIdForIconConstant(CommandButton.ICON_SKIP_BACK_5))
+            .setSessionCommand(seekBackSessionCommand)
+            .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 0) })
+            .build()
 
     @Inject
     lateinit var clientFactory: ClientFactory
@@ -54,6 +94,30 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
 
         MainApp.getAppComponent().inject(this)
         initNextcloudExoPlayer()
+
+        setMediaNotificationProvider(object : DefaultMediaNotificationProvider(this) {
+            override fun getMediaButtons(
+                session: MediaSession,
+                playerCommands: Player.Commands,
+                customLayout: ImmutableList<CommandButton>,
+                showPauseButton: Boolean
+            ): ImmutableList<CommandButton> {
+                val playPauseButton =
+                    CommandButton.Builder()
+                        .setDisplayName("PlayPause")
+                        .setIconResId(CommandButton.getIconResIdForIconConstant(if (mediaSession?.player?.isPlaying!!) CommandButton.ICON_PAUSE else CommandButton.ICON_PLAY))
+                        .setPlayerCommand(COMMAND_PLAY_PAUSE)
+                        .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 1) })
+                        .build()
+
+                val myCustomButtonsLayout =
+                    ImmutableList.of(seekBackward, playPauseButton, seekForward)
+                println(seekBackward.displayName)
+                println(playPauseButton.displayName)
+                println(seekForward.displayName)
+                return myCustomButtonsLayout
+            }
+        })
     }
 
     private fun initNextcloudExoPlayer() {
@@ -65,7 +129,61 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
             nextcloudClient?.let {
                 exoPlayer = createNextcloudExoplayer(this@BackgroundPlayerService, nextcloudClient)
                 mediaSession =
-                    MediaSession.Builder(applicationContext, exoPlayer).build()
+                    MediaSession.Builder(applicationContext, exoPlayer)
+                        .setCustomLayout(listOf(seekBackward, seekForward))
+                        .setCallback(object : MediaSession.Callback {
+                            override fun onConnect(
+                                session: MediaSession,
+                                controller: MediaSession.ControllerInfo
+                            ): ConnectionResult {
+                                return AcceptedResultBuilder(mediaSession!!)
+                                    .setAvailablePlayerCommands(
+                                        ConnectionResult.DEFAULT_PLAYER_COMMANDS.buildUpon()
+                                            .remove(COMMAND_SEEK_TO_NEXT)
+                                            .remove(COMMAND_SEEK_TO_NEXT_MEDIA_ITEM)
+                                            .remove(COMMAND_SEEK_TO_PREVIOUS)
+                                            .remove(COMMAND_SEEK_TO_PREVIOUS_MEDIA_ITEM)
+                                            .build()
+                                    )
+                                    .setAvailableSessionCommands(
+                                        ConnectionResult.DEFAULT_SESSION_COMMANDS.buildUpon()
+                                            .addSessionCommands(
+                                                listOf(seekBackSessionCommand, seekForwardSessionCommand)
+                                            ).build()
+                                    )
+                                    .build()
+                            }
+
+                            override fun onPostConnect(
+                                session: MediaSession,
+                                controller: MediaSession.ControllerInfo
+                            ) {
+                                session.setCustomLayout(listOf(seekBackward, seekForward))
+                            }
+
+                            override fun onCustomCommand(
+                                session: MediaSession,
+                                controller: MediaSession.ControllerInfo,
+                                customCommand: SessionCommand,
+                                args: Bundle
+                            ): ListenableFuture<SessionResult> {
+                                when (customCommand.customAction) {
+                                    SESSION_COMMAND_ACTION_SEEK_FORWARD -> {
+                                        session.player.seekForward()
+                                        return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
+                                    }
+
+                                    SESSION_COMMAND_ACTION_SEEK_BACK -> {
+                                        session.player.seekBack()
+                                        return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
+                                    }
+
+                                    else -> {}
+                                }
+                                return super.onCustomCommand(session, controller, customCommand, args)
+                            }
+                        })
+                        .build()
             }
         }
     }
