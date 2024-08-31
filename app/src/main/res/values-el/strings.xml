@@ -558,6 +558,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Γενικά</string>
     <string name="prefs_category_more">Περισσότερα</string>
+    <string name="prefs_category_sync">Συγχρονισμός</string>
     <string name="prefs_daily_contact_backup_summary">Ημερήσιο αντίγραφο ασφαλείας των επαφών σας </string>
     <string name="prefs_e2e_active">Η κρυπτογράφηση από άκρο σε άκρο έχει ρυθμιστεί!</string>
     <string name="prefs_e2e_mnemonic">E2E μνήμη</string>
@@ -751,6 +752,7 @@
     <string name="subtitle_photos_only">Μόνο φωτογραφίες</string>
     <string name="subtitle_videos_only">Μόνο βίντεο</string>
     <string name="suggest">Προτείνετε</string>
+    <string name="sync">Συγχρονισμός</string>
     <string name="sync_conflicts_in_favourites_ticker">Βρέθηκαν διενέξεις</string>
     <string name="sync_current_folder_was_removed">Ο φάκελος %1$s δεν υπάρχει πια</string>
     <string name="sync_fail_content">Αποτυχία συγχρονισμού %1$s</string>

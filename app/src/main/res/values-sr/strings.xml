@@ -624,6 +624,7 @@
     <string name="prefs_category_dev">Развојно</string>
     <string name="prefs_category_general">Опште</string>
     <string name="prefs_category_more">Остало</string>
+    <string name="prefs_category_sync">Синхронизуј</string>
     <string name="prefs_daily_backup_summary">Дневна резервна копија вашег календара и контаката</string>
     <string name="prefs_daily_contact_backup_summary">Дневно архивирање ваших контаката</string>
     <string name="prefs_davx5_setup_error">Неочекивана грешка приликом подешавања DAVx5 (раније познатог под именом DAVdroid)</string>
@@ -848,6 +849,7 @@
     <string name="subtitle_photos_videos">Фотографије и видео снимци</string>
     <string name="subtitle_videos_only">Само видео снимци</string>
     <string name="suggest">Предложи</string>
+    <string name="sync">Синхронизуј</string>
     <string name="sync_conflicts_in_favourites_ticker">Постоје сукоби</string>
     <string name="sync_current_folder_was_removed">Фасцикла %1$s више не постоји</string>
     <string name="sync_fail_content">Не могу да синхронизујем %1$s</string>

@@ -472,6 +472,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">ທົ່ວໄປ</string>
     <string name="prefs_category_more">ເພີ່ມເຕີມ</string>
+    <string name="prefs_category_sync">Sync</string>
     <string name="prefs_daily_contact_backup_summary">ສໍາຮອງປະຈໍາວັນຂອງການຕິດຕໍ່</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">ເພື່ອສະແດງ mnemonic ກະລຸນາເປິດຂໍ້ມູນປະຈຳຕົວຂອງອຸປະກອນ.</string>
@@ -634,6 +635,7 @@
     <string name="stream_not_possible_message">ກະລຸນາດາວໂຫລດສື່ມວນຊົນແທນ ຫຼື ໃຊ້ແອັບພາຍນອກ</string>
     <string name="subject_shared_with_you">\"%1$s\"ໄດ້ຖືກແບ່ງໂດຍທ່ານ</string>
     <string name="subject_user_shared_with_you">%1$sແບ່ງປັນ\"%2$s\"ດ້ວຍທ່ານ</string>
+    <string name="sync">Sync</string>
     <string name="sync_conflicts_in_favourites_ticker">ພົບຂໍ້ຜິດພາດ</string>
     <string name="sync_current_folder_was_removed">ໂຟນເດີນີ້%1$sບໍ່ມີອີກແລ້ວ</string>
     <string name="sync_fail_content">ບໍ່ສາມາດ sync%1$sໄດ້</string>

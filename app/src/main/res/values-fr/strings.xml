@@ -406,6 +406,14 @@
     <string name="file_migration_updating_index">Mise à jour de l\'index…</string>
     <string name="file_migration_use_data_folder">Conserver le dossier actuel</string>
     <string name="file_migration_waiting_for_unfinished_sync">En attente de la synchronisation complète…</string>
+    <string name="file_name_validator_current_path_is_invalid">Le nom actuel du dossier est invalide, veuillez renommer le dossier. Redirection vers la racine</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Le chemin du dossier contient des noms réservés ou des caractères invalides</string>
+    <string name="file_name_validator_error_ends_with_space_period">Le nom se termine par un espace ou un point</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s est une extension de fichier interdite</string>
+    <string name="file_name_validator_error_invalid_character">Le nom contient un caractère invalide : %s</string>
+    <string name="file_name_validator_error_reserved_names">%s est un nom interdit</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Veuillez renommer le fichier avant de le déplacer ou de le copier</string>
+    <string name="file_name_validator_upload_content_error">Certains contenus ne peuvent pas être téléversés parce qu\'ils contiennent des noms réservés ou des caractères invalides</string>
     <string name="file_not_found">Fichier non trouvé</string>
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
@@ -429,6 +437,7 @@
     <string name="folder_already_exists">Le dossier existe déjà</string>
     <string name="folder_confirm_create">Créer</string>
     <string name="folder_list_empty_headline">Aucun dossier</string>
+    <string name="folder_name_empty">Le nom du dossier ne peut être vide</string>
     <string name="folder_picker_choose_button_text">Choisir</string>
     <string name="folder_picker_choose_caption_text">Sélectionner le dossier cible</string>
     <string name="folder_picker_copy_button_text">Copier</string>
@@ -475,6 +484,8 @@
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Téléverser uniquement lors de la recharge</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync">Synchronisation interne bidirectionnelle</string>
+    <string name="internal_two_way_sync_not_yet">Pas encore, bientôt synchronisé</string>
     <string name="invalid_url">URL invalide</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">Le libellé ne peut pas être vide</string>
@@ -624,6 +635,7 @@
     <string name="prefs_category_dev">Dév</string>
     <string name="prefs_category_general">Général</string>
     <string name="prefs_category_more">Plus</string>
+    <string name="prefs_category_sync">Synchroniser</string>
     <string name="prefs_daily_backup_summary">Sauvegarde quotidienne de votre agenda et des contacts</string>
     <string name="prefs_daily_contact_backup_summary">Sauvegarde quotidienne de vos contacts</string>
     <string name="prefs_davx5_setup_error">Erreur inattendue lors de la configuration de DAVx5 (anciennement connu sous le nom de DAVdroid)</string>
@@ -664,6 +676,7 @@
     <string name="prefs_synced_folders_local_path_title">Dossier local</string>
     <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
     <string name="prefs_theme_title">Thème</string>
+    <string name="prefs_two_way_sync_summary">Gestion les dossiers internes pour une synchronisation bidirectionnelle</string>
     <string name="prefs_value_theme_dark">Sombre</string>
     <string name="prefs_value_theme_light">Clair</string>
     <string name="prefs_value_theme_system">Selon le système</string>
@@ -848,6 +861,7 @@
     <string name="subtitle_photos_videos">Photos et vidéos</string>
     <string name="subtitle_videos_only">Vidéos uniquement</string>
     <string name="suggest">Suggérer</string>
+    <string name="sync">Synchroniser</string>
     <string name="sync_conflicts_in_favourites_ticker">Des conflits ont été trouvés</string>
     <string name="sync_current_folder_was_removed">Le dossier %1$s n\'existe plus</string>
     <string name="sync_fail_content">Impossible de synchroniser %1$s</string>

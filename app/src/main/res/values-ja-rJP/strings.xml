@@ -624,6 +624,7 @@
     <string name="prefs_category_dev">開発者</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
+    <string name="prefs_category_sync">同期</string>
     <string name="prefs_daily_backup_summary">カレンダーと連絡先を毎日バックアップ</string>
     <string name="prefs_daily_contact_backup_summary">連絡先のデイリーバックアップ</string>
     <string name="prefs_e2e_active">End-to-end 暗号化を設定中！</string>
@@ -824,6 +825,7 @@
     <string name="subtitle_photos_videos">写真とビデオ</string>
     <string name="subtitle_videos_only">動画のみ</string>
     <string name="suggest">提案</string>
+    <string name="sync">同期</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
     <string name="sync_current_folder_was_removed">フォルダー %1$s はもう存在しません</string>
     <string name="sync_fail_content">%1$s を同期できませんでした</string>

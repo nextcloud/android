@@ -598,6 +598,7 @@
     <string name="prefs_category_dev">Vývojové</string>
     <string name="prefs_category_general">Obecné</string>
     <string name="prefs_category_more">Více</string>
+    <string name="prefs_category_sync">Synchronizovat</string>
     <string name="prefs_daily_backup_summary">Každodenní záloha vašeho kalendáře a kontaktů</string>
     <string name="prefs_daily_contact_backup_summary">Každodenní záloha vašich kontaktů</string>
     <string name="prefs_davx5_setup_error">Neočekávaná chyba při nastavování DAVx5 (dříve známého jako  DAVdroid)</string>
@@ -807,6 +808,7 @@
     <string name="subtitle_photos_only">Pouze fotky</string>
     <string name="subtitle_videos_only">Pouze videa</string>
     <string name="suggest">Doporučit</string>
+    <string name="sync">Synchronizovat</string>
     <string name="sync_conflicts_in_favourites_ticker">Nalezeny konflikty</string>
     <string name="sync_current_folder_was_removed">Složka %1$s už neexistuje</string>
     <string name="sync_fail_content">Nepodařilo se synchronizovat %1$s</string>

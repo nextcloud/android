@@ -186,7 +186,7 @@
     <string name="contact_backup_title">Copia de seguranza dos contactos</string>
     <string name="contact_no_permission">Precisase de permiso de contacto.</string>
     <string name="contactlist_item_icon">Icona do usuario para a lista de contactos</string>
-    <string name="contactlist_no_permission">Non se concederon permisos. Non se importou nada!</string>
+    <string name="contactlist_no_permission">Non se concederon permisos. Non se importou ren!</string>
     <string name="contacts">Contactos</string>
     <string name="contacts_backup_button">Facer agora a copia de seguranza</string>
     <string name="contacts_preferences_backup_scheduled">A copia de seguranza está programada e comezará en breve</string>
@@ -365,19 +365,19 @@
     <string name="file_icon">Ficheiro</string>
     <string name="file_keep">Conservar</string>
     <string name="file_list_empty">Envíe algún contido ou sincronice cos seus dispositivos.</string>
-    <string name="file_list_empty_favorite_headline">Aínda non hai nada marcado como favorito</string>
+    <string name="file_list_empty_favorite_headline">Aínda non hai ren marcado como favorito</string>
     <string name="file_list_empty_favorites_filter_list">Aquí amosaranse os ficheiros e cartafoles que marque como favoritos.</string>
     <string name="file_list_empty_gallery">Non se atoparon imaxes nin vídeos</string>
     <string name="file_list_empty_headline">Aquí non hai ficheiros</string>
     <string name="file_list_empty_headline_search">Non hai resultados neste cartafol</string>
     <string name="file_list_empty_headline_server_search">Sen resultados</string>
     <string name="file_list_empty_local_search">Non hai ningún ficheiro ou cartafol que coincida coa busca</string>
-    <string name="file_list_empty_moving">Aquí non hai nada. Pode engadir un cartafol.</string>
+    <string name="file_list_empty_moving">Aquí non hai ren. Pode engadir un cartafol.</string>
     <string name="file_list_empty_on_device">Aquí amosaranse os ficheiros e cartafoles descargados</string>
     <string name="file_list_empty_recently_modified">Non se atoparon ficheiros modificados nos últimos 7 días.</string>
     <string name="file_list_empty_search">Quizáis estea nun cartafol diferente?</string>
     <string name="file_list_empty_shared">Aquí amosaranse os ficheiros e cartafoles que comparta.</string>
-    <string name="file_list_empty_shared_headline">Aínda non hai nada compartido</string>
+    <string name="file_list_empty_shared_headline">Aínda non hai ren compartido</string>
     <string name="file_list_empty_unified_search_no_results">Non se atoparon resultados para a súa consulta</string>
     <string name="file_list_folder">cartafol</string>
     <string name="file_list_live">DIRECTO</string>
@@ -487,6 +487,8 @@
     <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
+    <string name="internal_two_way_sync">Sincronización interna bidireccional</string>
+    <string name="internal_two_way_sync_not_yet">Aínda non, pronto se sincronizará</string>
     <string name="invalid_url">URL incorrecto</string>
     <string name="invisible">Invisíbel</string>
     <string name="label_empty">A etiqueta non pode estar baleira</string>
@@ -636,6 +638,7 @@
     <string name="prefs_category_dev">Desenvolvemento</string>
     <string name="prefs_category_general">Xeral</string>
     <string name="prefs_category_more">Máis</string>
+    <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_daily_backup_summary">Copia de seguranza diaria do seu calendario e dos contactos</string>
     <string name="prefs_daily_contact_backup_summary">Copia de seguranza diaria dos seus contactos</string>
     <string name="prefs_davx5_setup_error">Produciuse un erro non agardado ao configurar DAVx5 (anteriormente coñecido como DAVdroid)</string>
@@ -677,6 +680,7 @@
     <string name="prefs_synced_folders_local_path_title">Cartafol local</string>
     <string name="prefs_synced_folders_remote_path_title">Cartafol remoto</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_summary">Xestionar os cartafoles internos para a sincronización bidireccional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir o sistema</string>
@@ -861,6 +865,7 @@
     <string name="subtitle_photos_videos">Fotos e vídeos</string>
     <string name="subtitle_videos_only">Só vídeos</string>
     <string name="suggest">Suxerir</string>
+    <string name="sync">Sincronizar</string>
     <string name="sync_conflicts_in_favourites_ticker">Atopáronse conflitos</string>
     <string name="sync_current_folder_was_removed">O cartafol %1$s xa non existe</string>
     <string name="sync_fail_content">Non foi posíbel sincronizar %1$s</string>

@@ -427,6 +427,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Të përgjithshme</string>
     <string name="prefs_category_more">Më tepër</string>
+    <string name="prefs_category_sync">Sinkronizo</string>
     <string name="prefs_daily_contact_backup_summary">Backup i përditshëm i kontakteve</string>
     <string name="prefs_e2e_mnemonic">E2E i kujtesës</string>
     <string name="prefs_e2e_no_device_credentials">Për të shfaqur kujtesën, ju lutemi aktivizoni kredencialet e pajisje.</string>
@@ -576,6 +577,7 @@
     <string name="stream_not_possible_message">Ju lutemi të shkarkoni mediat ose të përdorni aplikacionin e jashtëm.</string>
     <string name="subject_shared_with_you">\"%1$s\" është ndarë me ju</string>
     <string name="subject_user_shared_with_you">%1$s ndau me ju \"%2$s\"</string>
+    <string name="sync">Sinkronizo</string>
     <string name="sync_conflicts_in_favourites_ticker">U hasën përplasje</string>
     <string name="sync_current_folder_was_removed">Dosja %1$s s’ekziston më</string>
     <string name="sync_fail_content">Nuk mund të sinkronizohet%1$s</string>

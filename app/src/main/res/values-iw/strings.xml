@@ -477,6 +477,7 @@
     <string name="prefs_category_dev">פיתוח</string>
     <string name="prefs_category_general">כללי</string>
     <string name="prefs_category_more">יותר</string>
+    <string name="prefs_category_sync">סנכרון</string>
     <string name="prefs_daily_contact_backup_summary">גיבוי יומי של אנשי הקשר שלך</string>
     <string name="prefs_e2e_mnemonic">תיבת זיכרון להצפנה מקצה לקצה </string>
     <string name="prefs_e2e_no_device_credentials">על מנת להציג שינון, הפעל את אישורי המכשיר.</string>
@@ -636,6 +637,7 @@
     <string name="sub_folder_rule_year">שנה</string>
     <string name="subject_shared_with_you">\"%1$s\" שותף אתך</string>
     <string name="subject_user_shared_with_you">%1$s משתף \"%2$s\" אתך</string>
+    <string name="sync">סנכרון</string>
     <string name="sync_conflicts_in_favourites_ticker">נמצאו התנגשויות</string>
     <string name="sync_current_folder_was_removed">התיקייה %1$s לא קיימת יותר</string>
     <string name="sync_fail_content">לא ניתן לסנכרן את %1$s</string>

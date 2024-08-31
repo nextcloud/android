@@ -597,6 +597,7 @@
     <string name="prefs_category_dev">Sviluppo</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Altro</string>
+    <string name="prefs_category_sync">Sincronizzazione</string>
     <string name="prefs_daily_contact_backup_summary">Backup giornaliero dei tuoi contatti</string>
     <string name="prefs_davx5_setup_error">Errore inaspettato nella configurazione di Davx5 (precedentemente DAVdroid)</string>
     <string name="prefs_e2e_active">La cifratura end-to-end è impostata!</string>
@@ -808,6 +809,7 @@
     <string name="subtitle_photos_videos">Foto e video</string>
     <string name="subtitle_videos_only">Solo video</string>
     <string name="suggest">Suggerisci</string>
+    <string name="sync">Sincronizzazione</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitti rilevati</string>
     <string name="sync_current_folder_was_removed">La cartella %1$s non esiste più</string>
     <string name="sync_fail_content">Impossibile sincronizzare %1$s</string>

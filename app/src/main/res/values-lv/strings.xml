@@ -370,6 +370,7 @@
     <string name="prefs_category_details">Detaļas</string>
     <string name="prefs_category_general">Vispārīgi</string>
     <string name="prefs_category_more">Vairāk</string>
+    <string name="prefs_category_sync">Sinhronizēt</string>
     <string name="prefs_daily_contact_backup_summary">Ikdieniška kontaktu dublēšana</string>
     <string name="prefs_enable_media_scan_notifications">Rādīt mediju skenēšanas paziņojumus</string>
     <string name="prefs_enable_media_scan_notifications_summary">Paziņt par jaunas mediju mapes atrašanu</string>
@@ -477,6 +478,7 @@
     <string name="sub_folder_rule_year">Gads</string>
     <string name="subject_shared_with_you">\"%1$s\" ir bijis kopīgots ar jums</string>
     <string name="subject_user_shared_with_you">%1$s koplietots \"%2$s\" ar tevi</string>
+    <string name="sync">Sinhronizēt</string>
     <string name="sync_conflicts_in_favourites_ticker">Ir atrasti konflikti</string>
     <string name="sync_current_folder_was_removed">Mape %1$s vairs nepastāv</string>
     <string name="sync_fail_content">Nevarēja sinhronizēt %1$s</string>

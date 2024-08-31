@@ -636,6 +636,7 @@
     <string name="prefs_category_dev">Utvikling</string>
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
+    <string name="prefs_category_sync">Synkroniser</string>
     <string name="prefs_daily_backup_summary">Daglig sikkerhetskopiering av din kalender og kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig sikkerhetskopiering av kontakter</string>
     <string name="prefs_davx5_setup_error">Uventet feil under oppsett av DAVx5 (tidligere kjent som DAVdroid)</string>
@@ -860,6 +861,7 @@
     <string name="subtitle_photos_videos">Bilder og videoer</string>
     <string name="subtitle_videos_only">Bare videoer</string>
     <string name="suggest">Foreslå</string>
+    <string name="sync">Synkroniser</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengre</string>
     <string name="sync_fail_content">Kunne ikke synkronisere %1$s</string>

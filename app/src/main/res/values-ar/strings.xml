@@ -487,6 +487,8 @@
     <string name="instant_upload_existing">ارفع الملفات الموجودة مسبقاً أيضاً</string>
     <string name="instant_upload_on_charging">ارفع وقت الشحن فقط</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync">مزامنة داخلية في الاتجاهين</string>
+    <string name="internal_two_way_sync_not_yet">ليس بعد. قريباً تتم المزامنة</string>
     <string name="invalid_url">رابط غير صالح</string>
     <string name="invisible">عدم الظهور</string>
     <string name="label_empty">لا يمكن أن تكون التسمية فارغة</string>
@@ -640,6 +642,7 @@
     <string name="prefs_category_dev">التطوير</string>
     <string name="prefs_category_general">عام</string>
     <string name="prefs_category_more">المزيد</string>
+    <string name="prefs_category_sync">زامن</string>
     <string name="prefs_daily_backup_summary">النسخ الاحتياطي اليومي لتقويمك و جهات اتصالك</string>
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_davx5_setup_error">خطأ غير متوقع عند تجهيز DAVx5 ( الذي كان معروفاً سابقاً باسم DAVdroid)</string>
@@ -680,6 +683,7 @@
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
     <string name="prefs_theme_title">المظهر</string>
+    <string name="prefs_two_way_sync_summary">إدارة المجلدات الداخلية للمزامنة في الاتجاهين</string>
     <string name="prefs_value_theme_dark">غامق</string>
     <string name="prefs_value_theme_light">فاتح</string>
     <string name="prefs_value_theme_system">اتبع النظام</string>
@@ -884,6 +888,7 @@
     <string name="subtitle_photos_videos">الصور و الفيديوهات</string>
     <string name="subtitle_videos_only">مقاطع الفيديو فقط</string>
     <string name="suggest">اقتراح</string>
+    <string name="sync">زامن</string>
     <string name="sync_conflicts_in_favourites_ticker">هناك تعارض</string>
     <string name="sync_current_folder_was_removed">المجلد %1$s غير موجود بعد الآن</string>
     <string name="sync_fail_content">تعذرت عملية مزامنة %1$s</string>
