@@ -259,7 +259,7 @@ class PreviewMediaActivity :
         binding.emptyView.emptyListView.visibility = View.VISIBLE
     }
 
-    private fun setVideoErrorMessage(headline: String, @StringRes message: Int) {
+    private fun setErrorMessage(headline: String, @StringRes message: Int) {
         binding.emptyView.run {
             emptyListViewHeadline.text = headline
             emptyListViewText.setText(message)
@@ -401,6 +401,7 @@ class PreviewMediaActivity :
                 override fun onPlaybackStateChanged(playbackState: Int) {
                     if (playbackState == Player.STATE_READY) {
                         hideProgressLayout()
+                        binding.emptyView.emptyListView.visibility = View.GONE
                     }
                 }
 
@@ -720,7 +721,7 @@ class PreviewMediaActivity :
                     }
                 } else {
                     emptyListView?.visibility = View.VISIBLE
-                    setVideoErrorMessage(
+                    setErrorMessage(
                         weakReference.getString(R.string.stream_not_possible_headline),
                         R.string.stream_not_possible_message
                     )
