@@ -79,7 +79,10 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
 
     private val stopReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            release()
+            when(intent?.action){
+                RELEASE_MEDIA_SESSION_BROADCAST_ACTION -> release()
+                STOP_MEDIA_SESSION_BROADCAST_ACTION -> exoPlayer.stop()
+            }
         }
     }
 
@@ -88,7 +91,10 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
 
         registerBroadcastReceiver(
             stopReceiver,
-            IntentFilter(STOP_MEDIA_SESSION_BROADCAST_ACTION),
+            IntentFilter().apply {
+                addAction(RELEASE_MEDIA_SESSION_BROADCAST_ACTION)
+                addAction(STOP_MEDIA_SESSION_BROADCAST_ACTION)
+            },
             ReceiverFlag.NotExported
         )
 
@@ -212,6 +218,7 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
     }
 
     companion object {
+        const val RELEASE_MEDIA_SESSION_BROADCAST_ACTION = "com.nextcloud.client.media.RELEASE_MEDIA_SESSION"
         const val STOP_MEDIA_SESSION_BROADCAST_ACTION = "com.nextcloud.client.media.STOP_MEDIA_SESSION"
     }
 }

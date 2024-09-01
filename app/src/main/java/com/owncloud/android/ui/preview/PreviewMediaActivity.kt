@@ -153,10 +153,15 @@ class PreviewMediaActivity :
 
         if(MimeTypeUtil.isVideo(file)){
             // release any background media session if exists
-            val intent = Intent(BackgroundPlayerService.STOP_MEDIA_SESSION_BROADCAST_ACTION).apply {
+            val intent = Intent(BackgroundPlayerService.RELEASE_MEDIA_SESSION_BROADCAST_ACTION).apply {
                 setPackage(packageName)
             }
             sendBroadcast(intent)
+        }else if(MimeTypeUtil.isAudio(file)){
+            val stopPlayer = Intent(BackgroundPlayerService.STOP_MEDIA_SESSION_BROADCAST_ACTION).apply {
+                setPackage(packageName)
+            }
+            sendBroadcast(stopPlayer)
         }
 
         showMediaTypeViews()
