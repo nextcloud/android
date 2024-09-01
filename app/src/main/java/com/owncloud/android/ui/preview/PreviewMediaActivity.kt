@@ -24,7 +24,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -414,7 +413,11 @@ class PreviewMediaActivity :
                     }
                 }
             })
-            audioPlayer.setMediaItem(MediaItem.fromUri(uri))
+            val mediaItem = MediaItem.Builder()
+                .setUri(uri)
+                .setMediaMetadata(MediaMetadata.Builder().setTitle(file.fileName).build())
+                .build()
+            audioPlayer.setMediaItem(mediaItem)
             audioPlayer.playWhenReady = autoplay
             audioPlayer.seekTo(savedPlaybackPosition)
             audioPlayer.prepare()
