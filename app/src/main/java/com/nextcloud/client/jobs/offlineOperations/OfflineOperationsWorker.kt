@@ -39,7 +39,7 @@ class OfflineOperationsWorker(
 
     companion object {
         private val TAG = OfflineOperationsWorker::class.java.simpleName
-        const val JOB_NAME = "job_name"
+        const val JOB_NAME = "JOB_NAME"
     }
 
     private val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
@@ -67,16 +67,20 @@ class OfflineOperationsWorker(
 
         var operations = fileDataStorageManager.offlineOperationDao.getAll()
         val totalOperations = operations.size
-        var currentOperationIndex = 0
+        var currentSuccessfulOperationIndex = 0
 
         return@coroutineScope try {
             while (operations.isNotEmpty()) {
                 val operation = operations.first()
                 val result = executeOperation(operation, client)
-                handleResult(operation, totalOperations, currentOperationIndex, result?.first, result?.second)
+                val isSuccess = handleResult(operation, totalOperations, currentSuccessfulOperationIndex, result?.first, result?.second)
 
-                currentOperationIndex++
-                operations = fileDataStorageManager.offlineOperationDao.getAll()
+                operations = if (isSuccess) {
+                    currentSuccessfulOperationIndex++
+                    fileDataStorageManager.offlineOperationDao.getAll()
+                } else {
+                    operations.filter { it != operation }
+                }
             }
 
             Log_OC.d(TAG, "OfflineOperationsWorker successfully completed")
@@ -122,11 +126,14 @@ class OfflineOperationsWorker(
     private fun handleResult(
         operation: OfflineOperationEntity,
         totalOperations: Int,
-        currentOperationIndex: Int,
+        currentSuccessfulOperationIndex: Int,
         result: RemoteOperationResult<*>?,
-        remoteOperation: RemoteOperation<*>?
-    ) {
-        result ?: return Log_OC.d(TAG, "Operation not completed, result is null")
+        remoteOperation: RemoteOperation<*>?,
+    ): Boolean {
+        if (result == null) {
+            Log_OC.d(TAG, "Operation not completed, result is null")
+            return false
+        }
 
         val logMessage = if (result.isSuccess) "Operation completed" else "Operation failed"
         Log_OC.d(TAG, "$logMessage path: ${operation.path}, type: ${operation.type}")
@@ -134,7 +141,7 @@ class OfflineOperationsWorker(
         if (result.isSuccess) {
             repository.updateNextOperations(operation)
             fileDataStorageManager.offlineOperationDao.delete(operation)
-            notificationManager.update(totalOperations, currentOperationIndex, operation.filename ?: "")
+            notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
         } else {
             val excludedErrorCodes = listOf(RemoteOperationResult.ResultCode.FOLDER_ALREADY_EXISTS)
 
@@ -142,5 +149,7 @@ class OfflineOperationsWorker(
                 notificationManager.showNewNotification(result, remoteOperation)
             }
         }
+
+        return result.isSuccess
     }
 }
