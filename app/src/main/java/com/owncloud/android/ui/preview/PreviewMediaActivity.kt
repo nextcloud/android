@@ -14,6 +14,7 @@ package com.owncloud.android.ui.preview
 
 import android.app.Activity
 import android.content.ComponentName
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
@@ -43,6 +44,7 @@ import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
+import androidx.media3.common.PlaybackException
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.ExoPlayer
@@ -51,6 +53,7 @@ import androidx.media3.session.MediaSession
 import androidx.media3.session.SessionToken
 import androidx.media3.ui.DefaultTimeBar
 import androidx.media3.ui.PlayerView
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.common.util.concurrent.MoreExecutors
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -58,7 +61,9 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.media.BackgroundPlayerService
+import com.nextcloud.client.media.ErrorFormat
 import com.nextcloud.client.media.ExoplayerListener
+import com.nextcloud.client.media.ExoplayerListener.Companion
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
@@ -399,6 +404,7 @@ class PreviewMediaActivity :
             audioPlayer.addListener(object : Player.Listener {
 
                 override fun onPlaybackStateChanged(playbackState: Int) {
+                    super.onPlaybackStateChanged(playbackState)
                     if (playbackState == Player.STATE_READY) {
                         hideProgressLayout()
                         binding.emptyView.emptyListView.visibility = View.GONE
@@ -406,12 +412,27 @@ class PreviewMediaActivity :
                 }
 
                 override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
+                    super.onMediaMetadataChanged(mediaMetadata)
                     val artworkBitmap = mediaMetadata.artworkData?.let { bytes: ByteArray ->
                         BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
                     }
                     if (artworkBitmap != null) {
                         binding.imagePreview.setImageBitmap(artworkBitmap)
                     }
+                }
+
+                override fun onPlayerError(error: PlaybackException) {
+                    super.onPlayerError(error)
+                    Log_OC.e(TAG, "Exoplayer error", error)
+                    val message = ErrorFormat.toString(this@PreviewMediaActivity, error)
+                    MaterialAlertDialogBuilder(this@PreviewMediaActivity)
+                        .setMessage(message)
+                        .setPositiveButton(R.string.common_ok) { _: DialogInterface?, _: Int ->
+                           audioPlayer.seekToDefaultPosition()
+                            audioPlayer.pause()
+                        }
+                        .setCancelable(false)
+                        .show()
                 }
             })
             val mediaItem = MediaItem.Builder()
