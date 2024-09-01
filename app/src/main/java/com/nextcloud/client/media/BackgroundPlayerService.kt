@@ -195,20 +195,24 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
     }
 
     override fun onTaskRemoved(rootIntent: Intent?) {
-        unregisterReceiver(stopReceiver)
-        val player = mediaSession?.player
-        if (player!!.playWhenReady) {
-            // Make sure the service is not in foreground.
-            player.pause()
-        }
         release()
     }
 
-    private fun release() {
+    override fun onDestroy() {
+        unregisterReceiver(stopReceiver)
         mediaSession?.run {
             player.release()
             release()
             mediaSession = null
+        }
+        super.onDestroy()
+    }
+
+    private fun release() {
+        val player = mediaSession?.player
+        if (player!!.playWhenReady) {
+            // Make sure the service is not in foreground.
+            player.pause()
         }
         stopSelf()
     }

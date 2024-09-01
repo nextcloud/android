@@ -157,10 +157,7 @@ class PreviewMediaActivity :
 
         if(MimeTypeUtil.isVideo(file)){
             // release any background media session if exists
-            val intent = Intent(BackgroundPlayerService.RELEASE_MEDIA_SESSION_BROADCAST_ACTION).apply {
-                setPackage(packageName)
-            }
-            sendBroadcast(intent)
+            sendAudioSessionReleaseBroadcast()
         }else if(MimeTypeUtil.isAudio(file)){
             val stopPlayer = Intent(BackgroundPlayerService.STOP_MEDIA_SESSION_BROADCAST_ACTION).apply {
                 setPackage(packageName)
@@ -180,6 +177,13 @@ class PreviewMediaActivity :
             setGenericThumbnail()
             initializeAudioPlayer()
         }
+    }
+
+    private fun sendAudioSessionReleaseBroadcast() {
+        val intent = Intent(BackgroundPlayerService.RELEASE_MEDIA_SESSION_BROADCAST_ACTION).apply {
+            setPackage(packageName)
+        }
+        sendBroadcast(intent)
     }
 
     private fun addMarginForEmptyView() {
@@ -624,7 +628,7 @@ class PreviewMediaActivity :
             val removedFile = operation.file
             val fileAvailable: Boolean = storageManager.fileExists(removedFile.fileId)
             if (!fileAvailable && removedFile == file) {
-                releaseAudioPlayer()
+                sendAudioSessionReleaseBroadcast()
                 finish()
             }
         } else if (operation is SynchronizeFileOperation) {
