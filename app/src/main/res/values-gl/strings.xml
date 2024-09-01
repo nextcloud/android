@@ -193,7 +193,7 @@
     <string name="contacts_preferences_import_scheduled">A importación está programada e comezará en breve</string>
     <string name="contacts_preferences_no_file_found">Non se atopou ningún ficheiro</string>
     <string name="contacts_preferences_something_strange_happened">Non foi posíbel atopar a súa última copia de seguranza!</string>
-    <string name="copied_to_clipboard">Copiado no portapapeis.</string>
+    <string name="copied_to_clipboard">Copiado no portapapeis</string>
     <string name="copy_file_error">Produciuse un erro ao tentar copiar este ficheiro ou cartafol.</string>
     <string name="copy_file_invalid_into_descendent">Non é posíbel copiar un cartafol nun dos seus propios subcartafoles</string>
     <string name="copy_file_invalid_overwrite">Este ficheiro xa existe no cartafol de destino</string>
