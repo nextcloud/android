@@ -7,6 +7,7 @@
 
 package com.nextcloud.model
 
-enum class OfflineOperationType {
-    CreateFolder
+sealed class OfflineOperationType {
+    data class CreateFolder(val path: String) : OfflineOperationType()
+    data class CreateFile(val localPath: String, val remotePath: String) : OfflineOperationType()
 }

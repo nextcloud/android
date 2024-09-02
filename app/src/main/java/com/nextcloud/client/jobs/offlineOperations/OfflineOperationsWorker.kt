@@ -23,7 +23,9 @@ import com.owncloud.android.lib.common.OwnCloudClient
 import com.owncloud.android.lib.common.operations.RemoteOperation
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation
 import com.owncloud.android.operations.CreateFolderOperation
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -105,11 +107,12 @@ class OfflineOperationsWorker(
         client: OwnCloudClient
     ): Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>? {
         return when (operation.type) {
-            OfflineOperationType.CreateFolder -> {
+            is OfflineOperationType.CreateFolder -> {
                 if (operation.parentPath != null) {
                     val createFolderOperation = withContext(Dispatchers.IO) {
+                        val operationType = (operation.type as OfflineOperationType.CreateFolder)
                         CreateFolderOperation(
-                            operation.path,
+                            operationType.path,
                             user,
                             context,
                             fileDataStorageManager
@@ -120,6 +123,16 @@ class OfflineOperationsWorker(
                     Log_OC.d(TAG, "CreateFolder operation incomplete, missing parentPath")
                     null
                 }
+            }
+
+            is OfflineOperationType.CreateFile -> {
+                val createFileOperation = withContext(Dispatchers.IO) {
+                    val operationType = (operation.type as OfflineOperationType.CreateFile)
+                    val mimeType = MimeTypeUtil.getMimeTypeFromPath(operationType.remotePath)
+                    UploadFileRemoteOperation(operationType.localPath, operationType.remotePath, mimeType, 0)
+                }
+
+                createFileOperation.execute(client) to createFileOperation
             }
 
             else -> {
@@ -142,7 +155,7 @@ class OfflineOperationsWorker(
         }
 
         val logMessage = if (result.isSuccess) "Operation completed" else "Operation failed"
-        Log_OC.d(TAG, "$logMessage path: ${operation.path}, type: ${operation.type}")
+        Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
 
         if (result.isSuccess) {
             repository.updateNextOperations(operation)

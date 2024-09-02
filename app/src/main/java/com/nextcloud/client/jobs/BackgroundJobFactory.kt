@@ -104,7 +104,13 @@ class BackgroundJobFactory @Inject constructor(
     }
 
     private fun createOfflineOperationsWorker(context: Context, params: WorkerParameters): ListenableWorker {
-        return OfflineOperationsWorker(accountManager.user, context, connectivityService, viewThemeUtils.get(), params)
+        return OfflineOperationsWorker(
+            accountManager.user,
+            context,
+            connectivityService,
+            viewThemeUtils.get(),
+            params
+        )
     }
 
     private fun createFilesExportWork(context: Context, params: WorkerParameters): ListenableWorker {
