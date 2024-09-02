@@ -140,6 +140,41 @@ public class FileDataStorageManager {
         return getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, path);
     }
 
+    public void addCreateFileOfflineOperation(String[] localPaths, String[] remotePaths) {
+        if (localPaths.length != remotePaths.length) {
+            Log_OC.d(TAG, "Local path and remote path size is not matching");
+            return;
+        }
+
+        for(String localPath: localPaths) {
+            for (String remotePath: remotePaths) {
+                String mimeType = MimeTypeUtil.getMimeTypeFromPath(remotePath);
+
+                OfflineOperationEntity entity = new OfflineOperationEntity();
+                entity.setPath(remotePath);
+
+                OfflineOperationType.CreateFile operationType = new OfflineOperationType.CreateFile(localPath, remotePath, mimeType);
+                entity.setType(operationType);
+                entity.setCreatedAt(System.currentTimeMillis() / 1000L);
+
+                File file = new File(remotePath);
+                String filename = file.getName();
+                entity.setFilename(filename);
+
+                String parentPath = file.getParent() + OCFile.PATH_SEPARATOR;
+                entity.setParentPath(parentPath);
+
+                OCFile parentFile = getFileByDecryptedRemotePath(parentPath);
+                if (parentFile != null) {
+                    entity.setParentOCFileId(parentFile.getFileId());
+                }
+
+                offlineOperationDao.insert(entity);
+                createPendingFile(remotePath, mimeType);
+            }
+        }
+    }
+
     public OfflineOperationEntity addCreateFolderOfflineOperation(String path, String filename, String parentPath, Long parentOCFileId) {
         OfflineOperationEntity entity = new OfflineOperationEntity();
 
@@ -156,6 +191,12 @@ public class FileDataStorageManager {
         createPendingDirectory(path);
 
         return entity;
+    }
+
+    public void createPendingFile(String path, String mimeType) {
+        OCFile ocFile = new OCFile(path);
+        ocFile.setMimeType(mimeType);
+        saveFileWithParent(ocFile, MainApp.getAppContext());
     }
 
     public void createPendingDirectory(String path) {
