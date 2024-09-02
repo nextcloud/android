@@ -156,10 +156,7 @@ class OfflineOperationsWorker(
         Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
 
         if (result.isSuccess) {
-            if (operation.type is OfflineOperationType.CreateFolder) {
-                repository.updateNextOperations(operation)
-            }
-
+            repository.updateNextOperations(operation)
             fileDataStorageManager.offlineOperationDao.delete(operation)
             notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
         } else {
