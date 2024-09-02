@@ -9,5 +9,5 @@ package com.nextcloud.model
 
 sealed class OfflineOperationType {
     data class CreateFolder(val path: String) : OfflineOperationType()
-    data class CreateFile(val localPath: String, val remotePath: String) : OfflineOperationType()
+    data class CreateFile(val localPath: String, val remotePath: String, val mimeType: String) : OfflineOperationType()
 }
