@@ -25,11 +25,11 @@ data class OfflineOperationEntity(
     @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_PARENT_PATH)
     var parentPath: String? = null,
 
-    @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_TYPE)
-    var type: OfflineOperationType? = null,
-
     @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_PATH)
     var path: String? = null,
+
+    @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_TYPE)
+    var type: OfflineOperationType? = null,
 
     @ColumnInfo(name = ProviderTableMeta.OFFLINE_OPERATION_FILE_NAME)
     var filename: String? = null,
