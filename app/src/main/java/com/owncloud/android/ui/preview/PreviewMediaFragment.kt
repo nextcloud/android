@@ -573,6 +573,13 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
         super.onDetach()
     }
 
+    override fun onPause() {
+        mediaPlayerServiceConnection?.pause()
+        exoPlayer?.pause()
+
+        super.onPause()
+    }
+
     companion object {
         private val TAG: String = PreviewMediaFragment::class.java.simpleName
 
