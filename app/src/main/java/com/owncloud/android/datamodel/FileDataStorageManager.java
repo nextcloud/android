@@ -144,10 +144,12 @@ public class FileDataStorageManager {
 
         entity.setFilename(filename);
         entity.setParentOCFileId(parentOCFileId);
+
+        OfflineOperationType.CreateFolder operationType = new OfflineOperationType.CreateFolder(path);
+        entity.setType(operationType);
         entity.setPath(path);
         entity.setParentPath(parentPath);
         entity.setCreatedAt(System.currentTimeMillis() / 1000L);
-        entity.setType(OfflineOperationType.CreateFolder);
 
         offlineOperationDao.insert(entity);
         createPendingDirectory(path);
@@ -177,6 +179,9 @@ public class FileDataStorageManager {
         }
 
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
+
+        OfflineOperationType.CreateFolder operationType = new OfflineOperationType.CreateFolder(newPath);
+        entity.setType(operationType);
         entity.setPath(newPath);
         entity.setFilename(newFolderName);
         offlineOperationDao.update(entity);

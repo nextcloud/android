@@ -12,6 +12,7 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
@@ -31,6 +32,7 @@ import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
 import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
+import com.nextcloud.client.database.typeConverter.OfflineOperationTypeConverter
 import com.owncloud.android.db.ProviderMeta
 
 @Database(
@@ -65,10 +67,12 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 80, to = 81),
         AutoMigration(from = 81, to = 82),
         AutoMigration(from = 82, to = 83),
-        AutoMigration(from = 83, to = 84)
+        AutoMigration(from = 83, to = 84),
+        AutoMigration(from = 84, to = 85)
     ],
     exportSchema = true
 )
+@TypeConverters(OfflineOperationTypeConverter::class)
 @Suppress("Detekt.UnnecessaryAbstractClass") // needed by Room
 abstract class NextcloudDatabase : RoomDatabase() {
 
