@@ -162,11 +162,14 @@ public class FileDataStorageManager {
                 entity.setFilename(filename);
 
                 String parentPath = file.getParent() + OCFile.PATH_SEPARATOR;
-                entity.setParentPath(parentPath);
-
                 OCFile parentFile = getFileByDecryptedRemotePath(parentPath);
+
                 if (parentFile != null) {
                     entity.setParentOCFileId(parentFile.getFileId());
+
+                    if (!parentFile.isOfflineOperation()) {
+                        entity.setParentPath(parentPath);
+                    }
                 }
 
                 offlineOperationDao.insert(entity);
