@@ -638,7 +638,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
             for (OCFile file : checkedFiles) {
                 if (file.isOfflineOperation()) {
                     toHide = new ArrayList<>(
-                        Arrays.asList(R.id.action_favorite, R.id.action_move_or_copy, R.id.action_sync_file, R.id.action_encrypted, R.id.action_unset_encrypted)
+                        Arrays.asList(R.id.action_favorite,
+                                      R.id.action_move_or_copy,
+                                      R.id.action_sync_file,
+                                      R.id.action_encrypted,
+                                      R.id.action_unset_encrypted,
+                                      R.id.action_edit,
+                                      R.id.action_download_file,
+                                      R.id.action_export_file,
+                                      R.id.action_set_as_wallpaper
+                                     )
                     );
                     break;
                 }
