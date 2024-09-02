@@ -369,7 +369,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                 accountSetupBinding.hostUrlFrame.setVisibility(View.GONE);
                 accountSetupBinding.hostUrlInputHelperText.setVisibility(View.GONE);
                 accountSetupBinding.scanQr.setVisibility(View.GONE);
-                accountSetupBinding.multipleServersLayout.setVisibility(View.VISIBLE);
+                accountSetupBinding.serversSpinner.setVisibility(View.VISIBLE);
 
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.enforced_servers_spinner);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

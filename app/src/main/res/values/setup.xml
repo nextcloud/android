@@ -123,7 +123,7 @@
     If set, will replace all other login methods available -->
     <string name="webview_login_url" translatable="false"></string>
 
-    <!--    [{\"name\":\"nameu","url":"url"},{"name":"name2","url":"url1"}]-->
+    <!--    [{\"name\":\"name1\",\"url\":\"url\"},{\"name\":\"name2\",\"url\":\"url1\"}]-->
     <string name="enforce_servers" translatable="false"></string>
 
     
