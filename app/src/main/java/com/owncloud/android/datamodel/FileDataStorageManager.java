@@ -206,7 +206,7 @@ public class FileDataStorageManager {
         offlineOperationsRepository.deleteOperation(file);
     }
 
-    public void renameCreateFolderOfflineOperation(OCFile file, String newFolderName) {
+    public void renameOfflineOperation(OCFile file, String newFolderName) {
         var entity = offlineOperationDao.getByPath(file.getDecryptedRemotePath());
         if (entity == null) {
             return;
@@ -219,8 +219,13 @@ public class FileDataStorageManager {
 
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
 
-        OfflineOperationType.CreateFolder operationType = new OfflineOperationType.CreateFolder(OfflineOperationRawType.CreateFolder.name(), newPath);
-        entity.setType(operationType);
+        if (entity.getType() instanceof OfflineOperationType.CreateFolder createFolderType) {
+            createFolderType.setPath(newPath);
+        } else if (entity.getType() instanceof OfflineOperationType.CreateFile createFileType) {
+            createFileType.setRemotePath(newPath);
+        }
+        entity.setType(entity.getType());
+
         entity.setPath(newPath);
         entity.setFilename(newFolderName);
         offlineOperationDao.update(entity);

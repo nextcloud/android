@@ -50,6 +50,7 @@ class OfflineOperationsWorker(
 
     @Suppress("TooGenericExceptionCaught")
     override suspend fun doWork(): Result = coroutineScope {
+        // fileDataStorageManager.offlineOperationDao.clearTable()
         val jobName = inputData.getString(JOB_NAME)
         Log_OC.d(
             TAG,
