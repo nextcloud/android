@@ -10,7 +10,7 @@ package com.nextcloud.model
 sealed class OfflineOperationType {
     abstract val type: String
 
-    data class CreateFolder(override val type: String, val path: String) : OfflineOperationType()
+    data class CreateFolder(override val type: String, var path: String) : OfflineOperationType()
     data class CreateFile(
         override val type: String,
         val localPath: String,
