@@ -127,7 +127,7 @@ class OfflineOperationsWorker(
             is OfflineOperationType.CreateFile -> {
                 val createFileOperation = withContext(Dispatchers.IO) {
                     val operationType = (operation.type as OfflineOperationType.CreateFile)
-                    UploadFileRemoteOperation(operationType.localPath, operationType.remotePath, operationType.mimeType, 0)
+                    UploadFileRemoteOperation(operationType.localPath, operationType.remotePath, operationType.mimeType, System.currentTimeMillis())
                 }
 
                 createFileOperation.execute(client) to createFileOperation
@@ -156,7 +156,10 @@ class OfflineOperationsWorker(
         Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
 
         if (result.isSuccess) {
-            repository.updateNextOperations(operation)
+            if (operation.type is OfflineOperationType.CreateFolder) {
+                repository.updateNextOperations(operation)
+            }
+
             fileDataStorageManager.offlineOperationDao.delete(operation)
             notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
         } else {

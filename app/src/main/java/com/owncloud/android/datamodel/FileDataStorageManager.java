@@ -142,39 +142,33 @@ public class FileDataStorageManager {
 
     public void addCreateFileOfflineOperation(String[] localPaths, String[] remotePaths) {
         if (localPaths.length != remotePaths.length) {
-            Log_OC.d(TAG, "Local path and remote path size is not matching");
+            Log_OC.d(TAG, "Local path and remote path size do not match");
             return;
         }
 
-        for(String localPath: localPaths) {
-            for (String remotePath: remotePaths) {
-                String mimeType = MimeTypeUtil.getMimeTypeFromPath(remotePath);
+        for (int i = 0; i < localPaths.length; i++) {
+            String localPath = localPaths[i];
+            String remotePath = remotePaths[i];
+            String mimeType = MimeTypeUtil.getMimeTypeFromPath(remotePath);
 
-                OfflineOperationEntity entity = new OfflineOperationEntity();
-                entity.setPath(remotePath);
+            OfflineOperationEntity entity = new OfflineOperationEntity();
+            entity.setPath(remotePath);
+            entity.setType(new OfflineOperationType.CreateFile(OfflineOperationRawType.CreateFile.name(), localPath, remotePath, mimeType));
+            entity.setCreatedAt(System.currentTimeMillis() / 1000L);
+            entity.setFilename(new File(remotePath).getName());
 
-                OfflineOperationType.CreateFile operationType = new OfflineOperationType.CreateFile(OfflineOperationRawType.CreateFile.name(), localPath, remotePath, mimeType);
-                entity.setType(operationType);
-                entity.setCreatedAt(System.currentTimeMillis() / 1000L);
+            String parentPath = new File(remotePath).getParent() + OCFile.PATH_SEPARATOR;
+            OCFile parentFile = getFileByDecryptedRemotePath(parentPath);
 
-                File file = new File(remotePath);
-                String filename = file.getName();
-                entity.setFilename(filename);
-
-                String parentPath = file.getParent() + OCFile.PATH_SEPARATOR;
-                OCFile parentFile = getFileByDecryptedRemotePath(parentPath);
-
-                if (parentFile != null) {
-                    entity.setParentOCFileId(parentFile.getFileId());
-
-                    if (!parentFile.isOfflineOperation()) {
-                        entity.setParentPath(parentPath);
-                    }
+            if (parentFile != null) {
+                entity.setParentOCFileId(parentFile.getFileId());
+                if (!parentFile.isOfflineOperation()) {
+                    entity.setParentPath(parentPath);
                 }
-
-                offlineOperationDao.insert(entity);
-                createPendingFile(remotePath, mimeType);
             }
+
+            offlineOperationDao.insert(entity);
+            createPendingFile(remotePath, mimeType);
         }
     }
 
