@@ -7,12 +7,14 @@
 
 package com.nextcloud.client.database.typeConverter
 
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.nextcloud.model.OfflineOperationType
 import com.google.gson.GsonBuilder
 import com.nextcloud.client.database.typeAdapter.OfflineOperationTypeAdapter
 
+@ProvidedTypeConverter
 class OfflineOperationTypeConverter {
 
     private val gson: Gson = GsonBuilder()
