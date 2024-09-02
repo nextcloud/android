@@ -165,8 +165,7 @@ public abstract class FileActivity extends DrawerActivity
     @Inject
     UserAccountManager accountManager;
 
-    @Inject
-    ConnectivityService connectivityService;
+    @Inject public ConnectivityService connectivityService;
 
     @Inject
     BackgroundJobManager backgroundJobManager;
