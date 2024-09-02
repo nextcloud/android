@@ -14,7 +14,7 @@ sealed class OfflineOperationType {
     data class CreateFile(
         override val type: String,
         val localPath: String,
-        val remotePath: String,
+        var remotePath: String,
         val mimeType: String
     ) : OfflineOperationType()
 }

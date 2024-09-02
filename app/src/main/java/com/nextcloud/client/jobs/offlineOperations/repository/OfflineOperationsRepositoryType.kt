@@ -11,7 +11,7 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.owncloud.android.datamodel.OCFile
 
 interface OfflineOperationsRepositoryType {
-    fun getAllSubdirectories(fileId: Long): List<OfflineOperationEntity>
+    fun getAllSubEntities(fileId: Long): List<OfflineOperationEntity>
     fun deleteOperation(file: OCFile)
     fun updateNextOperations(operation: OfflineOperationEntity)
 }

@@ -8,6 +8,7 @@
 package com.nextcloud.client.jobs.offlineOperations.repository
 
 import com.nextcloud.client.database.entity.OfflineOperationEntity
+import com.nextcloud.model.OfflineOperationType
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 
@@ -19,7 +20,7 @@ class OfflineOperationsRepository(
     private val pathSeparator = '/'
 
     @Suppress("NestedBlockDepth")
-    override fun getAllSubdirectories(fileId: Long): List<OfflineOperationEntity> {
+    override fun getAllSubEntities(fileId: Long): List<OfflineOperationEntity> {
         val result = mutableListOf<OfflineOperationEntity>()
         val queue = ArrayDeque<Long>()
         queue.add(fileId)
@@ -31,7 +32,7 @@ class OfflineOperationsRepository(
 
             processedIds.add(currentFileId)
 
-            val subDirectories = dao.getSubDirectoriesByParentOCFileId(currentFileId)
+            val subDirectories = dao.getSubEntitiesByParentOCFileId(currentFileId)
             result.addAll(subDirectories)
 
             subDirectories.forEach {
@@ -48,7 +49,7 @@ class OfflineOperationsRepository(
     }
 
     override fun deleteOperation(file: OCFile) {
-        getAllSubdirectories(file.fileId).forEach {
+        getAllSubEntities(file.fileId).forEach {
             dao.delete(it)
         }
 
@@ -66,7 +67,7 @@ class OfflineOperationsRepository(
         val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operation.path)
         val fileId = ocFile?.fileId ?: return
 
-        getAllSubdirectories(fileId)
+        getAllSubEntities(fileId)
             .mapNotNull { nextOperation ->
                 nextOperation.parentOCFileId?.let { parentId ->
                     fileDataStorageManager.getFileById(parentId)?.let { ocFile ->
@@ -76,6 +77,11 @@ class OfflineOperationsRepository(
 
                             if (newParentPath != nextOperation.parentPath || newPath != nextOperation.path) {
                                 nextOperation.apply {
+                                    if (type is OfflineOperationType.CreateFile) {
+                                        val updatedType = type as OfflineOperationType.CreateFile
+                                        updatedType.remotePath = newPath
+                                    }
+
                                     parentPath = newParentPath
                                     path = newPath
                                 }
