@@ -25,7 +25,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation
 import com.owncloud.android.operations.CreateFolderOperation
-import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
@@ -128,8 +127,7 @@ class OfflineOperationsWorker(
             is OfflineOperationType.CreateFile -> {
                 val createFileOperation = withContext(Dispatchers.IO) {
                     val operationType = (operation.type as OfflineOperationType.CreateFile)
-                    val mimeType = MimeTypeUtil.getMimeTypeFromPath(operationType.remotePath)
-                    UploadFileRemoteOperation(operationType.localPath, operationType.remotePath, mimeType, 0)
+                    UploadFileRemoteOperation(operationType.localPath, operationType.remotePath, operationType.mimeType, 0)
                 }
 
                 createFileOperation.execute(client) to createFileOperation

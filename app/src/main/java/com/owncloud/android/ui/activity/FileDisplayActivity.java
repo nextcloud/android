@@ -952,15 +952,26 @@ public class FileDisplayActivity extends FileActivity
                 default -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET;
             };
 
-            FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
-                                                                 filePaths,
-                                                                 decryptedRemotePaths,
-                                                                 behaviour,
-                                                                 true,
-                                                                 UploadFileOperation.CREATED_BY_USER,
-                                                                 false,
-                                                                 false,
-                                                                 NameCollisionPolicy.ASK_USER);
+            new Thread(() -> {
+                boolean isNetworkAndServerAvailable = connectivityService.isNetworkAndServerAvailable();
+
+                runOnUiThread(() -> {
+                    if (isNetworkAndServerAvailable) {
+                        FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
+                                                                             filePaths,
+                                                                             decryptedRemotePaths,
+                                                                             behaviour,
+                                                                             true,
+                                                                             UploadFileOperation.CREATED_BY_USER,
+                                                                             false,
+                                                                             false,
+                                                                             NameCollisionPolicy.ASK_USER);
+                    } else {
+                        fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths);
+                    }
+                });
+            }).start();
+
 
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
