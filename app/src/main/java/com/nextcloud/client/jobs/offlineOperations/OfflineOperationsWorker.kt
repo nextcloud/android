@@ -73,7 +73,13 @@ class OfflineOperationsWorker(
             while (operations.isNotEmpty()) {
                 val operation = operations.first()
                 val result = executeOperation(operation, client)
-                val isSuccess = handleResult(operation, totalOperations, currentSuccessfulOperationIndex, result?.first, result?.second)
+                val isSuccess = handleResult(
+                    operation,
+                    totalOperations,
+                    currentSuccessfulOperationIndex,
+                    result?.first,
+                    result?.second
+                )
 
                 operations = if (isSuccess) {
                     currentSuccessfulOperationIndex++
@@ -128,7 +134,7 @@ class OfflineOperationsWorker(
         totalOperations: Int,
         currentSuccessfulOperationIndex: Int,
         result: RemoteOperationResult<*>?,
-        remoteOperation: RemoteOperation<*>?,
+        remoteOperation: RemoteOperation<*>?
     ): Boolean {
         if (result == null) {
             Log_OC.d(TAG, "Operation not completed, result is null")
