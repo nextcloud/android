@@ -1,7 +1,10 @@
-# SPDX-FileCopyrightText: 2023-2024 Nextcloud GmbH and Nextcloud contributors
-# SPDX-FileCopyrightText: 2023 Álvaro Brey <alvaro@alvarobrey.com>
-# SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
-# SPDX-License-Identifier: GPL-3.0-or-later
+# This workflow is provided via the organization template repository
+#
+# https://github.com/nextcloud/.github
+# https://docs.github.com/en/actions/learn-github-actions/sharing-workflows-with-your-organization
+#
+# SPDX-FileCopyrightText: Nextcloud GmbH and Nextcloud contributors
+# SPDX-License-Identifier: MIT
 
 name: Auto approve renovate PRs
 
@@ -30,6 +33,12 @@ jobs:
       contents: write
 
     steps:
+      - name: Disabled on forks
+        if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+        run: |
+          echo 'Can not approve PRs from forks'
+          exit 1
+
       - uses: mdecoleman/pr-branch-name@55795d86b4566d300d237883103f052125cc7508 # v3.0.0
         id: branchname
         with:
