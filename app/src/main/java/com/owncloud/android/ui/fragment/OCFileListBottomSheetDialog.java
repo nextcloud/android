@@ -7,6 +7,8 @@
 package com.owncloud.android.ui.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -217,15 +219,26 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         if (!file.isOfflineOperation() || file.isRootDirectory()) {
             return;
         }
+        // TODO add callback for isNetworkAndServerAvailable
+        new Thread(() -> {
+            boolean isNetworkAndServerAvailable = fileActivity.connectivityService.isNetworkAndServerAvailable();
+            new Handler(Looper.getMainLooper()).post(() -> {
+                if (file.isRootDirectory()) {
+                    return;
+                }
 
-        binding.menuCreateRichWorkspace.setVisibility(View.GONE);
-        binding.menuUploadFromApp.setVisibility(View.GONE);
-        binding.menuDirectCameraUpload.setVisibility(View.GONE);
-        binding.menuScanDocUpload.setVisibility(View.GONE);
-        binding.menuNewDocument.setVisibility(View.GONE);
-        binding.menuNewSpreadsheet.setVisibility(View.GONE);
-        binding.menuNewPresentation.setVisibility(View.GONE);
-        binding.creatorsContainer.setVisibility(View.GONE);
+                if (!isNetworkAndServerAvailable || file.isOfflineOperation()) {
+                    binding.menuCreateRichWorkspace.setVisibility(View.GONE);
+                    binding.menuUploadFromApp.setVisibility(View.GONE);
+                    binding.menuDirectCameraUpload.setVisibility(View.GONE);
+                    binding.menuScanDocUpload.setVisibility(View.GONE);
+                    binding.menuNewDocument.setVisibility(View.GONE);
+                    binding.menuNewSpreadsheet.setVisibility(View.GONE);
+                    binding.menuNewPresentation.setVisibility(View.GONE);
+                    binding.creatorsContainer.setVisibility(View.GONE);
+                }
+            });
+        }).start();
     }
 
     @Override
