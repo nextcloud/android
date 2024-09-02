@@ -40,6 +40,7 @@ import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepositoryType;
+import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
@@ -152,7 +153,7 @@ public class FileDataStorageManager {
                 OfflineOperationEntity entity = new OfflineOperationEntity();
                 entity.setPath(remotePath);
 
-                OfflineOperationType.CreateFile operationType = new OfflineOperationType.CreateFile(localPath, remotePath, mimeType);
+                OfflineOperationType.CreateFile operationType = new OfflineOperationType.CreateFile(OfflineOperationRawType.CreateFile.name(), localPath, remotePath, mimeType);
                 entity.setType(operationType);
                 entity.setCreatedAt(System.currentTimeMillis() / 1000L);
 
@@ -183,7 +184,7 @@ public class FileDataStorageManager {
         entity.setFilename(filename);
         entity.setParentOCFileId(parentOCFileId);
 
-        OfflineOperationType.CreateFolder operationType = new OfflineOperationType.CreateFolder(path);
+        OfflineOperationType.CreateFolder operationType = new OfflineOperationType.CreateFolder(OfflineOperationRawType.CreateFolder.name(), path);
         entity.setType(operationType);
         entity.setPath(path);
         entity.setParentPath(parentPath);
@@ -224,7 +225,7 @@ public class FileDataStorageManager {
 
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
 
-        OfflineOperationType.CreateFolder operationType = new OfflineOperationType.CreateFolder(newPath);
+        OfflineOperationType.CreateFolder operationType = new OfflineOperationType.CreateFolder(OfflineOperationRawType.CreateFolder.name(), newPath);
         entity.setType(operationType);
         entity.setPath(newPath);
         entity.setFilename(newFolderName);
