@@ -72,8 +72,8 @@ import com.owncloud.android.db.ProviderMeta
     ],
     exportSchema = true
 )
-@TypeConverters(OfflineOperationTypeConverter::class)
 @Suppress("Detekt.UnnecessaryAbstractClass") // needed by Room
+@TypeConverters(OfflineOperationTypeConverter::class)
 abstract class NextcloudDatabase : RoomDatabase() {
 
     abstract fun arbitraryDataDao(): ArbitraryDataDao
@@ -97,6 +97,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                 instance = Room
                     .databaseBuilder(context, NextcloudDatabase::class.java, ProviderMeta.DB_NAME)
                     .allowMainThreadQueries()
+                    .addTypeConverter(OfflineOperationTypeConverter())
                     .addLegacyMigrations(clock, context)
                     .addMigrations(RoomMigration())
                     .addMigrations(Migration67to68())
