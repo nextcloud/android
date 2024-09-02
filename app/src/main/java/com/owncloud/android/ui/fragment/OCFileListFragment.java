@@ -1152,13 +1152,25 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void fileOnItemClick(OCFile file) {
+    private Integer checkFileBeforeOpen(OCFile file) {
         if (isAPKorAAB(Set.of(file))) {
+            return R.string.gplay_restriction;
+        } else if (file.isOfflineOperation()) {
+            return R.string.offline_operations_file_not_exists_yet;
+        } else {
+            return null;
+        }
+    }
+
+    private void fileOnItemClick(OCFile file) {
+        Integer errorMessageId = checkFileBeforeOpen(file);
+        if (errorMessageId != null) {
             Snackbar.make(getRecyclerView(),
-                          R.string.gplay_restriction,
+                          errorMessageId,
                           Snackbar.LENGTH_LONG).show();
             return;
         }
+
         if (PreviewImageFragment.canBePreviewed(file)) {
             // preview image - it handles the download, if needed
             if (searchFragment) {
