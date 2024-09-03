@@ -48,7 +48,6 @@ import javax.inject.Inject
 @UnstableApi
 class BackgroundPlayerService : MediaSessionService(), Injectable {
 
-
     private val seekBackSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_BACK, Bundle.EMPTY)
     private val seekForwardSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_FORWARD, Bundle.EMPTY)
 
@@ -132,6 +131,11 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
                 exoPlayer = createNextcloudExoplayer(this@BackgroundPlayerService, nextcloudClient)
                 mediaSession =
                     MediaSession.Builder(applicationContext, exoPlayer)
+                        // set id to distinct this session to avoid crash (if not set every session has default token empty string i.e "")
+                        // in case we start another session (for eg. for video playback) since releasing the session take little bit of delay
+                        // which can cause conflict with newly created session if not set. But, make sure to release this session to avoid
+                        // multiple session instance being alive.
+                        .setId(BACKGROUND_MEDIA_SESSION_ID)
                         .setCustomLayout(listOf(seekBackward, seekForward))
                         .setCallback(object : MediaSession.Callback {
                             override fun onConnect(
@@ -220,6 +224,9 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
     companion object {
         private const val SESSION_COMMAND_ACTION_SEEK_BACK = "SESSION_COMMAND_ACTION_SEEK_BACK"
         private const val SESSION_COMMAND_ACTION_SEEK_FORWARD = "SESSION_COMMAND_ACTION_SEEK_FORWARD"
+
+        private const val BACKGROUND_MEDIA_SESSION_ID = "com.nextcloud.client.media.BACKGROUND_MEDIA_SESSION_ID"
+
         const val RELEASE_MEDIA_SESSION_BROADCAST_ACTION = "com.nextcloud.client.media.RELEASE_MEDIA_SESSION"
         const val STOP_MEDIA_SESSION_BROADCAST_ACTION = "com.nextcloud.client.media.STOP_MEDIA_SESSION"
     }
