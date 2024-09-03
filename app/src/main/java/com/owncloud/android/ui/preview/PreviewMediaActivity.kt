@@ -64,7 +64,6 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.media.BackgroundPlayerService
 import com.nextcloud.client.media.ErrorFormat
 import com.nextcloud.client.media.ExoplayerListener
-import com.nextcloud.client.media.ExoplayerListener.Companion
 import com.nextcloud.client.media.NextcloudExoPlayer.createNextcloudExoplayer
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
@@ -111,6 +110,7 @@ import javax.inject.Inject
  * instantiation too.
  */
 @Suppress("TooManyFunctions")
+@OptIn(UnstableApi::class)
 class PreviewMediaActivity :
     FileActivity(),
     FileFragment.ContainerActivity,
@@ -144,7 +144,6 @@ class PreviewMediaActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.O) {
             setTheme(R.style.Theme_ownCloud_Toolbar)
         }
@@ -157,10 +156,10 @@ class PreviewMediaActivity :
         applyWindowInsets()
         initArguments(savedInstanceState)
 
-        if(MimeTypeUtil.isVideo(file)){
+        if (MimeTypeUtil.isVideo(file)) {
             // release any background media session if exists
             sendAudioSessionReleaseBroadcast()
-        }else if(MimeTypeUtil.isAudio(file)){
+        } else if (MimeTypeUtil.isAudio(file)) {
             val stopPlayer = Intent(BackgroundPlayerService.STOP_MEDIA_SESSION_BROADCAST_ACTION).apply {
                 setPackage(packageName)
             }
@@ -344,7 +343,7 @@ class PreviewMediaActivity :
                 nextcloudClient?.let { client ->
                     handler.post {
                         videoPlayer = createNextcloudExoplayer(this, client)
-                        videoMediaSession = MediaSession.Builder(this,videoPlayer as Player).build()
+                        videoMediaSession = MediaSession.Builder(this, videoPlayer as Player).build()
 
                         videoPlayer?.let { player ->
                             player.addListener(
@@ -386,13 +385,14 @@ class PreviewMediaActivity :
                     playAudio()
                     binding.audioControllerView.setMediaPlayer(audioMediaController)
                 } catch (e: Exception) {
-                    Log_OC.e(TAG,"exception raised while getting the media controller ${e.message}")
+                    Log_OC.e(TAG, "exception raised while getting the media controller ${e.message}")
                 }
             },
             MoreExecutors.directExecutor()
         )
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun playAudio() {
         if (file.isDown) {
             prepareAudioPlayer(file.storageUri)
@@ -400,7 +400,7 @@ class PreviewMediaActivity :
             try {
                 LoadStreamUrl(this, user, clientFactory).execute(file.localId)
             } catch (e: Exception) {
-                Log_OC.e(TAG, "Loading stream url not possible: $e")
+                Log_OC.e(TAG, "Loading stream url for Audio not possible: $e")
             }
         }
     }
@@ -434,7 +434,7 @@ class PreviewMediaActivity :
                     MaterialAlertDialogBuilder(this@PreviewMediaActivity)
                         .setMessage(message)
                         .setPositiveButton(R.string.common_ok) { _: DialogInterface?, _: Int ->
-                           audioPlayer.seekToDefaultPosition()
+                            audioPlayer.seekToDefaultPosition()
                             audioPlayer.pause()
                         }
                         .setCancelable(false)
@@ -468,7 +468,6 @@ class PreviewMediaActivity :
         }
     }
 
-    @OptIn(markerClass = [UnstableApi::class])
     private fun applyWindowInsets() {
         val playerView = binding.exoplayerView
         val exoControls = playerView.findViewById<FrameLayout>(R.id.exo_bottom_bar)
@@ -497,7 +496,6 @@ class PreviewMediaActivity :
         }
     }
 
-    @OptIn(UnstableApi::class)
     private fun setupVideoView() {
         initWindowInsetsController()
         val type = WindowInsetsCompat.Type.systemBars()
@@ -692,7 +690,7 @@ class PreviewMediaActivity :
             try {
                 LoadStreamUrl(this, user, clientFactory).execute(file.localId)
             } catch (e: Exception) {
-                Log_OC.e(TAG, "Loading stream url not possible: $e")
+                Log_OC.e(TAG, "Loading stream url for Video not possible: $e")
             }
         }
     }
@@ -770,7 +768,7 @@ class PreviewMediaActivity :
     }
 
     override fun onDestroy() {
-        mediaControllerFuture?.let {MediaController.releaseFuture(it)}
+        mediaControllerFuture?.let { MediaController.releaseFuture(it) }
         super.onDestroy()
 
         Log_OC.v(TAG, "onDestroy")

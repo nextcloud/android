@@ -28,6 +28,8 @@ import com.owncloud.android.ui.whatsnew.ProgressIndicator;
 
 import javax.inject.Singleton;
 
+import androidx.annotation.OptIn;
+import androidx.media3.common.util.UnstableApi;
 import dagger.BindsInstance;
 import dagger.Component;
 import dagger.android.support.AndroidSupportInjectionModule;
@@ -55,6 +57,8 @@ public interface AppComponent {
     void inject(MainApp app);
 
     void inject(MediaControlView mediaControlView);
+
+    @OptIn(markerClass = UnstableApi.class)
     void inject(BackgroundPlayerService backgroundPlayerService);
 
     void inject(ThemeableSwitchPreference switchPreference);

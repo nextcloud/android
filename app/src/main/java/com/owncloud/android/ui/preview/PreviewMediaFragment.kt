@@ -120,11 +120,12 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
     private var mediaSession: MediaSession? = null
     private var nextcloudClient: NextcloudClient? = null
 
+    @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         // release any background media session if exists
-        val intent = Intent(BackgroundPlayerService.STOP_MEDIA_SESSION_BROADCAST_ACTION).apply {
+        val intent = Intent(BackgroundPlayerService.RELEASE_MEDIA_SESSION_BROADCAST_ACTION).apply {
             setPackage(requireActivity().packageName)
         }
         requireActivity().sendBroadcast(intent)
@@ -208,7 +209,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
             autoplay = exoPlayer?.isPlaying ?: false
             putLong(EXTRA_PLAY_POSITION, savedPlaybackPosition)
             putBoolean(EXTRA_PLAYING, autoplay)
-
         }
     }
 
@@ -254,7 +254,10 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
             it.addListener(listener)
         }
         // session id needs to be unique since this fragment is used in viewpager multiple fragments can exist at a time
-        mediaSession = MediaSession.Builder(requireContext(),exoPlayer as Player).setId(System.currentTimeMillis().toString()).build()
+        mediaSession = MediaSession.Builder(
+            requireContext(),
+            exoPlayer as Player
+        ).setId(System.currentTimeMillis().toString()).build()
     }
 
     private fun releaseVideoPlayer() {
@@ -545,7 +548,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
      * Opens the previewed file with an external application.
      */
     private fun openFile() {
-
         containerActivity.fileOperationsHelper.openFile(file)
     }
 

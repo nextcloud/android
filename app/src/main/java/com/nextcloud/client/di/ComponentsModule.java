@@ -124,6 +124,8 @@ import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 
+import androidx.annotation.OptIn;
+import androidx.media3.common.util.UnstableApi;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -487,6 +489,7 @@ abstract class ComponentsModule {
     abstract InternalTwoWaySyncActivity internalTwoWaySyncActivity();
 
 
+    @OptIn(markerClass = UnstableApi.class)
     @ContributesAndroidInjector
     abstract BackgroundPlayerService backgroundPlayerService();
 

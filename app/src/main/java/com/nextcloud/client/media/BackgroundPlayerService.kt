@@ -13,6 +13,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
+import androidx.annotation.OptIn
 import androidx.media3.common.Player
 import androidx.media3.common.Player.COMMAND_PLAY_PAUSE
 import androidx.media3.common.Player.COMMAND_SEEK_TO_NEXT
@@ -46,7 +47,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-@UnstableApi
+@OptIn(UnstableApi::class)
 class BackgroundPlayerService : MediaSessionService(), Injectable {
 
     private val seekBackSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_BACK, Bundle.EMPTY)
@@ -78,7 +79,7 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
 
     private val stopReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            when(intent?.action){
+            when (intent?.action) {
                 RELEASE_MEDIA_SESSION_BROADCAST_ACTION -> release()
                 STOP_MEDIA_SESSION_BROADCAST_ACTION -> exoPlayer.stop()
             }
@@ -110,7 +111,15 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
                 val playPauseButton =
                     CommandButton.Builder()
                         .setDisplayName("PlayPause")
-                        .setIconResId(CommandButton.getIconResIdForIconConstant(if (mediaSession?.player?.isPlaying!!) CommandButton.ICON_PAUSE else CommandButton.ICON_PLAY))
+                        .setIconResId(
+                            CommandButton.getIconResIdForIconConstant(
+                                if (mediaSession?.player?.isPlaying!!) {
+                                    CommandButton.ICON_PAUSE
+                                } else {
+                                    CommandButton.ICON_PLAY
+                                }
+                            )
+                        )
                         .setPlayerCommand(COMMAND_PLAY_PAUSE)
                         .setExtras(Bundle().apply { putInt(COMMAND_KEY_COMPACT_VIEW_INDEX, 1) })
                         .build()
@@ -132,10 +141,9 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
                 exoPlayer = createNextcloudExoplayer(this@BackgroundPlayerService, nextcloudClient)
                 mediaSession =
                     MediaSession.Builder(applicationContext, exoPlayer)
-                        // set id to distinct this session to avoid crash (if not set every session has default token empty string i.e "")
-                        // in case we start another session (for eg. for video playback) since releasing the session take little bit of delay
-                        // which can cause conflict with newly created session if not set. But, make sure to release this session to avoid
-                        // multiple session instance being alive.
+                        // set id to distinct this session to avoid crash
+                        // in case session release delayed a bit and
+                        // we start another session for eg. video
                         .setId(BACKGROUND_MEDIA_SESSION_ID)
                         .setCustomLayout(listOf(seekBackward, seekForward))
                         .setCallback(object : MediaSession.Callback {
@@ -161,10 +169,7 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
                                     .build()
                             }
 
-                            override fun onPostConnect(
-                                session: MediaSession,
-                                controller: MediaSession.ControllerInfo
-                            ) {
+                            override fun onPostConnect(session: MediaSession, controller: MediaSession.ControllerInfo) {
                                 session.setCustomLayout(listOf(seekBackward, seekForward))
                             }
 
@@ -174,20 +179,19 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
                                 customCommand: SessionCommand,
                                 args: Bundle
                             ): ListenableFuture<SessionResult> {
-                                when (customCommand.customAction) {
+                                return when (customCommand.customAction) {
                                     SESSION_COMMAND_ACTION_SEEK_FORWARD -> {
                                         session.player.seekForward()
-                                        return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
+                                        Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
                                     }
 
                                     SESSION_COMMAND_ACTION_SEEK_BACK -> {
                                         session.player.seekBack()
-                                        return Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
+                                        Futures.immediateFuture(SessionResult(SessionResult.RESULT_SUCCESS))
                                     }
 
-                                    else -> {}
+                                    else -> super.onCustomCommand(session, controller, customCommand, args)
                                 }
-                                return super.onCustomCommand(session, controller, customCommand, args)
                             }
                         })
                         .build()
@@ -219,6 +223,7 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
         // that sometimes onTaskRemove() doesn't get called immediately
         // eventually gets called so the service stops but the notification doesn't clear out.
         // [WORKAROUND] So, explicitly removing the notification here.
+        // TODO revisit after bug solved!
         val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         nm.cancel(DefaultMediaNotificationProvider.DEFAULT_NOTIFICATION_ID)
         stopSelf()

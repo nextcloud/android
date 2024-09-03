@@ -72,10 +72,6 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
         }, 100)
     }
 
-    fun stopMediaPlayerMessages() {
-        handler.removeMessages(SHOW_PROGRESS)
-    }
-
     @Suppress("MagicNumber")
     private fun initControllerView() {
         binding.playBtn.requestFocus()
@@ -131,7 +127,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
                 val pos = setProgress()
 
                 if (!isDragging) {
-                    sendMessageDelayed(obtainMessage(SHOW_PROGRESS), (1000 - pos % 1000).toLong())
+                    sendMessageDelayed(obtainMessage(SHOW_PROGRESS), (1000 - pos % 1000))
                 }
             }
         }
@@ -229,9 +225,9 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
     fun updatePausePlay() {
         binding.playBtn.icon = ContextCompat.getDrawable(
             context,
-            // isPlaying reflects if the playback is actually moving forward, If the media is buffering and it will play when ready
-            // it would still return that it is not playing. So, in case of buffering it will show the pause icon which would show that
-            // media is loading, when user has not paused but moved the progress to a different position this works as a buffering signal.
+            // use isPlaying instead of playWhenReady
+            // it represents only the play/pause state
+            // which is needed to show play/pause icons
             if (playerControl?.isPlaying == true) {
                 R.drawable.ic_pause
             } else {
@@ -274,7 +270,6 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
 
     @Suppress("MagicNumber")
     override fun onClick(v: View) {
-
         playerControl?.let { playerControl ->
             val playing = playerControl.playWhenReady
             val id = v.id
@@ -316,7 +311,7 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
         }
 
         playerControl?.let { playerControl ->
-            val duration = playerControl.duration.toLong()
+            val duration = playerControl.duration
             val newPosition = duration * progress / 1000L
             playerControl.seekTo(newPosition)
             binding.currentTimeText.text = formatTime(newPosition)
