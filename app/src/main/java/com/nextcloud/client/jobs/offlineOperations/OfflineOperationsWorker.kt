@@ -29,6 +29,8 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
+import kotlin.coroutines.resume
+import kotlin.coroutines.suspendCoroutine
 
 class OfflineOperationsWorker(
     private val user: User,
@@ -59,7 +61,7 @@ class OfflineOperationsWorker(
                 "\n-----------------------------------"
         )
 
-        if (!connectivityService.isNetworkAndServerAvailable()) {
+        if (!isNetworkAndServerAvailable()) {
             Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no internet connection")
             return@coroutineScope Result.retry()
         }
@@ -98,6 +100,12 @@ class OfflineOperationsWorker(
         } catch (e: Exception) {
             Log_OC.d(TAG, "OfflineOperationsWorker terminated: $e")
             Result.failure()
+        }
+    }
+
+    private suspend fun isNetworkAndServerAvailable(): Boolean = suspendCoroutine { continuation ->
+        connectivityService.isNetworkAndServerAvailable { result ->
+            continuation.resume(result)
         }
     }
 
