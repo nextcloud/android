@@ -11,6 +11,8 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.model.OfflineOperationType
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.utils.MimeType
+import com.owncloud.android.utils.MimeTypeUtil
 
 class OfflineOperationsRepository(
     private val fileDataStorageManager: FileDataStorageManager
@@ -94,4 +96,15 @@ class OfflineOperationsRepository(
             }
             .forEach { dao.update(it) }
     }
+
+    override fun convertToOCFiles(): List<OCFile> =
+        dao.getAll().map { entity ->
+            OCFile(entity.path).apply {
+                mimeType = if (entity.type is OfflineOperationType.CreateFolder) {
+                    MimeType.DIRECTORY
+                } else {
+                    MimeTypeUtil.getMimeTypeFromPath(entity.path)
+                }
+            }
+        }
 }

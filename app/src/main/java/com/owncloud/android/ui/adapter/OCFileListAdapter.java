@@ -771,6 +771,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mergeOCFilesForLivePhoto();
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
+
+            List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles();
+            for (OCFile offlineFile : offlineOperations) {
+                if (!mFilesAll.contains(offlineFile)) {
+                    mFilesAll.add(offlineFile);
+                }
+            }
+
             currentDirectory = directory;
         } else {
             mFiles.clear();
