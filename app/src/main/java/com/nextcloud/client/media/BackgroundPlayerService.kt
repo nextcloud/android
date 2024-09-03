@@ -7,6 +7,7 @@
 
 package com.nextcloud.client.media
 
+import android.app.NotificationManager
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -214,6 +215,12 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
             // Make sure the service is not in foreground.
             player.pause()
         }
+        // Bug in Android 14, https://github.com/androidx/media/issues/805
+        // that sometimes onTaskRemove() doesn't get called immediately
+        // eventually gets called so the service stops but the notification doesn't clear out.
+        // [WORKAROUND] So, explicitly removing the notification here.
+        val nm = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        nm.cancel(DefaultMediaNotificationProvider.DEFAULT_NOTIFICATION_ID)
         stopSelf()
     }
 
