@@ -188,7 +188,6 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
                     fileDataStorageManager.addCreateFolderOfflineOperation(
                         path,
                         newFolderName,
-                        parentFolder?.offlineOperationParentPath,
                         parentFolder?.fileId
                     )
 

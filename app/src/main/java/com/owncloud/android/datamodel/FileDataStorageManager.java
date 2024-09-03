@@ -162,9 +162,6 @@ public class FileDataStorageManager {
 
             if (parentFile != null) {
                 entity.setParentOCFileId(parentFile.getFileId());
-                if (!parentFile.isOfflineOperation()) {
-                    entity.setParentPath(parentPath);
-                }
             }
 
             offlineOperationDao.insert(entity);
@@ -172,7 +169,7 @@ public class FileDataStorageManager {
         }
     }
 
-    public OfflineOperationEntity addCreateFolderOfflineOperation(String path, String filename, String parentPath, Long parentOCFileId) {
+    public OfflineOperationEntity addCreateFolderOfflineOperation(String path, String filename, Long parentOCFileId) {
         OfflineOperationEntity entity = new OfflineOperationEntity();
 
         entity.setFilename(filename);
@@ -181,7 +178,6 @@ public class FileDataStorageManager {
         OfflineOperationType.CreateFolder operationType = new OfflineOperationType.CreateFolder(OfflineOperationRawType.CreateFolder.name(), path);
         entity.setType(operationType);
         entity.setPath(path);
-        entity.setParentPath(parentPath);
         entity.setCreatedAt(System.currentTimeMillis() / 1000L);
 
         offlineOperationDao.insert(entity);

@@ -1237,7 +1237,7 @@
       },
       {
         "tableName": "offline_operations",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `offline_operations_parent_oc_file_id` INTEGER, `offline_operations_parent_path` TEXT, `offline_operations_type` TEXT, `offline_operations_path` TEXT, `offline_operations_file_name` TEXT, `offline_operations_created_at` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `offline_operations_parent_oc_file_id` INTEGER, `offline_operations_type` TEXT, `offline_operations_path` TEXT, `offline_operations_file_name` TEXT, `offline_operations_created_at` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -1249,12 +1249,6 @@
             "fieldPath": "parentOCFileId",
             "columnName": "offline_operations_parent_oc_file_id",
             "affinity": "INTEGER",
-            "notNull": false
-          },
-          {
-            "fieldPath": "parentPath",
-            "columnName": "offline_operations_parent_path",
-            "affinity": "TEXT",
             "notNull": false
           },
           {
