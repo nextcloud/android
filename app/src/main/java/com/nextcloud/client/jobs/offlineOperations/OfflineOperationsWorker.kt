@@ -128,7 +128,12 @@ class OfflineOperationsWorker(
             is OfflineOperationType.CreateFile -> {
                 val createFileOperation = withContext(Dispatchers.IO) {
                     val operationType = (operation.type as OfflineOperationType.CreateFile)
-                    UploadFileRemoteOperation(operationType.localPath, operationType.remotePath, operationType.mimeType, System.currentTimeMillis())
+                    UploadFileRemoteOperation(
+                        operationType.localPath,
+                        operationType.remotePath,
+                        operationType.mimeType,
+                        System.currentTimeMillis()
+                    )
                 }
 
                 createFileOperation.execute(client) to createFileOperation
