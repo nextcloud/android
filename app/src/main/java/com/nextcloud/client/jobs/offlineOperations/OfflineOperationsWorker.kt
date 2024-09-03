@@ -116,21 +116,16 @@ class OfflineOperationsWorker(
     ): Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>? {
         return when (operation.type) {
             is OfflineOperationType.CreateFolder -> {
-                if (operation.parentPath != null) {
-                    val createFolderOperation = withContext(Dispatchers.IO) {
-                        val operationType = (operation.type as OfflineOperationType.CreateFolder)
-                        CreateFolderOperation(
-                            operationType.path,
-                            user,
-                            context,
-                            fileDataStorageManager
-                        )
-                    }
-                    createFolderOperation.execute(client) to createFolderOperation
-                } else {
-                    Log_OC.d(TAG, "CreateFolder operation incomplete, missing parentPath")
-                    null
+                val createFolderOperation = withContext(Dispatchers.IO) {
+                    val operationType = (operation.type as OfflineOperationType.CreateFolder)
+                    CreateFolderOperation(
+                        operationType.path,
+                        user,
+                        context,
+                        fileDataStorageManager
+                    )
                 }
+                createFolderOperation.execute(client) to createFolderOperation
             }
 
             is OfflineOperationType.CreateFile -> {
