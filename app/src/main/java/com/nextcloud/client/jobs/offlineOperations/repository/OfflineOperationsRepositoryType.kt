@@ -14,4 +14,5 @@ interface OfflineOperationsRepositoryType {
     fun getAllSubEntities(fileId: Long): List<OfflineOperationEntity>
     fun deleteOperation(file: OCFile)
     fun updateNextOperations(operation: OfflineOperationEntity)
+    fun convertToOCFiles(): List<OCFile>
 }
