@@ -31,6 +31,7 @@ import android.widget.LinearLayout;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OCFileFilterType;
@@ -79,8 +80,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -781,7 +784,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles = sortOrder.sortCloudFiles(mFiles);
             prepareListOfHiddenFiles();
             mergeOCFilesForLivePhoto();
-            addOfflineOperations();
+            addOfflineOperations(directory.getFileId());
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
             currentDirectory = directory;
@@ -795,13 +798,30 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
-    private void addOfflineOperations() {
-        List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles();
+    private void addOfflineOperations(long fileId) {
+        List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles(fileId);
+        List<OCFile> filesToAdd = new ArrayList<>();
+
         for (OCFile offlineFile : offlineOperations) {
-            if (!mFiles.contains(offlineFile)) {
-                mFiles.add(offlineFile);
+            boolean shouldAdd = true;
+            Iterator<OCFile> iterator = mFiles.iterator();
+
+            if (iterator.hasNext()) {
+                do {
+                    OCFile file = iterator.next();
+                    if (Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())) {
+                        shouldAdd = false;
+                        break;
+                    }
+                } while (iterator.hasNext());
+            }
+
+            if (shouldAdd) {
+                filesToAdd.add(offlineFile);
             }
         }
+
+        mFiles.addAll(filesToAdd);
     }
 
     public void setData(List<Object> objects,
