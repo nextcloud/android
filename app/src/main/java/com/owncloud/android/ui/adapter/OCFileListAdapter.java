@@ -769,16 +769,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles = sortOrder.sortCloudFiles(mFiles);
             prepareListOfHiddenFiles();
             mergeOCFilesForLivePhoto();
+            addOfflineOperations();
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
-
-            List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles();
-            for (OCFile offlineFile : offlineOperations) {
-                if (!mFilesAll.contains(offlineFile)) {
-                    mFilesAll.add(offlineFile);
-                }
-            }
-
             currentDirectory = directory;
         } else {
             mFiles.clear();
@@ -788,6 +781,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         searchType = null;
 
         notifyDataSetChanged();
+    }
+
+    private void addOfflineOperations() {
+        List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles();
+        for (OCFile offlineFile : offlineOperations) {
+            if (!mFiles.contains(offlineFile)) {
+                mFiles.add(offlineFile);
+            }
+        }
     }
 
     public void setData(List<Object> objects,
