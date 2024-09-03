@@ -59,6 +59,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.model.WorkerState;
@@ -949,27 +950,21 @@ public class FileDisplayActivity extends FileActivity
                 default -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET;
             };
 
-            new Thread(() -> {
-                boolean isNetworkAndServerAvailable = connectivityService.isNetworkAndServerAvailable();
-
-                runOnUiThread(() -> {
-                    if (isNetworkAndServerAvailable) {
-                        FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
-                                                                             filePaths,
-                                                                             decryptedRemotePaths,
-                                                                             behaviour,
-                                                                             true,
-                                                                             UploadFileOperation.CREATED_BY_USER,
-                                                                             false,
-                                                                             false,
-                                                                             NameCollisionPolicy.ASK_USER);
-                    } else {
-                        fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths);
-                    }
-                });
-            }).start();
-
-
+            connectivityService.isNetworkAndServerAvailable(result -> {
+                if (result) {
+                    FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
+                                                                         filePaths,
+                                                                         decryptedRemotePaths,
+                                                                         behaviour,
+                                                                         true,
+                                                                         UploadFileOperation.CREATED_BY_USER,
+                                                                         false,
+                                                                         false,
+                                                                         NameCollisionPolicy.ASK_USER);
+                } else {
+                    fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths);
+                }
+            });
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
             DisplayUtils.showSnackMessage(this, R.string.filedisplay_no_file_selected);
