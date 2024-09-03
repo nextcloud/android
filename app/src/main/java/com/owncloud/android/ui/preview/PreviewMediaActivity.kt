@@ -54,6 +54,7 @@ import androidx.media3.session.SessionToken
 import androidx.media3.ui.DefaultTimeBar
 import androidx.media3.ui.PlayerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -136,6 +137,7 @@ class PreviewMediaActivity :
     private var videoPlayer: ExoPlayer? = null
     private var videoMediaSession: MediaSession? = null
     private var audioMediaController: MediaController? = null
+    private var mediaControllerFuture: ListenableFuture<MediaController>? = null
     private var nextcloudClient: NextcloudClient? = null
     private lateinit var windowInsetsController: WindowInsetsControllerCompat
 
@@ -376,11 +378,11 @@ class PreviewMediaActivity :
 
     private fun initializeAudioPlayer() {
         val sessionToken = SessionToken(this, ComponentName(this, BackgroundPlayerService::class.java))
-        val controllerFuture = MediaController.Builder(this, sessionToken).buildAsync()
-        controllerFuture.addListener(
+        mediaControllerFuture = MediaController.Builder(this, sessionToken).buildAsync()
+        mediaControllerFuture?.addListener(
             {
                 try {
-                    audioMediaController = controllerFuture.get()
+                    audioMediaController = mediaControllerFuture?.get()
                     playAudio()
                     binding.audioControllerView.setMediaPlayer(audioMediaController)
                 } catch (e: Exception) {
@@ -768,6 +770,7 @@ class PreviewMediaActivity :
     }
 
     override fun onDestroy() {
+        mediaControllerFuture?.let {MediaController.releaseFuture(it)}
         super.onDestroy()
 
         Log_OC.v(TAG, "onDestroy")
