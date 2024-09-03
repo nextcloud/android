@@ -62,7 +62,7 @@ class OfflineOperationTypeAdapter : JsonSerializer<OfflineOperationType>, JsonDe
                 jsonObject.get("type").asString,
                 jsonObject.get("localPath").asString,
                 jsonObject.get("remotePath").asString,
-                jsonObject.get("mimeType").asString,
+                jsonObject.get("mimeType").asString
             )
 
             else -> null

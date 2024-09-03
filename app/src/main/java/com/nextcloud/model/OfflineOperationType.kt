@@ -20,5 +20,6 @@ sealed class OfflineOperationType {
 }
 
 enum class OfflineOperationRawType {
-    CreateFolder, CreateFile
+    CreateFolder,
+    CreateFile
 }
