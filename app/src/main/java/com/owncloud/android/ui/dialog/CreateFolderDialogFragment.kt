@@ -193,7 +193,8 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
                         parentFolder?.fileId
                     )
 
-                    (requireActivity() as? FileDisplayActivity)?.syncAndUpdateFolder(true)
+                    val fileDisplayActivity = requireActivity() as? FileDisplayActivity
+                    fileDisplayActivity?.refreshCurrentDirectory()
                 }
             }
         }
