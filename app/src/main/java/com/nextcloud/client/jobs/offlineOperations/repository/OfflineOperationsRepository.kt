@@ -82,6 +82,9 @@ class OfflineOperationsRepository(
                                     if (type is OfflineOperationType.CreateFile) {
                                         val updatedType = type as OfflineOperationType.CreateFile
                                         updatedType.remotePath = newPath
+                                    } else if (type is OfflineOperationType.CreateFolder) {
+                                        val updatedType = type as OfflineOperationType.CreateFolder
+                                        updatedType.path = newPath
                                     }
 
                                     parentPath = newParentPath
