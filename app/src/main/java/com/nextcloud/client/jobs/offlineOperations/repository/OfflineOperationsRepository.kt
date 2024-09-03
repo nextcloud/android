@@ -79,14 +79,17 @@ class OfflineOperationsRepository(
 
                             if (newParentPath != nextOperation.parentPath || newPath != nextOperation.path) {
                                 nextOperation.apply {
-                                    if (type is OfflineOperationType.CreateFile) {
-                                        val updatedType = type as OfflineOperationType.CreateFile
-                                        updatedType.remotePath = newPath
-                                    } else if (type is OfflineOperationType.CreateFolder) {
-                                        val updatedType = type as OfflineOperationType.CreateFolder
-                                        updatedType.path = newPath
-                                    }
+                                    type = when (type) {
+                                        is OfflineOperationType.CreateFile -> (type as OfflineOperationType.CreateFile).copy(
+                                            remotePath = newPath
+                                        )
 
+                                        is OfflineOperationType.CreateFolder -> (type as OfflineOperationType.CreateFolder).copy(
+                                            path = newPath
+                                        )
+
+                                        else -> type
+                                    }
                                     parentPath = newParentPath
                                     path = newPath
                                 }
@@ -100,8 +103,8 @@ class OfflineOperationsRepository(
             .forEach { dao.update(it) }
     }
 
-    override fun convertToOCFiles(): List<OCFile> =
-        dao.getAll().map { entity ->
+    override fun convertToOCFiles(fileId: Long): List<OCFile> =
+        getAllSubEntities(fileId).map { entity ->
             OCFile(entity.path).apply {
                 mimeType = if (entity.type is OfflineOperationType.CreateFolder) {
                     MimeType.DIRECTORY
