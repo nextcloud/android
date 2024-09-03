@@ -772,7 +772,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles = sortOrder.sortCloudFiles(mFiles);
             prepareListOfHiddenFiles();
             mergeOCFilesForLivePhoto();
-            addOfflineOperations(directory.getFileId());
+
+            // TODO check necessity of it
+            // addOfflineOperations(directory.getFileId());
             mFilesAll.clear();
             mFilesAll.addAll(mFiles);
             currentDirectory = directory;
