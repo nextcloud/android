@@ -1439,7 +1439,7 @@ public final class EncryptionUtils {
                                                        new ArrayList<>(),
                                                        new HashMap<>(),
                                                        E2EVersion.V2_0.getValue());
-            metadata.getUsers().add(new DecryptedUser(client.getUserId(), publicKey));
+            metadata.getUsers().add(new DecryptedUser(client.getUserId(), publicKey, null));
             byte[] metadataKey = EncryptionUtils.generateKey();
 
             if (metadataKey == null) {

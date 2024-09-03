@@ -374,7 +374,7 @@ public class LocalFileListFragment extends ExtendedListFragment implements
             new Handler().post(() -> {
                 mAdapter.notifyDataSetChanged();
                 if (mAdapter.getFilesCount() == 0) {
-                    setEmptyListMessage(SearchType.NO_SEARCH);
+                    setEmptyListMessage(SearchType.LOCAL_SEARCH);
                 }
             });
         }

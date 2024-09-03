@@ -493,6 +493,7 @@
     <string name="prefs_category_dev">Dispositivu</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Àteru</string>
+    <string name="prefs_category_sync">Sincronizatzione</string>
     <string name="prefs_daily_contact_backup_summary">Còpia de seguresa de is cuntatos ònnia die</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Pro mustrare sa menmònica ativa is credentziales de su dispositivu.</string>
@@ -660,6 +661,7 @@
     <string name="sub_folder_rule_year">Annu</string>
     <string name="subject_shared_with_you">\"%1$s\" dd\'ant cumpartzidu cun tegus</string>
     <string name="subject_user_shared_with_you">%1$s at cumpartzidu \"%2$s\" cun tegus</string>
+    <string name="sync">Sincronizatzione</string>
     <string name="sync_conflicts_in_favourites_ticker">Si sunt agatados cunflitos</string>
     <string name="sync_current_folder_was_removed">Sa cartella %1$s no esistit prus</string>
     <string name="sync_fail_content">No at fatu a sincronizare %1$s</string>

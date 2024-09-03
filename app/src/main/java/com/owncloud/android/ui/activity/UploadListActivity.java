@@ -34,7 +34,6 @@ import com.nextcloud.model.WorkerStateLiveData;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadListLayoutBinding;
 import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
@@ -140,7 +139,7 @@ public class UploadListActivity extends FileActivity {
 
     private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(this, state -> {
-            if (state instanceof WorkerState.Upload) {
+            if (state instanceof WorkerState.UploadStarted) {
                 Log_OC.d(TAG, "Upload worker started");
                 handleUploadWorkerState();
             }

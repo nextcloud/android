@@ -368,6 +368,7 @@
     <string name="file_list_empty_headline">Nenhum arquivo aqui</string>
     <string name="file_list_empty_headline_search">Nenhum resultado nesta pasta</string>
     <string name="file_list_empty_headline_server_search">Sem resultados</string>
+    <string name="file_list_empty_local_search">Nenhum arquivo ou pasta que corresponda à sua pesquisa</string>
     <string name="file_list_empty_moving">Não há nada aqui. Você pode adicionar uma pasta.</string>
     <string name="file_list_empty_on_device">Os arquivos e pastas baixados aparecerão aqui.</string>
     <string name="file_list_empty_recently_modified">Não foi encontrado nenhum arquivo modificado nos últimos 7 dias</string>
@@ -623,6 +624,7 @@
     <string name="prefs_category_dev">Desenvolvimento</string>
     <string name="prefs_category_general">Geral</string>
     <string name="prefs_category_more">Mais</string>
+    <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_daily_backup_summary">Backup diário do seu calendário e contatos</string>
     <string name="prefs_daily_contact_backup_summary">Backup diário de seus contatos</string>
     <string name="prefs_davx5_setup_error">Erro inesperado ao configurar o DAVx5 (anteriormente conhecido como DAVdroid)</string>
@@ -847,6 +849,7 @@
     <string name="subtitle_photos_videos">Fotos e vídeos</string>
     <string name="subtitle_videos_only">Somente vídeos</string>
     <string name="suggest">Sugerir </string>
+    <string name="sync">Sincronizar</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflitos encontrados</string>
     <string name="sync_current_folder_was_removed">A pasta %1$s não existe mais</string>
     <string name="sync_fail_content">Não foi possível sincronizar %1$s</string>

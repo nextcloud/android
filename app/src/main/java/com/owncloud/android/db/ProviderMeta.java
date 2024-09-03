@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 82;
+    public static final int DB_VERSION = 84;
 
     private ProviderMeta() {
         // No instance
@@ -120,6 +120,8 @@ public class ProviderMeta {
         public static final String FILE_LOCK_TOKEN = "lock_token";
         public static final String FILE_TAGS = "tags";
         public static final String FILE_E2E_COUNTER = "e2e_counter";
+        public static final String FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP = "internal_two_way_sync_timestamp";
+        public static final String FILE_INTERNAL_TWO_WAY_SYNC_RESULT = "internal_two_way_sync_result";
 
         public static final List<String> FILE_ALL_COLUMNS = Collections.unmodifiableList(Arrays.asList(
                 _ID,
@@ -171,7 +173,9 @@ public class ProviderMeta {
                 FILE_METADATA_LIVE_PHOTO,
                 FILE_E2E_COUNTER,
                 FILE_TAGS,
-                FILE_METADATA_GPS));
+                FILE_METADATA_GPS,
+                FILE_INTERNAL_TWO_WAY_SYNC_TIMESTAMP,
+                FILE_INTERNAL_TWO_WAY_SYNC_RESULT));
         public static final String FILE_DEFAULT_SORT_ORDER = FILE_NAME + " collate nocase asc";
 
         // Columns of ocshares table
@@ -259,6 +263,10 @@ public class ProviderMeta {
         public static final String CAPABILITIES_GROUPFOLDERS = "groupfolders";
         public static final String CAPABILITIES_DROP_ACCOUNT = "drop_account";
         public static final String CAPABILITIES_SECURITY_GUARD = "security_guard";
+        public static final String CAPABILITIES_FORBIDDEN_FILENAME_CHARACTERS = "forbidden_filename_characters";
+        public static final String CAPABILITIES_FORBIDDEN_FILENAMES = "forbidden_filenames";
+        public static final String CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS = "forbidden_filename_extensions";
+        public static final String CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES = "forbidden_filename_basenames";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";

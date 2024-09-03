@@ -462,6 +462,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 return true;
             });
 
+
         User account = accountManager.getUser();
         filterDrawerMenu(navigationView.getMenu(), account);
     }
@@ -1052,6 +1053,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         updateQuotaLink();
     }
 
+    public int getCheckedMenuItem() {
+        return mCheckedMenuItem;
+    }
+
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -1224,55 +1229,62 @@ public abstract class DrawerActivity extends ToolbarActivity
      * Retrieves external links via api from 'external' app
      */
     public void fetchExternalLinks(final boolean force) {
-        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
-            Thread t = new Thread(() -> {
-                // fetch capabilities as early as possible
-                if ((getCapabilities() == null || getCapabilities().getAccountName().isEmpty())
-                    && getStorageManager() != null) {
-                    GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
-                    getCapabilities.execute(getBaseContext());
-                }
+        if (!getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+            return;
+        }
 
-                User user = accountManager.getUser();
-                if (getStorageManager() != null && CapabilityUtils.getCapability(user, this)
-                    .getExternalLinks().isTrue()) {
+        User user = accountManager.getUser();
+        if (user.isAnonymous()) {
+            Log_OC.d(TAG, "Trying to execute a sync operation with a storage manager for an anonymous account");
+            return;
+        }
 
-                    int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL,
-                                                                      FileActivity.APP_OPENED_COUNT);
+        Thread t = new Thread(() -> {
+            // fetch capabilities as early as possible
+            if ((getCapabilities() == null || getCapabilities().getAccountName() != null && getCapabilities().getAccountName().isEmpty())
+                && getStorageManager() != null) {
+                GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
+                getCapabilities.execute(getBaseContext());
+            }
 
-                    if (count > 10 || count == -1 || force) {
-                        if (force) {
-                            Log_OC.d("ExternalLinks", "force update");
+            if (getStorageManager() != null && CapabilityUtils.getCapability(user, this)
+                .getExternalLinks().isTrue()) {
+
+                int count = arbitraryDataProvider.getIntegerValue(FilesSyncHelper.GLOBAL,
+                                                                  FileActivity.APP_OPENED_COUNT);
+
+                if (count > 10 || count == -1 || force) {
+                    if (force) {
+                        Log_OC.d("ExternalLinks", "force update");
+                    }
+
+                    arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
+                                                                FileActivity.APP_OPENED_COUNT, "0");
+
+                    Log_OC.d("ExternalLinks", "update via api");
+                    RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
+                    RemoteOperationResult result = getExternalLinksOperation.execute(user, this);
+
+                    if (result.isSuccess() && result.getData() != null) {
+                        externalLinksProvider.deleteAllExternalLinks();
+
+                        ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
+
+                        for (ExternalLink link : externalLinks) {
+                            externalLinksProvider.storeExternalLink(link);
                         }
-
-                        arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
-                                                                    FileActivity.APP_OPENED_COUNT, "0");
-
-                        Log_OC.d("ExternalLinks", "update via api");
-                        RemoteOperation getExternalLinksOperation = new ExternalLinksOperation();
-                        RemoteOperationResult result = getExternalLinksOperation.execute(user, this);
-
-                        if (result.isSuccess() && result.getData() != null) {
-                            externalLinksProvider.deleteAllExternalLinks();
-
-                            ArrayList<ExternalLink> externalLinks = (ArrayList<ExternalLink>) (Object) result.getData();
-
-                            for (ExternalLink link : externalLinks) {
-                                externalLinksProvider.storeExternalLink(link);
-                            }
-                        }
-                    } else {
-                        arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
-                                                                    FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
                     }
                 } else {
-                    externalLinksProvider.deleteAllExternalLinks();
-                    Log_OC.d("ExternalLinks", "links disabled");
+                    arbitraryDataProvider.storeOrUpdateKeyValue(FilesSyncHelper.GLOBAL,
+                                                                FileActivity.APP_OPENED_COUNT, String.valueOf(count + 1));
                 }
-                runOnUiThread(this::updateExternalLinksInDrawer);
-            });
-            t.start();
-        }
+            } else {
+                externalLinksProvider.deleteAllExternalLinks();
+                Log_OC.d("ExternalLinks", "links disabled");
+            }
+            runOnUiThread(this::updateExternalLinksInDrawer);
+        });
+        t.start();
     }
 
     protected void handleDeepLink(@NonNull Uri uri) {

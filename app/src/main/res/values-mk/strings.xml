@@ -487,6 +487,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Општо</string>
     <string name="prefs_category_more">Повеќе</string>
+    <string name="prefs_category_sync">Синхронизирај</string>
     <string name="prefs_daily_contact_backup_summary">Дневна резервна копија на вашите контакти</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">To show mnemonic please enable device credentials.</string>
@@ -647,6 +648,7 @@
     <string name="sub_folder_rule_year">Година</string>
     <string name="subject_shared_with_you">\"%1$s\" е споделено со тебе</string>
     <string name="subject_user_shared_with_you">%1$s сподели \"%2$s\" со тебе</string>
+    <string name="sync">Синхронизирај</string>
     <string name="sync_conflicts_in_favourites_ticker">Пронајден е конфликт</string>
     <string name="sync_current_folder_was_removed">Папката %1$s повеќе не постои </string>
     <string name="sync_fail_content">Неможе да се синхронизира %1$s</string>

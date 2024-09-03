@@ -11,6 +11,7 @@ import androidx.test.espresso.intent.rule.IntentsTestRule
 import androidx.test.internal.runner.junit4.statement.UiThreadStatement.runOnUiThread
 import com.nextcloud.test.TestActivity
 import com.owncloud.android.AbstractIT
+import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Rule
 import org.junit.Test

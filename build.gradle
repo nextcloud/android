@@ -10,25 +10,25 @@
  */
 buildscript {
     ext {
-        androidLibraryVersion ="a02f9679bb6f743e7d124a4ee0f57e875bbd1035"
-        androidPluginVersion = '8.5.1'
+        androidLibraryVersion ="a4d86ef9d1"
+        androidPluginVersion = '8.5.2'
         androidxMediaVersion = '1.4.0'
         androidxTestVersion = "1.6.1"
         appCompatVersion = '1.7.0'
         checkerVersion = "3.21.2"
-        daggerVersion = "2.51.1"
+        daggerVersion = "2.52"
         documentScannerVersion = "1.1.1"
         espressoVersion = "3.6.1"
         fidoVersion = "4.1.0-patch2"
         jacoco_version = '0.8.12'
-        kotlin_version = '2.0.0'
+        kotlin_version = '2.0.20'
         markwonVersion = "4.6.2"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
         mockkVersion = "1.13.12"
         prismVersion = "2.0.0"
         roomVersion = "2.6.1"
-        workRuntime = "2.9.0"
+        workRuntime = "2.9.1"
 
         ciBuild = System.getenv("CI") == "true"
         shotTest = System.getenv("SHOT_TEST") == "true"

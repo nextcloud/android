@@ -590,6 +590,7 @@
     <string name="prefs_category_dev">Udvikling</string>
     <string name="prefs_category_general">Generel</string>
     <string name="prefs_category_more">Mere</string>
+    <string name="prefs_category_sync">Synkronisér</string>
     <string name="prefs_daily_backup_summary">Daglig backup af din kalender og kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup af dine kontakter</string>
     <string name="prefs_davx5_setup_error">Uventet fejl under opsætning af DAVx5 (tidligere kendt som DAVdroid)</string>
@@ -805,6 +806,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="subtitle_photos_videos">Billeder og videoer</string>
     <string name="subtitle_videos_only">Kun videoer</string>
     <string name="suggest">Foreslå</string>
+    <string name="sync">Synkronisér</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter fundet</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s eksistere ikke længere</string>
     <string name="sync_fail_content">Kunne ikke synkronisere %1$s</string>

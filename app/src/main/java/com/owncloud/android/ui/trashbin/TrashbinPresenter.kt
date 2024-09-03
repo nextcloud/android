@@ -43,16 +43,18 @@ class TrashbinPresenter(
         }
     }
 
-    override fun loadFolder() {
+    override fun loadFolder(onCompleted: () -> Unit, onError: () -> Unit) {
         trashbinRepository.getFolder(
             currentPath,
             object : LoadFolderCallback {
                 override fun onSuccess(files: List<TrashbinFile?>?) {
                     trashbinView.showTrashbinFolder(files)
+                    onCompleted()
                 }
 
                 override fun onError(error: Int) {
                     trashbinView.showError(error)
+                    onError()
                 }
             }
         )

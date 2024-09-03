@@ -623,6 +623,7 @@
     <string name="prefs_category_dev">Разрабатываемая версия</string>
     <string name="prefs_category_general">Основные</string>
     <string name="prefs_category_more">Больше</string>
+    <string name="prefs_category_sync">Синхронизировать</string>
     <string name="prefs_daily_backup_summary">Ежедневное резервное копирование календаря и контактов</string>
     <string name="prefs_daily_contact_backup_summary">Ежедневное сохранение контактов</string>
     <string name="prefs_davx5_setup_error">Неожиданная ошибка при настройке DAVx5 (ранее известного как DAVdroid)</string>
@@ -669,6 +670,7 @@
     <string name="preview_image_description">Предпросмотр</string>
     <string name="preview_image_error_no_local_file">Отсутствует локальный файл для создания миниатюры</string>
     <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
+    <string name="preview_image_file_is_not_downloaded">Файл не скачан</string>
     <string name="preview_image_file_is_not_exist">Файл не существует</string>
     <string name="preview_media_unhandled_http_code_message">Файл в настоящее время заблокирован другим пользователем или процессом и поэтому не может быть удален. Пожалуйста, повторите попытку позже.</string>
     <string name="preview_sorry">Приносим извинения</string>
@@ -679,6 +681,7 @@
     <string name="push_notifications_temp_error">Всплывающие уведомления недоступны</string>
     <string name="qr_could_not_be_read">Не удалось считать QR-код!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Папка не может быть найдена, операция синхронизации отменена</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Невозможно найти файл для загрузки</string>
     <string name="recommend_subject">Испытайте %1$s на своём устройстве!</string>
     <string name="recommend_text">Хочу посоветовать использовать %1$s на твоём устройстве!\nСкачай здесь: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
@@ -844,6 +847,7 @@
     <string name="subtitle_photos_videos">Фото и видео</string>
     <string name="subtitle_videos_only">Только видео</string>
     <string name="suggest">Посоветовать</string>
+    <string name="sync">Синхронизировать</string>
     <string name="sync_conflicts_in_favourites_ticker">Обнаружены конфликты</string>
     <string name="sync_current_folder_was_removed">Каталог %1$s больше не существует</string>
     <string name="sync_fail_content">Не удалось синхронизировать «%1$s»</string>

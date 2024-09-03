@@ -46,8 +46,11 @@
     <string name="assistant_screen_failed_task_text">失敗</string>
     <string name="assistant_screen_loading">タスクリストを読み込み中です。しばらくお待ちください</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">利用可能なタスクがありません。タスクの種類を選択して、新しいタスクを作成してください。</string>
+    <string name="assistant_screen_no_task_available_text">タスクタイプ%sに使用できるタスクがありません。右下から新しいタスクを作成できます。</string>
+    <string name="assistant_screen_running_task_text">進行中</string>
     <string name="assistant_screen_scheduled_task_status_text">スケジュール済</string>
     <string name="assistant_screen_successful_task_text">完了</string>
+    <string name="assistant_screen_task_create_fail_message">タスクの作成中にエラーが発生しました。</string>
     <string name="assistant_screen_task_create_success_message">タスクは正常に作成されました。</string>
     <string name="assistant_screen_task_delete_fail_message">タスクの削除中にエラーが発生しました。</string>
     <string name="assistant_screen_task_delete_success_message">タスクは正常に削除されました。</string>
@@ -89,6 +92,8 @@
     <string name="auth_unsupported_multiaccount">%1$s は複数アカウントをサポートしていません</string>
     <string name="auth_wrong_connection_title">接続を確立できませんでした</string>
     <string name="authenticator_activity_cancel_login">ログインをキャンセル</string>
+    <string name="authenticator_activity_login_error">ログイン要求の処理中に問題が発生しました。しばらくたってからもう一度お試しください。</string>
+    <string name="authenticator_activity_please_complete_login_process">ブラウザでログインプロセスを完了してください</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">読み取り専用のため元のフォルダに残しました</string>
     <string name="auto_upload_on_wifi">定額制 Wi-Fi でのみアップロード</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -173,6 +178,7 @@
     <string name="confirmation_remove_folder_alert">本当に %1$s を中身も一緒に削除しますか？</string>
     <string name="confirmation_remove_folders_alert">本当に選択したアイテムとその内容を削除しますか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
+    <string name="conflict_dialog_error">競合解決ダイアログを作成できません</string>
     <string name="conflict_file_headline">%1$sはすでに存在します</string>
     <string name="conflict_local_file">ローカルファイル</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
@@ -205,6 +211,7 @@
     <string name="create_new_presentation">新規プレゼンテーション</string>
     <string name="create_new_spreadsheet">新規スプレッドシート</string>
     <string name="create_rich_workspace">フォルダの説明を追加</string>
+    <string name="creates_rich_workspace">フォルダーの説明を追加</string>
     <string name="credentials_disabled">資格情報が無効です</string>
     <string name="daily_backup">毎日のバックアップ</string>
     <string name="data_to_back_up">バックアップするデータ</string>
@@ -241,11 +248,15 @@
     <string name="downloader_download_failed_credentials_error">ダウンロード失敗、要 再ログイン</string>
     <string name="downloader_download_failed_ticker">ダウンロードに失敗</string>
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
+    <string name="downloader_download_in_progress">%1$d%%　%2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% ダウンロード中 %2$s</string>
     <string name="downloader_download_in_progress_ticker">ダウンロード中…</string>
     <string name="downloader_download_succeeded_content">%1$s は正常にダウンロードされました</string>
     <string name="downloader_download_succeeded_ticker">ダウンロード済</string>
+    <string name="downloader_file_download_cancelled">ユーザーのダウンロード中に一部のファイルがキャンセルされました</string>
+    <string name="downloader_file_download_failed">ファイルのダウンロード中にエラーが発生しました</string>
     <string name="downloader_not_downloaded_yet">未ダウンロード</string>
+    <string name="downloader_unexpected_error">ファイルのダウンロード中に予期しないエラーが発生しました</string>
     <string name="drawer_close">サイドバーを閉じる</string>
     <string name="drawer_community">コミュニティ</string>
     <string name="drawer_header_background">ドロワーヘッダーの背景イメージ</string>
@@ -254,9 +265,11 @@
     <string name="drawer_item_assistant">アシスタント</string>
     <string name="drawer_item_favorites">お気に入り</string>
     <string name="drawer_item_gallery">メディア</string>
+    <string name="drawer_item_groupfolders">グループフォルダー</string>
     <string name="drawer_item_home">ホーム</string>
     <string name="drawer_item_notifications">通知</string>
     <string name="drawer_item_on_device">デバイス上</string>
+    <string name="drawer_item_personal_files">個人ファイル</string>
     <string name="drawer_item_recently_modified">最近更新</string>
     <string name="drawer_item_shared">共有中</string>
     <string name="drawer_item_trashbin">ゴミ箱</string>
@@ -275,6 +288,7 @@
     <string name="ecosystem_apps_more">もっと Nextcloud アプリを見る</string>
     <string name="ecosystem_apps_notes">Nextcloud ノート</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">メールアドレスの選択に失敗しました。</string>
     <string name="encrypted">暗号化設定</string>
     <string name="end_to_end_encryption_confirm_button">暗号化を設定する</string>
     <string name="end_to_end_encryption_decrypting">復号化中…</string>
@@ -299,6 +313,7 @@
     <string name="error_comment_file">コメントファイルのエラー</string>
     <string name="error_crash_title">%1$s はクラッシュしました</string>
     <string name="error_creating_file_from_template">テンプレートからファイルを作成中にエラーが発生しました</string>
+    <string name="error_file_actions">ファイル表示操作でエラーが発生しました</string>
     <string name="error_file_lock">ファイルのロック状態変更エラー</string>
     <string name="error_report_issue_action">報告</string>
     <string name="error_report_issue_text">問題を報告しますか？ (GitHubのアカウントが必要です)</string>
@@ -307,7 +322,9 @@
     <string name="error_showing_encryption_dialog">暗号化設定ダイアログの表示エラー</string>
     <string name="error_starting_direct_camera_upload">カメラ起動エラー</string>
     <string name="error_starting_doc_scan">文書スキャンの開始エラー</string>
+    <string name="error_uploading_direct_camera_upload">撮影したメディアのアップロードに失敗しました</string>
     <string name="etm_accounts">アカウント</string>
+    <string name="etm_background_execution_count">48時間以内に実行される回数</string>
     <string name="etm_background_job_created">作成時刻</string>
     <string name="etm_background_job_name">ジョブの名前</string>
     <string name="etm_background_job_progress">進捗状況</string>
@@ -337,6 +354,7 @@
     <string name="failed_update_ui">UIの更新に失敗しました</string>
     <string name="favorite">お気に入りに追加</string>
     <string name="favorite_icon">お気に入り</string>
+    <string name="file_activity_shared_file_cannot_be_updated">共有ファイルは更新できません</string>
     <string name="file_already_exists">ファイル名が既に存在します</string>
     <string name="file_delete">削除</string>
     <string name="file_detail_activity_error">ファイルのアクティビティ取得エラー</string>
@@ -350,6 +368,7 @@
     <string name="file_list_empty_headline">ここにファイルはありません</string>
     <string name="file_list_empty_headline_search">このフォルダーに該当はありません</string>
     <string name="file_list_empty_headline_server_search">該当なし</string>
+    <string name="file_list_empty_local_search">検索条件に一致するファイルやフォルダーがありません</string>
     <string name="file_list_empty_moving">何もありません。フォルダーを追加してください。</string>
     <string name="file_list_empty_on_device">ダウンロードされたファイルやフォルダーがここに表示されます。</string>
     <string name="file_list_empty_recently_modified">ここ7日間に更新されたファイルが見つかりません</string>
@@ -390,6 +409,7 @@
     <string name="file_not_found">ファイルが見つかりません</string>
     <string name="file_not_synced">ファイルを同期できませんでした。 最新の利用可能なバージョンを表示します。</string>
     <string name="file_rename">名前を変更</string>
+    <string name="file_upload_worker_same_file_already_exists">同じファイルがすでに存在します、競合は検出されませんでした</string>
     <string name="file_version_restored_error">ファイルバージョンの復元中にエラーが発生しました。</string>
     <string name="file_version_restored_successfully">ファイルバージョンが正常に復元されました。</string>
     <string name="filedetails_details">詳細</string>
@@ -403,6 +423,9 @@
     <string name="filename_forbidden_charaters_from_server">ファイル名に使用できない文字が含まれています</string>
     <string name="filename_hint">ファイル名</string>
     <string name="first_run_1_text">あなたのデータをセキュアなままコントロールしましょう</string>
+    <string name="first_run_2_text">セキュアに共同作業とファイル交換</string>
+    <string name="first_run_3_text">使いやすいウェブメール、カレンダー、連絡先</string>
+    <string name="first_run_4_text">画面共有、オンライン会議とWeb会議</string>
     <string name="folder_already_exists">フォルダーはすでに存在します</string>
     <string name="folder_confirm_create">作成</string>
     <string name="folder_list_empty_headline">フォルダーがありません</string>
@@ -424,13 +447,17 @@
     <string name="foreign_files_success">全ファイル移動済</string>
     <string name="forward">転送</string>
     <string name="fourHours">4時間</string>
+    <string name="gplay_restriction">GoogleがAPK/AABファイルのダウンロードを制限！</string>
+    <string name="grid_file_features_live_photo_content_description">このアイコンはライブ写真の有無を示します</string>
     <string name="hidden_file_name_warning">名前を付けると隠しファイルになります</string>
     <string name="hint_name">名前</string>
     <string name="hint_note">ノート</string>
     <string name="hint_password">パスワード</string>
     <string name="host_not_available">サーバーが利用できません</string>
     <string name="host_your_own_server">自分のサーバーをホストする</string>
+    <string name="icon_for_empty_list">空リストのアイコン</string>
     <string name="icon_of_dashboard_widget">ダッシュボードウィジェットのアイコン</string>
+    <string name="icon_of_widget_entry">ウィジェットエントリのアイコン</string>
     <string name="image_editor_file_edited_suffix">編集された</string>
     <string name="image_editor_flip_horizontal">左右反転</string>
     <string name="image_editor_flip_vertical">上下反転</string>
@@ -438,6 +465,8 @@
     <string name="image_editor_rotate_cw">時計回りに回す</string>
     <string name="image_editor_unable_to_edit_image">画像の編集が不可能です</string>
     <string name="image_preview_filedetails">ファイルの詳細</string>
+    <string name="image_preview_image_taking_conditions">画像の撮影条件</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
@@ -484,6 +513,7 @@
     <string name="manage_space_clear_data">データのクリア</string>
     <string name="manage_space_description">%1$s のデータから 設定、データベース、サーバー証明書が完全に削除されます。\n\n ダウンロードされたファイルはそのまま残ります。\n\n 実行中はしばらく時間がかかります。</string>
     <string name="manage_space_title">管理領域</string>
+    <string name="max_file_count_warning_message">ファイルアップロードの上限に達しました。一度にアップロードできるファイルは500ファイル以下にしてください。</string>
     <string name="media_err_invalid_progressive_playback">このメディアファイルはストリーミングできません</string>
     <string name="media_err_io">メディアファイルを読み込めません</string>
     <string name="media_err_malformed">不正なエンコードのメディアファイルです</string>
@@ -594,6 +624,7 @@
     <string name="prefs_category_dev">開発者</string>
     <string name="prefs_category_general">一般</string>
     <string name="prefs_category_more">もっと見る</string>
+    <string name="prefs_category_sync">同期</string>
     <string name="prefs_daily_backup_summary">カレンダーと連絡先を毎日バックアップ</string>
     <string name="prefs_daily_contact_backup_summary">連絡先のデイリーバックアップ</string>
     <string name="prefs_e2e_active">End-to-end 暗号化を設定中！</string>
@@ -794,6 +825,7 @@
     <string name="subtitle_photos_videos">写真とビデオ</string>
     <string name="subtitle_videos_only">動画のみ</string>
     <string name="suggest">提案</string>
+    <string name="sync">同期</string>
     <string name="sync_conflicts_in_favourites_ticker">競合が見つかりました</string>
     <string name="sync_current_folder_was_removed">フォルダー %1$s はもう存在しません</string>
     <string name="sync_fail_content">%1$s を同期できませんでした</string>
@@ -899,6 +931,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">ファイルをソースフォルダーに保持</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ファイルをソースフォルダーから削除</string>
     <string name="uploader_upload_forbidden_permissions">このフォルダにアップロードする</string>
+    <string name="uploader_upload_in_progress">%1$d%%　%2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% アップロード中 %2$s</string>
     <string name="uploader_upload_in_progress_ticker">アップロード中…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s は正常にアップロードされました</string>

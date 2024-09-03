@@ -406,6 +406,7 @@
     <string name="prefs_category_details">Detalles</string>
     <string name="prefs_category_general">Xeneral</string>
     <string name="prefs_category_more">Más</string>
+    <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_help">Ayuda</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Usar socarpetes</string>
     <string name="prefs_license">Llicencia</string>
@@ -535,6 +536,7 @@
     <string name="subtitle_photos_videos">Semeyes y vídeos</string>
     <string name="subtitle_videos_only">Namás los vídeos</string>
     <string name="suggest">Suxerir</string>
+    <string name="sync">Sincronizar</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflictos alcontraos</string>
     <string name="sync_current_folder_was_removed">La carpeta %1$s yá nun esiste</string>
     <string name="sync_fail_content">Nun se pudo sincronizar «%1$s»</string>

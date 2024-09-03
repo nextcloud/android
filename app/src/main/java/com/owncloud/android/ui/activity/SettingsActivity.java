@@ -64,7 +64,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.providers.DocumentsStorageProvider;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
-import com.owncloud.android.ui.dialog.SetupEncryptionDialogFragment;
+import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.ClipboardUtil;
 import com.owncloud.android.utils.DeviceCredentialUtils;
@@ -171,6 +171,9 @@ public class SettingsActivity extends PreferenceActivity
         // Details
         setupDetailsCategory(preferenceScreen);
 
+        // Sync
+        setupSyncCategory();
+        
         // More
         setupMoreCategory();
 
@@ -310,12 +313,18 @@ public class SettingsActivity extends PreferenceActivity
             }
         }
     }
+    
+    private void setupSyncCategory() {
+        final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
+        viewThemeUtils.files.themePreferenceCategory(preferenceCategorySync);
+
+        setupAutoUploadPreference(preferenceCategorySync);
+        setupInternalTwoWaySyncPreference(preferenceCategorySync);
+    }
 
     private void setupMoreCategory() {
         final PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
         viewThemeUtils.files.themePreferenceCategory(preferenceCategoryMore);
-
-        setupAutoUploadPreference(preferenceCategoryMore);
 
         setupCalendarPreference(preferenceCategoryMore);
 
@@ -547,6 +556,16 @@ public class SettingsActivity extends PreferenceActivity
                 return true;
             });
         }
+    }
+    
+    private void setupInternalTwoWaySyncPreference(PreferenceCategory preferenceCategorySync) {
+        Preference twoWaySync = findPreference("internal_two_way_sync");
+        
+        twoWaySync.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(this, InternalTwoWaySyncActivity.class);
+            startActivity(intent);
+            return true;
+        });
     }
 
     private void setupBackupPreference() {

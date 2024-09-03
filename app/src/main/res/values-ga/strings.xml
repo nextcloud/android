@@ -279,8 +279,11 @@
     <string name="drawer_quota">Úsáideadh %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s in úsáid</string>
     <string name="drawer_synced_folders">Uaslódáil uathoibríoch</string>
+    <string name="e2e_counter_too_old">Tá cuntar ró-shean</string>
+    <string name="e2e_hash_not_found">Níor aimsíodh hash</string>
     <string name="e2e_not_yet_setup">E2E gan socrú fós</string>
     <string name="e2e_offline">Ní féidir gan nasc idirlín</string>
+    <string name="e2e_signature_does_not_match">Ní hionann an síniú</string>
     <string name="ecosystem_apps_display_assistant">Cúntóir</string>
     <string name="ecosystem_apps_display_more">Tuilleadh</string>
     <string name="ecosystem_apps_display_notes">Nótaí</string>
@@ -368,6 +371,7 @@
     <string name="file_list_empty_headline">Níl aon chomhaid anseo</string>
     <string name="file_list_empty_headline_search">Níl aon torthaí san fhillteán seo</string>
     <string name="file_list_empty_headline_server_search">Gan torthaí</string>
+    <string name="file_list_empty_local_search">Níl aon chomhad nó fillteán ag teacht le do chuardach</string>
     <string name="file_list_empty_moving">Ní dhéanfaidh aon ní anseo. Is féidir leat fillteán a chur leis.</string>
     <string name="file_list_empty_on_device">Taispeánfar comhaid agus fillteáin íosluchtaithe anseo.</string>
     <string name="file_list_empty_recently_modified">Níor aimsíodh aon chomhad a athraíodh le 7 lá anuas</string>
@@ -405,6 +409,14 @@
     <string name="file_migration_updating_index">Innéacs á nuashonrú…</string>
     <string name="file_migration_use_data_folder">Úsáid</string>
     <string name="file_migration_waiting_for_unfinished_sync">Ag feitheamh ar shioncronú iomlán…</string>
+    <string name="file_name_validator_current_path_is_invalid">Tá ainm an fhillteáin reatha neamhbhailí, le do thoil athainmnigh an fillteán. Atreorú chuig an fhréamh</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Tá ainmneacha forchoimeádta nó carachtar neamhbhailí i gcosán an fhillteáin</string>
+    <string name="file_name_validator_error_ends_with_space_period">Críochnaíonn an t-ainm le spás nó le peiriad</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">Is iarmhír toirmiscthe comhaid é %s</string>
+    <string name="file_name_validator_error_invalid_character">Tá carachtar neamhbhailí san ainm: %s</string>
+    <string name="file_name_validator_error_reserved_names">Is ainm toirmiscthe é %s</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Athainmnigh an comhad le do thoil roimh é a bhogadh nó a chóipeáil</string>
+    <string name="file_name_validator_upload_content_error">Ní féidir roinnt inneachair a uaslódáil toisc go bhfuil ainmneacha forchoimeádta nó carachtar neamhbhailí ann</string>
     <string name="file_not_found">Comhad gan aimsiú</string>
     <string name="file_not_synced">Níorbh fhéidir an comhad a shioncronú. Ag taispeáint an leagan is déanaí atá ar fáil.</string>
     <string name="file_rename">Athainmnigh</string>
@@ -428,6 +440,7 @@
     <string name="folder_already_exists">Tá fillteán ann cheana féin</string>
     <string name="folder_confirm_create">Cruthaigh</string>
     <string name="folder_list_empty_headline">Níl fillteáin anseo</string>
+    <string name="folder_name_empty">Ní féidir ainm fillteáin a bheith folamh</string>
     <string name="folder_picker_choose_button_text">Roghnaigh</string>
     <string name="folder_picker_choose_caption_text">Roghnaigh fillteán sprice</string>
     <string name="folder_picker_copy_button_text">Cóipeáil</string>
@@ -474,6 +487,8 @@
     <string name="instant_upload_existing">Uaslódáil comhaid atá ann cheana féin freisin</string>
     <string name="instant_upload_on_charging">Íoslódáil ach amháin nuair a mhuirearú</string>
     <string name="instant_upload_path">/Uaslódáil Meandaracha</string>
+    <string name="internal_two_way_sync">Sioncronú inmheánach dhá bhealach</string>
+    <string name="internal_two_way_sync_not_yet">Níl go fóill, go luath le synced</string>
     <string name="invalid_url">URL neamhbhailí</string>
     <string name="invisible">Dofheicthe</string>
     <string name="label_empty">Ní féidir leis an lipéad a bheith folamh</string>
@@ -623,6 +638,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Ginearálta</string>
     <string name="prefs_category_more">Tuilleadh</string>
+    <string name="prefs_category_sync">Sioncrónaigh</string>
     <string name="prefs_daily_backup_summary">Cúltaca laethúil de do fhéilire agus do theagmhálaithe</string>
     <string name="prefs_daily_contact_backup_summary">Cúltaca laethúil de do theagmhálaithe</string>
     <string name="prefs_davx5_setup_error">Earráid gan choinne agus DAVx5 á shocrú (ar a dtugtaí DAVdroid roimhe seo)</string>
@@ -663,6 +679,7 @@
     <string name="prefs_synced_folders_local_path_title">Fillteán áitiúil</string>
     <string name="prefs_synced_folders_remote_path_title">Fillteán cianda</string>
     <string name="prefs_theme_title">Téama</string>
+    <string name="prefs_two_way_sync_summary">Bainistigh fillteáin inmheánacha le haghaidh sioncronaithe dhá bhealach</string>
     <string name="prefs_value_theme_dark">Dorcha</string>
     <string name="prefs_value_theme_light">Solas</string>
     <string name="prefs_value_theme_system">Lean an córas</string>
@@ -847,6 +864,7 @@
     <string name="subtitle_photos_videos">Grianghraif agus físeáin</string>
     <string name="subtitle_videos_only">Físeáin amháin</string>
     <string name="suggest">Mol</string>
+    <string name="sync">Sioncrónaigh</string>
     <string name="sync_conflicts_in_favourites_ticker">Coimhlint aimsithe</string>
     <string name="sync_current_folder_was_removed">Níl fillteán %1$s ann a thuilleadh</string>
     <string name="sync_fail_content">Níorbh fhéidir %1$s a shioncronú</string>

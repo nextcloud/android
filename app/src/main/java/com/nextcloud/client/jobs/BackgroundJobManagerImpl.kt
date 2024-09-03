@@ -84,6 +84,8 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
         const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
 
+        const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
+
         const val JOB_TEST = "test_job"
 
         const val MAX_CONTENT_TRIGGER_DELAY_MS = 10000L
@@ -646,5 +648,14 @@ internal class BackgroundJobManagerImpl(
             ExistingWorkPolicy.KEEP,
             request
         )
+    }
+
+    override fun scheduleInternal2WaySync() {
+        val request = periodicRequestBuilder(
+            jobClass = InternalTwoWaySyncWork::class,
+            jobName = JOB_INTERNAL_TWO_WAY_SYNC
+        ).build()
+
+        workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.KEEP, request)
     }
 }

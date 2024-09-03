@@ -279,8 +279,11 @@
     <string name="drawer_quota">%1$s von %2$s verwendet</string>
     <string name="drawer_quota_unlimited">%1$s verwendet</string>
     <string name="drawer_synced_folders">Automatisches Hochladen</string>
+    <string name="e2e_counter_too_old">Zähler ist zu alt</string>
+    <string name="e2e_hash_not_found">Hash nicht gefunden</string>
     <string name="e2e_not_yet_setup">E2E bislang nicht eingerichtet</string>
     <string name="e2e_offline">Ohne Internetverbindung nicht möglich</string>
+    <string name="e2e_signature_does_not_match">Signatur stimmt nicht überein</string>
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mehr</string>
     <string name="ecosystem_apps_display_notes">Notizen</string>
@@ -368,6 +371,7 @@
     <string name="file_list_empty_headline"> Keine Dateien vorhanden </string>
     <string name="file_list_empty_headline_search">Keine Ergebnisse in diesem Ordner</string>
     <string name="file_list_empty_headline_server_search">Keine Ergebnisse</string>
+    <string name="file_list_empty_local_search">Keine Datei oder Ordner entsprechen Ihrer Suche</string>
     <string name="file_list_empty_moving">Noch nichts vorhanden. Sie können einen Ordner hinzufügen.</string>
     <string name="file_list_empty_on_device">Heruntergeladene Dateien und Ordner werden hier angezeigt werden.</string>
     <string name="file_list_empty_recently_modified">Keine, innerhalb der letzten 7 Tage, geänderten Dateien gefunden</string>
@@ -405,6 +409,14 @@
     <string name="file_migration_updating_index">Aktualisiere Index…</string>
     <string name="file_migration_use_data_folder">Verwende bestehenden</string>
     <string name="file_migration_waiting_for_unfinished_sync">Warte auf die Fertigstellung aller Synchronisierungen …</string>
+    <string name="file_name_validator_current_path_is_invalid">Der aktuelle Ordnername ist unzulässig. Bitte benennen Sie den Ordner um. Weiterleitung zum Stammverzeichnis</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Der Ordnerpfad enthält reservierte Namen oder ungültige Zeichen</string>
+    <string name="file_name_validator_error_ends_with_space_period">Der Name endet mit einem Leerzeichen oder einem Punkt</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s ist eine unzulässige Dateierweiterung</string>
+    <string name="file_name_validator_error_invalid_character">Der Name enthält ein unzulässiges Zeichen: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s ist ein unzulässiger Name</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Bitte Datei umbenennen, bevor diese verschoben oder kopiert wird</string>
+    <string name="file_name_validator_upload_content_error">Einige Inhalte können nicht hochgeladen werden, da sie reservierte Namen oder unzulässige Zeichen enthalten</string>
     <string name="file_not_found">Datei nicht gefunden</string>
     <string name="file_not_synced">Die gewünschte Datei konnte nicht synchronisiert werden. Die letzte verfügbare Version wird angezeigt. </string>
     <string name="file_rename">Umbenennen</string>
@@ -428,6 +440,7 @@
     <string name="folder_already_exists">Ordner existiert bereits</string>
     <string name="folder_confirm_create">Erstellen</string>
     <string name="folder_list_empty_headline">Keine Ordner vorhanden</string>
+    <string name="folder_name_empty">Der Ordnername darf nicht leer sein</string>
     <string name="folder_picker_choose_button_text">Auswählen</string>
     <string name="folder_picker_choose_caption_text">Zielordner auswählen</string>
     <string name="folder_picker_copy_button_text">Kopieren</string>
@@ -474,6 +487,8 @@
     <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
+    <string name="internal_two_way_sync">Interne 2-Wege-Synchronisierung</string>
+    <string name="internal_two_way_sync_not_yet">Bislang nicht, aber in Kürze synchronisiert</string>
     <string name="invalid_url">Ungültige URL</string>
     <string name="invisible">Unsichtbar</string>
     <string name="label_empty">Bezeichnung darf nicht leer sein</string>
@@ -623,6 +638,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Allgemein</string>
     <string name="prefs_category_more">Mehr</string>
+    <string name="prefs_category_sync">Synchronisieren</string>
     <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender und Kontakte</string>
     <string name="prefs_daily_contact_backup_summary">Tägliche Sicherung Ihrer Kontakte</string>
     <string name="prefs_davx5_setup_error">Unerwarteter Fehler beim Einrichten von DAVx5 (früher bekannt als DAVdroid)</string>
@@ -663,6 +679,7 @@
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
     <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
     <string name="prefs_theme_title">Design</string>
+    <string name="prefs_two_way_sync_summary">Interne Ordner für 2-Wege-Synchronisierung verwalten</string>
     <string name="prefs_value_theme_dark">Dunkel</string>
     <string name="prefs_value_theme_light">Hell</string>
     <string name="prefs_value_theme_system">Systemvorgaben verwenden</string>
@@ -847,6 +864,7 @@
     <string name="subtitle_photos_videos">Fotos und Videos</string>
     <string name="subtitle_videos_only">Nur Videos</string>
     <string name="suggest">Vorschlagen</string>
+    <string name="sync">Synchronisieren</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikte gefunden</string>
     <string name="sync_current_folder_was_removed">Der Ordner %1$s existiert nicht mehr</string>
     <string name="sync_fail_content">Synchronisierung von %1$s konnte nicht abgeschlossen werden</string>

@@ -560,6 +560,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">Almennt</string>
     <string name="prefs_category_more">Meira</string>
+    <string name="prefs_category_sync">Samstilla</string>
     <string name="prefs_daily_contact_backup_summary">Daglegt öryggisafrit af tengiliðum</string>
     <string name="prefs_e2e_active">Enda-í-enda dulritun er virk!</string>
     <string name="prefs_e2e_mnemonic">E2E minnistækni</string>
@@ -760,6 +761,7 @@
     <string name="subtitle_photos_only">Einungis ljósmyndir</string>
     <string name="subtitle_videos_only">Einungis myndskeið</string>
     <string name="suggest">Stinga upp á</string>
+    <string name="sync">Samstilla</string>
     <string name="sync_conflicts_in_favourites_ticker">Árekstrar fundust</string>
     <string name="sync_current_folder_was_removed">Mappan %1$ser ekki lengur til</string>
     <string name="sync_fail_content">Gat ekki samstillt %1$s</string>

@@ -92,6 +92,7 @@
     <string name="auth_unsupported_multiaccount">%1$s birden çok hesabı desteklemiyor</string>
     <string name="auth_wrong_connection_title">Bağlantı kurulamadı</string>
     <string name="authenticator_activity_cancel_login">Oturum açmaktan vazgeç</string>
+    <string name="authenticator_activity_login_error">Oturum açma isteğiniz işlenirken bir sorun çıktı. Lütfen bir süre sonra yeniden deneyin.</string>
     <string name="authenticator_activity_please_complete_login_process">Lütfen oturum açma işlemini tarayıcınızdan tamamlayın</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
     <string name="auto_upload_on_wifi">Yalnızca kullanıma göre ücretlendirilmeyen kablosuz ağ üzerinden yüklensin</string>
@@ -278,12 +279,15 @@
     <string name="drawer_quota">%1$s / %2$s kullanıldı</string>
     <string name="drawer_quota_unlimited">%1$s kullanılıyor</string>
     <string name="drawer_synced_folders">Otomatik yükleme</string>
+    <string name="e2e_counter_too_old">Sayaç çok eski</string>
+    <string name="e2e_hash_not_found">Karma bulunamadı</string>
     <string name="e2e_not_yet_setup">Uçtan uca şifreleme henüz kurulmamış</string>
     <string name="e2e_offline">İnternet bağlantısı olmadan yapılamaz</string>
+    <string name="e2e_signature_does_not_match">İmza eşleşmiyor</string>
     <string name="ecosystem_apps_display_assistant">Yardımcı</string>
     <string name="ecosystem_apps_display_more">Diğer</string>
     <string name="ecosystem_apps_display_notes">Notlar</string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_display_talk">Konuş</string>
     <string name="ecosystem_apps_more">Diğer Nextcloud uygulamaları</string>
     <string name="ecosystem_apps_notes">Nextcloud Notlar</string>
     <string name="ecosystem_apps_talk">Nextcloud Sohbet</string>
@@ -321,6 +325,7 @@
     <string name="error_showing_encryption_dialog">Şifreleme kurulumu penceresi görüntülenirken sorun çıktı!</string>
     <string name="error_starting_direct_camera_upload">Kamera başlatılamadı</string>
     <string name="error_starting_doc_scan">Belge taramasına başlanırken sorun çıktı</string>
+    <string name="error_uploading_direct_camera_upload">Alınan ortam yüklenemedi</string>
     <string name="etm_accounts">Hesaplar</string>
     <string name="etm_background_execution_count">48 saat içindeki çalışmalar</string>
     <string name="etm_background_job_created">Oluşturulma</string>
@@ -352,6 +357,7 @@
     <string name="failed_update_ui">Kullanıcı arayüzü güncellenemedi</string>
     <string name="favorite">Sık kullanılanlara ekle</string>
     <string name="favorite_icon">Sık kullanılanlara ekle</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Paylaşılan dosya güncellenemedi</string>
     <string name="file_already_exists">Dosya adı zaten var</string>
     <string name="file_delete">Sil</string>
     <string name="file_detail_activity_error">Dosya işlemleri alınırken sorun çıktı</string>
@@ -365,6 +371,7 @@
     <string name="file_list_empty_headline">Burada herhangi bir dosya yok</string>
     <string name="file_list_empty_headline_search">Bu klasörde herhangi bir sonuç yok</string>
     <string name="file_list_empty_headline_server_search">Herhangi bir sonuç bulunamadı</string>
+    <string name="file_list_empty_local_search">Aramanıza uygun bir dosya ya da klasör bulunamadı</string>
     <string name="file_list_empty_moving">Burada bir şey yok. Bir klasör ekleyebilirsiniz!</string>
     <string name="file_list_empty_on_device">İndirilmiş dosya ve klasörler burada görüntülenir.</string>
     <string name="file_list_empty_recently_modified">Son 7 gün içinde düzenlenmiş bir dosya bulunamadı</string>
@@ -402,6 +409,14 @@
     <string name="file_migration_updating_index">Dizin güncelleniyor …</string>
     <string name="file_migration_use_data_folder">Kullanılsın</string>
     <string name="file_migration_waiting_for_unfinished_sync">Eşitleme işleminin tamamlanması bekleniyor …</string>
+    <string name="file_name_validator_current_path_is_invalid">Geçerli klasör adı geçersiz. Lütfen klasörü yeniden adlandırın. Kök klasöre yönlendiriliyorsunuz.</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Klasör yolunda ayrılmış adlar veya geçersiz karakterler var</string>
+    <string name="file_name_validator_error_ends_with_space_period">Ad bir boşluk ya da nokta ile bitiyor</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s dosya uzantısına izin verilmiyor.</string>
+    <string name="file_name_validator_error_invalid_character">Ad içinde geçersiz bir karakter var: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s adına izin verilmiyor</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Kopyalamadan ya da taşımadan önce lütfen dosyayı yeniden adlandırın</string>
+    <string name="file_name_validator_upload_content_error">Bazı içerikler, içinde ayrılmış adlar veya geçersiz karakterler bulunduğundan yüklenemedi</string>
     <string name="file_not_found">Dosya bulunamadı</string>
     <string name="file_not_synced">Dosya eşitlenemedi. Kullanılabilen son sürüm görüntüleniyor.</string>
     <string name="file_rename">Yeniden adlandır</string>
@@ -425,6 +440,7 @@
     <string name="folder_already_exists">Klasör zaten var</string>
     <string name="folder_confirm_create">Ekle</string>
     <string name="folder_list_empty_headline">Burada herhangi bir klasör yok</string>
+    <string name="folder_name_empty">Klasör adı boş olamaz</string>
     <string name="folder_picker_choose_button_text">Seçin</string>
     <string name="folder_picker_choose_caption_text">Hedef klasörü seçin</string>
     <string name="folder_picker_copy_button_text">Kopyala</string>
@@ -443,6 +459,7 @@
     <string name="foreign_files_success">Tüm dosyalar taşındı</string>
     <string name="forward">İlet</string>
     <string name="fourHours">4 saat</string>
+    <string name="gplay_restriction">Google APK/AAB dosyalarının indirilmesini kısıtlıyor!</string>
     <string name="grid_file_features_live_photo_content_description">Bu simge Live photo kullanılabilirliğini gösterir</string>
     <string name="hidden_file_name_warning">Bu ad gizli bir dosya oluşturacak</string>
     <string name="hint_name">Ad</string>
@@ -508,6 +525,7 @@
     <string name="manage_space_clear_data">Verileri temizle</string>
     <string name="manage_space_description">%1$s verilerinden ayarlar, veri tabanı ve sunucu sertifikaları kalıcı olarak silinecek. \n\nİndirilen dosyalara dokunulmayacak.\n\nBu işlem biraz zaman alabilir.</string>
     <string name="manage_space_title">Alan yönetimi</string>
+    <string name="max_file_count_warning_message">Yüklenebilecek dosya sayısı sınırına ulaştınız. Lütfen bir seferde 500 taneden az dosya yükleyin.</string>
     <string name="media_err_invalid_progressive_playback">Ortam dosyası akışı sağlanamadı</string>
     <string name="media_err_io">Ortam dosyası okunamadı</string>
     <string name="media_err_malformed">Ortam dosyası doğru şekilde kodlanmamış</string>
@@ -618,6 +636,7 @@
     <string name="prefs_category_dev">Geliştirici</string>
     <string name="prefs_category_general">Genel</string>
     <string name="prefs_category_more">Daha fazla</string>
+    <string name="prefs_category_sync">Eşitle</string>
     <string name="prefs_daily_backup_summary">Takvim ve kişilerinizin günlük yedeği</string>
     <string name="prefs_daily_contact_backup_summary">Kişilerinizin günlük yedeği</string>
     <string name="prefs_davx5_setup_error">DAVx5 (eski adıyla DAVdroid) kurulurken beklenmeyen bir sorun çıktı</string>
@@ -662,8 +681,10 @@
     <string name="prefs_value_theme_light">Açık</string>
     <string name="prefs_value_theme_system">Sistem ayarı</string>
     <string name="preview_image_description">Görsel ön izleme</string>
+    <string name="preview_image_downloading_image_for_edit">Görsel düzenleme ekranını başlatmak için indiriliyor. Lütfen bekleyin...</string>
     <string name="preview_image_error_no_local_file">Ön izlenebilecek bir yerel dosya yok</string>
     <string name="preview_image_error_unknown_format">Görsel görüntülenemedi</string>
+    <string name="preview_image_file_is_not_downloaded">Dosya indirilmedi</string>
     <string name="preview_image_file_is_not_exist">Dosya bulunamadı</string>
     <string name="preview_media_unhandled_http_code_message">Dosya şu anda başka bir kullanıcı veya işlem tarafından kilitlenmiş olduğundan silinemez. Lütfen bir süre sonra yeniden deneyin.</string>
     <string name="preview_sorry">Ne yazık ki</string>
@@ -674,6 +695,7 @@
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
     <string name="qr_could_not_be_read">QR kodu okunamadı!</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Klasör bulunamadı. Eşitleme işlemi iptal edildi</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">Yüklenecek dosya bulunamadı</string>
     <string name="recommend_subject">%1$s uygulamasını aygıtınız üzerinde deneyin!</string>
     <string name="recommend_text">Aygıtında %1$s kullanmanı öneriyorum!\nŞuradan indirebilirsin: %2$s</string>
     <string name="recommend_urls">%1$s ya da %2$s</string>
@@ -839,6 +861,7 @@
     <string name="subtitle_photos_videos">Fötoğraflar ve görüntüler</string>
     <string name="subtitle_videos_only">Yalnızca görüntüler</string>
     <string name="suggest">Öner</string>
+    <string name="sync">Eşitle</string>
     <string name="sync_conflicts_in_favourites_ticker">Çakışmalar bulundu</string>
     <string name="sync_current_folder_was_removed">%1$s klasörü artık yok</string>
     <string name="sync_fail_content">%1$s eşitlemesi tamamlanamadı</string>
@@ -881,6 +904,9 @@
     <string name="trashbin_file_remove">Kalıcı olarak sil</string>
     <string name="trashbin_loading_failed">Çöp kutusu yüklenemedi!</string>
     <string name="trashbin_not_emptied">Dosyalar kalıcı olarak silinemedi!</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Etkinlik bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
+    <string name="unified_search_fragment_contact_not_found">Kişi bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
+    <string name="unified_search_fragment_permission_needed">Arama sonuçlarını açmak için izinler gereklidir. Yoksa İnternet üzerine yönlendirilir…</string>
     <string name="unlock_file">Dosyanın kilidini aç</string>
     <string name="unread_comments">Okunmamış yorumlar var</string>
     <string name="unset_encrypted">Şifrelemeyi kaldır</string>
@@ -904,7 +930,10 @@
     <string name="upload_cannot_create_file">Yerel dosya oluşturulamadı</string>
     <string name="upload_chooser_title">Şuradan yükle …</string>
     <string name="upload_content_from_other_apps">Diğer uygulamalardan içerik yükle</string>
+    <string name="upload_direct_camera_photo">Fotoğraf</string>
+    <string name="upload_direct_camera_promt">Fotoğraf mı çekmek istiyorsunuz, yoksa video mu?</string>
     <string name="upload_direct_camera_upload">Kameradan yükle</string>
+    <string name="upload_direct_camera_video">Video</string>
     <string name="upload_file_dialog_filename">Dosya adı</string>
     <string name="upload_file_dialog_filetype">Dosya türü</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google haritalar kısayol dosyası(%s)</string>

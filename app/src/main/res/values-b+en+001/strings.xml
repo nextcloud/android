@@ -279,8 +279,11 @@
     <string name="drawer_quota">%1$s of %2$s used</string>
     <string name="drawer_quota_unlimited">%1$s used</string>
     <string name="drawer_synced_folders">Auto upload</string>
+    <string name="e2e_counter_too_old">Counter is too old</string>
+    <string name="e2e_hash_not_found">Hash not found</string>
     <string name="e2e_not_yet_setup">E2E not yet setup</string>
     <string name="e2e_offline">Not possible without internet connection</string>
+    <string name="e2e_signature_does_not_match">Signature does not match</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="ecosystem_apps_display_more">More</string>
     <string name="ecosystem_apps_display_notes">Notes</string>
@@ -368,6 +371,7 @@
     <string name="file_list_empty_headline">No files here</string>
     <string name="file_list_empty_headline_search">No results in this folder</string>
     <string name="file_list_empty_headline_server_search">No results</string>
+    <string name="file_list_empty_local_search">No file or folder matching your search</string>
     <string name="file_list_empty_moving">Nothing in here. You can add a folder.</string>
     <string name="file_list_empty_on_device">Downloaded files and folders will show up here.</string>
     <string name="file_list_empty_recently_modified">Found no files modified within the last 7 days</string>
@@ -405,6 +409,14 @@
     <string name="file_migration_updating_index">Updating index…</string>
     <string name="file_migration_use_data_folder">Use</string>
     <string name="file_migration_waiting_for_unfinished_sync">Awaiting full sync…</string>
+    <string name="file_name_validator_current_path_is_invalid">Current folder name is invalid, please rename the folder. Redirecting to root</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Folder path contains reserved names or invalid character</string>
+    <string name="file_name_validator_error_ends_with_space_period">Name ends with a space or a period</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s is a forbidden file extension</string>
+    <string name="file_name_validator_error_invalid_character">Name contains an invalid character: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s is a forbidden name</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Please rename the file before moving or copying</string>
+    <string name="file_name_validator_upload_content_error">Some contents cannot able to uploaded due to contains reserved names or invalid character</string>
     <string name="file_not_found">File not found</string>
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
@@ -428,6 +440,7 @@
     <string name="folder_already_exists">Folder already exists</string>
     <string name="folder_confirm_create">Create</string>
     <string name="folder_list_empty_headline">No folders here</string>
+    <string name="folder_name_empty">Folder name cannot be empty</string>
     <string name="folder_picker_choose_button_text">Choose</string>
     <string name="folder_picker_choose_caption_text">Choose target folder</string>
     <string name="folder_picker_copy_button_text">Copy</string>
@@ -474,6 +487,8 @@
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync">Internal two way sync</string>
+    <string name="internal_two_way_sync_not_yet">Not yet, soon to be synced</string>
     <string name="invalid_url">Invalid URL</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">Label cannot be empty</string>
@@ -623,6 +638,7 @@
     <string name="prefs_category_dev">Dev</string>
     <string name="prefs_category_general">General</string>
     <string name="prefs_category_more">More</string>
+    <string name="prefs_category_sync">Sync</string>
     <string name="prefs_daily_backup_summary">Daily backup of your calendar and contacts</string>
     <string name="prefs_daily_contact_backup_summary">Daily backup of your contacts</string>
     <string name="prefs_davx5_setup_error">Unexpected error while setting up DAVx5 (formerly known as DAVdroid)</string>
@@ -663,6 +679,7 @@
     <string name="prefs_synced_folders_local_path_title">Local folder</string>
     <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
     <string name="prefs_theme_title">Theme</string>
+    <string name="prefs_two_way_sync_summary">Manage internal folders for two way sync</string>
     <string name="prefs_value_theme_dark">Dark</string>
     <string name="prefs_value_theme_light">Light</string>
     <string name="prefs_value_theme_system">Follow system</string>
@@ -847,6 +864,7 @@
     <string name="subtitle_photos_videos">Photos and videos</string>
     <string name="subtitle_videos_only">Videos only</string>
     <string name="suggest">Suggest</string>
+    <string name="sync">Sync</string>
     <string name="sync_conflicts_in_favourites_ticker">Conflicts found</string>
     <string name="sync_current_folder_was_removed">The folder %1$s does not exist any more</string>
     <string name="sync_fail_content">Could not sync %1$s</string>

@@ -156,11 +156,11 @@ class FileDownloadWorker(
     }
 
     private fun setWorkerState(user: User?) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.Download(user, currentDownload))
+        WorkerStateLiveData.instance().setWorkState(WorkerState.DownloadStarted(user, currentDownload))
     }
 
     private fun setIdleWorkerState() {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.Idle(getCurrentFile()))
+        WorkerStateLiveData.instance().setWorkState(WorkerState.DownloadFinished(getCurrentFile()))
     }
 
     private fun removePendingDownload(accountName: String?) {

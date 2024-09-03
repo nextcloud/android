@@ -279,8 +279,11 @@
     <string name="drawer_quota">%1$s av %2$s brukt</string>
     <string name="drawer_quota_unlimited">%1$s brukt</string>
     <string name="drawer_synced_folders">Auto-opplasting</string>
+    <string name="e2e_counter_too_old">Telleren er for gammel</string>
+    <string name="e2e_hash_not_found">Hash ikke funnet</string>
     <string name="e2e_not_yet_setup">E2E er ikke satt opp enda</string>
     <string name="e2e_offline">Ikke mulig uten internettilkobling</string>
+    <string name="e2e_signature_does_not_match">Signatur samsvarer ikke</string>
     <string name="ecosystem_apps_display_assistant">Assistent</string>
     <string name="ecosystem_apps_display_more">Mer</string>
     <string name="ecosystem_apps_display_notes">Notater</string>
@@ -368,6 +371,7 @@
     <string name="file_list_empty_headline">Ingen filer her</string>
     <string name="file_list_empty_headline_search">Ingen resultater i denne mappen</string>
     <string name="file_list_empty_headline_server_search">Ingen resultater</string>
+    <string name="file_list_empty_local_search">Ingen fil eller mappe som samsvarer med søket ditt</string>
     <string name="file_list_empty_moving">Ingenting her. Du kan legge til en mappe!</string>
     <string name="file_list_empty_on_device">Nedlastede filer og mapper vil vises her.</string>
     <string name="file_list_empty_recently_modified">Fant ingen filer endret de siste 7 dagene</string>
@@ -405,6 +409,14 @@
     <string name="file_migration_updating_index">Oppdaterer indeks…</string>
     <string name="file_migration_use_data_folder">Bruk</string>
     <string name="file_migration_waiting_for_unfinished_sync">Venter på full synkronisering…</string>
+    <string name="file_name_validator_current_path_is_invalid">Gjeldende mappenavn er ugyldig, vennligst gi nytt navn til mappen. Omdirigerer til rot</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Mappebanen inneholder reserverte navn eller ugyldige tegn</string>
+    <string name="file_name_validator_error_ends_with_space_period">Navn slutter med et mellomrom eller et punktum</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s er en forbudt filtype</string>
+    <string name="file_name_validator_error_invalid_character">Navnet inneholder et ugyldig tegn: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s er et forbudt navn</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Gi nytt navn til filen før du flytter eller kopierer</string>
+    <string name="file_name_validator_upload_content_error">Noe innhold kan ikke lastes opp på grunn av inneholder reserverte navn eller ugyldige tegn</string>
     <string name="file_not_found">Finner ikke filen</string>
     <string name="file_not_synced">Kunne ikke synkronisere fil. Viser sist tilgjengelige versjon.</string>
     <string name="file_rename">Gi nytt navn</string>
@@ -428,6 +440,7 @@
     <string name="folder_already_exists">Mappe finnes allerede</string>
     <string name="folder_confirm_create">Opprett</string>
     <string name="folder_list_empty_headline">Ingen mapper her</string>
+    <string name="folder_name_empty">Mappenavnet kan ikke være tomt</string>
     <string name="folder_picker_choose_button_text">Velg</string>
     <string name="folder_picker_choose_caption_text">Velg målmappe</string>
     <string name="folder_picker_copy_button_text">Kopi</string>
@@ -623,6 +636,7 @@
     <string name="prefs_category_dev">Utvikling</string>
     <string name="prefs_category_general">Generelt</string>
     <string name="prefs_category_more">Mer</string>
+    <string name="prefs_category_sync">Synkroniser</string>
     <string name="prefs_daily_backup_summary">Daglig sikkerhetskopiering av din kalender og kontakter</string>
     <string name="prefs_daily_contact_backup_summary">Daglig sikkerhetskopiering av kontakter</string>
     <string name="prefs_davx5_setup_error">Uventet feil under oppsett av DAVx5 (tidligere kjent som DAVdroid)</string>
@@ -847,6 +861,7 @@
     <string name="subtitle_photos_videos">Bilder og videoer</string>
     <string name="subtitle_videos_only">Bare videoer</string>
     <string name="suggest">Foreslå</string>
+    <string name="sync">Synkroniser</string>
     <string name="sync_conflicts_in_favourites_ticker">Konflikter funnet</string>
     <string name="sync_current_folder_was_removed">Mappen %1$s finnes ikke lengre</string>
     <string name="sync_fail_content">Kunne ikke synkronisere %1$s</string>

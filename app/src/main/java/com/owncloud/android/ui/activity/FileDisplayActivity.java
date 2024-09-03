@@ -521,7 +521,8 @@ public class FileDisplayActivity extends FileActivity
         } else if (RESTART.equals(intent.getAction())) {
             finish();
             startActivity(intent);
-        } else // Verify the action and get the query
+        } else {
+            // Verify the action and get the query
             if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
                 setIntent(intent);
 
@@ -563,7 +564,10 @@ public class FileDisplayActivity extends FileActivity
 
                 setLeftFragment(new GroupfolderListFragment());
                 getSupportFragmentManager().executePendingTransactions();
+            } else {
+                handleOpenFileViaIntent(intent);
             }
+        }
     }
 
     private void onOpenFileIntent(Intent intent) {
@@ -1168,7 +1172,12 @@ public class FileDisplayActivity extends FileActivity
             setDrawerMenuItemChecked(R.id.nav_on_device);
             setupToolbar();
         } else {
-            setDrawerMenuItemChecked(R.id.nav_all_files);
+            int lastMenuItem = getCheckedMenuItem();
+            if (lastMenuItem == Menu.NONE) {
+                lastMenuItem = R.id.nav_all_files;
+            }
+
+            setDrawerMenuItemChecked(lastMenuItem);
             setupHomeSearchToolbarWithSortAndListButtons();
         }
     }
@@ -1581,11 +1590,13 @@ public class FileDisplayActivity extends FileActivity
 
     private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(this, state -> {
-            if (state instanceof WorkerState.Download) {
+            if (state instanceof WorkerState.DownloadStarted) {
                 Log_OC.d(TAG, "Download worker started");
                 handleDownloadWorkerState();
-            } else if (state instanceof WorkerState.Idle) {
+            } else if (state instanceof WorkerState.DownloadFinished) {
                 fileDownloadProgressListener = null;
+            } else if (state instanceof WorkerState.UploadFinished) {
+                refreshList();
             }
         });
     }
@@ -2340,7 +2351,6 @@ public class FileDisplayActivity extends FileActivity
     @Override
     protected void onRestart() {
         super.onRestart();
-
         checkForNewDevVersionNecessary(getApplicationContext());
     }
 
