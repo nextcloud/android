@@ -47,11 +47,10 @@ import javax.inject.Inject
 
 @UnstableApi
 class BackgroundPlayerService : MediaSessionService(), Injectable {
-    private var SESSION_COMMAND_ACTION_SEEK_BACK = "SESSION_COMMAND_ACTION_SEEK_BACK"
-    private var SESSION_COMMAND_ACTION_SEEK_FORWARD = "SESSION_COMMAND_ACTION_SEEK_FORWARD"
 
-    private var seekBackSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_BACK, Bundle.EMPTY)
-    private var seekForwardSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_FORWARD, Bundle.EMPTY)
+
+    private val seekBackSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_BACK, Bundle.EMPTY)
+    private val seekForwardSessionCommand = SessionCommand(SESSION_COMMAND_ACTION_SEEK_FORWARD, Bundle.EMPTY)
 
     val seekForward =
         CommandButton.Builder()
@@ -118,9 +117,6 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
 
                 val myCustomButtonsLayout =
                     ImmutableList.of(seekBackward, playPauseButton, seekForward)
-                println(seekBackward.displayName)
-                println(playPauseButton.displayName)
-                println(seekForward.displayName)
                 return myCustomButtonsLayout
             }
         })
@@ -132,7 +128,7 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
             withContext(Dispatchers.IO) {
                 nextcloudClient = clientFactory.createNextcloudClient(userAccountManager.user)
             }
-            nextcloudClient?.let {
+            nextcloudClient.let {
                 exoPlayer = createNextcloudExoplayer(this@BackgroundPlayerService, nextcloudClient)
                 mediaSession =
                     MediaSession.Builder(applicationContext, exoPlayer)
@@ -222,6 +218,8 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
     }
 
     companion object {
+        private const val SESSION_COMMAND_ACTION_SEEK_BACK = "SESSION_COMMAND_ACTION_SEEK_BACK"
+        private const val SESSION_COMMAND_ACTION_SEEK_FORWARD = "SESSION_COMMAND_ACTION_SEEK_FORWARD"
         const val RELEASE_MEDIA_SESSION_BROADCAST_ACTION = "com.nextcloud.client.media.RELEASE_MEDIA_SESSION"
         const val STOP_MEDIA_SESSION_BROADCAST_ACTION = "com.nextcloud.client.media.STOP_MEDIA_SESSION"
     }
