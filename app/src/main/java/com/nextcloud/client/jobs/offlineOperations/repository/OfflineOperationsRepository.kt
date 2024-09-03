@@ -74,10 +74,9 @@ class OfflineOperationsRepository(
                 nextOperation.parentOCFileId?.let { parentId ->
                     fileDataStorageManager.getFileById(parentId)?.let { ocFile ->
                         ocFile.decryptedRemotePath?.let { updatedPath ->
-                            val newParentPath = ocFile.parentRemotePath
                             val newPath = updatedPath + nextOperation.filename + pathSeparator
 
-                            if (newParentPath != nextOperation.parentPath || newPath != nextOperation.path) {
+                            if (newPath != nextOperation.path) {
                                 nextOperation.apply {
                                     type = when (type) {
                                         is OfflineOperationType.CreateFile -> (type as OfflineOperationType.CreateFile).copy(
@@ -90,7 +89,6 @@ class OfflineOperationsRepository(
 
                                         else -> type
                                     }
-                                    parentPath = newParentPath
                                     path = newPath
                                 }
                             } else {
@@ -104,7 +102,7 @@ class OfflineOperationsRepository(
     }
 
     override fun convertToOCFiles(fileId: Long): List<OCFile> =
-        getAllSubEntities(fileId).map { entity ->
+        dao.getSubEntitiesByParentOCFileId(fileId).map { entity ->
             OCFile(entity.path).apply {
                 mimeType = if (entity.type is OfflineOperationType.CreateFolder) {
                     MimeType.DIRECTORY

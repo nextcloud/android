@@ -19,6 +19,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -80,12 +81,14 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -738,6 +741,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim());
     }
 
+    private final int eTag = 0;
+
     /**
      * Change the adapted directory for a new one
      *
@@ -784,10 +789,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles = sortOrder.sortCloudFiles(mFiles);
             prepareListOfHiddenFiles();
             mergeOCFilesForLivePhoto();
+            mFilesAll.clear();
 
             // TODO check necessity of it
-            // addOfflineOperations(directory.getFileId());
-            mFilesAll.clear();
+            addOfflineOperations(directory.getFileId());
             mFilesAll.addAll(mFiles);
             currentDirectory = directory;
         } else {
@@ -802,28 +807,21 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void addOfflineOperations(long fileId) {
         List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles(fileId);
-        List<OCFile> filesToAdd = new ArrayList<>();
+        List<OCFile> newFiles;
 
-        for (OCFile offlineFile : offlineOperations) {
-            boolean shouldAdd = true;
-            Iterator<OCFile> iterator = mFiles.iterator();
-
-            if (iterator.hasNext()) {
-                do {
-                    OCFile file = iterator.next();
-                    if (Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())) {
-                        shouldAdd = false;
-                        break;
-                    }
-                } while (iterator.hasNext());
-            }
-
-            if (shouldAdd) {
-                filesToAdd.add(offlineFile);
-            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            newFiles = offlineOperations.stream()
+                .filter(offlineFile -> mFilesAll.stream()
+                    .noneMatch(file -> Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())))
+                .toList();
+        } else {
+            newFiles = offlineOperations.stream()
+                .filter(offlineFile -> mFilesAll.stream()
+                    .noneMatch(file -> Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())))
+                .collect(Collectors.toList());
         }
 
-        mFiles.addAll(filesToAdd);
+        mFilesAll.addAll(newFiles);
     }
 
     public void setData(List<Object> objects,
