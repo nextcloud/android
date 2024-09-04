@@ -215,15 +215,19 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
      * @param text the text to be displayed
      */
     protected final void showInfoBox(@StringRes int text) {
-        mInfoBox.setVisibility(View.VISIBLE);
-        mInfoBoxMessage.setText(text);
+        if (mInfoBox != null && mInfoBoxMessage != null) {
+            mInfoBox.setVisibility(View.VISIBLE);
+            mInfoBoxMessage.setText(text);
+        }
     }
 
     /**
      * Hides the toolbar's info box.
      */
     public final void hideInfoBox() {
-        mInfoBox.setVisibility(View.GONE);
+        if (mInfoBox != null) {
+            mInfoBox.setVisibility(View.GONE);
+        }
     }
 
     public void setPreviewImageVisibility(boolean isVisibility) {

@@ -152,7 +152,6 @@
     <string name="confirmation_remove_folder_alert">Esteu segur que voleu suprimir %1$s i els seus continguts?</string>
     <string name="confirmation_remove_folders_alert">Esteu segur que voleu suprimir els elements seleccionats i el seu contingut?</string>
     <string name="confirmation_remove_local">Només local</string>
-    <string name="conflict_file_headline">Fitxer en conflicte %1$s</string>
     <string name="conflict_local_file">Fitxer local</string>
     <string name="conflict_message_description">Si seleccioneu ambdues versions, s\'afegirà un numero al nom del fitxer local.</string>
     <string name="conflict_server_file">Fitxer del servidor</string>

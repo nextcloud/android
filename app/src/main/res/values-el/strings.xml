@@ -151,7 +151,6 @@
     <string name="confirmation_remove_folder_alert">Θέλετε σίγουρα να διαγράψετε το %1$s και τα περιεχόμενά του;</string>
     <string name="confirmation_remove_folders_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα και τα περιεχόμενά τους;</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
-    <string name="conflict_file_headline">Αρχείο σε αντίφαση %1$s</string>
     <string name="conflict_local_file">Τοπικό αρχείο</string>
     <string name="conflict_message_description">Εάν επιλέξετε και τις δύο εκδόσεις, στο όνομα του τοπικού αρχείου θα προστεθεί ένας αριθμός.</string>
     <string name="conflict_server_file">Αρχείο διακομιστή</string>

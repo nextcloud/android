@@ -148,7 +148,6 @@
     <string name="confirmation_remove_folder_alert">คุณต้องการลบ %1$s และเนื้อหาที่อยู่ในนั้นจริง ๆ หรือไม่?</string>
     <string name="confirmation_remove_folders_alert">คุณต้องการลบรายการที่เลือกและเนื้อหาที่อยู่ในนั้นจริง ๆ หรือไม่?</string>
     <string name="confirmation_remove_local">เฉพาะต้นทางเท่านั้น</string>
-    <string name="conflict_file_headline">ขัดขัดแย้งไฟล์ %1$s</string>
     <string name="conflict_local_file">ไฟล์ต้นทาง</string>
     <string name="conflict_message_description">ถ้าคุณเลือกทั้งสองรุ่น ชื่อของไฟล์ที่อยู่ในเครื่องจะมีตัวเลขเพิ่มเข้าไป</string>
     <string name="conflict_server_file">ไฟล์บนเซิร์ฟเวอร์</string>

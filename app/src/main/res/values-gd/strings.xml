@@ -137,7 +137,6 @@
     <string name="confirmation_remove_folder_alert">A bheil thu cinnteach gu bheil thu airson %1$s ’s a shusbaint a sguabadh às?</string>
     <string name="confirmation_remove_folders_alert">A bheil thu cinnteach gu bheil thu airson na nithean a thagh thu ’s an susbaint a sguabadh às?</string>
     <string name="confirmation_remove_local">Ionadail a-mhàin</string>
-    <string name="conflict_file_headline">Faidhle %1$s ann an còmhstri</string>
     <string name="conflict_message_description">Ma thaghas tu an dà thionndadh, thèid àireamh a chur ri ainm an fhaidhle ionadail.</string>
     <string name="contactlist_item_icon">Ìomhaigheag a’ chleachdaiche air liosta an luchd-aithne</string>
     <string name="contactlist_no_permission">Cha deach cead a thoirt ’s cha deach càil ion-phortadh.</string>

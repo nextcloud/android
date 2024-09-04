@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">¿Realmente desea eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="conflict_dialog_error">El diálogo de resolución de conflictos no puede ser creado</string>
-    <string name="conflict_file_headline">Archivo en conflicto %1$s</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si selecciona ambas versiones, se le agregará un número al nombre del archivo copiado.</string>
     <string name="conflict_server_file">Archivo del servidor</string>

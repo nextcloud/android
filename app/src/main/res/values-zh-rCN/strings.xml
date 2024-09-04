@@ -172,7 +172,6 @@
     <string name="confirmation_remove_folders_alert">确定删除选中项及其内容？</string>
     <string name="confirmation_remove_local">仅本地</string>
     <string name="conflict_dialog_error">无法创建冲突解决程序对话框</string>
-    <string name="conflict_file_headline">冲突文件 %1$s</string>
     <string name="conflict_local_file">本地文件</string>
     <string name="conflict_message_description">如果您选择两个版本，则本地文件的名称后面将附加一个数字。</string>
     <string name="conflict_server_file">服务器文件</string>

@@ -24,6 +24,7 @@ import com.nextcloud.client.onboarding.WhatsNewActivity;
 import com.nextcloud.client.widget.DashboardWidgetConfigurationActivity;
 import com.nextcloud.client.widget.DashboardWidgetProvider;
 import com.nextcloud.client.widget.DashboardWidgetService;
+import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.ImageDetailFragment;
 import com.nextcloud.ui.SetStatusDialogFragment;
@@ -312,6 +313,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract BootupBroadcastReceiver bootupBroadcastReceiver();
+
+    @ContributesAndroidInjector
+    abstract NetworkChangeReceiver networkChangeReceiver();
 
     @ContributesAndroidInjector
     abstract NotificationWork.NotificationReceiver notificationWorkBroadcastReceiver();

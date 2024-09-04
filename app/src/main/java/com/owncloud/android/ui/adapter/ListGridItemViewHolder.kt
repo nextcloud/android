@@ -9,6 +9,6 @@ package com.owncloud.android.ui.adapter
 
 import android.widget.TextView
 
-internal interface ListGridItemViewHolder : ListGridImageViewHolder {
+internal interface ListGridItemViewHolder : ListViewHolder {
     val fileName: TextView
 }

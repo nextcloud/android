@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">هل توَدُّ حقاً حذف العناصر المختارة وما يحتوّه؟</string>
     <string name="confirmation_remove_local">محلياً فقط</string>
     <string name="conflict_dialog_error">تعذّر إنشاء نافذة حوار حل التعارضات</string>
-    <string name="conflict_file_headline">ملف متضارب %1$s </string>
     <string name="conflict_local_file">ملف محلي</string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
     <string name="conflict_server_file">ملف على الخادم</string>

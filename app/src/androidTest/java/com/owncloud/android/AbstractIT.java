@@ -17,6 +17,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.NetworkOnMainThreadException;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -375,6 +376,11 @@ public abstract class AbstractIT {
 
     public void uploadOCUpload(OCUpload ocUpload) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
+            @Override
+            public boolean isNetworkAndServerAvailable() throws NetworkOnMainThreadException {
+                return false;
+            }
+
             @Override
             public boolean isConnected() {
                 return false;

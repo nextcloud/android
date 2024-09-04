@@ -178,7 +178,6 @@
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_local">로컬만</string>
     <string name="conflict_dialog_error">충돌 해결 프로그램 대화 상자를 만들 수 없습니다.</string>
-    <string name="conflict_file_headline">충돌하는 파일 %1$s</string>
     <string name="conflict_local_file">로컬 파일</string>
     <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
     <string name="conflict_server_file">서버 파일</string>

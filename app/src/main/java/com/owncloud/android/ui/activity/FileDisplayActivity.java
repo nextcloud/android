@@ -93,6 +93,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.activity.fileDisplayActivity.OfflineFolderConflictManager;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask;
@@ -171,6 +172,8 @@ public class FileDisplayActivity extends FileActivity
     public static final String LIST_GROUPFOLDERS = "LIST_GROUPFOLDERS";
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
+    public static final String FOLDER_SYNC_CONFLICT = "FOLDER_SYNC_CONFLICT";
+    public static final String FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS = "FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS";
 
     private FilesBinding binding;
 
@@ -278,6 +281,9 @@ public class FileDisplayActivity extends FileActivity
         initSyncBroadcastReceiver();
         observeWorkerState();
         registerRefreshFolderEventReceiver();
+
+        OfflineFolderConflictManager offlineFolderConflictManager = new OfflineFolderConflictManager(this);
+        offlineFolderConflictManager.registerRefreshSearchEventReceiver();
     }
 
     @SuppressWarnings("unchecked")
@@ -871,7 +877,7 @@ public class FileDisplayActivity extends FileActivity
                     if (hasEnoughSpaceAvailable) {
                         File file = new File(filesToUpload[0]);
                         File renamedFile;
-                        if(requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA) {
+                        if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA) {
                             renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedImageName());
                         } else {
                             renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedVideoName());
@@ -1315,7 +1321,6 @@ public class FileDisplayActivity extends FileActivity
 
                         Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
 
-
                         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
                         if (ocFileListFragment != null) {
                             ocFileListFragment.setLoading(mSyncInProgress);
@@ -1597,8 +1602,22 @@ public class FileDisplayActivity extends FileActivity
                 fileDownloadProgressListener = null;
             } else if (state instanceof WorkerState.UploadFinished) {
                 refreshList();
+            } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
+                refreshCurrentDirectory();
             }
         });
+    }
+
+    public void refreshCurrentDirectory() {
+        OCFile currentDir = (getCurrentDir() != null) ?
+            getStorageManager().getFileByDecryptedRemotePath(getCurrentDir().getRemotePath()) : null;
+
+        OCFileListFragment fileListFragment =
+            (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
+
+        if (fileListFragment != null) {
+            fileListFragment.listDirectory(currentDir, false, false);
+        }
     }
 
     private void handleDownloadWorkerState() {
@@ -2216,7 +2235,7 @@ public class FileDisplayActivity extends FileActivity
         syncAndUpdateFolder(true);
     }
 
-    private void syncAndUpdateFolder(boolean ignoreETag) {
+    public void syncAndUpdateFolder(boolean ignoreETag) {
         syncAndUpdateFolder(ignoreETag, false);
     }
 

@@ -153,7 +153,6 @@
     <string name="confirmation_remove_folder_alert">Наистина ли желаете %1$s и съдържанието ѝ да бъдат изтрито?</string>
     <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="confirmation_remove_local">Само локално</string>
-    <string name="conflict_file_headline">Несъвместим файл %1$s</string>
     <string name="conflict_local_file">Локален файл</string>
     <string name="conflict_message_description">Ако изберете и двете версии, ще бъде добавен номер към името на локалния файл.</string>
     <string name="conflict_server_file">Файл на сървъра</string>

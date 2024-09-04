@@ -452,7 +452,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                                                                     backgroundJobManager);
         } else if (itemId == R.id.action_set_as_wallpaper) {
             containerActivity.getFileOperationsHelper().setPictureAs(getFile(), getView());
-        } else if (itemId == R.id.action_encrypted) {// TODO implement or remove
+        } else if (itemId == R.id.action_retry) {
+            backgroundJobManager.startOfflineOperations();
+        } else if (itemId == R.id.action_encrypted) {
+            // TODO implement or remove
         } else if (itemId == R.id.action_unset_encrypted) {// TODO implement or remove
         }
     }

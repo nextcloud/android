@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Заиста желите да обришете означене ставке и њихов садржај?</string>
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_dialog_error">Нем оже да се креира дијалог за разрешавање конфилкта</string>
-    <string name="conflict_file_headline">Конфликтни фајл %1$s</string>
     <string name="conflict_local_file">Локални фајл</string>
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
     <string name="conflict_server_file">Серверски фајл</string>

@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="conflict_dialog_error">Erreur lors de la création de la boîte de dialogue de conflit !</string>
-    <string name="conflict_file_headline">Fichier %1$s en conflit</string>
     <string name="conflict_local_file">fichier local</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
     <string name="conflict_server_file">Fichier serveur</string>
