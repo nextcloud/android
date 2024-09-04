@@ -16,10 +16,8 @@ import android.os.Build
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
-import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import com.google.common.io.Resources
 import com.owncloud.android.datamodel.ReceiverFlag
-import com.owncloud.android.ui.activity.DrawerActivity
 
 @SuppressLint("UnspecifiedRegisterReceiverFlag")
 fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: IntentFilter, flag: ReceiverFlag): Intent? {
