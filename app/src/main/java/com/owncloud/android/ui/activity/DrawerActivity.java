@@ -15,8 +15,10 @@ package com.owncloud.android.ui.activity;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -122,6 +124,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import hct.Hct;
 
 /**
@@ -138,6 +141,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private static final int MENU_ITEM_EXTERNAL_LINK = 111;
     private static final int MAX_LOGO_SIZE_PX = 1000;
     private static final int RELATIVE_THRESHOLD_WARNING = 80;
+    public static final String OPEN_DRAWER_MENU = "OPEN_DRAWER_MENU";
 
     /**
      * Reference to the drawer layout.
@@ -230,6 +234,14 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void setupDrawerToggle() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+                super.onDrawerSlide(drawerView, slideOffset);
+                if (slideOffset > 0) {
+                    setDrawerMenuItemChecked();
+                }
+            }
+
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
@@ -249,7 +261,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 super.onDrawerOpened(drawerView);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
                 supportInvalidateOptionsMenu();
-                setDrawerMenuItemChecked();
             }
         };
 
@@ -866,6 +877,30 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(openDrawerReceiver);
+        } catch (IllegalArgumentException e) {
+            Log_OC.d(TAG, "drawerMenuUpdateReceiver not registered");
+        }
+    }
+
+    private void registerOpenDrawerReceiver() {
+        IntentFilter filter = new IntentFilter(OPEN_DRAWER_MENU);
+        LocalBroadcastManager.getInstance(this).registerReceiver(openDrawerReceiver, filter);
+    }
+
+    private final BroadcastReceiver openDrawerReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (!isDrawerOpen()) {
+                openDrawer();
+            }
+        }
+    };
+
     /**
      * checks/highlights the provided menu item if the drawer has been initialized and the menu item exists.
      *
@@ -879,10 +914,6 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         if (menuItem == null) {
             Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
-            return;
-        }
-
-        if (menuItem.isChecked()) {
             return;
         }
 
@@ -1011,6 +1042,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         externalLinksProvider = new ExternalLinksProvider(getContentResolver());
         arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
+        registerOpenDrawerReceiver();
     }
 
     @Override

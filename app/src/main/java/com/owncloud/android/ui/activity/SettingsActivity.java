@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -49,6 +50,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -876,20 +878,28 @@ public class SettingsActivity extends PreferenceActivity
 
     private void setupActionBar() {
         ActionBar actionBar = getDelegate().getSupportActionBar();
+        if (actionBar == null) return;
 
-        if (actionBar != null) {
-            viewThemeUtils.platform.themeStatusBar(this);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
-            if (this.getResources() != null) {
-                viewThemeUtils.androidx.themeActionBar(this,
-                                                       actionBar,
-                                                       getString(R.string.actionbar_settings),
-                                                       ResourcesCompat.getDrawable(this.getResources(),
-                                                                                   R.drawable.ic_arrow_back,
-                                                                                   null));
-            }
-        }
+        viewThemeUtils.platform.themeStatusBar(this);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+
+        if (getResources() == null) return;
+        Drawable menuIcon = ResourcesCompat.getDrawable(getResources(),
+                                                        R.drawable.ic_menu,
+                                                        null);
+
+        if (menuIcon == null) return;
+        viewThemeUtils.androidx.themeActionBar(this,
+                                               actionBar,
+                                               getString(R.string.actionbar_settings),
+                                               menuIcon);
+    }
+
+    @Override
+    public void onBackPressed() {
+        ContextExtensionsKt.sendOpenDrawerEvent(this);
+        // super.onBackPressed();
     }
 
     private void launchDavDroidLogin() {
