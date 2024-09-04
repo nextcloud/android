@@ -55,8 +55,3 @@ fun Context.showToast(message: String) {
 }
 
 fun Context.showToast(messageId: Int) = showToast(getString(messageId))
-
-fun Context.sendOpenDrawerEvent() {
-    val intent = Intent(DrawerActivity.OPEN_DRAWER_MENU)
-    LocalBroadcastManager.getInstance(this).sendBroadcast(intent)
-}

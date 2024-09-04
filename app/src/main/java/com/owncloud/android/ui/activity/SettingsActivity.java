@@ -175,7 +175,7 @@ public class SettingsActivity extends PreferenceActivity
 
         // Sync
         setupSyncCategory();
-        
+
         // More
         setupMoreCategory();
 
@@ -315,7 +315,7 @@ public class SettingsActivity extends PreferenceActivity
             }
         }
     }
-    
+
     private void setupSyncCategory() {
         final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
         viewThemeUtils.files.themePreferenceCategory(preferenceCategorySync);
@@ -559,10 +559,10 @@ public class SettingsActivity extends PreferenceActivity
             });
         }
     }
-    
+
     private void setupInternalTwoWaySyncPreference(PreferenceCategory preferenceCategorySync) {
         Preference twoWaySync = findPreference("internal_two_way_sync");
-        
+
         twoWaySync.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(this, InternalTwoWaySyncActivity.class);
             startActivity(intent);
@@ -886,7 +886,7 @@ public class SettingsActivity extends PreferenceActivity
 
         if (getResources() == null) return;
         Drawable menuIcon = ResourcesCompat.getDrawable(getResources(),
-                                                        R.drawable.ic_menu,
+                                                        R.drawable.ic_arrow_back,
                                                         null);
 
         if (menuIcon == null) return;
@@ -894,12 +894,6 @@ public class SettingsActivity extends PreferenceActivity
                                                actionBar,
                                                getString(R.string.actionbar_settings),
                                                menuIcon);
-    }
-
-    @Override
-    public void onBackPressed() {
-        ContextExtensionsKt.sendOpenDrawerEvent(this);
-        // super.onBackPressed();
     }
 
     private void launchDavDroidLogin() {
