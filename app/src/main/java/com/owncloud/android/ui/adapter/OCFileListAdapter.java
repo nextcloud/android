@@ -739,8 +739,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim());
     }
 
-    private final int eTag = 0;
-
     /**
      * Change the adapted directory for a new one
      *
@@ -787,7 +785,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         searchType = null;
-
         notifyDataSetChanged();
     }
 
