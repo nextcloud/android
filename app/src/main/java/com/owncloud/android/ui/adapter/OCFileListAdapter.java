@@ -778,8 +778,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             prepareListOfHiddenFiles();
             mergeOCFilesForLivePhoto();
             mFilesAll.clear();
-
-            // TODO check necessity of it
             addOfflineOperations(directory.getFileId());
             mFilesAll.addAll(mFiles);
             currentDirectory = directory;
@@ -795,8 +793,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void addOfflineOperations(long fileId) {
         List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles(fileId);
-        List<OCFile> newFiles;
+        if (offlineOperations.isEmpty()) {
+            return;
+        }
 
+        List<OCFile> newFiles;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             newFiles = offlineOperations.stream()
                 .filter(offlineFile -> mFilesAll.stream()
