@@ -29,7 +29,6 @@ import com.owncloud.android.ui.interfaces.ActivityListInterface;
 import com.owncloud.android.ui.preview.PreviewImageActivity;
 import com.owncloud.android.ui.preview.PreviewImageFragment;
 import com.owncloud.android.utils.DisplayUtils;
-import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.List;
 
@@ -59,7 +58,6 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     @Inject ActivitiesRepository activitiesRepository;
     @Inject FilesRepository filesRepository;
     @Inject ClientFactory clientFactory;
-    @Inject ViewThemeUtils viewThemeUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
