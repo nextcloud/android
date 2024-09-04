@@ -35,6 +35,7 @@ import com.owncloud.android.lib.resources.notifications.RegisterAccountDeviceFor
 import com.owncloud.android.lib.resources.notifications.UnregisterAccountDeviceForNotificationsOperation;
 import com.owncloud.android.lib.resources.notifications.UnregisterAccountDeviceForProxyOperation;
 import com.owncloud.android.lib.resources.notifications.models.PushResponse;
+import com.owncloud.android.ui.activity.DrawerActivity;
 
 import org.apache.commons.httpclient.HttpStatus;
 import org.apache.commons.io.FileUtils;
@@ -164,7 +165,9 @@ public final class PushUtils {
         }
     }
 
-    public static void pushRegistrationToServer(final UserAccountManager accountManager, final String token) {
+    public static void updateRegistrationsWithServer(final DrawerActivity activity,
+                                                     final UserAccountManager accountManager,
+                                                     final String token) {
         arbitraryDataProvider = new ArbitraryDataProviderImpl(MainApp.getAppContext());
 
         if (!TextUtils.isEmpty(MainApp.getAppContext().getResources().getString(R.string.push_server_url)) &&
@@ -244,6 +247,11 @@ public final class PushUtils {
                 }
             }
         }
+    }
+
+    public static void updateRegistrationsWithServerNoUI(final UserAccountManager accountManager,
+                                                         final String pushToken) {
+        updateRegistrationsWithServer(null, accountManager, pushToken);
     }
 
     public static Key readKeyFromFile(boolean readPublicKey) {
@@ -343,7 +351,7 @@ public final class PushUtils {
 
         AppPreferences preferences = AppPreferencesImpl.fromContext(context);
         String pushToken = preferences.getPushToken();
-        pushRegistrationToServer(accountManager, pushToken);
+        updateRegistrationsWithServer(null, accountManager, pushToken);
         preferences.setKeysReInitEnabled();
     }
 

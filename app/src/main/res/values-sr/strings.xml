@@ -730,7 +730,6 @@
     <string name="preview_sorry">Извините</string>
     <string name="privacy">Приватност</string>
     <string name="public_share_name">Ново име</string>
-    <string name="push_notifications_not_implemented">Брза обавештења искључена јер зависе од власничког Гугл плеј сервиса.</string>
     <string name="push_notifications_old_login">Нема брзих обавештења јер је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
     <string name="qr_could_not_be_read">QR кôд није могао да се прочита!</string>
