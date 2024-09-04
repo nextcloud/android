@@ -225,7 +225,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
-            if (state instanceof WorkerState.Idle) {
+            if (state instanceof WorkerState.DownloadFinished) {
                 if (requireActivity() instanceof PreviewImageActivity activity && filePosition != null) {
                     activity.setPreviewImagePagerCurrentItem(filePosition);
                 }

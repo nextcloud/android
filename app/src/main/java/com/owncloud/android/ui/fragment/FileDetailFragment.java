@@ -695,9 +695,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
     private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
-            if (state instanceof WorkerState.Download) {
+            if (state instanceof WorkerState.DownloadStarted) {
                 binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
-            } else if (state instanceof WorkerState.Upload) {
+            } else if (state instanceof WorkerState.UploadStarted) {
                 binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
             } else {
                 binding.progressBlock.setVisibility(View.GONE);
