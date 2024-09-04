@@ -875,13 +875,19 @@ public abstract class DrawerActivity extends ToolbarActivity
             return;
         }
 
-        if (mNavigationView.getMenu().findItem(menuItemId) == null) {
+        MenuItem menuItem = mNavigationView.getMenu().findItem(menuItemId);
+
+        if (menuItem == null) {
             Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
             return;
         }
 
+        if (menuItem.isChecked()) {
+            return;
+        }
+
         viewThemeUtils.platform.colorNavigationView(mNavigationView);
-        mNavigationView.getMenu().findItem(menuItemId).setChecked(true);
+        menuItem.setChecked(true);
     }
 
     /**
