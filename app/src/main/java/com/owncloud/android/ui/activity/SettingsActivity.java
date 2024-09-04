@@ -50,7 +50,6 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
-import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -314,6 +313,14 @@ public class SettingsActivity extends PreferenceActivity
                 preferenceCategoryAbout.removePreference(sourcecodePreference);
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.setAction(FileDisplayActivity.ALL_FILES);
+        startActivity(i);
     }
 
     private void setupSyncCategory() {

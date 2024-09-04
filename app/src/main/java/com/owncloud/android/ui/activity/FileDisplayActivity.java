@@ -554,13 +554,13 @@ public class FileDisplayActivity extends FileActivity
                 }
             } else if (ALL_FILES.equals(intent.getAction())) {
                 Log_OC.d(this, "Switch to oc file fragment");
-
+                DrawerActivity.menuItemId = R.id.nav_all_files;
                 setLeftFragment(new OCFileListFragment());
                 getSupportFragmentManager().executePendingTransactions();
                 browseToRoot();
             } else if (LIST_GROUPFOLDERS.equals(intent.getAction())) {
                 Log_OC.d(this, "Switch to list groupfolders fragment");
-
+                DrawerActivity.menuItemId = R.id.nav_groupfolders;
                 setLeftFragment(new GroupfolderListFragment());
                 getSupportFragmentManager().executePendingTransactions();
             } else {
