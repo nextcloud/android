@@ -871,7 +871,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      *
      */
     public void setDrawerMenuItemChecked() {
-        if (menuItemId == Menu.NONE || mNavigationView == null) {
+        if (mNavigationView == null) {
             return;
         }
 

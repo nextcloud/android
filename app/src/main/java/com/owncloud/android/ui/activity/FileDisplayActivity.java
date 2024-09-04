@@ -1158,22 +1158,20 @@ public class FileDisplayActivity extends FileActivity
 
         Log_OC.v(TAG, "onResume() end");
     }
-
     private void setDrawerAllFiles() {
         if (MainApp.isOnlyPersonFiles()) {
             menuItemId = R.id.nav_personal_files;
-            setDrawerMenuItemChecked();
-            setupHomeSearchToolbarWithSortAndListButtons();
         } else if (MainApp.isOnlyOnDevice()) {
             menuItemId = R.id.nav_on_device;
-            setDrawerMenuItemChecked();
+        } else if (menuItemId == Menu.NONE) {
+            menuItemId = R.id.nav_all_files;
+        }
+
+        setDrawerMenuItemChecked();
+
+        if (MainApp.isOnlyOnDevice()) {
             setupToolbar();
         } else {
-            if (menuItemId == Menu.NONE) {
-                menuItemId = R.id.nav_all_files;
-            }
-
-            setDrawerMenuItemChecked();
             setupHomeSearchToolbarWithSortAndListButtons();
         }
     }
