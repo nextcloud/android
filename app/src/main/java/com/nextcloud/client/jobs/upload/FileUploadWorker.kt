@@ -102,6 +102,9 @@ class FileUploadWorker(
             val result = retrievePagesBySortingUploadsByID()
             backgroundJobManager.logEndOfWorker(BackgroundJobManagerImpl.formatClassTag(this::class), result)
             notificationManager.dismissNotification()
+            if (result == Result.success()) {
+                setIdleWorkerState()
+            }
             result
         } catch (t: Throwable) {
             Log_OC.e(TAG, "Error caught at FileUploadWorker $t")
@@ -120,11 +123,11 @@ class FileUploadWorker(
     }
 
     private fun setWorkerState(user: User?, uploads: List<OCUpload>) {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.Upload(user, uploads))
+        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadStarted(user, uploads))
     }
 
     private fun setIdleWorkerState() {
-        WorkerStateLiveData.instance().setWorkState(WorkerState.Idle(currentUploadFileOperation?.file))
+        WorkerStateLiveData.instance().setWorkState(WorkerState.UploadFinished(currentUploadFileOperation?.file))
     }
 
     @Suppress("ReturnCount")

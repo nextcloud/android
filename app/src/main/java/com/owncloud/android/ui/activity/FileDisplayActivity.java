@@ -35,7 +35,6 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.os.Parcelable;
-import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -98,7 +97,6 @@ import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
-import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
 import com.owncloud.android.ui.events.SearchEvent;
@@ -158,7 +156,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import kotlin.Unit;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
-import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
 import static com.owncloud.android.utils.PermissionUtil.PERMISSION_CHOICE_DIALOG_TAG;
 
 /**
@@ -1593,11 +1590,13 @@ public class FileDisplayActivity extends FileActivity
 
     private void observeWorkerState() {
         WorkerStateLiveData.Companion.instance().observe(this, state -> {
-            if (state instanceof WorkerState.Download) {
+            if (state instanceof WorkerState.DownloadStarted) {
                 Log_OC.d(TAG, "Download worker started");
                 handleDownloadWorkerState();
-            } else if (state instanceof WorkerState.Idle) {
+            } else if (state instanceof WorkerState.DownloadFinished) {
                 fileDownloadProgressListener = null;
+            } else if (state instanceof WorkerState.UploadFinished) {
+                refreshList();
             }
         });
     }
