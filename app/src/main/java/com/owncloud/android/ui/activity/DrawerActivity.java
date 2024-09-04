@@ -127,6 +127,8 @@ import androidx.fragment.app.Fragment;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import hct.Hct;
 
+import static com.nextcloud.utils.extensions.DrawerActivityExtensionsKt.getMenuItemIdFromTitle;
+
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
  * generation.
@@ -238,6 +240,10 @@ public abstract class DrawerActivity extends ToolbarActivity
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
                 if (slideOffset > 0) {
+                    Integer menuItemIdFromTitle = getMenuItemIdFromTitle(DrawerActivity.this);
+                    if (menuItemIdFromTitle != null && menuItemIdFromTitle != menuItemId) {
+                        menuItemId = menuItemIdFromTitle;
+                    }
                     setDrawerMenuItemChecked();
                 }
             }
