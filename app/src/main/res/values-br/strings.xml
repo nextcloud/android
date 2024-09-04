@@ -571,7 +571,6 @@
     <string name="preview_sorry">Digarez</string>
     <string name="privacy">Prevezder</string>
     <string name="public_share_name">Anv nevez</string>
-    <string name="push_notifications_not_implemented">Kemenadennoù push disaotreet blam da sujudigezh war perc\'hentiez war servijoù Google Play</string>
     <string name="push_notifications_old_login">Kemenadenn push ebet blam da kozhder ar mont tre evit an dalc\'h. Adlakait o c\'hont mar-plij</string>
     <string name="push_notifications_temp_error">Kemenadennoù push  ebet evit poent</string>
     <string name="recommend_subject">Klaskit %1$s war o ardivink</string>

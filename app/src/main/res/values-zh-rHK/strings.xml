@@ -730,7 +730,6 @@
     <string name="preview_sorry">很抱歉</string>
     <string name="privacy">私隱政策</string>
     <string name="public_share_name">新名稱</string>
-    <string name="push_notifications_not_implemented">由於依賴專有的Google Play服務，推送通知已停用。</string>
     <string name="push_notifications_old_login">由於登入已過期，因此沒有推送通知。請考慮重新添加您的帳戶。</string>
     <string name="push_notifications_temp_error">推送通知目前無法使用。</string>
     <string name="qr_could_not_be_read">QR 碼無法讀取！</string>

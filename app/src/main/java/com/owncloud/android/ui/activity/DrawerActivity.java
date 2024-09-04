@@ -209,6 +209,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Inject
     ClientFactory clientFactory;
 
+    public Handler mHandler;
+
     /**
      * Initializes the drawer and its content. This method needs to be called after the content view has been set.
      */

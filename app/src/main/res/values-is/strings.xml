@@ -714,7 +714,6 @@
     <string name="preview_sorry">Því miður</string>
     <string name="privacy">Gagnaleynd</string>
     <string name="public_share_name">Nýtt nafn</string>
-    <string name="push_notifications_not_implemented">Ýti-tilkynningar eru óvirkar vegna ósamhæfis við séreignahugbúnað í Google Play þjónustu.</string>
     <string name="push_notifications_old_login">Engar ýtitilkynningar vegna útrunnirnnar innskráningarsetu. Íhugaðu að setja aðganginn þinn inn aftur.</string>
     <string name="push_notifications_temp_error">Ýti-tilkynningar eru ekki tiltækar þessa stundina.</string>
     <string name="qr_could_not_be_read">Ekki tókst að lesa QR-kóða!</string>

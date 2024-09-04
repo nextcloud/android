@@ -716,7 +716,6 @@
     <string name="preview_sorry">Undskyld</string>
     <string name="privacy">Privatliv</string>
     <string name="public_share_name">Nyt navn</string>
-    <string name="push_notifications_not_implemented">Push notifikationer deaktiveret på grund af proprietære afhængigheder af Google Play services.</string>
     <string name="push_notifications_old_login">Ingen push notifikationer fordi login sessionen er udløbet. Venligst overvej at genintaste din konto.</string>
     <string name="push_notifications_temp_error">Push notifikationer ikke tilgængelige nu.</string>
     <string name="qr_could_not_be_read">QR koden kunne ikke læses!</string>

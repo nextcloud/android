@@ -730,7 +730,6 @@
     <string name="preview_sorry">Je nám líto</string>
     <string name="privacy">Soukromí</string>
     <string name="public_share_name">Nový název</string>
-    <string name="push_notifications_not_implemented">Push upozorňování je vypnuto kvůli závislostem na proprietárních službách Google Play.</string>
     <string name="push_notifications_old_login">Žádná push upozornění kvůli zastaralé relaci přihlášení. Zvažte odebrání a opětovné přidání svého účtu.</string>
     <string name="push_notifications_temp_error">Push upozornění momentálně nejsou k dispozici.</string>
     <string name="qr_could_not_be_read">QR kód se nepodařilo načíst!</string>

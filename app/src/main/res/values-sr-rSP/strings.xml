@@ -441,7 +441,6 @@
     <string name="preview_image_error_unknown_format">Ne mogu da prikažem sliku</string>
     <string name="preview_sorry">Izvinite</string>
     <string name="privacy">Privatnost</string>
-    <string name="push_notifications_not_implemented">Brza obaveštenja isključena jer zavise od vlasničkog Google Play servisa.</string>
     <string name="push_notifications_old_login">Nema brzih obaveštenja zato što vam je sesija zastarela. Izbrišite i dodajte ponovo nalog.</string>
     <string name="push_notifications_temp_error">Brza obaveštenja trenutno nisu dostupna.</string>
     <string name="recommend_subject">Isprobaj %1$s na svom uređaju!</string>

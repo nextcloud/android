@@ -653,7 +653,6 @@
     <string name="preview_sorry">Disculpe</string>
     <string name="privacy">Privacidad</string>
     <string name="public_share_name">Nuevo nombre</string>
-    <string name="push_notifications_not_implemented">Notificaciones push deshabilitadas debido a dependencias en servicios propietarios de Google Play.</string>
     <string name="push_notifications_old_login">No hay notificaciones push debido a la sesión de inicio de sesión obsoleta. Por favor considere volver a agregar su cuenta.</string>
     <string name="push_notifications_temp_error">Notificaciones push actualmente no disponibles.</string>
     <string name="qr_could_not_be_read">¡No se pudo leer el código QR!</string>

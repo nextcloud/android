@@ -585,7 +585,6 @@
     <string name="preview_sorry">Извиняваме се </string>
     <string name="privacy">Защита на лични данни</string>
     <string name="public_share_name">Ново име</string>
-    <string name="push_notifications_not_implemented">Известията са изключени заради зависимост от частни Google Play услуги.</string>
     <string name="push_notifications_old_login">Няма налични известия поради изтекла потребителска сесия. Моля, обмислете да пре-добавите вашия профил.</string>
     <string name="push_notifications_temp_error">Известията не са достъпни в момента.</string>
     <string name="qr_could_not_be_read">QR кодът не може да се прочете!</string>

@@ -70,53 +70,75 @@ class NotificationWork constructor(
         const val KEY_NOTIFICATION_ACCOUNT = "KEY_NOTIFICATION_ACCOUNT"
         const val KEY_NOTIFICATION_SUBJECT = "subject"
         const val KEY_NOTIFICATION_SIGNATURE = "signature"
+        const val KEY_NOTIFICATION_TYPE = "type"
         private const val KEY_NOTIFICATION_ACTION_LINK = "KEY_NOTIFICATION_ACTION_LINK"
         private const val KEY_NOTIFICATION_ACTION_TYPE = "KEY_NOTIFICATION_ACTION_TYPE"
         private const val PUSH_NOTIFICATION_ID = "PUSH_NOTIFICATION_ID"
         private const val NUMERIC_NOTIFICATION_ID = "NUMERIC_NOTIFICATION_ID"
+        const val BACKEND_TYPE_FIREBASE_CLOUD_MESSAGING = 1
+        const val BACKEND_TYPE_UNIFIED_PUSH = 2
     }
 
     @Suppress("TooGenericExceptionCaught", "NestedBlockDepth", "ComplexMethod", "LongMethod") // legacy code
     override fun doWork(): Result {
-        val subject = inputData.getString(KEY_NOTIFICATION_SUBJECT) ?: ""
-        val signature = inputData.getString(KEY_NOTIFICATION_SIGNATURE) ?: ""
-        if (!TextUtils.isEmpty(subject) && !TextUtils.isEmpty(signature)) {
-            try {
-                val base64DecodedSubject = Base64.decode(subject, Base64.DEFAULT)
-                val base64DecodedSignature = Base64.decode(signature, Base64.DEFAULT)
-                val privateKey = PushUtils.readKeyFromFile(false) as PrivateKey
-                try {
-                    val signatureVerification = PushUtils.verifySignature(
-                        context,
-                        accountManager,
-                        base64DecodedSignature,
-                        base64DecodedSubject
-                    )
-                    if (signatureVerification != null && signatureVerification.signatureValid) {
-                        val cipher = Cipher.getInstance("RSA/None/PKCS1Padding")
-                        cipher.init(Cipher.DECRYPT_MODE, privateKey)
-                        val decryptedSubject = cipher.doFinal(base64DecodedSubject)
-                        val gson = Gson()
-                        val decryptedPushMessage = gson.fromJson(
-                            String(decryptedSubject),
-                            DecryptedPushMessage::class.java
-                        )
-                        if (decryptedPushMessage.delete) {
-                            notificationManager.cancel(decryptedPushMessage.nid)
-                        } else if (decryptedPushMessage.deleteAll) {
-                            notificationManager.cancelAll()
-                        } else {
-                            val user = accountManager.getUser(signatureVerification.account?.name)
-                                .orElseThrow { RuntimeException() }
-                            fetchCompleteNotification(user, decryptedPushMessage)
+        try {
+            val messageData = inputData.getString(KEY_NOTIFICATION_SUBJECT) ?: ""
+            val signatureOrUser = inputData.getString(KEY_NOTIFICATION_SIGNATURE) ?: ""
+
+            if (!TextUtils.isEmpty(messageData) && !TextUtils.isEmpty(signatureOrUser)) {
+                val decryptedMessageData: StringBuilder = StringBuilder()
+                val accountName: StringBuilder = StringBuilder()
+
+                val type = inputData.getInt(KEY_NOTIFICATION_TYPE, -1)
+
+                // if using firebase cloud messaging (via nextcloud proxy) for push notifications...
+                when (type) {
+                    BACKEND_TYPE_FIREBASE_CLOUD_MESSAGING -> {
+                        val base64DecodedSubject = Base64.decode(messageData, Base64.DEFAULT)
+                        val base64DecodedSignature = Base64.decode(signatureOrUser, Base64.DEFAULT)
+                        val privateKey = PushUtils.readKeyFromFile(false) as PrivateKey
+                        try {
+                            val signatureVerification = PushUtils.verifySignature(
+                                context,
+                                accountManager,
+                                base64DecodedSignature,
+                                base64DecodedSubject
+                            )
+                            if (signatureVerification != null && signatureVerification.signatureValid) {
+                                accountName.append(signatureVerification.account?.name)
+                                val cipher = Cipher.getInstance("RSA/None/PKCS1Padding")
+                                cipher.init(Cipher.DECRYPT_MODE, privateKey)
+                                decryptedMessageData.append(String(cipher.doFinal(base64DecodedSubject)))
+                            }
+                        } catch (e1: GeneralSecurityException) {
+                            Log_OC.d(TAG, "Error decrypting message ${e1.javaClass.name} ${e1.localizedMessage}")
+                            return Result.success()
                         }
+                        // else, if using unified push messaging...
                     }
-                } catch (e1: GeneralSecurityException) {
-                    Log_OC.d(TAG, "Error decrypting message ${e1.javaClass.name} ${e1.localizedMessage}")
+                    BACKEND_TYPE_UNIFIED_PUSH -> {
+                        decryptedMessageData.append(messageData)
+                        accountName.append(signatureOrUser)
+                    }
+                    else -> return Result.success()
                 }
-            } catch (exception: Exception) {
-                Log_OC.d(TAG, "Something went very wrong" + exception.localizedMessage)
+
+                // transform string message to object
+                val decryptedPushMessage =
+                    Gson().fromJson(decryptedMessageData.toString(), DecryptedPushMessage::class.java)
+
+                if (decryptedPushMessage.delete) {
+                    notificationManager.cancel(decryptedPushMessage.nid)
+                } else if (decryptedPushMessage.deleteAll) {
+                    notificationManager.cancelAll()
+                } else {
+                    val user = accountManager.getUser(accountName)
+                        .orElseThrow { RuntimeException() }
+                    fetchCompleteNotification(user, decryptedPushMessage)
+                }
             }
+        } catch (exception: Exception) {
+            Log_OC.d(TAG, "Something went very wrong" + exception.localizedMessage)
         }
         return Result.success()
     }

@@ -718,7 +718,6 @@
     <string name="preview_sorry">Désolé</string>
     <string name="privacy">Vie privée</string>
     <string name="public_share_name">Nouveau nom</string>
-    <string name="push_notifications_not_implemented">L\'envoi de notifications push est désactivé à cause des dépendances propriétaires des services Google Play.</string>
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
     <string name="qr_could_not_be_read">Le code QR ne peut être lu</string>

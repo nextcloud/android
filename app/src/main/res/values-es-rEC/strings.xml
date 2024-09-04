@@ -594,7 +594,6 @@
     <string name="preview_sorry">Disculpa</string>
     <string name="privacy">Privacidad</string>
     <string name="public_share_name">Nombre nuevo</string>
-    <string name="push_notifications_not_implemented">Las notificaciones push están deshabilitadas debido a dependencias de servicios propietarios de Google Play. </string>
     <string name="push_notifications_old_login">No hay notificaciones push debido a un inicio de sesión caduco. Por favor vuelve a ingresar a tu cuenta. </string>
     <string name="push_notifications_temp_error">En este momento las notificaciones push no están disponibles.</string>
     <string name="qr_could_not_be_read">No se pudo leer el código QR</string>

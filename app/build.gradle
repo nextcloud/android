@@ -318,6 +318,14 @@ dependencies {
     implementation "com.vanniktech:emoji-google:0.21.0"
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.7")
 
+    // unified push library for generic flavour
+    genericImplementation 'org.unifiedpush.android:connector:3.0.7'
+    genericImplementation 'org.unifiedpush.android:connector-ui:1.1.0'
+
+    // unified push library for generic flavour
+    genericImplementation 'org.unifiedpush.android:connector:3.0.7'
+    genericImplementation 'org.unifiedpush.android:connector-ui:1.1.0'
+
     // document scanner not available on FDroid (generic) due to OpenCV binaries
     gplayImplementation project(":appscan")
     huaweiImplementation project(":appscan")

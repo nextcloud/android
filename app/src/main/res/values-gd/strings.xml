@@ -499,7 +499,6 @@
     <string name="preview_sorry">Duilich</string>
     <string name="privacy">Prìobhaideachd</string>
     <string name="public_share_name">Ainm ùr</string>
-    <string name="push_notifications_not_implemented">Tha na brathan putaidh à comas ri linn eisimeileachd air seirbheisean Google Play fo shealbh.</string>
     <string name="push_notifications_old_login">Chan fhaigh thu brathan putaidh ri linn seisean clàraidh a-steach ro shean. Saoil an cuir thu an cunntas agad ris a-rithist?</string>
     <string name="push_notifications_temp_error">Chan eil brathan putaidh ri fhaighinn an-dràsta.</string>
     <string name="qr_could_not_be_read">Cha b’ urrainn dhuinn an còd QR a leughadh!</string>
