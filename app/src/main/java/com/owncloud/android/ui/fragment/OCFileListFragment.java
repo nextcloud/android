@@ -277,19 +277,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             handleSearchEvent(searchEvent);
         }
 
-        setDrawerMenuItemChecked();
-
         super.onResume();
     }
-
-    private void setDrawerMenuItemChecked() {
-        if (searchEvent != null && searchEvent.getSearchType() == SearchRemoteOperation.SearchType.FAVORITE_SEARCH) {
-            if (requireActivity() instanceof DrawerActivity activity) {
-                activity.setDrawerMenuItemChecked(R.id.nav_favorites);
-            }
-        }
-    }
-
 
     /**
      * {@inheritDoc}

@@ -77,7 +77,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
         viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList);
 
         // setup drawer
-        setupDrawer(R.id.nav_activity);
+        setupDrawer();
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_activities));
 
         binding.swipeContainingList.setOnRefreshListener(() -> {
@@ -153,11 +153,7 @@ public class ActivitiesActivity extends DrawerActivity implements ActivityListIn
     @Override
     protected void onResume() {
         super.onResume();
-
         actionListener.onResume();
-
-        setDrawerMenuItemChecked(R.id.nav_activity);
-
         setupContent();
     }
 

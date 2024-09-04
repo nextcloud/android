@@ -133,7 +133,6 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private static final String TAG = DrawerActivity.class.getSimpleName();
     private static final String KEY_IS_ACCOUNT_CHOOSER_ACTIVE = "IS_ACCOUNT_CHOOSER_ACTIVE";
-    private static final String KEY_CHECKED_MENU_ITEM = "CHECKED_MENU_ITEM";
     private static final int ACTION_MANAGE_ACCOUNTS = 101;
     private static final int MENU_ORDER_EXTERNAL_LINKS = 3;
     private static final int MENU_ITEM_EXTERNAL_LINK = 111;
@@ -168,7 +167,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * Id of the checked menu item.
      */
-    private int mCheckedMenuItem = Menu.NONE;
+    public static int menuItemId = Menu.NONE;
 
     /**
      * container layout of the quota view.
@@ -199,17 +198,6 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     @Inject
     ClientFactory clientFactory;
-
-    /**
-     * Initializes the drawer, its content and highlights the menu item with the given id. This method needs to be
-     * called after the content view has been set.
-     *
-     * @param menuItemId the menu item to be checked/highlighted
-     */
-    protected void setupDrawer(int menuItemId) {
-        setupDrawer();
-        setDrawerMenuItemChecked(menuItemId);
-    }
 
     /**
      * Initializes the drawer and its content. This method needs to be called after the content view has been set.
@@ -261,6 +249,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 super.onDrawerOpened(drawerView);
                 mDrawerToggle.setDrawerIndicatorEnabled(true);
                 supportInvalidateOptionsMenu();
+                setDrawerMenuItemChecked();
             }
         };
 
@@ -272,7 +261,9 @@ public abstract class DrawerActivity extends ToolbarActivity
                                                          R.drawable.ic_arrow_back,
                                                          null);
 
-        viewThemeUtils.platform.tintToolbarArrowDrawable(this, mDrawerToggle, backArrow);
+        if (backArrow != null) {
+            viewThemeUtils.platform.tintToolbarArrowDrawable(this, mDrawerToggle, backArrow);
+        }
     }
 
     /**
@@ -364,7 +355,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         notesView.setOnClickListener(v -> openAppOrStore("it.niedermann.owncloud.notes"));
         talkView.setOnClickListener(v -> openAppOrStore("com.nextcloud.talk2"));
         moreView.setOnClickListener(v -> openAppStore("Nextcloud", true));
-        assistantView.setOnClickListener(v -> startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, -1));
+        assistantView.setOnClickListener(v -> {
+            DrawerActivity.menuItemId = Menu.NONE;
+            startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+        });
         if (getCapabilities() != null && getCapabilities().getAssistant().isTrue()) {
             assistantView.setVisibility(View.VISIBLE);
         } else {
@@ -487,9 +481,9 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void onNavigationItemClicked(final MenuItem menuItem) {
-        setDrawerMenuItemChecked(menuItem.getItemId());
-
         int itemId = menuItem.getItemId();
+        menuItemId = itemId;
+        setDrawerMenuItemChecked();
 
         if (itemId == R.id.nav_all_files || itemId == R.id.nav_personal_files) {
             if (this instanceof FileDisplayActivity &&
@@ -511,7 +505,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
 
                 intent.setAction(FileDisplayActivity.ALL_FILES);
-                intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
                 startActivity(intent);
             }
 
@@ -537,7 +530,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else if (itemId == R.id.nav_community) {
             startActivity(CommunityActivity.class);
         } else if (itemId == R.id.nav_logout) {
-            mCheckedMenuItem = -1;
+            menuItemId = Menu.NONE;
             MenuItem isNewMenuItemChecked = menuItem.setChecked(false);
             Log_OC.d(TAG,"onNavigationItemClicked nav_logout setChecked " + isNewMenuItemChecked);
             final Optional<User> optionalUser = getUser();
@@ -549,13 +542,12 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else if (itemId == R.id.nav_recently_modified) {
             startRecentlyModifiedSearch(menuItem);
         } else if (itemId == R.id.nav_assistant) {
-            startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title, itemId);
+            startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
         } else if (itemId == R.id.nav_groupfolders) {
             MainApp.showOnlyFilesOnDevice(false);
             Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             intent.setAction(FileDisplayActivity.LIST_GROUPFOLDERS);
-            intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItem.getItemId());
             startActivity(intent);
         } else {
             if (menuItem.getItemId() >= MENU_ITEM_EXTERNAL_LINK &&
@@ -568,11 +560,10 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
     }
 
-    private void startComposeActivity(ComposeDestination destination, int titleId, int menuItemId) {
+    private void startComposeActivity(ComposeDestination destination, int titleId) {
         Intent composeActivity = new Intent(getApplicationContext(), ComposeActivity.class);
         composeActivity.putExtra(ComposeActivity.DESTINATION, destination);
         composeActivity.putExtra(ComposeActivity.TITLE, titleId);
-        composeActivity.putExtra(ComposeActivity.MENU_ITEM, menuItemId);
         startActivity(composeActivity);
     }
 
@@ -644,6 +635,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void launchActivityForSearch(SearchEvent searchEvent, int menuItemId) {
+        DrawerActivity.menuItemId = menuItemId;
         Intent intent = new Intent(getApplicationContext(), FileDisplayActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -653,7 +645,6 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         intent.setAction(Intent.ACTION_SEARCH);
         intent.putExtra(OCFileListFragment.SEARCH_EVENT, searchEvent);
-        intent.putExtra(FileDisplayActivity.DRAWER_MENU_ID, menuItemId);
         startActivity(intent);
     }
 
@@ -681,7 +672,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
                     externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                    externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, menuItem.getItemId());
                     startActivity(externalWebViewIntent);
                 }
             }
@@ -815,7 +805,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             }
         }
 
-        mCheckedMenuItem = Menu.NONE;
+        menuItemId = Menu.NONE;
     }
 
     private void updateQuotaLink() {
@@ -836,7 +826,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, firstQuota.getName());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, firstQuota.getUrl());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, true);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+                        menuItemId = Menu.NONE;
                         startActivity(externalWebViewIntent);
                     });
 
@@ -879,16 +869,19 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * checks/highlights the provided menu item if the drawer has been initialized and the menu item exists.
      *
-     * @param menuItemId the menu item to be highlighted
      */
-    public void setDrawerMenuItemChecked(int menuItemId) {
-        if (mNavigationView != null && mNavigationView.getMenu().findItem(menuItemId) != null) {
-            viewThemeUtils.platform.colorNavigationView(mNavigationView);
-            mCheckedMenuItem = menuItemId;
-            mNavigationView.getMenu().findItem(menuItemId).setChecked(true);
-        } else {
-            Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
+    public void setDrawerMenuItemChecked() {
+        if (menuItemId == Menu.NONE || mNavigationView == null) {
+            return;
         }
+
+        if (mNavigationView.getMenu().findItem(menuItemId) == null) {
+            Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
+            return;
+        }
+
+        viewThemeUtils.platform.colorNavigationView(mNavigationView);
+        mNavigationView.getMenu().findItem(menuItemId).setChecked(true);
     }
 
     /**
@@ -988,8 +981,6 @@ public abstract class DrawerActivity extends ToolbarActivity
                                           target,
                                           R.drawable.ic_link);
             }
-
-            setDrawerMenuItemChecked(mCheckedMenuItem);
         }
     }
 
@@ -1008,10 +999,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (savedInstanceState != null) {
             mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
-            mCheckedMenuItem = savedInstanceState.getInt(KEY_CHECKED_MENU_ITEM, Menu.NONE);
         }
 
         externalLinksProvider = new ExternalLinksProvider(getContentResolver());
@@ -1021,22 +1010,14 @@ public abstract class DrawerActivity extends ToolbarActivity
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-
         outState.putBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, mIsAccountChooserActive);
-        outState.putInt(KEY_CHECKED_MENU_ITEM, mCheckedMenuItem);
     }
 
     @Override
     public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
         mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
-        mCheckedMenuItem = savedInstanceState.getInt(KEY_CHECKED_MENU_ITEM, Menu.NONE);
-
-        // check/highlight the menu item if present
-        if (mCheckedMenuItem > Menu.NONE || mCheckedMenuItem < Menu.NONE) {
-            setDrawerMenuItemChecked(mCheckedMenuItem);
-        }
+        setDrawerMenuItemChecked();
     }
 
     @Override
@@ -1051,10 +1032,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
         updateExternalLinksInDrawer();
         updateQuotaLink();
-    }
-
-    public int getCheckedMenuItem() {
-        return mCheckedMenuItem;
     }
 
     @Override
@@ -1078,12 +1055,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         } else {
             super.onBackPressed();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setDrawerMenuItemChecked(mCheckedMenuItem);
     }
 
     @Override

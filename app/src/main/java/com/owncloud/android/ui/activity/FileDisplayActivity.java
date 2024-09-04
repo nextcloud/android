@@ -196,8 +196,6 @@ public class FileDisplayActivity extends FileActivity
 
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
-    public static final String DRAWER_MENU_ID = "DRAWER_MENU_ID";
-
     public static final int REQUEST_CODE__SELECT_CONTENT_FROM_APPS = REQUEST_CODE__LAST_SHARED + 1;
     public static final int REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM = REQUEST_CODE__LAST_SHARED + 2;
     public static final int REQUEST_CODE__MOVE_OR_COPY_FILES = REQUEST_CODE__LAST_SHARED + 3;
@@ -231,7 +229,6 @@ public class FileDisplayActivity extends FileActivity
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
     private Optional<User> lastDisplayedUser = Optional.empty();
-    private int menuItemId = -1;
 
     @Inject AppPreferences preferences;
 
@@ -382,11 +379,7 @@ public class FileDisplayActivity extends FileActivity
 
         if (IntentExtensionsKt.getParcelableArgument(getIntent(), OCFileListFragment.SEARCH_EVENT, SearchEvent.class) != null) {
             switchToSearchFragment(savedInstanceState);
-
-            int menuId = getIntent().getIntExtra(DRAWER_MENU_ID, -1);
-            if (menuId != -1) {
-                setupDrawer(menuId);
-            }
+            setupDrawer();
         } else {
             createMinFragments(savedInstanceState);
             syncAndUpdateFolder(true);
@@ -1147,10 +1140,7 @@ public class FileDisplayActivity extends FileActivity
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
-        // setup drawer
-        menuItemId = getIntent().getIntExtra(FileDisplayActivity.DRAWER_MENU_ID, -1);
-
-        if (menuItemId == -1) {
+        if (menuItemId == Menu.NONE) {
             setDrawerAllFiles();
         } else {
             if (menuItemId == R.id.nav_all_files || menuItemId == R.id.nav_personal_files) {
@@ -1158,7 +1148,6 @@ public class FileDisplayActivity extends FileActivity
             } else {
                 setupToolbar();
             }
-            setDrawerMenuItemChecked(menuItemId);
         }
 
         if (ocFileListFragment instanceof GalleryFragment) {
@@ -1172,18 +1161,19 @@ public class FileDisplayActivity extends FileActivity
 
     private void setDrawerAllFiles() {
         if (MainApp.isOnlyPersonFiles()) {
-            setDrawerMenuItemChecked(R.id.nav_personal_files);
+            menuItemId = R.id.nav_personal_files;
+            setDrawerMenuItemChecked();
             setupHomeSearchToolbarWithSortAndListButtons();
         } else if (MainApp.isOnlyOnDevice()) {
-            setDrawerMenuItemChecked(R.id.nav_on_device);
+            menuItemId = R.id.nav_on_device;
+            setDrawerMenuItemChecked();
             setupToolbar();
         } else {
-            int lastMenuItem = getCheckedMenuItem();
-            if (lastMenuItem == Menu.NONE) {
-                lastMenuItem = R.id.nav_all_files;
+            if (menuItemId == Menu.NONE) {
+                menuItemId = R.id.nav_all_files;
             }
 
-            setDrawerMenuItemChecked(lastMenuItem);
+            setDrawerMenuItemChecked();
             setupHomeSearchToolbarWithSortAndListButtons();
         }
     }
