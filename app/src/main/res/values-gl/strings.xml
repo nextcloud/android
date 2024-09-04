@@ -690,7 +690,7 @@
     <string name="preview_image_error_unknown_format">Non é posíbel amosar a imaxe</string>
     <string name="preview_image_file_is_not_downloaded">O ficheiro non está descargado</string>
     <string name="preview_image_file_is_not_exist">O ficheiro non existe</string>
-    <string name="preview_media_unhandled_http_code_message">O ficheiro está bloqueado actualmente por outro usuario ou proceso e, polo tanto, non é posíbel eliminalo. Ténteo de novo máis tarde.</string>
+    <string name="preview_media_unhandled_http_code_message">O ficheiro está bloqueado actualmente por outro usuario ou proceso e, por tanto, non é posíbel eliminalo. Ténteo de novo máis tarde.</string>
     <string name="preview_sorry">Desculpe.</string>
     <string name="privacy">Privacidade</string>
     <string name="public_share_name">Nome novo</string>
