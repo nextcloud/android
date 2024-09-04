@@ -15,10 +15,8 @@ package com.owncloud.android.ui.activity;
 import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.app.Activity;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
@@ -124,10 +122,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import hct.Hct;
-
-import static com.nextcloud.utils.extensions.DrawerActivityExtensionsKt.getMenuItemIdFromTitle;
 
 /**
  * Base class to handle setup of the drawer implementation including user switching and avatar fetching and fallback
@@ -234,16 +229,14 @@ public abstract class DrawerActivity extends ToolbarActivity
      */
     private void setupDrawerToggle() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+            private boolean isMenuItemChecked = false;
 
             @Override
             public void onDrawerSlide(View drawerView, float slideOffset) {
                 super.onDrawerSlide(drawerView, slideOffset);
-                if (slideOffset > 0) {
-                    Integer menuItemIdFromTitle = getMenuItemIdFromTitle(DrawerActivity.this);
-                    if (menuItemIdFromTitle != null && menuItemIdFromTitle != menuItemId) {
-                        menuItemId = menuItemIdFromTitle;
-                    }
+                if (slideOffset > 0 && !isMenuItemChecked) {
                     setDrawerMenuItemChecked();
+                    isMenuItemChecked = true;
                 }
             }
 
@@ -258,6 +251,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     pendingRunnable = null;
                 }
 
+                isMenuItemChecked = false;
                 closeDrawer();
             }
 
