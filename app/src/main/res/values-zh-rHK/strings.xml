@@ -728,6 +728,7 @@
     <string name="restore_button_description">復原已刪除檔案</string>
     <string name="restore_selected">復原已選取的部份</string>
     <string name="retrieving_file">正在檢索檔案…</string>
+    <string name="retry">重試</string>
     <string name="richdocuments_failed_to_load_document">無法加載文件！</string>
     <string name="scanQR_description">使用 QR Code 登入</string>
     <string name="scan_page">掃描頁面</string>
@@ -907,6 +908,7 @@
     <string name="trashbin_file_remove">永久刪除</string>
     <string name="trashbin_loading_failed">載入回收桶失敗！</string>
     <string name="trashbin_not_emptied">無法永久刪除文件！</string>
+    <string name="unexpected_error_occurred">發生意外錯誤</string>
     <string name="unified_search_fragment_calendar_event_not_found">找不到活動，您隨時可以同步更新。正在重新導向至網路 …</string>
     <string name="unified_search_fragment_contact_not_found">找不到聯絡人，您隨時可以同步更新。正在重新導向至網路 …</string>
     <string name="unified_search_fragment_permission_needed">開啟搜尋結果需要權限，否則其將會重新導向至網路 …</string>

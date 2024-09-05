@@ -703,6 +703,7 @@
     <string name="restore_button_description">Restaurar archivo eliminado</string>
     <string name="restore_selected">Restaurar la selección</string>
     <string name="retrieving_file">Recuperando archivo…</string>
+    <string name="retry">Reintentar</string>
     <string name="richdocuments_failed_to_load_document">Fallo al cargar el documento.</string>
     <string name="scanQR_description">Entrar vía código QR</string>
     <string name="scan_page">Escanear página</string>
@@ -882,6 +883,7 @@
     <string name="trashbin_file_remove">Eliminar de forma definitiva</string>
     <string name="trashbin_loading_failed">¡Fallo al cargar la papelera!</string>
     <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
+    <string name="unexpected_error_occurred">Ha ocurrido un error inesperado</string>
     <string name="unlock_file">Desbloquear archivo</string>
     <string name="unread_comments">Hay comentarios no leídos</string>
     <string name="unset_encrypted">Desactivar cifrado</string>

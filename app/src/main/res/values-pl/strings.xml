@@ -700,6 +700,7 @@
     <string name="restore_button_description">Przywróć usunięty plik</string>
     <string name="restore_selected">Przywróć wybrane</string>
     <string name="retrieving_file">Pobieranie pliku…</string>
+    <string name="retry">Powtórz</string>
     <string name="richdocuments_failed_to_load_document">Nie udało się pobrać dokumentu</string>
     <string name="scanQR_description">Zaloguj się za pomocą kodu QR</string>
     <string name="scan_page">Zeskanuj stronę</string>
@@ -879,6 +880,7 @@
     <string name="trashbin_file_remove">Usuń bezpowrotnie</string>
     <string name="trashbin_loading_failed">Wczytywanie kosza nie powiodło się!</string>
     <string name="trashbin_not_emptied">Pliki nie mogą być trwale usunięte!</string>
+    <string name="unexpected_error_occurred">Wystąpił nieoczekiwany błąd</string>
     <string name="unlock_file">Odblokuj plik</string>
     <string name="unread_comments">Nieprzeczytane komentarze</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>

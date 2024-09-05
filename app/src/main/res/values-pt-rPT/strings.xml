@@ -631,6 +631,7 @@
     <string name="restore_button_description">Restaurar ficheiro apagado</string>
     <string name="restore_selected">Restaurar o selecionado</string>
     <string name="retrieving_file">A obter o ficheiro…</string>
+    <string name="retry">Repetir</string>
     <string name="richdocuments_failed_to_load_document">Falha ao carregar o documento!</string>
     <string name="scanQR_description">acesso através de código QR</string>
     <string name="scan_page">Digitalizar a página</string>

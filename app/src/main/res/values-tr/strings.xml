@@ -487,6 +487,8 @@
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnızca şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
+    <string name="internal_two_way_sync">İç iki yönlü eşitleme</string>
+    <string name="internal_two_way_sync_not_yet">Henüz değil, yakında eşitlenecek</string>
     <string name="invalid_url">Adres geçersiz</string>
     <string name="invisible">Görünmez</string>
     <string name="label_empty">Etiket boş olamaz</string>
@@ -677,6 +679,7 @@
     <string name="prefs_synced_folders_local_path_title">Yerel klasör</string>
     <string name="prefs_synced_folders_remote_path_title">Uzak klasör</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_summary">İç klasörleri iki yönlü eşitleme ile yönetin</string>
     <string name="prefs_value_theme_dark">Koyu</string>
     <string name="prefs_value_theme_light">Açık</string>
     <string name="prefs_value_theme_system">Sistem ayarı</string>
@@ -725,6 +728,7 @@
     <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>
     <string name="restore_selected">Seçilmişi geri yükle</string>
     <string name="retrieving_file">Dosya alınıyor …</string>
+    <string name="retry">Yeniden dene</string>
     <string name="richdocuments_failed_to_load_document">Belge yüklenemedi!</string>
     <string name="scanQR_description">QR kodu ile oturum aç</string>
     <string name="scan_page">Sayfayı tara</string>
@@ -904,6 +908,7 @@
     <string name="trashbin_file_remove">Kalıcı olarak sil</string>
     <string name="trashbin_loading_failed">Çöp kutusu yüklenemedi!</string>
     <string name="trashbin_not_emptied">Dosyalar kalıcı olarak silinemedi!</string>
+    <string name="unexpected_error_occurred">Beklenmeyen bir sorun çıktı</string>
     <string name="unified_search_fragment_calendar_event_not_found">Etkinlik bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_contact_not_found">Kişi bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_permission_needed">Arama sonuçlarını açmak için izinler gereklidir. Yoksa İnternet üzerine yönlendirilir…</string>

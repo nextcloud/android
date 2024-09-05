@@ -655,6 +655,7 @@
     <string name="restore_button_description">Restore deleted file</string>
     <string name="restore_selected">Restore selected</string>
     <string name="retrieving_file">Retrieving file…</string>
+    <string name="retry">Retry</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="scanQR_description">Login via QR code</string>
     <string name="scan_page">Scan page</string>

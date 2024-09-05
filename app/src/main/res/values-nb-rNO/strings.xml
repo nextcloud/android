@@ -728,6 +728,7 @@
     <string name="restore_button_description">Gjenopprett slettet fil</string>
     <string name="restore_selected">Gjenopprett valgt</string>
     <string name="retrieving_file">Får tilbake fil</string>
+    <string name="retry">Prøv igjen</string>
     <string name="richdocuments_failed_to_load_document">Feil i lasting av dokument!</string>
     <string name="scanQR_description">Legg inn med QR-kode</string>
     <string name="scan_page">Skann side</string>
@@ -907,6 +908,7 @@
     <string name="trashbin_file_remove">Slett for godt</string>
     <string name="trashbin_loading_failed">Lasting av papirkurv feilet</string>
     <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
+    <string name="unexpected_error_occurred">Det oppstod en uventet feil</string>
     <string name="unified_search_fragment_calendar_event_not_found">Finner ikke hendelsen, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
     <string name="unified_search_fragment_contact_not_found">Finner ikke kontakten, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
     <string name="unified_search_fragment_permission_needed">Tillatelser kreves for å åpne søkeresultatet, ellers vil det omdirigeres til web...</string>

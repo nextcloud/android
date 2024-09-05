@@ -696,6 +696,7 @@
     <string name="restore_button_description">選択したファイルを復元する</string>
     <string name="restore_selected">選択した項目を復元する</string>
     <string name="retrieving_file">ファイルを取得中...</string>
+    <string name="retry">リトライ</string>
     <string name="richdocuments_failed_to_load_document">ドキュメントのロードに失敗しました。</string>
     <string name="scanQR_description">QRコードを用いてログイン</string>
     <string name="scan_page">ページをスキャン</string>
@@ -868,6 +869,7 @@
     <string name="trashbin_file_remove">永久に削除</string>
     <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_not_emptied">ファイルを完全に削除できませんでした。</string>
+    <string name="unexpected_error_occurred">予期せぬエラーが発生しました</string>
     <string name="unlock_file">ファイルのロックを解除</string>
     <string name="unread_comments">未読のコメントがあります</string>
     <string name="unset_encrypted">暗号化解除</string>

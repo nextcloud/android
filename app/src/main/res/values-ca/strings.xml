@@ -616,6 +616,7 @@
     <string name="restore_button_description">Restaura el fitxer suprimit</string>
     <string name="restore_selected">Restaurar la sel·lecció</string>
     <string name="retrieving_file">S\'està recuperant el fitxer…</string>
+    <string name="retry">Torna-ho a provar</string>
     <string name="richdocuments_failed_to_load_document">Ha fallat la càrrega del document!</string>
     <string name="scanQR_description">Inici de sessió amb un codi QR</string>
     <string name="screenshot_01_gridView_heading">Protegint les vostres dades </string>
@@ -781,6 +782,7 @@
     <string name="trashbin_file_remove">Suprimeix permanentment</string>
     <string name="trashbin_loading_failed">No s\'ha pogut carregar la paperera!</string>
     <string name="trashbin_not_emptied">Els fitxers no s\'han pogut suprimir permanentment!</string>
+    <string name="unexpected_error_occurred">S\'ha produït un error inesperat</string>
     <string name="unlock_file">Desbloca el fitxer</string>
     <string name="unread_comments">Hi ha comentaris sense llegir</string>
     <string name="unset_encrypted">Desactiva el xifrat</string>

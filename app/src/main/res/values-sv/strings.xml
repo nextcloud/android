@@ -729,6 +729,7 @@
     <string name="restore_button_description">Återställ raderad fil</string>
     <string name="restore_selected">Återställ vald</string>
     <string name="retrieving_file">Tar emot fil…</string>
+    <string name="retry">Försök igen</string>
     <string name="richdocuments_failed_to_load_document">Kunde inte läsa in dokument!</string>
     <string name="scanQR_description">Logga in via QR-kod</string>
     <string name="scan_page">Skanna sida</string>

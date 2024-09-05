@@ -411,6 +411,7 @@
     <string name="resharing_is_not_allowed">Atkārtota koplietošana nav atļauta</string>
     <string name="restore">Atjaunot datni</string>
     <string name="restore_button_description">Atjaunot dzēstu datni</string>
+    <string name="retry">Mēģināt vēlreiz</string>
     <string name="search_error">Kļūda meklēšanas iznākuma iegūšanā</string>
     <string name="select_all">Atzīmēt visu</string>
     <string name="send">Sūtīt</string>
@@ -499,6 +500,7 @@
     <string name="trashbin_activity_title">Izdzēstās datnes</string>
     <string name="trashbin_empty_headline">Nav dzēstu datņu</string>
     <string name="trashbin_file_remove">Dzēst pavisam</string>
+    <string name="unexpected_error_occurred">Neparedzēta kļūda</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
     <string name="unshare_link_forbidden_permissions">lai pārtrauktu šīs datnes koplietošanu</string>
     <string name="update_link_forbidden_permissions">lai atjauninātu šo koplietošanu</string>

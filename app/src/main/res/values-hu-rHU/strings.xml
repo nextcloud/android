@@ -830,6 +830,7 @@
     <string name="trashbin_file_remove">Végleges törlés</string>
     <string name="trashbin_loading_failed">A kuka betöltése sikertelen.</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
+    <string name="unexpected_error_occurred">Váratlan hiba történt</string>
     <string name="unlock_file">Fájl feloldása</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>

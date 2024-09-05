@@ -637,6 +637,7 @@
     <string name="restore_button_description">Endurheimta eydda skrá</string>
     <string name="restore_selected">Endurheimta valið</string>
     <string name="retrieving_file">Sæki skrá…</string>
+    <string name="retry">Reyna aftur</string>
     <string name="richdocuments_failed_to_load_document">Mistókst að hlaða inn skjali!</string>
     <string name="scanQR_description">Skrá inn með QR-kóða</string>
     <string name="scan_page">Skanna síðu</string>

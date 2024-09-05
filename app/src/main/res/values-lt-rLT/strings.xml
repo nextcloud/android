@@ -576,6 +576,7 @@
     <string name="restore_button_description">Atkurti ištrintą failą</string>
     <string name="restore_selected">Atkurti pažymėtus</string>
     <string name="retrieving_file">Gaunamas failas…</string>
+    <string name="retry">Bandyti dar kartą</string>
     <string name="richdocuments_failed_to_load_document">Nepavyko įkelti dokumento!</string>
     <string name="scanQR_description">Prisijungti per QR kodą</string>
     <string name="screenshot_01_gridView_heading">Apsaugomi Jūsų duomenys</string>
@@ -730,6 +731,7 @@
     <string name="trashbin_file_remove">Ištrinti negrįžtamai</string>
     <string name="trashbin_loading_failed">Nepavyko įkelti šiukšlinės!</string>
     <string name="trashbin_not_emptied">Nepavyko ištrinti failų visam laikui!</string>
+    <string name="unexpected_error_occurred">Įvyko netikėta klaida</string>
     <string name="unlock_file">Atrakinti failą</string>
     <string name="unread_comments">Yra neskaitytų komentarų</string>
     <string name="unset_encrypted">Atjungti šifravimą</string>

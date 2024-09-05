@@ -884,6 +884,7 @@
     <string name="trashbin_file_remove">영구히 삭제</string>
     <string name="trashbin_loading_failed">휴지통 로딩 실패!</string>
     <string name="trashbin_not_emptied">파일을 영구적으로 삭제할 수 없습니다!</string>
+    <string name="unexpected_error_occurred">예상치 못한 오류가 발생했습니다.</string>
     <string name="unlock_file">파일 잠금해제</string>
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>
