@@ -35,6 +35,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         val sut = testActivityRule.launchActivity(null)
 
         OCFile("/1.png").apply {
+            remoteId = "00000001"
             mimeType = "image/png"
             fileLength = 1024000
             modificationTimestamp = 1188206955000
@@ -43,6 +44,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/image.png").apply {
+            remoteId = "00000002"
             mimeType = "image/png"
             isPreviewAvailable = false
             fileLength = 3072000
@@ -53,6 +55,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/live photo.png").apply {
+            remoteId = "00000003"
             mimeType = "image/png"
             isPreviewAvailable = false
             fileLength = 3072000
@@ -63,6 +66,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/video.mp4").apply {
+            remoteId = "00000004"
             mimeType = "video/mp4"
             isPreviewAvailable = false
             fileLength = 12092000
@@ -96,6 +100,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         val fragment = OCFileListFragment()
 
         OCFile("/sharedToUser.jpg").apply {
+            remoteId = "00000001"
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedWithSharee = true
             sharees = listOf(ShareeUser("Admin", "Server Admin", ShareType.USER))
@@ -104,6 +109,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/sharedToGroup.jpg").apply {
+            remoteId = "00000002"
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedWithSharee = true
             sharees = listOf(ShareeUser("group", "Group", ShareType.GROUP))
@@ -112,6 +118,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/sharedToEmail.jpg").apply {
+            remoteId = "00000003"
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedWithSharee = true
             sharees = listOf(ShareeUser("admin@nextcloud.localhost", "admin@nextcloud.localhost", ShareType.EMAIL))
@@ -120,6 +127,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/publicLink.jpg").apply {
+            remoteId = "00000004"
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedViaLink = true
             modificationTimestamp = 1000
@@ -127,6 +135,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/sharedToFederatedUser.jpg").apply {
+            remoteId = "00000005"
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedWithSharee = true
             sharees = listOf(
@@ -137,6 +146,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/sharedToPersonalCircle.jpg").apply {
+            remoteId = "00000006"
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedWithSharee = true
             sharees = listOf(ShareeUser("circle", "Circle (Personal circle)", ShareType.CIRCLE))
@@ -170,6 +180,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 //        }
 
         OCFile("/sharedToUserRoom.jpg").apply {
+            remoteId = "00000007"
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedWithSharee = true
             sharees = listOf(ShareeUser("Conversation", "Admin", ShareType.ROOM))
@@ -178,6 +189,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/sharedToGroupRoom.jpg").apply {
+            remoteId = "00000008"
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedWithSharee = true
             sharees = listOf(ShareeUser("Conversation", "Meeting", ShareType.ROOM))
@@ -186,6 +198,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/sharedToUsers.jpg").apply {
+            remoteId = "00000009"
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             isSharedWithSharee = true
             sharees = listOf(
@@ -198,6 +211,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/notShared.jpg").apply {
+            remoteId = "000000010"
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
             modificationTimestamp = 1000
             sut.storageManager.saveFile(this)
@@ -232,6 +246,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         val fragment = OCFileListFragment()
 
         OCFile("/normal/").apply {
+            remoteId = "00000001"
             mimeType = MimeType.DIRECTORY
             modificationTimestamp = 1624003571000
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
@@ -239,6 +254,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/sharedViaLink/").apply {
+            remoteId = "00000002"
             mimeType = MimeType.DIRECTORY
             isSharedViaLink = true
             modificationTimestamp = 1619003571000
@@ -247,6 +263,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/share/").apply {
+            remoteId = "00000003"
             mimeType = MimeType.DIRECTORY
             isSharedWithSharee = true
             modificationTimestamp = 1619303571000
@@ -255,6 +272,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/groupFolder/").apply {
+            remoteId = "00000004"
             mimeType = MimeType.DIRECTORY
             modificationTimestamp = 1615003571000
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
@@ -263,6 +281,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/encrypted/").apply {
+            remoteId = "00000005"
             mimeType = MimeType.DIRECTORY
             isEncrypted = true
             decryptedRemotePath = "/encrypted/"
@@ -272,6 +291,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         }
 
         OCFile("/locked/").apply {
+            remoteId = "00000006"
             mimeType = MimeType.DIRECTORY
             isLocked = true
             decryptedRemotePath = "/locked/"
@@ -310,12 +330,15 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         folder.setFolder()
         sut.storageManager.saveFile(folder)
 
-        val imageFile = OCFile("/test/image.png")
-        imageFile.mimeType = "image/png"
-        imageFile.fileLength = 1024000
-        imageFile.modificationTimestamp = 1188206955000
-        imageFile.parentId = sut.storageManager.getFileByEncryptedRemotePath("/test/").fileId
-        imageFile.storagePath = getFile("java.md").absolutePath
+        val imageFile = OCFile("/test/image.png").apply {
+            remoteId = "00000001"
+            mimeType = "image/png"
+            fileLength = 1024000
+            modificationTimestamp = 1188206955000
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/test/").fileId
+            storagePath = getFile("java.md").absolutePath
+        }
+
         sut.storageManager.saveFile(imageFile)
 
         sut.addFragment(fragment)
@@ -334,8 +357,11 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
         val activity = testActivityRule.launchActivity(null)
         val sut = OCFileListFragment()
 
-        val folder = OCFile("/test/")
-        folder.setFolder()
+        val folder = OCFile("/test/").apply {
+            remoteId = "000001"
+            setFolder()
+        }
+
         activity.storageManager.saveFile(folder)
 
         activity.addFragment(sut)
@@ -357,7 +383,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
 
             testFolder.richWorkspace = "1"
             activity.storageManager.saveFile(testFolder)
-            sut.adapter.setCurrentDirectory(testFolder)
+            sut.adapter.currentDirectory = testFolder
             Assert.assertTrue(sut.adapter.shouldShowHeader())
         }
     }
