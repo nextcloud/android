@@ -132,7 +132,6 @@
     <string name="confirmation_remove_folder_alert">Vai tiešām vēlaties izdzēst %1$s un tā saturu?</string>
     <string name="confirmation_remove_folders_alert">Vai tiešām vēlies dzēst izvēlētos objektus un to saturu?</string>
     <string name="confirmation_remove_local">Tikai lokālos</string>
-    <string name="conflict_file_headline">Konfliktējošs fails %1$s</string>
     <string name="contactlist_item_icon">Lietotāja ikona kontaktpersonu sarakstam</string>
     <string name="contactlist_no_permission">Nav dota atļauja, importēšana neizdevās</string>
     <string name="contacts">Kontakti</string>

@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">僅本機</string>
     <string name="conflict_dialog_error">無法建立衝突解決對話方塊</string>
-    <string name="conflict_file_headline">檔案 %1$s 衝突</string>
     <string name="conflict_local_file">本機檔案</string>
     <string name="conflict_message_description">若您同時選擇兩個版本，本機的檔案會在檔名後附加編號。</string>
     <string name="conflict_server_file">伺服器檔案</string>

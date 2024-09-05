@@ -18,9 +18,12 @@ import androidx.appcompat.app.AlertDialog
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
+import javax.inject.Inject
 
 /**
  * Dialog requiring confirmation before removing a collection of given OCFiles.
@@ -30,14 +33,19 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
     private var mTargetFiles: Collection<OCFile>? = null
     private var actionMode: ActionMode? = null
 
+    @Inject
+    lateinit var fileDataStorageManager: FileDataStorageManager
+
+    private var positiveButton: MaterialButton? = null
+
     override fun onStart() {
         super.onStart()
 
         val alertDialog = dialog as AlertDialog? ?: return
 
-        val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
+        positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as? MaterialButton
         positiveButton?.let {
-            viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(positiveButton)
+            viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(it)
         }
 
         val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as? MaterialButton
@@ -76,8 +84,22 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
     }
 
     private fun removeFiles(onlyLocalCopy: Boolean) {
-        val cg = activity as ComponentsGetter?
-        cg?.fileOperationsHelper?.removeFiles(mTargetFiles, onlyLocalCopy, false)
+        val (offlineFiles, files) = mTargetFiles?.partition { it.isOfflineOperation } ?: Pair(emptyList(), emptyList())
+
+        offlineFiles.forEach {
+            fileDataStorageManager.deleteOfflineOperation(it)
+        }
+
+        if (files.isNotEmpty()) {
+            val cg = activity as ComponentsGetter?
+            cg?.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
+        }
+
+        if (offlineFiles.isNotEmpty()) {
+            val activity = requireActivity() as? FileDisplayActivity
+            activity?.refreshCurrentDirectory()
+        }
+
         finishActionMode()
     }
 
@@ -151,7 +173,8 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
 
                 putInt(ARG_POSITIVE_BTN_RES, R.string.file_delete)
 
-                if (containsFolder || containsDown) {
+                val isAnyFileOffline = files.any { it.isOfflineOperation }
+                if ((containsFolder || containsDown) && !isAnyFileOffline) {
                     putInt(ARG_NEGATIVE_BTN_RES, R.string.confirmation_remove_local)
                 }
 

@@ -32,4 +32,5 @@
     <item name="action_set_as_wallpaper" type="id"/>
     <item name="action_remove_file" type="id"/>
     <item name="action_pin_to_homescreen" type="id"/>
+    <item name="action_retry" type="id"/>
 </resources>

@@ -147,7 +147,6 @@
     <string name="confirmation_remove_folder_alert">Ar tikrai norite ištrinti %1$s ir jo turinį?</string>
     <string name="confirmation_remove_folders_alert">Ar tikrai norite ištrinti pažymėtus elementus ir jų turinį?</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
-    <string name="conflict_file_headline">Nesuderinamas failas%1$s</string>
     <string name="conflict_local_file">Vietinis failas</string>
     <string name="conflict_message_description">Jei pasirinksite abi versijas, vietinis failas prie pavadinimo turės numerį.</string>
     <string name="conflict_server_file">Failas iš serverio</string>

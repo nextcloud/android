@@ -35,6 +35,7 @@ import com.owncloud.android.utils.MimeType;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -773,6 +774,26 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public boolean isDownloading() {
         return this.downloading;
+    }
+
+    public boolean isRootDirectory() {
+        return decryptedRemotePath.equals(ROOT_PATH);
+    }
+
+    public boolean isOfflineOperation() {
+        return getRemoteId() == null;
+    }
+
+    public String getOfflineOperationParentPath() {
+        if (isOfflineOperation()) {
+            if (Objects.equals(remotePath, OCFile.PATH_SEPARATOR)) {
+                return OCFile.PATH_SEPARATOR;
+            } else {
+                return null;
+            }
+        } else {
+            return getDecryptedRemotePath();
+        }
     }
 
     public String getEtagInConflict() {

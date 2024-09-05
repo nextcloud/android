@@ -178,7 +178,6 @@
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="confirmation_remove_local">Alleen lokaal</string>
     <string name="conflict_dialog_error">Conflictoplossingsvenster kan niet geladen worden</string>
-    <string name="conflict_file_headline">Conflicterend bestand%1$s</string>
     <string name="conflict_local_file">Lokaal bestand</string>
     <string name="conflict_message_description">Als je beide versies selecteert, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
     <string name="conflict_server_file">Serverbestand</string>

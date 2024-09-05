@@ -136,7 +136,6 @@
     <string name="confirmation_remove_folder_alert">Hakykatdan hem %1$sonuň mazmuny hem pozmak isleýärsiňizmi?</string>
     <string name="confirmation_remove_folders_alert">Saýlanan elementleri we olaryň mazmunyny hakykatdanam pozmak isleýärsiňizmi?</string>
     <string name="confirmation_remove_local">Diňe ýerli</string>
-    <string name="conflict_file_headline">Jedelli faýl%1$s</string>
     <string name="conflict_message_description">Eger siz iki wersiýasyny hem saýlasaňyz, ýerli faýlyň adyna san goşular.</string>
     <string name="contactlist_item_icon">Aragatnaşyk sanawy üçin ulanyjy nyşany</string>
     <string name="contactlist_no_permission">Rugsat berilmedi, import edilmedi.</string>

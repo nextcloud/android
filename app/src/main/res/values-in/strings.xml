@@ -173,7 +173,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="confirmation_remove_folders_alert">Apa anda yakin ingin menghapus item yang terpilih beserta isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
     <string name="conflict_dialog_error">Dialog penyelesaian konflik tidak dapat dibuat</string>
-    <string name="conflict_file_headline">File konflik %1$s</string>
     <string name="conflict_local_file">File lokal</string>
     <string name="conflict_message_description">Jika Anda memilih kedua versi, nama dari berkas lokal akan ditambahi angka.</string>
     <string name="conflict_server_file">File server</string>

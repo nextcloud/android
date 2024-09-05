@@ -144,7 +144,6 @@
     <string name="confirmation_remove_folder_alert">ທ່ານຕ້ອງການ ລຶບ%1$s ແລະ ເນື້ອຫາບໍ?</string>
     <string name="confirmation_remove_folders_alert">ທ່ານຕ້ອງການລຶບລາຍການທີ່ເລືອກ ແລະ ເນື້ອຫາແທ້ບໍ?</string>
     <string name="confirmation_remove_local">ຊ່ອງເກັບຢ່າງດຽວ</string>
-    <string name="conflict_file_headline">ຟາຍຜິດພາດ%1$s</string>
     <string name="conflict_message_description">ຖ້າທ່ານເລືອກເອົາທັງສອງເວີຊັ້ນ, ບ່ອນເກັບຟາຍຈະມີຈໍານວນສະສົມ</string>
     <string name="contactlist_item_icon">ລາຍການໄອຄອນຜູ້ຕິດຕໍ່</string>
     <string name="contactlist_no_permission">ບໍ່ໄດ້ຮັບອະນຸຍາດ, ບໍ່ມີຫຍັງນໍາເຂົ້າ.</string>

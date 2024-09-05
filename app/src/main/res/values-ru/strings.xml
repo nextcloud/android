@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Действительно удалить выбранные объекты и их содержимое?</string>
     <string name="confirmation_remove_local">Только локально</string>
     <string name="conflict_dialog_error">Не удается создать диалоговое окно разрешения конфликтов</string>
-    <string name="conflict_file_headline">Конфликт версий файла «%1$s»</string>
     <string name="conflict_local_file">Локальный файл</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
     <string name="conflict_server_file">Файл с сервера</string>

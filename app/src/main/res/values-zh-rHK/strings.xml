@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">只有近端</string>
     <string name="conflict_dialog_error">無法創建衝突解決程序對話框</string>
-    <string name="conflict_file_headline">檔案 %1$s 抵觸</string>
     <string name="conflict_local_file">近端檔案</string>
     <string name="conflict_message_description">若您同時選擇兩個版本，近端的檔案會在檔名後附加編號。</string>
     <string name="conflict_server_file">伺服器檔案</string>

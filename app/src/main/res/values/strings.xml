@@ -23,13 +23,18 @@
     <string name="menu_item_sort_by_date_oldest_first">Oldest first</string>
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
-
+    <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
-
+    <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="app_config_base_url_title">Base Url</string>
     <string name="app_config_proxy_host_title">Proxy Host Name</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
-
+    <string name="offline_operations_worker_notification_delete_offline_folder">Delete Offline Folder</string>
+    <string name="offline_operations_worker_notification_conflict_text">Conflicted Folder: %s</string>
+    <string name="offline_operations_worker_notification_start_text">Starting Offline Operations</string>
+    <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Offline Operations</string>
+    <string name="offline_operations_worker_progress_text" translatable="false">%1$d / %2$d - %3$s</string>
     <string name="anonymous_account_type" translatable="false">AnonymousAccountType</string>
 
     <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
@@ -810,6 +815,8 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
     <string name="notification_channel_push_name">Push notifications</string>
+    <string name="notification_channel_background_operations_name">Background Operations</string>
+    <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
 
@@ -1021,7 +1028,8 @@
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
     <string name="sync_not_enough_space_dialog_title">Not enough space</string>
-    <string name="conflict_file_headline">Conflicting file %1$s</string>
+    <string name="conflict_folder_headline">Folder Conflict</string>
+    <string name="conflict_message_description_for_folder">If you select both versions, the local folder will have a number appended to its name.</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_local_file">Local file</string>
     <string name="conflict_server_file">Server file</string>
@@ -1165,6 +1173,7 @@
     <string name="e2e_not_yet_setup">E2E not yet setup</string>
     <string name="error_file_actions">Error showing file actions</string>
     <string name="file_activity_shared_file_cannot_be_updated">Shared file cannot be updated</string>
+    <string name="retry">Retry</string>
     <string name="pin_home">Pin to Home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
     <string name="displays_mnemonic">Displays your 12 word passphrase</string>

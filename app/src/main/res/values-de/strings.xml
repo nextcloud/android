@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Möchten Sie die ausgewählten Elemente und deren inhalt wirklich löschen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="conflict_dialog_error">Konfliktlösungsdialog konnte nicht erstellt werden</string>
-    <string name="conflict_file_headline">Konflikt-Datei %1$s</string>
     <string name="conflict_local_file">Lokale Datei</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
     <string name="conflict_server_file">Server-Datei</string>

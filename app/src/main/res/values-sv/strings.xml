@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="conflict_dialog_error">Dialogrutan för konfliktlösning kan inte skapas</string>
-    <string name="conflict_file_headline">Konfliktande fil %1$s</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
     <string name="conflict_server_file">Serverfil</string>

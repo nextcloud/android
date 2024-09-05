@@ -176,7 +176,6 @@
     <string name="confirmation_remove_folders_alert">Czy na pewno chcesz usunąć wybrane pozycje i ich zawartość?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_dialog_error">Nie można utworzyć okna dialogowego rozwiązywania konfliktów</string>
-    <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
     <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_server_file">Plik z serwera</string>

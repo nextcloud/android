@@ -149,7 +149,6 @@
     <string name="confirmation_remove_folder_alert">Deseja realmente apagar %1$s e o seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
-    <string name="conflict_file_headline">Ficheiro em conflito %1$s</string>
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecionou ambas as versões, o ficheiro local terá um número acrescentado ao seu nome.</string>
     <string name="conflict_server_file">Ficheiro do servidor</string>

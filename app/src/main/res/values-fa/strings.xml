@@ -158,7 +158,6 @@
     <string name="confirmation_remove_folder_alert">آیا واقعا می خواهید %1$s و محتویات آن را حذف کنید؟</string>
     <string name="confirmation_remove_folders_alert">آیا واقعاً می‌خواهید موارد انتخاب شده و محتوای آنها حذف شود؟</string>
     <string name="confirmation_remove_local">فقط محلی</string>
-    <string name="conflict_file_headline">فایل متناقض %1$s</string>
     <string name="conflict_local_file">پروندهٔ محلّی</string>
     <string name="conflict_message_description">اگر هردو نسخه را انتخاب کنید، یک شماره به نام فایل محلی اضافه خواهد شد.</string>
     <string name="conflict_server_file">پروندهٔ کارساز</string>

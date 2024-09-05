@@ -28,6 +28,7 @@ import com.nextcloud.client.core.ClockImpl;
 import com.nextcloud.client.core.ThreadPoolAsyncRunner;
 import com.nextcloud.client.database.dao.ArbitraryDataDao;
 import com.nextcloud.client.device.DeviceInfo;
+import com.nextcloud.client.jobs.operation.FileOperationHelper;
 import com.nextcloud.client.logger.FileLogHandler;
 import com.nextcloud.client.logger.Logger;
 import com.nextcloud.client.logger.LoggerImpl;
@@ -248,6 +249,11 @@ class AppModule {
     @Singleton
     PassCodeManager passCodeManager(AppPreferences preferences, Clock clock) {
         return new PassCodeManager(preferences, clock);
+    }
+
+    @Provides
+    FileOperationHelper fileOperationHelper(CurrentAccountProvider currentAccountProvider, Context context) {
+        return new FileOperationHelper(currentAccountProvider.getUser(), context, fileDataStorageManager(currentAccountProvider, context));
     }
 
     @Provides

@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">An bhfuil tú cinnte gur mhaith leat na míreanna roghnaithe agus a bhfuil iontu a scriosadh?</string>
     <string name="confirmation_remove_local">Áitiúil amháin</string>
     <string name="conflict_dialog_error">Ní féidir dialóg réititheora coinbhleachta a chruthú</string>
-    <string name="conflict_file_headline">Comhad contrártha %1$s</string>
     <string name="conflict_local_file">Comhad áitiúil</string>
     <string name="conflict_message_description">Má roghnaíonn tú an dá leagan, beidh uimhir ag gabháil leis an gcomhad áitiúil lena ainm.</string>
     <string name="conflict_server_file">Comhad freastalaí</string>

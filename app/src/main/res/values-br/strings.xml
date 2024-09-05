@@ -179,7 +179,6 @@
     <string name="confirmation_remove_folders_alert">Ha sur oc\'h e fell deoc\'h dilemel an elfennoù diuzet ha kement tra zo e-barzh . </string>
     <string name="confirmation_remove_local">Lec\'hel hepken</string>
     <string name="conflict_dialog_error">N\'eus ket bet gallet krouiñ un egorenn diskoulmañ tabutoù</string>
-    <string name="conflict_file_headline">Restr kudennek %1$s</string>
     <string name="conflict_local_file">Restr lec\'hel</string>
     <string name="conflict_message_description">Ma tibabit an daou stumm e vo staget un niverenn ouzh anv ar restr lec\'hel</string>
     <string name="conflict_server_file">Restr ar servijer</string>

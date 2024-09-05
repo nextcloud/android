@@ -155,7 +155,6 @@
     <string name="confirmation_remove_folder_alert">Biztos, hogy törli ezt: %1$s és a tartalmát?</string>
     <string name="confirmation_remove_folders_alert">Biztos, hogy törli a kiválasztott elemeket és tartalmukat?</string>
     <string name="confirmation_remove_local">Csak a helyi példány</string>
-    <string name="conflict_file_headline">Ütköző fájl: %1$s</string>
     <string name="conflict_local_file">Helyi fájl</string>
     <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl nevéhez egy szám lesz hozzáfűzve.</string>
     <string name="conflict_server_file">Kiszolgálón lévő fájl</string>

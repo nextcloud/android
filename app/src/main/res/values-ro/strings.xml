@@ -174,7 +174,6 @@
     <string name="confirmation_remove_folder_alert">Sigur vreți să eliminați %1$s și conținutul său?</string>
     <string name="confirmation_remove_folders_alert">Doriți să ștergeți elementele selectate și conținutul lor?</string>
     <string name="confirmation_remove_local">Doar local</string>
-    <string name="conflict_file_headline">Conflict cu fișierul %1$s</string>
     <string name="conflict_local_file">Fișier local</string>
     <string name="conflict_message_description">Dacă selectezi ambele variante, atunci fișierul local va avea un număr adăugat la numele său.</string>
     <string name="conflict_server_file">Fișier pe server</string>

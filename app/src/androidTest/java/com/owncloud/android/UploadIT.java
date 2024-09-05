@@ -8,6 +8,8 @@
  */
 package com.owncloud.android;
 
+import android.os.NetworkOnMainThreadException;
+
 import com.nextcloud.client.account.UserAccountManagerImpl;
 import com.nextcloud.client.device.BatteryStatus;
 import com.nextcloud.client.device.PowerManagementService;
@@ -56,6 +58,11 @@ public class UploadIT extends AbstractOnServerIT {
                                   targetContext.getContentResolver());
 
     private ConnectivityService connectivityServiceMock = new ConnectivityService() {
+        @Override
+        public boolean isNetworkAndServerAvailable() throws NetworkOnMainThreadException {
+            return false;
+        }
+
         @Override
         public boolean isConnected() {
             return false;
@@ -275,6 +282,11 @@ public class UploadIT extends AbstractOnServerIT {
     public void testUploadOnWifiOnlyButNoWifi() {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
+            public boolean isNetworkAndServerAvailable() throws NetworkOnMainThreadException {
+                return false;
+            }
+
+            @Override
             public boolean isConnected() {
                 return false;
             }
@@ -358,6 +370,11 @@ public class UploadIT extends AbstractOnServerIT {
     @Test
     public void testUploadOnWifiOnlyButMeteredWifi() {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
+            @Override
+            public boolean isNetworkAndServerAvailable() throws NetworkOnMainThreadException {
+                return false;
+            }
+
             @Override
             public boolean isConnected() {
                 return false;

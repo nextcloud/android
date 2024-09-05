@@ -13,6 +13,7 @@ import android.accounts.OperationCanceledException;
 import android.content.ActivityNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.NetworkOnMainThreadException;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -187,6 +188,11 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
     public void uploadOCUpload(OCUpload ocUpload, int localBehaviour) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
+            @Override
+            public boolean isNetworkAndServerAvailable() throws NetworkOnMainThreadException {
+                return false;
+            }
+
             @Override
             public boolean isConnected() {
                 return false;

@@ -53,6 +53,10 @@ class TestActivity :
         override fun getConnectivity(): Connectivity {
             return Connectivity.CONNECTED_WIFI
         }
+
+        override fun isNetworkAndServerAvailable(): Boolean {
+            return false
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
