@@ -22,6 +22,7 @@ import ezvcard.Ezvcard
 import ezvcard.VCard
 import junit.framework.Assert.assertEquals
 import junit.framework.Assert.assertTrue
+import junit.framework.Assert.fail
 import org.junit.Rule
 import org.junit.Test
 import java.io.BufferedInputStream
@@ -46,36 +47,52 @@ class ContactsBackupIT : AbstractOnServerIT() {
 
     @Test
     fun importExport() {
-        val intArray = IntArray(1)
-        intArray[0] = 0
+        val intArray = intArrayOf(0)
 
         // import file to local contacts
         backgroundJobManager.startImmediateContactsImport(null, null, getFile(vcard).absolutePath, intArray)
-
-        shortSleep()
+        longSleep()
 
         // export contact
         backgroundJobManager.startImmediateContactsBackup(user)
-
         longSleep()
 
-        val backupFolder: String = targetContext.resources.getString(R.string.contacts_backup_folder) +
+        val backupFolderPath: String = targetContext.resources.getString(R.string.contacts_backup_folder) +
             OCFile.PATH_SEPARATOR
 
         refreshFolder("/")
         longSleep()
-
-        refreshFolder(backupFolder)
         longSleep()
 
+        refreshFolder(backupFolderPath)
+        longSleep()
+        longSleep()
+
+        if (backupFolderPath.isEmpty()) {
+            fail("backupFolderPath cannot be empty")
+        }
+
         val backupOCFile = storageManager.getFolderContent(
-            storageManager.getFileByDecryptedRemotePath(backupFolder),
+            storageManager.getFileByDecryptedRemotePath(backupFolderPath),
             false
-        )[0]
+        ).firstOrNull()
+
+        if (backupOCFile == null) {
+            fail("backup file cannot be null")
+        }
+
+        if (backupOCFile?.storagePath == null) {
+            fail("storage path cannot be null")
+        }
 
         assertTrue(DownloadFileOperation(user, backupOCFile, AbstractIT.targetContext).execute(client).isSuccess)
 
-        val backupFile = File(backupOCFile.storagePath)
+        val backupFile = backupOCFile?.storagePath?.let { File(it) }
+
+        if (backupFile == null) {
+            fail("backupFile cannot be null")
+        }
+
         val vcardInputStream = BufferedInputStream(FileInputStream(getFile(vcard)))
         val backupFileInputStream = BufferedInputStream(FileInputStream(backupFile))
 
@@ -87,6 +104,17 @@ class ContactsBackupIT : AbstractOnServerIT() {
         backupCards.addAll(Ezvcard.parse(backupFileInputStream).all())
 
         assertEquals(originalCards.size, backupCards.size)
-        assertEquals(originalCards[0].formattedName.toString(), backupCards[0].formattedName.toString())
+
+        val originalCardFormattedName = originalCards.firstOrNull()?.formattedName
+        if (originalCardFormattedName == null) {
+            fail("originalCardFormattedName cannot be null")
+        }
+
+        val backupCardFormattedName = backupCards.firstOrNull()?.formattedName
+        if (backupCardFormattedName == null) {
+            fail("backupCardFormattedName cannot be null")
+        }
+
+        assertEquals(originalCardFormattedName.toString(), backupCardFormattedName.toString())
     }
 }
