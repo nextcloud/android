@@ -1017,32 +1017,11 @@ public class FileDisplayActivity extends FileActivity
                 return;
             }
 
+            // FIXME browse up to root
+            listOfFiles.filterCurrentDirectory(menuItemId);
             browseUp(listOfFiles);
-
-            if (menuItemId == R.id.nav_favorites || menuItemId == R.id.nav_shared) {
-                OCFile parentDir = fileDataStorageManager.getFileById(currentDir.getParentId());
-                if (parentDir != null && parentDir.isRoot()) {
-                    openDrawer();
-                } else {
-                    browseUp(listOfFiles);
-
-                    OCFile secondParentDir = fileDataStorageManager.getNthParent(currentDir, 2);
-                    if (secondParentDir != null && secondParentDir.isRoot()) {
-                        filterCurrentDirectory();
-                        setActionBarLeadingIcon(R.drawable.ic_menu);
-                    }
-                }
-            }
         } else {
             popBack();
-        }
-    }
-
-    private void filterCurrentDirectory() {
-        if (menuItemId == R.id.nav_favorites) {
-            filterFavoritesFiles(menuItemId);
-        } else if (menuItemId == R.id.nav_shared) {
-            startSharedSearch(menuItemId);
         }
     }
 

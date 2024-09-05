@@ -1114,10 +1114,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Override
     @OptIn(markerClass = UnstableApi.class)
     public void onItemClicked(OCFile file) {
-        if (mContainerActivity != null && mContainerActivity instanceof FileActivity fileActivity) {
-            fileActivity.setActionBarLeadingIcon(R.drawable.ic_arrow_back);
-        }
-
         if (getCommonAdapter() != null && getCommonAdapter().isMultiSelect()) {
             toggleItemToCheckedList(file);
         } else {
@@ -1971,6 +1967,20 @@ public class OCFileListFragment extends ExtendedListFragment implements
         } else {
             searchFragment = false;
             super.onRefresh();
+        }
+    }
+
+    public void filterCurrentDirectory(int menuItemId) {
+        if (menuItemId == R.id.nav_favorites || menuItemId == R.id.nav_shared) {
+            setSearchFragment(true);
+
+            if (menuItemId == R.id.nav_favorites) {
+                searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH);
+                currentSearchType = FAVORITE_SEARCH;
+            } else {
+                searchEvent = new SearchEvent("", SearchRemoteOperation.SearchType.SHARED_FILTER);
+                currentSearchType = SHARED_FILTER;
+            }
         }
     }
 
