@@ -59,23 +59,25 @@ class HealthStatusWork(
 
             val e2eErrors = EncryptionUtils.readE2eError(arbitraryDataProvider, user)
 
-            val nextcloudClient = OwnCloudClientManagerFactory.getDefaultSingleton()
-                .getNextcloudClientFor(user.toOwnCloudAccount(), context)
-            val result =
-                SendClientDiagnosticRemoteOperation(
-                    syncConflicts,
-                    problems,
-                    virusDetected,
-                    e2eErrors
-                ).execute(
-                    nextcloudClient
-                )
+            if (syncConflicts != null || problems.isNotEmpty() || virusDetected != null || e2eErrors == null) {
+                val nextcloudClient = OwnCloudClientManagerFactory.getDefaultSingleton()
+                    .getNextcloudClientFor(user.toOwnCloudAccount(), context)
+                val result =
+                    SendClientDiagnosticRemoteOperation(
+                        syncConflicts,
+                        problems,
+                        virusDetected,
+                        e2eErrors
+                    ).execute(
+                        nextcloudClient
+                    )
 
-            if (!result.isSuccess) {
-                if (result.exception == null) {
-                    Log_OC.e(TAG, "Update client health NOT successful!")
-                } else {
-                    Log_OC.e(TAG, "Update client health NOT successful!", result.exception)
+                if (!result.isSuccess) {
+                    if (result.exception == null) {
+                        Log_OC.e(TAG, "Update client health NOT successful!")
+                    } else {
+                        Log_OC.e(TAG, "Update client health NOT successful!", result.exception)
+                    }
                 }
             }
         }
