@@ -1,9 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.nextcloud.client.jobs
 
@@ -11,6 +10,7 @@ import android.Manifest
 import androidx.test.rule.GrantPermissionRule
 import androidx.work.WorkManager
 import com.nextcloud.client.core.ClockImpl
+import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
@@ -20,9 +20,9 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadFileOperation
 import ezvcard.Ezvcard
 import ezvcard.VCard
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
-import junit.framework.Assert.fail
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.Test
 import java.io.BufferedInputStream
@@ -30,15 +30,15 @@ import java.io.File
 import java.io.FileInputStream
 
 class ContactsBackupIT : AbstractOnServerIT() {
-    val workmanager = WorkManager.getInstance(targetContext)
-    val preferences = AppPreferencesImpl.fromContext(targetContext)
-    private val backgroundJobManager = BackgroundJobManagerImpl(workmanager, ClockImpl(), preferences)
+    private val workManager = WorkManager.getInstance(targetContext)
+    private val preferences: AppPreferences = AppPreferencesImpl.fromContext(targetContext)
+    private val backgroundJobManager = BackgroundJobManagerImpl(workManager, ClockImpl(), preferences)
 
     @get:Rule
-    val writeContactsRule = GrantPermissionRule.grant(Manifest.permission.WRITE_CONTACTS)
+    val writeContactsRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_CONTACTS)
 
     @get:Rule
-    val readContactsRule = GrantPermissionRule.grant(Manifest.permission.READ_CONTACTS)
+    val readContactsRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.READ_CONTACTS)
 
     @get:Rule
     val retryTestRule = RetryTestRule() // flaky test
