@@ -855,13 +855,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void parseShares(List<Object> objects) {
         List<OCShare> shares = new ArrayList<>();
         Map<String, OCFile> fileMap = new HashMap<>();
+        long currentRootDirId = 1;
+        if (currentDirectory != null) {
+            currentRootDirId = currentDirectory.getFileId();
+        }
 
         for (Object shareObject : objects) {
             if (shareObject instanceof OCShare ocShare) {
                 shares.add(ocShare);
 
                 OCFile file = mStorageManager.getFileByDecryptedRemotePath(ocShare.getPath());
-                if (file != null) {
+                if (file != null && file.getParentId() == currentRootDirId) {
                     fileMap.putIfAbsent(file.getRemotePath(), file);
                 }
             }
