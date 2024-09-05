@@ -390,6 +390,7 @@ public class DialogFragmentIT extends AbstractIT {
 
         DeviceInfo info = new DeviceInfo();
         OCFile ocFile = new OCFile("/test.md");
+        ocFile.setRemoteId("00000001");
 
         Intent intent = new Intent(targetContext, FileDisplayActivity.class);
         FileDisplayActivity fda = activityRule.launchActivity(intent);
