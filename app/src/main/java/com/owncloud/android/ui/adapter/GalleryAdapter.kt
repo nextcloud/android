@@ -262,6 +262,7 @@ class GalleryAdapter(
         directory: OCFile,
         storageManager: FileDataStorageManager,
         onlyOnDevice: Boolean,
+        filterForShared: Boolean,
         mLimitToMimeType: String
     ) {
         TODO("Not yet implemented")

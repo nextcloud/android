@@ -748,6 +748,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         @NonNull OCFile directory,
         @NonNull FileDataStorageManager updatedStorageManager,
         boolean onlyOnDevice,
+        boolean filterForShared,
         @NonNull String limitToMimeType) {
         this.onlyOnDevice = onlyOnDevice;
 
@@ -766,6 +767,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
             if (OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles()) {
                 mFiles = limitToPersonalFiles(mFiles);
+            }
+            if (filterForShared) {
+                mFiles = filterSharedFiles(mFiles);
             }
             sortOrder = preferences.getSortOrderByFolder(directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
@@ -826,7 +830,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         // early exit
-        if (objects.size() > 0 && mStorageManager != null) {
+        if (!objects.isEmpty() && mStorageManager != null) {
             if (searchType == SearchType.SHARED_FILTER) {
                 parseShares(objects);
             } else {
@@ -1087,6 +1091,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         for (OCFile file : files) {
             if (!file.isHidden() && !ret.contains(file)) {
+                ret.add(file);
+            }
+        }
+
+        return ret;
+    }
+
+    private List<OCFile> filterSharedFiles(Iterable<OCFile> files) {
+        List<OCFile> ret = new ArrayList<>();
+
+        for (OCFile file : files) {
+            if (file.isVisibleInSharedTab()) {
                 ret.add(file);
             }
         }

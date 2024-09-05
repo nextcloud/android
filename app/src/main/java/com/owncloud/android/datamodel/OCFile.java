@@ -547,6 +547,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         }
     }
 
+    public boolean isVisibleInSharedTab() {
+        return isSharedWithMe() || isSharedWithSharee() || isSharedViaLink() || isFolder();
+    }
+
     @Override
     public int describeContents() {
         return super.hashCode();

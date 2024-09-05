@@ -21,6 +21,7 @@ interface CommonOCFileListAdapterInterface {
         directory: OCFile,
         storageManager: FileDataStorageManager,
         onlyOnDevice: Boolean,
+        filterForShared: Boolean,
         mLimitToMimeType: String
     )
 
