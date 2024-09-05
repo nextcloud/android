@@ -77,8 +77,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 
@@ -852,25 +854,24 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void parseShares(List<Object> objects) {
         List<OCShare> shares = new ArrayList<>();
+        Map<String, OCFile> fileMap = new HashMap<>();
 
         for (Object shareObject : objects) {
-            // check type before cast as of long running data fetch it is possible that old result is filled
-            if (shareObject instanceof OCShare) {
-                OCShare ocShare = (OCShare) shareObject;
+            if (shareObject instanceof OCShare ocShare) {
                 shares.add(ocShare);
+
+                OCFile file = mStorageManager.getFileByDecryptedRemotePath(ocShare.getPath());
+                if (file != null) {
+                    fileMap.putIfAbsent(file.getRemotePath(), file);
+                }
             }
         }
 
-        // create partial OCFile from OCShares
-        List<OCFile> files = OCShareToOCFileConverter.buildOCFilesFromShares(shares);
-
-        // set localPath of individual files iff present on device
-        for (OCFile file : files) {
-            FileStorageUtils.searchForLocalFileInDefaultPath(file, user.getAccountName());
-        }
+        // Set localPath of individual files if present on device
+        fileMap.values().forEach(file -> FileStorageUtils.searchForLocalFileInDefaultPath(file, user.getAccountName()));
 
         mFiles.clear();
-        mFiles.addAll(files);
+        mFiles.addAll(fileMap.values());
         mStorageManager.saveShares(shares);
     }
 
