@@ -728,6 +728,7 @@
     <string name="restore_button_description">Athchóirigh comhad scriosta</string>
     <string name="restore_selected">Athchóirigh roghnaithe</string>
     <string name="retrieving_file">Comhad á aisghabháil…</string>
+    <string name="retry">Bain triail eile as</string>
     <string name="richdocuments_failed_to_load_document">Theip ar an doiciméad a lódáil!</string>
     <string name="scanQR_description">Logáil isteach trí chód QR</string>
     <string name="scan_page">Scan leathanach</string>
@@ -907,6 +908,7 @@
     <string name="trashbin_file_remove">Scrios go buan</string>
     <string name="trashbin_loading_failed">Theip ar lódáil an bhosca bruscair!</string>
     <string name="trashbin_not_emptied">Níorbh fhéidir na comhaid a scriosadh go buan!</string>
+    <string name="unexpected_error_occurred">Tharla earráid gan choinne</string>
     <string name="unified_search_fragment_calendar_event_not_found">Níor aimsíodh an t-imeacht, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_contact_not_found">Níor aimsíodh an teagmhálaí, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_permission_needed">Teastaíonn ceadanna chun toradh cuardaigh a oscailt nó déanfar é a atreorú chuig an ngréasán…</string>

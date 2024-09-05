@@ -654,6 +654,7 @@
     <string name="restore_button_description">Restaurează fișier șters</string>
     <string name="restore_selected">Restaurează selecția</string>
     <string name="retrieving_file">Recuperearea fișierului...</string>
+    <string name="retry">Reîncearcă</string>
     <string name="richdocuments_failed_to_load_document">Eroare în încărcarea documentului!</string>
     <string name="scanQR_description">Autentificare cu cod QR</string>
     <string name="scan_page">Scanează pagina</string>

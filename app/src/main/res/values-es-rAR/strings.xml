@@ -711,6 +711,7 @@
     <string name="restore_button_description">Restaurar archivo borrado</string>
     <string name="restore_selected">Restaurar seleccionados</string>
     <string name="retrieving_file">Recuperando archivo...</string>
+    <string name="retry">Reintentar</string>
     <string name="richdocuments_failed_to_load_document">¡Error al cargar el documento!</string>
     <string name="scanQR_description">Iniciar sesión con QR</string>
     <string name="scan_page">Escanear página</string>

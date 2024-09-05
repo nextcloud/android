@@ -712,6 +712,7 @@
     <string name="restore_button_description">Herstel verwijderd bestand</string>
     <string name="restore_selected">Herstel geselecteerde</string>
     <string name="retrieving_file">Bestand ophalen…</string>
+    <string name="retry">Opnieuw</string>
     <string name="richdocuments_failed_to_load_document">Kon document niet laden!</string>
     <string name="scanQR_description">Inloggen via QR code</string>
     <string name="scan_page">Scan pagina</string>
@@ -888,6 +889,7 @@
     <string name="trashbin_file_remove">Permanent verwijderen</string>
     <string name="trashbin_loading_failed">Laden prullenbak mislukt!</string>
     <string name="trashbin_not_emptied">Bestanden konden niet permanent worden verwijderd!</string>
+    <string name="unexpected_error_occurred">Onverwachte fout opgetreden</string>
     <string name="unified_search_fragment_calendar_event_not_found">Gebeurtenis niet gevonden. Je kan altijd synchroniseren voor een update. Doorsturen naar het web...</string>
     <string name="unified_search_fragment_contact_not_found">Contactpersoon niet gevonden. Je kan altijd synchroniseren voor een update. Doorsturen naar het web...</string>
     <string name="unlock_file">Ontgrendel bestand</string>

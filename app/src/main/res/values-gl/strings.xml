@@ -729,6 +729,7 @@
     <string name="restore_button_description">Restaurar ficheiro eliminado</string>
     <string name="restore_selected">Restaurar o seleccionado</string>
     <string name="retrieving_file">Recuperando o ficheiro…</string>
+    <string name="retry">Volver tentar</string>
     <string name="richdocuments_failed_to_load_document">Produciuse un fallo ao cargar o documento!</string>
     <string name="scanQR_description">Acceder cun código QR</string>
     <string name="scan_page">Escanear a páxina</string>
@@ -908,6 +909,7 @@
     <string name="trashbin_file_remove">Eliminar definitivamente</string>
     <string name="trashbin_loading_failed">Produciuse un fallo ao cargar o cesto do lixo!</string>
     <string name="trashbin_not_emptied">Non foi posíbel eliminar definitivamente o ficheiro!</string>
+    <string name="unexpected_error_occurred">Produciuse un erro non agardado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Non se atopou o evento, sempre pode sincronizar para actualizar. Redirixindo á web…</string>
     <string name="unified_search_fragment_contact_not_found">Non se atopou o contacto, sempre pode sincronizar para actualizar. Redirixindo á web…</string>
     <string name="unified_search_fragment_permission_needed">Requírense permisos para abrir o resultado da busca, se non, vai ser redirixido á web…</string>

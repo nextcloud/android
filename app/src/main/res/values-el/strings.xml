@@ -629,6 +629,7 @@
     <string name="restore_button_description">Επαναφορά διαγραμμένου αρχείου</string>
     <string name="restore_selected">Επαναφορά επιλεγμένων</string>
     <string name="retrieving_file">Ανάκτηση αρχείου…</string>
+    <string name="retry">Δοκιμή ξανά</string>
     <string name="richdocuments_failed_to_load_document">Αποτυχία φόρτωσης εγγράφου!</string>
     <string name="scanQR_description">Είσοδος μέσω κωδικού QR</string>
     <string name="scan_page">Σάρωση σελίδας</string>
@@ -794,6 +795,7 @@
     <string name="trashbin_file_remove">Διαγραφή οριστικά</string>
     <string name="trashbin_loading_failed">Αποτυχία φόρτωσης κάδου ανακύκλωσης!</string>
     <string name="trashbin_not_emptied">Τα αρχεία δεν θα διαγραφούν μόνιμα!</string>
+    <string name="unexpected_error_occurred">Παρουσιάστηκε μη αναμενόμενο σφάλμα</string>
     <string name="unlock_file">Ξεκλείδωμα αρχείου</string>
     <string name="unread_comments">Υπάρχουν μη αναγνωσμένα σχόλια</string>
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>

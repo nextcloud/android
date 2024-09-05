@@ -711,6 +711,7 @@
     <string name="restore_button_description">Восстановить удалённый файл</string>
     <string name="restore_selected">Восстановить выбранные</string>
     <string name="retrieving_file">Получение файла…</string>
+    <string name="retry">Попробовать снова</string>
     <string name="richdocuments_failed_to_load_document">Не удалось загрузить документ.</string>
     <string name="scanQR_description">Войти с использованием QR кода</string>
     <string name="scan_page">Сканировать страницу</string>
@@ -890,6 +891,7 @@
     <string name="trashbin_file_remove">Удалить навсегда</string>
     <string name="trashbin_loading_failed">Загрузка корзины не удалась!</string>
     <string name="trashbin_not_emptied">Файлы не могут быть удалены окончательно!</string>
+    <string name="unexpected_error_occurred">Произошла неожиданная ошибка</string>
     <string name="unlock_file">Разблокировать файл</string>
     <string name="unread_comments">Имеются непрочитанные комментарии</string>
     <string name="unset_encrypted">Расшифровать</string>

@@ -713,6 +713,7 @@
     <string name="restore_button_description">Поврати обрисани фајл</string>
     <string name="restore_selected">Обнови изабрано</string>
     <string name="retrieving_file">Добављам фајл…</string>
+    <string name="retry">Покушај поново</string>
     <string name="richdocuments_failed_to_load_document">Не могу да учитам документ!</string>
     <string name="scanQR_description">Пријава преко КуеР кода</string>
     <string name="scan_page">Скенирај страницу</string>
@@ -892,6 +893,7 @@
     <string name="trashbin_file_remove">Обриши заувек</string>
     <string name="trashbin_loading_failed">Није успело учитавање корпе за отпатке!</string>
     <string name="trashbin_not_emptied">Фајл не може да се обрише неповратно!</string>
+    <string name="unexpected_error_occurred">Дошло је до неочекиване грешке</string>
     <string name="unified_search_fragment_calendar_event_not_found">Није пронађен догађај, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
     <string name="unified_search_fragment_contact_not_found">Није пронађен контакт, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
     <string name="unified_search_fragment_permission_needed">За отварање резултата претраге су неопходне дозволе, у супротном бићете преусмерени на веб</string>

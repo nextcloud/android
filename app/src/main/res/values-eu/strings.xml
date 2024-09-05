@@ -728,6 +728,7 @@
     <string name="restore_button_description">Berreskuratu ezabatutako fitxategia</string>
     <string name="restore_selected">Berrezarri hautatutakoak</string>
     <string name="retrieving_file">Fitxategia berreskuratzen ...</string>
+    <string name="retry">saiatu berriro</string>
     <string name="richdocuments_failed_to_load_document">Huts egin du dokumentua kargatzean!</string>
     <string name="scanQR_description">Hasi saioa QR kode bidez</string>
     <string name="scan_page">Eskaneatu orria</string>
@@ -907,6 +908,7 @@
     <string name="trashbin_file_remove">Ezabatu betirako</string>
     <string name="trashbin_loading_failed">Zakarrontzia kargatzeak huts egin du!</string>
     <string name="trashbin_not_emptied">Fitxategiak ezin dira betirako ezabatu!</string>
+    <string name="unexpected_error_occurred">Ustekabeko errore bat gertatu da</string>
     <string name="unified_search_fragment_calendar_event_not_found">Gertaera ez da aurkitu, beti sinkroniza dezakezu eguneratzeko. Webera birbideratzen…</string>
     <string name="unified_search_fragment_contact_not_found">Kontaktua ez da aurkitu, beti sinkroniza dezakezu eguneratzeko. Webera birbideratzen…</string>
     <string name="unified_search_fragment_permission_needed">Bilaketa-emaitza irekitzeko baimenak behar dira, bestela webera birbideratuko da...</string>

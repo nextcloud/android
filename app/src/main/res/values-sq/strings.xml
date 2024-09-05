@@ -482,6 +482,7 @@
     <string name="restore">Rikthe skedarin</string>
     <string name="restore_button_description">Rikthe skedarin e fshirë</string>
     <string name="retrieving_file">Marrja e skedarit…</string>
+    <string name="retry">Riprovoni</string>
     <string name="richdocuments_failed_to_load_document">Dështoi ngarkimi i dokumentit!</string>
     <string name="scanQR_description">Identifikohu nëpërmjet QR code</string>
     <string name="screenshot_01_gridView_heading">Mbrojtja e të dhënave tuaja</string>

@@ -725,6 +725,7 @@
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
     <string name="restore_selected">Restaurer la sélection</string>
     <string name="retrieving_file">Téléchargement en cours…</string>
+    <string name="retry">Réessayer</string>
     <string name="richdocuments_failed_to_load_document">Impossible de charger le document !</string>
     <string name="scanQR_description">Connexion par code QR</string>
     <string name="scan_page">Scanner la page</string>
@@ -904,6 +905,7 @@
     <string name="trashbin_file_remove">Supprimer définitivement</string>
     <string name="trashbin_loading_failed">Le chargement de la corbeille a échoué !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
+    <string name="unexpected_error_occurred">Une erreur est survenue</string>
     <string name="unified_search_fragment_calendar_event_not_found">Événement introuvable; vous pouvez toujours synchroniser pour mettre à jour. Redirection au web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web...</string>
     <string name="unified_search_fragment_permission_needed">Des permissions sont requises pour ouvrir le résultat de recherche, autrement ceci redirigera au web…</string>

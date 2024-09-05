@@ -703,6 +703,7 @@
     <string name="trashbin_file_remove">Cantzella in manera definitiva</string>
     <string name="trashbin_loading_failed">Carrigamentu de s\'àliga faddidu!</string>
     <string name="trashbin_not_emptied">No at fatu a cantzellare is archìvios in manera permanente!</string>
+    <string name="unexpected_error_occurred">B\'at àpidu un\'errore ispantosu</string>
     <string name="unlock_file">Isbloca su documentu</string>
     <string name="unread_comments">Ddoe sunt cummentos non lèghidos</string>
     <string name="unset_encrypted">Tzifradura non cunfigurada</string>
