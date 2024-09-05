@@ -158,6 +158,7 @@
     <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="confirmation_remove_local">Vain paikallisen</string>
+    <string name="conflict_file_headline">Ristiriitainen kohde %1$s</string>
     <string name="conflict_local_file">Paikallinen tiedosto</string>
     <string name="conflict_message_description">Jos valitset molemmat versiot, paikallisen tiedoston nimeen lisätään numero.</string>
     <string name="conflict_server_file">Palvelintiedosto</string>
@@ -808,6 +809,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="trashbin_file_remove">Poista pysyvästi</string>
     <string name="trashbin_loading_failed">Roskakorin lataaminen epäonnistui!</string>
     <string name="trashbin_not_emptied">Tiedostoja ei voitu poistaa pysyvästi!</string>
+    <string name="unexpected_error_occurred">Tapahtui odottamaton virhe</string>
     <string name="unlock_file">Vapauta tiedoston lukitus</string>
     <string name="unread_comments">Lukemattomia kommentteja on olemassa</string>
     <string name="unset_encrypted">Poista salaus</string>

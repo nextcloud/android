@@ -158,6 +158,7 @@
     <string name="confirmation_remove_folder_alert">آیا واقعا می خواهید %1$s و محتویات آن را حذف کنید؟</string>
     <string name="confirmation_remove_folders_alert">آیا واقعاً می‌خواهید موارد انتخاب شده و محتوای آنها حذف شود؟</string>
     <string name="confirmation_remove_local">فقط محلی</string>
+    <string name="conflict_file_headline">فایل متناقض %1$s</string>
     <string name="conflict_local_file">پروندهٔ محلّی</string>
     <string name="conflict_message_description">اگر هردو نسخه را انتخاب کنید، یک شماره به نام فایل محلی اضافه خواهد شد.</string>
     <string name="conflict_server_file">پروندهٔ کارساز</string>
@@ -676,6 +677,7 @@
     <string name="restore_button_description">بازیابی پرونده حذف شده</string>
     <string name="restore_selected">بازیابی انتخاب شده</string>
     <string name="retrieving_file">در حال بازیابی پرونده ...</string>
+    <string name="retry">تلاش دوباره</string>
     <string name="richdocuments_failed_to_load_document">بارگیری سند انجام نشد!</string>
     <string name="scanQR_description">از طریق کد QR وارد شوید</string>
     <string name="scan_page">صفحه را اسکن کنید</string>
@@ -853,6 +855,7 @@
     <string name="trashbin_file_remove">حذف قطعی</string>
     <string name="trashbin_loading_failed">بار کردن سطل زباله شکست خورد!</string>
     <string name="trashbin_not_emptied">نمی توان پرونده ها را برای همیشه حذف کرد!</string>
+    <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="unlock_file">باز کردن قفل پرونده</string>
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
     <string name="unset_encrypted">به صورت رمزگذاری شده تنظیم نشده است</string>

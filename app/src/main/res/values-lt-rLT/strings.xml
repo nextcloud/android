@@ -147,6 +147,7 @@
     <string name="confirmation_remove_folder_alert">Ar tikrai norite ištrinti %1$s ir jo turinį?</string>
     <string name="confirmation_remove_folders_alert">Ar tikrai norite ištrinti pažymėtus elementus ir jų turinį?</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
+    <string name="conflict_file_headline">Nesuderinamas failas%1$s</string>
     <string name="conflict_local_file">Vietinis failas</string>
     <string name="conflict_message_description">Jei pasirinksite abi versijas, vietinis failas prie pavadinimo turės numerį.</string>
     <string name="conflict_server_file">Failas iš serverio</string>
@@ -575,6 +576,7 @@
     <string name="restore_button_description">Atkurti ištrintą failą</string>
     <string name="restore_selected">Atkurti pažymėtus</string>
     <string name="retrieving_file">Gaunamas failas…</string>
+    <string name="retry">Bandyti dar kartą</string>
     <string name="richdocuments_failed_to_load_document">Nepavyko įkelti dokumento!</string>
     <string name="scanQR_description">Prisijungti per QR kodą</string>
     <string name="screenshot_01_gridView_heading">Apsaugomi Jūsų duomenys</string>
@@ -729,6 +731,7 @@
     <string name="trashbin_file_remove">Ištrinti negrįžtamai</string>
     <string name="trashbin_loading_failed">Nepavyko įkelti šiukšlinės!</string>
     <string name="trashbin_not_emptied">Nepavyko ištrinti failų visam laikui!</string>
+    <string name="unexpected_error_occurred">Įvyko netikėta klaida</string>
     <string name="unlock_file">Atrakinti failą</string>
     <string name="unread_comments">Yra neskaitytų komentarų</string>
     <string name="unset_encrypted">Atjungti šifravimą</string>

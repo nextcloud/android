@@ -179,6 +179,7 @@
     <string name="confirmation_remove_folders_alert">本当に選択したアイテムとその内容を削除しますか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
     <string name="conflict_dialog_error">競合解決ダイアログを作成できません</string>
+    <string name="conflict_file_headline">%1$sはすでに存在します</string>
     <string name="conflict_local_file">ローカルファイル</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
     <string name="conflict_server_file">サーバーファイル</string>
@@ -695,6 +696,7 @@
     <string name="restore_button_description">選択したファイルを復元する</string>
     <string name="restore_selected">選択した項目を復元する</string>
     <string name="retrieving_file">ファイルを取得中...</string>
+    <string name="retry">リトライ</string>
     <string name="richdocuments_failed_to_load_document">ドキュメントのロードに失敗しました。</string>
     <string name="scanQR_description">QRコードを用いてログイン</string>
     <string name="scan_page">ページをスキャン</string>
@@ -867,6 +869,7 @@
     <string name="trashbin_file_remove">永久に削除</string>
     <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_not_emptied">ファイルを完全に削除できませんでした。</string>
+    <string name="unexpected_error_occurred">予期せぬエラーが発生しました</string>
     <string name="unlock_file">ファイルのロックを解除</string>
     <string name="unread_comments">未読のコメントがあります</string>
     <string name="unset_encrypted">暗号化解除</string>

@@ -173,6 +173,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="confirmation_remove_folders_alert">Apa anda yakin ingin menghapus item yang terpilih beserta isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
     <string name="conflict_dialog_error">Dialog penyelesaian konflik tidak dapat dibuat</string>
+    <string name="conflict_file_headline">File konflik %1$s</string>
     <string name="conflict_local_file">File lokal</string>
     <string name="conflict_message_description">Jika Anda memilih kedua versi, nama dari berkas lokal akan ditambahi angka.</string>
     <string name="conflict_server_file">File server</string>
@@ -655,6 +656,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="restore_button_description">Pulihkan berkas yang terhapus</string>
     <string name="restore_selected">Pulihkan yang dipilih</string>
     <string name="retrieving_file">Memperoleh berkas...</string>
+    <string name="retry">Ulangi</string>
     <string name="richdocuments_failed_to_load_document">Gagal memuat dokumen!</string>
     <string name="scanQR_description">Masuk melalui kode QR</string>
     <string name="scan_page">Pindai halaman</string>
@@ -818,6 +820,7 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="trashbin_file_remove">Hapus secara permanen</string>
     <string name="trashbin_loading_failed">Pemuatan keranjang sampah gagal!</string>
     <string name="trashbin_not_emptied">Berkas tidak dapat dihapus secara permanen!</string>
+    <string name="unexpected_error_occurred">Terjadi galat tak terduga</string>
     <string name="unlock_file">Buka kunci berkas</string>
     <string name="unread_comments">Ada komentar yang belum dibaca</string>
     <string name="unshare_link_file_error">Terjadi kesalahan saat mencoba menghapus pembagian berkas atau folder ini.</string>

@@ -179,6 +179,7 @@
     <string name="confirmation_remove_folders_alert">Möchten Sie die ausgewählten Elemente und deren inhalt wirklich löschen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="conflict_dialog_error">Konfliktlösungsdialog konnte nicht erstellt werden</string>
+    <string name="conflict_file_headline">Konflikt-Datei %1$s</string>
     <string name="conflict_local_file">Lokale Datei</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
     <string name="conflict_server_file">Server-Datei</string>
@@ -727,6 +728,7 @@
     <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
     <string name="restore_selected">Ausgewählte wiederherstellen</string>
     <string name="retrieving_file">Abrufen der Datei…</string>
+    <string name="retry">Wiederholen</string>
     <string name="richdocuments_failed_to_load_document">Laden des Dokuments fehlgeschlagen!</string>
     <string name="scanQR_description">Anmelden mit QR-Code</string>
     <string name="scan_page">Seite scannen</string>
@@ -906,6 +908,7 @@
     <string name="trashbin_file_remove">Endgültig löschen</string>
     <string name="trashbin_loading_failed">Laden des Papierkorbs fehlgeschlagen!</string>
     <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
+    <string name="unexpected_error_occurred">Es ist ein unerwarteter Fehler aufgetreten</string>
     <string name="unified_search_fragment_calendar_event_not_found">Termin nicht gefunden, Sie können jederzeit die Synchronisierung wiederholen. Weiterleiten zum Web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web…</string>
     <string name="unified_search_fragment_permission_needed">Berechtigungen für das Öffnen der Suchergebnisse notwendig, ansonsten werden Sie zum Web weitergeleitet</string>

@@ -179,6 +179,7 @@
     <string name="confirmation_remove_folders_alert">Quer realmente excluir os itens selecionados e seus conteúdos?</string>
     <string name="confirmation_remove_local">Somente local</string>
     <string name="conflict_dialog_error">A caixa de diálogo de resolução de conflitos não pode ser criada</string>
+    <string name="conflict_file_headline">Arquivo conflitante %1$s</string>
     <string name="conflict_local_file">Arquivo local</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
     <string name="conflict_server_file">Arquivo do servidor</string>
@@ -727,6 +728,7 @@
     <string name="restore_button_description">Restaurar arquivo excluído</string>
     <string name="restore_selected">Restaurar selecionado </string>
     <string name="retrieving_file">Recuperando arquivo…</string>
+    <string name="retry">Tentar novamente</string>
     <string name="richdocuments_failed_to_load_document">Falhou ao carregar documento!</string>
     <string name="scanQR_description">Entrar via código QR</string>
     <string name="scan_page">Digitalizar página</string>
@@ -906,6 +908,7 @@
     <string name="trashbin_file_remove">Remover permanentemente</string>
     <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
+    <string name="unexpected_error_occurred">Ocorreu um erro inesperado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Evento não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para a web…</string>
     <string name="unified_search_fragment_contact_not_found">Contato não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para web…</string>
     <string name="unified_search_fragment_permission_needed">São necessárias permissões para abrir o resultado da pesquisa, caso contrário ele será redirecionado para a web…</string>

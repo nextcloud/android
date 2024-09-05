@@ -178,6 +178,7 @@
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_local">로컬만</string>
     <string name="conflict_dialog_error">충돌 해결 프로그램 대화 상자를 만들 수 없습니다.</string>
+    <string name="conflict_file_headline">충돌하는 파일 %1$s</string>
     <string name="conflict_local_file">로컬 파일</string>
     <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
     <string name="conflict_server_file">서버 파일</string>
@@ -883,6 +884,7 @@
     <string name="trashbin_file_remove">영구히 삭제</string>
     <string name="trashbin_loading_failed">휴지통 로딩 실패!</string>
     <string name="trashbin_not_emptied">파일을 영구적으로 삭제할 수 없습니다!</string>
+    <string name="unexpected_error_occurred">예상치 못한 오류가 발생했습니다.</string>
     <string name="unlock_file">파일 잠금해제</string>
     <string name="unread_comments">읽지 않은 댓글 있음</string>
     <string name="unset_encrypted">암호화 해제</string>

@@ -174,6 +174,7 @@
     <string name="confirmation_remove_folder_alert">Sigur vreți să eliminați %1$s și conținutul său?</string>
     <string name="confirmation_remove_folders_alert">Doriți să ștergeți elementele selectate și conținutul lor?</string>
     <string name="confirmation_remove_local">Doar local</string>
+    <string name="conflict_file_headline">Conflict cu fișierul %1$s</string>
     <string name="conflict_local_file">Fișier local</string>
     <string name="conflict_message_description">Dacă selectezi ambele variante, atunci fișierul local va avea un număr adăugat la numele său.</string>
     <string name="conflict_server_file">Fișier pe server</string>
@@ -653,6 +654,7 @@
     <string name="restore_button_description">Restaurează fișier șters</string>
     <string name="restore_selected">Restaurează selecția</string>
     <string name="retrieving_file">Recuperearea fișierului...</string>
+    <string name="retry">Reîncearcă</string>
     <string name="richdocuments_failed_to_load_document">Eroare în încărcarea documentului!</string>
     <string name="scanQR_description">Autentificare cu cod QR</string>
     <string name="scan_page">Scanează pagina</string>

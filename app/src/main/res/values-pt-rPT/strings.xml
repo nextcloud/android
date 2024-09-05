@@ -149,6 +149,7 @@
     <string name="confirmation_remove_folder_alert">Deseja realmente apagar %1$s e o seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
+    <string name="conflict_file_headline">Ficheiro em conflito %1$s</string>
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecionou ambas as versões, o ficheiro local terá um número acrescentado ao seu nome.</string>
     <string name="conflict_server_file">Ficheiro do servidor</string>
@@ -630,6 +631,7 @@
     <string name="restore_button_description">Restaurar ficheiro apagado</string>
     <string name="restore_selected">Restaurar o selecionado</string>
     <string name="retrieving_file">A obter o ficheiro…</string>
+    <string name="retry">Repetir</string>
     <string name="richdocuments_failed_to_load_document">Falha ao carregar o documento!</string>
     <string name="scanQR_description">acesso através de código QR</string>
     <string name="scan_page">Digitalizar a página</string>
