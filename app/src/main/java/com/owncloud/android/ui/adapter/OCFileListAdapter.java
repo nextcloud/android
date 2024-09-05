@@ -865,14 +865,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         for (Object shareObject : objects) {
-            if (shareObject instanceof OCShare ocShare) {
-                if (ocShare.getPath() != null) {
-                    shares.add(ocShare);
+            if (shareObject instanceof OCShare ocShare && ocShare.getPath() != null) {
+                shares.add(ocShare);
 
-                    OCFile file = mStorageManager.getFileByDecryptedRemotePath(ocShare.getPath());
-                    if (file != null && file.getParentId() == currentRootDirId) {
-                        fileMap.putIfAbsent(file.getRemotePath(), file);
-                    }
+                OCFile file = mStorageManager.getFileByDecryptedRemotePath(ocShare.getPath());
+                if (file != null && file.getParentId() == currentRootDirId) {
+                    fileMap.putIfAbsent(file.getRemotePath(), file);
                 }
             }
         }
