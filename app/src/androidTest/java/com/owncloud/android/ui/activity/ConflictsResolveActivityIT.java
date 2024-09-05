@@ -64,6 +64,7 @@ public class ConflictsResolveActivityIT extends AbstractIT {
 
         ConflictsResolveDialog dialog = ConflictsResolveDialog.newInstance(existingFile,
                                                                            newFile,
+                                                                           existingFile,
                                                                            UserAccountManagerImpl
                                                                                .fromContext(targetContext)
                                                                                .getUser()
