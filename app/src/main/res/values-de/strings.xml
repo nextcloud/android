@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="conflict_dialog_error">Konfliktlösungsdialog konnte nicht erstellt werden</string>
     <string name="conflict_file_headline">Konflikt-Datei %1$s</string>
+    <string name="conflict_folder_headline">Ordnerkonfilikt</string>
     <string name="conflict_local_file">Lokale Datei</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
+    <string name="conflict_message_description_for_folder">Falls beide Versionen gewählt werden, wird beim lokalen Ordner eine Zahl am Ende des Dateinamens hinzugefügt.</string>
     <string name="conflict_server_file">Server-Datei</string>
     <string name="contact_backup_title">Kontakte-Backup</string>
     <string name="contact_no_permission">Eine Kontakterlaubnis ist erforderlich.</string>
@@ -488,7 +490,7 @@
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
     <string name="internal_two_way_sync">Interne 2-Wege-Synchronisierung</string>
-    <string name="internal_two_way_sync_not_yet">Bislang nicht, aber in Kürze synchronisiert</string>
+    <string name="internal_two_way_sync_not_yet">Bislang nicht, wird demnächst synchronisiert</string>
     <string name="invalid_url">Ungültige URL</string>
     <string name="invisible">Unsichtbar</string>
     <string name="label_empty">Bezeichnung darf nicht leer sein</string>
@@ -573,6 +575,8 @@
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
     <string name="note_icon_hint">Notiz-Symbol</string>
     <string name="notification_action_failed">Ausführen der Aktion fehlgeschlagen.</string>
+    <string name="notification_channel_background_operations_description">Benachrichtigungen anzeigen, um auf die Ergebnisse von Hintergrundoperationen zu reagieren</string>
+    <string name="notification_channel_background_operations_name">Hintergrundoperationen</string>
     <string name="notification_channel_download_description">Zeigt den Herunterlade-Fortschritt an</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Zeigt den Fortschritt der Dateisynchronisierung und die Ergebnisse an</string>
@@ -588,7 +592,13 @@
     <string name="notification_icon">Benachrichtigungssymbol</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Ausstehende Operationen</string>
     <string name="offline_mode">Keine Internetverbindung</string>
+    <string name="offline_operations_worker_notification_conflict_text">Konfliktordner: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Offlineordner löschen</string>
+    <string name="offline_operations_worker_notification_error_text">Der Offlinevorgang kann nicht abgeschlossen werden. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Offline-Operationen</string>
+    <string name="offline_operations_worker_notification_start_text">Offline-Operationen werden gestartet</string>
     <string name="oneHour">1 Stunde</string>
     <string name="online">Online</string>
     <string name="online_status">Online-Status</string>

@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="conflict_dialog_error">Erreur lors de la création de la boîte de dialogue de conflit !</string>
     <string name="conflict_file_headline">Fichier %1$s en conflit</string>
+    <string name="conflict_folder_headline">Conflit de dossiers</string>
     <string name="conflict_local_file">fichier local</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
+    <string name="conflict_message_description_for_folder">Si vous sélectionnez les deux versions, le dossier local portera un numéro ajouté à son nom.</string>
     <string name="conflict_server_file">Fichier serveur</string>
     <string name="contact_backup_title">Sauvegarde des contacts</string>
     <string name="contact_no_permission">La permission d\'accès à vos contacts est requise</string>
@@ -570,6 +572,8 @@
     <string name="note_could_not_sent">Impossible d\'envoyer la note</string>
     <string name="note_icon_hint">Icône de note</string>
     <string name="notification_action_failed">Échec lors de l\'exécution de l\'action.</string>
+    <string name="notification_channel_background_operations_description">Afficher des notifications pour interagir avec le résultat des opérations en arrière-plan</string>
+    <string name="notification_channel_background_operations_name">Opérations en arrière-plan</string>
     <string name="notification_channel_download_description">Afficher la progression de téléchargement</string>
     <string name="notification_channel_download_name_short">Téléchargements</string>
     <string name="notification_channel_file_sync_description">Afficher les résultats et la progression de synchronisation du fichier</string>
@@ -585,7 +589,13 @@
     <string name="notification_icon">Icône de notification</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Opération en attente</string>
     <string name="offline_mode">Aucune connexion Internet</string>
+    <string name="offline_operations_worker_notification_conflict_text">Dossier en conflit : %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Supprimer le dossier hors ligne</string>
+    <string name="offline_operations_worker_notification_error_text">L\'opération hors ligne ne peut être achevée. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Opérations hors ligne</string>
+    <string name="offline_operations_worker_notification_start_text">Démarrage des opérations hors ligne</string>
     <string name="oneHour">1 heure</string>
     <string name="online">En ligne</string>
     <string name="online_status">Statut en ligne</string>
