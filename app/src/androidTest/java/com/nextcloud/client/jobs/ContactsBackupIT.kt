@@ -57,43 +57,44 @@ class ContactsBackupIT : AbstractOnServerIT() {
         backgroundJobManager.startImmediateContactsBackup(user)
         longSleep()
 
-        val backupFolderPath: String = targetContext.resources.getString(R.string.contacts_backup_folder) +
+        val folderPath: String = targetContext.resources.getString(R.string.contacts_backup_folder) +
             OCFile.PATH_SEPARATOR
 
         refreshFolder("/")
         longSleep()
         longSleep()
 
-        refreshFolder(backupFolderPath)
+        refreshFolder(folderPath)
         longSleep()
         longSleep()
 
-        if (backupFolderPath.isEmpty()) {
-            fail("backupFolderPath cannot be empty")
+        if (folderPath.isEmpty()) {
+            fail("folderPath cannot be empty")
         }
 
-        val backupOCFile = storageManager.getFolderContent(
-            storageManager.getFileByDecryptedRemotePath(backupFolderPath),
-            false
-        ).firstOrNull()
-
-        if (backupOCFile == null) {
-            fail("backupOCFile cannot be null")
+        val folder = fileDataStorageManager.getFileByDecryptedRemotePath(folderPath)
+        if (folder == null) {
+            fail("folder cannot be null")
         }
 
-        if (backupOCFile?.storagePath == null) {
-            fail("backupOCFile.storagePath cannot be null")
+        val ocFile = storageManager.getFolderContent(folder, false).firstOrNull()
+        if (ocFile == null) {
+            fail("ocFile cannot be null")
         }
 
-        assertTrue(DownloadFileOperation(user, backupOCFile, AbstractIT.targetContext).execute(client).isSuccess)
+        if (ocFile?.storagePath == null) {
+            fail("ocFile.storagePath cannot be null")
+        }
 
-        val backupFile = backupOCFile?.storagePath?.let { File(it) }
-        if (backupFile == null) {
-            fail("backupFile cannot be null")
+        assertTrue(DownloadFileOperation(user, ocFile, AbstractIT.targetContext).execute(client).isSuccess)
+
+        val file = ocFile?.storagePath?.let { File(it) }
+        if (file == null) {
+            fail("file cannot be null")
         }
 
         val vcardInputStream = BufferedInputStream(FileInputStream(getFile(vcard)))
-        val backupFileInputStream = BufferedInputStream(FileInputStream(backupFile))
+        val backupFileInputStream = BufferedInputStream(FileInputStream(file))
 
         // verify same
         val originalCards: ArrayList<VCard> = ArrayList()
