@@ -51,15 +51,14 @@ class OfflineOperationsRepository(
     }
 
     override fun deleteOperation(file: OCFile) {
-        getAllSubEntities(file.fileId).forEach {
-            dao.delete(it)
+        if (file.isFolder) {
+            getAllSubEntities(file.fileId).forEach {
+                dao.delete(it)
+            }
         }
 
         file.decryptedRemotePath?.let {
-            val entity = dao.getByPath(it)
-            entity?.let {
-                dao.delete(entity)
-            }
+            dao.deleteByPath(it)
         }
 
         fileDataStorageManager.removeFile(file, true, true)
