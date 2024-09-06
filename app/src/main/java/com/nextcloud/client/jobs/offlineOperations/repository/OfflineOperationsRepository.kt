@@ -79,13 +79,15 @@ class OfflineOperationsRepository(
                             if (newPath != nextOperation.path) {
                                 nextOperation.apply {
                                     type = when (type) {
-                                        is OfflineOperationType.CreateFile -> (type as OfflineOperationType.CreateFile).copy(
-                                            remotePath = newPath
-                                        )
+                                        is OfflineOperationType.CreateFile ->
+                                            (type as OfflineOperationType.CreateFile).copy(
+                                                remotePath = newPath
+                                            )
 
-                                        is OfflineOperationType.CreateFolder -> (type as OfflineOperationType.CreateFolder).copy(
-                                            path = newPath
-                                        )
+                                        is OfflineOperationType.CreateFolder ->
+                                            (type as OfflineOperationType.CreateFolder).copy(
+                                                path = newPath
+                                            )
 
                                         else -> type
                                     }
