@@ -352,7 +352,7 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         @JvmStatic
         private fun getFileConflictData(leftFile: File, rightFile: OCFile, context: Context): ConflictDialogData {
             // TODO Path needs to be set it correctly for encrypted folders
-            val title = leftFile.name
+            val title = rightFile.decryptedRemotePath
 
             val leftTitle = context.getString(R.string.conflict_local_file)
             val leftTimestamp = DisplayUtils.getRelativeTimestamp(context, leftFile.lastModified())
