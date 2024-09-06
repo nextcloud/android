@@ -27,7 +27,7 @@ import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation
 import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.withContext
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -51,8 +51,7 @@ class OfflineOperationsWorker(
     private var repository = OfflineOperationsRepository(fileDataStorageManager)
 
     @Suppress("TooGenericExceptionCaught")
-    override suspend fun doWork(): Result = coroutineScope {
-        // fileDataStorageManager.offlineOperationDao.clearTable()
+    override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         val jobName = inputData.getString(JOB_NAME)
         Log_OC.d(
             TAG,
@@ -63,7 +62,7 @@ class OfflineOperationsWorker(
 
         if (!isNetworkAndServerAvailable()) {
             Log_OC.d(TAG, "OfflineOperationsWorker cancelled, no internet connection")
-            return@coroutineScope Result.retry()
+            return@withContext Result.retry()
         }
 
         val client = clientFactory.create(user)
@@ -73,7 +72,7 @@ class OfflineOperationsWorker(
         val totalOperations = operations.size
         var currentSuccessfulOperationIndex = 0
 
-        return@coroutineScope try {
+        return@withContext try {
             while (operations.isNotEmpty()) {
                 val operation = operations.first()
                 val result = executeOperation(operation, client)
@@ -113,10 +112,10 @@ class OfflineOperationsWorker(
     private suspend fun executeOperation(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
-    ): Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>? {
-        return when (operation.type) {
+    ): Pair<RemoteOperationResult<*>?, RemoteOperation<*>?>? = withContext(Dispatchers.IO) {
+        return@withContext when (operation.type) {
             is OfflineOperationType.CreateFolder -> {
-                val createFolderOperation = withContext(Dispatchers.IO) {
+                val createFolderOperation = withContext(NonCancellable) {
                     val operationType = (operation.type as OfflineOperationType.CreateFolder)
                     CreateFolderOperation(
                         operationType.path,
@@ -129,7 +128,7 @@ class OfflineOperationsWorker(
             }
 
             is OfflineOperationType.CreateFile -> {
-                val createFileOperation = withContext(Dispatchers.IO) {
+                val createFileOperation = withContext(NonCancellable) {
                     val operationType = (operation.type as OfflineOperationType.CreateFile)
                     UploadFileRemoteOperation(
                         operationType.localPath,
