@@ -344,7 +344,6 @@
     <string name="hint_password">Facal-faire</string>
     <string name="host_not_available">Chan eil am frithealaiche ri làimh</string>
     <string name="host_your_own_server">Òstaich am frithealaiche agad fhèin</string>
-    <string name="in_folder">sa phasgan %1$s</string>
     <string name="instant_upload_existing">Luchdaich suas na faidhlichean a tha ann mu thràth cuideachd</string>
     <string name="instant_upload_on_charging">Na luchdaich suas ach nuair a bhios an t-uidheam ’ga theàirrdseadh</string>
     <string name="instant_upload_path">/InstantUpload</string>

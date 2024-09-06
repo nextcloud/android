@@ -376,7 +376,6 @@
     <string name="hint_password">Slaptažodis</string>
     <string name="host_not_available">Serveris neprieinamas</string>
     <string name="host_your_own_server">Administruoti savo serverį</string>
-    <string name="in_folder">aplanke %1$s</string>
     <string name="instant_upload_existing">Taip pat įkelkite esamus failus</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>

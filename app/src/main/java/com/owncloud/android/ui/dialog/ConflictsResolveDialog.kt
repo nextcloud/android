@@ -151,21 +151,21 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             .setNegativeButton(R.string.common_cancel) { _: DialogInterface?, _: Int ->
                 listener?.conflictDecisionMade(Decision.CANCEL)
             }
-            .setTitle(data?.folderName)
+            .setTitle(data?.dialogTitle)
     }
 
     private fun okButtonClick() {
         binding.run {
-            val isFolderNameNotExists = (data?.folderName == null)
+            val isDialogTitleNotExists = (data?.dialogTitle == null)
             val decision = when {
                 leftCheckbox.isChecked && rightCheckbox.isChecked ->
-                    if (isFolderNameNotExists) Decision.KEEP_BOTH_FOLDER else Decision.KEEP_BOTH
+                    if (isDialogTitleNotExists) Decision.KEEP_BOTH_FOLDER else Decision.KEEP_BOTH
 
                 leftCheckbox.isChecked ->
-                    if (isFolderNameNotExists) Decision.KEEP_OFFLINE_FOLDER else Decision.KEEP_LOCAL
+                    if (isDialogTitleNotExists) Decision.KEEP_OFFLINE_FOLDER else Decision.KEEP_LOCAL
 
                 rightCheckbox.isChecked ->
-                    if (isFolderNameNotExists) Decision.KEEP_SERVER_FOLDER else Decision.KEEP_SERVER
+                    if (isDialogTitleNotExists) Decision.KEEP_SERVER_FOLDER else Decision.KEEP_SERVER
 
                 else -> null
             }
@@ -179,19 +179,12 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             data?.let {
                 val (leftData, rightData) = it.checkboxData
 
-                folderName.visibility = if (it.folderName == null) {
+                headline.visibility = if (it.headline == null) {
                     View.GONE
                 } else {
                     View.VISIBLE
                 }
-                folderName.text = it.folderName
-
-                title.visibility = if (it.title == null) {
-                    View.GONE
-                } else {
-                    View.VISIBLE
-                }
-                title.text = it.title
+                headline.text = it.headline
 
                 description.text = it.description
 
@@ -340,8 +333,6 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             rightFile: OCFile,
             context: Context
         ): ConflictDialogData {
-            val folderName = null
-
             val leftTitle = context.getString(R.string.prefs_synced_folders_local_path_title)
             val leftTimestamp =
                 DisplayUtils.getRelativeTimestamp(context, offlineOperation.createdAt?.times(1000L) ?: 0)
@@ -355,21 +346,17 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
 
             val title = context.getString(R.string.conflict_folder_headline)
             val description = context.getString(R.string.conflict_message_description_for_folder)
-            return ConflictDialogData(folderName, title, description, Pair(leftCheckBoxData, rightCheckBoxData))
+            return ConflictDialogData(null, title, description, Pair(leftCheckBoxData, rightCheckBoxData))
         }
 
         @JvmStatic
-        private fun getFileConflictData(file: File, rightFile: OCFile, context: Context): ConflictDialogData {
-            val parentFile = File(rightFile.remotePath).parentFile
-            val folderName = if (parentFile != null) {
-                String.format(context.getString(R.string.in_folder), parentFile.absolutePath)
-            } else {
-                null
-            }
+        private fun getFileConflictData(leftFile: File, rightFile: OCFile, context: Context): ConflictDialogData {
+            // TODO Path needs to be set it correctly for encrypted folders
+            val title = leftFile.name
 
             val leftTitle = context.getString(R.string.conflict_local_file)
-            val leftTimestamp = DisplayUtils.getRelativeTimestamp(context, file.lastModified())
-            val leftFileSize = DisplayUtils.bytesToHumanReadable(file.length())
+            val leftTimestamp = DisplayUtils.getRelativeTimestamp(context, leftFile.lastModified())
+            val leftFileSize = DisplayUtils.bytesToHumanReadable(leftFile.length())
             val leftCheckBoxData = ConflictFileData(leftTitle, leftTimestamp.toString(), leftFileSize)
 
             val rightTitle = context.getString(R.string.conflict_server_file)
@@ -377,9 +364,9 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
             val rightFileSize = DisplayUtils.bytesToHumanReadable(rightFile.fileLength)
             val rightCheckBoxData = ConflictFileData(rightTitle, rightTimestamp.toString(), rightFileSize)
 
-            val title = context.getString(R.string.choose_which_file)
+            val headline = context.getString(R.string.choose_which_file)
             val description = context.getString(R.string.conflict_message_description)
-            return ConflictDialogData(folderName, title, description, Pair(leftCheckBoxData, rightCheckBoxData))
+            return ConflictDialogData(title, headline, description, Pair(leftCheckBoxData, rightCheckBoxData))
         }
     }
 }

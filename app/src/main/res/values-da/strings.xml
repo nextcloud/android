@@ -439,7 +439,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">i mappen %1$s</string>
     <string name="instant_upload_existing">Send også eksisterende filer</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
     <string name="instant_upload_path">/Øjeblikkelig upload</string>

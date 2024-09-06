@@ -434,7 +434,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">în folderul %1$s</string>
     <string name="instant_upload_existing">De asemenea încarcă fisiere existente</string>
     <string name="instant_upload_on_charging">Se încarcă numai în timpul alimentării cu curent</string>
     <string name="instant_upload_path">/Încărcare instantă</string>

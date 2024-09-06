@@ -485,7 +485,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">%1$skarpetan</string>
     <string name="instant_upload_existing">Existitzen diren fitxategiak ere igo</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
     <string name="instant_upload_path">/InstantUpload</string>

@@ -471,7 +471,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">У фолдеру %1$s</string>
     <string name="instant_upload_existing">Отпреми и постојеће фајлове</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_path">/InstantUpload</string>
