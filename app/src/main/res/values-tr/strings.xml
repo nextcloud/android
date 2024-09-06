@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">Yalnızca yerel</string>
     <string name="conflict_dialog_error">Çakışma çözümleme penceresi oluşturulamadı</string>
     <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
+    <string name="conflict_folder_headline">Klasör çakışması</string>
     <string name="conflict_local_file">Yerel dosya</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
+    <string name="conflict_message_description_for_folder">İki sürümü de saklamayı seçerseniz, yerel klasörün adına bir numara eklenecek.</string>
     <string name="conflict_server_file">Sunucu dosyası</string>
     <string name="contact_backup_title">Kişiler yedeği</string>
     <string name="contact_no_permission">Kişi izinleri gerekli.</string>
@@ -573,6 +575,8 @@
     <string name="note_could_not_sent">Not gönderilemedi</string>
     <string name="note_icon_hint">Not simgesi</string>
     <string name="notification_action_failed">İşlem yapılamadı.</string>
+    <string name="notification_channel_background_operations_description">Arka plan işlemlerinin sonucuyla etkileşim kurmak için bildirimleri görüntüle</string>
+    <string name="notification_channel_background_operations_name">Arka plan işlemleri</string>
     <string name="notification_channel_download_description">İndirme ilerlemesini görüntüler</string>
     <string name="notification_channel_download_name_short">İndirmeler</string>
     <string name="notification_channel_file_sync_description">Dosya eşitleme ilerlemesi ve sonuçlarını görüntüler</string>
@@ -588,7 +592,13 @@
     <string name="notification_icon">Bildirim simgesi</string>
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
     <string name="notifications_no_results_message">Lütfen bir süre sonra yeniden bakın.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">İşlenmeyi bekliyor</string>
     <string name="offline_mode">İnternet bağlantısı yok</string>
+    <string name="offline_operations_worker_notification_conflict_text">Çakışan klasör: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Çevrim dışı klasörü sil</string>
+    <string name="offline_operations_worker_notification_error_text">Çevrim dışı işlem tamamlanamadı. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Çevrim dışı işlemler</string>
+    <string name="offline_operations_worker_notification_start_text">Çevrim dışı işlemleri başlatılıyor</string>
     <string name="oneHour">1 saat</string>
     <string name="online">Çevrim içi</string>
     <string name="online_status">Çevrim içi durumu</string>

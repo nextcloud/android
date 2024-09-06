@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">Só local</string>
     <string name="conflict_dialog_error">Non é posíbel crear o diálogo de resolución de conflitos</string>
     <string name="conflict_file_headline">Ficheiro en conflito %1$s</string>
+    <string name="conflict_folder_headline">Conflito de cartafol</string>
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
+    <string name="conflict_message_description_for_folder">Se selecciona ambas versións, o cartafol local terá un número engadido ao nome.</string>
     <string name="conflict_server_file">Ficheiro do servidor</string>
     <string name="contact_backup_title">Copia de seguranza dos contactos</string>
     <string name="contact_no_permission">Precisase de permiso de contacto.</string>
@@ -573,6 +575,8 @@
     <string name="note_could_not_sent">Non foi posíbel enviar a nota</string>
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">Produciuse un fallo ao executar a acción.</string>
+    <string name="notification_channel_background_operations_description">Amosar notificacións para interactuar co resultado das operacións en segundo plano</string>
+    <string name="notification_channel_background_operations_name">Operacións en segundo plano</string>
     <string name="notification_channel_download_description">Amosa o progreso da descarga</string>
     <string name="notification_channel_download_name_short">Descargas</string>
     <string name="notification_channel_file_sync_description">Amosa o progreso e os resultados da sincronización de ficheiros</string>
@@ -588,7 +592,13 @@
     <string name="notification_icon">Icona de notificación</string>
     <string name="notifications_no_results_headline">Non hai notificacións</string>
     <string name="notifications_no_results_message">Compróbeo máis adiante.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operación pendente</string>
     <string name="offline_mode">Sen conexión coa Internet</string>
+    <string name="offline_operations_worker_notification_conflict_text">Cartafol en conflito: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Eliminar o cartafol sen conexión</string>
+    <string name="offline_operations_worker_notification_error_text">Non é posíbel completar a operación sen conexión. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Operacións sen conexión</string>
+    <string name="offline_operations_worker_notification_start_text">Iniciando operacións sen conexión</string>
     <string name="oneHour">1 hora</string>
     <string name="online">En liña</string>
     <string name="online_status">Estado en liña</string>

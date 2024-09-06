@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">Local only</string>
     <string name="conflict_dialog_error">Conflict resolver dialog cannot be created</string>
     <string name="conflict_file_headline">Conflicting file %1$s</string>
+    <string name="conflict_folder_headline">Folder Conflict</string>
     <string name="conflict_local_file">Local file</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
+    <string name="conflict_message_description_for_folder">If you select both versions, the local folder will have a number appended to its name.</string>
     <string name="conflict_server_file">Server file</string>
     <string name="contact_backup_title">Contacts backup</string>
     <string name="contact_no_permission">Contact permission is required.</string>
@@ -573,6 +575,8 @@
     <string name="note_could_not_sent">Could not send note</string>
     <string name="note_icon_hint">Note icon</string>
     <string name="notification_action_failed">Failed to execute action.</string>
+    <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
+    <string name="notification_channel_background_operations_name">Background Operations</string>
     <string name="notification_channel_download_description">Shows download progress</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
@@ -588,7 +592,13 @@
     <string name="notification_icon">Notification icon</string>
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
     <string name="offline_mode">No internet connection</string>
+    <string name="offline_operations_worker_notification_conflict_text">Conflicted Folder: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Delete Offline Folder</string>
+    <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Offline Operations</string>
+    <string name="offline_operations_worker_notification_start_text">Starting Offline Operations</string>
     <string name="oneHour">1 hour</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>

@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="conflict_dialog_error">Dialogrutan för konfliktlösning kan inte skapas</string>
     <string name="conflict_file_headline">Konfliktande fil %1$s</string>
+    <string name="conflict_folder_headline">Mappkonflikt</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
+    <string name="conflict_message_description_for_folder">Om du väljer båda versionerna kommer den lokala mappen få ett nummer tillagt i namnet.</string>
     <string name="conflict_server_file">Serverfil</string>
     <string name="contact_backup_title">Backup av kontakter</string>
     <string name="contact_no_permission">Rättighet till kontakt krävs.</string>
@@ -573,6 +575,8 @@
     <string name="note_could_not_sent">Kunde inte skicka meddelande</string>
     <string name="note_icon_hint">Antecknings ikon</string>
     <string name="notification_action_failed">Misslyckades utföra åtgärd.</string>
+    <string name="notification_channel_background_operations_description">Visa aviseringar för att interagera resultatet av bakgrundsoperationer</string>
+    <string name="notification_channel_background_operations_name">Bakgrundsoperationer</string>
     <string name="notification_channel_download_description">Visar hämtningsförloppet</string>
     <string name="notification_channel_download_name_short">Nerladdningar</string>
     <string name="notification_channel_file_sync_description">Visar filsynkroniserings förlopp och resultat</string>
@@ -588,7 +592,13 @@
     <string name="notification_icon">Meddelandeikon</string>
     <string name="notifications_no_results_headline">Inga aviseringar</string>
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Väntande operation</string>
     <string name="offline_mode">Ingen internetanslutning</string>
+    <string name="offline_operations_worker_notification_conflict_text">Mapp i konflikt: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Radera offlinemapp</string>
+    <string name="offline_operations_worker_notification_error_text">Offlineåtgärden kan inte slutföras. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Offline-operationer</string>
+    <string name="offline_operations_worker_notification_start_text">Starta offline-operationer</string>
     <string name="oneHour">1 timme</string>
     <string name="online">Online</string>
     <string name="online_status">Online-status</string>
@@ -909,6 +919,7 @@
     <string name="trashbin_file_remove">Ta bort permanent</string>
     <string name="trashbin_loading_failed">Laddning av papperskorg misslyckades!</string>
     <string name="trashbin_not_emptied">Filer kunde inte tas bort permanent!</string>
+    <string name="unexpected_error_occurred">Ett oväntat fel inträffade</string>
     <string name="unified_search_fragment_calendar_event_not_found">Händelsen hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_contact_not_found">Kontakten hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_permission_needed">Behörigheter krävs för att öppna sökresultatet, annars omdirigeras det till webben...</string>
