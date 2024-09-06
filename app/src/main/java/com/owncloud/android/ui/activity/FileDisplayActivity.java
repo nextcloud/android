@@ -1382,7 +1382,13 @@ public class FileDisplayActivity extends FileActivity
                 if (MainApp.isOnlyOnDevice()) {
                     ocFileListFragment.setMessageForEmptyList(R.string.file_list_empty_headline, R.string.file_list_empty_on_device, R.drawable.ic_list_empty_folder, true);
                 } else {
-                    ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH);
+                    connectivityService.isNetworkAndServerAvailable(result -> {
+                        if (result) {
+                            ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH);
+                        } else {
+                            ocFileListFragment.setEmptyListMessage(SearchType.OFFLINE_MODE);
+                        }
+                    });
                 }
             }
         } else {
