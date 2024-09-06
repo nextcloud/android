@@ -51,6 +51,7 @@ import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
@@ -1139,9 +1140,17 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
                 FragmentManager fragmentManager = getParentFragmentManager();
                 if (fragmentManager.findFragmentByTag(SETUP_ENCRYPTION_DIALOG_TAG) == null) {
-                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
-                    dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
-                    dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
+                    if (requireActivity() instanceof FileActivity fileActivity) {
+                        fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
+                            if (result) {
+                                SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
+                                dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
+                                dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
+                            } else {
+                                DisplayUtils.showSnackMessage(fileActivity, R.string.encrypted_folder_setup_no_internet_error);
+                            }
+                        });
+                    }
                 }
             }
         } else {
