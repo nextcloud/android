@@ -609,7 +609,8 @@
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="maintenance_mode">Server is in maintenance mode</string>
     <string name="offline_mode">No internet connection</string>
-
+    <string name="offline_mode_info_title">You\'re Offline, But Work Continues</string>
+    <string name="offline_mode_info_description">Even without an internet connection, you can organize your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
     <string name="drawer_synced_folders">Auto upload</string>
@@ -1177,6 +1178,7 @@
     <string name="pin_home">Pin to Home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
     <string name="displays_mnemonic">Displays your 12 word passphrase</string>
+    <string name="encrypted_folder_setup_no_internet_error">You need an internet connection to set up the encrypted folder</string>
     <string name="prefs_setup_e2e">Set up end-to-end encryption</string>
     <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
     <string name="prefs_remove_e2e">Remove encryption locally</string>

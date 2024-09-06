@@ -43,6 +43,7 @@ import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.MainApp;
@@ -52,6 +53,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.status.OwnCloudVersion;
 import com.owncloud.android.ui.EmptyRecyclerView;
+import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.OnEnforceableRefreshListener;
@@ -578,69 +580,67 @@ public class ExtendedListFragment extends Fragment implements
      */
     public void setMessageForEmptyList(@StringRes final int headline, @StringRes final int message,
                                        @DrawableRes final int icon, final boolean tintIcon) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
+        new Handler(Looper.getMainLooper()).post(() -> {
 
-                if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                    mEmptyListHeadline.setText(headline);
-                    mEmptyListMessage.setText(message);
+            if (mEmptyListContainer != null && mEmptyListMessage != null) {
+                mEmptyListHeadline.setText(headline);
+                mEmptyListMessage.setText(message);
 
-                    if (tintIcon) {
-                        if (getContext() != null) {
-                            mEmptyListIcon.setImageDrawable(
-                                viewThemeUtils.platform.tintPrimaryDrawable(getContext(), icon));
-                        }
-                    } else {
-                        mEmptyListIcon.setImageResource(icon);
+                if (tintIcon) {
+                    if (getContext() != null) {
+                        mEmptyListIcon.setImageDrawable(
+                            viewThemeUtils.platform.tintPrimaryDrawable(getContext(), icon));
                     }
-
-                    mEmptyListIcon.setVisibility(View.VISIBLE);
-                    mEmptyListMessage.setVisibility(View.VISIBLE);
+                } else {
+                    mEmptyListIcon.setImageResource(icon);
                 }
+
+                mEmptyListIcon.setVisibility(View.VISIBLE);
+                mEmptyListMessage.setVisibility(View.VISIBLE);
             }
         });
     }
 
     public void setEmptyListMessage(final SearchType searchType) {
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-
-                if (searchType == SearchType.NO_SEARCH) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline,
-                                           R.string.file_list_empty,
-                                           R.drawable.ic_list_empty_folder,
-                                           true);
-                } else if (searchType == SearchType.FILE_SEARCH) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty,
-                                           R.drawable.ic_search_light_grey);
-                } else if (searchType == SearchType.FAVORITE_SEARCH) {
-                    setMessageForEmptyList(R.string.file_list_empty_favorite_headline,
-                                           R.string.file_list_empty_favorites_filter_list,
-                                           R.drawable.ic_star_light_yellow);
-                } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_recently_modified,
-                                           R.drawable.ic_list_empty_recent);
-                } else if (searchType == SearchType.REGULAR_FILTER) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_search,
-                                           R.string.file_list_empty_search,
-                                           R.drawable.ic_search_light_grey);
-                } else if (searchType == SearchType.SHARED_FILTER) {
-                    setMessageForEmptyList(R.string.file_list_empty_shared_headline,
-                                           R.string.file_list_empty_shared,
-                                           R.drawable.ic_list_empty_shared);
-                } else if (searchType == SearchType.GALLERY_SEARCH) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_gallery,
-                                           R.drawable.file_image);
-                } else if (searchType == SearchType.LOCAL_SEARCH) {
-                    setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
-                                           R.string.file_list_empty_local_search,
-                                           R.drawable.ic_search_light_grey);
-                }
+        new Handler(Looper.getMainLooper()).post(() -> {
+            if (searchType == SearchType.OFFLINE_MODE) {
+                setMessageForEmptyList(R.string.offline_mode_info_title,
+                                       R.string.offline_mode_info_description,
+                                       R.drawable.ic_cloud_sync,
+                                       true);
+            } else if (searchType == SearchType.NO_SEARCH) {
+                setMessageForEmptyList(R.string.file_list_empty_headline,
+                                       R.string.file_list_empty,
+                                       R.drawable.ic_list_empty_folder,
+                                       true);
+            } else if (searchType == SearchType.FILE_SEARCH) {
+                setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                                       R.string.file_list_empty,
+                                       R.drawable.ic_search_light_grey);
+            } else if (searchType == SearchType.FAVORITE_SEARCH) {
+                setMessageForEmptyList(R.string.file_list_empty_favorite_headline,
+                                       R.string.file_list_empty_favorites_filter_list,
+                                       R.drawable.ic_star_light_yellow);
+            } else if (searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
+                setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                                       R.string.file_list_empty_recently_modified,
+                                       R.drawable.ic_list_empty_recent);
+            } else if (searchType == SearchType.REGULAR_FILTER) {
+                setMessageForEmptyList(R.string.file_list_empty_headline_search,
+                                       R.string.file_list_empty_search,
+                                       R.drawable.ic_search_light_grey);
+            } else if (searchType == SearchType.SHARED_FILTER) {
+                setMessageForEmptyList(R.string.file_list_empty_shared_headline,
+                                       R.string.file_list_empty_shared,
+                                       R.drawable.ic_list_empty_shared);
+            } else if (searchType == SearchType.GALLERY_SEARCH) {
+                setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                                       R.string.file_list_empty_gallery,
+                                       R.drawable.file_image);
+            } else if (searchType == SearchType.LOCAL_SEARCH) {
+                setMessageForEmptyList(R.string.file_list_empty_headline_server_search,
+                                       R.string.file_list_empty_local_search,
+                                       R.drawable.ic_search_light_grey);
             }
         });
     }
@@ -650,11 +650,14 @@ public class ExtendedListFragment extends Fragment implements
      */
     public void setEmptyListLoadingMessage() {
         new Handler(Looper.getMainLooper()).post(() -> {
-            if (mEmptyListContainer != null && mEmptyListMessage != null) {
-                mEmptyListHeadline.setText(R.string.file_list_loading);
-                mEmptyListMessage.setText("");
+            if (requireActivity() instanceof FileActivity fileActivity) {
+                fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
+                    if (!result || mEmptyListContainer == null || mEmptyListMessage == null) return;
 
-                mEmptyListIcon.setVisibility(View.GONE);
+                    mEmptyListHeadline.setText(R.string.file_list_loading);
+                    mEmptyListMessage.setText("");
+                    mEmptyListIcon.setVisibility(View.GONE);
+                });
             }
         });
     }
