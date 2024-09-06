@@ -144,6 +144,7 @@
     <string name="confirmation_remove_folder_alert">A beru boles cantzellare %1$s e is cuntenutos suos?</string>
     <string name="confirmation_remove_folders_alert">A beru boles cantzellare is elementos seberados e is cuntenutos issoro?</string>
     <string name="confirmation_remove_local">Locale isceti</string>
+    <string name="conflict_file_headline">Archìviu in cunflitu %1$s</string>
     <string name="conflict_message_description">Si seletzionas ambas is versiones, s\'archìviu locale at a tènnere unu nùmeru in agiunta a su nùmene.</string>
     <string name="contactlist_item_icon">Icona utente pro lista de cuntatos</string>
     <string name="contactlist_no_permission">Perunu permissu, peruna importatzione.</string>
@@ -702,6 +703,7 @@
     <string name="trashbin_file_remove">Cantzella in manera definitiva</string>
     <string name="trashbin_loading_failed">Carrigamentu de s\'àliga faddidu!</string>
     <string name="trashbin_not_emptied">No at fatu a cantzellare is archìvios in manera permanente!</string>
+    <string name="unexpected_error_occurred">B\'at àpidu un\'errore ispantosu</string>
     <string name="unlock_file">Isbloca su documentu</string>
     <string name="unread_comments">Ddoe sunt cummentos non lèghidos</string>
     <string name="unset_encrypted">Tzifradura non cunfigurada</string>

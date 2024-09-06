@@ -179,6 +179,7 @@
     <string name="confirmation_remove_folders_alert">¿Realmente desea eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="conflict_dialog_error">El diálogo de resolución de conflictos no puede ser creado</string>
+    <string name="conflict_file_headline">Archivo en conflicto %1$s</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si selecciona ambas versiones, se le agregará un número al nombre del archivo copiado.</string>
     <string name="conflict_server_file">Archivo del servidor</string>
@@ -710,6 +711,7 @@
     <string name="restore_button_description">Restaurar archivo borrado</string>
     <string name="restore_selected">Restaurar seleccionados</string>
     <string name="retrieving_file">Recuperando archivo...</string>
+    <string name="retry">Reintentar</string>
     <string name="richdocuments_failed_to_load_document">¡Error al cargar el documento!</string>
     <string name="scanQR_description">Iniciar sesión con QR</string>
     <string name="scan_page">Escanear página</string>

@@ -170,6 +170,7 @@
     <string name="confirmation_remove_folder_alert">Opravdu chcete %1$s a jeho obsah odstranit?</string>
     <string name="confirmation_remove_folders_alert">Opravdu chcete vybrané položky a jejich obsah odstranit?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
+    <string name="conflict_file_headline">Kolidující soubor %1$s</string>
     <string name="conflict_local_file">Místní soubor</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
     <string name="conflict_server_file">Soubor na serveru</string>
@@ -679,6 +680,7 @@
     <string name="restore_button_description">Obnovit smazaný soubor</string>
     <string name="restore_selected">Obnovit označené</string>
     <string name="retrieving_file">Získávání souboru…</string>
+    <string name="retry">Zkusit znovu</string>
     <string name="richdocuments_failed_to_load_document">Dokument se nepodařilo načíst!</string>
     <string name="scanQR_description">Přihlášení prostřednictvím QR kódu</string>
     <string name="scan_page">Naskenovat stránku</string>
@@ -850,6 +852,7 @@
     <string name="trashbin_file_remove">Nevratně smazat</string>
     <string name="trashbin_loading_failed">Načítání obsahu koše se nezdařilo!</string>
     <string name="trashbin_not_emptied">Soubory se nepodařilo natrvalo smazat!</string>
+    <string name="unexpected_error_occurred">Došlo k neočekávané chybě</string>
     <string name="unlock_file">Odemknout soubor</string>
     <string name="unread_comments">Existuje nepřečtený komentář</string>
     <string name="unset_encrypted">Zrušit šifrování</string>

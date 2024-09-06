@@ -153,6 +153,7 @@
     <string name="confirmation_remove_folder_alert">Наистина ли желаете %1$s и съдържанието ѝ да бъдат изтрито?</string>
     <string name="confirmation_remove_folders_alert">Наистина ли желаете избраните елементи и съдържанието им да бъдат премахнати?</string>
     <string name="confirmation_remove_local">Само локално</string>
+    <string name="conflict_file_headline">Несъвместим файл %1$s</string>
     <string name="conflict_local_file">Локален файл</string>
     <string name="conflict_message_description">Ако изберете и двете версии, ще бъде добавен номер към името на локалния файл.</string>
     <string name="conflict_server_file">Файл на сървъра</string>
@@ -623,6 +624,7 @@
     <string name="restore_button_description">Възстанови изтрития файл</string>
     <string name="restore_selected">Възстановяване на избраните</string>
     <string name="retrieving_file">Извличане на файл...</string>
+    <string name="retry">Опитай отново</string>
     <string name="richdocuments_failed_to_load_document">Неуспешно зареждане на документ</string>
     <string name="scanQR_description">Логване с QR код</string>
     <string name="scan_page">Сканиране на страница</string>
@@ -790,6 +792,7 @@
     <string name="trashbin_file_remove">Изтрий завинаги</string>
     <string name="trashbin_loading_failed">Зареждането на кошчето е неуспешно!</string>
     <string name="trashbin_not_emptied">Файловете не могат да бъдат окончателно изтрити!</string>
+    <string name="unexpected_error_occurred">Възникна неочаквана грешка</string>
     <string name="unlock_file">Отключване на файл</string>
     <string name="unread_comments">Съществуват непрочетени коментари</string>
     <string name="unset_encrypted">Изключи криптиране</string>

@@ -179,6 +179,7 @@
     <string name="confirmation_remove_folders_alert">Ha sur oc\'h e fell deoc\'h dilemel an elfennoù diuzet ha kement tra zo e-barzh . </string>
     <string name="confirmation_remove_local">Lec\'hel hepken</string>
     <string name="conflict_dialog_error">N\'eus ket bet gallet krouiñ un egorenn diskoulmañ tabutoù</string>
+    <string name="conflict_file_headline">Restr kudennek %1$s</string>
     <string name="conflict_local_file">Restr lec\'hel</string>
     <string name="conflict_message_description">Ma tibabit an daou stumm e vo staget un niverenn ouzh anv ar restr lec\'hel</string>
     <string name="conflict_server_file">Restr ar servijer</string>
@@ -614,6 +615,7 @@
     <string name="restore">Adlakaat ar restr</string>
     <string name="restore_button_description">Adlakaat ar restroù lamet</string>
     <string name="retrieving_file">O adtapout ar restr...</string>
+    <string name="retry">Klaskit en dro</string>
     <string name="richdocuments_failed_to_load_document">C\'hwitet da garga an diel !</string>
     <string name="scanQR_description">Mont-tre de QR kod</string>
     <string name="screenshot_01_gridView_heading">Difennit o roadennoù</string>

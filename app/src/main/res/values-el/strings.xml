@@ -151,6 +151,7 @@
     <string name="confirmation_remove_folder_alert">Θέλετε σίγουρα να διαγράψετε το %1$s και τα περιεχόμενά του;</string>
     <string name="confirmation_remove_folders_alert">Θέλετε να διαγράψετε τα επιλεγμένα αντικείμενα και τα περιεχόμενά τους;</string>
     <string name="confirmation_remove_local">Μόνο τοπικά</string>
+    <string name="conflict_file_headline">Αρχείο σε αντίφαση %1$s</string>
     <string name="conflict_local_file">Τοπικό αρχείο</string>
     <string name="conflict_message_description">Εάν επιλέξετε και τις δύο εκδόσεις, στο όνομα του τοπικού αρχείου θα προστεθεί ένας αριθμός.</string>
     <string name="conflict_server_file">Αρχείο διακομιστή</string>
@@ -628,6 +629,7 @@
     <string name="restore_button_description">Επαναφορά διαγραμμένου αρχείου</string>
     <string name="restore_selected">Επαναφορά επιλεγμένων</string>
     <string name="retrieving_file">Ανάκτηση αρχείου…</string>
+    <string name="retry">Δοκιμή ξανά</string>
     <string name="richdocuments_failed_to_load_document">Αποτυχία φόρτωσης εγγράφου!</string>
     <string name="scanQR_description">Είσοδος μέσω κωδικού QR</string>
     <string name="scan_page">Σάρωση σελίδας</string>
@@ -793,6 +795,7 @@
     <string name="trashbin_file_remove">Διαγραφή οριστικά</string>
     <string name="trashbin_loading_failed">Αποτυχία φόρτωσης κάδου ανακύκλωσης!</string>
     <string name="trashbin_not_emptied">Τα αρχεία δεν θα διαγραφούν μόνιμα!</string>
+    <string name="unexpected_error_occurred">Παρουσιάστηκε μη αναμενόμενο σφάλμα</string>
     <string name="unlock_file">Ξεκλείδωμα αρχείου</string>
     <string name="unread_comments">Υπάρχουν μη αναγνωσμένα σχόλια</string>
     <string name="unset_encrypted">Χρήση κρυπτογράφησης</string>

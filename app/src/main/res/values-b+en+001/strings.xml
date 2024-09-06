@@ -179,6 +179,7 @@
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="confirmation_remove_local">Local only</string>
     <string name="conflict_dialog_error">Conflict resolver dialog cannot be created</string>
+    <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_local_file">Local file</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_server_file">Server file</string>
@@ -727,6 +728,7 @@
     <string name="restore_button_description">Restore deleted file</string>
     <string name="restore_selected">Restore selected</string>
     <string name="retrieving_file">Retrieving file…</string>
+    <string name="retry">Retry</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="scanQR_description">Login via QR code</string>
     <string name="scan_page">Scan page</string>
@@ -906,6 +908,7 @@
     <string name="trashbin_file_remove">Delete permanently</string>
     <string name="trashbin_loading_failed">Loading trash bin failed!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
+    <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>

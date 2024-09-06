@@ -179,6 +179,7 @@
     <string name="confirmation_remove_folders_alert">An bhfuil tú cinnte gur mhaith leat na míreanna roghnaithe agus a bhfuil iontu a scriosadh?</string>
     <string name="confirmation_remove_local">Áitiúil amháin</string>
     <string name="conflict_dialog_error">Ní féidir dialóg réititheora coinbhleachta a chruthú</string>
+    <string name="conflict_file_headline">Comhad contrártha %1$s</string>
     <string name="conflict_local_file">Comhad áitiúil</string>
     <string name="conflict_message_description">Má roghnaíonn tú an dá leagan, beidh uimhir ag gabháil leis an gcomhad áitiúil lena ainm.</string>
     <string name="conflict_server_file">Comhad freastalaí</string>
@@ -727,6 +728,7 @@
     <string name="restore_button_description">Athchóirigh comhad scriosta</string>
     <string name="restore_selected">Athchóirigh roghnaithe</string>
     <string name="retrieving_file">Comhad á aisghabháil…</string>
+    <string name="retry">Bain triail eile as</string>
     <string name="richdocuments_failed_to_load_document">Theip ar an doiciméad a lódáil!</string>
     <string name="scanQR_description">Logáil isteach trí chód QR</string>
     <string name="scan_page">Scan leathanach</string>
@@ -906,6 +908,7 @@
     <string name="trashbin_file_remove">Scrios go buan</string>
     <string name="trashbin_loading_failed">Theip ar lódáil an bhosca bruscair!</string>
     <string name="trashbin_not_emptied">Níorbh fhéidir na comhaid a scriosadh go buan!</string>
+    <string name="unexpected_error_occurred">Tharla earráid gan choinne</string>
     <string name="unified_search_fragment_calendar_event_not_found">Níor aimsíodh an t-imeacht, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_contact_not_found">Níor aimsíodh an teagmhálaí, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_permission_needed">Teastaíonn ceadanna chun toradh cuardaigh a oscailt nó déanfar é a atreorú chuig an ngréasán…</string>

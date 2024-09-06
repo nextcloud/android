@@ -153,6 +153,7 @@
     <string name="confirmation_remove_folder_alert">Ali res želite izbrisati %1$s skupaj z vsebino?</string>
     <string name="confirmation_remove_folders_alert">Ali zares želite izbrisati izbrane predmete in vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
+    <string name="conflict_file_headline">Različice %1$s v sporu.</string>
     <string name="conflict_local_file">Krajevna datoteka</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_server_file">Strežniška datoteka</string>
@@ -650,6 +651,7 @@
     <string name="restore_button_description">Obnovi izbrisano datoteko</string>
     <string name="restore_selected">Obnovi izbrano</string>
     <string name="retrieving_file">Poteka pridobivanje datoteke…</string>
+    <string name="retry">Poskusi  znova</string>
     <string name="richdocuments_failed_to_load_document">Nalaganje dokumenta je spodletelo!</string>
     <string name="scanQR_description">Prijava s kodo QR</string>
     <string name="scan_page">Optično preberi stran</string>
@@ -669,7 +671,7 @@
     <string name="select_one_template">Izbor predloge</string>
     <string name="select_template">Izbor predloge</string>
     <string name="send">Pošlji</string>
-    <string name="send_share">Pošlji souporabo</string>
+    <string name="send_share">Pošlji povezavo do mesta souporabe</string>
     <string name="sendbutton_description">Ikona gumba za pošiljanje</string>
     <string name="set_as">Nastavi kot</string>
     <string name="set_note">Nastavi sporočilo</string>
@@ -820,6 +822,7 @@
     <string name="trashbin_file_remove">Trajno izbriši</string>
     <string name="trashbin_loading_failed">Nalaganje smeti je spodletelo!</string>
     <string name="trashbin_not_emptied">Datotek ni mogoče trajno izbrisati!</string>
+    <string name="unexpected_error_occurred">Prišlo je do nepričakovane napake</string>
     <string name="unlock_file">Odkleni datoteko</string>
     <string name="unread_comments">Obstajajo so neprebrane opombe</string>
     <string name="unset_encrypted">Odstrani šifriranje</string>

@@ -176,6 +176,7 @@
     <string name="confirmation_remove_folders_alert">Czy na pewno chcesz usunąć wybrane pozycje i ich zawartość?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_dialog_error">Nie można utworzyć okna dialogowego rozwiązywania konfliktów</string>
+    <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
     <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
     <string name="conflict_server_file">Plik z serwera</string>
@@ -699,6 +700,7 @@
     <string name="restore_button_description">Przywróć usunięty plik</string>
     <string name="restore_selected">Przywróć wybrane</string>
     <string name="retrieving_file">Pobieranie pliku…</string>
+    <string name="retry">Powtórz</string>
     <string name="richdocuments_failed_to_load_document">Nie udało się pobrać dokumentu</string>
     <string name="scanQR_description">Zaloguj się za pomocą kodu QR</string>
     <string name="scan_page">Zeskanuj stronę</string>
@@ -878,6 +880,7 @@
     <string name="trashbin_file_remove">Usuń bezpowrotnie</string>
     <string name="trashbin_loading_failed">Wczytywanie kosza nie powiodło się!</string>
     <string name="trashbin_not_emptied">Pliki nie mogą być trwale usunięte!</string>
+    <string name="unexpected_error_occurred">Wystąpił nieoczekiwany błąd</string>
     <string name="unlock_file">Odblokuj plik</string>
     <string name="unread_comments">Nieprzeczytane komentarze</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>
