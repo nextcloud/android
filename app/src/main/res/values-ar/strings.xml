@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">محلياً فقط</string>
     <string name="conflict_dialog_error">تعذّر إنشاء نافذة حوار حل التعارضات</string>
     <string name="conflict_file_headline">ملف متضارب %1$s </string>
+    <string name="conflict_folder_headline">تعارض مجلد</string>
     <string name="conflict_local_file">ملف محلي</string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
+    <string name="conflict_message_description_for_folder">إذا اخترت الاحتفاظ بكلتا النسختين، سيتم إلحاق أرقام تسلسلية في نهاية اسم المجلد المحلي.</string>
     <string name="conflict_server_file">ملف على الخادم</string>
     <string name="contact_backup_title">نسخ احتياطي لجهات الاتصال</string>
     <string name="contact_no_permission">إذن الاتصال بالجهة لازم.</string>
@@ -577,6 +579,8 @@
     <string name="note_could_not_sent">لا يمكن إرسال الملاحظة</string>
     <string name="note_icon_hint">أيقونة الملاحظة</string>
     <string name="notification_action_failed">فشل في تنفيذ الإجراء.</string>
+    <string name="notification_channel_background_operations_description">إظهار الإشعارات للتفاعل مع نتائج العمليات في الخلفية</string>
+    <string name="notification_channel_background_operations_name">العمليات في الخلفية</string>
     <string name="notification_channel_download_description">يظهر تقدم التنزيل</string>
     <string name="notification_channel_download_name_short">التنزيلات</string>
     <string name="notification_channel_file_sync_description">يعرض تقدم مزامنة الملف والنتائج</string>
@@ -592,7 +596,13 @@
     <string name="notification_icon">أيقونة الإشعار</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="notifications_no_results_message">يرجى التحقق مرة أخرى في وقت لاحق.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">عملية مُعلَّقة</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
+    <string name="offline_operations_worker_notification_conflict_text">مجلد متعارض: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">حذف مجلد غير متصل</string>
+    <string name="offline_operations_worker_notification_error_text">لا يمكن إكمال العملية دون اتصال. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">عمليات دون اتصال بالإنترنت</string>
+    <string name="offline_operations_worker_notification_start_text">البدء في العمليات دون اتصال بالإنترنت</string>
     <string name="oneHour">ساعة واحدة</string>
     <string name="online">متصل</string>
     <string name="online_status">حالات الاتصال</string>
