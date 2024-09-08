@@ -14,14 +14,18 @@ import android.app.Activity;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.widget.Toast;
 
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.owncloud.android.R;
+import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
+
+import androidx.annotation.Nullable;
 
 /**
  * Dummy activity that is used to handle the device's default authentication workflow.
@@ -35,6 +39,12 @@ public class RequestCredentialsActivity extends Activity {
     public final static int KEY_CHECK_RESULT_FALSE = 0;
     public final static int KEY_CHECK_RESULT_CANCEL = -1;
     private static final int REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS = 1;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        PassCodeManager.Companion.setSecureFlag(this,true);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -81,5 +91,11 @@ public class RequestCredentialsActivity extends Activity {
         resultIntent.putExtra(KEY_CHECK_RESULT, success);
         setResult(Activity.RESULT_OK, resultIntent);
         finish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        PassCodeManager.Companion.setSecureFlag(this,false);
+        super.onDestroy();
     }
 }
