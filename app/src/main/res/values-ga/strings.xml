@@ -34,7 +34,7 @@
     <string name="add_to_cloud">Cuir le %1$s</string>
     <string name="advanced_settings">Ardsocruithe</string>
     <string name="allow_resharing">Ceadaigh athroinnt</string>
-    <string name="app_config_base_url_title">Bun URL</string>
+    <string name="app_config_base_url_title">URL an bhunaigh</string>
     <string name="app_config_proxy_host_title">Ainm Óstach Seachfhreastalaí</string>
     <string name="app_config_proxy_port_title">Port Seachfhreastalaí</string>
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
