@@ -70,6 +70,11 @@ public class UploadIT extends AbstractOnServerIT {
         public Connectivity getConnectivity() {
             return Connectivity.CONNECTED_WIFI;
         }
+
+        @Override
+        public void clearCachedResult() {
+
+        }
     };
 
     private PowerManagementService powerManagementServiceMock = new PowerManagementService() {
@@ -288,6 +293,11 @@ public class UploadIT extends AbstractOnServerIT {
             public Connectivity getConnectivity() {
                 return new Connectivity(true, false, false, true);
             }
+
+            @Override
+            public void clearCachedResult() {
+
+            }
         };
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",
                                          FOLDER + "noWifi.txt", account.name);
@@ -371,6 +381,11 @@ public class UploadIT extends AbstractOnServerIT {
             @Override
             public Connectivity getConnectivity() {
                 return new Connectivity(true, true, true, true);
+            }
+
+            @Override
+            public void clearCachedResult() {
+
             }
         };
         OCUpload ocUpload = new OCUpload(FileStorageUtils.getTemporalPath(account.name) + "/empty.txt",

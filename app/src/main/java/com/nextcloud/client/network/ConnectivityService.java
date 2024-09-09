@@ -28,4 +28,6 @@ public interface ConnectivityService {
      * @return Network connectivity status in platform-agnostic format
      */
     Connectivity getConnectivity();
+
+    void clearCachedResult();
 }
