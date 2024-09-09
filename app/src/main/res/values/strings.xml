@@ -26,7 +26,7 @@
 
     <string name="ecosystem_apps_display_assistant">Assistant</string>
 
-    <string name="app_config_base_url_title">Base Url</string>
+    <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_host_title">Proxy Host Name</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
 
