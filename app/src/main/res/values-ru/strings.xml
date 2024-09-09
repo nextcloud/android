@@ -34,7 +34,7 @@
     <string name="add_to_cloud">Добавить в %1$s</string>
     <string name="advanced_settings">Дополнительные настройки</string>
     <string name="allow_resharing">Разрешить повторную публикацию</string>
-    <string name="app_config_base_url_title">Базовый Url</string>
+    <string name="app_config_base_url_title">Основной URL</string>
     <string name="app_config_proxy_host_title">Имя прокси хоста</string>
     <string name="app_config_proxy_port_title">Порт прокси</string>
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">Только локально</string>
     <string name="conflict_dialog_error">Не удается создать диалоговое окно разрешения конфликтов</string>
     <string name="conflict_file_headline">Конфликт версий файла «%1$s»</string>
+    <string name="conflict_folder_headline">Конфликт папок</string>
     <string name="conflict_local_file">Локальный файл</string>
     <string name="conflict_message_description">Если вы выберете обе версии, локальный файл будет иметь номер, добавленный к его имени.</string>
+    <string name="conflict_message_description_for_folder">Если вы выберете обе версии, к названию локальной папки будет добавлен номер.</string>
     <string name="conflict_server_file">Файл с сервера</string>
     <string name="contact_backup_title">Резервная копия контактов</string>
     <string name="contact_no_permission">Требуется разрешение на контакт.</string>
@@ -279,8 +281,11 @@
     <string name="drawer_quota">использовано %1$s из %2$s </string>
     <string name="drawer_quota_unlimited">%1$s использовано</string>
     <string name="drawer_synced_folders">Автоматическая передача</string>
+    <string name="e2e_counter_too_old">Счетчик слишком старый</string>
+    <string name="e2e_hash_not_found">Хэш не найден</string>
     <string name="e2e_not_yet_setup">Сквозное шифрование не настроено</string>
     <string name="e2e_offline">Невозможно без подключения к интернету</string>
+    <string name="e2e_signature_does_not_match">Подпись не совпадает</string>
     <string name="ecosystem_apps_display_assistant">Помощник</string>
     <string name="ecosystem_apps_display_more">Больше</string>
     <string name="ecosystem_apps_display_notes">Заметки</string>
@@ -368,6 +373,7 @@
     <string name="file_list_empty_headline">Здесь нет файлов</string>
     <string name="file_list_empty_headline_search">В этом каталоге результатов не найдено</string>
     <string name="file_list_empty_headline_server_search">Результаты отсутствуют</string>
+    <string name="file_list_empty_local_search">Нет файла или папки, соответствующих вашему запросу</string>
     <string name="file_list_empty_moving">Здесь ничего нет. Вы можете создать каталог!</string>
     <string name="file_list_empty_on_device">Здесь будут показаны загруженные файлы и папки</string>
     <string name="file_list_empty_recently_modified">Изменённых за последние 7 дней файлов не найдено</string>
@@ -406,6 +412,14 @@
     <string name="file_migration_updating_index">Обновление индекса…</string>
     <string name="file_migration_use_data_folder">Использовать существующий</string>
     <string name="file_migration_waiting_for_unfinished_sync">Ожидание завершения синхронизации…</string>
+    <string name="file_name_validator_current_path_is_invalid">Текущее имя папки неверное, пожалуйста, переименуйте папку. Перенаправление в корень</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Путь к папке содержит зарезервированные имена или недопустимый символ</string>
+    <string name="file_name_validator_error_ends_with_space_period">Имя заканчивается пробелом или точкой</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s является запрещенным расширением файла</string>
+    <string name="file_name_validator_error_invalid_character">Имя содержит недопустимый символ: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s это запрещенное имя</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Пожалуйста, переименуйте файл перед перемещением или копированием</string>
+    <string name="file_name_validator_upload_content_error">Некоторые материалы не могут быть загружены из-за наличия зарезервированных имен или недопустимого символа</string>
     <string name="file_not_found">Файл не найден</string>
     <string name="file_not_synced">Не удалось синхронизировать этот файл, показана его последняя доступная версия.</string>
     <string name="file_rename">Переименовать</string>
@@ -429,6 +443,7 @@
     <string name="folder_already_exists">Папка уже существует</string>
     <string name="folder_confirm_create">Создать</string>
     <string name="folder_list_empty_headline">Здесь нет каталогов</string>
+    <string name="folder_name_empty">Имя папки не может быть пустым</string>
     <string name="folder_picker_choose_button_text">Выберите</string>
     <string name="folder_picker_choose_caption_text">Выбор папки назначения</string>
     <string name="folder_picker_copy_button_text">Копировать</string>
@@ -475,6 +490,8 @@
     <string name="instant_upload_existing">Также загрузить существующие файлы</string>
     <string name="instant_upload_on_charging">Только во время зарядки</string>
     <string name="instant_upload_path">/Автозагрузка</string>
+    <string name="internal_two_way_sync">Внутренняя двусторонняя синхронизация</string>
+    <string name="internal_two_way_sync_not_yet">Пока нет, но скоро будет синхронизирован</string>
     <string name="invalid_url">Неверный адрес</string>
     <string name="invisible">Невидимая</string>
     <string name="label_empty">Метка не может быть пустой</string>
@@ -513,6 +530,7 @@
     <string name="manage_space_clear_data">Очистить данные</string>
     <string name="manage_space_description">Настройки, сертификаты базы данных и сервера из данных %1$s будут удалены навсегда. \n\nЗагруженные файлы будут сохранены нетронутыми. \n\nЭтот процесс может занять некоторое время.</string>
     <string name="manage_space_title">Управление свободным местом</string>
+    <string name="max_file_count_warning_message">Вы достигли максимального лимита на загрузку файлов. Пожалуйста, загружайте не более 500 файлов одновременно.</string>
     <string name="media_err_invalid_progressive_playback">Невозможно организовать потоковую передачу медиафайла</string>
     <string name="media_err_io">Медиафайл не может быть прочитан</string>
     <string name="media_err_malformed">Медиафайл некорректно закодирован</string>
@@ -558,6 +576,8 @@
     <string name="note_could_not_sent">Не удалось отправить примечание</string>
     <string name="note_icon_hint">Значок примечания</string>
     <string name="notification_action_failed">Не удалось выполнить задание.</string>
+    <string name="notification_channel_background_operations_description">Показывать уведомления для взаимодействия с результатами фоновых операций</string>
+    <string name="notification_channel_background_operations_name">Фоновые операции</string>
     <string name="notification_channel_download_description">Показывает выполнение получения</string>
     <string name="notification_channel_download_name_short">Загрузки</string>
     <string name="notification_channel_file_sync_description">Показывает состояние и результаты синхронизации файлов </string>
@@ -573,7 +593,13 @@
     <string name="notification_icon">Значок уведомления</string>
     <string name="notifications_no_results_headline">Уведомлений нет</string>
     <string name="notifications_no_results_message">Проверьте позже.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Ожидаемая операция</string>
     <string name="offline_mode">Отсутствует подключение к Интернет</string>
+    <string name="offline_operations_worker_notification_conflict_text">Конфликтующая папка: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Удалить автономную папку</string>
+    <string name="offline_operations_worker_notification_error_text">Операция в автономном режиме не может быть завершена. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Автономные операции</string>
+    <string name="offline_operations_worker_notification_start_text">Запуск автономных операций</string>
     <string name="oneHour">1 час</string>
     <string name="online">На связи</string>
     <string name="online_status">Состояние на связи</string>
@@ -664,10 +690,12 @@
     <string name="prefs_synced_folders_local_path_title">Папка на устройстве</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на сервере</string>
     <string name="prefs_theme_title">Оформление</string>
+    <string name="prefs_two_way_sync_summary">Управление внутренними папками для двусторонней синхронизации</string>
     <string name="prefs_value_theme_dark">Тёмное</string>
     <string name="prefs_value_theme_light">Светлое</string>
     <string name="prefs_value_theme_system">Как в системе</string>
     <string name="preview_image_description">Предпросмотр</string>
+    <string name="preview_image_downloading_image_for_edit">Загрузка изображения для запуска экрана редактирования, пожалуйста, подождите…</string>
     <string name="preview_image_error_no_local_file">Отсутствует локальный файл для создания миниатюры</string>
     <string name="preview_image_error_unknown_format">Это изображение не может быть отображено</string>
     <string name="preview_image_file_is_not_downloaded">Файл не скачан</string>
@@ -892,6 +920,7 @@
     <string name="trashbin_loading_failed">Загрузка корзины не удалась!</string>
     <string name="trashbin_not_emptied">Файлы не могут быть удалены окончательно!</string>
     <string name="unexpected_error_occurred">Произошла неожиданная ошибка</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Событие не найдено, вы всегда можете синхронизировать его для обновления. Перенаправление на веб-страницу…</string>
     <string name="unlock_file">Разблокировать файл</string>
     <string name="unread_comments">Имеются непрочитанные комментарии</string>
     <string name="unset_encrypted">Расшифровать</string>
