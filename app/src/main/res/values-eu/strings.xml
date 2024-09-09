@@ -34,7 +34,7 @@
     <string name="add_to_cloud">Gehitu %1$s</string>
     <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="allow_resharing">Baimendu birpartekatzea</string>
-    <string name="app_config_base_url_title">Oinarrizko URLa</string>
+    <string name="app_config_base_url_title">Oinarri URLa</string>
     <string name="app_config_proxy_host_title">Proxy ostalariaren izena</string>
     <string name="app_config_proxy_port_title">Proxy-ataka</string>
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">Lokala bakarrik</string>
     <string name="conflict_dialog_error">Gatazkak konpontzeko elkarrizketa-koadroa ezin da sortu</string>
     <string name="conflict_file_headline">%1$sfitxategi gatazkatsua</string>
+    <string name="conflict_folder_headline">Karpeta gatazka</string>
     <string name="conflict_local_file">Fitxategi lokala</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
+    <string name="conflict_message_description_for_folder">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
     <string name="conflict_server_file">Zerbitzariko fitxategia</string>
     <string name="contact_backup_title">Kontaktuen segurtasun kopia</string>
     <string name="contact_no_permission">Kontaktuak atzitzeko baimena behar da.</string>
@@ -573,6 +575,8 @@
     <string name="note_could_not_sent">Ezin izan da bidali oharra</string>
     <string name="note_icon_hint">Oharraren ikonoa</string>
     <string name="notification_action_failed">Huts egin du ekintza exekutatzean.</string>
+    <string name="notification_channel_background_operations_description">Erakutsi jakinarazpenak atzeko planoko eragiketen emaitzekin elkarreragiteko</string>
+    <string name="notification_channel_background_operations_name">Atzeko planoko eragiketak</string>
     <string name="notification_channel_download_description">Erakutsi deskarga egoera</string>
     <string name="notification_channel_download_name_short">Deskargak</string>
     <string name="notification_channel_file_sync_description">Fitxategien sinkronizazioaren aurrerapena eta emaitzak erakusten ditu</string>
@@ -588,7 +592,13 @@
     <string name="notification_icon">Jakinarazpen ikonoa</string>
     <string name="notifications_no_results_headline">Jakinarazpenik ez</string>
     <string name="notifications_no_results_message">Begiratu beranduago, mesedez.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Eragiketaren zain</string>
     <string name="offline_mode">Internet konexiorik ez</string>
+    <string name="offline_operations_worker_notification_conflict_text">Karpeta gatazkan: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Ezabatu lineaz kanpoko karpeta</string>
+    <string name="offline_operations_worker_notification_error_text">Lineaz kanpoko eragiketa ezin da osatu.. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Lineaz kanpoko eragiketak</string>
+    <string name="offline_operations_worker_notification_start_text">Lineaz kanpoko eragiketak hasten</string>
     <string name="oneHour">Ordu 1</string>
     <string name="online">Linean</string>
     <string name="online_status">Online egoera</string>
