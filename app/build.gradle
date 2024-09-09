@@ -316,6 +316,9 @@ dependencies {
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido:$fidoVersion"
     implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido2:$fidoVersion"
 
+    // unified push library for generic flavour
+    genericImplementation 'org.codeberg.UnifiedPush:android-connector:2.4.0'
+
     // document scanner not available on FDroid (generic) due to OpenCV binaries
     gplayImplementation project(':appscan')
     huaweiImplementation project(':appscan')

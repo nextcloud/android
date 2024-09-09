@@ -42,7 +42,9 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
         final String subject = data.get(NotificationWork.KEY_NOTIFICATION_SUBJECT);
         final String signature = data.get(NotificationWork.KEY_NOTIFICATION_SIGNATURE);
         if (subject != null && signature != null) {
-            backgroundJobManager.startNotificationJob(subject, signature);
+            backgroundJobManager.startNotificationJob(subject,
+                                                      signature,
+                                                      NotificationWork.BACKEND_TYPE_FIREBASE_CLOUD_MESSAGING);
         }
     }
 
@@ -52,7 +54,7 @@ public class NCFirebaseMessagingService extends FirebaseMessagingService {
 
         if (!TextUtils.isEmpty(getResources().getString(R.string.push_server_url))) {
             preferences.setPushToken(newToken);
-            PushUtils.pushRegistrationToServer(accountManager, preferences.getPushToken());
+            PushUtils.updateRegistrationsWithServer(null, accountManager, preferences.getPushToken());
         }
     }
 }

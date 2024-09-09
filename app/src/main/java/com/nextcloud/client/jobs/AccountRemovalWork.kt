@@ -166,7 +166,7 @@ class AccountRemovalWork(
                 PushUtils.KEY_PUSH,
                 gson.toJson(pushArbitraryData)
             )
-            PushUtils.pushRegistrationToServer(userAccountManager, pushArbitraryData.getPushToken())
+            PushUtils.updateRegistrationsWithServerNoUI(userAccountManager, pushArbitraryData.getPushToken())
         }
     }
 

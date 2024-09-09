@@ -721,7 +721,7 @@
     <string name="prefs_sourcecode">Get source code</string>
     <string name="prefs_license">License</string>
     <string name="prefs_gpl_v2">GNU General Public License, version 2</string>
-    <string name="push_notifications_not_implemented">Push notifications disabled due to dependencies on proprietary Google Play services.</string>
+    <string name="push_notifications_no_distributor">Push notifications are available using Unified Push. See https://apps.nextcloud.com/apps/uppush.</string>
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
 
@@ -1245,4 +1245,11 @@
     <string name="file_name_validator_error_forbidden_file_extensions">.%s is a forbidden file extension</string>
     <string name="file_name_validator_error_ends_with_space_period">Name ends with a space or a period</string>
     <string name="sync">Sync</string>
+    <string name="unified_push_choose_distributor_title">You can use Unified Push for notifications</string>
+    <string name="unified_push_no_distributors_dialog_text">To enable push notifications you need to install a Unified
+        Push distributor.\n
+        For more information visit https://unifiedpush.org/ and https://apps.nextcloud.com/apps/uppush</string>
+    <string name="prefs_reset_push_title">Reset push notifications</string>
+    <string name="prefs_reset_push_summary">Reset push notifications in case of push messaging issues or changing distributors</string>
+    <string name="prefs_reset_push_done">Push notifications reset</string>
 </resources>

@@ -2293,7 +2293,7 @@ public class FileDisplayActivity extends FileActivity
         if (!preferences.isKeysReInitEnabled()) {
             PushUtils.reinitKeys(getUserAccountManager());
         } else {
-            PushUtils.pushRegistrationToServer(getUserAccountManager(), preferences.getPushToken());
+            PushUtils.updateRegistrationsWithServer(this, getUserAccountManager(), preferences.getPushToken());
         }
     }
 

@@ -550,7 +550,6 @@
     <string name="preview_sorry">Atsiprašome</string>
     <string name="privacy">Privatumas</string>
     <string name="public_share_name">Naujas pavadinimas</string>
-    <string name="push_notifications_not_implemented">Push pranešimai išjungti dėl priklausomybės nuo nuosavybinių „Google Play“ paslaugų.</string>
     <string name="push_notifications_old_login">Nėra pranešimų dėl pasenusios prisijungimo sesijos. Pasvarstykite galimybę iš naujo pridėti prisijungimo duomenis.</string>
     <string name="push_notifications_temp_error">Stumti pranešimus funkcija šiuo metu negalima</string>
     <string name="qr_could_not_be_read">Nepavyko perskaityti QR kodo!</string>

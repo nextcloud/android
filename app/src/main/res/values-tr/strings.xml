@@ -703,7 +703,6 @@
     <string name="preview_sorry">Ne yazık ki</string>
     <string name="privacy">Gizlilik</string>
     <string name="public_share_name">Yeni ad</string>
-    <string name="push_notifications_not_implemented">Anında bildirimler Google Play hizmetlerine ait olan bağımlılıklar nedeniyle devre dışı bırakıldı.</string>
     <string name="push_notifications_old_login">Oturumunuzun süresi dolduğundan anında bildirimler gönderilemez. Lütfen hesabınızı yeniden eklemeyi düşünün.</string>
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
     <string name="qr_could_not_be_read">QR kodu okunamadı!</string>

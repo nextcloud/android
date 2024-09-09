@@ -15,6 +15,7 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.accounts.Account;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -56,6 +57,7 @@ import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
+import com.owncloud.android.datamodel.PushConfigurationState;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.ExternalLink;
@@ -86,6 +88,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+
+import static com.owncloud.android.utils.PushUtils.KEY_PUSH;
+import com.google.gson.Gson;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -329,6 +334,8 @@ public class SettingsActivity extends PreferenceActivity
         setupCalendarPreference(preferenceCategoryMore);
 
         setupBackupPreference();
+
+        setupResetPushPreference();
 
         setupE2EPreference(preferenceCategoryMore);
 
@@ -583,6 +590,28 @@ public class SettingsActivity extends PreferenceActivity
                 return true;
             });
         }
+    }
+
+    private void setupResetPushPreference() {
+        Preference pResetPushNotifications = findPreference("reset_push_notifications");
+        if (pResetPushNotifications == null)
+            return;
+
+        pResetPushNotifications.setOnPreferenceClickListener(preference -> {
+            Gson gson = new Gson();
+            for (Account account : accountManager.getAccounts()) {
+                String providerValue = arbitraryDataProvider.getValue(account.name, KEY_PUSH);
+                if (TextUtils.isEmpty(providerValue) == false) {
+                    PushConfigurationState accountPushData = gson.fromJson(providerValue, PushConfigurationState.class);
+                    accountPushData.shouldBeDeleted = true;     // set this so push account will be reset
+                    arbitraryDataProvider.storeOrUpdateKeyValue(account.name, KEY_PUSH, gson.toJson(accountPushData));
+                }
+            }
+
+            final Activity activity = this;
+            DisplayUtils.showSnackMessage(activity, R.string.prefs_reset_push_done);
+            return true;
+        });
     }
 
     private void setupCalendarPreference(PreferenceCategory preferenceCategoryMore) {

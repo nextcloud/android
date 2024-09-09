@@ -79,6 +79,10 @@
             android:key="backup"
             android:summary="@string/prefs_daily_backup_summary" />
         <Preference
+            android:title="@string/prefs_reset_push_title"
+            android:key="reset_push_notifications"
+            android:summary="@string/prefs_reset_push_summary" />
+        <Preference
             android:title="@string/prefs_setup_e2e"
             android:key="setup_e2e"
             android:summary="@string/setup_e2e" />

@@ -663,7 +663,6 @@
     <string name="preview_sorry">抱歉</string>
     <string name="privacy">隐私</string>
     <string name="public_share_name">新名称</string>
-    <string name="push_notifications_not_implemented">由于依赖于专有的Google Play服务，推送通知被禁用。</string>
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。 请考虑重新添加您的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
     <string name="qr_could_not_be_read">无法读取二维码！</string>
