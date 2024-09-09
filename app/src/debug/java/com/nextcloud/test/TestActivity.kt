@@ -54,6 +54,8 @@ class TestActivity :
             return Connectivity.CONNECTED_WIFI
         }
 
+        override fun clearCachedResult() = Unit
+
         override fun isNetworkAndServerAvailable(): Boolean {
             return false
         }

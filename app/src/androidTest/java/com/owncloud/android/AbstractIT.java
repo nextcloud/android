@@ -395,6 +395,11 @@ public abstract class AbstractIT {
             public Connectivity getConnectivity() {
                 return Connectivity.CONNECTED_WIFI;
             }
+
+            @Override
+            public void clearCachedResult() {
+
+            }
         };
 
         PowerManagementService powerManagementServiceMock = new PowerManagementService() {
