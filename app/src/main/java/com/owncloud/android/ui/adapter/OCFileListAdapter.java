@@ -47,6 +47,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
+import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
@@ -788,6 +789,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         notifyDataSetChanged();
     }
 
+    /**
+     * Converts Offline Operations to OCFiles and adds them to the adapter for visual feedback.
+     * This function creates pending OCFiles, but they may not consistently appear in the UI.
+     * The issue arises when  {@link RefreshFolderOperation} deletes pending Offline Operations, while some may still exist in the table.
+     * If only this function is used, it cause crash in {@link FileDisplayActivity mSyncBroadcastReceiver.onReceive}.
+     * <p>
+     * These function also need to be used: {@link FileDataStorageManager#createPendingDirectory(String)}, {@link FileDataStorageManager#createPendingFile(String, String)}.
+     */
     private void addOfflineOperations(long fileId) {
         List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles(fileId);
         if (offlineOperations.isEmpty()) {
