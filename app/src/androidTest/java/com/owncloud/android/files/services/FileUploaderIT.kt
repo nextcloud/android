@@ -44,7 +44,6 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
 
         override fun isInternetWalled(): Boolean = false
         override fun getConnectivity(): Connectivity = Connectivity.CONNECTED_WIFI
-        override fun clearCachedResult() = Unit
     }
 
     private val powerManagementServiceMock: PowerManagementService = object : PowerManagementService {
