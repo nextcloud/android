@@ -182,8 +182,6 @@ public abstract class FileActivity extends DrawerActivity
 
     private NetworkChangeReceiver networkChangeReceiver;
 
-    private static boolean clearConnectivityCacheValue = true;
-
     private void registerNetworkChangeReceiver() {
         IntentFilter filter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         registerReceiver(networkChangeReceiver, filter);
@@ -242,11 +240,6 @@ public abstract class FileActivity extends DrawerActivity
         bindService(new Intent(this, OperationsService.class), mOperationsServiceConnection,
                     Context.BIND_AUTO_CREATE);
         registerNetworkChangeReceiver();
-
-        if (clearConnectivityCacheValue) {
-            connectivityService.clearCachedResult();
-            clearConnectivityCacheValue = false;
-        }
     }
 
     @Override
