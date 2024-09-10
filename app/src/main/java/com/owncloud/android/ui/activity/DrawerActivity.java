@@ -902,6 +902,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             return;
         }
 
+        Log_OC.d(TAG, "New menu item is: " + menuItemId);
+
         viewThemeUtils.platform.colorNavigationView(mNavigationView);
         menuItem.setChecked(true);
     }

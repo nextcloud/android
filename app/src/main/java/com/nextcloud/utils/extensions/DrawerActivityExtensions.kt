@@ -7,6 +7,7 @@
 
 package com.nextcloud.utils.extensions
 
+import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.ui.activity.DrawerActivity
 
@@ -39,6 +40,14 @@ fun DrawerActivity.getMenuItemIdFromTitle(): Int? {
         getString(R.string.drawer_item_assistant) -> R.id.nav_assistant
         getString(R.string.drawer_item_uploads_list) -> R.id.nav_uploads
         getString(R.string.drawer_item_trashbin) -> R.id.nav_trashbin
-        else -> DrawerActivity.menuItemId
+        else -> {
+            if (MainApp.isOnlyPersonFiles()) {
+                R.id.nav_personal_files
+            } else if (MainApp.isOnlyOnDevice()) {
+                R.id.nav_on_device
+            } else {
+                DrawerActivity.menuItemId
+            }
+        }
     }
 }
