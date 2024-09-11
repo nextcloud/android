@@ -33,6 +33,7 @@
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
     <string name="advanced_settings">Speciális beállítások</string>
     <string name="allow_resharing">Újra megosztás engedélyezése</string>
+    <string name="app_config_base_url_title">Alap URL</string>
     <string name="app_config_proxy_port_title">Proxy portja</string>
     <string name="app_widget_description">Egy modult jelenít meg a irányítópultról</string>
     <string name="appbar_search_in">Keresés itt: %s</string>

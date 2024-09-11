@@ -32,6 +32,7 @@
     <string name="add_to_cloud">Добави към %1$s</string>
     <string name="advanced_settings">Допълнителни настройки</string>
     <string name="allow_resharing">Може да споделя повторно</string>
+    <string name="app_config_base_url_title">Основен URL адрес</string>
     <string name="app_config_proxy_port_title">Порт на прокси сървъра</string>
     <string name="app_widget_description">Показва един изпълним модул от таблото за управление</string>
     <string name="appbar_search_in">Търсене в %s</string>
