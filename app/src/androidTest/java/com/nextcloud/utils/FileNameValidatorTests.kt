@@ -55,31 +55,39 @@ class FileNameValidatorTests : AbstractOnServerIT() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
         val result = FileNameValidator.checkFileName("CON", capability, targetContext)
-        assertEquals(targetContext.getString(R.string.file_name_validator_error_reserved_names, "CON"), result)
+        assertEquals(targetContext.getString(R.string.file_name_validator_error_reserved_names, "con"), result)
     }
 
     @Test
     fun testForbiddenFilenameExtension() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
-        val result = FileNameValidator.checkFileName("my_fav_file.filepart", capability, targetContext)
+        val result = FileNameValidator.checkFileName("my_fav_file.part", capability, targetContext)
         assertEquals(
-            targetContext.getString(R.string.file_name_validator_error_forbidden_file_extensions, "filepart"),
+            targetContext.getString(R.string.file_name_validator_error_forbidden_file_extensions, ".part"),
             result
         )
     }
 
     @Test
     fun testEndsWithSpaceOrPeriod() {
-        val result = FileNameValidator.checkFileName("filename ", capability, targetContext)
-        val result2 = FileNameValidator.checkFileName("filename.", capability, targetContext)
+        val firstFilename = "test "
+        val secondFilename = "test."
+        val result = FileNameValidator.checkFileName(firstFilename, capability, targetContext)
+        val result2 = FileNameValidator.checkFileName(secondFilename, capability, targetContext)
 
         if (capability.version.isOlderThan(NextcloudVersion.nextcloud_30)) {
             assertEquals(null, result)
             assertEquals(null, result2)
         } else {
-            assertEquals(targetContext.getString(R.string.file_name_validator_error_ends_with_space_period), result)
-            assertEquals(targetContext.getString(R.string.file_name_validator_error_ends_with_space_period), result2)
+            assertEquals(
+                targetContext.getString(R.string.file_name_validator_error_forbidden_file_extensions, " "),
+                result
+            )
+            assertEquals(
+                targetContext.getString(R.string.file_name_validator_error_forbidden_file_extensions, "."),
+                result2
+            )
         }
     }
 
