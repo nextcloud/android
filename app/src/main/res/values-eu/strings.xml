@@ -414,7 +414,7 @@
     <string name="file_name_validator_current_path_is_invalid">Uneko karpetaren izena ez da baliozkoa, mesedez izena aldatu karpetari. Errora birbideratzen</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Karpetaren bideak izen erreserbatuak edo karaktere baliogabeak ditu</string>
     <string name="file_name_validator_error_ends_with_space_period">Izena tarte batekin edo puntu batekin amaitzen da</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%sdebekatutako fitxategi-luzapena da</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%sdebekatutako fitxategi-luzapena da</string>
     <string name="file_name_validator_error_invalid_character">Izenak karaktere baliogabe bat dauka: %s</string>
     <string name="file_name_validator_error_reserved_names">%s debekatutako izen bat da</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Aldatu fitxategiaren izena mugitu edo kopiatu aurretik</string>
