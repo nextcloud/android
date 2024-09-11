@@ -414,7 +414,6 @@
     <string name="file_migration_waiting_for_unfinished_sync">Ожидание завершения синхронизации…</string>
     <string name="file_name_validator_current_path_is_invalid">Текущее имя папки неверное, пожалуйста, переименуйте папку. Перенаправление в корень</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Путь к папке содержит зарезервированные имена или недопустимый символ</string>
-    <string name="file_name_validator_error_ends_with_space_period">Имя заканчивается пробелом или точкой</string>
     <string name="file_name_validator_error_forbidden_file_extensions">%s является запрещенным расширением файла</string>
     <string name="file_name_validator_error_invalid_character">Имя содержит недопустимый символ: %s</string>
     <string name="file_name_validator_error_reserved_names">%s это запрещенное имя</string>
