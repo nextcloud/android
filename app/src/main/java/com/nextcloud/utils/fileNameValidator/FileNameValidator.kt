@@ -55,13 +55,12 @@ object FileNameValidator {
             }
 
             capability.run {
-                forbiddenFilenameBaseNames().let {
-                    val forbiddenFilenameBaseNames = capability.forbiddenFilenameBaseNames().map { it.lowercase() }
+                val filenameVariants = setOf(filename.lowercase(), filename.removeFileExtension().lowercase())
 
-                    if (forbiddenFilenameBaseNames.contains(filename.lowercase()) || forbiddenFilenameBaseNames.contains(
-                            filename.removeFileExtension().lowercase()
-                        )
-                    ) {
+                forbiddenFilenameBaseNames().let {
+                    val forbiddenBaseNames = forbiddenFilenameBaseNames().map { it.lowercase() }
+
+                    if (forbiddenBaseNames.any { it in filenameVariants }) {
                         return context.getString(
                             R.string.file_name_validator_error_reserved_names,
                             filename.substringBefore(StringConstants.DOT)
@@ -70,12 +69,9 @@ object FileNameValidator {
                 }
 
                 forbiddenFilenamesJson?.let {
-                    val forbiddenFilenames = capability.forbiddenFilenames().map { it.lowercase() }
+                    val forbiddenFilenames = forbiddenFilenames().map { it.lowercase() }
 
-                    if (forbiddenFilenames.contains(filename.uppercase()) || forbiddenFilenames.contains(
-                            filename.removeFileExtension().uppercase()
-                        )
-                    ) {
+                    if (forbiddenFilenames.any { it in filenameVariants }) {
                         return context.getString(
                             R.string.file_name_validator_error_reserved_names,
                             filename.substringBefore(StringConstants.DOT)
@@ -84,9 +80,9 @@ object FileNameValidator {
                 }
 
                 forbiddenFilenameExtensionJson?.let {
-                    val forbiddenFilenameExtension = capability.forbiddenFilenameExtension()
+                    val forbiddenExtensions = forbiddenFilenameExtension()
 
-                    if (forbiddenFilenameExtension.any { filename.endsWith(it, ignoreCase = true) }) {
+                    if (forbiddenExtensions.any { filename.endsWith(it, ignoreCase = true) }) {
                         return context.getString(
                             R.string.file_name_validator_error_forbidden_file_extensions,
                             filename.substringAfter(StringConstants.DOT)
