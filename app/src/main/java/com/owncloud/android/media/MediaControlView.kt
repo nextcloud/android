@@ -100,14 +100,14 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
      */
     private fun disableUnsupportedButtons() {
         try {
-            if (playerControl!!.isCommandAvailable(Player.COMMAND_PLAY_PAUSE).not()) {
+            if (playerControl?.isCommandAvailable(Player.COMMAND_PLAY_PAUSE)?.not() == true) {
                 binding.playBtn.isEnabled = false
             }
 
-            if (playerControl!!.isCommandAvailable(Player.COMMAND_SEEK_BACK).not()) {
+            if (playerControl?.isCommandAvailable(Player.COMMAND_SEEK_BACK)?.not() == true) {
                 binding.rewindBtn.isEnabled = false
             }
-            if (playerControl!!.isCommandAvailable(Player.COMMAND_SEEK_FORWARD).not()) {
+            if (playerControl?.isCommandAvailable(Player.COMMAND_SEEK_FORWARD)?.not() == true) {
                 binding.forwardBtn.isEnabled = false
             }
         } catch (ex: IncompatibleClassChangeError) {
@@ -234,12 +234,12 @@ class MediaControlView(context: Context, attrs: AttributeSet?) :
                 R.drawable.ic_play
             }
         )
-        binding.forwardBtn.visibility = if (playerControl!!.isCommandAvailable(Player.COMMAND_SEEK_FORWARD)) {
+        binding.forwardBtn.visibility = if (playerControl?.isCommandAvailable(Player.COMMAND_SEEK_FORWARD) == true) {
             VISIBLE
         } else {
             INVISIBLE
         }
-        binding.rewindBtn.visibility = if (playerControl!!.isCommandAvailable(Player.COMMAND_SEEK_BACK)) {
+        binding.rewindBtn.visibility = if (playerControl?.isCommandAvailable(Player.COMMAND_SEEK_BACK) == true) {
             VISIBLE
         } else {
             INVISIBLE

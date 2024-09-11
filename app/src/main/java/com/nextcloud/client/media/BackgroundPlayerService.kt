@@ -113,7 +113,7 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
                         .setDisplayName("PlayPause")
                         .setIconResId(
                             CommandButton.getIconResIdForIconConstant(
-                                if (mediaSession?.player?.isPlaying!!) {
+                                if (mediaSession?.player?.isPlaying == true) {
                                     CommandButton.ICON_PAUSE
                                 } else {
                                     CommandButton.ICON_PLAY
@@ -215,7 +215,7 @@ class BackgroundPlayerService : MediaSessionService(), Injectable {
 
     private fun release() {
         val player = mediaSession?.player
-        if (player!!.playWhenReady) {
+        if (player?.playWhenReady == true) {
             // Make sure the service is not in foreground.
             player.pause()
         }
