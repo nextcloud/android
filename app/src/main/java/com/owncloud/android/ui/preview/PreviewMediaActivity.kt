@@ -375,6 +375,7 @@ class PreviewMediaActivity :
         videoPlayer = null
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun initializeAudioPlayer() {
         val sessionToken = SessionToken(this, ComponentName(this, BackgroundPlayerService::class.java))
         mediaControllerFuture = MediaController.Builder(this, sessionToken).buildAsync()
