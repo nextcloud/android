@@ -34,7 +34,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
                                     "lpt0", "lpt1", "lpt2", "lpt3", "lpt4", "lpt5", "lpt6", "lpt7", 
                                     "lpt8", "lpt9", "lpt¹", "lpt²", "lpt³"]
                                     """
-            forbiddenFilenameExtensionJson = """[".filepart",".part"]"""
+            forbiddenFilenameExtensionJson = """[" ",".",".part",".part"]"""
             forbiddenFilenameCharactersJson = """["<", ">", ":", "\\\\", "/", "|", "?", "*", "&"]"""
         }
     }
