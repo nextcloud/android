@@ -16,11 +16,13 @@ object OCShareToOCFileConverter {
     private const val MILLIS_PER_SECOND = 1000
 
     /**
-     * Generates a list of incomplete [OCFile] from a list of [OCShare]. Retrieving OCFile directly by path may fail in cases like
+     * Generates a list of incomplete [OCFile] from a list of [OCShare]. Retrieving OCFile directly by path may fail
+     * in cases like
      * when a shared file is located at a/b/c/d/a.txt. To display a.txt in the shared tab, the device needs the OCFile.
      * On first launch, the app may not be aware of the file until the exact path is accessed.
      *
-     * Server implementation needed to get file size, thumbnails e.g. : <a href="https://github.com/nextcloud/server/issues/4456g</a>.
+     * Server implementation needed to get file size, thumbnails e.g. :
+     * <a href="https://github.com/nextcloud/server/issues/4456g</a>.
      *
      * Note: This works only for files shared *by* the user, not files shared *with* the user.
      */
