@@ -60,33 +60,37 @@ object FileNameValidator {
                 forbiddenFilenameBaseNames().let {
                     val forbiddenBaseNames = forbiddenFilenameBaseNames().map { it.lowercase() }
 
-                    if (forbiddenBaseNames.any { it in filenameVariants }) {
-                        return context.getString(
-                            R.string.file_name_validator_error_reserved_names,
-                            filename.substringBefore(StringConstants.DOT)
-                        )
+                    for (forbiddenBaseName in forbiddenBaseNames) {
+                        if (forbiddenBaseName in filenameVariants) {
+                            return context.getString(
+                                R.string.file_name_validator_error_reserved_names,
+                                forbiddenBaseName
+                            )
+                        }
                     }
                 }
 
                 forbiddenFilenamesJson?.let {
                     val forbiddenFilenames = forbiddenFilenames().map { it.lowercase() }
 
-                    if (forbiddenFilenames.any { it in filenameVariants }) {
-                        return context.getString(
-                            R.string.file_name_validator_error_reserved_names,
-                            filename.substringBefore(StringConstants.DOT)
-                        )
+                    for (forbiddenFilename in forbiddenFilenames) {
+                        if (forbiddenFilename in filenameVariants) {
+                            return context.getString(
+                                R.string.file_name_validator_error_reserved_names,
+                                forbiddenFilename
+                            )
+                        }
                     }
                 }
 
                 forbiddenFilenameExtensionJson?.let {
-                    val forbiddenExtensions = forbiddenFilenameExtension()
-
-                    if (forbiddenExtensions.any { filename.endsWith(it, ignoreCase = true) }) {
-                        return context.getString(
-                            R.string.file_name_validator_error_forbidden_file_extensions,
-                            filename.substringAfter(StringConstants.DOT)
-                        )
+                    for (forbiddenExtension in forbiddenFilenameExtension()) {
+                        if (filename.endsWith(forbiddenExtension, ignoreCase = true)) {
+                            return context.getString(
+                                R.string.file_name_validator_error_forbidden_file_extensions,
+                                forbiddenExtension
+                            )
+                        }
                     }
                 }
             }
