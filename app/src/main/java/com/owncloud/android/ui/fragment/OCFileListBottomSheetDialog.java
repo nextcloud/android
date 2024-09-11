@@ -212,6 +212,8 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
     }
 
     private void filterActionsForOfflineOperations() {
+        if (file == null) return;
+
         fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
             if (file.isRootDirectory()) {
                 return;
