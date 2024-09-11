@@ -72,10 +72,15 @@ class FileNameValidatorTests : AbstractOnServerIT() {
     @Test
     fun testEndsWithSpaceOrPeriod() {
         val result = FileNameValidator.checkFileName("filename ", capability, targetContext)
-        assertEquals(targetContext.getString(R.string.file_name_validator_error_ends_with_space_period), result)
-
         val result2 = FileNameValidator.checkFileName("filename.", capability, targetContext)
-        assertEquals(targetContext.getString(R.string.file_name_validator_error_ends_with_space_period), result2)
+
+        if (capability.version.isOlderThan(NextcloudVersion.nextcloud_30)) {
+            assertEquals(null, result)
+            assertEquals(null, result2)
+        } else {
+            assertEquals(targetContext.getString(R.string.file_name_validator_error_ends_with_space_period), result)
+            assertEquals(targetContext.getString(R.string.file_name_validator_error_ends_with_space_period), result2)
+        }
     }
 
     @Test
@@ -169,7 +174,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
         val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
 
         val result = FileNameValidator.checkFolderAndFilePaths(folderPath, filePaths, capability, targetContext)
-        assertFalse(result)
+        assertEquals(capability.version.isOlderThan(NextcloudVersion.nextcloud_30), result)
     }
 
     @Test
@@ -178,7 +183,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
         val filePaths = listOf("file1.txt", "file2.doc", "file3.")
 
         val result = FileNameValidator.checkFolderAndFilePaths(folderPath, filePaths, capability, targetContext)
-        assertFalse(result)
+        assertEquals(capability.version.isOlderThan(NextcloudVersion.nextcloud_30), result)
     }
 
     @Test
