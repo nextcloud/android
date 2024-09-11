@@ -12,8 +12,8 @@ import android.os.Parcelable
 import com.nextcloud.utils.extensions.readParcelableCompat
 
 data class ConflictDialogData(
-    val folderName: String?,
-    val title: String?,
+    val dialogTitle: String?,
+    val headline: String?,
     val description: String,
     val checkboxData: Pair<ConflictFileData, ConflictFileData>
 ) : Parcelable {
@@ -28,8 +28,8 @@ data class ConflictDialogData(
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(folderName)
-        parcel.writeString(title)
+        parcel.writeString(dialogTitle)
+        parcel.writeString(headline)
         parcel.writeString(description)
         parcel.writeParcelable(checkboxData.first, flags)
         parcel.writeParcelable(checkboxData.second, flags)

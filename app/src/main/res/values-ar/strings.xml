@@ -485,7 +485,6 @@
     <string name="image_preview_unit_megapixel">%s ميغا بكسل</string>
     <string name="image_preview_unit_millimetres">%s مللي</string>
     <string name="image_preview_unit_seconds">%s ثانية</string>
-    <string name="in_folder">في مجلد %1$s</string>
     <string name="instant_upload_existing">ارفع الملفات الموجودة مسبقاً أيضاً</string>
     <string name="instant_upload_on_charging">ارفع وقت الشحن فقط</string>
     <string name="instant_upload_path">/InstantUpload</string>

@@ -347,7 +347,6 @@
     <string name="hint_password">ລະຫັດຜ່ານ</string>
     <string name="host_not_available">ເຊີເວີບໍ່ວ່າງ</string>
     <string name="host_your_own_server">ເຊີເວີຂອງທ່ານເອງ</string>
-    <string name="in_folder">ໃນໂຟນເດີ %1$s</string>
     <string name="instant_upload_existing">ອັບໂຫຼດຟາຍທີ່ມີຢູ່ແລ້ວ</string>
     <string name="instant_upload_on_charging">ພຽງແຕ່ອັບໂຫຼດເທົ່ານັ້ນ</string>
     <string name="instant_upload_path">/ອັບໂຫຼດທັນທີ</string>
