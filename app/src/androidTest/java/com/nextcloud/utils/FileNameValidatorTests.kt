@@ -41,6 +41,8 @@ class FileNameValidatorTests : AbstractOnServerIT() {
 
     @Test
     fun testInvalidCharacter() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         val result = FileNameValidator.checkFileName("file<name", capability, targetContext)
         assertEquals(
             String.format(targetContext.getString(R.string.file_name_validator_error_invalid_character), "<"),
@@ -50,12 +52,16 @@ class FileNameValidatorTests : AbstractOnServerIT() {
 
     @Test
     fun testReservedName() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         val result = FileNameValidator.checkFileName("CON", capability, targetContext)
         assertEquals(targetContext.getString(R.string.file_name_validator_error_reserved_names, "CON"), result)
     }
 
     @Test
     fun testForbiddenFilenameExtension() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         val result = FileNameValidator.checkFileName("my_fav_file.filepart", capability, targetContext)
         assertEquals(
             targetContext.getString(R.string.file_name_validator_error_forbidden_file_extensions, "filepart"),
@@ -120,6 +126,8 @@ class FileNameValidatorTests : AbstractOnServerIT() {
 
     @Test
     fun testFolderPathWithReservedName() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         val folderPath = "CON"
         val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
 
@@ -129,6 +137,8 @@ class FileNameValidatorTests : AbstractOnServerIT() {
 
     @Test
     fun testFilePathWithReservedName() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         val folderPath = "validFolder"
         val filePaths = listOf("file1.txt", "PRN.doc", "file3.jpg")
 
@@ -138,6 +148,8 @@ class FileNameValidatorTests : AbstractOnServerIT() {
 
     @Test
     fun testFolderPathWithInvalidCharacter() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         val folderPath = "invalid<Folder"
         val filePaths = listOf("file1.txt", "file2.doc", "file3.jpg")
 
@@ -147,6 +159,8 @@ class FileNameValidatorTests : AbstractOnServerIT() {
 
     @Test
     fun testFilePathWithInvalidCharacter() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         val folderPath = "validFolder"
         val filePaths = listOf("file1.txt", "file|2.doc", "file3.jpg")
 
@@ -174,6 +188,8 @@ class FileNameValidatorTests : AbstractOnServerIT() {
 
     @Test
     fun testFilePathWithNestedFolder() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         val folderPath = "validFolder\\secondValidFolder\\CON"
         val filePaths = listOf("file1.txt", "file2.doc", "file3.")
 
@@ -191,6 +207,8 @@ class FileNameValidatorTests : AbstractOnServerIT() {
 
     @Test
     fun testOnlyFolderPathWithOneReservedName() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         val folderPath = "/A1/Aaaww/CON/W/C2/"
 
         val result = FileNameValidator.checkFolderAndFilePaths(folderPath, listOf(), capability, targetContext)
