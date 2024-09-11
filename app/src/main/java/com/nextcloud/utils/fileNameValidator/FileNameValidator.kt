@@ -17,6 +17,7 @@ import com.nextcloud.utils.extensions.forbiddenFilenames
 import com.nextcloud.utils.extensions.removeFileExtension
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 
 object FileNameValidator {
@@ -36,7 +37,7 @@ object FileNameValidator {
         filename: String,
         capability: OCCapability,
         context: Context,
-        existedFileNames: MutableSet<String>? = null
+        existedFileNames: Set<String>? = null
     ): String? {
         if (TextUtils.isEmpty(filename)) {
             return context.getString(R.string.filename_empty)
@@ -48,10 +49,29 @@ object FileNameValidator {
             }
         }
 
+        return if (capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
+            validateForNCThirtyOrAbove(filename, capability, context)
+        } else {
+            validateForBelowNCThirty(filename, context)
+        }
+    }
+
+    private fun validateForBelowNCThirty(
+        filename: String,
+        context: Context,
+    ): String? {
         if (filename.endsWith(StringConstants.SPACE) || filename.endsWith(StringConstants.DOT)) {
             return context.getString(R.string.file_name_validator_error_ends_with_space_period)
         }
 
+        return null
+    }
+
+    private fun validateForNCThirtyOrAbove(
+        filename: String,
+        capability: OCCapability,
+        context: Context,
+    ): String? {
         checkInvalidCharacters(filename, capability, context)?.let {
             return it
         }
@@ -153,5 +173,5 @@ object FileNameValidator {
 
     fun isFileHidden(name: String): Boolean = !TextUtils.isEmpty(name) && name[0] == '.'
 
-    fun isFileNameAlreadyExist(name: String, fileNames: MutableSet<String>): Boolean = fileNames.contains(name)
+    fun isFileNameAlreadyExist(name: String, fileNames: Set<String>): Boolean = fileNames.contains(name)
 }
