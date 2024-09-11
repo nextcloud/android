@@ -1,59 +1,89 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.dialog;
+package com.owncloud.android.ui.dialog
 
-import com.owncloud.android.AbstractIT;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.utils.ScreenshotTest;
+import androidx.annotation.UiThread
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment.Companion.newInstance
+import com.owncloud.android.utils.EspressoIdlingResource
+import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
 
-import org.junit.Rule;
-import org.junit.Test;
+class SyncFileNotEnoughSpaceDialogFragmentTest : AbstractIT() {
+    private val testClassName = "com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragmentTest"
 
-import java.util.Objects;
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-
-import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
-
-public class SyncFileNotEnoughSpaceDialogFragmentTest extends AbstractIT {
-    @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
-                                                                                           true,
-                                                                                           false);
-
-    @Test
-    @ScreenshotTest
-    public void showNotEnoughSpaceDialogForFolder() {
-        FileDisplayActivity test = activityRule.launchActivity(null);
-        OCFile ocFile = new OCFile("/Document/");
-        ocFile.setFileLength(5000000);
-        ocFile.setFolder();
-
-        SyncFileNotEnoughSpaceDialogFragment dialog = SyncFileNotEnoughSpaceDialogFragment.newInstance(ocFile, 1000);
-        dialog.show(test.getListOfFilesFragment().getFragmentManager(), "1");
-
-        getInstrumentation().waitForIdleSync();
-
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
     @ScreenshotTest
-    public void showNotEnoughSpaceDialogForFile() {
-        FileDisplayActivity test = activityRule.launchActivity(null);
-        OCFile ocFile = new OCFile("/Video.mp4");
-        ocFile.setFileLength(1000000);
+    @UiThread
+    fun showNotEnoughSpaceDialogForFolder() {
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                val ocFile = OCFile("/Document/").apply {
+                    fileLength = 5000000
+                    setFolder()
+                }
 
-        SyncFileNotEnoughSpaceDialogFragment dialog = SyncFileNotEnoughSpaceDialogFragment.newInstance(ocFile, 2000);
-        dialog.show(test.getListOfFilesFragment().getFragmentManager(), "2");
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    newInstance(ocFile, 1000).apply {
+                        show(sut.supportFragmentManager, "1")
+                    }
+                    EspressoIdlingResource.decrement()
 
-        getInstrumentation().waitForIdleSync();
+                    val screenShotName = createName(testClassName + "_" + "showNotEnoughSpaceDialogForFolder", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
+    }
 
-        screenshot(Objects.requireNonNull(dialog.requireDialog().getWindow()).getDecorView());
+    @Test
+    @ScreenshotTest
+    @UiThread
+    fun showNotEnoughSpaceDialogForFile() {
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                val ocFile = OCFile("/Video.mp4").apply {
+                    fileLength = 1000000
+                }
+
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    newInstance(ocFile, 2000).apply {
+                        show(sut.supportFragmentManager, "2")
+                    }
+                    EspressoIdlingResource.decrement()
+
+                    val screenShotName = createName(testClassName + "_" + "showNotEnoughSpaceDialogForFile", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 }
