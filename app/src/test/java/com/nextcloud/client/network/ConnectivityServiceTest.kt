@@ -293,7 +293,7 @@ class ConnectivityServiceTest {
         }
 
         @Test
-        fun `check request is not sent when server uri is not set`() {
+        fun `check cache value when server uri is not set`() {
             // GIVEN
             //      network connectivity is present
             //      user has no server URI (empty)
@@ -307,7 +307,7 @@ class ConnectivityServiceTest {
             // THEN
             //      connection is walled
             //      request is not sent
-            assertTrue("Server should not be accessible", result)
+            assertFalse("Cached value not set", result)
             verify(requestBuilder, never()).invoke(any())
             verify(getRequest, never()).execute(any<PlainClient>())
         }
