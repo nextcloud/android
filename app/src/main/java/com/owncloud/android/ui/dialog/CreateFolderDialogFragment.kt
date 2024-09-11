@@ -133,7 +133,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
     private fun getOCCapability(): OCCapability = fileDataStorageManager.getCapability(accountProvider.user.accountName)
 
     private fun checkFileNameAfterEachType(fileNames: MutableSet<String>) {
-        val newFileName = binding.userInput.text?.toString()?.trim() ?: ""
+        val newFileName = binding.userInput.text?.toString() ?: ""
 
         val fileNameValidatorResult: String? =
             FileNameValidator.checkFileName(newFileName, getOCCapability(), requireContext(), fileNames)
@@ -172,7 +172,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
     override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             val newFolderName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
-                .text.toString().trim { it <= ' ' }
+                .text.toString()
 
             val errorMessage: String? =
                 FileNameValidator.checkFileName(newFolderName, getOCCapability(), requireContext())
