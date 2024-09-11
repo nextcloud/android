@@ -1,64 +1,89 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.preview;
+package com.owncloud.android.ui.preview
 
-import com.owncloud.android.AbstractIT;
-import com.owncloud.android.datamodel.OCFile;
-import com.owncloud.android.ui.activity.FileDisplayActivity;
-import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.ScreenshotTest;
+import androidx.annotation.UiThread
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
+import com.owncloud.android.AbstractIT
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.ui.activity.FileDisplayActivity
+import com.owncloud.android.utils.EspressoIdlingResource
+import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.ScreenshotTest
+import org.junit.After
+import org.junit.Before
+import org.junit.Test
+import java.io.IOException
 
-import org.junit.Rule;
-import org.junit.Test;
+class PreviewTextFileFragmentTest : AbstractIT() {
+    private val testClassName = "com.owncloud.android.ui.preview.PreviewTextFileFragmentTest"
 
-import java.io.File;
-import java.io.IOException;
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
 
-import androidx.test.espresso.intent.rule.IntentsTestRule;
-
-public class PreviewTextFileFragmentTest extends AbstractIT {
-    @Rule public IntentsTestRule<FileDisplayActivity> activityRule = new IntentsTestRule<>(FileDisplayActivity.class,
-                                                                                           true,
-                                                                                           false);
-
-    @Test
-    @ScreenshotTest
-    public void displaySimpleTextFile() throws IOException {
-        FileDisplayActivity sut = activityRule.launchActivity(null);
-
-        shortSleep();
-
-        File file = getDummyFile("nonEmpty.txt");
-        OCFile test = new OCFile("/text.md");
-        test.setMimeType(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN);
-        test.setStoragePath(file.getAbsolutePath());
-        sut.startTextPreview(test, false);
-
-        shortSleep();
-
-        screenshot(sut);
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
     }
 
     @Test
     @ScreenshotTest
-    public void displayJavaSnippetFile() throws IOException {
-        FileDisplayActivity sut = activityRule.launchActivity(null);
+    @UiThread
+    @Throws(IOException::class)
+    fun displaySimpleTextFile() {
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                val test = OCFile("/text.md").apply {
+                    mimeType = MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN
+                    storagePath = getDummyFile("nonEmpty.txt").absolutePath
+                }
 
-        shortSleep();
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.startTextPreview(test, true)
+                    EspressoIdlingResource.decrement()
 
-        File file = getFile("java.md");
-        OCFile test = new OCFile("/java.md");
-        test.setMimeType(MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN);
-        test.setStoragePath(file.getAbsolutePath());
-        sut.startTextPreview(test, false);
+                    val screenShotName = createName(testClassName + "_" + "displaySimpleTextFile", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
+    }
 
-        shortSleep();
+    @Test
+    @ScreenshotTest
+    @UiThread
+    @Throws(IOException::class)
+    fun displayJavaSnippetFile() {
+        launchActivity<FileDisplayActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                val test = OCFile("/java.md").apply {
+                    mimeType = MimeTypeUtil.MIMETYPE_TEXT_MARKDOWN
+                    storagePath = getFile("java.md").absolutePath
+                }
 
-        screenshot(sut);
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.startTextPreview(test, true)
+                    EspressoIdlingResource.decrement()
+
+                    val screenShotName = createName(testClassName + "_" + "displayJavaSnippetFile", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 }
