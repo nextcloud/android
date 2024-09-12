@@ -131,7 +131,7 @@ public class UploadListActivity extends FileActivity {
         updateActionBarTitleAndHomeButtonByString(getString(R.string.uploads_view_title));
 
         // setup drawer
-        setupDrawer(R.id.nav_uploads);
+        setupDrawer();
 
         setupContent();
         observeWorkerState();
@@ -231,8 +231,6 @@ public class UploadListActivity extends FileActivity {
     protected void onResume() {
         Log_OC.v(TAG, "onResume() start");
         super.onResume();
-
-        setDrawerMenuItemChecked(R.id.nav_uploads);
 
         // Listen for upload messages
         uploadMessagesReceiver = new UploadMessagesReceiver();

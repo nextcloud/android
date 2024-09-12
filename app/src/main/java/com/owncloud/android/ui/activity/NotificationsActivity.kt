@@ -65,7 +65,7 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
 
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications))
-        setupDrawer(R.id.nav_notifications)
+        setupDrawer()
 
         if (optionalUser?.isPresent == false) {
             showError()
@@ -301,11 +301,6 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.ic_notification)
         binding.emptyList.emptyListViewText.visibility = View.VISIBLE
         binding.emptyList.emptyListIcon.visibility = View.VISIBLE
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setDrawerMenuItemChecked(R.id.nav_notifications)
     }
 
     override fun onRemovedNotification(isSuccess: Boolean) {
