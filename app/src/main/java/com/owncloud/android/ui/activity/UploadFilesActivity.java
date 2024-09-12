@@ -109,8 +109,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private UploadFilesLayoutBinding binding;
     private boolean isWithinEncryptedFolder = false;
 
-
-    @VisibleForTesting
     public LocalFileListFragment getFileListFragment() {
         return mFileListFragment;
     }

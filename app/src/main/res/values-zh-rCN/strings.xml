@@ -9,7 +9,7 @@
     <string name="account_not_found">找不到账号！</string>
     <string name="action_edit">编辑</string>
     <string name="action_empty_notifications">清除所有通知</string>
-    <string name="action_empty_trashbin">清空垃圾箱</string>
+    <string name="action_empty_trashbin">清空回收站</string>
     <string name="action_send_share">共享</string>
     <string name="action_switch_grid_view">网格视图</string>
     <string name="action_switch_list_view">列表视图</string>
@@ -459,7 +459,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">在文件夹 %1$s 内 </string>
     <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>

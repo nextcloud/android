@@ -13,6 +13,7 @@
     <string name="action_send_share">Pošlji/Omogoči souporabo</string>
     <string name="action_switch_grid_view">Mrežni pogled</string>
     <string name="action_switch_list_view">Seznamski pogled</string>
+    <string name="actionbar_calendar_contacts_restore">Obnovi stike in koledar</string>
     <string name="actionbar_mkdir">Nova mapa</string>
     <string name="actionbar_move_or_copy">Premakni ali Kopiraj</string>
     <string name="actionbar_open_with">Odpri s programom</string>
@@ -83,6 +84,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Ne spremljam</string>
     <string name="backup_settings">Nastavitve varnostnega kopiranja</string>
+    <string name="backup_title">Varnostna kopija koledarja in stikov</string>
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
@@ -425,7 +427,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">v mapi %1$s</string>
     <string name="instant_upload_existing">Pošlji tudi obstoječe datoteke</string>
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
     <string name="instant_upload_path">/Hipno nalaganje</string>
@@ -665,6 +666,7 @@
     <string name="screenshot_04_accounts_heading">Vsi vaši računi</string>
     <string name="screenshot_04_accounts_subline">na enem mestu</string>
     <string name="screenshot_05_autoUpload_heading">Samodejno pošiljanje</string>
+    <string name="screenshot_06_davdroid_heading">Koledar in stiki</string>
     <string name="screenshot_06_davdroid_subline">Uskladi z DAVx5</string>
     <string name="search_error">Napaka pridobivanja zadetkov iskanja</string>
     <string name="select_all">Izberi vse</string>

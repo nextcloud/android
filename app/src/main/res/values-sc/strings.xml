@@ -362,7 +362,6 @@
     <string name="hint_password">Crae</string>
     <string name="host_not_available">Su serbidore no est a disponimentu</string>
     <string name="host_your_own_server">Retzi su serbidore tuo</string>
-    <string name="in_folder">in sa cartella %1$s</string>
     <string name="instant_upload_existing">Càrriga puru is documentos chi esistint giai</string>
     <string name="instant_upload_on_charging">Càrriga isceti cando est carrighende sa bateria</string>
     <string name="instant_upload_path">/Carrigamentu istantàneu</string>

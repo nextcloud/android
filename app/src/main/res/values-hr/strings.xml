@@ -382,7 +382,6 @@
     <string name="hint_password">Zaporka</string>
     <string name="host_not_available">Poslužitelj nije dostupan</string>
     <string name="host_your_own_server">Postavi vlastiti poslužitelj</string>
-    <string name="in_folder">u mapi %1$s</string>
     <string name="instant_upload_existing">Također otpremi postojeće datoteke</string>
     <string name="instant_upload_on_charging">Otpremanje samo tijekom punjenja</string>
     <string name="instant_upload_path">/InstantUpload</string>
