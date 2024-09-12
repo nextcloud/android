@@ -430,6 +430,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="image_editor_unable_to_edit_image">Tidak dapat mengedit gambar.</string>
     <string name="image_preview_filedetails">Detail berkas</string>
     <string name="image_preview_image_taking_conditions">Kondisi pengambilan gambar</string>
+    <string name="in_folder">di folder %1$s</string>
     <string name="instant_upload_existing">Juga unggah berkas yang ada</string>
     <string name="instant_upload_on_charging">Hanya unggah ketika dicas</string>
     <string name="instant_upload_path">/UnggahInstan</string>

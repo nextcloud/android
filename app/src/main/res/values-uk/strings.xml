@@ -476,6 +476,7 @@
     <string name="image_preview_image_taking_conditions">Умови отримання зображення</string>
     <string name="image_preview_unit_millimetres">%s мм</string>
     <string name="image_preview_unit_seconds">%s с</string>
+    <string name="in_folder">в каталозі %1$s</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
     <string name="internal_two_way_sync">Внутрішня двостороння синхронізація</string>

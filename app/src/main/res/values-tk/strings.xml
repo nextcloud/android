@@ -338,6 +338,7 @@
     <string name="hint_password">Açarsöz</string>
     <string name="host_not_available">Serwer elýeterli däl</string>
     <string name="host_your_own_server">Öz serweriňizi ýerleşdiriň</string>
+    <string name="in_folder">%1$s bukjada</string>
     <string name="instant_upload_existing">Bar bolan faýllary hem ýükläň</string>
     <string name="instant_upload_on_charging">Diňe zarýad berlende ýükläň</string>
     <string name="instant_upload_path">/ Çaltýüklemek</string>

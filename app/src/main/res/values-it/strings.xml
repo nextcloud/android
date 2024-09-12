@@ -447,6 +447,7 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
+    <string name="in_folder">nella cartella %1$s</string>
     <string name="instant_upload_existing">Carica anche i file esistenti</string>
     <string name="instant_upload_on_charging">Carica solo durante la ricarica</string>
     <string name="instant_upload_path">/InstantUpload</string>

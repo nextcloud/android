@@ -297,6 +297,7 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
+    <string name="in_folder">na carpeta %1$s</string>
     <string name="instant_upload_on_charging">Namái xubir al cargar</string>
     <string name="instant_upload_path">/XubidaNelIntre</string>
     <string name="invalid_url">La URL ye inválisa</string>

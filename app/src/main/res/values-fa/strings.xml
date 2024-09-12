@@ -442,6 +442,7 @@
     <string name="image_preview_unit_megapixel">%s مگاپیکسل</string>
     <string name="image_preview_unit_millimetres">%s میلی‌متر</string>
     <string name="image_preview_unit_seconds">%s ثانیه</string>
+    <string name="in_folder">در پوشه %1$s</string>
     <string name="instant_upload_existing">فایل های موجود را نیز بارگذاری کنید</string>
     <string name="instant_upload_on_charging">فقط هنگامی که گوشی شارژ می شود آپلود کنید</string>
     <string name="instant_upload_path">آپلود فوری</string>

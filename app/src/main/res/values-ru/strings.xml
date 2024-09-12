@@ -486,6 +486,7 @@
     <string name="image_preview_unit_megapixel">%s МПкс</string>
     <string name="image_preview_unit_millimetres">%s мм</string>
     <string name="image_preview_unit_seconds">%s с</string>
+    <string name="in_folder">в папку %1$s</string>
     <string name="instant_upload_existing">Также загрузить существующие файлы</string>
     <string name="instant_upload_on_charging">Только во время зарядки</string>
     <string name="instant_upload_path">/Автозагрузка</string>

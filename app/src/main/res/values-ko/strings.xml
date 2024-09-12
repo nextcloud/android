@@ -480,6 +480,7 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s초</string>
+    <string name="in_folder">%1$s 폴더 안에</string>
     <string name="instant_upload_existing">이미 존재하는 파일도 올리기</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
     <string name="instant_upload_path">/InstantUpload</string>
