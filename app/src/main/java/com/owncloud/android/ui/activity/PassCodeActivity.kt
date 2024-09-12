@@ -79,6 +79,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         binding = PasscodelockBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        PassCodeManager.setSecureFlag(this, true)
         applyTint()
         setupPasscodeEditTexts()
         setSoftInputMode()
@@ -372,6 +373,11 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
             putBoolean(KEY_CONFIRMING_PASSCODE, confirmingPassCode)
             putStringArray(KEY_PASSCODE_DIGITS, passCodeDigits)
         }
+    }
+
+    override fun onDestroy() {
+        PassCodeManager.setSecureFlag(this, false)
+        super.onDestroy()
     }
 
     private inner class PassCodeDigitTextWatcher(index: Int, lastOne: Boolean) : TextWatcher {

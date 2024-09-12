@@ -37,6 +37,18 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
          * the pass code being requested on screen rotations.
          */
         private const val PASS_CODE_TIMEOUT = 5000
+
+        fun setSecureFlag(activity: Activity, isSet: Boolean) {
+            activity.window?.let { window ->
+                if (isSet) {
+                    println("flag added")
+                    window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
+                } else {
+                    println("flag cleared")
+                    window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+                }
+            }
+        }
     }
 
     var canAskPin = true
@@ -49,7 +61,6 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
     fun onActivityResumed(activity: Activity): Boolean {
         var askedForPin = false
         val timestamp = preferences.lockTimestamp
-        setSecureFlag(activity)
 
         if (!isExemptActivity(activity)) {
             val passcodeRequested = passCodeShouldBeRequested(timestamp)
@@ -74,16 +85,6 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
         }
 
         return askedForPin
-    }
-
-    private fun setSecureFlag(activity: Activity) {
-        activity.window?.let { window ->
-            if (isPassCodeEnabled() || deviceCredentialsAreEnabled(activity)) {
-                window.addFlags(WindowManager.LayoutParams.FLAG_SECURE)
-            } else {
-                window.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
-            }
-        }
     }
 
     private fun requestPasscode(activity: Activity) {
