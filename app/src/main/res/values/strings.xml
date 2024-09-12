@@ -1241,8 +1241,7 @@
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Folder path contains reserved names or invalid character</string>
     <string name="file_name_validator_error_invalid_character">Name contains an invalid character: %s</string>
     <string name="file_name_validator_error_reserved_names">%s is a forbidden name</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s is a forbidden file extension</string>
-    <string name="file_name_validator_error_ends_with_space_period">Name ends with a space or a period</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s is a forbidden file extension</string>
     <string name="sync">Sync</string>
     <string name="please_select_a_server">Please select a server…</string>
 </resources>

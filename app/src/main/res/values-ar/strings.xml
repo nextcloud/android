@@ -413,8 +413,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">بإنتظار مزامنة كاملة…</string>
     <string name="file_name_validator_current_path_is_invalid">اسم المجلد الحالي غير صحيح. قُم رجاءً بتغيير اسم المجلد. إعادة التوجيه إلى المجلد الجذر</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">مسار المجلد يحتوي على أسماء محجوزة أو حروف غير صالحة</string>
-    <string name="file_name_validator_error_ends_with_space_period">اسم ينتهي بفراغ أو نقطة</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s امتداد ملف غير مسموحٍ به</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s امتداد ملف غير مسموحٍ به</string>
     <string name="file_name_validator_error_invalid_character">اسم يحتوي على حروف غير صالحة: %s</string>
     <string name="file_name_validator_error_reserved_names">%s اسم ممنوع</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. قُم رجاءً بتغيير اسم الملف قبل نقله أو نسخه</string>
