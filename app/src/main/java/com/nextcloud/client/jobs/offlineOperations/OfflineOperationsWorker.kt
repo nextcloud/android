@@ -175,7 +175,15 @@ class OfflineOperationsWorker(
         Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
 
         if (result.isSuccess) {
-            repository.updateNextOperations(operation)
+            if (operation.type is OfflineOperationType.RemoveFile) {
+                val operationType = operation.type as OfflineOperationType.RemoveFile
+                fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)?.let { ocFile ->
+                    repository.deleteOperation(ocFile)
+                }
+            } else {
+                repository.updateNextOperations(operation)
+            }
+
             fileDataStorageManager.offlineOperationDao.delete(operation)
             notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
         } else {
