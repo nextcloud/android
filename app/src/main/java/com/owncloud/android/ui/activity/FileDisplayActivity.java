@@ -563,8 +563,6 @@ public class FileDisplayActivity extends FileActivity
                 DrawerActivity.menuItemId = R.id.nav_groupfolders;
                 setLeftFragment(new GroupfolderListFragment());
                 getSupportFragmentManager().executePendingTransactions();
-            } else {
-                handleOpenFileViaIntent(intent);
             }
         }
     }
@@ -2366,10 +2364,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void handleOpenFileViaIntent(Intent intent) {
-        Uri deepLinkUri = getIntent().getData();
-        if (deepLinkUri == null || !DeepLinkHandler.Companion.isDeepLinkTypeIsNavigation(deepLinkUri.toString())) {
-            showLoadingDialog(getString(R.string.retrieving_file));
-        }
+        DisplayUtils.showSnackMessage(this, getString(R.string.retrieving_file));
 
         String userName = intent.getStringExtra(KEY_ACCOUNT);
         String fileId = intent.getStringExtra(KEY_FILE_ID);
@@ -2385,11 +2380,9 @@ public class FileDisplayActivity extends FileActivity
                 } else if (!TextUtils.isEmpty(filePath)) {
                     openFileByPath(optionalUser.get(), filePath);
                 } else {
-                    dismissLoadingDialog();
                     accountClicked(optionalUser.get().hashCode());
                 }
             } else {
-                dismissLoadingDialog();
                 DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
             }
         }
@@ -2398,11 +2391,10 @@ public class FileDisplayActivity extends FileActivity
     private void openDeepLink(Uri uri) {
         DeepLinkHandler linkHandler = new DeepLinkHandler(getUserAccountManager());
         DeepLinkHandler.Match match = linkHandler.parseDeepLink(uri);
+
         if (match == null) {
-            dismissLoadingDialog();
             handleDeepLink(uri);
         } else if (match.getUsers().isEmpty()) {
-            dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
         } else if (match.getUsers().size() == SINGLE_USER_SIZE) {
             openFile(match.getUsers().get(0), match.getFileId());
