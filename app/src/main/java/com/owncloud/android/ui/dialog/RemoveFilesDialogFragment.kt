@@ -83,7 +83,7 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
         removeFiles(true)
     }
 
-    // TODO test with internet access, test without internet access for other offline operations, test with new offline operation
+    // TODO test without internet access for other offline operations, test with new offline operation
     private fun removeFiles(onlyLocalCopy: Boolean) {
         val (offlineFiles, files) = mTargetFiles?.partition { it.isOfflineOperation } ?: Pair(emptyList(), emptyList())
 
@@ -111,6 +111,8 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
                             file.parentId
                         )
                     }
+
+                    activity.refreshCurrentDirectory()
                 }
 
                 finishActionMode()

@@ -650,16 +650,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private String getFileSizeText(OCFile file, long size) {
-        if (file.isOfflineOperation()) {
-            OfflineOperationEntity entity = mStorageManager.getOfflineEntityFromOCFile(file);
-            if (entity.getType() instanceof OfflineOperationType.RemoveFile) {
-                return activity.getString(R.string.oc_file_list_adapter_offline_operation_remove_description_text);
-            } else {
-                return activity.getString(R.string.oc_file_list_adapter_offline_operation_description_text);
-            }
-        } else {
-            return DisplayUtils.bytesToHumanReadable(size);
+        OfflineOperationEntity entity = mStorageManager.getOfflineEntityFromOCFile(file);
+        boolean isRemoveOperation = entity != null && entity.getType() instanceof OfflineOperationType.RemoveFile;
+
+        if (isRemoveOperation) {
+            return activity.getString(R.string.oc_file_list_adapter_offline_operation_remove_description_text);
         }
+
+        if (file.isOfflineOperation()) {
+            return activity.getString(R.string.oc_file_list_adapter_offline_operation_description_text);
+        }
+
+        return DisplayUtils.bytesToHumanReadable(size);
     }
 
     private void applyVisualsForOfflineOperations(ListItemViewHolder holder, OCFile file) {
