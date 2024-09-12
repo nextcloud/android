@@ -543,35 +543,39 @@ public abstract class FileActivity extends DrawerActivity
     public void showLoadingDialog(String message) {
         dismissLoadingDialog();
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
-        if (fragment == null) {
-            Log_OC.d(TAG, "show loading dialog");
-            LoadingDialog loadingDialogFragment = LoadingDialog.newInstance(message);
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
-            if (isDialogFragmentReady) {
-                fragmentTransaction.add(loadingDialogFragment, DIALOG_WAIT_TAG);
-                fragmentTransaction.commitNow();
+        runOnUiThread(() -> {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
+            if (fragment == null) {
+                Log_OC.d(TAG, "show loading dialog");
+                LoadingDialog loadingDialogFragment = LoadingDialog.newInstance(message);
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
+                if (isDialogFragmentReady) {
+                    fragmentTransaction.add(loadingDialogFragment, DIALOG_WAIT_TAG);
+                    fragmentTransaction.commitNow();
+                }
             }
-        }
+        });
     }
 
     /**
      * Dismiss loading dialog
      */
     public void dismissLoadingDialog() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
-        if (fragment != null) {
-            Log_OC.d(TAG, "dismiss loading dialog");
-            LoadingDialog loadingDialogFragment = (LoadingDialog) fragment;
-            boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
-            if (isDialogFragmentReady) {
-                loadingDialogFragment.dismiss();
-                fragmentManager.executePendingTransactions();
+        runOnUiThread(() -> {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
+            if (fragment != null) {
+                Log_OC.d(TAG, "dismiss loading dialog");
+                LoadingDialog loadingDialogFragment = (LoadingDialog) fragment;
+                boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
+                if (isDialogFragmentReady) {
+                    loadingDialogFragment.dismiss();
+                    fragmentManager.executePendingTransactions();
+                }
             }
-        }
+        });
     }
 
     private void doOnResumeAndBound() {
