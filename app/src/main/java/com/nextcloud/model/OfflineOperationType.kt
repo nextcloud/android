@@ -9,7 +9,7 @@ package com.nextcloud.model
 
 sealed class OfflineOperationType {
     abstract val type: String
-
+    data class RemoveFile(override val type: String, var path: String) : OfflineOperationType()
     data class CreateFolder(override val type: String, var path: String) : OfflineOperationType()
     data class CreateFile(
         override val type: String,
@@ -21,5 +21,6 @@ sealed class OfflineOperationType {
 
 enum class OfflineOperationRawType {
     CreateFolder,
-    CreateFile
+    CreateFile,
+    RemoveFile
 }

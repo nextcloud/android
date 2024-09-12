@@ -169,6 +169,24 @@ public class FileDataStorageManager {
         }
     }
 
+    public OfflineOperationEntity getOfflineEntityFromOCFile(OCFile file) {
+        return offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+    }
+
+    public void addRemoveFileOfflineOperation(String path, String filename, Long parentOCFileId) {
+        OfflineOperationEntity entity = new OfflineOperationEntity();
+
+        entity.setFilename(filename);
+        entity.setParentOCFileId(parentOCFileId);
+
+        OfflineOperationType.RemoveFile operationType = new OfflineOperationType.RemoveFile(OfflineOperationRawType.RemoveFile.name(), path);
+        entity.setType(operationType);
+        entity.setPath(path);
+        entity.setCreatedAt(System.currentTimeMillis() / 1000L);
+
+        offlineOperationDao.insert(entity);
+    }
+
     public OfflineOperationEntity addCreateFolderOfflineOperation(String path, String filename, Long parentOCFileId) {
         OfflineOperationEntity entity = new OfflineOperationEntity();
 
