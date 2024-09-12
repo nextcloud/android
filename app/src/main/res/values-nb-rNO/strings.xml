@@ -411,8 +411,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Venter på full synkronisering…</string>
     <string name="file_name_validator_current_path_is_invalid">Gjeldende mappenavn er ugyldig, vennligst gi nytt navn til mappen. Omdirigerer til rot</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Mappebanen inneholder reserverte navn eller ugyldige tegn</string>
-    <string name="file_name_validator_error_ends_with_space_period">Navn slutter med et mellomrom eller et punktum</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s er en forbudt filtype</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s er en forbudt filtype</string>
     <string name="file_name_validator_error_invalid_character">Navnet inneholder et ugyldig tegn: %s</string>
     <string name="file_name_validator_error_reserved_names">%s er et forbudt navn</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Gi nytt navn til filen før du flytter eller kopierer</string>

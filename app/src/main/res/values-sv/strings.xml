@@ -413,8 +413,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Väntar på fullständig synkronisering…</string>
     <string name="file_name_validator_current_path_is_invalid">Aktuellt mappnamn är ogiltigt. Byt namn på mappen. Omdirigerar till root</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Mappsökvägen innehåller reserverade namn eller ogiltiga tecken</string>
-    <string name="file_name_validator_error_ends_with_space_period">Namnet slutar med ett mellanslag eller en punkt</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s är ett förbjudet filtillägg</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s är ett förbjudet filtillägg</string>
     <string name="file_name_validator_error_invalid_character">Namnet innehåller ett ogiltigt tecken: %s</string>
     <string name="file_name_validator_error_reserved_names">%s är ett förbjudet namn</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Byt namn på filen innan du flyttar eller kopierar</string>

@@ -407,8 +407,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Очікування повної синхронізації…</string>
     <string name="file_name_validator_current_path_is_invalid">Перейменуйте назву поточого каталогу, оскільки його назва не є дійсною. Переспрямування до кореневого каталогу.</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Шлях до каталогу містить зарезервовані імена або недійсні символи</string>
-    <string name="file_name_validator_error_ends_with_space_period">Ім\'я закінчується на символ пробілу або крапку</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s не є дозволеним розширенням файлу</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s не є дозволеним розширенням файлу</string>
     <string name="file_name_validator_error_invalid_character">Ім\'я містить недійсний символ: %s</string>
     <string name="file_name_validator_error_reserved_names">%s не є дозволеним ім\'ям</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Перейменуйте файл перед переміщенням або копіюванням</string>
