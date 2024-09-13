@@ -413,7 +413,6 @@
     <string name="file_migration_waiting_for_unfinished_sync">Ag feitheamh ar shioncronú iomlán…</string>
     <string name="file_name_validator_current_path_is_invalid">Tá ainm an fhillteáin reatha neamhbhailí, le do thoil athainmnigh an fillteán. Atreorú chuig an fhréamh</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Tá ainmneacha forchoimeádta nó carachtar neamhbhailí i gcosán an fhillteáin</string>
-    <string name="file_name_validator_error_ends_with_space_period">Críochnaíonn an t-ainm le spás nó le peiriad</string>
     <string name="file_name_validator_error_forbidden_file_extensions">Is iarmhír toirmiscthe comhaid é %s</string>
     <string name="file_name_validator_error_invalid_character">Tá carachtar neamhbhailí san ainm: %s</string>
     <string name="file_name_validator_error_reserved_names">Is ainm toirmiscthe é %s</string>
@@ -485,6 +484,7 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
+    <string name="in_folder">i bhfillteán %1$s</string>
     <string name="instant_upload_existing">Uaslódáil comhaid atá ann cheana féin freisin</string>
     <string name="instant_upload_on_charging">Íoslódáil ach amháin nuair a mhuirearú</string>
     <string name="instant_upload_path">/Uaslódáil Meandaracha</string>

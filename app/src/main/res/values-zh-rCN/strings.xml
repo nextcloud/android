@@ -459,6 +459,7 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
+    <string name="in_folder">在文件夹 %1$s 内 </string>
     <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>

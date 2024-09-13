@@ -413,8 +413,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Warte auf die Fertigstellung aller Synchronisierungen …</string>
     <string name="file_name_validator_current_path_is_invalid">Der aktuelle Ordnername ist unzulässig. Bitte benennen Sie den Ordner um. Weiterleitung zum Stammverzeichnis</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Der Ordnerpfad enthält reservierte Namen oder ungültige Zeichen</string>
-    <string name="file_name_validator_error_ends_with_space_period">Der Name endet mit einem Leerzeichen oder einem Punkt</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s ist eine unzulässige Dateierweiterung</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s ist eine unzulässige Dateierweiterung</string>
     <string name="file_name_validator_error_invalid_character">Der Name enthält ein unzulässiges Zeichen: %s</string>
     <string name="file_name_validator_error_reserved_names">%s ist ein unzulässiger Name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Bitte Datei umbenennen, bevor diese verschoben oder kopiert wird</string>
@@ -485,6 +484,7 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
+    <string name="in_folder">in Ordner %1$s</string>
     <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>

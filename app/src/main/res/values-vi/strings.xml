@@ -387,6 +387,7 @@
     <string name="hint_password">Mật khẩu</string>
     <string name="host_not_available">Máy chủ không khả dụng</string>
     <string name="host_your_own_server">Host máy chủ của riêng bạn</string>
+    <string name="in_folder">trong thư mục %1$s</string>
     <string name="instant_upload_existing">Cũng tải lên các tệp hiện có</string>
     <string name="instant_upload_on_charging">Chỉ tải lên khi đang sạc pin</string>
     <string name="instant_upload_path">/Upload tức thì</string>

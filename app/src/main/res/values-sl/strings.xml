@@ -427,6 +427,7 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
+    <string name="in_folder">v mapi %1$s</string>
     <string name="instant_upload_existing">Pošlji tudi obstoječe datoteke</string>
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
     <string name="instant_upload_path">/Hipno nalaganje</string>

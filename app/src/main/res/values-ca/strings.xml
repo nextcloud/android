@@ -398,6 +398,7 @@
     <string name="icon_for_empty_list">Icona per a la llista buida</string>
     <string name="icon_of_dashboard_widget">Icona del giny del tauler</string>
     <string name="icon_of_widget_entry">Icona de l\'entrada del giny</string>
+    <string name="in_folder">en la carpeta %1$s</string>
     <string name="instant_upload_existing">També pujar fitxers existents</string>
     <string name="instant_upload_on_charging">Pujada només durant la càrrega de bateria</string>
     <string name="instant_upload_path">/CàrregaInstantània</string>

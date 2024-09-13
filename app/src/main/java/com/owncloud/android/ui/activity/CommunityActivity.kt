@@ -30,7 +30,7 @@ open class CommunityActivity : DrawerActivity() {
 
         setupToolbar()
         updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_community))
-        setupDrawer(R.id.nav_community)
+        setupDrawer()
         binding.communityReleaseCandidateText.movementMethod = LinkMovementMethod.getInstance()
         setupContributeForumView()
         setupContributeTranslationView()
@@ -124,10 +124,5 @@ open class CommunityActivity : DrawerActivity() {
             retval = super.onOptionsItemSelected(item)
         }
         return retval
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setDrawerMenuItemChecked(R.id.nav_community)
     }
 }

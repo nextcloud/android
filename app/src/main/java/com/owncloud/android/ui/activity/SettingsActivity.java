@@ -21,6 +21,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -173,7 +174,7 @@ public class SettingsActivity extends PreferenceActivity
 
         // Sync
         setupSyncCategory();
-        
+
         // More
         setupMoreCategory();
 
@@ -284,7 +285,7 @@ public class SettingsActivity extends PreferenceActivity
                                             getResources().getString(R.string.privacy));
                             intent.putExtra(ExternalSiteWebView.EXTRA_URL, privacyUrl.toString());
                             intent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                            intent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, -1);
+                            DrawerActivity.menuItemId = Menu.NONE;
                         }
 
                         startActivity(intent);
@@ -313,7 +314,15 @@ public class SettingsActivity extends PreferenceActivity
             }
         }
     }
-    
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, FileDisplayActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        i.setAction(FileDisplayActivity.ALL_FILES);
+        startActivity(i);
+    }
+
     private void setupSyncCategory() {
         final PreferenceCategory preferenceCategorySync = (PreferenceCategory) findPreference("sync");
         viewThemeUtils.files.themePreferenceCategory(preferenceCategorySync);
@@ -557,10 +566,10 @@ public class SettingsActivity extends PreferenceActivity
             });
         }
     }
-    
+
     private void setupInternalTwoWaySyncPreference(PreferenceCategory preferenceCategorySync) {
         Preference twoWaySync = findPreference("internal_two_way_sync");
-        
+
         twoWaySync.setOnPreferenceClickListener(preference -> {
             Intent intent = new Intent(this, InternalTwoWaySyncActivity.class);
             startActivity(intent);
@@ -876,20 +885,22 @@ public class SettingsActivity extends PreferenceActivity
 
     private void setupActionBar() {
         ActionBar actionBar = getDelegate().getSupportActionBar();
+        if (actionBar == null) return;
 
-        if (actionBar != null) {
-            viewThemeUtils.platform.themeStatusBar(this);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowTitleEnabled(true);
-            if (this.getResources() != null) {
-                viewThemeUtils.androidx.themeActionBar(this,
-                                                       actionBar,
-                                                       getString(R.string.actionbar_settings),
-                                                       ResourcesCompat.getDrawable(this.getResources(),
-                                                                                   R.drawable.ic_arrow_back,
-                                                                                   null));
-            }
-        }
+        viewThemeUtils.platform.themeStatusBar(this);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+
+        if (getResources() == null) return;
+        Drawable menuIcon = ResourcesCompat.getDrawable(getResources(),
+                                                        R.drawable.ic_arrow_back,
+                                                        null);
+
+        if (menuIcon == null) return;
+        viewThemeUtils.androidx.themeActionBar(this,
+                                               actionBar,
+                                               getString(R.string.actionbar_settings),
+                                               menuIcon);
     }
 
     private void launchDavDroidLogin() {
@@ -1107,7 +1118,7 @@ public class SettingsActivity extends PreferenceActivity
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_TITLE, link.getName());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_URL, link.getUrl());
                         externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_SHOW_SIDEBAR, false);
-                        externalWebViewIntent.putExtra(ExternalSiteWebView.EXTRA_MENU_ITEM_ID, link.getId());
+                        DrawerActivity.menuItemId = link.getId();
                         startActivity(externalWebViewIntent);
 
                         return true;

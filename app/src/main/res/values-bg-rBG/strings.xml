@@ -405,6 +405,7 @@
     <string name="icon_for_empty_list">Икона за празен списък</string>
     <string name="icon_of_dashboard_widget">Икона на изпълним модул на табло за управление</string>
     <string name="icon_of_widget_entry">Икона на вход на изпълним модул</string>
+    <string name="in_folder">в папка %1$s</string>
     <string name="instant_upload_existing">Качете и съществуващи файлове</string>
     <string name="instant_upload_on_charging">Качване само при зареждане</string>
     <string name="instant_upload_path">/InstantUpload</string>

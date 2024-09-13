@@ -333,6 +333,7 @@ dependencies {
     implementation 'org.conscrypt:conscrypt-android:2.5.3'
 
     implementation "androidx.media3:media3-ui:$androidxMediaVersion"
+    implementation "androidx.media3:media3-session:$androidxMediaVersion"
     implementation "androidx.media3:media3-exoplayer:$androidxMediaVersion"
     implementation "androidx.media3:media3-datasource-okhttp:$androidxMediaVersion"
 

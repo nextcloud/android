@@ -361,6 +361,7 @@
     <string name="image_editor_rotate_ccw">หมุนทวนเข็มนาฬิกา</string>
     <string name="image_editor_rotate_cw">หมุนตามเข็มนาฬิกา</string>
     <string name="image_editor_unable_to_edit_image">ไม่สามารถแก้ไขรูปภาพ</string>
+    <string name="in_folder">ในโฟลเดอร์ %1$s</string>
     <string name="instant_upload_existing">อัปโหลดไฟล์ที่มีอยู่เดิมด้วย</string>
     <string name="instant_upload_on_charging">อัปโหลดขณะชาร์จเท่านั้น</string>
     <string name="instant_upload_path">/อัพโหลดทันที</string>

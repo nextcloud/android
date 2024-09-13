@@ -412,6 +412,7 @@
     <string name="image_editor_rotate_ccw">Girar en sentido antihorario</string>
     <string name="image_editor_rotate_cw">Girar en sentido horario</string>
     <string name="image_editor_unable_to_edit_image">No se puede editar la imagen.</string>
+    <string name="in_folder">en la carpeta %1$s</string>
     <string name="instant_upload_existing">También cargar archivos existentes</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/Cargas Automáticas</string>

@@ -29,7 +29,5 @@ enum class DeepLinkConstants(val route: String, val navId: Int) {
         fun fromPath(path: String?): DeepLinkConstants? {
             return entries.find { it.route == path }
         }
-
-        val navigationPaths = entries.map { it.route }
     }
 }

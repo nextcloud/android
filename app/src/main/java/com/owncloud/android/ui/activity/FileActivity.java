@@ -543,14 +543,16 @@ public abstract class FileActivity extends DrawerActivity
     public void showLoadingDialog(String message) {
         dismissLoadingDialog();
 
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
-        if (frag == null) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
+        if (fragment == null) {
             Log_OC.d(TAG, "show loading dialog");
             LoadingDialog loadingDialogFragment = LoadingDialog.newInstance(message);
-            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
             if (isDialogFragmentReady) {
-                loadingDialogFragment.show(fragmentTransaction, DIALOG_WAIT_TAG);
+                fragmentTransaction.add(loadingDialogFragment, DIALOG_WAIT_TAG);
+                fragmentTransaction.commitNow();
             }
         }
     }
@@ -559,13 +561,15 @@ public abstract class FileActivity extends DrawerActivity
      * Dismiss loading dialog
      */
     public void dismissLoadingDialog() {
-        Fragment frag = getSupportFragmentManager().findFragmentByTag(DIALOG_WAIT_TAG);
-        if (frag != null) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment fragment = fragmentManager.findFragmentByTag(DIALOG_WAIT_TAG);
+        if (fragment != null) {
             Log_OC.d(TAG, "dismiss loading dialog");
-            LoadingDialog loadingDialogFragment = (LoadingDialog) frag;
+            LoadingDialog loadingDialogFragment = (LoadingDialog) fragment;
             boolean isDialogFragmentReady = ActivityExtensionsKt.isDialogFragmentReady(this, loadingDialogFragment);
             if (isDialogFragmentReady) {
                 loadingDialogFragment.dismiss();
+                fragmentManager.executePendingTransactions();
             }
         }
     }
