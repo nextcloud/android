@@ -411,7 +411,6 @@
     <string name="file_migration_waiting_for_unfinished_sync">Aguardando sincronização completa…</string>
     <string name="file_name_validator_current_path_is_invalid">O nome da pasta atual é inválido, renomeie a pasta. Redirecionando para a raiz</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">O caminho da pasta contém nomes reservados ou caracteres inválidos</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">%s é uma extensão de arquivo proibida</string>
     <string name="file_name_validator_error_invalid_character">O nome contém um caractere inválido:%s</string>
     <string name="file_name_validator_error_reserved_names">%s é um nome proibido</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Renomeie o arquivo antes de mover ou copiar</string>

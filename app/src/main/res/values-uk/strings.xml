@@ -179,6 +179,7 @@
     <string name="confirmation_remove_local">Лише на пристрої</string>
     <string name="conflict_dialog_error">Неможливо ініціювати діалог розв\'язання конфлікту</string>
     <string name="conflict_file_headline">Конфліктний файл %1$s</string>
+    <string name="conflict_folder_headline">Конфлікт з каталогом</string>
     <string name="conflict_local_file">Файл на пристрої</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
     <string name="conflict_server_file">Файл у хмарі</string>
@@ -407,7 +408,6 @@
     <string name="file_migration_waiting_for_unfinished_sync">Очікування повної синхронізації…</string>
     <string name="file_name_validator_current_path_is_invalid">Перейменуйте назву поточого каталогу, оскільки його назва не є дійсною. Переспрямування до кореневого каталогу.</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Шлях до каталогу містить зарезервовані імена або недійсні символи</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">%s не є дозволеним розширенням файлу</string>
     <string name="file_name_validator_error_invalid_character">Ім\'я містить недійсний символ: %s</string>
     <string name="file_name_validator_error_reserved_names">%s не є дозволеним ім\'ям</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Перейменуйте файл перед переміщенням або копіюванням</string>
@@ -564,6 +564,7 @@
     <string name="note_could_not_sent">Неможливо надіслати нотатку</string>
     <string name="note_icon_hint">Піктограма нотатки</string>
     <string name="notification_action_failed">Не вдалося виконати дію.</string>
+    <string name="notification_channel_background_operations_name">Фонові операції</string>
     <string name="notification_channel_download_description">Показує перебіг звантаження</string>
     <string name="notification_channel_download_name_short">Звантаження</string>
     <string name="notification_channel_file_sync_description">Показує перебіг синхронізації файлів та результати</string>
@@ -579,7 +580,13 @@
     <string name="notification_icon">Значок сповіщень</string>
     <string name="notifications_no_results_headline">Немає сповіщень</string>
     <string name="notifications_no_results_message">Будь ласка, перейдіть сюди пізніше.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Операції, що тривають</string>
     <string name="offline_mode">Відсутнє з\'єднання з мережею</string>
+    <string name="offline_operations_worker_notification_conflict_text">Конфлікт з каталогом %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Вилучити каталог на пристрої</string>
+    <string name="offline_operations_worker_notification_error_text">Неможливо виконати офлайнову операцію. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Офлайнові операції</string>
+    <string name="offline_operations_worker_notification_start_text">Початок офлайнових операцій</string>
     <string name="oneHour">1 година</string>
     <string name="online">Онлайн</string>
     <string name="online_status">Статус онлайну</string>
