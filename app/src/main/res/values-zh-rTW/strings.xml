@@ -413,7 +413,6 @@
     <string name="file_migration_waiting_for_unfinished_sync">正在等待完全同步……</string>
     <string name="file_name_validator_current_path_is_invalid">目前資料夾名稱無效，請重新命名資料夾。重新導向至根目錄</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">資料夾路徑包含保留名稱或無效字元</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">%s 是禁止使用的副檔名</string>
     <string name="file_name_validator_error_invalid_character">名稱包含無效的字元：%s</string>
     <string name="file_name_validator_error_reserved_names">%s 是禁止的名稱</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s。請在移動或複製前重新命名檔案</string>

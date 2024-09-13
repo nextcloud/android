@@ -410,7 +410,6 @@
     <string name="file_migration_waiting_for_unfinished_sync">En attente de la synchronisation complète…</string>
     <string name="file_name_validator_current_path_is_invalid">Le nom actuel du dossier est invalide, veuillez renommer le dossier. Redirection vers la racine</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Le chemin du dossier contient des noms réservés ou des caractères invalides</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">%s est une extension de fichier interdite</string>
     <string name="file_name_validator_error_invalid_character">Le nom contient un caractère invalide : %s</string>
     <string name="file_name_validator_error_reserved_names">%s est un nom interdit</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Veuillez renommer le fichier avant de le déplacer ou de le copier</string>

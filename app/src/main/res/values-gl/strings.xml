@@ -413,7 +413,6 @@
     <string name="file_migration_waiting_for_unfinished_sync">Agardando que rematen as sincronizacións…</string>
     <string name="file_name_validator_current_path_is_invalid">O nome actual do cartafol non é válido, cambie o nome do cartafol. Redireccionando á raíz</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">A ruta do cartafol contén nomes reservados ou caracteres non válidos</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">%s é unha extensión de ficheiro prohibida.</string>
     <string name="file_name_validator_error_invalid_character">O nome contén un carácter non válido: %s</string>
     <string name="file_name_validator_error_reserved_names">%s é un nome prohibido.</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Cambie o nome do ficheiro antes de mover ou copiar</string>
