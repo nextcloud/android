@@ -413,8 +413,6 @@
     <string name="file_migration_waiting_for_unfinished_sync">Ag feitheamh ar shioncronú iomlán…</string>
     <string name="file_name_validator_current_path_is_invalid">Tá ainm an fhillteáin reatha neamhbhailí, le do thoil athainmnigh an fillteán. Atreorú chuig an fhréamh</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Tá ainmneacha forchoimeádta nó carachtar neamhbhailí i gcosán an fhillteáin</string>
-    <string name="file_name_validator_error_ends_with_space_period">Críochnaíonn an t-ainm le spás nó le peiriad</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">Is iarmhír toirmiscthe comhaid é %s</string>
     <string name="file_name_validator_error_invalid_character">Tá carachtar neamhbhailí san ainm: %s</string>
     <string name="file_name_validator_error_reserved_names">Is ainm toirmiscthe é %s</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Athainmnigh an comhad le do thoil roimh é a bhogadh nó a chóipeáil</string>
