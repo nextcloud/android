@@ -413,6 +413,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Awaiting full sync…</string>
     <string name="file_name_validator_current_path_is_invalid">Current folder name is invalid, please rename the folder. Redirecting to root</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Folder path contains reserved names or invalid character</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s is a forbidden file extension</string>
     <string name="file_name_validator_error_invalid_character">Name contains an invalid character: %s</string>
     <string name="file_name_validator_error_reserved_names">%s is a forbidden name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Please rename the file before moving or copying</string>
@@ -626,6 +627,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">toggle</string>
+    <string name="please_select_a_server">Please select a server…</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
