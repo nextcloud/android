@@ -413,6 +413,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Eşitleme işleminin tamamlanması bekleniyor …</string>
     <string name="file_name_validator_current_path_is_invalid">Geçerli klasör adı geçersiz. Lütfen klasörü yeniden adlandırın. Kök klasöre yönlendiriliyorsunuz.</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Klasör yolunda ayrılmış adlar veya geçersiz karakterler var</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s dosya uzantısına izin verilmiyor.</string>
     <string name="file_name_validator_error_invalid_character">Ad içinde geçersiz bir karakter var: %s</string>
     <string name="file_name_validator_error_reserved_names">%s adına izin verilmiyor</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Kopyalamadan ya da taşımadan önce lütfen dosyayı yeniden adlandırın</string>
@@ -626,6 +627,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
     <string name="player_stop">durdur</string>
     <string name="player_toggle">değiştir</string>
+    <string name="please_select_a_server">Lütfen bir sunucu seçin…</string>
     <string name="power_save_check_dialog_message">Güç koruma denetiminin devre dışı bırakılması pil düzeyi düşükken dosyaların yüklenmesine neden olabilir!</string>
     <string name="pref_behaviour_entries_delete_file">silindi</string>
     <string name="pref_behaviour_entries_keep_file">özgün klasöründe korundu</string>

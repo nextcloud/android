@@ -413,6 +413,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Warte auf die Fertigstellung aller Synchronisierungen …</string>
     <string name="file_name_validator_current_path_is_invalid">Der aktuelle Ordnername ist unzulässig. Bitte benennen Sie den Ordner um. Weiterleitung zum Stammverzeichnis</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Der Ordnerpfad enthält reservierte Namen oder ungültige Zeichen</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s ist eine unzulässige Dateierweiterung</string>
     <string name="file_name_validator_error_invalid_character">Der Name enthält ein unzulässiges Zeichen: %s</string>
     <string name="file_name_validator_error_reserved_names">%s ist ein unzulässiger Name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Bitte Datei umbenennen, bevor diese verschoben oder kopiert wird</string>
@@ -626,6 +627,7 @@
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="player_stop">Stopp</string>
     <string name="player_toggle">Umschalten</string>
+    <string name="please_select_a_server">Bitte einen Server auswählen...</string>
     <string name="power_save_check_dialog_message">Bei deaktiviertem Energiesparmodus werden Daten auch bei niedrigem Batterieladezustand hochgeladen.</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
