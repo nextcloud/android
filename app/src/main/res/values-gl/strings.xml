@@ -115,7 +115,7 @@
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Hai un problema ao cargar o certificado.</string>
-    <string name="changelog_dev_version">Cambios na versión de desenvolvemento</string>
+    <string name="changelog_dev_version">Notas da versión de desenvolvemento</string>
     <string name="check_back_later_or_reload">Volver máis tarde ou volver cargar.</string>
     <string name="checkbox">Caixa de selección</string>
     <string name="choose_local_folder">Escoller o cartafol local…</string>
