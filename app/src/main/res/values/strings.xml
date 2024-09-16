@@ -1234,7 +1234,7 @@
     <string name="file_name_validator_error_invalid_character">Name contains an invalid character: %s</string>
     <string name="file_name_validator_error_reserved_names">%s is a forbidden name</string>
     <string name="file_name_validator_error_forbidden_file_extensions">%s is a forbidden file extension</string>
-    <string name="file_name_validator_error_forbidden_space_character_extensions"> A space character is not allowed in file names</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">A space character is not allowed in file names</string>
     <string name="sync">Sync</string>
     <string name="please_select_a_server">Please select a server…</string>
 </resources>
