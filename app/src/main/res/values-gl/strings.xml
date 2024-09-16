@@ -115,7 +115,7 @@
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Hai un problema ao cargar o certificado.</string>
-    <string name="changelog_dev_version">Cambios na versión de desenvolvemento</string>
+    <string name="changelog_dev_version">Notas da versión de desenvolvemento</string>
     <string name="check_back_later_or_reload">Volver máis tarde ou volver cargar.</string>
     <string name="checkbox">Caixa de selección</string>
     <string name="choose_local_folder">Escoller o cartafol local…</string>
@@ -413,6 +413,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Agardando que rematen as sincronizacións…</string>
     <string name="file_name_validator_current_path_is_invalid">O nome actual do cartafol non é válido, cambie o nome do cartafol. Redireccionando á raíz</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">A ruta do cartafol contén nomes reservados ou caracteres non válidos</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">.%s é unha extensión de ficheiro prohibida</string>
     <string name="file_name_validator_error_invalid_character">O nome contén un carácter non válido: %s</string>
     <string name="file_name_validator_error_reserved_names">%s é un nome prohibido.</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Cambie o nome do ficheiro antes de mover ou copiar</string>
@@ -626,6 +627,7 @@
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">alternar</string>
+    <string name="please_select_a_server">Seleccione un servidor…</string>
     <string name="power_save_check_dialog_message">A desactivación da comprobación de aforro de enerxía pode provocar o envío de ficheiros cando estea coa batería baixa.</string>
     <string name="pref_behaviour_entries_delete_file">eliminado</string>
     <string name="pref_behaviour_entries_keep_file">mantense no cartafol orixinal</string>
