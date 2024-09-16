@@ -17,7 +17,6 @@ import com.nextcloud.utils.extensions.forbiddenFilenames
 import com.nextcloud.utils.extensions.removeFileExtension
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 
 object FileNameValidator {
@@ -49,44 +48,48 @@ object FileNameValidator {
             }
         }
 
-        if (capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
-            checkInvalidCharacters(filename, capability, context)?.let {
-                return it
+        checkInvalidCharacters(filename, capability, context)?.let {
+            return it
+        }
+
+        capability.run {
+            val filenameVariants = setOf(filename.lowercase(), filename.removeFileExtension().lowercase())
+
+            forbiddenFilenameBaseNames().let {
+                val forbiddenBaseNames = forbiddenFilenameBaseNames().map { it.lowercase() }
+
+                for (forbiddenBaseName in forbiddenBaseNames) {
+                    if (forbiddenBaseName in filenameVariants) {
+                        return context.getString(
+                            R.string.file_name_validator_error_reserved_names,
+                            forbiddenBaseName
+                        )
+                    }
+                }
             }
 
-            capability.run {
-                val filenameVariants = setOf(filename.lowercase(), filename.removeFileExtension().lowercase())
+            forbiddenFilenamesJson?.let {
+                val forbiddenFilenames = forbiddenFilenames().map { it.lowercase() }
 
-                forbiddenFilenameBaseNames().let {
-                    val forbiddenBaseNames = forbiddenFilenameBaseNames().map { it.lowercase() }
-
-                    for (forbiddenBaseName in forbiddenBaseNames) {
-                        if (forbiddenBaseName in filenameVariants) {
-                            return context.getString(
-                                R.string.file_name_validator_error_reserved_names,
-                                forbiddenBaseName
-                            )
-                        }
+                for (forbiddenFilename in forbiddenFilenames) {
+                    if (forbiddenFilename in filenameVariants) {
+                        return context.getString(
+                            R.string.file_name_validator_error_reserved_names,
+                            forbiddenFilename
+                        )
                     }
                 }
+            }
 
-                forbiddenFilenamesJson?.let {
-                    val forbiddenFilenames = forbiddenFilenames().map { it.lowercase() }
-
-                    for (forbiddenFilename in forbiddenFilenames) {
-                        if (forbiddenFilename in filenameVariants) {
-                            return context.getString(
-                                R.string.file_name_validator_error_reserved_names,
-                                forbiddenFilename
+            forbiddenFilenameExtensionJson?.let {
+                for (forbiddenExtension in forbiddenFilenameExtension()) {
+                    if (filename.endsWith(forbiddenExtension, ignoreCase = true)) {
+                        return if (forbiddenExtension == StringConstants.SPACE) {
+                            context.getString(
+                                R.string.file_name_validator_error_forbidden_space_character_extensions,
                             )
-                        }
-                    }
-                }
-
-                forbiddenFilenameExtensionJson?.let {
-                    for (forbiddenExtension in forbiddenFilenameExtension()) {
-                        if (filename.endsWith(forbiddenExtension, ignoreCase = true)) {
-                            return context.getString(
+                        } else {
+                            context.getString(
                                 R.string.file_name_validator_error_forbidden_file_extensions,
                                 forbiddenExtension
                             )
