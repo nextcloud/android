@@ -27,6 +27,7 @@ import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.typedActivity
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.EditBoxDialogBinding
@@ -185,7 +186,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
             lifecycleScope.launch(Dispatchers.IO) {
                 if (connectivityService.isNetworkAndServerAvailable()) {
-                    (requireActivity() as ComponentsGetter).fileOperationsHelper.createFolder(path)
+                    typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createFolder(path)
                 } else {
                     Log_OC.d(TAG, "Network not available, creating offline operation")
                     fileDataStorageManager.addCreateFolderOfflineOperation(
@@ -196,8 +197,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
                     )
 
                     launch(Dispatchers.Main) {
-                        val fileDisplayActivity = requireActivity() as? FileDisplayActivity
-                        fileDisplayActivity?.syncAndUpdateFolder(true)
+                        (requireActivity() as? FileDisplayActivity)?.syncAndUpdateFolder(true)
                     }
                 }
             }
