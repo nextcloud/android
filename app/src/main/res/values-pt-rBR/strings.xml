@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">Somente local</string>
     <string name="conflict_dialog_error">A caixa de diálogo de resolução de conflitos não pode ser criada</string>
     <string name="conflict_file_headline">Arquivo conflitante %1$s</string>
+    <string name="conflict_folder_headline">Conflito de Pastas</string>
     <string name="conflict_local_file">Arquivo local</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
+    <string name="conflict_message_description_for_folder">Se selecionar ambas as versões, a pasta local terá um número anexado ao nome.</string>
     <string name="conflict_server_file">Arquivo do servidor</string>
     <string name="contact_backup_title">Backup de contatos</string>
     <string name="contact_no_permission">É necessária permissão de contato.</string>
@@ -411,6 +413,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">Aguardando sincronização completa…</string>
     <string name="file_name_validator_current_path_is_invalid">O nome da pasta atual é inválido, renomeie a pasta. Redirecionando para a raiz</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">O caminho da pasta contém nomes reservados ou caracteres inválidos</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s é uma extensão de arquivo proibida</string>
     <string name="file_name_validator_error_invalid_character">O nome contém um caractere inválido:%s</string>
     <string name="file_name_validator_error_reserved_names">%s é um nome proibido</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Renomeie o arquivo antes de mover ou copiar</string>
@@ -571,6 +574,8 @@
     <string name="note_could_not_sent">Não foi possível enviar a anotação</string>
     <string name="note_icon_hint">Ícone de anotação</string>
     <string name="notification_action_failed">Erro ao executar a ação.</string>
+    <string name="notification_channel_background_operations_description">Mostrar notificações para interagir com o resultado de operações em segundo plano</string>
+    <string name="notification_channel_background_operations_name">Operações em Segundo Plano</string>
     <string name="notification_channel_download_description">Mostra o progresso de download</string>
     <string name="notification_channel_download_name_short">Baixados</string>
     <string name="notification_channel_file_sync_description">Mostra o progresso sincronização de arquivo e resultados</string>
@@ -586,7 +591,13 @@
     <string name="notification_icon">Ícone de notificação</string>
     <string name="notifications_no_results_headline">Não há notificações</string>
     <string name="notifications_no_results_message">Por favor, verifique mais tarde.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operação Pendente</string>
     <string name="offline_mode">Sem conexão à internet</string>
+    <string name="offline_operations_worker_notification_conflict_text">Pasta Conflitante: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Remover Pasta Offline</string>
+    <string name="offline_operations_worker_notification_error_text">A operação offline não foi completada. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Operações Offline</string>
+    <string name="offline_operations_worker_notification_start_text">Iniciando Operações Offline</string>
     <string name="oneHour">1 hora</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
@@ -601,7 +612,7 @@
     <string name="pass_code_removed">Frase secreta excluída</string>
     <string name="pass_code_stored">Código de acesso salvo</string>
     <string name="pass_code_wrong">Código de acesso incorreto</string>
-    <string name="pdf_password_protected">Não foi possível abrir PDF protegido por senha. Por favor utilize um visualizador de PDF externo.</string>
+    <string name="pdf_password_protected">Não foi possível abrir PDF protegido por senha. Utilize um visualizador de PDF externo.</string>
     <string name="pdf_zoom_tip">Toque em uma página para ampliar</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
@@ -616,6 +627,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">para</string>
     <string name="player_toggle">alternar</string>
+    <string name="please_select_a_server">Selecione um servidor...</string>
     <string name="power_save_check_dialog_message">Desativar a verificação de economia de energia pode resultar em uploads com a bateria baixa!</string>
     <string name="pref_behaviour_entries_delete_file">excluído</string>
     <string name="pref_behaviour_entries_keep_file">Mantido na pasta original</string>
