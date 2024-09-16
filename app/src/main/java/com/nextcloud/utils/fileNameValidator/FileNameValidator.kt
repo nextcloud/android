@@ -86,7 +86,7 @@ object FileNameValidator {
                     if (filename.endsWith(forbiddenExtension, ignoreCase = true)) {
                         return if (forbiddenExtension == StringConstants.SPACE) {
                             context.getString(
-                                R.string.file_name_validator_error_forbidden_space_character_extensions,
+                                R.string.file_name_validator_error_forbidden_space_character_extensions
                             )
                         } else {
                             context.getString(
