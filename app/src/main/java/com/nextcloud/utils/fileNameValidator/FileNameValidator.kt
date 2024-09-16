@@ -17,6 +17,7 @@ import com.nextcloud.utils.extensions.forbiddenFilenames
 import com.nextcloud.utils.extensions.removeFileExtension
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 
 object FileNameValidator {
@@ -48,51 +49,53 @@ object FileNameValidator {
             }
         }
 
-        checkInvalidCharacters(filename, capability, context)?.let {
-            return it
-        }
-
-        capability.run {
-            val filenameVariants = setOf(filename.lowercase(), filename.removeFileExtension().lowercase())
-
-            forbiddenFilenameBaseNames().let {
-                val forbiddenBaseNames = forbiddenFilenameBaseNames().map { it.lowercase() }
-
-                for (forbiddenBaseName in forbiddenBaseNames) {
-                    if (forbiddenBaseName in filenameVariants) {
-                        return context.getString(
-                            R.string.file_name_validator_error_reserved_names,
-                            forbiddenBaseName
-                        )
-                    }
-                }
+        if (capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
+            checkInvalidCharacters(filename, capability, context)?.let {
+                return it
             }
 
-            forbiddenFilenamesJson?.let {
-                val forbiddenFilenames = forbiddenFilenames().map { it.lowercase() }
+            capability.run {
+                val filenameVariants = setOf(filename.lowercase(), filename.removeFileExtension().lowercase())
 
-                for (forbiddenFilename in forbiddenFilenames) {
-                    if (forbiddenFilename in filenameVariants) {
-                        return context.getString(
-                            R.string.file_name_validator_error_reserved_names,
-                            forbiddenFilename
-                        )
+                forbiddenFilenameBaseNames().let {
+                    val forbiddenBaseNames = forbiddenFilenameBaseNames().map { it.lowercase() }
+
+                    for (forbiddenBaseName in forbiddenBaseNames) {
+                        if (forbiddenBaseName in filenameVariants) {
+                            return context.getString(
+                                R.string.file_name_validator_error_reserved_names,
+                                forbiddenBaseName
+                            )
+                        }
                     }
                 }
-            }
 
-            forbiddenFilenameExtensionJson?.let {
-                for (forbiddenExtension in forbiddenFilenameExtension()) {
-                    if (filename.endsWith(forbiddenExtension, ignoreCase = true)) {
-                        return if (forbiddenExtension == StringConstants.SPACE) {
-                            context.getString(
-                                R.string.file_name_validator_error_forbidden_space_character_extensions
+                forbiddenFilenamesJson?.let {
+                    val forbiddenFilenames = forbiddenFilenames().map { it.lowercase() }
+
+                    for (forbiddenFilename in forbiddenFilenames) {
+                        if (forbiddenFilename in filenameVariants) {
+                            return context.getString(
+                                R.string.file_name_validator_error_reserved_names,
+                                forbiddenFilename
                             )
-                        } else {
-                            context.getString(
-                                R.string.file_name_validator_error_forbidden_file_extensions,
-                                forbiddenExtension
-                            )
+                        }
+                    }
+                }
+
+                forbiddenFilenameExtensionJson?.let {
+                    for (forbiddenExtension in forbiddenFilenameExtension()) {
+                        if (filename.endsWith(forbiddenExtension, ignoreCase = true)) {
+                            return if (forbiddenExtension == StringConstants.SPACE) {
+                                context.getString(
+                                    R.string.file_name_validator_error_forbidden_space_character_extensions
+                                )
+                            } else {
+                                context.getString(
+                                    R.string.file_name_validator_error_forbidden_file_extensions,
+                                    forbiddenExtension
+                                )
+                            }
                         }
                     }
                 }
