@@ -413,6 +413,7 @@
     <string name="file_migration_waiting_for_unfinished_sync">بإنتظار مزامنة كاملة…</string>
     <string name="file_name_validator_current_path_is_invalid">اسم المجلد الحالي غير صحيح. قُم رجاءً بتغيير اسم المجلد. إعادة التوجيه إلى المجلد الجذر</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">مسار المجلد يحتوي على أسماء محجوزة أو حروف غير صالحة</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s هو امتداد غير مسموح به</string>
     <string name="file_name_validator_error_invalid_character">اسم يحتوي على حروف غير صالحة: %s</string>
     <string name="file_name_validator_error_reserved_names">%s اسم ممنوع</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. قُم رجاءً بتغيير اسم الملف قبل نقله أو نسخه</string>
@@ -630,6 +631,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
     <string name="player_stop">إيقاف</string>
     <string name="player_toggle">تبديل</string>
+    <string name="please_select_a_server">من فضلك، حدِّد الخادوم...</string>
     <string name="power_save_check_dialog_message">قد يؤدي تعطيل فحص حفظ الطاقة إلى تحميل الملفات عندما تكون حالة البطارية منخفضة!</string>
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
     <string name="pref_behaviour_entries_keep_file">أبقى في المجلد الأصلي</string>

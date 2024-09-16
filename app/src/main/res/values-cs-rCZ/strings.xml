@@ -199,6 +199,7 @@
     <string name="create_dir_fail_msg">Nepodařilo se vytvořit složku</string>
     <string name="create_new">Nové</string>
     <string name="create_new_document">Nový dokument</string>
+    <string name="create_new_folder">Nová složka</string>
     <string name="create_new_presentation">Nová prezentace</string>
     <string name="create_new_spreadsheet">Nová tabulka</string>
     <string name="create_rich_workspace">Přidat popis složky</string>
