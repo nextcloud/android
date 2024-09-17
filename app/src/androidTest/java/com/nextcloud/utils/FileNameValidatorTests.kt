@@ -81,7 +81,7 @@ class FileNameValidatorTests : AbstractOnServerIT() {
             assertEquals(null, result2)
         } else {
             assertEquals(
-                targetContext.getString(R.string.file_name_validator_error_forbidden_file_extensions, " "),
+                targetContext.getString(R.string.file_name_validator_error_forbidden_space_character_extensions),
                 result
             )
             assertEquals(
