@@ -180,8 +180,10 @@
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_dialog_error">Нем оже да се креира дијалог за разрешавање конфилкта</string>
     <string name="conflict_file_headline">Конфликтни фајл %1$s</string>
+    <string name="conflict_folder_headline">Конфликт фолдера</string>
     <string name="conflict_local_file">Локални фајл</string>
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
+    <string name="conflict_message_description_for_folder">Ако изаберете обе верзије, на крај имена локалног фолдера ће се придодати број.</string>
     <string name="conflict_server_file">Серверски фајл</string>
     <string name="contact_backup_title">Резервна копија контаката</string>
     <string name="contact_no_permission">Неопходна је дозвола контакта.</string>
@@ -279,8 +281,11 @@
     <string name="drawer_quota">%1$s од %2$s заузето</string>
     <string name="drawer_quota_unlimited">%1$s искоришћено</string>
     <string name="drawer_synced_folders">Аутоматска отпремања</string>
+    <string name="e2e_counter_too_old">Бројач је сувише стар</string>
+    <string name="e2e_hash_not_found">Није пронађен хеш</string>
     <string name="e2e_not_yet_setup">E2E још увек није подешено</string>
     <string name="e2e_offline">Није могуће без везе са интернетом</string>
+    <string name="e2e_signature_does_not_match">Потпис се не подудара</string>
     <string name="ecosystem_apps_display_assistant">Асистент</string>
     <string name="ecosystem_apps_display_more">Више</string>
     <string name="ecosystem_apps_display_notes">Белешке</string>
@@ -406,6 +411,13 @@
     <string name="file_migration_updating_index">Ажурирам индекс…</string>
     <string name="file_migration_use_data_folder">Искористи</string>
     <string name="file_migration_waiting_for_unfinished_sync">Чекам пуну синхронизацију…</string>
+    <string name="file_name_validator_current_path_is_invalid">Име текућег фолдера није исправно, молимо вас да промените име овог фолдера. Преусмеравате се на корени фолдер</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Путања фолдера садржи резервисана имена или неисправни карактер</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s је забрањена екстензија фајла</string>
+    <string name="file_name_validator_error_invalid_character">Име садржи неисправни карактер: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s је забрањено име</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Молимо вас да пре премештања или копирања промените име фајла</string>
+    <string name="file_name_validator_upload_content_error">Неки садржај не може да се отпреми јер садржи резервисана имена или неисправни карактер</string>
     <string name="file_not_found">Фајл није нађен</string>
     <string name="file_not_synced">Фајл не може да се синхронизује. Приказујем последњу доступну верзију.</string>
     <string name="file_rename">Преименуј</string>
@@ -429,6 +441,7 @@
     <string name="folder_already_exists">Фасцикла већ постоји</string>
     <string name="folder_confirm_create">Направи</string>
     <string name="folder_list_empty_headline">Нема фасцикли овде</string>
+    <string name="folder_name_empty">Назив фолдера не може да буде празно</string>
     <string name="folder_picker_choose_button_text">Изаберите</string>
     <string name="folder_picker_choose_caption_text">Одаберите одредишну фасциклу</string>
     <string name="folder_picker_copy_button_text">Копирај</string>
@@ -475,6 +488,8 @@
     <string name="instant_upload_existing">Отпреми и постојеће фајлове</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync">Интерна двосмерна синхронизација</string>
+    <string name="internal_two_way_sync_not_yet">Још увек није, ускоро ће се синхронизовати</string>
     <string name="invalid_url">Неисправан УРЛ</string>
     <string name="invisible">Невидљива</string>
     <string name="label_empty">Ознака не може да буде празна</string>
@@ -559,6 +574,8 @@
     <string name="note_could_not_sent">Не могу да пошаљем белешку</string>
     <string name="note_icon_hint">Иконица белешке</string>
     <string name="notification_action_failed">Не могу да извршим радњу.</string>
+    <string name="notification_channel_background_operations_description">Прикажи обавештења за интеракцију са резултатом операција у позадини</string>
+    <string name="notification_channel_background_operations_name">Операције у позадини</string>
     <string name="notification_channel_download_description">Приказ напретка преузимања</string>
     <string name="notification_channel_download_name_short">Преузимања</string>
     <string name="notification_channel_file_sync_description">Приказ напретка синхронизације фајла и резултата</string>
@@ -574,7 +591,13 @@
     <string name="notification_icon">Иконица обавештења</string>
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Проверите касније.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Операције на чекању</string>
     <string name="offline_mode">Нема везе са интернетом</string>
+    <string name="offline_operations_worker_notification_conflict_text">Фолдер у конфликту: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Обриши фолдер ван мреже</string>
+    <string name="offline_operations_worker_notification_error_text">Операција ван мреже не може да се заврши. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Операције ван мреже</string>
+    <string name="offline_operations_worker_notification_start_text">Покрећу се операције ван мреже</string>
     <string name="oneHour">1 сат</string>
     <string name="online">На мрежи</string>
     <string name="online_status">Мрежни статус</string>
@@ -604,6 +627,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 ПоП</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">пребацивање</string>
+    <string name="please_select_a_server">Молимо вас да изаберете сервер</string>
     <string name="power_save_check_dialog_message">Искључивање провере стања батерије може да доведе до тога да отпремате фајлове са празном батеријом!</string>
     <string name="pref_behaviour_entries_delete_file">обрисано</string>
     <string name="pref_behaviour_entries_keep_file">остављен у изворној фасцикли</string>
@@ -665,6 +689,7 @@
     <string name="prefs_synced_folders_local_path_title">Локална фасцикла</string>
     <string name="prefs_synced_folders_remote_path_title">Удаљена фасцикла</string>
     <string name="prefs_theme_title">Тема</string>
+    <string name="prefs_two_way_sync_summary">Управљање интерним фолдерима за двосмерну синхронизацију</string>
     <string name="prefs_value_theme_dark">тамна</string>
     <string name="prefs_value_theme_light">светла</string>
     <string name="prefs_value_theme_system">системска</string>
