@@ -63,7 +63,7 @@ fun ResultCode.isFileSpecificError(): Boolean {
         ResultCode.ACCOUNT_NOT_FOUND,
         ResultCode.ACCOUNT_USES_STANDARD_PASSWORD,
         ResultCode.INCORRECT_ADDRESS,
-        ResultCode.BAD_OC_VERSION,
+        ResultCode.BAD_OC_VERSION
     )
 
     return !errorCodes.contains(this)
