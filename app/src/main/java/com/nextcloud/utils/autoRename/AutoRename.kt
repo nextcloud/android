@@ -10,18 +10,12 @@ package com.nextcloud.utils.autoRename
 import com.nextcloud.utils.extensions.StringConstants
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtension
-import com.owncloud.android.lib.common.utils.Log_OC
+import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharacters
 import com.owncloud.android.lib.resources.status.OCCapability
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import java.io.File
-import java.io.IOException
+import java.util.regex.Pattern
 
 object AutoRename {
     private const val REPLACEMENT = "_"
-    private const val TAG = "AutoRename"
-    private val scope = CoroutineScope(Dispatchers.IO)
 
     fun rename(filename: String, capability: OCCapability): String {
         capability.run {
@@ -30,14 +24,19 @@ object AutoRename {
 
                 forbiddenFilenameCharacters.forEach {
                     if (filename.lowercase().contains(it)) {
-                        return filename.replace(it, REPLACEMENT)
+                        val result = filename.replace(it, REPLACEMENT)
+                        return if (shouldRemoveNonPrintableUnicodeCharacters()) {
+                            removeNonPrintableUnicodeCharacters(result)
+                        } else {
+                            result
+                        }
                     }
                 }
             }
 
             forbiddenFilenameExtensionJson?.let {
                 for (forbiddenExtension in forbiddenFilenameExtension()) {
-                    return if (forbiddenExtension == StringConstants.SPACE &&
+                    val result = if (forbiddenExtension == StringConstants.SPACE &&
                         filename.endsWith(forbiddenExtension, ignoreCase = true)) {
                         filename.trimEnd()
                     } else if (forbiddenExtension == StringConstants.SPACE &&
@@ -49,40 +48,27 @@ object AutoRename {
                     } else {
                         filename
                     }
+
+                    return if (shouldRemoveNonPrintableUnicodeCharacters()) {
+                        removeNonPrintableUnicodeCharacters(result)
+                    } else {
+                        result
+                    }
                 }
             }
         }
 
-        return filename
+        return if (capability.shouldRemoveNonPrintableUnicodeCharacters()) {
+            removeNonPrintableUnicodeCharacters(filename)
+        } else {
+            filename
+        }
     }
 
-    fun renameFiles(paths: Array<String>, capability: OCCapability, onComplete: (Array<String>) -> Unit) {
-        scope.launch {
-           val result = paths.map { path ->
-                val file = File(path)
-
-                if (file.exists()) {
-                    val newFilename = rename(file.name, capability)
-                    val newFile = File(file.parentFile, newFilename)
-
-                    if (file.renameTo(newFile)) {
-                        try {
-                            newFile.path
-                        } catch (e: IOException) {
-                            Log_OC.e(TAG, "Exception caught during renameFiles(): $e")
-                            path
-                        }
-                    } else {
-                        path
-                    }
-                } else {
-                    path
-                }
-            }.toTypedArray()
-
-            launch(Dispatchers.Main) {
-                onComplete(result)
-            }
-        }
+    fun removeNonPrintableUnicodeCharacters(filename: String): String {
+        val regex = "\\p{C}"
+        val pattern = Pattern.compile(regex)
+        val matcher = pattern.matcher(filename)
+        return matcher.replaceAll("")
     }
 }
