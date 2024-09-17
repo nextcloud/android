@@ -23,6 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.network.Connectivity;
 import com.nextcloud.client.network.ConnectivityService;
+import com.nextcloud.utils.autoRename.AutoRename;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -52,6 +53,7 @@ import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.status.E2EVersion;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.operations.e2e.E2EClientData;
 import com.owncloud.android.operations.e2e.E2EData;
@@ -742,6 +744,7 @@ public class UploadFileOperation extends SyncOperation {
         EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, cipher);
         String encryptedFileName = getEncryptedFileName(object);
 
+        // TODO auto rename for e2e
         if (key == null) {
             throw new NullPointerException("key cannot be null");
         }
@@ -1018,6 +1021,8 @@ public class UploadFileOperation extends SyncOperation {
 
             updateSize(size);
 
+            autoRenameFile();
+
             // perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
                 boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
@@ -1107,6 +1112,13 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return result;
+    }
+
+    private void autoRenameFile() {
+        OCCapability capability = CapabilityUtils.getCapability(mContext);
+        String newFilename = AutoRename.INSTANCE.rename(mFile.getFileName(), capability);
+        mFile.setFileName(newFilename);
+        getStorageManager().saveFile(mFile);
     }
 
     private void updateSize(long size) {
