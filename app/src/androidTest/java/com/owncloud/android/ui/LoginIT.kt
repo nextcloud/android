@@ -53,7 +53,7 @@ class LoginIT : AbstractIT() {
      * The CI/CD pipeline is encountering issues related to the Android version for this functionality.
      * Therefore the test will only be executed on Android versions 10 and above.
      */
-    @SdkSuppress(minSdkVersion = Build.VERSION_CODES.Q)
+    //@SdkSuppress(minSdkVersion = Build.VERSION_CODES.Q)
     fun login() {
         val arguments = InstrumentationRegistry.getArguments()
         val baseUrl = arguments.getString("TEST_SERVER_URL")!!
