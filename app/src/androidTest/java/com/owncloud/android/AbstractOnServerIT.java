@@ -117,7 +117,7 @@ public abstract class AbstractOnServerIT extends AbstractIT {
 
     @After
     public void after() {
-        // deleteAllFilesOnServer();
+        deleteAllFilesOnServer();
 
         super.after();
     }
