@@ -46,4 +46,29 @@ class AutoRenameTests: AbstractOnServerIT() {
         val expectedFilename = "file_"
         assert(result == expectedFilename)
     }
+
+
+    @Test
+    fun testRenameWhenMultipleInvalidCharactersShouldReturnValidFilename() {
+        val filename = "file|name?<>.txt"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "file_name___.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testRenameWhenFilenameStartsAndEndsWithInvalidExtensionsShouldReturnValidFilename() {
+        val filename = " .file.part "
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "_file_part"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testRenameWhenNonPrintableCharactersArePresentShouldRemoveThem() {
+        val filename = "file\u0001name.txt"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "filename.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
 }

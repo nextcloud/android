@@ -18,54 +18,43 @@ object AutoRename {
     private const val REPLACEMENT = "_"
 
     fun rename(filename: String, capability: OCCapability): String {
+        var result = filename
+
         capability.run {
             forbiddenFilenameCharactersJson?.let {
                 val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
 
                 forbiddenFilenameCharacters.forEach {
-                    if (filename.lowercase().contains(it)) {
-                        val result = filename.replace(it, REPLACEMENT)
-                        return if (shouldRemoveNonPrintableUnicodeCharacters()) {
-                            removeNonPrintableUnicodeCharacters(result)
-                        } else {
-                            result
-                        }
+                    if (result.lowercase().contains(it)) {
+                        result = result.replace(it, REPLACEMENT)
                     }
                 }
             }
 
             forbiddenFilenameExtensionJson?.let {
-                for (forbiddenExtension in forbiddenFilenameExtension()) {
-                    val result = if (forbiddenExtension == StringConstants.SPACE &&
-                        filename.endsWith(forbiddenExtension, ignoreCase = true)) {
-                        filename.trimEnd()
-                    } else if (forbiddenExtension == StringConstants.SPACE &&
-                        filename.startsWith(forbiddenExtension, ignoreCase = true)) {
-                        filename.trimStart()
-                    } else if (filename.endsWith(forbiddenExtension, ignoreCase = true) ||
-                        filename.startsWith(forbiddenExtension, ignoreCase = true)) {
-                        filename.replace(forbiddenExtension, REPLACEMENT)
-                    } else {
-                        filename
+                forbiddenFilenameExtension().any { forbiddenExtension ->
+                    if (forbiddenExtension == StringConstants.SPACE) {
+                        result = result.trimStart().trimEnd()
                     }
 
-                    return if (shouldRemoveNonPrintableUnicodeCharacters()) {
-                        removeNonPrintableUnicodeCharacters(result)
-                    } else {
-                        result
+                    if (result.endsWith(forbiddenExtension, ignoreCase = true) ||
+                        result.startsWith(forbiddenExtension, ignoreCase = true)) {
+                        result = result.replace(forbiddenExtension, REPLACEMENT)
                     }
+
+                    false
                 }
             }
         }
 
         return if (capability.shouldRemoveNonPrintableUnicodeCharacters()) {
-            removeNonPrintableUnicodeCharacters(filename)
+            removeNonPrintableUnicodeCharacters(result)
         } else {
-            filename
+            result
         }
     }
 
-    fun removeNonPrintableUnicodeCharacters(filename: String): String {
+    private fun removeNonPrintableUnicodeCharacters(filename: String): String {
         val regex = "\\p{C}"
         val pattern = Pattern.compile(regex)
         val matcher = pattern.matcher(filename)
