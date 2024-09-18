@@ -48,10 +48,15 @@ object AutoRename {
         }
 
         return if (capability.shouldRemoveNonPrintableUnicodeCharacters()) {
-            removeNonPrintableUnicodeCharacters(result)
+            val nonPrintableUnicodeVersion = removeNonPrintableUnicodeCharacters(result)
+            convertToUTF8(nonPrintableUnicodeVersion)
         } else {
             result
         }
+    }
+
+    private fun convertToUTF8(filename: String): String {
+        return String(filename.toByteArray(), Charsets.UTF_8)
     }
 
     private fun removeNonPrintableUnicodeCharacters(filename: String): String {
