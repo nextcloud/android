@@ -872,6 +872,7 @@
     <string name="unlock_file">ファイルのロックを解除</string>
     <string name="unread_comments">未読のコメントがあります</string>
     <string name="unset_encrypted">暗号化解除</string>
+    <string name="unset_favorite">お気に入りから削除</string>
     <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
     <string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
     <string name="unshare_link_forbidden_permissions">ファイルの共有を解除</string>
