@@ -72,7 +72,7 @@
     <string name="auto_upload_path">/AutoCarrigamentu</string>
     <string name="autoupload_configure">Cunfigura</string>
     <string name="autoupload_create_new_custom_folder">Crea cunfiguratzione de cartella personalizada noa</string>
-    <string name="autoupload_custom_folder">Imposta una cartella personalizada</string>
+    <string name="autoupload_custom_folder">Cunfigura una cartella personalizada</string>
     <string name="autoupload_disable_power_save_check">Disativa controllu de rispàrmiu de energia</string>
     <string name="autoupload_hide_folder">Cua sa cartella</string>
     <string name="avatar">Avatar</string>
@@ -223,7 +223,7 @@
     <string name="ecosystem_apps_display_notes">Notas</string>
     <string name="ecosystem_apps_display_talk">Faedda</string>
     <string name="ecosystem_apps_notes">Notas de Nextcloud</string>
-    <string name="encrypted">Imposta comente tzifradu</string>
+    <string name="encrypted">Cunfigura comente tzifradu</string>
     <string name="end_to_end_encryption_confirm_button">Cunfigura critografia</string>
     <string name="end_to_end_encryption_decrypting">Decritografende…</string>
     <string name="end_to_end_encryption_dialog_close">Serra</string>
@@ -572,10 +572,10 @@
     <string name="select_template">Seletziona modellu</string>
     <string name="send">Imbia</string>
     <string name="sendbutton_description">Imbia s\'icona de su butone</string>
-    <string name="set_as">Imposta comente</string>
+    <string name="set_as">Cunfigura comente</string>
     <string name="set_picture_as">Imprea immàgine comente</string>
-    <string name="set_status">Imposta istadu</string>
-    <string name="set_status_message">Imposta messàgiu de istadu</string>
+    <string name="set_status">Cunfigura s\'istadu</string>
+    <string name="set_status_message">Cunfigura unu messàgiu de istadu</string>
     <string name="share">Cumpartzi</string>
     <string name="share_dialog_title">Cumpartzende</string>
     <string name="share_expiration_date_label">Iscadet %1$s</string>
@@ -593,8 +593,8 @@
     <string name="share_link_optional_password_title">Inserta una crae optzionale</string>
     <string name="share_link_password_title">Inserta una crae</string>
     <string name="share_link_with_label">Cumpartzi ligòngiu (%1$s)</string>
-    <string name="share_no_expiration_date_label">Imposta data de iscadèntzia</string>
-    <string name="share_no_password_title">Imposta sa crae</string>
+    <string name="share_no_expiration_date_label">Cunfigura una data de iscadèntzia</string>
+    <string name="share_no_password_title">Cunfigura sa crae</string>
     <string name="share_password_title">Amparadu dae una crae</string>
     <string name="share_permission_can_edit">Podet modificare</string>
     <string name="share_permission_view_only">Isceti in visualizatzione</string>
@@ -606,7 +606,7 @@
     <string name="share_via_link_hide_download">Cua iscarrigamentu</string>
     <string name="share_via_link_section_title">Cumpartzi ligòngiu</string>
     <string name="share_via_link_send_link_label">Imbia ligòngiu</string>
-    <string name="share_via_link_unset_password">No impostadu</string>
+    <string name="share_via_link_unset_password">Non cunfiguradu</string>
     <string name="share_with_title">Cumpartzi cun...</string>
     <string name="shared_avatar_desc">Avatar dae utente cumpartzidu</string>
     <string name="shared_icon_share">cumpartzi</string>
@@ -614,6 +614,7 @@
     <string name="shared_icon_shared_via_link">cumpartzidu cun ligòngiu</string>
     <string name="shared_with_you_by">Cumpartzidu cun te dae %1$s</string>
     <string name="sharee_add_failed">Agiunta de cumpartzidura faddida</string>
+    <string name="show_images">Mustra fotografias</string>
     <string name="signup_with_provider">Registra·ti cun su frunidore</string>
     <string name="single_sign_on_request_token" formatted="true">Permìtere a %1$s de intrare in su contu tuo de Nextcloud %2$s?</string>
     <string name="sort_by">Assenta segundu</string>
