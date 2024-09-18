@@ -53,8 +53,8 @@ object AutoRename {
         }
 
         return if (capability.shouldRemoveNonPrintableUnicodeCharacters()) {
-            val nonPrintableUnicodeVersion = removeNonPrintableUnicodeCharacters(result)
-            convertToUTF8(nonPrintableUnicodeVersion)
+            result = convertToUTF8(result)
+            removeNonPrintableUnicodeCharacters(result)
         } else {
             result
         }

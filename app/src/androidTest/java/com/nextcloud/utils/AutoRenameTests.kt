@@ -15,7 +15,7 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import org.junit.Before
 import org.junit.Test
 
-class AutoRenameTests: AbstractOnServerIT() {
+class AutoRenameTests : AbstractOnServerIT() {
 
     private var capability: OCCapability = fileDataStorageManager.getCapability(account.name)
 
@@ -28,7 +28,7 @@ class AutoRenameTests: AbstractOnServerIT() {
     }
 
     @Test
-    fun testRenameWhenInvalidCharacterIncludedShouldReturnValidFilename() {
+    fun testInvalidChar() {
         val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
         val randomInvalidChar = forbiddenFilenameCharacters.random()
 
@@ -39,18 +39,18 @@ class AutoRenameTests: AbstractOnServerIT() {
     }
 
     @Test
-    fun testRenameWhenInvalidFilenameExtensionIncludedShouldReturnValidFilename() {
+    fun testInvalidExtension() {
         val forbiddenFilenameExtension = capability.forbiddenFilenameExtension()
         val randomInvalidFilenameExtension = forbiddenFilenameExtension.random()
 
-        val filename = "file${randomInvalidFilenameExtension}"
+        val filename = "file$randomInvalidFilenameExtension"
         val result = AutoRename.rename(filename, capability)
         val expectedFilename = "file_"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
 
     @Test
-    fun testRenameWhenMultipleInvalidCharactersShouldReturnValidFilename() {
+    fun testMultipleInvalidChars() {
         val filename = "file|name?<>.txt"
         val result = AutoRename.rename(filename, capability)
         val expectedFilename = "file_name___.txt"
@@ -58,7 +58,7 @@ class AutoRenameTests: AbstractOnServerIT() {
     }
 
     @Test
-    fun testRenameWhenFilenameStartsAndEndsWithInvalidExtensionsShouldReturnValidFilename() {
+    fun testStartEndInvalidExtensions() {
         val filename = " .file.part "
         val result = AutoRename.rename(filename, capability)
         val expectedFilename = "_file_part"
@@ -66,7 +66,23 @@ class AutoRenameTests: AbstractOnServerIT() {
     }
 
     @Test
-    fun testRenameWhenNonPrintableCharactersArePresentShouldRemoveThem() {
+    fun testStartInvalidExtension() {
+        val filename = " .file.part"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "_file_part"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testEndInvalidExtension() {
+        val filename = ".file.part "
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "_file_part"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testMiddleNonPrintableChar() {
         val filename = "file\u0001name.txt"
         val result = AutoRename.rename(filename, capability)
         val expectedFilename = "filename.txt"
@@ -74,13 +90,70 @@ class AutoRenameTests: AbstractOnServerIT() {
     }
 
     @Test
-    fun testRenameWhenInvalidFolderPathGivenShouldReturnValidFolderPath() {
+    fun testStartNonPrintableChar() {
+        val filename = "\u0001filename.txt"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "filename.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testEndNonPrintableChar() {
+        val filename = "filename.txt\u0001"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "filename.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testExtensionNonPrintableChar() {
+        val filename = "filename.t\u0001xt"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "filename.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testMiddleInvalidFolderChar() {
         val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
         val randomInvalidChar = forbiddenFilenameCharacters.random()
 
-        val folderPath = "abc/def/kg${randomInvalidChar}/lmo/pp"
+        val folderPath = "abc/def/kg$randomInvalidChar/lmo/pp"
         val result = AutoRename.rename(folderPath, capability, true)
         val expectedFolderName = "abc/def/kg_/lmo/pp"
         assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
+    }
+
+    @Test
+    fun testEndInvalidFolderChar() {
+        val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
+        val randomInvalidChar = forbiddenFilenameCharacters.random()
+
+        val folderPath = "abc/def/kg/lmo/pp$randomInvalidChar"
+        val result = AutoRename.rename(folderPath, capability, true)
+        val expectedFolderName = "abc/def/kg/lmo/pp_"
+        assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
+    }
+
+    @Test
+    fun testStartInvalidFolderChar() {
+        val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
+        val randomInvalidChar = forbiddenFilenameCharacters.random()
+
+        val folderPath = "${randomInvalidChar}abc/def/kg/lmo/pp"
+        val result = AutoRename.rename(folderPath, capability, true)
+        val expectedFolderName = "_abc/def/kg/lmo/pp"
+        assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
+    }
+
+    @Test
+    fun testMixedInvalidChar() {
+        val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
+        val randomInvalidChar = forbiddenFilenameCharacters.random()
+
+        val filename = " file\u0001na${randomInvalidChar}me.txt "
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "filena_me.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
 }
