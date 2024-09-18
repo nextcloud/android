@@ -1117,8 +1117,7 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     private void autoRenameFile() {
-        OCCapability capability = CapabilityUtils.getCapability(mContext);
-        String newFilename = AutoRename.INSTANCE.rename(mFile.getFileName(), capability);
+        String newFilename = AutoRename.INSTANCE.rename(mFile.getFileName(), getCapabilities(), false);
         mFile.setFileName(newFilename);
         getStorageManager().saveFile(mFile);
     }
@@ -1267,6 +1266,10 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
+    private OCCapability getCapabilities() {
+        return CapabilityUtils.getCapability(mContext);
+    }
+
     /**
      * Checks the existence of the folder where the current file will be uploaded both in the remote server and in the
      * local database.
@@ -1278,6 +1281,7 @@ public class UploadFileOperation extends SyncOperation {
      * @return An {@link OCFile} instance corresponding to the folder where the file will be uploaded.
      */
     private RemoteOperationResult grantFolderExistence(String pathToGrant, OwnCloudClient client) {
+        pathToGrant = AutoRename.INSTANCE.rename(pathToGrant, getCapabilities(), true);
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
         RemoteOperationResult result = operation.execute(client);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {

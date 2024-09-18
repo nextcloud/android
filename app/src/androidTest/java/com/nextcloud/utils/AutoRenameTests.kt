@@ -31,22 +31,23 @@ class AutoRenameTests: AbstractOnServerIT() {
     fun testRenameWhenInvalidCharacterIncludedShouldReturnValidFilename() {
         val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
         val randomInvalidChar = forbiddenFilenameCharacters.random()
+
         val filename = "file${randomInvalidChar}file.txt"
         val result = AutoRename.rename(filename, capability)
         val expectedFilename = "file_file.txt"
-        assert(result == expectedFilename)
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
 
     @Test
     fun testRenameWhenInvalidFilenameExtensionIncludedShouldReturnValidFilename() {
         val forbiddenFilenameExtension = capability.forbiddenFilenameExtension()
         val randomInvalidFilenameExtension = forbiddenFilenameExtension.random()
+
         val filename = "file${randomInvalidFilenameExtension}"
         val result = AutoRename.rename(filename, capability)
         val expectedFilename = "file_"
-        assert(result == expectedFilename)
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
-
 
     @Test
     fun testRenameWhenMultipleInvalidCharactersShouldReturnValidFilename() {
@@ -70,5 +71,16 @@ class AutoRenameTests: AbstractOnServerIT() {
         val result = AutoRename.rename(filename, capability)
         val expectedFilename = "filename.txt"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testRenameWhenInvalidFolderPathGivenShouldReturnValidFolderPath() {
+        val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
+        val randomInvalidChar = forbiddenFilenameCharacters.random()
+
+        val folderPath = "abc/def/kg${randomInvalidChar}/lmo/pp"
+        val result = AutoRename.rename(folderPath, capability, true)
+        val expectedFolderName = "abc/def/kg_/lmo/pp"
+        assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
     }
 }

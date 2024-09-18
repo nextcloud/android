@@ -11,18 +11,22 @@ import com.nextcloud.utils.extensions.StringConstants
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtension
 import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharacters
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
 import java.util.regex.Pattern
 
 object AutoRename {
     private const val REPLACEMENT = "_"
 
-    fun rename(filename: String, capability: OCCapability): String {
+    fun rename(filename: String, capability: OCCapability, isFolderPath: Boolean = false): String {
         var result = filename
 
         capability.run {
             forbiddenFilenameCharactersJson?.let {
-                val forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
+                var forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
+                if (isFolderPath) {
+                    forbiddenFilenameCharacters = forbiddenFilenameCharacters.minus(OCFile.PATH_SEPARATOR)
+                }
 
                 forbiddenFilenameCharacters.forEach {
                     if (result.lowercase().contains(it)) {
@@ -38,7 +42,8 @@ object AutoRename {
                     }
 
                     if (result.endsWith(forbiddenExtension, ignoreCase = true) ||
-                        result.startsWith(forbiddenExtension, ignoreCase = true)) {
+                        result.startsWith(forbiddenExtension, ignoreCase = true)
+                    ) {
                         result = result.replace(forbiddenExtension, REPLACEMENT)
                     }
 
