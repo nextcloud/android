@@ -7,6 +7,20 @@
 
 package com.nextcloud.model
 
-enum class OfflineOperationType {
-    CreateFolder
+sealed class OfflineOperationType {
+    abstract val type: String
+    data class RemoveFile(override val type: String, var path: String) : OfflineOperationType()
+    data class CreateFolder(override val type: String, var path: String) : OfflineOperationType()
+    data class CreateFile(
+        override val type: String,
+        val localPath: String,
+        var remotePath: String,
+        val mimeType: String
+    ) : OfflineOperationType()
+}
+
+enum class OfflineOperationRawType {
+    CreateFolder,
+    CreateFile,
+    RemoveFile
 }

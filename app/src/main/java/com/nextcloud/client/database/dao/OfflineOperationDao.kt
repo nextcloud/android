@@ -10,6 +10,7 @@ package com.nextcloud.client.database.dao
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.nextcloud.client.database.entity.OfflineOperationEntity
@@ -19,7 +20,7 @@ interface OfflineOperationDao {
     @Query("SELECT * FROM offline_operations")
     fun getAll(): List<OfflineOperationEntity>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(vararg entity: OfflineOperationEntity)
 
     @Update
@@ -35,5 +36,8 @@ interface OfflineOperationDao {
     fun getByPath(path: String): OfflineOperationEntity?
 
     @Query("SELECT * FROM offline_operations WHERE offline_operations_parent_oc_file_id = :parentOCFileId")
-    fun getSubDirectoriesByParentOCFileId(parentOCFileId: Long): List<OfflineOperationEntity>
+    fun getSubEntitiesByParentOCFileId(parentOCFileId: Long): List<OfflineOperationEntity>
+
+    @Query("DELETE FROM offline_operations")
+    fun clearTable()
 }

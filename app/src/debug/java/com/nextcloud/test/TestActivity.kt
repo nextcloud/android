@@ -42,6 +42,8 @@ class TestActivity :
     private lateinit var binding: TestLayoutBinding
 
     val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
+        override fun isNetworkAndServerAvailable(callback: ConnectivityService.GenericCallback<Boolean>) = Unit
+
         override fun isConnected(): Boolean {
             return false
         }
@@ -52,10 +54,6 @@ class TestActivity :
 
         override fun getConnectivity(): Connectivity {
             return Connectivity.CONNECTED_WIFI
-        }
-
-        override fun isNetworkAndServerAvailable(): Boolean {
-            return false
         }
     }
 

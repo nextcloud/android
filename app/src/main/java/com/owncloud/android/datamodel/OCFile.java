@@ -784,18 +784,6 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return getRemoteId() == null;
     }
 
-    public String getOfflineOperationParentPath() {
-        if (isOfflineOperation()) {
-            if (Objects.equals(remotePath, OCFile.PATH_SEPARATOR)) {
-                return OCFile.PATH_SEPARATOR;
-            } else {
-                return null;
-            }
-        } else {
-            return getDecryptedRemotePath();
-        }
-    }
-
     public String getEtagInConflict() {
         return this.etagInConflict;
     }

@@ -34,9 +34,7 @@ abstract class FileUploaderIT : AbstractOnServerIT() {
     private var uploadsStorageManager: UploadsStorageManager? = null
 
     private val connectivityServiceMock: ConnectivityService = object : ConnectivityService {
-        override fun isNetworkAndServerAvailable(): Boolean {
-            return false
-        }
+        override fun isNetworkAndServerAvailable(callback: ConnectivityService.GenericCallback<Boolean>) = Unit
 
         override fun isConnected(): Boolean {
             return false

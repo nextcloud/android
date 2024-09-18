@@ -377,8 +377,8 @@ public abstract class AbstractIT {
     public void uploadOCUpload(OCUpload ocUpload) {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
-            public boolean isNetworkAndServerAvailable() throws NetworkOnMainThreadException {
-                return false;
+            public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
+
             }
 
             @Override

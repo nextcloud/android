@@ -22,5 +22,6 @@ enum class SearchType : Parcelable {
 
     // not a real filter, but nevertheless
     SHARED_FILTER,
-    GROUPFOLDER
+    GROUPFOLDER,
+    OFFLINE_MODE
 }
