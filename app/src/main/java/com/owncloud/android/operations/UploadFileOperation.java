@@ -740,11 +740,13 @@ public class UploadFileOperation extends SyncOperation {
         byte[] key = EncryptionUtils.generateKey();
         byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
         Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
+
+        // TODO TEST auto rename for e2e
+        autoRenameFile();
         File file = new File(mFile.getStoragePath());
         EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, cipher);
         String encryptedFileName = getEncryptedFileName(object);
 
-        // TODO auto rename for e2e
         if (key == null) {
             throw new NullPointerException("key cannot be null");
         }
