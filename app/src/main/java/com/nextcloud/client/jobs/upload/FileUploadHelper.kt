@@ -39,6 +39,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+import java.util.concurrent.CompletableFuture
+import java.util.concurrent.ExecutionException
 import java.util.concurrent.Semaphore
 import javax.inject.Inject
 
@@ -56,6 +58,8 @@ class FileUploadHelper {
 
     @Inject
     lateinit var fileStorageManager: FileDataStorageManager
+
+    private val ioScope = CoroutineScope(Dispatchers.IO)
 
     init {
         MainApp.getAppComponent().inject(this)
@@ -231,11 +235,13 @@ class FileUploadHelper {
     }
 
     fun cancelFileUpload(remotePath: String, accountName: String) {
-        val upload = uploadsStorageManager.getUploadByRemotePath(remotePath)
-        if (upload != null) {
-            cancelFileUploads(listOf(upload), accountName)
-        } else {
-            Log_OC.e(TAG, "Error cancelling current upload because upload does not exist!")
+        ioScope.launch {
+            val upload = uploadsStorageManager.getUploadByRemotePath(remotePath)
+            if (upload != null) {
+                cancelFileUploads(listOf(upload), accountName)
+            } else {
+                Log_OC.e(TAG, "Error cancelling current upload because upload does not exist!")
+            }
         }
     }
 
@@ -266,8 +272,21 @@ class FileUploadHelper {
             return false
         }
 
-        val upload: OCUpload = uploadsStorageManager.getUploadByRemotePath(file.remotePath) ?: return false
-        return upload.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS
+        val uploadCompletableFuture = CompletableFuture.supplyAsync {
+            uploadsStorageManager.getUploadByRemotePath(file.remotePath)
+        }
+        return try {
+            val upload = uploadCompletableFuture.get()
+            if (upload != null) {
+                upload.uploadStatus == UploadStatus.UPLOAD_IN_PROGRESS
+            } else {
+                false
+            }
+        } catch (e: ExecutionException) {
+            false
+        } catch (e: InterruptedException) {
+            false
+        }
     }
 
     private fun checkConnectivity(connectivityService: ConnectivityService): Boolean {
