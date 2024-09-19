@@ -1243,5 +1243,4 @@
     <string name="file_name_validator_error_forbidden_space_character_extensions">Filenames must not contain spaces at the beginning or end</string>
     <string name="sync">Sync</string>
     <string name="please_select_a_server">Please select a server…</string>
-    <string name="auto_rename_success_message">The invalid filename "%s" was renamed to "%s".</string>
 </resources>

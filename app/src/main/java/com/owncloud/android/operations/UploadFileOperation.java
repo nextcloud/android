@@ -741,8 +741,7 @@ public class UploadFileOperation extends SyncOperation {
         byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
         Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
 
-        // TODO TEST auto rename for e2e
-        autoRenameFile();
+        // autoRenameFile();
         File file = new File(mFile.getStoragePath());
         EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, cipher);
         String encryptedFileName = getEncryptedFileName(object);
@@ -1119,6 +1118,7 @@ public class UploadFileOperation extends SyncOperation {
     private void autoRenameFile() {
         String newFilename = AutoRename.INSTANCE.rename(mFile.getFileName(), getCapabilities(), false);
         mFile.setFileName(newFilename);
+        // TODO rename for encrypted
         getStorageManager().saveFile(mFile);
     }
 
