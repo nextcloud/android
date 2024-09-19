@@ -13,8 +13,6 @@ import com.nextcloud.utils.extensions.forbiddenFilenameExtension
 import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharacters
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.OCCapability
-import org.apache.commons.io.FileUtils
-import java.io.File
 import java.util.regex.Pattern
 
 object AutoRename {
@@ -70,17 +68,6 @@ object AutoRename {
         } else {
             result
         }
-    }
-
-    fun renameFile(file: File, capability: OCCapability): File {
-        if (!file.exists()) {
-            return file
-        }
-
-        val newFilename = rename(file.name, capability)
-        val newFile = File(file.parentFile, newFilename)
-        FileUtils.moveFile(file, newFile)
-        return newFile
     }
 
     private fun convertToUTF8(filename: String): String {

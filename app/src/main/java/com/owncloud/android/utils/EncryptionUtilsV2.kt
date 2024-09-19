@@ -12,6 +12,7 @@ import android.content.Context
 import androidx.annotation.VisibleForTesting
 import com.google.gson.reflect.TypeToken
 import com.nextcloud.client.account.User
+import com.nextcloud.utils.autoRename.AutoRename
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -673,6 +674,11 @@ class EncryptionUtilsV2 {
         // if (!verifyMetadata(decryptedFolderMetadata)) {
         //     throw IllegalStateException("Metadata is corrupt!")
         // }
+
+        // Auto rename if oc capability enabled for windows compatibility
+        decryptedFolderMetadata.metadata.files.values.forEach { file ->
+            file.filename = AutoRename.rename(file.filename, storageManager.getCapability(user))
+        }
 
         return decryptedFolderMetadata
 
