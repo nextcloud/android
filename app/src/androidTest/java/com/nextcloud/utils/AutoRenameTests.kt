@@ -156,4 +156,13 @@ class AutoRenameTests : AbstractOnServerIT() {
         val expectedFilename = "filena_me.txt"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
+
+    @Test
+    fun testFolderPathWithAccountAndServerName() {
+        val folderPath = "/storage/emulated/0/Android/media/com.nextcloud.client/nextcloud/user1@wcf.ltd3.nextcloud.com/e2e/04f9f38aeb834d2890735e40bdbb82fa/gos/    268"
+        val result = AutoRename.rename(folderPath, capability, true)
+        val expectedFilename = "/storage/emulated/0/Android/media/com.nextcloud.client/nextcloud/user1@wcf.ltd3.nextcloud.com/e2e/04f9f38aeb834d2890735e40bdbb82fa/gos/268"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
 }
