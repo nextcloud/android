@@ -84,7 +84,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Ne spremljam</string>
     <string name="backup_settings">Nastavitve varnostnega kopiranja</string>
-    <string name="backup_title">Varnostna kopija koledarja in stikov</string>
+    <string name="backup_title">Varnostna kopija stikov in koledarja</string>
     <string name="battery_optimization_close">Zapri</string>
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
@@ -654,7 +654,7 @@
     <string name="restore_button_description">Obnovi izbrisano datoteko</string>
     <string name="restore_selected">Obnovi izbrano</string>
     <string name="retrieving_file">Poteka pridobivanje datoteke…</string>
-    <string name="retry">Poskusi  znova</string>
+    <string name="retry">Poskusi znova</string>
     <string name="richdocuments_failed_to_load_document">Nalaganje dokumenta je spodletelo!</string>
     <string name="scanQR_description">Prijava s kodo QR</string>
     <string name="scan_page">Optično preberi stran</string>
@@ -862,6 +862,7 @@
     <string name="upload_local_storage_full">Krajevna shramba je polna</string>
     <string name="upload_local_storage_not_copied">Datoteke ni mogoče kopirati v krajevno shrambo</string>
     <string name="upload_lock_failed">Zaklepanje mape je spodletelo</string>
+    <string name="upload_manually_cancelled">Uporabnik je pošiljanje preklical</string>
     <string name="upload_old_android">Šifriranje je podprto z različico &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Ni dovolj prostora za kopiranje izbranih datotek v mapo %1$s. Ali želiš datoteke premakniti na novo mesto?</string>
     <string name="upload_scan_doc_upload">Optično preberi dokument s fotoaparatom</string>
@@ -933,7 +934,7 @@
     <string name="wait_a_moment">Počakajte trenutek …</string>
     <string name="wait_checking_credentials">Poteka preverjanje shranjenih poveril</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiranje datoteke iz zasebne shrambe</string>
-    <string name="webview_version_check_alert_dialog_message">Za prijavo je treba posodobiti p rogram Android System WebView</string>
+    <string name="webview_version_check_alert_dialog_message">Za prijavo je treba posodobiti program Android System WebView</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Posodobi</string>
     <string name="webview_version_check_alert_dialog_title">Posodobi program Android System WebView</string>
     <string name="what_s_new_image">Kaj je nova slika</string>
@@ -989,22 +990,22 @@
         <item quantity="other">Izvoženih je %d datotek.</item>
     </plurals>
     <plurals name="export_failed">
-        <item quantity="one">Napaka pri izvažanju %d datoteke</item>
-        <item quantity="two">Napaka pri izvažanju %d datotek</item>
-        <item quantity="few">Napaka pri izvažanju %d datotek</item>
-        <item quantity="other">Napaka pri izvažanju %d datotek</item>
+        <item quantity="one">Prišlo je do napake pri izvozu %d datoteke</item>
+        <item quantity="two">Prišlo je do napake pri izvozu %d datotek</item>
+        <item quantity="few">Prišlo je do napake pri izvozu %d datotek</item>
+        <item quantity="other">Prišlo je do napake pri izvozu %d datotek</item>
     </plurals>
     <plurals name="export_partially_failed">
-        <item quantity="one">Izvožena %d datoteka, ostale so bile preskočene zaradi napake</item>
-        <item quantity="two">Izvoženi %d datoteki, ostale so bile preskočene zaradi napake</item>
-        <item quantity="few">Izvoženih %d datotek, ostale so bile preskočene zaradi napake</item>
-        <item quantity="other">Izvoženih %d datotek, ostale so bile preskočene zaradi napake</item>
+        <item quantity="one">Izvožena %d datoteka, ostale so bile prezrte zaradi napake</item>
+        <item quantity="two">Izvoženi %d datoteki, ostale so bile prezrte zaradi napake</item>
+        <item quantity="few">Izvoženih %d datotek, ostale so bile prezrte zaradi napake</item>
+        <item quantity="other">Izvoženih %d datotek, ostale so bile prezrte zaradi napake</item>
     </plurals>
     <plurals name="export_start">
-        <item quantity="one">Izvožena bo %d datoteka. Za podrobnosti glejte obvestilo.</item>
-        <item quantity="two">Izvožena bosta %d datoteki. Za podrobnosti glejte obvestilo.</item>
-        <item quantity="few">Izvoženih bo %d datotek. Za podrobnosti glejte obvestilo.</item>
-        <item quantity="other">Izvoženih bo %d datotek. Za podrobnosti glejte obvestilo.</item>
+        <item quantity="one">Izvožena bo %d datoteka. Več podrobnosti je zbranih v obvestilu.</item>
+        <item quantity="two">Izvožena bosta %d datoteki. Več podrobnosti je zbranih v obvestilu.</item>
+        <item quantity="few">Izvoženih bo %d datotek. Več podrobnosti je zbranih v obvestilu.</item>
+        <item quantity="other">Izvoženih bo %d datotek. Več podrobnosti je zbranih v obvestilu.</item>
     </plurals>
     <plurals name="file_list__footer__folder">
         <item quantity="one">%1$d mapa</item>

@@ -19,6 +19,7 @@ import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCode;
+import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RemoveFileRemoteOperation;
 import com.owncloud.android.operations.common.SyncOperation;
 import com.owncloud.android.utils.MimeTypeUtil;
@@ -86,7 +87,11 @@ public class RemoveFileOperation extends SyncOperation {
         boolean localRemovalFailed = false;
         if (!onlyLocalCopy) {
             if (fileToRemove.isEncrypted()) {
-                OCFile parent = getStorageManager().getFileByPath(fileToRemove.getParentRemotePath());
+                OCFile parent = getStorageManager().getFileById(fileToRemove.getParentId());
+                if (parent == null) {
+                    return new RemoteOperationResult(ResultCode.LOCAL_FILE_NOT_FOUND);
+                }
+
                 operation = new RemoveRemoteEncryptedFileOperation(fileToRemove.getRemotePath(),
                                                                    user,
                                                                    context,
