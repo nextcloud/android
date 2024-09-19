@@ -504,7 +504,6 @@ public class UploadFileOperation extends SyncOperation {
 
             mFile.setDecryptedRemotePath(parentFile.getDecryptedRemotePath() + e2eFiles.getOriginalFile().getName());
             String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
-            expectedPath = AutoRename.INSTANCE.rename(expectedPath, getCapabilities(),true);
             e2eFiles.setExpectedFile(new File(expectedPath));
 
             result = copyFile(e2eFiles.getOriginalFile(), expectedPath);
@@ -741,8 +740,7 @@ public class UploadFileOperation extends SyncOperation {
         byte[] key = EncryptionUtils.generateKey();
         byte[] iv = EncryptionUtils.randomBytes(EncryptionUtils.ivLength);
         Cipher cipher = EncryptionUtils.getCipher(Cipher.ENCRYPT_MODE, key, iv);
-        File file = AutoRename.INSTANCE.renameFile(new File(mFile.getStoragePath()), getCapabilities());
-
+        File file = new File(mFile.getStoragePath());
         EncryptedFile encryptedFile = EncryptionUtils.encryptFile(user.getAccountName(), file, cipher);
         String encryptedFileName = getEncryptedFileName(object);
 
