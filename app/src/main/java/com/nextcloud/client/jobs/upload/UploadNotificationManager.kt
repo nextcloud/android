@@ -10,6 +10,7 @@ package com.nextcloud.client.jobs.upload
 import android.app.PendingIntent
 import android.content.Context
 import com.nextcloud.client.jobs.notification.WorkerNotificationManager
+import com.nextcloud.utils.extensions.isFileSpecificError
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.operations.UploadFileOperation
@@ -107,7 +108,11 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
             setContentText(errorMessage)
         }
 
-        showNewNotification(uploadFileOperation)
+        if (resultCode.isFileSpecificError()) {
+            showNewNotification(uploadFileOperation)
+        } else {
+            showNotification()
+        }
     }
 
     private fun getFailedResultTitleId(resultCode: RemoteOperationResult.ResultCode): Int {
