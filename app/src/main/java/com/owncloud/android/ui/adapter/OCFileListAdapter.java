@@ -758,6 +758,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return ret;
     }
 
+    private boolean isCurrentDirectoryRoot() {
+        return currentDirectory != null && currentDirectory.isRootDirectory();
+    }
+
     /**
      * Change the adapted directory for a new one
      *
@@ -793,10 +797,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             // TODO refactor add DrawerState instead of using static menuItemId
-            if (DrawerActivity.menuItemId == R.id.nav_shared && currentDirectory.isRootDirectory()) {
+            if (DrawerActivity.menuItemId == R.id.nav_shared && isCurrentDirectoryRoot()) {
                 mFiles = filterSharedFiles(mFiles);
             }
-            if (DrawerActivity.menuItemId == R.id.nav_favorites && currentDirectory.isRootDirectory()) {
+            if (DrawerActivity.menuItemId == R.id.nav_favorites && isCurrentDirectoryRoot()) {
                 mFiles = filterFavoriteFiles(mFiles);
             }
 
