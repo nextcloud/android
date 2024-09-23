@@ -923,6 +923,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * <p>
      * return       Count of folder levels browsed up.
      */
+
+    // TODO Apply fast fail principle
     public int onBrowseUp() {
         OCFile parentDir;
         int moveCount = 0;
