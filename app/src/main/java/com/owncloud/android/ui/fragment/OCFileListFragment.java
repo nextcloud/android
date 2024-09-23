@@ -51,7 +51,6 @@ import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
@@ -1146,7 +1145,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                             dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
                             dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
                         } else {
-                            DisplayUtils.showSnackMessage(fileActivity, R.string.encrypted_folder_setup_no_internet_error);
+                            DisplayUtils.showSnackMessage(fileActivity, R.string.internet_connection_required_for_encrypted_folder_setup);
                         }
                     });
                 }
@@ -1163,7 +1162,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         if (isAPKorAAB(Set.of(file))) {
             return R.string.gplay_restriction;
         } else if (file.isOfflineOperation()) {
-            return R.string.offline_operations_file_not_exists_yet;
+            return R.string.offline_operations_file_does_not_exists_yet;
         } else {
             return null;
         }
