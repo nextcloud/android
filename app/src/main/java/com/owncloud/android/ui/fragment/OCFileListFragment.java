@@ -924,39 +924,45 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * return       Count of folder levels browsed up.
      */
     public int onBrowseUp() {
-        OCFile parentDir;
+        if (mFile == null) {
+            return 0;
+        }
+
+        OCFile parentDir = null;
         int moveCount = 0;
+        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+        String parentPath = null;
 
-        if (mFile != null) {
-            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-
-            String parentPath = null;
-            if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
-                parentPath = new File(mFile.getRemotePath()).getParent();
+        if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+            parentPath = new File(mFile.getRemotePath()).getParent();
+            if (parentPath != null) {
                 parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
                     parentPath + OCFile.PATH_SEPARATOR;
                 parentDir = storageManager.getFileByPath(parentPath);
                 moveCount++;
-            } else {
-                parentDir = storageManager.getFileByPath(ROOT_PATH);
             }
-            while (parentDir == null) {
-                parentPath = new File(parentPath).getParent();
+        } else {
+            parentDir = storageManager.getFileByPath(ROOT_PATH);
+        }
+
+        while (parentDir == null) {
+            parentPath = new File(parentPath).getParent();
+            if (parentPath != null) {
                 parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
                     parentPath + OCFile.PATH_SEPARATOR;
                 parentDir = storageManager.getFileByPath(parentPath);
                 moveCount++;
-            }   // exit is granted because storageManager.getFileByPath("/") never returns null
-            mFile = parentDir;
+            }
+        }
 
-            listDirectory(mFile, MainApp.isOnlyOnDevice(), false);
+        mFile = parentDir;
 
-            onRefresh(false);
+        listDirectory(mFile, MainApp.isOnlyOnDevice(), false);
 
-            // restore index and top position
-            restoreIndexAndTopPosition();
+        onRefresh(false);
 
-        }   // else - should never happen now
+        // restore index and top position
+        restoreIndexAndTopPosition();
 
         return moveCount;
     }
