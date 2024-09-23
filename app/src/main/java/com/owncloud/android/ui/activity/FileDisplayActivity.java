@@ -1018,7 +1018,7 @@ public class FileDisplayActivity extends FileActivity
      */
     @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     @Override
-    // TODO Apply fast fail principle
+    // TODO Apply fail fast principle
     public void onBackPressed() {
         if (isSearchOpen()) {
             resetSearchAction();
