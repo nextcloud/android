@@ -780,6 +780,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             this.user = account;
         }
         if (mStorageManager != null) {
+            // TODO refactor filtering mechanism for mFiles
             mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
             if (!preferences.isShowHiddenFilesEnabled()) {
                 mFiles = filterHiddenFiles(mFiles);
@@ -790,6 +791,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles()) {
                 mFiles = limitToPersonalFiles(mFiles);
             }
+
+            // TODO refactor add DrawerState instead of using static menuItemId
             if (DrawerActivity.menuItemId == R.id.nav_shared && currentDirectory.isRootDirectory()) {
                 mFiles = filterSharedFiles(mFiles);
             }
