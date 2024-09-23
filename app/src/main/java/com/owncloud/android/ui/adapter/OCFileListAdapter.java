@@ -60,6 +60,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
@@ -733,6 +734,30 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim());
     }
 
+    private List<OCFile> filterSharedFiles(Iterable<OCFile> files) {
+        List<OCFile> ret = new ArrayList<>();
+
+        for (OCFile file : files) {
+            if (file.isShared()) {
+                ret.add(file);
+            }
+        }
+
+        return ret;
+    }
+
+    private List<OCFile> filterFavoriteFiles(Iterable<OCFile> files) {
+        List<OCFile> ret = new ArrayList<>();
+
+        for (OCFile file : files) {
+            if (file.isFavorite()) {
+                ret.add(file);
+            }
+        }
+
+        return ret;
+    }
+
     /**
      * Change the adapted directory for a new one
      *
@@ -765,6 +790,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             if (OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles()) {
                 mFiles = limitToPersonalFiles(mFiles);
             }
+            if (DrawerActivity.menuItemId == R.id.nav_shared && currentDirectory.isRootDirectory()) {
+                mFiles = filterSharedFiles(mFiles);
+            }
+            if (DrawerActivity.menuItemId == R.id.nav_favorites && currentDirectory.isRootDirectory()) {
+                mFiles = filterFavoriteFiles(mFiles);
+            }
+
             sortOrder = preferences.getSortOrderByFolder(directory);
             mFiles = sortOrder.sortCloudFiles(mFiles);
             prepareListOfHiddenFiles();

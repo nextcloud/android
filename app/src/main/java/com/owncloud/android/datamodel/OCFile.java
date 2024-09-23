@@ -760,6 +760,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.sharedViaLink;
     }
 
+    public boolean isShared() {
+        return isSharedViaLink() || isSharedWithSharee() || isSharedWithMe();
+    }
+
     public String getPermissions() {
         return this.permissions;
     }
