@@ -1,6 +1,6 @@
-name: Bug report
-description: Create a report to help us improve
-labels: [ "bug" ]
+name: "🐛 Bug report: Nextcloud Android Client"
+description: "Submit a report and help us improve the Nextcloud Android Client"
+labels: ["bug", "0. Needs triage"]
 body:
     -   type: checkboxes
         id: before-posting
