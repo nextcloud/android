@@ -412,8 +412,8 @@ public class UploadFileOperation extends SyncOperation {
         updateSize(0);
 
         String remoteParentPath = new File(getRemotePath()).getParent();
-        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ?
-            remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
+        remoteParentPath = remoteParentPath.endsWith(OCFile.PATH_SEPARATOR) ? remoteParentPath : remoteParentPath + OCFile.PATH_SEPARATOR;
+        remoteParentPath = AutoRename.INSTANCE.rename(remoteParentPath, getCapabilities(), true);
 
         OCFile parent = getStorageManager().getFileByPath(remoteParentPath);
 
@@ -1278,7 +1278,6 @@ public class UploadFileOperation extends SyncOperation {
      * @return An {@link OCFile} instance corresponding to the folder where the file will be uploaded.
      */
     private RemoteOperationResult grantFolderExistence(String pathToGrant, OwnCloudClient client) {
-        pathToGrant = AutoRename.INSTANCE.rename(pathToGrant, getCapabilities(), true);
         RemoteOperation operation = new ExistenceCheckRemoteOperation(pathToGrant, false);
         RemoteOperationResult result = operation.execute(client);
         if (!result.isSuccess() && result.getCode() == ResultCode.FILE_NOT_FOUND && mRemoteFolderToBeCreated) {
