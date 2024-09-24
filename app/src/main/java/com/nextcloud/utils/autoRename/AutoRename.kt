@@ -25,45 +25,54 @@ object AutoRename {
             return filename
         }
 
-        var result = filename
+        val pathSegments = filename.split(OCFile.PATH_SEPARATOR).toMutableList()
 
         capability.run {
             forbiddenFilenameCharactersJson?.let {
                 var forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
                 if (isFolderPath) {
-                    forbiddenFilenameCharacters = forbiddenFilenameCharacters.minus(OCFile.PATH_SEPARATOR)
+                    forbiddenFilenameCharacters = forbiddenFilenameCharacters.filter { it != OCFile.PATH_SEPARATOR }
                 }
 
-                forbiddenFilenameCharacters.forEach {
-                    if (result.lowercase().contains(it)) {
-                        result = result.replace(it, REPLACEMENT)
+                pathSegments.replaceAll { segment ->
+                    var modifiedSegment = segment
+                    forbiddenFilenameCharacters.forEach { forbiddenChar ->
+                        if (modifiedSegment.contains(forbiddenChar)) {
+                            modifiedSegment = modifiedSegment.replace(forbiddenChar, REPLACEMENT)
+                        }
                     }
+                    modifiedSegment
                 }
             }
 
             forbiddenFilenameExtensionJson?.let {
-                forbiddenFilenameExtension().any { forbiddenExtension ->
-                    if (forbiddenExtension == StringConstants.SPACE) {
-                        result = result.trimStart().trimEnd()
-                    }
+                forbiddenFilenameExtension().forEach { forbiddenExtension ->
+                    pathSegments.replaceAll { segment ->
+                        var modifiedSegment = segment
+                        if (forbiddenExtension == StringConstants.SPACE) {
+                            modifiedSegment = modifiedSegment.trim()
+                        }
 
-                    if (result.endsWith(forbiddenExtension, ignoreCase = true) ||
-                        result.startsWith(forbiddenExtension, ignoreCase = true)
-                    ) {
-                        result = result.replace(forbiddenExtension, REPLACEMENT)
-                    }
+                        if (modifiedSegment.endsWith(forbiddenExtension, ignoreCase = true) ||
+                            modifiedSegment.startsWith(forbiddenExtension, ignoreCase = true)
+                        ) {
+                            modifiedSegment = modifiedSegment.replace(forbiddenExtension, REPLACEMENT)
+                        }
 
-                    false
+                        modifiedSegment
+                    }
                 }
             }
         }
 
-        return if (capability.shouldRemoveNonPrintableUnicodeCharacters()) {
-            result = convertToUTF8(result)
-            removeNonPrintableUnicodeCharacters(result)
-        } else {
-            result
+        var result = pathSegments.joinToString(OCFile.PATH_SEPARATOR)
+
+        if (capability.shouldRemoveNonPrintableUnicodeCharacters()) {
+            val utf8Result = convertToUTF8(result)
+            result = removeNonPrintableUnicodeCharacters(utf8Result)
         }
+
+        return result
     }
 
     private fun convertToUTF8(filename: String): String {
