@@ -13,6 +13,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import androidx.annotation.VisibleForTesting
+import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.User
@@ -64,17 +65,34 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
         }
 
         setupToolbar()
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.drawer_item_notifications))
         setupDrawer()
+        setupBack()
+        setupContainingList()
+        setupPushWarning()
+        setupContent()
 
         if (optionalUser?.isPresent == false) {
             showError()
         }
-
-        setupContainingList()
-        setupPushWarning()
-        setupContent()
     }
+    
+     private fun setupBack() {
+         updateActionBarTitleAndHomeButtonByString("1")
+         
+         if (resources == null) return
+         val menuIcon = ResourcesCompat.getDrawable(
+             resources,
+             R.drawable.ic_arrow_back,
+             null
+         )
+
+         if (menuIcon == null) return
+
+         supportActionBar?.let {
+             it.setHomeAsUpIndicator(menuIcon)
+             it.title = getString(R.string.drawer_item_notifications)
+         }
+     }
 
     private fun setupContainingList() {
         viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList)
