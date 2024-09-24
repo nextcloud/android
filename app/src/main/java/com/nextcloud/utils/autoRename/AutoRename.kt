@@ -12,14 +12,20 @@ import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtension
 import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharacters
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import java.util.regex.Pattern
 
 object AutoRename {
     private const val REPLACEMENT = "_"
 
+    @Suppress("NestedBlockDepth")
     fun rename(filename: String, capability: OCCapability, isFolderPath: Boolean = false): String {
-        val pathSegments = filename.split(OCFile.PATH_SEPARATOR).toMutableList()
+        if (!capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
+            return filename
+        }
+
+        var result = filename
 
         capability.run {
             forbiddenFilenameCharactersJson?.let {
@@ -28,43 +34,33 @@ object AutoRename {
                     forbiddenFilenameCharacters = forbiddenFilenameCharacters.minus(OCFile.PATH_SEPARATOR)
                 }
 
-                pathSegments.replaceAll { segment ->
-                    var modifiedSegment = segment
-                    forbiddenFilenameCharacters.forEach { forbiddenChar ->
-                        if (modifiedSegment.contains(forbiddenChar)) {
-                            modifiedSegment = modifiedSegment.replace(forbiddenChar, REPLACEMENT)
-                        }
+                forbiddenFilenameCharacters.forEach {
+                    if (result.lowercase().contains(it)) {
+                        result = result.replace(it, REPLACEMENT)
                     }
-                    modifiedSegment
                 }
             }
 
             forbiddenFilenameExtensionJson?.let {
                 forbiddenFilenameExtension().any { forbiddenExtension ->
-                    pathSegments.replaceAll { segment ->
-                        var modifiedSegment = segment
-                        if (forbiddenExtension == StringConstants.SPACE) {
-                            modifiedSegment = modifiedSegment.trimStart().trimEnd()
-                        }
-
-                        if (modifiedSegment.endsWith(forbiddenExtension, ignoreCase = true) ||
-                            modifiedSegment.startsWith(forbiddenExtension, ignoreCase = true)
-                        ) {
-                            modifiedSegment = modifiedSegment.replace(forbiddenExtension, REPLACEMENT)
-                        }
-
-                        modifiedSegment
+                    if (forbiddenExtension == StringConstants.SPACE) {
+                        result = result.trimStart().trimEnd()
                     }
+
+                    if (result.endsWith(forbiddenExtension, ignoreCase = true) ||
+                        result.startsWith(forbiddenExtension, ignoreCase = true)
+                    ) {
+                        result = result.replace(forbiddenExtension, REPLACEMENT)
+                    }
+
                     false
                 }
             }
         }
 
-        val result = pathSegments.joinToString(OCFile.PATH_SEPARATOR)
-
         return if (capability.shouldRemoveNonPrintableUnicodeCharacters()) {
-            val utf8Result = convertToUTF8(result)
-            removeNonPrintableUnicodeCharacters(utf8Result)
+            result = convertToUTF8(result)
+            removeNonPrintableUnicodeCharacters(result)
         } else {
             result
         }

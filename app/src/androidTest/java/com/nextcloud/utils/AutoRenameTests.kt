@@ -9,6 +9,7 @@ package com.nextcloud.utils
 
 import com.nextcloud.utils.autoRename.AutoRename
 import com.owncloud.android.AbstractOnServerIT
+import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
 import org.junit.Before
 import org.junit.Test
@@ -22,6 +23,8 @@ class AutoRenameTests : AbstractOnServerIT() {
 
     @Before
     fun setup() {
+        testOnlyOnServer(NextcloudVersion.nextcloud_30)
+
         capability = capability.apply {
             forbiddenFilenameExtensionJson = """[" ",".",".part",".part"]"""
             forbiddenFilenameCharactersJson = """["<", ">", ":", "\\\\", "/", "|", "?", "*", "&"]"""
