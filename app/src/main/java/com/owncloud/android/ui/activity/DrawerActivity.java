@@ -583,7 +583,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         startActivity(composeActivity);
     }
 
-    private void startActivity(Class<? extends Activity> activity) {
+    void startActivity(Class<? extends Activity> activity) {
         startActivity(new Intent(getApplicationContext(), activity));
     }
 

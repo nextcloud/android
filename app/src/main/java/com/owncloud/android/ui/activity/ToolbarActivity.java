@@ -52,6 +52,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     protected MaterialButton mMenuButton;
     protected MaterialTextView mSearchText;
     protected MaterialButton mSwitchAccountButton;
+    protected MaterialButton mNotificationButton;
 
     private AppBarLayout mAppBar;
     private RelativeLayout mDefaultToolbar;
@@ -82,6 +83,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         mMenuButton = findViewById(R.id.menu_button);
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
+        mNotificationButton = findViewById(R.id.notification_button);
 
         if (showSortListButtonGroup) {
             findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
