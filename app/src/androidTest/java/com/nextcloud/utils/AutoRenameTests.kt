@@ -142,4 +142,20 @@ class AutoRenameTests : AbstractOnServerIT() {
         val expectedFilename = "filena_me.txt"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
+
+    @Test
+    fun testStartsWithPathSeparator() {
+        val folderPath = "/abc/def/kg/lmo/pp$forbiddenFilenameCharacter/file.txt/"
+        val result = AutoRename.rename(folderPath, capability, true)
+        val expectedFolderName = "/abc/def/kg/lmo/pp_/file.txt/"
+        assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
+    }
+
+    @Test
+    fun testStartsWithPathSeparatorAndValidFilepath() {
+        val folderPath = "/COm02/2569.webp"
+        val result = AutoRename.rename(folderPath, capability, true)
+        val expectedFolderName = "/COm02/2569.webp"
+        assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
+    }
 }
