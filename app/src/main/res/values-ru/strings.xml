@@ -412,12 +412,8 @@
     <string name="file_migration_updating_index">Обновление индекса…</string>
     <string name="file_migration_use_data_folder">Использовать существующий</string>
     <string name="file_migration_waiting_for_unfinished_sync">Ожидание завершения синхронизации…</string>
-    <string name="file_name_validator_current_path_is_invalid">Текущее имя папки неверное, пожалуйста, переименуйте папку. Перенаправление в корень</string>
-    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Путь к папке содержит зарезервированные имена или недопустимый символ</string>
-    <string name="file_name_validator_error_invalid_character">Имя содержит недопустимый символ: %s</string>
     <string name="file_name_validator_error_reserved_names">%s это запрещенное имя</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Пожалуйста, переименуйте файл перед перемещением или копированием</string>
-    <string name="file_name_validator_upload_content_error">Некоторые материалы не могут быть загружены из-за наличия зарезервированных имен или недопустимого символа</string>
     <string name="file_not_found">Файл не найден</string>
     <string name="file_not_synced">Не удалось синхронизировать этот файл, показана его последняя доступная версия.</string>
     <string name="file_rename">Переименовать</string>
