@@ -411,9 +411,6 @@
     <string name="file_migration_updating_index">색인 업데이트 중…</string>
     <string name="file_migration_use_data_folder">사용</string>
     <string name="file_migration_waiting_for_unfinished_sync">모든 동기화가 완료되기를 기다리는 중…</string>
-    <string name="file_name_validator_current_path_is_invalid">현재 폴더 이름이 유효하지 않습니다. 폴더 이름을 변경해 주세요. 루트로 리디렉션됩니다.</string>
-    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">폴더 경로에 예약된 이름 또는 잘못된 문자가 포함되어 있습니다</string>
-    <string name="file_name_validator_error_invalid_character">이름에 잘못된 문자가 포함되어 있습니다: %s</string>
     <string name="file_not_found">파일을 찾을 수 없음</string>
     <string name="file_not_synced">파일을 동기화할 수 없습니다. 마지막으로 불러온 버전을 표시합니다.</string>
     <string name="file_rename">이름 바꾸기</string>

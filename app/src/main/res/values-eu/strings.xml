@@ -411,12 +411,8 @@
     <string name="file_migration_updating_index">Indizea eguneratzen…</string>
     <string name="file_migration_use_data_folder">Erabili</string>
     <string name="file_migration_waiting_for_unfinished_sync">Sinkronizazio osoaren zain...</string>
-    <string name="file_name_validator_current_path_is_invalid">Uneko karpetaren izena ez da baliozkoa, mesedez izena aldatu karpetari. Errora birbideratzen</string>
-    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Karpetaren bideak izen erreserbatuak edo karaktere baliogabeak ditu</string>
-    <string name="file_name_validator_error_invalid_character">Izenak karaktere baliogabe bat dauka: %s</string>
     <string name="file_name_validator_error_reserved_names">%s debekatutako izen bat da</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Aldatu fitxategiaren izena mugitu edo kopiatu aurretik</string>
-    <string name="file_name_validator_upload_content_error">Eduki batzuk ezin dira kargatu izen erreserbatuak edo karaktere baliogabeak dituztelako</string>
     <string name="file_not_found">Fitxategia ez da aurkitu</string>
     <string name="file_not_synced">Fitxategia ezin izan da sinkronizatu. Eskuragarri dagoen azken bertsioa erakusten.</string>
     <string name="file_rename">Aldatu izena</string>
