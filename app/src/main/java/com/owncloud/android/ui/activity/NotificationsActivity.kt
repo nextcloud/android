@@ -96,7 +96,8 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
                 this,
                 it,
                 getString(R.string.drawer_item_notifications),
-                menuIcon)    
+                menuIcon
+            )
         }
     }
 
