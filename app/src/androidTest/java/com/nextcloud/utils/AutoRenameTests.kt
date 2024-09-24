@@ -15,6 +15,7 @@ import com.owncloud.android.lib.resources.status.OCCapability
 import org.junit.Before
 import org.junit.Test
 
+@Suppress("TooManyFunctions")
 class AutoRenameTests : AbstractOnServerIT() {
 
     private var capability: OCCapability = fileDataStorageManager.getCapability(account.name)
