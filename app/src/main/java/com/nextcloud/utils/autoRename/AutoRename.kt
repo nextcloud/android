@@ -10,7 +10,7 @@ package com.nextcloud.utils.autoRename
 import com.nextcloud.utils.extensions.StringConstants
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
 import com.nextcloud.utils.extensions.forbiddenFilenameExtension
-import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharacters
+import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
@@ -65,14 +65,13 @@ object AutoRename {
             }
         }
 
-        var result = pathSegments.joinToString(OCFile.PATH_SEPARATOR)
-
-        if (capability.shouldRemoveNonPrintableUnicodeCharacters()) {
+        val result = pathSegments.joinToString(OCFile.PATH_SEPARATOR)
+        return if (capability.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8()) {
             val utf8Result = convertToUTF8(result)
-            result = removeNonPrintableUnicodeCharacters(utf8Result)
+            removeNonPrintableUnicodeCharacters(utf8Result)
+        } else {
+            result
         }
-
-        return result
     }
 
     private fun convertToUTF8(filename: String): String {
