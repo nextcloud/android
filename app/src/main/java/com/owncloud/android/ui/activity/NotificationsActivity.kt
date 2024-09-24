@@ -75,24 +75,30 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
             showError()
         }
     }
-    
-     private fun setupBack() {
-         updateActionBarTitleAndHomeButtonByString("1")
-         
-         if (resources == null) return
-         val menuIcon = ResourcesCompat.getDrawable(
-             resources,
-             R.drawable.ic_arrow_back,
-             null
-         )
 
-         if (menuIcon == null) return
+    private fun setupBack() {
+        updateActionBarTitleAndHomeButtonByString("1")
 
-         supportActionBar?.let {
-             it.setHomeAsUpIndicator(menuIcon)
-             it.title = getString(R.string.drawer_item_notifications)
-         }
-     }
+        if (resources == null) return
+        val menuIcon = ResourcesCompat.getDrawable(
+            resources,
+            R.drawable.ic_arrow_back,
+            null
+        )
+
+        if (menuIcon == null) return
+
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(true)
+
+            viewThemeUtils.androidx.themeActionBar(
+                this,
+                it,
+                getString(R.string.drawer_item_notifications),
+                menuIcon)    
+        }
+    }
 
     private fun setupContainingList() {
         viewThemeUtils.androidx.themeSwipeRefreshLayout(binding.swipeContainingList)
