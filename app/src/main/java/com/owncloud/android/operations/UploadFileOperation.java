@@ -1020,8 +1020,6 @@ public class UploadFileOperation extends SyncOperation {
 
             updateSize(size);
 
-            autoRenameFile();
-
             // perform the upload
             if (size > ChunkedFileUploadRemoteOperation.CHUNK_SIZE_MOBILE) {
                 boolean onWifiConnection = connectivityService.getConnectivity().isWifi();
@@ -1111,12 +1109,6 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         return result;
-    }
-
-    private void autoRenameFile() {
-        String newFilename = AutoRename.INSTANCE.rename(mFile.getFileName(), getCapabilities(), false);
-        mFile.setFileName(newFilename);
-        getStorageManager().saveFile(mFile);
     }
 
     private void updateSize(long size) {
