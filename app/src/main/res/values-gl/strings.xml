@@ -411,9 +411,14 @@
     <string name="file_migration_updating_index">Actualizando o índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
     <string name="file_migration_waiting_for_unfinished_sync">Agardando que rematen as sincronizacións…</string>
+    <string name="file_name_validator_current_path_is_invalid">O nome actual do cartafol non é válido, cambie o nome do cartafol. Redirixindo ao cartafol principal…</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">A ruta do cartafol contén nomes reservados ou caracteres non válidos</string>
     <string name="file_name_validator_error_forbidden_file_extensions">.%s é unha extensión de ficheiro prohibida</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Os nomes de ficheiros non deben conter espazos nin no principio nin no final</string>
+    <string name="file_name_validator_error_invalid_character">O nome contén caracteres non válidos: %s</string>
     <string name="file_name_validator_error_reserved_names">%s é un nome prohibido.</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Cambie o nome do ficheiro antes de mover ou copiar</string>
+    <string name="file_name_validator_upload_content_error">Non é posíbel enviar algún contido porque contén nomes reservados ou caracteres non válidos</string>
     <string name="file_not_found">Non se atopou o ficheiro</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
     <string name="file_rename">Cambiar o nome</string>
