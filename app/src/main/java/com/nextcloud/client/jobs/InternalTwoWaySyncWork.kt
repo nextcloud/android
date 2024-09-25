@@ -47,13 +47,17 @@ class InternalTwoWaySyncWork(
             val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user)
 
             for (folder in folders) {
-                val freeSpaceLeft = File(folder.storagePath).getFreeSpace()
-                val localFolderSize = FileStorageUtils.getFolderSize(File(folder.storagePath, MainApp.getDataFolder()))
-                val remoteFolderSize = folder.fileLength
+                val file = File(folder.storagePath)
+                if (file.exists()) {
+                    val freeSpaceLeft = file.getFreeSpace()
+                    val localFolder = File(folder.storagePath, MainApp.getDataFolder())
+                    val localFolderSize = FileStorageUtils.getFolderSize(localFolder)
+                    val remoteFolderSize = folder.fileLength
 
-                if (freeSpaceLeft < (remoteFolderSize - localFolderSize)) {
-                    Log_OC.d(TAG, "Not enough space left!")
-                    result = false
+                    if (freeSpaceLeft < (remoteFolderSize - localFolderSize)) {
+                        Log_OC.d(TAG, "Not enough space left!")
+                        return Result.failure()
+                    }
                 }
 
                 Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
