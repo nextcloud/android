@@ -17,7 +17,6 @@ import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.utils.autoRename.AutoRename;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
@@ -335,7 +334,6 @@ public final class MimeTypeUtil {
      * @return the file's mime type
      */
     private static String extractMimeType(File file) {
-        file = new File(file.getName().trim());
         Uri selectedUri = Uri.fromFile(file);
         String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase(Locale.ROOT));
         return MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
