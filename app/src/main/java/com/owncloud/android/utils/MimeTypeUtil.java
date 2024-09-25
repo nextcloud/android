@@ -17,6 +17,7 @@ import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
+import com.nextcloud.utils.autoRename.AutoRename;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
@@ -104,6 +105,23 @@ public final class MimeTypeUtil {
         } else {
             return null;
         }
+    }
+
+    public static Drawable getIcon(String localPath, Context context, ViewThemeUtils viewThemeUtils) {
+        if (context == null) return null;
+
+        String mimeType = getMimeTypeFromPath(localPath);
+        List<String> possibleMimeTypes = Collections.singletonList(mimeType);
+        int iconId = determineIconIdByMimeTypeList(possibleMimeTypes);
+
+        Drawable result = ContextCompat.getDrawable(context, iconId);
+        if (result == null) return null;
+
+        if (R.drawable.file_zip == iconId) {
+            viewThemeUtils.platform.tintDrawable(context, result, ColorRole.PRIMARY);
+        }
+
+        return result;
     }
 
     /**
@@ -317,6 +335,7 @@ public final class MimeTypeUtil {
      * @return the file's mime type
      */
     private static String extractMimeType(File file) {
+        file = new File(file.getName().trim());
         Uri selectedUri = Uri.fromFile(file);
         String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedUri.toString().toLowerCase(Locale.ROOT));
         return MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
