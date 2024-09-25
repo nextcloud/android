@@ -408,12 +408,8 @@
     <string name="file_migration_updating_index">Mise à jour de l\'index…</string>
     <string name="file_migration_use_data_folder">Conserver le dossier actuel</string>
     <string name="file_migration_waiting_for_unfinished_sync">En attente de la synchronisation complète…</string>
-    <string name="file_name_validator_current_path_is_invalid">Le nom actuel du dossier est invalide, veuillez renommer le dossier. Redirection vers la racine</string>
-    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Le chemin du dossier contient des noms réservés ou des caractères invalides</string>
-    <string name="file_name_validator_error_invalid_character">Le nom contient un caractère invalide : %s</string>
     <string name="file_name_validator_error_reserved_names">%s est un nom interdit</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Veuillez renommer le fichier avant de le déplacer ou de le copier</string>
-    <string name="file_name_validator_upload_content_error">Certains contenus ne peuvent pas être téléversés parce qu\'ils contiennent des noms réservés ou des caractères invalides</string>
     <string name="file_not_found">Fichier non trouvé</string>
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
