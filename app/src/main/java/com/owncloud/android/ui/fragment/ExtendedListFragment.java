@@ -43,9 +43,9 @@ import android.widget.TextView;
 import com.google.android.material.button.MaterialButton;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
+import com.nextcloud.utils.extensions.FragmentExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.ListFragmentBinding;
@@ -650,7 +650,8 @@ public class ExtendedListFragment extends Fragment implements
      */
     public void setEmptyListLoadingMessage() {
         new Handler(Looper.getMainLooper()).post(() -> {
-            if (requireActivity() instanceof FileActivity fileActivity) {
+            FileActivity fileActivity = FragmentExtensionsKt.getTypedActivity(this, FileActivity.class);
+            if (fileActivity != null) {
                 fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
                     if (!result || mEmptyListContainer == null || mEmptyListMessage == null) return;
 
