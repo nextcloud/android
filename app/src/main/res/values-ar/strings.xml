@@ -411,9 +411,14 @@
     <string name="file_migration_updating_index">تحديث الفهرس…</string>
     <string name="file_migration_use_data_folder">استعمل</string>
     <string name="file_migration_waiting_for_unfinished_sync">بإنتظار مزامنة كاملة…</string>
+    <string name="file_name_validator_current_path_is_invalid">الاسم الحالي للمجلد غير صالح. رجاءً، أعِد تسمية المجلد. جارٍ إعادة التوجيه لصفحة البداية ...</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">مسار المجلد يحتوي على أسماء محجوزة للنظام أو حروف غير مقبولة</string>
     <string name="file_name_validator_error_forbidden_file_extensions">%s هو امتداد غير مسموح به</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">أسماء الملفات يجب ألّا تحتوي على أي مسافات في بدايتها أو في نهايتها</string>
+    <string name="file_name_validator_error_invalid_character">يحتوي الاسم على حروف غير مقبولة: %s</string>
     <string name="file_name_validator_error_reserved_names">%s اسم ممنوع</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. قُم رجاءً بتغيير اسم الملف قبل نقله أو نسخه</string>
+    <string name="file_name_validator_upload_content_error">بعض المحتوى لا يمكن رفعه لأنه يحتوي إمّا على أسماء محجوزة للنظام أو على حروف غير مقبولة</string>
     <string name="file_not_found">تعذر العثور على الملف</string>
     <string name="file_not_synced">الملف لا يمكن مزامنته. عرض آخر إصدار متوفر.</string>
     <string name="file_rename">إعادة التسمية</string>
