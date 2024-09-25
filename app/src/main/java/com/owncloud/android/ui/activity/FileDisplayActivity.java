@@ -1019,27 +1019,22 @@ public class FileDisplayActivity extends FileActivity
     @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     @Override
     public void onBackPressed() {
-        final boolean isDrawerOpen = isDrawerOpen();
-        if (isDrawerOpen) {
+        if (isDrawerOpen()) {
             super.onBackPressed();
             return;
         }
 
-        final boolean isSearchOpen = isSearchOpen();
-        if (isSearchOpen) {
+        if (isSearchOpen()) {
             resetSearchAction();
             return;
         }
 
-        final Fragment leftFragment = getLeftFragment();
-        if (leftFragment instanceof OCFileListFragment listOfFiles) {
-            OCFile currentDir = getCurrentDir();
-            if (isRoot(currentDir)) {
+        if (getLeftFragment() instanceof OCFileListFragment listOfFiles) {
+            if (isRoot(getCurrentDir())) {
                 finish();
-                return;
+            } else {
+                browseUp(listOfFiles);
             }
-
-            browseUp(listOfFiles);
         } else {
             popBack();
         }
