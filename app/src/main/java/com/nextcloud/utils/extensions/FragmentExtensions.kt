@@ -16,3 +16,14 @@ inline fun <reified T : Any> Fragment.typedActivity(): T? {
         null
     }
 }
+
+/**
+ * Extension for Java Classes
+ */
+fun <T : Any> Fragment.getTypedActivity(type: Class<T>): T? {
+    return if (isAdded && activity != null && type.isInstance(activity)) {
+        type.cast(activity)
+    } else {
+        null
+    }
+}
