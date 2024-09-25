@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
@@ -8,18 +9,24 @@
  */
 package com.owncloud.android.ui.activity
 
+import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.WindowInsetsController
 import androidx.annotation.VisibleForTesting
-import androidx.core.content.res.ResourcesCompat
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.NotificationWork
+import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
+import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationsLayoutBinding
@@ -34,12 +41,14 @@ import com.owncloud.android.ui.asynctasks.DeleteAllNotificationsTask
 import com.owncloud.android.ui.notifications.NotificationsContract
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.PushUtils
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.util.Optional
+import javax.inject.Inject
 
 /**
  * Activity displaying all server side stored notification items.
  */
-class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
+class NotificationsActivity : AppCompatActivity(), NotificationsContract.View, Injectable {
 
     lateinit var binding: NotificationsLayoutBinding
 
@@ -48,6 +57,18 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
     private var client: NextcloudClient? = null
     private var optionalUser: Optional<User>? = null
 
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
+
+    @Inject
+    lateinit var accountManager: UserAccountManager
+
+    @Inject
+    lateinit var clientFactory: ClientFactory
+
+    @Inject
+    lateinit var preferences: AppPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         Log_OC.v(TAG, "onCreate() start")
 
@@ -55,18 +76,9 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
 
         binding = NotificationsLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        optionalUser = user
-
-        intent?.let {
-            it.extras?.let { bundle ->
-                setupUser(bundle)
-            }
-        }
-
-        setupToolbar()
-        setupDrawer()
-        setupBack()
+        setupActionBar()
+        setupStatusBar()
+        initUser()
         setupContainingList()
         setupPushWarning()
         setupContent()
@@ -76,28 +88,43 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
         }
     }
 
-    private fun setupBack() {
-        updateActionBarTitleAndHomeButtonByString("1")
+    private fun initUser() {
+        optionalUser = Optional.of(accountManager.user)
+        intent?.let {
+            it.extras?.let { bundle ->
+                setupUser(bundle)
+            }
+        }
+    }
 
-        if (resources == null) return
-        val menuIcon = ResourcesCompat.getDrawable(
-            resources,
-            R.drawable.ic_arrow_back,
-            null
-        )
+    private fun setupActionBar() {
+        setSupportActionBar(findViewById(R.id.toolbar_back_button))
+        supportActionBar?.apply {
+            setTitle(R.string.drawer_item_notifications)
+            setDisplayHomeAsUpEnabled(true)
+            setHomeAsUpIndicator(R.drawable.ic_arrow_back_foreground)
+        }
+    }
 
-        if (menuIcon == null) return
-
-        supportActionBar?.let {
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setDisplayShowTitleEnabled(true)
-
-            viewThemeUtils.androidx.themeActionBar(
-                this,
-                it,
-                getString(R.string.drawer_item_notifications),
-                menuIcon
+    private fun setupStatusBar() {
+        window.statusBarColor = ContextCompat.getColor(this, R.color.bg_default)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            val appearanceLightStatusBars = if (preferences.isDarkModeEnabled) {
+                0
+            } else {
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+            }
+            window.insetsController?.setSystemBarsAppearance(
+                appearanceLightStatusBars,
+                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
             )
+        } else {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = if (preferences.isDarkModeEnabled) {
+                0
+            } else {
+                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            }
         }
     }
 
@@ -122,8 +149,6 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
             val user = optionalUser?.get()
             if (user?.accountName.equals(accountName, ignoreCase = true)) {
                 accountManager.setCurrentOwnCloudAccount(accountName)
-                setUser(userAccountManager.user)
-                optionalUser = getUser()
             }
         }
     }
@@ -190,18 +215,6 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
                 snackbar?.show()
             }
         }
-    }
-
-    override fun openDrawer() {
-        super.openDrawer()
-        if (snackbar != null && snackbar?.isShown == true) {
-            snackbar?.dismiss()
-        }
-    }
-
-    override fun closeDrawer() {
-        super.closeDrawer()
-        setupPushWarning()
     }
 
     /**
@@ -290,16 +303,16 @@ class NotificationsActivity : DrawerActivity(), NotificationsContract.View {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         var retval = true
         val itemId = item.itemId
-        if (itemId == android.R.id.home) {
-            if (isDrawerOpen) {
-                closeDrawer()
-            } else {
-                openDrawer()
+        when (itemId) {
+            android.R.id.home -> {
+                onBackPressedDispatcher.onBackPressed()
             }
-        } else if (itemId == R.id.action_empty_notifications) {
-            DeleteAllNotificationsTask(client, this).execute()
-        } else {
-            retval = super.onOptionsItemSelected(item)
+            R.id.action_empty_notifications -> {
+                DeleteAllNotificationsTask(client, this).execute()
+            }
+            else -> {
+                retval = super.onOptionsItemSelected(item)
+            }
         }
         return retval
     }
