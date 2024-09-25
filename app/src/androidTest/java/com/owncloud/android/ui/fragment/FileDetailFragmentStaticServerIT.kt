@@ -1,14 +1,18 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.owncloud.android.ui.fragment
 
-import androidx.test.espresso.intent.rule.IntentsTestRule
+import androidx.annotation.UiThread
+import androidx.test.core.app.launchActivity
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import com.nextcloud.test.TestActivity
 import com.nextcloud.ui.ImageDetailFragment
 import com.owncloud.android.AbstractIT
@@ -18,80 +22,111 @@ import com.owncloud.android.lib.resources.activities.model.Activity
 import com.owncloud.android.lib.resources.activities.model.RichElement
 import com.owncloud.android.lib.resources.activities.model.RichObject
 import com.owncloud.android.lib.resources.activities.models.PreviewObject
+import com.owncloud.android.utils.EspressoIdlingResource
 import com.owncloud.android.utils.ScreenshotTest
-import org.junit.Rule
+import org.junit.After
+import org.junit.Before
 import org.junit.Test
+import java.io.File
 import java.util.GregorianCalendar
 
 class FileDetailFragmentStaticServerIT : AbstractIT() {
-    @get:Rule
-    val testActivityRule = IntentsTestRule(TestActivity::class.java, true, false)
+    private val testClassName = "com.owncloud.android.ui.fragment.FileDetailFragmentStaticServerIT"
 
-    var file = getFile("gps.jpg")
-    val oCFile = OCFile("/").apply {
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.countingIdlingResource)
+    }
+
+    private var file: File = getFile("gps.jpg")
+    private val oCFile: OCFile = OCFile("/").apply {
         storagePath = file.absolutePath
         fileId = 12
         fileDataStorageManager.saveFile(this)
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun showFileDetailActivitiesFragment() {
-        val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(FileDetailActivitiesFragment.newInstance(oCFile, user))
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.addFragment(FileDetailActivitiesFragment.newInstance(oCFile, user))
+                    EspressoIdlingResource.decrement()
 
-        waitForIdleSync()
-        shortSleep()
-        shortSleep()
-        screenshot(sut)
+                    val screenShotName = createName(testClassName + "_" + "showFileDetailActivitiesFragment", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun showFileDetailSharingFragment() {
-        val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(FileDetailSharingFragment.newInstance(oCFile, user))
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    sut.addFragment(FileDetailSharingFragment.newInstance(oCFile, user))
+                    EspressoIdlingResource.decrement()
 
-        waitForIdleSync()
-        shortSleep()
-        shortSleep()
-        screenshot(sut)
+                    val screenShotName = createName(testClassName + "_" + "showFileDetailSharingFragment", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun showFileDetailDetailsFragment() {
-        val activity = testActivityRule.launchActivity(null)
-        val sut = ImageDetailFragment.newInstance(oCFile, user)
-        activity.addFragment(sut)
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    val fragment = ImageDetailFragment.newInstance(oCFile, user).apply {
+                        hideMap()
+                    }
+                    sut.addFragment(fragment)
+                    EspressoIdlingResource.decrement()
 
-        shortSleep()
-        shortSleep()
-        waitForIdleSync()
-
-        activity.runOnUiThread {
-            sut.hideMap()
+                    val screenShotName = createName(testClassName + "_" + "showFileDetailDetailsFragment", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
         }
-
-        screenshot(activity)
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     @Suppress("MagicNumber")
     fun showDetailsActivities() {
-        val date = GregorianCalendar()
-        date.set(2005, 4, 17, 10, 35, 30) // random date
+        val date = GregorianCalendar().apply {
+            set(2005, 4, 17, 10, 35, 30)
+        }
 
-        val richObjectList: ArrayList<RichObject> = ArrayList()
-        richObjectList.add(RichObject("file", "abc", "text.txt", "/text.txt", "link", "tag"))
-        richObjectList.add(RichObject("file", "1", "text.txt", "/text.txt", "link", "tag"))
+        val richObjectList = ArrayList<RichObject>().apply {
+            add(RichObject("file", "abc", "text.txt", "/text.txt", "link", "tag"))
+            add(RichObject("file", "1", "text.txt", "/text.txt", "link", "tag"))
+        }
 
-        val previewObjectList1: ArrayList<PreviewObject> = ArrayList()
-        previewObjectList1.add(PreviewObject(1, "source", "link", true, "text/plain", "view", "text.txt"))
-
-        val richObjectList2: ArrayList<RichObject> = ArrayList()
-        richObjectList2.add(RichObject("user", "admin", "Admin", "", "", ""))
+        val previewObjectList1 = ArrayList<PreviewObject>().apply {
+            add(PreviewObject(1, "source", "link", true, "text/plain", "view", "text.txt"))
+        }
 
         val activities = mutableListOf(
             Activity(
@@ -132,67 +167,85 @@ class FileDetailFragmentStaticServerIT : AbstractIT() {
             )
         )
 
-        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
-        testActivityRule.launchActivity(null).apply {
-            addFragment(sut)
-            waitForIdleSync()
-            runOnUiThread {
-                sut.fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    val fragment = FileDetailFragment.newInstance(oCFile, user, 0)
+                    sut.addFragment(fragment)
+                    fragment.fileDetailActivitiesFragment.populateList(activities as List<Any>?, true)
+                    EspressoIdlingResource.decrement()
+
+                    val screenShotName = createName(testClassName + "_" + "showDetailsActivities", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
             }
-            longSleep()
-            screenshot(sut.fileDetailActivitiesFragment.binding.swipeContainingList)
         }
-    }
-
-    // @Test
-    // @ScreenshotTest
-    fun showDetailsActivitiesNone() {
-        val activity = testActivityRule.launchActivity(null)
-        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
-        activity.addFragment(sut)
-
-        waitForIdleSync()
-
-        activity.runOnUiThread {
-            sut.fileDetailActivitiesFragment.populateList(emptyList(), true)
-        }
-
-        shortSleep()
-        shortSleep()
-        screenshot(sut.fileDetailActivitiesFragment.binding.list)
     }
 
     @Test
+    @UiThread
+    @ScreenshotTest
+    fun showDetailsActivitiesNone() {
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    val fragment = FileDetailFragment.newInstance(oCFile, user, 0)
+                    sut.addFragment(fragment)
+                    fragment.fileDetailActivitiesFragment.populateList(emptyList(), true)
+                    EspressoIdlingResource.decrement()
+
+                    val screenShotName = createName(testClassName + "_" + "showDetailsActivitiesNone", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
+    }
+
+    @Test
+    @UiThread
     @ScreenshotTest
     fun showDetailsActivitiesError() {
-        val activity = testActivityRule.launchActivity(null)
-        val sut = FileDetailFragment.newInstance(oCFile, user, 0)
-        activity.addFragment(sut)
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    val fragment = FileDetailFragment.newInstance(oCFile, user, 0)
+                    sut.addFragment(fragment)
+                    fragment.fileDetailActivitiesFragment.disableLoadingActivities()
+                    fragment.fileDetailActivitiesFragment.setErrorContent(
+                        targetContext.resources.getString(R.string.file_detail_activity_error)
+                    )
+                    EspressoIdlingResource.decrement()
 
-        waitForIdleSync()
-
-        activity.runOnUiThread {
-            sut.fileDetailActivitiesFragment.disableLoadingActivities()
-            sut
-                .fileDetailActivitiesFragment
-                .setErrorContent(targetContext.resources.getString(R.string.file_detail_activity_error))
+                    val screenShotName = createName(testClassName + "_" + "showDetailsActivitiesError", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
         }
-
-        shortSleep()
-        shortSleep()
-        screenshot(sut.fileDetailActivitiesFragment.binding.emptyList.emptyListView)
     }
 
     @Test
+    @UiThread
     @ScreenshotTest
     fun showDetailsSharing() {
-        val sut = testActivityRule.launchActivity(null)
-        sut.addFragment(FileDetailFragment.newInstance(oCFile, user, 1))
+        launchActivity<TestActivity>().use { scenario ->
+            scenario.onActivity { sut ->
+                onIdleSync {
+                    EspressoIdlingResource.increment()
+                    val fragment = FileDetailFragment.newInstance(oCFile, user, 1)
+                    sut.addFragment(fragment)
+                    EspressoIdlingResource.decrement()
 
-        waitForIdleSync()
-
-        shortSleep()
-        shortSleep()
-        screenshot(sut)
+                    val screenShotName = createName(testClassName + "_" + "showDetailsSharing", "")
+                    onView(isRoot()).check(matches(isDisplayed()))
+                    screenshotViaName(sut, screenShotName)
+                }
+            }
+        }
     }
 }
