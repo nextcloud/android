@@ -208,7 +208,7 @@ services:
     image: nextcloudci/server:server-13
     environment:
       EVAL: true
-      BRANCH: stable16
+      BRANCH: stable17
     commands:
       - /initnc.sh
       - su www-data -c "php /var/www/html/occ log:manage --level warning"
