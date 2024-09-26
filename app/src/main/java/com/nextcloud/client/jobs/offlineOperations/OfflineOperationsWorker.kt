@@ -130,11 +130,16 @@ class OfflineOperationsWorker(
             is OfflineOperationType.CreateFile -> {
                 val createFileOperation = withContext(NonCancellable) {
                     val operationType = (operation.type as OfflineOperationType.CreateFile)
+                    val lastModificationDate = System.currentTimeMillis() / 1000
+
                     UploadFileRemoteOperation(
                         operationType.localPath,
                         operationType.remotePath,
                         operationType.mimeType,
-                        System.currentTimeMillis()
+                        "",
+                        lastModificationDate,
+                        operation.createdAt ?: System.currentTimeMillis(),
+                        true
                     )
                 }
 

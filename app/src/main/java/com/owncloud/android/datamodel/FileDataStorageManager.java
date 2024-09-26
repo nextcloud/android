@@ -155,7 +155,11 @@ public class FileDataStorageManager {
             OfflineOperationEntity entity = new OfflineOperationEntity();
             entity.setPath(remotePath);
             entity.setType(new OfflineOperationType.CreateFile(OfflineOperationRawType.CreateFile.name(), localPath, remotePath, mimeType));
-            entity.setCreatedAt(System.currentTimeMillis() / 1000L);
+
+            long createdAt = System.currentTimeMillis();
+            long modificationTimestamp = System.currentTimeMillis();
+
+            entity.setCreatedAt(createdAt);
             entity.setFilename(new File(remotePath).getName());
 
             String parentPath = new File(remotePath).getParent() + OCFile.PATH_SEPARATOR;
@@ -166,7 +170,7 @@ public class FileDataStorageManager {
             }
 
             offlineOperationDao.insert(entity);
-            createPendingFile(remotePath, mimeType);
+            createPendingFile(remotePath, mimeType, createdAt, modificationTimestamp);
         }
     }
 
@@ -179,24 +183,32 @@ public class FileDataStorageManager {
         OfflineOperationType.CreateFolder operationType = new OfflineOperationType.CreateFolder(OfflineOperationRawType.CreateFolder.name(), path);
         entity.setType(operationType);
         entity.setPath(path);
-        entity.setCreatedAt(System.currentTimeMillis() / 1000L);
+
+        long createdAt = System.currentTimeMillis();
+        long modificationTimestamp = System.currentTimeMillis();
+
+        entity.setCreatedAt(createdAt);
 
         offlineOperationDao.insert(entity);
-        createPendingDirectory(path);
+        createPendingDirectory(path, createdAt, modificationTimestamp);
 
         return entity;
     }
 
-    public void createPendingFile(String path, String mimeType) {
-        OCFile ocFile = new OCFile(path);
-        ocFile.setMimeType(mimeType);
-        saveFileWithParent(ocFile, MainApp.getAppContext());
+    public void createPendingFile(String path, String mimeType, long createdAt, long modificationTimestamp) {
+        OCFile file = new OCFile(path);
+        file.setMimeType(mimeType);
+        file.setCreationTimestamp(createdAt);
+        file.setModificationTimestamp(modificationTimestamp);
+        saveFileWithParent(file, MainApp.getAppContext());
     }
 
-    public void createPendingDirectory(String path) {
-        OCFile file = new OCFile(path);
-        file.setMimeType(MimeType.DIRECTORY);
-        saveFileWithParent(file, MainApp.getAppContext());
+    public void createPendingDirectory(String path, long createdAt, long modificationTimestamp) {
+        OCFile directory = new OCFile(path);
+        directory.setMimeType(MimeType.DIRECTORY);
+        directory.setCreationTimestamp(createdAt);
+        directory.setModificationTimestamp(modificationTimestamp);
+        saveFileWithParent(directory, MainApp.getAppContext());
     }
 
     public void deleteOfflineOperation(OCFile file) {
