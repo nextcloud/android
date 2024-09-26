@@ -16,6 +16,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -32,8 +33,10 @@ import android.widget.LinearLayout;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.owncloud.android.MainApp;
@@ -67,6 +70,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -164,7 +168,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         userId = AccountManager
             .get(activity)
             .getUserData(this.user.toPlatformAccount(),
-                         com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+                         AccountUtils.Constants.KEY_USER_ID);
 
         this.viewThemeUtils = viewThemeUtils;
 
@@ -526,7 +530,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
-        setColorFilterForOfflineOperations(holder, file);
+        if (file.isFolder()) {
+            setColorFilterForOfflineCreateFolderOperations(holder, file);
+        } else {
+            setColorFilterForOfflineCreateFileOperations(holder, file);
+        }
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -658,14 +666,27 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void applyVisualsForOfflineOperations(ListItemViewHolder holder, OCFile file) {
         ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
-        setColorFilterForOfflineOperations(holder, file);
+
+        if (file.isFolder()) {
+            setColorFilterForOfflineCreateFolderOperations(holder, file);
+        } else {
+            setColorFilterForOfflineCreateFileOperations(holder, file);
+        }
     }
 
-    private void setColorFilterForOfflineOperations(ListViewHolder holder, OCFile file) {
-        if (!file.isFolder()) {
-            return;
-        }
+    private void setColorFilterForOfflineCreateFileOperations(ListViewHolder holder, OCFile file) {
+        if (file.isOfflineOperation()) {
+            OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
 
+            if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
+                Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
+                Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
+                holder.getThumbnail().setImageBitmap(thumbnail);
+            }
+        }
+    }
+
+    private void setColorFilterForOfflineCreateFolderOperations(ListViewHolder holder, OCFile file) {
         if (file.isOfflineOperation()) {
             holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         } else {
