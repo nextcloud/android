@@ -677,7 +677,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private final ExecutorService executorService = Executors.newCachedThreadPool();
-    private final Handler mainThread = new Handler(Looper.getMainLooper());
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private void setColorFilterForOfflineCreateFileOperations(ListViewHolder holder, OCFile file) {
         if (!file.isOfflineOperation()) {
@@ -692,9 +692,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (bitmap == null) return;
 
                 Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
-                mainThread.post(() -> {
-                    holder.getThumbnail().setImageBitmap(thumbnail);
-                });
+                mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
             }
         });
     }
