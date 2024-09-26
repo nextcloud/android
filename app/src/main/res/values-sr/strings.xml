@@ -411,9 +411,14 @@
     <string name="file_migration_updating_index">Ажурирам индекс…</string>
     <string name="file_migration_use_data_folder">Искористи</string>
     <string name="file_migration_waiting_for_unfinished_sync">Чекам пуну синхронизацију…</string>
+    <string name="file_name_validator_current_path_is_invalid">Име текућег фолдера није исправно, молимо вас да промените име овог фолдера. Преусмеравате се на почетни фолдер…</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Путања фолдера садржи резервисана имена или неисправне карактере</string>
     <string name="file_name_validator_error_forbidden_file_extensions">%s је забрањена екстензија фајла</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Имена фајлова не смеју да садрже белине на почетку или на крају</string>
+    <string name="file_name_validator_error_invalid_character">Име садржи неисправне карактере: %s</string>
     <string name="file_name_validator_error_reserved_names">%s је забрањено име</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Молимо вас да пре премештања или копирања промените име фајла</string>
+    <string name="file_name_validator_upload_content_error">Неки садржај не може да се отпреми јер садржи резервисана имена или неисправне карактере</string>
     <string name="file_not_found">Фајл није нађен</string>
     <string name="file_not_synced">Фајл не може да се синхронизује. Приказујем последњу доступну верзију.</string>
     <string name="file_rename">Преименуј</string>
