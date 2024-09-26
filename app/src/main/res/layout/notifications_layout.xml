@@ -25,7 +25,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/standard_double_margin"
+            android:layout_marginTop="@dimen/action_bar_margin_top"
             android:layout_below="@id/appbar"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
@@ -89,11 +89,5 @@
 
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <include
-        layout="@layout/drawer"
-        android:layout_width="@dimen/drawer_width"
-        android:layout_height="match_parent"
-        android:layout_gravity="start" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
