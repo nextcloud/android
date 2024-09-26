@@ -656,7 +656,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggesties in navigatiekopregel</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_sourcecode">Krijg broncode</string>
-    <string name="prefs_storage_path">Gegevensopslagmap</string>
+    <string name="prefs_data_storage_location">Gegevensopslagmap</string>
     <string name="prefs_sycned_folders_summary">Mappen beheren voor automatisch uploaden</string>
     <string name="prefs_synced_folders_local_path_title">Lokale map</string>
     <string name="prefs_synced_folders_remote_path_title">Externe map</string>

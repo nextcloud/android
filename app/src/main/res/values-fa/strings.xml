@@ -628,7 +628,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
     <string name="prefs_show_hidden_files">فایل های مخفی را نشان بده </string>
     <string name="prefs_sourcecode">دریافت کد منبع</string>
-    <string name="prefs_storage_path">مسیر ذخیره‌سازی</string>
+    <string name="prefs_data_storage_location">مسیر ذخیره‌سازی</string>
     <string name="prefs_sycned_folders_summary">مدیریت پوشه‌ها جهت آپلود خودکار</string>
     <string name="prefs_synced_folders_local_path_title">پوشه محلی</string>
     <string name="prefs_synced_folders_remote_path_title">پوشه از راه دور</string>

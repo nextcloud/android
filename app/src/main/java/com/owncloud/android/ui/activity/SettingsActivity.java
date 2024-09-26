@@ -115,6 +115,7 @@ public class SettingsActivity extends PreferenceActivity
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
     private static final int ACTION_SHOW_MNEMONIC = 11;
     private static final int ACTION_E2E = 12;
+    private static final int ACTION_SET_STORAGE_LOCATION = 13;
     private static final int TRUE_VALUE = 1;
 
     private static final String DAV_PATH = "/remote.php/dav";
@@ -129,6 +130,7 @@ public class SettingsActivity extends PreferenceActivity
     private AppCompatDelegate delegate;
 
     private ListPreference prefStoragePath;
+    private  Preference prefDataLoc;
     private String storagePath;
     private String pendingLock;
 
@@ -830,6 +832,16 @@ public class SettingsActivity extends PreferenceActivity
 
         loadStoragePath();
 
+        prefDataLoc = findPreference(AppPreferencesImpl.DATA_STORAGE_LOCATION);
+        if (prefDataLoc != null) {
+            prefDataLoc.setOnPreferenceClickListener(p -> {
+                Intent intent = new Intent(MainApp.getAppContext(), ChooseStorageLocationActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityForResult(intent, ACTION_SET_STORAGE_LOCATION);
+                return true;
+            });
+        }
+
         ListPreference themePref = (ListPreference) findPreference("darkMode");
 
         List<String> themeEntries = new ArrayList<>(3);
@@ -996,6 +1008,14 @@ public class SettingsActivity extends PreferenceActivity
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(i);
+        } else if (requestCode == ACTION_SET_STORAGE_LOCATION && data != null) {
+            String newPath = data.getStringExtra(ChooseStorageLocationActivity.KEY_RESULT_STORAGE_LOCATION);
+
+            if (!storagePath.equals(newPath)) {
+                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath, viewThemeUtils);
+                storageMigration.setStorageMigrationProgressListener(this);
+                storageMigration.migrate();
+            }
         }
     }
 

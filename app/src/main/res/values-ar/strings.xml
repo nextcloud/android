@@ -691,7 +691,7 @@
     <string name="prefs_show_ecosystem_apps_summary">مقترحات بتطبيقات من نكست كلاود في شريط التصفح navigation heading</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
-    <string name="prefs_storage_path">مجلد تخزين البيانات</string>
+    <string name="prefs_data_storage_location">مجلد تخزين البيانات</string>
     <string name="prefs_sycned_folders_summary">إدارة الملفات للتحميل التلقائي</string>
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>

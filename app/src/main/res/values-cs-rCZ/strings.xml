@@ -687,7 +687,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Doporučování Nextcloud aplikací v záhlaví navigace</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_sourcecode">Získat zdrojové kódy</string>
-    <string name="prefs_storage_path">Složka pro ukládání dat</string>
+    <string name="prefs_data_storage_location">Složka pro ukládání dat</string>
     <string name="prefs_sycned_folders_summary">Spravovat složky pro automatické nahrávání</string>
     <string name="prefs_synced_folders_local_path_title">Místní složka</string>
     <string name="prefs_synced_folders_remote_path_title">Vzdálená složka</string>

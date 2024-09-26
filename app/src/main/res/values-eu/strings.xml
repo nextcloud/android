@@ -687,7 +687,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud aplikazioaren iradokizunak nabigazio goiburuan</string>
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
-    <string name="prefs_storage_path">Datu-biltegiratze karpeta</string>
+    <string name="prefs_data_storage_location">Datu-biltegiratze karpeta</string>
     <string name="prefs_sycned_folders_summary">Kudeatu karpeten igotze automatikoa</string>
     <string name="prefs_synced_folders_local_path_title">Karpeta lokala</string>
     <string name="prefs_synced_folders_remote_path_title">Urruneko karpeta</string>

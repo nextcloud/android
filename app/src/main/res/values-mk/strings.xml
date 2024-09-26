@@ -510,7 +510,7 @@
     <string name="prefs_manage_accounts">Управување со сметки</string>
     <string name="prefs_show_hidden_files">Прикажи сокриени датотеки</string>
     <string name="prefs_sourcecode">Превземи го изворниот код</string>
-    <string name="prefs_storage_path">Папка за складиште на податоци</string>
+    <string name="prefs_data_storage_location">Папка за складиште на податоци</string>
     <string name="prefs_sycned_folders_summary">Уреди папки за автоматско прикачување</string>
     <string name="prefs_synced_folders_local_path_title">Папка на уредот</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на серверот</string>

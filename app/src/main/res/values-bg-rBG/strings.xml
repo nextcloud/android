@@ -581,7 +581,7 @@
     <string name="prefs_setup_e2e">Настройка на цялостно криптиране</string>
     <string name="prefs_show_hidden_files">Показване и на скрити файлове</string>
     <string name="prefs_sourcecode">Получаване на изходния код</string>
-    <string name="prefs_storage_path">Папка за съхранение на данни</string>
+    <string name="prefs_data_storage_location">Папка за съхранение на данни</string>
     <string name="prefs_sycned_folders_summary">Управление на папки за автоматично качване</string>
     <string name="prefs_synced_folders_local_path_title">Локална папка</string>
     <string name="prefs_synced_folders_remote_path_title">Отдалечена папка</string>

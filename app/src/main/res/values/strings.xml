@@ -510,6 +510,8 @@
     <string name="file_migration_failed_dir_already_exists">Nextcloud folder already exists</string>
     <string name="file_migration_failed_while_coping">Failed during migration</string>
     <string name="file_migration_failed_while_updating_index">Failed to update index</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
+    <string name="file_migration_allow_media_indexing">Allow media indexing</string>
 
     <string name="file_migration_directory_already_exists">Data folder already exists. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
@@ -578,7 +580,7 @@
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
-    <string name="prefs_storage_path">Data storage folder</string>
+    <string name="prefs_data_storage_location">Data storage location</string>
 
     <string name="pref_instant_name_collision_policy_dialogTitle">What to do if the file already exists?</string>
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
@@ -957,6 +959,7 @@
     <string name="new_notification">New Notification</string>
     <string name="storage_choose_location">Choose storage location</string>
     <string name="storage_internal_storage">Internal storage</string>
+    <string name="storage_external_storage">External storage</string>
     <string name="storage_camera">Camera</string>
     <string name="storage_pictures">Pictures</string>
     <string name="storage_movies">Movies</string>
