@@ -245,6 +245,7 @@ public abstract class FileActivity extends DrawerActivity
     public void networkAndServerConnectionListener(boolean isNetworkAndServerAvailable) {
         if (isNetworkAndServerAvailable) {
             hideInfoBox();
+            refreshList();
         } else {
             showInfoBox(R.string.offline_mode);
         }
