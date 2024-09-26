@@ -2593,4 +2593,37 @@ public class FileDataStorageManager {
         }
         return false;
     }
+
+    // TODO remove duplicated codes
+    public List<OCFile> getSharedFiles(OCFile file) {
+        if (!file.isRootDirectory()) {
+            return getFolderContent(file,false);
+        }
+
+        final List<OCFile> result = new ArrayList<>();
+        final List<OCFile> allFiles = getAllFiles();
+        for (OCFile ocFile: allFiles) {
+            if (ocFile.isShared()) {
+                result.add(ocFile);
+            }
+        }
+
+        return result;
+    }
+
+    public List<OCFile> getFavoriteFiles(OCFile file) {
+        if (!file.isRootDirectory()) {
+            return getFolderContent(file,false);
+        }
+
+        final List<OCFile> result = new ArrayList<>();
+        final List<OCFile> allFiles = getAllFiles();
+        for (OCFile ocFile: allFiles) {
+            if (ocFile.isFavorite()) {
+                result.add(ocFile);
+            }
+        }
+
+        return result;
+    }
 }

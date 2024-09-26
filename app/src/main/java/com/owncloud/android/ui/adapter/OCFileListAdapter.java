@@ -734,34 +734,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim());
     }
 
-    private List<OCFile> filterSharedFiles(Iterable<OCFile> files) {
-        List<OCFile> ret = new ArrayList<>();
-
-        for (OCFile file : files) {
-            if (file.isShared()) {
-                ret.add(file);
-            }
-        }
-
-        return ret;
-    }
-
-    private List<OCFile> filterFavoriteFiles(Iterable<OCFile> files) {
-        List<OCFile> ret = new ArrayList<>();
-
-        for (OCFile file : files) {
-            if (file.isFavorite()) {
-                ret.add(file);
-            }
-        }
-
-        return ret;
-    }
-
-    private boolean isCurrentDirectoryRoot() {
-        return currentDirectory != null && currentDirectory.isRootDirectory();
-    }
-
     /**
      * Change the adapted directory for a new one
      *
@@ -797,11 +769,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             // TODO refactor add DrawerState instead of using static menuItemId
-            if (DrawerActivity.menuItemId == R.id.nav_shared && isCurrentDirectoryRoot()) {
-                mFiles = filterSharedFiles(mFiles);
+            if (DrawerActivity.menuItemId == R.id.nav_shared && currentDirectory != null) {
+                mFiles = updatedStorageManager.getSharedFiles(currentDirectory);
             }
-            if (DrawerActivity.menuItemId == R.id.nav_favorites && isCurrentDirectoryRoot()) {
-                mFiles = filterFavoriteFiles(mFiles);
+            if (DrawerActivity.menuItemId == R.id.nav_favorites && currentDirectory != null) {
+                mFiles = updatedStorageManager.getFavoriteFiles(currentDirectory);
             }
 
             sortOrder = preferences.getSortOrderByFolder(directory);
