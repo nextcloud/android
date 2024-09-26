@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 85,
-    "identityHash": "d1710bd13728e71a6b2c530bd1954fda",
+    "identityHash": "2d24b9210a36150f221156d2e8f59665",
     "entities": [
       {
         "tableName": "arbitrary_data",
@@ -1237,7 +1237,7 @@
       },
       {
         "tableName": "offline_operations",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `offline_operations_parent_oc_file_id` INTEGER, `offline_operations_path` TEXT, `offline_operations_type` TEXT, `offline_operations_file_name` TEXT, `offline_operations_created_at` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `offline_operations_parent_oc_file_id` INTEGER, `offline_operations_path` TEXT, `offline_operations_type` TEXT, `offline_operations_file_name` TEXT, `offline_operations_created_at` INTEGER, `offline_operations_modified_at` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -1274,6 +1274,12 @@
             "columnName": "offline_operations_created_at",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "modifiedAt",
+            "columnName": "offline_operations_modified_at",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -1289,7 +1295,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd1710bd13728e71a6b2c530bd1954fda')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2d24b9210a36150f221156d2e8f59665')"
     ]
   }
 }

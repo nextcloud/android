@@ -89,6 +89,8 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
@@ -674,16 +676,31 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
     }
 
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private final Handler mainThread = new Handler(Looper.getMainLooper());
+
     private void setColorFilterForOfflineCreateFileOperations(ListViewHolder holder, OCFile file) {
-        if (file.isOfflineOperation()) {
+        if (!file.isOfflineOperation()) {
+            return;
+        }
+
+        executorService.execute(() -> {
             OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
 
             if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
                 Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
+                if (bitmap == null) return;
+
                 Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
-                holder.getThumbnail().setImageBitmap(thumbnail);
+                mainThread.post(() -> {
+                    holder.getThumbnail().setImageBitmap(thumbnail);
+                });
             }
-        }
+        });
+    }
+
+    public void onDestroy() {
+        executorService.shutdown();
     }
 
     private void setColorFilterForOfflineCreateFolderOperations(ListViewHolder holder, OCFile file) {

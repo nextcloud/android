@@ -137,7 +137,7 @@ class OfflineOperationsWorker(
                         operationType.remotePath,
                         operationType.mimeType,
                         "",
-                        lastModificationDate,
+                        operation.modifiedAt ?: lastModificationDate,
                         operation.createdAt ?: System.currentTimeMillis(),
                         true
                     )
