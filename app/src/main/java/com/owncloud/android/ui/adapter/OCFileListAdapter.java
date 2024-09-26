@@ -32,7 +32,6 @@ import android.widget.LinearLayout;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OCFileFilterType;
@@ -48,7 +47,6 @@ import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
@@ -82,8 +80,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -603,13 +599,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             holder.getFileSize().setVisibility(View.VISIBLE);
 
+
             if (file.isOfflineOperation()) {
                 holder.getFileSize().setText(MainApp.string(R.string.oc_file_list_adapter_offline_operation_description_text));
-                holder.getFileSizeSeparator().setVisibility(View.GONE);
             } else {
                 holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(localSize));
-                holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
             }
+
+            holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
         } else {
             final long fileLength = file.getFileLength();
             if (fileLength >= 0) {
@@ -617,11 +614,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 if (file.isOfflineOperation()) {
                     holder.getFileSize().setText(MainApp.string(R.string.oc_file_list_adapter_offline_operation_description_text));
-                    holder.getFileSizeSeparator().setVisibility(View.GONE);
                 } else {
                     holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(fileLength));
-                    holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
                 }
+
+                holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
             } else {
                 holder.getFileSize().setVisibility(View.GONE);
                 holder.getFileSizeSeparator().setVisibility(View.GONE);
@@ -807,7 +804,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
      * The issue arises when  {@link RefreshFolderOperation} deletes pending Offline Operations, while some may still exist in the table.
      * If only this function is used, it cause crash in {@link FileDisplayActivity mSyncBroadcastReceiver.onReceive}.
      * <p>
-     * These function also need to be used: {@link FileDataStorageManager#createPendingDirectory(String)}, {@link FileDataStorageManager#createPendingFile(String, String)}.
+     * These function also need to be used: {@link FileDataStorageManager#createPendingDirectory(String, long, long)}, {@link FileDataStorageManager#createPendingFile(String, String, long, long)}.
      */
     private void addOfflineOperations(long fileId) {
         List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles(fileId);
