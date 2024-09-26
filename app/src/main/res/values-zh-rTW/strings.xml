@@ -411,9 +411,14 @@
     <string name="file_migration_updating_index">正在更新索引……</string>
     <string name="file_migration_use_data_folder">使用</string>
     <string name="file_migration_waiting_for_unfinished_sync">正在等待完全同步……</string>
+    <string name="file_name_validator_current_path_is_invalid">目前資料夾名稱無效，請重新命名資料夾。重新導向到家目錄……</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">資料夾路徑包含保留名稱或無效字元</string>
     <string name="file_name_validator_error_forbidden_file_extensions">%s 是禁止使用的副檔名</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">檔案名稱不應包含開頭或結尾空白</string>
+    <string name="file_name_validator_error_invalid_character">名稱包含了無效字元：%s</string>
     <string name="file_name_validator_error_reserved_names">%s 是禁止的名稱</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s。請在移動或複製前重新命名檔案</string>
+    <string name="file_name_validator_upload_content_error">部份內容因包含保留名稱或無效字元而無法上傳</string>
     <string name="file_not_found">找不到檔案</string>
     <string name="file_not_synced">檔案無法同步，將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
