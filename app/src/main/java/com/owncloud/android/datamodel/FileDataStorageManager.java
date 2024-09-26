@@ -160,6 +160,7 @@ public class FileDataStorageManager {
             long modificationTimestamp = System.currentTimeMillis();
 
             entity.setCreatedAt(createdAt);
+            entity.setModifiedAt(modificationTimestamp / 1000);
             entity.setFilename(new File(remotePath).getName());
 
             String parentPath = new File(remotePath).getParent() + OCFile.PATH_SEPARATOR;
@@ -188,6 +189,7 @@ public class FileDataStorageManager {
         long modificationTimestamp = System.currentTimeMillis();
 
         entity.setCreatedAt(createdAt);
+        entity.setModifiedAt(modificationTimestamp / 1000);
 
         offlineOperationDao.insert(entity);
         createPendingDirectory(path, createdAt, modificationTimestamp);
