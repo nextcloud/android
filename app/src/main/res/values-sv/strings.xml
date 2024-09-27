@@ -411,9 +411,14 @@
     <string name="file_migration_updating_index">Uppdaterar index…</string>
     <string name="file_migration_use_data_folder">Använd</string>
     <string name="file_migration_waiting_for_unfinished_sync">Väntar på fullständig synkronisering…</string>
+    <string name="file_name_validator_current_path_is_invalid">Aktuellt mappnamn är ogiltigt. Byt namn på mappen. Omdirigerar hem...</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Mappsökvägen innehåller reserverade namn eller ogiltiga tecken</string>
     <string name="file_name_validator_error_forbidden_file_extensions">%s är ett förbjudet filtillägg</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Filnamn får inte innehålla mellanslag i början eller slutet</string>
+    <string name="file_name_validator_error_invalid_character">Namnet innehåller ogiltiga tecken: %s</string>
     <string name="file_name_validator_error_reserved_names">%s är ett förbjudet namn</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Byt namn på filen innan du flyttar eller kopierar</string>
+    <string name="file_name_validator_upload_content_error">En del innehåll kan inte laddas upp eftersom det innehåller reserverade namn eller ogiltiga tecken</string>
     <string name="file_not_found">Filen hittades inte</string>
     <string name="file_not_synced">Filen kunde inte synkroniseras. Visar senaste tillgängliga versionen.</string>
     <string name="file_rename">Byt namn</string>
