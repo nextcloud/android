@@ -343,6 +343,7 @@
     <string name="notification_channel_upload_name_short">Augšupielādes</string>
     <string name="notifications_no_results_headline">Nav paziņojumu</string>
     <string name="offline_mode">Nav interneta savienojuma</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Bezsaistes darbības</string>
     <string name="oneHour">1 stunda</string>
     <string name="pass_code_configure_your_pass_code">Ievadiet piekļuves kodu</string>
     <string name="pass_code_configure_your_pass_code_explanation">Kods tiks pieprasīts katru reizi kad atvērsiet lietotni</string>
