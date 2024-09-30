@@ -24,7 +24,7 @@ fun OCCapability.forbiddenFilenameBaseNames(): List<String> = jsonToList(forbidd
 fun OCCapability.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8(): Boolean {
     return forbiddenFilenames().isNotEmpty() ||
         forbiddenFilenameCharacters().isNotEmpty() ||
-        forbiddenFilenameExtension().isNotEmpty() ||
+        forbiddenFilenameExtensions().isNotEmpty() ||
         forbiddenFilenameBaseNames().isNotEmpty()
 }
 

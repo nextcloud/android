@@ -9,7 +9,7 @@ package com.nextcloud.utils.autoRename
 
 import com.nextcloud.utils.extensions.StringConstants
 import com.nextcloud.utils.extensions.forbiddenFilenameCharacters
-import com.nextcloud.utils.extensions.forbiddenFilenameExtension
+import com.nextcloud.utils.extensions.forbiddenFilenameExtensions
 import com.nextcloud.utils.extensions.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.status.NextcloudVersion
@@ -46,7 +46,7 @@ object AutoRename {
             }
 
             forbiddenFilenameExtensionJson?.let {
-                forbiddenFilenameExtension().forEach { forbiddenExtension ->
+                forbiddenFilenameExtensions().forEach { forbiddenExtension ->
                     pathSegments.replaceAll { segment ->
                         var modifiedSegment = segment
                         if (forbiddenExtension == StringConstants.SPACE) {
