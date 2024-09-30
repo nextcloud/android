@@ -27,6 +27,7 @@ import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
+import com.nextcloud.utils.autoRename.AutoRename;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.db.OCUpload;
 import com.owncloud.android.db.ProviderMeta.ProviderTableMeta;
@@ -34,7 +35,9 @@ import com.owncloud.android.db.UploadResult;
 import com.owncloud.android.files.services.NameCollisionPolicy;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.lib.resources.status.OCCapability;
 import com.owncloud.android.operations.UploadFileOperation;
+import com.owncloud.android.utils.theme.CapabilityUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -65,6 +68,7 @@ public class UploadsStorageManager extends Observable {
 
     private final ContentResolver contentResolver;
     private final CurrentAccountProvider currentAccountProvider;
+    private OCCapability capability;
 
     public UploadsStorageManager(
         CurrentAccountProvider currentAccountProvider,
@@ -75,6 +79,14 @@ public class UploadsStorageManager extends Observable {
         }
         this.contentResolver = contentResolver;
         this.currentAccountProvider = currentAccountProvider;
+    }
+
+    private void initOCCapability() {
+        try {
+            this.capability = CapabilityUtils.getCapability(MainApp.getAppContext());
+        } catch (RuntimeException e) {
+            Log_OC.e(TAG,"Failed to set OCCapability: Dependencies are not yet ready.");
+        }
     }
 
     /**
@@ -570,10 +582,17 @@ public class UploadsStorageManager extends Observable {
     }
 
     private OCUpload createOCUploadFromCursor(Cursor c) {
+        initOCCapability();
+
         OCUpload upload = null;
         if (c != null) {
             String localPath = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_LOCAL_PATH));
+
             String remotePath = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_REMOTE_PATH));
+            if (capability != null) {
+                remotePath = AutoRename.INSTANCE.rename(remotePath, capability,true);
+            }
+
             String accountName = c.getString(c.getColumnIndexOrThrow(ProviderTableMeta.UPLOADS_ACCOUNT_NAME));
             upload = new OCUpload(localPath, remotePath, accountName);
 

@@ -106,6 +106,23 @@ public final class MimeTypeUtil {
         }
     }
 
+    public static Drawable getIcon(String localPath, Context context, ViewThemeUtils viewThemeUtils) {
+        if (context == null) return null;
+
+        String mimeType = getMimeTypeFromPath(localPath);
+        List<String> possibleMimeTypes = Collections.singletonList(mimeType);
+        int iconId = determineIconIdByMimeTypeList(possibleMimeTypes);
+
+        Drawable result = ContextCompat.getDrawable(context, iconId);
+        if (result == null) return null;
+
+        if (R.drawable.file_zip == iconId) {
+            viewThemeUtils.platform.tintDrawable(context, result, ColorRole.PRIMARY);
+        }
+
+        return result;
+    }
+
     /**
      * Returns the resource identifier of an image to use as icon associated to a known MIME type.
      *

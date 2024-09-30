@@ -15,7 +15,6 @@ import android.net.Uri
 import android.os.Parcelable
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.upload.FileUploadHelper
-import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.files.services.NameCollisionPolicy
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -25,7 +24,6 @@ import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
-import java.io.File
 
 /**
  * This class examines URIs pointing to files to upload and then requests [FileUploadHelper] to upload them.
@@ -59,8 +57,7 @@ class UriUploader(
         ERROR_UNKNOWN,
         ERROR_NO_FILE_TO_UPLOAD,
         ERROR_READ_PERMISSION_NOT_GRANTED,
-        ERROR_SENSITIVE_PATH,
-        INVALID_FILE_NAME
+        ERROR_SENSITIVE_PATH
     }
 
     @Suppress("NestedBlockDepth")
@@ -74,25 +71,10 @@ class UriUploader(
                 Log_OC.e(TAG, "Sensitive URI detected, aborting upload.")
                 code = UriUploaderResultCode.ERROR_SENSITIVE_PATH
             } else {
-                var isFilenameValid = true
-
                 val uris = mUrisToUpload
                     .filterNotNull()
                     .map { it as Uri }
                     .map { Pair(it, getRemotePathForUri(it)) }
-                    .filter { (_, path) ->
-                        val file = File(path)
-                        val filename = file.name
-
-                        isFilenameValid = FileNameValidator.checkFileName(
-                            filename,
-                            mActivity.capabilities,
-                            mActivity,
-                            null
-                        ) == null
-
-                        isFilenameValid
-                    }
 
                 val fileUris = uris
                     .filter { it.first.scheme == ContentResolver.SCHEME_FILE }
@@ -107,11 +89,7 @@ class UriUploader(
                     val (contentUris, contentRemotePaths) = contentUrisNew.unzip()
                     copyThenUpload(contentUris.toTypedArray(), contentRemotePaths.toTypedArray())
                 } else if (fileUris.isEmpty()) {
-                    code = if (!isFilenameValid) {
-                        UriUploaderResultCode.INVALID_FILE_NAME
-                    } else {
-                        UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD
-                    }
+                    code = UriUploaderResultCode.ERROR_NO_FILE_TO_UPLOAD
                 }
             }
         } catch (e: SecurityException) {
