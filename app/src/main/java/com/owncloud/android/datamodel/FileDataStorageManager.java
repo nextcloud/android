@@ -2595,6 +2595,31 @@ public class FileDataStorageManager {
         return false;
     }
 
+    public OCFile getParentByFilterType(OCFile file, OCFileFilterType filterType) {
+        OCFile currentFile = file;
+
+        while (currentFile != null) {
+            OCFile parent = getFileById(currentFile.getParentId());
+
+            if (parent == null) {
+                return null;
+            }
+
+            if (parent.isRootDirectory()) {
+                return parent;
+            }
+
+            if ((filterType == OCFileFilterType.Shared && parent.isShared()) ||
+                (filterType == OCFileFilterType.Favorite && parent.isFavorite())) {
+                return parent;
+            }
+
+            currentFile = parent;
+        }
+
+        return null;
+    }
+
     public List<OCFile> filter(OCFile file, OCFileFilterType filterType) {
         if (!file.isRootDirectory()) {
             return getFolderContent(file,false);

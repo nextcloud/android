@@ -54,6 +54,7 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
+import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
@@ -80,6 +81,7 @@ import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.FolderPickerActivity;
@@ -923,42 +925,52 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * <p>
      * return       Count of folder levels browsed up.
      */
-
-    // TODO Apply fail fast principle
     public int onBrowseUp() {
-        OCFile parentDir;
+        if (mFile == null) {
+            return 0;
+        }
+
+        OCFile currentFile = getCurrentFile();
+        OCFile parentDir = null;
         int moveCount = 0;
+        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+        String parentPath = null;
 
-        if (mFile != null) {
-            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+        if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+            parentPath = new File(mFile.getRemotePath()).getParent();
 
-            String parentPath = null;
-            if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
-                parentPath = new File(mFile.getRemotePath()).getParent();
-                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
-                    parentPath + OCFile.PATH_SEPARATOR;
+            if (parentPath != null) {
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
                 parentDir = storageManager.getFileByPath(parentPath);
                 moveCount++;
-            } else {
-                parentDir = storageManager.getFileByPath(ROOT_PATH);
             }
-            while (parentDir == null) {
-                parentPath = new File(parentPath).getParent();
+        } else {
+            parentDir = storageManager.getFileByPath(ROOT_PATH);
+        }
+
+        while (parentDir == null) {
+            parentPath = new File(parentPath).getParent();
+
+            if (parentPath != null) {
                 parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
                     parentPath + OCFile.PATH_SEPARATOR;
                 parentDir = storageManager.getFileByPath(parentPath);
                 moveCount++;
-            }   // exit is granted because storageManager.getFileByPath("/") never returns null
+            }
+        }
+
+        // FIXME
+        if (DrawerActivity.menuItemId == R.id.nav_favorites) {
+            mFile = storageManager.getParentByFilterType(currentFile, OCFileFilterType.Favorite);
+        } else if (DrawerActivity.menuItemId == R.id.nav_shared) {
+            mFile = storageManager.getParentByFilterType(currentFile, OCFileFilterType.Shared);
+        } else {
             mFile = parentDir;
+        }
 
-            listDirectory(mFile, MainApp.isOnlyOnDevice(), false);
-
-            onRefresh(false);
-
-            // restore index and top position
-            restoreIndexAndTopPosition();
-
-        }   // else - should never happen now
+        listDirectory(mFile, MainApp.isOnlyOnDevice(), false);
+        onRefresh(false);
+        restoreIndexAndTopPosition();
 
         return moveCount;
     }
