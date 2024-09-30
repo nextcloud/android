@@ -86,10 +86,16 @@ object FileNameValidator {
                 forbiddenFilenameExtensionJson?.let {
                     for (forbiddenExtension in forbiddenFilenameExtension()) {
                         if (filename.endsWith(forbiddenExtension, ignoreCase = true)) {
-                            return context.getString(
-                                R.string.file_name_validator_error_forbidden_file_extensions,
-                                forbiddenExtension
-                            )
+                            return if (forbiddenExtension == StringConstants.SPACE) {
+                                context.getString(
+                                    R.string.file_name_validator_error_forbidden_space_character_extensions
+                                )
+                            } else {
+                                context.getString(
+                                    R.string.file_name_validator_error_forbidden_file_extensions,
+                                    forbiddenExtension
+                                )
+                            }
                         }
                     }
                 }
