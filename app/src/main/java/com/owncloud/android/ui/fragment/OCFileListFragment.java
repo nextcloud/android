@@ -959,11 +959,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
             }
         }
 
-        // FIXME
+        // TODO Optimize
         if (DrawerActivity.menuItemId == R.id.nav_favorites) {
-            mFile = storageManager.getParentByFilterType(currentFile, OCFileFilterType.Favorite);
+            mFile = storageManager.getParentByFilterType(currentFile, parentDir, OCFileFilterType.Favorite);
         } else if (DrawerActivity.menuItemId == R.id.nav_shared) {
-            mFile = storageManager.getParentByFilterType(currentFile, OCFileFilterType.Shared);
+            mFile = storageManager.getParentByFilterType(currentFile, parentDir, OCFileFilterType.Shared);
         } else {
             mFile = parentDir;
         }

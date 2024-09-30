@@ -2595,10 +2595,19 @@ public class FileDataStorageManager {
         return false;
     }
 
-    public OCFile getParentByFilterType(OCFile file, OCFileFilterType filterType) {
-        OCFile currentFile = file;
+    public OCFile getParentByFilterType(OCFile file, OCFile parentDir, OCFileFilterType filterType) {
+        if (file == null) {
+            return parentDir;
+        }
 
-        while (currentFile != null) {
+        OCFile topParent = getFileById(getTopParentId(file));
+        if ((filterType == OCFileFilterType.Shared && topParent != null && topParent.isShared()) ||
+            (filterType == OCFileFilterType.Favorite && topParent != null && topParent.isFavorite())) {
+            return parentDir;
+        }
+
+        OCFile currentFile = file;
+        while (true) {
             OCFile parent = getFileById(currentFile.getParentId());
 
             if (parent == null) {
@@ -2616,8 +2625,6 @@ public class FileDataStorageManager {
 
             currentFile = parent;
         }
-
-        return null;
     }
 
     public List<OCFile> filter(OCFile file, OCFileFilterType filterType) {
