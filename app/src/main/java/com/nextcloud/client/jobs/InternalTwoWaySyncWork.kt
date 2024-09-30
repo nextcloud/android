@@ -21,7 +21,7 @@ import com.owncloud.android.operations.SynchronizeFolderOperation
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
 
-@Suppress("Detekt.NestedBlockDepth")
+@Suppress("Detekt.NestedBlockDepth", "ReturnCount")
 class InternalTwoWaySyncWork(
     private val context: Context,
     params: WorkerParameters,
@@ -81,7 +81,7 @@ class InternalTwoWaySyncWork(
         }
     }
 
-    private fun checkFreeSpace(folder:OCFile): Result? {
+    private fun checkFreeSpace(folder: OCFile): Result? {
         folder.storagePath?.let { storagePath ->
             val file = File(storagePath)
             if (file.exists()) {
