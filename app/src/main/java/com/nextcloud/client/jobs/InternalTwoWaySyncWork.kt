@@ -81,23 +81,29 @@ class InternalTwoWaySyncWork(
         }
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun checkFreeSpace(folder: OCFile): Result? {
-        folder.storagePath?.let { storagePath ->
-            val file = File(storagePath)
-            if (file.exists()) {
-                val freeSpaceLeft = file.getFreeSpace()
-                val localFolder = File(storagePath, MainApp.getDataFolder())
-                val localFolderSize = FileStorageUtils.getFolderSize(localFolder)
-                val remoteFolderSize = folder.fileLength
+        val storagePath = folder.storagePath ?: return null
+        val file = File(storagePath)
 
-                if (freeSpaceLeft < (remoteFolderSize - localFolderSize)) {
-                    Log_OC.d(TAG, "Not enough space left!")
-                    return Result.failure()
-                }
+        if (!file.exists()) return null
+
+        return try {
+            val freeSpaceLeft = file.freeSpace
+            val localFolder = File(storagePath, MainApp.getDataFolder())
+            val localFolderSize = FileStorageUtils.getFolderSize(localFolder)
+            val remoteFolderSize = folder.fileLength
+
+            if (freeSpaceLeft < (remoteFolderSize - localFolderSize)) {
+                Log_OC.d(TAG, "Not enough space left!")
+                Result.failure()
+            } else {
+                null
             }
+        } catch (e: Exception) {
+            Log_OC.d(TAG, "Error caught at checkFreeSpace: $e")
+            null
         }
-
-        return null
     }
 
     companion object {
