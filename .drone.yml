@@ -21,7 +21,6 @@ steps:
       GITHUB_TOKEN:
         from_secret: GIT_TOKEN
     commands:
-      - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
       - ./gradlew assembleGplayDebugAndroidTest
@@ -85,7 +84,6 @@ steps:
       GITHUB_TOKEN:
         from_secret: GIT_TOKEN
     commands:
-      - scripts/checkIfRunDrone.sh $DRONE_PULL_REQUEST || exit 0
       - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
       - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
       - scripts/runCombinedTest.sh $DRONE_PULL_REQUEST $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER
@@ -178,11 +176,72 @@ trigger:
   cron:
     - allscreenshots
 ---
+kind: pipeline
+type: docker
+name: tests-oldest-stable
+
+steps:
+  - name: gplay
+    image: ghcr.io/nextcloud/continuous-integration-android8:3
+    privileged: true
+    environment:
+      LOG_USERNAME:
+        from_secret: LOG_USERNAME
+      LOG_PASSWORD:
+        from_secret: LOG_PASSWORD
+      GIT_USERNAME:
+        from_secret: GIT_USERNAME
+      GITHUB_TOKEN:
+        from_secret: GIT_TOKEN
+    commands:
+      - emulator -avd android -no-snapshot -gpu swiftshader_indirect -no-window -no-audio -skin 500x833 &
+      - sed -i s'#<bool name="is_beta">false</bool>#<bool name="is_beta">true</bool>#'g app/src/main/res/values/setup.xml
+      - ./gradlew assembleGplayDebugAndroidTest
+      - scripts/wait_for_emulator.sh
+      - ./gradlew installGplayDebugAndroidTest
+      - scripts/wait_for_server.sh "server"
+      - scripts/deleteOldComments.sh "oldest-table" "IT" $DRONE_PULL_REQUEST
+      - ./gradlew createGplayDebugCoverageReport -Pcoverage -Pandroid.testInstrumentationRunnerArguments.notAnnotation=com.owncloud.android.utils.ScreenshotTest || scripts/uploadReport.sh $LOG_USERNAME $LOG_PASSWORD $DRONE_BUILD_NUMBER "oldest-stable" "IT" $DRONE_PULL_REQUEST
+
+services:
+  - name: server
+    image: nextcloudci/server:server-13
+    environment:
+      EVAL: true
+      BRANCH: stable17
+    commands:
+      - /initnc.sh
+      - su www-data -c "php /var/www/html/occ log:manage --level warning"
+      - su www-data -c "OC_PASS=user1 php /var/www/html/occ user:add --password-from-env --display-name='User One' user1"
+      - su www-data -c "OC_PASS=user2 php /var/www/html/occ user:add --password-from-env --display-name='User Two' user2"
+      - su www-data -c "OC_PASS=user3 php /var/www/html/occ user:add --password-from-env --display-name='User Three' user3"
+      - su www-data -c "OC_PASS=test php /var/www/html/occ user:add --password-from-env --display-name='Test@Test' test@test"
+      - su www-data -c "OC_PASS=test php /var/www/html/occ user:add --password-from-env --display-name='Test Spaces' 'test test'"
+      - su www-data -c "php /var/www/html/occ user:setting user2 files quota 1G"
+      - su www-data -c "php /var/www/html/occ group:add users"
+      - su www-data -c "php /var/www/html/occ group:adduser users user1"
+      - su www-data -c "php /var/www/html/occ group:adduser users user2"
+      - su www-data -c "git clone -b stable17 https://github.com/nextcloud/activity.git /var/www/html/apps/activity/"
+      - su www-data -c "php /var/www/html/occ app:enable activity"
+      - su www-data -c "git clone -b stable17 https://github.com/nextcloud/text.git /var/www/html/apps/text/"
+      - su www-data -c "php /var/www/html/occ app:enable text"
+      - su www-data -c "git clone -b stable17 https://github.com/nextcloud/end_to_end_encryption.git /var/www/html/apps/end_to_end_encryption/"
+      - su www-data -c "php /var/www/html/occ app:enable end_to_end_encryption"
+      - /run.sh
+
+trigger:
+  branch:
+    - master
+    - stable-*
+  event:
+    - push
+    - pull_request
+---
 kind: secret
 name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: a659f1f06a609743077c77b6a07a369e55db67adbd8343fc027ac1c9473d1a43
+hmac: 98af5a165e60eec6cea25344f337ff21d0a4b9771f7caa13cfb363066f1ea1b4
 
 ...
