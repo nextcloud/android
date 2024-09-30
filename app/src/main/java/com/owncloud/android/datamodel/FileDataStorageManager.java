@@ -40,6 +40,7 @@ import com.nextcloud.client.database.entity.FileEntity;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepositoryType;
+import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
@@ -2594,8 +2595,7 @@ public class FileDataStorageManager {
         return false;
     }
 
-    // TODO remove duplicated codes
-    public List<OCFile> getSharedFiles(OCFile file) {
+    public List<OCFile> filter(OCFile file, OCFileFilterType filterType) {
         if (!file.isRootDirectory()) {
             return getFolderContent(file,false);
         }
@@ -2603,23 +2603,14 @@ public class FileDataStorageManager {
         final List<OCFile> result = new ArrayList<>();
         final List<OCFile> allFiles = getAllFiles();
         for (OCFile ocFile: allFiles) {
-            if (ocFile.isShared()) {
-                result.add(ocFile);
+            boolean condition = false;
+            if (filterType == OCFileFilterType.Shared) {
+                condition = ocFile.isShared();
+            } else if (filterType == OCFileFilterType.Favorite) {
+                condition = ocFile.isFavorite();
             }
-        }
 
-        return result;
-    }
-
-    public List<OCFile> getFavoriteFiles(OCFile file) {
-        if (!file.isRootDirectory()) {
-            return getFolderContent(file,false);
-        }
-
-        final List<OCFile> result = new ArrayList<>();
-        final List<OCFile> allFiles = getAllFiles();
-        for (OCFile ocFile: allFiles) {
-            if (ocFile.isFavorite()) {
+            if (condition) {
                 result.add(ocFile);
             }
         }

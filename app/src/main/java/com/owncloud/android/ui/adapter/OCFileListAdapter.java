@@ -33,6 +33,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -770,10 +771,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             // TODO refactor add DrawerState instead of using static menuItemId
             if (DrawerActivity.menuItemId == R.id.nav_shared && currentDirectory != null) {
-                mFiles = updatedStorageManager.getSharedFiles(currentDirectory);
+                mFiles = updatedStorageManager.filter(currentDirectory, OCFileFilterType.Shared);
             }
             if (DrawerActivity.menuItemId == R.id.nav_favorites && currentDirectory != null) {
-                mFiles = updatedStorageManager.getFavoriteFiles(currentDirectory);
+                mFiles = updatedStorageManager.filter(currentDirectory, OCFileFilterType.Favorite);
             }
 
             sortOrder = preferences.getSortOrderByFolder(directory);
