@@ -262,6 +262,7 @@
             <trusting group="androidx.lifecycle"/>
             <trusting group="androidx.transition" name="transition" version="1.5.0"/>
             <trusting group="androidx.webkit" name="webkit" version="1.11.0"/>
+            <trusting group="androidx.webkit" name="webkit" version="1.12.0"/>
             <trusting group="androidx.work"/>
             <trusting group="^androidx[.]compose($|([.].*))" regex="true"/>
             <trusting group="^androidx[.]test($|([.].*))" regex="true"/>
