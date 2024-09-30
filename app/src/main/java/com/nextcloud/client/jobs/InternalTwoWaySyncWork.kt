@@ -84,16 +84,14 @@ class InternalTwoWaySyncWork(
     private fun checkFreeSpace(folder: OCFile): Result? {
         folder.storagePath?.let { storagePath ->
             val file = File(storagePath)
-            if (file.exists()) {
-                val freeSpaceLeft = file.getFreeSpace()
-                val localFolder = File(storagePath, MainApp.getDataFolder())
-                val localFolderSize = FileStorageUtils.getFolderSize(localFolder)
-                val remoteFolderSize = folder.fileLength
+            val freeSpaceLeft = file.getFreeSpace()
+            val localFolder = File(storagePath, MainApp.getDataFolder())
+            val localFolderSize = FileStorageUtils.getFolderSize(localFolder)
+            val remoteFolderSize = folder.fileLength
 
-                if (freeSpaceLeft < (remoteFolderSize - localFolderSize)) {
-                    Log_OC.d(TAG, "Not enough space left!")
-                    return Result.failure()
-                }
+            if (freeSpaceLeft < (remoteFolderSize - localFolderSize)) {
+                Log_OC.d(TAG, "Not enough space left!")
+                return Result.failure()
             }
         }
 
