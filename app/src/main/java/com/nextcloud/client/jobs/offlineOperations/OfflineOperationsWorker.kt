@@ -108,7 +108,7 @@ class OfflineOperationsWorker(
         }
     }
 
-    @Suppress("Deprecation")
+    @Suppress("Deprecation", "MagicNumber")
     private suspend fun executeOperation(
         operation: OfflineOperationEntity,
         client: OwnCloudClient
