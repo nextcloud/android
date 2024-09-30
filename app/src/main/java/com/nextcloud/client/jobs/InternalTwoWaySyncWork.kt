@@ -15,6 +15,7 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.SynchronizeFolderOperation
 import com.owncloud.android.utils.FileStorageUtils
@@ -47,17 +48,8 @@ class InternalTwoWaySyncWork(
             val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user)
 
             for (folder in folders) {
-                val file = File(folder.storagePath)
-                if (file.exists()) {
-                    val freeSpaceLeft = file.getFreeSpace()
-                    val localFolder = File(folder.storagePath, MainApp.getDataFolder())
-                    val localFolderSize = FileStorageUtils.getFolderSize(localFolder)
-                    val remoteFolderSize = folder.fileLength
-
-                    if (freeSpaceLeft < (remoteFolderSize - localFolderSize)) {
-                        Log_OC.d(TAG, "Not enough space left!")
-                        return Result.failure()
-                    }
+                checkFreeSpace(folder)?.let { checkFreeSpaceResult ->
+                    return checkFreeSpaceResult
                 }
 
                 Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
@@ -87,6 +79,25 @@ class InternalTwoWaySyncWork(
             Log_OC.d(TAG, "Worker finished with failure!")
             Result.failure()
         }
+    }
+
+    private fun checkFreeSpace(folder:OCFile): Result? {
+        folder.storagePath?.let { storagePath ->
+            val file = File(storagePath)
+            if (file.exists()) {
+                val freeSpaceLeft = file.getFreeSpace()
+                val localFolder = File(storagePath, MainApp.getDataFolder())
+                val localFolderSize = FileStorageUtils.getFolderSize(localFolder)
+                val remoteFolderSize = folder.fileLength
+
+                if (freeSpaceLeft < (remoteFolderSize - localFolderSize)) {
+                    Log_OC.d(TAG, "Not enough space left!")
+                    return Result.failure()
+                }
+            }
+        }
+
+        return null
     }
 
     companion object {
