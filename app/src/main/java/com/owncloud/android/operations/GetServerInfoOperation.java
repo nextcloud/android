@@ -46,7 +46,7 @@ public class GetServerInfoOperation extends RemoteOperation {
      *                          TODO ugly dependency, get rid of it.
      */
     public GetServerInfoOperation(String url, Context context) {
-        mUrl = AuthenticatorUrlUtils.trimWebdavSuffix(url);
+        mUrl = AuthenticatorUrlUtils.INSTANCE.trimWebdavSuffix(url);
         mContext = context;
         mResultData = new ServerInfo();
     }
