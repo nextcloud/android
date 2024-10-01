@@ -8,5 +8,6 @@
 package com.nextcloud.model
 
 enum class OCFileFilterType {
-    Shared, Favorite
+    Shared,
+    Favorite
 }
