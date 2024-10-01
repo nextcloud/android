@@ -346,7 +346,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     @VisibleForTesting
     public void showSharingMenuActionSheet(OCShare share) {
-        new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
+        if (fileActivity != null && !fileActivity.isFinishing()) {
+            new FileDetailSharingMenuBottomSheetDialog(fileActivity, this, share, viewThemeUtils).show();
+        }
     }
 
     /**
