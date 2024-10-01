@@ -1019,13 +1019,13 @@ public class FileDisplayActivity extends FileActivity
     @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     @Override
     public void onBackPressed() {
-        if (isDrawerOpen()) {
-            super.onBackPressed();
+        if (isSearchOpen()) {
+            resetSearchAction();
             return;
         }
 
-        if (isSearchOpen()) {
-            resetSearchAction();
+        if (isDrawerOpen()) {
+            super.onBackPressed();
             return;
         }
 
