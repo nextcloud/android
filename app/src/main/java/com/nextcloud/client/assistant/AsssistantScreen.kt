@@ -25,9 +25,9 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -42,9 +42,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.component.AddTaskAlertDialog
 import com.nextcloud.client.assistant.component.CenterText
-import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
-import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.repository.AssistantMockRepository
+import com.nextcloud.client.assistant.task.TaskView
+import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.owncloud.android.R
@@ -62,6 +62,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
     val state by viewModel.state.collectAsState()
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
     val filteredTaskList by viewModel.filteredTaskList.collectAsState()
+    val isRefreshing by viewModel.isRefreshing.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
     var showAddTaskAlertDialog by remember { mutableStateOf(false) }
     var showDeleteTaskAlertDialog by remember { mutableStateOf(false) }
@@ -69,25 +70,16 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
         mutableStateOf(null)
     }
     val scope = rememberCoroutineScope()
-
-
     val pullRefreshState = rememberPullToRefreshState()
 
-
     @Suppress("MagicNumber")
-    if (pullRefreshState.isAnimating) {
-        LaunchedEffect(true) {
+    Box(modifier = Modifier.pullToRefresh(isRefreshing, pullRefreshState, onRefresh = {
+        scope.launch {
             delay(1500)
-            viewModel.fetchTaskList(onCompleted = {
-                scope.launch {
-                    pullRefreshState.animateToHidden()
-                }
-            })
+            viewModel.fetchTaskList()
         }
-    }
-
-    Box() {
-        if (state == AssistantViewModel.State.Loading || pullRefreshState.isAnimating) {
+    })) {
+        if (state == AssistantViewModel.State.Loading || isRefreshing) {
             CenterText(text = stringResource(id = R.string.assistant_screen_loading))
         } else {
             if (filteredTaskList.isNullOrEmpty()) {
@@ -106,7 +98,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
             }
         }
 
-        if (pullRefreshState.isAnimating) {
+        if (isRefreshing) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         } else {
             LinearProgressIndicator(progress = { pullRefreshState.distanceFraction }, modifier = Modifier.fillMaxWidth())
