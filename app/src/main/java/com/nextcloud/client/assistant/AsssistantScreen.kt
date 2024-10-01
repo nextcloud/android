@@ -32,10 +32,10 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -52,6 +52,7 @@ import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import java.lang.ref.WeakReference
 
 @Suppress("LongMethod")
@@ -67,20 +68,26 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
     var taskIdToDeleted: Long? by remember {
         mutableStateOf(null)
     }
+    val scope = rememberCoroutineScope()
+
+
     val pullRefreshState = rememberPullToRefreshState()
 
+
     @Suppress("MagicNumber")
-    if (pullRefreshState.isRefreshing) {
+    if (pullRefreshState.isAnimating) {
         LaunchedEffect(true) {
             delay(1500)
             viewModel.fetchTaskList(onCompleted = {
-                pullRefreshState.endRefresh()
+                scope.launch {
+                    pullRefreshState.animateToHidden()
+                }
             })
         }
     }
 
-    Box(Modifier.nestedScroll(pullRefreshState.nestedScrollConnection)) {
-        if (state == AssistantViewModel.State.Loading || pullRefreshState.isRefreshing) {
+    Box() {
+        if (state == AssistantViewModel.State.Loading || pullRefreshState.isAnimating) {
             CenterText(text = stringResource(id = R.string.assistant_screen_loading))
         } else {
             if (filteredTaskList.isNullOrEmpty()) {
@@ -99,10 +106,10 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
             }
         }
 
-        if (pullRefreshState.isRefreshing) {
+        if (pullRefreshState.isAnimating) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         } else {
-            LinearProgressIndicator(progress = { pullRefreshState.progress }, modifier = Modifier.fillMaxWidth())
+            LinearProgressIndicator(progress = { pullRefreshState.distanceFraction }, modifier = Modifier.fillMaxWidth())
         }
 
         if (selectedTaskType?.name != stringResource(id = R.string.assistant_screen_all_task_type)) {
