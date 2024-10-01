@@ -994,7 +994,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
         OCFile currentFile = getCurrentFile();
-        OCFile topParent = storageManager.getFileById(storageManager.getTopParentId(currentFile));
+        OCFile topParent = storageManager.getTopParent(currentFile);
         int moveCount = 0;
 
         if (shouldNavigateNormally(topParent)) {

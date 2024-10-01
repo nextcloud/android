@@ -260,6 +260,11 @@ public class FileDataStorageManager {
         return fileDao.getFileByEncryptedRemotePath(path, user.getAccountName()) != null;
     }
 
+    public OCFile getTopParent(OCFile file) {
+        long topParentId = getTopParentId(file);
+        return getFileById(topParentId);
+    }
+
     public long getTopParentId(OCFile file) {
         if (file.getParentId() == 1) {
             return file.getFileId();
