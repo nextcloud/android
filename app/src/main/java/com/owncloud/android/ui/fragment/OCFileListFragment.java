@@ -132,6 +132,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.RejectedExecutionException;
 
 import javax.inject.Inject;
 
@@ -982,7 +983,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private Future<Pair<Integer, OCFile>> getPreviousFile() {
+    private Future<Pair<Integer, OCFile>> getPreviousFile() throws NullPointerException, RejectedExecutionException {
         CompletableFuture<Pair<Integer, OCFile>> completableFuture = new CompletableFuture<>();
 
         Executors.newCachedThreadPool().submit(() -> {
@@ -1026,9 +1027,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mFile = result.second;
             updateFileList();
             return result.first;
-        } catch (java.util.concurrent.ExecutionException | java.lang.InterruptedException e) {
-            Log_OC.e(TAG,"Error caught at onBrowseUp: " + e);
-            return 0;
+        } catch (java.util.concurrent.ExecutionException | java.lang.InterruptedException | NullPointerException |
+                 RejectedExecutionException e) {
+            Log_OC.e(TAG,"Error caught in onBrowseUp " + e + " getPreviousFileWithoutFilter() used: ");
+
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+            var result = getPreviousFileWithoutFilter(storageManager);
+            mFile = result.second;
+            updateFileList();
+            return result.first;
         }
     }
 
