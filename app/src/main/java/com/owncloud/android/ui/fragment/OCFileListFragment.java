@@ -54,7 +54,6 @@ import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.Throttler;
 import com.nextcloud.common.NextcloudClient;
-import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.ShortcutUtil;
@@ -930,42 +929,62 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return 0;
         }
 
-        OCFile currentFile = getCurrentFile();
-        OCFile parentDir = null;
-        int moveCount = 0;
         FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        String parentPath = null;
+        OCFile currentFile = getCurrentFile();
+        OCFile topParent = storageManager.getFileById(storageManager.getTopParentId(currentFile));
+        int moveCount = 0;
 
-        if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
-            parentPath = new File(mFile.getRemotePath()).getParent();
+        if (DrawerActivity.menuItemId != R.id.nav_shared && DrawerActivity.menuItemId != R.id.nav_favorites ||
+            (DrawerActivity.menuItemId == R.id.nav_shared && topParent != null && topParent.isShared()) ||
+            (DrawerActivity.menuItemId == R.id.nav_favorites && topParent != null && topParent.isFavorite())) {
+            OCFile parentDir = null;
+            String parentPath = null;
 
-            if (parentPath != null) {
-                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
-                parentDir = storageManager.getFileByPath(parentPath);
-                moveCount++;
+            if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+                parentPath = new File(mFile.getRemotePath()).getParent();
+
+                if (parentPath != null) {
+                    parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+                    parentDir = storageManager.getFileByPath(parentPath);
+                    moveCount++;
+                }
+            } else {
+                parentDir = storageManager.getFileByPath(ROOT_PATH);
             }
-        } else {
-            parentDir = storageManager.getFileByPath(ROOT_PATH);
-        }
 
-        while (parentDir == null) {
-            parentPath = new File(parentPath).getParent();
+            while (parentDir == null) {
+                parentPath = new File(parentPath).getParent();
 
-            if (parentPath != null) {
-                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
-                    parentPath + OCFile.PATH_SEPARATOR;
-                parentDir = storageManager.getFileByPath(parentPath);
-                moveCount++;
+                if (parentPath != null) {
+                    parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                        parentPath + OCFile.PATH_SEPARATOR;
+                    parentDir = storageManager.getFileByPath(parentPath);
+                    moveCount++;
+                }
             }
-        }
 
-        // TODO Optimize
-        if (DrawerActivity.menuItemId == R.id.nav_favorites) {
-            mFile = storageManager.getParentByFilterType(currentFile, parentDir, OCFileFilterType.Favorite);
-        } else if (DrawerActivity.menuItemId == R.id.nav_shared) {
-            mFile = storageManager.getParentByFilterType(currentFile, parentDir, OCFileFilterType.Shared);
-        } else {
             mFile = parentDir;
+        } else if (DrawerActivity.menuItemId == R.id.nav_shared || DrawerActivity.menuItemId == R.id.nav_favorites) {
+            while (true) {
+                OCFile parent = storageManager.getFileById(currentFile.getParentId());
+
+                if (parent == null) {
+                    break;
+                }
+
+                if (parent.isRootDirectory()) {
+                    mFile = parent;
+                    break;
+                }
+
+                if ((DrawerActivity.menuItemId == R.id.nav_shared  && parent.isShared()) ||
+                    (DrawerActivity.menuItemId == R.id.nav_favorites && parent.isFavorite())) {
+                    mFile = parent;
+                    break;
+                }
+
+                currentFile = parent;
+            }
         }
 
         listDirectory(mFile, MainApp.isOnlyOnDevice(), false);
