@@ -916,6 +916,69 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    private boolean shouldNavigateNormally(OCFile topParent) {
+        int menuItemId = DrawerActivity.menuItemId;
+        return (menuItemId != R.id.nav_shared && menuItemId != R.id.nav_favorites) ||
+            (menuItemId == R.id.nav_shared && topParent != null && topParent.isShared()) ||
+            (menuItemId == R.id.nav_favorites && topParent != null && topParent.isFavorite());
+    }
+
+    private boolean shouldNavigateWithFilter() {
+        int menuItemId = DrawerActivity.menuItemId;
+        return menuItemId == R.id.nav_shared || menuItemId == R.id.nav_favorites;
+    }
+
+    private Pair<Integer, OCFile> navigateNormally(FileDataStorageManager storageManager) {
+        int moveCount = 0;
+        OCFile parentDir = null;
+        String parentPath = null;
+
+        if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
+            parentPath = new File(mFile.getRemotePath()).getParent();
+
+            if (parentPath != null) {
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
+                parentDir = storageManager.getFileByPath(parentPath);
+                moveCount++;
+            }
+        } else {
+            parentDir = storageManager.getFileByPath(ROOT_PATH);
+        }
+
+        while (parentDir == null) {
+            parentPath = new File(parentPath).getParent();
+
+            if (parentPath != null) {
+                parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
+                    parentPath + OCFile.PATH_SEPARATOR;
+                parentDir = storageManager.getFileByPath(parentPath);
+                moveCount++;
+            }
+        }
+
+        return new Pair<>(moveCount, parentDir);
+    }
+
+    private OCFile navigateWithFilter(FileDataStorageManager storageManager, OCFile currentFile) {
+        while (true) {
+            OCFile parent = storageManager.getFileById(currentFile.getParentId());
+            if (parent == null) {
+                return currentFile;
+            }
+
+            if (parent.isRootDirectory()) {
+                return parent;
+            }
+
+            if ((DrawerActivity.menuItemId == R.id.nav_shared && parent.isShared()) ||
+                (DrawerActivity.menuItemId == R.id.nav_favorites && parent.isFavorite())) {
+                return parent;
+            }
+
+            currentFile = parent;
+        }
+    }
+
     /**
      * Call this, when the user presses the up button.
      * <p>
@@ -934,64 +997,23 @@ public class OCFileListFragment extends ExtendedListFragment implements
         OCFile topParent = storageManager.getFileById(storageManager.getTopParentId(currentFile));
         int moveCount = 0;
 
-        if (DrawerActivity.menuItemId != R.id.nav_shared && DrawerActivity.menuItemId != R.id.nav_favorites ||
-            (DrawerActivity.menuItemId == R.id.nav_shared && topParent != null && topParent.isShared()) ||
-            (DrawerActivity.menuItemId == R.id.nav_favorites && topParent != null && topParent.isFavorite())) {
-            OCFile parentDir = null;
-            String parentPath = null;
-
-            if (mFile.getParentId() != FileDataStorageManager.ROOT_PARENT_ID) {
-                parentPath = new File(mFile.getRemotePath()).getParent();
-
-                if (parentPath != null) {
-                    parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath : parentPath + OCFile.PATH_SEPARATOR;
-                    parentDir = storageManager.getFileByPath(parentPath);
-                    moveCount++;
-                }
-            } else {
-                parentDir = storageManager.getFileByPath(ROOT_PATH);
-            }
-
-            while (parentDir == null) {
-                parentPath = new File(parentPath).getParent();
-
-                if (parentPath != null) {
-                    parentPath = parentPath.endsWith(OCFile.PATH_SEPARATOR) ? parentPath :
-                        parentPath + OCFile.PATH_SEPARATOR;
-                    parentDir = storageManager.getFileByPath(parentPath);
-                    moveCount++;
-                }
-            }
-
-            mFile = parentDir;
-        } else if (DrawerActivity.menuItemId == R.id.nav_shared || DrawerActivity.menuItemId == R.id.nav_favorites) {
-            while (true) {
-                OCFile parent = storageManager.getFileById(currentFile.getParentId());
-
-                if (parent == null) {
-                    break;
-                }
-
-                if (parent.isRootDirectory()) {
-                    mFile = parent;
-                    break;
-                }
-
-                if ((DrawerActivity.menuItemId == R.id.nav_shared  && parent.isShared()) ||
-                    (DrawerActivity.menuItemId == R.id.nav_favorites && parent.isFavorite())) {
-                    mFile = parent;
-                    break;
-                }
-
-                currentFile = parent;
-            }
+        if (shouldNavigateNormally(topParent)) {
+            var result = navigateNormally(storageManager);
+            moveCount = result.first;
+            mFile = result.second;
+        } else if (shouldNavigateWithFilter()) {
+            mFile = navigateWithFilter(storageManager, currentFile);
         }
 
+        updateFileList();
+
+        return moveCount;
+    }
+
+    private void updateFileList() {
         listDirectory(mFile, MainApp.isOnlyOnDevice(), false);
         onRefresh(false);
         restoreIndexAndTopPosition();
-
-        return moveCount;
     }
 
     /**
