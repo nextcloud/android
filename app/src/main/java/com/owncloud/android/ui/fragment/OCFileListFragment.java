@@ -983,7 +983,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private Future<Pair<Integer, OCFile>> getPreviousFile() throws NullPointerException, RejectedExecutionException {
+    private Future<Pair<Integer, OCFile>> getPreviousFile() {
         CompletableFuture<Pair<Integer, OCFile>> completableFuture = new CompletableFuture<>();
 
         Executors.newCachedThreadPool().submit(() -> {
@@ -1027,8 +1027,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mFile = result.second;
             updateFileList();
             return result.first;
-        } catch (java.util.concurrent.ExecutionException | java.lang.InterruptedException | NullPointerException |
-                 RejectedExecutionException e) {
+        } catch (Exception e) {
             Log_OC.e(TAG,"Error caught in onBrowseUp " + e + " getPreviousFileWithoutFilter() used: ");
 
             FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
