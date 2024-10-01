@@ -36,7 +36,6 @@ fun DrawerActivity.getMenuItemIdFromTitle(): Int? {
         getString(R.string.drawer_item_groupfolders) -> R.id.nav_groupfolders
         getString(R.string.drawer_item_on_device) -> R.id.nav_on_device
         getString(R.string.drawer_item_recently_modified) -> R.id.nav_recently_modified
-        getString(R.string.drawer_item_notifications) -> R.id.nav_notifications
         getString(R.string.drawer_item_assistant) -> R.id.nav_assistant
         getString(R.string.drawer_item_uploads_list) -> R.id.nav_uploads
         getString(R.string.drawer_item_trashbin) -> R.id.nav_trashbin

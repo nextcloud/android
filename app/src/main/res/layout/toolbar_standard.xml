@@ -197,9 +197,23 @@
                     android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toRightOf="@id/menu_button"
-                    app:layout_constraintRight_toLeftOf="@id/switch_account_button"
+                    app:layout_constraintRight_toLeftOf="@id/notification_button"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:text="Search in Nextcloud" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/notification_button"
+                    style="@style/Widget.AppTheme.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/notification_icon_description"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:iconSize="20dp"
+                    app:icon="@drawable/ic_notification"
+                    app:iconTint="@color/fontAppbar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/switch_account_button"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/switch_account_button"
