@@ -78,6 +78,7 @@ public final class BitmapUtils {
         // make a false load of the bitmap to get its dimensions
         options.inJustDecodeBounds = true;
 
+        // FIXME after auto-rename can't generate thumbnail from localPath
         BitmapFactory.decodeFile(srcPath, options);
 
         // calculate factor to subsample the bitmap
