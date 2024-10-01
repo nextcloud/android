@@ -916,7 +916,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private boolean shouldNavigateNormally(OCFile topParent) {
+    private boolean shouldNavigateWithoutFilter(OCFile topParent) {
         int menuItemId = DrawerActivity.menuItemId;
         return (menuItemId != R.id.nav_shared && menuItemId != R.id.nav_favorites) ||
             (menuItemId == R.id.nav_shared && topParent != null && topParent.isShared()) ||
@@ -928,7 +928,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return menuItemId == R.id.nav_shared || menuItemId == R.id.nav_favorites;
     }
 
-    private Pair<Integer, OCFile> navigateNormally(FileDataStorageManager storageManager) {
+    private Pair<Integer, OCFile> getPreviousFileWithoutFilter(FileDataStorageManager storageManager) {
         int moveCount = 0;
         OCFile parentDir = null;
         String parentPath = null;
@@ -959,7 +959,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         return new Pair<>(moveCount, parentDir);
     }
 
-    private OCFile navigateWithFilter(FileDataStorageManager storageManager, OCFile currentFile) {
+    private OCFile getPreviousFileWithFilter(FileDataStorageManager storageManager, OCFile currentFile) {
         while (true) {
             OCFile parent = storageManager.getFileById(currentFile.getParentId());
             if (parent == null) {
@@ -997,12 +997,12 @@ public class OCFileListFragment extends ExtendedListFragment implements
         OCFile topParent = storageManager.getTopParent(currentFile);
         int moveCount = 0;
 
-        if (shouldNavigateNormally(topParent)) {
-            var result = navigateNormally(storageManager);
+        if (shouldNavigateWithoutFilter(topParent)) {
+            var result = getPreviousFileWithoutFilter(storageManager);
             moveCount = result.first;
             mFile = result.second;
         } else if (shouldNavigateWithFilter()) {
-            mFile = navigateWithFilter(storageManager, currentFile);
+            mFile = getPreviousFileWithFilter(storageManager, currentFile);
         }
 
         updateFileList();
