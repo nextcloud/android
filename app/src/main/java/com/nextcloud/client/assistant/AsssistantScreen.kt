@@ -73,12 +73,14 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
     val pullRefreshState = rememberPullToRefreshState()
 
     @Suppress("MagicNumber")
-    Box(modifier = Modifier.pullToRefresh(isRefreshing, pullRefreshState, onRefresh = {
-        scope.launch {
-            delay(1500)
-            viewModel.fetchTaskList()
-        }
-    })) {
+    Box(
+        modifier = Modifier.pullToRefresh(isRefreshing, pullRefreshState, onRefresh = {
+            scope.launch {
+                delay(1500)
+                viewModel.fetchTaskList()
+            }
+        })
+    ) {
         if (state == AssistantViewModel.State.Loading || isRefreshing) {
             CenterText(text = stringResource(id = R.string.assistant_screen_loading))
         } else {
@@ -101,7 +103,10 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
         if (isRefreshing) {
             LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
         } else {
-            LinearProgressIndicator(progress = { pullRefreshState.distanceFraction }, modifier = Modifier.fillMaxWidth())
+            LinearProgressIndicator(
+                progress = { pullRefreshState.distanceFraction },
+                modifier = Modifier.fillMaxWidth()
+            )
         }
 
         if (selectedTaskType?.name != stringResource(id = R.string.assistant_screen_all_task_type)) {
