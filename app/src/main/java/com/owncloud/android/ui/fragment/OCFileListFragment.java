@@ -129,6 +129,9 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import javax.inject.Inject;
 
@@ -979,6 +982,31 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    private Future<Pair<Integer, OCFile>> getPreviousFile() {
+        CompletableFuture<Pair<Integer, OCFile>> completableFuture = new CompletableFuture<>();
+
+        Executors.newCachedThreadPool().submit(() -> {
+            var result = new Pair<Integer, OCFile>(null, null);
+
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+            OCFile currentFile = getCurrentFile();
+            OCFile topParent = storageManager.getTopParent(currentFile);
+
+            if (shouldNavigateWithoutFilter(topParent)) {
+                result = getPreviousFileWithoutFilter(storageManager);
+            } else if (shouldNavigateWithFilter()) {
+                OCFile previousFileWithFilter = getPreviousFileWithFilter(storageManager, currentFile);
+                result = new Pair<>(0, previousFileWithFilter);
+            }
+
+            completableFuture.complete(result);
+
+            return null;
+        });
+
+        return completableFuture;
+    }
+
     /**
      * Call this, when the user presses the up button.
      * <p>
@@ -992,22 +1020,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
             return 0;
         }
 
-        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        OCFile currentFile = getCurrentFile();
-        OCFile topParent = storageManager.getTopParent(currentFile);
-        int moveCount = 0;
-
-        if (shouldNavigateWithoutFilter(topParent)) {
-            var result = getPreviousFileWithoutFilter(storageManager);
-            moveCount = result.first;
+        try {
+            Future<Pair<Integer, OCFile>> futureResult = getPreviousFile();
+            Pair<Integer, OCFile> result = futureResult.get();
             mFile = result.second;
-        } else if (shouldNavigateWithFilter()) {
-            mFile = getPreviousFileWithFilter(storageManager, currentFile);
+            updateFileList();
+            return result.first;
+        } catch (java.util.concurrent.ExecutionException | java.lang.InterruptedException e) {
+            Log_OC.e(TAG,"Error caught at onBrowseUp: " + e);
+            return 0;
         }
-
-        updateFileList();
-
-        return moveCount;
     }
 
     private void updateFileList() {
