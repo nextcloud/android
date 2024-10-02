@@ -37,6 +37,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.operations.DownloadType
+import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.security.SecureRandom
 import java.util.AbstractList
@@ -115,6 +116,11 @@ class FileDownloadWorker(
     override fun doWork(): Result {
         return try {
             val requestDownloads = getRequestDownloads()
+            if (requestDownloads.isEmpty()) {
+                Log_OC.e(TAG, "FilesDownloadWorker was canceled; no requests or downloads were found")
+                return Result.success()
+            }
+
             addAccountUpdateListener()
 
             val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
@@ -230,6 +236,8 @@ class FileDownloadWorker(
             fileDataStorageManager?.getAllFilesRecursivelyInsideFolder(file) ?: listOf()
         } else {
             listOf(file)
+        }.filterNot {
+            it.isDown && (MimeTypeUtil.isImageOrVideo(it) || MimeTypeUtil.isAudio(it))
         }
     }
 
