@@ -25,6 +25,7 @@ import com.google.common.collect.Sets
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.typedActivity
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.EditBoxDialogBinding
@@ -174,9 +175,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             }
 
             val path = mParentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
-            if (requireActivity() is ComponentsGetter) {
-                (requireActivity() as ComponentsGetter).fileOperationsHelper.createFolder(path)
-            }
+            typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createFolder(path)
         }
     }
 
