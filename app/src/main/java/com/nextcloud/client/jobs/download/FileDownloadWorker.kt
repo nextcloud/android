@@ -237,7 +237,7 @@ class FileDownloadWorker(
         } else {
             listOf(file)
         }.filterNot {
-            it.isDown && (MimeTypeUtil.isImageOrVideo(it) || MimeTypeUtil.isAudio(it))
+            it.isDown && MimeTypeUtil.isMedia(it.mimeType)
         }
     }
 
