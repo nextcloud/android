@@ -17,7 +17,7 @@ fun OCCapability.forbiddenFilenames(): List<String> = jsonToList(forbiddenFilena
 
 fun OCCapability.forbiddenFilenameCharacters(): List<String> = jsonToList(forbiddenFilenameCharactersJson)
 
-fun OCCapability.forbiddenFilenameExtension(): List<String> = jsonToList(forbiddenFilenameExtensionJson)
+fun OCCapability.forbiddenFilenameExtensions(): List<String> = jsonToList(forbiddenFilenameExtensionJson)
 
 fun OCCapability.forbiddenFilenameBaseNames(): List<String> = jsonToList(forbiddenFilenameBaseNamesJson)
 
