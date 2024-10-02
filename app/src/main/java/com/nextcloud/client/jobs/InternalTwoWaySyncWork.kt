@@ -83,7 +83,7 @@ class InternalTwoWaySyncWork(
 
     @Suppress("TooGenericExceptionCaught")
     private fun checkFreeSpace(folder: OCFile): Result? {
-        val storagePath = folder.storagePath ?: return null
+        val storagePath = folder.storagePath ?: MainApp.getStoragePath()
         val file = File(storagePath)
 
         if (!file.exists()) return null
