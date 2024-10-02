@@ -618,6 +618,7 @@
     <string name="placeholder_sentence">Це заповнювач</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">переключитися</string>
+    <string name="please_select_a_server">Виберіть сервер...</string>
     <string name="power_save_check_dialog_message">Вимкнення заощадження батареї може вплинути на завантаження файлів при низькому заряді!</string>
     <string name="pref_behaviour_entries_delete_file">вилучено</string>
     <string name="pref_behaviour_entries_keep_file">Збережено у вихідному каталозі</string>
