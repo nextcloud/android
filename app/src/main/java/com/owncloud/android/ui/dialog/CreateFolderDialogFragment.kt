@@ -175,9 +175,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             }
 
             val path = mParentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
-            if (requireActivity() is ComponentsGetter) {
-                (requireActivity() as ComponentsGetter).fileOperationsHelper.createFolder(path)
-            }
+            typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createFolder(path)
         }
     }
 
