@@ -15,7 +15,7 @@ enum class DeepLinkConstants(val route: String, val navId: Int) {
     OPEN_MEDIA("openMedia", R.id.nav_gallery),
     OPEN_SHARED("openShared", R.id.nav_shared),
     OPEN_OFFLINE("openOffline", R.id.nav_on_device),
-    OPEN_NOTIFICATIONS("openNotifications", R.id.nav_notifications),
+    OPEN_NOTIFICATIONS("openNotifications", -1),
     OPEN_DELETED("openDeleted", R.id.nav_trashbin),
     OPEN_SETTINGS("openSettings", R.id.nav_settings),
 

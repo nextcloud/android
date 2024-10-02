@@ -65,12 +65,6 @@
             android:title="@string/drawer_item_recently_modified"
             android:visible="true"/>
         <item
-            android:orderInCategory="0"
-            android:id="@+id/nav_notifications"
-            android:icon="@drawable/nav_notifications"
-            android:title="@string/drawer_item_notifications"/>
-
-        <item
             android:id="@+id/nav_assistant"
             android:icon="@drawable/ic_assistant"
             android:orderInCategory="0"

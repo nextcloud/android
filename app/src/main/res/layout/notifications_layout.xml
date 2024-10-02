@@ -6,93 +6,79 @@
   ~ SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clickable="true"
-    android:fitsSystemWindows="true"
-    android:focusable="true">
+    android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <include layout="@layout/toolbar_back_button" />
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/action_bar_margin_top"
+        android:layout_below="@id/appbar"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/toolbar_standard" />
-
-        <FrameLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_containing_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/appbar"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:footerDividersEnabled="false"
+            android:visibility="visible">
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_containing_list"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@android:id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:footerDividersEnabled="false"
-                android:visibility="visible">
+                android:layout_marginLeft="-3dp"
+                android:layout_marginRight="-3dp"
+                android:layout_marginBottom="-3dp"
+                android:background="@color/bg_default"
+                android:clipToPadding="false"
+                android:scrollbarStyle="outsideOverlay"
+                android:scrollbars="vertical"
+                android:visibility="visible"
+                tools:listitem="@layout/notification_list_item" />
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@android:id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="-3dp"
-                    android:layout_marginRight="-3dp"
-                    android:layout_marginBottom="-3dp"
-                    android:background="@color/bg_default"
-                    android:clipToPadding="false"
-                    android:scrollbarStyle="outsideOverlay"
-                    android:scrollbars="vertical"
-                    android:visibility="visible"
-                    tools:listitem="@layout/notification_list_item" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_containing_empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:footerDividersEnabled="false"
+            android:visibility="visible">
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe_containing_empty"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:footerDividersEnabled="false"
-                android:visibility="visible">
+                android:layout_height="match_parent">
 
-                <FrameLayout
+                <LinearLayout
+                    android:id="@+id/loading_content"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
 
-                    <LinearLayout
-                        android:id="@+id/loading_content"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:visibility="visible">
+                    <include layout="@layout/activity_list_item_shimmer" />
 
-                        <include layout="@layout/activity_list_item_shimmer" />
+                    <include layout="@layout/activity_list_item_shimmer" />
 
-                        <include layout="@layout/activity_list_item_shimmer" />
+                    <include layout="@layout/activity_list_item_shimmer" />
 
-                        <include layout="@layout/activity_list_item_shimmer" />
+                    <include layout="@layout/activity_list_item_shimmer" />
 
-                        <include layout="@layout/activity_list_item_shimmer" />
+                </LinearLayout>
 
-                    </LinearLayout>
+                <include
+                    android:id="@+id/empty_list"
+                    layout="@layout/empty_list" />
 
-                    <include
-                        android:id="@+id/empty_list"
-                        layout="@layout/empty_list" />
+            </FrameLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-                </FrameLayout>
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
-        </FrameLayout>
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-    <include
-        layout="@layout/drawer"
-        android:layout_width="@dimen/drawer_width"
-        android:layout_height="match_parent"
-        android:layout_gravity="start" />
-
-</androidx.drawerlayout.widget.DrawerLayout>
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

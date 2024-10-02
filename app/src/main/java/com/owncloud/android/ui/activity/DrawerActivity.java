@@ -539,8 +539,6 @@ public abstract class DrawerActivity extends ToolbarActivity
             startActivity(TrashbinActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
         } else if (itemId == R.id.nav_activity) {
             startActivity(ActivitiesActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        } else if (itemId == R.id.nav_notifications) {
-            startActivity(NotificationsActivity.class);
         } else if (itemId == R.id.nav_settings) {
             startActivity(SettingsActivity.class);
         } else if (itemId == R.id.nav_community) {
@@ -583,7 +581,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         startActivity(composeActivity);
     }
 
-    private void startActivity(Class<? extends Activity> activity) {
+    void startActivity(Class<? extends Activity> activity) {
         startActivity(new Intent(getApplicationContext(), activity));
     }
 
@@ -1305,6 +1303,9 @@ public abstract class DrawerActivity extends ToolbarActivity
                 break;
             case ACTION_APP_UPDATE:
                 openAppStore(getPackageName(), false);
+                break;
+            case OPEN_NOTIFICATIONS:
+                startActivity(NotificationsActivity.class);
                 break;
             default:
                 handleNavItemClickEvent(deepLinkType.getNavId());

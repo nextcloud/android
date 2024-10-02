@@ -83,6 +83,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOperation;
+import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.DownloadType;
@@ -308,6 +310,7 @@ public class FileDisplayActivity extends FileActivity
         setupHomeSearchToolbarWithSortAndListButtons();
         mMenuButton.setOnClickListener(v -> openDrawer());
         mSwitchAccountButton.setOnClickListener(v -> showManageAccountsDialog());
+        mNotificationButton.setOnClickListener(v -> startActivity(NotificationsActivity.class));
         fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout);
     }
 
@@ -395,6 +398,7 @@ public class FileDisplayActivity extends FileActivity
 
         upgradeNotificationForInstantUpload();
         checkOutdatedServer();
+        checkNotifications();
     }
 
     private Activity getActivity() {
@@ -424,6 +428,24 @@ public class FileDisplayActivity extends FileActivity
         if (user.isPresent() && CapabilityUtils.checkOutdatedWarning(getResources(), user.get().getServer().getVersion(), getCapabilities().getExtendedSupport().isTrue())) {
             DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
         }
+    }
+    
+    private void checkNotifications() {
+        new Thread(() -> {
+            try {
+                RemoteOperationResult<List<Notification>> result = new GetNotificationsRemoteOperation()
+                    .execute(clientFactory.createNextcloudClient(accountManager.getUser()));
+                
+                if (result.isSuccess() && !result.getResultData().isEmpty()) {
+                    runOnUiThread(() -> mNotificationButton.setVisibility(View.VISIBLE));
+                } else {
+                    runOnUiThread(() -> mNotificationButton.setVisibility(View.GONE));
+                }
+                
+            } catch (ClientFactory.CreationException e) {
+                Log_OC.e(TAG, "Could not fetch notifications!");
+            }
+        }).start();
     }
 
     @Override
@@ -1153,6 +1175,8 @@ public class FileDisplayActivity extends FileActivity
         }
         //show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this);
+        
+        checkNotifications();
 
         Log_OC.v(TAG, "onResume() end");
     }
