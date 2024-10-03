@@ -9,6 +9,7 @@ package com.owncloud.android.ui.activity;
 
 import android.app.DownloadManager;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -36,6 +37,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.WebViewUtil;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -200,7 +202,20 @@ public abstract class EditorWebView extends ExternalSiteWebView {
             return;
         }
 
-        uploadMessage.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, data));
+        if (data.getClipData() == null) {
+            // one file
+            uploadMessage.onReceiveValue(WebChromeClient.FileChooserParams.parseResult(resultCode, data));    
+        } else {
+            ArrayList<Uri> uris = new ArrayList<>();
+            // multiple files
+            for (int i = 0; i < data.getClipData().getItemCount(); i++) {
+                ClipData.Item item = data.getClipData().getItemAt(i);
+                uris.add(item.getUri());
+            }
+            
+            uploadMessage.onReceiveValue(uris.toArray(new Uri[0]));
+        }
+
         uploadMessage = null;
     }
 
