@@ -590,6 +590,7 @@
     <string name="notification_channel_upload_description">顯示上傳進度</string>
     <string name="notification_channel_upload_name_short">上傳</string>
     <string name="notification_icon">提示圖示</string>
+    <string name="notification_icon_description">有未讀的通知</string>
     <string name="notifications_no_results_headline">沒有通知</string>
     <string name="notifications_no_results_message">請稍候再檢查</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">擱置中的操作</string>

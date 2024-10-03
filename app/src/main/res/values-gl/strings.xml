@@ -590,6 +590,7 @@
     <string name="notification_channel_upload_description">Amosa o progreso do envío</string>
     <string name="notification_channel_upload_name_short">Envíos</string>
     <string name="notification_icon">Icona de notificación</string>
+    <string name="notification_icon_description">Hai notificacións sen ler</string>
     <string name="notifications_no_results_headline">Non hai notificacións</string>
     <string name="notifications_no_results_message">Compróbeo máis adiante.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Operación pendente</string>
