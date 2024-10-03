@@ -590,6 +590,7 @@
     <string name="notification_channel_upload_description">Visar uppladdningsförloppet</string>
     <string name="notification_channel_upload_name_short">Uppladdningar</string>
     <string name="notification_icon">Meddelandeikon</string>
+    <string name="notification_icon_description">Det finns olästa aviseringar</string>
     <string name="notifications_no_results_headline">Inga aviseringar</string>
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Väntande operation</string>
