@@ -411,9 +411,14 @@
     <string name="file_migration_updating_index">Updating index…</string>
     <string name="file_migration_use_data_folder">Use</string>
     <string name="file_migration_waiting_for_unfinished_sync">Awaiting full sync…</string>
+    <string name="file_name_validator_current_path_is_invalid">Current folder name is invalid, please rename the folder. Redirecting home…</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Folder path contains reserved names or invalid characters</string>
     <string name="file_name_validator_error_forbidden_file_extensions">%s is a forbidden file extension</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Filenames must not contain spaces at the beginning or end</string>
+    <string name="file_name_validator_error_invalid_character">Name contains invalid characters: %s</string>
     <string name="file_name_validator_error_reserved_names">%s is a forbidden name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Please rename the file before moving or copying</string>
+    <string name="file_name_validator_upload_content_error">Some content cannot be uploaded since it contains reserved names or invalid characters</string>
     <string name="file_not_found">File not found</string>
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
@@ -585,6 +590,7 @@
     <string name="notification_channel_upload_description">Shows upload progress</string>
     <string name="notification_channel_upload_name_short">Uploads</string>
     <string name="notification_icon">Notification icon</string>
+    <string name="notification_icon_description">Unread notifications exist</string>
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>

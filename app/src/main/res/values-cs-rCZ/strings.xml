@@ -87,6 +87,7 @@
     <string name="auth_unknown_host_title">Nedaří se najít hostitele</string>
     <string name="auth_unsupported_multiaccount">%1$s nepodporuje vícero účtů</string>
     <string name="auth_wrong_connection_title">Nedaří se navázat spojení</string>
+    <string name="authenticator_activity_cancel_login">Zrušit přihlášení</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
     <string name="auto_upload_on_wifi">Nahrávat pouze přes neúčtované Wi-Fi připojení</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -172,6 +173,7 @@
     <string name="confirmation_remove_folders_alert">Opravdu chcete vybrané položky a jejich obsah odstranit?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
     <string name="conflict_file_headline">Kolidující soubor %1$s</string>
+    <string name="conflict_folder_headline">Konflikt složek</string>
     <string name="conflict_local_file">Místní soubor</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
     <string name="conflict_server_file">Soubor na serveru</string>
@@ -259,6 +261,7 @@
     <string name="drawer_item_home">Domů</string>
     <string name="drawer_item_notifications">Upozornění</string>
     <string name="drawer_item_on_device">Na přístroji</string>
+    <string name="drawer_item_personal_files">Osobní soubory</string>
     <string name="drawer_item_recently_modified">Nedávno změněné</string>
     <string name="drawer_item_shared">Sdíleno</string>
     <string name="drawer_item_trashbin">Smazané soubory</string>
@@ -390,6 +393,9 @@
     <string name="file_migration_updating_index">Aktualizace rejstříku…</string>
     <string name="file_migration_use_data_folder">Použít</string>
     <string name="file_migration_waiting_for_unfinished_sync">Čekání na úplnou synchronizaci…</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s je zakázaná přípona souboru</string>
+    <string name="file_name_validator_error_reserved_names">%s je zakázané jméno</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Před přesunutím nebo kopírováním prosím přejmenujte soubor</string>
     <string name="file_not_found">Soubor nenalezen</string>
     <string name="file_not_synced">Soubor se nepodařilo synchronizovat. Zobrazuje se poslední dostupná verze.</string>
     <string name="file_rename">Přejmenovat</string>
@@ -454,6 +460,7 @@
     <string name="instant_upload_existing">Také nahrát už existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync">Interní obousměrná synchronizace</string>
     <string name="invalid_url">Neplatná URL adresa</string>
     <string name="invisible">Neviditelné</string>
     <string name="label_empty">Štítek nemůže zůstat prázdný</string>

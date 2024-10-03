@@ -590,6 +590,7 @@
     <string name="notification_channel_upload_description">Léiríonn dul chun cinn uaslódála</string>
     <string name="notification_channel_upload_name_short">uaslódálacha</string>
     <string name="notification_icon">Deilbhín fógra</string>
+    <string name="notification_icon_description">Tá fógraí neamhléite ann</string>
     <string name="notifications_no_results_headline">Gan fógraí</string>
     <string name="notifications_no_results_message">Seiceáil ar ais ar ball le do thoil.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Oibríocht ar Feitheamh</string>
