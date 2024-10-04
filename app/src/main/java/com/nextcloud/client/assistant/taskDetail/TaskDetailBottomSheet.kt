@@ -25,6 +25,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
@@ -34,7 +35,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -54,7 +54,7 @@ fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
 
     ModalBottomSheet(
         modifier = Modifier.padding(top = 32.dp),
-        containerColor = Color.White,
+        containerColor = MaterialTheme.colorScheme.surface,
         onDismissRequest = { dismiss() },
         sheetState = sheetState
     ) {
@@ -91,7 +91,7 @@ fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
 
                 Column(
                     modifier = Modifier.fillMaxSize().background(
-                        color = colorResource(id = R.color.light_grey),
+                        color = MaterialTheme.colorScheme.secondaryContainer,
                         shape = RoundedCornerShape(8.dp)
                     ).padding(16.dp)
                 ) {
@@ -99,10 +99,10 @@ fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
                         text = if (showInput) {
                             task.input ?: ""
                         } else {
-                            task.output ?: ""
+                            task.output ?: stringResource(R.string.assistant_screen_task_output_empty_text)
                         },
                         fontSize = 12.sp,
-                        color = Color.Black,
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
                         modifier = Modifier
                             .animateContentSize(
                                 animationSpec = spring(
@@ -113,7 +113,7 @@ fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
                     )
                 }
 
-                TaskStatus(task, foregroundColor = Color.Black)
+                TaskStatus(task, foregroundColor = MaterialTheme.colorScheme.onPrimaryContainer)
 
                 Spacer(modifier = Modifier.height(32.dp))
             }
@@ -127,15 +127,15 @@ private fun TextInputSelectButton(modifier: Modifier, titleId: Int, highlightCon
         onClick = onClick,
         shape = RoundedCornerShape(8.dp),
         colors = if (highlightCondition) {
-            ButtonDefaults.buttonColors(containerColor = Color.White)
+            ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
         } else {
-            ButtonDefaults.buttonColors(containerColor = colorResource(id = R.color.light_grey))
+            ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.secondary)
         },
         modifier = modifier
             .widthIn(min = 0.dp, max = 200.dp)
             .padding(horizontal = 4.dp)
     ) {
-        Text(text = stringResource(id = titleId), color = Color.Black)
+        Text(text = stringResource(id = titleId), color = MaterialTheme.colorScheme.surface)
     }
 }
 
