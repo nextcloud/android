@@ -35,10 +35,9 @@ import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.StatusDrawable;
 
-import org.apache.commons.codec.binary.Hex;
 
 import java.io.File;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
@@ -245,8 +244,8 @@ public final class BitmapUtils {
     public static Color usernameToColor(String name) {
         String hash = name.toLowerCase(Locale.ROOT);
 
-        // already a md5 hash?
-        if (!hash.matches("([0-9a-f]{4}-?){8}$")) {
+        // Check if the input is already a valid MD5 hash (32 hex characters)
+        if (hash.length() != 32 || !hash.matches("[0-9a-f]+")) {
             try {
                 hash = md5(hash);
             } catch (NoSuchAlgorithmException e) {
@@ -267,22 +266,15 @@ public final class BitmapUtils {
 
     private static int hashToInt(String hash, int maximum) {
         int finalInt = 0;
-        int[] result = new int[hash.length()];
 
-        // splitting evenly the string
+        // Sum the values of the hexadecimal digits
         for (int i = 0; i < hash.length(); i++) {
-            // chars in md5 goes up to f, hex: 16
-            result[i] = Integer.parseInt(String.valueOf(hash.charAt(i)), 16) % 16;
+            // Efficient hex char-to-int conversion
+            finalInt += Character.digit(hash.charAt(i), 16);
         }
 
-        // adds up all results
-        for (int value : result) {
-            finalInt += value;
-        }
-
-        // chars in md5 goes up to f, hex:16
-        // make sure we're always using int in our operation
-        return Integer.parseInt(String.valueOf(Integer.parseInt(String.valueOf(finalInt), 10) % maximum), 10);
+        // Return the sum modulo maximum
+        return finalInt % maximum;
     }
 
     private static Color[] generateColors(int steps) {
@@ -295,13 +287,9 @@ public final class BitmapUtils {
         Color[] palette3 = mixPalette(steps, blue, red);
 
         Color[] resultPalette = new Color[palette1.length + palette2.length + palette3.length];
-        System.arraycopy(palette1, 0, resultPalette, 0, palette1.length);
-        System.arraycopy(palette2, 0, resultPalette, palette1.length, palette2.length);
-        System.arraycopy(palette3,
-                         0,
-                         resultPalette,
-                         palette1.length + palette2.length,
-                         palette1.length);
+        System.arraycopy(palette1, 0, resultPalette, 0, steps);
+        System.arraycopy(palette2, 0, resultPalette, steps, steps);
+        System.arraycopy(palette3, 0, resultPalette, steps * 2, steps);
 
         return resultPalette;
     }
@@ -364,15 +352,21 @@ public final class BitmapUtils {
 
         @Override
         public int hashCode() {
-            return r * 10000 + g * 1000 + b;
+            return (r << 16) + (g << 8) + b;
         }
     }
 
     public static String md5(String string) throws NoSuchAlgorithmException {
         MessageDigest md5 = MessageDigest.getInstance("MD5");
-        md5.update(string.getBytes(Charset.defaultCharset()));
+        // Use UTF-8 for consistency
+        byte[] hashBytes = md5.digest(string.getBytes(StandardCharsets.UTF_8));
 
-        return new String(Hex.encodeHex(md5.digest()));
+        StringBuilder hexString = new StringBuilder(32);
+        for (byte b : hashBytes) {
+            // Convert each byte to a 2-digit hex string
+            hexString.append(String.format("%02x", b));
+        }
+        return hexString.toString();
     }
 
     /**
