@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
+import android.graphics.ImageDecoder;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -24,6 +25,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
@@ -35,6 +37,7 @@ import com.owncloud.android.ui.StatusDrawable;
 
 import org.apache.commons.codec.binary.Hex;
 
+import java.io.File;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -87,13 +90,20 @@ public final class BitmapUtils {
      * @return decoded bitmap
      */
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            // For API 28 and above, use ImageDecoder
+            try {
+                return ImageDecoder.decodeBitmap(ImageDecoder.createSource(new File(srcPath)),
+                                                 (decoder, info, source) -> {
+                                                     // Set the target size
+                                                     decoder.setTargetSize(reqWidth, reqHeight);
+                                                 });
+            } catch (Exception exception) {
+                Log_OC.e("BitmapUtil", "Error decoding the bitmap from file: " + srcPath + ", exception: " + exception.getMessage());
+            }
+        }
         // set desired options that will affect the size of the bitmap
         final Options options = new Options();
-        options.inScaled = true;
-        options.inPurgeable = true;
-        options.inPreferQualityOverSpeed = false;
-        options.inMutable = false;
 
         // make a false load of the bitmap to get its dimensions
         options.inJustDecodeBounds = true;
