@@ -181,45 +181,53 @@ public final class BitmapUtils {
             ExifInterface exifInterface = new ExifInterface(storagePath);
             int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
 
-            Matrix matrix = new Matrix();
+            if (orientation != ExifInterface.ORIENTATION_NORMAL) {
+                Matrix matrix = new Matrix();
+                switch (orientation) {
+                    // 2
+                    case ExifInterface.ORIENTATION_FLIP_HORIZONTAL: {
+                        matrix.postScale(-1.0f, 1.0f);
+                        break;
+                    }
+                    // 3
+                    case ExifInterface.ORIENTATION_ROTATE_180: {
+                        matrix.postRotate(180);
+                        break;
+                    }
+                    // 4
+                    case ExifInterface.ORIENTATION_FLIP_VERTICAL: {
+                        matrix.postScale(1.0f, -1.0f);
+                        break;
+                    }
+                    // 5
+                    case ExifInterface.ORIENTATION_TRANSPOSE: {
+                        matrix.postRotate(-90);
+                        matrix.postScale(1.0f, -1.0f);
+                        break;
+                    }
+                    // 6
+                    case ExifInterface.ORIENTATION_ROTATE_90: {
+                        matrix.postRotate(90);
+                        break;
+                    }
+                    // 7
+                    case ExifInterface.ORIENTATION_TRANSVERSE: {
+                        matrix.postRotate(90);
+                        matrix.postScale(1.0f, -1.0f);
+                        break;
+                    }
+                    // 8
+                    case ExifInterface.ORIENTATION_ROTATE_270: {
+                        matrix.postRotate(270);
+                        break;
+                    }
+                }
 
-            // 1: nothing to do
-
-            // 2
-            if (orientation == ExifInterface.ORIENTATION_FLIP_HORIZONTAL) {
-                matrix.postScale(-1.0f, 1.0f);
-            }
-            // 3
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
-                matrix.postRotate(180);
-            }
-            // 4
-            else if (orientation == ExifInterface.ORIENTATION_FLIP_VERTICAL) {
-                matrix.postScale(1.0f, -1.0f);
-            }
-            // 5
-            else if (orientation == ExifInterface.ORIENTATION_TRANSPOSE) {
-                matrix.postRotate(-90);
-                matrix.postScale(1.0f, -1.0f);
-            }
-            // 6
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
-                matrix.postRotate(90);
-            }
-            // 7
-            else if (orientation == ExifInterface.ORIENTATION_TRANSVERSE) {
-                matrix.postRotate(90);
-                matrix.postScale(1.0f, -1.0f);
-            }
-            // 8
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
-                matrix.postRotate(270);
-            }
-
-            // Rotate the bitmap
-            resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-            if (!resultBitmap.equals(bitmap)) {
-                bitmap.recycle();
+                // Rotate the bitmap
+                resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                if (!resultBitmap.equals(bitmap)) {
+                    bitmap.recycle();
+                }
             }
         } catch (Exception exception) {
             Log_OC.e("BitmapUtil", "Could not rotate the image: " + storagePath);
