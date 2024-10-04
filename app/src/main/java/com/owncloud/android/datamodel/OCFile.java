@@ -1076,11 +1076,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isInternalFolderSync() {
+        if (internalFolderSyncTimestamp == null) {
+            return false;
+        }
+
         return internalFolderSyncTimestamp >= 0;
     }
     
     public Long getInternalFolderSyncTimestamp() {
-        return internalFolderSyncTimestamp;
+        return Objects.requireNonNullElse(internalFolderSyncTimestamp, -1L);
     }
 
     public void setInternalFolderSyncTimestamp(Long internalFolderSyncTimestamp) {
