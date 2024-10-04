@@ -252,7 +252,7 @@
 
     <!-- Launch screen -->
     <style name="Theme.ownCloud.Launcher">
-        <item name="android:statusBarColor">@color/primary</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@color/primary</item>
         <item name="android:windowBackground">@color/primary</item>
         <item name="android:textColorHint">@color/secondary_text_color</item>
