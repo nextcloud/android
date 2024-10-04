@@ -212,8 +212,8 @@
     <string name="create_new_folder">Nouveau dossier</string>
     <string name="create_new_presentation">Nouvelle présentation</string>
     <string name="create_new_spreadsheet">Nouvelle feuille de calcul</string>
-    <string name="create_rich_workspace">Ajouter la description du dossier</string>
-    <string name="creates_rich_workspace">Ajouter la description du dossier</string>
+    <string name="create_rich_workspace">Ajouter une description du dossier</string>
+    <string name="creates_rich_workspace">Ajoute une description du dossier</string>
     <string name="credentials_disabled">Informations d\'identification désactivées</string>
     <string name="daily_backup">Sauvegarde journalière</string>
     <string name="data_to_back_up">Données à sauvegarder</string>
