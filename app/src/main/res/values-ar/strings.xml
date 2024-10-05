@@ -283,7 +283,7 @@
     <string name="drawer_synced_folders">تحميل تلقائي</string>
     <string name="e2e_counter_too_old">العدَّاد قديم جداً</string>
     <string name="e2e_hash_not_found">تعذّر العثور على التجزئة hash</string>
-    <string name="e2e_not_yet_setup">التشفير الطرفي E2EE غير مهيئ</string>
+    <string name="e2e_not_yet_setup">التشفير الطرفي E2EE لم تتم تهيئته</string>
     <string name="e2e_offline">غير ممكن بدون اتصال انترنت</string>
     <string name="e2e_signature_does_not_match">التوقيع غير مُطابق</string>
     <string name="ecosystem_apps_display_assistant">المُساعِد</string>
