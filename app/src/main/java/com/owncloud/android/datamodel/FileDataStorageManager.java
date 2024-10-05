@@ -1125,7 +1125,7 @@ public class FileDataStorageManager {
         ocFile.setLivePhoto(fileEntity.getMetadataLivePhoto());
         ocFile.setHidden(nullToZero(fileEntity.getHidden()) == 1);
         ocFile.setE2eCounter(fileEntity.getE2eCounter());
-        ocFile.setInternalFolderSyncTimestamp(fileEntity.getInternalTwoWaySync());
+        ocFile.setInternalFolderSyncTimestamp(nullToZero(fileEntity.getInternalTwoWaySync()));
 
         String sharees = fileEntity.getSharees();
         // Surprisingly JSON deserialization causes significant overhead.

@@ -44,6 +44,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.content.ContextCompat;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
@@ -118,6 +119,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         MaterialButton menuButton = findViewById(R.id.toolbar_menu_button);
         MaterialTextView titleTextView = findViewById(R.id.toolbar_title);
         titleTextView.setText(title);
+
+        titleTextView.setTextColor(ContextCompat.getColor(this, R.color.foreground_highlight));
+        menuButton.setIconTint(ContextCompat.getColorStateList(this, R.color.foreground_highlight));
+
         toolbar.setVisibility(View.VISIBLE);
         menuButton.setOnClickListener(toggleDrawer);
     }

@@ -590,6 +590,7 @@
     <string name="notification_channel_upload_description">Приказ напретка отпремања</string>
     <string name="notification_channel_upload_name_short">Отпремања</string>
     <string name="notification_icon">Иконица обавештења</string>
+    <string name="notification_icon_description">Постоје обавештења која нису прочитана</string>
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Проверите касније.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Операције на чекању</string>

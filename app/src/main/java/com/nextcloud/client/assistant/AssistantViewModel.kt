@@ -49,6 +49,9 @@ class AssistantViewModel(
     private val _filteredTaskList = MutableStateFlow<List<Task>?>(null)
     val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
 
+    private val _isRefreshing = MutableStateFlow(false)
+    val isRefreshing: StateFlow<Boolean> = _isRefreshing
+
     init {
         fetchTaskTypes()
         fetchTaskList()
@@ -104,8 +107,12 @@ class AssistantViewModel(
         }
     }
 
-    fun fetchTaskList(appId: String = "assistant", onCompleted: () -> Unit = {}) {
+    fun fetchTaskList(appId: String = "assistant") {
         viewModelScope.launch(Dispatchers.IO) {
+            _isRefreshing.update {
+                true
+            }
+
             val result = repository.getTaskList(appId)
             if (result.isSuccess) {
                 taskList = result.resultData.tasks
@@ -115,12 +122,14 @@ class AssistantViewModel(
                 _state.update {
                     State.Idle
                 }
-
-                onCompleted()
             } else {
                 _state.update {
                     State.Error(R.string.assistant_screen_task_list_error_state_message)
                 }
+            }
+
+            _isRefreshing.update {
+                false
             }
         }
     }

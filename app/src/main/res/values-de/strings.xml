@@ -590,6 +590,7 @@
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
     <string name="notification_channel_upload_name_short">Uploads</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
+    <string name="notification_icon_description">Ungelesene Benachrichtigungen vorhanden</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Ausstehende Operationen</string>

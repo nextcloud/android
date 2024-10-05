@@ -283,7 +283,7 @@
     <string name="drawer_synced_folders">تحميل تلقائي</string>
     <string name="e2e_counter_too_old">العدَّاد قديم جداً</string>
     <string name="e2e_hash_not_found">تعذّر العثور على التجزئة hash</string>
-    <string name="e2e_not_yet_setup">التشفير من الحدّ للحدّ E2E غير مُجهّز</string>
+    <string name="e2e_not_yet_setup">التشفير الطرفي E2EE غير مهيئ</string>
     <string name="e2e_offline">غير ممكن بدون اتصال انترنت</string>
     <string name="e2e_signature_does_not_match">التوقيع غير مُطابق</string>
     <string name="ecosystem_apps_display_assistant">المُساعِد</string>
@@ -594,6 +594,7 @@
     <string name="notification_channel_upload_description">يظهر تقدم الرفع</string>
     <string name="notification_channel_upload_name_short">المرفوعات</string>
     <string name="notification_icon">أيقونة الإشعار</string>
+    <string name="notification_icon_description">توجد إشعارات غير مقروءة</string>
     <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
     <string name="notifications_no_results_message">يرجى التحقق مرة أخرى في وقت لاحق.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">عملية مُعلَّقة</string>
@@ -632,7 +633,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
     <string name="player_stop">إيقاف</string>
     <string name="player_toggle">تبديل</string>
-    <string name="please_select_a_server">من فضلك، حدِّد الخادوم...</string>
+    <string name="please_select_a_server">من فضلك، حدِّد الخادم...</string>
     <string name="power_save_check_dialog_message">قد يؤدي تعطيل فحص حفظ الطاقة إلى تحميل الملفات عندما تكون حالة البطارية منخفضة!</string>
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
     <string name="pref_behaviour_entries_keep_file">أبقى في المجلد الأصلي</string>
@@ -657,7 +658,7 @@
     <string name="prefs_daily_backup_summary">النسخ الاحتياطي اليومي لتقويمك و جهات اتصالك</string>
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
     <string name="prefs_davx5_setup_error">خطأ غير متوقع عند تجهيز DAVx5 ( الذي كان معروفاً سابقاً باسم DAVdroid)</string>
-    <string name="prefs_e2e_active">التشفير من الحدّ للحدّ E2E جاهز!</string>
+    <string name="prefs_e2e_active">التشفير الطرفي E2EE جاهز!</string>
     <string name="prefs_e2e_mnemonic">تذكيري ل E2E</string>
     <string name="prefs_e2e_no_device_credentials">لإظهار الذاكرة ، يرجى تمكين معلومات تسجيل الدخول إلى الجهاز.</string>
     <string name="prefs_enable_media_scan_notifications">إظهار إشعارات فحص الوسائط</string>
@@ -672,7 +673,7 @@
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">التخزين في مجلدات فرعية بناءً على التاريخ</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">استخدم المجلدات الفرعية</string>
     <string name="prefs_instant_upload_subfolder_rule_title">خيارات المجلدات الفرعية</string>
-    <string name="prefs_keys_exist">أضف التشفير من الحدّ للحدّ لهذا العميل</string>
+    <string name="prefs_keys_exist">أضف التشفير الطرفي  لهذا العميل</string>
     <string name="prefs_license">الرخصة</string>
     <string name="prefs_lock">الرمز السري للتطبيق</string>
     <string name="prefs_lock_device_credentials_enabled">تم تمكين معلومات تسجيل الدخول إلى الجهاز</string>
@@ -684,7 +685,7 @@
     <string name="prefs_manage_accounts">إدارة الحسابات</string>
     <string name="prefs_recommend">أوصي به لصديق</string>
     <string name="prefs_remove_e2e">إلغ التشفير المحلي</string>
-    <string name="prefs_setup_e2e">تجهيز التشفير من الحدّ للحدّ</string>
+    <string name="prefs_setup_e2e">تجهيز التشفير الطرفي</string>
     <string name="prefs_show_ecosystem_apps">إظهار مُبدِّل التطبيقات app switcher</string>
     <string name="prefs_show_ecosystem_apps_summary">مقترحات بتطبيقات من نكست كلاود في شريط التصفح navigation heading</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
@@ -693,7 +694,7 @@
     <string name="prefs_sycned_folders_summary">إدارة الملفات للتحميل التلقائي</string>
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
-    <string name="prefs_theme_title">المظهر</string>
+    <string name="prefs_theme_title">السمة</string>
     <string name="prefs_two_way_sync_summary">إدارة المجلدات الداخلية للمزامنة في الاتجاهين</string>
     <string name="prefs_value_theme_dark">غامق</string>
     <string name="prefs_value_theme_light">فاتح</string>
@@ -775,7 +776,7 @@
     <string name="set_picture_as">استخدم الصورة كـ</string>
     <string name="set_status">تعيين الحالة</string>
     <string name="set_status_message">تعيين رسالة الحالة</string>
-    <string name="setup_e2e">خلال تجهيز التشفير من الحدّ للحدّ، سوف تصلك جملة عشوائية مُكوّنة من 12 كلمة ستحتاج إليها لفتح ملفاتك على الأجهزة الأخرى. هذه الجملة سوف يتم تخزينها على هذا الجهاز فقط و يمكنك عرضها على الشاشة مرة أخرى. رجاءً، دوّنها و احفظها في مكانٍ آمنٍ!</string>
+    <string name="setup_e2e">خلال تجهيز التشفير الطرفي، سوف تصلك جملة عشوائية مُكوّنة من 12 كلمة ستحتاج إليها لفتح ملفاتك على الأجهزة الأخرى. هذه الجملة سوف يتم تخزينها على هذا الجهاز فقط و يمكنك عرضها على الشاشة مرة أخرى. رجاءً، دوّنها و احفظها في مكانٍ آمنٍ!</string>
     <string name="share">مشاركة </string>
     <string name="share_copy_link">شارك و انسخ الرابط</string>
     <string name="share_dialog_title">مشاركة</string>
@@ -1011,7 +1012,7 @@
     <string name="uploader_error_title_file_cannot_be_uploaded">لا يمكن رفع هذا الملف</string>
     <string name="uploader_error_title_no_file_to_upload">لا يوجد ملف لترفعه</string>
     <string name="uploader_file_not_found_message">تعذّر العثور على الملف. هل أنت متأكد من وجود هذا الملف؛ أم أنه هنالك تعارضاً لم يُحل بعدُ؟</string>
-    <string name="uploader_file_not_found_on_server_message">لم نتمكن من إيجاد الملف على الخادوم. يمكن أن يكون قد تمّ حذفه من قِبل مُستخدِمٍ آخر</string>
+    <string name="uploader_file_not_found_on_server_message">لم نتمكن من إيجاد الملف على الخادم. يمكن أن يكون قد تمّ حذفه من قِبل مُستخدِمٍ آخر</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
     <string name="uploader_local_files_uploaded">إعادة عملية الرفع غير الناجحة للملفات المحلية</string>
     <string name="uploader_top_message">اختر مجلد للرفع</string>
