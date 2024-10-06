@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">Aufgabe gelöscht</string>
     <string name="assistant_screen_task_list_error_state_message">Die Aufgabenliste kann nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Aufgabe löschen</string>
+    <string name="assistant_screen_task_output_empty_text">Die Aufgabenausgabe ist noch nicht fertig.</string>
     <string name="assistant_screen_task_types_error_state_message">Die Aufgabentypen können nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Unbekannt</string>
