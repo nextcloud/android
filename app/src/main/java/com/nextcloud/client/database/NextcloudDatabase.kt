@@ -29,9 +29,8 @@ import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.VirtualEntity
 import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
-import com.nextcloud.client.database.migrations.Migration84to85
 import com.nextcloud.client.database.migrations.Migration67to68
-import com.nextcloud.client.database.migrations.Migration85to86
+import com.nextcloud.client.database.migrations.Migration84to85
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
 import com.nextcloud.client.database.typeConverter.OfflineOperationTypeConverter
@@ -105,7 +104,6 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .addMigrations(RoomMigration())
                     .addMigrations(Migration67to68())
                     .addMigrations(Migration84to85)
-                    .addMigrations(Migration85to86)
                     .fallbackToDestructiveMigration()
                     .build()
             }
