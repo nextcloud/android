@@ -244,6 +244,33 @@ public class FileDataStorageManager {
         moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
     }
 
+    public void addRenameFileOfflineOperation(OCFile file, String newName) {
+        OfflineOperationEntity entity = new OfflineOperationEntity();
+
+        entity.setFilename(newName);
+        entity.setParentOCFileId(file.getParentId());
+
+        var operationType = new OfflineOperationType.RenameFile(OfflineOperationRawType.RenameFile.name(), file.getDecryptedRemotePath(), newName);
+        entity.setType(operationType);
+        entity.setPath(file.getDecryptedRemotePath());
+
+        long createdAt = System.currentTimeMillis();
+        long modificationTimestamp = System.currentTimeMillis();
+
+        entity.setCreatedAt(createdAt);
+        entity.setModifiedAt(modificationTimestamp / 1000);
+
+        offlineOperationDao.insert(entity);
+
+        // FIXME Update local file
+        OCFile parentFolder = getFileById(file.getParentId());
+        if (parentFolder == null) {
+            return;
+        }
+        String newPath = parentFolder.getDecryptedRemotePath() + newName + OCFile.PATH_SEPARATOR;
+        moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
+    }
+
     @SuppressLint("SimpleDateFormat")
     public void keepOfflineOperationAndServerFile(OfflineOperationEntity entity, OCFile file) {
         if (file == null) return;
