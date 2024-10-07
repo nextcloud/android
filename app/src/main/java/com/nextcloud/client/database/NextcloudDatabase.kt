@@ -69,8 +69,7 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 81, to = 82),
         AutoMigration(from = 82, to = 83),
         AutoMigration(from = 83, to = 84),
-        AutoMigration(from = 84, to = 85),
-        AutoMigration(from = 85, to = 86)
+        AutoMigration(from = 84, to = 85)
     ],
     exportSchema = true
 )
