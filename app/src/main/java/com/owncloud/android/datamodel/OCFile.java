@@ -35,6 +35,7 @@ import com.owncloud.android.utils.MimeType;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -1055,11 +1056,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isInternalFolderSync() {
+        if (internalFolderSyncTimestamp == null) {
+            return false;
+        }
+
         return internalFolderSyncTimestamp >= 0;
     }
     
     public Long getInternalFolderSyncTimestamp() {
-        return internalFolderSyncTimestamp;
+        return Objects.requireNonNullElse(internalFolderSyncTimestamp, -1L);
     }
 
     public void setInternalFolderSyncTimestamp(Long internalFolderSyncTimestamp) {
