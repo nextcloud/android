@@ -142,7 +142,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         String title;
         boolean isRoot = isRoot(chosenFile);
 
-        title = isRoot ? themeUtils.getDefaultDisplayNameForRootFolder(this) : chosenFile.getFileName();
+        title = isRoot ? themeUtils.getDefaultDisplayNameForRootFolder(this) : fileDataStorageManager.getFilenameConsideringOfflineOperation(chosenFile);
         updateActionBarTitleAndHomeButtonByString(title);
 
         if (mAppBar != null) {

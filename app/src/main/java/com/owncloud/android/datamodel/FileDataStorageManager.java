@@ -217,6 +217,16 @@ public class FileDataStorageManager {
         offlineOperationsRepository.deleteOperation(file);
     }
 
+    public String getFilenameConsideringOfflineOperation(OCFile file) {
+        String filename = file.getDecryptedFileName();
+        OfflineOperationEntity renameEntity = offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+        if (renameEntity != null && renameEntity.getType() instanceof OfflineOperationType.RenameFile renameFile) {
+            filename = renameFile.getNewName();
+        }
+
+        return filename;
+    }
+
     public void renameOfflineOperation(OCFile file, String newFolderName) {
         var entity = offlineOperationDao.getByPath(file.getDecryptedRemotePath());
         if (entity == null) {
@@ -261,14 +271,6 @@ public class FileDataStorageManager {
         entity.setModifiedAt(modificationTimestamp / 1000);
 
         offlineOperationDao.insert(entity);
-
-        // FIXME Update local file
-        OCFile parentFolder = getFileById(file.getParentId());
-        if (parentFolder == null) {
-            return;
-        }
-        String newPath = parentFolder.getDecryptedRemotePath() + newName + OCFile.PATH_SEPARATOR;
-        moveLocalFile(file, newPath, parentFolder.getDecryptedRemotePath());
     }
 
     @SuppressLint("SimpleDateFormat")
