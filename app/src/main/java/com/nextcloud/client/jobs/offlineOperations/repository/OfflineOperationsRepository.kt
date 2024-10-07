@@ -88,6 +88,11 @@ class OfflineOperationsRepository(
                                                 path = newPath
                                             )
 
+                                        is OfflineOperationType.RenameFile ->
+                                            (type as OfflineOperationType.RenameFile).copy(
+                                                remotePath = newPath
+                                            )
+
                                         else -> type
                                     }
                                     path = newPath
