@@ -99,6 +99,7 @@ class OfflineOperationsWorker(
             Result.success()
         } catch (e: Exception) {
             Log_OC.d(TAG, "OfflineOperationsWorker terminated: $e")
+            notificationManager.dismissNotification()
             Result.failure()
         }
     }
