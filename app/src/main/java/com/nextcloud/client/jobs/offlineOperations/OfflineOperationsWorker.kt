@@ -151,15 +151,12 @@ class OfflineOperationsWorker(
             is OfflineOperationType.RenameFile -> {
                 val renameFileOperation = withContext(NonCancellable) {
                     val operationType = (operation.type as OfflineOperationType.RenameFile)
-
-                    operation.parentOCFileId?.let {  parentId ->
-                        fileDataStorageManager.getFileById(parentId)?.remotePath?.let { updatedRemotePath ->
-                            RenameFileOperation(
-                                updatedRemotePath,
-                                operationType.newName,
-                                fileDataStorageManager
-                            )
-                        }
+                    fileDataStorageManager.getFileById(operationType.ocFileId)?.remotePath?.let { updatedRemotePath ->
+                        RenameFileOperation(
+                            updatedRemotePath,
+                            operationType.newName,
+                            fileDataStorageManager
+                        )
                     }
                 }
 

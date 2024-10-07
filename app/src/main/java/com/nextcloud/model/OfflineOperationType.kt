@@ -21,7 +21,7 @@ sealed class OfflineOperationType {
 
     data class RenameFile(
         override val type: String,
-        var remotePath: String,
+        var ocFileId: Long,
         val newName: String
     ) : OfflineOperationType()
 }

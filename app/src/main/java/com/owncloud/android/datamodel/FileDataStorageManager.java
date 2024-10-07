@@ -260,7 +260,7 @@ public class FileDataStorageManager {
         entity.setFilename(newName);
         entity.setParentOCFileId(file.getParentId());
 
-        OfflineOperationType operationType = new OfflineOperationType.RenameFile(OfflineOperationRawType.RenameFile.name(), file.getDecryptedRemotePath(), newName);
+        OfflineOperationType operationType = new OfflineOperationType.RenameFile(OfflineOperationRawType.RenameFile.name(), file.getFileId(), newName);
         entity.setType(operationType);
         entity.setPath(file.getDecryptedRemotePath());
 
