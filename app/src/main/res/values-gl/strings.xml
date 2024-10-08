@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">A tarefa foi eliminada satisfactoriamente</string>
     <string name="assistant_screen_task_list_error_state_message">Non é posíbel recuperar a lista de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarefa</string>
+    <string name="assistant_screen_task_output_empty_text">A saída da tarefa aínda non está preparada.</string>
     <string name="assistant_screen_task_types_error_state_message">Non é posíbel recuperar os tipos de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_screen_unknown_task_status_text">Descoñecido</string>
