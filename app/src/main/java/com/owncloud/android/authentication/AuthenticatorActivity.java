@@ -146,10 +146,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.ProcessLifecycleOwner;
-import de.cotech.hw.fido.WebViewFidoBridge;
-import de.cotech.hw.fido.ui.FidoDialogOptions;
-import de.cotech.hw.fido2.WebViewWebauthnBridge;
-import de.cotech.hw.fido2.ui.WebauthnDialogOptions;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -230,9 +226,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private GetServerInfoOperation.ServerInfo mServerInfo = new GetServerInfoOperation.ServerInfo();
 
     /// Authentication PRE-Fragment elements
-    private WebViewFidoBridge webViewFidoU2fBridge;
-    private WebViewWebauthnBridge webViewWebauthnBridge;
-
     private String mAuthStatusText = EMPTY_STRING;
     private int mAuthStatusIcon;
 
@@ -521,19 +514,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         accountSetupWebviewBinding.loginWebview.getSettings().setSaveFormData(false);
         accountSetupWebviewBinding.loginWebview.getSettings().setSavePassword(false);
 
-        FidoDialogOptions.Builder dialogOptionsBuilder = FidoDialogOptions.builder();
-        dialogOptionsBuilder.setShowSdkLogo(true);
-        dialogOptionsBuilder.setTheme(R.style.FidoDialog);
-        webViewFidoU2fBridge = WebViewFidoBridge.createInstanceForWebView(
-            this, accountSetupWebviewBinding.loginWebview, dialogOptionsBuilder);
-
-        WebauthnDialogOptions.Builder webauthnOptionsBuilder = WebauthnDialogOptions.builder();
-        webauthnOptionsBuilder.setShowSdkLogo(true);
-        webauthnOptionsBuilder.setAllowSkipPin(true);
-        webauthnOptionsBuilder.setTheme(R.style.FidoDialog);
-        webViewWebauthnBridge = WebViewWebauthnBridge.createInstanceForWebView(
-            this, accountSetupWebviewBinding.loginWebview, webauthnOptionsBuilder);
-
         Map<String, String> headers = new HashMap<>();
         headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
 
@@ -572,16 +552,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         accountSetupWebviewBinding.loginWebview.setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                webViewFidoU2fBridge.delegateShouldInterceptRequest(view, request);
-                webViewWebauthnBridge.delegateShouldInterceptRequest(view, request);
                 return super.shouldInterceptRequest(view, request);
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                webViewFidoU2fBridge.delegateOnPageStarted(view, url, favicon);
-                webViewWebauthnBridge.delegateOnPageStarted(view, url, favicon);
             }
 
             @Override

@@ -313,9 +313,6 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.8.2'
     implementation 'com.vanniktech:emoji-google:0.21.0'
 
-    implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido:$fidoVersion"
-    implementation "com.github.nextcloud-deps.hwsecurity:hwsecurity-fido2:$fidoVersion"
-
     // document scanner not available on FDroid (generic) due to OpenCV binaries
     gplayImplementation project(':appscan')
     huaweiImplementation project(':appscan')

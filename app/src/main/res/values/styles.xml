@@ -62,7 +62,6 @@
     <style name="ThemeOverlay.App.TextInputLayout" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
         <item name="colorPrimary">@color/text_color</item>
         <item name="colorOnSurface">@color/text_color</item>
-        <item name="colorError">@color/hwSecurityRed</item>
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
     </style>
 
@@ -335,7 +334,6 @@
     <style name="ThemeOverlay.App.Login.TextInputLayout" parent="">
         <item name="colorPrimary">@color/white</item>
         <item name="colorOnSurface">@color/white</item>
-        <item name="colorError">@color/hwSecurityRed</item>
         <item name="textAppearanceSubtitle1">@style/TextAppearance.Material3.BodyLarge</item>
         <item name="textAppearanceCaption">@style/TextAppearance.Material3.BodySmall</item>
         <item name="editTextStyle">@style/Widget.Material3.TextInputEditText.OutlinedBox</item>
@@ -413,12 +411,6 @@
         <item name="android:insetBottom">0dp</item>
         <item name="iconGravity">textStart</item>
         <item name="iconPadding">0dp</item>
-    </style>
-
-    <!-- Custom colors for the FIDO dialog -->
-    <style name="FidoDialog" parent="HwSecurity.Dialog">
-        <item name="hwSecurityButtonColor">@color/color_accent</item>
-        <item name="hwSecuritySurfaceColor">@color/primary</item>
     </style>
 
     <style name="Nextcloud.Material.TextButton" parent="Widget.Material3.Button.TextButton.Icon">
