@@ -23,7 +23,7 @@
     <string name="actionbar_settings">الإعدادات</string>
     <string name="actionbar_sort">ترتيب</string>
     <string name="active_user">مستخدم نشط</string>
-    <string name="activities_no_results_headline">لا توجد أي أنشطة بعدُ</string>
+    <string name="activities_no_results_headline">لا توجد أي أنشطة</string>
     <string name="activities_no_results_message">لا توجد أحداث مثل الإضافات والتغييرات والمشاركة حتى الآن.</string>
     <string name="activity_chooser_send_file_title">إرسال</string>
     <string name="activity_chooser_title">إرسال الرابط إلى…</string>
