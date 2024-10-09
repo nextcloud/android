@@ -292,11 +292,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     @Override
     public void onBindViewHolder(SectionedViewHolder holder, int section, int relativePosition, int absolutePosition) {
-        if (uploadGroups.length == 0) {
-            return;
-        }
-
-        if (section < 0 || section >= uploadGroups.length) {
+        if (uploadGroups.length == 0 || section < 0 || section >= uploadGroups.length) {
             return;
         }
 
@@ -976,11 +972,7 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
 
         public OCUpload getItem(int position) {
-            if (items.length == 0) {
-                return null;
-            }
-
-            if (position < 0 || position >= items.length) {
+            if (items.length == 0 || position < 0 || position >= items.length) {
                 return null;
             }
 
