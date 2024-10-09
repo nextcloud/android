@@ -27,7 +27,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.RestrictionsManager;
-import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -64,7 +63,6 @@ import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nmc.android.ui.LauncherActivity;
-import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
@@ -121,8 +119,6 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasAndroidInjector;
-import de.cotech.hw.SecurityKeyManager;
-import de.cotech.hw.SecurityKeyManagerConfig;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFERENCE_CONTACTS_AUTOMATIC_BACKUP;
@@ -317,8 +313,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
         insertConscrypt();
 
-        initSecurityKeyManager();
-
         registerActivityLifecycleCallbacks(new ActivityInjector());
 
         //update the app restart count when app is launched by the user
@@ -474,35 +468,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                 Log_OC.d(activity.getClass().getSimpleName(), "onDestroy() ending");
             }
         });
-    }
-
-    @SuppressWarnings("unchecked")
-    private void initSecurityKeyManager() {
-        SecurityKeyManager securityKeyManager = SecurityKeyManager.getInstance();
-        final SecurityKeyManagerConfig.Builder configBuilder = new SecurityKeyManagerConfig.Builder()
-            .setEnableDebugLogging(BuildConfig.DEBUG);
-
-        try {
-            // exclude all activities except AuthenticatorActivity
-            final PackageManager pm = this.getPackageManager();
-            final PackageInfo info = pm.getPackageInfo(this.getPackageName(), PackageManager.GET_ACTIVITIES);
-            final ActivityInfo[] activities = info.activities;
-            for (ActivityInfo activityInfo : activities) {
-                try {
-                    final Class<? extends Activity> aClass = (Class<? extends Activity>) Class.forName(activityInfo.name);
-                    if (aClass != AuthenticatorActivity.class) {
-                        configBuilder.addExcludedActivityClass(aClass);
-                    }
-                } catch (ClassNotFoundException | ClassCastException e) {
-                    Log_OC.e(TAG, "Couldn't disable activity for security key listener", e);
-                }
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log_OC.e(TAG, "Couldn't disable activities for security key listener", e);
-        }
-
-
-        securityKeyManager.init(this, configBuilder.build());
     }
 
     public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {

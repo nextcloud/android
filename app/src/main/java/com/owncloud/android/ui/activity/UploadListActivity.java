@@ -91,9 +91,6 @@ public class UploadListActivity extends FileActivity {
     @Inject
     LocalBroadcastManager localBroadcastManager;
 
-    @Inject
-    ViewThemeUtils viewThemeUtils;
-
     @Inject Throttler throttler;
 
     private UploadListLayoutBinding binding;
