@@ -41,6 +41,7 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepository;
 import com.nextcloud.client.jobs.offlineOperations.repository.OfflineOperationsRepositoryType;
 import com.nextcloud.model.OCFileFilterType;
+import com.nextcloud.model.OfflineOperationRawType;
 import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.date.DateFormatPattern;
 import com.nextcloud.utils.extensions.DateExtensionsKt;
@@ -107,7 +108,7 @@ public class FileDataStorageManager {
     public final OfflineOperationDao offlineOperationDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).offlineOperationDao();
     private final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     private final Gson gson = new Gson();
-    private final OfflineOperationsRepositoryType offlineOperationsRepository;
+    public final OfflineOperationsRepositoryType offlineOperationsRepository;
 
     public FileDataStorageManager(User user, ContentResolver contentResolver) {
         this.contentProviderClient = null;
@@ -140,33 +141,83 @@ public class FileDataStorageManager {
         return getFileByPath(ProviderTableMeta.FILE_PATH_DECRYPTED, path);
     }
 
-    public OfflineOperationEntity addCreateFolderOfflineOperation(String path, String filename, String parentPath, Long parentOCFileId) {
+    public void addCreateFileOfflineOperation(String[] localPaths, String[] remotePaths) {
+        if (localPaths.length != remotePaths.length) {
+            Log_OC.d(TAG, "Local path and remote path size do not match");
+            return;
+        }
+
+        for (int i = 0; i < localPaths.length; i++) {
+            String localPath = localPaths[i];
+            String remotePath = remotePaths[i];
+            String mimeType = MimeTypeUtil.getMimeTypeFromPath(remotePath);
+
+            OfflineOperationEntity entity = new OfflineOperationEntity();
+            entity.setPath(remotePath);
+            entity.setType(new OfflineOperationType.CreateFile(OfflineOperationRawType.CreateFile.name(), localPath, remotePath, mimeType));
+
+            long createdAt = System.currentTimeMillis();
+            long modificationTimestamp = System.currentTimeMillis();
+
+            entity.setCreatedAt(createdAt);
+            entity.setModifiedAt(modificationTimestamp / 1000);
+            entity.setFilename(new File(remotePath).getName());
+
+            String parentPath = new File(remotePath).getParent() + OCFile.PATH_SEPARATOR;
+            OCFile parentFile = getFileByDecryptedRemotePath(parentPath);
+
+            if (parentFile != null) {
+                entity.setParentOCFileId(parentFile.getFileId());
+            }
+
+            offlineOperationDao.insert(entity);
+            createPendingFile(remotePath, mimeType, createdAt, modificationTimestamp);
+        }
+    }
+
+    public OfflineOperationEntity addCreateFolderOfflineOperation(String path, String filename, Long parentOCFileId) {
         OfflineOperationEntity entity = new OfflineOperationEntity();
 
         entity.setFilename(filename);
         entity.setParentOCFileId(parentOCFileId);
+
+        OfflineOperationType.CreateFolder operationType = new OfflineOperationType.CreateFolder(OfflineOperationRawType.CreateFolder.name(), path);
+        entity.setType(operationType);
         entity.setPath(path);
-        entity.setParentPath(parentPath);
-        entity.setCreatedAt(System.currentTimeMillis() / 1000L);
-        entity.setType(OfflineOperationType.CreateFolder);
+
+        long createdAt = System.currentTimeMillis();
+        long modificationTimestamp = System.currentTimeMillis();
+
+        entity.setCreatedAt(createdAt);
+        entity.setModifiedAt(modificationTimestamp / 1000);
 
         offlineOperationDao.insert(entity);
-        createPendingDirectory(path);
+        createPendingDirectory(path, createdAt, modificationTimestamp);
 
         return entity;
     }
 
-    public void createPendingDirectory(String path) {
+    public void createPendingFile(String path, String mimeType, long createdAt, long modificationTimestamp) {
         OCFile file = new OCFile(path);
-        file.setMimeType(MimeType.DIRECTORY);
+        file.setMimeType(mimeType);
+        file.setCreationTimestamp(createdAt);
+        file.setModificationTimestamp(modificationTimestamp);
         saveFileWithParent(file, MainApp.getAppContext());
+    }
+
+    public void createPendingDirectory(String path, long createdAt, long modificationTimestamp) {
+        OCFile directory = new OCFile(path);
+        directory.setMimeType(MimeType.DIRECTORY);
+        directory.setCreationTimestamp(createdAt);
+        directory.setModificationTimestamp(modificationTimestamp);
+        saveFileWithParent(directory, MainApp.getAppContext());
     }
 
     public void deleteOfflineOperation(OCFile file) {
         offlineOperationsRepository.deleteOperation(file);
     }
 
-    public void renameCreateFolderOfflineOperation(OCFile file, String newFolderName) {
+    public void renameOfflineOperation(OCFile file, String newFolderName) {
         var entity = offlineOperationDao.getByPath(file.getDecryptedRemotePath());
         if (entity == null) {
             return;
@@ -178,6 +229,14 @@ public class FileDataStorageManager {
         }
 
         String newPath = parentFolder.getDecryptedRemotePath() + newFolderName + OCFile.PATH_SEPARATOR;
+
+        if (entity.getType() instanceof OfflineOperationType.CreateFolder createFolderType) {
+            createFolderType.setPath(newPath);
+        } else if (entity.getType() instanceof OfflineOperationType.CreateFile createFileType) {
+            createFileType.setRemotePath(newPath);
+        }
+        entity.setType(entity.getType());
+
         entity.setPath(newPath);
         entity.setFilename(newFolderName);
         offlineOperationDao.update(entity);

@@ -32,7 +32,7 @@ object FileNameValidator {
      * @param existedFileNames Set of existing file names to avoid duplicates.
      * @return An error message if the filename is invalid, null otherwise.
      */
-    @Suppress("ReturnCount")
+    @Suppress("ReturnCount", "NestedBlockDepth")
     fun checkFileName(
         filename: String,
         capability: OCCapability,

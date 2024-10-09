@@ -236,8 +236,6 @@ public class FileDisplayActivity extends FileActivity
 
     @Inject AppInfo appInfo;
 
-    @Inject ConnectivityService connectivityService;
-
     @Inject InAppReviewHelper inAppReviewHelper;
 
     @Inject FastScrollUtils fastScrollUtils;
@@ -952,16 +950,21 @@ public class FileDisplayActivity extends FileActivity
                 default -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET;
             };
 
-            FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
-                                                                 filePaths,
-                                                                 decryptedRemotePaths,
-                                                                 behaviour,
-                                                                 true,
-                                                                 UploadFileOperation.CREATED_BY_USER,
-                                                                 false,
-                                                                 false,
-                                                                 NameCollisionPolicy.ASK_USER);
-
+            connectivityService.isNetworkAndServerAvailable(result -> {
+                if (result) {
+                    FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
+                                                                         filePaths,
+                                                                         decryptedRemotePaths,
+                                                                         behaviour,
+                                                                         true,
+                                                                         UploadFileOperation.CREATED_BY_USER,
+                                                                         false,
+                                                                         false,
+                                                                         NameCollisionPolicy.ASK_USER);
+                } else {
+                    fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths);
+                }
+            });
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
             DisplayUtils.showSnackMessage(this, R.string.filedisplay_no_file_selected);
@@ -1379,7 +1382,13 @@ public class FileDisplayActivity extends FileActivity
                 if (MainApp.isOnlyOnDevice()) {
                     ocFileListFragment.setMessageForEmptyList(R.string.file_list_empty_headline, R.string.file_list_empty_on_device, R.drawable.ic_list_empty_folder, true);
                 } else {
-                    ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH);
+                    connectivityService.isNetworkAndServerAvailable(result -> {
+                        if (result) {
+                            ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH);
+                        } else {
+                            ocFileListFragment.setEmptyListMessage(SearchType.OFFLINE_MODE);
+                        }
+                    });
                 }
             }
         } else {

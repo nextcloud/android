@@ -19,7 +19,6 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.common.collect.Sets
@@ -40,8 +39,6 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -184,21 +181,18 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
             }
 
             val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
-            lifecycleScope.launch(Dispatchers.IO) {
-                if (connectivityService.isNetworkAndServerAvailable()) {
+            connectivityService.isNetworkAndServerAvailable { result ->
+                if (result) {
                     typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createFolder(path)
                 } else {
                     Log_OC.d(TAG, "Network not available, creating offline operation")
                     fileDataStorageManager.addCreateFolderOfflineOperation(
                         path,
                         newFolderName,
-                        parentFolder?.offlineOperationParentPath,
                         parentFolder?.fileId
                     )
 
-                    launch(Dispatchers.Main) {
-                        (requireActivity() as? FileDisplayActivity)?.syncAndUpdateFolder(true)
-                    }
+                    typedActivity<FileDisplayActivity>()?.refreshCurrentDirectory()
                 }
             }
         }

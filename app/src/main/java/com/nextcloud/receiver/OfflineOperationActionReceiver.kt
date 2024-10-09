@@ -25,6 +25,5 @@ class OfflineOperationActionReceiver : BroadcastReceiver() {
         val user = intent.getParcelableArgument(USER, User::class.java) ?: return
         val fileDataStorageManager = FileDataStorageManager(user, context?.contentResolver)
         fileDataStorageManager.offlineOperationDao.deleteByPath(path)
-        // TODO Update notification
     }
 }

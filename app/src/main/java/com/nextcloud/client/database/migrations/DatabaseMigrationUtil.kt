@@ -7,6 +7,7 @@
  */
 package com.nextcloud.client.database.migrations
 
+import androidx.room.DeleteColumn
 import androidx.room.migration.AutoMigrationSpec
 import androidx.sqlite.db.SupportSQLiteDatabase
 
@@ -90,4 +91,12 @@ object DatabaseMigrationUtil {
             super.onPostMigrate(db)
         }
     }
+
+    @DeleteColumn.Entries(
+        DeleteColumn(
+            tableName = "offline_operations",
+            columnName = "offline_operations_parent_path"
+        )
+    )
+    class DeleteColumnSpec : AutoMigrationSpec
 }
