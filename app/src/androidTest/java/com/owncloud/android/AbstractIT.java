@@ -183,7 +183,7 @@ public abstract class AbstractIT {
         String darkModeParameter = arguments.getString("DARKMODE");
 
         if (darkModeParameter != null) {
-            if (darkModeParameter.equalsIgnoreCase("dark")) {
+            if ("dark".equalsIgnoreCase(darkModeParameter)) {
                 DARK_MODE = "dark";
                 AppPreferencesImpl.fromContext(targetContext).setDarkThemeMode(DarkMode.DARK);
                 MainApp.setAppTheme(DarkMode.DARK);
@@ -192,7 +192,7 @@ public abstract class AbstractIT {
             }
         }
 
-        if (DARK_MODE.equalsIgnoreCase("light") && COLOR.equalsIgnoreCase("blue")) {
+        if ("light".equalsIgnoreCase(DARK_MODE) && "blue".equalsIgnoreCase(COLOR)) {
             // use already existing names
             DARK_MODE = "";
             COLOR = "";

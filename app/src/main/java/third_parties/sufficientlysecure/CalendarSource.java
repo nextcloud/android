@@ -50,13 +50,13 @@ public class CalendarSource {
             String protocol = mUrl.getProtocol();
             String userPass = mUsername + ":" + mPassword;
 
-            if (protocol.equalsIgnoreCase("ftp") || protocol.equalsIgnoreCase("ftps")) {
+            if ("ftp".equalsIgnoreCase(protocol) || "ftps".equalsIgnoreCase(protocol)) {
                 String external = mUrl.toExternalForm();
                 String end = external.substring(protocol.length() + HTTP_SEP.length());
                 return new URL(protocol + HTTP_SEP + userPass + "@" + end).openConnection();
             }
 
-            if (protocol.equalsIgnoreCase("http") || protocol.equalsIgnoreCase("https")) {
+            if ("http".equalsIgnoreCase(protocol) || "https".equalsIgnoreCase(protocol)) {
                 String encoded = new String(new Base64().encode(userPass.getBytes("UTF-8")));
                 URLConnection connection = mUrl.openConnection();
                 connection.setRequestProperty("Authorization", "Basic " + encoded);
