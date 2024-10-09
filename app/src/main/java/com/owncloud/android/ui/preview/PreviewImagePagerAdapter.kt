@@ -151,11 +151,11 @@ class PreviewImagePagerAdapter : FragmentStateAdapter {
             addVideoOfLivePhoto(file)
 
             if (mDownloadErrors.remove(i)) {
-                fragment = FileDownloadFragment.newInstance(file, user, true)
+                fragment = FileDownloadFragment.newInstance(file, user, true, i)
                 (fragment as FileDownloadFragment).setError(true)
             } else {
                 fragment = if (file.isEncrypted) {
-                    FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i))
+                    FileDownloadFragment.newInstance(file, user, mObsoletePositions.contains(i), i)
                 } else if (PreviewMediaFragment.canBePreviewed(file)) {
                     PreviewMediaFragment.newInstance(file, user, 0, false, file.livePhotoVideo != null)
                 } else {

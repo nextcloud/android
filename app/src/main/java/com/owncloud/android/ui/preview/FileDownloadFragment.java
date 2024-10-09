@@ -23,6 +23,8 @@ import android.widget.TextView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
@@ -44,7 +46,6 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
  * This Fragment is used to monitor the progress of a file downloading.
  */
 public class FileDownloadFragment extends FileFragment implements OnClickListener, Injectable {
-
     public static final String EXTRA_FILE = "FILE";
     public static final String EXTRA_USER = "USER";
     private static final String EXTRA_ERROR = "ERROR";
@@ -52,19 +53,20 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
     private static final String ARG_USER = "USER";
+    private static final String ARG_FILE_POSITION = "FILE_POSITION";
 
     private View mView;
     private User user;
 
     @Inject ViewThemeUtils viewThemeUtils;
-    public ProgressListener mProgressListener;
+    private ProgressListener mProgressListener;
     private boolean mListening;
 
     private static final String TAG = FileDownloadFragment.class.getSimpleName();
 
     private boolean mIgnoreFirstSavedState;
     private boolean mError;
-
+    private Integer filePosition;
 
     /**
      * Public factory method to create a new fragment that shows the progress of a file download.
@@ -81,9 +83,10 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}
      *                                  TODO better solution
      */
-    public static Fragment newInstance(OCFile file, User user, boolean ignoreFirstSavedState) {
+    public static Fragment newInstance(OCFile file, User user, boolean ignoreFirstSavedState, Integer filePosition) {
         FileDownloadFragment frag = new FileDownloadFragment();
         Bundle args = new Bundle();
+        args.putInt(ARG_FILE_POSITION, filePosition);
         args.putParcelable(ARG_FILE, file);
         args.putParcelable(ARG_USER, user);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
@@ -106,7 +109,6 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         mError = false;
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,6 +118,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         user = BundleExtensionsKt.getParcelableArgument(args, ARG_USER, User.class);
+        filePosition = args.getInt(ARG_FILE_POSITION);
     }
 
 
@@ -152,10 +155,11 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         if (mError) {
             setButtonsForRemote();
-        }
-        else {
+        } else {
             setButtonsForTransferring();
         }
+
+        observeWorkerState();
 
         return mView;
     }
@@ -219,11 +223,24 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
         }
     }
 
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
+            if (state instanceof WorkerState.DownloadFinished) {
+                if (requireActivity() instanceof PreviewImageActivity activity && filePosition != null) {
+                    activity.setPreviewImagePagerCurrentItem(filePosition);
+                }
+            }
+        });
+    }
 
     /**
      * Enables or disables buttons for a file being downloaded
      */
     private void setButtonsForTransferring() {
+        if (getView() == null) {
+            return;
+        }
+
         getView().findViewById(R.id.cancelBtn).setVisibility(View.VISIBLE);
 
         // show the progress bar for the transfer
@@ -243,6 +260,10 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      * Currently, this is only used when a download was failed
      */
     private void setButtonsForRemote() {
+        if (getView() == null) {
+            return;
+        }
+
         getView().findViewById(R.id.cancelBtn).setVisibility(View.GONE);
 
         // hides the progress bar and message
