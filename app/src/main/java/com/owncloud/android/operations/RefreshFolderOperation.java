@@ -60,6 +60,7 @@ import java.util.Vector;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
+import androidx.webkit.internal.ApiFeature;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 import static com.owncloud.android.datamodel.OCFile.PATH_SEPARATOR;
@@ -235,6 +236,14 @@ public class RefreshFolderOperation extends RemoteOperation {
         mFailsInKeptInSyncFound = 0;
         mConflictsFound = 0;
         mForgottenLocalFiles.clear();
+
+        if (mLocalFolder == null) {
+            return new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
+        }
+
+        if (mLocalFolder.getRemotePath() == null) {
+            return new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
+        }
 
         if (OCFile.ROOT_PATH.equals(mLocalFolder.getRemotePath()) && !mSyncFullAccount && !mOnlyFileMetadata) {
             updateOCVersion(client);
