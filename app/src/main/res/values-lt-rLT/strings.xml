@@ -13,7 +13,9 @@
     <string name="action_send_share">Siųsti/Bendrinti</string>
     <string name="action_switch_grid_view">Tinklelio rodinys</string>
     <string name="action_switch_list_view">Sąrašo rodinys</string>
+    <string name="actionbar_calendar_contacts_restore">Atkurti adresatus ir kalendorių</string>
     <string name="actionbar_mkdir">Naujas aplankas</string>
+    <string name="actionbar_move_or_copy">Perkelti ar kopijuoti</string>
     <string name="actionbar_open_with">Atverti naudojant</string>
     <string name="actionbar_search">Paieška</string>
     <string name="actionbar_see_details">Išsamiau</string>
@@ -32,10 +34,20 @@
     <string name="advanced_settings">Išplėstiniai nustatymai</string>
     <string name="allow_resharing">Leisti bendrinti iš naujo</string>
     <string name="app_config_proxy_port_title">Įgaliotojo serverio prievadas</string>
+    <string name="app_widget_description">Rodo vieną valdiklį iš skydelio</string>
     <string name="appbar_search_in">Ieškoti %s</string>
     <string name="assistant_screen_all_task_type">Visos</string>
+    <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Įrašykite kokį nors tekstą</string>
+    <string name="assistant_screen_delete_task_alert_dialog_description">Ar tikrai norite ištrinti šią užduotį?</string>
+    <string name="assistant_screen_delete_task_alert_dialog_title">Ištrinti užduotį</string>
     <string name="assistant_screen_failed_task_text">Nepavyko</string>
     <string name="assistant_screen_successful_task_text">Užbaigta</string>
+    <string name="assistant_screen_task_create_fail_message">Kuriant užduotį, įvyko klaida</string>
+    <string name="assistant_screen_task_create_success_message">Užduotis sėkmingai sukurta</string>
+    <string name="assistant_screen_task_delete_fail_message">Ištrinant užduotį, įvyko klaida</string>
+    <string name="assistant_screen_task_delete_success_message">Užduotis sėkmingai ištrinta</string>
+    <string name="assistant_screen_task_list_error_state_message">Nepavyko gauti užduočių sąrašo, patikrinkite savo interneto ryšį.</string>
+    <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ištrinti užduotį</string>
     <string name="assistant_screen_unknown_task_status_text">Nežinoma</string>
     <string name="associated_account_not_found">Susieta paskyra nerasta!</string>
     <string name="auth_access_failed">Prieiga nepavyko: %1$s</string>
@@ -195,6 +207,7 @@
     <string name="dismiss">Atmesti</string>
     <string name="dismiss_notification_description">Atmesti pranešimą</string>
     <string name="dnd">Netrukdyti</string>
+    <string name="document_scan_export_dialog_pdf">PDF failas</string>
     <string name="done">Atlikta</string>
     <string name="dontClear">Neišvalyti</string>
     <string name="download_cannot_create_file">Nepavyksta sukurti vietinį failą</string>
@@ -203,11 +216,14 @@
     <string name="downloader_download_failed_credentials_error">Atsiuntimas nepavyko, prisijunkite dar kartą</string>
     <string name="downloader_download_failed_ticker">Atsiuntimas nepavyko</string>
     <string name="downloader_download_file_not_found">Failas neegzistuoja serveryje</string>
+    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Atsiunčiama %2$s</string>
     <string name="downloader_download_in_progress_ticker">Atsisiunčiama…</string>
     <string name="downloader_download_succeeded_content">%1$s atsisiųsta</string>
     <string name="downloader_download_succeeded_ticker">Atsisiųsti</string>
+    <string name="downloader_file_download_failed">Atsiunčiant failus, įvyko klaida</string>
     <string name="downloader_not_downloaded_yet">Kol kas neatsisiųsta</string>
+    <string name="downloader_unexpected_error">Atsiunčiant failus, įvyko netikėta klaida</string>
     <string name="drawer_close">Užverti šoninę juostą</string>
     <string name="drawer_community">Bendruomenė</string>
     <string name="drawer_header_background">Stalčiaus antraštės foninis paveikslas</string>
@@ -218,6 +234,7 @@
     <string name="drawer_item_home">Namai</string>
     <string name="drawer_item_notifications">Pranešimai</string>
     <string name="drawer_item_on_device">Įrenginyje</string>
+    <string name="drawer_item_personal_files">Asmeniniai failai</string>
     <string name="drawer_item_recently_modified">Paskiausiai modifikuoti</string>
     <string name="drawer_item_shared">Bendrinami</string>
     <string name="drawer_item_trashbin">Ištrinti failai</string>
@@ -227,10 +244,14 @@
     <string name="drawer_quota">panaudota %1$s iš %2$s</string>
     <string name="drawer_quota_unlimited">panaudota %1$s</string>
     <string name="drawer_synced_folders">Automatinis įkėlimas</string>
+    <string name="e2e_hash_not_found">Maiša nerasta</string>
+    <string name="e2e_offline">Neįmanoma, kai nėra interneto ryšio</string>
+    <string name="e2e_signature_does_not_match">Parašas nesutampa</string>
     <string name="ecosystem_apps_display_more">Daugiau</string>
     <string name="ecosystem_apps_display_notes">Užrašai</string>
     <string name="ecosystem_apps_display_talk">Kalba</string>
     <string name="ecosystem_apps_notes">Nextcloud užrašai</string>
+    <string name="email_pick_failed">Nepavyko pasirinkti el. pašto adreso.</string>
     <string name="encrypted">Nustatyti kaip šifruotą</string>
     <string name="end_to_end_encryption_confirm_button">Nustatyti šifravimą</string>
     <string name="end_to_end_encryption_decrypting">Iššifruojama…</string>
@@ -334,6 +355,10 @@
     <string name="file_migration_updating_index">Atnaujinamas indeksas…</string>
     <string name="file_migration_use_data_folder">Naudok</string>
     <string name="file_migration_waiting_for_unfinished_sync">Laukiama pilno sinchronizavimo…</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Failų pavadinimų pradžioje ar pabaigoje negali būti tarpų</string>
+    <string name="file_name_validator_error_invalid_character">Pavadinime yra netinkamų simbolių: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s yra draudžiamas pavadinimas</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Prieš perkeldami ar kopijuodami, pervadinkite failą</string>
     <string name="file_not_found">Failas nerastas</string>
     <string name="file_not_synced">Nepavyko sinchronizuoti failo. Rodoma naujausia galima versija.
  </string>
@@ -376,6 +401,15 @@
     <string name="hint_password">Slaptažodis</string>
     <string name="host_not_available">Serveris neprieinamas</string>
     <string name="host_your_own_server">Administruoti savo serverį</string>
+    <string name="image_editor_flip_horizontal">Apversti horizontaliai</string>
+    <string name="image_editor_flip_vertical">Apversti vertikaliai</string>
+    <string name="image_preview_filedetails">Išsamiau apie failą</string>
+    <string name="image_preview_image_taking_conditions">Fotografavimo sąlygos</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s sek.</string>
     <string name="in_folder">aplanke %1$s</string>
     <string name="instant_upload_existing">Taip pat įkelkite esamus failus</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
@@ -467,6 +501,7 @@
     <string name="notification_channel_upload_description">Rodo įkėlimo eigą</string>
     <string name="notification_channel_upload_name_short">Įkėlimai</string>
     <string name="notification_icon">Pranešimo piktograma</string>
+    <string name="notification_icon_description">Yra neskaitytų pranešimų</string>
     <string name="notifications_no_results_headline">Pranešimų nėra</string>
     <string name="notifications_no_results_message">Prašome patikrinti vėliau.</string>
     <string name="offline_mode">Nėra interneto ryšio</string>
@@ -488,12 +523,15 @@
     <string name="permission_deny">Drausti</string>
     <string name="permission_storage_access">Papildomos teisės reikalingos įkelti šiuos atsisiųstus failus.</string>
     <string name="picture_set_as_no_app">Nerasta programa, su kuria būtų galima nustatyti nuotrauką</string>
+    <string name="pin_shortcut_label">Atverti %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">rezervas.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Rezervas</string>
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
+    <string name="player_stop">stabdyti</string>
     <string name="player_toggle">perjungti</string>
+    <string name="please_select_a_server">Pasirinkite serverį…</string>
     <string name="power_save_check_dialog_message">Išjungtas energijos taupymo tikrinimas gali įtakoti failų įkėlimą, kai akumuliatoriaus energija yra maža!</string>
     <string name="pref_behaviour_entries_delete_file">Ištrintas</string>
     <string name="pref_behaviour_entries_keep_file">paliktas pradiniame aplanke</string>
@@ -505,6 +543,7 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Pervadinti naują versiją</string>
     <string name="pref_instant_name_collision_policy_title">Ką daryti, jei failas jau yra?</string>
     <string name="prefs_add_account">Pridėti paskyrą</string>
+    <string name="prefs_calendar_contacts">Sinchronizuoti kalendorių ir adresatus</string>
     <string name="prefs_calendar_contacts_no_store_error">Nėra įdiegta nei F-Droid, nei Google Play</string>
     <string name="prefs_calendar_contacts_summary">Dabartinei paskyrai nustatykite „DAVx5“ (anksčiau žinomą kaip „DAVdroid“) (v1.3.0 +)</string>
     <string name="prefs_category_about">Apie</string>
@@ -561,6 +600,8 @@
     <string name="remote">(nuotolinis)</string>
     <string name="remote_file_fetch_failed">Nepavyko rasti failo!</string>
     <string name="remove_fail_msg">Ištrynimas nepavyko</string>
+    <string name="remove_local_account">Šalinti vietinę paskyrą</string>
+    <string name="remove_local_account_details">Šalinti paskyrą iš įrenginio ir ištrinti visus vietinius failus</string>
     <string name="remove_notification_failed">Nepavyko pašalinti pranešimo.</string>
     <string name="remove_push_notification">Šalinti</string>
     <string name="remove_success_msg">Ištrinta</string>
@@ -588,6 +629,7 @@
     <string name="screenshot_04_accounts_heading">Visos jūsų paskyros</string>
     <string name="screenshot_04_accounts_subline">vienoje vietoje</string>
     <string name="screenshot_05_autoUpload_heading">Automatinis įkėlimas</string>
+    <string name="screenshot_06_davdroid_heading">Kalendorius ir adresatai</string>
     <string name="screenshot_06_davdroid_subline">Sinchronizacija su DAVx5</string>
     <string name="search_error">Klaida gaunant paieškos rezultatus</string>
     <string name="select_all">Pažymėti viską</string>
@@ -640,6 +682,8 @@
     <string name="shared_icon_shared_via_link">bendrinta per nuorodą</string>
     <string name="shared_with_you_by">%1$s bendrina su Jumis.</string>
     <string name="sharee_add_failed">Bendrinimo pridėjimas nepavyko</string>
+    <string name="show_images">Rodyti nuotraukas</string>
+    <string name="show_video">Rodyti vaizdo įrašus</string>
     <string name="signup_with_provider">Registruotis su tiekėju</string>
     <string name="single_sign_on_request_token" formatted="true">Leisti %1$s gauti prieigą prie jūsų Nextcloud paskyros %2$s?</string>
     <string name="sort_by">Rikiuoti pagal</string>
@@ -792,6 +836,7 @@
     <string name="uploader_upload_files_behaviour_only_upload">Laikyti failą pagrindiniame (šaltinio) aplanke</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ištrinkite failus iš pagrindinio aplanko</string>
     <string name="uploader_upload_forbidden_permissions">Galite įkelti į šį aplanką</string>
+    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Siunčiama %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Įkeliama…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s įkelta</string>
