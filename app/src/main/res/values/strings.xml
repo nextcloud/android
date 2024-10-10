@@ -1247,4 +1247,5 @@
     <string name="sync">Sync</string>
     <string name="please_select_a_server">Please select a server…</string>
     <string name="notification_icon_description">Unread notifications exist</string>
+    <string name="create_new_encrypted_folder">Create new encrypted folder</string>
 </resources>

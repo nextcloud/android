@@ -60,16 +60,31 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
     private RemoteFile createdRemoteFolder;
     private User user;
     private Context context;
+    private boolean encrypted;
 
     /**
      * Constructor
      */
-    public CreateFolderOperation(String remotePath, User user, Context context, FileDataStorageManager storageManager) {
+    public CreateFolderOperation(String remotePath,
+                                 User user,
+                                 Context context,
+                                 FileDataStorageManager storageManager
+                                ) {
+        this(remotePath, false, user, context, storageManager);
+    }
+
+    public CreateFolderOperation(String remotePath,
+                                 boolean encrypted,
+                                 User user,
+                                 Context context,
+                                 FileDataStorageManager storageManager
+                                ) {
         super(storageManager);
 
         this.remotePath = remotePath;
         this.user = user;
         this.context = context;
+        this.encrypted = encrypted;
     }
 
     @Override
@@ -105,7 +120,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
             }
             return new RemoteOperationResult(new IllegalStateException("E2E not supported"));
         } else {
-            return normalCreate(client);
+            return normalCreate(client, encrypted);
         }
     }
 
@@ -473,7 +488,7 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
         return encryptedFileName;
     }
 
-    private RemoteOperationResult normalCreate(OwnCloudClient client) {
+    private RemoteOperationResult normalCreate(OwnCloudClient client, boolean encrypted) {
         RemoteOperationResult result = new CreateFolderRemoteOperation(remotePath, true).execute(client);
 
         if (result.isSuccess()) {
@@ -482,6 +497,21 @@ public class CreateFolderOperation extends SyncOperation implements OnRemoteOper
 
             createdRemoteFolder = (RemoteFile) remoteFolderOperationResult.getData().get(0);
             saveFolderInDB();
+
+            if (encrypted) {
+                final OCFile folder = getStorageManager().getFileByDecryptedRemotePath(remotePath);
+
+                final RemoteOperationResult remoteOperationResult =
+                    new ToggleEncryptionRemoteOperation(folder.getLocalId(),
+                                                        remotePath,
+                                                        true)
+                        .execute(client);
+
+                if (remoteOperationResult.isSuccess()) {
+                    folder.setEncrypted(true);
+                    getStorageManager().saveFile(folder);
+                }
+            }
         } else {
             Log_OC.e(TAG, remotePath + " hasn't been created");
         }
