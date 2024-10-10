@@ -16,9 +16,11 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -31,8 +33,10 @@ import android.widget.LinearLayout;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.owncloud.android.MainApp;
@@ -66,6 +70,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.fragment.SearchType;
 import com.owncloud.android.ui.interfaces.OCFileListFragmentInterface;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
+import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
@@ -81,8 +86,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -161,7 +170,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         userId = AccountManager
             .get(activity)
             .getUserData(this.user.toPlatformAccount(),
-                         com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
+                         AccountUtils.Constants.KEY_USER_ID);
 
         this.viewThemeUtils = viewThemeUtils;
 
@@ -523,7 +532,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
-        setColorFilterForOfflineOperations(holder, file);
+        if (file.isFolder()) {
+            setColorFilterForOfflineCreateFolderOperations(holder, file);
+        } else {
+            setColorFilterForOfflineCreateFileOperations(holder, file);
+        }
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -596,13 +609,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             holder.getFileSize().setVisibility(View.VISIBLE);
 
+
             if (file.isOfflineOperation()) {
                 holder.getFileSize().setText(MainApp.string(R.string.oc_file_list_adapter_offline_operation_description_text));
-                holder.getFileSizeSeparator().setVisibility(View.GONE);
             } else {
                 holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(localSize));
-                holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
             }
+
+            holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
         } else {
             final long fileLength = file.getFileLength();
             if (fileLength >= 0) {
@@ -610,11 +624,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
                 if (file.isOfflineOperation()) {
                     holder.getFileSize().setText(MainApp.string(R.string.oc_file_list_adapter_offline_operation_description_text));
-                    holder.getFileSizeSeparator().setVisibility(View.GONE);
                 } else {
                     holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(fileLength));
-                    holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
                 }
+
+                holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
             } else {
                 holder.getFileSize().setVisibility(View.GONE);
                 holder.getFileSizeSeparator().setVisibility(View.GONE);
@@ -654,14 +668,40 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private void applyVisualsForOfflineOperations(ListItemViewHolder holder, OCFile file) {
         ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
-        setColorFilterForOfflineOperations(holder, file);
+
+        if (file.isFolder()) {
+            setColorFilterForOfflineCreateFolderOperations(holder, file);
+        } else {
+            setColorFilterForOfflineCreateFileOperations(holder, file);
+        }
     }
 
-    private void setColorFilterForOfflineOperations(ListViewHolder holder, OCFile file) {
-        if (!file.isFolder()) {
+    private final ExecutorService executorService = Executors.newCachedThreadPool();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+
+    private void setColorFilterForOfflineCreateFileOperations(ListViewHolder holder, OCFile file) {
+        if (!file.isOfflineOperation()) {
             return;
         }
 
+        executorService.execute(() -> {
+            OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+
+            if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
+                Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
+                if (bitmap == null) return;
+
+                Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
+                mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
+            }
+        });
+    }
+
+    public void onDestroy() {
+        executorService.shutdown();
+    }
+
+    private void setColorFilterForOfflineCreateFolderOperations(ListViewHolder holder, OCFile file) {
         if (file.isOfflineOperation()) {
             holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
         } else {
@@ -782,6 +822,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             prepareListOfHiddenFiles();
             mergeOCFilesForLivePhoto();
             mFilesAll.clear();
+            addOfflineOperations(directory.getFileId());
             mFilesAll.addAll(mFiles);
             currentDirectory = directory;
         } else {
@@ -790,8 +831,37 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         searchType = null;
-
         notifyDataSetChanged();
+    }
+
+    /**
+     * Converts Offline Operations to OCFiles and adds them to the adapter for visual feedback.
+     * This function creates pending OCFiles, but they may not consistently appear in the UI.
+     * The issue arises when  {@link RefreshFolderOperation} deletes pending Offline Operations, while some may still exist in the table.
+     * If only this function is used, it cause crash in {@link FileDisplayActivity mSyncBroadcastReceiver.onReceive}.
+     * <p>
+     * These function also need to be used: {@link FileDataStorageManager#createPendingDirectory(String, long, long)}, {@link FileDataStorageManager#createPendingFile(String, String, long, long)}.
+     */
+    private void addOfflineOperations(long fileId) {
+        List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles(fileId);
+        if (offlineOperations.isEmpty()) {
+            return;
+        }
+
+        List<OCFile> newFiles;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            newFiles = offlineOperations.stream()
+                .filter(offlineFile -> mFilesAll.stream()
+                    .noneMatch(file -> Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())))
+                .toList();
+        } else {
+            newFiles = offlineOperations.stream()
+                .filter(offlineFile -> mFilesAll.stream()
+                    .noneMatch(file -> Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())))
+                .collect(Collectors.toList());
+        }
+
+        mFilesAll.addAll(newFiles);
     }
 
     public void setData(List<Object> objects,

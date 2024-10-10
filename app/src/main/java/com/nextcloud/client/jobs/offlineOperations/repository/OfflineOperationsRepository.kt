@@ -8,8 +8,11 @@
 package com.nextcloud.client.jobs.offlineOperations.repository
 
 import com.nextcloud.client.database.entity.OfflineOperationEntity
+import com.nextcloud.model.OfflineOperationType
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.utils.MimeType
+import com.owncloud.android.utils.MimeTypeUtil
 
 class OfflineOperationsRepository(
     private val fileDataStorageManager: FileDataStorageManager
@@ -19,7 +22,7 @@ class OfflineOperationsRepository(
     private val pathSeparator = '/'
 
     @Suppress("NestedBlockDepth")
-    override fun getAllSubdirectories(fileId: Long): List<OfflineOperationEntity> {
+    override fun getAllSubEntities(fileId: Long): List<OfflineOperationEntity> {
         val result = mutableListOf<OfflineOperationEntity>()
         val queue = ArrayDeque<Long>()
         queue.add(fileId)
@@ -31,7 +34,7 @@ class OfflineOperationsRepository(
 
             processedIds.add(currentFileId)
 
-            val subDirectories = dao.getSubDirectoriesByParentOCFileId(currentFileId)
+            val subDirectories = dao.getSubEntitiesByParentOCFileId(currentFileId)
             result.addAll(subDirectories)
 
             subDirectories.forEach {
@@ -48,15 +51,14 @@ class OfflineOperationsRepository(
     }
 
     override fun deleteOperation(file: OCFile) {
-        getAllSubdirectories(file.fileId).forEach {
-            dao.delete(it)
+        if (file.isFolder) {
+            getAllSubEntities(file.fileId).forEach {
+                dao.delete(it)
+            }
         }
 
         file.decryptedRemotePath?.let {
-            val entity = dao.getByPath(it)
-            entity?.let {
-                dao.delete(entity)
-            }
+            dao.deleteByPath(it)
         }
 
         fileDataStorageManager.removeFile(file, true, true)
@@ -66,17 +68,28 @@ class OfflineOperationsRepository(
         val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operation.path)
         val fileId = ocFile?.fileId ?: return
 
-        getAllSubdirectories(fileId)
+        getAllSubEntities(fileId)
             .mapNotNull { nextOperation ->
                 nextOperation.parentOCFileId?.let { parentId ->
                     fileDataStorageManager.getFileById(parentId)?.let { ocFile ->
                         ocFile.decryptedRemotePath?.let { updatedPath ->
-                            val newParentPath = ocFile.parentRemotePath
                             val newPath = updatedPath + nextOperation.filename + pathSeparator
 
-                            if (newParentPath != nextOperation.parentPath || newPath != nextOperation.path) {
+                            if (newPath != nextOperation.path) {
                                 nextOperation.apply {
-                                    parentPath = newParentPath
+                                    type = when (type) {
+                                        is OfflineOperationType.CreateFile ->
+                                            (type as OfflineOperationType.CreateFile).copy(
+                                                remotePath = newPath
+                                            )
+
+                                        is OfflineOperationType.CreateFolder ->
+                                            (type as OfflineOperationType.CreateFolder).copy(
+                                                path = newPath
+                                            )
+
+                                        else -> type
+                                    }
                                     path = newPath
                                 }
                             } else {
@@ -88,4 +101,15 @@ class OfflineOperationsRepository(
             }
             .forEach { dao.update(it) }
     }
+
+    override fun convertToOCFiles(fileId: Long): List<OCFile> =
+        dao.getSubEntitiesByParentOCFileId(fileId).map { entity ->
+            OCFile(entity.path).apply {
+                mimeType = if (entity.type is OfflineOperationType.CreateFolder) {
+                    MimeType.DIRECTORY
+                } else {
+                    MimeTypeUtil.getMimeTypeFromPath(entity.path)
+                }
+            }
+        }
 }

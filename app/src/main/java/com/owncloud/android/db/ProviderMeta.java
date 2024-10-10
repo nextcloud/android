@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 84;
+    public static final int DB_VERSION = 85;
 
     private ProviderMeta() {
         // No instance
@@ -289,9 +289,9 @@ public class ProviderMeta {
 
         // Columns of offline operation table
         public static final String OFFLINE_OPERATION_PARENT_OC_FILE_ID = "offline_operations_parent_oc_file_id";
-        public static final String OFFLINE_OPERATION_PARENT_PATH = "offline_operations_parent_path";
         public static final String OFFLINE_OPERATION_TYPE = "offline_operations_type";
         public static final String OFFLINE_OPERATION_PATH = "offline_operations_path";
+        public static final String OFFLINE_OPERATION_MODIFIED_AT = "offline_operations_modified_at";
         public static final String OFFLINE_OPERATION_CREATED_AT = "offline_operations_created_at";
         public static final String OFFLINE_OPERATION_FILE_NAME = "offline_operations_file_name";
 

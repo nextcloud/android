@@ -59,8 +59,8 @@ public class UploadIT extends AbstractOnServerIT {
 
     private ConnectivityService connectivityServiceMock = new ConnectivityService() {
         @Override
-        public boolean isNetworkAndServerAvailable() throws NetworkOnMainThreadException {
-            return false;
+        public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
+
         }
 
         @Override
@@ -282,8 +282,8 @@ public class UploadIT extends AbstractOnServerIT {
     public void testUploadOnWifiOnlyButNoWifi() {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
-            public boolean isNetworkAndServerAvailable() throws NetworkOnMainThreadException {
-                return false;
+            public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
+
             }
 
             @Override
@@ -371,8 +371,8 @@ public class UploadIT extends AbstractOnServerIT {
     public void testUploadOnWifiOnlyButMeteredWifi() {
         ConnectivityService connectivityServiceMock = new ConnectivityService() {
             @Override
-            public boolean isNetworkAndServerAvailable() throws NetworkOnMainThreadException {
-                return false;
+            public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
+
             }
 
             @Override

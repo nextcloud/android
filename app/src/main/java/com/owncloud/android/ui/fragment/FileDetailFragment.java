@@ -351,11 +351,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             }
         });
 
-        binding.tabLayout.post(() -> {
-            TabLayout.Tab tab1 = binding.tabLayout.getTabAt(activeTab);
-            if (tab1 == null) return;
-            tab1.select();
-        });
+        // FIXME file detail not opening from Media tab
+        if (binding != null) {
+            TabLayout.Tab tab = binding.tabLayout.getTabAt(activeTab);
+            if (tab == null) return;
+            binding.tabLayout.selectTab(tab);
+        }
     }
 
     @Override
@@ -580,8 +581,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         }
 
         setupViewPager();
-
-        getView().invalidate();
+        if (getView() != null) {
+            getView().invalidate();
+        }
     }
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {

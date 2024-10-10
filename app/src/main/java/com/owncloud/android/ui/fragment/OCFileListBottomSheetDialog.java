@@ -214,19 +214,22 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
     private void filterActionsForOfflineOperations() {
         if (file == null) return;
 
-        if (!file.isOfflineOperation() || file.isRootDirectory()) {
-            return;
-        }
+        fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
+            if (file.isRootDirectory()) {
+                return;
+            }
 
-        binding.menuCreateRichWorkspace.setVisibility(View.GONE);
-        binding.menuUploadFromApp.setVisibility(View.GONE);
-        binding.menuDirectCameraUpload.setVisibility(View.GONE);
-        binding.menuScanDocUpload.setVisibility(View.GONE);
-        binding.menuUploadFiles.setVisibility(View.GONE);
-        binding.menuNewDocument.setVisibility(View.GONE);
-        binding.menuNewSpreadsheet.setVisibility(View.GONE);
-        binding.menuNewPresentation.setVisibility(View.GONE);
-        binding.creatorsContainer.setVisibility(View.GONE);
+            if (!result || file.isOfflineOperation()) {
+                binding.menuCreateRichWorkspace.setVisibility(View.GONE);
+                binding.menuUploadFromApp.setVisibility(View.GONE);
+                binding.menuDirectCameraUpload.setVisibility(View.GONE);
+                binding.menuScanDocUpload.setVisibility(View.GONE);
+                binding.menuNewDocument.setVisibility(View.GONE);
+                binding.menuNewSpreadsheet.setVisibility(View.GONE);
+                binding.menuNewPresentation.setVisibility(View.GONE);
+                binding.creatorsContainer.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

@@ -56,7 +56,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import androidx.annotation.NonNull;
@@ -119,14 +118,20 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
-                case CURRENT -> {
-                    new Thread(() -> {
-                        uploadHelper.cancelFileUploads(
-                            Arrays.asList(group.items),
-                            group.getItem(0).getAccountName());
-                        parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
-                    }).start();
-                }
+                case CURRENT -> new Thread(() -> {
+                    OCUpload ocUpload = group.getItem(0);
+                    if (ocUpload == null) {
+                        return;
+                    }
+
+                    String accountName = ocUpload.getAccountName();
+                    if (accountName == null) {
+                        return;
+                    }
+
+                    uploadHelper.cancelFileUploads(Arrays.asList(group.items), accountName);
+                    parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
+                }).start();
                 case FINISHED -> {
                     uploadsStorageManager.clearSuccessfulUploads();
                     loadUploadItemsFromDb();
@@ -287,16 +292,27 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     @Override
     public void onBindViewHolder(SectionedViewHolder holder, int section, int relativePosition, int absolutePosition) {
+        if (uploadGroups.length == 0 || section < 0 || section >= uploadGroups.length) {
+            return;
+        }
+
+        UploadGroup uploadGroup = uploadGroups[section];
+        if (uploadGroup == null) {
+            return;
+        }
+
+        OCUpload item = uploadGroup.getItem(relativePosition);
+        if (item == null) {
+            return;
+        }
+
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-
-        OCUpload item = uploadGroups[section].getItem(relativePosition);
-
         itemViewHolder.binding.uploadName.setText(item.getLocalPath());
 
         // local file name
         File remoteFile = new File(item.getRemotePath());
         String fileName = remoteFile.getName();
-        if (fileName.length() == 0) {
+        if (fileName.isEmpty()) {
             fileName = File.separator;
         }
         itemViewHolder.binding.uploadName.setText(fileName);
@@ -937,9 +953,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     abstract class UploadGroup implements Refresh {
-        private Type type;
+        private final Type type;
         private OCUpload[] items;
-        private String name;
+        private final String name;
 
         UploadGroup(Type type, String groupName) {
             this.type = type;
@@ -956,6 +972,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
 
         public OCUpload getItem(int position) {
+            if (items.length == 0 || position < 0 || position >= items.length) {
+                return null;
+            }
+
             return items[position];
         }
 

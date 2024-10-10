@@ -638,7 +638,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
             for (OCFile file : checkedFiles) {
                 if (file.isOfflineOperation()) {
                     toHide = new ArrayList<>(
-                        Arrays.asList(R.id.action_favorite, R.id.action_move_or_copy, R.id.action_sync_file, R.id.action_encrypted, R.id.action_unset_encrypted)
+                        Arrays.asList(R.id.action_favorite,
+                                      R.id.action_move_or_copy,
+                                      R.id.action_sync_file,
+                                      R.id.action_encrypted,
+                                      R.id.action_unset_encrypted,
+                                      R.id.action_edit,
+                                      R.id.action_download_file,
+                                      R.id.action_export_file,
+                                      R.id.action_set_as_wallpaper
+                                     )
                     );
                     break;
                 }
@@ -1129,10 +1138,16 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 Log_OC.d(TAG, "no public key for " + user.getAccountName());
 
                 FragmentManager fragmentManager = getParentFragmentManager();
-                if (fragmentManager.findFragmentByTag(SETUP_ENCRYPTION_DIALOG_TAG) == null) {
-                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
-                    dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
-                    dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
+                if (fragmentManager.findFragmentByTag(SETUP_ENCRYPTION_DIALOG_TAG) == null && requireActivity() instanceof FileActivity fileActivity) {
+                    fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
+                        if (result) {
+                            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
+                            dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
+                            dialog.show(fragmentManager, SETUP_ENCRYPTION_DIALOG_TAG);
+                        } else {
+                            DisplayUtils.showSnackMessage(fileActivity, R.string.internet_connection_required_for_encrypted_folder_setup);
+                        }
+                    });
                 }
             }
         } else {
@@ -1143,13 +1158,25 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
-    private void fileOnItemClick(OCFile file) {
+    private Integer checkFileBeforeOpen(OCFile file) {
         if (isAPKorAAB(Set.of(file))) {
+            return R.string.gplay_restriction;
+        } else if (file.isOfflineOperation()) {
+            return R.string.offline_operations_file_does_not_exists_yet;
+        } else {
+            return null;
+        }
+    }
+
+    private void fileOnItemClick(OCFile file) {
+        Integer errorMessageId = checkFileBeforeOpen(file);
+        if (errorMessageId != null) {
             Snackbar.make(getRecyclerView(),
-                          R.string.gplay_restriction,
+                          errorMessageId,
                           Snackbar.LENGTH_LONG).show();
             return;
         }
+
         if (PreviewImageFragment.canBePreviewed(file)) {
             // preview image - it handles the download, if needed
             if (searchFragment) {

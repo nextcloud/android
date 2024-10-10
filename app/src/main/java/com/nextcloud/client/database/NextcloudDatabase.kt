@@ -12,6 +12,7 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
@@ -31,6 +32,7 @@ import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
 import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
+import com.nextcloud.client.database.typeConverter.OfflineOperationTypeConverter
 import com.owncloud.android.db.ProviderMeta
 
 @Database(
@@ -65,11 +67,13 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 80, to = 81),
         AutoMigration(from = 81, to = 82),
         AutoMigration(from = 82, to = 83),
-        AutoMigration(from = 83, to = 84)
+        AutoMigration(from = 83, to = 84),
+        AutoMigration(from = 84, to = 85, spec = DatabaseMigrationUtil.DeleteColumnSpec::class)
     ],
     exportSchema = true
 )
 @Suppress("Detekt.UnnecessaryAbstractClass") // needed by Room
+@TypeConverters(OfflineOperationTypeConverter::class)
 abstract class NextcloudDatabase : RoomDatabase() {
 
     abstract fun arbitraryDataDao(): ArbitraryDataDao
@@ -93,6 +97,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                 instance = Room
                     .databaseBuilder(context, NextcloudDatabase::class.java, ProviderMeta.DB_NAME)
                     .allowMainThreadQueries()
+                    .addTypeConverter(OfflineOperationTypeConverter())
                     .addLegacyMigrations(clock, context)
                     .addMigrations(RoomMigration())
                     .addMigrations(Migration67to68())
