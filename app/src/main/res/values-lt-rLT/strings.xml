@@ -378,6 +378,7 @@
     <string name="folder_already_exists">Aplankas jau yra</string>
     <string name="folder_confirm_create">Sukurti</string>
     <string name="folder_list_empty_headline">Čia aplankų nėra</string>
+    <string name="folder_name_empty">Aplanko pavadinimas negali būti tuščias</string>
     <string name="folder_picker_choose_button_text">Pasirinkite</string>
     <string name="folder_picker_choose_caption_text">Pasirinkite paskirties aplanką</string>
     <string name="folder_picker_copy_button_text">Kopija</string>
@@ -429,6 +430,7 @@
     <string name="local_file_not_found_message">Failas nerastas vietinėje failų sistemoje</string>
     <string name="local_folder_friendly_path">%1$s/%2$s</string>
     <string name="local_folder_list_empty">Nėra kitų aplankų</string>
+    <string name="locate_folder">Nustatyti aplanko vietą</string>
     <string name="lock_expiration_info">Galioja iki: %1$s</string>
     <string name="lock_file">Užrakinti failą</string>
     <string name="locked_by">Užrakino %1$s</string>
@@ -733,6 +735,9 @@
     <string name="sub_folder_rule_year">Metai</string>
     <string name="subject_shared_with_you">„%1$s“ yra bendrinama su jumis</string>
     <string name="subject_user_shared_with_you">%1$s pradėjo bendrinti su jumis „%2$s“</string>
+    <string name="subtitle_photos_only">Tik nuotraukos</string>
+    <string name="subtitle_photos_videos">Nuotraukos ir vaizdo įrašai</string>
+    <string name="subtitle_videos_only">Tik vaizdo įrašai</string>
     <string name="suggest">Siūlyti</string>
     <string name="sync_conflicts_in_favourites_ticker">Rastas konfliktas</string>
     <string name="sync_current_folder_was_removed">Aplanko %1$s nebėra</string>
@@ -766,6 +771,7 @@
     <string name="thumbnail">Miniatiūra</string>
     <string name="thumbnail_for_existing_file_description">Miniatiūra egsiztuojantiems failams</string>
     <string name="thumbnail_for_new_file_desc">Miniatiūra naujiems failams</string>
+    <string name="timeout_richDocuments">Įkėlimas užtrunka ilgiau nei tikėtasi</string>
     <string name="today">Šiandien</string>
     <string name="trashbin_activity_title">Ištrinti failai</string>
     <string name="trashbin_empty_headline">Ištrintų failų nėra</string>
