@@ -491,6 +491,7 @@
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
     <string name="internal_two_way_sync">Intern tvåvägssynk</string>
     <string name="internal_two_way_sync_not_yet">Inte än, synkroniseras snart</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">En internetanslutning krävs för att konfigurera den krypterade mappen</string>
     <string name="invalid_url">Ogiltig URL</string>
     <string name="invisible">Osynlig</string>
     <string name="label_empty">Etiketten kan inte vara tom</string>
@@ -595,6 +596,9 @@
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Väntande operation</string>
     <string name="offline_mode">Ingen internetanslutning</string>
+    <string name="offline_mode_info_description">Även utan internetanslutning kan du organisera dina mappar och skapa filer. När du är online igen synkroniseras dina väntande åtgärder automatiskt.</string>
+    <string name="offline_mode_info_title">Du är offline, men kan fortsätta arbeta</string>
+    <string name="offline_operations_file_does_not_exists_yet">Filen finns inte ännu. Ladda upp filen först.</string>
     <string name="offline_operations_worker_notification_conflict_text">Mapp i konflikt: %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Radera offlinemapp</string>
     <string name="offline_operations_worker_notification_error_text">Offlineåtgärden kan inte slutföras. %s</string>

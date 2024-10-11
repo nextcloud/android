@@ -492,6 +492,7 @@
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
     <string name="internal_two_way_sync">Sincronización interna bidireccional</string>
     <string name="internal_two_way_sync_not_yet">Aínda non, pronto se sincronizará</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Precisase dunha conexión a Internet para definir o cartafol cifrado</string>
     <string name="invalid_url">URL incorrecto</string>
     <string name="invisible">Invisíbel</string>
     <string name="label_empty">A etiqueta non pode estar baleira</string>
@@ -596,6 +597,9 @@
     <string name="notifications_no_results_message">Compróbeo máis adiante.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Operación pendente</string>
     <string name="offline_mode">Sen conexión coa Internet</string>
+    <string name="offline_mode_info_description">Mesmo sen conexión a Internet, pode organizar os seus cartafoles, crear ficheiros. Unha vez que volva estar conectado, as túas accións pendentes sincronizaranse automaticamente.</string>
+    <string name="offline_mode_info_title">Está sen conexión, mais o traballo continúa</string>
+    <string name="offline_operations_file_does_not_exists_yet">O ficheiro aínda non existe. Envíe primeiro o ficheiro.</string>
     <string name="offline_operations_worker_notification_conflict_text">Cartafol en conflito: %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Eliminar o cartafol sen conexión</string>
     <string name="offline_operations_worker_notification_error_text">Non é posíbel completar a operación sen conexión. %s</string>
