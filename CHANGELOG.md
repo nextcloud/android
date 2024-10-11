@@ -1,3 +1,11 @@
+## 3.30.1 (October 11, 2024)
+
+- Bugfixes
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/99
+
 ## 3.29.1 (June 27, 2024)
 
 - Bugfixes
