@@ -373,7 +373,7 @@
     <string name="file_list_empty_gallery">لا توجد أية صور أو فيديوهات</string>
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
-    <string name="file_list_empty_headline_server_search">لا يوجد أي نتيجة</string>
+    <string name="file_list_empty_headline_server_search">لا توجد أية نتيجة</string>
     <string name="file_list_empty_local_search">لا يوجد ملف أو مجلد يتطابق مع بحثك</string>
     <string name="file_list_empty_moving">لا يوجد شيء هنا. يمكنك إضافة مجلد.</string>
     <string name="file_list_empty_on_device">الملفات والمجلدات التي تم تنزيلها سوف تظهر هنا.</string>
@@ -729,7 +729,7 @@
     <string name="remote">(عن بعد)</string>
     <string name="remote_file_fetch_failed">فشل في العثور على الملف!</string>
     <string name="remove_e2e">يُمكنك إلغاء التشفير المحلي لهذا العميل</string>
-    <string name="remove_e2e_message">يُمكنك إلغاء التشفير المحلي لهذا العميل. هذا الملف المُشفّر سوف يبقى على الخادوم لكن لن تتم مزامنته مع هذا الحاسوب بعد الآن.</string>
+    <string name="remove_e2e_message">يُمكنك إلغاء التشفير المحلي لهذا العميل. هذا الملف المُشفّر سوف يبقى على الخادم لكن لن تتم مزامنته مع هذا الحاسوب بعد الآن.</string>
     <string name="remove_fail_msg">فشلت عملية الحذف</string>
     <string name="remove_local_account">إزالة الحساب المحلي</string>
     <string name="remove_local_account_details">إزِل الحساب من الجهاز و احذُف كل الملفات المحلية</string>
@@ -809,7 +809,7 @@
     <string name="share_permission_file_drop">اسقاط الملف</string>
     <string name="share_permission_secure_file_drop">إسقاط آمن للملف</string>
     <string name="share_permission_view_only">للعرض فقط</string>
-    <string name="share_permissions">مشاركة الصلاحيات</string>
+    <string name="share_permissions">صلاحيات المشاركة</string>
     <string name="share_remote_clarification">%1$s (بعيد)</string>
     <string name="share_room_clarification">%1$s (محادثة)</string>
     <string name="share_search">الاسم , معرف السحابة , أو البريد الالكتروني ...</string>
