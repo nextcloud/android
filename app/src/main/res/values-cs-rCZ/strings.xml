@@ -54,6 +54,7 @@
     <string name="assistant_screen_task_list_error_state_message">Nedaří se získat seznam úloh – zkontrolujte připojení k Internetu.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Smazat úlohu</string>
     <string name="assistant_screen_task_types_error_state_message">Nedaří se získat typy úloh – zkontrolujte připojení k Internetu.</string>
+    <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_screen_unknown_task_status_text">Neznámé</string>
     <string name="assistant_task_detail_screen_input_button_title">Vstup</string>
     <string name="assistant_task_detail_screen_output_button_title">Výstup</string>
@@ -205,6 +206,7 @@
     <string name="create_new_presentation">Nová prezentace</string>
     <string name="create_new_spreadsheet">Nová tabulka</string>
     <string name="create_rich_workspace">Přidat popis složky</string>
+    <string name="creates_rich_workspace">Přidá popis složky</string>
     <string name="credentials_disabled">Přihlašovací údaje znepřístupněny</string>
     <string name="daily_backup">Každodenní záloha</string>
     <string name="data_to_back_up">Data k zálohování</string>
@@ -255,6 +257,7 @@
     <string name="drawer_header_background">Obrázek na pozadí hlavičky panelu</string>
     <string name="drawer_item_activities">Aktivity</string>
     <string name="drawer_item_all_files">Všechny soubory</string>
+    <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Oblíbené</string>
     <string name="drawer_item_gallery">Média</string>
     <string name="drawer_item_groupfolders">Skupinové složky</string>
@@ -273,6 +276,7 @@
     <string name="drawer_synced_folders">Automatické nahrávání</string>
     <string name="e2e_not_yet_setup">Šifrování mezi koncovými body doposud není nastavené</string>
     <string name="e2e_offline">Není možné bez připojení k Internetu</string>
+    <string name="ecosystem_apps_display_assistant">Asistent</string>
     <string name="ecosystem_apps_display_more">Další</string>
     <string name="ecosystem_apps_display_notes">Poznámky</string>
     <string name="ecosystem_apps_display_talk">Talk</string>
@@ -544,6 +548,7 @@
     <string name="note_could_not_sent">Poznámku se nepodařilo odeslat</string>
     <string name="note_icon_hint">Ikona poznámky</string>
     <string name="notification_action_failed">Akci se nepodařilo provést.</string>
+    <string name="notification_channel_background_operations_name">Operace na pozadí</string>
     <string name="notification_channel_download_description">Zobrazuje ukazatel postupu stahování</string>
     <string name="notification_channel_download_name_short">Stažené</string>
     <string name="notification_channel_file_sync_description">Zobrazuje průběh a výsledek synchronizace souborů</string>
@@ -559,7 +564,9 @@
     <string name="notification_icon">Ikona oznámení</string>
     <string name="notifications_no_results_headline">Žádná upozornění</string>
     <string name="notifications_no_results_message">Vraťte se sem později.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Čekající operace</string>
     <string name="offline_mode">Bez připojení k Internetu</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Offline operace</string>
     <string name="oneHour">1 hodina</string>
     <string name="online">Online</string>
     <string name="online_status">Stav online</string>
@@ -621,6 +628,7 @@
     <string name="prefs_imprint">Impresum</string>
     <string name="prefs_instant_behaviour_dialogTitle">Původní soubor bude…</string>
     <string name="prefs_instant_behaviour_title">Původní soubor bude…</string>
+    <string name="prefs_instant_upload_exclude_hidden_title">Vynechat skryté</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Ukládat v podsložkách podle data</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Používat podsložky</string>
     <string name="prefs_instant_upload_subfolder_rule_title">Předvolby pro dílčí složku</string>
@@ -702,9 +710,11 @@
     <string name="screenshot_04_accounts_heading">Všechny vaše účty</string>
     <string name="screenshot_04_accounts_subline">na jednom místě</string>
     <string name="screenshot_05_autoUpload_heading">Automatické nahrávání</string>
+    <string name="screenshot_06_davdroid_heading">Kalendář a kontakty</string>
     <string name="screenshot_06_davdroid_subline">Synchronizace s DAVx5</string>
     <string name="search_error">Chyba při získávání výsledků hledání</string>
     <string name="secure_share_not_set_up">Zabezpečené sdílení není pro tohoto uživatele nastaveno</string>
+    <string name="secure_share_search">Zabezpečené sdílení…</string>
     <string name="select_all">Vybrat vše</string>
     <string name="select_media_folder">Nastavit složku s médii</string>
     <string name="select_one_template">Vyberte jednu šablonu</string>
@@ -816,6 +826,7 @@
     <string name="subject_shared_with_you">Bylo vám nasdíleno „%1$s“</string>
     <string name="subject_user_shared_with_you">%1$s vám nasdílel(a) „%2$s“</string>
     <string name="subtitle_photos_only">Pouze fotky</string>
+    <string name="subtitle_photos_videos">Fotky a videa</string>
     <string name="subtitle_videos_only">Pouze videa</string>
     <string name="suggest">Doporučit</string>
     <string name="sync">Synchronizovat</string>
@@ -875,12 +886,18 @@
     <string name="update_link_file_no_exist">Nedaří se změnit – zkontrolujte zda soubor existuje.</string>
     <string name="update_link_forbidden_permissions">pro změnu tohoto sdílení</string>
     <string name="updating_share_failed">Změna sdílení se nezdařila</string>
+    <string name="upload_action_cancelled_clear">Vyčistit zrušená nahrávání</string>
+    <string name="upload_action_cancelled_resume">Znovu spustit zrušená nahrávání</string>
     <string name="upload_action_failed_clear">Vyčistit nezdařená nahrávání</string>
     <string name="upload_action_failed_retry">Zkusit znovu nezdařená nahrání</string>
+    <string name="upload_action_global_upload_pause">Pozastavit veškerá nahrávání</string>
+    <string name="upload_action_global_upload_resume">Pokračovat ve všech nahráváních</string>
     <string name="upload_cannot_create_file">Nedaří se vytvořit místní soubor</string>
     <string name="upload_chooser_title">Nahrát z…</string>
     <string name="upload_content_from_other_apps">Nahrát obsah z ostatních aplikací</string>
+    <string name="upload_direct_camera_photo">Fotka</string>
     <string name="upload_direct_camera_upload">Nahrát z kamery</string>
+    <string name="upload_direct_camera_video">Video</string>
     <string name="upload_file_dialog_filename">Název souboru</string>
     <string name="upload_file_dialog_filetype">Typ souboru</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Soubor s odkazem do map Google (%s)</string>
