@@ -492,6 +492,7 @@
     <string name="instant_upload_path">/Uaslódáil Meandaracha</string>
     <string name="internal_two_way_sync">Sioncronú inmheánach dhá bhealach</string>
     <string name="internal_two_way_sync_not_yet">Níl go fóill, go luath le synced</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Tá nasc idirlín ag teastáil chun an fillteán criptithe a shocrú</string>
     <string name="invalid_url">URL neamhbhailí</string>
     <string name="invisible">Dofheicthe</string>
     <string name="label_empty">Ní féidir leis an lipéad a bheith folamh</string>
@@ -596,6 +597,9 @@
     <string name="notifications_no_results_message">Seiceáil ar ais ar ball le do thoil.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Oibríocht ar Feitheamh</string>
     <string name="offline_mode">Gan nasc idirlín</string>
+    <string name="offline_mode_info_description">Fiú gan nasc idirlín, is féidir leat do fhillteáin a eagrú, comhaid a chruthú. Nuair a bheidh tú ar ais ar líne, déanfar do ghníomhartha ar feitheamh a shioncronú go huathoibríoch.</string>
+    <string name="offline_mode_info_title">Tá tú As Líne, Ach Leanann an Obair ar aghaidh</string>
+    <string name="offline_operations_file_does_not_exists_yet">Níl an comhad ann, fós. Íoslódáil an comhad ar dtús.</string>
     <string name="offline_operations_worker_notification_conflict_text">Fillteán Coimhlinte: %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Scrios Fillteán As Líne</string>
     <string name="offline_operations_worker_notification_error_text">Ní féidir an oibríocht as líne a chríochnú. %s</string>

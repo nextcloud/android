@@ -187,7 +187,7 @@
     <string name="conflict_message_description_for_folder">إذا اخترت الاحتفاظ بكلتا النسختين، سيتم إلحاق أرقام تسلسلية في نهاية اسم المجلد المحلي.</string>
     <string name="conflict_server_file">ملف على الخادم</string>
     <string name="contact_backup_title">نسخ احتياطي لجهات الاتصال</string>
-    <string name="contact_no_permission">إذن الاتصال بالجهة لازم.</string>
+    <string name="contact_no_permission">إذن الاتصال بالجهة مطلوب.</string>
     <string name="contactlist_item_icon">أيقونة المستخدمين المتواجدين في قائمة جهات الإتصال</string>
     <string name="contactlist_no_permission">لا يوجد إذن، لم يتم استيراد أي شيء</string>
     <string name="contacts">جهات الاتصال</string>
@@ -199,7 +199,7 @@
     <string name="copied_to_clipboard">تم النسخ إلى الحافظة</string>
     <string name="copy_file_error">حدث خطأٌ خلال محاولة نسخ هذا الملف أو المجلد</string>
     <string name="copy_file_invalid_into_descendent">لا يمكن نسخ مجلد في مجلدات هوَّ يتضمنها</string>
-    <string name="copy_file_invalid_overwrite">هذا الملف موجود حالياً في المجلد المُّسّتَقبِل</string>
+    <string name="copy_file_invalid_overwrite">الملف موجود بالفعل في المجلد الوجهة</string>
     <string name="copy_file_not_found">تعذّر النسخ. يرجى التحقق من وجود الملف.</string>
     <string name="copy_link">نسخ الرابط</string>
     <string name="copy_move_to_encrypted_folder_not_supported">النسخ أو النقل إلى مجلد مشفر حالياً غير مدعوم.</string>
@@ -231,7 +231,7 @@
     <string name="did_not_check_for_dupes">لم يتم التحقق من التكرار</string>
     <string name="digest_algorithm_not_available">خوارزمية الموجز ليست متوفرة على هاتفك.</string>
     <string name="direct_login_failed">تسجيل الدخول فشل من خلال الرابط المباشر!</string>
-    <string name="direct_login_text">الدخول باستعمال %1$s إلى %2$s</string>
+    <string name="direct_login_text">الدخول باستخدام %1$s إلى %2$s</string>
     <string name="disable_new_media_folder_detection_notifications">تعطيل</string>
     <string name="dismiss">تراجع</string>
     <string name="dismiss_notification_description">تجاهل الإشعار</string>
@@ -240,7 +240,7 @@
     <string name="document_scan_export_dialog_images">صور متعددة</string>
     <string name="document_scan_export_dialog_pdf">ملف PDF</string>
     <string name="document_scan_export_dialog_title">اختر نوع التصدير</string>
-    <string name="document_scan_pdf_generation_failed">إخفاق في توليد ملف PDF</string>
+    <string name="document_scan_pdf_generation_failed">فشل في توليد ملف PDF</string>
     <string name="document_scan_pdf_generation_in_progress">توليد ملف PDF ...</string>
     <string name="done">أُنجز</string>
     <string name="dontClear">غير واضح</string>
@@ -310,7 +310,7 @@
     <string name="end_to_end_encryption_storing_keys">تخزين المفاتيح </string>
     <string name="end_to_end_encryption_title">تنصيب التشفير</string>
     <string name="end_to_end_encryption_unsuccessful">تعذر حفظ المفاتيح، يرجى إعادة المحاولة.</string>
-    <string name="end_to_end_encryption_wrong_password">خطأ أثناء فك التشفير. هل كلمة السر صحيحة ؟</string>
+    <string name="end_to_end_encryption_wrong_password">خطأ أثناء فك التشفير. هل كلمة المرور صحيحة ؟</string>
     <string name="enter_destination_filename">أدخل الوجهة اسم الملف</string>
     <string name="enter_filename">يرجى إدخال اسم الملف</string>
     <string name="error__upload__local_file_not_copied">%1$s تعذر نسخه %2$s للمجلد المحلي</string>
@@ -467,7 +467,7 @@
     <string name="hidden_file_name_warning">الاسم سيقود إلى ملف مخفي</string>
     <string name="hint_name">الاسم</string>
     <string name="hint_note">ملاحظة</string>
-    <string name="hint_password">كلمة السر</string>
+    <string name="hint_password">كلمة المرور</string>
     <string name="host_not_available">الخادم غير متوفر</string>
     <string name="host_your_own_server">استضيفوا خادمكم</string>
     <string name="icon_for_empty_list">أيقونه لقائمة فارغة</string>
@@ -492,6 +492,7 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="internal_two_way_sync">مزامنة داخلية في الاتجاهين</string>
     <string name="internal_two_way_sync_not_yet">ليس بعد. قريباً تتم المزامنة</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">مطلوب اتصال داخلي لإعداد المجلد المشفر </string>
     <string name="invalid_url">رابط غير صالح</string>
     <string name="invisible">عدم الظهور</string>
     <string name="label_empty">لا يمكن أن تكون التسمية فارغة</string>
@@ -600,6 +601,9 @@
     <string name="notifications_no_results_message">يرجى التحقق مرة أخرى في وقت لاحق.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">عملية مُعلَّقة</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
+    <string name="offline_mode_info_description">حتى بدون اتصال بالإنترنت، يمكنك تنظيم مجلداتك وإنشاء ملفات. بمجرد عودة الاتصال بالإنترنت، ستتم مزامنة الإجراءات المعلقة تلقائياً.</string>
+    <string name="offline_mode_info_title">أنت غير متصل بالإنترنت؛ لكن العمل سيستمر</string>
+    <string name="offline_operations_file_does_not_exists_yet">الملف لم يتوفر بعدُ. رجاءً، قم برفع الملف أوّلاً.</string>
     <string name="offline_operations_worker_notification_conflict_text">مجلد متعارض: %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">حذف مجلد غير متصل</string>
     <string name="offline_operations_worker_notification_error_text">لا يمكن إكمال العملية دون اتصال. %s</string>
