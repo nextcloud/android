@@ -31,6 +31,7 @@
     <string name="add_to_cloud">Pievienot %1$s</string>
     <string name="advanced_settings">Paplašināti iestatījumi</string>
     <string name="allow_resharing">Atļaut atkārtotu koplietošanu</string>
+    <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
     <string name="assistant_screen_all_task_type">Visi</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Dzēst uzdevumu</string>
@@ -293,12 +294,18 @@
     <string name="hint_note">Piezīme</string>
     <string name="hint_password">Parole</string>
     <string name="host_not_available">Serveris nav pieejams</string>
+    <string name="image_editor_file_edited_suffix">rediģēts</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="in_folder">%1$s mapē</string>
     <string name="instant_upload_on_charging">Augšupielādēt tikai uzlādes laikā</string>
     <string name="instant_upload_path">/TūlītējaAugšupielāde</string>
     <string name="invisible">Neredzama</string>
     <string name="link">Saite</string>
     <string name="link_share_allow_upload_and_editing">Atļaut augšupielādi un labošanu</string>
     <string name="link_share_file_drop">Datņu mešana (tikai augšupielādei)</string>
+    <string name="link_share_view_only">Tikai skatīt</string>
     <string name="list_layout">Saraksta izkārtojums</string>
     <string name="load_more_results">Ielādēt vairāk iznākumu</string>
     <string name="local_file_list_empty">Šajā mapē nav datņu</string>
@@ -354,6 +361,7 @@
     <string name="pass_code_removed">Kods noņemts</string>
     <string name="pass_code_stored">Kods saglabāts</string>
     <string name="pass_code_wrong">Nepareizs piekļuves kods</string>
+    <string name="permission_allow">Atļaut</string>
     <string name="permission_storage_access">Nepieciešamas papildus tiesības, lai augšupielādētu un lejupielādētu datnes.</string>
     <string name="picture_set_as_no_app">Nav lietotnes, ar kuru uzstādīt attēlu</string>
     <string name="pin_home">Piespraust sākuma ekrānam</string>
@@ -390,6 +398,7 @@
     <string name="prefs_show_hidden_files">Rādīt slēptās datnes</string>
     <string name="prefs_synced_folders_local_path_title">Vietējā mape</string>
     <string name="prefs_synced_folders_remote_path_title">Attālinātā mape</string>
+    <string name="prefs_theme_title">Motīvs</string>
     <string name="prefs_value_theme_dark">Tumšs</string>
     <string name="prefs_value_theme_light">Gaišs</string>
     <string name="preview_image_description">Attēla priekšskatījums</string>
@@ -434,6 +443,7 @@
     <string name="share_no_password_title">Uzstādīt paroli</string>
     <string name="share_password_title">Aizsargāts ar paroli</string>
     <string name="share_permission_can_edit">Var labot</string>
+    <string name="share_permission_view_only">Tikai skatīt</string>
     <string name="share_remote_clarification">%1$s (attālināti)</string>
     <string name="share_send_note">Piezīme saņēmējam</string>
     <string name="share_settings">Iestatījumi</string>
@@ -490,6 +500,7 @@
     <string name="sync_fail_ticker_unauthorized">Sinhronizācija neizdevās, piesakieties vēlreiz</string>
     <string name="sync_file_nothing_to_do_msg">Datnes saturs jau ir sinhronizēts</string>
     <string name="sync_foreign_files_forgotten_ticker">Dažas lokālās datnes tika aizmirstas</string>
+    <string name="sync_not_enough_space_dialog_action_free_space">Atbrīvot vietu</string>
     <string name="sync_string_files">Datnes</string>
     <string name="synced_folder_settings_button">Iestatījumu poga</string>
     <string name="synced_folders_preferences_folder_path">Priekš %1$s</string>
@@ -509,6 +520,7 @@
     <string name="upload_action_failed_clear">Notīrīt neizdevušās augšupielādes</string>
     <string name="upload_action_failed_retry">Atkārtot neizdevušās augšupielādes</string>
     <string name="upload_chooser_title">Augšupielādēts no…</string>
+    <string name="upload_direct_camera_video">Video</string>
     <string name="upload_file_dialog_filename">Datnes nosaukums</string>
     <string name="upload_file_dialog_filetype">Datnes veids</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Google Maps īsceļa datne(%s)</string>
@@ -583,5 +595,16 @@
     <string name="whats_new_title">Jaunums %1$s</string>
     <string name="whats_your_status">Kāds ir jūsu statuss?</string>
     <string name="widgets_not_available_title">Nav pieejams</string>
+    <string name="worker_download">Lejupielādē failus…</string>
     <string name="write_email">Sūtīt e-pastu</string>
-    </resources>
+    <plurals name="file_list__footer__folder">
+        <item quantity="zero">%1$d mapes</item>
+        <item quantity="one">%1$d mape</item>
+        <item quantity="other">%1$d mapes</item>
+    </plurals>
+    <plurals name="items_selected_count">
+        <item quantity="zero">%d atlasīti</item>
+        <item quantity="one">%d atlasīts</item>
+        <item quantity="other">%d atlasīti</item>
+    </plurals>
+</resources>
