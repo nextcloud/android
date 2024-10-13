@@ -977,7 +977,7 @@
     <string name="upload_manually_cancelled">O envío foi cancelado polo usuario</string>
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">O cifrado só é posíbel con &gt;= Android 5.0</string>
-    <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. No canto diso, gustaríalle movelos?</string>
+    <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. En troques, gustaríalle movelos?</string>
     <string name="upload_quota_exceeded">Superouse a cota de almacenamento</string>
     <string name="upload_scan_doc_upload">Escanear o documento dende a cámara</string>
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>

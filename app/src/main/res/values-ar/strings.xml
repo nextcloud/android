@@ -994,7 +994,7 @@
     <string name="upload_list_delete">حذف</string>
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
     <string name="upload_list_empty_text_auto_upload">قم بتحميل بعض الملفات أو قم بتفعيل التحميل التلقائي.</string>
-    <string name="upload_list_expand_header">تبديل توسيع الترويسة</string>
+    <string name="upload_list_expand_header">تبديل توسيع العنوان</string>
     <string name="upload_list_resolve_conflict">حل تعارُض</string>
     <string name="upload_local_storage_full">التخزين المحلي ممتلئ</string>
     <string name="upload_local_storage_not_copied">تعذر نسخ الملف إلى التخزين المحلي</string>
