@@ -51,7 +51,7 @@
     <string name="assistant_screen_scheduled_task_status_text">مُجدول</string>
     <string name="assistant_screen_successful_task_text">مُكتمل</string>
     <string name="assistant_screen_task_create_fail_message">حدث خطأ أثناء إنشاء المهمة</string>
-    <string name="assistant_screen_task_create_success_message">تمّ إنشاء المهمة بنجاحٍ</string>
+    <string name="assistant_screen_task_create_success_message">تمّ إنشاء المهمة بنجاح</string>
     <string name="assistant_screen_task_delete_fail_message">حدث خطأ أثناء حذف المهمة</string>
     <string name="assistant_screen_task_delete_success_message">تمّ حذف المهمة بنجاح</string>
     <string name="assistant_screen_task_list_error_state_message">تعذّر جلب قائمة المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
@@ -368,7 +368,7 @@
     <string name="file_icon">الملف</string>
     <string name="file_keep">حفظ</string>
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
-    <string name="file_list_empty_favorite_headline">لا يوجد عندك مفضلات بعد</string>
+    <string name="file_list_empty_favorite_headline">ليس لديك ملفات مفضلة</string>
     <string name="file_list_empty_favorites_filter_list">الملفات والمجلدات التي تضع عليها علامة كمفضلة سوف تظهر هنا.</string>
     <string name="file_list_empty_gallery">لا توجد أية صور أو فيديوهات</string>
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
@@ -525,7 +525,7 @@
     <string name="logs_menu_send">ارسال السجلات بواسطة البريد الالكتروني</string>
     <string name="logs_status_filtered">سجلات: %1$d كيلو بايت، مطابقة الإستعلام %2$d \ %3$d خلال %4$d جزء من الثانية</string>
     <string name="logs_status_loading">التحميل جارٍ…</string>
-    <string name="logs_status_not_filtered">سجلات: %1$d كيلو بايت، بدون فلتر</string>
+    <string name="logs_status_not_filtered">سجلات: %1$d كيلو بايت، بدون عامل تصفية</string>
     <string name="logs_title">السجلات</string>
     <string name="maintenance_mode">الخادم في وضع الصيانة</string>
     <string name="manage_space_clear_data">مسح البيانات</string>
@@ -638,7 +638,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
     <string name="player_stop">إيقاف</string>
     <string name="player_toggle">تبديل</string>
-    <string name="please_select_a_server">من فضلك، حدِّد الخادم...</string>
+    <string name="please_select_a_server">من فضلك، قم بتحديد الخادم...</string>
     <string name="power_save_check_dialog_message">قد يؤدي تعطيل فحص حفظ الطاقة إلى تحميل الملفات عندما تكون حالة البطارية منخفضة!</string>
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
     <string name="pref_behaviour_entries_keep_file">أبقى في المجلد الأصلي</string>
