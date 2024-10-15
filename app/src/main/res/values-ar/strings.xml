@@ -733,7 +733,7 @@
     <string name="remove_fail_msg">فشلت عملية الحذف</string>
     <string name="remove_local_account">إزالة الحساب المحلي</string>
     <string name="remove_local_account_details">إزِل الحساب من الجهاز و احذُف كل الملفات المحلية</string>
-    <string name="remove_notification_failed">فشل في إزالة الإخطار.</string>
+    <string name="remove_notification_failed">فشل في إزالة الإشعار.</string>
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">تم حذفه</string>
     <string name="rename_dialog_title">أدخل اسما جديداً</string>
@@ -958,7 +958,7 @@
     <string name="unlock_file">فتح قفل الملف</string>
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>
-    <string name="unset_favorite">إزالة مِن المفضلة</string>
+    <string name="unset_favorite">إزالة من المفضلة</string>
     <string name="unshare_link_file_error">حدث خطأ أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد.</string>
     <string name="unshare_link_file_no_exist">غير قادر على المشاركة. يرجى التحقق من وجود الملف.</string>
     <string name="unshare_link_forbidden_permissions">لإلغاء مشاركة هذا الملف</string>
