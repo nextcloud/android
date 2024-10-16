@@ -628,9 +628,9 @@
     <string name="pin_home">Fixar na pantalla de Inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
     <string name="placeholder_fileSize">389 KB</string>
-    <string name="placeholder_filename">marcadordeposición.txt</string>
+    <string name="placeholder_filename">marcadordesubstitución.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
-    <string name="placeholder_sentence">Isto é un marcador de posición</string>
+    <string name="placeholder_sentence">Isto é un marcador de substitución</string>
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">alternar</string>

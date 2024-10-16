@@ -597,6 +597,7 @@
     <string name="notifications_no_results_message">Vraťte se sem později.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Čekající operace</string>
     <string name="offline_mode">Bez připojení k Internetu</string>
+    <string name="offline_mode_info_description">I bez připojení k Internetu je možné uspořádávat své složky a vytvářet soubory. Jakmile budete opět online, vaše čekající změny budou automaticky synchronizovány.</string>
     <string name="offline_mode_info_title">Jste bez připojení, ale práce pokračuje</string>
     <string name="offline_operations_file_does_not_exists_yet">Soubor ještě neexistuje. Nejprve ho prosím nahrajte.</string>
     <string name="offline_operations_worker_notification_conflict_text">Kolidující složka: %s</string>
@@ -864,6 +865,7 @@
     <string name="storage_permission_full_access">Plný přístup</string>
     <string name="storage_permission_media_read_only">Média pouze pro čtení</string>
     <string name="storage_pictures">Obrázky</string>
+    <string name="store_full_desc">Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše.\n\nFunkce:\n* Snadno použitelné moderní rozhraní, s motivem vzhledu sladěným s tím nastaveným na serveru\n* Nahrávání souborů na vámi využívaný Nextcloud server\n* Jejich sdílení s ostatními\n* Udržování vašich oblíbených souborů a složek synchronizovaných\n* Vyhledávání napříč všemi složkami na vámi využívaném serveru\n* Automatické nahrávání fotek a videí pořízených vaším zařízením\n* Budete v obraze díky upozorněním\n* Podpora vícero účtů\n* Zabezpečení přístupu k vašim datům otiskem prstu nebo PIN kódem\n*  Propojení s aplikací DAVx5 (dříve známé jako DAVdroid) pro snadné nastavení synchronizace kalendáře a kontaktů\n\nVeškeré problémy prosíme hlaste na https://github.com/nextcloud/android/issues, diskutovat lze na https://help.nextcloud.com/c/clients/android\n\nJeště Nextcloud neznáte? Je to server pro komunikaci, synchronizaci a sdílení vašich dat. Jedná se o svobodný software, který můžete provozovat sami, nebo si jako službu koupit u jiné společnosti. Díky tomu máte kontrolu nad svými fotkami, kalendářem, kontakty i dokumenty a vším ostatním.\n\nVíce o Nextcloud naleznete na  https://nextcloud.com</string>
     <string name="store_full_dev_desc">Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše.\nToto je oficiální vývojová verze, sloužící jako denně aktualizovaná ukázka nových nevyzkoušených funkcí, což může způsobovat nestabilitu a ztráty dat. Je určeno pro uživatele, kteří jsou ochotní testovat a hlásit chyby na které narazí. Nepoužívejte pro svou produktivní práci!\n\nJak vývojová tak produkční verze jsou k dispozici na F-droid a mohou být nainstalovány souběžně.</string>
     <string name="store_short_desc">Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše</string>
     <string name="store_short_dev_desc">Platforma pro produktivitu hostovaná u vás, kde vaše data jsou opravdu vaše (vývojová verze)</string>
