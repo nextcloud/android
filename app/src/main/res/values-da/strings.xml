@@ -49,6 +49,7 @@
     <string name="assistant_screen_task_delete_fail_message">En fejl opstod under sletning af opgaven</string>
     <string name="assistant_screen_task_delete_success_message">Opgaven er slettet</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Slet opgave</string>
+    <string name="assistant_screen_task_output_empty_text">Opgaveoutputtet er ikke klar endnu.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Ukendt</string>
     <string name="associated_account_not_found">Forbundet konto blev ikke fundet!</string>
@@ -443,6 +444,7 @@
     <string name="instant_upload_existing">Send også eksisterende filer</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
     <string name="instant_upload_path">/Øjeblikkelig upload</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">En internetforbindelse er påkrævet for at konfigurere den krypterede mappe</string>
     <string name="invalid_url">Ugyldig URL</string>
     <string name="invisible">Usynlig</string>
     <string name="label_empty">Etiketten kan ikke være tom</string>
@@ -539,9 +541,13 @@
     <string name="notification_channel_upload_description">Viser afsendings fremskridt</string>
     <string name="notification_channel_upload_name_short">Uploadede filer</string>
     <string name="notification_icon">Notifikationsikon</string>
+    <string name="notification_icon_description">Der findes ulæste notifikationer</string>
     <string name="notifications_no_results_headline">Ingen notifikationer</string>
     <string name="notifications_no_results_message">Prøv igen senere.</string>
     <string name="offline_mode">Ingen internetforbindelse</string>
+    <string name="offline_mode_info_description">Selv uden internetforbindelse kan du organisere dine mapper, oprette filer. Når du er online igen, synkroniseres dine afventende handlinger automatisk.</string>
+    <string name="offline_mode_info_title">Du er offline, men arbejdet fortsætter</string>
+    <string name="offline_operations_file_does_not_exists_yet">Filen eksisterer ikke endnu. Upload venligst filen først.</string>
     <string name="oneHour">1 time</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>

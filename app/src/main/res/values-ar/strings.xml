@@ -51,7 +51,7 @@
     <string name="assistant_screen_scheduled_task_status_text">مُجدول</string>
     <string name="assistant_screen_successful_task_text">مُكتمل</string>
     <string name="assistant_screen_task_create_fail_message">حدث خطأ أثناء إنشاء المهمة</string>
-    <string name="assistant_screen_task_create_success_message">تمّ إنشاء المهمة بنجاحٍ</string>
+    <string name="assistant_screen_task_create_success_message">تمّ إنشاء المهمة بنجاح</string>
     <string name="assistant_screen_task_delete_fail_message">حدث خطأ أثناء حذف المهمة</string>
     <string name="assistant_screen_task_delete_success_message">تمّ حذف المهمة بنجاح</string>
     <string name="assistant_screen_task_list_error_state_message">تعذّر جلب قائمة المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
@@ -368,12 +368,12 @@
     <string name="file_icon">الملف</string>
     <string name="file_keep">حفظ</string>
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
-    <string name="file_list_empty_favorite_headline">لا يوجد عندك مفضلات بعد</string>
+    <string name="file_list_empty_favorite_headline">ليس لديك ملفات مفضلة</string>
     <string name="file_list_empty_favorites_filter_list">الملفات والمجلدات التي تضع عليها علامة كمفضلة سوف تظهر هنا.</string>
     <string name="file_list_empty_gallery">لا توجد أية صور أو فيديوهات</string>
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
-    <string name="file_list_empty_headline_server_search">لا يوجد أي نتيجة</string>
+    <string name="file_list_empty_headline_server_search">لا توجد أية نتيجة</string>
     <string name="file_list_empty_local_search">لا يوجد ملف أو مجلد يتطابق مع بحثك</string>
     <string name="file_list_empty_moving">لا يوجد شيء هنا. يمكنك إضافة مجلد.</string>
     <string name="file_list_empty_on_device">الملفات والمجلدات التي تم تنزيلها سوف تظهر هنا.</string>
@@ -525,7 +525,7 @@
     <string name="logs_menu_send">ارسال السجلات بواسطة البريد الالكتروني</string>
     <string name="logs_status_filtered">سجلات: %1$d كيلو بايت، مطابقة الإستعلام %2$d \ %3$d خلال %4$d جزء من الثانية</string>
     <string name="logs_status_loading">التحميل جارٍ…</string>
-    <string name="logs_status_not_filtered">سجلات: %1$d كيلو بايت، بدون فلتر</string>
+    <string name="logs_status_not_filtered">سجلات: %1$d كيلو بايت، بدون عامل تصفية</string>
     <string name="logs_title">السجلات</string>
     <string name="maintenance_mode">الخادم في وضع الصيانة</string>
     <string name="manage_space_clear_data">مسح البيانات</string>
@@ -638,7 +638,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 مساء</string>
     <string name="player_stop">إيقاف</string>
     <string name="player_toggle">تبديل</string>
-    <string name="please_select_a_server">من فضلك، حدِّد الخادم...</string>
+    <string name="please_select_a_server">من فضلك، قم بتحديد الخادم...</string>
     <string name="power_save_check_dialog_message">قد يؤدي تعطيل فحص حفظ الطاقة إلى تحميل الملفات عندما تكون حالة البطارية منخفضة!</string>
     <string name="pref_behaviour_entries_delete_file">خذفت</string>
     <string name="pref_behaviour_entries_keep_file">أبقى في المجلد الأصلي</string>
@@ -729,11 +729,11 @@
     <string name="remote">(عن بعد)</string>
     <string name="remote_file_fetch_failed">فشل في العثور على الملف!</string>
     <string name="remove_e2e">يُمكنك إلغاء التشفير المحلي لهذا العميل</string>
-    <string name="remove_e2e_message">يُمكنك إلغاء التشفير المحلي لهذا العميل. هذا الملف المُشفّر سوف يبقى على الخادوم لكن لن تتم مزامنته مع هذا الحاسوب بعد الآن.</string>
+    <string name="remove_e2e_message">يُمكنك إلغاء التشفير المحلي لهذا العميل. هذا الملف المُشفّر سوف يبقى على الخادم لكن لن تتم مزامنته مع هذا الحاسوب بعد الآن.</string>
     <string name="remove_fail_msg">فشلت عملية الحذف</string>
     <string name="remove_local_account">إزالة الحساب المحلي</string>
     <string name="remove_local_account_details">إزِل الحساب من الجهاز و احذُف كل الملفات المحلية</string>
-    <string name="remove_notification_failed">فشل في إزالة الإخطار.</string>
+    <string name="remove_notification_failed">فشل في إزالة الإشعار.</string>
     <string name="remove_push_notification">حذف</string>
     <string name="remove_success_msg">تم حذفه</string>
     <string name="rename_dialog_title">أدخل اسما جديداً</string>
@@ -809,7 +809,7 @@
     <string name="share_permission_file_drop">اسقاط الملف</string>
     <string name="share_permission_secure_file_drop">إسقاط آمن للملف</string>
     <string name="share_permission_view_only">للعرض فقط</string>
-    <string name="share_permissions">مشاركة الصلاحيات</string>
+    <string name="share_permissions">صلاحيات المشاركة</string>
     <string name="share_remote_clarification">%1$s (بعيد)</string>
     <string name="share_room_clarification">%1$s (محادثة)</string>
     <string name="share_search">الاسم , معرف السحابة , أو البريد الالكتروني ...</string>
@@ -958,7 +958,7 @@
     <string name="unlock_file">فتح قفل الملف</string>
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>
-    <string name="unset_favorite">إزالة مِن المفضلة</string>
+    <string name="unset_favorite">إزالة من المفضلة</string>
     <string name="unshare_link_file_error">حدث خطأ أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد.</string>
     <string name="unshare_link_file_no_exist">غير قادر على المشاركة. يرجى التحقق من وجود الملف.</string>
     <string name="unshare_link_forbidden_permissions">لإلغاء مشاركة هذا الملف</string>
@@ -994,7 +994,7 @@
     <string name="upload_list_delete">حذف</string>
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
     <string name="upload_list_empty_text_auto_upload">قم بتحميل بعض الملفات أو قم بتفعيل التحميل التلقائي.</string>
-    <string name="upload_list_expand_header">تبديل توسيع الترويسة</string>
+    <string name="upload_list_expand_header">تبديل توسيع العنوان</string>
     <string name="upload_list_resolve_conflict">حل تعارُض</string>
     <string name="upload_local_storage_full">التخزين المحلي ممتلئ</string>
     <string name="upload_local_storage_not_copied">تعذر نسخ الملف إلى التخزين المحلي</string>
