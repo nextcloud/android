@@ -478,7 +478,7 @@ public class SaveCalendar {
             return true;
         }
         final String utz = tz.toUpperCase(Locale.US);
-        return utz.equals("UTC") || utz.equals("UTC-0") || utz.equals("UTC+0") || utz.endsWith("/UTC");
+        return "UTC".equals(utz) || "UTC-0".equals(utz) || "UTC+0".equals(utz) || utz.endsWith("/UTC");
     }
 
     private Date getDateTime(Cursor cur, String dbName, String dbTzName, Calendar cal) {

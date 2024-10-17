@@ -124,7 +124,7 @@ public class CreateShareWithShareeOperation extends SyncOperation {
             try {
                 String publicKey = EncryptionUtils.getPublicKey(user, shareeName, arbitraryDataProvider);
 
-                if (publicKey.equals("")) {
+                if ("".equals(publicKey)) {
                     NextcloudClient nextcloudClient = new ClientFactoryImpl(context).createNextcloudClient(user);
                     RemoteOperationResult<String> result = new GetPublicKeyRemoteOperation(shareeName).execute(nextcloudClient);
                     if (result.isSuccess()) {
