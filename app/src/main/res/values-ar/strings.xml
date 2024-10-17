@@ -213,7 +213,7 @@
     <string name="create_new_folder">مجلد جديد</string>
     <string name="create_new_presentation">عرض تقديمي جديد</string>
     <string name="create_new_spreadsheet">جدول بيانات جديد</string>
-    <string name="create_rich_workspace">أضِف وصفاً للمجلد</string>
+    <string name="create_rich_workspace">إضافة وصف للمجلد</string>
     <string name="creates_rich_workspace">إضافة وصف للمجلد</string>
     <string name="credentials_disabled">التصريح غير مفعل</string>
     <string name="daily_backup">النسخ الاحتياطي اليومي</string>
@@ -899,7 +899,7 @@
     <string name="strict_mode">الوضع الآمن : اتصال HTTP  غير مسموح!</string>
     <string name="sub_folder_rule_day">سنة/شهر/يوم</string>
     <string name="sub_folder_rule_month">سنة/شهر</string>
-    <string name="sub_folder_rule_year">السَّنة</string>
+    <string name="sub_folder_rule_year">السنة</string>
     <string name="subject_shared_with_you">تمت مشاركة \"%1$s\" معك</string>
     <string name="subject_user_shared_with_you">%1$s شارك معك \"%2$s\"</string>
     <string name="subtitle_photos_only">الصور فقط</string>
