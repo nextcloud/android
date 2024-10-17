@@ -24,6 +24,7 @@ import com.google.common.collect.Sets
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.typedActivity
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.checkFileName
 import com.nextcloud.utils.fileNameValidator.FileNameValidator.isFileHidden
 import com.owncloud.android.R
@@ -147,12 +148,16 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
 
             if (mTargetFile?.isOfflineOperation == true) {
                 fileDataStorageManager.renameOfflineOperation(mTargetFile, newFileName)
-                if (requireActivity() is FileDisplayActivity) {
-                    val activity = requireActivity() as FileDisplayActivity
-                    activity.refreshCurrentDirectory()
-                }
+                typedActivity<FileDisplayActivity>()?.refreshCurrentDirectory()
             } else {
-                (requireActivity() as ComponentsGetter).fileOperationsHelper.renameFile(mTargetFile, newFileName)
+                typedActivity<FileDisplayActivity>()?.connectivityService?.isNetworkAndServerAvailable { result ->
+                    if (result) {
+                        typedActivity<ComponentsGetter>()?.fileOperationsHelper?.renameFile(mTargetFile, newFileName)
+                    } else {
+                        fileDataStorageManager.addRenameFileOfflineOperation(mTargetFile, newFileName)
+                        typedActivity<FileDisplayActivity>()?.refreshCurrentDirectory()
+                    }
+                }
             }
         }
     }
