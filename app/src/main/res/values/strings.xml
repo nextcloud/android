@@ -1247,4 +1247,5 @@
     <string name="sync">Sync</string>
     <string name="please_select_a_server">Please select a server…</string>
     <string name="notification_icon_description">Unread notifications exist</string>
+    <string name="warn_rename_extension">Renaming extension might make the file unusable</string>
 </resources>
