@@ -92,7 +92,7 @@
     <string name="auth_unknown_host_title">لم يتم العثور على المضيف</string>
     <string name="auth_unsupported_multiaccount">%1$s لا يدعم الحسابات المتعددة </string>
     <string name="auth_wrong_connection_title">لا يمكن إنشاء إتصال</string>
-    <string name="authenticator_activity_cancel_login">إلغاء الدخول</string>
+    <string name="authenticator_activity_cancel_login">إلغاء تسجيل الدخول</string>
     <string name="authenticator_activity_login_error">حدث إشكال عند معالجة طلبك للدخول. يُرجى المحاولة مرةً أخرى.</string>
     <string name="authenticator_activity_please_complete_login_process">رجاءً، قم بإكمال عملية الدخول في مستعرض الوب عندك</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
@@ -268,7 +268,7 @@
     <string name="drawer_item_assistant">المُساعِد</string>
     <string name="drawer_item_favorites">المفضلة </string>
     <string name="drawer_item_gallery">الوسائط</string>
-    <string name="drawer_item_groupfolders">المٌجلّدات الجماعية</string>
+    <string name="drawer_item_groupfolders">مجلدات المجموعة</string>
     <string name="drawer_item_home">الرئيسية</string>
     <string name="drawer_item_notifications">الإخطارات</string>
     <string name="drawer_item_on_device">على الجهاز</string>
@@ -332,7 +332,7 @@
     <string name="etm_accounts">الحسابات</string>
     <string name="etm_background_execution_count">أوقات التشغيل خلال 48 ساعة</string>
     <string name="etm_background_job_created">أُنشِئَ</string>
-    <string name="etm_background_job_name">إسم المهمة</string>
+    <string name="etm_background_job_name">اسم المهمة</string>
     <string name="etm_background_job_progress">التقدم</string>
     <string name="etm_background_job_state">الحالة</string>
     <string name="etm_background_job_user">المستخدم</string>
