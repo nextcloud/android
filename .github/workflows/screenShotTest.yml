@@ -56,7 +56,7 @@ jobs:
 
             -   name: create AVD and generate snapshot for caching
                 if: steps.avd-cache.outputs.cache-hit != 'true'
-                uses: reactivecircus/android-emulator-runner@f0d1ed2dcad93c7479e8b2f2226c83af54494915 # v2.32.0
+                uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d # v2.33.0
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
@@ -84,7 +84,7 @@ jobs:
             -   name: Run screenshot tests
                 env:
                     SHOT_TEST: "true"
-                uses: reactivecircus/android-emulator-runner@f0d1ed2dcad93c7479e8b2f2226c83af54494915 # v2.32.0
+                uses: reactivecircus/android-emulator-runner@62dbb605bba737720e10b196cb4220d374026a6d # v2.33.0
                 with:
                     api-level: ${{ matrix.api-level }}
                     force-avd-creation: false
