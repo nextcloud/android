@@ -33,7 +33,7 @@
     <string name="add_new_secure_file_drop">添加新的安全档案投放箱</string>
     <string name="add_to_cloud">添加到%1$s</string>
     <string name="advanced_settings">高级设置</string>
-    <string name="allow_resharing">允许二次共享</string>
+    <string name="allow_resharing">允许再次共享</string>
     <string name="app_config_base_url_title">基础 URL</string>
     <string name="app_config_proxy_host_title">代理主机名称</string>
     <string name="app_config_proxy_port_title">代理端口</string>
@@ -562,6 +562,7 @@
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>
     <string name="offline_mode">无网络连接</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">删除离线文件夹</string>
     <string name="oneHour">1小时</string>
     <string name="online">在线</string>
     <string name="online_status">在线状态</string>
@@ -667,6 +668,7 @@
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。 请考虑重新添加您的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
     <string name="qr_could_not_be_read">无法读取二维码！</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">无法找到要上传的文件</string>
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
     <string name="recommend_text">我想邀请你在你的设备上使用 %1$s。\n在这里下载：%2$s</string>
     <string name="recommend_urls">%1$s 或 %2$s</string>
@@ -678,7 +680,7 @@
     <string name="remove_e2e_message">您可以在该客户端上本地删除端对端加密。加密文件将保留在服务器上，但不会再同步到该电脑。</string>
     <string name="remove_fail_msg">删除失败</string>
     <string name="remove_local_account">移除本地帐户</string>
-    <string name="remove_local_account_details">从设备中移除账户并删除所有本地文件</string>
+    <string name="remove_local_account_details">从设备中移除账号并删除所有本地文件</string>
     <string name="remove_notification_failed">移除通知失败</string>
     <string name="remove_push_notification">移除</string>
     <string name="remove_success_msg">已删除</string>
@@ -687,7 +689,7 @@
     <string name="rename_server_fail_msg">无法重命名，名字已经被占用</string>
     <string name="request_account_deletion">请求删除账号</string>
     <string name="request_account_deletion_button">请求删除</string>
-    <string name="request_account_deletion_details">请求服务商永久删除账户</string>
+    <string name="request_account_deletion_details">请求服务商永久删除账号</string>
     <string name="reshare_not_allowed">不允许再次共享</string>
     <string name="resharing_is_not_allowed">不允许二次共享</string>
     <string name="resized_image_not_possible_download">重整大小的图片不可用。下载完整图片？</string>
@@ -696,6 +698,7 @@
     <string name="restore_button_description">恢复已删除的文件</string>
     <string name="restore_selected">已选择备份</string>
     <string name="retrieving_file">获取文件中…</string>
+    <string name="retry">重试</string>
     <string name="richdocuments_failed_to_load_document">载入文档失败</string>
     <string name="scanQR_description">通过扫描二维码登录</string>
     <string name="scan_page">扫描页面</string>
@@ -896,7 +899,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
     <string name="trashbin_file_not_restored">文件 %1$s 无法被恢复！</string>
     <string name="trashbin_file_remove">彻底删除</string>
-    <string name="trashbin_loading_failed">加载垃圾箱失败！</string>
+    <string name="trashbin_loading_failed">加载回收站失败！</string>
     <string name="trashbin_not_emptied">文件无法永久删除！</string>
     <string name="unexpected_error_occurred">发生了意外错误</string>
     <string name="unlock_file">解锁文件</string>
@@ -921,7 +924,9 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="upload_cannot_create_file">无法新建本地文件</string>
     <string name="upload_chooser_title">上传自...</string>
     <string name="upload_content_from_other_apps">上传来自其它应用的内容</string>
+    <string name="upload_direct_camera_photo">照片</string>
     <string name="upload_direct_camera_upload">从相机上传</string>
+    <string name="upload_direct_camera_video">视频</string>
     <string name="upload_file_dialog_filename">文件名</string>
     <string name="upload_file_dialog_filetype">文件类型</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">谷歌地图快捷文件(%s)</string>
