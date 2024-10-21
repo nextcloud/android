@@ -29,26 +29,16 @@
         android:gravity="center_vertical|start"
         android:orientation="vertical">
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            tools:ignore="UseCompoundDrawables">
-
         <TextView
             android:id="@+id/name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="middle"
-            android:layout_weight="1"
             android:gravity="center_vertical"
             android:singleLine="true"
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_primary_text_size"
             tools:text="Folder abc" />
-
-        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
