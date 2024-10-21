@@ -1126,6 +1126,10 @@ public class FileDataStorageManager {
         return (i == null) ? 0 : i;
     }
 
+    private long nullToMinusOne(Long i) {
+        return (i == null) ? -1L : i;
+    }
+
     private OCFile createFileInstance(FileEntity fileEntity) {
         OCFile ocFile = new OCFile(fileEntity.getPath());
         ocFile.setDecryptedRemotePath(fileEntity.getPathDecrypted());
@@ -1190,7 +1194,7 @@ public class FileDataStorageManager {
         ocFile.setLivePhoto(fileEntity.getMetadataLivePhoto());
         ocFile.setHidden(nullToZero(fileEntity.getHidden()) == 1);
         ocFile.setE2eCounter(fileEntity.getE2eCounter());
-        ocFile.setInternalFolderSyncTimestamp(nullToZero(fileEntity.getInternalTwoWaySync()));
+        ocFile.setInternalFolderSyncTimestamp(nullToMinusOne(fileEntity.getInternalTwoWaySync()));
 
         String sharees = fileEntity.getSharees();
         // Surprisingly JSON deserialization causes significant overhead.
