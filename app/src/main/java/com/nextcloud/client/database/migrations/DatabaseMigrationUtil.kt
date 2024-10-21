@@ -92,6 +92,16 @@ object DatabaseMigrationUtil {
         }
     }
 
+    /**
+     * Room AutoMigrationSpec to reset two way sync timestamp on root folder
+     */
+    class ResetRootSyncTimestamp : AutoMigrationSpec {
+        override fun onPostMigrate(db: SupportSQLiteDatabase) {
+            db.execSQL("UPDATE filelist SET internal_two_way_sync_timestamp = -1 WHERE _id = 1")
+            super.onPostMigrate(db)
+        }
+    }
+
     @DeleteColumn.Entries(
         DeleteColumn(
             tableName = "offline_operations",
