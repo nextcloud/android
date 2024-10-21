@@ -52,6 +52,13 @@ class InternalTwoWaySyncWork(
                     return checkFreeSpaceResult
                 }
 
+                // do not attempt to sync root folder
+                if (folder.remotePath == OCFile.ROOT_PATH) {
+                    folder.internalFolderSyncTimestamp = -1L
+                    fileDataStorageManager.saveFile(folder)
+                    continue
+                }
+
                 Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
                 val operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager)
                     .execute(context)
