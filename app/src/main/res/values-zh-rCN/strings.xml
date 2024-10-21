@@ -378,7 +378,7 @@
     <string name="file_list_empty_on_device">已下载的文件和文件夹会在这里显示。</string>
     <string name="file_list_empty_recently_modified">在过去的7天内没有被修改过的文件</string>
     <string name="file_list_empty_search">也许它在其他文件夹中？</string>
-    <string name="file_list_empty_shared">您共享的文件和文件夹将在这里显示。</string>
+    <string name="file_list_empty_shared">你共享的文件和文件夹将显示在此处</string>
     <string name="file_list_empty_shared_headline">暂无共享</string>
     <string name="file_list_empty_unified_search_no_results">未找到查询的结果</string>
     <string name="file_list_folder">文件夹</string>
