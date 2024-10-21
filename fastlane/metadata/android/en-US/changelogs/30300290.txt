@@ -1,0 +1,7 @@
+## 3.30.2 (October 21, 2024)
+
+- Bugfix for two way sync. Please check listed folders in settings -> internal two way sync
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/99
