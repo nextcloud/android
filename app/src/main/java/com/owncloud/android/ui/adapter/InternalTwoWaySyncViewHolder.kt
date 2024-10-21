@@ -12,12 +12,18 @@ import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncViewHolderBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.DisplayUtils
 
 class InternalTwoWaySyncViewHolder(val binding: InternalTwoWaySyncViewHolderBinding) :
     RecyclerView.ViewHolder(binding.root) {
-    fun bind(folder: OCFile, context: Context) {
+    fun bind(
+        folder: OCFile,
+        context: Context,
+        dataStorageManager: FileDataStorageManager,
+        internalTwoWaySyncAdapter: InternalTwoWaySyncAdapter
+    ) {
         binding.run {
             size.text = DisplayUtils.bytesToHumanReadable(folder.fileLength)
             name.text = folder.decryptedFileName
@@ -38,6 +44,12 @@ class InternalTwoWaySyncViewHolder(val binding: InternalTwoWaySyncViewHolderBind
                     context,
                     folder.internalFolderSyncTimestamp
                 )
+            }
+
+            unset.setOnClickListener {
+                folder.internalFolderSyncTimestamp = -1L
+                dataStorageManager.saveFile(folder)
+                internalTwoWaySyncAdapter.update()
             }
         }
     }
