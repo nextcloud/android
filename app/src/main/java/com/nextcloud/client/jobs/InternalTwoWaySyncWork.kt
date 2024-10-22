@@ -35,7 +35,9 @@ class InternalTwoWaySyncWork(
         var result = true
 
         if (powerManagementService.isPowerSavingEnabled ||
-            !connectivityService.isConnected || connectivityService.isInternetWalled
+            !connectivityService.isConnected ||
+            connectivityService.isInternetWalled ||
+            !connectivityService.connectivity.isWifi
         ) {
             Log_OC.d(TAG, "Not starting due to constraints!")
             return Result.success()
