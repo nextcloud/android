@@ -33,7 +33,7 @@
     <string name="add_new_secure_file_drop">Pridať nový zabezpečený file drop</string>
     <string name="add_to_cloud">Pridaj do %1$s</string>
     <string name="advanced_settings">Rozšírené nastavenia</string>
-    <string name="allow_resharing">Povoliť sprístupňovanie ďalej</string>
+    <string name="allow_resharing">Povoliť zdieľanie ďalej</string>
     <string name="app_config_base_url_title">Základná URL</string>
     <string name="app_config_proxy_host_title">Názov proxy servera</string>
     <string name="app_config_proxy_port_title">Brána proxy</string>
@@ -276,8 +276,10 @@
     <string name="drawer_quota">Využité: %1$s z %2$s</string>
     <string name="drawer_quota_unlimited">%1$s použitých</string>
     <string name="drawer_synced_folders">Automatické nahratie</string>
+    <string name="e2e_hash_not_found">Hash nebol nájdený</string>
     <string name="e2e_not_yet_setup">E2E zatiaľ nie je nastavené</string>
     <string name="e2e_offline">Nie je možné bez internetového pripojenia</string>
+    <string name="e2e_signature_does_not_match">Podpis nesúhlasí</string>
     <string name="ecosystem_apps_display_assistant">Asistent</string>
     <string name="ecosystem_apps_display_more">Viac</string>
     <string name="ecosystem_apps_display_notes">Poznámky</string>
@@ -319,6 +321,7 @@
     <string name="error_showing_encryption_dialog">Chyba pri zobrazovaní dialogu nastavenia šifrovania!</string>
     <string name="error_starting_direct_camera_upload">Chyba pri otváraní fotoaparátu</string>
     <string name="error_starting_doc_scan">Chyba pri spustení skenovania dokumentu</string>
+    <string name="error_uploading_direct_camera_upload">Nahranie nasnímaného média zlyhalo.</string>
     <string name="etm_accounts">Účty</string>
     <string name="etm_background_execution_count">Čas nastane za 48 hodín</string>
     <string name="etm_background_job_created">Vytvorené</string>
@@ -716,7 +719,7 @@
     <string name="screenshot_06_davdroid_heading">Kalendár a Kontakty</string>
     <string name="screenshot_06_davdroid_subline">Synchronizácia s DAVx5</string>
     <string name="search_error">Chyba pri získavaní výsledkov vyhľadávania</string>
-    <string name="secure_share_not_set_up">Sprístupnenie zabezpečeného zdieľania nie je nastavené pre tohto užívateľa.</string>
+    <string name="secure_share_not_set_up">Zabezpečené zdieľanie nie je nastavené pre tohto užívateľa.</string>
     <string name="secure_share_search">Bezpečné zdieľanie …</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="select_media_folder">Nastaviť priečinok médií</string>
@@ -744,8 +747,8 @@
     <string name="share_known_remote_on_clarification">na %1$s</string>
     <string name="share_link">Sprístupniť odkaz</string>
     <string name="share_link_empty_password">Musíte vložiť heslo</string>
-    <string name="share_link_file_error">Pri pokuse o sprístupnenie tohto súboru alebo priečinka došlo k chybe.</string>
-    <string name="share_link_file_no_exist">Sprístupnenie nie je možné. Skontrolujte, či súbor existuje.</string>
+    <string name="share_link_file_error">Pri pokuse o zdieľanie tohto súboru alebo priečinka došlo k chybe.</string>
+    <string name="share_link_file_no_exist">Zdieľanie nie je možné. Skontrolujte, či súbor existuje.</string>
     <string name="share_link_forbidden_permissions">sprístupniť tento súbor</string>
     <string name="share_link_optional_password_title">Zadajte voliteľné heslo </string>
     <string name="share_link_password_title">Vložte heslo</string>
@@ -885,7 +888,7 @@
     <string name="unset_encrypted">Vypnúť šifrovanie</string>
     <string name="unset_favorite">Odstrániť z obľúbených</string>
     <string name="unshare_link_file_error">Pri pokuse o zrušenie sprístupnenia tohto súboru alebo priečinka došlo k chybe.</string>
-    <string name="unshare_link_file_no_exist">Sprístupnenie nie je možné zrušiť. Skontrolujte, či súbor existuje.</string>
+    <string name="unshare_link_file_no_exist">Zdieľanie nie je možné zrušiť. Skontrolujte, či súbor existuje.</string>
     <string name="unshare_link_forbidden_permissions">zrušiť sprístupnenie tohto súboru</string>
     <string name="unsharing_failed">Zrušenie zdieľania neúspešné</string>
     <string name="untrusted_domain">Prísup cez nedôveryhodnú doménu.  Prosím skontrolujte dokumentáciu pre ďalšie informácie.</string>
