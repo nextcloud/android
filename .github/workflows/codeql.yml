@@ -34,10 +34,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
-      - name: Set Swap Space
-        uses: pierotofy/set-swap-space@49819abfb41bd9b44fb781159c033dba90353a7c # v1.0
-        with:
-          swap-size-gb: 10
       - name: Initialize CodeQL
         uses: github/codeql-action/init@f779452ac5af1c261dce0346a8f964149f49322b # v3.26.13
         with:
@@ -50,7 +46,7 @@ jobs:
       - name: Assemble
         run: |
           mkdir -p "$HOME/.gradle"
-          echo "org.gradle.jvmargs=-Xmx4g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > "$HOME/.gradle/gradle.properties"
+          echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" > "$HOME/.gradle/gradle.properties"
           ./gradlew assembleDebug
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@f779452ac5af1c261dce0346a8f964149f49322b # v3.26.13
