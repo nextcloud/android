@@ -17,6 +17,11 @@ height="80">](https://f-droid.org/packages/com.nextcloud.client/)
 
 ![App screenshots](/doc/Nextcloud_Android_Screenshots.png "App screenshots")
 
+Signing certificate fingerprint to [verify](https://developer.android.com/studio/command-line/apksigner#usage-verify) the APK:
+```
+SHA-256: fb009522f65e25802261b67b10a45fd70e610031976f40b28a649e152ded0373   
+```
+
 ## Getting help :rescue\_worker\_helmet:
 
 Note: The section *Known Problems / FAQs* below may already document your situation.
