@@ -1,3 +1,7 @@
+## 3.30.3 (October 22, 2024)
+
+- Bugfix for two way sync: sync only on wifi
+
 ## 3.30.2 (October 21, 2024)
 
 - Bugfix for two way sync. Please check listed folders in settings -> internal two way sync
