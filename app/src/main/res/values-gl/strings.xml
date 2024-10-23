@@ -934,6 +934,7 @@
     <string name="unread_comments">Existen comentarios sen ler</string>
     <string name="unset_encrypted">Definir como NON cifrado</string>
     <string name="unset_favorite">Retirar dos favoritos</string>
+    <string name="unset_internal_two_way_sync_description">Retirar o cartafol da sincronización bidireccional interna</string>
     <string name="unshare_link_file_error">Produciuse un erro ao tentar deixar de compartir este ficheiro ou cartafol.</string>
     <string name="unshare_link_file_no_exist">Non é posíbel deixar de compartir. Comprobe que existe o ficheiro.</string>
     <string name="unshare_link_forbidden_permissions">para deixar de compartir este ficheiro</string>

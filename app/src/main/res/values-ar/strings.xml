@@ -597,7 +597,7 @@
     <string name="notification_channel_upload_name_short">المرفوعات</string>
     <string name="notification_icon">أيقونة الإشعار</string>
     <string name="notification_icon_description">توجد إشعارات غير مقروءة</string>
-    <string name="notifications_no_results_headline">لا توجد هناك إخطارات</string>
+    <string name="notifications_no_results_headline">لا توجد هناك تنبيهات</string>
     <string name="notifications_no_results_message">يرجى التحقق مرة أخرى في وقت لاحق.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">عملية مُعلَّقة</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
