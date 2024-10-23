@@ -31,7 +31,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.compose" version "2.0.20"
     id "com.diffplug.spotless" version "6.25.0"
     id "org.jetbrains.kotlin.kapt" version "2.0.20"
-    id 'com.google.devtools.ksp' version '2.0.20-1.0.25' apply false
+    id 'com.google.devtools.ksp' version '2.0.21-1.0.25' apply false
 }
 
 apply plugin: 'com.android.application'
@@ -310,7 +310,7 @@ dependencies {
         exclude group: "com.android.support"
     }
     implementation 'com.caverock:androidsvg:1.4'
-    implementation 'androidx.annotation:annotation:1.8.2'
+    implementation 'androidx.annotation:annotation:1.9.0'
     implementation 'com.vanniktech:emoji-google:0.21.0'
 
     // document scanner not available on FDroid (generic) due to OpenCV binaries
@@ -413,7 +413,7 @@ dependencies {
     // upon each update first test: new registration, receive push
     gplayImplementation "com.google.firebase:firebase-messaging:24.0.2"
     gplayImplementation 'com.google.android.gms:play-services-base:18.5.0'
-    gplayImplementation 'com.google.android.play:review-ktx:2.0.1'
+    gplayImplementation 'com.google.android.play:review-ktx:2.0.2'
 
     implementation 'com.github.nextcloud.android-common:ui:0.17.0'
 

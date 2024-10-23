@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">Tâche supprimée avec succès</string>
     <string name="assistant_screen_task_list_error_state_message">Impossible de récupérer la liste des tâches, veuillez vérifier votre connexion Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Supprimer la tâche</string>
+    <string name="assistant_screen_task_output_empty_text">Le résultat de la tâche n\'est pas encore prêt.</string>
     <string name="assistant_screen_task_types_error_state_message">Impossible de récupérer les types des tâches, veuillez vérifier votre connexion Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_unknown_task_status_text">Inconnu</string>
@@ -281,8 +282,11 @@
     <string name="drawer_quota">%1$s utilisés sur %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilisé</string>
     <string name="drawer_synced_folders">Téléversement automatique</string>
+    <string name="e2e_counter_too_old">Le compteur est trop vieux</string>
+    <string name="e2e_hash_not_found">Hachage non trouvé</string>
     <string name="e2e_not_yet_setup">E2E pas encore configuré</string>
     <string name="e2e_offline">Impossible sans connexion internet</string>
+    <string name="e2e_signature_does_not_match">La signature ne correspond pas</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="ecosystem_apps_display_more">Plus</string>
     <string name="ecosystem_apps_display_notes">Notes</string>
@@ -408,8 +412,14 @@
     <string name="file_migration_updating_index">Mise à jour de l\'index…</string>
     <string name="file_migration_use_data_folder">Conserver le dossier actuel</string>
     <string name="file_migration_waiting_for_unfinished_sync">En attente de la synchronisation complète…</string>
+    <string name="file_name_validator_current_path_is_invalid">Le nom du dossier actuellement invalide, veuillez renommer le dossier. Redirection vers la page d\'accueil…</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Le chemin du dossier contient des noms réservés ou des caractères non valides</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s est une extension de fichier interdite</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Les noms de fichiers ne doivent pas contenir d\'espaces au début ou à la fin</string>
+    <string name="file_name_validator_error_invalid_character">Le nom contient des caractères invalides: %s</string>
     <string name="file_name_validator_error_reserved_names">%s est un nom interdit</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Veuillez renommer le fichier avant de le déplacer ou de le copier</string>
+    <string name="file_name_validator_upload_content_error">Certains contenus ne peuvent pas être téléversé car ils contiennent des noms réservés ou des caractères invalides</string>
     <string name="file_not_found">Fichier non trouvé</string>
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
@@ -482,6 +492,7 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="internal_two_way_sync">Synchronisation interne bidirectionnelle</string>
     <string name="internal_two_way_sync_not_yet">Pas encore, bientôt synchronisé</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Une connexion Internet est requise pour configurer le dossier chiffré</string>
     <string name="invalid_url">URL invalide</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">Le libellé ne peut pas être vide</string>
@@ -581,10 +592,14 @@
     <string name="notification_channel_upload_description">Afficher la progression du téléversement</string>
     <string name="notification_channel_upload_name_short">Téléversements</string>
     <string name="notification_icon">Icône de notification</string>
+    <string name="notification_icon_description">Des notifications non lues existent</string>
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Opération en attente</string>
     <string name="offline_mode">Aucune connexion Internet</string>
+    <string name="offline_mode_info_description">Même sans connexion Internet, vous pouvez organiser vos dossiers, créer des fichiers. Dès que vous êtes de nouveau en ligne, vos actions en cours sont automatiquement synchronisées.</string>
+    <string name="offline_mode_info_title">Vous êtes hors ligne, mais le travail continue</string>
+    <string name="offline_operations_file_does_not_exists_yet">Le fichier n\'existe pas encore. Veuillez d\'abord téléverser le fichier.</string>
     <string name="offline_operations_worker_notification_conflict_text">Dossier en conflit : %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Supprimer le dossier hors ligne</string>
     <string name="offline_operations_worker_notification_error_text">L\'opération hors ligne ne peut être achevée. %s</string>
@@ -619,6 +634,7 @@
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="player_stop">arrêter</string>
     <string name="player_toggle">inverser</string>
+    <string name="please_select_a_server">Veuillez sélectionner un serveur…</string>
     <string name="power_save_check_dialog_message">Désactiver l\'économie de batterie peut entraîner le téléversement de fichiers même avec un faible niveau de batterie !</string>
     <string name="pref_behaviour_entries_delete_file">supprimé</string>
     <string name="pref_behaviour_entries_keep_file">conservé dans le dossier original</string>
