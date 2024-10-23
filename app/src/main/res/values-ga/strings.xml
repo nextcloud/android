@@ -933,6 +933,7 @@
     <string name="unread_comments">Tá tuairimí neamhléite ann</string>
     <string name="unset_encrypted">Díshuiteáil criptiú</string>
     <string name="unset_favorite">Bain ó cheanáin</string>
+    <string name="unset_internal_two_way_sync_description">Bain fillteán ón sioncronú dhá bhealach inmheánach</string>
     <string name="unshare_link_file_error">Tharla earráid agus iarracht á déanamh an comhad nó an fillteán seo a dhí-roinnt.</string>
     <string name="unshare_link_file_no_exist">Ní féidir dí-roinnt. Seiceáil an bhfuil an comhad ann le do thoil.</string>
     <string name="unshare_link_forbidden_permissions">chun an comhad seo a dhí roinnt</string>

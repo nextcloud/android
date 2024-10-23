@@ -482,6 +482,7 @@
     <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync_not_yet">Jeszcze nie, niebawem będzie zsynchronizowane</string>
     <string name="internet_connection_required_for_encrypted_folder_setup">Aby ustawić szyfrowany folder wymagane jest połączenie z intenetem</string>
     <string name="invalid_url">Nieprawidłowy adres URL</string>
     <string name="invisible">Niewidoczny</string>
@@ -586,6 +587,11 @@
     <string name="notifications_no_results_message">Sprawdź później.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Trwające działania</string>
     <string name="offline_mode">Brak połączenia z Internetem</string>
+    <string name="offline_operations_worker_notification_conflict_text">Konfliktowy folder %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Usuń katalog offline</string>
+    <string name="offline_operations_worker_notification_error_text">Operacja offline nie może zostać ukończona. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Operacje offline</string>
+    <string name="offline_operations_worker_notification_start_text">Rozpoczynam operacje offline</string>
     <string name="oneHour">1 godzina</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
@@ -615,6 +621,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">zatrzymaj</string>
     <string name="player_toggle">przełącz</string>
+    <string name="please_select_a_server">Wybierz serwer...</string>
     <string name="power_save_check_dialog_message">Wyłączenie kontroli oszczędzania energii może spowodować wysłanie plików w stanie niskiego poziomu naładowania baterii!</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym katalogu</string>
