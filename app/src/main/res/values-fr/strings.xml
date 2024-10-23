@@ -933,6 +933,7 @@
     <string name="unread_comments">Il y a des commentaire non lus</string>
     <string name="unset_encrypted">Désactiver le chiffrement</string>
     <string name="unset_favorite">Retirer des favoris</string>
+    <string name="unset_internal_two_way_sync_description">Supprimer le dossier de la synchronisation bidirectionnelle interne</string>
     <string name="unshare_link_file_error">Une erreur est survenue lors de la tentative d\'annulation du partage de ce fichier ou dossier</string>
     <string name="unshare_link_file_no_exist">Impossible de supprimer le partage. Vérifiez que le fichier existe </string>
     <string name="unshare_link_forbidden_permissions">de cesser le partage de ce fichier</string>
