@@ -403,15 +403,16 @@ open class FolderPickerActivity :
     private fun checkButtonStates(isConditionMet: Boolean) {
         folderPickerBinding.run {
             folderPickerBtnChoose.isEnabled = isConditionMet
-            folderPickerBtnCopy.isEnabled = isFolderSelectable() && isConditionMet
-            folderPickerBtnMove.isEnabled = isFolderSelectable() && isConditionMet
+            folderPickerBtnCopy.isEnabled = isFolderSelectable(COPY) && isConditionMet
+            folderPickerBtnMove.isEnabled = isFolderSelectable(MOVE) && isConditionMet
         }
     }
 
     // for copy and move, disable selecting parent folder of target files
-    private fun isFolderSelectable(): Boolean {
+    private fun isFolderSelectable(type: String): Boolean {
         return when {
             action != MOVE_OR_COPY -> true
+            action == MOVE_OR_COPY && type == COPY -> true
             targetFilePaths.isNullOrEmpty() -> true
             file?.isFolder != true -> true
 
@@ -688,6 +689,8 @@ open class FolderPickerActivity :
         const val MOVE_OR_COPY = "MOVE_OR_COPY"
         const val CHOOSE_LOCATION = "CHOOSE_LOCATION"
         private val TAG = FolderPickerActivity::class.java.simpleName
+        private const val MOVE = "MOVE"
+        private const val COPY = "COPY"
 
         const val TAG_LIST_OF_FOLDERS = "LIST_OF_FOLDERS"
     }
