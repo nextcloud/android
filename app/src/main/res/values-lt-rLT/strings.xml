@@ -189,6 +189,8 @@
     <string name="create_new_folder">Naujas aplankas</string>
     <string name="create_new_presentation">Nauja pateiktis</string>
     <string name="create_new_spreadsheet">Nauja skaičiuoklė</string>
+    <string name="create_rich_workspace">Pridėti aplanko aprašą</string>
+    <string name="creates_rich_workspace">Prideda aplanko aprašą</string>
     <string name="credentials_disabled">Prisijungimo duomenys išjungti</string>
     <string name="daily_backup">Kasdienės atsarginės kopijos</string>
     <string name="data_to_back_up">Duomenys, kurių atsarginę kopiją daryti</string>
@@ -251,6 +253,7 @@
     <string name="ecosystem_apps_display_more">Daugiau</string>
     <string name="ecosystem_apps_display_notes">Užrašai</string>
     <string name="ecosystem_apps_display_talk">Kalba</string>
+    <string name="ecosystem_apps_more">Daugiau Nextcloud programėlių</string>
     <string name="ecosystem_apps_notes">Nextcloud užrašai</string>
     <string name="email_pick_failed">Nepavyko pasirinkti el. pašto adreso.</string>
     <string name="encrypted">Nustatyti kaip šifruotą</string>
@@ -280,6 +283,7 @@
     <string name="error_report_issue_action">Pranešti</string>
     <string name="error_retrieving_file">Klaida gaunant failą</string>
     <string name="error_retrieving_templates">Klaida gaunant šablonus</string>
+    <string name="error_showing_encryption_dialog">Klaida rodant šifravimo sąrankos dialogą!</string>
     <string name="error_starting_direct_camera_upload">Klaida paleidžiant kamerą</string>
     <string name="etm_accounts">Paskyros</string>
     <string name="etm_background_job_name">Užduoties pavadinimas</string>
@@ -455,7 +459,7 @@
     <string name="media_err_invalid_progressive_playback">Medijos failas negali būti transliuojamas</string>
     <string name="media_err_io">Nepavyko perskaityti medijos failo.
 </string>
-    <string name="media_err_malformed">Media failas yra nepalaikomos koduotės.</string>
+    <string name="media_err_malformed">Medijos failas yra nepalaikomos koduotės.</string>
     <string name="media_err_timeout">Baigėsi laukimo laikas bandant paleisti</string>
     <string name="media_err_unknown">Įtaisytąjai medijos leistuvei nepavyko atkurti medijos failo</string>
     <string name="media_err_unsupported">Nepalaikomas kodekas</string>
