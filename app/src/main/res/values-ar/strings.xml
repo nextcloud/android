@@ -591,10 +591,10 @@
     <string name="notification_channel_general_name">الإشعارات العامة</string>
     <string name="notification_channel_media_description">تقدم مشغل الموسيقى</string>
     <string name="notification_channel_media_name">مشغل وسائط </string>
-    <string name="notification_channel_push_description">عرض إشعارات الدفع المرسلة من الخادم: الإشارات في التعليقات ، واستلام المشاركات البعيدة الجديدة ، والإعلانات التي ينشرها المشرف وما إلى ذلك.</string>
+    <string name="notification_channel_push_description">عرض إشعارات الدفع المرسلة من الخادم: الإشارات في التعليقات ، واستلام المشاركات البعيدة الجديدة ، والإعلانات التي ينشرها المدير وما إلى ذلك.</string>
     <string name="notification_channel_push_name">دفع الإخطارات</string>
     <string name="notification_channel_upload_description">يظهر تقدم الرفع</string>
-    <string name="notification_channel_upload_name_short">المرفوعات</string>
+    <string name="notification_channel_upload_name_short">الملفات المرفوعة</string>
     <string name="notification_icon">أيقونة الإشعار</string>
     <string name="notification_icon_description">توجد إشعارات غير مقروءة</string>
     <string name="notifications_no_results_headline">لا توجد هناك تنبيهات</string>
@@ -959,6 +959,7 @@
     <string name="unread_comments">توجد تعليقات غير مقروءة</string>
     <string name="unset_encrypted">لم يتم تحديد التشفير</string>
     <string name="unset_favorite">إزالة من المفضلة</string>
+    <string name="unset_internal_two_way_sync_description">إزِل المجلد من المزامنة الداخلية ثنائية الاتجاه</string>
     <string name="unshare_link_file_error">حدث خطأ أثناء محاولة إلغاء مشاركة هذا الملف أو المجلد.</string>
     <string name="unshare_link_file_no_exist">غير قادر على المشاركة. يرجى التحقق من وجود الملف.</string>
     <string name="unshare_link_forbidden_permissions">لإلغاء مشاركة هذا الملف</string>
@@ -968,8 +969,8 @@
     <string name="update_link_file_no_exist">تعذر التحديث. يرجى التحقق من وجود الملف.</string>
     <string name="update_link_forbidden_permissions">لتحديث هذه المشاركة</string>
     <string name="updating_share_failed">فشل تحديث المشاركة</string>
-    <string name="upload_action_cancelled_clear">مسح المرفوعات الملغاة</string>
-    <string name="upload_action_cancelled_resume">إستئناف المرفوعات الملغاة</string>
+    <string name="upload_action_cancelled_clear">مسح الملفات المرفوعة الملغاة</string>
+    <string name="upload_action_cancelled_resume">إستئناف الملفات المرفوعة الملغاة</string>
     <string name="upload_action_failed_clear">مسح الملفات التي فشل رفعها</string>
     <string name="upload_action_failed_retry">أعِد محاولات الرفع الفاشلة</string>
     <string name="upload_action_file_not_exist_message">بعض الملفات لم تعُد موجودة. عمليات الرفع هذه لا يمكن استئنافها.</string>
