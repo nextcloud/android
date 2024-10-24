@@ -35,6 +35,8 @@
     <string name="app_config_proxy_port_title">Port serbidore intermèdiu</string>
     <string name="appbar_search_in">Chirca in %s</string>
     <string name="assistant_screen_all_task_type">Totu</string>
+    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Peruna faina a disponimentu. Seletziona sa genia de faina pro nde creare una noa.</string>
+    <string name="assistant_screen_no_task_available_text">Peruna faina a disponimentu pro sa genia %s. Nde podes creare una noa dae su cugione in bassu a dereta.</string>
     <string name="assistant_screen_successful_task_text">Cumpletadu</string>
     <string name="assistant_screen_unknown_task_status_text">Disconnotu</string>
     <string name="associated_account_not_found">Contu assotziadu no agatadu!</string>
@@ -183,6 +185,7 @@
     <string name="dialog_close">Serra</string>
     <string name="digest_algorithm_not_available">Custa regorta no est a disponimentu in su telèfonu.</string>
     <string name="direct_login_failed">Atzessu cun ligògiu deretu faddidu!</string>
+    <string name="direct_login_text">Atzede a %2$s cun %1$s</string>
     <string name="disable_new_media_folder_detection_notifications">Disativa</string>
     <string name="dismiss">Iscarta</string>
     <string name="dismiss_notification_description">Iscarta notìfica</string>
@@ -210,6 +213,7 @@
     <string name="drawer_item_home">Pàgina printzipale</string>
     <string name="drawer_item_notifications">Notìficas</string>
     <string name="drawer_item_on_device">In su dispositivu</string>
+    <string name="drawer_item_personal_files">Archìvios personales</string>
     <string name="drawer_item_recently_modified">Modificadas pagu ora</string>
     <string name="drawer_item_shared">Cumpartzidas</string>
     <string name="drawer_item_trashbin">Archìvios cantzellados</string>
@@ -320,6 +324,7 @@
     <string name="file_migration_updating_index">Agiornamentu de s\'ìnditze...</string>
     <string name="file_migration_use_data_folder">Imprea</string>
     <string name="file_migration_waiting_for_unfinished_sync">Abetende sincronizatzione prena...</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Is nùmenes de archìviu non podent cuntènnere ispàtzios a su cumintzu o a sa fine</string>
     <string name="file_not_found">Archìviu no agatadu</string>
     <string name="file_not_synced">No at fatu a sincronizare su documentu. Mustrende s\'ùrtima versione a disponimentu.</string>
     <string name="file_rename">Torra a numenare</string>
@@ -601,6 +606,7 @@
     <string name="share_remote_clarification">%1$s (remotu)</string>
     <string name="share_room_clarification">%1$s (tzarrada)</string>
     <string name="share_search">Nùmene, ID de sa nue federada o indiritzu de posta ...</string>
+    <string name="share_send_new_email">Imbia messàgiu de posta nou</string>
     <string name="share_send_note">Notas pro sa persone destinatària</string>
     <string name="share_settings">Cunfiguratzione</string>
     <string name="share_via_link_hide_download">Cua iscarrigamentu</string>
@@ -799,7 +805,7 @@
     <string name="user_info_email">Posta eletrònica</string>
     <string name="user_info_phone">Nùmeru de telèfonu</string>
     <string name="user_info_twitter">Twitter</string>
-    <string name="user_info_website">Situ internet</string>
+    <string name="user_info_website">Situ web</string>
     <string name="user_information_retrieval_error">Errore in su recùperu de is informatziones de s\'utente</string>
     <string name="userinfo_no_info_headline">Nissuna cunfiguratzione de datos personales</string>
     <string name="userinfo_no_info_text">Agiunghe nùmene, fotografia e detàllios de cuntatu in su profilu tuo.</string>
