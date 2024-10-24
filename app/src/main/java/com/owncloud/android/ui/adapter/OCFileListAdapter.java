@@ -518,7 +518,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
-        holder.getFileName().setText(file.getDecryptedFileName());
+        holder.getFileName().setText(mStorageManager.getFilenameConsideringOfflineOperation(file));
 
         boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
         if (gridView && gridImage) {

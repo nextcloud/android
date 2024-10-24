@@ -217,6 +217,35 @@ public class FileDataStorageManager {
         offlineOperationsRepository.deleteOperation(file);
     }
 
+    public void addRenameFileOfflineOperation(OCFile file, String newName) {
+        OfflineOperationEntity entity = new OfflineOperationEntity();
+
+        entity.setFilename(newName);
+        entity.setParentOCFileId(file.getParentId());
+
+        OfflineOperationType operationType = new OfflineOperationType.RenameFile(OfflineOperationRawType.RenameFile.name(), file.getFileId(), newName);
+        entity.setType(operationType);
+        entity.setPath(file.getDecryptedRemotePath());
+
+        long createdAt = System.currentTimeMillis();
+        long modificationTimestamp = System.currentTimeMillis();
+
+        entity.setCreatedAt(createdAt);
+        entity.setModifiedAt(modificationTimestamp / 1000);
+
+        offlineOperationDao.insert(entity);
+    }
+
+    public String getFilenameConsideringOfflineOperation(OCFile file) {
+        String filename = file.getDecryptedFileName();
+        OfflineOperationEntity renameEntity = offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+        if (renameEntity != null && renameEntity.getType() instanceof OfflineOperationType.RenameFile renameFile) {
+            filename = renameFile.getNewName();
+        }
+
+        return filename;
+    }
+
     public void renameOfflineOperation(OCFile file, String newFolderName) {
         var entity = offlineOperationDao.getByPath(file.getDecryptedRemotePath());
         if (entity == null) {
