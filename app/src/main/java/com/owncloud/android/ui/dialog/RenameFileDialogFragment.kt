@@ -197,8 +197,8 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
     override fun afterTextChanged(s: Editable) = Unit
 
     private fun checkExtensionRenamed(newFileName: String): Boolean {
-        mTargetFile?.fileName?.let {
-            val previousExtension = File(it).extension
+        mTargetFile?.fileName?.let { previousFileName ->
+            val previousExtension = File(previousFileName).extension
             val newExtension = File(newFileName).extension
 
             return previousExtension != newExtension
