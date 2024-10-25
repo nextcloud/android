@@ -933,6 +933,7 @@
     <string name="unread_comments">有未讀留言</string>
     <string name="unset_encrypted">取消加密</string>
     <string name="unset_favorite">從最愛中移除</string>
+    <string name="unset_internal_two_way_sync_description">從內部雙向同步中移除資料夾</string>
     <string name="unshare_link_file_error">嘗試取消分享檔案或資料夾時發生錯誤</string>
     <string name="unshare_link_file_no_exist">無法取消分享，請確認檔案是否存在</string>
     <string name="unshare_link_forbidden_permissions">取消分享這個檔案</string>
