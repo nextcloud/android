@@ -933,6 +933,7 @@
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>
     <string name="unset_favorite">Remove from favourites</string>
+    <string name="unset_internal_two_way_sync_description">Remove folder from internal two way sync</string>
     <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder.</string>
     <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists.</string>
     <string name="unshare_link_forbidden_permissions">to unshare this file</string>
