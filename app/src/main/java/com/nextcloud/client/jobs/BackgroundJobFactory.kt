@@ -285,7 +285,8 @@ class BackgroundJobFactory @Inject constructor(
             params,
             accountManager,
             powerManagementService,
-            connectivityService
+            connectivityService,
+            preferences
         )
     }
 }
