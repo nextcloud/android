@@ -661,6 +661,6 @@ internal class BackgroundJobManagerImpl(
             intervalMins = intervalMinutes
         ).build()
 
-        workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.KEEP, request)
+        workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 }
