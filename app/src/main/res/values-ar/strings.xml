@@ -94,7 +94,7 @@
     <string name="auth_wrong_connection_title">لا يمكن إنشاء إتصال</string>
     <string name="authenticator_activity_cancel_login">إلغاء تسجيل الدخول</string>
     <string name="authenticator_activity_login_error">حدث إشكال عند معالجة طلبك للدخول. يُرجى المحاولة مرةً أخرى.</string>
-    <string name="authenticator_activity_please_complete_login_process">رجاءً، قم بإكمال عملية الدخول في مستعرض الوب عندك</string>
+    <string name="authenticator_activity_please_complete_login_process">يرجى إكمال عملية تسجيل الدخول في المتصفح الخاص بك</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
     <string name="auto_upload_on_wifi">قم بالرفع عبر شبكة لاسلكية غير محدودة البيانات فقط</string>
     <string name="auto_upload_path">/رفع تلقائي</string>
@@ -370,7 +370,7 @@
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
     <string name="file_list_empty_favorite_headline">ليس لديك ملفات مفضلة</string>
     <string name="file_list_empty_favorites_filter_list">الملفات والمجلدات التي تضع عليها علامة كمفضلة سوف تظهر هنا.</string>
-    <string name="file_list_empty_gallery">لا توجد أية صور أو فيديوهات</string>
+    <string name="file_list_empty_gallery">لا توجد أية صور أو ملفات فيديو</string>
     <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
     <string name="file_list_empty_headline_server_search">لا توجد أية نتيجة</string>
@@ -439,7 +439,7 @@
     <string name="first_run_1_text">حافظ على بياناتك آمنة وتحت سيطرتك</string>
     <string name="first_run_2_text">العمل التعاوني الآمن و تبادل الملفات</string>
     <string name="first_run_3_text">بريد وب و تقويم و جهات اتصال سهلة الاستخدام</string>
-    <string name="first_run_4_text">مُشاركة الشاشة و الاجتماع عن بعد و مؤتمرات الوب</string>
+    <string name="first_run_4_text">مشاركة الشاشة والاجتماعات عبر الإنترنت ومؤتمرات الويب</string>
     <string name="folder_already_exists">المجلد موجود مسبقاً</string>
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
@@ -623,7 +623,7 @@
     <string name="pass_code_removed">تمت إزالة الرمز السري</string>
     <string name="pass_code_stored">رمز المرور المخزن</string>
     <string name="pass_code_wrong">رمز المرور غير صحيح</string>
-    <string name="pdf_password_protected">لم يٌمكن فتح ملف PDF محمي بكلمة سر. رجاءً، استخدم عارض PDF خارجي.</string>
+    <string name="pdf_password_protected">غير قادر على فتح ملف PDF محمي بكلمة مرور. الرجاء استخدام عارض PDF خارجي.</string>
     <string name="pdf_zoom_tip">اضغط على الصفحة لتكبيرها</string>
     <string name="permission_allow">سماح</string>
     <string name="permission_deny">رفض</string>
@@ -763,7 +763,7 @@
     <string name="screenshot_04_accounts_heading">كافة حساباتك</string>
     <string name="screenshot_04_accounts_subline">في مكان واحد</string>
     <string name="screenshot_05_autoUpload_heading">تحميل تلقائي</string>
-    <string name="screenshot_05_autoUpload_subline">لصورك و فيديوهاتك</string>
+    <string name="screenshot_05_autoUpload_subline">للصور مقاطع الفيديو الخاصة بك</string>
     <string name="screenshot_06_davdroid_heading">القويم و جهات الاتصال</string>
     <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="search_error">خطاء في الحصول على نتائج البحث</string>
@@ -903,7 +903,7 @@
     <string name="subject_shared_with_you">تمت مشاركة \"%1$s\" معك</string>
     <string name="subject_user_shared_with_you">%1$s شارك معك \"%2$s\"</string>
     <string name="subtitle_photos_only">الصور فقط</string>
-    <string name="subtitle_photos_videos">الصور و الفيديوهات</string>
+    <string name="subtitle_photos_videos">الصور مقاطع الفيديو</string>
     <string name="subtitle_videos_only">مقاطع الفيديو فقط</string>
     <string name="suggest">اقتراح</string>
     <string name="sync">زامن</string>
