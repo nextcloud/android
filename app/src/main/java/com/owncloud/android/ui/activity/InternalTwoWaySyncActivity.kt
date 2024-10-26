@@ -62,16 +62,16 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
     }
 
     private fun setupTwoWaySyncToggle() {
-        binding.twoWaySyncToggle.isChecked = preferences.twoWaySyncStatus
+        binding.twoWaySyncToggle.isChecked = preferences.isTwoWaySyncEnabled
         binding.twoWaySyncToggle.setOnCheckedChangeListener { _, isChecked ->
-            preferences.twoWaySyncStatus = isChecked
+            preferences.setTwoWaySyncStatus(isChecked)
             setupList()
             setVisibilities()
         }
     }
 
     private fun setupList() {
-        if (preferences.twoWaySyncStatus) {
+        if (preferences.isTwoWaySyncEnabled) {
             binding.list.apply {
                 adapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), context)
                 layoutManager = LinearLayoutManager(context)
@@ -80,7 +80,7 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
     }
 
     private fun setVisibilities() {
-        binding.list.setVisibleIf(preferences.twoWaySyncStatus)
-        binding.twoWaySyncIntervalLayout.setVisibleIf(preferences.twoWaySyncStatus)
+        binding.list.setVisibleIf(preferences.isTwoWaySyncEnabled)
+        binding.twoWaySyncIntervalLayout.setVisibleIf(preferences.isTwoWaySyncEnabled)
     }
 }
