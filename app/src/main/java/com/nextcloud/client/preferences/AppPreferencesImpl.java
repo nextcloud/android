@@ -801,7 +801,7 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     @Override
     public boolean isTwoWaySyncEnabled() {
-        return preferences.getBoolean(PREF__TWO_WAY_STATUS, false);
+        return preferences.getBoolean(PREF__TWO_WAY_STATUS, true);
     }
 
     @Override
