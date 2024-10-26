@@ -65,6 +65,11 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
                 adapter?.notifyDataSetChanged()
             }
         }
+
+        binding.twoWaySyncToggle.isChecked = preferences.twoWayInternalSyncStatus
+        binding.twoWaySyncToggle.setOnCheckedChangeListener { _, isChecked ->
+            preferences.twoWayInternalSyncStatus = isChecked
+        }
     }
 
     private fun setupEmptyList() {
