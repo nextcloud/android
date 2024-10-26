@@ -170,5 +170,5 @@ interface BackgroundJobManager {
     fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean
     fun startOfflineOperations()
     fun startPeriodicallyOfflineOperation()
-    fun scheduleInternal2WaySync()
+    fun scheduleInternal2WaySync(intervalMinutes: Long)
 }
