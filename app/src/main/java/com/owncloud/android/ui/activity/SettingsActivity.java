@@ -568,17 +568,13 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupInternalTwoWaySyncPreference() {
-        final SwitchPreference twoWaySync = (SwitchPreference) findPreference("internal_two_way_sync");
-        boolean status = preferences.getTwoWayInternalSyncStatus();
-        twoWaySync.setChecked(status);
+        Preference twoWaySync = findPreference("internal_two_way_sync");
 
-        if (status) {
-            twoWaySync.setOnPreferenceClickListener(preference -> {
-                Intent intent = new Intent(this, InternalTwoWaySyncActivity.class);
-                startActivity(intent);
-                return true;
-            });
-        }
+        twoWaySync.setOnPreferenceClickListener(preference -> {
+            Intent intent = new Intent(this, InternalTwoWaySyncActivity.class);
+            startActivity(intent);
+            return true;
+        });
     }
 
     private void setupBackupPreference() {
@@ -670,7 +666,7 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupShowEcosystemAppsPreference(PreferenceCategory preferenceCategoryDetails,
-                                            boolean fShowEcosystemAppsEnabled) {
+                                                  boolean fShowEcosystemAppsEnabled) {
         showEcosystemApps = (ThemeableSwitchPreference) findPreference("show_ecosystem_apps");
         if (fShowEcosystemAppsEnabled) {
             showEcosystemApps.setOnPreferenceClickListener(preference -> {

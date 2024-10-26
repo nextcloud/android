@@ -26,5 +26,10 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
             adapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), context)
             layoutManager = LinearLayoutManager(context)
         }
+
+        binding.twoWaySyncToggle.isChecked = preferences.twoWayInternalSyncStatus
+        binding.twoWaySyncToggle.setOnCheckedChangeListener { _, isChecked ->
+            preferences.twoWayInternalSyncStatus = isChecked
+        }
     }
 }

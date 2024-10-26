@@ -5,9 +5,20 @@
   ~ SPDX-FileCopyrightText: 2024 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="@dimen/alternate_half_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/twoWaySyncToggle"
+        android:text="@string/prefs_two_way_sync"
+        android:textSize="@dimen/splash_text_size"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/alternate_margin"
+        android:layout_height="wrap_content" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"
@@ -15,4 +26,4 @@
         android:layout_height="match_parent"
         android:orientation="vertical" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
