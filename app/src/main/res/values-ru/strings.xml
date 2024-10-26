@@ -467,7 +467,7 @@
     <string name="icon_for_empty_list">Значок для пустого списка</string>
     <string name="icon_of_dashboard_widget">Значок виджета главного экрана</string>
     <string name="icon_of_widget_entry">Значок записи виджета</string>
-    <string name="image_editor_file_edited_suffix">отредактировано</string>
+    <string name="image_editor_file_edited_suffix">изменено</string>
     <string name="image_editor_flip_horizontal">Отразить по горизонтали</string>
     <string name="image_editor_flip_vertical">Отразить по вертикали</string>
     <string name="image_editor_rotate_ccw">Повернуть против часовой стрелки</string>
