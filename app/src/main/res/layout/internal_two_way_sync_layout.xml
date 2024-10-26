@@ -8,12 +8,12 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:padding="@dimen/alternate_half_padding"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <com.google.android.material.materialswitch.MaterialSwitch
         android:id="@+id/twoWaySyncToggle"
+        android:layout_marginStart="@dimen/standard_half_padding"
         android:text="@string/prefs_two_way_sync"
         android:textSize="@dimen/splash_text_size"
         android:layout_width="wrap_content"

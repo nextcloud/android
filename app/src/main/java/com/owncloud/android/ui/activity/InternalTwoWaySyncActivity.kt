@@ -10,6 +10,7 @@ package com.owncloud.android.ui.activity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
 
@@ -22,14 +23,26 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
         binding = InternalTwoWaySyncLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.list.apply {
-            adapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), context)
-            layoutManager = LinearLayoutManager(context)
-        }
+        setupTwoWaySyncToggle()
+        setupList()
+    }
 
+    private fun setupTwoWaySyncToggle() {
         binding.twoWaySyncToggle.isChecked = preferences.twoWayInternalSyncStatus
         binding.twoWaySyncToggle.setOnCheckedChangeListener { _, isChecked ->
             preferences.twoWayInternalSyncStatus = isChecked
+            setupList()
+        }
+    }
+
+    private fun setupList() {
+        binding.list.setVisibleIf(preferences.twoWayInternalSyncStatus)
+
+        if (preferences.twoWayInternalSyncStatus) {
+            binding.list.apply {
+                adapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), context)
+                layoutManager = LinearLayoutManager(context)
+            }
         }
     }
 }

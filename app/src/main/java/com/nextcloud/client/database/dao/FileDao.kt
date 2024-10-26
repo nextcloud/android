@@ -51,7 +51,7 @@ interface FileDao {
     fun getFilesWithSyncConflict(fileOwner: String): List<FileEntity>
 
     @Query(
-        "SELECT * FROM filelist where file_owner = :fileOwner AND internal_two_way_sync_timestamp > 0 " +
+        "SELECT * FROM filelist where file_owner = :fileOwner AND internal_two_way_sync_timestamp >= 0 " +
             "ORDER BY internal_two_way_sync_timestamp DESC"
     )
     fun getInternalTwoWaySyncFolders(fileOwner: String): List<FileEntity>
