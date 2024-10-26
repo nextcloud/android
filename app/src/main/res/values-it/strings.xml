@@ -271,6 +271,7 @@
     <string name="ecosystem_apps_display_assistant">Assistente</string>
     <string name="ecosystem_apps_display_more">Altro</string>
     <string name="ecosystem_apps_display_notes">Note</string>
+    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Altre applicazioni di Nextcloud</string>
     <string name="ecosystem_apps_notes">Nextcloud Note</string>
     <string name="ecosystem_apps_talk">Nextcloud Talk</string>
