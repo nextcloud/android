@@ -22,7 +22,7 @@ import com.owncloud.android.operations.SynchronizeFolderOperation
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
 
-@Suppress("Detekt.NestedBlockDepth", "ReturnCount")
+@Suppress("Detekt.NestedBlockDepth", "ReturnCount", "LongParameterList")
 class InternalTwoWaySyncWork(
     private val context: Context,
     params: WorkerParameters,
