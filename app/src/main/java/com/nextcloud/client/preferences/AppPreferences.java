@@ -393,7 +393,7 @@ public interface AppPreferences {
     String getLastSelectedMediaFolder();
 
     void setTwoWaySyncStatus(boolean value);
-    boolean getTwoWaySyncStatus();
+    boolean isTwoWaySyncEnabled();
 
     void setTwoWaySyncTimestampDefault(boolean value);
     boolean isTwoWaySyncTimestampDefault();
