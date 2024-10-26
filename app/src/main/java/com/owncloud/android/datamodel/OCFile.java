@@ -1060,7 +1060,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
             return false;
         }
 
-        return internalFolderSyncTimestamp > 0;
+        return internalFolderSyncTimestamp >= 0;
     }
     
     public Long getInternalFolderSyncTimestamp() {
