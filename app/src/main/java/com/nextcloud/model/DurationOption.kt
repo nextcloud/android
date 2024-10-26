@@ -15,6 +15,8 @@ data class DurationOption(
     val displayText: String
 ) {
     companion object {
+
+        @Suppress("MagicNumber")
         fun twoWaySyncIntervals(context: Context): List<DurationOption> = listOf(
             DurationOption(15L, context.getString(R.string.two_way_sync_interval_15_min)),
             DurationOption(30L, context.getString(R.string.two_way_sync_interval_30_min)),
