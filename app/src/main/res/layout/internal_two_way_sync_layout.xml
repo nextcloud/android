@@ -7,6 +7,7 @@
   -->
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -19,6 +20,24 @@
         android:layout_width="wrap_content"
         android:layout_marginBottom="@dimen/alternate_margin"
         android:layout_height="wrap_content" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/two_way_sync_interval_layout"
+        android:layout_marginHorizontal="@dimen/standard_half_padding"
+        style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/alternate_margin"
+        android:hint="@string/prefs_two_way_sync_interval">
+
+        <AutoCompleteTextView
+            android:id="@+id/two_way_sync_interval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            tools:ignore="LabelFor" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/list"

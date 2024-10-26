@@ -8,8 +8,10 @@
 package com.owncloud.android.ui.activity
 
 import android.os.Bundle
+import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.model.DurationOption
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
@@ -23,26 +25,55 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
         binding = InternalTwoWaySyncLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setVisibilities()
+        setupTwoWaySyncInterval()
         setupTwoWaySyncToggle()
         setupList()
     }
 
+    private fun setupTwoWaySyncInterval() {
+        val durations = DurationOption.twoWaySyncIntervals(this)
+
+        val adapter = ArrayAdapter(
+            this,
+            android.R.layout.simple_dropdown_item_1line,
+            durations.map { it.displayText }
+        )
+
+        binding.twoWaySyncInterval.run {
+            setAdapter(adapter)
+            setText(durations[0].displayText, false)
+            setOnItemClickListener { _, _, position, _ ->
+                val selectedDuration = durations[position]
+                handleDurationSelected(selectedDuration.value)
+            }
+        }
+    }
+
+    private fun handleDurationSelected(duration: Long) {
+        preferences.twoWaySyncInterval = duration
+    }
+
     private fun setupTwoWaySyncToggle() {
-        binding.twoWaySyncToggle.isChecked = preferences.twoWayInternalSyncStatus
+        binding.twoWaySyncToggle.isChecked = preferences.twoWaySyncStatus
         binding.twoWaySyncToggle.setOnCheckedChangeListener { _, isChecked ->
-            preferences.twoWayInternalSyncStatus = isChecked
+            preferences.twoWaySyncStatus = isChecked
             setupList()
+            setVisibilities()
         }
     }
 
     private fun setupList() {
-        binding.list.setVisibleIf(preferences.twoWayInternalSyncStatus)
-
-        if (preferences.twoWayInternalSyncStatus) {
+        if (preferences.twoWaySyncStatus) {
             binding.list.apply {
                 adapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), context)
                 layoutManager = LinearLayoutManager(context)
             }
         }
+    }
+
+    private fun setVisibilities() {
+        binding.list.setVisibleIf(preferences.twoWaySyncStatus)
+        binding.twoWaySyncIntervalLayout.setVisibleIf(preferences.twoWaySyncStatus)
     }
 }
