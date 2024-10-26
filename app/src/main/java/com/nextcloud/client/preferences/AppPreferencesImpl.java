@@ -103,6 +103,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
 
     private static final String PREF__INTERNAL_TWO_WAY_STATUS = "internal_two_way_status";
+    private static final String PREF__RESET_TWO_WAY_SYNC_TIMESTAMP = "reset_two_way_sync_timestamp";
 
     private static final String LOG_ENTRY = "log_entry";
 
@@ -800,5 +801,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public boolean getTwoWayInternalSyncStatus() {
         return preferences.getBoolean(PREF__INTERNAL_TWO_WAY_STATUS, false);
+    }
+
+    @Override
+    public void setTwoWaySyncTimestampDefault(boolean value) {
+        preferences.edit().putBoolean(PREF__RESET_TWO_WAY_SYNC_TIMESTAMP, value).apply();
+    }
+
+    @Override
+    public boolean isTwoWaySyncTimestampDefault() {
+        return preferences.getBoolean(PREF__RESET_TWO_WAY_SYNC_TIMESTAMP, false);
     }
 }
