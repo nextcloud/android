@@ -67,17 +67,16 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
         }
 
     private fun setupTwoWaySyncToggle() {
-        binding.twoWaySyncToggle.isChecked = preferences.twoWayInternalSyncStatus
+        binding.twoWaySyncToggle.isChecked = preferences.twoWaySyncStatus
         binding.twoWaySyncToggle.setOnCheckedChangeListener { _, isChecked ->
-            preferences.twoWayInternalSyncStatus = isChecked
+            preferences.twoWaySyncStatus = isChecked
             setupList()
+            setVisibilities()
         }
     }
 
     private fun setupList() {
-        binding.list.setVisibleIf(preferences.twoWayInternalSyncStatus)
-
-        if (preferences.twoWayInternalSyncStatus) {
+        if (preferences.twoWaySyncStatus) {
             binding.list.apply {
                 adapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), context)
                 layoutManager = LinearLayoutManager(context)
