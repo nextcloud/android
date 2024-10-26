@@ -394,4 +394,7 @@ public interface AppPreferences {
 
     void setTwoWayInternalSyncStatus(boolean value);
     boolean getTwoWayInternalSyncStatus();
+
+    void setTwoWaySyncTimestampDefault(boolean value);
+    boolean isTwoWaySyncTimestampDefault();
 }
