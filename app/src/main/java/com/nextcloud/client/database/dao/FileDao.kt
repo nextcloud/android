@@ -55,4 +55,7 @@ interface FileDao {
             "ORDER BY internal_two_way_sync_timestamp DESC"
     )
     fun getInternalTwoWaySyncFolders(fileOwner: String): List<FileEntity>
+
+    @Query("UPDATE filelist SET internal_two_way_sync_timestamp = -1 WHERE internal_two_way_sync_timestamp IS NULL OR internal_two_way_sync_timestamp >= 0")
+    fun setInternalTwoWaySyncTimestampToMinusOne()
 }
