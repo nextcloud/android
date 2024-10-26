@@ -392,9 +392,11 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             return;
         }
 
-        FileDao fileDao = NextcloudDatabase.getInstance(this).fileDao();
-        fileDao.setInternalTwoWaySyncTimestampToMinusOne();
-        preferences.setTwoWaySyncTimestampDefault(true);
+        new Thread(() -> {{
+            FileDao fileDao = NextcloudDatabase.getInstance(this).fileDao();
+            fileDao.setInternalTwoWaySyncTimestampToMinusOne();
+            preferences.setTwoWaySyncTimestampDefault(true);
+        }}).start();
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
