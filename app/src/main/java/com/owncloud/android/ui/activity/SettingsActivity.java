@@ -657,7 +657,7 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupShowEcosystemAppsPreference(PreferenceCategory preferenceCategoryDetails,
-                                            boolean fShowEcosystemAppsEnabled) {
+                                                  boolean fShowEcosystemAppsEnabled) {
         showEcosystemApps = (ThemeableSwitchPreference) findPreference("show_ecosystem_apps");
         if (fShowEcosystemAppsEnabled) {
             showEcosystemApps.setOnPreferenceClickListener(preference -> {
