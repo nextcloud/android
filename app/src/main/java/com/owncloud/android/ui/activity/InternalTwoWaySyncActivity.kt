@@ -14,6 +14,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.model.DurationOption
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
 import javax.inject.Inject
@@ -38,6 +39,7 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
 
     private fun setupTwoWaySyncInterval() {
         val durations = DurationOption.twoWaySyncIntervals(this)
+        val selectedDuration = durations.find { it.value == preferences.twoWaySyncInterval }
 
         val adapter = ArrayAdapter(
             this,
@@ -47,10 +49,9 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
 
         binding.twoWaySyncInterval.run {
             setAdapter(adapter)
-            setText(durations[0].displayText, false)
+            setText(selectedDuration?.displayText ?: getString(R.string.two_way_sync_interval_15_min), false)
             setOnItemClickListener { _, _, position, _ ->
-                val selectedDuration = durations[position]
-                handleDurationSelected(selectedDuration.value)
+                handleDurationSelected(durations[position].value)
             }
         }
     }
