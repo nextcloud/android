@@ -13,6 +13,7 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -27,14 +28,16 @@ class InternalTwoWaySyncWork(
     params: WorkerParameters,
     private val userAccountManager: UserAccountManager,
     private val powerManagementService: PowerManagementService,
-    private val connectivityService: ConnectivityService
+    private val connectivityService: ConnectivityService,
+    private val appPreferences: AppPreferences
 ) : Worker(context, params) {
     override fun doWork(): Result {
         Log_OC.d(TAG, "Worker started!")
 
         var result = true
 
-        if (powerManagementService.isPowerSavingEnabled ||
+        if (!appPreferences.twoWayInternalSyncStatus ||
+            powerManagementService.isPowerSavingEnabled ||
             !connectivityService.isConnected ||
             connectivityService.isInternetWalled ||
             !connectivityService.connectivity.isWifi
