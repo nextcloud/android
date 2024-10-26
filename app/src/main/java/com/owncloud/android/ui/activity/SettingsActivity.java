@@ -319,7 +319,7 @@ public class SettingsActivity extends PreferenceActivity
         viewThemeUtils.files.themePreferenceCategory(preferenceCategorySync);
 
         setupAutoUploadPreference(preferenceCategorySync);
-        setupInternalTwoWaySyncPreference(preferenceCategorySync);
+        setupInternalTwoWaySyncPreference();
     }
 
     private void setupMoreCategory() {
