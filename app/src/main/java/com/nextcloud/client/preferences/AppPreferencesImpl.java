@@ -102,8 +102,9 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
     private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
 
-    private static final String PREF__INTERNAL_TWO_WAY_STATUS = "internal_two_way_status";
+    private static final String PREF__TWO_WAY_STATUS = "two_way_sync_status";
     private static final String PREF__RESET_TWO_WAY_SYNC_TIMESTAMP = "reset_two_way_sync_timestamp";
+    private static final String PREF__TWO_WAY_SYNC_INTERVAL = "two_way_sync_interval";
 
     private static final String LOG_ENTRY = "log_entry";
 
@@ -794,13 +795,13 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public void setTwoWayInternalSyncStatus(boolean value) {
-        preferences.edit().putBoolean(PREF__INTERNAL_TWO_WAY_STATUS, value).apply();
+    public void setTwoWaySyncStatus(boolean value) {
+        preferences.edit().putBoolean(PREF__TWO_WAY_STATUS, value).apply();
     }
 
     @Override
-    public boolean getTwoWayInternalSyncStatus() {
-        return preferences.getBoolean(PREF__INTERNAL_TWO_WAY_STATUS, false);
+    public boolean getTwoWaySyncStatus() {
+        return preferences.getBoolean(PREF__TWO_WAY_STATUS, false);
     }
 
     @Override
@@ -811,5 +812,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public boolean isTwoWaySyncTimestampDefault() {
         return preferences.getBoolean(PREF__RESET_TWO_WAY_SYNC_TIMESTAMP, false);
+    }
+
+    @Override
+    public void setTwoWaySyncInterval(Long value) {
+        preferences.edit().putLong(PREF__TWO_WAY_SYNC_INTERVAL, value).apply();
+    }
+
+    @Override
+    public Long getTwoWaySyncInterval() {
+        return preferences.getLong(PREF__TWO_WAY_SYNC_INTERVAL, 15L);
     }
 }

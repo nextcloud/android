@@ -392,9 +392,12 @@ public interface AppPreferences {
     @NonNull
     String getLastSelectedMediaFolder();
 
-    void setTwoWayInternalSyncStatus(boolean value);
-    boolean getTwoWayInternalSyncStatus();
+    void setTwoWaySyncStatus(boolean value);
+    boolean getTwoWaySyncStatus();
 
     void setTwoWaySyncTimestampDefault(boolean value);
     boolean isTwoWaySyncTimestampDefault();
+
+    void setTwoWaySyncInterval(Long value);
+    Long getTwoWaySyncInterval();
 }

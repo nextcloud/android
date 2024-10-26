@@ -38,7 +38,7 @@ class InternalTwoWaySyncWork(
 
         var result = true
 
-        if (!appPreferences.twoWayInternalSyncStatus ||
+        if (!appPreferences.twoWaySyncStatus ||
             powerManagementService.isPowerSavingEnabled ||
             !connectivityService.isConnected ||
             connectivityService.isInternetWalled ||

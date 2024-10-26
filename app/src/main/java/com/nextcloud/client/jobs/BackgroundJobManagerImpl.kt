@@ -657,7 +657,8 @@ internal class BackgroundJobManagerImpl(
     override fun scheduleInternal2WaySync() {
         val request = periodicRequestBuilder(
             jobClass = InternalTwoWaySyncWork::class,
-            jobName = JOB_INTERNAL_TWO_WAY_SYNC
+            jobName = JOB_INTERNAL_TWO_WAY_SYNC,
+            intervalMins = preferences.twoWaySyncInterval
         ).build()
 
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.KEEP, request)
