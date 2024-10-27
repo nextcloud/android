@@ -30,12 +30,16 @@ open class WorkerNotificationManager(
     val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
     var notificationBuilder: NotificationCompat.Builder =
-        NotificationUtils.newNotificationBuilder(context, "WorkerNotificationManager", viewThemeUtils).apply {
+        NotificationUtils.newNotificationBuilder(
+            context,
+            NotificationUtils.NOTIFICATION_CHANNEL_BACKGROUND_OPERATIONS,
+            viewThemeUtils
+        ).apply {
             setTicker(context.getString(tickerId))
             setSmallIcon(R.drawable.notification_icon)
             setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
             setStyle(NotificationCompat.BigTextStyle())
-            setPriority(NotificationCompat.PRIORITY_LOW)
+            priority = NotificationCompat.PRIORITY_LOW
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 setChannelId(NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD)

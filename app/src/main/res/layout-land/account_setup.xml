@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Nextcloud - Android Client
   ~
   ~ SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
@@ -64,7 +63,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="top"
-                        android:importantForAutofill="no"
                         android:inputType="textUri|textNoSuggestions|textEmailAddress"
                         android:lines="1"
                         android:minLines="1"
@@ -79,6 +77,16 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
             </FrameLayout>
+
+            <Spinner
+                android:id="@+id/servers_spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:foregroundTint="#FFFFFF"
+                android:spinnerMode="dialog"
+                android:textColor="@color/white_helper_text"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/host_url_input_helper_text"

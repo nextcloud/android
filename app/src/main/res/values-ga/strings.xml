@@ -34,7 +34,7 @@
     <string name="add_to_cloud">Cuir le %1$s</string>
     <string name="advanced_settings">Ardsocruithe</string>
     <string name="allow_resharing">Ceadaigh athroinnt</string>
-    <string name="app_config_base_url_title">Bun URL</string>
+    <string name="app_config_base_url_title">URL an bhunaigh</string>
     <string name="app_config_proxy_host_title">Ainm Óstach Seachfhreastalaí</string>
     <string name="app_config_proxy_port_title">Port Seachfhreastalaí</string>
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">D\'éirigh leis an tasc a scriosadh</string>
     <string name="assistant_screen_task_list_error_state_message">Ní féidir liosta tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Scrios Tasc</string>
+    <string name="assistant_screen_task_output_empty_text">Níl an t-aschur taisc réidh fós.</string>
     <string name="assistant_screen_task_types_error_state_message">Ní féidir cineálacha tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_top_bar_title">Cúntóir</string>
     <string name="assistant_screen_unknown_task_status_text">Anaithnid</string>
@@ -180,8 +181,10 @@
     <string name="confirmation_remove_local">Áitiúil amháin</string>
     <string name="conflict_dialog_error">Ní féidir dialóg réititheora coinbhleachta a chruthú</string>
     <string name="conflict_file_headline">Comhad contrártha %1$s</string>
+    <string name="conflict_folder_headline">Coimhlint Fillteán</string>
     <string name="conflict_local_file">Comhad áitiúil</string>
     <string name="conflict_message_description">Má roghnaíonn tú an dá leagan, beidh uimhir ag gabháil leis an gcomhad áitiúil lena ainm.</string>
+    <string name="conflict_message_description_for_folder">Má roghnaíonn tú an dá leagan, beidh uimhir ag gabháil leis an bhfillteán áitiúil lena ainm.</string>
     <string name="conflict_server_file">Comhad freastalaí</string>
     <string name="contact_backup_title">Cúltaca teagmhálacha</string>
     <string name="contact_no_permission">Teastaíonn cead teagmhála.</string>
@@ -409,14 +412,14 @@
     <string name="file_migration_updating_index">Innéacs á nuashonrú…</string>
     <string name="file_migration_use_data_folder">Úsáid</string>
     <string name="file_migration_waiting_for_unfinished_sync">Ag feitheamh ar shioncronú iomlán…</string>
-    <string name="file_name_validator_current_path_is_invalid">Tá ainm an fhillteáin reatha neamhbhailí, le do thoil athainmnigh an fillteán. Atreorú chuig an fhréamh</string>
-    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Tá ainmneacha forchoimeádta nó carachtar neamhbhailí i gcosán an fhillteáin</string>
-    <string name="file_name_validator_error_ends_with_space_period">Críochnaíonn an t-ainm le spás nó le peiriad</string>
+    <string name="file_name_validator_current_path_is_invalid">Tá ainm an fhillteáin reatha neamhbhailí, le do thoil athainmnigh an fillteán. Ag atreorú abhaile…</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Tá ainmneacha curtha in áirithe nó carachtair neamhbhailí i gcosán an fhillteáin</string>
     <string name="file_name_validator_error_forbidden_file_extensions">Is iarmhír toirmiscthe comhaid é %s</string>
-    <string name="file_name_validator_error_invalid_character">Tá carachtar neamhbhailí san ainm: %s</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Ní ceadmhach spásanna a bheith i gcomhadainmneacha ag tús nó ag deireadh</string>
+    <string name="file_name_validator_error_invalid_character">Tá carachtair neamhbhailí san ainm: %s</string>
     <string name="file_name_validator_error_reserved_names">Is ainm toirmiscthe é %s</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Athainmnigh an comhad le do thoil roimh é a bhogadh nó a chóipeáil</string>
-    <string name="file_name_validator_upload_content_error">Ní féidir roinnt inneachair a uaslódáil toisc go bhfuil ainmneacha forchoimeádta nó carachtar neamhbhailí ann</string>
+    <string name="file_name_validator_upload_content_error">Ní féidir roinnt ábhair a uaslódáil toisc go bhfuil ainmneacha forchoimeádta nó carachtair neamhbhailí ann</string>
     <string name="file_not_found">Comhad gan aimsiú</string>
     <string name="file_not_synced">Níorbh fhéidir an comhad a shioncronú. Ag taispeáint an leagan is déanaí atá ar fáil.</string>
     <string name="file_rename">Athainmnigh</string>
@@ -489,6 +492,7 @@
     <string name="instant_upload_path">/Uaslódáil Meandaracha</string>
     <string name="internal_two_way_sync">Sioncronú inmheánach dhá bhealach</string>
     <string name="internal_two_way_sync_not_yet">Níl go fóill, go luath le synced</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Tá nasc idirlín ag teastáil chun an fillteán criptithe a shocrú</string>
     <string name="invalid_url">URL neamhbhailí</string>
     <string name="invisible">Dofheicthe</string>
     <string name="label_empty">Ní féidir leis an lipéad a bheith folamh</string>
@@ -573,6 +577,8 @@
     <string name="note_could_not_sent">Níorbh fhéidir nóta a sheoladh</string>
     <string name="note_icon_hint">Deilbhín nóta</string>
     <string name="notification_action_failed">Theip ar an ngníomh a chur i gcrích.</string>
+    <string name="notification_channel_background_operations_description">Taispeáin fógraí chun idirghníomhú a dhéanamh ar thoradh oibríochtaí cúlra</string>
+    <string name="notification_channel_background_operations_name">Oibríochtaí Cúlra</string>
     <string name="notification_channel_download_description">Léiríonn dul chun cinn íoslódáil</string>
     <string name="notification_channel_download_name_short">Íoslódálacha</string>
     <string name="notification_channel_file_sync_description">Taispeánann sé dul chun cinn agus torthaí sioncronaithe comhad</string>
@@ -586,9 +592,19 @@
     <string name="notification_channel_upload_description">Léiríonn dul chun cinn uaslódála</string>
     <string name="notification_channel_upload_name_short">uaslódálacha</string>
     <string name="notification_icon">Deilbhín fógra</string>
+    <string name="notification_icon_description">Tá fógraí neamhléite ann</string>
     <string name="notifications_no_results_headline">Gan fógraí</string>
     <string name="notifications_no_results_message">Seiceáil ar ais ar ball le do thoil.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Oibríocht ar Feitheamh</string>
     <string name="offline_mode">Gan nasc idirlín</string>
+    <string name="offline_mode_info_description">Fiú gan nasc idirlín, is féidir leat do fhillteáin a eagrú, comhaid a chruthú. Nuair a bheidh tú ar ais ar líne, déanfar do ghníomhartha ar feitheamh a shioncronú go huathoibríoch.</string>
+    <string name="offline_mode_info_title">Tá tú As Líne, Ach Leanann an Obair ar aghaidh</string>
+    <string name="offline_operations_file_does_not_exists_yet">Níl an comhad ann, fós. Íoslódáil an comhad ar dtús.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Fillteán Coimhlinte: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Scrios Fillteán As Líne</string>
+    <string name="offline_operations_worker_notification_error_text">Ní féidir an oibríocht as líne a chríochnú. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Oibríochtaí As Líne</string>
+    <string name="offline_operations_worker_notification_start_text">Oibríochtaí As Líne a Thosú</string>
     <string name="oneHour">1 uair</string>
     <string name="online">Ar líne</string>
     <string name="online_status">Stádas ar líne</string>
@@ -618,6 +634,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stad</string>
     <string name="player_toggle">scoránaigh</string>
+    <string name="please_select_a_server">Roghnaigh freastalaí le do thoil…</string>
     <string name="power_save_check_dialog_message">D\'fhéadfadh sé go n-uaslódálfar comhaid nuair a bhíonn an cadhnra íseal má dhíchumasaítear seiceáil coigilte cumhachta!</string>
     <string name="pref_behaviour_entries_delete_file">scriosta</string>
     <string name="pref_behaviour_entries_keep_file">coinnithe i bhfillteán bunaidh</string>
@@ -728,6 +745,7 @@
     <string name="restore_button_description">Athchóirigh comhad scriosta</string>
     <string name="restore_selected">Athchóirigh roghnaithe</string>
     <string name="retrieving_file">Comhad á aisghabháil…</string>
+    <string name="retry">Bain triail eile as</string>
     <string name="richdocuments_failed_to_load_document">Theip ar an doiciméad a lódáil!</string>
     <string name="scanQR_description">Logáil isteach trí chód QR</string>
     <string name="scan_page">Scan leathanach</string>
@@ -907,6 +925,7 @@
     <string name="trashbin_file_remove">Scrios go buan</string>
     <string name="trashbin_loading_failed">Theip ar lódáil an bhosca bruscair!</string>
     <string name="trashbin_not_emptied">Níorbh fhéidir na comhaid a scriosadh go buan!</string>
+    <string name="unexpected_error_occurred">Tharla earráid gan choinne</string>
     <string name="unified_search_fragment_calendar_event_not_found">Níor aimsíodh an t-imeacht, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_contact_not_found">Níor aimsíodh an teagmhálaí, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_permission_needed">Teastaíonn ceadanna chun toradh cuardaigh a oscailt nó déanfar é a atreorú chuig an ngréasán…</string>
@@ -914,6 +933,7 @@
     <string name="unread_comments">Tá tuairimí neamhléite ann</string>
     <string name="unset_encrypted">Díshuiteáil criptiú</string>
     <string name="unset_favorite">Bain ó cheanáin</string>
+    <string name="unset_internal_two_way_sync_description">Bain fillteán ón sioncronú dhá bhealach inmheánach</string>
     <string name="unshare_link_file_error">Tharla earráid agus iarracht á déanamh an comhad nó an fillteán seo a dhí-roinnt.</string>
     <string name="unshare_link_file_no_exist">Ní féidir dí-roinnt. Seiceáil an bhfuil an comhad ann le do thoil.</string>
     <string name="unshare_link_forbidden_permissions">chun an comhad seo a dhí roinnt</string>

@@ -17,6 +17,7 @@ import com.nextcloud.client.jobs.transfer.FileTransferService;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.logger.ui.LogsActivity;
 import com.nextcloud.client.logger.ui.LogsViewModel;
+import com.nextcloud.client.media.BackgroundPlayerService;
 import com.nextcloud.client.media.PlayerService;
 import com.nextcloud.client.migrations.Migrations;
 import com.nextcloud.client.onboarding.FirstRunActivity;
@@ -24,6 +25,7 @@ import com.nextcloud.client.onboarding.WhatsNewActivity;
 import com.nextcloud.client.widget.DashboardWidgetConfigurationActivity;
 import com.nextcloud.client.widget.DashboardWidgetProvider;
 import com.nextcloud.client.widget.DashboardWidgetService;
+import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.ImageDetailFragment;
 import com.nextcloud.ui.SetStatusDialogFragment;
@@ -123,6 +125,8 @@ import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 
+import androidx.annotation.OptIn;
+import androidx.media3.common.util.UnstableApi;
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
@@ -315,6 +319,9 @@ abstract class ComponentsModule {
     abstract BootupBroadcastReceiver bootupBroadcastReceiver();
 
     @ContributesAndroidInjector
+    abstract NetworkChangeReceiver networkChangeReceiver();
+
+    @ContributesAndroidInjector
     abstract NotificationWork.NotificationReceiver notificationWorkBroadcastReceiver();
 
     @ContributesAndroidInjector
@@ -481,7 +488,13 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract TestJob testJob();
-    
+
     @ContributesAndroidInjector
     abstract InternalTwoWaySyncActivity internalTwoWaySyncActivity();
+
+
+    @OptIn(markerClass = UnstableApi.class)
+    @ContributesAndroidInjector
+    abstract BackgroundPlayerService backgroundPlayerService();
+
 }

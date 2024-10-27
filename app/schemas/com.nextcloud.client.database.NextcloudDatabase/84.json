@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 84,
-    "identityHash": "967b91305cf2b6a2708fbf20b1afd08a",
+    "identityHash": "70f2e2adb603afda7f87dbfb3b902e02",
     "entities": [
       {
         "tableName": "arbitrary_data",
@@ -979,7 +979,7 @@
       },
       {
         "tableName": "synced_folders",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `remote_path` TEXT, `wifi_only` INTEGER, `charging_only` INTEGER, `existing` INTEGER, `enabled` INTEGER, `enabled_timestamp_ms` INTEGER, `subfolder_by_date` INTEGER, `account` TEXT, `upload_option` INTEGER, `name_collision_policy` INTEGER, `upload_delay_time_ms` INTEGER NOT NULL DEFAULT 0, `type` INTEGER, `hidden` INTEGER, `sub_folder_rule` INTEGER, `exclude_hidden` INTEGER, `last_scan_timestamp_ms` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `local_path` TEXT, `remote_path` TEXT, `wifi_only` INTEGER, `charging_only` INTEGER, `existing` INTEGER, `enabled` INTEGER, `enabled_timestamp_ms` INTEGER, `subfolder_by_date` INTEGER, `account` TEXT, `upload_option` INTEGER, `name_collision_policy` INTEGER, `type` INTEGER, `hidden` INTEGER, `sub_folder_rule` INTEGER, `exclude_hidden` INTEGER, `last_scan_timestamp_ms` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -1052,13 +1052,6 @@
             "columnName": "name_collision_policy",
             "affinity": "INTEGER",
             "notNull": false
-          },
-          {
-            "fieldPath": "uploadDelayTimeMs",
-            "columnName": "upload_delay_time_ms",
-            "affinity": "INTEGER",
-            "notNull": true,
-            "defaultValue": "0"
           },
           {
             "fieldPath": "type",
@@ -1241,12 +1234,68 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "offline_operations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`_id` INTEGER PRIMARY KEY AUTOINCREMENT, `offline_operations_parent_oc_file_id` INTEGER, `offline_operations_parent_path` TEXT, `offline_operations_type` TEXT, `offline_operations_path` TEXT, `offline_operations_file_name` TEXT, `offline_operations_created_at` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "parentOCFileId",
+            "columnName": "offline_operations_parent_oc_file_id",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "parentPath",
+            "columnName": "offline_operations_parent_path",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "offline_operations_type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "path",
+            "columnName": "offline_operations_path",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "filename",
+            "columnName": "offline_operations_file_name",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "offline_operations_created_at",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "_id"
+          ]
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '967b91305cf2b6a2708fbf20b1afd08a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '70f2e2adb603afda7f87dbfb3b902e02')"
     ]
   }
 }

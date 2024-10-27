@@ -12,15 +12,18 @@ import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.core.ClockImpl
 import com.nextcloud.client.database.dao.ArbitraryDataDao
 import com.nextcloud.client.database.dao.FileDao
+import com.nextcloud.client.database.dao.OfflineOperationDao
 import com.nextcloud.client.database.entity.ArbitraryDataEntity
 import com.nextcloud.client.database.entity.CapabilityEntity
 import com.nextcloud.client.database.entity.ExternalLinkEntity
 import com.nextcloud.client.database.entity.FileEntity
 import com.nextcloud.client.database.entity.FilesystemEntity
+import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.database.entity.ShareEntity
 import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
@@ -29,6 +32,7 @@ import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
 import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
+import com.nextcloud.client.database.typeConverter.OfflineOperationTypeConverter
 import com.owncloud.android.db.ProviderMeta
 
 @Database(
@@ -41,7 +45,8 @@ import com.owncloud.android.db.ProviderMeta
         ShareEntity::class,
         SyncedFolderEntity::class,
         UploadEntity::class,
-        VirtualEntity::class
+        VirtualEntity::class,
+        OfflineOperationEntity::class
     ],
     version = ProviderMeta.DB_VERSION,
     autoMigrations = [
@@ -61,15 +66,19 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 79, to = 80),
         AutoMigration(from = 80, to = 81),
         AutoMigration(from = 81, to = 82),
-        AutoMigration(from = 82, to = 83)
+        AutoMigration(from = 82, to = 83),
+        AutoMigration(from = 83, to = 84),
+        AutoMigration(from = 84, to = 85, spec = DatabaseMigrationUtil.DeleteColumnSpec::class)
     ],
     exportSchema = true
 )
 @Suppress("Detekt.UnnecessaryAbstractClass") // needed by Room
+@TypeConverters(OfflineOperationTypeConverter::class)
 abstract class NextcloudDatabase : RoomDatabase() {
 
     abstract fun arbitraryDataDao(): ArbitraryDataDao
     abstract fun fileDao(): FileDao
+    abstract fun offlineOperationDao(): OfflineOperationDao
 
     companion object {
         const val FIRST_ROOM_DB_VERSION = 65
@@ -88,6 +97,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                 instance = Room
                     .databaseBuilder(context, NextcloudDatabase::class.java, ProviderMeta.DB_NAME)
                     .allowMainThreadQueries()
+                    .addTypeConverter(OfflineOperationTypeConverter())
                     .addLegacyMigrations(clock, context)
                     .addMigrations(RoomMigration())
                     .addMigrations(Migration67to68())

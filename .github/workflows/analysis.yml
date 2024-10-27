@@ -24,7 +24,7 @@ concurrency:
 
 jobs:
     analysis:
-        runs-on: ubuntu-22.04
+        runs-on: ubuntu-24.04
         steps:
             -   name: Setup variables
                 id: get-vars
@@ -44,18 +44,18 @@ jobs:
                             echo "repo=${{ github.event.pull_request.head.repo.full_name }}"
                         } >> "$GITHUB_OUTPUT"
                     fi
-            -   uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+            -   uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
                 with:
                     repository: ${{ steps.get-vars.outputs.repo }}
                     ref: ${{ steps.get-vars.outputs.branch }}
             -   name: Set up JDK 17
-                uses: actions/setup-java@6a0805fcefea3d4657a47ac4c165951e33482018 # v4.2.2
+                uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4.5.0
                 with:
                     distribution: "temurin"
                     java-version: 17
             -   name: Install dependencies
                 run: |
-                    python3 -m pip install defusedxml
+                    sudo apt install python3-defusedxml
             -   name: Run analysis wrapper
                 env:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

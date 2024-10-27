@@ -13,6 +13,8 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
+import android.os.Handler;
+import android.os.Looper;
 
 import com.nextcloud.client.account.Server;
 import com.nextcloud.client.account.UserAccountManager;
@@ -22,6 +24,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 
 import org.apache.commons.httpclient.HttpStatus;
 
+import androidx.annotation.NonNull;
 import androidx.core.net.ConnectivityManagerCompat;
 import kotlin.jvm.functions.Function1;
 
@@ -35,6 +38,7 @@ class ConnectivityServiceImpl implements ConnectivityService {
     private final ClientFactory clientFactory;
     private final GetRequestBuilder requestBuilder;
     private final WalledCheckCache walledCheckCache;
+    private final Handler mainThreadHandler = new Handler(Looper.getMainLooper());
 
     static class GetRequestBuilder implements Function1<String, GetMethod> {
         @Override
@@ -53,6 +57,24 @@ class ConnectivityServiceImpl implements ConnectivityService {
         this.clientFactory = clientFactory;
         this.requestBuilder = requestBuilder;
         this.walledCheckCache = walledCheckCache;
+    }
+
+    @Override
+    public void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback) {
+        new Thread(() -> {
+            Network activeNetwork = platformConnectivityManager.getActiveNetwork();
+            NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(activeNetwork);
+            boolean hasInternet = networkCapabilities != null && networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET);
+
+            boolean result;
+            if (hasInternet) {
+                result = !isInternetWalled();
+            } else {
+                result = false;
+            }
+
+            mainThreadHandler.post(() -> callback.onComplete(result));
+        }).start();
     }
 
     @Override
@@ -76,28 +98,23 @@ class ConnectivityServiceImpl implements ConnectivityService {
         if (cachedValue != null) {
             return cachedValue;
         } else {
+            Server server = accountManager.getUser().getServer();
+            String baseServerAddress = server.getUri().toString();
+
             boolean result;
             Connectivity c = getConnectivity();
-            if (c.isConnected() && c.isWifi() && !c.isMetered()) {
+            if (c.isConnected() && c.isWifi() && !c.isMetered() && !baseServerAddress.isEmpty()) {
+                GetMethod get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE);
+                PlainClient client = clientFactory.createPlainClient();
 
-                Server server = accountManager.getUser().getServer();
-                String baseServerAddress = server.getUri().toString();
-                if (baseServerAddress.isEmpty()) {
-                    result = true;
-                } else {
+                int status = get.execute(client);
 
-                    GetMethod get = requestBuilder.invoke(baseServerAddress + CONNECTIVITY_CHECK_ROUTE);
-                    PlainClient client = clientFactory.createPlainClient();
-
-                    int status = get.execute(client);
-
-                    // Content-Length is not available when using chunked transfer encoding, so check for -1 as well
-                    result = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0);
-                    get.releaseConnection();
-                    if (result) {
-                        Log_OC.w(TAG, "isInternetWalled(): Failed to GET " + CONNECTIVITY_CHECK_ROUTE + "," +
-                            " assuming connectivity is impaired");
-                    }
+                // Content-Length is not available when using chunked transfer encoding, so check for -1 as well
+                result = !(status == HttpStatus.SC_NO_CONTENT && get.getResponseContentLength() <= 0);
+                get.releaseConnection();
+                if (result) {
+                    Log_OC.w(TAG, "isInternetWalled(): Failed to GET " + CONNECTIVITY_CHECK_ROUTE + "," +
+                        " assuming connectivity is impaired");
                 }
             } else {
                 result = !c.isConnected();

@@ -15,12 +15,13 @@ import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.SynchronizeFolderOperation
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
 
-@Suppress("Detekt.NestedBlockDepth")
+@Suppress("Detekt.NestedBlockDepth", "ReturnCount")
 class InternalTwoWaySyncWork(
     private val context: Context,
     params: WorkerParameters,
@@ -34,7 +35,9 @@ class InternalTwoWaySyncWork(
         var result = true
 
         if (powerManagementService.isPowerSavingEnabled ||
-            !connectivityService.isConnected || connectivityService.isInternetWalled
+            !connectivityService.isConnected ||
+            connectivityService.isInternetWalled ||
+            !connectivityService.connectivity.isWifi
         ) {
             Log_OC.d(TAG, "Not starting due to constraints!")
             return Result.success()
@@ -47,13 +50,15 @@ class InternalTwoWaySyncWork(
             val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user)
 
             for (folder in folders) {
-                val freeSpaceLeft = File(folder.storagePath).getFreeSpace()
-                val localFolderSize = FileStorageUtils.getFolderSize(File(folder.storagePath, MainApp.getDataFolder()))
-                val remoteFolderSize = folder.fileLength
+                checkFreeSpace(folder)?.let { checkFreeSpaceResult ->
+                    return checkFreeSpaceResult
+                }
 
-                if (freeSpaceLeft < (remoteFolderSize - localFolderSize)) {
-                    Log_OC.d(TAG, "Not enough space left!")
-                    result = false
+                // do not attempt to sync root folder
+                if (folder.remotePath == OCFile.ROOT_PATH) {
+                    folder.internalFolderSyncTimestamp = -1L
+                    fileDataStorageManager.saveFile(folder)
+                    continue
                 }
 
                 Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
@@ -82,6 +87,31 @@ class InternalTwoWaySyncWork(
         } else {
             Log_OC.d(TAG, "Worker finished with failure!")
             Result.failure()
+        }
+    }
+
+    @Suppress("TooGenericExceptionCaught")
+    private fun checkFreeSpace(folder: OCFile): Result? {
+        val storagePath = folder.storagePath ?: MainApp.getStoragePath()
+        val file = File(storagePath)
+
+        if (!file.exists()) return null
+
+        return try {
+            val freeSpaceLeft = file.freeSpace
+            val localFolder = File(storagePath, MainApp.getDataFolder())
+            val localFolderSize = FileStorageUtils.getFolderSize(localFolder)
+            val remoteFolderSize = folder.fileLength
+
+            if (freeSpaceLeft < (remoteFolderSize - localFolderSize)) {
+                Log_OC.d(TAG, "Not enough space left!")
+                Result.failure()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            Log_OC.d(TAG, "Error caught at checkFreeSpace: $e")
+            null
         }
     }
 

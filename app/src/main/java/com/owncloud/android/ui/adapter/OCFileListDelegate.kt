@@ -195,7 +195,7 @@ class OCFileListDelegate(
     }
 
     fun bindGridViewHolder(
-        gridViewHolder: ListGridImageViewHolder,
+        gridViewHolder: ListViewHolder,
         file: OCFile,
         currentDirectory: OCFile?,
         searchType: SearchType?
@@ -253,7 +253,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun bindUnreadComments(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+    private fun bindUnreadComments(file: OCFile, gridViewHolder: ListViewHolder) {
         if (file.unreadCommentsCount > 0) {
             gridViewHolder.unreadComments.visibility = View.VISIBLE
             gridViewHolder.unreadComments.setOnClickListener {
@@ -265,7 +265,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun bindGridItemLayout(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+    private fun bindGridItemLayout(file: OCFile, gridViewHolder: ListViewHolder) {
         setItemLayoutBackgroundColor(file, gridViewHolder)
         setCheckBoxImage(file, gridViewHolder)
         setItemLayoutOnClickListeners(file, gridViewHolder)
@@ -275,7 +275,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun setItemLayoutOnClickListeners(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+    private fun setItemLayoutOnClickListeners(file: OCFile, gridViewHolder: ListViewHolder) {
         gridViewHolder.itemLayout.setOnClickListener { ocFileListFragmentInterface.onItemClicked(file) }
 
         if (!hideItemOptions) {
@@ -290,7 +290,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun setItemLayoutBackgroundColor(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+    private fun setItemLayoutBackgroundColor(file: OCFile, gridViewHolder: ListViewHolder) {
         val cornerRadius = context.resources.getDimension(R.dimen.selected_grid_container_radius)
 
         val isDarkModeActive = (syncFolderProvider?.preferences?.isDarkModeEnabled == true)
@@ -313,7 +313,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun setCheckBoxImage(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+    private fun setCheckBoxImage(file: OCFile, gridViewHolder: ListViewHolder) {
         if (isCheckedFile(file)) {
             gridViewHolder.checkbox.setImageDrawable(
                 viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_checkbox_marked, ColorRole.PRIMARY)
@@ -323,7 +323,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun bindGridMetadataViews(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+    private fun bindGridMetadataViews(file: OCFile, gridViewHolder: ListViewHolder) {
         if (showMetadata) {
             showLocalFileIndicator(file, gridViewHolder)
             gridViewHolder.favorite.visibility = if (file.isFavorite) View.VISIBLE else View.GONE
@@ -333,7 +333,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListGridImageViewHolder) {
+    private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListViewHolder) {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
 
         val icon: Int? = when {
@@ -365,7 +365,7 @@ class OCFileListDelegate(
         }
     }
 
-    private fun showShareIcon(gridViewHolder: ListGridImageViewHolder, file: OCFile) {
+    private fun showShareIcon(gridViewHolder: ListViewHolder, file: OCFile) {
         val sharedIconView = gridViewHolder.shared
         if (gridViewHolder is OCFileListItemViewHolder || file.unreadCommentsCount == 0) {
             sharedIconView.visibility = View.VISIBLE

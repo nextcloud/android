@@ -83,6 +83,8 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult.ResultCo
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.RestoreFileVersionRemoteOperation;
 import com.owncloud.android.lib.resources.files.SearchRemoteOperation;
+import com.owncloud.android.lib.resources.notifications.GetNotificationsRemoteOperation;
+import com.owncloud.android.lib.resources.notifications.models.Notification;
 import com.owncloud.android.operations.CopyFileOperation;
 import com.owncloud.android.operations.CreateFolderOperation;
 import com.owncloud.android.operations.DownloadType;
@@ -93,6 +95,7 @@ import com.owncloud.android.operations.RenameFileOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.UploadFileOperation;
 import com.owncloud.android.syncadapter.FileSyncAdapter;
+import com.owncloud.android.ui.activity.fileDisplayActivity.OfflineFolderConflictManager;
 import com.owncloud.android.ui.asynctasks.CheckAvailableSpaceTask;
 import com.owncloud.android.ui.asynctasks.FetchRemoteFileTask;
 import com.owncloud.android.ui.asynctasks.GetRemoteFileTask;
@@ -171,6 +174,8 @@ public class FileDisplayActivity extends FileActivity
     public static final String LIST_GROUPFOLDERS = "LIST_GROUPFOLDERS";
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
+    public static final String FOLDER_SYNC_CONFLICT = "FOLDER_SYNC_CONFLICT";
+    public static final String FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS = "FOLDER_SYNC_CONFLICT_ARG_REMOTE_IDS_TO_OPERATION_PATHS";
 
     private FilesBinding binding;
 
@@ -192,8 +197,6 @@ public class FileDisplayActivity extends FileActivity
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
 
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
-
-    public static final String DRAWER_MENU_ID = "DRAWER_MENU_ID";
 
     public static final int REQUEST_CODE__SELECT_CONTENT_FROM_APPS = REQUEST_CODE__LAST_SHARED + 1;
     public static final int REQUEST_CODE__SELECT_FILES_FROM_FILE_SYSTEM = REQUEST_CODE__LAST_SHARED + 2;
@@ -228,13 +231,10 @@ public class FileDisplayActivity extends FileActivity
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
     private Optional<User> lastDisplayedUser = Optional.empty();
-    private int menuItemId = -1;
 
     @Inject AppPreferences preferences;
 
     @Inject AppInfo appInfo;
-
-    @Inject ConnectivityService connectivityService;
 
     @Inject InAppReviewHelper inAppReviewHelper;
 
@@ -278,6 +278,9 @@ public class FileDisplayActivity extends FileActivity
         initSyncBroadcastReceiver();
         observeWorkerState();
         registerRefreshFolderEventReceiver();
+
+        OfflineFolderConflictManager offlineFolderConflictManager = new OfflineFolderConflictManager(this);
+        offlineFolderConflictManager.registerRefreshSearchEventReceiver();
     }
 
     @SuppressWarnings("unchecked")
@@ -305,6 +308,7 @@ public class FileDisplayActivity extends FileActivity
         setupHomeSearchToolbarWithSortAndListButtons();
         mMenuButton.setOnClickListener(v -> openDrawer());
         mSwitchAccountButton.setOnClickListener(v -> showManageAccountsDialog());
+        mNotificationButton.setOnClickListener(v -> startActivity(NotificationsActivity.class));
         fastScrollUtils.fixAppBarForFastScroll(binding.appbar.appbar, binding.rootLayout);
     }
 
@@ -376,11 +380,7 @@ public class FileDisplayActivity extends FileActivity
 
         if (IntentExtensionsKt.getParcelableArgument(getIntent(), OCFileListFragment.SEARCH_EVENT, SearchEvent.class) != null) {
             switchToSearchFragment(savedInstanceState);
-
-            int menuId = getIntent().getIntExtra(DRAWER_MENU_ID, -1);
-            if (menuId != -1) {
-                setupDrawer(menuId);
-            }
+            setupDrawer();
         } else {
             createMinFragments(savedInstanceState);
             syncAndUpdateFolder(true);
@@ -396,6 +396,7 @@ public class FileDisplayActivity extends FileActivity
 
         upgradeNotificationForInstantUpload();
         checkOutdatedServer();
+        checkNotifications();
     }
 
     private Activity getActivity() {
@@ -425,6 +426,24 @@ public class FileDisplayActivity extends FileActivity
         if (user.isPresent() && CapabilityUtils.checkOutdatedWarning(getResources(), user.get().getServer().getVersion(), getCapabilities().getExtendedSupport().isTrue())) {
             DisplayUtils.showServerOutdatedSnackbar(this, Snackbar.LENGTH_LONG);
         }
+    }
+    
+    private void checkNotifications() {
+        new Thread(() -> {
+            try {
+                RemoteOperationResult<List<Notification>> result = new GetNotificationsRemoteOperation()
+                    .execute(clientFactory.createNextcloudClient(accountManager.getUser()));
+                
+                if (result.isSuccess() && !result.getResultData().isEmpty()) {
+                    runOnUiThread(() -> mNotificationButton.setVisibility(View.VISIBLE));
+                } else {
+                    runOnUiThread(() -> mNotificationButton.setVisibility(View.GONE));
+                }
+                
+            } catch (ClientFactory.CreationException e) {
+                Log_OC.e(TAG, "Could not fetch notifications!");
+            }
+        }).start();
     }
 
     @Override
@@ -555,17 +574,15 @@ public class FileDisplayActivity extends FileActivity
                 }
             } else if (ALL_FILES.equals(intent.getAction())) {
                 Log_OC.d(this, "Switch to oc file fragment");
-
+                DrawerActivity.menuItemId = R.id.nav_all_files;
                 setLeftFragment(new OCFileListFragment());
                 getSupportFragmentManager().executePendingTransactions();
                 browseToRoot();
             } else if (LIST_GROUPFOLDERS.equals(intent.getAction())) {
                 Log_OC.d(this, "Switch to list groupfolders fragment");
-
+                DrawerActivity.menuItemId = R.id.nav_groupfolders;
                 setLeftFragment(new GroupfolderListFragment());
                 getSupportFragmentManager().executePendingTransactions();
-            } else {
-                handleOpenFileViaIntent(intent);
             }
         }
     }
@@ -871,7 +888,7 @@ public class FileDisplayActivity extends FileActivity
                     if (hasEnoughSpaceAvailable) {
                         File file = new File(filesToUpload[0]);
                         File renamedFile;
-                        if(requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA) {
+                        if (requestCode == REQUEST_CODE__UPLOAD_FROM_CAMERA) {
                             renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedImageName());
                         } else {
                             renamedFile = new File(file.getParent() + PATH_SEPARATOR + FileOperationsHelper.getCapturedVideoName());
@@ -933,16 +950,21 @@ public class FileDisplayActivity extends FileActivity
                 default -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET;
             };
 
-            FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
-                                                                 filePaths,
-                                                                 decryptedRemotePaths,
-                                                                 behaviour,
-                                                                 true,
-                                                                 UploadFileOperation.CREATED_BY_USER,
-                                                                 false,
-                                                                 false,
-                                                                 NameCollisionPolicy.ASK_USER);
-
+            connectivityService.isNetworkAndServerAvailable(result -> {
+                if (result) {
+                    FileUploadHelper.Companion.instance().uploadNewFiles(getUser().orElseThrow(RuntimeException::new),
+                                                                         filePaths,
+                                                                         decryptedRemotePaths,
+                                                                         behaviour,
+                                                                         true,
+                                                                         UploadFileOperation.CREATED_BY_USER,
+                                                                         false,
+                                                                         false,
+                                                                         NameCollisionPolicy.ASK_USER);
+                } else {
+                    fileDataStorageManager.addCreateFileOfflineOperation(filePaths, decryptedRemotePaths);
+                }
+            });
         } else {
             Log_OC.d(TAG, "User clicked on 'Update' with no selection");
             DisplayUtils.showSnackMessage(this, R.string.filedisplay_no_file_selected);
@@ -999,25 +1021,24 @@ public class FileDisplayActivity extends FileActivity
      */
     @SuppressFBWarnings("ITC_INHERITANCE_TYPE_CHECKING")
     @Override
+    // TODO Apply fail fast principle
     public void onBackPressed() {
-        final boolean isDrawerOpen = isDrawerOpen();
-        final boolean isSearchOpen = isSearchOpen();
-
-        final Fragment leftFragment = getLeftFragment();
-
-        if (isSearchOpen) {
+        if (isSearchOpen()) {
             resetSearchAction();
-        } else if (isDrawerOpen) {
-            super.onBackPressed();
-        } else if (leftFragment instanceof OCFileListFragment listOfFiles) {
+            return;
+        }
 
-            // all closed
-            OCFile currentDir = getCurrentDir();
-            if (isRoot(currentDir)) {
+        if (isDrawerOpen()) {
+            super.onBackPressed();
+            return;
+        }
+
+        if (getLeftFragment() instanceof OCFileListFragment listOfFiles) {
+            if (isRoot(getCurrentDir())) {
                 finish();
-                return;
+            } else {
+                browseUp(listOfFiles);
             }
-            browseUp(listOfFiles);
         } else {
             popBack();
         }
@@ -1141,10 +1162,7 @@ public class FileDisplayActivity extends FileActivity
         mDownloadFinishReceiver = new DownloadFinishReceiver();
         localBroadcastManager.registerReceiver(mDownloadFinishReceiver, downloadIntentFilter);
 
-        // setup drawer
-        menuItemId = getIntent().getIntExtra(FileDisplayActivity.DRAWER_MENU_ID, -1);
-
-        if (menuItemId == -1) {
+        if (menuItemId == Menu.NONE) {
             setDrawerAllFiles();
         } else {
             if (menuItemId == R.id.nav_all_files || menuItemId == R.id.nav_personal_files) {
@@ -1152,7 +1170,6 @@ public class FileDisplayActivity extends FileActivity
             } else {
                 setupToolbar();
             }
-            setDrawerMenuItemChecked(menuItemId);
         }
 
         if (ocFileListFragment instanceof GalleryFragment) {
@@ -1160,24 +1177,25 @@ public class FileDisplayActivity extends FileActivity
         }
         //show in-app review dialog to user
         inAppReviewHelper.showInAppReview(this);
+        
+        checkNotifications();
 
         Log_OC.v(TAG, "onResume() end");
     }
-
     private void setDrawerAllFiles() {
         if (MainApp.isOnlyPersonFiles()) {
-            setDrawerMenuItemChecked(R.id.nav_personal_files);
-            setupHomeSearchToolbarWithSortAndListButtons();
+            menuItemId = R.id.nav_personal_files;
         } else if (MainApp.isOnlyOnDevice()) {
-            setDrawerMenuItemChecked(R.id.nav_on_device);
+            menuItemId = R.id.nav_on_device;
+        } else if (menuItemId == Menu.NONE) {
+            menuItemId = R.id.nav_all_files;
+        }
+
+        setDrawerMenuItemChecked();
+
+        if (MainApp.isOnlyOnDevice()) {
             setupToolbar();
         } else {
-            int lastMenuItem = getCheckedMenuItem();
-            if (lastMenuItem == Menu.NONE) {
-                lastMenuItem = R.id.nav_all_files;
-            }
-
-            setDrawerMenuItemChecked(lastMenuItem);
             setupHomeSearchToolbarWithSortAndListButtons();
         }
     }
@@ -1315,7 +1333,6 @@ public class FileDisplayActivity extends FileActivity
 
                         Log_OC.d(TAG, "Setting progress visibility to " + mSyncInProgress);
 
-
                         OCFileListFragment ocFileListFragment = getListOfFilesFragment();
                         if (ocFileListFragment != null) {
                             ocFileListFragment.setLoading(mSyncInProgress);
@@ -1365,7 +1382,13 @@ public class FileDisplayActivity extends FileActivity
                 if (MainApp.isOnlyOnDevice()) {
                     ocFileListFragment.setMessageForEmptyList(R.string.file_list_empty_headline, R.string.file_list_empty_on_device, R.drawable.ic_list_empty_folder, true);
                 } else {
-                    ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH);
+                    connectivityService.isNetworkAndServerAvailable(result -> {
+                        if (result) {
+                            ocFileListFragment.setEmptyListMessage(SearchType.NO_SEARCH);
+                        } else {
+                            ocFileListFragment.setEmptyListMessage(SearchType.OFFLINE_MODE);
+                        }
+                    });
                 }
             }
         } else {
@@ -1597,8 +1620,22 @@ public class FileDisplayActivity extends FileActivity
                 fileDownloadProgressListener = null;
             } else if (state instanceof WorkerState.UploadFinished) {
                 refreshList();
+            } else if (state instanceof  WorkerState.OfflineOperationsCompleted) {
+                refreshCurrentDirectory();
             }
         });
+    }
+
+    public void refreshCurrentDirectory() {
+        OCFile currentDir = (getCurrentDir() != null) ?
+            getStorageManager().getFileByDecryptedRemotePath(getCurrentDir().getRemotePath()) : null;
+
+        OCFileListFragment fileListFragment =
+            (ActivityExtensionsKt.lastFragment(this) instanceof OCFileListFragment fragment) ? fragment : getListOfFilesFragment();
+
+        if (fileListFragment != null) {
+            fileListFragment.listDirectory(currentDir, false, false);
+        }
     }
 
     private void handleDownloadWorkerState() {
@@ -2216,7 +2253,7 @@ public class FileDisplayActivity extends FileActivity
         syncAndUpdateFolder(true);
     }
 
-    private void syncAndUpdateFolder(boolean ignoreETag) {
+    public void syncAndUpdateFolder(boolean ignoreETag) {
         syncAndUpdateFolder(ignoreETag, false);
     }
 
@@ -2359,10 +2396,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void handleOpenFileViaIntent(Intent intent) {
-        Uri deepLinkUri = getIntent().getData();
-        if (deepLinkUri == null || !DeepLinkHandler.Companion.isDeepLinkTypeIsNavigation(deepLinkUri.toString())) {
-            showLoadingDialog(getString(R.string.retrieving_file));
-        }
+        DisplayUtils.showSnackMessage(this, getString(R.string.retrieving_file));
 
         String userName = intent.getStringExtra(KEY_ACCOUNT);
         String fileId = intent.getStringExtra(KEY_FILE_ID);
@@ -2378,11 +2412,9 @@ public class FileDisplayActivity extends FileActivity
                 } else if (!TextUtils.isEmpty(filePath)) {
                     openFileByPath(optionalUser.get(), filePath);
                 } else {
-                    dismissLoadingDialog();
                     accountClicked(optionalUser.get().hashCode());
                 }
             } else {
-                dismissLoadingDialog();
                 DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
             }
         }
@@ -2391,11 +2423,10 @@ public class FileDisplayActivity extends FileActivity
     private void openDeepLink(Uri uri) {
         DeepLinkHandler linkHandler = new DeepLinkHandler(getUserAccountManager());
         DeepLinkHandler.Match match = linkHandler.parseDeepLink(uri);
+
         if (match == null) {
-            dismissLoadingDialog();
             handleDeepLink(uri);
         } else if (match.getUsers().isEmpty()) {
-            dismissLoadingDialog();
             DisplayUtils.showSnackMessage(this, getString(R.string.associated_account_not_found));
         } else if (match.getUsers().size() == SINGLE_USER_SIZE) {
             openFile(match.getUsers().get(0), match.getFileId());

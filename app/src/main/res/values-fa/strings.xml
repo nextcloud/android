@@ -34,6 +34,7 @@
     <string name="add_to_cloud">افزودن به %1$s</string>
     <string name="advanced_settings">تنظمیات پیش‌رفته</string>
     <string name="allow_resharing">مجاز به اشتراک گذاری مجدد</string>
+    <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_port_title">پورت پروکسی</string>
     <string name="app_widget_description">نمایش یک ابزارک از پیشخوان</string>
     <string name="appbar_search_in">جستجو در %s</string>
@@ -677,6 +678,7 @@
     <string name="restore_button_description">بازیابی پرونده حذف شده</string>
     <string name="restore_selected">بازیابی انتخاب شده</string>
     <string name="retrieving_file">در حال بازیابی پرونده ...</string>
+    <string name="retry">تلاش دوباره</string>
     <string name="richdocuments_failed_to_load_document">بارگیری سند انجام نشد!</string>
     <string name="scanQR_description">از طریق کد QR وارد شوید</string>
     <string name="scan_page">صفحه را اسکن کنید</string>
@@ -854,6 +856,7 @@
     <string name="trashbin_file_remove">حذف قطعی</string>
     <string name="trashbin_loading_failed">بار کردن سطل زباله شکست خورد!</string>
     <string name="trashbin_not_emptied">نمی توان پرونده ها را برای همیشه حذف کرد!</string>
+    <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="unlock_file">باز کردن قفل پرونده</string>
     <string name="unread_comments">نظرات خوانده نشده وجود دارد</string>
     <string name="unset_encrypted">به صورت رمزگذاری شده تنظیم نشده است</string>

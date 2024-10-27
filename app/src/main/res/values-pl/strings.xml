@@ -34,6 +34,7 @@
     <string name="add_to_cloud">Dodaj do %1$s</string>
     <string name="advanced_settings">Ustawienia zaawansowane</string>
     <string name="allow_resharing">Zezwalaj na udostępnianie dalej</string>
+    <string name="app_config_base_url_title">Podstawowy adres URL</string>
     <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
@@ -177,8 +178,10 @@
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_dialog_error">Nie można utworzyć okna dialogowego rozwiązywania konfliktów</string>
     <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
+    <string name="conflict_folder_headline">Konflikt folderów</string>
     <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
+    <string name="conflict_message_description_for_folder">Jeżeli wybierzesz obie wersje, to do nazwy folderu lokalnego zostanie dodany numer</string>
     <string name="conflict_server_file">Plik z serwera</string>
     <string name="contact_backup_title">Kopia zapasowa kontaktów</string>
     <string name="contact_no_permission">Wymagane jest pozwolenie na lokalizację</string>
@@ -208,6 +211,7 @@
     <string name="create_new_presentation">Nowa prezentacja</string>
     <string name="create_new_spreadsheet">Nowy arkusz kalkulacyjny</string>
     <string name="create_rich_workspace">Dodaj opis folderu</string>
+    <string name="creates_rich_workspace">Dodaj opis folderu</string>
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
     <string name="daily_backup">Codzienna kopia zapasowa</string>
     <string name="data_to_back_up">Dane dla kopii zapasowej</string>
@@ -349,6 +353,7 @@
     <string name="failed_update_ui">Nie udało się zaktualizować UI</string>
     <string name="favorite">Dodaj do ulubionych</string>
     <string name="favorite_icon">Ulubiony</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Udostępniony plik nie może zostać uaktualniony</string>
     <string name="file_already_exists">Nazwa pliku już istnieje</string>
     <string name="file_delete">Usuń</string>
     <string name="file_detail_activity_error">Błąd podczas pobierania aktywności dla pliku</string>
@@ -362,6 +367,7 @@
     <string name="file_list_empty_headline">Brak plików</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym katalogu</string>
     <string name="file_list_empty_headline_server_search">Brak wyników</string>
+    <string name="file_list_empty_local_search">Brak plików lub folderów spełniających kryteria wyszukiwania</string>
     <string name="file_list_empty_moving">Pusto. Możesz dodać katalog.</string>
     <string name="file_list_empty_on_device">Tutaj pojawią się pobrane pliki i katalogi.</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
@@ -399,6 +405,14 @@
     <string name="file_migration_updating_index">Aktualizacja indeksu…</string>
     <string name="file_migration_use_data_folder">Użyj</string>
     <string name="file_migration_waiting_for_unfinished_sync">Oczekuje na pełną synchronizację…</string>
+    <string name="file_name_validator_current_path_is_invalid">Nazwa folderu jest niewłaściwa, zmień nazwę folderu. Przekierowuję na stronę główną</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Ścieżka folderu zawiera zarezerwowane nazwy albo nieprawidłowy znak</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s jest zabronionym rozszerzeniem pliku</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Nazwy plików nie mogą zawierać spacji na początku i końcu nazwy</string>
+    <string name="file_name_validator_error_invalid_character">Nazwa zawiera niedozwolone znaki %s</string>
+    <string name="file_name_validator_error_reserved_names">%sjest zabronioną nazwą</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Zmień nazwę pliku przed przeniesieniem lub skopiowaniem</string>
+    <string name="file_name_validator_upload_content_error">Część zawartości nie może zostać uploadowana ponieważ zawiera niewłaściwe nazwy lub znaki</string>
     <string name="file_not_found">Nie znaleziono pliku</string>
     <string name="file_not_synced">Nie można zsynchronizować pliku. Pokazana jest najnowsza dostępna wersja.</string>
     <string name="file_rename">Zmień nazwę</string>
@@ -422,6 +436,7 @@
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
+    <string name="folder_name_empty">Nazwa folderu nie może być pusta</string>
     <string name="folder_picker_choose_button_text">Wybierz</string>
     <string name="folder_picker_choose_caption_text">Wybierz katalog docelowy</string>
     <string name="folder_picker_copy_button_text">Skopiuj</string>
@@ -467,6 +482,8 @@
     <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync_not_yet">Jeszcze nie, niebawem będzie zsynchronizowane</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Aby ustawić szyfrowany folder wymagane jest połączenie z intenetem</string>
     <string name="invalid_url">Nieprawidłowy adres URL</string>
     <string name="invisible">Niewidoczny</string>
     <string name="label_empty">Etykieta nie może być pusta</string>
@@ -505,6 +522,7 @@
     <string name="manage_space_clear_data">Wyczyść dane</string>
     <string name="manage_space_description">Ustawienia, bazy danych i certyfikaty serwera %1$s zostaną trwale usunięte.\n\nPobrane pliki pozostaną na swoich miejscach.\n\nTen proces może trochę potrwać.</string>
     <string name="manage_space_title">Zarządzaj przestrzenią</string>
+    <string name="max_file_count_warning_message">Osiągnięto maksymalny limit upload. Proszę uploadować mniej niż 500 plików w jednym czasie</string>
     <string name="media_err_invalid_progressive_playback">Plik multimedialny nie może być przesyłany strumieniowo</string>
     <string name="media_err_io">Nie można odczytać pliku</string>
     <string name="media_err_malformed">Nieprawidłowe kodowanie pliku multimedialnego</string>
@@ -550,6 +568,7 @@
     <string name="note_could_not_sent">Nie można wysłać notatki</string>
     <string name="note_icon_hint">Ikona notatki</string>
     <string name="notification_action_failed">Wykonanie akcji nie powiodło się.</string>
+    <string name="notification_channel_background_operations_name">Operacje w tle</string>
     <string name="notification_channel_download_description">Pokazuje postęp pobierania</string>
     <string name="notification_channel_download_name_short">Pobrane</string>
     <string name="notification_channel_file_sync_description">Pokazuje postęp synchronizacji plików i jej wynik</string>
@@ -563,9 +582,16 @@
     <string name="notification_channel_upload_description">Pokazuje postęp wysyłania</string>
     <string name="notification_channel_upload_name_short">Wysłane</string>
     <string name="notification_icon">Ikona powiadomień</string>
+    <string name="notification_icon_description">Nieprzeczytane powiadomienia</string>
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Trwające działania</string>
     <string name="offline_mode">Brak połączenia z Internetem</string>
+    <string name="offline_operations_worker_notification_conflict_text">Konfliktowy folder %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Usuń katalog offline</string>
+    <string name="offline_operations_worker_notification_error_text">Operacja offline nie może zostać ukończona. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Operacje offline</string>
+    <string name="offline_operations_worker_notification_start_text">Rozpoczynam operacje offline</string>
     <string name="oneHour">1 godzina</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
@@ -595,6 +621,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">zatrzymaj</string>
     <string name="player_toggle">przełącz</string>
+    <string name="please_select_a_server">Wybierz serwer...</string>
     <string name="power_save_check_dialog_message">Wyłączenie kontroli oszczędzania energii może spowodować wysłanie plików w stanie niskiego poziomu naładowania baterii!</string>
     <string name="pref_behaviour_entries_delete_file">usunięty</string>
     <string name="pref_behaviour_entries_keep_file">zachowany w oryginalnym katalogu</string>
@@ -700,6 +727,7 @@
     <string name="restore_button_description">Przywróć usunięty plik</string>
     <string name="restore_selected">Przywróć wybrane</string>
     <string name="retrieving_file">Pobieranie pliku…</string>
+    <string name="retry">Powtórz</string>
     <string name="richdocuments_failed_to_load_document">Nie udało się pobrać dokumentu</string>
     <string name="scanQR_description">Zaloguj się za pomocą kodu QR</string>
     <string name="scan_page">Zeskanuj stronę</string>
@@ -879,6 +907,7 @@
     <string name="trashbin_file_remove">Usuń bezpowrotnie</string>
     <string name="trashbin_loading_failed">Wczytywanie kosza nie powiodło się!</string>
     <string name="trashbin_not_emptied">Pliki nie mogą być trwale usunięte!</string>
+    <string name="unexpected_error_occurred">Wystąpił nieoczekiwany błąd</string>
     <string name="unlock_file">Odblokuj plik</string>
     <string name="unread_comments">Nieprzeczytane komentarze</string>
     <string name="unset_encrypted">Wyłącz szyfrowanie</string>

@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">Aufgabe gelöscht</string>
     <string name="assistant_screen_task_list_error_state_message">Die Aufgabenliste kann nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Aufgabe löschen</string>
+    <string name="assistant_screen_task_output_empty_text">Die Aufgabenausgabe ist noch nicht fertig.</string>
     <string name="assistant_screen_task_types_error_state_message">Die Aufgabentypen können nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Unbekannt</string>
@@ -180,8 +181,10 @@
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="conflict_dialog_error">Konfliktlösungsdialog konnte nicht erstellt werden</string>
     <string name="conflict_file_headline">Konflikt-Datei %1$s</string>
+    <string name="conflict_folder_headline">Ordnerkonfilikt</string>
     <string name="conflict_local_file">Lokale Datei</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
+    <string name="conflict_message_description_for_folder">Falls beide Versionen gewählt werden, wird beim lokalen Ordner eine Zahl am Ende des Dateinamens hinzugefügt.</string>
     <string name="conflict_server_file">Server-Datei</string>
     <string name="contact_backup_title">Kontakte-Backup</string>
     <string name="contact_no_permission">Eine Kontakterlaubnis ist erforderlich.</string>
@@ -409,11 +412,11 @@
     <string name="file_migration_updating_index">Aktualisiere Index…</string>
     <string name="file_migration_use_data_folder">Verwende bestehenden</string>
     <string name="file_migration_waiting_for_unfinished_sync">Warte auf die Fertigstellung aller Synchronisierungen …</string>
-    <string name="file_name_validator_current_path_is_invalid">Der aktuelle Ordnername ist unzulässig. Bitte benennen Sie den Ordner um. Weiterleitung zum Stammverzeichnis</string>
+    <string name="file_name_validator_current_path_is_invalid">Der aktuelle Ordnername ist ungültig. Bitte den Ordner umbenennen. Weiterleitung zum Stammverzeichnis…</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Der Ordnerpfad enthält reservierte Namen oder ungültige Zeichen</string>
-    <string name="file_name_validator_error_ends_with_space_period">Der Name endet mit einem Leerzeichen oder einem Punkt</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s ist eine unzulässige Dateierweiterung</string>
-    <string name="file_name_validator_error_invalid_character">Der Name enthält ein unzulässiges Zeichen: %s</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s ist eine unzulässige Dateierweiterung</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Dateinamen dürfen am Anfang oder Ende keine Leerzeichen enthalten</string>
+    <string name="file_name_validator_error_invalid_character">Der Name enthält unzulässige Zeichen: %s</string>
     <string name="file_name_validator_error_reserved_names">%s ist ein unzulässiger Name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Bitte Datei umbenennen, bevor diese verschoben oder kopiert wird</string>
     <string name="file_name_validator_upload_content_error">Einige Inhalte können nicht hochgeladen werden, da sie reservierte Namen oder unzulässige Zeichen enthalten</string>
@@ -488,7 +491,8 @@
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
     <string name="internal_two_way_sync">Interne 2-Wege-Synchronisierung</string>
-    <string name="internal_two_way_sync_not_yet">Bislang nicht, aber in Kürze synchronisiert</string>
+    <string name="internal_two_way_sync_not_yet">Bislang nicht, wird demnächst synchronisiert</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Zum Einrichten des verschlüsselten Ordners ist eine Internetverbindung erforderlich</string>
     <string name="invalid_url">Ungültige URL</string>
     <string name="invisible">Unsichtbar</string>
     <string name="label_empty">Bezeichnung darf nicht leer sein</string>
@@ -573,6 +577,8 @@
     <string name="note_could_not_sent">Notiz konnte nicht versandt werden</string>
     <string name="note_icon_hint">Notiz-Symbol</string>
     <string name="notification_action_failed">Ausführen der Aktion fehlgeschlagen.</string>
+    <string name="notification_channel_background_operations_description">Benachrichtigungen anzeigen, um auf die Ergebnisse von Hintergrundoperationen zu reagieren</string>
+    <string name="notification_channel_background_operations_name">Hintergrundoperationen</string>
     <string name="notification_channel_download_description">Zeigt den Herunterlade-Fortschritt an</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Zeigt den Fortschritt der Dateisynchronisierung und die Ergebnisse an</string>
@@ -586,9 +592,19 @@
     <string name="notification_channel_upload_description">Zeigt den Hochlade-Fortschritt an</string>
     <string name="notification_channel_upload_name_short">Uploads</string>
     <string name="notification_icon">Benachrichtigungssymbol</string>
+    <string name="notification_icon_description">Ungelesene Benachrichtigungen vorhanden</string>
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Ausstehende Operationen</string>
     <string name="offline_mode">Keine Internetverbindung</string>
+    <string name="offline_mode_info_description">Auch ohne Internetverbindung können Sie Ihre Ordner organisieren und Dateien erstellen. Sobald Sie wieder online sind, werden die ausstehenden Aktionen automatisch synchronisiert.</string>
+    <string name="offline_mode_info_title">Sie sind offline, aber die Arbeit geht weiter</string>
+    <string name="offline_operations_file_does_not_exists_yet">Datei existiert noch nicht. Bitte laden Sie zuerst die Datei hoch.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Konfliktordner: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Offlineordner löschen</string>
+    <string name="offline_operations_worker_notification_error_text">Der Offlinevorgang kann nicht abgeschlossen werden. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Offline-Operationen</string>
+    <string name="offline_operations_worker_notification_start_text">Offline-Operationen werden gestartet</string>
     <string name="oneHour">1 Stunde</string>
     <string name="online">Online</string>
     <string name="online_status">Online-Status</string>
@@ -618,6 +634,7 @@
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="player_stop">Stopp</string>
     <string name="player_toggle">Umschalten</string>
+    <string name="please_select_a_server">Bitte einen Server auswählen...</string>
     <string name="power_save_check_dialog_message">Bei deaktiviertem Energiesparmodus werden Daten auch bei niedrigem Batterieladezustand hochgeladen.</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
@@ -728,6 +745,7 @@
     <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
     <string name="restore_selected">Ausgewählte wiederherstellen</string>
     <string name="retrieving_file">Abrufen der Datei…</string>
+    <string name="retry">Wiederholen</string>
     <string name="richdocuments_failed_to_load_document">Laden des Dokuments fehlgeschlagen!</string>
     <string name="scanQR_description">Anmelden mit QR-Code</string>
     <string name="scan_page">Seite scannen</string>
@@ -907,6 +925,7 @@
     <string name="trashbin_file_remove">Endgültig löschen</string>
     <string name="trashbin_loading_failed">Laden des Papierkorbs fehlgeschlagen!</string>
     <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
+    <string name="unexpected_error_occurred">Es ist ein unerwarteter Fehler aufgetreten</string>
     <string name="unified_search_fragment_calendar_event_not_found">Termin nicht gefunden, Sie können jederzeit die Synchronisierung wiederholen. Weiterleiten zum Web…</string>
     <string name="unified_search_fragment_contact_not_found">Kontakt nicht gefunden, Sie können jederzeit synchronisieren für eine Aktualisierung. Weiterleiten zum Web…</string>
     <string name="unified_search_fragment_permission_needed">Berechtigungen für das Öffnen der Suchergebnisse notwendig, ansonsten werden Sie zum Web weitergeleitet</string>
@@ -914,6 +933,7 @@
     <string name="unread_comments">Es gibt  ungelesene Kommentare</string>
     <string name="unset_encrypted">Verschlüsselung aufheben</string>
     <string name="unset_favorite">Von Favoriten entfernen</string>
+    <string name="unset_internal_two_way_sync_description">Ordner aus der internen 2-Wege-Synchronisierung entfernen</string>
     <string name="unshare_link_file_error">Es ist ein Fehler beim Entfernen der Freigabe für diese Datei oder den Ordner aufgetreten.</string>
     <string name="unshare_link_file_no_exist">Entfernen der Freigabe nicht möglich. Bitte prüfen Sie, ob die Datei existiert.</string>
     <string name="unshare_link_forbidden_permissions">diese Datei nicht mehr zu teilen</string>

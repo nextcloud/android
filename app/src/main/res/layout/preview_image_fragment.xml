@@ -9,7 +9,7 @@
   ~ SPDX-FileCopyrightText: 2013 David A. Velasco <dvelasco@solidgear.es>
   ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/top"
@@ -119,4 +119,4 @@
             android:src="@drawable/ic_image_outline" />
 
     </FrameLayout>
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

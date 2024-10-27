@@ -34,7 +34,6 @@
     <string name="add_to_cloud">Agregar a %1$s</string>
     <string name="advanced_settings">Configuraciones avanzadas</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
-    <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_proxy_host_title">Nombre del Servidor Proxy</string>
     <string name="app_config_proxy_port_title">Puerto del Proxy</string>
     <string name="app_widget_description">Muestra un widget del panel de control</string>
@@ -432,6 +431,7 @@
     <string name="reshare_not_allowed">No se permite volver a compartir</string>
     <string name="resharing_is_not_allowed">No está permitido recompartir</string>
     <string name="resized_image_not_possible_download">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
+    <string name="retry">Reintentar</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="send">Enviar</string>
     <string name="sendbutton_description">Ícono de botón de envío</string>

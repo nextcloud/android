@@ -34,7 +34,6 @@
     <string name="add_to_cloud">Adaugă la 1 %1$s</string>
     <string name="advanced_settings">Setări avansate</string>
     <string name="allow_resharing">Permite repartajarea</string>
-    <string name="app_config_base_url_title">URL-ul de bază</string>
     <string name="app_config_proxy_host_title">Hostname-ul de proxy</string>
     <string name="app_config_proxy_port_title">Port proxy </string>
     <string name="app_widget_description">Arată un singur widget din panoul principal</string>
@@ -654,6 +653,7 @@
     <string name="restore_button_description">Restaurează fișier șters</string>
     <string name="restore_selected">Restaurează selecția</string>
     <string name="retrieving_file">Recuperearea fișierului...</string>
+    <string name="retry">Reîncearcă</string>
     <string name="richdocuments_failed_to_load_document">Eroare în încărcarea documentului!</string>
     <string name="scanQR_description">Autentificare cu cod QR</string>
     <string name="scan_page">Scanează pagina</string>

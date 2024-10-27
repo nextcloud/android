@@ -29,6 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.pull_request.labels.*.name, 'sync') && github.actor == 'nextcloud-android-bot' }}
     steps:
+      - name: Disabled on forks
+        if: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+        run: |
+          echo 'Can not approve PRs from forks'
+          exit 1
+
       - uses: hmarr/auto-approve-action@f0939ea97e9205ef24d872e76833fa908a770363 # v4.0.0
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"

@@ -56,7 +56,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Optional;
 
 import androidx.annotation.NonNull;
@@ -119,14 +118,20 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         headerViewHolder.binding.uploadListAction.setOnClickListener(v -> {
             switch (group.type) {
-                case CURRENT -> {
-                    new Thread(() -> {
-                        uploadHelper.cancelFileUploads(
-                            Arrays.asList(group.items),
-                            group.getItem(0).getAccountName());
-                        parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
-                    }).start();
-                }
+                case CURRENT -> new Thread(() -> {
+                    OCUpload ocUpload = group.getItem(0);
+                    if (ocUpload == null) {
+                        return;
+                    }
+
+                    String accountName = ocUpload.getAccountName();
+                    if (accountName == null) {
+                        return;
+                    }
+
+                    uploadHelper.cancelFileUploads(Arrays.asList(group.items), accountName);
+                    parentActivity.runOnUiThread(this::loadUploadItemsFromDb);
+                }).start();
                 case FINISHED -> {
                     uploadsStorageManager.clearSuccessfulUploads();
                     loadUploadItemsFromDb();
@@ -287,16 +292,27 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
     @Override
     public void onBindViewHolder(SectionedViewHolder holder, int section, int relativePosition, int absolutePosition) {
+        if (uploadGroups.length == 0 || section < 0 || section >= uploadGroups.length) {
+            return;
+        }
+
+        UploadGroup uploadGroup = uploadGroups[section];
+        if (uploadGroup == null) {
+            return;
+        }
+
+        OCUpload item = uploadGroup.getItem(relativePosition);
+        if (item == null) {
+            return;
+        }
+
         ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
-
-        OCUpload item = uploadGroups[section].getItem(relativePosition);
-
         itemViewHolder.binding.uploadName.setText(item.getLocalPath());
 
         // local file name
         File remoteFile = new File(item.getRemotePath());
         String fileName = remoteFile.getName();
-        if (fileName.length() == 0) {
+        if (fileName.isEmpty()) {
             fileName = File.separator;
         }
         itemViewHolder.binding.uploadName.setText(fileName);
@@ -485,9 +501,8 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             && fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId() != null &&
             item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
             // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId())
-                                                                            );
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId()));
+
             if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.isUpdateThumbnailNeeded()) {
                 itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail);
             } else {
@@ -520,47 +535,51 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             }
 
             if ("image/png".equals(item.getMimeType())) {
-                itemViewHolder.binding.thumbnail.setBackgroundColor(parentActivity.getResources()
-                                                                        .getColor(R.color.bg_default));
+                itemViewHolder.binding.thumbnail.setBackgroundColor(parentActivity.getResources().getColor(R.color.bg_default));
             }
-
-
         } else if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)) {
             File file = new File(item.getLocalPath());
-            // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                String.valueOf(file.hashCode()));
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(String.valueOf(file.hashCode()));
+
             if (thumbnail != null) {
                 itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail);
-            } else {
-                // generate new Thumbnail
-                if (allowedToCreateNewThumbnail) {
-                    final ThumbnailsCacheManager.ThumbnailGenerationTask task =
-                        new ThumbnailsCacheManager.ThumbnailGenerationTask(itemViewHolder.binding.thumbnail);
+            } else if (allowedToCreateNewThumbnail) {
+                getThumbnailFromFileTypeAndSetIcon(item.getLocalPath(), itemViewHolder);
 
-                    if (MimeTypeUtil.isVideo(file)) {
-                        thumbnail = ThumbnailsCacheManager.mDefaultVideo;
-                    } else {
-                        thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                final ThumbnailsCacheManager.ThumbnailGenerationTask task =
+                    new ThumbnailsCacheManager.ThumbnailGenerationTask(itemViewHolder.binding.thumbnail);
+
+                if (MimeTypeUtil.isVideo(file)) {
+                    thumbnail = ThumbnailsCacheManager.mDefaultVideo;
+                } else {
+                    thumbnail = ThumbnailsCacheManager.mDefaultImg;
+                }
+
+                final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
+                    new ThumbnailsCacheManager.AsyncThumbnailDrawable(parentActivity.getResources(), thumbnail,
+                                                                      task);
+
+                task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null));
+                task.setListener(new ThumbnailsCacheManager.ThumbnailGenerationTask.Listener() {
+                    @Override
+                    public void onSuccess() {
+                        itemViewHolder.binding.thumbnail.setImageDrawable(asyncDrawable);
                     }
 
-                    final ThumbnailsCacheManager.AsyncThumbnailDrawable asyncDrawable =
-                        new ThumbnailsCacheManager.AsyncThumbnailDrawable(parentActivity.getResources(), thumbnail,
-                                                                          task);
+                    @Override
+                    public void onError() {
+                        getThumbnailFromFileTypeAndSetIcon(item.getLocalPath(), itemViewHolder);
+                    }
+                });
 
-                    itemViewHolder.binding.thumbnail.setImageDrawable(asyncDrawable);
-                    task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, null));
-                    Log_OC.v(TAG, "Executing task to generate a new thumbnail");
-                }
+                Log_OC.v(TAG, "Executing task to generate a new thumbnail");
             }
 
             if ("image/png".equalsIgnoreCase(item.getMimeType())) {
-                itemViewHolder.binding.thumbnail.setBackgroundColor(parentActivity.getResources()
-                                                                        .getColor(R.color.bg_default));
+                itemViewHolder.binding.thumbnail.setBackgroundColor(parentActivity.getResources().getColor(R.color.bg_default));
             }
         } else {
             if (optionalUser.isPresent()) {
-                final User user = optionalUser.get();
                 final Drawable icon = MimeTypeUtil.getFileTypeIcon(item.getMimeType(),
                                                                    fileName,
                                                                    parentActivity,
@@ -568,6 +587,12 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
                 itemViewHolder.binding.thumbnail.setImageDrawable(icon);
             }
         }
+    }
+
+    private void getThumbnailFromFileTypeAndSetIcon(String localPath, ItemViewHolder itemViewHolder) {
+        Drawable drawable = MimeTypeUtil.getIcon(localPath, parentActivity, viewThemeUtils);
+        if (drawable == null) return;
+        itemViewHolder.binding.thumbnail.setImageDrawable(drawable);
     }
 
     private boolean checkAndOpenConflictResolutionDialog(User user,
@@ -928,9 +953,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
     }
 
     abstract class UploadGroup implements Refresh {
-        private Type type;
+        private final Type type;
         private OCUpload[] items;
-        private String name;
+        private final String name;
 
         UploadGroup(Type type, String groupName) {
             this.type = type;
@@ -947,6 +972,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
         }
 
         public OCUpload getItem(int position) {
+            if (items.length == 0 || position < 0 || position >= items.length) {
+                return null;
+            }
+
             return items[position];
         }
 

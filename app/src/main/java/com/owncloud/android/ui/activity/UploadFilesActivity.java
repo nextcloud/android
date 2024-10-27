@@ -109,8 +109,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     private UploadFilesLayoutBinding binding;
     private boolean isWithinEncryptedFolder = false;
 
-
-    @VisibleForTesting
     public LocalFileListFragment getFileListFragment() {
         return mFileListFragment;
     }
@@ -644,12 +642,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                     finish();
                 } else {
                     String[] selectedFilePaths = mFileListFragment.getCheckedFilePaths();
-                    String filenameErrorMessage = checkFileNameBeforeUpload(selectedFilePaths);
-                    if (filenameErrorMessage != null) {
-                        DisplayUtils.showSnackMessage(this, filenameErrorMessage);
-                        return;
-                    }
-
                     boolean isPositionZero = (binding.uploadFilesSpinnerBehaviour.getSelectedItemPosition() == 0);
                     new CheckAvailableSpaceTask(this, selectedFilePaths).execute(isPositionZero);
                 }
@@ -657,19 +649,6 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
                 requestPermissions();
             }
         }
-    }
-
-    private String checkFileNameBeforeUpload(String[] selectedFilePaths) {
-        for (String filePath : selectedFilePaths) {
-            File file = new File(filePath);
-            String filenameErrorMessage = FileNameValidator.INSTANCE.checkFileName(file.getName(), getCapabilities(), this, null);
-
-            if (filenameErrorMessage != null) {
-                return filenameErrorMessage;
-            }
-        }
-
-        return null;
     }
 
     @Override

@@ -6,11 +6,25 @@
  */
 package com.nextcloud.client.network;
 
+
+import androidx.annotation.NonNull;
+
 /**
  * This service provides information about current network connectivity
  * and server reachability.
  */
 public interface ConnectivityService {
+    /**
+     * Checks the availability of the server and the device's internet connection.
+     * <p>
+     * This method performs a network request to verify if the server is accessible and
+     * checks if the device has an active internet connection.
+     * </p>
+     *
+     * @param callback A callback to handle the result of the network and server availability check.
+     */
+    void isNetworkAndServerAvailable(@NonNull GenericCallback<Boolean> callback);
+
     boolean isConnected();
 
     /**
@@ -28,4 +42,13 @@ public interface ConnectivityService {
      * @return Network connectivity status in platform-agnostic format
      */
     Connectivity getConnectivity();
+
+    /**
+     * Callback interface for asynchronous results.
+     *
+     * @param <T> The type of result returned by the callback.
+     */
+    interface GenericCallback<T> {
+        void onComplete(T result);
+    }
 }

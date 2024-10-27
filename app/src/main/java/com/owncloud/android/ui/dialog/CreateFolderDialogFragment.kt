@@ -24,14 +24,18 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.common.collect.Sets
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.typedActivity
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
 import com.owncloud.android.databinding.EditBoxDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -55,9 +59,12 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
     lateinit var keyboardUtils: KeyboardUtils
 
     @Inject
-    lateinit var currentAccount: CurrentAccountProvider
+    lateinit var connectivityService: ConnectivityService
 
-    private var mParentFolder: OCFile? = null
+    @Inject
+    lateinit var accountProvider: CurrentAccountProvider
+
+    private var parentFolder: OCFile? = null
     private var positiveButton: MaterialButton? = null
 
     private lateinit var binding: EditBoxDialogBinding
@@ -92,7 +99,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
 
     @Suppress("EmptyFunctionBlock")
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        mParentFolder = arguments?.getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
+        parentFolder = arguments?.getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
 
         val inflater = requireActivity().layoutInflater
         binding = EditBoxDialogBinding.inflate(inflater, null, false)
@@ -121,10 +128,10 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
         return builder.create()
     }
 
-    private fun getOCCapability(): OCCapability = fileDataStorageManager.getCapability(currentAccount.user.accountName)
+    private fun getOCCapability(): OCCapability = fileDataStorageManager.getCapability(accountProvider.user.accountName)
 
     private fun checkFileNameAfterEachType(fileNames: MutableSet<String>) {
-        val newFileName = binding.userInput.text?.toString()?.trim() ?: ""
+        val newFileName = binding.userInput.text?.toString() ?: ""
 
         val fileNameValidatorResult: String? =
             FileNameValidator.checkFileName(newFileName, getOCCapability(), requireContext(), fileNames)
@@ -163,7 +170,7 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
     override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == AlertDialog.BUTTON_POSITIVE) {
             val newFolderName = (getDialog()?.findViewById<View>(R.id.user_input) as TextView)
-                .text.toString().trim { it <= ' ' }
+                .text.toString()
 
             val errorMessage: String? =
                 FileNameValidator.checkFileName(newFolderName, getOCCapability(), requireContext())
@@ -173,14 +180,26 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
                 return
             }
 
-            val path = mParentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
-            if (requireActivity() is ComponentsGetter) {
-                (requireActivity() as ComponentsGetter).fileOperationsHelper.createFolder(path)
+            val path = parentFolder?.decryptedRemotePath + newFolderName + OCFile.PATH_SEPARATOR
+            connectivityService.isNetworkAndServerAvailable { result ->
+                if (result) {
+                    typedActivity<ComponentsGetter>()?.fileOperationsHelper?.createFolder(path)
+                } else {
+                    Log_OC.d(TAG, "Network not available, creating offline operation")
+                    fileDataStorageManager.addCreateFolderOfflineOperation(
+                        path,
+                        newFolderName,
+                        parentFolder?.fileId
+                    )
+
+                    typedActivity<FileDisplayActivity>()?.refreshCurrentDirectory()
+                }
             }
         }
     }
 
     companion object {
+        private const val TAG = "CreateFolderDialogFragment"
         private const val ARG_PARENT_FOLDER = "PARENT_FOLDER"
         const val CREATE_FOLDER_FRAGMENT = "CREATE_FOLDER_FRAGMENT"
 

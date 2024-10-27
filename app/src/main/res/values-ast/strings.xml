@@ -21,6 +21,7 @@
     <string name="activity_icon">Actividá</string>
     <string name="add_another_public_share_link">Amestar otru enllaz</string>
     <string name="advanced_settings">Configuración avanzada</string>
+    <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_proxy_port_title">Puertu del proxy</string>
     <string name="appbar_search_in">Buscar en: %s</string>
     <string name="assistant_screen_all_task_type">Too</string>
@@ -452,6 +453,7 @@
     <string name="restore">Restaurar el ficheru</string>
     <string name="restore_button_description">Restaurar el ficheru desainiciáu</string>
     <string name="retrieving_file">Recuperando\'l ficheru…</string>
+    <string name="retry">Retentar</string>
     <string name="richdocuments_failed_to_load_document">¡Nun se pue cargar el documentu!</string>
     <string name="scanQR_description">Aniciar la sesión per QR</string>
     <string name="scan_page">Escaniar la páxina</string>
@@ -484,7 +486,7 @@
     <string name="share_room_clarification">%1$s (conversación)</string>
     <string name="share_send_note">Nota al destinatariu</string>
     <string name="share_settings">Configuración</string>
-    <string name="share_via_link_hide_download">Anubrir la descarga</string>
+    <string name="share_via_link_hide_download">Esconder la descarga</string>
     <string name="share_via_link_section_title">Compartir enllaz</string>
     <string name="share_via_link_send_link_label">Unviar l\'enllaz</string>
     <string name="show_images">Amosar les semeyes</string>
@@ -492,7 +494,7 @@
     <string name="signup_with_provider">Rexistrase con un fornidor</string>
     <string name="single_sign_on_request_token" formatted="true">¿Quies permitr que %1$s acceda a la cuenta de Nextcloud %2$s?</string>
     <string name="sort_by">Ordenar per</string>
-    <string name="ssl_validator_btn_details_hide">Anubrir</string>
+    <string name="ssl_validator_btn_details_hide">Esconder</string>
     <string name="ssl_validator_btn_details_see">Detalles</string>
     <string name="ssl_validator_header">Nun se pudo verificar la identidá del sirvidor</string>
     <string name="ssl_validator_label_C">País:</string>
@@ -565,6 +567,7 @@
     <string name="trashbin_file_remove">Desaniciar permanentemente</string>
     <string name="trashbin_loading_failed">¡La carga de la papelera falló!</string>
     <string name="trashbin_not_emptied">¡Los ficheros nun se pudieron desaniciar permanentemente!</string>
+    <string name="unexpected_error_occurred">Prodúxose un error inesperáu</string>
     <string name="unlock_file">Desbloquiar el ficheru</string>
     <string name="unread_comments">Esisten comentarios ensin lleer</string>
     <string name="unset_favorite">Quitar de Favoritos</string>

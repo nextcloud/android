@@ -34,7 +34,7 @@
     <string name="add_to_cloud">Add to %1$s</string>
     <string name="advanced_settings">Advanced Settings</string>
     <string name="allow_resharing">Allow resharing</string>
-    <string name="app_config_base_url_title">Base Url</string>
+    <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_host_title">Proxy Host Name</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
     <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Delete Task</string>
+    <string name="assistant_screen_task_output_empty_text">The task output isn’t ready yet.</string>
     <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_unknown_task_status_text">Unknown</string>
@@ -180,8 +181,10 @@
     <string name="confirmation_remove_local">Local only</string>
     <string name="conflict_dialog_error">Conflict resolver dialog cannot be created</string>
     <string name="conflict_file_headline">Conflicting file %1$s</string>
+    <string name="conflict_folder_headline">Folder Conflict</string>
     <string name="conflict_local_file">Local file</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
+    <string name="conflict_message_description_for_folder">If you select both versions, the local folder will have a number appended to its name.</string>
     <string name="conflict_server_file">Server file</string>
     <string name="contact_backup_title">Contacts backup</string>
     <string name="contact_no_permission">Contact permission is required.</string>
@@ -409,14 +412,14 @@
     <string name="file_migration_updating_index">Updating index…</string>
     <string name="file_migration_use_data_folder">Use</string>
     <string name="file_migration_waiting_for_unfinished_sync">Awaiting full sync…</string>
-    <string name="file_name_validator_current_path_is_invalid">Current folder name is invalid, please rename the folder. Redirecting to root</string>
-    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Folder path contains reserved names or invalid character</string>
-    <string name="file_name_validator_error_ends_with_space_period">Name ends with a space or a period</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s is a forbidden file extension</string>
-    <string name="file_name_validator_error_invalid_character">Name contains an invalid character: %s</string>
+    <string name="file_name_validator_current_path_is_invalid">Current folder name is invalid, please rename the folder. Redirecting home…</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Folder path contains reserved names or invalid characters</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s is a forbidden file extension</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Filenames must not contain spaces at the beginning or end</string>
+    <string name="file_name_validator_error_invalid_character">Name contains invalid characters: %s</string>
     <string name="file_name_validator_error_reserved_names">%s is a forbidden name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Please rename the file before moving or copying</string>
-    <string name="file_name_validator_upload_content_error">Some contents cannot able to uploaded due to contains reserved names or invalid character</string>
+    <string name="file_name_validator_upload_content_error">Some content cannot be uploaded since it contains reserved names or invalid characters</string>
     <string name="file_not_found">File not found</string>
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
@@ -489,6 +492,7 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="internal_two_way_sync">Internal two way sync</string>
     <string name="internal_two_way_sync_not_yet">Not yet, soon to be synced</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">An internet connection is required to set up the encrypted folder</string>
     <string name="invalid_url">Invalid URL</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">Label cannot be empty</string>
@@ -573,6 +577,8 @@
     <string name="note_could_not_sent">Could not send note</string>
     <string name="note_icon_hint">Note icon</string>
     <string name="notification_action_failed">Failed to execute action.</string>
+    <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
+    <string name="notification_channel_background_operations_name">Background Operations</string>
     <string name="notification_channel_download_description">Shows download progress</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Shows file sync progress and results</string>
@@ -586,9 +592,19 @@
     <string name="notification_channel_upload_description">Shows upload progress</string>
     <string name="notification_channel_upload_name_short">Uploads</string>
     <string name="notification_icon">Notification icon</string>
+    <string name="notification_icon_description">Unread notifications exist</string>
     <string name="notifications_no_results_headline">No notifications</string>
     <string name="notifications_no_results_message">Please check back later.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
     <string name="offline_mode">No internet connection</string>
+    <string name="offline_mode_info_description">Even without an internet connection, you can organize your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
+    <string name="offline_mode_info_title">You\'re Offline, But Work Continues</string>
+    <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Conflicted Folder: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Delete Offline Folder</string>
+    <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Offline Operations</string>
+    <string name="offline_operations_worker_notification_start_text">Starting Offline Operations</string>
     <string name="oneHour">1 hour</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>
@@ -618,6 +634,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">toggle</string>
+    <string name="please_select_a_server">Please select a server…</string>
     <string name="power_save_check_dialog_message">Disabling power save check might result in uploading files when in low battery state!</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
@@ -728,6 +745,7 @@
     <string name="restore_button_description">Restore deleted file</string>
     <string name="restore_selected">Restore selected</string>
     <string name="retrieving_file">Retrieving file…</string>
+    <string name="retry">Retry</string>
     <string name="richdocuments_failed_to_load_document">Failed to load document!</string>
     <string name="scanQR_description">Login via QR code</string>
     <string name="scan_page">Scan page</string>
@@ -907,6 +925,7 @@
     <string name="trashbin_file_remove">Delete permanently</string>
     <string name="trashbin_loading_failed">Loading trash bin failed!</string>
     <string name="trashbin_not_emptied">Files could not be deleted permanently!</string>
+    <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
@@ -914,6 +933,7 @@
     <string name="unread_comments">Unread comments exist</string>
     <string name="unset_encrypted">Unset encryption</string>
     <string name="unset_favorite">Remove from favourites</string>
+    <string name="unset_internal_two_way_sync_description">Remove folder from internal two way sync</string>
     <string name="unshare_link_file_error">An error occurred while trying to unshare this file or folder.</string>
     <string name="unshare_link_file_no_exist">Unable to unshare. Please check whether the file exists.</string>
     <string name="unshare_link_forbidden_permissions">to unshare this file</string>

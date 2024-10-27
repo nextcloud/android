@@ -33,6 +33,7 @@
     <string name="add_to_cloud">Hozzáadás ehhez: %1$s</string>
     <string name="advanced_settings">Speciális beállítások</string>
     <string name="allow_resharing">Újra megosztás engedélyezése</string>
+    <string name="app_config_base_url_title">Alap URL</string>
     <string name="app_config_proxy_port_title">Proxy portja</string>
     <string name="app_widget_description">Egy modult jelenít meg a irányítópultról</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
@@ -830,6 +831,7 @@
     <string name="trashbin_file_remove">Végleges törlés</string>
     <string name="trashbin_loading_failed">A kuka betöltése sikertelen.</string>
     <string name="trashbin_not_emptied">A fájlok nem törölhetők véglegesen!</string>
+    <string name="unexpected_error_occurred">Váratlan hiba történt</string>
     <string name="unlock_file">Fájl feloldása</string>
     <string name="unread_comments">Olvasatlan hozzászólások vannak</string>
     <string name="unset_encrypted">Titkosítás kikapcsolása</string>

@@ -34,7 +34,7 @@
     <string name="add_to_cloud">新增到 %1$s </string>
     <string name="advanced_settings">進階設定</string>
     <string name="allow_resharing">允許轉貼分享</string>
-    <string name="app_config_base_url_title">基礎 Url</string>
+    <string name="app_config_base_url_title">基礎 URL</string>
     <string name="app_config_proxy_host_title">代理伺服器主機名稱</string>
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小工具</string>
@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">已成功刪除工作項目</string>
     <string name="assistant_screen_task_list_error_state_message">無法擷取工作項目清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除工作項目</string>
+    <string name="assistant_screen_task_output_empty_text">任務輸出尚未就緒。</string>
     <string name="assistant_screen_task_types_error_state_message">無法擷取工作項目類型，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_top_bar_title">助理</string>
     <string name="assistant_screen_unknown_task_status_text">未知</string>
@@ -180,8 +181,10 @@
     <string name="confirmation_remove_local">僅本機</string>
     <string name="conflict_dialog_error">無法建立衝突解決對話方塊</string>
     <string name="conflict_file_headline">檔案 %1$s 衝突</string>
+    <string name="conflict_folder_headline">資料夾衝突</string>
     <string name="conflict_local_file">本機檔案</string>
     <string name="conflict_message_description">若您同時選擇兩個版本，本機的檔案會在檔名後附加編號。</string>
+    <string name="conflict_message_description_for_folder">若您同時選擇兩個版本，本機的資料夾會在檔名後附加編號。</string>
     <string name="conflict_server_file">伺服器檔案</string>
     <string name="contact_backup_title">聯絡人備份</string>
     <string name="contact_no_permission">需要聯絡人權限。</string>
@@ -409,14 +412,14 @@
     <string name="file_migration_updating_index">正在更新索引……</string>
     <string name="file_migration_use_data_folder">使用</string>
     <string name="file_migration_waiting_for_unfinished_sync">正在等待完全同步……</string>
-    <string name="file_name_validator_current_path_is_invalid">目前資料夾名稱無效，請重新命名資料夾。重新導向至根目錄</string>
+    <string name="file_name_validator_current_path_is_invalid">目前資料夾名稱無效，請重新命名資料夾。重新導向到家目錄……</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">資料夾路徑包含保留名稱或無效字元</string>
-    <string name="file_name_validator_error_ends_with_space_period">名稱以空格或句點結尾</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s 是禁止使用的副檔名</string>
-    <string name="file_name_validator_error_invalid_character">名稱包含無效的字元：%s</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s 是禁止使用的副檔名</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">檔案名稱不應包含開頭或結尾空白</string>
+    <string name="file_name_validator_error_invalid_character">名稱包含了無效字元：%s</string>
     <string name="file_name_validator_error_reserved_names">%s 是禁止的名稱</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s。請在移動或複製前重新命名檔案</string>
-    <string name="file_name_validator_upload_content_error">部份內容包含保留名稱或無效字元而無法上傳</string>
+    <string name="file_name_validator_upload_content_error">部份內容因包含保留名稱或無效字元而無法上傳</string>
     <string name="file_not_found">找不到檔案</string>
     <string name="file_not_synced">檔案無法同步，將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
@@ -489,6 +492,7 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="internal_two_way_sync">內部雙向同步</string>
     <string name="internal_two_way_sync_not_yet">還沒有，即將同步</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">設定加密資料夾需要網際網路連線</string>
     <string name="invalid_url">無效的網址</string>
     <string name="invisible">隱藏</string>
     <string name="label_empty">標籤不可以空著</string>
@@ -573,6 +577,8 @@
     <string name="note_could_not_sent">傳送筆記失敗</string>
     <string name="note_icon_hint">記事本圖示</string>
     <string name="notification_action_failed">執行的動作失敗</string>
+    <string name="notification_channel_background_operations_description">顯示通知以與背景操作的結果互動</string>
+    <string name="notification_channel_background_operations_name">背景操作</string>
     <string name="notification_channel_download_description">顯示下載進度</string>
     <string name="notification_channel_download_name_short">下載</string>
     <string name="notification_channel_file_sync_description">顯示檔案同步進度和結果</string>
@@ -586,9 +592,19 @@
     <string name="notification_channel_upload_description">顯示上傳進度</string>
     <string name="notification_channel_upload_name_short">上傳</string>
     <string name="notification_icon">提示圖示</string>
+    <string name="notification_icon_description">有未讀的通知</string>
     <string name="notifications_no_results_headline">沒有通知</string>
     <string name="notifications_no_results_message">請稍候再檢查</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">擱置中的操作</string>
     <string name="offline_mode">沒有網路連線</string>
+    <string name="offline_mode_info_description">即使沒有網際網路連線，您也可以整理資料夾、建立檔案。一旦重新連上網際網路，您擱置中的動作將會自動同步。</string>
+    <string name="offline_mode_info_title">您已離線，但工作仍在繼續</string>
+    <string name="offline_operations_file_does_not_exists_yet">檔案不存在。請先上傳檔案。</string>
+    <string name="offline_operations_worker_notification_conflict_text">衝突的資料夾：%s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">刪除離線資料夾</string>
+    <string name="offline_operations_worker_notification_error_text">無法完成離線操作。%s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">離線操作</string>
+    <string name="offline_operations_worker_notification_start_text">開始離線操作</string>
     <string name="oneHour">1小時</string>
     <string name="online">上線</string>
     <string name="online_status">上線狀態</string>
@@ -618,6 +634,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">停止</string>
     <string name="player_toggle">切換</string>
+    <string name="please_select_a_server">請選取伺服器……</string>
     <string name="power_save_check_dialog_message">停用省電功能時，就算電池電量偏低，檔案仍會持續上傳</string>
     <string name="pref_behaviour_entries_delete_file">已刪除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原本的資料夾</string>
@@ -728,6 +745,7 @@
     <string name="restore_button_description">復原被刪除的檔案</string>
     <string name="restore_selected">復原已選取的部份</string>
     <string name="retrieving_file">正在擷取檔案……</string>
+    <string name="retry">重試</string>
     <string name="richdocuments_failed_to_load_document">載入文件失敗！</string>
     <string name="scanQR_description">透過 QR Code 登入</string>
     <string name="scan_page">掃描頁面</string>
@@ -907,6 +925,7 @@
     <string name="trashbin_file_remove">永久刪除</string>
     <string name="trashbin_loading_failed">載入回收桶失敗！</string>
     <string name="trashbin_not_emptied">無法永久刪除檔案！</string>
+    <string name="unexpected_error_occurred">發生意外錯誤</string>
     <string name="unified_search_fragment_calendar_event_not_found">找不到活動，您隨時可以同步更新。正在重新導向至網路……</string>
     <string name="unified_search_fragment_contact_not_found">找不到聯絡人，您隨時可以同步更新。正在重新導向至網路……</string>
     <string name="unified_search_fragment_permission_needed">開啟搜尋結果需要權限，否則其將會重新導向至網路……</string>
@@ -914,6 +933,7 @@
     <string name="unread_comments">有未讀留言</string>
     <string name="unset_encrypted">取消加密</string>
     <string name="unset_favorite">取消我的最愛</string>
+    <string name="unset_internal_two_way_sync_description">從內部雙向同步中移除資料夾</string>
     <string name="unshare_link_file_error">嘗試取消分享檔案或資料夾時發生錯誤</string>
     <string name="unshare_link_file_no_exist">無法取消分享。請確認檔案是否存在。</string>
     <string name="unshare_link_forbidden_permissions">取消分享此檔案</string>

@@ -675,12 +675,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
             }
             mUploadPath = stringBuilder.toString();
 
-            boolean isPathValid = FileNameValidator.INSTANCE.checkFolderPath(mUploadPath, getCapabilities(), this);
-            if (!isPathValid) {
-                DisplayUtils.showSnackMessage(this, R.string.file_name_validator_error_contains_reserved_names_or_invalid_characters);
-                return;
-            }
-
             if (mUploadFromTmpFile) {
                 DialogInputUploadFilename dialog = DialogInputUploadFilename.newInstance(mSubjectText, mExtraText);
                 dialog.show(getSupportFragmentManager(), null);
@@ -952,10 +946,6 @@ public class ReceiveExternalFilesActivity extends FileActivity
                 messageResTitle = R.string.uploader_error_title_no_file_to_upload;
             } else if (resultCode == UriUploader.UriUploaderResultCode.ERROR_READ_PERMISSION_NOT_GRANTED) {
                 messageResId = R.string.uploader_error_message_read_permission_not_granted;
-            } else if (resultCode == UriUploader.UriUploaderResultCode.ERROR_UNKNOWN) {
-                messageResId = R.string.common_error_unknown;
-            } else if (resultCode == UriUploader.UriUploaderResultCode.INVALID_FILE_NAME) {
-                messageResId = R.string.file_name_validator_upload_content_error;
             }
 
             showErrorDialog(messageResId, messageResTitle);

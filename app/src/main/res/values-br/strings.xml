@@ -34,7 +34,6 @@
     <string name="add_to_cloud">Ouzhpennañ da %1$s</string>
     <string name="advanced_settings">Arventennoù araokaet</string>
     <string name="allow_resharing">Aotren rannañ pelloc\'h</string>
-    <string name="app_config_base_url_title">Url diazez</string>
     <string name="app_config_proxy_host_title">Anv Ostiz Proksi</string>
     <string name="app_config_proxy_port_title">Porzh Proksi</string>
     <string name="app_widget_description">Diskouez a ra ur widget dre daolenn-vourzh</string>
@@ -615,6 +614,7 @@
     <string name="restore">Adlakaat ar restr</string>
     <string name="restore_button_description">Adlakaat ar restroù lamet</string>
     <string name="retrieving_file">O adtapout ar restr...</string>
+    <string name="retry">Klaskit en dro</string>
     <string name="richdocuments_failed_to_load_document">C\'hwitet da garga an diel !</string>
     <string name="scanQR_description">Mont-tre de QR kod</string>
     <string name="screenshot_01_gridView_heading">Difennit o roadennoù</string>

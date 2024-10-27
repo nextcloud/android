@@ -32,6 +32,7 @@
     <string name="add_to_cloud">Agregar a %1$s</string>
     <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
+    <string name="app_config_base_url_title">URL Base</string>
     <string name="app_config_proxy_port_title">Puerto del proxy</string>
     <string name="app_widget_description">Muestra un widget del panel de control</string>
     <string name="appbar_search_in">Compartir en %s</string>
@@ -632,6 +633,7 @@
     <string name="restore_button_description">Restaurar archivo eliminado</string>
     <string name="restore_selected">Restaurar seleccionados</string>
     <string name="retrieving_file">Recuperando archivo...</string>
+    <string name="retry">Reintentar</string>
     <string name="richdocuments_failed_to_load_document">Fallo al cargar el documento.</string>
     <string name="scanQR_description">Iniciar sesión a través del código QR</string>
     <string name="scan_page">Escanear página</string>
@@ -800,6 +802,7 @@
     <string name="trashbin_file_remove">Borrar permanentemente</string>
     <string name="trashbin_loading_failed">¡Error al cargar el contenedor de basura!</string>
     <string name="trashbin_not_emptied">No se pudieron eliminar permanentemente los archivos.</string>
+    <string name="unexpected_error_occurred">Ocurrió un error inesperado</string>
     <string name="unlock_file">Desbloquear archivo</string>
     <string name="unread_comments">Existen comentarios no leídos</string>
     <string name="unset_encrypted">Desestablecer encripción</string>

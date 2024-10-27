@@ -409,14 +409,8 @@
     <string name="file_migration_updating_index">Oppdaterer indeks…</string>
     <string name="file_migration_use_data_folder">Bruk</string>
     <string name="file_migration_waiting_for_unfinished_sync">Venter på full synkronisering…</string>
-    <string name="file_name_validator_current_path_is_invalid">Gjeldende mappenavn er ugyldig, vennligst gi nytt navn til mappen. Omdirigerer til rot</string>
-    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Mappebanen inneholder reserverte navn eller ugyldige tegn</string>
-    <string name="file_name_validator_error_ends_with_space_period">Navn slutter med et mellomrom eller et punktum</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s er en forbudt filtype</string>
-    <string name="file_name_validator_error_invalid_character">Navnet inneholder et ugyldig tegn: %s</string>
     <string name="file_name_validator_error_reserved_names">%s er et forbudt navn</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Gi nytt navn til filen før du flytter eller kopierer</string>
-    <string name="file_name_validator_upload_content_error">Noe innhold kan ikke lastes opp på grunn av inneholder reserverte navn eller ugyldige tegn</string>
     <string name="file_not_found">Finner ikke filen</string>
     <string name="file_not_synced">Kunne ikke synkronisere fil. Viser sist tilgjengelige versjon.</string>
     <string name="file_rename">Gi nytt navn</string>
@@ -487,6 +481,8 @@
     <string name="instant_upload_existing">Last også opp eksisterende filer</string>
     <string name="instant_upload_on_charging">Bare last opp under lading</string>
     <string name="instant_upload_path">/Direkteopplasting</string>
+    <string name="internal_two_way_sync">Intern toveis synkronisering</string>
+    <string name="internal_two_way_sync_not_yet">Ikke enda, snart synkronisert</string>
     <string name="invalid_url">Ugyldig URL</string>
     <string name="invisible">Usynlig</string>
     <string name="label_empty">Merkelapp kan ikke være tom</string>
@@ -677,6 +673,7 @@
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Mappe på server</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_summary">Administrer interne mapper for toveis synkronisering</string>
     <string name="prefs_value_theme_dark">Mørk</string>
     <string name="prefs_value_theme_light">Lys</string>
     <string name="prefs_value_theme_system">Følg system</string>
@@ -725,6 +722,7 @@
     <string name="restore_button_description">Gjenopprett slettet fil</string>
     <string name="restore_selected">Gjenopprett valgt</string>
     <string name="retrieving_file">Får tilbake fil</string>
+    <string name="retry">Prøv igjen</string>
     <string name="richdocuments_failed_to_load_document">Feil i lasting av dokument!</string>
     <string name="scanQR_description">Legg inn med QR-kode</string>
     <string name="scan_page">Skann side</string>
@@ -904,6 +902,7 @@
     <string name="trashbin_file_remove">Slett for godt</string>
     <string name="trashbin_loading_failed">Lasting av papirkurv feilet</string>
     <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
+    <string name="unexpected_error_occurred">Det oppstod en uventet feil</string>
     <string name="unified_search_fragment_calendar_event_not_found">Finner ikke hendelsen, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
     <string name="unified_search_fragment_contact_not_found">Finner ikke kontakten, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
     <string name="unified_search_fragment_permission_needed">Tillatelser kreves for å åpne søkeresultatet, ellers vil det omdirigeres til web...</string>

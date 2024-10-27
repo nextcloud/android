@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">Görev silindi</string>
     <string name="assistant_screen_task_list_error_state_message">Görev listesi alınamadı. Lütfen İnternet bağlantınızı denetleyin.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Görevi sil</string>
+    <string name="assistant_screen_task_output_empty_text">Görev dosyası henüz hazır değil.</string>
     <string name="assistant_screen_task_types_error_state_message">Görev türleri alınamadı. Lütfen İnternet bağlantınızı denetleyin.</string>
     <string name="assistant_screen_top_bar_title">Yardımcı</string>
     <string name="assistant_screen_unknown_task_status_text">Bilinmiyor</string>
@@ -180,8 +181,10 @@
     <string name="confirmation_remove_local">Yalnızca yerel</string>
     <string name="conflict_dialog_error">Çakışma çözümleme penceresi oluşturulamadı</string>
     <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
+    <string name="conflict_folder_headline">Klasör çakışması</string>
     <string name="conflict_local_file">Yerel dosya</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
+    <string name="conflict_message_description_for_folder">İki sürümü de saklamayı seçerseniz, yerel klasörün adına bir numara eklenecek.</string>
     <string name="conflict_server_file">Sunucu dosyası</string>
     <string name="contact_backup_title">Kişiler yedeği</string>
     <string name="contact_no_permission">Kişi izinleri gerekli.</string>
@@ -409,11 +412,11 @@
     <string name="file_migration_updating_index">Dizin güncelleniyor …</string>
     <string name="file_migration_use_data_folder">Kullanılsın</string>
     <string name="file_migration_waiting_for_unfinished_sync">Eşitleme işleminin tamamlanması bekleniyor …</string>
-    <string name="file_name_validator_current_path_is_invalid">Geçerli klasör adı geçersiz. Lütfen klasörü yeniden adlandırın. Kök klasöre yönlendiriliyorsunuz.</string>
+    <string name="file_name_validator_current_path_is_invalid">Geçerli klasör adı geçersiz. Lütfen klasörü yeniden adlandırın. Giriş klasörüne yönlendiriliyorsunuz…</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Klasör yolunda ayrılmış adlar veya geçersiz karakterler var</string>
-    <string name="file_name_validator_error_ends_with_space_period">Ad bir boşluk ya da nokta ile bitiyor</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s dosya uzantısına izin verilmiyor.</string>
-    <string name="file_name_validator_error_invalid_character">Ad içinde geçersiz bir karakter var: %s</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s dosya uzantısına izin verilmiyor.</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Dosya adlarının başında veya sonunda boşluk bulunmamalıdır</string>
+    <string name="file_name_validator_error_invalid_character">Ad içinde geçersiz karakterler var: %s</string>
     <string name="file_name_validator_error_reserved_names">%s adına izin verilmiyor</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Kopyalamadan ya da taşımadan önce lütfen dosyayı yeniden adlandırın</string>
     <string name="file_name_validator_upload_content_error">Bazı içerikler, içinde ayrılmış adlar veya geçersiz karakterler bulunduğundan yüklenemedi</string>
@@ -487,6 +490,9 @@
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnızca şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
+    <string name="internal_two_way_sync">İç iki yönlü eşitleme</string>
+    <string name="internal_two_way_sync_not_yet">Henüz değil, yakında eşitlenecek</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Şifrelenmiş klasörü ayarlamak için internet bağlantısı gereklidir </string>
     <string name="invalid_url">Adres geçersiz</string>
     <string name="invisible">Görünmez</string>
     <string name="label_empty">Etiket boş olamaz</string>
@@ -571,6 +577,8 @@
     <string name="note_could_not_sent">Not gönderilemedi</string>
     <string name="note_icon_hint">Not simgesi</string>
     <string name="notification_action_failed">İşlem yapılamadı.</string>
+    <string name="notification_channel_background_operations_description">Arka plan işlemlerinin sonucuyla etkileşim kurmak için bildirimleri görüntüle</string>
+    <string name="notification_channel_background_operations_name">Arka plan işlemleri</string>
     <string name="notification_channel_download_description">İndirme ilerlemesini görüntüler</string>
     <string name="notification_channel_download_name_short">İndirmeler</string>
     <string name="notification_channel_file_sync_description">Dosya eşitleme ilerlemesi ve sonuçlarını görüntüler</string>
@@ -584,9 +592,19 @@
     <string name="notification_channel_upload_description">Yükleme ilerlemesini görüntüler</string>
     <string name="notification_channel_upload_name_short">Yüklemeler</string>
     <string name="notification_icon">Bildirim simgesi</string>
+    <string name="notification_icon_description">Okunmamış bildirimler var</string>
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
     <string name="notifications_no_results_message">Lütfen bir süre sonra yeniden bakın.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">İşlenmeyi bekliyor</string>
     <string name="offline_mode">İnternet bağlantısı yok</string>
+    <string name="offline_mode_info_description">İnternet bağlantınız olmasa bile klasörlerinizi düzenleyebilir, dosyalar oluşturabilirsiniz. Yeniden çevrim içi olduğunuzda, bekleyen işlemleriniz otomatik olarak eşitlenir.</string>
+    <string name="offline_mode_info_title">Çevrim dışınız ancak iş sürüyor</string>
+    <string name="offline_operations_file_does_not_exists_yet">Dosya bulunamadı. Önce lütfen dosyayı yükleyin.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Çakışan klasör: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Çevrim dışı klasörü sil</string>
+    <string name="offline_operations_worker_notification_error_text">Çevrim dışı işlem tamamlanamadı. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Çevrim dışı işlemler</string>
+    <string name="offline_operations_worker_notification_start_text">Çevrim dışı işlemleri başlatılıyor</string>
     <string name="oneHour">1 saat</string>
     <string name="online">Çevrim içi</string>
     <string name="online_status">Çevrim içi durumu</string>
@@ -616,6 +634,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 ÖS</string>
     <string name="player_stop">durdur</string>
     <string name="player_toggle">değiştir</string>
+    <string name="please_select_a_server">Lütfen bir sunucu seçin…</string>
     <string name="power_save_check_dialog_message">Güç koruma denetiminin devre dışı bırakılması pil düzeyi düşükken dosyaların yüklenmesine neden olabilir!</string>
     <string name="pref_behaviour_entries_delete_file">silindi</string>
     <string name="pref_behaviour_entries_keep_file">özgün klasöründe korundu</string>
@@ -677,6 +696,7 @@
     <string name="prefs_synced_folders_local_path_title">Yerel klasör</string>
     <string name="prefs_synced_folders_remote_path_title">Uzak klasör</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_summary">İç klasörleri iki yönlü eşitleme ile yönetin</string>
     <string name="prefs_value_theme_dark">Koyu</string>
     <string name="prefs_value_theme_light">Açık</string>
     <string name="prefs_value_theme_system">Sistem ayarı</string>
@@ -725,6 +745,7 @@
     <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>
     <string name="restore_selected">Seçilmişi geri yükle</string>
     <string name="retrieving_file">Dosya alınıyor …</string>
+    <string name="retry">Yeniden dene</string>
     <string name="richdocuments_failed_to_load_document">Belge yüklenemedi!</string>
     <string name="scanQR_description">QR kodu ile oturum aç</string>
     <string name="scan_page">Sayfayı tara</string>
@@ -904,6 +925,7 @@
     <string name="trashbin_file_remove">Kalıcı olarak sil</string>
     <string name="trashbin_loading_failed">Çöp kutusu yüklenemedi!</string>
     <string name="trashbin_not_emptied">Dosyalar kalıcı olarak silinemedi!</string>
+    <string name="unexpected_error_occurred">Beklenmeyen bir sorun çıktı</string>
     <string name="unified_search_fragment_calendar_event_not_found">Etkinlik bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_contact_not_found">Kişi bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_permission_needed">Arama sonuçlarını açmak için izinler gereklidir. Yoksa İnternet üzerine yönlendirilir…</string>

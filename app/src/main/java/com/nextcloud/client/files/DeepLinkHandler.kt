@@ -30,12 +30,9 @@ class DeepLinkHandler(
 
     companion object {
         val DEEP_LINK_PATTERN = Regex("""(.*?)(/index\.php)?/f/([0-9]+)$""")
-        val BASE_URL_GROUP_INDEX = 1
-        val INDEX_PATH_GROUP_INDEX = 2
-        val FILE_ID_GROUP_INDEX = 3
-
-        fun isDeepLinkTypeIsNavigation(deepLinkUrl: String): Boolean =
-            DeepLinkConstants.navigationPaths.any { deepLinkUrl.endsWith(it) }
+        const val BASE_URL_GROUP_INDEX = 1
+        const val INDEX_PATH_GROUP_INDEX = 2
+        const val FILE_ID_GROUP_INDEX = 3
     }
 
     /**

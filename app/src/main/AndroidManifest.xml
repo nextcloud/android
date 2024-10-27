@@ -267,6 +267,9 @@
         </activity>
 
         <receiver
+            android:name="com.nextcloud.receiver.OfflineOperationActionReceiver"
+            android:exported="false" />
+        <receiver
             android:name="com.nextcloud.client.jobs.MediaFoldersDetectionWork$NotificationReceiver"
             android:exported="false" />
         <receiver
@@ -346,6 +349,16 @@
             android:configChanges="orientation|screenLayout|screenSize|keyboardHidden"
             android:exported="false"
             android:theme="@style/Theme.ownCloud.Media" />
+
+        <service
+            android:name="com.nextcloud.client.media.BackgroundPlayerService"
+            android:foregroundServiceType="mediaPlayback"
+            android:exported="true"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="androidx.media3.session.MediaSessionService"/>
+            </intent-filter>
+        </service>
 
         <service
             android:name=".authentication.AccountAuthenticatorService"

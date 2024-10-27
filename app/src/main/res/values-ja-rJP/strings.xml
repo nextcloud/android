@@ -34,7 +34,6 @@
     <string name="add_to_cloud">%1$s に追加</string>
     <string name="advanced_settings">高度な設定</string>
     <string name="allow_resharing">再共有を許可する</string>
-    <string name="app_config_base_url_title">ベース URL</string>
     <string name="app_config_proxy_host_title">プロキシのホスト名</string>
     <string name="app_config_proxy_port_title">プロキシポート</string>
     <string name="app_widget_description">ダッシュボードから一つのウィジェットを表示</string>
@@ -696,6 +695,7 @@
     <string name="restore_button_description">選択したファイルを復元する</string>
     <string name="restore_selected">選択した項目を復元する</string>
     <string name="retrieving_file">ファイルを取得中...</string>
+    <string name="retry">リトライ</string>
     <string name="richdocuments_failed_to_load_document">ドキュメントのロードに失敗しました。</string>
     <string name="scanQR_description">QRコードを用いてログイン</string>
     <string name="scan_page">ページをスキャン</string>
@@ -868,9 +868,11 @@
     <string name="trashbin_file_remove">永久に削除</string>
     <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_not_emptied">ファイルを完全に削除できませんでした。</string>
+    <string name="unexpected_error_occurred">予期せぬエラーが発生しました</string>
     <string name="unlock_file">ファイルのロックを解除</string>
     <string name="unread_comments">未読のコメントがあります</string>
     <string name="unset_encrypted">暗号化解除</string>
+    <string name="unset_favorite">お気に入りから削除</string>
     <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
     <string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
     <string name="unshare_link_forbidden_permissions">ファイルの共有を解除</string>

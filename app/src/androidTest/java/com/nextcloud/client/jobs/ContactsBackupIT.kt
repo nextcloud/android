@@ -1,9 +1,8 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2020 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2020 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 package com.nextcloud.client.jobs
 
@@ -11,6 +10,7 @@ import android.Manifest
 import androidx.test.rule.GrantPermissionRule
 import androidx.work.WorkManager
 import com.nextcloud.client.core.ClockImpl
+import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
 import com.nextcloud.test.RetryTestRule
 import com.owncloud.android.AbstractIT
@@ -20,8 +20,9 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.operations.DownloadFileOperation
 import ezvcard.Ezvcard
 import ezvcard.VCard
-import junit.framework.Assert.assertEquals
-import junit.framework.Assert.assertTrue
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Rule
 import org.junit.Test
 import java.io.BufferedInputStream
@@ -29,15 +30,15 @@ import java.io.File
 import java.io.FileInputStream
 
 class ContactsBackupIT : AbstractOnServerIT() {
-    val workmanager = WorkManager.getInstance(targetContext)
-    val preferences = AppPreferencesImpl.fromContext(targetContext)
-    private val backgroundJobManager = BackgroundJobManagerImpl(workmanager, ClockImpl(), preferences)
+    private val workManager = WorkManager.getInstance(targetContext)
+    private val preferences: AppPreferences = AppPreferencesImpl.fromContext(targetContext)
+    private val backgroundJobManager = BackgroundJobManagerImpl(workManager, ClockImpl(), preferences)
 
     @get:Rule
-    val writeContactsRule = GrantPermissionRule.grant(Manifest.permission.WRITE_CONTACTS)
+    val writeContactsRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.WRITE_CONTACTS)
 
     @get:Rule
-    val readContactsRule = GrantPermissionRule.grant(Manifest.permission.READ_CONTACTS)
+    val readContactsRule: GrantPermissionRule = GrantPermissionRule.grant(Manifest.permission.READ_CONTACTS)
 
     @get:Rule
     val retryTestRule = RetryTestRule() // flaky test
@@ -46,38 +47,54 @@ class ContactsBackupIT : AbstractOnServerIT() {
 
     @Test
     fun importExport() {
-        val intArray = IntArray(1)
-        intArray[0] = 0
+        val intArray = intArrayOf(0)
 
         // import file to local contacts
         backgroundJobManager.startImmediateContactsImport(null, null, getFile(vcard).absolutePath, intArray)
-
-        shortSleep()
+        longSleep()
 
         // export contact
         backgroundJobManager.startImmediateContactsBackup(user)
-
         longSleep()
 
-        val backupFolder: String = targetContext.resources.getString(R.string.contacts_backup_folder) +
+        val folderPath: String = targetContext.resources.getString(R.string.contacts_backup_folder) +
             OCFile.PATH_SEPARATOR
 
         refreshFolder("/")
         longSleep()
-
-        refreshFolder(backupFolder)
         longSleep()
 
-        val backupOCFile = storageManager.getFolderContent(
-            storageManager.getFileByDecryptedRemotePath(backupFolder),
-            false
-        )[0]
+        refreshFolder(folderPath)
+        longSleep()
+        longSleep()
 
-        assertTrue(DownloadFileOperation(user, backupOCFile, AbstractIT.targetContext).execute(client).isSuccess)
+        if (folderPath.isEmpty()) {
+            fail("folderPath cannot be empty")
+        }
 
-        val backupFile = File(backupOCFile.storagePath)
+        val folder = fileDataStorageManager.getFileByDecryptedRemotePath(folderPath)
+        if (folder == null) {
+            fail("folder cannot be null")
+        }
+
+        val ocFile = storageManager.getFolderContent(folder, false).firstOrNull()
+        if (ocFile == null) {
+            fail("ocFile cannot be null")
+        }
+
+        if (ocFile?.storagePath == null) {
+            fail("ocFile.storagePath cannot be null")
+        }
+
+        assertTrue(DownloadFileOperation(user, ocFile, AbstractIT.targetContext).execute(client).isSuccess)
+
+        val file = ocFile?.storagePath?.let { File(it) }
+        if (file == null) {
+            fail("file cannot be null")
+        }
+
         val vcardInputStream = BufferedInputStream(FileInputStream(getFile(vcard)))
-        val backupFileInputStream = BufferedInputStream(FileInputStream(backupFile))
+        val backupFileInputStream = BufferedInputStream(FileInputStream(file))
 
         // verify same
         val originalCards: ArrayList<VCard> = ArrayList()
@@ -87,6 +104,17 @@ class ContactsBackupIT : AbstractOnServerIT() {
         backupCards.addAll(Ezvcard.parse(backupFileInputStream).all())
 
         assertEquals(originalCards.size, backupCards.size)
-        assertEquals(originalCards[0].formattedName.toString(), backupCards[0].formattedName.toString())
+
+        val originalCardFormattedName = originalCards.firstOrNull()?.formattedName
+        if (originalCardFormattedName == null) {
+            fail("originalCardFormattedName cannot be null")
+        }
+
+        val backupCardFormattedName = backupCards.firstOrNull()?.formattedName
+        if (backupCardFormattedName == null) {
+            fail("backupCardFormattedName cannot be null")
+        }
+
+        assertEquals(originalCardFormattedName.toString(), backupCardFormattedName.toString())
     }
 }

@@ -57,6 +57,26 @@ public final class BitmapUtils {
         // utility class -> private constructor
     }
 
+    public static Bitmap addColorFilter(Bitmap originalBitmap, int filterColor, int opacity) {
+        int width = originalBitmap.getWidth();
+        int height = originalBitmap.getHeight();
+
+        Bitmap resultBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(resultBitmap);
+
+        canvas.drawBitmap(originalBitmap, 0, 0, null);
+
+        Paint paint = new Paint();
+        paint.setColor(filterColor);
+
+        paint.setAlpha(opacity);
+
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawRect(0, 0, width, height, paint);
+
+        return resultBitmap;
+    }
+
     /**
      * Decodes a bitmap from a file containing it minimizing the memory use, known that the bitmap will be drawn in a
      * surface of reqWidth x reqHeight
@@ -78,6 +98,7 @@ public final class BitmapUtils {
         // make a false load of the bitmap to get its dimensions
         options.inJustDecodeBounds = true;
 
+        // FIXME after auto-rename can't generate thumbnail from localPath
         BitmapFactory.decodeFile(srcPath, options);
 
         // calculate factor to subsample the bitmap

@@ -26,6 +26,7 @@ import com.nextcloud.client.jobs.transfer.TransferManager
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.db.OCUpload
+import java.util.Locale
 
 class EtmFileTransferFragment : EtmBaseFragment() {
 
@@ -96,7 +97,7 @@ class EtmFileTransferFragment : EtmBaseFragment() {
             vh.state.text = transfer.state.toString()
             if (transfer.progress >= 0) {
                 vh.progressEnabled = true
-                vh.progress.text = transfer.progress.toString()
+                vh.progress.text = String.format(Locale.getDefault(), "%d", transfer.progress)
             } else {
                 vh.progressEnabled = false
             }

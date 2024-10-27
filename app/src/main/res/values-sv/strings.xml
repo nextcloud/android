@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">Uppgiften har raderats</string>
     <string name="assistant_screen_task_list_error_state_message">Det går inte att hämta uppgiftslistan, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ta bort uppgift</string>
+    <string name="assistant_screen_task_output_empty_text">Uppgiftens resultat är inte redo än</string>
     <string name="assistant_screen_task_types_error_state_message">Det går inte att hämta uppgiftstyper, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Okänd</string>
@@ -180,8 +181,10 @@
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="conflict_dialog_error">Dialogrutan för konfliktlösning kan inte skapas</string>
     <string name="conflict_file_headline">Konfliktande fil %1$s</string>
+    <string name="conflict_folder_headline">Mappkonflikt</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
+    <string name="conflict_message_description_for_folder">Om du väljer båda versionerna kommer den lokala mappen få ett nummer tillagt i namnet.</string>
     <string name="conflict_server_file">Serverfil</string>
     <string name="contact_backup_title">Backup av kontakter</string>
     <string name="contact_no_permission">Rättighet till kontakt krävs.</string>
@@ -409,14 +412,14 @@
     <string name="file_migration_updating_index">Uppdaterar index…</string>
     <string name="file_migration_use_data_folder">Använd</string>
     <string name="file_migration_waiting_for_unfinished_sync">Väntar på fullständig synkronisering…</string>
-    <string name="file_name_validator_current_path_is_invalid">Aktuellt mappnamn är ogiltigt. Byt namn på mappen. Omdirigerar till root</string>
+    <string name="file_name_validator_current_path_is_invalid">Aktuellt mappnamn är ogiltigt. Byt namn på mappen. Omdirigerar hem...</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Mappsökvägen innehåller reserverade namn eller ogiltiga tecken</string>
-    <string name="file_name_validator_error_ends_with_space_period">Namnet slutar med ett mellanslag eller en punkt</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s är ett förbjudet filtillägg</string>
-    <string name="file_name_validator_error_invalid_character">Namnet innehåller ett ogiltigt tecken: %s</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s är ett förbjudet filtillägg</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Filnamn får inte innehålla mellanslag i början eller slutet</string>
+    <string name="file_name_validator_error_invalid_character">Namnet innehåller ogiltiga tecken: %s</string>
     <string name="file_name_validator_error_reserved_names">%s är ett förbjudet namn</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Byt namn på filen innan du flyttar eller kopierar</string>
-    <string name="file_name_validator_upload_content_error">En del innehåll kan inte laddas upp på grund av att det innehåller reserverade namn eller ogiltiga tecken</string>
+    <string name="file_name_validator_upload_content_error">En del innehåll kan inte laddas upp eftersom det innehåller reserverade namn eller ogiltiga tecken</string>
     <string name="file_not_found">Filen hittades inte</string>
     <string name="file_not_synced">Filen kunde inte synkroniseras. Visar senaste tillgängliga versionen.</string>
     <string name="file_rename">Byt namn</string>
@@ -489,6 +492,7 @@
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
     <string name="internal_two_way_sync">Intern tvåvägssynk</string>
     <string name="internal_two_way_sync_not_yet">Inte än, synkroniseras snart</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">En internetanslutning krävs för att konfigurera den krypterade mappen</string>
     <string name="invalid_url">Ogiltig URL</string>
     <string name="invisible">Osynlig</string>
     <string name="label_empty">Etiketten kan inte vara tom</string>
@@ -573,6 +577,8 @@
     <string name="note_could_not_sent">Kunde inte skicka meddelande</string>
     <string name="note_icon_hint">Antecknings ikon</string>
     <string name="notification_action_failed">Misslyckades utföra åtgärd.</string>
+    <string name="notification_channel_background_operations_description">Visa aviseringar för att interagera resultatet av bakgrundsoperationer</string>
+    <string name="notification_channel_background_operations_name">Bakgrundsoperationer</string>
     <string name="notification_channel_download_description">Visar hämtningsförloppet</string>
     <string name="notification_channel_download_name_short">Nerladdningar</string>
     <string name="notification_channel_file_sync_description">Visar filsynkroniserings förlopp och resultat</string>
@@ -586,9 +592,19 @@
     <string name="notification_channel_upload_description">Visar uppladdningsförloppet</string>
     <string name="notification_channel_upload_name_short">Uppladdningar</string>
     <string name="notification_icon">Meddelandeikon</string>
+    <string name="notification_icon_description">Det finns olästa aviseringar</string>
     <string name="notifications_no_results_headline">Inga aviseringar</string>
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Väntande operation</string>
     <string name="offline_mode">Ingen internetanslutning</string>
+    <string name="offline_mode_info_description">Även utan internetanslutning kan du organisera dina mappar och skapa filer. När du är online igen synkroniseras dina väntande åtgärder automatiskt.</string>
+    <string name="offline_mode_info_title">Du är offline, men kan fortsätta arbeta</string>
+    <string name="offline_operations_file_does_not_exists_yet">Filen finns inte ännu. Ladda upp filen först.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Mapp i konflikt: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Radera offlinemapp</string>
+    <string name="offline_operations_worker_notification_error_text">Offlineåtgärden kan inte slutföras. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Offline-operationer</string>
+    <string name="offline_operations_worker_notification_start_text">Starta offline-operationer</string>
     <string name="oneHour">1 timme</string>
     <string name="online">Online</string>
     <string name="online_status">Online-status</string>
@@ -618,6 +634,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">stopp</string>
     <string name="player_toggle">växla</string>
+    <string name="please_select_a_server">Välj en server...</string>
     <string name="power_save_check_dialog_message">Inaktivera strömsparningskontroll kan resultera i att filer laddas upp i lågt batteriläge!</string>
     <string name="pref_behaviour_entries_delete_file">raderas</string>
     <string name="pref_behaviour_entries_keep_file">behållas i orginalmapp</string>
@@ -729,6 +746,7 @@
     <string name="restore_button_description">Återställ raderad fil</string>
     <string name="restore_selected">Återställ vald</string>
     <string name="retrieving_file">Tar emot fil…</string>
+    <string name="retry">Försök igen</string>
     <string name="richdocuments_failed_to_load_document">Kunde inte läsa in dokument!</string>
     <string name="scanQR_description">Logga in via QR-kod</string>
     <string name="scan_page">Skanna sida</string>
@@ -908,6 +926,7 @@
     <string name="trashbin_file_remove">Ta bort permanent</string>
     <string name="trashbin_loading_failed">Laddning av papperskorg misslyckades!</string>
     <string name="trashbin_not_emptied">Filer kunde inte tas bort permanent!</string>
+    <string name="unexpected_error_occurred">Ett oväntat fel inträffade</string>
     <string name="unified_search_fragment_calendar_event_not_found">Händelsen hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_contact_not_found">Kontakten hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_permission_needed">Behörigheter krävs för att öppna sökresultatet, annars omdirigeras det till webben...</string>
@@ -915,6 +934,7 @@
     <string name="unread_comments">Olästa kommentarer finns</string>
     <string name="unset_encrypted">Ta bort som krypterad</string>
     <string name="unset_favorite">Ta bort från favoriter</string>
+    <string name="unset_internal_two_way_sync_description">Ta bort mapp från intern tvåvägssynk</string>
     <string name="unshare_link_file_error">Ett fel uppstod vid försök att sluta dela denna fil eller mapp.</string>
     <string name="unshare_link_file_no_exist">Det går inte att sluta dela. Vänligen kontrollera att filen finns.</string>
     <string name="unshare_link_forbidden_permissions">att avbryta delningen utav denna fil</string>

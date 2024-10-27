@@ -596,6 +596,7 @@
     <string name="restore_button_description">Khôi phục tệp đã xóa</string>
     <string name="restore_selected">Khôi phục mục đã chọn</string>
     <string name="retrieving_file">Đang truy xuất tệp…</string>
+    <string name="retry">Thử lại</string>
     <string name="richdocuments_failed_to_load_document">Không tải được tài liệu!</string>
     <string name="scanQR_description">Đăng nhập qua mã QR</string>
     <string name="screenshot_01_gridView_heading">Bảo vệ dữ liệu của bạn</string>
@@ -791,6 +792,7 @@
     <string name="upload_local_storage_full">Bộ nhớ máy đã đầy</string>
     <string name="upload_local_storage_not_copied">Không thể sao chép tệp vào bộ nhớ máy</string>
     <string name="upload_lock_failed">Không khóa được thư mục</string>
+    <string name="upload_manually_cancelled">Upload was cancelled by user</string>
     <string name="upload_old_android">Mã hóa chỉ khả dụng với &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Không đủ dung lượng ngăn việc sao chép các tệp đã chọn vào thư mục %1$s. Bạn có muốn chuyển chúng đến đó không?</string>
     <string name="upload_scan_doc_upload">Quét tài liệu từ máy ảnh</string>

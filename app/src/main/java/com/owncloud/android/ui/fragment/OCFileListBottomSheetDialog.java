@@ -157,6 +157,7 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         }
 
         setupClickListener();
+        filterActionsForOfflineOperations();
     }
 
     private void setupClickListener() {
@@ -207,6 +208,27 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         binding.menuNewPresentation.setOnClickListener(v -> {
             actions.newPresentation();
             dismiss();
+        });
+    }
+
+    private void filterActionsForOfflineOperations() {
+        if (file == null) return;
+
+        fileActivity.connectivityService.isNetworkAndServerAvailable(result -> {
+            if (file.isRootDirectory()) {
+                return;
+            }
+
+            if (!result || file.isOfflineOperation()) {
+                binding.menuCreateRichWorkspace.setVisibility(View.GONE);
+                binding.menuUploadFromApp.setVisibility(View.GONE);
+                binding.menuDirectCameraUpload.setVisibility(View.GONE);
+                binding.menuScanDocUpload.setVisibility(View.GONE);
+                binding.menuNewDocument.setVisibility(View.GONE);
+                binding.menuNewSpreadsheet.setVisibility(View.GONE);
+                binding.menuNewPresentation.setVisibility(View.GONE);
+                binding.creatorsContainer.setVisibility(View.GONE);
+            }
         });
     }
 

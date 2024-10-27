@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">Завдання вилучено</string>
     <string name="assistant_screen_task_list_error_state_message">Неможливо отримати список завдань. Перевірте з\'єднання з мережею</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Вилучити завдання</string>
+    <string name="assistant_screen_task_output_empty_text">Результати виконання завдання поки відсутні.</string>
     <string name="assistant_screen_task_types_error_state_message">Не вдалося отримати типи завдань. Перевірте з\'єднання з мережею.</string>
     <string name="assistant_screen_top_bar_title">Помічник</string>
     <string name="assistant_screen_unknown_task_status_text">Невідомо</string>
@@ -180,8 +181,10 @@
     <string name="confirmation_remove_local">Лише на пристрої</string>
     <string name="conflict_dialog_error">Неможливо ініціювати діалог розв\'язання конфлікту</string>
     <string name="conflict_file_headline">Конфліктний файл %1$s</string>
+    <string name="conflict_folder_headline">Конфлікт з каталогом</string>
     <string name="conflict_local_file">Файл на пристрої</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
+    <string name="conflict_message_description_for_folder">Якщо ви виберете обидві версії, до назви каталогу на пристрої буде додано цифру.</string>
     <string name="conflict_server_file">Файл у хмарі</string>
     <string name="contact_backup_title">Резервне копіювання контактів</string>
     <string name="contact_no_permission">Потрібний доступ до контактів.</string>
@@ -286,8 +289,10 @@
     <string name="ecosystem_apps_display_assistant">Помічник</string>
     <string name="ecosystem_apps_display_more">Більше</string>
     <string name="ecosystem_apps_display_notes">Нотатки</string>
+    <string name="ecosystem_apps_display_talk">Розмови</string>
     <string name="ecosystem_apps_more">Більше застосунків Nextcloud</string>
     <string name="ecosystem_apps_notes">Нотатки для Nextcloud</string>
+    <string name="ecosystem_apps_talk">Розмови Nextcloud</string>
     <string name="email_pick_failed">Не вдалося вибрати ел. адресу.</string>
     <string name="encrypted">Позначити як зашифроване</string>
     <string name="end_to_end_encryption_confirm_button">Налаштування шифрування</string>
@@ -406,14 +411,14 @@
     <string name="file_migration_updating_index">Оновлення індексу...</string>
     <string name="file_migration_use_data_folder">Використовувати</string>
     <string name="file_migration_waiting_for_unfinished_sync">Очікування повної синхронізації…</string>
-    <string name="file_name_validator_current_path_is_invalid">Перейменуйте назву поточого каталогу, оскільки його назва не є дійсною. Переспрямування до кореневого каталогу.</string>
+    <string name="file_name_validator_current_path_is_invalid">Недійсне ім\'я поточного каталогу, будь ласка, перейменуйте цей каталог. Переспрямування на домівку.</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Шлях до каталогу містить зарезервовані імена або недійсні символи</string>
-    <string name="file_name_validator_error_ends_with_space_period">Ім\'я закінчується на символ пробілу або крапку</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s не є дозволеним розширенням файлу</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s є недозволеним розширенням файлу</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Імена файлів не мають містити пробіли на початку та наприкінці</string>
     <string name="file_name_validator_error_invalid_character">Ім\'я містить недійсний символ: %s</string>
     <string name="file_name_validator_error_reserved_names">%s не є дозволеним ім\'ям</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Перейменуйте файл перед переміщенням або копіюванням</string>
-    <string name="file_name_validator_upload_content_error">Окремі дані неможливо завантажити, оскільки він містить зарезервовані імена або недійсні символи</string>
+    <string name="file_name_validator_upload_content_error">Неможливо завантажити частину вмісту, оскільки він містить зарезервовані імена або недійсні символи</string>
     <string name="file_not_found">Файл не знайдено</string>
     <string name="file_not_synced">Неможливо синхронізувати файл. Буде показано останню доступну версію.</string>
     <string name="file_rename">Перейменувати</string>
@@ -482,6 +487,7 @@
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
     <string name="internal_two_way_sync">Внутрішня двостороння синхронізація</string>
     <string name="internal_two_way_sync_not_yet">Поки не впроваджено</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Налаштування зашифрованого каталогу вимагає з\'єднання з мережею</string>
     <string name="invalid_url">Неправильний URL</string>
     <string name="invisible">Приховано</string>
     <string name="label_empty">Ярлик не може бути порожнім</string>
@@ -566,6 +572,8 @@
     <string name="note_could_not_sent">Неможливо надіслати нотатку</string>
     <string name="note_icon_hint">Піктограма нотатки</string>
     <string name="notification_action_failed">Не вдалося виконати дію.</string>
+    <string name="notification_channel_background_operations_description">Показувати сповіщення про результати фонових операцій</string>
+    <string name="notification_channel_background_operations_name">Фонові операції</string>
     <string name="notification_channel_download_description">Показує перебіг звантаження</string>
     <string name="notification_channel_download_name_short">Звантаження</string>
     <string name="notification_channel_file_sync_description">Показує перебіг синхронізації файлів та результати</string>
@@ -579,9 +587,19 @@
     <string name="notification_channel_upload_description">Показує перебіг завантаження</string>
     <string name="notification_channel_upload_name_short">Завантаження</string>
     <string name="notification_icon">Значок сповіщень</string>
+    <string name="notification_icon_description">У вас є непрочитані повідомлення</string>
     <string name="notifications_no_results_headline">Немає сповіщень</string>
     <string name="notifications_no_results_message">Будь ласка, перейдіть сюди пізніше.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Операції, що тривають</string>
     <string name="offline_mode">Відсутнє з\'єднання з мережею</string>
+    <string name="offline_mode_info_description">Ви можете впорядковувати каталоги, створювати файли без наявного з\'єднання з мережею. Одразу після відновлення доступу завдання, що в очікуванні, буде автоматично виконано, а файли синхронізовано.</string>
+    <string name="offline_mode_info_title">Відсутнє з\'єднанн з мережею, але ви можете продовжити роботу</string>
+    <string name="offline_operations_file_does_not_exists_yet">Файли поки відсутні. Спочатку завантажте їх.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Конфлікт з каталогом %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Вилучити каталог на пристрої</string>
+    <string name="offline_operations_worker_notification_error_text">Неможливо виконати офлайнову операцію. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Офлайнові операції</string>
+    <string name="offline_operations_worker_notification_start_text">Початок офлайнових операцій</string>
     <string name="oneHour">1 година</string>
     <string name="online">Онлайн</string>
     <string name="online_status">Статус онлайну</string>
@@ -608,6 +626,7 @@
     <string name="placeholder_sentence">Це заповнювач</string>
     <string name="player_stop">стоп</string>
     <string name="player_toggle">переключитися</string>
+    <string name="please_select_a_server">Виберіть сервер...</string>
     <string name="power_save_check_dialog_message">Вимкнення заощадження батареї може вплинути на завантаження файлів при низькому заряді!</string>
     <string name="pref_behaviour_entries_delete_file">вилучено</string>
     <string name="pref_behaviour_entries_keep_file">Збережено у вихідному каталозі</string>
@@ -718,6 +737,7 @@
     <string name="restore_button_description">Відновити файл, який було вилучено</string>
     <string name="restore_selected">Відновити обране</string>
     <string name="retrieving_file">Отримання файлу...</string>
+    <string name="retry">Ще раз</string>
     <string name="richdocuments_failed_to_load_document">Неможливо завантажити документ!</string>
     <string name="scanQR_description">Вхід з QR-кодом</string>
     <string name="scan_page">Сканувати сторінку</string>
@@ -896,6 +916,7 @@
     <string name="trashbin_file_remove">Вилучити назавжди</string>
     <string name="trashbin_loading_failed">Неможливо відкрити кошик!</string>
     <string name="trashbin_not_emptied">Неможливо вилучити файли!</string>
+    <string name="unexpected_error_occurred">Неочікувана помилка</string>
     <string name="unified_search_fragment_calendar_event_not_found">Подію не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_permission_needed">Для отримання результатів пошуку потрібні окреми дозволи, або перейти на вебсайт...</string>
@@ -903,6 +924,7 @@
     <string name="unread_comments">Доступні непрочитані коментарі</string>
     <string name="unset_encrypted">Зняти шифрування</string>
     <string name="unset_favorite">Прибрати зірочку</string>
+    <string name="unset_internal_two_way_sync_description">Вилучити каталог із внутрішньої двосторонньої синхронізації</string>
     <string name="unshare_link_file_error">Помилка під час закриття спільного доступу до файлу чи каталогу.</string>
     <string name="unshare_link_file_no_exist">Неможливо закрити спільний доступ. Будь ласка, перевірте, чи файл існує.</string>
     <string name="unshare_link_forbidden_permissions">для закриття доступу до файла</string>

@@ -40,9 +40,12 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.CookieManager;
 import android.webkit.CookieSyncManager;
+import android.webkit.URLUtil;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -51,8 +54,10 @@ import android.widget.Toast;
 import com.blikoon.qrcodescanner.QrCodeActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.reflect.TypeToken;
 import com.nextcloud.android.common.ui.color.ColorUtil;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
@@ -115,6 +120,7 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -140,10 +146,6 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleEventObserver;
 import androidx.lifecycle.ProcessLifecycleOwner;
-import de.cotech.hw.fido.WebViewFidoBridge;
-import de.cotech.hw.fido.ui.FidoDialogOptions;
-import de.cotech.hw.fido2.WebViewWebauthnBridge;
-import de.cotech.hw.fido2.ui.WebauthnDialogOptions;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -224,9 +226,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     private GetServerInfoOperation.ServerInfo mServerInfo = new GetServerInfoOperation.ServerInfo();
 
     /// Authentication PRE-Fragment elements
-    private WebViewFidoBridge webViewFidoU2fBridge;
-    private WebViewWebauthnBridge webViewWebauthnBridge;
-
     private String mAuthStatusText = EMPTY_STRING;
     private int mAuthStatusIcon;
 
@@ -356,14 +355,63 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
             /// initialize block to be moved to single Fragment to check server and get info about it
 
             /// initialize block to be moved to single Fragment to retrieve and validate credentials
-            initAuthorizationPreFragment(savedInstanceState);
+            if (TextUtils.isEmpty(getString(R.string.enforce_servers))) {
+                initAuthorizationPreFragment(savedInstanceState);
+            } else {
+                showEnforcedServers();
+            }
+            
+            initServerPreFragment(savedInstanceState);
+            ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
+
+            // webViewUtil.checkWebViewVersion();
         }
-
-        initServerPreFragment(savedInstanceState);
-        ProcessLifecycleOwner.get().getLifecycle().addObserver(lifecycleEventObserver);
-
-        // webViewUtil.checkWebViewVersion();
     }
+        
+        private void showEnforcedServers() {
+
+            showAuthStatus();
+            accountSetupBinding.hostUrlFrame.setVisibility(View.GONE);
+            accountSetupBinding.hostUrlInputHelperText.setVisibility(View.GONE);
+            accountSetupBinding.scanQr.setVisibility(View.GONE);
+            accountSetupBinding.serversSpinner.setVisibility(View.VISIBLE);
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.enforced_servers_spinner);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            ArrayList<String> servers = new ArrayList<>();
+            servers.add("");
+            adapter.add(getString(R.string.please_select_a_server));
+
+            ArrayList<EnforcedServer> t = new Gson().fromJson(getString(R.string.enforce_servers),
+                                                              new TypeToken<ArrayList<EnforcedServer>>() {
+                                                              }
+                                                                  .getType());
+
+            for (EnforcedServer e : t) {
+                adapter.add(e.getName());
+                servers.add(e.getUrl());
+            }
+
+            accountSetupBinding.serversSpinner.setAdapter(adapter);
+            accountSetupBinding.serversSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String url = servers.get(position);
+
+                    if (URLUtil.isValidUrl(url)) {
+                        accountSetupBinding.hostUrlInput.setText(url);
+                        checkOcServer();
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+                    // do nothing
+                }
+            });
+        }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
         if (event == Lifecycle.Event.ON_START && token != null) {
@@ -466,19 +514,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         accountSetupWebviewBinding.loginWebview.getSettings().setSaveFormData(false);
         accountSetupWebviewBinding.loginWebview.getSettings().setSavePassword(false);
 
-        FidoDialogOptions.Builder dialogOptionsBuilder = FidoDialogOptions.builder();
-        dialogOptionsBuilder.setShowSdkLogo(true);
-        dialogOptionsBuilder.setTheme(R.style.FidoDialog);
-        webViewFidoU2fBridge = WebViewFidoBridge.createInstanceForWebView(
-            this, accountSetupWebviewBinding.loginWebview, dialogOptionsBuilder);
-
-        WebauthnDialogOptions.Builder webauthnOptionsBuilder = WebauthnDialogOptions.builder();
-        webauthnOptionsBuilder.setShowSdkLogo(true);
-        webauthnOptionsBuilder.setAllowSkipPin(true);
-        webauthnOptionsBuilder.setTheme(R.style.FidoDialog);
-        webViewWebauthnBridge = WebViewWebauthnBridge.createInstanceForWebView(
-            this, accountSetupWebviewBinding.loginWebview, webauthnOptionsBuilder);
-
         Map<String, String> headers = new HashMap<>();
         headers.put(RemoteOperation.OCS_API_HEADER, RemoteOperation.OCS_API_HEADER_VALUE);
 
@@ -517,16 +552,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         accountSetupWebviewBinding.loginWebview.setWebViewClient(new NextcloudWebViewClient(getSupportFragmentManager()) {
             @Override
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
-                webViewFidoU2fBridge.delegateShouldInterceptRequest(view, request);
-                webViewWebauthnBridge.delegateShouldInterceptRequest(view, request);
                 return super.shouldInterceptRequest(view, request);
             }
 
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
-                webViewFidoU2fBridge.delegateOnPageStarted(view, url, favicon);
-                webViewWebauthnBridge.delegateOnPageStarted(view, url, favicon);
             }
 
             @Override

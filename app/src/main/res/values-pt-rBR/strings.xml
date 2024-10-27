@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">Tarefa excluída com sucesso</string>
     <string name="assistant_screen_task_list_error_state_message">Não foi possível buscar a lista de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Excluir tarefa</string>
+    <string name="assistant_screen_task_output_empty_text">A saída da tarefa ainda não está pronta.</string>
     <string name="assistant_screen_task_types_error_state_message">Não foi possível buscar os tipos de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_screen_unknown_task_status_text">Desconhecido</string>
@@ -180,8 +181,10 @@
     <string name="confirmation_remove_local">Somente local</string>
     <string name="conflict_dialog_error">A caixa de diálogo de resolução de conflitos não pode ser criada</string>
     <string name="conflict_file_headline">Arquivo conflitante %1$s</string>
+    <string name="conflict_folder_headline">Conflito de Pastas</string>
     <string name="conflict_local_file">Arquivo local</string>
     <string name="conflict_message_description">Se você selecionar as duas versões, o arquivo local terá um número anexado ao seu nome.</string>
+    <string name="conflict_message_description_for_folder">Se selecionar ambas as versões, a pasta local terá um número anexado ao nome.</string>
     <string name="conflict_server_file">Arquivo do servidor</string>
     <string name="contact_backup_title">Backup de contatos</string>
     <string name="contact_no_permission">É necessária permissão de contato.</string>
@@ -279,8 +282,11 @@
     <string name="drawer_quota">%1$s de %2$s usados</string>
     <string name="drawer_quota_unlimited">%1$s usados</string>
     <string name="drawer_synced_folders">Autoenvio</string>
+    <string name="e2e_counter_too_old">O contador é muito antigo</string>
+    <string name="e2e_hash_not_found">Hash não encontrado</string>
     <string name="e2e_not_yet_setup">E2E ainda não configurado</string>
     <string name="e2e_offline">Não é possível sem conexão com a internet</string>
+    <string name="e2e_signature_does_not_match">A assinatura não corresponde</string>
     <string name="ecosystem_apps_display_assistant">Assistente</string>
     <string name="ecosystem_apps_display_more">Mais</string>
     <string name="ecosystem_apps_display_notes">Notas </string>
@@ -406,6 +412,14 @@
     <string name="file_migration_updating_index">Atualizando índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
     <string name="file_migration_waiting_for_unfinished_sync">Aguardando sincronização completa…</string>
+    <string name="file_name_validator_current_path_is_invalid">O nome da pasta atual é inválido. Renomeie a pasta. Redirecionando para o home…</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">O caminho da pasta contém nomes reservados ou caracteres inválidos</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s é uma extensão de arquivo proibida</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Os nomes de arquivos não devem conter espaços no início ou no final</string>
+    <string name="file_name_validator_error_invalid_character">O nome contém caracteres inválidos: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s é um nome proibido</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Renomeie o arquivo antes de mover ou copiar</string>
+    <string name="file_name_validator_upload_content_error">Alguns conteúdos não podem ser carregados porque contêm nomes reservados ou caracteres inválidos</string>
     <string name="file_not_found">Arquivo não encontrado</string>
     <string name="file_not_synced">Arquivo não pôde ser sincronizado. Mostrando a última versão disponível.</string>
     <string name="file_rename">Renomear</string>
@@ -429,6 +443,7 @@
     <string name="folder_already_exists">Pasta já existe</string>
     <string name="folder_confirm_create">Criar</string>
     <string name="folder_list_empty_headline">Sem pastas aqui</string>
+    <string name="folder_name_empty">O nome da pasta não pode ficar vazio</string>
     <string name="folder_picker_choose_button_text">Escolher</string>
     <string name="folder_picker_choose_caption_text">Escolher pasta destino</string>
     <string name="folder_picker_copy_button_text">Copiar</string>
@@ -475,6 +490,9 @@
     <string name="instant_upload_existing">Enviar arquivos existentes também</string>
     <string name="instant_upload_on_charging">Só enviar quando carregando</string>
     <string name="instant_upload_path">/EnvioAutomático</string>
+    <string name="internal_two_way_sync">Sincronização interna bidirecional</string>
+    <string name="internal_two_way_sync_not_yet">Ainda não, em breve será sincronizado</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">É necessária uma conexão com a internet para configurar a pasta criptografada</string>
     <string name="invalid_url">URL inválida</string>
     <string name="invisible">Invisível</string>
     <string name="label_empty">A etiqueta não pode ficar vazia</string>
@@ -559,6 +577,8 @@
     <string name="note_could_not_sent">Não foi possível enviar a anotação</string>
     <string name="note_icon_hint">Ícone de anotação</string>
     <string name="notification_action_failed">Erro ao executar a ação.</string>
+    <string name="notification_channel_background_operations_description">Mostrar notificações para interagir com o resultado de operações em segundo plano</string>
+    <string name="notification_channel_background_operations_name">Operações em Segundo Plano</string>
     <string name="notification_channel_download_description">Mostra o progresso de download</string>
     <string name="notification_channel_download_name_short">Baixados</string>
     <string name="notification_channel_file_sync_description">Mostra o progresso sincronização de arquivo e resultados</string>
@@ -572,9 +592,19 @@
     <string name="notification_channel_upload_description">Mostra o progresso de envio</string>
     <string name="notification_channel_upload_name_short">Enviados</string>
     <string name="notification_icon">Ícone de notificação</string>
+    <string name="notification_icon_description">Existem notificações não lidas</string>
     <string name="notifications_no_results_headline">Não há notificações</string>
     <string name="notifications_no_results_message">Por favor, verifique mais tarde.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operação Pendente</string>
     <string name="offline_mode">Sem conexão à internet</string>
+    <string name="offline_mode_info_description">Mesmo sem conexão com a internet, você pode organizar suas pastas e criar arquivos. Quando você estiver online novamente, suas ações pendentes serão sincronizadas automaticamente.</string>
+    <string name="offline_mode_info_title">Você Está Offline, Mas o Trabalho Continua</string>
+    <string name="offline_operations_file_does_not_exists_yet">O arquivo ainda não existe. Por favor envie o arquivo primeiro.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Pasta Conflitante: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Remover Pasta Offline</string>
+    <string name="offline_operations_worker_notification_error_text">A operação offline não foi completada. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Operações Offline</string>
+    <string name="offline_operations_worker_notification_start_text">Iniciando Operações Offline</string>
     <string name="oneHour">1 hora</string>
     <string name="online">Online</string>
     <string name="online_status">Status online</string>
@@ -589,7 +619,7 @@
     <string name="pass_code_removed">Frase secreta excluída</string>
     <string name="pass_code_stored">Código de acesso salvo</string>
     <string name="pass_code_wrong">Código de acesso incorreto</string>
-    <string name="pdf_password_protected">Não foi possível abrir PDF protegido por senha. Por favor utilize um visualizador de PDF externo.</string>
+    <string name="pdf_password_protected">Não foi possível abrir PDF protegido por senha. Utilize um visualizador de PDF externo.</string>
     <string name="pdf_zoom_tip">Toque em uma página para ampliar</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
@@ -604,6 +634,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">para</string>
     <string name="player_toggle">alternar</string>
+    <string name="please_select_a_server">Selecione um servidor...</string>
     <string name="power_save_check_dialog_message">Desativar a verificação de economia de energia pode resultar em uploads com a bateria baixa!</string>
     <string name="pref_behaviour_entries_delete_file">excluído</string>
     <string name="pref_behaviour_entries_keep_file">Mantido na pasta original</string>
@@ -665,6 +696,7 @@
     <string name="prefs_synced_folders_local_path_title">Pasta local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_summary">Gerencie pastas internas para sincronização bidirecional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir o sistema</string>
@@ -713,6 +745,7 @@
     <string name="restore_button_description">Restaurar arquivo excluído</string>
     <string name="restore_selected">Restaurar selecionado </string>
     <string name="retrieving_file">Recuperando arquivo…</string>
+    <string name="retry">Tentar novamente</string>
     <string name="richdocuments_failed_to_load_document">Falhou ao carregar documento!</string>
     <string name="scanQR_description">Entrar via código QR</string>
     <string name="scan_page">Digitalizar página</string>
@@ -892,6 +925,7 @@
     <string name="trashbin_file_remove">Remover permanentemente</string>
     <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
+    <string name="unexpected_error_occurred">Ocorreu um erro inesperado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Evento não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para a web…</string>
     <string name="unified_search_fragment_contact_not_found">Contato não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para web…</string>
     <string name="unified_search_fragment_permission_needed">São necessárias permissões para abrir o resultado da pesquisa, caso contrário ele será redirecionado para a web…</string>

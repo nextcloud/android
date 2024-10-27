@@ -35,6 +35,7 @@ import com.owncloud.android.utils.MimeType;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -759,6 +760,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.sharedViaLink;
     }
 
+    public boolean isShared() {
+        return isSharedViaLink() || isSharedWithSharee() || isSharedWithMe();
+    }
+
     public String getPermissions() {
         return this.permissions;
     }
@@ -773,6 +778,14 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
 
     public boolean isDownloading() {
         return this.downloading;
+    }
+
+    public boolean isRootDirectory() {
+        return ROOT_PATH.equals(decryptedRemotePath);
+    }
+
+    public boolean isOfflineOperation() {
+        return getRemoteId() == null;
     }
 
     public String getEtagInConflict() {
@@ -1055,11 +1068,15 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
 
     public boolean isInternalFolderSync() {
+        if (internalFolderSyncTimestamp == null) {
+            return false;
+        }
+
         return internalFolderSyncTimestamp >= 0;
     }
     
     public Long getInternalFolderSyncTimestamp() {
-        return internalFolderSyncTimestamp;
+        return Objects.requireNonNullElse(internalFolderSyncTimestamp, -1L);
     }
 
     public void setInternalFolderSyncTimestamp(Long internalFolderSyncTimestamp) {

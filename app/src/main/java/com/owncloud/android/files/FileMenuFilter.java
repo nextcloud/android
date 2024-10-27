@@ -169,6 +169,7 @@ public class FileMenuFilter {
         filterLock(toHide, fileLockingEnabled);
         filterUnlock(toHide, fileLockingEnabled);
         filterPinToHome(toHide);
+        filterRetry(toHide);
 
         return toHide;
     }
@@ -257,6 +258,12 @@ public class FileMenuFilter {
     private void filterPinToHome(List<Integer> toHide) {
         if (!isSingleSelection() || !ShortcutManagerCompat.isRequestPinShortcutSupported(context)) {
             toHide.add(R.id.action_pin_to_homescreen);
+        }
+    }
+
+    private void filterRetry(List<Integer> toHide) {
+        if (!files.iterator().next().isOfflineOperation()) {
+            toHide.add(R.id.action_retry);
         }
     }
 

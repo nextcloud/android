@@ -18,29 +18,12 @@
     android:gravity="center"
     tools:context=".ui.preview.PreviewMediaFragment">
 
-    <ImageView
-        android:id="@+id/image_preview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/standard_margin"
-        android:contentDescription="@string/preview_image_description"
-        android:src="@drawable/logo" />
-
     <androidx.media3.ui.PlayerView
         android:id="@+id/exoplayer_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         app:show_buffering="always" />
-
-    <com.owncloud.android.media.MediaControlView
-        android:id="@+id/media_controller"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="@dimen/standard_margin"
-        android:visibility="gone" />
 
     <FrameLayout
         android:id="@+id/progress"

@@ -44,6 +44,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.core.content.ContextCompat;
 
 /**
  * Base class providing toolbar registration functionality, see {@link #setupToolbar(boolean, boolean)}.
@@ -52,6 +53,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     protected MaterialButton mMenuButton;
     protected MaterialTextView mSearchText;
     protected MaterialButton mSwitchAccountButton;
+    protected MaterialButton mNotificationButton;
 
     private AppBarLayout mAppBar;
     private RelativeLayout mDefaultToolbar;
@@ -82,6 +84,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         mMenuButton = findViewById(R.id.menu_button);
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
+        mNotificationButton = findViewById(R.id.notification_button);
 
         if (showSortListButtonGroup) {
             findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
@@ -116,6 +119,10 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         MaterialButton menuButton = findViewById(R.id.toolbar_menu_button);
         MaterialTextView titleTextView = findViewById(R.id.toolbar_title);
         titleTextView.setText(title);
+
+        titleTextView.setTextColor(ContextCompat.getColor(this, R.color.foreground_highlight));
+        menuButton.setIconTint(ContextCompat.getColorStateList(this, R.color.foreground_highlight));
+
         toolbar.setVisibility(View.VISIBLE);
         menuButton.setOnClickListener(toggleDrawer);
     }
@@ -215,15 +222,19 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
      * @param text the text to be displayed
      */
     protected final void showInfoBox(@StringRes int text) {
-        mInfoBox.setVisibility(View.VISIBLE);
-        mInfoBoxMessage.setText(text);
+        if (mInfoBox != null && mInfoBoxMessage != null) {
+            mInfoBox.setVisibility(View.VISIBLE);
+            mInfoBoxMessage.setText(text);
+        }
     }
 
     /**
      * Hides the toolbar's info box.
      */
     public final void hideInfoBox() {
-        mInfoBox.setVisibility(View.GONE);
+        if (mInfoBox != null) {
+            mInfoBox.setVisibility(View.GONE);
+        }
     }
 
     public void setPreviewImageVisibility(boolean isVisibility) {

@@ -474,7 +474,7 @@ public final class ThumbnailsCacheManager {
                             }
                         } else {
                             if (fileFragment instanceof PreviewImageFragment) {
-                                ((PreviewImageFragment) fileFragment).setErrorPreviewMessage();
+                                ((PreviewImageFragment) fileFragment).handleUnsupportedImage();
                             }
                         }
                     }).start();

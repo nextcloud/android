@@ -23,13 +23,19 @@
     <string name="menu_item_sort_by_date_oldest_first">Oldest first</string>
     <string name="menu_item_sort_by_size_biggest_first">Biggest first</string>
     <string name="menu_item_sort_by_size_smallest_first">Smallest first</string>
-
+    <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
-
-    <string name="app_config_base_url_title">Base Url</string>
+    <string name="unexpected_error_occurred">Unexpected error occurred</string>
+    <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_host_title">Proxy Host Name</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
-
+    <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Delete Offline Folder</string>
+    <string name="offline_operations_worker_notification_conflict_text">Conflicted Folder: %s</string>
+    <string name="offline_operations_worker_notification_start_text">Starting Offline Operations</string>
+    <string name="offline_operations_worker_notification_error_text">The offline operation cannot be completed. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Offline Operations</string>
+    <string name="offline_operations_worker_progress_text" translatable="false">%1$d / %2$d - %3$s</string>
     <string name="anonymous_account_type" translatable="false">AnonymousAccountType</string>
 
     <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
@@ -37,6 +43,7 @@
 
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_loading">Task List are loading, please wait</string>
+    <string name="assistant_screen_task_output_empty_text">The task output isn’t ready yet.</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">No task available. Select a task type to create a new task.</string>
     <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete Task</string>
@@ -613,7 +620,8 @@
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="maintenance_mode">Server is in maintenance mode</string>
     <string name="offline_mode">No internet connection</string>
-
+    <string name="offline_mode_info_title">You\'re Offline, But Work Continues</string>
+    <string name="offline_mode_info_description">Even without an internet connection, you can organize your folders, create files. Once you\'re back online, your pending actions will automatically sync.</string>
     <string name="uploads_view_upload_status_waiting_for_charging">Awaiting charge</string>
     <string name="actionbar_search">Search</string>
     <string name="drawer_synced_folders">Auto upload</string>
@@ -732,8 +740,6 @@
 
     <string name="sync_in_progress">Fetching most recent version of the file.</string>
 
-    <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
-
     <string name="store_short_desc">The self-hosted productivity platform that keeps you in control</string>
     <string name="store_full_desc">The self-hosted productivity platform that keeps you in control.\n\nFeatures:\n* Easy, modern interface, suited to the theme of your server\n* Upload files to your Nextcloud server\n* Share them with others\n* Keep your favorite files and folders synced\n* Search across all folders on your server\n* Auto Upload for photos and videos taken by your device\n* Keep up to date with notifications\n* Multi-account support\n* Secure access to your data with fingerprint or PIN\n* Integration with DAVx5 (formerly known as DAVdroid) for easy setup of calendar and contacts synchronization\n\nPlease report all issues at https://github.com/nextcloud/android/issues and discuss this app at https://help.nextcloud.com/c/clients/android\n\nNew to Nextcloud? Nextcloud is a private file sync and share and communication server. It is libre software, and you can host it yourself or pay a company to do it for you. That way, you are in control of your photos, your calendar and contact data, your documents and everything else.\n\nCheck out Nextcloud at https://nextcloud.com</string>
 
@@ -820,6 +826,8 @@
     <string name="copy_move_to_encrypted_folder_not_supported">Copy/move into encrypted folder currently not supported.</string>
     <string name="untrusted_domain">Access through untrusted domain. Please see documentation for further info.</string>
     <string name="notification_channel_push_name">Push notifications</string>
+    <string name="notification_channel_background_operations_name">Background Operations</string>
+    <string name="notification_channel_background_operations_description">Show notifications to interact result of background operations</string>
     <string name="notification_channel_push_description">Show push notifications sent by the server: Mentions in comments, reception of new remote shares, announcements posted by an admin etc.</string>
     <string name="sendbutton_description">Send button icon</string>
 
@@ -1031,7 +1039,8 @@
     <string name="sync_not_enough_space_dialog_action_free_space">Free up space</string>
     <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
     <string name="sync_not_enough_space_dialog_title">Not enough space</string>
-    <string name="conflict_file_headline">Conflicting file %1$s</string>
+    <string name="conflict_folder_headline">Folder Conflict</string>
+    <string name="conflict_message_description_for_folder">If you select both versions, the local folder will have a number appended to its name.</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
     <string name="conflict_local_file">Local file</string>
     <string name="conflict_server_file">Server file</string>
@@ -1077,7 +1086,6 @@
     <string name="drawer_item_gallery">Media</string>
     <string name="player_stop">stop</string>
     <string name="player_toggle">toggle</string>
-    <string name="in_folder">in folder %1$s</string>
     <string name="choose_which_file">Choose which file to keep!</string>
     <string name="wrong_storage_path">Data storage folder does not exist!</string>
     <string name="wrong_storage_path_desc">This might be due to a backup restore on another device. Falling back to default. Please check settings to adjust data storage folder.</string>
@@ -1175,9 +1183,11 @@
     <string name="e2e_not_yet_setup">E2E not yet setup</string>
     <string name="error_file_actions">Error showing file actions</string>
     <string name="file_activity_shared_file_cannot_be_updated">Shared file cannot be updated</string>
+    <string name="retry">Retry</string>
     <string name="pin_home">Pin to Home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
     <string name="displays_mnemonic">Displays your 12 word passphrase</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">An internet connection is required to set up the encrypted folder</string>
     <string name="prefs_setup_e2e">Set up end-to-end encryption</string>
     <string name="prefs_e2e_active">End-to-end encryption is set up!</string>
     <string name="prefs_remove_e2e">Remove encryption locally</string>
@@ -1237,13 +1247,15 @@
     <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
     <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
-    <string name="file_name_validator_current_path_is_invalid">Current folder name is invalid, please rename the folder. Redirecting to root</string>
+    <string name="file_name_validator_current_path_is_invalid">Current folder name is invalid, please rename the folder. Redirecting home…</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Please rename the file before moving or copying</string>
-    <string name="file_name_validator_upload_content_error">Some contents cannot able to uploaded due to contains reserved names or invalid character</string>
-    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Folder path contains reserved names or invalid character</string>
-    <string name="file_name_validator_error_invalid_character">Name contains an invalid character: %s</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Folder path contains reserved names or invalid characters</string>
+    <string name="file_name_validator_error_invalid_character">Name contains invalid characters: %s</string>
     <string name="file_name_validator_error_reserved_names">%s is a forbidden name</string>
-    <string name="file_name_validator_error_forbidden_file_extensions">.%s is a forbidden file extension</string>
-    <string name="file_name_validator_error_ends_with_space_period">Name ends with a space or a period</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s is a forbidden file extension</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Filenames must not contain spaces at the beginning or end</string>
     <string name="sync">Sync</string>
+    <string name="please_select_a_server">Please select a server…</string>
+    <string name="notification_icon_description">Unread notifications exist</string>
+    <string name="unset_internal_two_way_sync_description">Remove folder from internal two way sync</string>
 </resources>

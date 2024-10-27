@@ -721,28 +721,14 @@ class PreviewImageFragment : FileFragment(), Injectable {
         binding.emptyListProgress.visibility = View.GONE
     }
 
-    fun setErrorPreviewMessage() {
+    fun handleUnsupportedImage() {
         try {
-            if (activity != null) {
+            (activity as? PreviewImageActivity)?.requestForDownload(file) ?: context?.let {
                 Snackbar.make(
                     binding.emptyListView,
-                    R.string.resized_image_not_possible_download,
+                    resources.getString(R.string.could_not_download_image),
                     Snackbar.LENGTH_INDEFINITE
-                )
-                    .setAction(
-                        R.string.common_yes
-                    ) { v: View? ->
-                        val activity = activity as PreviewImageActivity?
-                        if (activity != null) {
-                            activity.requestForDownload(file)
-                        } else if (context != null) {
-                            Snackbar.make(
-                                binding.emptyListView,
-                                resources.getString(R.string.could_not_download_image),
-                                Snackbar.LENGTH_INDEFINITE
-                            ).show()
-                        }
-                    }.show()
+                ).show()
             }
         } catch (e: IllegalArgumentException) {
             Log_OC.d(TAG, e.message)

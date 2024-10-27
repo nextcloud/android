@@ -56,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">La tarea fue eliminada exitosamente</string>
     <string name="assistant_screen_task_list_error_state_message">No se pudo obtener la lista de tareas, por favor, revise su conexión a internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarea</string>
+    <string name="assistant_screen_task_output_empty_text">El resultado de la tarea todavía no está listo.</string>
     <string name="assistant_screen_task_types_error_state_message">No se pudieron obtener los tipos de tareas, por favor, revise su conexión a internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_screen_unknown_task_status_text">Desconocido</string>
@@ -92,6 +93,7 @@
     <string name="auth_unsupported_multiaccount">%1$s no soporta cuentas múltiples</string>
     <string name="auth_wrong_connection_title">No se ha podido establecer la conexión</string>
     <string name="authenticator_activity_cancel_login">Cancelar inicio de sesión</string>
+    <string name="authenticator_activity_login_error">Ha habido un problema al procesar tu petición de acceso. Por favor, vuelve a intentarlo más tarde.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, complete el proceso de inicio de sesión en su navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">se mantiene en la carpeta original, pues es de solo lectura</string>
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
@@ -179,8 +181,10 @@
     <string name="confirmation_remove_local">Solo local</string>
     <string name="conflict_dialog_error">El diálogo de resolución de conflictos no puede ser creado</string>
     <string name="conflict_file_headline">Conflicto en archivo %1$s</string>
+    <string name="conflict_folder_headline">Conflicto de carpetas</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
+    <string name="conflict_message_description_for_folder">Si seleccionas ambas versiones, la carpeta local tendrá un número añadido a su nombre.</string>
     <string name="conflict_server_file">Archivo del servidor</string>
     <string name="contact_backup_title">Respaldo de contactos</string>
     <string name="contact_no_permission">Se requiere el permiso de contactos.</string>
@@ -278,8 +282,10 @@
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
     <string name="drawer_quota_unlimited">usado %1$s</string>
     <string name="drawer_synced_folders">Carga automática</string>
+    <string name="e2e_hash_not_found">Hash no encontrado</string>
     <string name="e2e_not_yet_setup">El cifrado de extremo a extremo (E2E) todavía no está configurado</string>
     <string name="e2e_offline">No es posible sin conexión a internet</string>
+    <string name="e2e_signature_does_not_match">La firma no coincide</string>
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Más</string>
     <string name="ecosystem_apps_display_notes">Notas</string>
@@ -321,6 +327,7 @@
     <string name="error_showing_encryption_dialog">¡Error al mostrar el diálogo de configuración del cifrado!</string>
     <string name="error_starting_direct_camera_upload">Error al iniciar la cámara</string>
     <string name="error_starting_doc_scan">Error al iniciar el escaneo del documento</string>
+    <string name="error_uploading_direct_camera_upload">Fallo al subir el medio tomado</string>
     <string name="etm_accounts">Cuentas</string>
     <string name="etm_background_execution_count">Veces ejecutado en 48h</string>
     <string name="etm_background_job_created">Creado</string>
@@ -352,6 +359,7 @@
     <string name="failed_update_ui">Fallo al actualizar la UI</string>
     <string name="favorite">Añadir a favoritos</string>
     <string name="favorite_icon">Favorito</string>
+    <string name="file_activity_shared_file_cannot_be_updated">El archivo compartido no se puede actualizar</string>
     <string name="file_already_exists">El nombre de archivo ya existe</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Error al recuperar las actividades del archivo</string>
@@ -365,6 +373,7 @@
     <string name="file_list_empty_headline">No hay archivos aquí</string>
     <string name="file_list_empty_headline_search">No hay resultados en esta carpeta</string>
     <string name="file_list_empty_headline_server_search">No hay resultados</string>
+    <string name="file_list_empty_local_search">Ningún archivo ni carpeta coincide con tu búsqueda</string>
     <string name="file_list_empty_moving">Nada por aquí. Puedes agregar una carpeta.</string>
     <string name="file_list_empty_on_device">Los archivos y carpetas que descargues aparecerán aquí.</string>
     <string name="file_list_empty_recently_modified">No se han encontrado archivos modificados en los últimos 7 días</string>
@@ -402,6 +411,11 @@
     <string name="file_migration_updating_index">Actualizando índice…</string>
     <string name="file_migration_use_data_folder">Usar</string>
     <string name="file_migration_waiting_for_unfinished_sync">Esperando que todas las sincronizaciones terminen…</string>
+    <string name="file_name_validator_current_path_is_invalid">El nombre de carpeta actual es inválido. Por favor, renombra la carpeta. Redirigiendo al inicio…</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">La ruta de la carpeta contiene nombres reservados o caracteres inválidos</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s es una extensión de archivo prohibida</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Los nombres de archivo no deben contener espacios al principio o al final</string>
+    <string name="file_name_validator_error_invalid_character">El nombre contiene caracteres inválidos: %s</string>
     <string name="file_not_found">Archivo no encontrado</string>
     <string name="file_not_synced">No se ha podido sincronizar el archivo. Se muestra la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
@@ -703,6 +717,7 @@
     <string name="restore_button_description">Restaurar archivo eliminado</string>
     <string name="restore_selected">Restaurar la selección</string>
     <string name="retrieving_file">Recuperando archivo…</string>
+    <string name="retry">Reintentar</string>
     <string name="richdocuments_failed_to_load_document">Fallo al cargar el documento.</string>
     <string name="scanQR_description">Entrar vía código QR</string>
     <string name="scan_page">Escanear página</string>
@@ -882,6 +897,7 @@
     <string name="trashbin_file_remove">Eliminar de forma definitiva</string>
     <string name="trashbin_loading_failed">¡Fallo al cargar la papelera!</string>
     <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
+    <string name="unexpected_error_occurred">Ha ocurrido un error inesperado</string>
     <string name="unlock_file">Desbloquear archivo</string>
     <string name="unread_comments">Hay comentarios no leídos</string>
     <string name="unset_encrypted">Desactivar cifrado</string>
