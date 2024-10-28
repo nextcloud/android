@@ -370,8 +370,8 @@
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
     <string name="file_list_empty_favorite_headline">ليس لديك ملفات مفضلة</string>
     <string name="file_list_empty_favorites_filter_list">الملفات والمجلدات التي تضع عليها علامة كمفضلة سوف تظهر هنا.</string>
-    <string name="file_list_empty_gallery">لا توجد أية صور أو ملفات فيديو</string>
-    <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
+    <string name="file_list_empty_gallery">لا توجد أية صور أو مقاطع فيديو</string>
+    <string name="file_list_empty_headline">لا توجد ملفات هنا </string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
     <string name="file_list_empty_headline_server_search">لا توجد أية نتيجة</string>
     <string name="file_list_empty_local_search">لا يوجد ملف أو مجلد يتطابق مع بحثك</string>
