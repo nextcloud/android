@@ -12,12 +12,13 @@ import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.model.DurationOption
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
 
 class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
     lateinit var binding: InternalTwoWaySyncLayoutBinding
@@ -38,20 +39,31 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
     }
 
     private fun setupTwoWaySyncInterval() {
-        val durations = DurationOption.twoWaySyncIntervals(this)
-        val selectedDuration = durations.find { it.value == preferences.twoWaySyncInterval }
+        val durations = listOf(
+            15.minutes to getString(R.string.two_way_sync_interval_15_min),
+            30.minutes to getString(R.string.two_way_sync_interval_30_min),
+            45.minutes to getString(R.string.two_way_sync_interval_45_min),
+            1.hours to getString(R.string.two_way_sync_interval_1_hour),
+            2.hours to getString(R.string.two_way_sync_interval_2_hours),
+            4.hours to getString(R.string.two_way_sync_interval_4_hours),
+            6.hours to getString(R.string.two_way_sync_interval_6_hours),
+            8.hours to getString(R.string.two_way_sync_interval_8_hours),
+            12.hours to getString(R.string.two_way_sync_interval_12_hours),
+            24.hours to getString(R.string.two_way_sync_interval_24_hours)
+        )
+        val selectedDuration = durations.find { it.first.inWholeMinutes == preferences.twoWaySyncInterval }
 
         val adapter = ArrayAdapter(
             this,
             android.R.layout.simple_dropdown_item_1line,
-            durations.map { it.displayText }
+            durations.map { it.second }
         )
 
         binding.twoWaySyncInterval.run {
             setAdapter(adapter)
-            setText(selectedDuration?.displayText ?: getString(R.string.two_way_sync_interval_15_min), false)
+            setText(selectedDuration?.second ?: getString(R.string.two_way_sync_interval_15_min), false)
             setOnItemClickListener { _, _, position, _ ->
-                handleDurationSelected(durations[position].value)
+                handleDurationSelected(durations[position].first.inWholeMinutes)
             }
         }
     }
