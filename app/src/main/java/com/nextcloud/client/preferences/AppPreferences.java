@@ -395,9 +395,6 @@ public interface AppPreferences {
     void setTwoWaySyncStatus(boolean value);
     boolean isTwoWaySyncEnabled();
 
-    void setTwoWaySyncTimestampDefault(boolean value);
-    boolean isTwoWaySyncTimestampDefault();
-
     void setTwoWaySyncInterval(Long value);
     Long getTwoWaySyncInterval();
 }

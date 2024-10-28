@@ -44,8 +44,6 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.core.Clock;
-import com.nextcloud.client.database.NextcloudDatabase;
-import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.AppComponent;
@@ -384,19 +382,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         registerGlobalPassCodeProtection();
         networkChangeReceiver = new NetworkChangeReceiver(this, connectivityService);
         registerNetworkChangeReceiver();
-        resetTwoWaySyncTimestamps();
-    }
-
-    private void resetTwoWaySyncTimestamps() {
-        if (preferences.isTwoWaySyncTimestampDefault()) {
-            return;
-        }
-
-        new Thread(() -> {{
-            FileDao fileDao = NextcloudDatabase.getInstance(this).fileDao();
-            fileDao.resetTwoWaySyncTimestamp();
-            preferences.setTwoWaySyncTimestampDefault(true);
-        }}).start();
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
