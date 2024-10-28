@@ -805,16 +805,6 @@ public final class AppPreferencesImpl implements AppPreferences {
     }
 
     @Override
-    public void setTwoWaySyncTimestampDefault(boolean value) {
-        preferences.edit().putBoolean(PREF__RESET_TWO_WAY_SYNC_TIMESTAMP, value).apply();
-    }
-
-    @Override
-    public boolean isTwoWaySyncTimestampDefault() {
-        return preferences.getBoolean(PREF__RESET_TWO_WAY_SYNC_TIMESTAMP, false);
-    }
-
-    @Override
     public void setTwoWaySyncInterval(Long value) {
         preferences.edit().putLong(PREF__TWO_WAY_SYNC_INTERVAL, value).apply();
     }

@@ -44,8 +44,6 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.appinfo.AppInfo;
 import com.nextcloud.client.core.Clock;
-import com.nextcloud.client.database.NextcloudDatabase;
-import com.nextcloud.client.database.dao.FileDao;
 import com.nextcloud.client.device.PowerManagementService;
 import com.nextcloud.client.di.ActivityInjector;
 import com.nextcloud.client.di.AppComponent;
