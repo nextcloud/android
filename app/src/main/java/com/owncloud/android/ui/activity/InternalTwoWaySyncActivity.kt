@@ -26,6 +26,8 @@ import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.hours
+import kotlin.time.Duration.Companion.minutes
 
 class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
     @Inject
