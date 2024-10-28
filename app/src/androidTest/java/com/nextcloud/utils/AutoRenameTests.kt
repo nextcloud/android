@@ -56,6 +56,18 @@ class AutoRenameTests : AbstractOnServerIT() {
     }
 
     @Test
+    fun testStartEndInvalidExtensionsIfSpaceCharInTheEnd() {
+        capability = capability.apply {
+            forbiddenFilenameExtensionJson = """[".",".part",".part"," "]"""
+        }
+
+        val filename = " .file.part "
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "_file_part"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
     fun testStartEndInvalidExtensions() {
         val filename = " .file.part "
         val result = AutoRename.rename(filename, capability)
@@ -64,8 +76,32 @@ class AutoRenameTests : AbstractOnServerIT() {
     }
 
     @Test
+    fun testStartInvalidExtensionIfSpaceCharInTheEnd() {
+        capability = capability.apply {
+            forbiddenFilenameExtensionJson = """[".",".part",".part"," "]"""
+        }
+
+        val filename = " .file.part"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "_file_part"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
     fun testStartInvalidExtension() {
         val filename = " .file.part"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "_file_part"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
+
+    @Test
+    fun testEndInvalidExtensionIfSpaceCharInTheEnd() {
+        capability = capability.apply {
+            forbiddenFilenameExtensionJson = """[".",".part",".part"," "]"""
+        }
+
+        val filename = ".file.part "
         val result = AutoRename.rename(filename, capability)
         val expectedFilename = "_file_part"
         assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }

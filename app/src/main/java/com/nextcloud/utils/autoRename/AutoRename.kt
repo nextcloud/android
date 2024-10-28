@@ -46,12 +46,16 @@ object AutoRename {
             }
 
             forbiddenFilenameExtensionJson?.let {
+                // First handle if space char exist
+                forbiddenFilenameExtensions().find { it == StringConstants.SPACE }?.let {
+                    pathSegments.replaceAll { segment ->
+                        segment.trim()
+                    }
+                }
+
                 forbiddenFilenameExtensions().forEach { forbiddenExtension ->
                     pathSegments.replaceAll { segment ->
                         var modifiedSegment = segment
-                        if (forbiddenExtension == StringConstants.SPACE) {
-                            modifiedSegment = modifiedSegment.trim()
-                        }
 
                         if (modifiedSegment.endsWith(forbiddenExtension, ignoreCase = true) ||
                             modifiedSegment.startsWith(forbiddenExtension, ignoreCase = true)
