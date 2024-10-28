@@ -115,7 +115,7 @@
     <string name="prefs_value_theme_dark">Dark</string>
     <string name="prefs_value_theme_system">Follow system</string>
     <string name="prefs_theme_title">Theme</string>
-    <string name="prefs_two_way_sync">Two Way Sync</string>
+    <string name="prefs_two_way_sync_switch_title">Enable Sync</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
 
     <string name="two_way_sync_interval_15_min">15 minutes</string>
