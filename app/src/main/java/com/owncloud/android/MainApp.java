@@ -394,7 +394,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
         new Thread(() -> {{
             FileDao fileDao = NextcloudDatabase.getInstance(this).fileDao();
-            fileDao.setInternalTwoWaySyncTimestampToMinusOne();
+            fileDao.resetTwoWaySyncTimestamp();
             preferences.setTwoWaySyncTimestampDefault(true);
         }}).start();
     }
