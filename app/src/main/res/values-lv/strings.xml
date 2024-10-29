@@ -222,12 +222,12 @@
     <string name="etm_transfer_type_download">Lejupielādēt</string>
     <string name="etm_transfer_type_upload">Augšupielādēt</string>
     <string name="favorite">Pievienot favorītiem</string>
-    <string name="favorite_icon">Favorīts</string>
+    <string name="favorite_icon">Izlasē</string>
     <string name="file_delete">Dzēst</string>
     <string name="file_icon">Datne</string>
     <string name="file_keep">Paturēt</string>
     <string name="file_list_empty">Augšupielādē kaut ko vai sinhronizē saturu ar savām ierīcēm!</string>
-    <string name="file_list_empty_favorite_headline">Nekas vēl nav pievienots favorītiem</string>
+    <string name="file_list_empty_favorite_headline">Izlasē vēl nekā nav</string>
     <string name="file_list_empty_headline">Šeit nav datņu</string>
     <string name="file_list_empty_headline_search">Nav rezultātu šajā mapē</string>
     <string name="file_list_empty_headline_server_search">Nav rezultātu</string>
@@ -294,7 +294,7 @@
     <string name="hint_note">Piezīme</string>
     <string name="hint_password">Parole</string>
     <string name="host_not_available">Serveris nav pieejams</string>
-    <string name="image_editor_file_edited_suffix">rediģēts</string>
+    <string name="image_editor_file_edited_suffix">labots</string>
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
@@ -514,6 +514,7 @@
     <string name="trashbin_file_remove">Dzēst pavisam</string>
     <string name="unexpected_error_occurred">Neparedzēta kļūda</string>
     <string name="unset_encrypted">Atstatīt šifrēšanu</string>
+    <string name="unset_favorite">Noņemt no izlases</string>
     <string name="unshare_link_forbidden_permissions">lai pārtrauktu šīs datnes koplietošanu</string>
     <string name="update_link_forbidden_permissions">lai atjauninātu šo koplietošanu</string>
     <string name="updating_share_failed">Koplietojuma atjaunināšana neizdevās</string>
