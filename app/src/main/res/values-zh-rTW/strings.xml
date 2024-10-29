@@ -529,11 +529,7 @@
     <string name="logs_title">紀錄檔</string>
     <string name="maintenance_mode">伺服器正處於維護模式</string>
     <string name="manage_space_clear_data">清除資料</string>
-    <string name="manage_space_description">來自 %1$s 的設定，資料庫與伺服器憑證等相關資料將永久刪除。
-\n
-\n已下載的檔案將保留不會變動。
-\n
-\n此過程需要一點時間。</string>
+    <string name="manage_space_description">來自 %1$s 的設定，資料庫與伺服器憑證等相關資料將永久刪除。\n\n已下載的檔案將保留不會變動。\n\n此過程需要一點時間。</string>
     <string name="manage_space_title">管理空間</string>
     <string name="max_file_count_warning_message">您已達最大檔案上傳限制。一次上傳僅能上傳少於 500 個檔案。</string>
     <string name="media_err_invalid_progressive_playback">此媒體檔案無法以串流播放</string>
@@ -869,29 +865,8 @@
     <string name="storage_permission_full_access">完整存取權</string>
     <string name="storage_permission_media_read_only">媒體唯讀</string>
     <string name="storage_pictures">圖片</string>
-    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。
-\n
-\n功能：
-\n* 簡潔、現代的使用者介面，適合您伺服器的佈景主題
-\n* 上傳檔案到您的 Nextcloud 伺服器
-\n* 與其他人分享檔案
-\n* 讓您喜愛的檔案與資料夾同步
-\n* 搜尋您伺服器上所有的資料夾
-\n* 自動上傳您裝置拍攝的照片與影片
-\n* 以通知訊息保持更新
-\n* 多帳號支援
-\n* 使用指紋或 PIN 碼安全存取您的資料
-\n* 與 DAVx5 整合（先前稱為 DAVdroid），可輕鬆設定行事曆與聯絡人同步
-\n
-\n請前往 https://github.com/nextcloud/android/issues 回報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式
-\n
-\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、分享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司為您處理。如此，您可以完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。
-\n
-\n請造訪 https://nextcloud.com 了解更多資訊</string>
-    <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。
-\n這是官方的開發版本，每天都會提供任何未經測試的新功能的每日成品，它可能造成不穩定或資料遺失。此應用程式適合願意測試，且回報所遇到問題的使用者。不要將它用於您的生產力工作環境！
-\n
-\nF-Droid 同時提供了官方的開發版本與一般版本，兩者可同時安裝。</string>
+    <string name="store_full_desc">可自架且始終讓您掌控一切的生產力平台。\n\n功能：\n* 簡潔、現代的使用者介面，適合您伺服器的佈景主題\n* 上傳檔案到您的 Nextcloud 伺服器\n* 與其他人分享檔案\n* 讓您喜愛的檔案與資料夾同步\n* 搜尋您伺服器上所有的資料夾\n* 自動上傳您裝置拍攝的照片與影片\n* 以通知訊息保持更新\n* 多帳號支援\n* 使用指紋或 PIN 碼安全存取您的資料\n* 與 DAVx5 整合（先前稱為 DAVdroid），可輕鬆設定行事曆與聯絡人同步\n\n請前往 https://github.com/nextcloud/android/issues 回報所有問題，並於 https://help.nextcloud.com/c/clients/android 討論此應用程式\n\n您是 Nextcloud 新手嗎？Nextcloud 是一個私人的檔案同步、分享與通訊的伺服器。它是自由軟體，您可以自行架設，或是付費請專業公司為您處理。如此，您可以完全掌控您的照片、行事曆與聯絡人資料、您的文件與其他任何東西。\n\n請造訪 https://nextcloud.com 了解更多資訊</string>
+    <string name="store_full_dev_desc">可自架且始終讓您掌控一切的生產力平台。\n這是官方的開發版本，每天都會提供任何未經測試的新功能的每日成品，它可能造成不穩定或資料遺失。此應用程式適合願意測試，且回報所遇到問題的使用者。不要將它用於您的生產力工作環境！\n\nF-Droid 同時提供了官方的開發版本與一般版本，兩者可同時安裝。</string>
     <string name="store_short_desc">讓您能完全掌控、可自架的生產力平台</string>
     <string name="store_short_dev_desc">讓您能完全掌控、可自架的生產力平台（開發者預覽版）</string>
     <string name="stream">串流播放…</string>
@@ -917,11 +892,7 @@
     <string name="sync_fail_ticker_unauthorized">同步失敗，請重新登入</string>
     <string name="sync_file_nothing_to_do_msg">檔案內容已經同步</string>
     <string name="sync_folder_failed_content">無法完成資料夾 %1$s 的同步作業</string>
-    <string name="sync_foreign_files_forgotten_explanation">從版本 1.3.16 開始，此裝置上傳的檔案將複製到本機 %1$s 資料夾中，以防止單一檔案與多個帳號同步時遺失資料。
-\n
-\n由於此變更，使用此應用程式的早期版本上傳的所有檔案，都被複製到 %2$s 資料夾中。但是，帳號同步期間發生錯誤，導致此項操作無法完成。您可以保留檔案原樣並刪除到 %3$s 的連結，或者將檔案移至 %1$s 資料夾並保留到 %4$s 的連結。
-\n
-\n下面列出了本機檔案，以及它們連結的 %5$s 中的遠端檔案。</string>
+    <string name="sync_foreign_files_forgotten_explanation">從版本 1.3.16 開始，此裝置上傳的檔案將複製到本機 %1$s 資料夾中，以防止單一檔案與多個帳號同步時遺失資料。\n\n由於此變更，使用此應用程式的早期版本上傳的所有檔案，都被複製到 %2$s 資料夾中。但是，帳號同步期間發生錯誤，導致此項操作無法完成。您可以保留檔案原樣並刪除到 %3$s 的連結，或者將檔案移至 %1$s 資料夾並保留到 %4$s 的連結。\n\n下面列出了本機檔案，以及它們連結的 %5$s 中的遠端檔案。</string>
     <string name="sync_foreign_files_forgotten_ticker">有些本機檔案已遺忘</string>
     <string name="sync_in_progress">擷取檔案最近的版本。</string>
     <string name="sync_not_enough_space_dialog_action_choose">選擇同步項目</string>
@@ -932,9 +903,7 @@
     <string name="sync_string_files">檔案</string>
     <string name="synced_folder_settings_button">設定按鈕</string>
     <string name="synced_folders_configure_folders">設定資料夾</string>
-    <string name="synced_folders_new_info">即時上傳已經完全改版。請在主選單中重新設定自動上傳。
-\n
-\n享受全新且強大的自動上傳吧。</string>
+    <string name="synced_folders_new_info">即時上傳已經完全改版。請在主選單中重新設定自動上傳。\n\n享受全新且強大的自動上傳吧。</string>
     <string name="synced_folders_no_results">找不到媒體資料夾</string>
     <string name="synced_folders_preferences_folder_path">給 %1$s</string>
     <string name="synced_folders_type">類型</string>
