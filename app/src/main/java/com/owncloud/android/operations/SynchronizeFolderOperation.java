@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -129,7 +130,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (result.isSuccess()) {
                 if (mRemoteFolderChanged) {
                     result = fetchAndSyncRemoteFolder(client);
-
                 } else {
                     prepareOpsFromLocalKnowledge();
                 }
@@ -419,7 +419,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (!child.isFolder()) {
                 if (!child.isDown()) {
                     mFilesForDirectDownload.add(child);
-
                 } else {
                     /// this should result in direct upload of files that were locally modified
                     SynchronizeFileOperation operation = new SynchronizeFileOperation(
@@ -431,7 +430,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         getStorageManager()
                     );
                     mFilesToSyncContents.add(operation);
-
                 }
             }
         }
@@ -442,9 +440,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
         startContentSynchronizations(mFilesToSyncContents);
     }
 
-
     private void startDirectDownloads() {
-        FileDownloadHelper.Companion.instance().downloadFile(user, mLocalFolder);
+        mFilesForDirectDownload.forEach(file -> FileDownloadHelper.Companion.instance().downloadFile(user, file));
     }
 
     /**
