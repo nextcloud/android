@@ -13,7 +13,9 @@
     <string name="action_send_share">Envia/Comparteix</string>
     <string name="action_switch_grid_view">Vista de graella</string>
     <string name="action_switch_list_view">Vista de llista</string>
+    <string name="actionbar_calendar_contacts_restore">Restaura els contactes i el calendari</string>
     <string name="actionbar_mkdir">Crea una carpeta</string>
+    <string name="actionbar_move_or_copy">Mou o copia</string>
     <string name="actionbar_open_with">Obre amb</string>
     <string name="actionbar_search">Cerca</string>
     <string name="actionbar_see_details">Detalls</string>
