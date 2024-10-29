@@ -40,16 +40,16 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
 
     private fun setupTwoWaySyncInterval() {
         val durations = listOf(
-            15.minutes to getString(R.string.two_way_sync_interval_15_min),
-            30.minutes to getString(R.string.two_way_sync_interval_30_min),
-            45.minutes to getString(R.string.two_way_sync_interval_45_min),
-            1.hours to getString(R.string.two_way_sync_interval_1_hour),
-            2.hours to getString(R.string.two_way_sync_interval_2_hours),
-            4.hours to getString(R.string.two_way_sync_interval_4_hours),
-            6.hours to getString(R.string.two_way_sync_interval_6_hours),
-            8.hours to getString(R.string.two_way_sync_interval_8_hours),
-            12.hours to getString(R.string.two_way_sync_interval_12_hours),
-            24.hours to getString(R.string.two_way_sync_interval_24_hours)
+            15.minutes to getString(R.string.two_way_sync_interval_minutes, "15"),
+            30.minutes to getString(R.string.two_way_sync_interval_minutes, "30"),
+            45.minutes to getString(R.string.two_way_sync_interval_minutes, "45"),
+            1.hours to getString(R.string.two_way_sync_interval_hour, "1"),
+            2.hours to getString(R.string.two_way_sync_interval_hours, "2"),
+            4.hours to getString(R.string.two_way_sync_interval_hours, "4"),
+            6.hours to getString(R.string.two_way_sync_interval_hours, "6"),
+            8.hours to getString(R.string.two_way_sync_interval_hours, "8"),
+            12.hours to getString(R.string.two_way_sync_interval_hours, "12"),
+            24.hours to getString(R.string.two_way_sync_interval_hours, "24")
         )
         val selectedDuration = durations.find { it.first.inWholeMinutes == preferences.twoWaySyncInterval }
 
@@ -61,7 +61,7 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
 
         binding.twoWaySyncInterval.run {
             setAdapter(adapter)
-            setText(selectedDuration?.second ?: getString(R.string.two_way_sync_interval_15_min), false)
+            setText(selectedDuration?.second ?: getString(R.string.two_way_sync_interval_minutes, "15"), false)
             setOnItemClickListener { _, _, position, _ ->
                 handleDurationSelected(durations[position].first.inWholeMinutes)
             }
