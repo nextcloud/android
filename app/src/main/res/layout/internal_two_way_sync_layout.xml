@@ -12,30 +12,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_gravity="center"
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/twoWaySyncToggle"
+        android:text="@string/prefs_two_way_sync_switch_title"
+        android:textSize="@dimen/txt_size_16sp"
+        android:minHeight="48dp"
+        android:layout_marginHorizontal="@dimen/standard_half_padding"
         android:layout_marginTop="@dimen/alternate_margin"
         android:layout_marginBottom="@dimen/alternate_margin"
-        android:layout_marginHorizontal="@dimen/standard_half_padding"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <com.google.android.material.textview.MaterialTextView
-            android:text="@string/prefs_two_way_sync_switch_title"
-            android:textSize="@dimen/txt_size_16sp"
-            android:layout_weight="9"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
-
-        <com.google.android.material.materialswitch.MaterialSwitch
-            android:id="@+id/twoWaySyncToggle"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
+        android:layout_height="wrap_content" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/two_way_sync_interval_layout"
