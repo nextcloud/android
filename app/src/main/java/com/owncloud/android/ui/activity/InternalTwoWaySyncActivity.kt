@@ -79,6 +79,12 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
             preferences.setTwoWaySyncStatus(isChecked)
             setupList()
             setVisibilities()
+
+            if (isChecked) {
+                backgroundJobManager.scheduleInternal2WaySync(preferences.twoWaySyncInterval)
+            } else {
+                backgroundJobManager.cancelInternal2WaySyncJob()
+            }
         }
     }
 

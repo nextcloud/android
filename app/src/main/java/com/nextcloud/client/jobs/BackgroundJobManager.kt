@@ -171,4 +171,5 @@ interface BackgroundJobManager {
     fun startOfflineOperations()
     fun startPeriodicallyOfflineOperation()
     fun scheduleInternal2WaySync(intervalMinutes: Long)
+    fun cancelInternal2WaySyncJob()
 }
