@@ -130,6 +130,8 @@ interface BackgroundJobManager {
         changedFiles: Array<String> = arrayOf<String>()
     )
 
+    fun cancelTwoWaySyncJob()
+
     fun scheduleOfflineSync()
 
     fun scheduleMediaFoldersDetectionJob()
