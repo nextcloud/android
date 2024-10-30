@@ -96,6 +96,9 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
      */
     private fun removeAllFolders() {
         CoroutineScope(Dispatchers.Main).launch {
+            // cancel main worker
+            backgroundJobManager.cancelTwoWaySyncJob(user.get())
+
             val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user.get())
             folders.forEach { folder ->
                 // update database to ignore folder

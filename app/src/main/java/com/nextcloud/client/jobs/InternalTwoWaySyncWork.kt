@@ -29,6 +29,8 @@ class InternalTwoWaySyncWork(
     private val powerManagementService: PowerManagementService,
     private val connectivityService: ConnectivityService
 ) : Worker(context, params) {
+    private var shouldRun = true
+
     override fun doWork(): Result {
         Log_OC.d(TAG, "Worker started!")
 
@@ -50,6 +52,11 @@ class InternalTwoWaySyncWork(
             val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user)
 
             for (folder in folders) {
+                if (!shouldRun) {
+                    Log_OC.d(TAG, "Worker was stopped!")
+                    return Result.failure()
+                }
+
                 checkFreeSpace(folder)?.let { checkFreeSpaceResult ->
                     return checkFreeSpaceResult
                 }
@@ -88,6 +95,12 @@ class InternalTwoWaySyncWork(
             Log_OC.d(TAG, "Worker finished with failure!")
             Result.failure()
         }
+    }
+
+    override fun onStopped() {
+        Log_OC.d(TAG, "OnStopped of worker called!")
+        shouldRun = false
+        super.onStopped()
     }
 
     @Suppress("TooGenericExceptionCaught")
