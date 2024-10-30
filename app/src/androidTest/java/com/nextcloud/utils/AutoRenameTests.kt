@@ -26,7 +26,16 @@ class AutoRenameTests : AbstractOnServerIT() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
         capability = capability.apply {
-            forbiddenFilenameExtensionJson = """[" ",".",".part",".part"]"""
+            forbiddenFilenameExtensionJson = listOf(
+                """[" ",".",".part",".part"]""",
+                """[".",".part",".part"," "]""",
+                """[".",".part"," ", ".part"]""",
+                """[".part"," ", ".part","."]""",
+                """[" ",".",".PART",".PART"]""",
+                """[".",".PART",".PART"," "]""",
+                """[".",".PART"," ", ".PART"]""",
+                """[".PART"," ", ".PART","."]"""
+            ).random()
             forbiddenFilenameCharactersJson = """["<", ">", ":", "\\\\", "/", "|", "?", "*", "&"]"""
         }
     }

@@ -28,40 +28,48 @@ object AutoRename {
         val pathSegments = filename.split(OCFile.PATH_SEPARATOR).toMutableList()
 
         capability.run {
-            forbiddenFilenameCharactersJson?.let {
+            if (forbiddenFilenameCharactersJson != null) {
                 var forbiddenFilenameCharacters = capability.forbiddenFilenameCharacters()
+
                 if (isFolderPath) {
                     forbiddenFilenameCharacters = forbiddenFilenameCharacters.filter { it != OCFile.PATH_SEPARATOR }
                 }
 
                 pathSegments.replaceAll { segment ->
                     var modifiedSegment = segment
+
                     forbiddenFilenameCharacters.forEach { forbiddenChar ->
                         if (modifiedSegment.contains(forbiddenChar)) {
                             modifiedSegment = modifiedSegment.replace(forbiddenChar, REPLACEMENT)
                         }
                     }
+
                     modifiedSegment
                 }
             }
 
-            forbiddenFilenameExtensionJson?.let {
-                forbiddenFilenameExtensions().forEach { forbiddenExtension ->
+            if (forbiddenFilenameExtensionJson != null) {
+                val forbiddenFilenameExtensions = forbiddenFilenameExtensions()
+
+                forbiddenFilenameExtensions.find { it == StringConstants.SPACE }?.let {
                     pathSegments.replaceAll { segment ->
-                        var modifiedSegment = segment
-                        if (forbiddenExtension == StringConstants.SPACE) {
-                            modifiedSegment = modifiedSegment.trim()
-                        }
-
-                        if (modifiedSegment.endsWith(forbiddenExtension, ignoreCase = true) ||
-                            modifiedSegment.startsWith(forbiddenExtension, ignoreCase = true)
-                        ) {
-                            modifiedSegment = modifiedSegment.replace(forbiddenExtension, REPLACEMENT)
-                        }
-
-                        modifiedSegment
+                        segment.trim()
                     }
                 }
+
+                forbiddenFilenameExtensions.find { it == StringConstants.DOT }?.let { forbiddenExtension ->
+                    pathSegments.replaceAll { segment ->
+                        replacePathSegment(forbiddenExtension, segment)
+                    }
+                }
+
+                forbiddenFilenameExtensions
+                    .filter { it != StringConstants.SPACE && it != StringConstants.DOT }
+                    .forEach { forbiddenExtension ->
+                        pathSegments.replaceAll { segment ->
+                            replacePathSegment(forbiddenExtension, segment)
+                        }
+                    }
             }
         }
 
@@ -71,6 +79,16 @@ object AutoRename {
             removeNonPrintableUnicodeCharacters(utf8Result)
         } else {
             result
+        }
+    }
+
+    private fun replacePathSegment(forbiddenExtension: String, segment: String): String {
+        return if (segment.endsWith(forbiddenExtension, ignoreCase = true) ||
+            segment.startsWith(forbiddenExtension, ignoreCase = true)
+        ) {
+            segment.replace(forbiddenExtension, REPLACEMENT)
+        } else {
+            segment
         }
     }
 
