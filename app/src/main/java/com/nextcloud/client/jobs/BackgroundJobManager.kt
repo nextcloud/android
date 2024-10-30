@@ -130,6 +130,11 @@ interface BackgroundJobManager {
         changedFiles: Array<String> = arrayOf<String>()
     )
 
+    /**
+     * Cancel two-way sync. Existing tasks might finish, but no new invocations will occur.
+     */
+    fun cancelTwoWaySyncJob(user: User)
+
     fun scheduleOfflineSync()
 
     fun scheduleMediaFoldersDetectionJob()
