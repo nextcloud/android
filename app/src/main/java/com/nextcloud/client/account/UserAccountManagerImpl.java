@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -19,8 +19,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.AccountExtensionsKt;
+import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -397,6 +399,10 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     @Override
     public void startAccountCreation(final Activity activity) {
+
+        // skipping AuthenticatorActivity redirection when user is on Launcher or FirstRun Activity
+        if (activity instanceof LauncherActivity || activity instanceof FirstRunActivity) return;
+
         Intent intent = new Intent(context, AuthenticatorActivity.class);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

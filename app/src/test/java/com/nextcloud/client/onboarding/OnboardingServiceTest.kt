@@ -2,13 +2,15 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.onboarding
 
-import android.accounts.Account
 import android.content.res.Resources
+import com.nextcloud.client.account.AnonymousUser
 import com.nextcloud.client.account.CurrentAccountProvider
+import com.nextcloud.client.account.User
 import com.nextcloud.client.preferences.AppPreferences
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
@@ -30,7 +32,7 @@ class OnboardingServiceTest {
     private lateinit var currentAccountProvider: CurrentAccountProvider
 
     @Mock
-    private lateinit var account: Account
+    private lateinit var user: User
 
     private lateinit var onboardingService: OnboardingServiceImpl
 
@@ -43,13 +45,16 @@ class OnboardingServiceTest {
     @Test
     fun `first run flag toggles with current current account`() {
         // GIVEN
-        //      current account is not set
+        //      current account is anonymous
+        whenever(currentAccountProvider.user).thenReturn(AnonymousUser("dummy"))
+
+        // THEN
         //      first run flag is true
         assertTrue(onboardingService.isFirstRun)
 
         // WHEN
         //      current account is set
-        whenever(currentAccountProvider.currentAccount).thenReturn(account)
+        whenever(currentAccountProvider.user).thenReturn(user)
 
         // THEN
         //      first run flag toggles

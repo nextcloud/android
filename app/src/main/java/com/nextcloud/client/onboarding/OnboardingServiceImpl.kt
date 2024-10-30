@@ -2,6 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
+ * SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.nextcloud.client.onboarding
@@ -42,7 +43,7 @@ internal class OnboardingServiceImpl constructor(
 
     override val isFirstRun: Boolean
         get() {
-            return accountProvider.currentAccount == null
+            return accountProvider.user.isAnonymous
         }
 
     override fun shouldShowWhatsNew(callingContext: Context): Boolean {
