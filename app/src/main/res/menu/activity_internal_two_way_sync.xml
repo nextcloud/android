@@ -10,8 +10,8 @@
 
     <item
         android:id="@+id/action_dismiss_two_way_sync"
-        android:contentDescription="@string/action_dismiss_two_way_sync"
+        android:contentDescription="@string/two_way_sync_activity_disable_all_button_title"
         android:orderInCategory="1"
-        android:title="@string/action_dismiss_two_way_sync"
+        android:title="@string/two_way_sync_activity_disable_all_button_title"
         app:showAsAction="never" />
 </menu>
