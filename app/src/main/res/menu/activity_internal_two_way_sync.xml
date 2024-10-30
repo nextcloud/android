@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2024 ZetaTom
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_dismiss_two_way_sync"
+        android:contentDescription="@string/two_way_sync_activity_disable_all_button_title"
+        android:orderInCategory="1"
+        android:title="@string/two_way_sync_activity_disable_all_button_title"
+        app:showAsAction="never" />
+</menu>
