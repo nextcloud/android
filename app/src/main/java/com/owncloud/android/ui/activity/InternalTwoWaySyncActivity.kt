@@ -207,7 +207,9 @@ class InternalTwoWaySyncActivity :
                 fileDataStorageManager.getInternalTwoWaySyncFolders(user.get()).size
             }
 
-            checkDisableForAllFoldersMenuButtonVisibility(preferences.isTwoWaySyncEnabled, folderSize)
+            launch(Dispatchers.Main) {
+                checkDisableForAllFoldersMenuButtonVisibility(preferences.isTwoWaySyncEnabled, folderSize)
+            }
         }
     }
 
