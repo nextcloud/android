@@ -9,145 +9,133 @@
   ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-    android:key="preference_screen">
+				  android:key="preference_screen">
     <PreferenceCategory
-        android:key="general"
-        android:title="@string/prefs_category_general">
+        android:title="@string/prefs_category_general"
+        android:key="general">
         <ListPreference
-            android:key="storage_path"
-            android:title="@string/prefs_storage_path" />
+            android:title="@string/prefs_storage_path"
+            android:key="storage_path"/>
         <ListPreference
+            android:title="@string/prefs_theme_title"
             android:key="darkMode"
-            android:summary="%s"
-            android:title="@string/prefs_theme_title" />
-    </PreferenceCategory>
-    <PreferenceCategory
-        android:key="synced_folders_category"
-        android:title="@string/drawer_synced_folders">
-        <com.owncloud.android.ui.ThemeableSwitchPreference
-            android:key="synced_folder_on_wifi"
-            android:title="@string/auto_upload_on_wifi" />
+            android:summary="%s" />
+	</PreferenceCategory>
+	<PreferenceCategory
+		android:title="@string/drawer_synced_folders"
+		android:key="synced_folders_category">
+		<com.owncloud.android.ui.ThemeableSwitchPreference
+			android:title="@string/auto_upload_on_wifi"
+			android:key="synced_folder_on_wifi"/>
         <Preference
-            android:id="@+id/synced_folders_configure_folders"
-            android:key="synced_folders_configure_folders"
-            android:title="@string/synced_folders_configure_folders" />
-    </PreferenceCategory>
+			android:title="@string/synced_folders_configure_folders"
+			android:id="@+id/synced_folders_configure_folders"
+			android:key="synced_folders_configure_folders"/>
+	</PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="details"
-        android:title="@string/prefs_category_details">
-        <ListPreference
-            android:defaultValue="none"
-            android:dialogTitle="@string/prefs_lock_title"
-            android:key="lock"
-            android:title="@string/prefs_lock" />
-        <com.owncloud.android.ui.ThemeableSwitchPreference
-            android:key="show_hidden_files"
-            android:title="@string/prefs_show_hidden_files" />
+	<PreferenceCategory android:title="@string/prefs_category_details" android:key="details">
+		<ListPreference
+			android:title="@string/prefs_lock"
+			android:key="lock"
+			android:dialogTitle="@string/prefs_lock_title"
+			android:defaultValue="none"/>
+		<com.owncloud.android.ui.ThemeableSwitchPreference
+			android:title="@string/prefs_show_hidden_files"
+			android:key="show_hidden_files"/>
         <com.owncloud.android.ui.ThemeableSwitchPreference
             android:defaultValue="true"
+            android:title="@string/prefs_show_ecosystem_apps"
             android:key="show_ecosystem_apps"
-            android:summary="@string/prefs_show_ecosystem_apps_summary"
-            android:title="@string/prefs_show_ecosystem_apps" />
+            android:summary="@string/prefs_show_ecosystem_apps_summary"/>
         <com.owncloud.android.ui.ThemeableSwitchPreference
-            android:key="show_media_scan_notifications"
+            android:title="@string/prefs_enable_media_scan_notifications"
             android:summary="@string/prefs_enable_media_scan_notifications_summary"
-            android:title="@string/prefs_enable_media_scan_notifications" />
-    </PreferenceCategory>
+            android:key="show_media_scan_notifications"/>
+	</PreferenceCategory>
 
     <PreferenceCategory
-        android:key="sync"
-        android:title="@string/prefs_category_sync">
-        <Preference
-            android:key="syncedFolders"
-            android:summary="@string/prefs_sycned_folders_summary"
-            android:title="@string/drawer_synced_folders" />
+        android:title="@string/prefs_category_sync"
+        android:key="sync">
+    <Preference
+        android:title="@string/drawer_synced_folders"
+        android:key="syncedFolders"
+        android:summary="@string/prefs_sycned_folders_summary" />
 
         <Preference
+            android:title="@string/internal_two_way_sync"
             android:key="internal_two_way_sync"
-            android:summary="@string/prefs_two_way_sync_summary"
-            android:title="@string/internal_two_way_sync" />
+            android:summary="@string/prefs_two_way_sync_summary" />
     </PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="more"
-        android:title="@string/prefs_category_more">
+	<PreferenceCategory
+        android:title="@string/prefs_category_more"
+        android:key="more">
         <Preference
+            android:title="@string/prefs_calendar_contacts"
             android:key="calendar_contacts"
-            android:summary="@string/prefs_calendar_contacts_summary"
-            android:title="@string/prefs_calendar_contacts" />
+            android:summary="@string/prefs_calendar_contacts_summary" />
         <Preference
+            android:title="@string/backup_title"
             android:key="backup"
-            android:summary="@string/prefs_daily_backup_summary"
-            android:title="@string/backup_title" />
+            android:summary="@string/prefs_daily_backup_summary" />
         <Preference
+            android:title="@string/prefs_setup_e2e"
             android:key="setup_e2e"
-            android:summary="@string/setup_e2e"
-            android:title="@string/prefs_setup_e2e" />
+            android:summary="@string/setup_e2e" />
         <Preference
+            android:title="@string/prefs_keys_exist"
             android:key="setup_e2e_keys_exist"
-            android:summary="End to end encryption was already set up on another client. Please enter your mnemonic to allow this client to sync and decrypt the files."
-            android:title="@string/prefs_keys_exist" />
+            android:summary="End to end encryption was already set up on another client. Please enter your mnemonic to allow this client to sync and decrypt the files." />
         <Preference
+            android:title="@string/prefs_e2e_active"
             android:key="mnemonic"
-            android:summary="@string/displays_mnemonic"
-            android:title="@string/prefs_e2e_active" />
+            android:summary="@string/displays_mnemonic" />
         <Preference
+            android:title="@string/prefs_remove_e2e"
             android:key="remove_e2e"
-            android:summary="@string/remove_e2e"
-            android:title="@string/prefs_remove_e2e" />
+            android:summary="@string/remove_e2e" />
 
         <Preference
-            android:key="help"
-            android:title="@string/prefs_help" />
+            android:title="@string/prefs_help"
+            android:key="help" />
         <Preference
-            android:key="recommend"
-            android:title="@string/prefs_recommend" />
+            android:title="@string/prefs_recommend"
+            android:key="recommend" />
         <Preference
-            android:key="logger"
-            android:title="@string/logs_title" />
+            android:title="@string/logs_title"
+            android:key="logger" />
         <Preference
-            android:key="imprint"
-            android:title="@string/prefs_imprint" />
+            android:title="@string/prefs_imprint"
+            android:key="imprint" />
     </PreferenceCategory>
-    <PreferenceCategory
-        android:key="about"
-        android:title="@string/prefs_category_about">
-        <Preference
-            android:id="@+id/privacy"
-            android:key="privacy"
-            android:title="@string/privacy" />
-        <Preference
-            android:id="@+id/sourcecode"
-            android:key="sourcecode"
-            android:title="@string/prefs_sourcecode" />
-        <Preference
-            android:id="@+id/license"
-            android:key="license"
-            android:title="@string/prefs_license" />
-        <Preference
-            android:id="@+id/about_app"
-            android:key="about_app"
-            android:title="@string/about_title" />
-    </PreferenceCategory>
+	<PreferenceCategory android:title="@string/prefs_category_about" android:key="about">
+		<Preference
+			android:title="@string/privacy"
+			android:id="@+id/privacy"
+			android:key="privacy"/>
+		<Preference
+			android:title="@string/prefs_sourcecode"
+			android:id="@+id/sourcecode"
+			android:key="sourcecode"/>
+		<Preference
+			android:title="@string/prefs_license"
+			android:id="@+id/license"
+			android:key="license"/>
+		<Preference android:title="@string/about_title" android:id="@+id/about_app" android:key="about_app" />
+	</PreferenceCategory>
 
-    <PreferenceCategory
-        android:key="dev_category"
-        android:title="@string/prefs_category_dev">
-        <Preference
-            android:id="@+id/dev_link"
-            android:key="dev_link"
-            android:title="@string/download_latest_dev_version" />
+	<PreferenceCategory android:title="@string/prefs_category_dev" android:key="dev_category">
+		<Preference android:id="@+id/dev_link"
+            android:title="@string/download_latest_dev_version"
+					android:key="dev_link" />
 
-        <Preference
-            android:id="@+id/changelog_link"
-            android:key="changelog_link"
-            android:title="@string/changelog_dev_version" />
+		<Preference android:id="@+id/changelog_link"
+            android:title="@string/changelog_dev_version"
+					android:key="changelog_link" />
 
-        <Preference
-            android:id="@+id/etm"
-            android:key="etm"
-            android:title="@string/etm_title" />
-    </PreferenceCategory>
+        <Preference android:id="@+id/etm"
+                    android:title="@string/etm_title"
+                    android:key="etm" />
+	</PreferenceCategory>
 
 </PreferenceScreen>
