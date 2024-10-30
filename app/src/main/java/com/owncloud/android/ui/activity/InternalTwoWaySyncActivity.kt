@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
@@ -101,6 +102,10 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
 
             val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user.get())
             folders.forEach { folder ->
+                // cancel download operation
+                FileDownloadWorker.cancelOperation(user.get().accountName, folder.fileId)
+                backgroundJobManager.cancelFilesDownloadJob(user.get(), folder.fileId)
+
                 // update database to ignore folder
                 folder.internalFolderSyncTimestamp = -1L
                 fileDataStorageManager.saveFile(folder)
