@@ -663,4 +663,8 @@ internal class BackgroundJobManagerImpl(
 
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
+
+    override fun cancelInternal2WaySyncJob() {
+        workManager.cancelJob(JOB_INTERNAL_TWO_WAY_SYNC)
+    }
 }
