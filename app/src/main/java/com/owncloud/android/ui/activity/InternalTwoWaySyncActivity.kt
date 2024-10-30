@@ -24,6 +24,7 @@ import com.nextcloud.utils.extensions.minPlural
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
+import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,6 +37,8 @@ class InternalTwoWaySyncActivity :
     DrawerActivity(),
     Injectable,
     InternalTwoWaySyncAdapter.InternalTwoWaySyncAdapterOnUpdate {
+    private val tag = "InternalTwoWaySyncActivity"
+
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager
 
@@ -105,21 +108,28 @@ class InternalTwoWaySyncActivity :
         }
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun disableTwoWaySyncAndWorkers() {
         lifecycleScope.launch(Dispatchers.IO) {
-            backgroundJobManager.cancelTwoWaySyncJob()
+            try {
+                backgroundJobManager.cancelTwoWaySyncJob()
 
-            val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user.get())
-            folders.forEach { folder ->
-                FileDownloadWorker.cancelOperation(user.get().accountName, folder.fileId)
-                backgroundJobManager.cancelFilesDownloadJob(user.get(), folder.fileId)
+                val currentUser = user.get()
 
-                folder.internalFolderSyncTimestamp = -1L
-                fileDataStorageManager.saveFile(folder)
-            }
+                val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(currentUser)
+                folders.forEach { folder ->
+                    FileDownloadWorker.cancelOperation(currentUser.accountName, folder.fileId)
+                    backgroundJobManager.cancelFilesDownloadJob(currentUser, folder.fileId)
 
-            launch(Dispatchers.Main) {
-                internalTwoWaySyncAdapter.update()
+                    folder.internalFolderSyncTimestamp = -1L
+                    fileDataStorageManager.saveFile(folder)
+                }
+
+                withContext(Dispatchers.Main) {
+                    internalTwoWaySyncAdapter.update()
+                }
+            } catch (e: Exception) {
+                Log_OC.d(tag, "Error caught at disableTwoWaySyncAndWorkers: $e")
             }
         }
     }
@@ -202,14 +212,12 @@ class InternalTwoWaySyncActivity :
     }
 
     private fun checkDisableForAllFoldersMenuButtonVisibility() {
-        lifecycleScope.launch(Dispatchers.Main) {
+        lifecycleScope.launch {
             val folderSize = withContext(Dispatchers.IO) {
                 fileDataStorageManager.getInternalTwoWaySyncFolders(user.get()).size
             }
 
-            launch(Dispatchers.Main) {
-                checkDisableForAllFoldersMenuButtonVisibility(preferences.isTwoWaySyncEnabled, folderSize)
-            }
+            checkDisableForAllFoldersMenuButtonVisibility(preferences.isTwoWaySyncEnabled, folderSize)
         }
     }
 
