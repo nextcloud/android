@@ -455,6 +455,10 @@ internal class BackgroundJobManagerImpl(
         )
     }
 
+    override fun cancelTwoWaySyncJob(user: User) {
+        workManager.cancelJob(JOB_INTERNAL_TWO_WAY_SYNC, user)
+    }
+
     override fun scheduleOfflineSync() {
         val constrains = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.UNMETERED)
