@@ -1251,4 +1251,5 @@
     <string name="internal_two_way_sync_list_empty_headline">Two way sync not set up</string>
     <string name="internal_two_way_sync_text">To set up a two way sync folder, please enable it in the details tab of the folder in question.</string>
     <string name="internal_two_way_sync_headline">Internal two way sync</string>
+    <string name="action_dismiss_two_way_sync">Disable all folders</string>
 </resources>
