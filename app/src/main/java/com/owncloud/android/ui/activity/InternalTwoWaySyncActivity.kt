@@ -94,7 +94,7 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
 
     private fun disableTwoWaySyncAndWorkers() {
         lifecycleScope.launch(Dispatchers.IO) {
-            backgroundJobManager.cancelTwoWaySyncJob(user.get())
+            backgroundJobManager.cancelTwoWaySyncJob()
 
             val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user.get())
             folders.forEach { folder ->
