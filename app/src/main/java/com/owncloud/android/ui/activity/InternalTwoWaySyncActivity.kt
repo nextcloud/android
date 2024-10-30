@@ -10,53 +10,55 @@ package com.owncloud.android.ui.activity
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import androidx.core.view.MenuProvider
-import androidx.lifecycle.lifecycleScope
 import android.widget.ArrayAdapter
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
 import com.nextcloud.client.jobs.download.FileDownloadWorker
-import com.owncloud.android.R
 import com.nextcloud.utils.extensions.hourPlural
 import com.nextcloud.utils.extensions.minPlural
 import com.nextcloud.utils.extensions.setVisibleIf
+import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import kotlin.time.Duration.Companion.hours
 import kotlin.time.Duration.Companion.minutes
 
-class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
+class InternalTwoWaySyncActivity :
+    DrawerActivity(),
+    Injectable,
+    InternalTwoWaySyncAdapter.InternalTwoWaySyncAdapterOnUpdate {
     @Inject
     lateinit var backgroundJobManager: BackgroundJobManager
 
     lateinit var binding: InternalTwoWaySyncLayoutBinding
 
     private lateinit var internalTwoWaySyncAdapter: InternalTwoWaySyncAdapter
+    private var disableForAllFoldersMenuButton: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        internalTwoWaySyncAdapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), this)
+        internalTwoWaySyncAdapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), this, this)
 
         binding = InternalTwoWaySyncLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setupToolbar()
         setupActionBar()
-        setupMenuProvider()
         setupTwoWaySyncAdapter()
         setupEmptyList()
         setupTwoWaySyncToggle()
         setupTwoWaySyncInterval()
-        setVisibilities(preferences.isTwoWaySyncEnabled)
+        checkLayoutVisibilities(preferences.isTwoWaySyncEnabled)
     }
 
     private fun setupActionBar() {
@@ -122,30 +124,6 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
         }
     }
 
-    private fun setupMenuProvider() {
-        addMenuProvider(
-            object : MenuProvider {
-                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                    menuInflater.inflate(R.menu.activity_internal_two_way_sync, menu)
-                }
-
-                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                    return when (menuItem.itemId) {
-                        android.R.id.home -> {
-                            onBackPressed()
-                            true
-                        }
-                        R.id.action_dismiss_two_way_sync -> {
-                            disableTwoWaySyncAndWorkers()
-                            true
-                        }
-                        else -> false
-                    }
-                }
-            }
-        )
-    }
-
     @Suppress("MagicNumber")
     private fun setupTwoWaySyncInterval() {
         val durations = listOf(
@@ -187,7 +165,8 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
         binding.twoWaySyncToggle.setOnCheckedChangeListener { _, isChecked ->
             preferences.setTwoWaySyncStatus(isChecked)
             setupTwoWaySyncAdapter()
-            setVisibilities(isChecked)
+            checkLayoutVisibilities(isChecked)
+            checkDisableForAllFoldersMenuButtonVisibility()
 
             if (isChecked) {
                 backgroundJobManager.scheduleInternal2WaySync(preferences.twoWaySyncInterval)
@@ -197,8 +176,51 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
         }
     }
 
-    private fun setVisibilities(condition: Boolean) {
+    private fun checkLayoutVisibilities(condition: Boolean) {
         binding.listFrameLayout.setVisibleIf(condition)
         binding.twoWaySyncIntervalLayout.setVisibleIf(condition)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_internal_two_way_sync, menu)
+        disableForAllFoldersMenuButton = menu?.findItem(R.id.action_dismiss_two_way_sync)
+        checkDisableForAllFoldersMenuButtonVisibility()
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+            }
+            R.id.action_dismiss_two_way_sync -> {
+                disableTwoWaySyncAndWorkers()
+            }
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun checkDisableForAllFoldersMenuButtonVisibility() {
+        lifecycleScope.launch(Dispatchers.Main) {
+            val folderSize = withContext(Dispatchers.IO) {
+                fileDataStorageManager.getInternalTwoWaySyncFolders(user.get()).size
+            }
+
+            checkDisableForAllFoldersMenuButtonVisibility(preferences.isTwoWaySyncEnabled, folderSize)
+        }
+    }
+
+    private fun checkDisableForAllFoldersMenuButtonVisibility(isTwoWaySyncEnabled: Boolean, folderSize: Int) {
+        val showDisableButton = isTwoWaySyncEnabled && folderSize > 0
+
+        disableForAllFoldersMenuButton?.let {
+            it.setVisible(showDisableButton)
+            it.setEnabled(showDisableButton)
+        }
+    }
+
+    override fun onUpdate(folderSize: Int) {
+        checkDisableForAllFoldersMenuButtonVisibility(preferences.isTwoWaySyncEnabled, folderSize)
     }
 }
