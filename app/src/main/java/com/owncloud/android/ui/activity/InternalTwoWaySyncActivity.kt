@@ -20,12 +20,20 @@ import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
     lateinit var binding: InternalTwoWaySyncLayoutBinding
 
+    private lateinit var internalTwoWaySyncAdapter: InternalTwoWaySyncAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        internalTwoWaySyncAdapter = InternalTwoWaySyncAdapter(fileDataStorageManager, user.get(), this)
 
         binding = InternalTwoWaySyncLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
