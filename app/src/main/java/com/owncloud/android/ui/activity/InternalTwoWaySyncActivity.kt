@@ -14,6 +14,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import androidx.core.view.MenuProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
@@ -22,7 +23,6 @@ import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -51,7 +51,7 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
     }
 
     private fun setupActionBar() {
-        updateActionBarTitleAndHomeButtonByString(getString(R.string.internal_two_way_sync_headline))
+        updateActionBarTitleAndHomeButtonByString(getString(R.string.two_way_sync_activity_title))
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
@@ -71,12 +71,12 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
         binding.emptyList.run {
             emptyListViewHeadline.run {
                 visibility = View.VISIBLE
-                setText(R.string.internal_two_way_sync_list_empty_headline)
+                setText(R.string.two_way_sync_activity_empty_list_title)
             }
 
             emptyListViewText.run {
                 visibility = View.VISIBLE
-                setText(R.string.internal_two_way_sync_text)
+                setText(R.string.two_way_sync_activity_empty_list_desc)
             }
 
             emptyListIcon.run {
@@ -92,27 +92,22 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
         }
     }
 
-    /**
-     * Disable two-way sync for all folders and stop all related workers.
-     */
-    private fun removeAllFolders() {
-        CoroutineScope(Dispatchers.Main).launch {
-            // cancel main worker
+    private fun disableTwoWaySyncAndWorkers() {
+        lifecycleScope.launch(Dispatchers.IO) {
             backgroundJobManager.cancelTwoWaySyncJob(user.get())
 
             val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user.get())
             folders.forEach { folder ->
-                // cancel download operation
                 FileDownloadWorker.cancelOperation(user.get().accountName, folder.fileId)
                 backgroundJobManager.cancelFilesDownloadJob(user.get(), folder.fileId)
 
-                // update database to ignore folder
                 folder.internalFolderSyncTimestamp = -1L
                 fileDataStorageManager.saveFile(folder)
             }
 
-            // update view
-            internalTwoWaySyncAdapter.update()
+            launch(Dispatchers.Main) {
+                internalTwoWaySyncAdapter.update()
+            }
         }
     }
 
@@ -130,7 +125,7 @@ class InternalTwoWaySyncActivity : DrawerActivity(), Injectable {
                             true
                         }
                         R.id.action_dismiss_two_way_sync -> {
-                            removeAllFolders()
+                            disableTwoWaySyncAndWorkers()
                             true
                         }
                         else -> false
