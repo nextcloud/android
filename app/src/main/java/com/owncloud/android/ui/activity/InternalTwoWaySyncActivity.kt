@@ -12,8 +12,9 @@ import android.widget.ArrayAdapter
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.BackgroundJobManager
+import com.nextcloud.utils.extensions.hourPlural
+import com.nextcloud.utils.extensions.minPlural
 import com.nextcloud.utils.extensions.setVisibleIf
-import com.owncloud.android.R
 import com.owncloud.android.databinding.InternalTwoWaySyncLayoutBinding
 import com.owncloud.android.ui.adapter.InternalTwoWaySyncAdapter
 import javax.inject.Inject
@@ -38,18 +39,19 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
         setupList()
     }
 
+    @Suppress("MagicNumber")
     private fun setupTwoWaySyncInterval() {
         val durations = listOf(
-            15.minutes to getString(R.string.two_way_sync_interval_minutes, "15"),
-            30.minutes to getString(R.string.two_way_sync_interval_minutes, "30"),
-            45.minutes to getString(R.string.two_way_sync_interval_minutes, "45"),
-            1.hours to getString(R.string.two_way_sync_interval_hour, "1"),
-            2.hours to getString(R.string.two_way_sync_interval_hours, "2"),
-            4.hours to getString(R.string.two_way_sync_interval_hours, "4"),
-            6.hours to getString(R.string.two_way_sync_interval_hours, "6"),
-            8.hours to getString(R.string.two_way_sync_interval_hours, "8"),
-            12.hours to getString(R.string.two_way_sync_interval_hours, "12"),
-            24.hours to getString(R.string.two_way_sync_interval_hours, "24")
+            15.minutes to minPlural(15),
+            30.minutes to minPlural(30),
+            45.minutes to minPlural(45),
+            1.hours to hourPlural(1),
+            2.hours to hourPlural(2),
+            4.hours to hourPlural(4),
+            6.hours to hourPlural(6),
+            8.hours to hourPlural(8),
+            12.hours to hourPlural(12),
+            24.hours to hourPlural(24)
         )
         val selectedDuration = durations.find { it.first.inWholeMinutes == preferences.twoWaySyncInterval }
 
@@ -61,7 +63,7 @@ class InternalTwoWaySyncActivity : BaseActivity(), Injectable {
 
         binding.twoWaySyncInterval.run {
             setAdapter(adapter)
-            setText(selectedDuration?.second ?: getString(R.string.two_way_sync_interval_minutes, "15"), false)
+            setText(selectedDuration?.second ?: minPlural(15), false)
             setOnItemClickListener { _, _, position, _ ->
                 handleDurationSelected(durations[position].first.inWholeMinutes)
             }
