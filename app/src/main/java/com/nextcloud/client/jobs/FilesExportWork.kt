@@ -58,7 +58,6 @@ class FilesExportWork(
 
     private fun exportFiles(fileIDs: LongArray): Int {
         val fileDownloadHelper = FileDownloadHelper.instance()
-        val fileExportUtil = FileExportUtils()
 
         var successfulExports = 0
         fileIDs
@@ -73,13 +72,7 @@ class FilesExportWork(
 
                 if (ocFile.isDown) {
                     try {
-                        fileExportUtil.exportFile(
-                            ocFile.fileName,
-                            ocFile.mimeType,
-                            contentResolver,
-                            ocFile,
-                            null
-                        )
+                        exportFile(ocFile)
                     } catch (e: IllegalStateException) {
                         Log_OC.e(TAG, "Error exporting file", e)
                         showErrorNotification(successfulExports)
@@ -95,6 +88,17 @@ class FilesExportWork(
                 successfulExports++
             }
         return successfulExports
+    }
+
+    @Throws(IllegalStateException::class)
+    private fun exportFile(ocFile: OCFile) {
+        FileExportUtils().exportFile(
+            ocFile.fileName,
+            ocFile.mimeType,
+            contentResolver,
+            ocFile,
+            null
+        )
     }
 
     private fun showErrorNotification(successfulExports: Int) {
