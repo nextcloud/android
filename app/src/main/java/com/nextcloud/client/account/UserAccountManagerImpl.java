@@ -179,19 +179,20 @@ public class UserAccountManagerImpl implements UserAccountManager {
      */
     @Nullable
     private User createUserFromAccount(@NonNull Account account) {
-        if (AccountExtensionsKt.isAnonymous(account, context)) {
+        Context safeContext = context != null ? context : MainApp.getAppContext();
+        if (safeContext == null) {
+            Log_OC.e(TAG, "Unable to obtain a valid context");
             return null;
         }
 
-        if (context == null) {
-            Log_OC.d(TAG, "Context is null MainApp.getAppContext() used");
-            context = MainApp.getAppContext();
+        if (AccountExtensionsKt.isAnonymous(account, safeContext)) {
+            return null;
         }
 
         OwnCloudAccount ownCloudAccount;
         try {
-            ownCloudAccount = new OwnCloudAccount(account, context);
-        } catch (AccountUtils.AccountNotFoundException ex) {
+            ownCloudAccount = new OwnCloudAccount(account, safeContext);
+        } catch (Exception ex) {
             return null;
         }
 
@@ -211,7 +212,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
          */
         String serverAddressStr = accountManager.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
         if (serverAddressStr == null || serverAddressStr.isEmpty()) {
-            return AnonymousUser.fromContext(context);
+            return AnonymousUser.fromContext(safeContext);
         }
         URI serverUri = URI.create(serverAddressStr); // TODO: validate
 
