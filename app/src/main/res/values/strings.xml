@@ -111,9 +111,22 @@
     <string name="prefs_two_way_sync_switch_title">Enable two way sync</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
 
-    <string name="two_way_sync_interval_minutes">%1$s minutes</string>
-    <string name="two_way_sync_interval_hour">%1$s hour</string>
-    <string name="two_way_sync_interval_hours">%1$s hours</string>
+    <plurals name="hours">
+        <item quantity="zero">%d hours</item>
+        <item quantity="one">%d hour</item>
+        <item quantity="two">%d hours</item>
+        <item quantity="few">%d hours</item>
+        <item quantity="many">%d hours</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="zero">%d minutes</item>
+        <item quantity="one">%d minute</item>
+        <item quantity="two">%d minutes</item>
+        <item quantity="few">%d minutes</item>
+        <item quantity="many">%d minutes</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
 
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>

@@ -784,6 +784,10 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return this.sharedWithSharee;
     }
 
+    public boolean isRootDirectory() {
+        return ROOT_PATH.equals(decryptedRemotePath);
+    }
+
     public boolean isFavorite() {
         return this.favorite;
     }

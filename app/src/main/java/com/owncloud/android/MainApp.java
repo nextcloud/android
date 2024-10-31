@@ -371,7 +371,10 @@ public class MainApp extends Application implements HasAndroidInjector {
             backgroundJobManager.scheduleMediaFoldersDetectionJob();
             backgroundJobManager.startMediaFoldersDetectionJob();
             backgroundJobManager.schedulePeriodicHealthStatus();
-            backgroundJobManager.scheduleInternal2WaySync();
+
+            if (preferences.isTwoWaySyncEnabled()) {
+                backgroundJobManager.scheduleInternal2WaySync(preferences.getTwoWaySyncInterval());
+            }
         }
 
         registerGlobalPassCodeProtection();
