@@ -21,6 +21,8 @@ import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.isEnabled
+import androidx.test.espresso.matcher.ViewMatchers.isRoot
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
@@ -37,11 +39,19 @@ import com.owncloud.android.operations.CreateFolderOperation
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.OCFileListItemViewHolder
 import com.owncloud.android.utils.EspressoIdlingResource
+import org.hamcrest.Matchers.allOf
 import org.junit.After
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import android.view.View
+import androidx.test.espresso.PerformException
+import androidx.test.espresso.UiController
+import androidx.test.espresso.ViewAction
+import androidx.test.espresso.util.HumanReadables
+import org.hamcrest.Matcher
+import java.util.concurrent.TimeoutException
 
 class FileDisplayActivityIT : AbstractOnServerIT() {
 
@@ -57,6 +67,45 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
 
     @get:Rule
     val retryRule = RetryTestRule()
+
+    private fun waitForView(matcher: Matcher<View>, timeout: Long): ViewAction {
+        return object : ViewAction {
+            override fun getConstraints(): Matcher<View> {
+                return isRoot()
+            }
+
+            override fun getDescription(): String {
+                return "wait for a specific view with timeout $timeout millis"
+            }
+
+            override fun perform(uiController: UiController, view: View) {
+                uiController.loopMainThreadUntilIdle()
+                val startTime = System.currentTimeMillis()
+                val endTime = startTime + timeout
+
+                do {
+                    val viewFound = try {
+                        onView(matcher).check { _, _ -> /* view exists */ }
+                        true
+                    } catch (e: Exception) {
+                        false
+                    }
+
+                    if (viewFound) {
+                        return
+                    }
+
+                    uiController.loopMainThreadForAtLeast(50)
+                } while (System.currentTimeMillis() < endTime)
+
+                throw PerformException.Builder()
+                    .withActionDescription(description)
+                    .withViewDescription(HumanReadables.describe(view))
+                    .withCause(TimeoutException())
+                    .build()
+            }
+        }
+    }
 
     @Suppress("DEPRECATION")
     @Test
@@ -168,6 +217,16 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
 
         CreateFolderOperation("/$topFolder/$childFolder/", user, targetContext, storageManager)
             .execute(client)
+
+        onView(isRoot()).perform(waitForView(withText(topFolder), 5000))
+
+        onView(
+            allOf(
+                withText(topFolder),
+                isDisplayed(),
+                isEnabled()
+            )
+        ).perform(click())
 
         EspressoIdlingResource.decrement()
 
