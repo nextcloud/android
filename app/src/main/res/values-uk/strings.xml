@@ -924,6 +924,7 @@
     <string name="unread_comments">Доступні непрочитані коментарі</string>
     <string name="unset_encrypted">Зняти шифрування</string>
     <string name="unset_favorite">Прибрати зірочку</string>
+    <string name="unset_internal_two_way_sync_description">Вилучити каталог із внутрішньої двосторонньої синхронізації</string>
     <string name="unshare_link_file_error">Помилка під час закриття спільного доступу до файлу чи каталогу.</string>
     <string name="unshare_link_file_no_exist">Неможливо закрити спільний доступ. Будь ласка, перевірте, чи файл існує.</string>
     <string name="unshare_link_forbidden_permissions">для закриття доступу до файла</string>
