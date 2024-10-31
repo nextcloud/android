@@ -5,7 +5,8 @@
   ~ SPDX-FileCopyrightText: 2024 Tobias Kaminsky <tobias@kaminsky.me>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
@@ -20,15 +21,52 @@
 
         <include layout="@layout/toolbar_standard" />
 
-        <com.owncloud.android.ui.EmptyRecyclerView
-            android:id="@+id/list"
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/twoWaySyncToggle"
+            android:text="@string/prefs_two_way_sync_switch_title"
+            android:textSize="@dimen/txt_size_16sp"
+            android:minHeight="48dp"
+            android:layout_marginHorizontal="@dimen/standard_half_padding"
+            android:layout_marginTop="@dimen/alternate_margin"
+            android:layout_marginBottom="@dimen/alternate_margin"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:layout_height="wrap_content" />
 
-        <include
-            android:id="@+id/empty_list"
-            layout="@layout/empty_list" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/two_way_sync_interval_layout"
+            android:layout_marginHorizontal="@dimen/standard_half_padding"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/alternate_margin"
+            android:hint="@string/prefs_two_way_sync_interval">
+
+            <AutoCompleteTextView
+                android:id="@+id/two_way_sync_interval"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                tools:ignore="LabelFor" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <FrameLayout
+            android:id="@+id/list_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.owncloud.android.ui.EmptyRecyclerView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" />
+
+            <include
+                android:id="@+id/empty_list"
+                layout="@layout/empty_list" />
+
+        </FrameLayout>
 
     </LinearLayout>
+
 </androidx.drawerlayout.widget.DrawerLayout>

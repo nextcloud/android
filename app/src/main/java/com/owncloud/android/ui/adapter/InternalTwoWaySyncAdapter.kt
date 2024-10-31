@@ -20,8 +20,14 @@ import com.owncloud.android.datamodel.OCFile
 class InternalTwoWaySyncAdapter(
     private val dataStorageManager: FileDataStorageManager,
     private val user: User,
-    val context: Context
+    val context: Context,
+    private val onUpdateListener: InternalTwoWaySyncAdapterOnUpdate
 ) : RecyclerView.Adapter<InternalTwoWaySyncViewHolder>() {
+
+    interface InternalTwoWaySyncAdapterOnUpdate {
+        fun onUpdate(folderSize: Int)
+    }
+
     var folders: List<OCFile> = dataStorageManager.getInternalTwoWaySyncFolders(user)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InternalTwoWaySyncViewHolder {
@@ -46,5 +52,6 @@ class InternalTwoWaySyncAdapter(
     fun update() {
         folders = dataStorageManager.getInternalTwoWaySyncFolders(user)
         notifyDataSetChanged()
+        onUpdateListener.onUpdate(folders.size)
     }
 }

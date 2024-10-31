@@ -13,6 +13,7 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -21,13 +22,14 @@ import com.owncloud.android.operations.SynchronizeFolderOperation
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
 
-@Suppress("Detekt.NestedBlockDepth", "ReturnCount")
+@Suppress("Detekt.NestedBlockDepth", "ReturnCount", "LongParameterList")
 class InternalTwoWaySyncWork(
     private val context: Context,
     params: WorkerParameters,
     private val userAccountManager: UserAccountManager,
     private val powerManagementService: PowerManagementService,
-    private val connectivityService: ConnectivityService
+    private val connectivityService: ConnectivityService,
+    private val appPreferences: AppPreferences
 ) : Worker(context, params) {
     private var shouldRun = true
 
@@ -36,7 +38,9 @@ class InternalTwoWaySyncWork(
 
         var result = true
 
-        if (powerManagementService.isPowerSavingEnabled ||
+        @Suppress("ComplexCondition")
+        if (!appPreferences.isTwoWaySyncEnabled ||
+            powerManagementService.isPowerSavingEnabled ||
             !connectivityService.isConnected ||
             connectivityService.isInternetWalled ||
             !connectivityService.connectivity.isWifi
@@ -59,13 +63,6 @@ class InternalTwoWaySyncWork(
 
                 checkFreeSpace(folder)?.let { checkFreeSpaceResult ->
                     return checkFreeSpaceResult
-                }
-
-                // do not attempt to sync root folder
-                if (folder.remotePath == OCFile.ROOT_PATH) {
-                    folder.internalFolderSyncTimestamp = -1L
-                    fileDataStorageManager.saveFile(folder)
-                    continue
                 }
 
                 Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
