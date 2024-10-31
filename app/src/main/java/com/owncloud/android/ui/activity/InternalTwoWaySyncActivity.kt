@@ -181,7 +181,7 @@ class InternalTwoWaySyncActivity :
             if (isChecked) {
                 backgroundJobManager.scheduleInternal2WaySync(preferences.twoWaySyncInterval)
             } else {
-                backgroundJobManager.cancelInternal2WaySyncJob()
+                backgroundJobManager.cancelTwoWaySyncJob()
             }
         }
     }
