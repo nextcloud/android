@@ -913,6 +913,7 @@
     <string name="trashbin_file_remove">Удалить навсегда</string>
     <string name="trashbin_loading_failed">Загрузка корзины не удалась!</string>
     <string name="trashbin_not_emptied">Файлы не могут быть удалены окончательно!</string>
+    <string name="two_way_sync_activity_title">Внутренняя двусторонняя синхронизация</string>
     <string name="unexpected_error_occurred">Произошла неожиданная ошибка</string>
     <string name="unified_search_fragment_calendar_event_not_found">Событие не найдено, вы всегда можете синхронизировать его для обновления. Перенаправление на веб-страницу…</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не найден, вы всегда можете синхронизировать его для обновления. Перенаправление на веб-страницу…</string>

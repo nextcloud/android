@@ -925,6 +925,7 @@
     <string name="trashbin_file_remove">Remover permanentemente</string>
     <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
+    <string name="two_way_sync_activity_title">Sincronização interna bidirecional</string>
     <string name="unexpected_error_occurred">Ocorreu um erro inesperado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Evento não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para a web…</string>
     <string name="unified_search_fragment_contact_not_found">Contato não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para web…</string>
