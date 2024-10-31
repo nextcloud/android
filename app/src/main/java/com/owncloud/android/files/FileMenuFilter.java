@@ -397,8 +397,10 @@ public class FileMenuFilter {
     }
 
     private boolean anyFileDownloading() {
+        final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
+
         for (OCFile file : files) {
-            if (FileDownloadHelper.Companion.instance().isDownloading(user, file)) {
+            if (fileDownloadHelper.isDownloading(user, file)) {
                 return true;
             }
         }

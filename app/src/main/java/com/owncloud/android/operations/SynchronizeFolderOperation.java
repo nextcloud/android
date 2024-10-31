@@ -441,7 +441,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     private void startDirectDownloads() {
-        mFilesForDirectDownload.forEach(file -> FileDownloadHelper.Companion.instance().downloadFile(user, file));
+        final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
+        mFilesForDirectDownload.forEach(file -> fileDownloadHelper.downloadFile(user, file));
     }
 
     /**

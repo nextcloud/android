@@ -653,13 +653,15 @@ class PreviewMediaActivity :
         packageName: String? = null,
         activityName: String? = null
     ) {
-        if (FileDownloadHelper.instance().isDownloading(user, file)) {
+        val fileDownloadHelper = FileDownloadHelper.instance()
+
+        if (fileDownloadHelper.isDownloading(user, file)) {
             return
         }
 
         user?.let { user ->
             file?.let { file ->
-                FileDownloadHelper.instance().downloadFile(
+                fileDownloadHelper.downloadFile(
                     user,
                     file,
                     downloadBehavior ?: "",
