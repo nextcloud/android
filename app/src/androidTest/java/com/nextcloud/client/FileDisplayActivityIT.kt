@@ -234,6 +234,7 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
                 )
             )
         shortSleep()
+        shortSleep()
         checkToolbarTitle(topFolder)
         // sort button should now be visible
         onView(withId(R.id.sort_button)).check(matches(ViewMatchers.isDisplayed()))
