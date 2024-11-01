@@ -926,6 +926,7 @@
     <string name="trashbin_file_remove">Eliminar definitivamente</string>
     <string name="trashbin_loading_failed">Produciuse un fallo ao cargar o cesto do lixo!</string>
     <string name="trashbin_not_emptied">Non foi posíbel eliminar definitivamente o ficheiro!</string>
+    <string name="two_way_sync_activity_title">Sincronización interna bidireccional</string>
     <string name="unexpected_error_occurred">Produciuse un erro non agardado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Non se atopou o evento, sempre pode sincronizar para actualizar. Redirixindo á web…</string>
     <string name="unified_search_fragment_contact_not_found">Non se atopou o contacto, sempre pode sincronizar para actualizar. Redirixindo á web…</string>

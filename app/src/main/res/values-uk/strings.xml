@@ -916,6 +916,7 @@
     <string name="trashbin_file_remove">Вилучити назавжди</string>
     <string name="trashbin_loading_failed">Неможливо відкрити кошик!</string>
     <string name="trashbin_not_emptied">Неможливо вилучити файли!</string>
+    <string name="two_way_sync_activity_title">Внутрішня двостороння синхронізація</string>
     <string name="unexpected_error_occurred">Неочікувана помилка</string>
     <string name="unified_search_fragment_calendar_event_not_found">Подію не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>
     <string name="unified_search_fragment_contact_not_found">Контакт не знайдено. Синхронізуйтеся для оновлення. Переспрямування на вебсайт...</string>

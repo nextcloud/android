@@ -925,6 +925,7 @@
     <string name="trashbin_file_remove">Kalıcı olarak sil</string>
     <string name="trashbin_loading_failed">Çöp kutusu yüklenemedi!</string>
     <string name="trashbin_not_emptied">Dosyalar kalıcı olarak silinemedi!</string>
+    <string name="two_way_sync_activity_title">İç iki yönlü eşitleme</string>
     <string name="unexpected_error_occurred">Beklenmeyen bir sorun çıktı</string>
     <string name="unified_search_fragment_calendar_event_not_found">Etkinlik bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>
     <string name="unified_search_fragment_contact_not_found">Kişi bulunamadı, güncellemek için eşitleyebilirsiniz. İnternet üzerine yönlendiriliyor…</string>

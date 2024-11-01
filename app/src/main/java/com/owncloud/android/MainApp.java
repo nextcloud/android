@@ -375,7 +375,11 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             backgroundJobManager.scheduleMediaFoldersDetectionJob();
             backgroundJobManager.startMediaFoldersDetectionJob();
             backgroundJobManager.schedulePeriodicHealthStatus();
-            backgroundJobManager.scheduleInternal2WaySync();
+
+            if (preferences.isTwoWaySyncEnabled()) {
+                backgroundJobManager.scheduleInternal2WaySync(preferences.getTwoWaySyncInterval());
+            }
+
             backgroundJobManager.startPeriodicallyOfflineOperation();
         }
 

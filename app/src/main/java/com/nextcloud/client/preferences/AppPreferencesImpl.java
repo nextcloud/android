@@ -102,6 +102,9 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
     private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
 
+    private static final String PREF__TWO_WAY_STATUS = "two_way_sync_status";
+    private static final String PREF__TWO_WAY_SYNC_INTERVAL = "two_way_sync_interval";
+
     private static final String LOG_ENTRY = "log_entry";
 
     private final Context context;
@@ -788,5 +791,25 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public String getLastSelectedMediaFolder() {
         return preferences.getString(PREF__MEDIA_FOLDER_LAST_PATH, OCFile.ROOT_PATH);
+    }
+
+    @Override
+    public void setTwoWaySyncStatus(boolean value) {
+        preferences.edit().putBoolean(PREF__TWO_WAY_STATUS, value).apply();
+    }
+
+    @Override
+    public boolean isTwoWaySyncEnabled() {
+        return preferences.getBoolean(PREF__TWO_WAY_STATUS, true);
+    }
+
+    @Override
+    public void setTwoWaySyncInterval(Long value) {
+        preferences.edit().putLong(PREF__TWO_WAY_SYNC_INTERVAL, value).apply();
+    }
+
+    @Override
+    public Long getTwoWaySyncInterval() {
+        return preferences.getLong(PREF__TWO_WAY_SYNC_INTERVAL, 15L);
     }
 }

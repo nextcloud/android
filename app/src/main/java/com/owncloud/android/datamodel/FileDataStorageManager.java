@@ -2643,7 +2643,10 @@ public class FileDataStorageManager {
         List<OCFile> files = new ArrayList<>(fileEntities.size());
 
         for (FileEntity fileEntity : fileEntities) {
-            files.add(createFileInstance(fileEntity));
+            OCFile file = createFileInstance(fileEntity);
+            if (file.isFolder() && !file.isRootDirectory()) {
+                files.add(file);
+            }
         }
 
         return files;
