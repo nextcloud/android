@@ -18,6 +18,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
@@ -33,10 +34,12 @@ import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
-import com.owncloud.android.ui.asynctasks.RetrieveStatusAsyncTask
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 private const val ARG_CURRENT_USER_PARAM = "currentUser"
@@ -151,10 +154,21 @@ class ChooseAccountDialogFragment :
                 binding.statusView.visibility = View.VISIBLE
             }
 
-            RetrieveStatusAsyncTask(user, this, clientFactory).execute()
+            loadAndSetUserStatus(user)
         }
 
         themeViews()
+    }
+
+    private fun loadAndSetUserStatus(user: User) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val status = retrieveUserStatus(user, clientFactory)
+
+            if (isAdded && !isDetached) {
+                val context = requireContext()
+                setStatus(status, context)
+            }
+        }
     }
 
     private fun themeViews() {
