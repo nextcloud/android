@@ -162,7 +162,7 @@ class ChooseAccountDialogFragment :
 
     private fun checkAppRestrictions() {
         val disableMultiAccount = requireContext().getRestriction(
-            AppConfigKeys.DisableMultiAccount.key,
+            AppConfigKeys.DisableMultiAccount,
             context?.resources?.getBoolean(R.bool.disable_multiaccount) ?: false
         )
 

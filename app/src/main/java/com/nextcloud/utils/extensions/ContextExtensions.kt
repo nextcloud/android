@@ -20,10 +20,11 @@ import android.widget.Toast
 import com.google.common.io.Resources
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ReceiverFlag
+import com.owncloud.android.utils.appConfig.AppConfigKeys
 
-fun <T : Any> Context.getRestriction(key: String, defaultValue: T): T {
+fun <T : Any> Context.getRestriction(appConfigKey: AppConfigKeys, defaultValue: T): T {
     val restrictionsManager = getSystemService(Context.RESTRICTIONS_SERVICE) as RestrictionsManager
-    return restrictionsManager.getRestriction(key, defaultValue)
+    return restrictionsManager.getRestriction(appConfigKey.key, defaultValue)
 }
 
 @Suppress("UNCHECKED_CAST")

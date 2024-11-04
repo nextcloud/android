@@ -28,7 +28,7 @@ object ClipboardUtil {
     @Suppress("TooGenericExceptionCaught")
     fun copyToClipboard(activity: Activity, text: String?, showToast: Boolean = true) {
         val disableClipboard = activity.getRestriction(
-            AppConfigKeys.DisableClipboard.key,
+            AppConfigKeys.DisableClipboard,
             activity.resources.getBoolean(R.bool.disable_clipboard)
         )
         if (disableClipboard) {
