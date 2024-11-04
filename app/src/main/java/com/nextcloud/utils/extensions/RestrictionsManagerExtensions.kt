@@ -9,32 +9,13 @@ package com.nextcloud.utils.extensions
 
 import android.content.RestrictionsManager
 
-fun RestrictionsManager.getRestriction(key: String, defaultValue: String?): String? {
+@Suppress("UNCHECKED_CAST")
+fun <T> RestrictionsManager.getRestriction(key: String, defaultValue: T): T {
     val appRestrictions = getApplicationRestrictions()
-
-    return if (appRestrictions.containsKey(key)) {
-        appRestrictions.getString(key)
-    } else {
-        defaultValue
-    }
-}
-
-fun RestrictionsManager.getRestriction(key: String, defaultValue: Int): Int {
-    val appRestrictions = getApplicationRestrictions()
-
-    return if (appRestrictions.containsKey(key)) {
-        appRestrictions.getInt(key)
-    } else {
-        defaultValue
-    }
-}
-
-fun RestrictionsManager.getRestriction(key: String, defaultValue: Boolean): Boolean {
-    val appRestrictions = getApplicationRestrictions()
-
-    return if (appRestrictions.containsKey(key)) {
-        appRestrictions.getBoolean(key)
-    } else {
-        defaultValue
+    return when (defaultValue) {
+        is String -> appRestrictions.getString(key) as T? ?: defaultValue
+        is Int -> appRestrictions.getInt(key) as T? ?: defaultValue
+        is Boolean -> appRestrictions.getBoolean(key) as T? ?: defaultValue
+        else -> defaultValue
     }
 }
