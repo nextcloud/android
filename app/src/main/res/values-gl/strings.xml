@@ -926,6 +926,9 @@
     <string name="trashbin_file_remove">Eliminar definitivamente</string>
     <string name="trashbin_loading_failed">Produciuse un fallo ao cargar o cesto do lixo!</string>
     <string name="trashbin_not_emptied">Non foi posíbel eliminar definitivamente o ficheiro!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Desactivado para todos os cartafoles</string>
+    <string name="two_way_sync_activity_empty_list_desc">Para definir un cartafol de sincronización bidireccional, actíveo na lapela de detalles do cartafol en cuestión.</string>
+    <string name="two_way_sync_activity_empty_list_title">A sincronización bidireccional non está definida</string>
     <string name="two_way_sync_activity_title">Sincronización interna bidireccional</string>
     <string name="unexpected_error_occurred">Produciuse un erro non agardado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Non se atopou o evento, sempre pode sincronizar para actualizar. Redirixindo á web…</string>

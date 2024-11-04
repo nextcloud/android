@@ -925,6 +925,9 @@
     <string name="trashbin_file_remove">Endgültig löschen</string>
     <string name="trashbin_loading_failed">Laden des Papierkorbs fehlgeschlagen!</string>
     <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Für alle Ordner deaktivieren</string>
+    <string name="two_way_sync_activity_empty_list_desc">Um einen Ordner mit bidirektionaler Synchronisierung einzurichten, aktivieren Sie dies bitte auf der Registerkarte \"Details“ des betreffenden Ordners.</string>
+    <string name="two_way_sync_activity_empty_list_title">Zwei-Wege-Synchronisierung nicht eingerichtet</string>
     <string name="two_way_sync_activity_title">Interne 2-Wege-Synchronisierung</string>
     <string name="unexpected_error_occurred">Es ist ein unerwarteter Fehler aufgetreten</string>
     <string name="unified_search_fragment_calendar_event_not_found">Termin nicht gefunden, Sie können jederzeit die Synchronisierung wiederholen. Weiterleiten zum Web…</string>
