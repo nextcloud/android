@@ -12,6 +12,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.content.RestrictionsManager
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
@@ -19,6 +20,22 @@ import android.widget.Toast
 import com.google.common.io.Resources
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ReceiverFlag
+
+fun <T : Any> Context.getRestriction(key: String, defaultValue: T): T {
+    val restrictionsManager = getSystemService(Context.RESTRICTIONS_SERVICE) as RestrictionsManager
+    return restrictionsManager.getRestriction(key, defaultValue)
+}
+
+@Suppress("UNCHECKED_CAST")
+private fun <T : Any> RestrictionsManager.getRestriction(key: String, defaultValue: T): T {
+    val appRestrictions = getApplicationRestrictions()
+    return when (defaultValue) {
+        is String -> appRestrictions.getString(key) as T? ?: defaultValue
+        is Int -> appRestrictions.getInt(key) as T? ?: defaultValue
+        is Boolean -> appRestrictions.getBoolean(key) as T? ?: defaultValue
+        else -> defaultValue
+    }
+}
 
 fun Context.hourPlural(hour: Int): String = resources.getQuantityString(R.plurals.hours, hour, hour)
 

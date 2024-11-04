@@ -12,9 +12,7 @@
 package com.owncloud.android.ui.dialog
 
 import android.content.ComponentName
-import android.content.Context
 import android.content.Intent
-import android.content.RestrictionsManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -89,8 +87,7 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
 
     @Suppress("MagicNumber")
     private fun setupSendButtonRecyclerView() {
-        val restrictionsManager = requireContext().getSystemService(Context.RESTRICTIONS_SERVICE) as RestrictionsManager
-        val disableSharing = restrictionsManager.getRestriction(
+        val disableSharing = requireContext().getRestriction(
             AppConfigKeys.DisableSharing.key,
             context?.resources?.getBoolean(R.bool.disable_sharing) ?: false
         )

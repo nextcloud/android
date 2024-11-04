@@ -71,7 +71,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.RestrictionsManagerExtensionsKt;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -321,8 +321,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         String webloginUrl = null;
 
         if (MainApp.isClientBrandedPlus()) {
-            RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-            String baseUrl = RestrictionsManagerExtensionsKt.getRestriction(restrictionsManager, AppConfigKeys.BaseUrl.getKey(),"");
+            String baseUrl = ContextExtensionsKt.getRestriction(this, AppConfigKeys.BaseUrl.getKey(), "");
             if (!TextUtils.isEmpty(baseUrl)) {
                 webloginUrl = baseUrl + WEB_LOGIN;
             }

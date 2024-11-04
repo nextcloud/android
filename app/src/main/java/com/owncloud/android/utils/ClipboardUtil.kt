@@ -10,7 +10,6 @@ import android.app.Activity
 import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
-import android.content.RestrictionsManager
 import android.text.TextUtils
 import android.widget.Toast
 import com.nextcloud.utils.extensions.getRestriction
@@ -28,8 +27,7 @@ object ClipboardUtil {
     @JvmOverloads
     @Suppress("TooGenericExceptionCaught")
     fun copyToClipboard(activity: Activity, text: String?, showToast: Boolean = true) {
-        val restrictionsManager = activity.getSystemService(Context.RESTRICTIONS_SERVICE) as RestrictionsManager
-        val disableClipboard = restrictionsManager.getRestriction(
+        val disableClipboard = activity.getRestriction(
             AppConfigKeys.DisableClipboard.key,
             activity.resources.getBoolean(R.bool.disable_clipboard)
         )
