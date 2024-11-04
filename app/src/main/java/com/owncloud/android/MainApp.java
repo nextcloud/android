@@ -332,7 +332,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
         if (isClientBrandedPlus()) {
             RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-            appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
+            appConfigManager = new AppConfigManager(this, restrictionsManager);
             appConfigManager.setProxyConfig(isClientBrandedPlus());
 
             // Listen app config changes
