@@ -162,33 +162,43 @@ public class SynchronizeFolderOperation extends SyncOperation {
             throw new OperationCancelledException();
         }
 
-        // remote request
         ReadFileRemoteOperation operation = new ReadFileRemoteOperation(mRemotePath);
         RemoteOperationResult result = operation.execute(client);
+
         if (result.isSuccess()) {
-            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+            var data = result.getData().get(0);
+            if (!(data instanceof RemoteFile remoteFile)) {
+                return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
+            }
 
-            // check if remote and local folder are different
-            mRemoteFolderChanged = !(remoteFolder.getEtag().equalsIgnoreCase(mLocalFolder.getEtag()));
+            OCFile remoteFolder = FileStorageUtils.fillOCFile(remoteFile);
+            String localETag = mLocalFolder.getEtag();
+            if (mLocalFolder == null || localETag == null) {
+                return new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
+            }
 
-            result = new RemoteOperationResult(ResultCode.OK);
+            String remoteETag = remoteFolder.getEtag();
+            if (remoteETag == null) {
+                return new RemoteOperationResult<>(ResultCode.FILE_NOT_FOUND);
+            }
 
-            Log_OC.i(TAG, "Checked " + user.getAccountName() + mRemotePath + " : " +
-                    (mRemoteFolderChanged ? "changed" : "not changed"));
+            mRemoteFolderChanged = !(remoteETag.equalsIgnoreCase(localETag));
+            result = new RemoteOperationResult<>(ResultCode.OK);
 
+            String logMessage = "Checked " + user.getAccountName() + mRemotePath + " : " + (mRemoteFolderChanged ? "changed" : "not changed");
+            Log_OC.i(TAG, logMessage);
         } else {
-            // check failed
             if (result.getCode() == ResultCode.FILE_NOT_FOUND) {
                 removeLocalFolder();
             }
+
+            String logMessage = "Checked " + user.getAccountName() + mRemotePath  + " : " + result.getLogMessage();
+
             if (result.isException()) {
-                Log_OC.e(TAG, "Checked " + user.getAccountName() + mRemotePath  + " : " +
-                        result.getLogMessage(), result.getException());
-            } else {
-                Log_OC.e(TAG, "Checked " + user.getAccountName() + mRemotePath + " : " +
-                        result.getLogMessage());
+                logMessage += result.getException();
             }
 
+            Log_OC.e(TAG, logMessage);
         }
 
         return result;
