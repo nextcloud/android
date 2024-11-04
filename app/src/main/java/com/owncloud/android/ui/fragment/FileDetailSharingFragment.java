@@ -239,7 +239,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
             }
         } else {
-            binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
+            binding.searchView.setQueryHint(getResources().getString(R.string.resharing_is_not_allowed));
             binding.searchView.setInputType(InputType.TYPE_NULL);
             binding.pickContactEmailBtn.setVisibility(View.GONE);
             disableSearchView(binding.searchView);
