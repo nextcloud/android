@@ -13,5 +13,11 @@ package com.owncloud.android.utils.appConfig
 enum class AppConfigKeys(val key: String) {
     BaseUrl("base_url"),
     ProxyHost("proxy_host"),
-    ProxyPort("proxy_port")
+    ProxyPort("proxy_port"),
+    DisableIntro("disable_intro"),
+    DisableMultiAccount("disable_multiaccount"),
+    DisableMoreExternalSite("disable_more_external_site"),
+    DisableSharing("disable_sharing"),
+    DisableClipboard("disable_clipboard"),
+    // TODO add other MDM's
 }

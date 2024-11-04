@@ -36,6 +36,12 @@
     <string name="proxy_host"></string>
     <integer name="proxy_port">-1</integer>
 
+    <bool name="disable_intro">false</bool>
+    <bool name="disable_multiaccount">false</bool>
+    <bool name="disable_more_external_site">false</bool>
+    <bool name="disable_sharing">false</bool>
+    <bool name="disable_clipboard">false</bool>
+
     <!-- Flags to enable/disable some features -->
     <string name="send_files_to_other_apps">on</string>
     <bool name="share_via_link_feature">true</bool>
