@@ -11,6 +11,7 @@ package com.nextcloud.ui
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.RestrictionsManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -25,6 +26,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.getRestriction
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogChooseAccountBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -36,6 +38,7 @@ import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
+import com.owncloud.android.utils.appConfig.AppConfigKeys
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -156,6 +159,20 @@ class ChooseAccountDialogFragment :
         }
 
         themeViews()
+        checkAppRestrictions()
+    }
+
+    private fun checkAppRestrictions() {
+        val restrictionsManager = requireContext().getSystemService(Context.RESTRICTIONS_SERVICE) as RestrictionsManager
+        val disableMultiAccount = restrictionsManager.getRestriction(
+            AppConfigKeys.DisableMultiAccount.key,
+            context?.resources?.getBoolean(R.bool.disable_multiaccount) ?: false
+        )
+
+        if (disableMultiAccount) {
+            binding.addAccount.visibility = View.GONE
+            binding.manageAccounts.visibility = View.GONE
+        }
     }
 
     private fun loadAndSetUserStatus(user: User) {

@@ -321,7 +321,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (MainApp.isClientBrandedPlus()) {
             RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-            AppConfigManager appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
+            AppConfigManager appConfigManager = new AppConfigManager(this, restrictionsManager);
 
             if (!TextUtils.isEmpty(appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus()))) {
                 webloginUrl = appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus()) + WEB_LOGIN;
