@@ -11,7 +11,6 @@ package com.nextcloud.ui
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
-import android.content.RestrictionsManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -162,8 +161,7 @@ class ChooseAccountDialogFragment :
     }
 
     private fun checkAppRestrictions() {
-        val restrictionsManager = requireContext().getSystemService(Context.RESTRICTIONS_SERVICE) as RestrictionsManager
-        val disableMultiAccount = restrictionsManager.getRestriction(
+        val disableMultiAccount = requireContext().getRestriction(
             AppConfigKeys.DisableMultiAccount.key,
             context?.resources?.getBoolean(R.bool.disable_multiaccount) ?: false
         )

@@ -26,7 +26,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.RestrictionsManager;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -62,7 +61,6 @@ import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
-import com.nextcloud.utils.extensions.RestrictionsManagerExtensionsKt;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -422,10 +420,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             return;
         }
 
-        RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-
-        String host = RestrictionsManagerExtensionsKt.getRestriction(restrictionsManager,AppConfigKeys.ProxyHost.getKey(), getString(R.string.proxy_host));
-        int port = RestrictionsManagerExtensionsKt.getRestriction(restrictionsManager, AppConfigKeys.ProxyPort.getKey(), getResources().getInteger(R.integer.proxy_port));
+        String host = ContextExtensionsKt.getRestriction(this, AppConfigKeys.ProxyHost.getKey(), getString(R.string.proxy_host));
+        int port = ContextExtensionsKt.getRestriction(this, AppConfigKeys.ProxyPort.getKey(), getResources().getInteger(R.integer.proxy_port));
 
         if (TextUtils.isEmpty(host) || port == -1) {
             Log_OC.d(TAG, "Proxy configuration cannot be found");
