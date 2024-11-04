@@ -322,7 +322,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         if (MainApp.isClientBrandedPlus()) {
             RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-            String baseUrl = RestrictionsManagerExtensionsKt.getRestriction(restrictionsManager, AppConfigKeys.BaseUrl.getKey(),null);
+            String baseUrl = RestrictionsManagerExtensionsKt.getRestriction(restrictionsManager, AppConfigKeys.BaseUrl.getKey(),"");
             if (!TextUtils.isEmpty(baseUrl)) {
                 webloginUrl = baseUrl + WEB_LOGIN;
             }
