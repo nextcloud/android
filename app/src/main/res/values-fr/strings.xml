@@ -925,6 +925,9 @@
     <string name="trashbin_file_remove">Supprimer définitivement</string>
     <string name="trashbin_loading_failed">Le chargement de la corbeille a échoué !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Désactiver pour tous les dossiers</string>
+    <string name="two_way_sync_activity_empty_list_desc">Pour configurer un dossier de synchronisation bidirectionnelle, veuillez l\'activer dans l\'onglet détails du dossier en question.</string>
+    <string name="two_way_sync_activity_empty_list_title">La synchronisation bidirectionnelle n\'est pas configurée</string>
     <string name="two_way_sync_activity_title">Synchronisation interne bidirectionnelle</string>
     <string name="unexpected_error_occurred">Une erreur est survenue</string>
     <string name="unified_search_fragment_calendar_event_not_found">Événement introuvable; vous pouvez toujours synchroniser pour mettre à jour. Redirection au web…</string>
