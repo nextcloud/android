@@ -56,3 +56,19 @@ fun <T : Parcelable?> Bundle?.getParcelableArgument(key: String, type: Class<T>)
         null
     }
 }
+
+fun Bundle.getRestriction(key: String, defaultValue: String?): String? {
+    return if (containsKey(key)) {
+        getString(key)
+    } else {
+        defaultValue
+    }
+}
+
+fun Bundle.getRestriction(key: String, defaultValue: Int): Int {
+    return if (containsKey(key)) {
+        getInt(key)
+    } else {
+        defaultValue
+    }
+}
