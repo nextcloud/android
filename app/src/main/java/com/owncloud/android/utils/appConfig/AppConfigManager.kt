@@ -11,6 +11,7 @@ import android.content.Context
 import android.content.res.Resources
 import android.os.Bundle
 import android.text.TextUtils
+import com.nextcloud.utils.extensions.getRestriction
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
@@ -25,17 +26,8 @@ class AppConfigManager(private val context: Context, private val appRestrictions
             return
         }
 
-        val host = if (appRestrictions.containsKey(AppConfigKeys.ProxyHost.key)) {
-            appRestrictions.getString(AppConfigKeys.ProxyHost.key)
-        } else {
-            context.getString(R.string.proxy_host)
-        }
-
-        val port = if (appRestrictions.containsKey(AppConfigKeys.ProxyPort.key)) {
-            appRestrictions.getInt(AppConfigKeys.ProxyPort.key)
-        } else {
-            context.resources.getInteger(R.integer.proxy_port)
-        }
+        val host = appRestrictions.getRestriction(AppConfigKeys.ProxyHost.key, context.getString(R.string.proxy_host))
+        val port = appRestrictions.getRestriction(AppConfigKeys.ProxyPort.key, context.resources.getInteger(R.integer.proxy_port))
 
         if (TextUtils.isEmpty(host) || port == -1) {
             Log_OC.d(tag, "Proxy configuration cannot be found")
@@ -58,11 +50,6 @@ class AppConfigManager(private val context: Context, private val appRestrictions
             return null
         }
 
-        return if (appRestrictions.containsKey(AppConfigKeys.BaseUrl.key)) {
-            appRestrictions.getString(AppConfigKeys.BaseUrl.key)
-        } else {
-            Log_OC.d(tag, "BaseUrl configuration cannot be found, default url applied")
-            null
-        }
+        return appRestrictions.getRestriction(AppConfigKeys.BaseUrl.key, null)
     }
 }
