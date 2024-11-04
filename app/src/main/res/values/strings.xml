@@ -719,7 +719,7 @@
     <string name="empty" translatable="false" />
     <string name="test_server_button">Test server connection</string>
     <string name="info_separator" translatable="false">&#160;&#x2022;</string>
-    <string name="resharing_is_not_allowed">Resharing is not allowed</string>
+    <string name="resharing_is_not_allowed">Admin sharing policy disallows resharing.</string>
 
     <string name="foreground_service_upload">Uploading files…</string>
     <string name="worker_download">Downloading files…</string>
