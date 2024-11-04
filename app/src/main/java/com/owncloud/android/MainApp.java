@@ -422,8 +422,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             return;
         }
 
-        String host = ContextExtensionsKt.getRestriction(this, AppConfigKeys.ProxyHost.getKey(), getString(R.string.proxy_host));
-        int port = ContextExtensionsKt.getRestriction(this, AppConfigKeys.ProxyPort.getKey(), getResources().getInteger(R.integer.proxy_port));
+        String host = ContextExtensionsKt.getRestriction(this, AppConfigKeys.ProxyHost, getString(R.string.proxy_host));
+        int port = ContextExtensionsKt.getRestriction(this, AppConfigKeys.ProxyPort, getResources().getInteger(R.integer.proxy_port));
 
         if (TextUtils.isEmpty(host) || port == -1) {
             Log_OC.d(TAG, "Proxy configuration cannot be found");

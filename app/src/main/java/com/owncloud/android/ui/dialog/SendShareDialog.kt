@@ -88,7 +88,7 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
     @Suppress("MagicNumber")
     private fun setupSendButtonRecyclerView() {
         val disableSharing = requireContext().getRestriction(
-            AppConfigKeys.DisableSharing.key,
+            AppConfigKeys.DisableSharing,
             context?.resources?.getBoolean(R.bool.disable_sharing) ?: false
         )
 

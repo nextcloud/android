@@ -321,7 +321,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         String webloginUrl = null;
 
         if (MainApp.isClientBrandedPlus()) {
-            String baseUrl = ContextExtensionsKt.getRestriction(this, AppConfigKeys.BaseUrl.getKey(), "");
+            String baseUrl = ContextExtensionsKt.getRestriction(this, AppConfigKeys.BaseUrl, "");
             if (!TextUtils.isEmpty(baseUrl)) {
                 webloginUrl = baseUrl + WEB_LOGIN;
             }
