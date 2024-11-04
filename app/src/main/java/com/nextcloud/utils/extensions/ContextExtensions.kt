@@ -23,8 +23,8 @@ import com.owncloud.android.datamodel.ReceiverFlag
 import com.owncloud.android.utils.appConfig.AppConfigKeys
 
 fun <T : Any> Context.getRestriction(appConfigKey: AppConfigKeys, defaultValue: T): T {
-    val restrictionsManager = getSystemService(Context.RESTRICTIONS_SERVICE) as RestrictionsManager
-    return restrictionsManager.getRestriction(appConfigKey.key, defaultValue)
+    val restrictionsManager = getSystemService(Context.RESTRICTIONS_SERVICE) as? RestrictionsManager
+    return restrictionsManager?.getRestriction(appConfigKey.key, defaultValue) ?: defaultValue
 }
 
 @Suppress("UNCHECKED_CAST")
