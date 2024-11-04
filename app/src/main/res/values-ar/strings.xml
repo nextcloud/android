@@ -951,6 +951,9 @@
     <string name="trashbin_file_remove">حذف نهائي</string>
     <string name="trashbin_loading_failed">فشل تحميل سلة المحذوفات</string>
     <string name="trashbin_not_emptied">تعذر حذف الملفات نهائياً!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">التعطيل لكل المجلدات</string>
+    <string name="two_way_sync_activity_empty_list_desc">لإعداد مجلد المزامنة ثنائي الاتجاه، يرجى تمكينه في علامة التبويب \"التفاصيل\" للمجلد المعني.</string>
+    <string name="two_way_sync_activity_empty_list_title">لم يتم إعداد المزامنة ثنائية الاتجاه</string>
     <string name="two_way_sync_activity_title">مزامنة داخلية في الاتجاهين</string>
     <string name="unexpected_error_occurred">حدث خطأ غير متوقع</string>
     <string name="unified_search_fragment_calendar_event_not_found">لم يمكن العثور على الحدث. يمكنك دائمًا المزامنة للتحديث. جارٍ إعادة التوجيه إلى الويب...</string>
