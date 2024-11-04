@@ -62,6 +62,7 @@ import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.extensions.RestrictionsManagerExtensionsKt;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -87,7 +88,7 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
-import com.owncloud.android.utils.appConfig.AppConfigManager;
+import com.owncloud.android.utils.appConfig.AppConfigKeys;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.conscrypt.Conscrypt;
@@ -198,8 +199,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
     @SuppressWarnings("unused")
     private boolean mBound;
-
-    private AppConfigManager appConfigManager;
 
     private static AppComponent appComponent;
 
@@ -333,11 +332,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
 
         if (isClientBrandedPlus()) {
-            RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-            appConfigManager = new AppConfigManager(this, restrictionsManager);
-            appConfigManager.setProxyConfig(isClientBrandedPlus());
-
-            // Listen app config changes
+            setProxyConfig();
             ContextExtensionsKt.registerBroadcastReceiver(this, restrictionsReceiver, restrictionsFilter, ReceiverFlag.NotExported);
         } else {
             setProxyForNonBrandedPlusClients();
@@ -397,8 +392,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
         } else if (event == Lifecycle.Event.ON_RESUME) {
-            if (appConfigManager == null) return;
-            appConfigManager.setProxyConfig(isClientBrandedPlus());
+            setProxyConfig();
             Log_OC.d(TAG, "APP ON RESUME");
         }
     });
@@ -420,10 +414,35 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
     private final BroadcastReceiver restrictionsReceiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) {
-            if (appConfigManager == null) return;
-            appConfigManager.setProxyConfig(isClientBrandedPlus());
+            setProxyConfig();
         }
     };
+
+    private void setProxyConfig() {
+        if (!isClientBrandedPlus()) {
+            Log_OC.d(TAG, "Proxy configuration cannot be set. Client is not branded plus.");
+            return;
+        }
+
+        RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
+
+        String host = RestrictionsManagerExtensionsKt.getRestriction(restrictionsManager,AppConfigKeys.ProxyHost.getKey(), getString(R.string.proxy_host));
+        int port = RestrictionsManagerExtensionsKt.getRestriction(restrictionsManager, AppConfigKeys.ProxyPort.getKey(), getResources().getInteger(R.integer.proxy_port));
+
+        if (TextUtils.isEmpty(host) || port == -1) {
+            Log_OC.d(TAG, "Proxy configuration cannot be found");
+            return;
+        }
+
+        try {
+            OwnCloudClientManagerFactory.setProxyHost(host);
+            OwnCloudClientManagerFactory.setProxyPort(port);
+
+            Log_OC.d(TAG, "Proxy configuration successfully set");
+        } catch (Resources.NotFoundException e) {
+            Log_OC.e(TAG, "Proxy config cannot able to set due to: $e");
+        }
+    }
 
     private void registerGlobalPassCodeProtection() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
