@@ -50,9 +50,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
-import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
-import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -74,7 +72,6 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.appConfig.AppConfigKeys;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -382,11 +379,9 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
-        boolean disableLogViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableLog, getResources().getBoolean(R.bool.disable_log));
-        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
-            if (loggerEnabled && !disableLogViaMDM) {
+            if (MDMConfig.INSTANCE.enableLog(this)) {
                 pLogger.setOnPreferenceClickListener(preference -> {
                     Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
                     startActivity(loggerIntent);
