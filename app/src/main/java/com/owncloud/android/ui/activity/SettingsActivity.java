@@ -381,11 +381,11 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
-
+        boolean disableLog = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableLog, getResources().getBoolean(R.bool.disable_log));
         boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
-            if (loggerEnabled) {
+            if (loggerEnabled && !disableLog) {
                 pLogger.setOnPreferenceClickListener(preference -> {
                     Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
                     startActivity(loggerIntent);
