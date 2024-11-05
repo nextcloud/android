@@ -36,6 +36,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsFragmentBinding;
@@ -841,6 +842,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     private boolean showSharingTab() {
+        if (!MDMConfig.INSTANCE.shareViaLink(requireContext()) || MDMConfig.INSTANCE.shareViaUser(requireContext())) {
+            return false;
+        }
+
         if (getFile().isEncrypted()) {
             if (parentFolder == null) {
                 parentFolder = storageManager.getFileById(getFile().getParentId());
