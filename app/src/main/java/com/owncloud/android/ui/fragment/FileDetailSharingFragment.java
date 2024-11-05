@@ -494,9 +494,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void pickContactEmail() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setDataAndType(ContactsContract.Contacts.CONTENT_URI, ContactsContract.CommonDataKinds.Email.CONTENT_TYPE);
-        onContactSelectionResultLauncher.launch(intent);
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Email.CONTENT_URI);
+
+        if (intent.resolveActivity(requireContext().getPackageManager()) != null) {
+            onContactSelectionResultLauncher.launch(intent);
+        } else {
+            DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.file_detail_sharing_fragment_no_contact_app_message));
+        }
     }
 
     private void handleContactResult(@NonNull Uri contactUri) {
