@@ -339,8 +339,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
-        boolean disableLog = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableLog, getResources().getBoolean(R.bool.disable_log));
-        if ((BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) && !disableLog) {
+        boolean disableLogViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableLog, getResources().getBoolean(R.bool.disable_log));
+        if ((BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) && !disableLogViaMDM) {
             // use app writable dir, no permissions needed
             Log_OC.setLoggerImplementation(new LegacyLoggerAdapter(logger));
             Log_OC.d("Debug", "start logging");

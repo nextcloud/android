@@ -381,11 +381,11 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
-        boolean disableLog = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableLog, getResources().getBoolean(R.bool.disable_log));
+        boolean disableLogViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableLog, getResources().getBoolean(R.bool.disable_log));
         boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
-            if (loggerEnabled && !disableLog) {
+            if (loggerEnabled && !disableLogViaMDM) {
                 pLogger.setOnPreferenceClickListener(preference -> {
                     Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
                     startActivity(loggerIntent);
@@ -1103,8 +1103,8 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
-        boolean disableMoreExternalSite = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
-        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSite) {
+        boolean disableMoreExternalSiteViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
+        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSiteViaMDM) {
             ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {

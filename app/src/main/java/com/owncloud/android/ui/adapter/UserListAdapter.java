@@ -320,11 +320,11 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          * @param accountListAdapterListener {@link Listener}
          */
         private void bind(Listener accountListAdapterListener) {
-            boolean disableIntro = ContextExtensionsKt.getRestriction(context, AppConfigKeys.DisableIntro, context.getResources().getBoolean(R.bool.disable_intro));
+            boolean disableIntroViaMDM = ContextExtensionsKt.getRestriction(context, AppConfigKeys.DisableIntro, context.getResources().getBoolean(R.bool.disable_intro));
             boolean isProviderOrOwnInstallationVisible = itemView.getContext().getResources()
                 .getBoolean(R.bool.show_provider_or_own_installation);
 
-            if (isProviderOrOwnInstallationVisible && !disableIntro) {
+            if (isProviderOrOwnInstallationVisible && !disableIntroViaMDM) {
                 itemView.setOnClickListener(v -> accountListAdapterListener.showFirstRunActivity());
             } else {
                 itemView.setOnClickListener(v -> accountListAdapterListener.startAccountCreation());
