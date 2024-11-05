@@ -186,8 +186,8 @@ public class FileMenuFilter {
     }
 
     private void filterSendFiles(List<Integer> toHide, boolean inSingleFileFragment) {
-        boolean disableSharing = ContextExtensionsKt.getRestriction(context, AppConfigKeys.DisableSharing, context.getResources().getBoolean(R.bool.disable_sharing));
-        if (!disableSharing || (overflowMenu || SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps)) || containsEncryptedFile()) ||
+        boolean disableSharingViaMDM = ContextExtensionsKt.getRestriction(context, AppConfigKeys.DisableSharing, context.getResources().getBoolean(R.bool.disable_sharing));
+        if (!disableSharingViaMDM || (overflowMenu || SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps)) || containsEncryptedFile()) ||
             (!inSingleFileFragment && (isSingleSelection() || !allFileDown())) ||
             !toHide.contains(R.id.action_send_share_file)) {
             toHide.add(R.id.action_send_file);

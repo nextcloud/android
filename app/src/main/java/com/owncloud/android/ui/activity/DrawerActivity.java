@@ -604,11 +604,11 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void openAddAccount() {
-        boolean disableIntro = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableIntro, getResources().getBoolean(R.bool.disable_intro));
+        boolean disableIntroViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableIntro, getResources().getBoolean(R.bool.disable_intro));
         boolean isProviderOrOwnInstallationVisible = getResources()
             .getBoolean(R.bool.show_provider_or_own_installation);
 
-        if (isProviderOrOwnInstallationVisible && !disableIntro) {
+        if (isProviderOrOwnInstallationVisible && !disableIntroViaMDM) {
             Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
             firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
             startActivity(firstRunIntent);
@@ -827,8 +827,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void updateQuotaLink() {
         if (mQuotaTextLink != null) {
-            boolean disableMoreExternalSite = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
-            if (getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSite) {
+            boolean disableMoreExternalSiteViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
+            if (getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSiteViaMDM) {
                 List<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
 
                 float density = getResources().getDisplayMetrics().density;
@@ -977,8 +977,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void updateExternalLinksInDrawer() {
-        boolean disableMoreExternalSite = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
-        if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSite) {
+        boolean disableMoreExternalSiteViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
+        if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSiteViaMDM) {
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
 
             int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
@@ -1227,8 +1227,8 @@ public abstract class DrawerActivity extends ToolbarActivity
      * Retrieves external links via api from 'external' app
      */
     public void fetchExternalLinks(final boolean force) {
-        boolean disableMoreExternalSite = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
-        if (!getBaseContext().getResources().getBoolean(R.bool.show_external_links) || disableMoreExternalSite) {
+        boolean disableMoreExternalSiteViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
+        if (!getBaseContext().getResources().getBoolean(R.bool.show_external_links) || disableMoreExternalSiteViaMDM) {
             return;
         }
 
