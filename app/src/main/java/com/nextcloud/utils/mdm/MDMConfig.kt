@@ -11,6 +11,7 @@ import android.content.Context
 import com.nextcloud.utils.extensions.getRestriction
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
+import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.utils.appConfig.AppConfigKeys
 
 object MDMConfig {
@@ -45,6 +46,17 @@ object MDMConfig {
         val shareViaUsers = context.resources.getBoolean(R.bool.share_with_users_feature)
 
         return shareViaUsers && disableShareViaMDM
+    }
+
+    fun sendFilesSupport(context: Context): Boolean {
+        val disableShareViaMDM = context.getRestriction(
+            AppConfigKeys.DisableSharing,
+            context.resources.getBoolean(R.bool.disable_sharing)
+        )
+
+        val sendFilesToOtherApp = "on".equals(context.getString(R.string.send_files_to_other_apps), ignoreCase = true)
+
+        return sendFilesToOtherApp && !disableShareViaMDM
     }
 
     fun clipBoardSupport(context: Context): Boolean {
