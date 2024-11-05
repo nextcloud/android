@@ -13,11 +13,13 @@ import android.content.Intent
 import android.content.res.Resources
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.getRestriction
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
 import com.owncloud.android.features.FeatureItem
 import com.owncloud.android.ui.activity.PassCodeActivity
+import com.owncloud.android.utils.appConfig.AppConfigKeys
 
 internal class OnboardingServiceImpl constructor(
     private val resources: Resources,
@@ -61,9 +63,10 @@ internal class OnboardingServiceImpl constructor(
     }
 
     override fun launchFirstRunIfNeeded(activity: Activity): Boolean {
+        val disableIntro = activity.getRestriction(AppConfigKeys.DisableIntro, resources.getBoolean(R.bool.disable_intro))
         val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_provider_or_own_installation)
         val canLaunch = isProviderOrOwnInstallationVisible && isFirstRun && activity is AuthenticatorActivity
-        if (canLaunch) {
+        if (canLaunch && !disableIntro) {
             val intent = Intent(activity, FirstRunActivity::class.java)
             activity.startActivityForResult(intent, AuthenticatorActivity.REQUEST_CODE_FIRST_RUN)
         }
