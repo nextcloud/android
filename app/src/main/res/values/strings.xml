@@ -26,6 +26,12 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="unexpected_error_occurred">Unexpected error occurred</string>
+    <string name="app_config_disable_multiaccount_title">Disable Multi Account</string>
+    <string name="app_config_disable_sharing_title">Disable Sharing</string>
+    <string name="app_config_disable_clipboard_title">Disable Clipboard</string>
+    <string name="app_config_disable_more_external_site_title">Disable External Sites</string>
+    <string name="app_config_disable_intro_title">Disable Intro</string>
+    <string name="app_config_disable_log_title">Disable Log</string>
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_host_title">Proxy Hostname</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
