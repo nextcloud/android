@@ -36,6 +36,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -69,6 +70,7 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.UriUtils;
+import com.owncloud.android.utils.appConfig.AppConfigKeys;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.greenrobot.eventbus.EventBus;

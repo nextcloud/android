@@ -23,6 +23,7 @@ import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -32,6 +33,7 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.NextcloudServer;
+import com.owncloud.android.utils.appConfig.AppConfigKeys;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -184,7 +186,8 @@ public class FileMenuFilter {
     }
 
     private void filterSendFiles(List<Integer> toHide, boolean inSingleFileFragment) {
-        if ((overflowMenu || SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps)) || containsEncryptedFile()) ||
+        boolean disableSharing = ContextExtensionsKt.getRestriction(context, AppConfigKeys.DisableSharing, context.getResources().getBoolean(R.bool.disable_sharing));
+        if (!disableSharing || (overflowMenu || SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps)) || containsEncryptedFile()) ||
             (!inSingleFileFragment && (isSingleSelection() || !allFileDown())) ||
             !toHide.contains(R.id.action_send_share_file)) {
             toHide.add(R.id.action_send_file);
@@ -426,12 +429,14 @@ public class FileMenuFilter {
 
     private boolean isShareWithUsersAllowed() {
         return context != null &&
-            context.getResources().getBoolean(R.bool.share_with_users_feature);
+            context.getResources().getBoolean(R.bool.share_with_users_feature) &&
+            !ContextExtensionsKt.getRestriction(context, AppConfigKeys.DisableSharing, context.getResources().getBoolean(R.bool.disable_sharing));
     }
 
     private boolean isShareViaLinkAllowed() {
         return context != null &&
-            context.getResources().getBoolean(R.bool.share_via_link_feature);
+            context.getResources().getBoolean(R.bool.share_via_link_feature) &&
+            !ContextExtensionsKt.getRestriction(context, AppConfigKeys.DisableSharing, context.getResources().getBoolean(R.bool.disable_sharing));
     }
 
     private boolean isSingleSelection() {

@@ -27,7 +27,6 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.utils.IntentUtil.createSendIntent
 import com.nextcloud.utils.extensions.getParcelableArgument
-import com.nextcloud.utils.extensions.getRestriction
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SendShareFragmentBinding
@@ -40,7 +39,6 @@ import com.owncloud.android.ui.adapter.SendButtonAdapter
 import com.owncloud.android.ui.components.SendButtonData
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.appConfig.AppConfigKeys
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -87,15 +85,6 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
 
     @Suppress("MagicNumber")
     private fun setupSendButtonRecyclerView() {
-        val disableSharing = requireContext().getRestriction(
-            AppConfigKeys.DisableSharing,
-            context?.resources?.getBoolean(R.bool.disable_sharing) ?: false
-        )
-
-        if (disableSharing) {
-            return
-        }
-
         val sendIntent = createSendIntent(requireContext(), file!!)
         val sendButtonDataList = setupSendButtonData(sendIntent)
         val clickListener = setupSendButtonClickListener(sendIntent)
