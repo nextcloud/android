@@ -78,14 +78,14 @@ class FirstRunActivity : BaseActivity(), Injectable {
         binding = FirstRunActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val disableIntro = getRestriction(AppConfigKeys.DisableIntro, resources.getBoolean(R.bool.disable_intro))
+        val disableIntroViaMDM = getRestriction(AppConfigKeys.DisableIntro, resources.getBoolean(R.bool.disable_intro))
         val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_provider_or_own_installation)
         setSlideshowSize(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
 
         registerActivityResult()
         setupLoginButton()
-        setupSignupButton(isProviderOrOwnInstallationVisible && !disableIntro)
-        setupHostOwnServerTextView(isProviderOrOwnInstallationVisible && !disableIntro)
+        setupSignupButton(isProviderOrOwnInstallationVisible && !disableIntroViaMDM)
+        setupHostOwnServerTextView(isProviderOrOwnInstallationVisible && !disableIntroViaMDM)
         deleteAccountAtFirstLaunch()
         setupFeaturesViewAdapter()
         handleOnBackPressed()

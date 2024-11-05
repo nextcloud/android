@@ -121,8 +121,13 @@ class ChooseAccountDialogFragment :
                 viewThemeUtils
             )
 
+            val disableMultiAccountViaMDM = requireContext().getRestriction(
+                AppConfigKeys.DisableMultiAccount,
+                context?.resources?.getBoolean(R.bool.disable_multiaccount) ?: false
+            )
+
             // hide "add account" when no multi account
-            if (!resources.getBoolean(R.bool.multiaccount_support)) {
+            if (!resources.getBoolean(R.bool.multiaccount_support) || disableMultiAccountViaMDM) {
                 binding.addAccount.visibility = View.GONE
             }
 
@@ -157,19 +162,6 @@ class ChooseAccountDialogFragment :
         }
 
         themeViews()
-        checkAppRestrictions()
-    }
-
-    private fun checkAppRestrictions() {
-        val disableMultiAccount = requireContext().getRestriction(
-            AppConfigKeys.DisableMultiAccount,
-            context?.resources?.getBoolean(R.bool.disable_multiaccount) ?: false
-        )
-
-        if (disableMultiAccount) {
-            binding.addAccount.visibility = View.GONE
-            binding.manageAccounts.visibility = View.GONE
-        }
     }
 
     private fun themeViews() {
