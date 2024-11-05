@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.RestrictionsManager;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -72,6 +71,7 @@ import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -811,10 +811,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         passCodeManager.onActivityResumed(this);
 
         Uri data = intent.getData();
-        boolean disableMultiAccountViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMultiAccount, getResources().getBoolean(R.bool.disable_multiaccount));
         if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
-            if (disableMultiAccountViaMDM ||
-                !getResources().getBoolean(R.bool.multiaccount_support) ||
+            if (!MDMConfig.INSTANCE.multiAccountSupport(this) ||
                 accountManager.getAccounts().length == 1) {
                 Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
                 finish();
@@ -1535,9 +1533,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     return;
                 }
 
-                boolean disableMultiAccountViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMultiAccount, getResources().getBoolean(R.bool.disable_multiaccount));
-                if (disableMultiAccountViaMDM ||
-                    !getResources().getBoolean(R.bool.multiaccount_support) ||
+                if (!MDMConfig.INSTANCE.multiAccountSupport(this) ||
                     accountManager.getAccounts().length == 1) {
                     Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
                 } else {

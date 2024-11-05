@@ -30,7 +30,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -47,7 +47,6 @@ import com.owncloud.android.ui.adapter.UserListItem;
 import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
-import com.owncloud.android.utils.appConfig.AppConfigKeys;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -133,8 +132,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
 
         arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-        boolean disableMultiAccountViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMultiAccount, getResources().getBoolean(R.bool.disable_multiaccount));
-        multipleAccountsSupported = getResources().getBoolean(R.bool.multiaccount_support) && !disableMultiAccountViaMDM;
+        multipleAccountsSupported = MDMConfig.INSTANCE.multiAccountSupport(this);
 
         userListAdapter = new UserListAdapter(this,
                                               accountManager,
@@ -232,8 +230,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             userListItems.add(new UserListItem(user, !pendingForRemoval));
         }
 
-        boolean disableMultiAccountViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMultiAccount, getResources().getBoolean(R.bool.disable_multiaccount));
-        if (getResources().getBoolean(R.bool.multiaccount_support) && !disableMultiAccountViaMDM) {
+        if (MDMConfig.INSTANCE.multiAccountSupport(this)) {
             userListItems.add(new UserListItem());
         }
 
