@@ -27,6 +27,7 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.utils.IntentUtil.createSendIntent
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.SendShareFragmentBinding
@@ -73,7 +74,12 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
         binding = SendShareFragmentBinding.inflate(inflater, container, false)
 
         binding.btnShare.setOnClickListener { shareFile(file) }
-        binding.btnLink.setOnClickListener { shareByLink() }
+
+        if (MDMConfig.shareViaLink(requireContext()) && MDMConfig.clipBoardSupport(requireContext())) {
+            binding.btnLink.setOnClickListener { shareByLink() }
+        } else {
+            binding.btnLink.visibility = View.GONE
+        }
 
         applyTintColor()
         setupBottomSheetBehaviour()
