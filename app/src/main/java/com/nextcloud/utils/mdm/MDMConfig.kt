@@ -8,7 +8,7 @@
 package com.nextcloud.utils.mdm
 
 import android.content.Context
-import com.nextcloud.utils.extensions.getRestriction
+import android.content.RestrictionsManager
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.utils.appConfig.AppConfigKeys
@@ -94,5 +94,26 @@ object MDMConfig {
         val loggerEnabled = context.resources.getBoolean(R.bool.logger_enabled)
 
         return loggerEnabled && !disableLogViaMDM && BuildConfig.DEBUG
+    }
+
+    fun getBaseUrl(context: Context): String = context.getRestriction(AppConfigKeys.BaseUrl, "")
+
+    fun getHost(context: Context): String =
+        context.getRestriction(AppConfigKeys.ProxyHost, context.getString(R.string.proxy_host))
+
+    fun getPort(context: Context): Int =
+        context.getRestriction(AppConfigKeys.ProxyPort, context.resources.getInteger(R.integer.proxy_port))
+
+    @Suppress("UNCHECKED_CAST")
+    private fun <T : Any> Context.getRestriction(appConfigKey: AppConfigKeys, defaultValue: T): T {
+        val restrictionsManager = getSystemService(Context.RESTRICTIONS_SERVICE) as? RestrictionsManager
+        val appRestrictions = restrictionsManager?.getApplicationRestrictions() ?: return defaultValue
+
+        return when (defaultValue) {
+            is String -> appRestrictions.getString(appConfigKey.key, defaultValue) as T? ?: defaultValue
+            is Int -> appRestrictions.getInt(appConfigKey.key, defaultValue) as T? ?: defaultValue
+            is Boolean -> appRestrictions.getBoolean(appConfigKey.key, defaultValue) as T? ?: defaultValue
+            else -> defaultValue
+        }
     }
 }

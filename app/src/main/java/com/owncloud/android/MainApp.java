@@ -87,7 +87,6 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
-import com.owncloud.android.utils.appConfig.AppConfigKeys;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.conscrypt.Conscrypt;
@@ -420,8 +419,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             return;
         }
 
-        String host = ContextExtensionsKt.getRestriction(this, AppConfigKeys.ProxyHost, getString(R.string.proxy_host));
-        int port = ContextExtensionsKt.getRestriction(this, AppConfigKeys.ProxyPort, getResources().getInteger(R.integer.proxy_port));
+        String host = MDMConfig.INSTANCE.getHost(this);
+        int port = MDMConfig.INSTANCE.getPort(this);
 
         if (TextUtils.isEmpty(host) || port == -1) {
             Log_OC.d(TAG, "Proxy configuration cannot be found");

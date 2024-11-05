@@ -70,7 +70,6 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -113,7 +112,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
-import com.owncloud.android.utils.appConfig.AppConfigKeys;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -321,7 +319,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         String webloginUrl = null;
 
         if (MainApp.isClientBrandedPlus()) {
-            String baseUrl = ContextExtensionsKt.getRestriction(this, AppConfigKeys.BaseUrl, "");
+            String baseUrl = MDMConfig.INSTANCE.getBaseUrl(this);
             if (!TextUtils.isEmpty(baseUrl)) {
                 webloginUrl = baseUrl + WEB_LOGIN;
             }
