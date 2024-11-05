@@ -259,11 +259,13 @@
             <trusting group="androidx.annotation"/>
             <trusting group="androidx.appcompat"/>
             <trusting group="androidx.collection"/>
+            <trusting group="androidx.constraintlayout"/>
             <trusting group="androidx.core"/>
             <trusting group="androidx.databinding"/>
             <trusting group="androidx.fragment"/>
             <trusting group="androidx.graphics"/>
             <trusting group="androidx.lifecycle"/>
+            <trusting group="androidx.profileinstaller"/>
             <trusting group="androidx.transition" name="transition" version="1.5.0"/>
             <trusting group="androidx.webkit" name="webkit" version="1.11.0"/>
             <trusting group="androidx.webkit" name="webkit" version="1.12.0"/>
