@@ -41,6 +41,8 @@
     <bool name="disable_more_external_site">false</bool>
     <bool name="disable_sharing">false</bool>
     <bool name="disable_clipboard">false</bool>
+    <bool name="disable_log">false</bool>
+
 
     <!-- Flags to enable/disable some features -->
     <string name="send_files_to_other_apps">on</string>
