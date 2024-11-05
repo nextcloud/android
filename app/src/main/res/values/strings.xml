@@ -1263,4 +1263,6 @@
     <string name="two_way_sync_activity_empty_list_desc">To set up a two way sync folder, please enable it in the details tab of the folder in question.</string>
     <string name="two_way_sync_activity_title">Internal two way sync</string>
     <string name="two_way_sync_activity_disable_all_button_title">Disable for all folders</string>
+
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
 </resources>
