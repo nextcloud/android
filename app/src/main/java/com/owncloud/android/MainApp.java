@@ -61,6 +61,7 @@ import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -339,8 +340,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
-        boolean disableLogViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableLog, getResources().getBoolean(R.bool.disable_log));
-        if ((BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) && !disableLogViaMDM) {
+        if (MDMConfig.INSTANCE.enableLog(this)) {
             // use app writable dir, no permissions needed
             Log_OC.setLoggerImplementation(new LegacyLoggerAdapter(logger));
             Log_OC.d("Debug", "start logging");

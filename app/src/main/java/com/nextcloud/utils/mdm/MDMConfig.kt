@@ -9,6 +9,7 @@ package com.nextcloud.utils.mdm
 
 import android.content.Context
 import com.nextcloud.utils.extensions.getRestriction
+import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.utils.appConfig.AppConfigKeys
 
@@ -69,8 +70,18 @@ object MDMConfig {
     fun showIntro(context: Context): Boolean {
         val disableIntroViaMDM =
             context.getRestriction(AppConfigKeys.DisableIntro, context.resources.getBoolean(R.bool.disable_intro))
+
         val isProviderOrOwnInstallationVisible = context.resources.getBoolean(R.bool.show_provider_or_own_installation)
 
         return isProviderOrOwnInstallationVisible && !disableIntroViaMDM
+    }
+
+    fun enableLog(context: Context): Boolean {
+        val disableLogViaMDM =
+            context.getRestriction(AppConfigKeys.DisableLog, context.resources.getBoolean(R.bool.disable_log))
+
+        val loggerEnabled = context.resources.getBoolean(R.bool.logger_enabled)
+
+        return loggerEnabled && !disableLogViaMDM && BuildConfig.DEBUG
     }
 }
