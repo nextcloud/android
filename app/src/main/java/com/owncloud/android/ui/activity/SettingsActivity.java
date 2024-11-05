@@ -328,7 +328,7 @@ public class SettingsActivity extends PreferenceActivity
         viewThemeUtils.files.themePreferenceCategory(preferenceCategorySync);
 
         setupAutoUploadPreference(preferenceCategorySync);
-        setupInternalTwoWaySyncPreference(preferenceCategorySync);
+        setupInternalTwoWaySyncPreference();
     }
 
     private void setupMoreCategory() {
@@ -567,7 +567,7 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-    private void setupInternalTwoWaySyncPreference(PreferenceCategory preferenceCategorySync) {
+    private void setupInternalTwoWaySyncPreference() {
         Preference twoWaySync = findPreference("internal_two_way_sync");
 
         twoWaySync.setOnPreferenceClickListener(preference -> {
