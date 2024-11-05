@@ -827,7 +827,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void updateQuotaLink() {
         if (mQuotaTextLink != null) {
-            if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+            boolean disableMoreExternalSite = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
+            if (getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSite) {
                 List<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
 
                 float density = getResources().getDisplayMetrics().density;
@@ -976,7 +977,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void updateExternalLinksInDrawer() {
-        if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+        boolean disableMoreExternalSite = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
+        if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSite) {
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
 
             int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
@@ -1225,7 +1227,8 @@ public abstract class DrawerActivity extends ToolbarActivity
      * Retrieves external links via api from 'external' app
      */
     public void fetchExternalLinks(final boolean force) {
-        if (!getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+        boolean disableMoreExternalSite = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
+        if (!getBaseContext().getResources().getBoolean(R.bool.show_external_links) || disableMoreExternalSite) {
             return;
         }
 

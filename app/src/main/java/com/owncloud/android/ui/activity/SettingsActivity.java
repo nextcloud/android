@@ -50,6 +50,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -72,6 +73,7 @@ import com.owncloud.android.utils.DeviceCredentialUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.EncryptionUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
+import com.owncloud.android.utils.appConfig.AppConfigKeys;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -1101,7 +1103,8 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
-        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+        boolean disableMoreExternalSite = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
+        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSite) {
             ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {
