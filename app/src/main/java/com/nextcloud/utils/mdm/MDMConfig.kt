@@ -42,4 +42,13 @@ object MDMConfig {
 
         return shareViaUsers && disableShareViaMDM
     }
+
+    fun clipBoardSupport(context: Context): Boolean {
+        val disableClipboardSupport = context.getRestriction(
+            AppConfigKeys.DisableClipboard,
+            context.resources.getBoolean(R.bool.disable_clipboard)
+        )
+
+        return !disableClipboardSupport
+    }
 }
