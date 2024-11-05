@@ -57,7 +57,7 @@
 
     <restriction
         android:key="disable_log"
-        android:defaultValue="false"
+        android:defaultValue="true"
         android:restrictionType="bool"
         android:title="@string/app_config_disable_log_title" />
 
