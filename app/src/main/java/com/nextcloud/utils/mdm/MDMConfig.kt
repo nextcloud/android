@@ -87,7 +87,7 @@ object MDMConfig {
         return isProviderOrOwnInstallationVisible && !disableIntroViaMDM
     }
 
-    fun enableLog(context: Context): Boolean {
+    fun isLogEnabled(context: Context): Boolean {
         val disableLogViaMDM =
             context.getRestriction(AppConfigKeys.DisableLog, context.resources.getBoolean(R.bool.disable_log))
 
