@@ -59,6 +59,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -95,6 +96,7 @@ import com.owncloud.android.utils.BitmapUtils;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.DrawerMenuUtil;
 import com.owncloud.android.utils.FilesSyncHelper;
+import com.owncloud.android.utils.appConfig.AppConfigKeys;
 import com.owncloud.android.utils.svg.MenuSimpleTarget;
 import com.owncloud.android.utils.svg.SVGorImage;
 import com.owncloud.android.utils.svg.SvgOrImageBitmapTranscoder;
@@ -602,10 +604,11 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void openAddAccount() {
+        boolean disableIntro = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableIntro, getResources().getBoolean(R.bool.disable_intro));
         boolean isProviderOrOwnInstallationVisible = getResources()
             .getBoolean(R.bool.show_provider_or_own_installation);
 
-        if (isProviderOrOwnInstallationVisible) {
+        if (isProviderOrOwnInstallationVisible && !disableIntro) {
             Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
             firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
             startActivity(firstRunIntent);

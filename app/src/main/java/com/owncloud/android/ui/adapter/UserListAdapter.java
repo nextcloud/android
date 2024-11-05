@@ -22,12 +22,14 @@ import android.widget.ImageView;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountActionBinding;
 import com.owncloud.android.databinding.AccountItemBinding;
 import com.owncloud.android.lib.common.OwnCloudAccount;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.DisplayUtils;
+import com.owncloud.android.utils.appConfig.AppConfigKeys;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
@@ -94,7 +96,9 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                                              viewThemeUtils);
         } else {
             return new AddAccountViewHolderItem(
-                AccountActionBinding.inflate(LayoutInflater.from(context), parent, false));
+                AccountActionBinding.inflate(LayoutInflater.from(context), parent, false),
+                context
+            );
         }
     }
 
@@ -303,8 +307,11 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     static class AddAccountViewHolderItem extends RecyclerView.ViewHolder {
 
-        AddAccountViewHolderItem(@NonNull AccountActionBinding binding) {
+        private final Context context;
+
+        AddAccountViewHolderItem(@NonNull AccountActionBinding binding, @NonNull Context context) {
             super(binding.getRoot());
+            this.context = context;
         }
 
         /**
@@ -313,11 +320,11 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          * @param accountListAdapterListener {@link Listener}
          */
         private void bind(Listener accountListAdapterListener) {
-            // bind action listener
+            boolean disableIntro = ContextExtensionsKt.getRestriction(context, AppConfigKeys.DisableIntro, context.getResources().getBoolean(R.bool.disable_intro));
             boolean isProviderOrOwnInstallationVisible = itemView.getContext().getResources()
                 .getBoolean(R.bool.show_provider_or_own_installation);
 
-            if (isProviderOrOwnInstallationVisible) {
+            if (isProviderOrOwnInstallationVisible && !disableIntro) {
                 itemView.setOnClickListener(v -> accountListAdapterListener.showFirstRunActivity());
             } else {
                 itemView.setOnClickListener(v -> accountListAdapterListener.startAccountCreation());
