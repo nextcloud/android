@@ -23,7 +23,6 @@ import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.utils.EditorUtils;
-import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -34,7 +33,6 @@ import com.owncloud.android.ui.activity.ComponentsGetter;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
 import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.NextcloudServer;
-import com.owncloud.android.utils.appConfig.AppConfigKeys;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -46,7 +44,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.IdRes;
 import androidx.core.content.pm.ShortcutManagerCompat;
-import androidx.media3.common.C;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
