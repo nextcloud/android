@@ -65,4 +65,12 @@ object MDMConfig {
 
         return showExternalLinks && !disableMoreExternalSiteViaMDM
     }
+
+    fun showIntro(context: Context): Boolean {
+        val disableIntroViaMDM =
+            context.getRestriction(AppConfigKeys.DisableIntro, context.resources.getBoolean(R.bool.disable_intro))
+        val isProviderOrOwnInstallationVisible = context.resources.getBoolean(R.bool.show_provider_or_own_installation)
+
+        return isProviderOrOwnInstallationVisible && !disableIntroViaMDM
+    }
 }

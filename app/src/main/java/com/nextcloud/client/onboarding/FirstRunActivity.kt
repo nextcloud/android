@@ -24,7 +24,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.getRestriction
+import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -34,7 +34,6 @@ import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.appConfig.AppConfigKeys
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -78,14 +77,12 @@ class FirstRunActivity : BaseActivity(), Injectable {
         binding = FirstRunActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val disableIntroViaMDM = getRestriction(AppConfigKeys.DisableIntro, resources.getBoolean(R.bool.disable_intro))
-        val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_provider_or_own_installation)
         setSlideshowSize(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
 
         registerActivityResult()
         setupLoginButton()
-        setupSignupButton(isProviderOrOwnInstallationVisible && !disableIntroViaMDM)
-        setupHostOwnServerTextView(isProviderOrOwnInstallationVisible && !disableIntroViaMDM)
+        setupSignupButton(MDMConfig.showIntro(this))
+        setupHostOwnServerTextView(MDMConfig.showIntro(this))
         deleteAccountAtFirstLaunch()
         setupFeaturesViewAdapter()
         handleOnBackPressed()
@@ -210,10 +207,9 @@ class FirstRunActivity : BaseActivity(), Injectable {
     }
 
     private fun setSlideshowSize(isLandscape: Boolean) {
-        val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_provider_or_own_installation)
         binding.buttonLayout.orientation = if (isLandscape) LinearLayout.HORIZONTAL else LinearLayout.VERTICAL
 
-        val layoutParams: LinearLayout.LayoutParams = if (isProviderOrOwnInstallationVisible) {
+        val layoutParams: LinearLayout.LayoutParams = if (MDMConfig.showIntro(this)) {
             LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
