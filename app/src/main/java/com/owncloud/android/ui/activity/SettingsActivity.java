@@ -51,6 +51,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -1103,8 +1104,7 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
-        boolean disableMoreExternalSiteViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
-        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSiteViaMDM) {
+        if (MDMConfig.INSTANCE.externalSiteSupport(this)) {
             ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {

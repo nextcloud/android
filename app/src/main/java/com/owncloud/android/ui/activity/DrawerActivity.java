@@ -60,6 +60,7 @@ import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -827,8 +828,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void updateQuotaLink() {
         if (mQuotaTextLink != null) {
-            boolean disableMoreExternalSiteViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
-            if (getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSiteViaMDM) {
+            if (MDMConfig.INSTANCE.externalSiteSupport(this)) {
                 List<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
 
                 float density = getResources().getDisplayMetrics().density;
@@ -977,8 +977,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void updateExternalLinksInDrawer() {
-        boolean disableMoreExternalSiteViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
-        if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links) && !disableMoreExternalSiteViaMDM) {
+        if (mNavigationView != null && MDMConfig.INSTANCE.externalSiteSupport(this)) {
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
 
             int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
@@ -1227,8 +1226,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * Retrieves external links via api from 'external' app
      */
     public void fetchExternalLinks(final boolean force) {
-        boolean disableMoreExternalSiteViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMoreExternalSite, getResources().getBoolean(R.bool.disable_more_external_site));
-        if (!getBaseContext().getResources().getBoolean(R.bool.show_external_links) || disableMoreExternalSiteViaMDM) {
+        if (!MDMConfig.INSTANCE.externalSiteSupport(this)) {
             return;
         }
 
