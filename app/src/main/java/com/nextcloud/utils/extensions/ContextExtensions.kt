@@ -31,9 +31,9 @@ fun <T : Any> Context.getRestriction(appConfigKey: AppConfigKeys, defaultValue: 
 private fun <T : Any> RestrictionsManager.getRestriction(key: String, defaultValue: T): T {
     val appRestrictions = getApplicationRestrictions()
     return when (defaultValue) {
-        is String -> appRestrictions.getString(key) as T? ?: defaultValue
-        is Int -> appRestrictions.getInt(key) as T? ?: defaultValue
-        is Boolean -> appRestrictions.getBoolean(key) as T? ?: defaultValue
+        is String -> appRestrictions.getString(key, defaultValue) as T? ?: defaultValue
+        is Int -> appRestrictions.getInt(key, defaultValue) as T? ?: defaultValue
+        is Boolean -> appRestrictions.getBoolean(key, defaultValue) as T? ?: defaultValue
         else -> defaultValue
     }
 }
