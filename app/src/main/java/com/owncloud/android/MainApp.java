@@ -339,7 +339,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
-        if (MDMConfig.INSTANCE.enableLog(this)) {
+        if (MDMConfig.INSTANCE.isLogEnabled(this)) {
             // use app writable dir, no permissions needed
             Log_OC.setLoggerImplementation(new LegacyLoggerAdapter(logger));
             Log_OC.d("Debug", "start logging");

@@ -381,7 +381,7 @@ public class SettingsActivity extends PreferenceActivity
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
-            if (MDMConfig.INSTANCE.enableLog(this)) {
+            if (MDMConfig.INSTANCE.isLogEnabled(this)) {
                 pLogger.setOnPreferenceClickListener(preference -> {
                     Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
                     startActivity(loggerIntent);
