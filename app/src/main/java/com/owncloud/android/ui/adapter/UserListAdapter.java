@@ -308,7 +308,7 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         private final Context context;
 
-        AddAccountViewHolderItem(@NonNull AccountActionBinding binding, @NonNull Context context) {
+        AddAccountViewHolderItem(@NonNull AccountActionBinding binding, Context context) {
             super(binding.getRoot());
             this.context = context;
         }
@@ -319,6 +319,11 @@ public class UserListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
          * @param accountListAdapterListener {@link Listener}
          */
         private void bind(Listener accountListAdapterListener) {
+            if (context == null) {
+                Log_OC.d(TAG,"Context cannot be null, AddAccountViewHolderItem onClick is disabled");
+                return;
+            }
+
             if (MDMConfig.INSTANCE.showIntro(context)) {
                 itemView.setOnClickListener(v -> accountListAdapterListener.showFirstRunActivity());
             } else {
