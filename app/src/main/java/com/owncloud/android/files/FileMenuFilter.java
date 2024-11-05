@@ -185,7 +185,8 @@ public class FileMenuFilter {
     }
 
     private void filterSendFiles(List<Integer> toHide, boolean inSingleFileFragment) {
-        if (!MDMConfig.INSTANCE.sendFilesSupport(context) || (overflowMenu || containsEncryptedFile()) ||
+        if ((context != null && !MDMConfig.INSTANCE.sendFilesSupport(context)) ||
+            (overflowMenu || containsEncryptedFile()) ||
             (!inSingleFileFragment && (isSingleSelection() || !allFileDown())) ||
             !toHide.contains(R.id.action_send_share_file)) {
             toHide.add(R.id.action_send_file);
