@@ -24,6 +24,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.getRestriction
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -33,6 +34,7 @@ import com.owncloud.android.ui.activity.BaseActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.adapter.FeaturesViewAdapter
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.appConfig.AppConfigKeys
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
@@ -76,13 +78,14 @@ class FirstRunActivity : BaseActivity(), Injectable {
         binding = FirstRunActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val disableIntro = getRestriction(AppConfigKeys.DisableIntro, resources.getBoolean(R.bool.disable_intro))
         val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_provider_or_own_installation)
         setSlideshowSize(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
 
         registerActivityResult()
         setupLoginButton()
-        setupSignupButton(isProviderOrOwnInstallationVisible)
-        setupHostOwnServerTextView(isProviderOrOwnInstallationVisible)
+        setupSignupButton(isProviderOrOwnInstallationVisible && !disableIntro)
+        setupHostOwnServerTextView(isProviderOrOwnInstallationVisible && !disableIntro)
         deleteAccountAtFirstLaunch()
         setupFeaturesViewAdapter()
         handleOnBackPressed()
