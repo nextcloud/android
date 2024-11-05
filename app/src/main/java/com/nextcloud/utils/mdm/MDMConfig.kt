@@ -33,7 +33,7 @@ object MDMConfig {
 
         val shareViaLink = context.resources.getBoolean(R.bool.share_via_link_feature)
 
-        return shareViaLink && disableShareViaMDM
+        return shareViaLink && !disableShareViaMDM
     }
 
     fun shareViaUser(context: Context): Boolean {
@@ -44,7 +44,7 @@ object MDMConfig {
 
         val shareViaUsers = context.resources.getBoolean(R.bool.share_with_users_feature)
 
-        return shareViaUsers && disableShareViaMDM
+        return shareViaUsers && !disableShareViaMDM
     }
 
     fun sendFilesSupport(context: Context): Boolean {
