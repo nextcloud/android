@@ -697,7 +697,9 @@
     <string name="prefs_synced_folders_local_path_title">Cartafol local</string>
     <string name="prefs_synced_folders_remote_path_title">Cartafol remoto</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_interval">Intervalo</string>
     <string name="prefs_two_way_sync_summary">Xestionar os cartafoles internos para a sincronización bidireccional</string>
+    <string name="prefs_two_way_sync_switch_title">Activar a sincronización bidireccional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir o sistema</string>
@@ -1071,6 +1073,14 @@
     <string name="write_email">Enviar o correo</string>
     <string name="wrong_storage_path">O cartafol de almacenamento de datos non existe.</string>
     <string name="wrong_storage_path_desc">Isto pode deberse a unha restauración de copia de seguranza noutro dispositivo. Volvendo ao predeterminado. Comprobe as opcións para axustar o cartafol de almacenamento de datos.</string>
+    <plurals name="hours">
+        <item quantity="one">%d hora</item>
+        <item quantity="other">%d horas</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minuto</item>
+        <item quantity="other">%d minutos</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Non foi posíbel sincronizar  %1$d ficheiro (conflitos: %2$d)</item>
         <item quantity="other">Non foi posíbel sincronizar  %1$d ficheiros (conflitos: %2$d)</item>

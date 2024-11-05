@@ -696,7 +696,9 @@
     <string name="prefs_synced_folders_local_path_title">近端資料夾</string>
     <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>
     <string name="prefs_theme_title">佈景主題</string>
+    <string name="prefs_two_way_sync_interval">間距</string>
     <string name="prefs_two_way_sync_summary">管理內部資料夾以進行雙向同步</string>
+    <string name="prefs_two_way_sync_switch_title">啟用雙向同步</string>
     <string name="prefs_value_theme_dark">深色</string>
     <string name="prefs_value_theme_light">淺色</string>
     <string name="prefs_value_theme_system">跟隨系統</string>
@@ -1070,6 +1072,12 @@
     <string name="write_email">傳送電子郵件</string>
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
     <string name="wrong_storage_path_desc">這可能是由於另一部設備上的備份還原所致。退回默認值。請檢查設置以調整數據存儲資料夾。</string>
+    <plurals name="hours">
+        <item quantity="other">%d 小時</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="other">%d 分鐘</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">無法同步 %1$d 檔案（抵觸： %2$d）</item>
     </plurals>
