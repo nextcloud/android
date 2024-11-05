@@ -700,7 +700,9 @@
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
     <string name="prefs_theme_title">السمة</string>
+    <string name="prefs_two_way_sync_interval">الفسحة الزمنية</string>
     <string name="prefs_two_way_sync_summary">إدارة المجلدات الداخلية للمزامنة في الاتجاهين</string>
+    <string name="prefs_two_way_sync_switch_title">تمكين المزامنة في الاتجاهين</string>
     <string name="prefs_value_theme_dark">غامق</string>
     <string name="prefs_value_theme_light">فاتح</string>
     <string name="prefs_value_theme_system">اتبع النظام</string>
@@ -1097,6 +1099,22 @@
     <string name="write_email">إرسال بريد</string>
     <string name="wrong_storage_path">مجلد التخزين غير موجود !</string>
     <string name="wrong_storage_path_desc">قد يكون هذا بسبب استعادة نسخة احتياطية على جهاز آخر . العودة الى الافتراضي . يرجى التحقق من الإعدادات لضبط مجلد تخزين البيانات.</string>
+    <plurals name="hours">
+        <item quantity="zero">%d ساعة</item>
+        <item quantity="one">%d ساعة</item>
+        <item quantity="two">%d ساعة</item>
+        <item quantity="few">%d ساعات</item>
+        <item quantity="many">%d ساعة</item>
+        <item quantity="other">%d ساعة</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="zero">%d دقيقة</item>
+        <item quantity="one">%d دقيقة</item>
+        <item quantity="two">%d دقيقة</item>
+        <item quantity="few">%d دقائق</item>
+        <item quantity="many">%d دقيقة</item>
+        <item quantity="other">%d دقيقة</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="zero">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
         <item quantity="one">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
