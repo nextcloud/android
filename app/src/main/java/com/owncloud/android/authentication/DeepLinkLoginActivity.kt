@@ -18,7 +18,7 @@ class DeepLinkLoginActivity : AuthenticatorActivity(), Injectable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!MDMConfig.multiAccountSupport(this) || accountManager.accounts.size == 1) {
+        if (!MDMConfig.multiAccountSupport(this) && accountManager.accounts.size == 1) {
             Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show()
             return
         }

@@ -810,7 +810,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
         Uri data = intent.getData();
         if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
-            if (!MDMConfig.INSTANCE.multiAccountSupport(this) ||
+            if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                 accountManager.getAccounts().length == 1) {
                 Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
                 finish();
@@ -1531,7 +1531,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     return;
                 }
 
-                if (!MDMConfig.INSTANCE.multiAccountSupport(this) ||
+                if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                     accountManager.getAccounts().length == 1) {
                     Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
                 } else {
