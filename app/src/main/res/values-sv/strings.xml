@@ -926,6 +926,9 @@
     <string name="trashbin_file_remove">Ta bort permanent</string>
     <string name="trashbin_loading_failed">Laddning av papperskorg misslyckades!</string>
     <string name="trashbin_not_emptied">Filer kunde inte tas bort permanent!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Inaktivera för alla mappar</string>
+    <string name="two_way_sync_activity_empty_list_desc">För att ställa in en mapp för tvåvägssynkronisering, aktivera den på informationsfliken för den aktuella mappen.</string>
+    <string name="two_way_sync_activity_empty_list_title">Tvåvägssynkronisering är inte inställd</string>
     <string name="two_way_sync_activity_title">Intern tvåvägssynk</string>
     <string name="unexpected_error_occurred">Ett oväntat fel inträffade</string>
     <string name="unified_search_fragment_calendar_event_not_found">Händelsen hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>

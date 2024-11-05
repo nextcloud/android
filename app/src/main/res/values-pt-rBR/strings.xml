@@ -925,6 +925,9 @@
     <string name="trashbin_file_remove">Remover permanentemente</string>
     <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Desative para todas as pastas</string>
+    <string name="two_way_sync_activity_empty_list_desc">Para configurar uma pasta de sincronização de duas vias, ative-a na guia Detalhes da pasta em questão.</string>
+    <string name="two_way_sync_activity_empty_list_title">Sincroniza de duas maneiras não configuradas</string>
     <string name="two_way_sync_activity_title">Sincronização interna bidirecional</string>
     <string name="unexpected_error_occurred">Ocorreu um erro inesperado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Evento não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para a web…</string>
@@ -934,6 +937,7 @@
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Definir como não criptografado</string>
     <string name="unset_favorite">Remover dos favoritos</string>
+    <string name="unset_internal_two_way_sync_description">Remova a pasta da sincronização interna de duas maneiras</string>
     <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta.</string>
     <string name="unshare_link_file_no_exist">Não foi possível descompartilhar. Verifique se o arquivo existe.</string>
     <string name="unshare_link_forbidden_permissions">para descompartilhar este arquivo</string>

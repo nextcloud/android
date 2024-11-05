@@ -612,6 +612,7 @@
     <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">cambiar</string>
+    <string name="please_select_a_server">Por favor seleccione un servidor...</string>
     <string name="power_save_check_dialog_message">Desactivar la comprobación de ahorro de energía puede causar que se suban ficheros aun estando en modo de baja batería</string>
     <string name="pref_behaviour_entries_delete_file">borrado</string>
     <string name="pref_behaviour_entries_keep_file">dejado en la carpeta original</string>
@@ -921,7 +922,10 @@
     <string name="upload_cannot_create_file">No se puede crear el archivo local</string>
     <string name="upload_chooser_title">Subir desde…</string>
     <string name="upload_content_from_other_apps">Subir contenido desde otras apps</string>
+    <string name="upload_direct_camera_photo">Foto</string>
+    <string name="upload_direct_camera_promt">¿Quieres tomar una foto o un video?</string>
     <string name="upload_direct_camera_upload">Subir de la cámara</string>
+    <string name="upload_direct_camera_video">Vídeo</string>
     <string name="upload_file_dialog_filename">Nombre de archivo</string>
     <string name="upload_file_dialog_filetype">Tipo de archivo</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Archivo de atajo a Google Maps(%s)</string>

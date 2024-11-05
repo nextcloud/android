@@ -925,6 +925,9 @@
     <string name="trashbin_file_remove">Scrios go buan</string>
     <string name="trashbin_loading_failed">Theip ar lódáil an bhosca bruscair!</string>
     <string name="trashbin_not_emptied">Níorbh fhéidir na comhaid a scriosadh go buan!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Díchumasaigh do gach fillteán</string>
+    <string name="two_way_sync_activity_empty_list_desc">Chun fillteán sioncronaithe dhá bhealach a shocrú, cumasaigh é i gcluaisín sonraí an fhillteáin atá i gceist.</string>
+    <string name="two_way_sync_activity_empty_list_title">Sioncronú dhá bhealach gan socrú</string>
     <string name="two_way_sync_activity_title">Sioncronú inmheánach dhá bhealach</string>
     <string name="unexpected_error_occurred">Tharla earráid gan choinne</string>
     <string name="unified_search_fragment_calendar_event_not_found">Níor aimsíodh an t-imeacht, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>

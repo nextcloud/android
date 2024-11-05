@@ -925,6 +925,9 @@
     <string name="trashbin_file_remove">Обриши заувек</string>
     <string name="trashbin_loading_failed">Није успело учитавање корпе за отпатке!</string>
     <string name="trashbin_not_emptied">Фајл не може да се обрише неповратно!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Искључи за све фолдере</string>
+    <string name="two_way_sync_activity_empty_list_desc">Да бисте подесили двосмерну синхронизацију, молимо вас да је укључите у картици детаљи за жељени фолдер</string>
+    <string name="two_way_sync_activity_empty_list_title">Није подешена двосмерна синхронизација</string>
     <string name="two_way_sync_activity_title">Интерна двосмерна синхронизација</string>
     <string name="unexpected_error_occurred">Дошло је до неочекиване грешке</string>
     <string name="unified_search_fragment_calendar_event_not_found">Није пронађен догађај, увек можете да сихронизујете да бисте ажурирали. Преусмеравате се на веб</string>
