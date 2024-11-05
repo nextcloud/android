@@ -12,10 +12,9 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.text.TextUtils
 import android.widget.Toast
-import com.nextcloud.utils.extensions.getRestriction
+import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.utils.appConfig.AppConfigKeys
 
 /**
  * Helper implementation to copy a string into the system clipboard.
@@ -27,11 +26,7 @@ object ClipboardUtil {
     @JvmOverloads
     @Suppress("TooGenericExceptionCaught")
     fun copyToClipboard(activity: Activity, text: String?, showToast: Boolean = true) {
-        val disableClipboard = activity.getRestriction(
-            AppConfigKeys.DisableClipboard,
-            activity.resources.getBoolean(R.bool.disable_clipboard)
-        )
-        if (disableClipboard) {
+        if (!MDMConfig.clipBoardSupport(activity)) {
             return
         }
 
