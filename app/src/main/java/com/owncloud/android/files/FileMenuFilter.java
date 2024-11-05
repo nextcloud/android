@@ -185,10 +185,24 @@ public class FileMenuFilter {
     }
 
     private void filterSendFiles(List<Integer> toHide, boolean inSingleFileFragment) {
-        if ((context != null && !MDMConfig.INSTANCE.sendFilesSupport(context)) ||
-            (overflowMenu || containsEncryptedFile()) ||
-            (!inSingleFileFragment && (isSingleSelection() || !allFileDown())) ||
-            !toHide.contains(R.id.action_send_share_file)) {
+        boolean sendFilesNotSupported = context != null && !MDMConfig.INSTANCE.sendFilesSupport(context);
+        boolean hasEncryptedFile = containsEncryptedFile();
+        boolean isSingleSelection = isSingleSelection();
+        boolean allFilesNotDown = !allFileDown();
+
+        if (sendFilesNotSupported) {
+            toHide.add(R.id.action_send_file);
+            return;
+        }
+
+        if (overflowMenu || hasEncryptedFile) {
+            toHide.add(R.id.action_send_file);
+            return;
+        }
+
+        if (!inSingleFileFragment && (isSingleSelection || allFilesNotDown)) {
+            toHide.add(R.id.action_send_file);
+        } else if (!toHide.contains(R.id.action_send_share_file)) {
             toHide.add(R.id.action_send_file);
         }
     }
