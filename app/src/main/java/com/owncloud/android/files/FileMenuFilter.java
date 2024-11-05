@@ -24,6 +24,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.utils.EditorUtils;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -45,6 +46,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.IdRes;
 import androidx.core.content.pm.ShortcutManagerCompat;
+import androidx.media3.common.C;
 
 /**
  * Filters out the file actions available in a given {@link Menu} for a given {@link OCFile}
@@ -428,15 +430,11 @@ public class FileMenuFilter {
     }
 
     private boolean isShareWithUsersAllowed() {
-        return context != null &&
-            context.getResources().getBoolean(R.bool.share_with_users_feature) &&
-            !ContextExtensionsKt.getRestriction(context, AppConfigKeys.DisableSharing, context.getResources().getBoolean(R.bool.disable_sharing));
+        return context != null && MDMConfig.INSTANCE.shareViaUser(context);
     }
 
     private boolean isShareViaLinkAllowed() {
-        return context != null &&
-            context.getResources().getBoolean(R.bool.share_via_link_feature) &&
-            !ContextExtensionsKt.getRestriction(context, AppConfigKeys.DisableSharing, context.getResources().getBoolean(R.bool.disable_sharing));
+        return context != null && MDMConfig.INSTANCE.shareViaLink(context);
     }
 
     private boolean isSingleSelection() {
