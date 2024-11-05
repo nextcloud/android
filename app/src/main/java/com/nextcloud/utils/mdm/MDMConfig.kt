@@ -11,7 +11,6 @@ import android.content.Context
 import com.nextcloud.utils.extensions.getRestriction
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
-import com.owncloud.android.files.FileMenuFilter
 import com.owncloud.android.utils.appConfig.AppConfigKeys
 
 object MDMConfig {
