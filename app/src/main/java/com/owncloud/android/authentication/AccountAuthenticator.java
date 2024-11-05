@@ -21,12 +21,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
-import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
 import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.utils.appConfig.AppConfigKeys;
 
 /**
  *  Authenticator for ownCloud accounts.
@@ -72,8 +71,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
         final Bundle bundle = new Bundle();
 
-        boolean disableMultiAccountViaMDM = ContextExtensionsKt.getRestriction(mContext, AppConfigKeys.DisableMultiAccount, mContext.getResources().getBoolean(R.bool.disable_multiaccount));
-        if (!disableMultiAccountViaMDM && mContext.getResources().getBoolean(R.bool.multiaccount_support) && accounts.length > 1) {
+        if (MDMConfig.INSTANCE.multiAccountSupport(mContext) && accounts.length > 1) {
             try {
                 validateAccountType(accountType);
             } catch (AuthenticatorException e) {

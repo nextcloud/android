@@ -25,7 +25,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.extensions.getParcelableArgument
-import com.nextcloud.utils.extensions.getRestriction
+import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogChooseAccountBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -37,7 +37,6 @@ import com.owncloud.android.ui.adapter.UserListAdapter
 import com.owncloud.android.ui.adapter.UserListItem
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.DisplayUtils.AvatarGenerationListener
-import com.owncloud.android.utils.appConfig.AppConfigKeys
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -122,13 +121,7 @@ class ChooseAccountDialogFragment :
                 viewThemeUtils
             )
 
-            val disableMultiAccountViaMDM = requireContext().getRestriction(
-                AppConfigKeys.DisableMultiAccount,
-                context?.resources?.getBoolean(R.bool.disable_multiaccount) ?: false
-            )
-
-            // hide "add account" when no multi account
-            if (!resources.getBoolean(R.bool.multiaccount_support) || disableMultiAccountViaMDM) {
+            if (!MDMConfig.multiAccountSupport(requireContext())) {
                 binding.addAccount.visibility = View.GONE
             }
 
