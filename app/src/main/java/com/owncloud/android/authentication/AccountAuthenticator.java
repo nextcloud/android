@@ -71,7 +71,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
         final Bundle bundle = new Bundle();
 
-        if (MDMConfig.INSTANCE.multiAccountSupport(mContext) && accounts.length > 1) {
+        if (accounts.length > 1 && MDMConfig.INSTANCE.multiAccountSupport(mContext)) {
             try {
                 validateAccountType(accountType);
             } catch (AuthenticatorException e) {
