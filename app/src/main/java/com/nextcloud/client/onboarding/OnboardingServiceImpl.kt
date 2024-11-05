@@ -21,7 +21,7 @@ import com.owncloud.android.features.FeatureItem
 import com.owncloud.android.ui.activity.PassCodeActivity
 import com.owncloud.android.utils.appConfig.AppConfigKeys
 
-internal class OnboardingServiceImpl constructor(
+internal class OnboardingServiceImpl(
     private val resources: Resources,
     private val preferences: AppPreferences,
     private val accountProvider: CurrentAccountProvider
@@ -63,10 +63,10 @@ internal class OnboardingServiceImpl constructor(
     }
 
     override fun launchFirstRunIfNeeded(activity: Activity): Boolean {
-        val disableIntro = activity.getRestriction(AppConfigKeys.DisableIntro, resources.getBoolean(R.bool.disable_intro))
+        val disableIntroViaMDM = activity.getRestriction(AppConfigKeys.DisableIntro, resources.getBoolean(R.bool.disable_intro))
         val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_provider_or_own_installation)
         val canLaunch = isProviderOrOwnInstallationVisible && isFirstRun && activity is AuthenticatorActivity
-        if (canLaunch && !disableIntro) {
+        if (canLaunch && !disableIntroViaMDM) {
             val intent = Intent(activity, FirstRunActivity::class.java)
             activity.startActivityForResult(intent, AuthenticatorActivity.REQUEST_CODE_FIRST_RUN)
         }

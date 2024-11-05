@@ -11,14 +11,17 @@ import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getRestriction
 import com.owncloud.android.R
+import com.owncloud.android.utils.appConfig.AppConfigKeys
 
 class DeepLinkLoginActivity : AuthenticatorActivity(), Injectable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        if (!resources.getBoolean(R.bool.multiaccount_support) &&
+        val disableMultiAccountViaMDM = getRestriction(AppConfigKeys.DisableMultiAccount, resources.getBoolean(R.bool.disable_multiaccount))
+        if (disableMultiAccountViaMDM ||
+            !resources.getBoolean(R.bool.multiaccount_support) ||
             accountManager.accounts.size == 1
         ) {
             Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show()

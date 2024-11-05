@@ -30,6 +30,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.extensions.ContextExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -46,6 +47,7 @@ import com.owncloud.android.ui.adapter.UserListItem;
 import com.owncloud.android.ui.dialog.AccountRemovalDialog;
 import com.owncloud.android.ui.events.AccountRemovedEvent;
 import com.owncloud.android.ui.helpers.FileOperationsHelper;
+import com.owncloud.android.utils.appConfig.AppConfigKeys;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -131,8 +133,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
 
         arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-
-        multipleAccountsSupported = getResources().getBoolean(R.bool.multiaccount_support);
+        boolean disableMultiAccountViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMultiAccount, getResources().getBoolean(R.bool.disable_multiaccount));
+        multipleAccountsSupported = getResources().getBoolean(R.bool.multiaccount_support) && !disableMultiAccountViaMDM;
 
         userListAdapter = new UserListAdapter(this,
                                               accountManager,
@@ -230,7 +232,8 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             userListItems.add(new UserListItem(user, !pendingForRemoval));
         }
 
-        if (getResources().getBoolean(R.bool.multiaccount_support)) {
+        boolean disableMultiAccountViaMDM = ContextExtensionsKt.getRestriction(this, AppConfigKeys.DisableMultiAccount, getResources().getBoolean(R.bool.disable_multiaccount));
+        if (getResources().getBoolean(R.bool.multiaccount_support) && !disableMultiAccountViaMDM) {
             userListItems.add(new UserListItem());
         }
 
