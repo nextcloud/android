@@ -7,8 +7,8 @@
 
 package com.nextcloud.ui
 
-import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.account.User
+import com.nextcloud.client.network.ClientFactory
 import com.owncloud.android.lib.resources.users.GetStatusRemoteOperation
 import com.owncloud.android.lib.resources.users.Status
 import com.owncloud.android.lib.resources.users.StatusType
@@ -33,6 +33,5 @@ suspend fun retrieveUserStatus(user: User, clientFactory: ClientFactory): Status
         }
     }
 }
-
 
 private fun offlineStatus() = Status(StatusType.OFFLINE, "", "", -1)
