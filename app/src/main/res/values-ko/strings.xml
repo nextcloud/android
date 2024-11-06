@@ -1023,7 +1023,6 @@
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>
     <string name="whats_your_status">당신의 상태는?</string>
-    <string name="widgets_not_available">위젯 기능은 %1$s 버전 25 이후부터 사용할 수 있습니다.</string>
     <string name="widgets_not_available_title">사용할 수 없음</string>
     <string name="worker_download">파일 다운로드 중…</string>
     <string name="write_email">이메일 보내기</string>

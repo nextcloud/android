@@ -1064,7 +1064,6 @@
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <string name="whats_your_status">Quel est votre statut ?</string>
-    <string name="widgets_not_available">Les widgets ne sont disponibles que sur %1$s 25 ou plus tard</string>
     <string name="widgets_not_available_title">Non disponible</string>
     <string name="worker_download">Téléchargement des fichiers…</string>
     <string name="write_email">Envoyer un e-mail</string>

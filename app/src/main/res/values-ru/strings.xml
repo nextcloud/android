@@ -1048,7 +1048,6 @@
     <string name="whats_new_skip">Пропустить</string>
     <string name="whats_new_title">Новое в %1$s</string>
     <string name="whats_your_status">Ваш статус?</string>
-    <string name="widgets_not_available">Виджеты доступны только на%1$s25 или более</string>
     <string name="widgets_not_available_title">Не доступен</string>
     <string name="worker_download">Получение файлов…</string>
     <string name="write_email">Отправить письмо</string>
