@@ -15,9 +15,9 @@
  */
 package com.owncloud.android.ui.activity;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -685,6 +685,7 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
+    @SuppressLint("DiscouragedPrivateApi")
     private void showAppPasscodeDialog() {
         ListPreference lockPreference = (ListPreference) findPreference("lock");
         if (lockPreference != null) {
@@ -692,25 +693,18 @@ public class SettingsActivity extends PreferenceActivity
                 Method method = android.preference.DialogPreference.class.getDeclaredMethod("onClick");
                 method.setAccessible(true);
                 method.invoke(lockPreference);
-                makeAppPasscodeDialogDismissible(lockPreference);
+
+                Field field = android.preference.DialogPreference.class.getDeclaredField("mDialog");
+                field.setAccessible(true);
+                AlertDialog dialog = (AlertDialog) field.get(lockPreference);
+                if (dialog != null) {
+                    dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setVisibility(View.GONE);
+                    dialog.setCancelable(false);
+                    dialog.setCanceledOnTouchOutside(false);
+                }
             } catch (Exception e) {
                 Log_OC.d(TAG,"Error caught at showAppPasscodeDialog: " + e);
             }
-        }
-    }
-
-    private void makeAppPasscodeDialogDismissible(ListPreference lockPreference) {
-        try {
-            Field field = android.preference.DialogPreference.class.getDeclaredField("mDialog");
-            field.setAccessible(true);
-            AlertDialog dialog = (AlertDialog) field.get(lockPreference);
-            if (dialog != null) {
-                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setVisibility(View.GONE);
-                dialog.setCancelable(false);
-                dialog.setCanceledOnTouchOutside(false);
-            }
-        } catch (Exception e) {
-            Log_OC.d(TAG,"Error caught at makeAppPasscodeDialogDismissible: " + e);
         }
     }
 
@@ -751,6 +745,7 @@ public class SettingsActivity extends PreferenceActivity
                 lockEntries.remove(2);
                 lockValues.remove(2);
             }
+
             String[] lockEntriesArr = new String[lockEntries.size()];
             lockEntriesArr = lockEntries.toArray(lockEntriesArr);
             String[] lockValuesArr = new String[lockValues.size()];
@@ -759,20 +754,6 @@ public class SettingsActivity extends PreferenceActivity
             lock.setEntries(lockEntriesArr);
             lock.setEntryValues(lockValuesArr);
             lock.setSummary(lock.getEntry());
-
-            if (enforceProtection) {
-                lock.setOnPreferenceClickListener(preference -> {
-                    try {
-                        Method method = android.preference.DialogPreference.class.getDeclaredMethod("showDialog", Bundle.class);
-                        method.setAccessible(true);
-                        method.invoke(preference, (Bundle) null);
-                        makeAppPasscodeDialogDismissible(lock);
-                    } catch (Exception e) {
-                        Log_OC.d(TAG,"Error caught at setupLockPreference: " + e);
-                    }
-                    return true;
-                });
-            }
 
             lock.setOnPreferenceChangeListener((preference, o) -> {
                 pendingLock = LOCK_NONE;
