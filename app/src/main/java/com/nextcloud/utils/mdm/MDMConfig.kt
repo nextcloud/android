@@ -58,6 +58,21 @@ object MDMConfig {
         return sendFilesToOtherApp && !disableShareViaMDM
     }
 
+    fun sharingSupport(context: Context): Boolean {
+        val disableShareViaMDM = context.getRestriction(
+            AppConfigKeys.DisableSharing,
+            context.resources.getBoolean(R.bool.disable_sharing)
+        )
+
+        val sendFilesToOtherApp = "on".equals(context.getString(R.string.send_files_to_other_apps), ignoreCase = true)
+
+        val shareViaUsers = context.resources.getBoolean(R.bool.share_with_users_feature)
+
+        val shareViaLink = context.resources.getBoolean(R.bool.share_via_link_feature)
+
+        return sendFilesToOtherApp && shareViaLink && shareViaUsers && !disableShareViaMDM
+    }
+
     fun clipBoardSupport(context: Context): Boolean {
         val disableClipboardSupport = context.getRestriction(
             AppConfigKeys.DisableClipboard,
