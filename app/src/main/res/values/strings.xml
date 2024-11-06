@@ -32,6 +32,7 @@
     <string name="app_config_disable_more_external_site_title">Disable External Sites</string>
     <string name="app_config_disable_intro_title">Disable Intro</string>
     <string name="app_config_disable_log_title">Disable Log</string>
+    <string name="app_config_enforce_protection_title">Enforce Protection</string>
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_host_title">Proxy Host Name</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
