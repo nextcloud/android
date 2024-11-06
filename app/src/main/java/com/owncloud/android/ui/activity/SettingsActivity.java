@@ -15,10 +15,7 @@
  */
 package com.owncloud.android.ui.activity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -66,6 +63,7 @@ import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.providers.DocumentsStorageProvider;
+import com.owncloud.android.ui.ListPreferenceDialog;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
@@ -78,8 +76,6 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,7 +125,7 @@ public class SettingsActivity extends PreferenceActivity
 
     private Uri serverBaseUri;
 
-    private ListPreference lock;
+    private ListPreferenceDialog lock;
     private ThemeableSwitchPreference showHiddenFiles;
     private ThemeableSwitchPreference showEcosystemApps;
     private AppCompatDelegate delegate;
@@ -193,8 +189,10 @@ public class SettingsActivity extends PreferenceActivity
         // workaround for mismatched color when app dark mode and system dark mode don't agree
         setListBackground();
 
-        if (getIntent().getBooleanExtra(SHOW_APP_PASSCODE_DIALOG,false)) {
-            showAppPasscodeDialog();
+        if (getIntent().getBooleanExtra(SHOW_APP_PASSCODE_DIALOG,false) && lock != null) {
+            lock.showDialog();
+            lock.dismissible(false);
+            lock.enableCancelButton(false);
         }
     }
 
@@ -685,34 +683,11 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-    @SuppressLint("DiscouragedPrivateApi")
-    private void showAppPasscodeDialog() {
-        ListPreference lockPreference = (ListPreference) findPreference("lock");
-        if (lockPreference != null) {
-            try {
-                Method method = android.preference.DialogPreference.class.getDeclaredMethod("onClick");
-                method.setAccessible(true);
-                method.invoke(lockPreference);
-
-                Field field = android.preference.DialogPreference.class.getDeclaredField("mDialog");
-                field.setAccessible(true);
-                AlertDialog dialog = (AlertDialog) field.get(lockPreference);
-                if (dialog != null) {
-                    dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setVisibility(View.GONE);
-                    dialog.setCancelable(false);
-                    dialog.setCanceledOnTouchOutside(false);
-                }
-            } catch (Exception e) {
-                Log_OC.d(TAG,"Error caught at showAppPasscodeDialog: " + e);
-            }
-        }
-    }
-
     private void setupLockPreference(PreferenceCategory preferenceCategoryDetails,
                                      boolean passCodeEnabled,
                                      boolean deviceCredentialsEnabled) {
         boolean enforceProtection = MDMConfig.INSTANCE.enforceProtection(this);
-        lock = (ListPreference) findPreference(PREFERENCE_LOCK);
+        lock = (ListPreferenceDialog) findPreference(PREFERENCE_LOCK);
         int optionSize = 3;
         if (enforceProtection) {
             optionSize = 2;
