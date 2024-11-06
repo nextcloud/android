@@ -119,6 +119,9 @@ object MDMConfig {
     fun getPort(context: Context): Int =
         context.getRestriction(AppConfigKeys.ProxyPort, context.resources.getInteger(R.integer.proxy_port))
 
+    fun enforceProtection(context: Context): Boolean =
+        context.getRestriction(AppConfigKeys.EnforceProtection, context.resources.getBoolean(R.bool.enforce_protection))
+
     @Suppress("UNCHECKED_CAST")
     private fun <T : Any> Context.getRestriction(appConfigKey: AppConfigKeys, defaultValue: T): T {
         val restrictionsManager = getSystemService(Context.RESTRICTIONS_SERVICE) as? RestrictionsManager
