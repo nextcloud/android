@@ -335,10 +335,11 @@ class OCFileListDelegate(
 
     private fun showLocalFileIndicator(file: OCFile, gridViewHolder: ListViewHolder) {
         val operationsServiceBinder = transferServiceGetter.operationsServiceBinder
+        val fileDownloadHelper = FileDownloadHelper.instance()
 
         val icon: Int? = when {
             operationsServiceBinder?.isSynchronizing(user, file) == true ||
-                FileDownloadHelper.instance().isDownloading(user, file) ||
+                fileDownloadHelper.isDownloading(user, file) ||
                 fileUploadHelper.isUploading(user, file) -> {
                 // synchronizing, downloading or uploading
                 R.drawable.ic_synchronizing

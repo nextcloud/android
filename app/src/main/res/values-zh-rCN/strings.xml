@@ -1083,7 +1083,6 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
     <string name="whats_your_status">你什么状态？</string>
-    <string name="widgets_not_available">小工具仅在%1$s25及更高版本中可用</string>
     <string name="widgets_not_available_title">不可用</string>
     <string name="worker_download">正在下载文件…</string>
     <string name="write_email">发送邮件</string>

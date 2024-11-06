@@ -913,7 +913,6 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="whats_your_status">¿Cuál es tu estado?</string>
-    <string name="widgets_not_available">Los widgets solo están disponibles en %1$s 25 o posterior</string>
     <string name="widgets_not_available_title">No disponible</string>
     <string name="worker_download">Descargando archivos…</string>
     <string name="write_email">Enviar correo electrónico</string>

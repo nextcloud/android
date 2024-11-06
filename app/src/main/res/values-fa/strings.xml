@@ -981,7 +981,6 @@
     <string name="whats_new_skip">رد شدن</string>
     <string name="whats_new_title">جدید در %1$s</string>
     <string name="whats_your_status">وضعیت شما چیست؟</string>
-    <string name="widgets_not_available">ویجت ها فقط در%1$s 25 یا بالاتر در دسترس هستند</string>
     <string name="widgets_not_available_title">در دسترس نیست</string>
     <string name="worker_download">در حال دریافت فایل ها...</string>
     <string name="write_email">ارسال ایمیل</string>

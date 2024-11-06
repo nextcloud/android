@@ -1176,7 +1176,7 @@
     <string name="icon_of_widget_entry">Icon of widget entry</string>
     <string name="choose_widget">Choose widget</string>
     <string name="reload">Reload</string>
-    <string name="widgets_not_available">Widgets are only available on %1$s 25 or later</string>
+    <string name="widgets_not_available">Widgets are only available in %1$s 25 or later when the Dashboard app is enabled</string>
     <string name="widgets_not_available_title">Not available</string>
     <string name="icon_for_empty_list">Icon for empty list</string>
     <string name="no_items">No items</string>

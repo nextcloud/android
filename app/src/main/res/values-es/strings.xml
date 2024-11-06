@@ -1028,7 +1028,6 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="whats_your_status">¿Cuál es su estado?</string>
-    <string name="widgets_not_available">Los widgets solo están disponibles para %1$s 25 o superior</string>
     <string name="widgets_not_available_title">No disponible</string>
     <string name="worker_download">Bajando archivos…</string>
     <string name="write_email">Enviar email</string>

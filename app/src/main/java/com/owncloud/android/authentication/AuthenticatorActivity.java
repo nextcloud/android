@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2019-2021 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
@@ -1364,14 +1364,13 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void endSuccess() {
-        if (onlyAdd) {
-            finish();
-        } else {
+        if (!onlyAdd) {
             Intent i = new Intent(this, FileDisplayActivity.class);
             i.setAction(FileDisplayActivity.RESTART);
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(i);
         }
+        finish();
     }
 
     private void getUserCapabilitiesAndFinish() {

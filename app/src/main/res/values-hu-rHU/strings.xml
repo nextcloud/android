@@ -949,7 +949,6 @@
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>
     <string name="whats_your_status">Mi az állapota?</string>
-    <string name="widgets_not_available">A modulok csak %1$s 25 vagy újabb esetén érhetők el</string>
     <string name="widgets_not_available_title">Nem érhető el</string>
     <string name="worker_download">Fájlok letöltése…</string>
     <string name="write_email">E-mail küldése</string>
