@@ -78,6 +78,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -107,7 +108,6 @@ public class SettingsActivity extends PreferenceActivity
     public static final String LOCK_DEVICE_CREDENTIALS = "device_credentials";
 
 
-    public static final String SHOW_APP_PASSCODE_DIALOG = "show_app_passcode";
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
     public static final String PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
 
@@ -189,7 +189,13 @@ public class SettingsActivity extends PreferenceActivity
         // workaround for mismatched color when app dark mode and system dark mode don't agree
         setListBackground();
 
-        if (getIntent().getBooleanExtra(SHOW_APP_PASSCODE_DIALOG,false) && lock != null) {
+        showPasscodeDialogIfEnforceAppProtection();
+    }
+    
+    private void showPasscodeDialogIfEnforceAppProtection() {
+        if (MDMConfig.INSTANCE.enforceProtection(this) &&
+            Objects.equals(preferences.getLockPreference(), SettingsActivity.LOCK_NONE) &&
+            lock != null) {
             lock.showDialog();
             lock.dismissible(false);
             lock.enableCancelButton(false);
@@ -977,7 +983,9 @@ public class SettingsActivity extends PreferenceActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ACTION_REQUEST_PASSCODE && resultCode == RESULT_OK) {
+        if (requestCode == ACTION_REQUEST_PASSCODE && resultCode == RESULT_CANCELED) {
+            showPasscodeDialogIfEnforceAppProtection();
+        } else if (requestCode == ACTION_REQUEST_PASSCODE && resultCode == RESULT_OK) {
             String passcode = data.getStringExtra(PassCodeActivity.KEY_PASSCODE);
             if (passcode != null && passcode.length() == 4) {
                 SharedPreferences.Editor appPrefs = PreferenceManager

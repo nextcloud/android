@@ -1365,7 +1365,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         if (!onlyAdd) {
             if (MDMConfig.INSTANCE.enforceProtection(this) && Objects.equals(preferences.getLockPreference(), SettingsActivity.LOCK_NONE)) {
                 Intent i = new Intent(this, SettingsActivity.class);
-                i.putExtra(SettingsActivity.SHOW_APP_PASSCODE_DIALOG, true);
                 startActivity(i);
             } else {
                 Intent i = new Intent(this, FileDisplayActivity.class);
