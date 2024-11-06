@@ -904,7 +904,6 @@
     <string name="whats_new_skip">Пропусни</string>
     <string name="whats_new_title">Ново в %1$s</string>
     <string name="whats_your_status">Какъв е вашият статус?</string>
-    <string name="widgets_not_available">Изпълнимите модули са налични само в %1$s, 25 или по-нова версия</string>
     <string name="widgets_not_available_title">Не е наличен</string>
     <string name="worker_download">Сваляне на файлове...</string>
     <string name="write_email">Изпращане на имейл</string>

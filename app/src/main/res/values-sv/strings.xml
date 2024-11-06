@@ -697,7 +697,9 @@
     <string name="prefs_synced_folders_local_path_title">Lokal mapp</string>
     <string name="prefs_synced_folders_remote_path_title">Extern mapp</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_interval">Intervall </string>
     <string name="prefs_two_way_sync_summary">Hantera interna mappar för tvåvägssynk</string>
+    <string name="prefs_two_way_sync_switch_title">Aktivera tvåvägssynk</string>
     <string name="prefs_value_theme_dark">Mörkt</string>
     <string name="prefs_value_theme_light">Ljust</string>
     <string name="prefs_value_theme_system">Följ systemet</string>
@@ -1065,12 +1067,19 @@
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>
     <string name="whats_your_status">Vad är din status?</string>
-    <string name="widgets_not_available">Widgets är endast tillgängliga på %1$s 25 eller senare</string>
     <string name="widgets_not_available_title">Inte tillgänglig</string>
     <string name="worker_download">Hämtar filer…</string>
     <string name="write_email">Skicka e-post</string>
     <string name="wrong_storage_path">Datalagringsmapp finns inte!</string>
     <string name="wrong_storage_path_desc">Detta kan bero på en säkerhetskopiering som återställts på en annan enhet. Kommer använda standarden. Vänligen kontrollera inställningarna för att konfigurera datalagringsmappen.</string>
+    <plurals name="hours">
+        <item quantity="one">%d timme</item>
+        <item quantity="other">%d timmar</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minut</item>
+        <item quantity="other">%d minuter</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kunde inte synkronisera %1$d fil (konflikter: %2$d)</item>
         <item quantity="other">Kunde inte synkronisera %1$d filer (konflikter: %2$d)</item>
