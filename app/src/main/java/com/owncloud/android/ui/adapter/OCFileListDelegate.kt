@@ -370,7 +370,7 @@ class OCFileListDelegate(
     private fun showShareIcon(gridViewHolder: ListViewHolder, file: OCFile) {
         val sharedIconView = gridViewHolder.shared
 
-        if (!MDMConfig.shareViaLink(context) || !MDMConfig.shareViaUser(context) || !MDMConfig.sendFilesSupport(context)) {
+        if (!MDMConfig.sharingSupport(context)) {
             sharedIconView.visibility = View.GONE
             return
         }
