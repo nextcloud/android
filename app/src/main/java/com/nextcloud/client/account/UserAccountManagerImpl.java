@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -19,8 +19,10 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.AccountExtensionsKt;
+import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -179,19 +181,20 @@ public class UserAccountManagerImpl implements UserAccountManager {
      */
     @Nullable
     private User createUserFromAccount(@NonNull Account account) {
-        if (AccountExtensionsKt.isAnonymous(account, context)) {
+        Context safeContext = context != null ? context : MainApp.getAppContext();
+        if (safeContext == null) {
+            Log_OC.e(TAG, "Unable to obtain a valid context");
             return null;
         }
 
-        if (context == null) {
-            Log_OC.d(TAG, "Context is null MainApp.getAppContext() used");
-            context = MainApp.getAppContext();
+        if (AccountExtensionsKt.isAnonymous(account, safeContext)) {
+            return null;
         }
 
         OwnCloudAccount ownCloudAccount;
         try {
-            ownCloudAccount = new OwnCloudAccount(account, context);
-        } catch (AccountUtils.AccountNotFoundException ex) {
+            ownCloudAccount = new OwnCloudAccount(account, safeContext);
+        } catch (Exception ex) {
             return null;
         }
 
@@ -211,7 +214,7 @@ public class UserAccountManagerImpl implements UserAccountManager {
          */
         String serverAddressStr = accountManager.getUserData(account, AccountUtils.Constants.KEY_OC_BASE_URL);
         if (serverAddressStr == null || serverAddressStr.isEmpty()) {
-            return AnonymousUser.fromContext(context);
+            return AnonymousUser.fromContext(safeContext);
         }
         URI serverUri = URI.create(serverAddressStr); // TODO: validate
 
@@ -397,6 +400,10 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     @Override
     public void startAccountCreation(final Activity activity) {
+
+        // skipping AuthenticatorActivity redirection when user is on Launcher or FirstRun Activity
+        if (activity instanceof LauncherActivity || activity instanceof FirstRunActivity) return;
+
         Intent intent = new Intent(context, AuthenticatorActivity.class);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

@@ -18,6 +18,8 @@ ruby scripts/analysis/lint-up.rb
 lintValue=$?
 
 curl "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.xml" -o "/tmp/$stableBranch.xml"
+[[ ! -e test1 ]] && exit 1
+
 ruby scripts/analysis/spotbugs-up.rb "$stableBranch"
 spotbugsValue=$?
 
@@ -129,10 +131,6 @@ else
     curl_gh -X POST "https://api.github.com/repos/nextcloud/$repository/issues/${PR_NUMBER}/comments" -d "$payload"
 
     if [ ! -z "$gplayLimitation" ]; then
-        exit 1
-    fi
-
-    if [ $checkLibrary -eq 1 ]; then
         exit 1
     fi
 

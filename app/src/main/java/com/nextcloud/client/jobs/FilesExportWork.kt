@@ -57,6 +57,8 @@ class FilesExportWork(
     }
 
     private fun exportFiles(fileIDs: LongArray): Int {
+        val fileDownloadHelper = FileDownloadHelper.instance()
+
         var successfulExports = 0
         fileIDs
             .asSequence()
@@ -76,7 +78,11 @@ class FilesExportWork(
                         showErrorNotification(successfulExports)
                     }
                 } else {
-                    downloadFile(ocFile)
+                    fileDownloadHelper.downloadFile(
+                        user,
+                        ocFile,
+                        downloadType = DownloadType.EXPORT
+                    )
                 }
 
                 successfulExports++
@@ -92,14 +98,6 @@ class FilesExportWork(
             contentResolver,
             ocFile,
             null
-        )
-    }
-
-    private fun downloadFile(ocFile: OCFile) {
-        FileDownloadHelper.instance().downloadFile(
-            user,
-            ocFile,
-            downloadType = DownloadType.EXPORT
         )
     }
 

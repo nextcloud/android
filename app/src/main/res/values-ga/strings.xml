@@ -696,7 +696,9 @@
     <string name="prefs_synced_folders_local_path_title">Fillteán áitiúil</string>
     <string name="prefs_synced_folders_remote_path_title">Fillteán cianda</string>
     <string name="prefs_theme_title">Téama</string>
+    <string name="prefs_two_way_sync_interval">Eatramh</string>
     <string name="prefs_two_way_sync_summary">Bainistigh fillteáin inmheánacha le haghaidh sioncronaithe dhá bhealach</string>
+    <string name="prefs_two_way_sync_switch_title">Cumasaigh sioncronú dhá bhealach</string>
     <string name="prefs_value_theme_dark">Dorcha</string>
     <string name="prefs_value_theme_light">Solas</string>
     <string name="prefs_value_theme_system">Lean an córas</string>
@@ -1070,6 +1072,20 @@
     <string name="write_email">Seol ríomhphost</string>
     <string name="wrong_storage_path">Níl fillteán stórála sonraí ann!</string>
     <string name="wrong_storage_path_desc">D\'fhéadfadh sé seo a bheith mar gheall ar aischur cúltaca ar ghléas eile. Ag titim ar ais go réamhshocraithe. Seiceáil le do thoil socruithe chun fillteán stórála sonraí a choigeartú.</string>
+    <plurals name="hours">
+        <item quantity="one">%d uair</item>
+        <item quantity="two">%d uair an chloig</item>
+        <item quantity="few">%d uair an chloig</item>
+        <item quantity="many">%d uair an chloig</item>
+        <item quantity="other">%d uair an chloig</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d nóiméad</item>
+        <item quantity="two">%d nóiméad</item>
+        <item quantity="few">%d nóiméad</item>
+        <item quantity="many">%d nóiméad</item>
+        <item quantity="other">%d nóiméad</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Níorbh fhéidir comhad %1$d a shioncronú (coimhlint: %2$d)</item>
         <item quantity="two">Níorbh fhéidir %1$d comhad a shioncronú (coimhlint: %2$d)</item>
