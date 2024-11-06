@@ -67,7 +67,7 @@ class LauncherActivity : BaseActivity() {
     private fun scheduleSplashScreen() {
         Handler(Looper.getMainLooper()).postDelayed({
             if (user.isPresent) {
-                if (MDMConfig.enforceProtection(this) && appPreferences.lockPreference != SettingsActivity.LOCK_NONE) {
+                if (MDMConfig.enforceProtection(this) && appPreferences.lockPreference == SettingsActivity.LOCK_NONE) {
                     val intent = Intent(this, SettingsActivity::class.java).apply {
                         putExtra(SettingsActivity.SHOW_APP_PASSCODE_DIALOG, true)
                     }
