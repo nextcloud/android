@@ -210,7 +210,7 @@ public interface AppPreferences {
      * Get preferred folder sort order.
      *
      * @param folder Folder whoch order is being retrieved or null for root folder
-     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
+     * @return sort order     the sort order, default is {@link FileSortOrder sort_a_to_z} (sort by name)
      */
     FileSortOrder getSortOrderByFolder(@Nullable OCFile folder);
 
@@ -232,7 +232,7 @@ public interface AppPreferences {
     /**
      * Get preferred folder sort order.
      *
-     * @return sort order     the sort order, default is {@link FileSortOrder#sort_a_to_z} (sort by name)
+     * @return sort order     the sort order, default is {@link FileSortOrder sort_a_to_z} (sort by name)
      */
     FileSortOrder getSortOrderByType(FileSortOrder.Type type, FileSortOrder defaultOrder);
     FileSortOrder getSortOrderByType(FileSortOrder.Type type);

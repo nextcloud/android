@@ -16,6 +16,9 @@
 package com.owncloud.android.ui.activity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -75,6 +78,8 @@ import com.owncloud.android.utils.MimeTypeUtil;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,6 +111,7 @@ public class SettingsActivity extends PreferenceActivity
     public static final String LOCK_DEVICE_CREDENTIALS = "device_credentials";
 
 
+    public static final String SHOW_APP_PASSCODE_DIALOG = "show_app_passcode";
     public final static String PREFERENCE_USE_FINGERPRINT = "use_fingerprint";
     public static final String PREFERENCE_SHOW_MEDIA_SCAN_NOTIFICATIONS = "show_media_scan_notifications";
 
@@ -186,6 +192,10 @@ public class SettingsActivity extends PreferenceActivity
 
         // workaround for mismatched color when app dark mode and system dark mode don't agree
         setListBackground();
+
+        if (getIntent().getBooleanExtra(SHOW_APP_PASSCODE_DIALOG,false)) {
+            showAppPasscodeDialog();
+        }
     }
 
     private void setupDevCategory(PreferenceScreen preferenceScreen) {
@@ -675,19 +685,61 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
+    private void showAppPasscodeDialog() {
+        ListPreference lockPreference = (ListPreference) findPreference("lock");
+        if (lockPreference != null) {
+            try {
+                Method method = android.preference.DialogPreference.class.getDeclaredMethod("onClick");
+                method.setAccessible(true);
+                method.invoke(lockPreference);
+                makeAppPasscodeDialogDismissible(lockPreference);
+            } catch (Exception e) {
+                Log_OC.d(TAG,"Error caught at showAppPasscodeDialog: " + e);
+            }
+        }
+    }
+
+    private void makeAppPasscodeDialogDismissible(ListPreference lockPreference) {
+        try {
+            Field field = android.preference.DialogPreference.class.getDeclaredField("mDialog");
+            field.setAccessible(true);
+            AlertDialog dialog = (AlertDialog) field.get(lockPreference);
+            if (dialog != null) {
+                dialog.getButton(DialogInterface.BUTTON_NEGATIVE).setVisibility(View.GONE);
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
+            }
+        } catch (Exception e) {
+            Log_OC.d(TAG,"Error caught at makeAppPasscodeDialogDismissible: " + e);
+        }
+    }
 
     private void setupLockPreference(PreferenceCategory preferenceCategoryDetails,
                                      boolean passCodeEnabled,
                                      boolean deviceCredentialsEnabled) {
+        boolean enforceProtection = MDMConfig.INSTANCE.enforceProtection(this);
         lock = (ListPreference) findPreference(PREFERENCE_LOCK);
+        int optionSize = 3;
+        if (enforceProtection) {
+            optionSize = 2;
+        }
+
         if (lock != null && (passCodeEnabled || deviceCredentialsEnabled)) {
-            ArrayList<String> lockEntries = new ArrayList<>(3);
-            lockEntries.add(getString(R.string.prefs_lock_none));
+            ArrayList<String> lockEntries = new ArrayList<>(optionSize);
+
+            if (!enforceProtection) {
+                lockEntries.add(getString(R.string.prefs_lock_none));
+            }
+
             lockEntries.add(getString(R.string.prefs_lock_using_passcode));
             lockEntries.add(getString(R.string.prefs_lock_using_device_credentials));
 
-            ArrayList<String> lockValues = new ArrayList<>(3);
-            lockValues.add(LOCK_NONE);
+            ArrayList<String> lockValues = new ArrayList<>(optionSize);
+
+            if (!enforceProtection) {
+                lockValues.add(LOCK_NONE);
+            }
+
             lockValues.add(LOCK_PASSCODE);
             lockValues.add(LOCK_DEVICE_CREDENTIALS);
 
@@ -707,6 +759,21 @@ public class SettingsActivity extends PreferenceActivity
             lock.setEntries(lockEntriesArr);
             lock.setEntryValues(lockValuesArr);
             lock.setSummary(lock.getEntry());
+
+            if (enforceProtection) {
+                lock.setOnPreferenceClickListener(preference -> {
+                    try {
+                        Method method = android.preference.DialogPreference.class.getDeclaredMethod("showDialog", Bundle.class);
+                        method.setAccessible(true);
+                        method.invoke(preference, (Bundle) null);
+                        makeAppPasscodeDialogDismissible(lock);
+                    } catch (Exception e) {
+                        Log_OC.d(TAG,"Error caught at setupLockPreference: " + e);
+                    }
+                    return true;
+                });
+            }
+
             lock.setOnPreferenceChangeListener((preference, o) -> {
                 pendingLock = LOCK_NONE;
                 String oldValue = ((ListPreference) preference).getValue();

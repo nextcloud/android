@@ -59,17 +59,14 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
-import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
-import com.nextcloud.ui.EnforceProtectionDialog;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
-import com.nextcloud.utils.mdm.MDMConfig;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -233,7 +230,6 @@ public class FileDisplayActivity extends FileActivity
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
     private Optional<User> lastDisplayedUser = Optional.empty();
-    private EnforceProtectionDialog enforceProtectionDialog;
 
     @Inject AppPreferences preferences;
 
@@ -259,12 +255,6 @@ public class FileDisplayActivity extends FileActivity
 
         super.onCreate(savedInstanceState);
         loadSavedInstanceState(savedInstanceState);
-
-        // TODO if its already set no need to show it
-        enforceProtectionDialog = new EnforceProtectionDialog(this);
-        if (MDMConfig.INSTANCE.enforceProtection(this)) {
-            enforceProtectionDialog.showDialog();
-        }
 
         /// USER INTERFACE
         initLayout();
