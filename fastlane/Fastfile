@@ -59,7 +59,7 @@ end
 
 desc "Release phase 2 for RC: checks, tag, upload gplay to playstore with values from build.gradle"
 lane :RC_releasePhase2 do |options|
-    checkReleaseRequirements_RC()
+    checkReleaseRequirements_RC() # Not working with MacOS
     info = androidVersion
     promptVersion(info)
     checkChangelog(info)
@@ -69,8 +69,8 @@ lane :RC_releasePhase2 do |options|
     tag(info)
     uploadToPlaystore_RC(info)
     createGithubRelease_RC(info)
-    fdroidMergeRequest_RC(info)
-    createChangelogPullRequest_RC(info)
+    fdroidMergeRequest_RC(info) # Not working with MacOS
+    createChangelogPullRequest_RC(info) # Not working with MacOS
 end
 
 desc "Release phase 1: make gplay/generic for FINAL, then test it"
@@ -284,11 +284,11 @@ private_lane :tag do |options|
 end
 
 private_lane :disableLogger do
-    sh("sed -i s'#<bool name=\"logger_enabled\">false</bool>#<bool name=\"logger_enabled\">true</bool>#' ../app/src/main/res/values/setup.xml")
+    sh("sed -i '' -e 's#<bool name=\"logger_enabled\">false</bool>#<bool name=\"logger_enabled\">true</bool>#' ../app/src/main/res/values/setup.xml")
 end
 
 private_lane :enableLogger do
-    sh("sed -i s'#<bool name=\"logger_enabled\">true</bool>#<bool name=\"logger_enabled\">false</bool>#' ../app/src/main/res/values/setup.xml")
+    sh("sed -i '' -e 's#<bool name=\"logger_enabled\">true</bool>#<bool name=\"logger_enabled\">false</bool>#' ../app/src/main/res/values/setup.xml")
 end
 
 desc "Upload to play store (beta)"
