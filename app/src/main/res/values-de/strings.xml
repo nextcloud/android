@@ -1066,6 +1066,7 @@
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>
     <string name="whats_your_status">Wie ist Ihr Status?</string>
+    <string name="widgets_not_available">Widgets sind nur in %1$s 25 oder neuer verfügbar, wenn die Dashboard-App aktiviert ist</string>
     <string name="widgets_not_available_title">Nicht verfügbar</string>
     <string name="worker_download">Dateien werden heruntergeladen…</string>
     <string name="write_email">E-Mail senden</string>

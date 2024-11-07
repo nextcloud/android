@@ -1093,6 +1093,7 @@
     <string name="whats_new_skip">تخطى</string>
     <string name="whats_new_title">جديد على %1$s</string>
     <string name="whats_your_status">ماهي حالتك؟</string>
+    <string name="widgets_not_available">الودجات widgets متاحة في %1$s الإصدار 25 فما أحدث فقط عندما تكون لوحة المعلومات مُفعّلة</string>
     <string name="widgets_not_available_title">غير متوفر</string>
     <string name="worker_download">جارٍ تنزيل الملفات…</string>
     <string name="write_email">إرسال بريد</string>
