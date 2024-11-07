@@ -1055,6 +1055,7 @@
     <string name="whats_new_skip">Пропустити</string>
     <string name="whats_new_title">Нове у %1$s</string>
     <string name="whats_your_status">Який ваш статус?</string>
+    <string name="widgets_not_available">Віджети доступні тільки у %1$s 25 або пізніше, коли увімкнено застосунок Dashboard</string>
     <string name="widgets_not_available_title">Не доступно</string>
     <string name="worker_download">Звантаження файлів...</string>
     <string name="write_email">Надіслати лист</string>

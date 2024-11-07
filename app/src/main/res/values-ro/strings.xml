@@ -199,6 +199,7 @@
     <string name="create">Crează</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
     <string name="create_new">Nou</string>
+    <string name="create_new_document">Document nou</string>
     <string name="create_new_folder">Director nou</string>
     <string name="credentials_disabled">Autentificare dezactivată</string>
     <string name="daily_backup">Copie de rezervă zilnică</string>
