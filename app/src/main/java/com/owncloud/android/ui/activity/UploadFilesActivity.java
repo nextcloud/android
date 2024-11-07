@@ -35,7 +35,6 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
-import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.UploadFilesLayoutBinding;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -60,7 +59,6 @@ import javax.inject.Inject;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.view.MenuItemCompat;
