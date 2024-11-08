@@ -1066,7 +1066,6 @@
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>
     <string name="whats_your_status">What is your status?</string>
-    <string name="widgets_not_available">Widgets are only available on %1$s 25 or later</string>
     <string name="widgets_not_available_title">Not available</string>
     <string name="worker_download">Downloading files…</string>
     <string name="write_email">Send email</string>

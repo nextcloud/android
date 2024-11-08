@@ -696,7 +696,9 @@
     <string name="prefs_synced_folders_local_path_title">Místní složka</string>
     <string name="prefs_synced_folders_remote_path_title">Vzdálená složka</string>
     <string name="prefs_theme_title">Motiv vzhledu</string>
+    <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_two_way_sync_summary">Spravovat interní složky pro dvoucestnou synchronizaci</string>
+    <string name="prefs_two_way_sync_switch_title">Zapnout obousměrnou synchronizaci</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Světlý</string>
     <string name="prefs_value_theme_system">Převzít od systému</string>
@@ -1060,12 +1062,24 @@
     <string name="whats_new_skip">Přeskočit</string>
     <string name="whats_new_title">Co je v %1$s nového</string>
     <string name="whats_your_status">Jaký je váš stav?</string>
-    <string name="widgets_not_available">Ovládací prvky jsou k dispozici pouze na %1$s 25 a novějším</string>
+    <string name="widgets_not_available">Ovládací prvky jsou k dispozici v %1$s 25 a novějším (pokud je zapnutá aplikace Nástěnka)</string>
     <string name="widgets_not_available_title">Není k dispozici</string>
     <string name="worker_download">Stahování souborů…</string>
     <string name="write_email">Odeslat e-mail</string>
     <string name="wrong_storage_path">Složka pro ukládání dat neexistuje!</string>
     <string name="wrong_storage_path_desc">Toto může být způsobeno obnovením ze zálohy na jiném zařízení. Náhradně vráceno do výchozího stavu. Zkontrolujte nastavení a upravte popis umístění složky pro ukládání dat.</string>
+    <plurals name="hours">
+        <item quantity="one">%d hodina</item>
+        <item quantity="few">%d hodiny</item>
+        <item quantity="many">%d hodin</item>
+        <item quantity="other">%d hodiny</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minuta</item>
+        <item quantity="few">%d minuty</item>
+        <item quantity="many">%d minut</item>
+        <item quantity="other">%d minuty</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nedaří se synchronizovat %1$d soubor (konflikty: %2$d)</item>
         <item quantity="few">Nedaří se synchronizovat %1$d soubory (konflikty: %2$d)</item>

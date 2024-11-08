@@ -696,7 +696,9 @@
     <string name="prefs_synced_folders_local_path_title">本機資料夾</string>
     <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>
     <string name="prefs_theme_title">佈景主題</string>
+    <string name="prefs_two_way_sync_interval">間隔</string>
     <string name="prefs_two_way_sync_summary">管理內部資料夾以進行雙向同步</string>
+    <string name="prefs_two_way_sync_switch_title">啟用雙向同步</string>
     <string name="prefs_value_theme_dark">深色</string>
     <string name="prefs_value_theme_light">淺色</string>
     <string name="prefs_value_theme_system">跟隨系統</string>
@@ -1064,12 +1066,17 @@
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">%1$s 有什麼新功能</string>
     <string name="whats_your_status">您目前的狀態是什麼呢？</string>
-    <string name="widgets_not_available">小工具僅在 %1$s 25 或後續版本提供</string>
     <string name="widgets_not_available_title">無法使用</string>
     <string name="worker_download">正在下載檔案……</string>
     <string name="write_email">傳送電子郵件</string>
     <string name="wrong_storage_path">資料儲存資料夾不存在！</string>
     <string name="wrong_storage_path_desc">這可能是因為在另一台裝置上備份還原的關係。正在退回至預設值。請檢查設定以調整資料儲存資料夾。</string>
+    <plurals name="hours">
+        <item quantity="other">%d小時 </item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="other">%d分鐘</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">無法同步 %1$d 個檔案（衝突：%2$d）</item>
     </plurals>

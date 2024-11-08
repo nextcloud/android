@@ -1066,7 +1066,6 @@
     <string name="whats_new_skip">略過</string>
     <string name="whats_new_title">新增到 %1$s </string>
     <string name="whats_your_status">您目前的狀態是什麼呢？</string>
-    <string name="widgets_not_available">小部件僅在 %1$s 25 或更新提供</string>
     <string name="widgets_not_available_title">不可用</string>
     <string name="worker_download">下載檔案中…</string>
     <string name="write_email">傳送電子郵件</string>

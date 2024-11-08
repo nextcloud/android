@@ -696,7 +696,9 @@
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
     <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
     <string name="prefs_theme_title">Design</string>
+    <string name="prefs_two_way_sync_interval">Intervall</string>
     <string name="prefs_two_way_sync_summary">Interne Ordner für 2-Wege-Synchronisierung verwalten</string>
+    <string name="prefs_two_way_sync_switch_title">2-Wege-Synchronisierung aktivieren</string>
     <string name="prefs_value_theme_dark">Dunkel</string>
     <string name="prefs_value_theme_light">Hell</string>
     <string name="prefs_value_theme_system">Systemvorgaben verwenden</string>
@@ -1064,12 +1066,20 @@
     <string name="whats_new_skip">Überspringen</string>
     <string name="whats_new_title">Neu in %1$s</string>
     <string name="whats_your_status">Wie ist Ihr Status?</string>
-    <string name="widgets_not_available">Widgets sind nur auf %1$s 25 oder neuer verfügbar</string>
+    <string name="widgets_not_available">Widgets sind nur in %1$s 25 oder neuer verfügbar, wenn die Dashboard-App aktiviert ist</string>
     <string name="widgets_not_available_title">Nicht verfügbar</string>
     <string name="worker_download">Dateien werden heruntergeladen…</string>
     <string name="write_email">E-Mail senden</string>
     <string name="wrong_storage_path">Speicherordner existiert nicht!</string>
     <string name="wrong_storage_path_desc">Ursache könnte die Wiederherstellung einer Sicherungskopie auf einem anderen Gerät sein. Der Standard-Ordner wird jetzt wieder verwendet. Bitte überprüfen Sie die Einstellungen bezüglich des Speicherortes.</string>
+    <plurals name="hours">
+        <item quantity="one">%d Stunde</item>
+        <item quantity="other">%d Stunden</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d Minute</item>
+        <item quantity="other">%d Minuten</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Inhalte von %1$d Datei konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
         <item quantity="other">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (Konflikte: %2$d)</item>

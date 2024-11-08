@@ -970,7 +970,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="whats_new_skip">Spring over</string>
     <string name="whats_new_title">Nyt i %1$s</string>
     <string name="whats_your_status">Hvad er din status</string>
-    <string name="widgets_not_available">Widgets er kun tilgængelige for %1$s 25 eller senere</string>
     <string name="widgets_not_available_title">Ikke tilgængelig</string>
     <string name="worker_download">Henter filer...</string>
     <string name="write_email">Send email</string>

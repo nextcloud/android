@@ -941,7 +941,6 @@
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
     <string name="whats_your_status">Kako želite nastaviti stanje?</string>
-    <string name="widgets_not_available">Gradniki so na voljo samo na %1$s 25 ali pozneje</string>
     <string name="widgets_not_available_title">Ni na voljo</string>
     <string name="worker_download">Poteka prejemanje datotek …</string>
     <string name="write_email">Pošlji elektronsko sporočilo</string>

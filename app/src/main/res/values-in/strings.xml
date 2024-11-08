@@ -931,7 +931,6 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="whats_new_skip">Lewat</string>
     <string name="whats_new_title">Apa yang baru di %1$s</string>
     <string name="whats_your_status">Apa status Anda?</string>
-    <string name="widgets_not_available">Widget hanya tersedia di %1$s 25 atau versi yang lebih baru.</string>
     <string name="widgets_not_available_title">Tidak tersedia</string>
     <string name="worker_download">Mengunduh berkas…</string>
     <string name="write_email">Kirim surel</string>

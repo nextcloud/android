@@ -18,7 +18,7 @@ ruby scripts/analysis/lint-up.rb
 lintValue=$?
 
 curl "https://www.kaminsky.me/nc-dev/$repository-findbugs/$stableBranch.xml" -o "/tmp/$stableBranch.xml"
-[[ ! -e test1 ]] && exit 1
+[[ ! -e "/tmp/$stableBranch.xml" ]] && exit 1
 
 ruby scripts/analysis/spotbugs-up.rb "$stableBranch"
 spotbugsValue=$?

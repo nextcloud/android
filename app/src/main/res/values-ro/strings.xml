@@ -199,6 +199,7 @@
     <string name="create">Crează</string>
     <string name="create_dir_fail_msg">Nu s-a putut crea directorul</string>
     <string name="create_new">Nou</string>
+    <string name="create_new_document">Document nou</string>
     <string name="create_new_folder">Director nou</string>
     <string name="credentials_disabled">Autentificare dezactivată</string>
     <string name="daily_backup">Copie de rezervă zilnică</string>
@@ -931,7 +932,6 @@
     <string name="whats_new_skip">Sari peste</string>
     <string name="whats_new_title">Nou în %1$s</string>
     <string name="whats_your_status">Care este statusul tău?</string>
-    <string name="widgets_not_available">Widgeturile sunt disponibile începând cu %1$s 25</string>
     <string name="widgets_not_available_title">Nu este disponibil</string>
     <string name="worker_download">Se descarcă fișiere…</string>
     <string name="write_email">Expediază mesajul</string>

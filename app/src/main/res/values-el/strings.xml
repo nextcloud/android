@@ -911,7 +911,6 @@
     <string name="whats_new_skip">Παράλειψη</string>
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
     <string name="whats_your_status">Ποια είναι η κατάστασή σας;</string>
-    <string name="widgets_not_available">Τα γραφικά στοιχεία είναι διαθέσιμα μόνο στην %1$s 25 ή νεότερη</string>
     <string name="widgets_not_available_title">Δεν είναι διαθέσιμο</string>
     <string name="worker_download">Λήψη αρχείων…</string>
     <string name="write_email">Αποστολή email</string>

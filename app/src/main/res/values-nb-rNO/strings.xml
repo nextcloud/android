@@ -1037,7 +1037,6 @@
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>
     <string name="whats_your_status">Hva er din status?</string>
-    <string name="widgets_not_available">Widgeter er bare tilgjengelige på %1$s 25 eller nyere</string>
     <string name="widgets_not_available_title">Ikke tilgjengelig</string>
     <string name="worker_download">Laster ned filer…</string>
     <string name="write_email">Send e-post</string>
