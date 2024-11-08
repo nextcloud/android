@@ -13,9 +13,6 @@
     <PreferenceCategory
         android:title="@string/prefs_category_general"
         android:key="general">
-        <ListPreference
-            android:title="@string/prefs_data_storage_location"
-            android:key="storage_path"/>
         <Preference
             android:title="@string/prefs_data_storage_location"
             android:key="data_storage_location" />
