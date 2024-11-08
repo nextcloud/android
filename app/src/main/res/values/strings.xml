@@ -581,6 +581,7 @@
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
     <string name="prefs_data_storage_location">Data storage location</string>
+    <string name="prefs_data_storage_location_summary">Manage data storage location</string>
 
     <string name="pref_instant_name_collision_policy_dialogTitle">What to do if the file already exists?</string>
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
