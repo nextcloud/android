@@ -31,7 +31,7 @@ plugins {
     id "org.jetbrains.kotlin.plugin.compose" version "2.0.21"
     id "com.diffplug.spotless" version "6.25.0"
     id "org.jetbrains.kotlin.kapt" version "2.0.21"
-    id 'com.google.devtools.ksp' version '2.0.21-1.0.26' apply false
+    id 'com.google.devtools.ksp' version '2.0.21-1.0.27' apply false
 }
 
 apply plugin: 'com.android.application'
@@ -468,7 +468,7 @@ if (shotTest) {
         showOnlyFailingTestsInReports = ciBuild
         // CI environment renders some shadows slightly different from local VMs
         // Add a 0.5% tolerance to account for that
-        tolerance = ciBuild ? 0.5 : 0
+        tolerance = ciBuild ? 0.1 : 0
     }
 }
 
