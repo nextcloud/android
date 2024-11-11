@@ -40,7 +40,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -414,23 +413,21 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
 
     private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
-        List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
+        List<OCFile> children = getStorageManager().getAllFilesRecursivelyInsideFolder(mLocalFolder);
         for (OCFile child : children) {
-            if (!child.isFolder()) {
-                if (!child.isDown()) {
-                    mFilesForDirectDownload.add(child);
-                } else {
-                    /// this should result in direct upload of files that were locally modified
-                    SynchronizeFileOperation operation = new SynchronizeFileOperation(
-                        child,
-                        child.getEtagInConflict() != null ? child : null,
-                        user,
-                        true,
-                        mContext,
-                        getStorageManager()
-                    );
-                    mFilesToSyncContents.add(operation);
-                }
+            if (!child.isDown()) {
+                mFilesForDirectDownload.add(child);
+            } else {
+                /// this should result in direct upload of files that were locally modified
+                SynchronizeFileOperation operation = new SynchronizeFileOperation(
+                    child,
+                    child.getEtagInConflict() != null ? child : null,
+                    user,
+                    true,
+                    mContext,
+                    getStorageManager()
+                );
+                mFilesToSyncContents.add(operation);
             }
         }
     }
