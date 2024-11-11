@@ -32,6 +32,7 @@ class InternalTwoWaySyncWork(
     private val appPreferences: AppPreferences
 ) : Worker(context, params) {
     private var shouldRun = true
+    private var operation: SynchronizeFolderOperation? = null
 
     override fun doWork(): Result {
         Log_OC.d(TAG, "Worker started!")
@@ -66,10 +67,10 @@ class InternalTwoWaySyncWork(
                 }
 
                 Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
-                val operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager)
-                    .execute(context)
+                operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager)
+                val operationResult = operation?.execute(context)
 
-                if (operation.isSuccess) {
+                if (operationResult?.isSuccess == true) {
                     Log_OC.d(TAG, "Folder ${folder.remotePath}: finished!")
                 } else {
                     Log_OC.d(TAG, "Folder ${folder.remotePath} failed!")
@@ -77,7 +78,10 @@ class InternalTwoWaySyncWork(
                 }
 
                 folder.apply {
-                    internalFolderSyncResult = operation.code.toString()
+                    operationResult?.let {
+                        internalFolderSyncResult = it.code.toString()
+                    }
+
                     internalFolderSyncTimestamp = System.currentTimeMillis()
                 }
 
@@ -96,6 +100,7 @@ class InternalTwoWaySyncWork(
 
     override fun onStopped() {
         Log_OC.d(TAG, "OnStopped of worker called!")
+        operation?.cancel()
         shouldRun = false
         super.onStopped()
     }
