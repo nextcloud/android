@@ -86,7 +86,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private final AtomicBoolean mCancellationRequested;
 
-    private final boolean syncForInternalTwoWaySyncWorker;
+    private final boolean syncInBackgroundWorker;
 
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
@@ -99,7 +99,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                                       String remotePath,
                                       User user,
                                       FileDataStorageManager storageManager,
-                                      boolean syncForInternalTwoWaySyncWorker) {
+                                      boolean syncInBackgroundWorker) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -109,7 +109,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesForDirectDownload = new Vector<>();
         mFilesToSyncContents = new Vector<>();
         mCancellationRequested = new AtomicBoolean(false);
-        this.syncForInternalTwoWaySyncWorker = syncForInternalTwoWaySyncWorker;
+        this.syncInBackgroundWorker = syncInBackgroundWorker;
     }
 
 
@@ -410,7 +410,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 true,
                 mContext,
                 getStorageManager(),
-                syncForInternalTwoWaySyncWorker
+                syncInBackgroundWorker
             );
             mFilesToSyncContents.add(operation);
         }
@@ -432,7 +432,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         true,
                         mContext,
                         getStorageManager(),
-                        syncForInternalTwoWaySyncWorker
+                        syncInBackgroundWorker
                     );
                     mFilesToSyncContents.add(operation);
                 }
@@ -446,7 +446,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     private void startDirectDownloads() {
-        if (syncForInternalTwoWaySyncWorker) {
+        if (syncInBackgroundWorker) {
             try {
                 for (OCFile file: mFilesForDirectDownload) {
                     if (file == null) continue;
