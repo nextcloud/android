@@ -76,6 +76,7 @@ import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.datamodel.UploadsStorageManager;
 import com.owncloud.android.datastorage.DataStorageProvider;
 import com.owncloud.android.datastorage.StoragePoint;
+import com.owncloud.android.lib.BuildConfig;
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.status.NextcloudVersion;
@@ -345,18 +346,23 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
 
+        // Check if the application is in debug mode or if logging is enabled through a resource flag.
         if (BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
-            // use app writable dir, no permissions needed
+            // Set up the logging mechanism using the LegacyLoggerAdapter, which doesn't require additional permissions.
             Log_OC.setLoggerImplementation(new LegacyLoggerAdapter(logger));
-            Log_OC.d("Debug", "start logging");
+            Log_OC.d("Debug", "start logging");  // Log a message to indicate that logging has started.
         }
 
         try {
+            // Attempt to disable URI exposure checks for file URIs.
             Method m = StrictMode.class.getMethod("disableDeathOnFileUriExposure");
-            m.invoke(null);
+            m.invoke(null);  // Invoke the method to allow file URI exposure without strict checks.
         } catch (Exception e) {
+            // Log a debug message if disabling URI exposure failed.
             Log_OC.d("Debug", "Failed to disable uri exposure");
         }
+
+        // Initialize synchronization-related operations with the required services and managers.
         initSyncOperations(this,
                            preferences,
                            uploadsStorageManager,
@@ -368,6 +374,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                            viewThemeUtils,
                            walledCheckCache,
                            syncedFolderProvider);
+
+        // Initialize contact backup functionality with account and background job managers.
         initContactsBackup(accountManager, backgroundJobManager);
         notificationChannels();
 
