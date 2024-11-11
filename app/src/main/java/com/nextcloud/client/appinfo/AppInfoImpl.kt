@@ -19,11 +19,7 @@ class AppInfoImpl : AppInfo {
     override fun getAppVersion(context: Context): String {
         return try {
             val pInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            if (pInfo != null) {
-                pInfo.versionName
-            } else {
-                "n/a"
-            }
+            pInfo?.versionName ?: "n/a"
         } catch (e: PackageManager.NameNotFoundException) {
             Log_OC.e(this, "Trying to get packageName", e.cause)
             "n/a"

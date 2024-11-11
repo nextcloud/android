@@ -106,8 +106,8 @@ android {
     defaultConfig {
         applicationId "com.nextcloud.client"
         minSdkVersion 24
-        targetSdkVersion 34
-        compileSdk 34
+        targetSdkVersion 35
+        compileSdk 35
 
         buildConfigField 'boolean', 'CI', ciBuild.toString()
         buildConfigField 'boolean', 'RUNTIME_PERF_ANALYSIS', perfAnalysis.toString()

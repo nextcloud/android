@@ -80,10 +80,10 @@ class WebViewUtil(private val context: Context) {
             val fullVersion = pi.versionName
 
             // Split the version string by "." and get the first part
-            val versionParts = fullVersion.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
-                .toTypedArray()
+            val versionParts = fullVersion?.split("\\.".toRegex())?.dropLastWhile { it.isEmpty() }
+                ?.toTypedArray()
 
-            if (versionParts.isNotEmpty()) {
+            if (versionParts?.isNotEmpty() == true) {
                 versionParts[0]
             } else {
                 null
