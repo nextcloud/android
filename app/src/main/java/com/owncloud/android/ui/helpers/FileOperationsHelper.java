@@ -225,7 +225,8 @@ public class FileOperationsHelper {
                                                                     user,
                                                                     true,
                                                                     fileActivity,
-                                                                    storageManager);
+                                                                    storageManager,
+                                                                    false);
         RemoteOperationResult result = sfo.execute(fileActivity);
 
         if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
@@ -303,7 +304,8 @@ public class FileOperationsHelper {
                                                                                 user,
                                                                                 true,
                                                                                 fileActivity,
-                                                                                storageManager);
+                                                                                storageManager,
+                                                                                false);
                     RemoteOperationResult result = sfo.execute(fileActivity);
                     fileActivity.dismissLoadingDialog();
                     if (result.getCode() == RemoteOperationResult.ResultCode.SYNC_CONFLICT) {
