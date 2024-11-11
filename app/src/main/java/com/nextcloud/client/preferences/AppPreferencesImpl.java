@@ -105,6 +105,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__TWO_WAY_STATUS = "two_way_sync_status";
     private static final String PREF__TWO_WAY_SYNC_INTERVAL = "two_way_sync_interval";
 
+    private static final String PREF__STOP_DOWNLOAD_JOBS_ON_START = "stop_download_jobs_on_start";
+
     private static final String LOG_ENTRY = "log_entry";
 
     private final Context context;
@@ -811,5 +813,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public Long getTwoWaySyncInterval() {
         return preferences.getLong(PREF__TWO_WAY_SYNC_INTERVAL, 15L);
+    }
+
+    @Override
+    public boolean shouldStopDownloadJobsOnStart() {
+        return preferences.getBoolean(PREF__STOP_DOWNLOAD_JOBS_ON_START, true);
+    }
+
+    @Override
+    public void setStopDownloadJobsOnStart(boolean value) {
+        preferences.edit().putBoolean(PREF__STOP_DOWNLOAD_JOBS_ON_START, value).apply();
     }
 }

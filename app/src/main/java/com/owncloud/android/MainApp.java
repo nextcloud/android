@@ -322,6 +322,8 @@ public class MainApp extends Application implements HasAndroidInjector {
 
         fixStoragePath();
 
+        checkCancelDownloadJobs();
+
         MainApp.storagePath = preferences.getStoragePath(getApplicationContext().getFilesDir().getAbsolutePath());
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
@@ -586,6 +588,13 @@ public class MainApp extends Application implements HasAndroidInjector {
                                        .detectLeakedClosableObjects()
                                        .penaltyLog()
                                        .build());
+        }
+    }
+
+    private void checkCancelDownloadJobs() {
+        if (backgroundJobManager != null && preferences.shouldStopDownloadJobsOnStart()) {
+            backgroundJobManager.cancelAllFilesDownloadJobs();
+            preferences.setStopDownloadJobsOnStart(false);
         }
     }
 
