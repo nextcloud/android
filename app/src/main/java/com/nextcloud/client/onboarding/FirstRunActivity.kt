@@ -90,7 +90,7 @@ class FirstRunActivity : BaseActivity(), Injectable {
 
     private fun applyDefaultTheme() {
         defaultViewThemeUtils = viewThemeUtilsFactory?.withPrimaryAsBackground()
-        defaultViewThemeUtils?.platform?.themeStatusBar(this, ColorRole.PRIMARY)
+        defaultViewThemeUtils?.platform?.colorStatusBar(this, resources.getColor(R.color.primary))
     }
 
     private fun registerActivityResult() {
