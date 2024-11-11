@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -85,6 +86,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private final AtomicBoolean mCancellationRequested;
 
+    private final boolean syncForInternalTwoWaySyncWorker;
+
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
      *
@@ -95,7 +98,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     public SynchronizeFolderOperation(Context context,
                                       String remotePath,
                                       User user,
-                                      FileDataStorageManager storageManager) {
+                                      FileDataStorageManager storageManager,
+                                      boolean syncForInternalTwoWaySyncWorker) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -105,6 +109,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesForDirectDownload = new Vector<>();
         mFilesToSyncContents = new Vector<>();
         mCancellationRequested = new AtomicBoolean(false);
+        this.syncForInternalTwoWaySyncWorker = syncForInternalTwoWaySyncWorker;
     }
 
 
@@ -439,27 +444,29 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     private void startDirectDownloads() {
-        try {
-            for (OCFile file: mFilesForDirectDownload) {
-                if (file != null) {
-                    // delay 1 second before each download
-                    Thread.sleep(1000);
+        if (syncForInternalTwoWaySyncWorker) {
+            try {
+                for (OCFile file: mFilesForDirectDownload) {
+                    if (file == null) continue;
 
                     final var operation = new DownloadFileOperation(user, file, mContext);
                     var result = operation.execute(getClient());
 
                     String filename = file.getFileName();
-                    if (filename != null) {
-                        if (result.isSuccess()) {
-                            Log_OC.d(TAG, "startDirectDownloads completed for: " + file.getFileName());
-                        } else {
-                            Log_OC.d(TAG, "startDirectDownloads failed for: " + file.getFileName());
-                        }
+                    if (filename == null) continue;
+
+                    if (result.isSuccess()) {
+                        Log_OC.d(TAG, "startDirectDownloads completed for: " + file.getFileName());
+                    } else {
+                        Log_OC.d(TAG, "startDirectDownloads failed for: " + file.getFileName());
                     }
                 }
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
-        } catch (Exception e) {
-            Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
+        } else {
+            final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
+            mFilesForDirectDownload.forEach(file -> fileDownloadHelper.downloadFile(user, file));
         }
     }
 
