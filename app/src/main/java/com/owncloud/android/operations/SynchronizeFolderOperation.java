@@ -449,6 +449,12 @@ public class SynchronizeFolderOperation extends SyncOperation {
         if (syncInBackgroundWorker) {
             try {
                 for (OCFile file: mFilesForDirectDownload) {
+                    synchronized (mCancellationRequested) {
+                        if (mCancellationRequested.get()) {
+                            break;
+                        }
+                    }
+
                     if (file == null) {
                         continue;
                     }
