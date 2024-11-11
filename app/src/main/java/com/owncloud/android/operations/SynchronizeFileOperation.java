@@ -17,6 +17,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -45,6 +46,8 @@ public class SynchronizeFileOperation extends SyncOperation {
     private boolean mSyncFileContents;
     private Context mContext;
     private boolean mTransferWasRequested;
+    private boolean syncForInternalTwoWaySyncWorker;
+
 
     /**
      * When 'false', uploads to the server are not done; only downloads or conflict detection. This is a temporal
@@ -73,7 +76,8 @@ public class SynchronizeFileOperation extends SyncOperation {
         User user,
         boolean syncFileContents,
         Context context,
-        FileDataStorageManager storageManager) {
+        FileDataStorageManager storageManager,
+        boolean syncForInternalTwoWaySyncWorker) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -83,6 +87,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         mSyncFileContents = syncFileContents;
         mContext = context;
         mAllowUploads = true;
+        this.syncForInternalTwoWaySyncWorker = syncForInternalTwoWaySyncWorker;
     }
 
 
@@ -294,27 +299,29 @@ public class SynchronizeFileOperation extends SyncOperation {
     }
 
     private void requestForDownload(OCFile file) {
-        Log_OC.d("InternalTwoWaySyncWork", "download file: " + file.getFileName());
+        if (syncForInternalTwoWaySyncWorker) {
+            Log_OC.d("InternalTwoWaySyncWork", "download file: " + file.getFileName());
 
-        try {
-            final var operation = new DownloadFileOperation(mUser, file, mContext);
-            var result = operation.execute(getClient());
+            try {
+                final var operation = new DownloadFileOperation(mUser, file, mContext);
+                var result = operation.execute(getClient());
 
-            mTransferWasRequested = true;
+                mTransferWasRequested = true;
 
-            String filename = file.getFileName();
-            if (filename != null) {
-                if (result.isSuccess()) {
-                    Log_OC.d(TAG, "requestForDownload completed for: " + file.getFileName());
-                } else {
-                    Log_OC.d(TAG, "requestForDownload failed for: " + file.getFileName());
+                String filename = file.getFileName();
+                if (filename != null) {
+                    if (result.isSuccess()) {
+                        Log_OC.d(TAG, "requestForDownload completed for: " + file.getFileName());
+                    } else {
+                        Log_OC.d(TAG, "requestForDownload failed for: " + file.getFileName());
+                    }
                 }
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Exception caught at requestForDownload" + e);
             }
-        } catch (Exception e) {
-            Log_OC.d(TAG, "Exception caught at requestForDownload" + e);
+        } else {
+            FileDownloadHelper.Companion.instance().downloadFile(mUser, file);
         }
-
-
     }
 
     public boolean transferWasRequested() {

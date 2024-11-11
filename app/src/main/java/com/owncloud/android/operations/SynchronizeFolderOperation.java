@@ -15,6 +15,7 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
+import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.e2e.v1.decrypted.DecryptedFolderMetadataFileV1;
@@ -85,6 +86,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private final AtomicBoolean mCancellationRequested;
 
+    private final boolean syncForInternalTwoWaySyncWorker;
+
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
      *
@@ -95,7 +98,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     public SynchronizeFolderOperation(Context context,
                                       String remotePath,
                                       User user,
-                                      FileDataStorageManager storageManager) {
+                                      FileDataStorageManager storageManager,
+                                      boolean syncForInternalTwoWaySyncWorker) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -105,6 +109,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesForDirectDownload = new Vector<>();
         mFilesToSyncContents = new Vector<>();
         mCancellationRequested = new AtomicBoolean(false);
+        this.syncForInternalTwoWaySyncWorker = syncForInternalTwoWaySyncWorker;
     }
 
 

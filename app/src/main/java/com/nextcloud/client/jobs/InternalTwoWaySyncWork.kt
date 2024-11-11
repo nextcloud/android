@@ -67,7 +67,7 @@ class InternalTwoWaySyncWork(
                 }
 
                 Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
-                operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager)
+                operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager, true)
                 val operationResult = operation?.execute(context)
 
                 if (operationResult?.isSuccess == true) {
