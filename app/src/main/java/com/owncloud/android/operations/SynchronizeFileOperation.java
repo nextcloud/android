@@ -114,7 +114,8 @@ public class SynchronizeFileOperation extends SyncOperation {
         User user,
         boolean syncFileContents,
         Context context,
-        FileDataStorageManager storageManager) {
+        FileDataStorageManager storageManager,
+        boolean syncForInternalTwoWaySyncWorker) {
         super(storageManager);
 
         mLocalFile = localFile;
@@ -134,6 +135,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         mSyncFileContents = syncFileContents;
         mContext = context;
         mAllowUploads = true;
+        this.syncForInternalTwoWaySyncWorker = syncForInternalTwoWaySyncWorker;
     }
 
 
@@ -163,9 +165,9 @@ public class SynchronizeFileOperation extends SyncOperation {
         boolean syncFileContents,
         boolean allowUploads,
         Context context,
-        FileDataStorageManager storageManager) {
-
-        this(localFile, serverFile, user, syncFileContents, context, storageManager);
+        FileDataStorageManager storageManager,
+        boolean syncForInternalTwoWaySyncWorker) {
+        this(localFile, serverFile, user, syncFileContents, context, storageManager, syncForInternalTwoWaySyncWorker);
         mAllowUploads = allowUploads;
     }
 
