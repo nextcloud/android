@@ -17,7 +17,6 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.nextcloud.client.account.User;
-import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadWorker;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -296,10 +295,22 @@ public class SynchronizeFileOperation extends SyncOperation {
 
     private void requestForDownload(OCFile file) {
         Log_OC.d("InternalTwoWaySyncWork", "download file: " + file.getFileName());
-        
-        FileDownloadHelper.Companion.instance().downloadFile(
-            mUser,
-            file);
+
+        try {
+            final var operation = new DownloadFileOperation(mUser, file, mContext);
+            var result = operation.execute(getClient());
+
+            String filename = file.getFileName();
+            if (filename != null) {
+                if (result.isSuccess()) {
+                    Log_OC.d(TAG, "requestForDownload completed for: " + file.getFileName());
+                } else {
+                    Log_OC.d(TAG, "requestForDownload failed for: " + file.getFileName());
+                }
+            }
+        } catch (Exception e) {
+            Log_OC.d(TAG, "Exception caught at requestForDownload" + e);
+        }
 
         mTransferWasRequested = true;
     }
