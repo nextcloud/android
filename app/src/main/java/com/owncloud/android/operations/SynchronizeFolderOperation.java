@@ -172,8 +172,12 @@ public class SynchronizeFolderOperation extends SyncOperation {
             }
 
             OCFile remoteFolder = FileStorageUtils.fillOCFile(remoteFile);
+            if (mLocalFolder == null) {
+                return new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
+            }
+
             String localETag = mLocalFolder.getEtag();
-            if (mLocalFolder == null || localETag == null) {
+            if (localETag == null) {
                 return new RemoteOperationResult<>(ResultCode.LOCAL_FILE_NOT_FOUND);
             }
 
