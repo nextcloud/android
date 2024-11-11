@@ -409,7 +409,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 user,
                 true,
                 mContext,
-                getStorageManager()
+                getStorageManager(),
+                syncForInternalTwoWaySyncWorker
             );
             mFilesToSyncContents.add(operation);
         }
@@ -430,7 +431,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         user,
                         true,
                         mContext,
-                        getStorageManager()
+                        getStorageManager(),
+                        syncForInternalTwoWaySyncWorker
                     );
                     mFilesToSyncContents.add(operation);
                 }
