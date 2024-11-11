@@ -449,13 +449,17 @@ public class SynchronizeFolderOperation extends SyncOperation {
         if (syncInBackgroundWorker) {
             try {
                 for (OCFile file: mFilesForDirectDownload) {
-                    if (file == null) continue;
+                    if (file == null) {
+                        continue;
+                    }
 
                     final var operation = new DownloadFileOperation(user, file, mContext);
                     var result = operation.execute(getClient());
 
                     String filename = file.getFileName();
-                    if (filename == null) continue;
+                    if (filename == null) {
+                        continue;
+                    }
 
                     if (result.isSuccess()) {
                         Log_OC.d(TAG, "startDirectDownloads completed for: " + file.getFileName());
