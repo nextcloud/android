@@ -46,7 +46,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     private boolean mSyncFileContents;
     private Context mContext;
     private boolean mTransferWasRequested;
-    private boolean syncForInternalTwoWaySyncWorker;
+    private final boolean syncInBackgroundWorker;
 
 
     /**
@@ -77,7 +77,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         boolean syncFileContents,
         Context context,
         FileDataStorageManager storageManager,
-        boolean syncForInternalTwoWaySyncWorker) {
+        boolean syncInBackgroundWorker) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -87,7 +87,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         mSyncFileContents = syncFileContents;
         mContext = context;
         mAllowUploads = true;
-        this.syncForInternalTwoWaySyncWorker = syncForInternalTwoWaySyncWorker;
+        this.syncInBackgroundWorker = syncInBackgroundWorker;
     }
 
 
@@ -115,7 +115,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         boolean syncFileContents,
         Context context,
         FileDataStorageManager storageManager,
-        boolean syncForInternalTwoWaySyncWorker) {
+        boolean syncInBackgroundWorker) {
         super(storageManager);
 
         mLocalFile = localFile;
@@ -135,7 +135,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         mSyncFileContents = syncFileContents;
         mContext = context;
         mAllowUploads = true;
-        this.syncForInternalTwoWaySyncWorker = syncForInternalTwoWaySyncWorker;
+        this.syncInBackgroundWorker = syncInBackgroundWorker;
     }
 
 
@@ -166,8 +166,8 @@ public class SynchronizeFileOperation extends SyncOperation {
         boolean allowUploads,
         Context context,
         FileDataStorageManager storageManager,
-        boolean syncForInternalTwoWaySyncWorker) {
-        this(localFile, serverFile, user, syncFileContents, context, storageManager, syncForInternalTwoWaySyncWorker);
+        boolean syncInBackgroundWorker) {
+        this(localFile, serverFile, user, syncFileContents, context, storageManager, syncInBackgroundWorker);
         mAllowUploads = allowUploads;
     }
 
@@ -301,7 +301,7 @@ public class SynchronizeFileOperation extends SyncOperation {
     }
 
     private void requestForDownload(OCFile file) {
-        if (syncForInternalTwoWaySyncWorker) {
+        if (syncInBackgroundWorker) {
             Log_OC.d("InternalTwoWaySyncWork", "download file: " + file.getFileName());
 
             try {
