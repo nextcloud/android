@@ -300,6 +300,8 @@ public class SynchronizeFileOperation extends SyncOperation {
             final var operation = new DownloadFileOperation(mUser, file, mContext);
             var result = operation.execute(getClient());
 
+            mTransferWasRequested = true;
+
             String filename = file.getFileName();
             if (filename != null) {
                 if (result.isSuccess()) {
@@ -312,7 +314,7 @@ public class SynchronizeFileOperation extends SyncOperation {
             Log_OC.d(TAG, "Exception caught at requestForDownload" + e);
         }
 
-        mTransferWasRequested = true;
+
     }
 
     public boolean transferWasRequested() {
