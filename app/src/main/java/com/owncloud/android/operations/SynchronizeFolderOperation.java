@@ -40,7 +40,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -87,6 +86,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private final AtomicBoolean mCancellationRequested;
 
+    private final boolean syncInBackgroundWorker;
+
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
      *
@@ -97,7 +98,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     public SynchronizeFolderOperation(Context context,
                                       String remotePath,
                                       User user,
-                                      FileDataStorageManager storageManager) {
+                                      FileDataStorageManager storageManager,
+                                      boolean syncInBackgroundWorker) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -107,6 +109,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesForDirectDownload = new Vector<>();
         mFilesToSyncContents = new Vector<>();
         mCancellationRequested = new AtomicBoolean(false);
+        this.syncInBackgroundWorker = syncInBackgroundWorker;
     }
 
 
@@ -406,7 +409,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 user,
                 true,
                 mContext,
-                getStorageManager()
+                getStorageManager(),
+                syncInBackgroundWorker
             );
             mFilesToSyncContents.add(operation);
         }
@@ -427,7 +431,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         user,
                         true,
                         mContext,
-                        getStorageManager()
+                        getStorageManager(),
+                        syncInBackgroundWorker
                     );
                     mFilesToSyncContents.add(operation);
                 }
@@ -441,7 +446,40 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     private void startDirectDownloads() {
-        mFilesForDirectDownload.forEach(file -> FileDownloadHelper.Companion.instance().downloadFile(user, file));
+        if (syncInBackgroundWorker) {
+            try {
+                for (OCFile file: mFilesForDirectDownload) {
+                    synchronized (mCancellationRequested) {
+                        if (mCancellationRequested.get()) {
+                            break;
+                        }
+                    }
+
+                    if (file == null) {
+                        continue;
+                    }
+
+                    final var operation = new DownloadFileOperation(user, file, mContext);
+                    var result = operation.execute(getClient());
+
+                    String filename = file.getFileName();
+                    if (filename == null) {
+                        continue;
+                    }
+
+                    if (result.isSuccess()) {
+                        Log_OC.d(TAG, "startDirectDownloads completed for: " + file.getFileName());
+                    } else {
+                        Log_OC.d(TAG, "startDirectDownloads failed for: " + file.getFileName());
+                    }
+                }
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
+            }
+        } else {
+            final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
+            mFilesForDirectDownload.forEach(file -> fileDownloadHelper.downloadFile(user, file));
+        }
     }
 
     /**

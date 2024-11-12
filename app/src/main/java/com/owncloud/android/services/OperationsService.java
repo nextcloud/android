@@ -698,7 +698,8 @@ public class OperationsService extends Service {
                                                                  user,
                                                                  syncFileContents,
                                                                  getApplicationContext(),
-                                                                 fileDataStorageManager);
+                                                                 fileDataStorageManager,
+                                                                 false);
                         break;
 
                     case ACTION_SYNC_FOLDER:
@@ -707,7 +708,8 @@ public class OperationsService extends Service {
                             this,                       // TODO remove this dependency from construction time
                             remotePath,
                             user,
-                            fileDataStorageManager
+                            fileDataStorageManager,
+                            false
                         );
                         break;
 
