@@ -26,7 +26,7 @@ class ChooseStorageLocationActivity : AppCompatActivity() {
                 Intent().putExtra(
                     KEY_RESULT_STORAGE_LOCATION,
                     result.getString(KEY_RESULT_STORAGE_LOCATION)
-                    )
+                )
             )
         }
         chooseStorageLocationDialogFragment.show(supportFragmentManager, "choose_storage_location")

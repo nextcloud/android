@@ -102,7 +102,8 @@ class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
             StorageType.EXTERNAL -> getString(R.string.storage_external_storage)
         }
 
-        val storagePath = storagePoints.firstOrNull { it.storageType == storageType && it.privacyType == privacyType }?.path
+        val storagePath =
+            storagePoints.firstOrNull { it.storageType == storageType && it.privacyType == privacyType }?.path
 
         return storagePath?.let {
             val file = File(it)
@@ -118,7 +119,8 @@ class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
     }
 
     private fun updateMediaIndexSwitch() {
-        val privacyTypes = storagePoints.filter { it.storageType == selectedStorageType }.map { it.privacyType }.distinct()
+        val privacyTypes =
+            storagePoints.filter { it.storageType == selectedStorageType }.map { it.privacyType }.distinct()
         binding.allowMediaIndexSwitch.isEnabled = privacyTypes.size > 1
         binding.allowMediaIndexSwitch.isChecked = privacyTypes.contains(PrivacyType.PUBLIC)
     }
@@ -142,7 +144,8 @@ class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
     }
 
     private fun notifyResult() {
-        val newPath = storagePoints.first { it.storageType == selectedStorageType && it.privacyType == selectedPrivacyType }
+        val newPath =
+            storagePoints.first { it.storageType == selectedStorageType && it.privacyType == selectedPrivacyType }
 
         val resultBundle = Bundle().apply {
             putString(KEY_RESULT_STORAGE_LOCATION, newPath.path)
