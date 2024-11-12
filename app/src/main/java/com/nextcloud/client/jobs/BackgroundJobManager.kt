@@ -171,4 +171,5 @@ interface BackgroundJobManager {
     fun startHealthStatus()
     fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean
     fun scheduleInternal2WaySync(intervalMinutes: Long)
+    fun cancelAllFilesDownloadJobs()
 }
