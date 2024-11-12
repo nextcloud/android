@@ -842,7 +842,7 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     }
 
     private boolean showSharingTab() {
-        if (!MDMConfig.INSTANCE.shareViaLink(requireContext()) || !MDMConfig.INSTANCE.shareViaUser(requireContext())) {
+         if (!MDMConfig.INSTANCE.shareViaLink(requireContext()) && !MDMConfig.INSTANCE.shareViaUser(requireContext())) {
             return false;
         }
 

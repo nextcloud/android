@@ -37,6 +37,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -243,6 +244,22 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             binding.searchView.setInputType(InputType.TYPE_NULL);
             binding.pickContactEmailBtn.setVisibility(View.GONE);
             disableSearchView(binding.searchView);
+        }
+
+        checkShareLink();
+        checkShareViaUser();
+    }
+
+    private void checkShareViaUser() {
+        if (!MDMConfig.INSTANCE.shareViaUser(requireContext())) {
+            binding.searchContainer.setVisibility(View.GONE);
+        }
+    }
+
+    private void checkShareLink() {
+        if (!MDMConfig.INSTANCE.shareViaLink(requireContext())) {
+            binding.sharedWithYouContainer.setVisibility(View.GONE);
+            binding.sharesList.setVisibility(View.GONE);
         }
     }
 
