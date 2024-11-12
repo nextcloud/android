@@ -214,7 +214,7 @@ class SyncedFoldersActivity :
         powerCheck.isChecked = !powerCheck.isChecked
         return true
     }
-    
+
     fun buildPowerCheckDialog(): AlertDialog {
         val builder = MaterialAlertDialogBuilder(this)
             .setPositiveButton(R.string.common_ok) { dialog, _ -> dialog.dismiss() }
@@ -229,8 +229,6 @@ class SyncedFoldersActivity :
     @VisibleForTesting
     fun showPowerCheckDialog() {
         buildPowerCheckDialog().show()
-
-    
     }
 
     /**
