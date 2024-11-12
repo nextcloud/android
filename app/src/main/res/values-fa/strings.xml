@@ -83,7 +83,6 @@
     <string name="autoupload_custom_folder">راه اندازی پوشه تنظیمات</string>
     <string name="autoupload_disable_power_save_check">غیرفعال کردن بررسی ذخیره انرژی</string>
     <string name="autoupload_hide_folder">مخفی کردن پوشه</string>
-    <string name="autoupload_worker_foreground_info">آماده‌سازی آپلود خودکار</string>
     <string name="avatar">آواتار</string>
     <string name="away">دور</string>
     <string name="backup_settings">تنظیمات پشتیبان</string>
@@ -226,7 +225,6 @@
     <string name="downloader_download_failed_credentials_error">بارگیری شکست خورد. دوباره وارد شوید</string>
     <string name="downloader_download_failed_ticker">دانلود ناموفق</string>
     <string name="downloader_download_file_not_found">این فایل دیگر روی سرور وجود ندارد</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% در حال دانلود %2$s</string>
     <string name="downloader_download_in_progress_ticker">بارگیری…</string>
     <string name="downloader_download_succeeded_content">%1$sدانلود شده </string>
@@ -670,8 +668,6 @@
     <string name="request_account_deletion">درخواست حذف اکانت</string>
     <string name="request_account_deletion_button">درخواست حذف</string>
     <string name="request_account_deletion_details">درخواست حذف دائمی حساب از ارائه‌دهنده خدمت</string>
-    <string name="reshare_not_allowed">اشتراک‌گذاری مجدد مجاز نمی باشد</string>
-    <string name="resharing_is_not_allowed">اشتراک‌گذاری مجدد مجاز نمی باشد</string>
     <string name="resized_image_not_possible_download">هیچ تصویری تغییر اندازه شده‌ای در دسترس نیست. تصویر کامل را بارگیری می کنید؟</string>
     <string name="restore">بازیابی پرونده</string>
     <string name="restore_backup">بازیابی نسخه پشتیبان</string>
@@ -927,7 +923,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">نگهداری فایل در پوشه منبع</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">حذف فایل از پوشه منبع</string>
     <string name="uploader_upload_forbidden_permissions">برای بارگذاری در این پوشه</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% در حال آپلود%2$s</string>
     <string name="uploader_upload_in_progress_ticker">بارگذاری…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s آپلود شده</string>

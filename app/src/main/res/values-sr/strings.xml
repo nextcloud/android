@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">Подесите произвољну фасциклу</string>
     <string name="autoupload_disable_power_save_check">Искључи проверу уштеде батерије</string>
     <string name="autoupload_hide_folder">Сакриј фасциклу</string>
-    <string name="autoupload_worker_foreground_info">Припрема се ауто отпремање</string>
     <string name="avatar">Аватар</string>
     <string name="away">Одсутан</string>
     <string name="backup_settings">Поставке резервне копије</string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">Неуспешно преузимање. Поново се пријавите</string>
     <string name="downloader_download_failed_ticker">Преузимање није успело</string>
     <string name="downloader_download_file_not_found">Фајл није више доступан на серверу</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% преузимам %2$s</string>
     <string name="downloader_download_in_progress_ticker">Преузимам…</string>
     <string name="downloader_download_succeeded_content">%1$s преузето</string>
@@ -737,8 +735,6 @@
     <string name="request_account_deletion">Захтевајте брисање налога</string>
     <string name="request_account_deletion_button">Захтев за брисање</string>
     <string name="request_account_deletion_details">Захтев пружаоцу сервиса да неповратно обрише налог</string>
-    <string name="reshare_not_allowed">Поновно дељење није дозвољено</string>
-    <string name="resharing_is_not_allowed">Поновно дељење није дозвољено</string>
     <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скинути пуну слику?</string>
     <string name="restore">Поврати фајл</string>
     <string name="restore_backup">Обнови резервну копију</string>
@@ -1010,7 +1006,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Остави фајл у изворној фасцикли</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Избриши фајл из изворне фасцикле</string>
     <string name="uploader_upload_forbidden_permissions">да отпремите ову фасциклу</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Отпремање %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Отпремам…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s отпремљено</string>

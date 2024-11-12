@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
     <string name="autoupload_disable_power_save_check">Inaktivera strömsparingskontrollen</string>
     <string name="autoupload_hide_folder">Göm mapp</string>
-    <string name="autoupload_worker_foreground_info">Förbereder automatisk uppladdning</string>
     <string name="avatar">Avatar</string>
     <string name="away">Iväg</string>
     <string name="backup_settings">Backupinställningar</string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
     <string name="downloader_download_failed_ticker">Hämtning misslyckades</string>
     <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
-    <string name="downloader_download_in_progress">%1$d%%%2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Hämtar %2$s</string>
     <string name="downloader_download_in_progress_ticker">Hämtar…</string>
     <string name="downloader_download_succeeded_content">%1$s hämtad</string>
@@ -740,8 +738,6 @@
     <string name="request_account_deletion">Begär att radera ditt konto</string>
     <string name="request_account_deletion_button">Begäran om radering</string>
     <string name="request_account_deletion_details">Begär permanent borttagning av konto av tjänsteleverantör</string>
-    <string name="reshare_not_allowed">Dela vidare är inte tillåtet</string>
-    <string name="resharing_is_not_allowed">Att dela på nytt är inte tillåtet</string>
     <string name="resized_image_not_possible_download">Ingen storleksändrad bild tillgänglig. Hämta hela bilden?</string>
     <string name="restore">Återställ fil</string>
     <string name="restore_backup">Återställ säkerhetskopiering</string>
@@ -1013,7 +1009,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Behåll fil i källmappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ta bort fil från källmappen</string>
     <string name="uploader_upload_forbidden_permissions">att ladda upp denna mapp</string>
-    <string name="uploader_upload_in_progress">%1$d%%%2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Laddar upp…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uppladdad</string>
@@ -1067,6 +1062,7 @@
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>
     <string name="whats_your_status">Vad är din status?</string>
+    <string name="widgets_not_available">Widgetar är endast tillgängliga i %1$s 25 eller senare när Dashboard-appen är aktiverad</string>
     <string name="widgets_not_available_title">Inte tillgänglig</string>
     <string name="worker_download">Hämtar filer…</string>
     <string name="write_email">Skicka e-post</string>

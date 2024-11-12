@@ -101,7 +101,6 @@
     <string name="autoupload_custom_folder">Configurar una carpeta personalizada</string>
     <string name="autoupload_disable_power_save_check">Desactivar la comprobación de ahorro de energía</string>
     <string name="autoupload_hide_folder">Ocultar carpeta</string>
-    <string name="autoupload_worker_foreground_info">Preparando carga automática</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
     <string name="backup_settings">Configuración de la copia de seguridad</string>
@@ -428,8 +427,6 @@
     <string name="rename_dialog_title">Ingresa un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se pudo renombrar la copia local, intenta con un nombre diferente </string>
     <string name="rename_server_fail_msg">No fue posible renombrar, el nombre ya está ocupado</string>
-    <string name="reshare_not_allowed">No se permite volver a compartir</string>
-    <string name="resharing_is_not_allowed">No está permitido recompartir</string>
     <string name="resized_image_not_possible_download">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
     <string name="retry">Reintentar</string>
     <string name="select_all">Seleccionar todo</string>

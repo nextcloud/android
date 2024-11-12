@@ -541,8 +541,6 @@
     <string name="rename_local_fail_msg">Локалната копија не може да се преименува; пробајте со друго име</string>
     <string name="rename_server_fail_msg">Преименувањето не е возможно, тоа име веќе е зафатено</string>
     <string name="request_account_deletion">Барање за бришење на сметката</string>
-    <string name="reshare_not_allowed">Повторно споделување не е дозволено</string>
-    <string name="resharing_is_not_allowed">Повторно споделување не е дозволено</string>
     <string name="resized_image_not_possible_download">Нема достапно смалена слика. Превземете ја во целосната големина?</string>
     <string name="restore">Врати датотека</string>
     <string name="restore_button_description">Вратете ги избришаните датотеки</string>

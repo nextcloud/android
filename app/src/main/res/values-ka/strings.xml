@@ -647,8 +647,6 @@
     <string name="request_account_deletion">Request account deletion</string>
     <string name="request_account_deletion_button">Request deletion</string>
     <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
-    <string name="reshare_not_allowed">Resharing is not allowed</string>
-    <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
     <string name="restore">Restore file</string>
     <string name="restore_backup">Restore backup</string>

@@ -90,7 +90,6 @@
     <string name="autoupload_custom_folder">Indstil en selvvalgt mappe</string>
     <string name="autoupload_disable_power_save_check">Deaktiver strømsparecheck</string>
     <string name="autoupload_hide_folder">Skjul mappe</string>
-    <string name="autoupload_worker_foreground_info">Forbereder automatisk upload</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ikke tilstede</string>
     <string name="backup_settings">Backup indstilinger</string>
@@ -672,8 +671,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="rename_server_fail_msg">Omdøbning ikke mulig, navnet eksisterer</string>
     <string name="request_account_deletion">Anmodning om sletning af konto</string>
     <string name="request_account_deletion_button">Anmod om sletning</string>
-    <string name="reshare_not_allowed">Gendeling er ikke tilladt</string>
-    <string name="resharing_is_not_allowed">Videredeling ikke tilladt</string>
     <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>
     <string name="restore">Genskab fil</string>
     <string name="restore_backup">Gendan backup</string>
