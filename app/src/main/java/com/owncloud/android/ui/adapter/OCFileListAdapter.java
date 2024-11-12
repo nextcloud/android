@@ -531,12 +531,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
-        if (file.isFolder()) {
-            setColorFilterForOfflineCreateFolderOperations(holder, file);
-        } else {
-            setColorFilterForOfflineCreateFileOperations(holder, file);
-        }
+        applyVisualsForOfflineOperations(holder, file);
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -666,8 +661,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         applyVisualsForOfflineOperations(holder, file);
     }
 
-    private void applyVisualsForOfflineOperations(ListItemViewHolder holder, OCFile file) {
-        ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
+    private void applyVisualsForOfflineOperations(ListViewHolder holder, OCFile file) {
+        // ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
 
         if (file.isFolder()) {
             setColorFilterForOfflineCreateFolderOperations(holder, file);

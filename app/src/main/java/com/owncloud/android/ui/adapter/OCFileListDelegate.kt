@@ -249,7 +249,7 @@ class OCFileListDelegate(
         if (shouldHideShare) {
             gridViewHolder.shared.visibility = View.GONE
         } else {
-            showShareIcon(gridViewHolder, file)
+            configureSharedIconView(gridViewHolder, file)
         }
     }
 
@@ -366,28 +366,37 @@ class OCFileListDelegate(
         }
     }
 
-    private fun showShareIcon(gridViewHolder: ListViewHolder, file: OCFile) {
-        val sharedIconView = gridViewHolder.shared
-        if (gridViewHolder is OCFileListItemViewHolder || file.unreadCommentsCount == 0) {
-            sharedIconView.visibility = View.VISIBLE
-            if (file.isSharedWithSharee || file.isSharedWithMe) {
-                if (showShareAvatar) {
-                    sharedIconView.visibility = View.GONE
-                } else {
-                    sharedIconView.visibility = View.VISIBLE
-                    sharedIconView.setImageResource(R.drawable.shared_via_users)
-                    sharedIconView.contentDescription = context.getString(R.string.shared_icon_shared)
-                }
-            } else if (file.isSharedViaLink) {
-                sharedIconView.setImageResource(R.drawable.shared_via_link)
-                sharedIconView.contentDescription = context.getString(R.string.shared_icon_shared_via_link)
-            } else {
-                sharedIconView.setImageResource(R.drawable.ic_unshared)
-                sharedIconView.contentDescription = context.getString(R.string.shared_icon_share)
+    private fun configureSharedIconView(gridViewHolder: ListViewHolder, file: OCFile) {
+        val result = getShareIconIdAndContentDescriptionId(gridViewHolder, file)
+
+        gridViewHolder.shared.run {
+            if (result == null) {
+                visibility = View.GONE
+                return
             }
-            sharedIconView.setOnClickListener { ocFileListFragmentInterface.onShareIconClick(file) }
+
+            setImageResource(result.first)
+            contentDescription = context.getString(result.second)
+            visibility = View.VISIBLE
+            setOnClickListener { ocFileListFragmentInterface.onShareIconClick(file) }
+        }
+    }
+
+    private fun getShareIconIdAndContentDescriptionId(holder: ListViewHolder, file: OCFile): Pair<Int, Int>? {
+        if (file.isOfflineOperation || holder !is OCFileListItemViewHolder || file.unreadCommentsCount != 0) {
+            return null
+        }
+
+        return if (file.isSharedWithSharee || file.isSharedWithMe) {
+            if (showShareAvatar) {
+                null
+            } else {
+                R.drawable.shared_via_users to R.string.shared_icon_shared
+            }
+        } else if (file.isSharedViaLink) {
+            R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
         } else {
-            sharedIconView.visibility = View.GONE
+            R.drawable.ic_unshared to R.string.shared_icon_share
         }
     }
 
