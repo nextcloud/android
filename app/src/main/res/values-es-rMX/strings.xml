@@ -101,7 +101,6 @@
     <string name="autoupload_custom_folder">Configurar una carpeta personalizada</string>
     <string name="autoupload_disable_power_save_check">Deshabilitar la verificación de ahorro de energía</string>
     <string name="autoupload_hide_folder">Ocultar carpeta</string>
-    <string name="autoupload_worker_foreground_info">Preparando carga automática</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
     <string name="backup_settings">Configuración de respaldo</string>
@@ -247,7 +246,6 @@
     <string name="downloader_download_failed_credentials_error">La descarga falló, inicia sesión de nuevo</string>
     <string name="downloader_download_failed_ticker">Falla en la descarga</string>
     <string name="downloader_download_file_not_found">El archivo ya no se encuentra disponible en el servidor</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargando %2$s</string>
     <string name="downloader_download_in_progress_ticker">Descargando…</string>
     <string name="downloader_download_succeeded_content">%1$s descargado</string>
@@ -703,8 +701,6 @@
     <string name="request_account_deletion">Solicitar borrado de cuenta</string>
     <string name="request_account_deletion_button">Solicitar eliminación</string>
     <string name="request_account_deletion_details">Solicitar la eliminación permanente de la cuenta al proveedor del servicio</string>
-    <string name="reshare_not_allowed">No está permitido recompartir</string>
-    <string name="resharing_is_not_allowed">No está permitido recompartir</string>
     <string name="resized_image_not_possible_download">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
     <string name="restore">Restaurar archivo</string>
     <string name="restore_backup">Restaurar respaldo</string>
@@ -970,7 +966,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el archivo en la carpeta de origen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar el archivo de la carpeta de origen</string>
     <string name="uploader_upload_forbidden_permissions">para cargar a esta carpeta</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Cargando %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Cargando</string>
     <string name="uploader_upload_succeeded_content_single">%1$s cargado</string>

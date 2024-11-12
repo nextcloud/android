@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">Configurar uma pasta personalizada</string>
     <string name="autoupload_disable_power_save_check">Desativar verificação de economia de energia</string>
     <string name="autoupload_hide_folder">Ocultar pasta</string>
-    <string name="autoupload_worker_foreground_info">Preparando upload automático</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
     <string name="backup_settings">Configurações de backup </string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">Download falhou, logue-se novamente</string>
     <string name="downloader_download_failed_ticker">Download falhou</string>
     <string name="downloader_download_file_not_found">Este arquivo não está mais disponível neste servidor</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Baixando %2$s</string>
     <string name="downloader_download_in_progress_ticker">Baixando…</string>
     <string name="downloader_download_succeeded_content">%1$s baixado</string>
@@ -737,8 +735,6 @@
     <string name="request_account_deletion">Solicitar a exclusão da conta</string>
     <string name="request_account_deletion_button">Solicitar exclusão</string>
     <string name="request_account_deletion_details">Solicitar exclusão permanente da conta pelo provedor de serviços</string>
-    <string name="reshare_not_allowed">Recompartilhamento não é permitido</string>
-    <string name="resharing_is_not_allowed">Recompartilhamento não é permitido</string>
     <string name="resized_image_not_possible_download">Não há imagem redimensionada disponível. Baixar a imagem completa?</string>
     <string name="restore">Restaurar arquivo</string>
     <string name="restore_backup">Restaurar backup</string>
@@ -1010,7 +1006,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Manter arquivo na pasta de origem</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Excluir arquivo da pasta de origem</string>
     <string name="uploader_upload_forbidden_permissions">para enviar a esta pasta</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% enviando %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Enviando…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s enviado</string>

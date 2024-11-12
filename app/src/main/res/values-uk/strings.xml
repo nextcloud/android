@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">Каталог користувача</string>
     <string name="autoupload_disable_power_save_check">Вимкнути перевірку режиму енергозаощадження</string>
     <string name="autoupload_hide_folder">Приховати каталог</string>
-    <string name="autoupload_worker_foreground_info">Підготовка до автозавантаження</string>
     <string name="avatar">Світлина</string>
     <string name="away">Піти</string>
     <string name="backup_settings">Налаштування резервного збереження</string>
@@ -731,8 +730,6 @@
     <string name="request_account_deletion">Запит на вилучення облікового запису</string>
     <string name="request_account_deletion_button">Запит на вилучення</string>
     <string name="request_account_deletion_details">Запит на вилучення облікового запису з боку постачальника послуг</string>
-    <string name="reshare_not_allowed">Надання спільного доступу іншим не дозволяється</string>
-    <string name="resharing_is_not_allowed">Надання спільного доступу іншим не дозволяється</string>
     <string name="resized_image_not_possible_download">Відсутнє зображення зі зменшеними розмірами. Звантажити повне зображення?</string>
     <string name="restore">Відновити файл</string>
     <string name="restore_backup">Відновити</string>

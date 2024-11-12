@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">Nastavit uživatelsky určenou složku</string>
     <string name="autoupload_disable_power_save_check">Nekontrolovat zda je zapnutý režim úspory energie</string>
     <string name="autoupload_hide_folder">Skrýt složku</string>
-    <string name="autoupload_worker_foreground_info">Příprava automatického nahrání</string>
     <string name="avatar">Avatar</string>
     <string name="away">Pryč</string>
     <string name="backup_settings">Nastavení zálohování</string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">Stahování se nezdařilo, přihlaste se znovu</string>
     <string name="downloader_download_failed_ticker">Stahování se nezdařilo</string>
     <string name="downloader_download_file_not_found">Tento soubor už není na serveru k dispozici</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Stahuje se %2$s</string>
     <string name="downloader_download_in_progress_ticker">Stahování…</string>
     <string name="downloader_download_succeeded_content">%1$s staženo</string>
@@ -739,8 +737,6 @@
     <string name="request_account_deletion">Vyžádat smazání účtu</string>
     <string name="request_account_deletion_button">Vyžádat si smazání</string>
     <string name="request_account_deletion_details">Vyžádat si trvalé vymazání účtu u poskytovatele služby</string>
-    <string name="reshare_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
-    <string name="resharing_is_not_allowed">Příjemcům tohoto sdílení není dovoleno ho nasdílet dál dalším</string>
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
     <string name="restore">Obnovit soubor</string>
     <string name="restore_backup">Obnovit ze zálohy</string>
@@ -1008,7 +1004,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Ponechat soubor ve zdrojové složce</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Vymazat soubor ze zdrojové složky</string>
     <string name="uploader_upload_forbidden_permissions">pro nahrávání do této složky</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Odesílání %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Nahrávání…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s nahráno</string>

@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">ئىختىيارى ھۆججەت قىسقۇچ ئورنىتىڭ</string>
     <string name="autoupload_disable_power_save_check">توك تېجەش تەكشۈرۈشىنى چەكلەڭ</string>
     <string name="autoupload_hide_folder">ھۆججەت قىسقۇچنى يوشۇرۇش</string>
-    <string name="autoupload_worker_foreground_info">ئاپتوماتىك يوللاشقا تەييارلىق قىلىش</string>
     <string name="avatar">Avatar</string>
     <string name="away">يىراق</string>
     <string name="backup_settings">زاپاسلاش تەڭشىكى</string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">چۈشۈرۈش مەغلۇپ بولدى ، قايتا كىرىڭ</string>
     <string name="downloader_download_failed_ticker">چۈشۈرۈش مەغلۇب بولدى</string>
     <string name="downloader_download_file_not_found">بۇ ھۆججەتنى مۇلازىمېتىردا ئىشلەتكىلى بولمايدۇ</string>
-    <string name="downloader_download_in_progress">% 1 $ d %%% 2 $ s</string>
     <string name="downloader_download_in_progress_content">% 1 $ d %% چۈشۈرۈش% 2 $ s</string>
     <string name="downloader_download_in_progress_ticker">چۈشۈرۈش…</string>
     <string name="downloader_download_succeeded_content">% 1 $ s چۈشۈرۈلدى</string>
@@ -737,8 +735,6 @@
     <string name="request_account_deletion">ھېسابات ئۆچۈرۈشنى تەلەپ قىلىڭ</string>
     <string name="request_account_deletion_button">ئۆچۈرۈشنى تەلەپ قىلىڭ</string>
     <string name="request_account_deletion_details">مۇلازىمەت تەمىنلىگۈچى تەرىپىدىن ھېساباتنى مەڭگۈلۈك ئۆچۈرۈۋېتىشنى تەلەپ قىلىڭ</string>
-    <string name="reshare_not_allowed">قايتا تەقسىم قىلىشقا بولمايدۇ</string>
-    <string name="resharing_is_not_allowed">قايتا تەقسىم قىلىشقا بولمايدۇ</string>
     <string name="resized_image_not_possible_download">چوڭلۇقى ئۆزگەرتىلگەن رەسىم يوق. تولۇق رەسىمنى چۈشۈرۈڭ؟</string>
     <string name="restore">ھۆججەتنى ئەسلىگە كەلتۈرۈش</string>
     <string name="restore_backup">زاپاسلاشنى ئەسلىگە كەلتۈرۈڭ</string>
@@ -1010,7 +1006,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">ھۆججەتنى ئەسلى ھۆججەت قىسقۇچىدا ساقلاڭ</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ھۆججەت قىسقۇچتىن ھۆججەتنى ئۆچۈرۈڭ</string>
     <string name="uploader_upload_forbidden_permissions">بۇ ھۆججەت قىسقۇچقا يۈكلەش</string>
-    <string name="uploader_upload_in_progress">% 1 $ d %%% 2 $ s</string>
     <string name="uploader_upload_in_progress_content">% 1 $ d %% يۈكلەش% 2 $ s</string>
     <string name="uploader_upload_in_progress_ticker">يۈكلەش…</string>
     <string name="uploader_upload_succeeded_content_single">% 1 $ s يوللاندى</string>

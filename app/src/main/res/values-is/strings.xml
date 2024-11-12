@@ -629,8 +629,6 @@
     <string name="request_account_deletion">Biðja um að aðgangi sé eytt</string>
     <string name="request_account_deletion_button">Biðja um eyðingu</string>
     <string name="request_account_deletion_details">Biðja um endanlega eyðingu aðgangs hjá þjónustuveitu</string>
-    <string name="reshare_not_allowed">Endurdeiling er ekki leyfð</string>
-    <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="resized_image_not_possible_download">Engin stærðarbreytt mynd í boði. Sækja alla myndina?</string>
     <string name="restore">Endurheimta skrá</string>
     <string name="restore_backup">Endurheimta úr öryggisafriti</string>

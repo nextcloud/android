@@ -646,8 +646,6 @@
     <string name="rename_local_fail_msg">Ni mogoče preimenovati krajevne kopije. Poskusite vpisati drugačno ime.</string>
     <string name="rename_server_fail_msg">Preimenovanje ni mogoče. Ime je že uporabljeno.</string>
     <string name="request_account_deletion">Zahtevaj izbris računa</string>
-    <string name="reshare_not_allowed">Osveževanje ni dovoljena</string>
-    <string name="resharing_is_not_allowed">Osveževanje ni dovoljeno</string>
     <string name="resized_image_not_possible_download">Slika prilagojene velikosti ni na voljo. Ali želite prejeti sliko polne velikosti?</string>
     <string name="restore">Obnovi datoteko</string>
     <string name="restore_backup">Obnovi varnostno kopijo</string>

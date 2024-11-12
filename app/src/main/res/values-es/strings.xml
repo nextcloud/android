@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">Configure una carpeta especifica </string>
     <string name="autoupload_disable_power_save_check">Desactivar comprobación de ahorro de energía</string>
     <string name="autoupload_hide_folder">Ocultar carpeta</string>
-    <string name="autoupload_worker_foreground_info">Preparando subida automática</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
     <string name="backup_settings">Configuración de copia de seguridad</string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">Descarga fallida, vuelve a iniciar sesión</string>
     <string name="downloader_download_failed_ticker">Fallo al descargar</string>
     <string name="downloader_download_file_not_found">Este archivo ya no se encuentra en el servidor</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargado de %2$s</string>
     <string name="downloader_download_in_progress_ticker">Descargando…</string>
     <string name="downloader_download_succeeded_content">%1$s descargado</string>
@@ -282,6 +280,7 @@
     <string name="drawer_quota">%1$s de %2$s utilizados</string>
     <string name="drawer_quota_unlimited">usado %1$s</string>
     <string name="drawer_synced_folders">Carga automática</string>
+    <string name="e2e_counter_too_old">El contador es demasiado antiguo</string>
     <string name="e2e_hash_not_found">Hash no encontrado</string>
     <string name="e2e_not_yet_setup">El cifrado de extremo a extremo (E2E) todavía no está configurado</string>
     <string name="e2e_offline">No es posible sin conexión a internet</string>
@@ -416,6 +415,9 @@
     <string name="file_name_validator_error_forbidden_file_extensions">%s es una extensión de archivo prohibida</string>
     <string name="file_name_validator_error_forbidden_space_character_extensions">Los nombres de archivo no deben contener espacios al principio o al final</string>
     <string name="file_name_validator_error_invalid_character">El nombre contiene caracteres inválidos: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s es un nombre prohibido</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Por favor, renombra el archivo antes de moverlo o copiarlo.</string>
+    <string name="file_name_validator_upload_content_error">Algún contenido no puede actualizarse puesto que contiene nombres reservados o caracteres inválidos</string>
     <string name="file_not_found">Archivo no encontrado</string>
     <string name="file_not_synced">No se ha podido sincronizar el archivo. Se muestra la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
@@ -439,6 +441,7 @@
     <string name="folder_already_exists">La carpeta ya existe</string>
     <string name="folder_confirm_create">Crear</string>
     <string name="folder_list_empty_headline">No hay carpetas aquí</string>
+    <string name="folder_name_empty">El nombre de la carpeta no puede estar vacío</string>
     <string name="folder_picker_choose_button_text">Seleccione</string>
     <string name="folder_picker_choose_caption_text">Elegir carpeta de destino</string>
     <string name="folder_picker_copy_button_text">Copiar</string>
@@ -457,6 +460,7 @@
     <string name="foreign_files_success">Se han movido todos los archivos</string>
     <string name="forward">Adelante</string>
     <string name="fourHours">4 horas</string>
+    <string name="gplay_restriction">¡Google ha restringido la descarga de archivos APK/AAB!</string>
     <string name="grid_file_features_live_photo_content_description">Este ícono indica la disponibilidad de una foto en vivo</string>
     <string name="hidden_file_name_warning">Ese nombre producirá un archivo oculto</string>
     <string name="hint_name">Nombre</string>
@@ -484,6 +488,9 @@
     <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
+    <string name="internal_two_way_sync">Sincronización interna bidireccional</string>
+    <string name="internal_two_way_sync_not_yet">Todavía no, se sincronizará pronto</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Se necesita una conexión de internet para configurar la carpeta cifrada</string>
     <string name="invalid_url">URL no válida</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">La etiqueta no puede quedar vacía</string>
@@ -522,6 +529,7 @@
     <string name="manage_space_clear_data">Limpiar datos</string>
     <string name="manage_space_description">Las opciones, certificados y bases de datos de %1$s serán borrados permanentemente.\n\nLos archivos bajados no se tocarán.\n\nEste proceso tardará algún tiempo.</string>
     <string name="manage_space_title">Gestionar espacio</string>
+    <string name="max_file_count_warning_message">Has alcanzado el límite máximo de subida de archivos. Por favor, sube menos de 500 archivos cada vez.</string>
     <string name="media_err_invalid_progressive_playback">El archivo multimedia no puede ser transmitido</string>
     <string name="media_err_io">El archivo de medios no se ha podido leer</string>
     <string name="media_err_malformed">El archivo de medios tiene una codificación incorrecta</string>
@@ -567,6 +575,8 @@
     <string name="note_could_not_sent">No se puede enviar la nota</string>
     <string name="note_icon_hint">Icono de la nota</string>
     <string name="notification_action_failed">Fallo al ejecutar la acción.</string>
+    <string name="notification_channel_background_operations_description">Muestra notificaciones para  interactuar como resultado de operaciones en segundo plano</string>
+    <string name="notification_channel_background_operations_name">Operaciones en segundo plano</string>
     <string name="notification_channel_download_description">Muestra el progreso de la descarga</string>
     <string name="notification_channel_download_name_short">Descargas</string>
     <string name="notification_channel_file_sync_description">Muestra progreso y resultados de la sincronización de archivos</string>
@@ -580,9 +590,19 @@
     <string name="notification_channel_upload_description">Muestra el progreso de la subida</string>
     <string name="notification_channel_upload_name_short">Subidas</string>
     <string name="notification_icon">Icono de notificaciones</string>
+    <string name="notification_icon_description">Existen notificaciones no leídas</string>
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor, comprúebalo más tarde.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operación pendiente</string>
     <string name="offline_mode">No hay conexión a internet</string>
+    <string name="offline_mode_info_description">Incluso sin una conexión a internet, puede sorganizar tus carpetas o crear archivos. Una vez vuelves a estar en línea ,las acciones pendientes se sincronizarán automáticamente.</string>
+    <string name="offline_mode_info_title">Estás sin conexión, pero el trabajo continúa</string>
+    <string name="offline_operations_file_does_not_exists_yet">El archivo no existe todavía. Por favor, sube primero el archivo.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Carpeta en conflicto: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Eliminar carpeta sin conexión</string>
+    <string name="offline_operations_worker_notification_error_text">La operación sin conexión no se ha podido completar. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Operaciones sin conexión</string>
+    <string name="offline_operations_worker_notification_start_text">Iniciando operaciones sin conexión</string>
     <string name="oneHour">1 hora</string>
     <string name="online">En línea</string>
     <string name="online_status">Estado en línea</string>
@@ -674,12 +694,17 @@
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_interval">Intervalo</string>
+    <string name="prefs_two_way_sync_summary">Administrar carpetas internas para sincronización bidireccional</string>
+    <string name="prefs_two_way_sync_switch_title">Activar sincronización bidireccional</string>
     <string name="prefs_value_theme_dark">Oscuro</string>
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir el del sistema</string>
     <string name="preview_image_description">Previsualización de imagen</string>
+    <string name="preview_image_downloading_image_for_edit">Descargando la imagen para iniciar la pantalla de edición. Por favor, espera…</string>
     <string name="preview_image_error_no_local_file">No hay archivo local para previsualizar</string>
     <string name="preview_image_error_unknown_format">No se puede mostrar la imagen</string>
+    <string name="preview_image_file_is_not_downloaded">El archivo no está descargado</string>
     <string name="preview_image_file_is_not_exist">El archivo no existe</string>
     <string name="preview_media_unhandled_http_code_message">El archivo se encuentra actualmente bloqueado por otro usuario o proceso y por tanto no es posible eliminarlo. Por favor, intente de nuevo más tarde.</string>
     <string name="preview_sorry">¡Lo sentimos</string>
@@ -689,6 +714,8 @@
     <string name="push_notifications_old_login">No hay notificaciones push debido a que la sesión está caducada. Por favor, considera volver a añadir la cuenta.</string>
     <string name="push_notifications_temp_error">Notificaciones push actualmente no disponibles.</string>
     <string name="qr_could_not_be_read">¡No se ha podido leer el código QR!</string>
+    <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">No se puede encontrar la carpeta, la operación de sincronización se ha cancelado</string>
+    <string name="receive_external_files_activity_unable_to_find_file_to_upload">No se ha podido encontrar el archivo para subir</string>
     <string name="recommend_subject">¡Prueba %1$s en tu móvil!</string>
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
@@ -710,8 +737,6 @@
     <string name="request_account_deletion">Solicitar la eliminación de la cuenta</string>
     <string name="request_account_deletion_button">Solicitar eliminación</string>
     <string name="request_account_deletion_details">Solicitar eliminación permanente de la cuenta al proveedor de servicio</string>
-    <string name="reshare_not_allowed">No se permite volver a compartir</string>
-    <string name="resharing_is_not_allowed">No se permite compartir de nuevo</string>
     <string name="resized_image_not_possible_download">No se dispone de la imagen en otros tamaños. ¿Descargar en tamaño completo?</string>
     <string name="restore">Restaurar archivo</string>
     <string name="restore_backup">Restaurar copia de seguridad</string>
@@ -898,7 +923,13 @@
     <string name="trashbin_file_remove">Eliminar de forma definitiva</string>
     <string name="trashbin_loading_failed">¡Fallo al cargar la papelera!</string>
     <string name="trashbin_not_emptied">No se ha podido eliminar permanentemente el archivo.</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Desactivar para todas las carpetas</string>
+    <string name="two_way_sync_activity_empty_list_desc">Para configurar una carpeta de sincronización bidireccional, por favor, actívala en la pestaña de detalles de la carpeta en cuestión.</string>
+    <string name="two_way_sync_activity_empty_list_title">Sincronización bidiredcional no configurada</string>
+    <string name="two_way_sync_activity_title">Sincronización interna bidireccional</string>
     <string name="unexpected_error_occurred">Ha ocurrido un error inesperado</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Evento no encontrado, siempre puedes sincronizar para actualizar. Redirigiendo a la web…</string>
+    <string name="unified_search_fragment_contact_not_found">Contacto no encontrado, siempre puees sincronizar para actualizar. Redirigiendo a la web…</string>
     <string name="unlock_file">Desbloquear archivo</string>
     <string name="unread_comments">Hay comentarios no leídos</string>
     <string name="unset_encrypted">Desactivar cifrado</string>
@@ -974,7 +1005,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantener el archivo en la carpeta original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Borrar archivo de la carpeta original</string>
     <string name="uploader_upload_forbidden_permissions">para subir archivos a esta carpeta</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Subiendo %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Subiendo…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s subido</string>

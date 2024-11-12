@@ -514,8 +514,6 @@
     <string name="rename_dialog_title">Täze at giriziň</string>
     <string name="rename_local_fail_msg">Ýerli göçürmäniň adyny üýtgedip bilmedim, başga bir at synap görüň</string>
     <string name="rename_server_fail_msg">Adyny üýtgetmek mümkin däl, at eýýäm alyndy</string>
-    <string name="reshare_not_allowed">Täzeden paýlaşmaga rugsat berilmeýär</string>
-    <string name="resharing_is_not_allowed">Täzeden paýlaşmaga rugsat berilmeýär</string>
     <string name="resized_image_not_possible_download">Ölçegli surat ýok. Doly suraty göçürip alyň?</string>
     <string name="restore">Faýly dikelt</string>
     <string name="restore_button_description">Pozulan faýly yzyna dikelt</string>

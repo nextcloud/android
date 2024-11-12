@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">Configurar un cartafol personalizado</string>
     <string name="autoupload_disable_power_save_check">Desactivar a comprobación de aforro de enerxía</string>
     <string name="autoupload_hide_folder">Agochar o cartafol</string>
-    <string name="autoupload_worker_foreground_info">Preparando o envío automático</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
     <string name="backup_settings">Axustes da copia de seguranza</string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">Produciuse un fallo na descarga, acceda de novo.</string>
     <string name="downloader_download_failed_ticker">Produciuse un fallo na descarga</string>
     <string name="downloader_download_file_not_found">O ficheiro xa non está dispoñíbel no servidor</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargando %2$s</string>
     <string name="downloader_download_in_progress_ticker">Descargando…</string>
     <string name="downloader_download_succeeded_content">Descargado %1$s</string>
@@ -740,8 +738,6 @@
     <string name="request_account_deletion">Solicitar a eliminación da conta </string>
     <string name="request_account_deletion_button">Solicitat a eliminación</string>
     <string name="request_account_deletion_details">Solicitar a eliminación definitiva da conta polo provedor de servizos</string>
-    <string name="reshare_not_allowed">Non se permite volver compartir</string>
-    <string name="resharing_is_not_allowed">Non se permite volver compartir</string>
     <string name="resized_image_not_possible_download">No se dispón da imaxe noutros tamaños. Descargala a tamaño real?</string>
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_backup">Restaurar a copia de seguranza</string>
@@ -1013,7 +1009,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Conservar o ficheiro no cartafol de orixe</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Eliminar o ficheiro do cartafol de orixe</string>
     <string name="uploader_upload_forbidden_permissions">para enviar este cartafol</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Enviando %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Enviando…</string>
     <string name="uploader_upload_succeeded_content_single">Enviado %1$s</string>

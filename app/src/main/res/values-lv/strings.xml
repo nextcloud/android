@@ -304,6 +304,7 @@
     <string name="invisible">Neredzama</string>
     <string name="link">Saite</string>
     <string name="link_share_allow_upload_and_editing">Atļaut augšupielādi un labošanu</string>
+    <string name="link_share_editing">Labošana</string>
     <string name="link_share_file_drop">Datņu mešana (tikai augšupielādei)</string>
     <string name="link_share_view_only">Tikai skatīt</string>
     <string name="list_layout">Saraksta izkārtojums</string>
@@ -417,8 +418,6 @@
     <string name="rename_local_fail_msg">Nevarēja pārsaukt lokālo kopiju, pamēģiniet citu nosaukumu</string>
     <string name="rename_server_fail_msg">Pārsaukšana nav iespējama, nosaukums jau izmantots</string>
     <string name="request_account_deletion">Pieprasīt konta dzēšanu</string>
-    <string name="reshare_not_allowed">Atkārtota koplietošana nav atļauta</string>
-    <string name="resharing_is_not_allowed">Atkārtota koplietošana nav atļauta</string>
     <string name="restore">Atjaunot datni</string>
     <string name="restore_button_description">Atjaunot dzēstu datni</string>
     <string name="retry">Mēģināt vēlreiz</string>
