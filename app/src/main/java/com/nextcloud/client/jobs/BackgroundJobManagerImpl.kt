@@ -507,6 +507,10 @@ internal class BackgroundJobManagerImpl(
         workManager.cancelJob(JOB_INTERNAL_TWO_WAY_SYNC)
     }
 
+    override fun cancelAllFilesDownloadJobs() {
+        workManager.cancelAllWorkByTag(formatClassTag(FileDownloadWorker::class))
+    }
+
     override fun scheduleOfflineSync() {
         val constrains = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.UNMETERED)
