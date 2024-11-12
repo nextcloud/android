@@ -185,7 +185,7 @@ class TrashbinFileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
     }
 
     private fun displayTitle(fileCount: Int) {
-        binding.title.text = resources.getQuantityString(R.plurals.file_list__footer__file, fileCount, fileCount)
+        binding.title.text = resources.getQuantityString(R.plurals.trashbin_list__footer__file, fileCount, fileCount)
     }
 
     private fun inflateActionView(action: TrashbinFileAction): View {
