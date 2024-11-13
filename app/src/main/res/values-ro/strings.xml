@@ -237,7 +237,6 @@
     <string name="downloader_download_failed_credentials_error">Descărcarea a eșuat, autentificați-vă din nou</string>
     <string name="downloader_download_failed_ticker">Descărcarea a eșuat</string>
     <string name="downloader_download_file_not_found">Fișierul nu mai este disponibil pe server</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Se descarcă %2$s</string>
     <string name="downloader_download_in_progress_ticker">Se descarcă…</string>
     <string name="downloader_download_succeeded_content">%1$s descarcat</string>
@@ -646,8 +645,6 @@
     <string name="rename_local_fail_msg">Nu s-a putut redenumi copia locală, încercați un alt nume</string>
     <string name="rename_server_fail_msg">Redenumirea nu este posibilă, numele este deja luat</string>
     <string name="request_account_deletion">Cerere ștergere cont</string>
-    <string name="reshare_not_allowed">Repartajarea nu este permisă</string>
-    <string name="resharing_is_not_allowed">Repartajarea nu este permisă</string>
     <string name="resized_image_not_possible_download">Nu există o imagine mai mică. Descărcați imaginea completă?</string>
     <string name="restore">Restaurează fișier</string>
     <string name="restore_backup">Restaurează copia de rezervă</string>
@@ -880,7 +877,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Păstrați fișierul in dosarul sursă</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ștergeți fișierul din dosarul sursă</string>
     <string name="uploader_upload_forbidden_permissions">pentru a încărca în acest dosar</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Se încarcă %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Încărcare…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s incarcat</string>

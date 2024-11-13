@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">Socraigh fillteán saincheaptha</string>
     <string name="autoupload_disable_power_save_check">Díchumasaigh seiceáil sábhála cumhachta</string>
     <string name="autoupload_hide_folder">Folaigh fillteán</string>
-    <string name="autoupload_worker_foreground_info">Ullmhú uathoibríoch íoslódáil</string>
     <string name="avatar">Avatar</string>
     <string name="away">Amach</string>
     <string name="backup_settings">Socruithe cúltaca</string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">Theip ar an íoslódáil, logáil isteach arís</string>
     <string name="downloader_download_failed_ticker">Theip ar an íoslódáil</string>
     <string name="downloader_download_file_not_found">Níl an comhad ar fáil ar an bhfreastalaí a thuilleadh</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Ag íosluchtú %2$s</string>
     <string name="downloader_download_in_progress_ticker">Ag íosluchtú…</string>
     <string name="downloader_download_succeeded_content">%1$s íoslódáilte</string>
@@ -739,8 +737,6 @@
     <string name="request_account_deletion">Iarr ar scriosadh an chuntais</string>
     <string name="request_account_deletion_button">Iarr scriosadh</string>
     <string name="request_account_deletion_details">Iarr ar sholáthraí seirbhíse scriosadh buan an chuntais</string>
-    <string name="reshare_not_allowed">Ní cheadaítear athroinnt</string>
-    <string name="resharing_is_not_allowed">Ní cheadaítear athroinnt</string>
     <string name="resized_image_not_possible_download">Níl aon íomhá athraithe ar fáil. Íoslódáil an íomhá iomlán?</string>
     <string name="restore">Athchóirigh comhad</string>
     <string name="restore_backup">Athchóirigh cúltaca</string>
@@ -1012,7 +1008,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Coinnigh an comhad san fhillteán foinse</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Scrios an comhad as an bhfillteán foinse</string>
     <string name="uploader_upload_forbidden_permissions">a uaslódáil chuig an bhfillteán seo</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% %2$s á uaslódáil</string>
     <string name="uploader_upload_in_progress_ticker">Á uaslódáil…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uaslódáilte</string>
@@ -1066,6 +1061,7 @@
     <string name="whats_new_skip">Scipeáil</string>
     <string name="whats_new_title">Nua i %1$s</string>
     <string name="whats_your_status">Cad é do stádas?</string>
+    <string name="widgets_not_available">Níl giuirléidí ar fáil ach i %1$s 25 nó níos déanaí nuair atá an aip Deais cumasaithe</string>
     <string name="widgets_not_available_title">Níl sé ar fáil</string>
     <string name="worker_download">Comhaid á n-íoslódáil…</string>
     <string name="write_email">Seol ríomhphost</string>

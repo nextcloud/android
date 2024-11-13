@@ -588,8 +588,6 @@
     <string name="rename_dialog_title">Nhập tên mới</string>
     <string name="rename_local_fail_msg">Không thể đổi tên bản sao cục bộ, hãy thử một tên khác</string>
     <string name="rename_server_fail_msg">Không thể đổi tên, tên đã được sử dụng</string>
-    <string name="reshare_not_allowed">Chia sẻ lại không được cho phép</string>
-    <string name="resharing_is_not_allowed">Chia sẻ lại không được cho phép</string>
     <string name="resized_image_not_possible_download">Không có hình ảnh thay đổi kích thước có sẵn. Tải xuống hình ảnh đầy đủ?</string>
     <string name="restore">Khôi phục tệp</string>
     <string name="restore_backup">Khôi phục bản sao lưu</string>

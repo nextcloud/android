@@ -476,8 +476,6 @@
     <string name="rename_dialog_title">Jepni një emër të ri</string>
     <string name="rename_local_fail_msg">Nuk mund të riemërtohet kopja lokale, provoni një emër ndryshe</string>
     <string name="rename_server_fail_msg">Riemërtimi nuk është i mundur, emri është i zënë</string>
-    <string name="reshare_not_allowed">Nuk lejohet rishperndarja</string>
-    <string name="resharing_is_not_allowed">Ri-shpërndarja nuk lejohet</string>
     <string name="resized_image_not_possible_download">Nuk ka në gjëndje asnjë imazh me përmasa të reja. Doni të shkarkoni imazhin e plotë?</string>
     <string name="restore">Rikthe skedarin</string>
     <string name="restore_button_description">Rikthe skedarin e fshirë</string>

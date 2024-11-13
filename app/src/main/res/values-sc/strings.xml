@@ -554,8 +554,6 @@
     <string name="rename_local_fail_msg">No at fatu a torrare a numenare sa còpia locale, proa cun un\'àteru nùmene</string>
     <string name="rename_server_fail_msg">Impossìbile a torrare a numenare, su nùmene esistit giai</string>
     <string name="request_account_deletion">Rechede de cantzellare su contu</string>
-    <string name="reshare_not_allowed">Non faghet a torrare a cumpartzire</string>
-    <string name="resharing_is_not_allowed">Non faghet a torrare a cumpartzire</string>
     <string name="resized_image_not_possible_download">Impossìbile a modificare sa mannària de s\'immàgine. Dda boles iscarrigare intrea?</string>
     <string name="restore">Recùpera documentu</string>
     <string name="restore_button_description">Recùpera su documentu cantzelladu</string>

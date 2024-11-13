@@ -128,7 +128,6 @@
     <string name="downloader_download_failed_credentials_error">La descarga falló, volvi aniciar la sesión</string>
     <string name="downloader_download_failed_ticker">Descarga fallida</string>
     <string name="downloader_download_file_not_found">Esti ficheru yá nun ta nel sirvidor</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Descargando %2$s</string>
     <string name="downloader_download_in_progress_ticker">Baxando…</string>
     <string name="downloader_download_succeeded_content">%1$s descargáu</string>
@@ -448,8 +447,6 @@
     <string name="rename_server_fail_msg">El cambéu de nome nun ye posible, el nome yá ta n\'usu</string>
     <string name="request_account_deletion">Solicitar el desaniciu de la cuenta</string>
     <string name="request_account_deletion_button">Solicitar el desaniciu</string>
-    <string name="reshare_not_allowed">Nun se pue volver compartir</string>
-    <string name="resharing_is_not_allowed">Nun se pue volver compartir</string>
     <string name="restore">Restaurar el ficheru</string>
     <string name="restore_button_description">Restaurar el ficheru desainiciáu</string>
     <string name="retrieving_file">Recuperando\'l ficheru…</string>
@@ -602,7 +599,6 @@
     <string name="uploader_upload_files_behaviour">Opción de xuba:</string>
     <string name="uploader_upload_files_behaviour_only_upload">Caltener ficheru na carpeta fonte</string>
     <string name="uploader_upload_forbidden_permissions">pa xubir esta carpeta</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Xubiendo %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Xubiendo…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s xubíu</string>

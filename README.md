@@ -13,6 +13,15 @@ height="80">](https://play.google.com/store/apps/details?id=com.nextcloud.client
 alt="Get it on F-Droid"
 height="80">](https://f-droid.org/packages/com.nextcloud.client/)
 
+Signing certificate fingerprint to [verify](https://developer.android.com/studio/command-line/apksigner#usage-verify) the APK:
+- APK with "gplay" name, found [here](https://github.com/nextcloud/android/releases) or distributed via Google Play Store
+- APK with "nextcloud", found [here](https://github.com/nextcloud/android/releases)
+- not suitable for Fdroid downloads, as Fdroid is signing it on their own
+```
+SHA-256: fb009522f65e25802261b67b10a45fd70e610031976f40b28a649e152ded0373   
+SHA-1: 74aa1702e714941be481e1f7ce4a8f779c19dcea
+```
+
 **The Android client for [Nextcloud](https://nextcloud.com). Easily work with your data on your Nextcloud.**
 
 ![App screenshots](/doc/Nextcloud_Android_Screenshots.png "App screenshots")

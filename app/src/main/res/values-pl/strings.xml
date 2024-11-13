@@ -100,7 +100,6 @@
     <string name="autoupload_custom_folder">Ustaw własny katalog</string>
     <string name="autoupload_disable_power_save_check">Wyłącz kontrolę oszczędzania energii</string>
     <string name="autoupload_hide_folder">Ukryj katalog</string>
-    <string name="autoupload_worker_foreground_info">Przygotowanie do automatycznego przesyłania</string>
     <string name="avatar">Awatar</string>
     <string name="away">Bezczynny</string>
     <string name="backup_settings">Ustawienia kopii zapasowej</string>
@@ -248,7 +247,6 @@
     <string name="downloader_download_failed_credentials_error">Pobieranie nieudane, zaloguj się ponownie</string>
     <string name="downloader_download_failed_ticker">Pobieranie nie powiodło się</string>
     <string name="downloader_download_file_not_found">Ten plik nie jest już dostępny na serwerze</string>
-    <string name="downloader_download_in_progress">%1$d%%%2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Pobieranie %2$s</string>
     <string name="downloader_download_in_progress_ticker">Pobieranie…</string>
     <string name="downloader_download_succeeded_content">%1$s pobrano</string>
@@ -720,8 +718,6 @@
     <string name="request_account_deletion">Zażądaj usunięcia konta</string>
     <string name="request_account_deletion_button">Poproś o usunięcie</string>
     <string name="request_account_deletion_details">Prośba o stałe usunięcie konta przez dostawcę usługi</string>
-    <string name="reshare_not_allowed">Udostępnianie dalej jest niedozwolone</string>
-    <string name="resharing_is_not_allowed">Udostępnianie dalej jest niedozwolone</string>
     <string name="resized_image_not_possible_download">Brak obrazu o zmienionym rozmiarze. Pobrać pełny obraz?</string>
     <string name="restore">Przywróć plik</string>
     <string name="restore_backup">Przywróć kopię zapasową</string>
@@ -980,7 +976,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Zachowaj plik w katalogu źródłowym</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Skasuj plik z katalogu źródłowego</string>
     <string name="uploader_upload_forbidden_permissions">do wysłania do tego katalogu</string>
-    <string name="uploader_upload_in_progress">%1$d%%%2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Wysyłanie %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Wysyłanie…</string>
     <string name="uploader_upload_succeeded_content_single">Wysłano %1$s</string>

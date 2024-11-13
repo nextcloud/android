@@ -56,7 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">تمّ حذف المهمة بنجاح</string>
     <string name="assistant_screen_task_list_error_state_message">تعذّر جلب قائمة المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">حذف مهمة</string>
-    <string name="assistant_screen_task_output_empty_text">مخرجات المهمة لم تجهز بعدُ.</string>
+    <string name="assistant_screen_task_output_empty_text">مخرجات المهمة ليست جاهزة حتى الآن.</string>
     <string name="assistant_screen_task_types_error_state_message">تعذّر جلب أنواع المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
     <string name="assistant_screen_top_bar_title">المُساعِد</string>
     <string name="assistant_screen_unknown_task_status_text">غير معروف</string>
@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">إعداد مجلد خاص</string>
     <string name="autoupload_disable_power_save_check">تعطيل التحقق من حفظ الطاقة</string>
     <string name="autoupload_hide_folder">إخفاء المجلد</string>
-    <string name="autoupload_worker_foreground_info">التحضير للرفع التلقائي</string>
     <string name="avatar">الصورة الرمزية</string>
     <string name="away">بالخارج</string>
     <string name="backup_settings">اعدادات النسخ الاحتياطي</string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">فشل التنزيل، قم بتسجيل الدخول مرة أخرى</string>
     <string name="downloader_download_failed_ticker">فشل التحميل</string>
     <string name="downloader_download_file_not_found">الملف غير متوفر في الخادم</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% تحميل  %2$s</string>
     <string name="downloader_download_in_progress_ticker">التنزيل جارِ …</string>
     <string name="downloader_download_succeeded_content">%1$s مُنزَّلَة</string>
@@ -289,10 +287,10 @@
     <string name="e2e_signature_does_not_match">التوقيع غير مُطابق</string>
     <string name="ecosystem_apps_display_assistant">المُساعِد</string>
     <string name="ecosystem_apps_display_more">المزيد</string>
-    <string name="ecosystem_apps_display_notes">الملاحظات Notes</string>
+    <string name="ecosystem_apps_display_notes">الملاحظات</string>
     <string name="ecosystem_apps_display_talk">محادثة Talk</string>
     <string name="ecosystem_apps_more">المزيد من تطبيقات نكست كلاود</string>
-    <string name="ecosystem_apps_notes">ملاحظات Notes نيكست كلاود</string>
+    <string name="ecosystem_apps_notes">ملاحظات نيكست كلاود</string>
     <string name="ecosystem_apps_talk">تطبيق \"المحادثة\" talk من نكست كلاود</string>
     <string name="email_pick_failed">تعذّر التقاط عنوان الإيميل.</string>
     <string name="encrypted">عيّنه كَمشفر</string>
@@ -603,7 +601,7 @@
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
     <string name="offline_mode_info_description">حتى بدون اتصال بالإنترنت، يمكنك تنظيم مجلداتك وإنشاء ملفات. بمجرد عودة الاتصال بالإنترنت، ستتم مزامنة الإجراءات المعلقة تلقائياً.</string>
     <string name="offline_mode_info_title">أنت غير متصل بالإنترنت؛ لكن العمل سيستمر</string>
-    <string name="offline_operations_file_does_not_exists_yet">الملف لم يتوفر بعدُ. رجاءً، قم برفع الملف أوّلاً.</string>
+    <string name="offline_operations_file_does_not_exists_yet">الملف لم يتوفر حتى الآن. يرجى رفع الملف أولاً.</string>
     <string name="offline_operations_worker_notification_conflict_text">مجلد متعارض: %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">حذف مجلد غير متصل</string>
     <string name="offline_operations_worker_notification_error_text">لا يمكن إكمال العملية دون اتصال. %s</string>
@@ -744,8 +742,6 @@
     <string name="request_account_deletion">طلب حذف حساب</string>
     <string name="request_account_deletion_button">طلب الإزالة</string>
     <string name="request_account_deletion_details">طلب الإزالة الدائمة للحساب من قِبل مُزوّد الخدمة</string>
-    <string name="reshare_not_allowed">لا يسمح بعملية إعادة المشاركة</string>
-    <string name="resharing_is_not_allowed">لا يسمح بعملية إعادة المشاركة</string>
     <string name="resized_image_not_possible_download">لا توجد صورة بحجمها متاح. تنزيل الصورة الكاملة؟</string>
     <string name="restore">استعادة الملف</string>
     <string name="restore_backup">استعادة النسخ الاحتياطي</string>
@@ -1023,7 +1019,7 @@
     <string name="uploader_error_message_source_file_not_found">لم يتم إيجاد الملف المحدد للرفع. الرجاء التأكد من أن الملف موجود.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">لا يمكن رفع هذا الملف</string>
     <string name="uploader_error_title_no_file_to_upload">لا يوجد ملف لترفعه</string>
-    <string name="uploader_file_not_found_message">تعذّر العثور على الملف. هل أنت متأكد من وجود هذا الملف؛ أم أنه هنالك تعارضاً لم يُحل بعدُ؟</string>
+    <string name="uploader_file_not_found_message">تعذّر العثور على الملف. هل أنت متأكد من وجود هذا الملف؛ أم أنه هنالك تعارضاً لم يُحل حتى الآن؟</string>
     <string name="uploader_file_not_found_on_server_message">لم نتمكن من إيجاد الملف على الخادم. يمكن أن يكون قد تمّ حذفه من قِبل مُستخدِمٍ آخر</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
     <string name="uploader_local_files_uploaded">إعادة عملية الرفع غير الناجحة للملفات المحلية</string>
@@ -1039,7 +1035,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">الإبقاء على الملف في المجلد الأصلي</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">إحذف الملف من المجلد الأصلي</string>
     <string name="uploader_upload_forbidden_permissions">للرفع إلى هذا المجلد</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% رفع %2$s</string>
     <string name="uploader_upload_in_progress_ticker">يتم الرفع…</string>
     <string name="uploader_upload_succeeded_content_single">تم رفع %1$s</string>

@@ -397,4 +397,7 @@ public interface AppPreferences {
 
     void setTwoWaySyncInterval(Long value);
     Long getTwoWaySyncInterval();
+
+    boolean shouldStopDownloadJobsOnStart();
+    void setStopDownloadJobsOnStart(boolean value);
 }

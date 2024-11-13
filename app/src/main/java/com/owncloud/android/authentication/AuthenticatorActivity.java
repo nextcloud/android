@@ -272,7 +272,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
-        viewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
+        viewThemeUtils.platform.colorStatusBar(this, getResources().getColor(R.color.primary));
 
         // WebViewUtil webViewUtil = new WebViewUtil(this);
 

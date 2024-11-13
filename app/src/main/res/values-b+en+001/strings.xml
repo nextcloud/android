@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">Set up a custom folder</string>
     <string name="autoupload_disable_power_save_check">Disable power save check</string>
     <string name="autoupload_hide_folder">Hide folder</string>
-    <string name="autoupload_worker_foreground_info">Preparing auto upload</string>
     <string name="avatar">Avatar</string>
     <string name="away">Away</string>
     <string name="backup_settings">Backup settings</string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
     <string name="downloader_download_file_not_found">The file is no longer available on the server</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Downloading %2$s</string>
     <string name="downloader_download_in_progress_ticker">Downloading…</string>
     <string name="downloader_download_succeeded_content">%1$s downloaded</string>
@@ -739,8 +737,6 @@
     <string name="request_account_deletion">Request account deletion</string>
     <string name="request_account_deletion_button">Request deletion</string>
     <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
-    <string name="reshare_not_allowed">Resharing is not allowed</string>
-    <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
     <string name="restore">Restore file</string>
     <string name="restore_backup">Restore backup</string>
@@ -1012,7 +1008,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="uploader_upload_forbidden_permissions">to upload to this folder</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
@@ -1066,6 +1061,7 @@
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>
     <string name="whats_your_status">What is your status?</string>
+    <string name="widgets_not_available">Widgets are only available in %1$s 25 or later when the Dashboard app is enabled</string>
     <string name="widgets_not_available_title">Not available</string>
     <string name="worker_download">Downloading files…</string>
     <string name="write_email">Send email</string>

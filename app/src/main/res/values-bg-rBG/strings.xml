@@ -617,8 +617,6 @@
     <string name="rename_local_fail_msg">Локалното копие не може да бъде преименувано; опитайте с друго име</string>
     <string name="rename_server_fail_msg">Сървърът не може да бъде преименуван</string>
     <string name="request_account_deletion">Заявка за изтриване на профил</string>
-    <string name="reshare_not_allowed">Повторното споделяне е забранено</string>
-    <string name="resharing_is_not_allowed">Повторното споделяне е забранено</string>
     <string name="resized_image_not_possible_download">Няма налично оразмерено изображение. Да се свали ли изображението?</string>
     <string name="restore">Възстанови файл</string>
     <string name="restore_backup">Възстановяване на архив</string>

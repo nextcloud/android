@@ -497,8 +497,6 @@
     <string name="remove_success_msg">ลบแล้ว</string>
     <string name="rename_dialog_title">กรอกชื่อใหม่</string>
     <string name="request_account_deletion">ขอลบบัญชี</string>
-    <string name="reshare_not_allowed">ไม่อนุญาตให้แชร์ซ้ำ</string>
-    <string name="resharing_is_not_allowed">ไม่อนุญาตให้แชร์ซ้ำ</string>
     <string name="scanQR_description">เข้าสู่ระบบผ่านคิวอาร์โค้ด</string>
     <string name="select_all">เลือกทั้งหมด</string>
     <string name="send">ส่ง</string>

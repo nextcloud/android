@@ -101,7 +101,6 @@
     <string name="autoupload_custom_folder">カスタムフォルダを設定する</string>
     <string name="autoupload_disable_power_save_check">省電力チェックを無効化</string>
     <string name="autoupload_hide_folder">フォルダーを隠す</string>
-    <string name="autoupload_worker_foreground_info">自動アップロードの準備中</string>
     <string name="avatar">アバター</string>
     <string name="away">離席中</string>
     <string name="backup_settings">バックアップ設定</string>
@@ -247,7 +246,6 @@
     <string name="downloader_download_failed_credentials_error">ダウンロード失敗、要 再ログイン</string>
     <string name="downloader_download_failed_ticker">ダウンロードに失敗</string>
     <string name="downloader_download_file_not_found">ファイルはサーバー上で利用できません</string>
-    <string name="downloader_download_in_progress">%1$d%%　%2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% ダウンロード中 %2$s</string>
     <string name="downloader_download_in_progress_ticker">ダウンロード中…</string>
     <string name="downloader_download_succeeded_content">%1$s は正常にダウンロードされました</string>
@@ -687,8 +685,6 @@
     <string name="rename_local_fail_msg">ローカルコピーの名前が変更できません。別の名前を試してください</string>
     <string name="rename_server_fail_msg">名前の変更ができません。その名前は使われています</string>
     <string name="request_account_deletion">アカウントの削除をリクエストする</string>
-    <string name="reshare_not_allowed">再共有は許可されていません</string>
-    <string name="resharing_is_not_allowed">再共有は許可されていません</string>
     <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>
     <string name="restore">ファイルを復元</string>
     <string name="restore_backup">バックアップを復元</string>
@@ -933,7 +929,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">ファイルをソースフォルダーに保持</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">ファイルをソースフォルダーから削除</string>
     <string name="uploader_upload_forbidden_permissions">このフォルダにアップロードする</string>
-    <string name="uploader_upload_in_progress">%1$d%%　%2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% アップロード中 %2$s</string>
     <string name="uploader_upload_in_progress_ticker">アップロード中…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s は正常にアップロードされました</string>

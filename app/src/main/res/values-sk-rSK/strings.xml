@@ -101,7 +101,6 @@
     <string name="autoupload_custom_folder">Nastaviť vlastný priečinok</string>
     <string name="autoupload_disable_power_save_check">Vypnúť kontrolu úspory energie</string>
     <string name="autoupload_hide_folder">Skryť priečinok</string>
-    <string name="autoupload_worker_foreground_info">Príprava automatického nahrávania</string>
     <string name="avatar">Avatar</string>
     <string name="away">Preč</string>
     <string name="backup_settings">Nastavenie zálohovania</string>
@@ -245,7 +244,6 @@
     <string name="downloader_download_failed_credentials_error">Sťahovanie neúspešné, je potrebné sa znovu prihlásiť</string>
     <string name="downloader_download_failed_ticker">Stiahnutie zlyhalo</string>
     <string name="downloader_download_file_not_found">Súbor už na serveri nie je dostupný</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Sťahovanie %2$s</string>
     <string name="downloader_download_in_progress_ticker">Sťahujem…</string>
     <string name="downloader_download_succeeded_content">%1$s stiahnuté</string>
@@ -694,8 +692,6 @@
     <string name="request_account_deletion">Žiadosť o zmazanie účtu</string>
     <string name="request_account_deletion_button">Žiadosť o zmazanie</string>
     <string name="request_account_deletion_details">Žiadosť o trvalé odstránenie účtu poskytovateľom</string>
-    <string name="reshare_not_allowed">Opätovné sprístupňovanie nie je povolené</string>
-    <string name="resharing_is_not_allowed">Sprístupnenie už sprístupnenej položky nie je povolené</string>
     <string name="resized_image_not_possible_download">Obrázok v inom rozlíšení nedostupný.  Stiahnuť pôvodný obrázok?</string>
     <string name="restore">Obnoviť súbor</string>
     <string name="restore_backup">Obnoviť zo zálohy</string>
@@ -954,7 +950,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Ponechaj súbor v pôvodnom priečinku</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Odstráň súbor z pôvodného priečinka</string>
     <string name="uploader_upload_forbidden_permissions">nahrávať do tohto priečinka</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Odosielam %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Nahrávanie…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s odoslané</string>
