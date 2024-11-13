@@ -511,7 +511,7 @@
     <string name="file_migration_failed_while_coping">Failed during migration</string>
     <string name="file_migration_failed_while_updating_index">Failed to update index</string>
     <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
-    <string name="file_migration_allow_media_indexing">Allow media indexing</string>
+    <string name="file_migration_allow_media_indexing">Allow access from other apps</string>
 
     <string name="file_migration_directory_already_exists">Data folder already exists. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
