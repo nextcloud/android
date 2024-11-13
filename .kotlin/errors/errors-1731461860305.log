@@ -1,0 +1,10 @@
+kotlin version: 2.0.21
+error message: The daemon has terminated unexpectedly on startup attempt #1 with error code: 0. The daemon process output:
+    1. Kotlin compile daemon is ready
+
+error message: The daemon has terminated unexpectedly on startup attempt #2 with error code: 0. The daemon process output:
+    1. Kotlin compile daemon is ready
+Problems may have occurred during auto-selection of GC. The preferred GC is Parallel GC.
+If the problems persist, try adding the JVM option to the Kotlin daemon JVM arguments: -XX:-UseParallelGC.
+GC auto-selection logic is disabled temporary for the next daemon startup.
+
