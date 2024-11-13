@@ -246,20 +246,12 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             disableSearchView(binding.searchView);
         }
 
-        checkShareLink();
         checkShareViaUser();
     }
 
     private void checkShareViaUser() {
         if (!MDMConfig.INSTANCE.shareViaUser(requireContext())) {
             binding.searchContainer.setVisibility(View.GONE);
-        }
-    }
-
-    private void checkShareLink() {
-        if (!MDMConfig.INSTANCE.shareViaLink(requireContext())) {
-            binding.sharedWithYouContainer.setVisibility(View.GONE);
-            binding.sharesList.setVisibility(View.GONE);
         }
     }
 

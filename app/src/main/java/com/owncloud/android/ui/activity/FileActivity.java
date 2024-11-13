@@ -730,10 +730,6 @@ public abstract class FileActivity extends DrawerActivity
     }
 
     public static void showShareLinkDialog(FileActivity activity, ServerFileInterface file, String link) {
-        if (!MDMConfig.INSTANCE.shareViaLink(activity)) {
-            return;
-        }
-
         // Create dialog to allow the user choose an app to send the link
         Intent intentToShareLink = new Intent(Intent.ACTION_SEND);
 
