@@ -22,6 +22,7 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -380,6 +381,18 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         registerGlobalPassCodeProtection();
         networkChangeReceiver = new NetworkChangeReceiver(this, connectivityService);
         registerNetworkChangeReceiver();
+
+        if (!MDMConfig.INSTANCE.sendFilesSupport(this)) {
+            disableDocumentsStorageProvider();
+        }
+     }
+
+    public void disableDocumentsStorageProvider() {
+        String packageName = getPackageName();
+        String providerClassName = "com.owncloud.android.providers.DocumentsStorageProvider";
+        ComponentName componentName = new ComponentName(packageName, providerClassName);
+        PackageManager packageManager = getPackageManager();
+        packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
