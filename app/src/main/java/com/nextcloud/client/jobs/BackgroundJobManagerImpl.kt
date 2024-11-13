@@ -663,7 +663,9 @@ internal class BackgroundJobManagerImpl(
             jobClass = InternalTwoWaySyncWork::class,
             jobName = JOB_INTERNAL_TWO_WAY_SYNC,
             intervalMins = intervalMinutes
-        ).build()
+        )
+            .setInitialDelay(intervalMinutes, TimeUnit.MINUTES)
+            .build()
 
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
