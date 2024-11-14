@@ -91,6 +91,10 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
 
     @Suppress("MagicNumber")
     private fun setupSendButtonRecyclerView() {
+        if (!MDMConfig.sendFilesSupport(requireContext())) {
+            return
+        }
+
         val sendIntent = createSendIntent(requireContext(), file!!)
         val sendButtonDataList = setupSendButtonData(sendIntent)
         val clickListener = setupSendButtonClickListener(sendIntent)
