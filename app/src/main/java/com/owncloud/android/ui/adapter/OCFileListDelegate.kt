@@ -384,20 +384,16 @@ class OCFileListDelegate(
     }
 
     private fun getShareIconIdAndContentDescriptionId(holder: ListViewHolder, file: OCFile): Pair<Int, Int>? {
-        if (!MDMConfig.sharingSupport(context) || file.isOfflineOperation || holder !is OCFileListItemViewHolder || file.unreadCommentsCount != 0) {
-            return null
-        }
+        if (file.isOfflineOperation) return null
 
-        return if (file.isSharedWithSharee || file.isSharedWithMe) {
-            if (showShareAvatar) {
-                null
-            } else {
-                R.drawable.shared_via_users to R.string.shared_icon_shared
+        if (holder !is OCFileListItemViewHolder && file.unreadCommentsCount != 0) return null
+
+        return when {
+            file.isSharedWithSharee || file.isSharedWithMe -> {
+                if (showShareAvatar) null else R.drawable.shared_via_users to R.string.shared_icon_shared
             }
-        } else if (file.isSharedViaLink) {
-            R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
-        } else {
-            R.drawable.ic_unshared to R.string.shared_icon_share
+            file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
+            else -> R.drawable.ic_unshared to R.string.shared_icon_share
         }
     }
 
