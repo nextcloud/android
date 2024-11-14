@@ -313,6 +313,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                 String filename = file.getFileName();
                 if (filename != null) {
                     if (result.isSuccess()) {
+                        new FileDownloadHelper().saveFile(file, operation, getStorageManager());
                         Log_OC.d(TAG, "requestForDownload completed for: " + file.getFileName());
                     } else {
                         Log_OC.d(TAG, "requestForDownload failed for: " + file.getFileName());
