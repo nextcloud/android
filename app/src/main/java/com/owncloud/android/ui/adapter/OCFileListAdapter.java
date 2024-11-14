@@ -36,8 +36,8 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.OCFileFilterType;
+import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -531,7 +531,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        applyVisualsForOfflineOperations(holder, file);
+        applyVisuals(holder, file);
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -658,51 +658,37 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
 
-        applyVisualsForOfflineOperations(holder, file);
-    }
-
-    private void applyVisualsForOfflineOperations(ListViewHolder holder, OCFile file) {
-        // ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
-
-        if (file.isFolder()) {
-            setColorFilterForOfflineCreateFolderOperations(holder, file);
-        } else {
-            setColorFilterForOfflineCreateFileOperations(holder, file);
-        }
+        applyVisuals(holder, file);
     }
 
     private final ExecutorService executorService = Executors.newCachedThreadPool();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
-    private void setColorFilterForOfflineCreateFileOperations(ListViewHolder holder, OCFile file) {
-        if (!file.isOfflineOperation()) {
-            return;
-        }
+    private void applyVisuals(ListViewHolder holder, OCFile file) {
+        if (file.isOfflineOperation()) {
+            if (file.isFolder()) {
+                holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+            } else {
+                executorService.execute(() -> {
+                    OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
 
-        executorService.execute(() -> {
-            OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+                    if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
+                        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
+                        if (bitmap == null) return;
 
-            if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
-                Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
-                if (bitmap == null) return;
-
-                Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
-                mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
+                        Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
+                        mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
+                    }
+                });
             }
-        });
+        } else if (file.isFolder()) {
+            Drawable drawable = viewThemeUtils.platform.tintDrawable(MainApp.getAppContext(), holder.getThumbnail().getDrawable(), ColorRole.PRIMARY);
+            holder.getThumbnail().setImageDrawable(drawable);
+        }
     }
 
     public void onDestroy() {
         executorService.shutdown();
-    }
-
-    private void setColorFilterForOfflineCreateFolderOperations(ListViewHolder holder, OCFile file) {
-        if (file.isOfflineOperation()) {
-            holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
-        } else {
-            Drawable drawable = viewThemeUtils.platform.tintDrawable(MainApp.getAppContext(), holder.getThumbnail().getDrawable(), ColorRole.PRIMARY);
-            holder.getThumbnail().setImageDrawable(drawable);
-        }
     }
 
     @Override
