@@ -468,6 +468,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     }
 
                     if (result.isSuccess()) {
+                        new FileDownloadHelper().saveFile(file, operation, getStorageManager());
                         Log_OC.d(TAG, "startDirectDownloads completed for: " + file.getFileName());
                     } else {
                         Log_OC.d(TAG, "startDirectDownloads failed for: " + file.getFileName());
