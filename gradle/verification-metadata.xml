@@ -195,7 +195,10 @@
          <trusted-key id="7488FE3E7E31E325FFDF6F1DA0E8A2E551EE7606" group="com.thoughtworks.paranamer"/>
          <trusted-key id="7615AD56144DF2376F49D98B1669C4BB543E0445" group="com.google.errorprone"/>
          <trusted-key id="7616EB882DAF57A11477AAF559A252FB1199D873" group="com.google.code.findbugs"/>
-         <trusted-key id="77A45740C23880C7F81B9D4D5C504E1210E49773" group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.5"/>
+         <trusted-key id="77A45740C23880C7F81B9D4D5C504E1210E49773">
+            <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.5"/>
+            <trusting group="com.mebigfatguy.fb-contrib" name="fb-contrib" version="7.6.8"/>
+         </trusted-key>
          <trusted-key id="796737EDB7CB2E2904E2BFA447B25FE8A3702A09" group="^org[.]jbundle($|([.].*))" regex="true"/>
          <trusted-key id="7B121B76A7ED6CE6E60AD51784E913A8E3A748C0" group="org.bouncycastle"/>
          <trusted-key id="7C669810892CBD3148FA92995B05CCDE140C2876" group="org.eclipse.jgit"/>
