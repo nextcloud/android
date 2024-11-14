@@ -694,7 +694,9 @@
     <string name="prefs_synced_folders_local_path_title">Dossier local</string>
     <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
     <string name="prefs_theme_title">Thème</string>
+    <string name="prefs_two_way_sync_interval">Intervalle</string>
     <string name="prefs_two_way_sync_summary">Gestion les dossiers internes pour une synchronisation bidirectionnelle</string>
+    <string name="prefs_two_way_sync_switch_title">Activer la synchronisation bidirectionnelle</string>
     <string name="prefs_value_theme_dark">Sombre</string>
     <string name="prefs_value_theme_light">Clair</string>
     <string name="prefs_value_theme_system">Selon le système</string>
@@ -735,6 +737,7 @@
     <string name="request_account_deletion">Demander la suppression du compte</string>
     <string name="request_account_deletion_button">Demander la suppression</string>
     <string name="request_account_deletion_details">Demander la suppression permanente du compte par le fournisseur de services</string>
+    <string name="resharing_is_not_allowed">La réglementation ou les autorisations empêchent le re-partage</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
     <string name="restore">Restaurer le fichier</string>
     <string name="restore_backup">Restaurer une sauvegarde</string>
@@ -1059,11 +1062,22 @@
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <string name="whats_your_status">Quel est votre statut ?</string>
+    <string name="widgets_not_available">Les widgets ne sont disponibles que dans %1$s 25 ou supérieur lorsque l\'application Dashboard est activée</string>
     <string name="widgets_not_available_title">Non disponible</string>
     <string name="worker_download">Téléchargement des fichiers…</string>
     <string name="write_email">Envoyer un e-mail</string>
     <string name="wrong_storage_path">Le dossier de stockage des données n\'existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
+    <plurals name="hours">
+        <item quantity="one">%d heure</item>
+        <item quantity="many">%d heures</item>
+        <item quantity="other">%d heures</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="many">%d minutes</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
         <item quantity="many">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>

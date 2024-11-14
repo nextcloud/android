@@ -742,6 +742,7 @@
     <string name="request_account_deletion">طلب حذف حساب</string>
     <string name="request_account_deletion_button">طلب الإزالة</string>
     <string name="request_account_deletion_details">طلب الإزالة الدائمة للحساب من قِبل مُزوّد الخدمة</string>
+    <string name="resharing_is_not_allowed">السياسة و الأذونات تمنع إعادة المشاركة</string>
     <string name="resized_image_not_possible_download">لا توجد صورة بحجمها متاح. تنزيل الصورة الكاملة؟</string>
     <string name="restore">استعادة الملف</string>
     <string name="restore_backup">استعادة النسخ الاحتياطي</string>

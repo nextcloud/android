@@ -930,10 +930,12 @@
     <string name="unexpected_error_occurred">Ha ocurrido un error inesperado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Evento no encontrado, siempre puedes sincronizar para actualizar. Redirigiendo a la web…</string>
     <string name="unified_search_fragment_contact_not_found">Contacto no encontrado, siempre puees sincronizar para actualizar. Redirigiendo a la web…</string>
+    <string name="unified_search_fragment_permission_needed">Se requieran permsos para abrir el resultado de la búsqueda. De otra forma, se redirigirá a la web…</string>
     <string name="unlock_file">Desbloquear archivo</string>
     <string name="unread_comments">Hay comentarios no leídos</string>
     <string name="unset_encrypted">Desactivar cifrado</string>
     <string name="unset_favorite">Eliminar de favoritos</string>
+    <string name="unset_internal_two_way_sync_description">Eliminar carpeta de la sincronización bidireccional interna</string>
     <string name="unshare_link_file_error">Ha ocurrido un error al dejar de compartir este archivo o carpeta.</string>
     <string name="unshare_link_file_no_exist">Imposible dejar de compartir. Por favor, comprueba que el archivo exista.</string>
     <string name="unshare_link_forbidden_permissions">para descompartir este archivo</string>
@@ -975,6 +977,7 @@
     <string name="upload_local_storage_not_copied">No se ha podido copiar el archivo al almacenamiento local</string>
     <string name="upload_lock_failed">Fallo al bloquear la carpeta</string>
     <string name="upload_manually_cancelled">La carga fue cancelada por el usuario</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">El cifrado solo es posible con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">No hay suficiente espacio para copiar los archivos seleccionados en la carpeta %1$s. En su lugar, ¿le gustaría moverlos?</string>
     <string name="upload_quota_exceeded">Se excedió la cuota de almacenamiento</string>
@@ -1058,11 +1061,22 @@
     <string name="whats_new_skip">Omitir</string>
     <string name="whats_new_title">Nuevo en %1$s</string>
     <string name="whats_your_status">¿Cuál es su estado?</string>
+    <string name="widgets_not_available">Los widgets solo están disponibles en %1$s 25 o posterior cuando la app Dashboard está activada</string>
     <string name="widgets_not_available_title">No disponible</string>
     <string name="worker_download">Bajando archivos…</string>
     <string name="write_email">Enviar email</string>
     <string name="wrong_storage_path">¡No existe la carpeta de almacenamiento de datos!</string>
     <string name="wrong_storage_path_desc">Esto podría deberse a una copia de seguridad restaurada en otro dispositivo. Se usarán los valores predeterminados. Por favor, compruebe la configuración para ajustar la carpeta de almacenamiento.</string>
+    <plurals name="hours">
+        <item quantity="one">%d hora</item>
+        <item quantity="many">%d horas</item>
+        <item quantity="other">%d horas</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minuto</item>
+        <item quantity="many">%d minutos</item>
+        <item quantity="other">%d minutos</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>
         <item quantity="many">No se ha podido sincronizar %1$d archivos (conflicto con %2$d)</item>
