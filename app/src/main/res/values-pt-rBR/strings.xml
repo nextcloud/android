@@ -694,7 +694,9 @@
     <string name="prefs_synced_folders_local_path_title">Pasta local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_interval">Intervalo</string>
     <string name="prefs_two_way_sync_summary">Gerencie pastas internas para sincronização bidirecional</string>
+    <string name="prefs_two_way_sync_switch_title">Ativar sincronização bidirecional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir o sistema</string>
@@ -735,6 +737,7 @@
     <string name="request_account_deletion">Solicitar a exclusão da conta</string>
     <string name="request_account_deletion_button">Solicitar exclusão</string>
     <string name="request_account_deletion_details">Solicitar exclusão permanente da conta pelo provedor de serviços</string>
+    <string name="resharing_is_not_allowed">Política ou permissões impedem o compartilhamento</string>
     <string name="resized_image_not_possible_download">Não há imagem redimensionada disponível. Baixar a imagem completa?</string>
     <string name="restore">Restaurar arquivo</string>
     <string name="restore_backup">Restaurar backup</string>
@@ -1059,11 +1062,22 @@
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>
     <string name="whats_your_status">Qual é o seu status?</string>
+    <string name="widgets_not_available">Os widgets estão disponíveis apenas em %1$s 25 ou posterior quando o aplicativo Dashboard está ativado</string>
     <string name="widgets_not_available_title">Indisponível</string>
     <string name="worker_download">Baixando arquivos…</string>
     <string name="write_email">Enviar e-mail</string>
     <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
     <string name="wrong_storage_path_desc">Isto pode ser decorrente de uma restauração de backup em outro dispositivo. Retornando ao padrão. Verifique as configurações para ajustar a pasta de armazenamento.</string>
+    <plurals name="hours">
+        <item quantity="one">%d horas</item>
+        <item quantity="many">%d horas</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minutos</item>
+        <item quantity="many">%d minutos</item>
+        <item quantity="other">%d ata</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Erro ao sincronizar %1$d arquivo (conflitos: %2$d)</item>
         <item quantity="many">Erro ao sincronizar %1$d arquivos (conflitos: %2$d)</item>

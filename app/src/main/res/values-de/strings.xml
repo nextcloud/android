@@ -737,6 +737,7 @@
     <string name="request_account_deletion">Kontolöschung anfordern</string>
     <string name="request_account_deletion_button">Löschung anfordern</string>
     <string name="request_account_deletion_details">Beim Diensteanbieter die dauerhafte Löschung des Kontos anfordern</string>
+    <string name="resharing_is_not_allowed">Richtlinien oder Berechtigungen verhindern das Weiterteilen</string>
     <string name="resized_image_not_possible_download">Kein verkleinertes Bild verfügbar. Vollbild herunterladen?</string>
     <string name="restore">Datei wiederherstellen</string>
     <string name="restore_backup">Letzte Sicherung wiederherstellen</string>
