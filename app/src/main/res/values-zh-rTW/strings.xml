@@ -737,6 +737,7 @@
     <string name="request_account_deletion">請求刪除帳號</string>
     <string name="request_account_deletion_button">請求刪除</string>
     <string name="request_account_deletion_details">請求服務提供者永久刪除帳號</string>
+    <string name="resharing_is_not_allowed">政策或權限阻止了轉分享</string>
     <string name="resized_image_not_possible_download">沒有調整過大小的圖片可用。是否下載完整圖片？</string>
     <string name="restore">復原檔案</string>
     <string name="restore_backup">復原備份</string>
