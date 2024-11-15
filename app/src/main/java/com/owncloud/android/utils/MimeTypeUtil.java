@@ -175,16 +175,14 @@ public final class MimeTypeUtil {
             return folderLayerDrawable;
         }
 
-        DrawableUtil drawableUtil = new DrawableUtil();
-
         Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
         assert(overlayDrawable != null);
 
         if (isDarkModeActive) {
-            overlayDrawable = drawableUtil.changeColor(overlayDrawable, R.color.dark);
+            overlayDrawable = DrawableUtil.INSTANCE.changeColor(overlayDrawable, R.color.dark);
         }
 
-        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable);
+        return DrawableUtil.INSTANCE.addDrawableAsOverlay(folderDrawable, overlayDrawable);
     }
 
     /**

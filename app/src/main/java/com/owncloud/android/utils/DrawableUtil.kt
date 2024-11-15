@@ -7,12 +7,12 @@
  */
 package com.owncloud.android.utils
 
-import android.graphics.Rect
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.InsetDrawable
 import android.graphics.drawable.LayerDrawable
 import androidx.core.graphics.drawable.DrawableCompat
 
-class DrawableUtil {
+object DrawableUtil {
 
     fun changeColor(source: Drawable, color: Int): Drawable {
         val drawable = DrawableCompat.wrap(source)
@@ -21,13 +21,16 @@ class DrawableUtil {
     }
 
     fun addDrawableAsOverlay(backgroundDrawable: Drawable, overlayDrawable: Drawable): LayerDrawable {
-        val overlayBounds = Rect()
-        val overlayIconSize = backgroundDrawable.intrinsicWidth / 2
-        val topMargin = overlayIconSize.div(2)
-        overlayBounds.set(overlayIconSize, overlayIconSize + topMargin, overlayIconSize, overlayIconSize)
+        val overlaySizeFraction = 0.1f
+        val baseWidth = backgroundDrawable.intrinsicWidth
+        val baseHeight = backgroundDrawable.intrinsicHeight
+        val overlayWidth = (baseWidth * overlaySizeFraction).toInt()
+        val overlayHeight = (baseHeight * overlaySizeFraction).toInt()
 
-        val layerDrawable = LayerDrawable(arrayOf(backgroundDrawable, overlayDrawable))
-        layerDrawable.setLayerInset(1, overlayBounds.left, overlayBounds.top, overlayBounds.right, overlayBounds.bottom)
-        return layerDrawable
+        val insetLeft = (baseWidth - overlayWidth) / 2
+        val insetTop = (baseHeight - overlayHeight) / 2
+
+        val insetOverlay = InsetDrawable(overlayDrawable, insetLeft, overlayHeight + insetTop, insetLeft, insetTop)
+        return LayerDrawable(arrayOf(backgroundDrawable, insetOverlay))
     }
 }
