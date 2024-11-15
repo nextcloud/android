@@ -18,14 +18,11 @@ import android.content.ContentValues;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -534,7 +531,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        applyOfflineOperationVisuals(holder, file);
+        configureThumbnail(holder, file);
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -661,13 +658,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
 
-        applyOfflineOperationVisuals(holder, file);
+        configureThumbnail(holder, file);
     }
 
     private final ExecutorService executorService = Executors.newCachedThreadPool();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
-    private void applyOfflineOperationVisuals(ListViewHolder holder, OCFile file) {
+    private void configureThumbnail(ListViewHolder holder, OCFile file) {
         final var context = MainApp.getAppContext();
 
         if (file.isOfflineOperation()) {
@@ -688,14 +685,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 });
             }
         } else {
-            if (file.isFolder()) {
-                // TODO extract this logic to MimeTypeUtil
-                boolean isAutoUpload = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
-                Integer overlayIconId = file.getFileOverlayIconId(isAutoUpload);
-                boolean isDarkModeActive = preferences.isDarkModeEnabled();
-                Drawable icon = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
-                holder.getThumbnail().setImageDrawable(icon);
-            }
+            boolean isAutoUpload = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+            boolean isDarkModeActive = preferences.isDarkModeEnabled();
+            Drawable icon = MimeTypeUtil.getOCFileIcon(file, context, viewThemeUtils, isAutoUpload, isDarkModeActive);
+            holder.getThumbnail().setImageDrawable(icon);
         }
     }
 
