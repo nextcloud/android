@@ -95,9 +95,12 @@ public final class MimeTypeUtil {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
             Drawable icon = ContextCompat.getDrawable(context, iconId);
+            if (icon == null) {
+                return null;
+            }
 
             if (R.drawable.file_zip == iconId) {
-                viewThemeUtils.platform.tintPrimaryDrawable(context, icon);
+                viewThemeUtils.platform.tintDrawable(context, icon, ColorRole.PRIMARY);
             }
 
             return icon;
@@ -141,6 +144,19 @@ public final class MimeTypeUtil {
         return determineIconIdByMimeTypeList(possibleMimeTypes);
     }
 
+    public static Drawable getOCFileIcon(OCFile file, Context context, ViewThemeUtils viewThemeUtils, boolean isAutoUpload, boolean isDarkModeActive) {
+        Drawable result;
+
+        if (file.isFolder()) {
+            Integer overlayIconId = file.getFileOverlayIconId(isAutoUpload);
+            result = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
+        } else {
+            result = MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
+        }
+
+        return result;
+    }
+
     public static Drawable getDefaultFolderIcon(Context context, ViewThemeUtils viewThemeUtils) {
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.folder);
         assert(drawable != null);
@@ -149,7 +165,7 @@ public final class MimeTypeUtil {
         return drawable;
     }
 
-    public static LayerDrawable getFileIcon(Boolean isDarkModeActive, Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
+    public static LayerDrawable getFolderIcon(boolean isDarkModeActive, Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
         Drawable folderDrawable = getDefaultFolderIcon(context, viewThemeUtils);
         assert(folderDrawable != null);
 
