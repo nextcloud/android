@@ -383,6 +383,7 @@ class OCFileListDelegate(
         }
     }
 
+    @Suppress("ReturnCount")
     private fun getShareIconIdAndContentDescriptionId(holder: ListViewHolder, file: OCFile): Pair<Int, Int>? {
         if (file.isOfflineOperation) return null
 
