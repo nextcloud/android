@@ -11,6 +11,8 @@
 package com.owncloud.android.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
@@ -19,6 +21,7 @@ import android.webkit.MimeTypeMap;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -144,6 +147,17 @@ public final class MimeTypeUtil {
         return determineIconIdByMimeTypeList(possibleMimeTypes);
     }
 
+    /**
+     * Returns a drawable representing a file or folder.
+     * <p>
+     *
+     * - For folders: Returns a folder icon. If an overlay is needed, it includes an overlay icon on the folder.
+     *
+     * <p>
+     * - For files: Returns the file's thumbnail if it exists. Otherwise, it provides a thumbnail based on the file's MIME type.
+     *
+     * @return A drawable for the file or folder.
+     */
     public static Drawable getOCFileIcon(OCFile file, Context context, ViewThemeUtils viewThemeUtils, boolean isAutoUpload, boolean isDarkModeActive) {
         Drawable result;
 
@@ -151,7 +165,22 @@ public final class MimeTypeUtil {
             Integer overlayIconId = file.getFileOverlayIconId(isAutoUpload);
             result = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
         } else {
-            result = MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
+            if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
+                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+
+                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
+                    if (MimeTypeUtil.isVideo(file)) {
+                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
+                        result = new BitmapDrawable(context.getResources(), withOverlay);
+                    } else {
+                        result = new BitmapDrawable(context.getResources(), thumbnail);
+                    }
+                } else {
+                    result = MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
+                }
+            } else {
+                result = MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
+            }
         }
 
         return result;
