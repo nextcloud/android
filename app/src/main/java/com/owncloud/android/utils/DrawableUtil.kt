@@ -7,8 +7,8 @@
  */
 package com.owncloud.android.utils
 
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.graphics.drawable.InsetDrawable
 import android.graphics.drawable.LayerDrawable
 import androidx.core.graphics.drawable.DrawableCompat
 
@@ -21,16 +21,24 @@ object DrawableUtil {
     }
 
     fun addDrawableAsOverlay(backgroundDrawable: Drawable, overlayDrawable: Drawable): LayerDrawable {
-        val overlaySizeFraction = 0.1f
-        val baseWidth = backgroundDrawable.intrinsicWidth
-        val baseHeight = backgroundDrawable.intrinsicHeight
-        val overlayWidth = (baseWidth * overlaySizeFraction).toInt()
-        val overlayHeight = (baseHeight * overlaySizeFraction).toInt()
+        val containerDrawable = LayerDrawable(arrayOf(backgroundDrawable, overlayDrawable))
 
-        val insetLeft = (baseWidth - overlayWidth) / 2
-        val insetTop = (baseHeight - overlayHeight) / 2
+        val overlayWidth = overlayDrawable.intrinsicWidth
+        val overlayHeight = overlayDrawable.intrinsicHeight
+        val backgroundWidth = backgroundDrawable.intrinsicWidth
+        val backgroundHeight = backgroundDrawable.intrinsicHeight
 
-        val insetOverlay = InsetDrawable(overlayDrawable, insetLeft, overlayHeight + insetTop, insetLeft, insetTop)
-        return LayerDrawable(arrayOf(backgroundDrawable, insetOverlay))
+        val scaleFactor = 2f / maxOf(overlayWidth, overlayHeight)
+        val scaledOverlayWidth = (overlayWidth * scaleFactor).toInt()
+        val scaledOverlayHeight = (overlayHeight * scaleFactor).toInt()
+
+        val left = (backgroundWidth - scaledOverlayWidth) / 2
+        val top = (backgroundHeight - scaledOverlayHeight) / 2
+        val topMargin = 2
+
+        containerDrawable.setLayerInset(1, left, top + topMargin, left, top)
+        (overlayDrawable as? BitmapDrawable)?.setBounds(0, 0, scaledOverlayWidth, scaledOverlayHeight)
+
+        return containerDrawable
     }
 }
