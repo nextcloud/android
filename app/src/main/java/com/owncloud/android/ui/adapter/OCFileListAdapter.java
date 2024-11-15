@@ -18,12 +18,14 @@ import android.content.ContentValues;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -666,9 +668,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private void applyOfflineOperationVisuals(ListViewHolder holder, OCFile file) {
+        final var context = MainApp.getAppContext();
+
         if (file.isOfflineOperation()) {
             if (file.isFolder()) {
-                holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_folder_offline);
+                holder.getThumbnail().setImageDrawable(icon);
             } else {
                 executorService.execute(() -> {
                     OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
@@ -684,12 +689,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         } else {
             if (file.isFolder()) {
-                // FIXME after offline operation update icon is not updating
                 // TODO extract this logic to MimeTypeUtil
                 boolean isAutoUpload = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
                 Integer overlayIconId = file.getFileOverlayIconId(isAutoUpload);
                 boolean isDarkModeActive = preferences.isDarkModeEnabled();
-                Drawable icon = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, MainApp.getAppContext(), viewThemeUtils);
+                Drawable icon = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
                 holder.getThumbnail().setImageDrawable(icon);
             }
         }
