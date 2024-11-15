@@ -173,7 +173,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                          AccountUtils.Constants.KEY_USER_ID);
 
         this.viewThemeUtils = viewThemeUtils;
-
         ocFileListDelegate = new OCFileListDelegate(FileUploadHelper.Companion.instance(),
                                                     activity,
                                                     ocFileListFragmentInterface,
@@ -531,7 +530,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        applyVisuals(holder, file);
+        applyOfflineOperationVisuals(holder, file);
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -658,32 +657,31 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
 
-        applyVisuals(holder, file);
+        applyOfflineOperationVisuals(holder, file);
     }
 
     private final ExecutorService executorService = Executors.newCachedThreadPool();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
-    private void applyVisuals(ListViewHolder holder, OCFile file) {
-        if (file.isOfflineOperation()) {
-            if (file.isFolder()) {
-                holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
-            } else {
-                executorService.execute(() -> {
-                    OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+    private void applyOfflineOperationVisuals(ListViewHolder holder, OCFile file) {
+        if (!file.isOfflineOperation()) {
+            return;
+        }
 
-                    if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
-                        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
-                        if (bitmap == null) return;
+        if (file.isFolder()) {
+            holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+        } else {
+            executorService.execute(() -> {
+                OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
 
-                        Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
-                        mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
-                    }
-                });
-            }
-        } else if (file.isFolder()) {
-            Drawable drawable = viewThemeUtils.platform.tintDrawable(MainApp.getAppContext(), holder.getThumbnail().getDrawable(), ColorRole.PRIMARY);
-            holder.getThumbnail().setImageDrawable(drawable);
+                if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
+                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
+                    if (bitmap == null) return;
+
+                    Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
+                    mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
+                }
+            });
         }
     }
 
