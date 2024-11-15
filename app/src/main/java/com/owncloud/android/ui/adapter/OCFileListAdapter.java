@@ -96,6 +96,7 @@ import java.util.stream.Collectors;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
@@ -140,6 +141,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
+    private final SyncedFolderProvider syncedFolderProvider;
 
     public OCFileListAdapter(
         Activity activity,
@@ -171,7 +173,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .get(activity)
             .getUserData(this.user.toPlatformAccount(),
                          AccountUtils.Constants.KEY_USER_ID);
-
+        this.syncedFolderProvider = syncedFolderProvider;
         this.viewThemeUtils = viewThemeUtils;
         ocFileListDelegate = new OCFileListDelegate(FileUploadHelper.Companion.instance(),
                                                     activity,
@@ -664,24 +666,32 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
     private void applyOfflineOperationVisuals(ListViewHolder holder, OCFile file) {
-        if (!file.isOfflineOperation()) {
-            return;
-        }
+        if (file.isOfflineOperation()) {
+            if (file.isFolder()) {
+                holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+            } else {
+                executorService.execute(() -> {
+                    OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
 
-        if (file.isFolder()) {
-            holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                    if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
+                        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
+                        if (bitmap == null) return;
+
+                        Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
+                        mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
+                    }
+                });
+            }
         } else {
-            executorService.execute(() -> {
-                OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
-
-                if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
-                    Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
-                    if (bitmap == null) return;
-
-                    Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
-                    mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
-                }
-            });
+            if (file.isFolder()) {
+                // FIXME after offline operation update icon is not updating
+                // TODO extract this logic to MimeTypeUtil
+                boolean isAutoUpload = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+                Integer overlayIconId = file.getFileOverlayIconId(isAutoUpload);
+                boolean isDarkModeActive = preferences.isDarkModeEnabled();
+                Drawable icon = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, MainApp.getAppContext(), viewThemeUtils);
+                holder.getThumbnail().setImageDrawable(icon);
+            }
         }
     }
 
