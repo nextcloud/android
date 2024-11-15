@@ -738,6 +738,7 @@
     <string name="request_account_deletion">Begär att radera ditt konto</string>
     <string name="request_account_deletion_button">Begäran om radering</string>
     <string name="request_account_deletion_details">Begär permanent borttagning av konto av tjänsteleverantör</string>
+    <string name="resharing_is_not_allowed">Policy eller behörigheter förhindrar vidaredelning</string>
     <string name="resized_image_not_possible_download">Ingen storleksändrad bild tillgänglig. Hämta hela bilden?</string>
     <string name="restore">Återställ fil</string>
     <string name="restore_backup">Återställ säkerhetskopiering</string>

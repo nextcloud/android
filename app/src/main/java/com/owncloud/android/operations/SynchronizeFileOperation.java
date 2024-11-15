@@ -301,6 +301,8 @@ public class SynchronizeFileOperation extends SyncOperation {
     }
 
     private void requestForDownload(OCFile file) {
+        final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
+        
         if (syncInBackgroundWorker) {
             Log_OC.d("InternalTwoWaySyncWork", "download file: " + file.getFileName());
 
@@ -313,6 +315,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                 String filename = file.getFileName();
                 if (filename != null) {
                     if (result.isSuccess()) {
+                        fileDownloadHelper.saveFile(file, operation, getStorageManager());
                         Log_OC.d(TAG, "requestForDownload completed for: " + file.getFileName());
                     } else {
                         Log_OC.d(TAG, "requestForDownload failed for: " + file.getFileName());
@@ -322,7 +325,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                 Log_OC.d(TAG, "Exception caught at requestForDownload" + e);
             }
         } else {
-            FileDownloadHelper.Companion.instance().downloadFile(mUser, file);
+            fileDownloadHelper.downloadFile(mUser, file);
         }
     }
 
