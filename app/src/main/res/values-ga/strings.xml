@@ -737,6 +737,7 @@
     <string name="request_account_deletion">Iarr ar scriosadh an chuntais</string>
     <string name="request_account_deletion_button">Iarr scriosadh</string>
     <string name="request_account_deletion_details">Iarr ar sholáthraí seirbhíse scriosadh buan an chuntais</string>
+    <string name="resharing_is_not_allowed">Cuireann beartais nó ceadanna cosc ​​ar athroinnt</string>
     <string name="resized_image_not_possible_download">Níl aon íomhá athraithe ar fáil. Íoslódáil an íomhá iomlán?</string>
     <string name="restore">Athchóirigh comhad</string>
     <string name="restore_backup">Athchóirigh cúltaca</string>

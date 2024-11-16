@@ -694,7 +694,9 @@
     <string name="prefs_synced_folders_local_path_title">Локална фасцикла</string>
     <string name="prefs_synced_folders_remote_path_title">Удаљена фасцикла</string>
     <string name="prefs_theme_title">Тема</string>
+    <string name="prefs_two_way_sync_interval">Интервал</string>
     <string name="prefs_two_way_sync_summary">Управљање интерним фолдерима за двосмерну синхронизацију</string>
+    <string name="prefs_two_way_sync_switch_title">Укључи двосмерну синхронизацију</string>
     <string name="prefs_value_theme_dark">тамна</string>
     <string name="prefs_value_theme_light">светла</string>
     <string name="prefs_value_theme_system">системска</string>
@@ -735,6 +737,7 @@
     <string name="request_account_deletion">Захтевајте брисање налога</string>
     <string name="request_account_deletion_button">Захтев за брисање</string>
     <string name="request_account_deletion_details">Захтев пружаоцу сервиса да неповратно обрише налог</string>
+    <string name="resharing_is_not_allowed">Полиса или дозволе спречавају поновно дељење</string>
     <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скинути пуну слику?</string>
     <string name="restore">Поврати фајл</string>
     <string name="restore_backup">Обнови резервну копију</string>
@@ -1059,11 +1062,22 @@
     <string name="whats_new_skip">Прескочи</string>
     <string name="whats_new_title">Ново у %1$s</string>
     <string name="whats_your_status">Који је ваш статус?</string>
+    <string name="widgets_not_available">Виџети су доступни само на %1$s 25 или новијем када је укључена апликација Контролна табла</string>
     <string name="widgets_not_available_title">Није доступно</string>
     <string name="worker_download">Преузимам фајлове…</string>
     <string name="write_email">Пошаљи е-пошту</string>
     <string name="wrong_storage_path">Фолдер за чување података не постоји!</string>
     <string name="wrong_storage_path_desc">Ово може да се догоди када се резервна копија обнови на другом уређају. Враћа се на подразумевано подешавање. Молимо вас да проверите подешавања и исправите локацију фолдера за чување података.</string>
+    <plurals name="hours">
+        <item quantity="one">%d сат</item>
+        <item quantity="few">%d сата</item>
+        <item quantity="other">%d сати</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d минут</item>
+        <item quantity="few">%d минута</item>
+        <item quantity="other">%d минута</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не могу да синхронизујем %1$d фајл (конфликата: %2$d)</item>
         <item quantity="few">Не могу да синхронизујем %1$d фајла (конфликата: %2$d)</item>
