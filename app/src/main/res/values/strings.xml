@@ -1234,10 +1234,10 @@
     <string name="internal_two_way_sync_not_yet">Not yet, soon to be synced</string>
     <string name="gplay_restriction">Google restricted downloading APK/AAB files!</string>
     <string name="file_list_empty_local_search">No file or folder matching your search</string>
-    <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web…</string>
-    <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web…</string>
-    <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web…</string>
-    <string name="file_name_validator_current_path_is_invalid">Current folder name is invalid, please rename the folder. Redirecting home…</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Event not found, you can always sync to update. Redirecting to web …</string>
+    <string name="unified_search_fragment_contact_not_found">Contact not found, you can always sync to update. Redirecting to web …</string>
+    <string name="unified_search_fragment_permission_needed">Permissions are required to open search result otherwise it will redirected to web …</string>
+    <string name="file_name_validator_current_path_is_invalid">Current folder name is invalid, please rename the folder. Redirecting home …</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Please rename the file before moving or copying</string>
     <string name="file_name_validator_upload_content_error">Some content cannot be uploaded since it contains reserved names or invalid characters</string>
     <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Folder path contains reserved names or invalid characters</string>
