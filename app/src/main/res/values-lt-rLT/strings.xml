@@ -405,6 +405,7 @@
     <string name="foreign_files_success">Visi failai buvo perkelti</string>
     <string name="forward">Persiųsti</string>
     <string name="fourHours">4 valandos</string>
+    <string name="gplay_restriction">„Google“ apribojo APK/AAB failų atsisiuntimą!</string>
     <string name="hint_name">Vardas</string>
     <string name="hint_note">Apie</string>
     <string name="hint_password">Slaptažodis</string>
@@ -610,6 +611,7 @@
     <string name="recommend_subject">Išbandykite %1$s savo įrenginyje!</string>
     <string name="recommend_text">Noriu jus paraginti naudoti %1$s savo įrenginyje.\nAtsisiųskite čia: %2$s</string>
     <string name="recommend_urls">%1$s arba %2$s</string>
+    <string name="refresh_content">Įkelti turinį iš naujo</string>
     <string name="reload">Įkelti iš naujo</string>
     <string name="remote">(nuotolinis)</string>
     <string name="remote_file_fetch_failed">Nepavyko rasti failo!</string>
@@ -905,6 +907,18 @@
     <string name="worker_download">Atsisiunčiami failai…</string>
     <string name="write_email">Siųsti elektroninį laišką</string>
     <string name="wrong_storage_path">Duomenų saugyklos aplanko nėra!</string>
+    <plurals name="hours">
+        <item quantity="one">%d valanda</item>
+        <item quantity="few">%d valandos</item>
+        <item quantity="many">%d valandų</item>
+        <item quantity="other">%d valanda</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minutė</item>
+        <item quantity="few">%d minutės</item>
+        <item quantity="many">%d minučių</item>
+        <item quantity="other">%d minutė</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nepavyko sinchronizuoti %1$d failo (konfliktai: %2$d)</item>
         <item quantity="few">Nepavyko sinchronizuoti %1$d failų (konfliktai: %2$d)</item>

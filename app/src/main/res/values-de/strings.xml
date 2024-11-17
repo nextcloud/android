@@ -235,7 +235,7 @@
     <string name="dismiss">Ausblenden</string>
     <string name="dismiss_notification_description">Benachrichtigung verwerfen</string>
     <string name="displays_mnemonic">Zeigt Ihre 12-Wörter-Passphrase an</string>
-    <string name="dnd">Bitte nicht stören</string>
+    <string name="dnd">Nicht stören</string>
     <string name="document_scan_export_dialog_images">Mehrere Bilder</string>
     <string name="document_scan_export_dialog_pdf">PDF-Datei</string>
     <string name="document_scan_export_dialog_title">Exporttyp wählen</string>
