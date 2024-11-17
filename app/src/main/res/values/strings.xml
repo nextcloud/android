@@ -43,7 +43,7 @@
 
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_loading">Task List are loading, please wait</string>
-    <string name="assistant_screen_task_output_empty_text">The task output isn’t ready yet.</string>
+    <string name="assistant_screen_task_output_empty_text">The task output is not ready yet.</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">No task available. Select a task type to create a new task.</string>
     <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete Task</string>
