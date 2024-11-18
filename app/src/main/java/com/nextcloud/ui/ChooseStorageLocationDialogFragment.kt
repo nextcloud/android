@@ -96,7 +96,7 @@ class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
         updateMediaIndexSwitch()
     }
 
-    private fun formatFreeSpaceString(storageType: StorageType, privacyType: PrivacyType): String {
+    private fun getStoragePointLabel(storageType: StorageType, privacyType: PrivacyType): String {
         val typeString = when (storageType) {
             StorageType.INTERNAL -> getString(R.string.storage_internal_storage)
             StorageType.EXTERNAL -> getString(R.string.storage_external_storage)
@@ -130,10 +130,10 @@ class ChooseStorageLocationDialogFragment : DialogFragment(), Injectable {
         val hasExternalStorage = storagePoints.any { it.storageType == StorageType.EXTERNAL }
 
         binding.storageInternalRadio.isEnabled = hasInternalStorage
-        binding.storageInternalRadio.text = formatFreeSpaceString(StorageType.INTERNAL, selectedPrivacyType)
+        binding.storageInternalRadio.text = getStoragePointLabel(StorageType.INTERNAL, selectedPrivacyType)
 
         binding.storageExternalRadio.isEnabled = hasExternalStorage
-        binding.storageExternalRadio.text = formatFreeSpaceString(StorageType.EXTERNAL, selectedPrivacyType)
+        binding.storageExternalRadio.text = getStoragePointLabel(StorageType.EXTERNAL, selectedPrivacyType)
     }
 
     private fun getCurrentStorageLocation(): StoragePoint {
