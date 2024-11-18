@@ -443,7 +443,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
     private void syncContents(OwnCloudClient client) throws OperationCancelledException {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContents);
-        updateEtag(client);
+        updateETag(client);
     }
 
     /**
