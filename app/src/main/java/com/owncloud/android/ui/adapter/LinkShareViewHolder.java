@@ -19,6 +19,7 @@ import android.graphics.PorterDuff;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
@@ -78,10 +79,15 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
         String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);
         setPermissionName(publicShare, permissionName);
 
-        binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));
         binding.overflowMenu.setOnClickListener(v -> listener.showSharingMenuActionSheet(publicShare));
         if (!SharingMenuHelper.isSecureFileDrop(publicShare)) {
             binding.shareByLinkContainer.setOnClickListener(v -> listener.showPermissionsDialog(publicShare));
+        }
+
+        if (MDMConfig.INSTANCE.clipBoardSupport(context)) {
+            binding.copyLink.setOnClickListener(v -> listener.copyLink(publicShare));
+        } else {
+            binding.copyLink.setVisibility(View.GONE);
         }
     }
 
