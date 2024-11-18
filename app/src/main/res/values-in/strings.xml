@@ -703,7 +703,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="share_permissions">Bagikan Izin</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (percakapan)</string>
-    <string name="share_search">Nama, ID Awan Federasi, atau alamat surel…</string>
     <string name="share_send_new_email">Kirim surel baru</string>
     <string name="share_send_note">Catatan untuk penerima</string>
     <string name="share_settings">Setelan</string>

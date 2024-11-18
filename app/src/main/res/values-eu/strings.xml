@@ -35,7 +35,6 @@
     <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="allow_resharing">Baimendu birpartekatzea</string>
     <string name="app_config_base_url_title">Oinarri URLa</string>
-    <string name="app_config_proxy_host_title">Proxy ostalariaren izena</string>
     <string name="app_config_proxy_port_title">Proxy-ataka</string>
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">Zeregina ongi ezabatu da</string>
     <string name="assistant_screen_task_list_error_state_message">Ezin da zereginen zerrenda eskuratu. Egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ezabatu zeregina</string>
-    <string name="assistant_screen_task_output_empty_text">Zereginaren irteera ez dago oraindik prest.</string>
     <string name="assistant_screen_task_types_error_state_message">Ezin dira zeregin motak eskuratu, egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_top_bar_title">Morroia</string>
     <string name="assistant_screen_unknown_task_status_text">Ezezaguna</string>
@@ -759,7 +757,6 @@
     <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx5ekin</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
     <string name="secure_share_not_set_up">Partekatze segurua ez dago konfiguratuta erabiltzaile honentzat</string>
-    <string name="secure_share_search">Partekatze segurua...</string>
     <string name="select_all">Hautatu dena</string>
     <string name="select_media_folder">Ezarri multimedia karpeta</string>
     <string name="select_one_template">Hautatu txantiloi bat</string>
@@ -803,7 +800,6 @@
     <string name="share_permissions">Partekatze baimenak</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
     <string name="share_room_clarification">%1$s (elkarrizketa)</string>
-    <string name="share_search">Izena, federatutako hodei IDa edo helbide elektronikoa...</string>
     <string name="share_send_new_email">Bidali posta-mezu berria</string>
     <string name="share_send_note">Oharra hartzailearentzat</string>
     <string name="share_settings">Ezarpenak</string>

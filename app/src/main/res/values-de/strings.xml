@@ -35,7 +35,6 @@
     <string name="advanced_settings">Erweiterte Einstellungen</string>
     <string name="allow_resharing">Weiterteilen erlauben</string>
     <string name="app_config_base_url_title">Basis-URL</string>
-    <string name="app_config_proxy_host_title">Proxy-Hostname</string>
     <string name="app_config_proxy_port_title">Proxy-Port</string>
     <string name="app_widget_description">Zeigt ein Widget aus dem Dashboard an</string>
     <string name="appbar_search_in">Suche in %s</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">Aufgabe gelöscht</string>
     <string name="assistant_screen_task_list_error_state_message">Die Aufgabenliste kann nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Aufgabe löschen</string>
-    <string name="assistant_screen_task_output_empty_text">Die Aufgabenausgabe ist noch nicht fertig.</string>
     <string name="assistant_screen_task_types_error_state_message">Die Aufgabentypen können nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Unbekannt</string>
@@ -762,7 +760,6 @@
     <string name="screenshot_06_davdroid_subline">Synchronisiere mit DAVx5</string>
     <string name="search_error">Fehler beim Abrufen der Suchergebnisse</string>
     <string name="secure_share_not_set_up">Sicheres teilen ist für diesen Benutzer nicht eingerichtet</string>
-    <string name="secure_share_search">Sicheres teilen …</string>
     <string name="select_all">Alle auswählen</string>
     <string name="select_media_folder">Medien-Ordner auswählen</string>
     <string name="select_one_template">Bitte eine Vorlage auswählen</string>
@@ -806,7 +803,6 @@
     <string name="share_permissions">Berechtigungen zum Teilen</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (Unterhaltung)</string>
-    <string name="share_search">Name, Federated-Cloud-ID oder E-Mail-Adresse …</string>
     <string name="share_send_new_email">Neue E-Mail senden</string>
     <string name="share_send_note">Notiz an Empfänger</string>
     <string name="share_settings">Einstellungen</string>

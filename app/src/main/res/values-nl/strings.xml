@@ -34,7 +34,6 @@
     <string name="advanced_settings">Geavanceerde instellingen</string>
     <string name="allow_resharing">Opnieuw delen toestaan</string>
     <string name="app_config_base_url_title">Basis URL</string>
-    <string name="app_config_proxy_host_title">Proxy hostnaam</string>
     <string name="app_config_proxy_port_title">Proxy poort</string>
     <string name="app_widget_description">Toont één widget van dashboard</string>
     <string name="appbar_search_in">Zoeken in %s</string>
@@ -726,7 +725,6 @@
     <string name="screenshot_06_davdroid_subline">Sync met DAVx5</string>
     <string name="search_error">Fout bij het ophalen van de zoekresultaten</string>
     <string name="secure_share_not_set_up">Veilig delen is niet ingesteld voor deze gebruiker</string>
-    <string name="secure_share_search">Veilig delen ...</string>
     <string name="select_all">Alles selecteren</string>
     <string name="select_media_folder">Selecteer mediamap</string>
     <string name="select_one_template">Selecteer een sjabloon</string>
@@ -768,7 +766,6 @@
     <string name="share_permissions">Deelmachtigingen</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (gesprek)</string>
-    <string name="share_search">Naam, gefedereerde Cloud ID of een e-mailadres …</string>
     <string name="share_send_new_email">Stuur nieuwe e-mail</string>
     <string name="share_send_note">Notitie voor ontvanger</string>
     <string name="share_settings">Instellingen</string>

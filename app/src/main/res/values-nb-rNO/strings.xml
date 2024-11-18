@@ -35,7 +35,6 @@
     <string name="advanced_settings">Avanserte innstillinger</string>
     <string name="allow_resharing">TIllat videre deling</string>
     <string name="app_config_base_url_title">Grunnleggende URL-adresse</string>
-    <string name="app_config_proxy_host_title">Proxy-vertsnavn</string>
     <string name="app_config_proxy_port_title">Proxy-port</string>
     <string name="app_widget_description">Viser en widget fra dashbordet</string>
     <string name="appbar_search_in">Søk i %s</string>
@@ -736,7 +735,6 @@
     <string name="screenshot_06_davdroid_subline">Synkroniser med DAVx5</string>
     <string name="search_error">Feil ved henting av søke resultat</string>
     <string name="secure_share_not_set_up">Sikker deling er ikke konfigurert for denne brukeren</string>
-    <string name="secure_share_search">Sikker deling...</string>
     <string name="select_all">Velg alle</string>
     <string name="select_media_folder">Velg mediamappe</string>
     <string name="select_one_template">Velg en mal</string>
@@ -780,7 +778,6 @@
     <string name="share_permissions">Rettigheter for deling</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s(samtale)</string>
-    <string name="share_search">Navn, Sammenknyttet sky-ID eller e-postadresse</string>
     <string name="share_send_new_email">Send ny e-post</string>
     <string name="share_send_note">Melding til mottaker</string>
     <string name="share_settings">Innstillinger</string>

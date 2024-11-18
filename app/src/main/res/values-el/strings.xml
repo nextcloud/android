@@ -683,7 +683,6 @@
     <string name="share_permissions">Δικαιώματα κοινής χρήσης</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
     <string name="share_room_clarification">%1$s (συνομιλιία)</string>
-    <string name="share_search">Όνομα, Ομοσπονδιακό Cloud ID   ή διεύθυνση ηλεκτρονικού ταχυδρομείου...</string>
     <string name="share_send_new_email">Αποστολή νέου email</string>
     <string name="share_send_note">Σημείωση στον παραλήπτη</string>
     <string name="share_settings">Ρυθμίσεις</string>

@@ -35,7 +35,6 @@
     <string name="advanced_settings">Axustes avanzados</string>
     <string name="allow_resharing">Permitir compartir</string>
     <string name="app_config_base_url_title">URL base</string>
-    <string name="app_config_proxy_host_title">Nome do servidor proxy</string>
     <string name="app_config_proxy_port_title">Porto do proxy</string>
     <string name="app_widget_description">Amosa un trebello do taboleiro</string>
     <string name="appbar_search_in">Buscar en %s</string>
@@ -46,7 +45,7 @@
     <string name="assistant_screen_failed_task_text">Fallado</string>
     <string name="assistant_screen_loading">Estase a cargar a lista de tarefas, agarde</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">Non hai ningunha tarefa dispoñíbel. Seleccione un tipo de tarefa para crear unha nova tarefa.</string>
-    <string name="assistant_screen_no_task_available_text">Non hai ningunha tarefa dispoñible para o tipo de tarefa %s, pode crear unha nova dende a parte inferior dereita.</string>
+    <string name="assistant_screen_no_task_available_text">Non hai ningunha tarefa dispoñible para o tipo de tarefa %s, pode crear unha nova desde a parte inferior dereita.</string>
     <string name="assistant_screen_running_task_text">En proceso</string>
     <string name="assistant_screen_scheduled_task_status_text">Programado</string>
     <string name="assistant_screen_successful_task_text">Completado</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">A tarefa foi eliminada satisfactoriamente</string>
     <string name="assistant_screen_task_list_error_state_message">Non é posíbel recuperar a lista de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarefa</string>
-    <string name="assistant_screen_task_output_empty_text">A saída da tarefa aínda non está preparada.</string>
     <string name="assistant_screen_task_types_error_state_message">Non é posíbel recuperar os tipos de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_screen_unknown_task_status_text">Descoñecido</string>
@@ -126,7 +124,7 @@
     <string name="clear_notifications_failed">Produciuse un fallo ao limpar as notificacións.</string>
     <string name="clear_status_message">Limpar a mensaxe de estado</string>
     <string name="clear_status_message_after">Limpar a mensaxe de estado após</string>
-    <string name="clipboard_label">Texto copiado dende %1$s</string>
+    <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">Non se recibiu ningún texto para copiar no portapapeis</string>
     <string name="clipboard_text_copied">Ligazón copiada</string>
     <string name="clipboard_unexpected_error">Produciuse un erro non agardado ao copiar no portapapeis</string>
@@ -763,7 +761,6 @@
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="search_error">Produciuse un erro ao obter os resultados da busca</string>
     <string name="secure_share_not_set_up">A compartición segura non está definida para este usuario</string>
-    <string name="secure_share_search">Compartición segura…</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_media_folder">Definir o cartafol multimedia</string>
     <string name="select_one_template">Seleccione un modelo</string>
@@ -789,7 +786,7 @@
     <string name="share_internal_link_to_folder_text">A ligazón para compartir interna só funciona para usuarios con acceso a este cartafol</string>
     <string name="share_known_remote_on_clarification">en %1$s</string>
     <string name="share_link">Ligazón para compartir</string>
-    <string name="share_link_empty_password">Ten que introducir un contrasinal</string>
+    <string name="share_link_empty_password">Introduza un contrasinal</string>
     <string name="share_link_file_error">Produciuse un erro ao tentar compartir este ficheiro ou cartafol.</string>
     <string name="share_link_file_no_exist">Non é posíbel compartir, Comprobe que o ficheiro existe.</string>
     <string name="share_link_forbidden_permissions">para compartir este ficheiro</string>
@@ -807,7 +804,6 @@
     <string name="share_permissions">Permisos ao compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
-    <string name="share_search">Nome, ID da nube federada ou enderezo de correo…</string>
     <string name="share_send_new_email">Enviar correo-e novo</string>
     <string name="share_send_note">Nota para o destinatario</string>
     <string name="share_settings">Axustes</string>
@@ -843,7 +839,7 @@
     <string name="ssl_validator_label_signature_algorithm">Algoritmo:</string>
     <string name="ssl_validator_label_subject">Emitido para:</string>
     <string name="ssl_validator_label_validity">Validez:</string>
-    <string name="ssl_validator_label_validity_from">Dende:</string>
+    <string name="ssl_validator_label_validity_from">Desde:</string>
     <string name="ssl_validator_label_validity_to">Ata:</string>
     <string name="ssl_validator_no_info_about_error">– Non hai información sobre este erro</string>
     <string name="ssl_validator_not_saved">Non foi posíbel gardar o certificado</string>
@@ -892,7 +888,7 @@
     <string name="sync_fail_ticker_unauthorized">Produciuse un fallo na sincronización, acceda de novo.</string>
     <string name="sync_file_nothing_to_do_msg">Os contidos do ficheiro xa están sincronizados</string>
     <string name="sync_folder_failed_content">Non foi posíbel completar a sincronización do cartafol %1$s</string>
-    <string name="sync_foreign_files_forgotten_explanation">A partir da versión 1.3.16, os ficheiros enviados dende este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e conservar a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
+    <string name="sync_foreign_files_forgotten_explanation">A partir da versión 1.3.16, os ficheiros enviados desde este dispositivo cópianse no cartafol local %1$s para evitar a perda de datos cando se sincroniza un único ficheiro con varias contas.\n\nPor mor deste cambio, todos os ficheiros enviados con versións anteriores desta aplicación foron copiados no cartafol %2$s. Porén, un erro impediu que se completara esta operación durante a sincronización da conta. Pode deixar o(s) ficheiro(s) tal e como está(n) e eliminar a ligazón cara a %3$s ou mover o(s) ficheiro(s) para o cartafol %1$s e conservar a ligazón cara a %4$s.\n\nEmbaixo amósanse os ficheiros locais e os ficheiros remotos en %5$s aos que foron enlazados.</string>
     <string name="sync_foreign_files_forgotten_ticker">Esquecéronse algúns ficheiros locais</string>
     <string name="sync_in_progress">Recuperando a versión mais recente do ficheiro.</string>
     <string name="sync_not_enough_space_dialog_action_choose">Escoller que sincronizar</string>
@@ -955,11 +951,11 @@
     <string name="upload_action_global_upload_pause">Pausar todos os envíos</string>
     <string name="upload_action_global_upload_resume">Retomar todos os envíos</string>
     <string name="upload_cannot_create_file">Non é posíbel crear o ficheiro local</string>
-    <string name="upload_chooser_title">Enviar dende…</string>
-    <string name="upload_content_from_other_apps">Enviar contido dende outras aplicacións</string>
+    <string name="upload_chooser_title">Enviar desde…</string>
+    <string name="upload_content_from_other_apps">Enviar contido desde outras aplicacións</string>
     <string name="upload_direct_camera_photo">Foto</string>
     <string name="upload_direct_camera_promt">Confirma que quere facer unha foto ou un vídeo?</string>
-    <string name="upload_direct_camera_upload">Enviar dende a cámara</string>
+    <string name="upload_direct_camera_upload">Enviar desde a cámara</string>
     <string name="upload_direct_camera_video">Vídeo</string>
     <string name="upload_file_dialog_filename">Nome de ficheiro</string>
     <string name="upload_file_dialog_filetype">Tipo de ficheiro</string>
@@ -983,7 +979,7 @@
     <string name="upload_old_android">O cifrado só é posíbel con &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Non hai espazo abondo para copiar os ficheiros seleccionados no cartafol %1$s. En troques, gustaríalle movelos?</string>
     <string name="upload_quota_exceeded">Superouse a cota de almacenamento</string>
-    <string name="upload_scan_doc_upload">Escanear o documento dende a cámara</string>
+    <string name="upload_scan_doc_upload">Escanear o documento desde a cámara</string>
     <string name="upload_sync_conflict">Conflito ao sincronizar, resólvao manualmente</string>
     <string name="upload_unknown_error">Produciuse un erro descoñecido</string>
     <string name="uploader_btn_alternative_text">Escoller</string>
@@ -1055,7 +1051,7 @@
     <string name="video_overlay_icon">Icona de superposición de vídeo</string>
     <string name="wait_a_moment">Agarde un chisco…</string>
     <string name="wait_checking_credentials">Verificando as credenciais almacenadas</string>
-    <string name="wait_for_tmp_copy_from_private_storage">Copiando o ficheiro dende o almacenamento privado</string>
+    <string name="wait_for_tmp_copy_from_private_storage">Copiando o ficheiro desde o almacenamento privado</string>
     <string name="webview_version_check_alert_dialog_message">Actualice a aplicación WebView do sistema Android para acceder</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
     <string name="webview_version_check_alert_dialog_title">Actualizar WebView do sistema Android</string>

@@ -35,7 +35,6 @@
     <string name="advanced_settings">ئىلغار تەڭشەكلەر</string>
     <string name="allow_resharing">قايتا تولۇقلاشقا يول قويۇڭ</string>
     <string name="app_config_base_url_title">ئاساسى URL</string>
-    <string name="app_config_proxy_host_title">ۋاكالەتچى ساھىبجامال</string>
     <string name="app_config_proxy_port_title">ۋاكالەتچى ئېغىز</string>
     <string name="app_widget_description">باشقۇرۇش تاختىسىدىكى بىر كىچىك قورالنى كۆرسىتىدۇ</string>
     <string name="appbar_search_in">% S دىن ئىزدەڭ</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">ۋەزىپە مۇۋەپپەقىيەتلىك ئۆچۈرۈلدى</string>
     <string name="assistant_screen_task_list_error_state_message">ۋەزىپە تىزىملىكىنى ئالالمىدى ، تور ئۇلىنىشىڭىزنى تەكشۈرۈپ بېقىڭ.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">ۋەزىپىنى ئۆچۈرۈڭ</string>
-    <string name="assistant_screen_task_output_empty_text">ۋەزىپە چىقىرىش تېخى تەييار ئەمەس.</string>
     <string name="assistant_screen_task_types_error_state_message">ۋەزىپە تۈرلىرىنى ئېلىپ كېتەلمىدىڭىز ، تور ئۇلىنىشىڭىزنى تەكشۈرۈپ بېقىڭ.</string>
     <string name="assistant_screen_top_bar_title">ياردەمچى</string>
     <string name="assistant_screen_unknown_task_status_text">نامەلۇم</string>
@@ -759,7 +757,6 @@
     <string name="screenshot_06_davdroid_subline">DAVx5 بىلەن ماسقەدەملەش</string>
     <string name="search_error">ئىزدەش نەتىجىسىگە ئېرىشىشتە خاتالىق</string>
     <string name="secure_share_not_set_up">بۇ ئىشلەتكۈچى ئۈچۈن بىخەتەر ئورتاقلىشىش ئورنىتىلمىغان</string>
-    <string name="secure_share_search">بىخەتەر ئورتاقلىشىش…</string>
     <string name="select_all">ھەممىنى تاللاڭ</string>
     <string name="select_media_folder">مېدىيا قىسقۇچىنى تەڭشەڭ</string>
     <string name="select_one_template">بىر قېلىپنى تاللاڭ</string>
@@ -803,7 +800,6 @@
     <string name="share_permissions">ئورتاقلىشىش ئىجازەتنامىسى</string>
     <string name="share_remote_clarification">% 1 $ s (يىراق)</string>
     <string name="share_room_clarification">% 1 $ s (سۆھبەت)</string>
-    <string name="share_search">ئىسمى ، فېدېراتسىيە بۇلۇت كىملىكى ياكى ئېلېكترونلۇق خەت ئادرېسى…</string>
     <string name="share_send_new_email">يېڭى ئېلېكترونلۇق خەت ئەۋەتىڭ</string>
     <string name="share_send_note">تاپشۇرۇۋالغۇچىغا دىققەت قىلىڭ</string>
     <string name="share_settings">تەڭشەك</string>

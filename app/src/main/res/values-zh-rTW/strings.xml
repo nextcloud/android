@@ -35,7 +35,6 @@
     <string name="advanced_settings">進階設定</string>
     <string name="allow_resharing">允許轉發分享</string>
     <string name="app_config_base_url_title">基礎 URL</string>
-    <string name="app_config_proxy_host_title">代理伺服器主機名稱</string>
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小工具</string>
     <string name="appbar_search_in">搜尋 %s</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">已成功刪除工作項目</string>
     <string name="assistant_screen_task_list_error_state_message">無法擷取工作項目清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除工作項目</string>
-    <string name="assistant_screen_task_output_empty_text">任務輸出尚未就緒。</string>
     <string name="assistant_screen_task_types_error_state_message">無法擷取工作項目類型，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_top_bar_title">助理</string>
     <string name="assistant_screen_unknown_task_status_text">未知</string>
@@ -762,7 +760,6 @@
     <string name="screenshot_06_davdroid_subline">使用 DAVx5 同步</string>
     <string name="search_error">取得搜尋結果時發生錯誤</string>
     <string name="secure_share_not_set_up">尚未為此使用者設定安全分享</string>
-    <string name="secure_share_search">安全分享……</string>
     <string name="select_all">全選</string>
     <string name="select_media_folder">設定媒體資料夾</string>
     <string name="select_one_template">請選取一個範本</string>
@@ -806,7 +803,6 @@
     <string name="share_permissions">分享權限</string>
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s（對話）</string>
-    <string name="share_search">名稱、聯邦雲端 ID 或電子郵件地址…</string>
     <string name="share_send_new_email">傳送新電子郵件</string>
     <string name="share_send_note">給收件人的備註</string>
     <string name="share_settings">設定</string>
