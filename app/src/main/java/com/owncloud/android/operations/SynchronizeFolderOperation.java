@@ -446,6 +446,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     }
 
     private void startDirectDownloads() {
+        final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
+        
         if (syncInBackgroundWorker) {
             try {
                 for (OCFile file: mFilesForDirectDownload) {
@@ -468,6 +470,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                     }
 
                     if (result.isSuccess()) {
+                        fileDownloadHelper.saveFile(file, operation, getStorageManager());
                         Log_OC.d(TAG, "startDirectDownloads completed for: " + file.getFileName());
                     } else {
                         Log_OC.d(TAG, "startDirectDownloads failed for: " + file.getFileName());
@@ -477,7 +480,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
         } else {
-            final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
             mFilesForDirectDownload.forEach(file -> fileDownloadHelper.downloadFile(user, file));
         }
     }
