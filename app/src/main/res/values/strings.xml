@@ -27,7 +27,7 @@
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="unexpected_error_occurred">Unexpected error occurred</string>
     <string name="app_config_base_url_title">Base URL</string>
-    <string name="app_config_proxy_host_title">Proxy Host Name</string>
+    <string name="app_config_proxy_host_title">Proxy Hostname</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Delete Offline Folder</string>
@@ -43,7 +43,7 @@
 
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_loading">Task List are loading, please wait</string>
-    <string name="assistant_screen_task_output_empty_text">The task output isn’t ready yet.</string>
+    <string name="assistant_screen_task_output_empty_text">The task output is not ready yet.</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">No task available. Select a task type to create a new task.</string>
     <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete Task</string>
@@ -600,8 +600,8 @@
     <string name="share_with_title">Share with…</string>
     <string name="share_via_link_unset_password">Unset</string>
 
-    <string name="share_search">Name, Federated Cloud ID or email address …</string>
-    <string name="secure_share_search">Secure share …</string>
+    <string name="share_search">Name, Federated Cloud ID or email address…</string>
+    <string name="secure_share_search">Secure share…</string>
 
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
