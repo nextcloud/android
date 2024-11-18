@@ -35,7 +35,6 @@
     <string name="advanced_settings">Advanced Settings</string>
     <string name="allow_resharing">Allow resharing</string>
     <string name="app_config_base_url_title">Base URL</string>
-    <string name="app_config_proxy_host_title">Proxy Host Name</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
     <string name="assistant_screen_task_list_error_state_message">Unable to fetch task list, please check your internet connection.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Delete Task</string>
-    <string name="assistant_screen_task_output_empty_text">The task output isn’t ready yet.</string>
     <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_unknown_task_status_text">Unknown</string>
@@ -762,7 +760,6 @@
     <string name="screenshot_06_davdroid_subline">Sync with DAVx5</string>
     <string name="search_error">Error getting search results</string>
     <string name="secure_share_not_set_up">Secure sharing is not set up for this user</string>
-    <string name="secure_share_search">Secure share …</string>
     <string name="select_all">Select all</string>
     <string name="select_media_folder">Set media folder</string>
     <string name="select_one_template">Please select one template</string>
@@ -806,7 +803,6 @@
     <string name="share_permissions">Share Permissions</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
-    <string name="share_search">Name, Federated Cloud ID or email address …</string>
     <string name="share_send_new_email">Send new email</string>
     <string name="share_send_note">Note to recipient</string>
     <string name="share_settings">Settings</string>

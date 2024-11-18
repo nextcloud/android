@@ -49,7 +49,6 @@
     <string name="assistant_screen_task_delete_fail_message">En fejl opstod under sletning af opgaven</string>
     <string name="assistant_screen_task_delete_success_message">Opgaven er slettet</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Slet opgave</string>
-    <string name="assistant_screen_task_output_empty_text">Opgaveoutputtet er ikke klar endnu.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Ukendt</string>
     <string name="associated_account_not_found">Forbundet konto blev ikke fundet!</string>
@@ -737,7 +736,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_permissions">Del Tilladelser</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s (samtale)</string>
-    <string name="share_search">Navn, Fødereret Cloud ID eller email adresse ...</string>
     <string name="share_send_new_email">Send ny email</string>
     <string name="share_send_note">Note til modtager</string>
     <string name="share_settings">Indstillinger</string>

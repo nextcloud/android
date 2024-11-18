@@ -646,7 +646,6 @@
     <string name="share_permissions">Quyền kho</string>
     <string name="share_remote_clarification">%1$s (từ xa)</string>
     <string name="share_room_clarification">%1$s (cuộc hội thoại)</string>
-    <string name="share_search">Tên, ID đám mây liên kết hoặc địa chỉ email…</string>
     <string name="share_send_new_email">Gửi email mới</string>
     <string name="share_send_note">Ghi chú cho người nhận</string>
     <string name="share_settings">Cài đặt</string>

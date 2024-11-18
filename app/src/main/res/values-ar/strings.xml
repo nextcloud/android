@@ -35,7 +35,6 @@
     <string name="advanced_settings">الإعدادات المتقدمة</string>
     <string name="allow_resharing">السماح بإعادة المشاركة </string>
     <string name="app_config_base_url_title">عنوان URL الأساسي</string>
-    <string name="app_config_proxy_host_title">اسم المضيف الوكيل</string>
     <string name="app_config_proxy_port_title">منفذ البروكسي</string>
     <string name="app_widget_description">عرض أداة واحدة من لوحة القيادة</string>
     <string name="appbar_search_in">بحث في %s</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">تمّ حذف المهمة بنجاح</string>
     <string name="assistant_screen_task_list_error_state_message">تعذّر جلب قائمة المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">حذف مهمة</string>
-    <string name="assistant_screen_task_output_empty_text">مخرجات المهمة ليست جاهزة حتى الآن.</string>
     <string name="assistant_screen_task_types_error_state_message">تعذّر جلب أنواع المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
     <string name="assistant_screen_top_bar_title">المُساعِد</string>
     <string name="assistant_screen_unknown_task_status_text">غير معروف</string>
@@ -767,7 +765,6 @@
     <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="search_error">خطاء في الحصول على نتائج البحث</string>
     <string name="secure_share_not_set_up">المشاركة الآمنة لم يتم إعدادها بالنسبة لهذا المستخدِم</string>
-    <string name="secure_share_search">المشاركة الآمنة ...</string>
     <string name="select_all">تحديد الكل</string>
     <string name="select_media_folder">تعيين مجلد الوسائط</string>
     <string name="select_one_template">الرجاء تحديد قالب واحد</string>
@@ -811,7 +808,6 @@
     <string name="share_permissions">صلاحيات المشاركة</string>
     <string name="share_remote_clarification">%1$s (بعيد)</string>
     <string name="share_room_clarification">%1$s (محادثة)</string>
-    <string name="share_search">الاسم , معرف السحابة , أو البريد الالكتروني ...</string>
     <string name="share_send_new_email">إرسال بريد جديد</string>
     <string name="share_send_note">ملاحظة للمستلم</string>
     <string name="share_settings">الإعدادات</string>

@@ -573,7 +573,6 @@
     <string name="share_permission_can_edit">ແກ້ໄຂໄດ້</string>
     <string name="share_remote_clarification"> %1$s(ໄລຍະໄກ)</string>
     <string name="share_room_clarification"> %1$s(ສົນທະນາ)</string>
-    <string name="share_search">ຊື່, IDCloud  ຫຼື ທີ່ຢູ່ອີເມວ ...</string>
     <string name="share_send_note">ລະບຸຜູ້ຮັບ</string>
     <string name="share_settings">ການຕັ້ງຄ່າ</string>
     <string name="share_via_link_hide_download">ເຊື່ອງການດາວໂຫຼດ</string>

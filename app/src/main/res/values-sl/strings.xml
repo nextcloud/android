@@ -709,7 +709,6 @@
     <string name="share_permissions">Dovoljenja souporabe</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_room_clarification">%1$s (pogovor)</string>
-    <string name="share_search">Ime, ID zveznega oblaka ali elektronski naslov…</string>
     <string name="share_send_new_email">Pošlji novo elektronsko sporočilo</string>
     <string name="share_send_note">Sporočilo za prejemnika</string>
     <string name="share_settings">Nastavitve</string>

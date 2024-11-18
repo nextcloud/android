@@ -35,7 +35,6 @@
     <string name="advanced_settings">고급 설정</string>
     <string name="allow_resharing">다시 공유 허용</string>
     <string name="app_config_base_url_title">기본 URL</string>
-    <string name="app_config_proxy_host_title">프록시 호스트 이름</string>
     <string name="app_config_proxy_port_title">프록시 포트</string>
     <string name="app_widget_description">대시보드에 위젯 하나만 표시</string>
     <string name="appbar_search_in">%s에서 검색</string>
@@ -727,7 +726,6 @@
     <string name="screenshot_06_davdroid_subline">DAVx5와 동기화</string>
     <string name="search_error">검색 결과 조회 오류</string>
     <string name="secure_share_not_set_up">이 사용자에 대해 보안 공유가 설정되지 않았습니다</string>
-    <string name="secure_share_search">보안 공유 ...</string>
     <string name="select_all">모두 선택</string>
     <string name="select_media_folder">미디어 폴더 설정</string>
     <string name="select_one_template">하나의 템플릿을 선택하세요.</string>
@@ -771,7 +769,6 @@
     <string name="share_permissions">공유 권한</string>
     <string name="share_remote_clarification">%1$s(원격)</string>
     <string name="share_room_clarification">%1$s (대화)</string>
-    <string name="share_search">이름, 연합 클라우드 ID 및 이메일 주소…</string>
     <string name="share_send_new_email">새 이메일 보내기</string>
     <string name="share_send_note">받는 사람 메모</string>
     <string name="share_settings">설정</string>

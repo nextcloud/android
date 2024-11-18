@@ -35,7 +35,6 @@
     <string name="advanced_settings">Pokročilá nastavení</string>
     <string name="allow_resharing">Povolit sdílet dál dalším</string>
     <string name="app_config_base_url_title">Základní URL</string>
-    <string name="app_config_proxy_host_title">Název stroje s proxy</string>
     <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Zobrazuje jeden ovládací prvek z nástěnky</string>
     <string name="appbar_search_in">Hledat v %s</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">Úloha úspěšně smazána</string>
     <string name="assistant_screen_task_list_error_state_message">Nedaří se získat seznam úloh – zkontrolujte připojení k Internetu.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Smazat úlohu</string>
-    <string name="assistant_screen_task_output_empty_text">Výstup z úkolu ještě není připraven.</string>
     <string name="assistant_screen_task_types_error_state_message">Nedaří se získat typy úloh – zkontrolujte připojení k Internetu.</string>
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_screen_unknown_task_status_text">Neznámé</string>
@@ -737,6 +735,7 @@
     <string name="request_account_deletion">Vyžádat smazání účtu</string>
     <string name="request_account_deletion_button">Vyžádat si smazání</string>
     <string name="request_account_deletion_details">Vyžádat si trvalé vymazání účtu u poskytovatele služby</string>
+    <string name="resharing_is_not_allowed">Zásada nebo oprávnění brání sdílení dál dalším</string>
     <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
     <string name="restore">Obnovit soubor</string>
     <string name="restore_backup">Obnovit ze zálohy</string>
@@ -761,7 +760,6 @@
     <string name="screenshot_06_davdroid_subline">Synchronizace s DAVx5</string>
     <string name="search_error">Chyba při získávání výsledků hledání</string>
     <string name="secure_share_not_set_up">Zabezpečené sdílení není pro tohoto uživatele nastaveno</string>
-    <string name="secure_share_search">Zabezpečené sdílení…</string>
     <string name="select_all">Vybrat vše</string>
     <string name="select_media_folder">Nastavit složku s médii</string>
     <string name="select_one_template">Vyberte jednu šablonu</string>
@@ -805,7 +803,6 @@
     <string name="share_permissions">Oprávnění pro sdílení</string>
     <string name="share_remote_clarification">%1$s (vzdálený)</string>
     <string name="share_room_clarification">%1$s (konverzace)</string>
-    <string name="share_search">Jméno, identifikátor v rámci federovaného cloudu, nebo e-mailová adresa…</string>
     <string name="share_send_new_email">Odeslat nový e-mail</string>
     <string name="share_send_note">Poznámka pro příjemce</string>
     <string name="share_settings">Nastavení</string>
@@ -923,6 +920,9 @@
     <string name="trashbin_file_remove">Nevratně smazat</string>
     <string name="trashbin_loading_failed">Načítání obsahu koše se nezdařilo!</string>
     <string name="trashbin_not_emptied">Soubory se nepodařilo natrvalo smazat!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Vypnout pro všechny složky</string>
+    <string name="two_way_sync_activity_empty_list_desc">Pro nastavení složky pro obousměrnou synchronizaci, zapněte ji na kartě podrobností o dané složce.</string>
+    <string name="two_way_sync_activity_empty_list_title">Obousměrná synchronizace není nastavena</string>
     <string name="two_way_sync_activity_title">Interní obousměrná synchronizace</string>
     <string name="unexpected_error_occurred">Došlo k neočekávané chybě</string>
     <string name="unified_search_fragment_calendar_event_not_found">Událost nenalezena, ale ještě pořád je možné aktualizovat synchronizací. Přesměrovává se na web…</string>
@@ -932,6 +932,7 @@
     <string name="unread_comments">Existuje nepřečtený komentář</string>
     <string name="unset_encrypted">Zrušit šifrování</string>
     <string name="unset_favorite">Odebrat z oblíbených</string>
+    <string name="unset_internal_two_way_sync_description">Odebrat složku z interní obousměrné synchronizace</string>
     <string name="unshare_link_file_error">Při pokusu o zrušení sdílení tohoto souboru či složky došlo k chybě.</string>
     <string name="unshare_link_file_no_exist">Nedaří se zrušit sdílení – zkontrolujte zda soubor existuje.</string>
     <string name="unshare_link_forbidden_permissions">pro zrušení sdílení tohoto souboru</string>
