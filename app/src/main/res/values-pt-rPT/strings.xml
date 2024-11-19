@@ -683,7 +683,6 @@
     <string name="share_permissions">Permissões de Partilha</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversação)</string>
-    <string name="share_search">Nome, Id. da Nuvem Federada ou endereço de correio eletrónico...</string>
     <string name="share_send_new_email">Enviar nova mensagem</string>
     <string name="share_send_note">Nota para o destinatário</string>
     <string name="share_settings">Definições</string>

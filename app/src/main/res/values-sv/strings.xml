@@ -35,7 +35,6 @@
     <string name="advanced_settings">Avancerade inställningar</string>
     <string name="allow_resharing">Tillåt dela vidare</string>
     <string name="app_config_base_url_title">Bas-URL</string>
-    <string name="app_config_proxy_host_title">Proxy-värdnamn</string>
     <string name="app_config_proxy_port_title">Proxyport</string>
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">Uppgiften har raderats</string>
     <string name="assistant_screen_task_list_error_state_message">Det går inte att hämta uppgiftslistan, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ta bort uppgift</string>
-    <string name="assistant_screen_task_output_empty_text">Uppgiftens resultat är inte redo än</string>
     <string name="assistant_screen_task_types_error_state_message">Det går inte att hämta uppgiftstyper, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Okänd</string>
@@ -763,7 +761,6 @@
     <string name="screenshot_06_davdroid_subline">Synka med DAVx5</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
     <string name="secure_share_not_set_up">Säker delning är inte konfigurerad för denna användare</string>
-    <string name="secure_share_search">Säker delning ...</string>
     <string name="select_all">Välj alla</string>
     <string name="select_media_folder">Ställ in mapp för media</string>
     <string name="select_one_template">Vänligen välj en mall</string>
@@ -807,7 +804,6 @@
     <string name="share_permissions">Dela behörigheter</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
-    <string name="share_search">Namn, federerat Cloud ID eller epost-adress</string>
     <string name="share_send_new_email">Skicka nytt mail</string>
     <string name="share_send_note">Notering till mottagare</string>
     <string name="share_settings">Inställningar</string>

@@ -692,7 +692,6 @@
     <string name="screenshot_06_davdroid_subline">همگام سازی با DAVx5</string>
     <string name="search_error">خطا در دریافت نتایج جستجو</string>
     <string name="secure_share_not_set_up">اشتراک‌گذاری امن برای این حساب تنظیم نشده است</string>
-    <string name="secure_share_search">اشتراک‌گذاری امن …</string>
     <string name="select_all">انتخاب همه</string>
     <string name="select_media_folder">پوشه رسانه را تنظیم کنید.</string>
     <string name="select_one_template">لطفا یک قالب را انتخاب کنید</string>
@@ -736,7 +735,6 @@
     <string name="share_permissions">اجازه‌های هم‌رسانی</string>
     <string name="share_remote_clarification">%1$s (دوردست)</string>
     <string name="share_room_clarification">%1$s (گفت‌وگو)</string>
-    <string name="share_search">نام، شناسهٔ ابری خودگردان یا نشانی رایانامه…</string>
     <string name="share_send_new_email">فرستادن رایانامهٔ جدید</string>
     <string name="share_send_note">یادداشت به گیرنده</string>
     <string name="share_settings">تنظیمات</string>

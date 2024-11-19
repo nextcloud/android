@@ -679,7 +679,6 @@
     <string name="share_permissions">Права за споделяне</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
-    <string name="share_search">Име, Федериран/обединен/ облачен идентификатор или имейл адрес ...</string>
     <string name="share_send_new_email">Изпращане на нов имейл</string>
     <string name="share_send_note">Бележка за получателя</string>
     <string name="share_settings">Настройки</string>

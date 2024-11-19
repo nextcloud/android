@@ -688,7 +688,6 @@
     <string name="share_permissions">Heimildir sameignar</string>
     <string name="share_remote_clarification">%1$s (fjartengt)</string>
     <string name="share_room_clarification">%1$s (samtal)</string>
-    <string name="share_search">Nafn, skýjasambandsauðkenni eða tölvupóstfang …</string>
     <string name="share_send_new_email">Senda nýjan tölvupóst</string>
     <string name="share_send_note">Minnispunktur til viðtakanda</string>
     <string name="share_settings">Stillingar</string>

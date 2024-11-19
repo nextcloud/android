@@ -34,7 +34,6 @@
     <string name="add_to_cloud">Añadir %1$s</string>
     <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
-    <string name="app_config_proxy_host_title">Nombre del Servidor Proxy</string>
     <string name="app_config_proxy_port_title">Puerto del Proxy</string>
     <string name="app_widget_description">Muestra un widget del panel</string>
     <string name="appbar_search_in">Buscar en %s</string>
@@ -724,7 +723,6 @@
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="search_error">Error al obtener los resultados de búsqueda</string>
     <string name="secure_share_not_set_up">Compartir en modo seguro no está configurado para este usuario</string>
-    <string name="secure_share_search">Compartir en modo seguro …</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_media_folder">Establecer la carpeta multimedia</string>
     <string name="select_one_template">Por favor seleccione una plantilla</string>
@@ -768,7 +766,6 @@
     <string name="share_permissions">Permisos del recurso compartido</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
-    <string name="share_search">Nombre, ID de nube federada o dirección de correo electrónico…</string>
     <string name="share_send_new_email">Enviar nuevo correo electrónico</string>
     <string name="share_send_note">Nota al destinatario</string>
     <string name="share_settings">Ajustes</string>

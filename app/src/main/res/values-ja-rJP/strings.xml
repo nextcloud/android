@@ -34,7 +34,6 @@
     <string name="add_to_cloud">%1$s に追加</string>
     <string name="advanced_settings">高度な設定</string>
     <string name="allow_resharing">再共有を許可する</string>
-    <string name="app_config_proxy_host_title">プロキシのホスト名</string>
     <string name="app_config_proxy_port_title">プロキシポート</string>
     <string name="app_widget_description">ダッシュボードから一つのウィジェットを表示</string>
     <string name="appbar_search_in">%s の中を検索</string>
@@ -748,7 +747,6 @@
     <string name="share_permissions">共有権限</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_room_clarification">%1$s(会話)</string>
-    <string name="share_search">ユーザー名、クラウド統合ID、またはメールアドレス ...</string>
     <string name="share_send_new_email">メールを送信</string>
     <string name="share_send_note">受取人への注意</string>
     <string name="share_settings">設定</string>

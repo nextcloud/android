@@ -35,7 +35,6 @@
     <string name="advanced_settings">Дополнительные настройки</string>
     <string name="allow_resharing">Разрешить повторную публикацию</string>
     <string name="app_config_base_url_title">Основной URL</string>
-    <string name="app_config_proxy_host_title">Имя прокси хоста</string>
     <string name="app_config_proxy_port_title">Порт прокси</string>
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
     <string name="appbar_search_in">Искать в %s</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">Задача удалена</string>
     <string name="assistant_screen_task_list_error_state_message">Не удается получить список задач, проверьте ваше подключение к Интернету.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Удалить задачу</string>
-    <string name="assistant_screen_task_output_empty_text">Вывод задания еще не готов.</string>
     <string name="assistant_screen_task_types_error_state_message">Не удается получить список задач, проверьте ваше подключение к Интернету.</string>
     <string name="assistant_screen_top_bar_title">Помощник</string>
     <string name="assistant_screen_unknown_task_status_text">Неизвестно</string>
@@ -762,7 +760,6 @@
     <string name="screenshot_06_davdroid_subline">Синхронизация с DAVx5</string>
     <string name="search_error">Ошибка при получении результатов поиска</string>
     <string name="secure_share_not_set_up">Безопасная публикация не настроена для данного пользователя</string>
-    <string name="secure_share_search">Безопасная публикация …</string>
     <string name="select_all">Выбрать все</string>
     <string name="select_media_folder">Назначить папку с медиа</string>
     <string name="select_one_template">Пожалуйста, выберите один шаблон</string>
@@ -806,7 +803,6 @@
     <string name="share_permissions">Права на публикацию</string>
     <string name="share_remote_clarification">%1$s (на сервере)</string>
     <string name="share_room_clarification">%1$s (беседа)</string>
-    <string name="share_search">Имя, Federated Cloud ID (идентификатор в объединении облачных хранилищ)  или адрес электронной почты …</string>
     <string name="share_send_new_email">Отправить новое письмо</string>
     <string name="share_send_note">Примечание для получателя</string>
     <string name="share_settings">Настройки</string>

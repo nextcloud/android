@@ -715,7 +715,6 @@
     <string name="share_permissions">Megosztási jogosultságok</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
     <string name="share_room_clarification">%1$s(beszélgetés)</string>
-    <string name="share_search">Név, egyesített felhőazonosító vagy e-mail-cím…</string>
     <string name="share_send_new_email">Új e-mail küldése</string>
     <string name="share_send_note">Jegyzet a címzettnek</string>
     <string name="share_settings">Beállítások</string>

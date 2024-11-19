@@ -35,7 +35,6 @@
     <string name="advanced_settings">Ardsocruithe</string>
     <string name="allow_resharing">Ceadaigh athroinnt</string>
     <string name="app_config_base_url_title">URL an bhunaigh</string>
-    <string name="app_config_proxy_host_title">Ainm Óstach Seachfhreastalaí</string>
     <string name="app_config_proxy_port_title">Port Seachfhreastalaí</string>
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
     <string name="appbar_search_in">Cuardaigh i %s</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">D\'éirigh leis an tasc a scriosadh</string>
     <string name="assistant_screen_task_list_error_state_message">Ní féidir liosta tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Scrios Tasc</string>
-    <string name="assistant_screen_task_output_empty_text">Níl an t-aschur taisc réidh fós.</string>
     <string name="assistant_screen_task_types_error_state_message">Ní féidir cineálacha tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_top_bar_title">Cúntóir</string>
     <string name="assistant_screen_unknown_task_status_text">Anaithnid</string>
@@ -762,7 +760,6 @@
     <string name="screenshot_06_davdroid_subline">Sioncrónaigh le DAVx5</string>
     <string name="search_error">Earráid agus torthaí cuardaigh á bhfáil</string>
     <string name="secure_share_not_set_up">Níl comhroinnt shlán socraithe don úsáideoir seo</string>
-    <string name="secure_share_search">Roinn slán…</string>
     <string name="select_all">Roghnú go léir</string>
     <string name="select_media_folder">Socraigh fillteán meáin</string>
     <string name="select_one_template">Roghnaigh teimpléad amháin le do thoil</string>
@@ -806,7 +803,6 @@
     <string name="share_permissions">Ceadanna Comhroinnte</string>
     <string name="share_remote_clarification">%1$s (iargúlta)</string>
     <string name="share_room_clarification">%1$s (comhrá)</string>
-    <string name="share_search">Ainm, ID Néal Cónaidhme nó seoladh ríomhphoist…</string>
     <string name="share_send_new_email">Seol ríomhphost nua</string>
     <string name="share_send_note">Nóta don fhaighteoir</string>
     <string name="share_settings">Socruithe</string>

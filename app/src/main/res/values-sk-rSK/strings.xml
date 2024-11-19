@@ -35,7 +35,6 @@
     <string name="advanced_settings">Rozšírené nastavenia</string>
     <string name="allow_resharing">Povoliť zdieľanie ďalej</string>
     <string name="app_config_base_url_title">Základná URL</string>
-    <string name="app_config_proxy_host_title">Názov proxy servera</string>
     <string name="app_config_proxy_port_title">Brána proxy</string>
     <string name="app_widget_description">Zobrazí jeden widget z hlavného panela</string>
     <string name="appbar_search_in">Hľadať v %s</string>
@@ -716,7 +715,6 @@
     <string name="screenshot_06_davdroid_subline">Synchronizácia s DAVx5</string>
     <string name="search_error">Chyba pri získavaní výsledkov vyhľadávania</string>
     <string name="secure_share_not_set_up">Zabezpečené zdieľanie nie je nastavené pre tohto užívateľa.</string>
-    <string name="secure_share_search">Bezpečné zdieľanie …</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="select_media_folder">Nastaviť priečinok médií</string>
     <string name="select_one_template">Vyberte jednu šablónu</string>
@@ -760,7 +758,6 @@
     <string name="share_permissions">Zdieľať oprávnenia</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_room_clarification">%1$s (rozhovor)</string>
-    <string name="share_search">Meno, ID v rámci združeného cloudu, alebo e-mailová adresa…</string>
     <string name="share_send_new_email">Odoslať nový e-mail</string>
     <string name="share_send_note">Poznámka pre príjemcu</string>
     <string name="share_settings">Nastavenia</string>

@@ -711,7 +711,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="screenshot_06_davdroid_subline">Synkronoi DAVx5:llä</string>
     <string name="search_error">Virhe hakutulosten noutamisessa</string>
     <string name="secure_share_not_set_up">Turvallsta jakoa ei ole asetettu tälle käyttäjälle</string>
-    <string name="secure_share_search">Turvallinen jako ...</string>
     <string name="select_all">Valitse kaikki</string>
     <string name="select_media_folder">Aseta kansio medialle</string>
     <string name="select_one_template">Valitse yksi mallipohja</string>
@@ -751,7 +750,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share_permissions">Jaon oikeudet</string>
     <string name="share_remote_clarification">%1$s (etä)</string>
     <string name="share_room_clarification">%1$s (keskustelu)</string>
-    <string name="share_search">Nimi, Federoitu Cloud ID tai sähköposti...</string>
     <string name="share_send_new_email">Lähetä uusi sähköposti</string>
     <string name="share_send_note">Huomio vastaanottajalle</string>
     <string name="share_settings">Asetukset</string>
