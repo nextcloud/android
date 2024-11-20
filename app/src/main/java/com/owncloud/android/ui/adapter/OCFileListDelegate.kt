@@ -385,6 +385,10 @@ class OCFileListDelegate(
 
     @Suppress("ReturnCount")
     private fun getShareIconIdAndContentDescriptionId(holder: ListViewHolder, file: OCFile): Pair<Int, Int>? {
+        if (!MDMConfig.sharingSupport(context)) {
+            return null
+        }
+
         if (file.isOfflineOperation) return null
 
         if (holder !is OCFileListItemViewHolder && file.unreadCommentsCount != 0) return null
