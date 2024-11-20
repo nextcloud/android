@@ -159,31 +159,31 @@ public final class MimeTypeUtil {
      * @return A drawable for the file or folder.
      */
     public static Drawable getOCFileIcon(OCFile file, Context context, ViewThemeUtils viewThemeUtils, boolean isAutoUpload, boolean isDarkModeActive) {
-        Drawable result;
-
         if (file.isFolder()) {
             Integer overlayIconId = file.getFileOverlayIconId(isAutoUpload);
-            result = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
-        } else {
-            if ((MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) && file.getRemoteId() != null) {
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
-
-                if (thumbnail != null && !file.isUpdateThumbnailNeeded()) {
-                    if (MimeTypeUtil.isVideo(file)) {
-                        Bitmap withOverlay = ThumbnailsCacheManager.addVideoOverlay(thumbnail, context);
-                        result = new BitmapDrawable(context.getResources(), withOverlay);
-                    } else {
-                        result = new BitmapDrawable(context.getResources(), thumbnail);
-                    }
-                } else {
-                    result = MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
-                }
-            } else {
-                result = MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
-            }
+            return MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
         }
 
-        return result;
+        if (!(MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) || file.getRemoteId() == null) {
+            return MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
+        }
+
+        Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+        if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
+            return MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
+        }
+
+        Drawable background = new BitmapDrawable(context.getResources(), thumbnail);
+        if (!MimeTypeUtil.isVideo(file)) {
+            return background;
+        }
+
+        Drawable videoOverlay = ContextCompat.getDrawable(context, R.drawable.video_white);
+        if (videoOverlay == null) {
+            return background;
+        }
+
+        return DrawableUtil.INSTANCE.addDrawableAsOverlay(background, videoOverlay);
     }
 
     public static Drawable getDefaultFolderIcon(Context context, ViewThemeUtils viewThemeUtils) {
