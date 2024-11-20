@@ -21,7 +21,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.createRoundedOutline
+import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -307,9 +307,8 @@ class OCFileListDelegate(
             R.color.bg_default
         }
 
-        gridViewHolder.itemLayout.apply {
-            outlineProvider = createRoundedOutline(context, cornerRadius)
-            clipToOutline = true
+        gridViewHolder.itemLayout.run {
+            makeRounded(context, cornerRadius)
             setBackgroundColor(ContextCompat.getColor(context, itemLayoutBackgroundColorId))
         }
     }

@@ -18,6 +18,15 @@ fun View?.setVisibleIf(condition: Boolean) {
     visibility = if (condition) View.VISIBLE else View.GONE
 }
 
+fun View?.makeRounded(context: Context, cornerRadius: Float) {
+    this?.let {
+        it.apply {
+            outlineProvider = createRoundedOutline(context, cornerRadius)
+            clipToOutline = true
+        }
+    }
+}
+
 fun createRoundedOutline(context: Context, cornerRadiusValue: Float): ViewOutlineProvider {
     return object : ViewOutlineProvider() {
         override fun getOutline(view: View, outline: Outline) {
