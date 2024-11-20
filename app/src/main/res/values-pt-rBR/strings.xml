@@ -689,7 +689,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Sugestões de aplicativos Nextcloud no título de navegação</string>
     <string name="prefs_show_hidden_files">Mostrar arquivos ocultos</string>
     <string name="prefs_sourcecode">Obter código-fonte</string>
-    <string name="prefs_storage_path">Pasta de armazenamento de dados</string>
+    <string name="prefs_data_storage_location">Pasta de armazenamento de dados</string>
     <string name="prefs_sycned_folders_summary">Gerenciar pastas para envio automático</string>
     <string name="prefs_synced_folders_local_path_title">Pasta local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>

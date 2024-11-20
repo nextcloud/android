@@ -600,7 +600,7 @@
     <string name="prefs_setup_e2e">Configureu el xifratge d\'extrem a extrem</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_sourcecode">Aconseguiu el codi font</string>
-    <string name="prefs_storage_path">Carpeta de dades</string>
+    <string name="prefs_data_storage_location">Carpeta de dades</string>
     <string name="prefs_sycned_folders_summary">Gestiona les carpetes per a la pujada automàtica</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>

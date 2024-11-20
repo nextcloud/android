@@ -687,7 +687,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Предлози Nextcloud апликација у заглављу навигације</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_sourcecode">Узми изворни кôд</string>
-    <string name="prefs_storage_path">Фасцикла за податке</string>
+    <string name="prefs_data_storage_location">Фасцикла за податке</string>
     <string name="prefs_sycned_folders_summary">Управљање фолдерима за аутоматско отпремање</string>
     <string name="prefs_synced_folders_local_path_title">Локална фасцикла</string>
     <string name="prefs_synced_folders_remote_path_title">Удаљена фасцикла</string>

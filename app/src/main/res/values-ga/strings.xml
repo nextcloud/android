@@ -687,7 +687,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Moltaí aip Nextcloud sa cheannteideal nascleanúna</string>
     <string name="prefs_show_hidden_files">Taispeáin comhaid i bhfolach</string>
     <string name="prefs_sourcecode">Faigh cód foinse</string>
-    <string name="prefs_storage_path">Fillteán stórála sonraí</string>
+    <string name="prefs_data_storage_location">Fillteán stórála sonraí</string>
     <string name="prefs_sycned_folders_summary">Bainistigh fillteáin le haghaidh uaslódáil uathoibríoch</string>
     <string name="prefs_synced_folders_local_path_title">Fillteán áitiúil</string>
     <string name="prefs_synced_folders_remote_path_title">Fillteán cianda</string>

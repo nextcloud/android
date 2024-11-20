@@ -665,7 +665,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Vis Nextcloud app-forslag i navigasjonen</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildekode</string>
-    <string name="prefs_storage_path">Datalagringsmappe</string>
+    <string name="prefs_data_storage_location">Datalagringsmappe</string>
     <string name="prefs_sycned_folders_summary">Styr mapper for automatisk opplastning</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Mappe på server</string>

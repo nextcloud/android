@@ -660,7 +660,7 @@
     <string name="prefs_show_ecosystem_apps_summary">탐색창 상단에 표시되는 Nextcloud 앱 제안</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
     <string name="prefs_sourcecode">소스 코드 보기</string>
-    <string name="prefs_storage_path">데이터 저장 폴더</string>
+    <string name="prefs_data_storage_location">데이터 저장 폴더</string>
     <string name="prefs_sycned_folders_summary">자동 업로드를 위한 폴더 관리</string>
     <string name="prefs_synced_folders_local_path_title">로컬 폴더</string>
     <string name="prefs_synced_folders_remote_path_title">원격 폴더</string>

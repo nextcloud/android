@@ -689,7 +689,7 @@
     <string name="prefs_show_ecosystem_apps_summary">導覽列中的 Nextcloud 應用程式建議</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_sourcecode">取得原始碼</string>
-    <string name="prefs_storage_path">資料儲存資料夾</string>
+    <string name="prefs_data_storage_location">資料儲存資料夾</string>
     <string name="prefs_sycned_folders_summary">管理資料夾以便自動上傳</string>
     <string name="prefs_synced_folders_local_path_title">近端資料夾</string>
     <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>

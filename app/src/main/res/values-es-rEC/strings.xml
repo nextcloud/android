@@ -589,7 +589,7 @@
     <string name="prefs_setup_e2e">Configurar encriptación de extremo a extremo</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
-    <string name="prefs_storage_path">Carpeta de almacenamiento de datos</string>
+    <string name="prefs_data_storage_location">Carpeta de almacenamiento de datos</string>
     <string name="prefs_sycned_folders_summary">Administrar carpetas para carga automática</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>

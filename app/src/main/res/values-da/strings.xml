@@ -632,7 +632,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app anbefalinger i navigationspanelet</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildetekst</string>
-    <string name="prefs_storage_path">Lagringsmappe for data</string>
+    <string name="prefs_data_storage_location">Lagringsmappe for data</string>
     <string name="prefs_sycned_folders_summary">Administrér mapper til auto upload</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Ekstern mappe</string>

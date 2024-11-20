@@ -522,7 +522,7 @@
     <string name="prefs_manage_accounts">Gesti is contos</string>
     <string name="prefs_show_hidden_files">Mustra documentos cuados</string>
     <string name="prefs_sourcecode">Otene su còdighe sorgente</string>
-    <string name="prefs_storage_path">Cartella de archiviatzione de is datos</string>
+    <string name="prefs_data_storage_location">Cartella de archiviatzione de is datos</string>
     <string name="prefs_sycned_folders_summary">Gesti cartellas pro carrigamentu automàticu</string>
     <string name="prefs_synced_folders_local_path_title">Cartella locale</string>
     <string name="prefs_synced_folders_remote_path_title">Cartella remota</string>

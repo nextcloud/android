@@ -550,7 +550,7 @@
     <string name="prefs_recommend">Preporuči prijatelju</string>
     <string name="prefs_show_hidden_files">Prikaz skrivenih datoteka</string>
     <string name="prefs_sourcecode">Preuzmi izvorni kod</string>
-    <string name="prefs_storage_path">Mapa za pohranu podataka</string>
+    <string name="prefs_data_storage_location">Mapa za pohranu podataka</string>
     <string name="prefs_sycned_folders_summary">Upravljanje mapama za automatsko otpremanje</string>
     <string name="prefs_synced_folders_local_path_title">Lokalna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Udaljena mapa</string>

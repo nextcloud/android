@@ -495,7 +495,7 @@
     <string name="prefs_manage_accounts">Stiùirich cunntasan</string>
     <string name="prefs_show_hidden_files">Seall faidhlichean falaichte</string>
     <string name="prefs_sourcecode">Faigh am bun-tùs</string>
-    <string name="prefs_storage_path">Pasgan stòradh dàta</string>
+    <string name="prefs_data_storage_location">Pasgan stòradh dàta</string>
     <string name="prefs_sycned_folders_summary">Stiùirich pasganan an luchdaidh suas fhèin-obrachail</string>
     <string name="prefs_synced_folders_local_path_title">Pasgan ionadail</string>
     <string name="prefs_synced_folders_remote_path_title">Pasgan cèin</string>
