@@ -24,10 +24,13 @@ sealed class OfflineOperationType {
         var ocFileId: Long,
         val newName: String
     ) : OfflineOperationType()
+
+    data class RemoveFile(override val type: String, var path: String) : OfflineOperationType()
 }
 
 enum class OfflineOperationRawType {
     CreateFolder,
     CreateFile,
-    RenameFile
+    RenameFile,
+    RemoveFile
 }

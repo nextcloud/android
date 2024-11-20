@@ -25,6 +25,7 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.files.UploadFileRemoteOperation
 import com.owncloud.android.operations.CreateFolderOperation
+import com.owncloud.android.operations.RemoveFileOperation
 import com.owncloud.android.operations.RenameFileOperation
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
@@ -163,6 +164,16 @@ class OfflineOperationsWorker(
                 renameFileOperation?.execute(client) to renameFileOperation
             }
 
+            is OfflineOperationType.RemoveFile -> {
+                val removeFileOperation = withContext(NonCancellable) {
+                    val operationType = (operation.type as OfflineOperationType.RemoveFile)
+                    val ocFile = fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)
+                    RemoveFileOperation(ocFile, false, user, true, context, fileDataStorageManager)
+                }
+
+                removeFileOperation.execute(client) to removeFileOperation
+            }
+
             else -> {
                 Log_OC.d(TAG, "Unsupported operation type: ${operation.type}")
                 null
@@ -186,7 +197,15 @@ class OfflineOperationsWorker(
         Log_OC.d(TAG, "$logMessage filename: ${operation.filename}, type: ${operation.type}")
 
         if (result.isSuccess) {
-            repository.updateNextOperations(operation)
+            if (operation.type is OfflineOperationType.RemoveFile) {
+                val operationType = operation.type as OfflineOperationType.RemoveFile
+                fileDataStorageManager.getFileByDecryptedRemotePath(operationType.path)?.let { ocFile ->
+                    repository.deleteOperation(ocFile)
+                }
+            } else {
+                repository.updateNextOperations(operation)
+            }
+
             fileDataStorageManager.offlineOperationDao.delete(operation)
             notificationManager.update(totalOperations, currentSuccessfulOperationIndex, operation.filename ?: "")
         } else {
