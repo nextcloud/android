@@ -42,6 +42,7 @@
     <bool name="disable_sharing">false</bool>
     <bool name="disable_clipboard">false</bool>
     <bool name="disable_log">false</bool>
+    <bool name="enforce_protection">false</bool>
 
     <!-- Flags to enable/disable some features -->
     <string name="send_files_to_other_apps">on</string>

@@ -35,6 +35,7 @@
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_host_title">Proxy Hostname</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
+    <string name="app_config_enforce_protection_title">Enforce Protection</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Delete Offline Folder</string>
     <string name="offline_operations_worker_notification_conflict_text">Conflicted Folder: %s</string>

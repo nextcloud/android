@@ -19,5 +19,6 @@ enum class AppConfigKeys(val key: String) {
     DisableClipboard("disable_clipboard"),
     DisableMoreExternalSite("disable_more_external_site"),
     DisableIntro("disable_intro"),
-    DisableLog("disable_log")
+    DisableLog("disable_log"),
+    EnforceProtection("enforce_protection")
 }

@@ -61,6 +61,7 @@ import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.providers.DocumentsStorageProvider;
+import com.owncloud.android.ui.ListPreferenceDialog;
 import com.owncloud.android.ui.ThemeableSwitchPreference;
 import com.owncloud.android.ui.asynctasks.LoadingVersionNumberTask;
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
@@ -75,6 +76,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -122,7 +124,7 @@ public class SettingsActivity extends PreferenceActivity
 
     private Uri serverBaseUri;
 
-    private ListPreference lock;
+    private ListPreferenceDialog lock;
     private ThemeableSwitchPreference showHiddenFiles;
     private ThemeableSwitchPreference showEcosystemApps;
     private AppCompatDelegate delegate;
@@ -138,7 +140,6 @@ public class SettingsActivity extends PreferenceActivity
     @Inject ClientFactory clientFactory;
     @Inject ViewThemeUtils viewThemeUtils;
     @Inject ConnectivityService connectivityService;
-
 
     @SuppressWarnings("deprecation")
     @Override
@@ -185,6 +186,15 @@ public class SettingsActivity extends PreferenceActivity
 
         // workaround for mismatched color when app dark mode and system dark mode don't agree
         setListBackground();
+        showPasscodeDialogIfEnforceAppProtection();
+    }
+
+    private void showPasscodeDialogIfEnforceAppProtection() {
+        if (MDMConfig.INSTANCE.enforceProtection(this) && Objects.equals(preferences.getLockPreference(), SettingsActivity.LOCK_NONE) && lock != null) {
+            lock.showDialog();
+            lock.dismissible(false);
+            lock.enableCancelButton(false);
+        }
     }
 
     private void setupDevCategory(PreferenceScreen preferenceScreen) {
@@ -678,26 +688,35 @@ public class SettingsActivity extends PreferenceActivity
     private void setupLockPreference(PreferenceCategory preferenceCategoryDetails,
                                      boolean passCodeEnabled,
                                      boolean deviceCredentialsEnabled) {
-        lock = (ListPreference) findPreference(PREFERENCE_LOCK);
+        boolean enforceProtection = MDMConfig.INSTANCE.enforceProtection(this);
+        lock = (ListPreferenceDialog) findPreference(PREFERENCE_LOCK);
+        int optionSize = 3;
+        if (enforceProtection) {
+            optionSize = 2;
+        }
+
         if (lock != null && (passCodeEnabled || deviceCredentialsEnabled)) {
-            ArrayList<String> lockEntries = new ArrayList<>(3);
-            lockEntries.add(getString(R.string.prefs_lock_none));
+            ArrayList<String> lockEntries = new ArrayList<>(optionSize);
             lockEntries.add(getString(R.string.prefs_lock_using_passcode));
             lockEntries.add(getString(R.string.prefs_lock_using_device_credentials));
 
-            ArrayList<String> lockValues = new ArrayList<>(3);
-            lockValues.add(LOCK_NONE);
+            ArrayList<String> lockValues = new ArrayList<>(optionSize);
             lockValues.add(LOCK_PASSCODE);
             lockValues.add(LOCK_DEVICE_CREDENTIALS);
 
-            if (!passCodeEnabled) {
-                lockEntries.remove(1);
-                lockValues.remove(1);
-            } else if (!deviceCredentialsEnabled ||
-                !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
-                lockEntries.remove(2);
-                lockValues.remove(2);
+            if (!enforceProtection) {
+                lockEntries.add(getString(R.string.prefs_lock_none));
+                lockValues.add(LOCK_NONE);
             }
+
+            if (!passCodeEnabled) {
+                lockEntries.remove(getString(R.string.prefs_lock_using_passcode));
+                lockValues.remove(LOCK_PASSCODE);
+            } else if (!deviceCredentialsEnabled || !DeviceCredentialUtils.areCredentialsAvailable(getApplicationContext())) {
+                lockEntries.remove(getString(R.string.prefs_lock_using_device_credentials));
+                lockValues.remove(LOCK_DEVICE_CREDENTIALS);
+            }
+
             String[] lockEntriesArr = new String[lockEntries.size()];
             lockEntriesArr = lockEntries.toArray(lockEntriesArr);
             String[] lockValuesArr = new String[lockValues.size()];
@@ -706,6 +725,7 @@ public class SettingsActivity extends PreferenceActivity
             lock.setEntries(lockEntriesArr);
             lock.setEntryValues(lockValuesArr);
             lock.setSummary(lock.getEntry());
+
             lock.setOnPreferenceChangeListener((preference, o) -> {
                 pendingLock = LOCK_NONE;
                 String oldValue = ((ListPreference) preference).getValue();
@@ -935,7 +955,9 @@ public class SettingsActivity extends PreferenceActivity
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ACTION_REQUEST_PASSCODE && resultCode == RESULT_OK) {
+        if (requestCode == ACTION_REQUEST_PASSCODE && resultCode == RESULT_CANCELED) {
+            showPasscodeDialogIfEnforceAppProtection();
+        } else if (requestCode == ACTION_REQUEST_PASSCODE && resultCode == RESULT_OK) {
             String passcode = data.getStringExtra(PassCodeActivity.KEY_PASSCODE);
             if (passcode != null && passcode.length() == 4) {
                 SharedPreferences.Editor appPrefs = PreferenceManager
