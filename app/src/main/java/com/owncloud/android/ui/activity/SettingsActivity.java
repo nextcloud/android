@@ -977,6 +977,9 @@ public class SettingsActivity extends PreferenceActivity
             startActivity(i);
         } else if (requestCode == ACTION_SET_STORAGE_LOCATION && data != null) {
             String newPath = data.getStringExtra(ChooseStorageLocationActivity.KEY_RESULT_STORAGE_LOCATION);
+            if (storagePath == null || newPath == null) {
+                return;
+            }
 
             if (!storagePath.equals(newPath)) {
                 StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath, viewThemeUtils);
