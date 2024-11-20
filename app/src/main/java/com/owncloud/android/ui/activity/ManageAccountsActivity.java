@@ -30,6 +30,7 @@ import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -131,8 +132,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
         }
 
         arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-
-        multipleAccountsSupported = getResources().getBoolean(R.bool.multiaccount_support);
+        multipleAccountsSupported = MDMConfig.INSTANCE.multiAccountSupport(this);
 
         userListAdapter = new UserListAdapter(this,
                                               accountManager,
@@ -230,7 +230,7 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
             userListItems.add(new UserListItem(user, !pendingForRemoval));
         }
 
-        if (getResources().getBoolean(R.bool.multiaccount_support)) {
+        if (MDMConfig.INSTANCE.multiAccountSupport(this)) {
             userListItems.add(new UserListItem());
         }
 

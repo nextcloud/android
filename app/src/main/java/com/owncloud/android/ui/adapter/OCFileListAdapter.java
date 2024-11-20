@@ -36,9 +36,10 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.OCFileFilterType;
+import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.GridImageBinding;
@@ -458,6 +459,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             updateLivePhotoIndicators(gridViewHolder, file);
+
+            if (!MDMConfig.INSTANCE.sharingSupport(activity)) {
+                gridViewHolder.getShared().setVisibility(View.GONE);
+            }
         }
     }
 

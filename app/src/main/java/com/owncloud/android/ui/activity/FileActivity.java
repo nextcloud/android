@@ -45,6 +45,7 @@ import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -718,12 +719,14 @@ public abstract class FileActivity extends DrawerActivity
                                             OCFile file,
                                             String link,
                                             final ViewThemeUtils viewThemeUtils) {
-        ClipboardUtil.copyToClipboard(activity, link, false);
-        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), R.string.clipboard_text_copied,
-                                          Snackbar.LENGTH_LONG)
-            .setAction(R.string.share, v -> showShareLinkDialog(activity, file, link));
-        viewThemeUtils.material.themeSnackbar(snackbar);
-        snackbar.show();
+        if (MDMConfig.INSTANCE.shareViaLink(activity) && MDMConfig.INSTANCE.clipBoardSupport(activity)) {
+            ClipboardUtil.copyToClipboard(activity, link, false);
+            Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), R.string.clipboard_text_copied,
+                                              Snackbar.LENGTH_LONG)
+                .setAction(R.string.share, v -> showShareLinkDialog(activity, file, link));
+            viewThemeUtils.material.themeSnackbar(snackbar);
+            snackbar.show();
+        }
     }
 
     public static void showShareLinkDialog(FileActivity activity, ServerFileInterface file, String link) {
