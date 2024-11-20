@@ -167,4 +167,12 @@ class AutoRenameTests : AbstractOnServerIT() {
         val expectedFolderName = "/COm02/2569.webp"
         assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
     }
+
+    @Test
+    fun testValidFilename() {
+        val filename = ".file.TXT"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "_file.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
+    }
 }

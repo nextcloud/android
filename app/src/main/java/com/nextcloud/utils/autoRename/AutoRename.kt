@@ -59,7 +59,7 @@ object AutoRename {
 
                 forbiddenFilenameExtensions.find { it == StringConstants.DOT }?.let { forbiddenExtension ->
                     pathSegments.replaceAll { segment ->
-                        replacePathSegment(forbiddenExtension, segment)
+                        replaceDots(forbiddenExtension, segment)
                     }
                 }
 
@@ -67,9 +67,13 @@ object AutoRename {
                     .filter { it != StringConstants.SPACE && it != StringConstants.DOT }
                     .forEach { forbiddenExtension ->
                         pathSegments.replaceAll { segment ->
-                            replacePathSegment(forbiddenExtension, segment)
+                            replaceFileExtensions(forbiddenExtension, segment)
                         }
                     }
+
+                pathSegments.replaceAll { segment ->
+                    lowercaseFileExtension(segment)
+                }
             }
         }
 
@@ -82,14 +86,39 @@ object AutoRename {
         }
     }
 
-    private fun replacePathSegment(forbiddenExtension: String, segment: String): String {
-        return if (segment.endsWith(forbiddenExtension, ignoreCase = true) ||
-            segment.startsWith(forbiddenExtension, ignoreCase = true)
-        ) {
-            segment.replace(forbiddenExtension, REPLACEMENT)
+    private fun lowercaseFileExtension(input: String): String {
+        val lastDotIndex = input.lastIndexOf('.')
+
+        return if (lastDotIndex > 0) {
+            val base = input.substring(0, lastDotIndex)
+            val extension = input.substring(lastDotIndex + 1).lowercase() // Convert extension to lowercase
+
+            "$base.$extension"
+        } else {
+            input
+        }
+    }
+
+    private fun replaceDots(forbiddenExtension: String, segment: String): String {
+        return if (isSegmentContainsForbiddenExtension(forbiddenExtension, segment)) {
+            segment.replaceFirst(forbiddenExtension, REPLACEMENT)
         } else {
             segment
         }
+    }
+
+    private fun replaceFileExtensions(forbiddenExtension: String, segment: String): String {
+        return if (isSegmentContainsForbiddenExtension(forbiddenExtension, segment)) {
+            val newExtension = forbiddenExtension.replace(StringConstants.DOT, REPLACEMENT, ignoreCase = true)
+            segment.replace(forbiddenExtension, newExtension.lowercase(), ignoreCase = true)
+        } else {
+            segment
+        }
+    }
+
+    private fun isSegmentContainsForbiddenExtension(forbiddenExtension: String, segment: String): Boolean {
+        return segment.endsWith(forbiddenExtension, ignoreCase = true) ||
+            segment.startsWith(forbiddenExtension, ignoreCase = true)
     }
 
     private fun convertToUTF8(filename: String): String {
