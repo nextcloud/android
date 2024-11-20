@@ -34,6 +34,9 @@ object DrawableUtil {
 
         val left = (backgroundWidth - scaledOverlayWidth) / 2
         val top = (backgroundHeight - scaledOverlayHeight) / 2
+
+        // Icons are centered on the folder icon. However, some icons take up more vertical space,
+        // so adding a top margin to all icons helps center the overlay icon better.
         val topMargin = 2
 
         containerDrawable.setLayerInset(1, left, top + topMargin, left, top)
