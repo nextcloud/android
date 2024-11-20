@@ -35,6 +35,7 @@
     <string name="advanced_settings">Avancerade inställningar</string>
     <string name="allow_resharing">Tillåt dela vidare</string>
     <string name="app_config_base_url_title">Bas-URL</string>
+    <string name="app_config_proxy_host_title">Proxy-värdnamn</string>
     <string name="app_config_proxy_port_title">Proxyport</string>
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
@@ -761,6 +762,7 @@
     <string name="screenshot_06_davdroid_subline">Synka med DAVx5</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
     <string name="secure_share_not_set_up">Säker delning är inte konfigurerad för denna användare</string>
+    <string name="secure_share_search">Säker delning...</string>
     <string name="select_all">Välj alla</string>
     <string name="select_media_folder">Ställ in mapp för media</string>
     <string name="select_one_template">Vänligen välj en mall</string>
@@ -804,6 +806,7 @@
     <string name="share_permissions">Dela behörigheter</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
+    <string name="share_search">Namn, federerat moln-ID eller e-postadress...</string>
     <string name="share_send_new_email">Skicka nytt mail</string>
     <string name="share_send_note">Notering till mottagare</string>
     <string name="share_settings">Inställningar</string>

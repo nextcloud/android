@@ -35,6 +35,7 @@
     <string name="advanced_settings">Axustes avanzados</string>
     <string name="allow_resharing">Permitir compartir</string>
     <string name="app_config_base_url_title">URL base</string>
+    <string name="app_config_proxy_host_title">Nome do servidor proxy</string>
     <string name="app_config_proxy_port_title">Porto do proxy</string>
     <string name="app_widget_description">Amosa un trebello do taboleiro</string>
     <string name="appbar_search_in">Buscar en %s</string>
