@@ -35,6 +35,7 @@
     <string name="advanced_settings">Configurações avançadas </string>
     <string name="allow_resharing">Permitir recompartilhamento</string>
     <string name="app_config_base_url_title">URL base</string>
+    <string name="app_config_proxy_host_title">Nome do Host do Proxy</string>
     <string name="app_config_proxy_port_title">Porta do Proxy</string>
     <string name="app_widget_description">Mostra um widget do painel</string>
     <string name="appbar_search_in">Pesquisar em %s</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">Tarefa excluída com sucesso</string>
     <string name="assistant_screen_task_list_error_state_message">Não foi possível buscar a lista de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Excluir tarefa</string>
+    <string name="assistant_screen_task_output_empty_text">O resultado da tarefa ainda não está pronto.</string>
     <string name="assistant_screen_task_types_error_state_message">Não foi possível buscar os tipos de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_screen_unknown_task_status_text">Desconhecido</string>
@@ -760,6 +762,7 @@
     <string name="screenshot_06_davdroid_subline">Sincronizar com DAVx5</string>
     <string name="search_error">Erro ao obter os resultados da pesquisa </string>
     <string name="secure_share_not_set_up">O compartilhamento seguro não está configurado para este usuário</string>
+    <string name="secure_share_search">Compartilhamento seguro…</string>
     <string name="select_all">Selecionar tudo</string>
     <string name="select_media_folder">Definir pasta de mídia</string>
     <string name="select_one_template">Selecione um modelo</string>
@@ -803,6 +806,7 @@
     <string name="share_permissions">Permissões de compartilhamento </string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
+    <string name="share_search">Nome, Federated Cloud ID ou endereço de e-mail…</string>
     <string name="share_send_new_email">Enviar novo e-mail </string>
     <string name="share_send_note">Anotação ao destinatário</string>
     <string name="share_settings">Configurações</string>
