@@ -60,13 +60,9 @@ public final class BitmapUtils {
     }
 
     public static Bitmap addColorFilter(Bitmap originalBitmap, int filterColor, int opacity) {
-        int width = originalBitmap.getWidth();
-        int height = originalBitmap.getHeight();
-
-        Bitmap resultBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap resultBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
         Canvas canvas = new Canvas(resultBitmap);
-
-        canvas.drawBitmap(originalBitmap, 0, 0, null);
+        canvas.drawBitmap(resultBitmap, 0, 0, null);
 
         Paint paint = new Paint();
         paint.setColor(filterColor);
@@ -74,7 +70,7 @@ public final class BitmapUtils {
         paint.setAlpha(opacity);
 
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        canvas.drawRect(0, 0, width, height, paint);
+        canvas.drawRect(0, 0, resultBitmap.getWidth(), resultBitmap.getHeight(), paint);
 
         return resultBitmap;
     }
