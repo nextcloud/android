@@ -19,6 +19,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -174,13 +175,19 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
             return;
         }
 
-        float topMargin = 0f;
+        int topMargin = 20;
 
         if (isHomeSearchToolbarShow) {
-            topMargin = getResources().getDimension(R.dimen.standard_double_margin);
+            topMargin = (int) getResources().getDimension(R.dimen.standard_double_margin);
+        } else if (mAppBar.getParent() != null) {
+            ViewParent parentView = mAppBar.getParent();
+
+            if (parentView instanceof View view) {
+                view.setBackgroundColor(ContextCompat.getColor(this, R.color.action_bar));
+            }
         }
 
-        ViewExtensionsKt.setMargins(mAppBar, 0, (int) topMargin, 0, 0);
+        ViewExtensionsKt.setMargins(mAppBar, 0, topMargin, 0, 0);
     }
 
     private void showHomeSearchToolbar(String title, boolean isRoot) {
