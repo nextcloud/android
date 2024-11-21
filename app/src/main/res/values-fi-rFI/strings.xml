@@ -800,6 +800,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="storage_description_default">Oletus</string>
     <string name="storage_documents">Asiakirjat</string>
     <string name="storage_downloads">Lataukset</string>
+    <string name="storage_external_storage">Ulkoinen tallennustila</string>
     <string name="storage_internal_storage">Sisäinen tallennustila</string>
     <string name="storage_movies">Elokuvat</string>
     <string name="storage_music">Musiikki</string>

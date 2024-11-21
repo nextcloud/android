@@ -690,6 +690,7 @@
     <string name="storage_description_default">Zadano</string>
     <string name="storage_documents">Dokumenti</string>
     <string name="storage_downloads">Preuzimanja</string>
+    <string name="storage_external_storage">Vanjsko spremište za pohranu</string>
     <string name="storage_internal_storage">Unutarnja pohrana</string>
     <string name="storage_movies">Filmovi</string>
     <string name="storage_music">Glazba</string>

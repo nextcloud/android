@@ -863,6 +863,7 @@
     <string name="storage_description_default">افتراضي</string>
     <string name="storage_documents">الوثائق</string>
     <string name="storage_downloads">التنزيلات</string>
+    <string name="storage_external_storage">التخزين الخارجي</string>
     <string name="storage_internal_storage">التخزين الداخلي</string>
     <string name="storage_movies">الأفلام</string>
     <string name="storage_music">الموسيقى</string>

@@ -696,6 +696,7 @@
     <string name="storage_description_default">Mặc định</string>
     <string name="storage_documents">Tài liệu</string>
     <string name="storage_downloads">Các tải xuống</string>
+    <string name="storage_external_storage">Lưu trữ ngoài</string>
     <string name="storage_internal_storage">Bộ nhớ trong</string>
     <string name="storage_movies">Phim</string>
     <string name="storage_music">Nhạc</string>

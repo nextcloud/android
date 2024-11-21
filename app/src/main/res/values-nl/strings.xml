@@ -817,6 +817,7 @@
     <string name="storage_description_default">Standaard</string>
     <string name="storage_documents">Documenten</string>
     <string name="storage_downloads">Downloads</string>
+    <string name="storage_external_storage">Externe opslag</string>
     <string name="storage_internal_storage">Interne opslag</string>
     <string name="storage_movies">Films</string>
     <string name="storage_music">Muziek</string>

@@ -751,6 +751,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="storage_description_default">Bawaan</string>
     <string name="storage_documents">Dokumen</string>
     <string name="storage_downloads">Unduhan</string>
+    <string name="storage_external_storage">Penyimpanan eksternal</string>
     <string name="storage_internal_storage">Penyimpanan internal</string>
     <string name="storage_movies">Film</string>
     <string name="storage_music">Musik</string>

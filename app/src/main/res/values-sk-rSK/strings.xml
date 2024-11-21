@@ -177,6 +177,7 @@
     <string name="confirmation_remove_local">Iba lokálne</string>
     <string name="conflict_dialog_error">Dialógové okno riešenia konfliktov nemožno vytvoriť</string>
     <string name="conflict_file_headline">Konfliktný súbor %1$s</string>
+    <string name="conflict_folder_headline">Konflikt adresárov</string>
     <string name="conflict_local_file">Lokálny súbor</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
     <string name="conflict_server_file">Súbor na serveri</string>
@@ -440,6 +441,7 @@
     <string name="foreign_files_success">Všetky súbory boli presunuté</string>
     <string name="forward">Preposlať</string>
     <string name="fourHours">4 hodiny</string>
+    <string name="gplay_restriction">Google obmedzil sťahovanie APK/AAB súborov!</string>
     <string name="grid_file_features_live_photo_content_description">Tento ikonka označuje dostupnosť živej fotografie.</string>
     <string name="hidden_file_name_warning">Názov bude mať za následok skrytý súbor</string>
     <string name="hint_name">Meno</string>
@@ -467,6 +469,7 @@
     <string name="instant_upload_existing">Nahrať aj existujúce súbory</string>
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync">Interná obojsmerná synchronizácia</string>
     <string name="invalid_url">Neplatná URL</string>
     <string name="invisible">Neviditeľné</string>
     <string name="label_empty">Štítok nemôže byť prázdny</string>
@@ -565,6 +568,7 @@
     <string name="notification_icon">Ikona notifikácie</string>
     <string name="notifications_no_results_headline">Žiadne upozornenia</string>
     <string name="notifications_no_results_message">Prosím skontrolujte znova neskôr.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Čakajúca operácia</string>
     <string name="offline_mode">Bez internetového pripojenia</string>
     <string name="oneHour">1 hodina</string>
     <string name="online">Pripojené</string>
@@ -595,6 +599,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">zastaviť</string>
     <string name="player_toggle">prepnúť</string>
+    <string name="please_select_a_server">Prosím vyberte server ...</string>
     <string name="power_save_check_dialog_message">Vypnutie kontroly úspory energie môže spôsobiť nahrávanie súborov v čase keď je batérie takmer vybitá!</string>
     <string name="pref_behaviour_entries_delete_file">vymazané</string>
     <string name="pref_behaviour_entries_keep_file">ponechané v pôvodnom priečinku</string>
@@ -656,12 +661,14 @@
     <string name="prefs_synced_folders_local_path_title">Lokálny priečinok</string>
     <string name="prefs_synced_folders_remote_path_title">Vzdialený priečinok</string>
     <string name="prefs_theme_title">Motív vzhľadu</string>
+    <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Svetlý</string>
     <string name="prefs_value_theme_system">Nasledovať systém</string>
     <string name="preview_image_description">Ukážka obrazu</string>
     <string name="preview_image_error_no_local_file">Nepodarilo sa zobraziť lokálny súbor</string>
     <string name="preview_image_error_unknown_format">Nemožno zobraziť obrázok</string>
+    <string name="preview_image_file_is_not_downloaded">Súbor nebol stiahnutý</string>
     <string name="preview_image_file_is_not_exist">Súbor neexistuje</string>
     <string name="preview_sorry">Prepáčte</string>
     <string name="privacy">Súkromie</string>
@@ -809,6 +816,7 @@
     <string name="storage_description_default">Predvolené</string>
     <string name="storage_documents">Dokumenty</string>
     <string name="storage_downloads">Sťahovania</string>
+    <string name="storage_external_storage">Externé úložisko</string>
     <string name="storage_internal_storage">Interné úložisko</string>
     <string name="storage_movies">Videá</string>
     <string name="storage_music">Hudba</string>
@@ -875,6 +883,9 @@
     <string name="trashbin_file_remove">Zmazať  natrvalo</string>
     <string name="trashbin_loading_failed">Načítanie obsahu koša sa nepodarilo!</string>
     <string name="trashbin_not_emptied">Nepodarilo sa trvalo vymazať súbory!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Zakázať pre všetky adresáre</string>
+    <string name="two_way_sync_activity_empty_list_title">Obojsmerná synchronizácia nie je nastavená</string>
+    <string name="two_way_sync_activity_title">Interná obojsmerná synchronizácia</string>
     <string name="unexpected_error_occurred">Vyskytla sa neočakávaná chyba</string>
     <string name="unlock_file">Odomknúť súbor</string>
     <string name="unread_comments">Existujú neprečítané komentáre</string>
@@ -900,6 +911,7 @@
     <string name="upload_content_from_other_apps">Nahrať obsah z iných aplikácií</string>
     <string name="upload_direct_camera_photo">Fotka</string>
     <string name="upload_direct_camera_upload">Nahrať z fotoaparátu</string>
+    <string name="upload_direct_camera_video">Video</string>
     <string name="upload_file_dialog_filename">Názov súboru</string>
     <string name="upload_file_dialog_filetype">Typ súboru</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Odkaz na Google mapy(%s)</string>
@@ -917,6 +929,7 @@
     <string name="upload_local_storage_not_copied">Nepodarilo sa skopírovať súbor na lokálne úložište</string>
     <string name="upload_lock_failed">Uzamknutie priečinka zlyhalo</string>
     <string name="upload_manually_cancelled">Nahrávanie bolo zrušené užívateľom</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Šifrovanie je možné iba pri &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Pre skopírovanie vybratých súborov do adresára %1$s nie je dostatok voľného miesta. Chcete ich namiesto toho presunúť?</string>
     <string name="upload_quota_exceeded">Kapacita úložiska prekročená</string>
@@ -1005,6 +1018,18 @@
     <string name="write_email">Odoslať email</string>
     <string name="wrong_storage_path">Priečinok pre úložisko dát neexistuje!</string>
     <string name="wrong_storage_path_desc">Môže to byť spôsobené obnovením zálohy na inom zariadení. Návrat na predvolené hodnoty. Skontrolujte priečinok a upravte adresár pre ukladanie údajov.</string>
+    <plurals name="hours">
+        <item quantity="one">%d hodina</item>
+        <item quantity="few">%d hodiny</item>
+        <item quantity="many">%d hodín</item>
+        <item quantity="other">%d hodín</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minúta</item>
+        <item quantity="few">%d minúty</item>
+        <item quantity="many">%d minút</item>
+        <item quantity="other">%d minút</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nie je možné synchronizovať %1$d súbor (konflikty: %2$d)</item>
         <item quantity="few">Nie je možné synchronizovať %1$d súbory (konflikty: %2$d)</item>

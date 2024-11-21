@@ -785,6 +785,7 @@
     <string name="storage_description_default">پیش‌گزیده</string>
     <string name="storage_documents">سندها</string>
     <string name="storage_downloads">بارگیری‌ها</string>
+    <string name="storage_external_storage">محل ذخیره خارجی</string>
     <string name="storage_internal_storage">ذخیره‌ساز داخلی</string>
     <string name="storage_movies">فیلم‌ها</string>
     <string name="storage_music">آهنگ‌ها</string>

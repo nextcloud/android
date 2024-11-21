@@ -733,6 +733,7 @@
     <string name="storage_description_default">Por defeito</string>
     <string name="storage_documents">Documentos</string>
     <string name="storage_downloads">Transferências</string>
+    <string name="storage_external_storage">Armazenamento Externo</string>
     <string name="storage_internal_storage">Armazenamento interno</string>
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>

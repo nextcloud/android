@@ -759,6 +759,7 @@
     <string name="storage_description_default">Privzeto</string>
     <string name="storage_documents">Dokumenti</string>
     <string name="storage_downloads">Prejemi</string>
+    <string name="storage_external_storage">Zunanja shramba</string>
     <string name="storage_internal_storage">Notranja shramba</string>
     <string name="storage_movies">Video</string>
     <string name="storage_music">Glasba</string>

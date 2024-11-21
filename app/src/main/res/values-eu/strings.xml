@@ -851,6 +851,7 @@
     <string name="storage_description_default">Lehenetsia</string>
     <string name="storage_documents">Dokumentuak</string>
     <string name="storage_downloads">Deskargak</string>
+    <string name="storage_external_storage">Kanpoko biltegia</string>
     <string name="storage_internal_storage">Barneko biltegiratzea</string>
     <string name="storage_movies">Pelikulak</string>
     <string name="storage_music">Musika</string>

@@ -854,6 +854,7 @@
     <string name="storage_description_default">Réamhshocrú</string>
     <string name="storage_documents">Doiciméid</string>
     <string name="storage_downloads">Íoslódálacha</string>
+    <string name="storage_external_storage">Stóráil sheachtrach</string>
     <string name="storage_internal_storage">Stóráil inmheánach</string>
     <string name="storage_movies">Scannáin</string>
     <string name="storage_music">Ceol</string>

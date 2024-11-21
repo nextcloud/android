@@ -178,10 +178,10 @@
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_dialog_error">Nie można utworzyć okna dialogowego rozwiązywania konfliktów</string>
     <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
-    <string name="conflict_folder_headline">Konflikt folderów</string>
+    <string name="conflict_folder_headline">Konflikt katalogów</string>
     <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
-    <string name="conflict_message_description_for_folder">Jeżeli wybierzesz obie wersje, to do nazwy folderu lokalnego zostanie dodany numer</string>
+    <string name="conflict_message_description_for_folder">Jeżeli wybierzesz obie wersje, to do nazwy katalogu lokalnego zostanie dodany numer</string>
     <string name="conflict_server_file">Plik z serwera</string>
     <string name="contact_backup_title">Kopia zapasowa kontaktów</string>
     <string name="contact_no_permission">Wymagane jest pozwolenie na lokalizację</string>
@@ -210,8 +210,8 @@
     <string name="create_new_folder">Nowy katalog</string>
     <string name="create_new_presentation">Nowa prezentacja</string>
     <string name="create_new_spreadsheet">Nowy arkusz kalkulacyjny</string>
-    <string name="create_rich_workspace">Dodaj opis folderu</string>
-    <string name="creates_rich_workspace">Dodaj opis folderu</string>
+    <string name="create_rich_workspace">Dodaj opis katalogu</string>
+    <string name="creates_rich_workspace">Dodaj opis katalogu</string>
     <string name="credentials_disabled">Poświadczenia wyłączone</string>
     <string name="daily_backup">Codzienna kopia zapasowa</string>
     <string name="data_to_back_up">Dane dla kopii zapasowej</string>
@@ -370,7 +370,7 @@
     <string name="file_list_empty_headline">Brak plików</string>
     <string name="file_list_empty_headline_search">Brak wyników w tym katalogu</string>
     <string name="file_list_empty_headline_server_search">Brak wyników</string>
-    <string name="file_list_empty_local_search">Brak plików lub folderów spełniających kryteria wyszukiwania</string>
+    <string name="file_list_empty_local_search">Brak plików lub katalogów spełniających kryteria wyszukiwania</string>
     <string name="file_list_empty_moving">Pusto. Możesz dodać katalog.</string>
     <string name="file_list_empty_on_device">Tutaj pojawią się pobrane pliki i katalogi.</string>
     <string name="file_list_empty_recently_modified">Nie znaleziono żadnych plików modyfikowanych w ciągu ostatnich 7 dni</string>
@@ -409,7 +409,7 @@
     <string name="file_migration_use_data_folder">Użyj</string>
     <string name="file_migration_waiting_for_unfinished_sync">Oczekuje na pełną synchronizację…</string>
     <string name="file_name_validator_current_path_is_invalid">Obecna nazwa katalogu jest nieprawidłowa, zmień nazwę katalogu. Przekierowywanie na stronę główną…</string>
-    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Ścieżka folderu zawiera zarezerwowane nazwy albo nieprawidłowy znak</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Ścieżka katalogu zawiera zarezerwowane nazwy albo nieprawidłowy znak</string>
     <string name="file_name_validator_error_forbidden_file_extensions">%s jest zabronionym rozszerzeniem pliku</string>
     <string name="file_name_validator_error_forbidden_space_character_extensions">Nazwy plików nie mogą zawierać spacji na początku i końcu nazwy</string>
     <string name="file_name_validator_error_invalid_character">Nazwa zawiera niedozwolone znaki %s</string>
@@ -439,7 +439,7 @@
     <string name="folder_already_exists">Katalog już istnieje</string>
     <string name="folder_confirm_create">Utwórz</string>
     <string name="folder_list_empty_headline">Brak katalogów</string>
-    <string name="folder_name_empty">Nazwa folderu nie może być pusta</string>
+    <string name="folder_name_empty">Nazwa katalogu nie może być pusta</string>
     <string name="folder_picker_choose_button_text">Wybierz</string>
     <string name="folder_picker_choose_caption_text">Wybierz katalog docelowy</string>
     <string name="folder_picker_copy_button_text">Skopiuj</string>
@@ -488,7 +488,7 @@
     <string name="instant_upload_path">/InstantUpload</string>
     <string name="internal_two_way_sync">Synchronizacja dwukierunkowa wewnętrzna</string>
     <string name="internal_two_way_sync_not_yet">Jeszcze nie, niebawem będzie zsynchronizowane</string>
-    <string name="internet_connection_required_for_encrypted_folder_setup">Aby ustawić szyfrowany folder wymagane jest połączenie z intenetem</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Aby ustawić szyfrowany katalog wymagane jest połączenie z Internetem</string>
     <string name="invalid_url">Nieprawidłowy adres URL</string>
     <string name="invisible">Niewidoczny</string>
     <string name="label_empty">Etykieta nie może być pusta</string>
@@ -596,7 +596,7 @@
     <string name="offline_mode_info_description">Nawet bez połączenia internetowego możesz organizować swoje katalogi, tworzyć pliki. Gdy tylko wrócisz do połączenia z internetem, Twoje oczekujące działania zostaną automatycznie zsynchronizowane.</string>
     <string name="offline_mode_info_title">Jesteś offline, ale praca trwa</string>
     <string name="offline_operations_file_does_not_exists_yet">Plik jeszcze nie istnieje. Wyślij najpierw plik.</string>
-    <string name="offline_operations_worker_notification_conflict_text">Konfliktowy folder %s</string>
+    <string name="offline_operations_worker_notification_conflict_text">Konfliktowy katalog: %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Usuń katalog offline</string>
     <string name="offline_operations_worker_notification_error_text">Operacja offline nie może zostać ukończona. %s</string>
     <string name="offline_operations_worker_notification_manager_ticker">Operacje offline</string>
@@ -665,7 +665,7 @@
     <string name="prefs_imprint">Stopka</string>
     <string name="prefs_instant_behaviour_dialogTitle">Oryginalny plik zostanie…</string>
     <string name="prefs_instant_behaviour_title">Oryginalny plik zostanie…</string>
-    <string name="prefs_instant_upload_exclude_hidden_summary">Wyklucz ukryte pliki i foldery</string>
+    <string name="prefs_instant_upload_exclude_hidden_summary">Wyklucz ukryte pliki i katalogi</string>
     <string name="prefs_instant_upload_exclude_hidden_title">Wyklucz ukryte</string>
     <string name="prefs_instant_upload_path_use_date_subfolders_summary">Przechowuj w podkatalogach na podstawie daty</string>
     <string name="prefs_instant_upload_path_use_subfolders_title">Używaj podkatalogów</string>
@@ -817,7 +817,7 @@
     <string name="shared_icon_shared_via_link">udostępniono za pomocą linku</string>
     <string name="shared_with_you_by">Udostępnione przez %1$s</string>
     <string name="sharee_add_failed">Udostępnienie nie powiodło się</string>
-    <string name="sharee_already_added_to_file">Dodanie współudziału nie powiodło się. Ten plik lub folder został już udostępniony tej osobie lub grupie.</string>
+    <string name="sharee_already_added_to_file">Dodanie współudziału nie powiodło się. Ten plik lub katalog został już udostępniony tej osobie lub grupie.</string>
     <string name="show_images">Pokaż zdjęcia</string>
     <string name="show_video">Pokaż filmy</string>
     <string name="signup_with_provider">Zarejestruj się u usługodawcy</string>
@@ -854,6 +854,7 @@
     <string name="storage_description_default">Domyślny</string>
     <string name="storage_documents">Dokumenty</string>
     <string name="storage_downloads">Pobrane</string>
+    <string name="storage_external_storage">Magazyn zewnętrzny</string>
     <string name="storage_internal_storage">Pamięć wewnętrzna</string>
     <string name="storage_movies">Filmy</string>
     <string name="storage_music">Muzyka</string>

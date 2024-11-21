@@ -437,6 +437,7 @@
     <string name="status_message">Mensaje de estado</string>
     <string name="storage_description_default">Predeterminado</string>
     <string name="storage_downloads">Descargas</string>
+    <string name="storage_external_storage">Almacenamiento externo</string>
     <string name="subject_shared_with_you">\"%1$s\" ha sido compartido contigo</string>
     <string name="subject_user_shared_with_you">%1$s ha compartido \"%2$s\" contigo</string>
     <string name="sync">Sincronizar</string>

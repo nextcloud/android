@@ -854,6 +854,7 @@
     <string name="storage_description_default">По умолчанию</string>
     <string name="storage_documents">Документы</string>
     <string name="storage_downloads">Загрузки</string>
+    <string name="storage_external_storage">Внешнее хранилище</string>
     <string name="storage_internal_storage">Внутреннее хранилище</string>
     <string name="storage_movies">Фильмы</string>
     <string name="storage_music">Музыка</string>

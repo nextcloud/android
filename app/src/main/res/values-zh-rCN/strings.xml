@@ -853,6 +853,7 @@
     <string name="storage_description_default">默认</string>
     <string name="storage_documents">文档</string>
     <string name="storage_downloads">下载</string>
+    <string name="storage_external_storage">外部存储</string>
     <string name="storage_internal_storage">内部存储</string>
     <string name="storage_movies">影片</string>
     <string name="storage_music">音乐</string>

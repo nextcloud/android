@@ -564,6 +564,7 @@
     <string name="storage_description_default">Paraprake</string>
     <string name="storage_documents">Dokumentat</string>
     <string name="storage_downloads">Shkarkime</string>
+    <string name="storage_external_storage">Depozitë e jashtme</string>
     <string name="storage_internal_storage">Magazinim i brendshëm</string>
     <string name="storage_movies">Filma</string>
     <string name="storage_music">Muzik</string>

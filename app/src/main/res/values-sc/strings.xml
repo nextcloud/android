@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
   <resources>
-    <string name="about_android">%1$s Aplicatzione de Android</string>
+    <string name="about_android">Aplicatzione de %1$s pro Android</string>
     <string name="about_title">In contu de</string>
     <string name="about_version">versione %1$s</string>
     <string name="about_version_with_build">versione %1$s, versione #%2$s</string>
@@ -14,6 +14,7 @@
     <string name="action_switch_grid_view">Visualizatzione a grìllia</string>
     <string name="action_switch_list_view">Visualizatzione a elencu</string>
     <string name="actionbar_mkdir">Cartella noa</string>
+    <string name="actionbar_move_or_copy">Tràmuda o còpia</string>
     <string name="actionbar_open_with">Aberi cun</string>
     <string name="actionbar_search">Chirca</string>
     <string name="actionbar_see_details">Detàllios</string>
@@ -79,6 +80,7 @@
     <string name="autoupload_hide_folder">Cua sa cartella</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
+    <string name="backup_title">Còpia de seguresa de su calendàriu e de is cuntatos</string>
     <string name="battery_optimization_close">Serra</string>
     <string name="battery_optimization_disable">Disativa</string>
     <string name="battery_optimization_message">Forsis su dispositivu tuo tenet s\'otimizatzione de sa bateria ativada. S\'AutoCarrigamentu funtzionat isceti si nch\'escludes custa aplicatzione.</string>
@@ -209,13 +211,13 @@
     <string name="drawer_item_activities">Atividades</string>
     <string name="drawer_item_all_files">Totu is archìvios</string>
     <string name="drawer_item_favorites">Preferidos</string>
-    <string name="drawer_item_gallery">Media</string>
+    <string name="drawer_item_gallery">Elementos multimediales</string>
     <string name="drawer_item_home">Pàgina printzipale</string>
     <string name="drawer_item_notifications">Notìficas</string>
     <string name="drawer_item_on_device">In su dispositivu</string>
     <string name="drawer_item_personal_files">Archìvios personales</string>
     <string name="drawer_item_recently_modified">Modificadas pagu ora</string>
-    <string name="drawer_item_shared">Cumpartzidas</string>
+    <string name="drawer_item_shared">Cumpartziduras</string>
     <string name="drawer_item_trashbin">Archìvios cantzellados</string>
     <string name="drawer_item_uploads_list">Carrigamentos</string>
     <string name="drawer_logout">Essi·nche</string>
@@ -252,6 +254,7 @@
     <string name="error_retrieving_file">Errore in su recùperu de su documentu</string>
     <string name="error_retrieving_templates">Errore in su recùperu de is modellos</string>
     <string name="error_starting_direct_camera_upload">Errore de aviu de sa telecàmera</string>
+    <string name="error_uploading_direct_camera_upload">Errore in sa càrriga de is elementos multimediales</string>
     <string name="etm_accounts">Contos</string>
     <string name="etm_background_job_created">Creadu</string>
     <string name="etm_background_job_name">Nùmene de su traballu</string>
@@ -282,6 +285,7 @@
     <string name="failed_update_ui">Non s\'est pòdidu agiornare UI</string>
     <string name="favorite">Agiunghe a preferidos</string>
     <string name="favorite_icon">Preferi</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Impossìbile agiornare s\'archìviu cumpartzidu</string>
     <string name="file_delete">Cantzella</string>
     <string name="file_detail_activity_error">Errore in su recùperu de atividades pro su documentu</string>
     <string name="file_details_no_content">No at fatu a carrigare is detàllios</string>
@@ -341,6 +345,9 @@
     <string name="filename_forbidden_charaters_from_server">Su nùmene de su documentu cuntenet a su mancu unu caràtere non vàlidu</string>
     <string name="filename_hint">Nùmene de su documentu</string>
     <string name="first_run_1_text">Tene is datos tuos in seguresa e controllados</string>
+    <string name="first_run_2_text">Collaboratzione e iscàmbiu de archìvios cun seguresa</string>
+    <string name="first_run_3_text">Posta eletrònica, calendàriu e cuntatos fàtziles de impreare</string>
+    <string name="first_run_4_text">Cumpartzidura de ischermu, addòbios in lìnia e cunferèntzias web</string>
     <string name="folder_already_exists">Sa cartella esistit giai</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">Peruna cartella inoghe</string>
@@ -366,11 +373,12 @@
     <string name="hint_note">Nota</string>
     <string name="hint_password">Crae</string>
     <string name="host_not_available">Su serbidore no est a disponimentu</string>
-    <string name="host_your_own_server">Retzi su serbidore tuo</string>
+    <string name="host_your_own_server">Imprea unu serbidore tuo</string>
     <string name="in_folder">in sa cartella %1$s</string>
     <string name="instant_upload_existing">Càrriga puru is documentos chi esistint giai</string>
     <string name="instant_upload_on_charging">Càrriga isceti cando est carrighende sa bateria</string>
     <string name="instant_upload_path">/Carrigamentu istantàneu</string>
+    <string name="internal_two_way_sync">Sincronizatzione interna in duas diretziones</string>
     <string name="invalid_url">URL non vàlidu</string>
     <string name="invisible">Invisìbile</string>
     <string name="label_empty">S\'eticheta non podet èssere bòida</string>
@@ -403,7 +411,7 @@
     <string name="manage_space_description">Cunfiguratziones, base de datos e tzertificados de su serbidore dae datos de %1$sant a èssere eliminados de su totu. \n\nIs documentos no ant a èssere pigados in cunsideru.\n\n Pro custu protzessu ci podet bòlere unu pagu de tempus.</string>
     <string name="manage_space_title">Gesti su logu</string>
     <string name="media_err_invalid_progressive_playback">S\'archìviu multimediale non podet èssere trasmìtidu</string>
-    <string name="media_err_io">No at fatu a lèghere su documentu media</string>
+    <string name="media_err_io">No at fatu a lèghere s\'archìviu multimediale</string>
     <string name="media_err_malformed">Sa codìfica de su cuntenutu multimediale no es curreta</string>
     <string name="media_err_timeout">S\'intentu pro reprodùere su cuntenutu nch\'est iscàdidu</string>
     <string name="media_err_unknown">Su letore multimediale non podet reproduere su cuntenutu multimediale</string>
@@ -429,7 +437,7 @@
     <string name="network_error_socket_timeout_exception">Ddoe at àpidu un\'errore abetende su serbidore. No at fatu a agabbare s\'operatzione.</string>
     <string name="network_host_not_available">No at fatu a agabbare s\'operatzione. Su serbidore no est a disponimentu.</string>
     <string name="new_comment">Cummentu nou…</string>
-    <string name="new_media_folder_detected">Cartella de media noa %1$s rilevada. </string>
+    <string name="new_media_folder_detected">Cartella noa rilevada cun elementos multimediales: %1$s. </string>
     <string name="new_media_folder_photos">fotografia</string>
     <string name="new_media_folder_videos">vìdeu</string>
     <string name="new_notification">Notìfica noa</string>
@@ -437,6 +445,7 @@
     <string name="no_browser_available">Peruna aplicatzione pro gestire ligòngios a disponimentu</string>
     <string name="no_mutliple_accounts_allowed">Est permìtidu unu contu ebbia</string>
     <string name="no_pdf_app_available">Peruna aplicatzione pro gestire PDF a disponimentu</string>
+    <string name="no_send_app">Peruna aplicatzione a disponimentu pro s\'imbiu de is archìvios seletzionados</string>
     <string name="note_could_not_sent">No at fatu a imbiare sa nota</string>
     <string name="note_icon_hint">Icona de is notas</string>
     <string name="notification_action_failed">No at fatu a esecutare s\'atzione.</string>
@@ -449,7 +458,7 @@
     <string name="notification_channel_media_description">Istadu de su riprodutore de mùsica</string>
     <string name="notification_channel_media_name">Riprodutore de media</string>
     <string name="notification_channel_push_description">Mustrat notìficas imbiadas dae su serbidore: mentovus in cummentos, rètzidas de cumpartziduras remotas noas, publicatziones de chie amministrat etc.</string>
-    <string name="notification_channel_push_name">Notìficas de ispinta</string>
+    <string name="notification_channel_push_name">Notìficas push</string>
     <string name="notification_channel_upload_description">Mustrat istadu de carrigamentu</string>
     <string name="notification_channel_upload_name_short">Carrigamentos</string>
     <string name="notification_icon">Icona de notìfica</string>
@@ -474,6 +483,7 @@
     <string name="permission_deny">Nega</string>
     <string name="permission_storage_access">Sunt rechertos àteros permissos pro carrigare e iscarrigare documentos.</string>
     <string name="picture_set_as_no_app">Peruna aplicatzione agatada pro cunfigurare un\'immàgine</string>
+    <string name="pin_home">Apica a s\'ischermu printzipale</string>
     <string name="placeholder_fileSize">389 KB</string>
     <string name="placeholder_filename">placeholder.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
@@ -492,14 +502,17 @@
     <string name="pref_instant_name_collision_policy_entries_rename">Torra a numenare sa versione noa</string>
     <string name="pref_instant_name_collision_policy_title">Ite fàghere si su documentu esistit giai?</string>
     <string name="prefs_add_account">Agiunghe contu</string>
+    <string name="prefs_calendar_contacts">Sincroniza su calendàriu e is cuntatos</string>
     <string name="prefs_calendar_contacts_no_store_error">Nen F-Droid nen Google Play sunt installados</string>
     <string name="prefs_calendar_contacts_summary">Cunfigura DAVx5 (antis connotu comente DAVdroid) (v1.3.0+) pro custu contu</string>
+    <string name="prefs_calendar_contacts_sync_setup_successful">Cunfiguratzione de sincronizatzione de calendàriu e cuntatos</string>
     <string name="prefs_category_about">In contu de</string>
     <string name="prefs_category_details">Detàllios</string>
     <string name="prefs_category_dev">Dispositivu</string>
     <string name="prefs_category_general">Generale</string>
     <string name="prefs_category_more">Àteru</string>
     <string name="prefs_category_sync">Sincronizatzione</string>
+    <string name="prefs_daily_backup_summary">Còpia de seguresa de cada die de su calendàriu e is cuntatos tuos</string>
     <string name="prefs_daily_contact_backup_summary">Còpia de seguresa de is cuntatos ònnia die</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
     <string name="prefs_e2e_no_device_credentials">Pro mustrare sa menmònica ativa is credentziales de su dispositivu.</string>
@@ -520,25 +533,29 @@
     <string name="prefs_lock_using_device_credentials">Credentziales de su dispositivu</string>
     <string name="prefs_lock_using_passcode">Còdighe de atzessu</string>
     <string name="prefs_manage_accounts">Gesti is contos</string>
+    <string name="prefs_recommend">Cussìgia a àtere</string>
+    <string name="prefs_show_ecosystem_apps">Mustra su cuncambiadore de aplicatziones</string>
+    <string name="prefs_show_ecosystem_apps_summary">Cussìgios de aplicatziones de Nextcloud in s\'intestatzione de su navigadore</string>
     <string name="prefs_show_hidden_files">Mustra documentos cuados</string>
-    <string name="prefs_sourcecode">Otene su còdighe sorgente</string>
+    <string name="prefs_sourcecode">Otene su còdighe de orìgine</string>
     <string name="prefs_storage_path">Cartella de archiviatzione de is datos</string>
     <string name="prefs_sycned_folders_summary">Gesti cartellas pro carrigamentu automàticu</string>
     <string name="prefs_synced_folders_local_path_title">Cartella locale</string>
     <string name="prefs_synced_folders_remote_path_title">Cartella remota</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_summary">Gesti is cartellas internas pro sa sincronizatzione in duas diretziones</string>
     <string name="prefs_value_theme_dark">Iscuru</string>
     <string name="prefs_value_theme_light">Craru</string>
-    <string name="prefs_value_theme_system">Sistema de sighida</string>
+    <string name="prefs_value_theme_system">Sighi su tema de su sistema</string>
     <string name="preview_image_description">Anteprima de s\'immàgine</string>
     <string name="preview_image_error_no_local_file">Perunu archìviu locale de mustrare in anteprima</string>
     <string name="preview_image_error_unknown_format">Impossìbile mustrare s\'immàgine</string>
     <string name="preview_sorry">Nos dispraghet</string>
     <string name="privacy">Riservadesa</string>
     <string name="public_share_name">Nùmene nou</string>
-    <string name="push_notifications_not_implemented">Notìficas de ispinta disativadas pro more de dipendèntzias dae is serbìtzios Google Play de su propietàriu.</string>
-    <string name="push_notifications_old_login">Non ddoe sunt notìficas de ispinta ca sa sessione de atzessu nch\'est passada. Torra a proare s\'atzessu a su contu tuo.</string>
-    <string name="push_notifications_temp_error">Is notìficas de ispinta non sunt disponìbiles immoe</string>
+    <string name="push_notifications_not_implemented">Notìficas push disativadas pro more de dipendèntzias dae serbìtzios propietàrios de Google Play.</string>
+    <string name="push_notifications_old_login">Non ddoe sunt notìficas push ca sa sessione de atzessu nch\'est passada. Proa de torrare a agiùnghere su contu tuo.</string>
+    <string name="push_notifications_temp_error">Is notìficas push non sunt a disponimentu immoe</string>
     <string name="qr_could_not_be_read">No at fatu a lèghere su còdighe QR!</string>
     <string name="recommend_subject">Proa %1$s in su dispositivu tuo!</string>
     <string name="recommend_text">Ti bògio invitare a impreare %1$s in su dispositiu tuo.\nIscarriga·ddu inoghe: %2$s</string>
@@ -557,6 +574,7 @@
     <string name="resized_image_not_possible_download">Impossìbile a modificare sa mannària de s\'immàgine. Dda boles iscarrigare intrea?</string>
     <string name="restore">Recùpera documentu</string>
     <string name="restore_button_description">Recùpera su documentu cantzelladu</string>
+    <string name="restore_selected">Recùpera sa seletzione</string>
     <string name="retrieving_file">Recuperende su documentu…</string>
     <string name="richdocuments_failed_to_load_document">No at fatu a carrigare su documentu!</string>
     <string name="scanQR_description">Intra cun còdighe QR</string>
@@ -569,8 +587,11 @@
     <string name="screenshot_04_accounts_heading">Totu is contos tuos</string>
     <string name="screenshot_04_accounts_subline">in unu logu</string>
     <string name="screenshot_05_autoUpload_heading">Carrigamentu automàticu</string>
+    <string name="screenshot_05_autoUpload_subline">pro is fotografias e vìdeos tuos</string>
+    <string name="screenshot_06_davdroid_heading">Calendàriu e cuntatos</string>
     <string name="screenshot_06_davdroid_subline">Sincroniza cun DAVx5</string>
     <string name="select_all">Seletziona totu</string>
+    <string name="select_media_folder">Cunfigura sa cartella de is elementos multimediales</string>
     <string name="select_one_template">Sèbera unu tema</string>
     <string name="select_template">Seletziona modellu</string>
     <string name="send">Imbia</string>
@@ -652,6 +673,7 @@
     <string name="storage_description_default">Predefinida</string>
     <string name="storage_documents">Documentos</string>
     <string name="storage_downloads">Iscarrigamentos</string>
+    <string name="storage_external_storage">Archiviatzione de foras</string>
     <string name="storage_internal_storage">Archiviatzione interna</string>
     <string name="storage_movies">Film</string>
     <string name="storage_music">Mùsica</string>
@@ -666,6 +688,7 @@
     <string name="sub_folder_rule_year">Annu</string>
     <string name="subject_shared_with_you">\"%1$s\" dd\'ant cumpartzidu cun tegus</string>
     <string name="subject_user_shared_with_you">%1$s at cumpartzidu \"%2$s\" cun tegus</string>
+    <string name="subtitle_photos_videos">Fotografias e vìdeos</string>
     <string name="sync">Sincronizatzione</string>
     <string name="sync_conflicts_in_favourites_ticker">Si sunt agatados cunflitos</string>
     <string name="sync_current_folder_was_removed">Sa cartella %1$s no esistit prus</string>
@@ -708,11 +731,13 @@
     <string name="trashbin_file_remove">Cantzella in manera definitiva</string>
     <string name="trashbin_loading_failed">Carrigamentu de s\'àliga faddidu!</string>
     <string name="trashbin_not_emptied">No at fatu a cantzellare is archìvios in manera permanente!</string>
+    <string name="two_way_sync_activity_title">Sincronizatzione interna in duas diretziones</string>
     <string name="unexpected_error_occurred">B\'at àpidu un\'errore ispantosu</string>
     <string name="unlock_file">Isbloca su documentu</string>
     <string name="unread_comments">Ddoe sunt cummentos non lèghidos</string>
     <string name="unset_encrypted">Tzifradura non cunfigurada</string>
     <string name="unset_favorite">Boga·nche dae preferidos</string>
+    <string name="unset_internal_two_way_sync_description">Boga sa cartella interna pro sa sincronizatzione in duas diretziones</string>
     <string name="unshare_link_file_error">Ddoe at àpidu un\'errore in s\'annullamentu de sa cumpartzidura de s\'archìviu o de sa cartella.</string>
     <string name="unshare_link_file_no_exist">No at fatu a annnullare sa cumpartzidura. Controlla si s\'archìviu esistit.</string>
     <string name="unshare_link_forbidden_permissions">de annullare sa cumpartzidura de custu documentu</string>

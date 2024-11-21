@@ -858,6 +858,7 @@
     <string name="storage_description_default">默認</string>
     <string name="storage_documents">文件</string>
     <string name="storage_downloads">下載</string>
+    <string name="storage_external_storage">外部儲存空間</string>
     <string name="storage_internal_storage">內部儲存</string>
     <string name="storage_movies">電影</string>
     <string name="storage_music">音樂</string>

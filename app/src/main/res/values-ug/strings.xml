@@ -851,6 +851,7 @@
     <string name="storage_description_default">سۈكۈتتىكى</string>
     <string name="storage_documents">ھۆججەتلەر</string>
     <string name="storage_downloads">چۈشۈرۈش</string>
+    <string name="storage_external_storage">سىرتقى ساقلىغۇچ</string>
     <string name="storage_internal_storage">ئىچكى ساقلىغۇچ</string>
     <string name="storage_movies">كىنولار</string>
     <string name="storage_music">مۇزىكا</string>

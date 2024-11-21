@@ -847,6 +847,7 @@
     <string name="storage_description_default">За замовчуванням</string>
     <string name="storage_documents">Документи</string>
     <string name="storage_downloads">Звантаження</string>
+    <string name="storage_external_storage">Зовнішнє сховище</string>
     <string name="storage_internal_storage">Внутрішнє сховище</string>
     <string name="storage_movies">Відео</string>
     <string name="storage_music">Музика</string>

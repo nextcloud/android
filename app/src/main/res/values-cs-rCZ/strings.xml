@@ -858,6 +858,7 @@
     <string name="storage_description_default">Výchozí</string>
     <string name="storage_documents">Dokumenty</string>
     <string name="storage_downloads">Stahování</string>
+    <string name="storage_external_storage">Externí úložiště</string>
     <string name="storage_internal_storage">Vnitřní úložiště</string>
     <string name="storage_movies">Videa</string>
     <string name="storage_music">Hudba</string>

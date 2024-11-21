@@ -854,6 +854,7 @@
     <string name="storage_description_default">Подразумевано</string>
     <string name="storage_documents">Документи</string>
     <string name="storage_downloads">Преузимања</string>
+    <string name="storage_external_storage">Спољашње складиште</string>
     <string name="storage_internal_storage">Интерно складиште</string>
     <string name="storage_movies">Филмови</string>
     <string name="storage_music">Музика</string>

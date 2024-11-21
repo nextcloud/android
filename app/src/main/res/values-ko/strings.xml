@@ -820,6 +820,7 @@
     <string name="storage_description_default">기본값</string>
     <string name="storage_documents">문서</string>
     <string name="storage_downloads">다운로드</string>
+    <string name="storage_external_storage">외부 저장소</string>
     <string name="storage_internal_storage">내부 저장소</string>
     <string name="storage_movies">영화</string>
     <string name="storage_music">음악</string>

@@ -759,6 +759,7 @@
     <string name="storage_description_default">Default</string>
     <string name="storage_documents">Documents</string>
     <string name="storage_downloads">Downloads</string>
+    <string name="storage_external_storage">External storage</string>
     <string name="storage_internal_storage">Internal storage</string>
     <string name="storage_movies">Movies</string>
     <string name="storage_music">Music</string>

@@ -738,6 +738,7 @@
     <string name="storage_description_default">Sjálfgefið</string>
     <string name="storage_documents">Skjöl</string>
     <string name="storage_downloads">Sótt gögn</string>
+    <string name="storage_external_storage">Ytri gagnageymsla</string>
     <string name="storage_internal_storage">Innbyggð geymsla</string>
     <string name="storage_movies">Kvikmyndir</string>
     <string name="storage_music">Tónlist</string>

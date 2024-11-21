@@ -732,6 +732,7 @@
     <string name="storage_description_default">Numatytasis</string>
     <string name="storage_documents">Dokumentai</string>
     <string name="storage_downloads">Atsiuntimai</string>
+    <string name="storage_external_storage">Išorinė saugykla</string>
     <string name="storage_internal_storage">Vidinė saugykla</string>
     <string name="storage_movies">Filmai</string>
     <string name="storage_music">Muzika</string>

@@ -754,6 +754,7 @@
     <string name="storage_description_default">Implicit</string>
     <string name="storage_documents">Documente</string>
     <string name="storage_downloads">Descărcări</string>
+    <string name="storage_external_storage">Stocare externă</string>
     <string name="storage_internal_storage">Stocare internă</string>
     <string name="storage_movies">Filme</string>
     <string name="storage_music">Muzică</string>

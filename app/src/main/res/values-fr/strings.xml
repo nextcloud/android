@@ -854,6 +854,7 @@
     <string name="storage_description_default">Défaut</string>
     <string name="storage_documents">Documents</string>
     <string name="storage_downloads">Téléchargements</string>
+    <string name="storage_external_storage">Stockage externe</string>
     <string name="storage_internal_storage">Stockage interne</string>
     <string name="storage_movies">Vidéos</string>
     <string name="storage_music">Musique</string>

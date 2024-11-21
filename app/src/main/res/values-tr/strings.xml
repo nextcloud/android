@@ -853,6 +853,7 @@
     <string name="storage_description_default">Varsayılan</string>
     <string name="storage_documents">Belgeler</string>
     <string name="storage_downloads">İndirmeler</string>
+    <string name="storage_external_storage">Dış depolama</string>
     <string name="storage_internal_storage">İç depolama</string>
     <string name="storage_movies">Filmler</string>
     <string name="storage_music">Müzikler</string>
