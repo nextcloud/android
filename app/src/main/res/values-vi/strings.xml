@@ -556,7 +556,7 @@
     <string name="prefs_setup_e2e">Thiết lập mã hoá đầu cuối</string>
     <string name="prefs_show_hidden_files">Hiển thị các tệp ẩn</string>
     <string name="prefs_sourcecode">Lấy mã nguồn</string>
-    <string name="prefs_data_storage_location">Thư mục lưu trữ dữ liệu</string>
+    <string name="prefs_storage_path">Thư mục lưu trữ dữ liệu</string>
     <string name="prefs_sycned_folders_summary">Quản lý các thư mục để tự động tải lên</string>
     <string name="prefs_synced_folders_local_path_title">Thư mục cục bộ</string>
     <string name="prefs_synced_folders_remote_path_title">Thư mục từ xa</string>
@@ -696,6 +696,7 @@
     <string name="storage_description_default">Mặc định</string>
     <string name="storage_documents">Tài liệu</string>
     <string name="storage_downloads">Các tải xuống</string>
+    <string name="storage_external_storage">Lưu trữ ngoài</string>
     <string name="storage_internal_storage">Bộ nhớ trong</string>
     <string name="storage_movies">Phim</string>
     <string name="storage_music">Nhạc</string>

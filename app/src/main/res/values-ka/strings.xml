@@ -607,7 +607,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_sourcecode">Get source code</string>
-    <string name="prefs_data_storage_location">Data storage folder</string>
+    <string name="prefs_storage_path">Data storage folder</string>
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
     <string name="prefs_synced_folders_local_path_title">Local folder</string>
     <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
@@ -759,6 +759,7 @@
     <string name="storage_description_default">Default</string>
     <string name="storage_documents">Documents</string>
     <string name="storage_downloads">Downloads</string>
+    <string name="storage_external_storage">External storage</string>
     <string name="storage_internal_storage">Internal storage</string>
     <string name="storage_movies">Movies</string>
     <string name="storage_music">Music</string>

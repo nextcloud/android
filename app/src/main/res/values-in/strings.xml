@@ -608,7 +608,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="prefs_show_ecosystem_apps_summary">Saran aplikasi Nextcloud dalam judul navigasi</string>
     <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>
     <string name="prefs_sourcecode">Dapatkan kode sumber</string>
-    <string name="prefs_data_storage_location"> Folder penyimpanan data</string>
+    <string name="prefs_storage_path"> Folder penyimpanan data</string>
     <string name="prefs_sycned_folders_summary">Kelola folder untuk pengunggahan otomatis</string>
     <string name="prefs_synced_folders_local_path_title">Berkas lokal</string>
     <string name="prefs_synced_folders_remote_path_title">Folder remot</string>
@@ -751,6 +751,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="storage_description_default">Bawaan</string>
     <string name="storage_documents">Dokumen</string>
     <string name="storage_downloads">Unduhan</string>
+    <string name="storage_external_storage">Penyimpanan eksternal</string>
     <string name="storage_internal_storage">Penyimpanan internal</string>
     <string name="storage_movies">Film</string>
     <string name="storage_music">Musik</string>

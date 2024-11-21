@@ -687,7 +687,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Suggestions d\'applications Nextcloud dans l\'en-tête de navigation</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_sourcecode">Obtenir le code source</string>
-    <string name="prefs_data_storage_location">Dossier de stockage des données</string>
+    <string name="prefs_storage_path">Dossier de stockage des données</string>
     <string name="prefs_sycned_folders_summary">Gérer les dossiers pour le téléversement automatique</string>
     <string name="prefs_synced_folders_local_path_title">Dossier local</string>
     <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
@@ -854,6 +854,7 @@
     <string name="storage_description_default">Défaut</string>
     <string name="storage_documents">Documents</string>
     <string name="storage_downloads">Téléchargements</string>
+    <string name="storage_external_storage">Stockage externe</string>
     <string name="storage_internal_storage">Stockage interne</string>
     <string name="storage_movies">Vidéos</string>
     <string name="storage_music">Musique</string>

@@ -688,7 +688,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Рекомендации по приложению Nextcloud в заголовке навигации</string>
     <string name="prefs_show_hidden_files">Показывать скрытые файлы</string>
     <string name="prefs_sourcecode">Исходный код</string>
-    <string name="prefs_data_storage_location">Папка хранения данных</string>
+    <string name="prefs_storage_path">Папка хранения данных</string>
     <string name="prefs_sycned_folders_summary">Управление папками для автозагрузки</string>
     <string name="prefs_synced_folders_local_path_title">Папка на устройстве</string>
     <string name="prefs_synced_folders_remote_path_title">Папка на сервере</string>
@@ -854,6 +854,7 @@
     <string name="storage_description_default">По умолчанию</string>
     <string name="storage_documents">Документы</string>
     <string name="storage_downloads">Загрузки</string>
+    <string name="storage_external_storage">Внешнее хранилище</string>
     <string name="storage_internal_storage">Внутреннее хранилище</string>
     <string name="storage_movies">Фильмы</string>
     <string name="storage_music">Музыка</string>

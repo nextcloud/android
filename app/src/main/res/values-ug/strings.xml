@@ -687,7 +687,7 @@
     <string name="prefs_show_ecosystem_apps_summary">يول باشلاش ماۋزۇسىدىكى Nextcloud ئەپ تەكلىپلىرى</string>
     <string name="prefs_show_hidden_files">يوشۇرۇن ھۆججەتلەرنى كۆرسەت</string>
     <string name="prefs_sourcecode">ئەسلى كودقا ئېرىشىش</string>
-    <string name="prefs_data_storage_location">سانلىق مەلۇمات ساقلاش قىسقۇچى</string>
+    <string name="prefs_storage_path">سانلىق مەلۇمات ساقلاش قىسقۇچى</string>
     <string name="prefs_sycned_folders_summary">ئاپتوماتىك يوللاش ئۈچۈن ھۆججەت قىسقۇچلارنى باشقۇرۇڭ</string>
     <string name="prefs_synced_folders_local_path_title">يەرلىك ھۆججەت قىسقۇچ</string>
     <string name="prefs_synced_folders_remote_path_title">يىراقتىن قىسقۇچ</string>
@@ -851,6 +851,7 @@
     <string name="storage_description_default">سۈكۈتتىكى</string>
     <string name="storage_documents">ھۆججەتلەر</string>
     <string name="storage_downloads">چۈشۈرۈش</string>
+    <string name="storage_external_storage">سىرتقى ساقلىغۇچ</string>
     <string name="storage_internal_storage">ئىچكى ساقلىغۇچ</string>
     <string name="storage_movies">كىنولار</string>
     <string name="storage_music">مۇزىكا</string>

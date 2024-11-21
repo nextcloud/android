@@ -610,7 +610,7 @@
     <string name="prefs_setup_e2e">Configurează encripție end-to-end</string>
     <string name="prefs_show_hidden_files">Arată fișierele ascunse</string>
     <string name="prefs_sourcecode">Obține codul sursă</string>
-    <string name="prefs_data_storage_location">Dosarul de stocare a datelor</string>
+    <string name="prefs_storage_path">Dosarul de stocare a datelor</string>
     <string name="prefs_sycned_folders_summary">Administrează dosare pentru încărcare automată</string>
     <string name="prefs_synced_folders_local_path_title">Dosar local</string>
     <string name="prefs_synced_folders_remote_path_title">Dosar la distanță</string>
@@ -754,6 +754,7 @@
     <string name="storage_description_default">Implicit</string>
     <string name="storage_documents">Documente</string>
     <string name="storage_downloads">Descărcări</string>
+    <string name="storage_external_storage">Stocare externă</string>
     <string name="storage_internal_storage">Stocare internă</string>
     <string name="storage_movies">Filme</string>
     <string name="storage_music">Muzică</string>

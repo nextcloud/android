@@ -643,7 +643,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-sovellusehdotukset navigointipalkissa</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
-    <string name="prefs_data_storage_location">Tiedostojen tallennuskansio</string>
+    <string name="prefs_storage_path">Tiedostojen tallennuskansio</string>
     <string name="prefs_sycned_folders_summary">Hallinnoi kansioita automaattista latausta varten</string>
     <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
     <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
@@ -800,6 +800,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="storage_description_default">Oletus</string>
     <string name="storage_documents">Asiakirjat</string>
     <string name="storage_downloads">Lataukset</string>
+    <string name="storage_external_storage">Ulkoinen tallennustila</string>
     <string name="storage_internal_storage">Sisäinen tallennustila</string>
     <string name="storage_movies">Elokuvat</string>
     <string name="storage_music">Musiikki</string>

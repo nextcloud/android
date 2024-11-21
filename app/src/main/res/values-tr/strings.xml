@@ -687,7 +687,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Gezinme başlığında Nextcloud uygulama önerileri</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_sourcecode">Kaynak kodunu alın</string>
-    <string name="prefs_data_storage_location">Veri depolama klasörü</string>
+    <string name="prefs_storage_path">Veri depolama klasörü</string>
     <string name="prefs_sycned_folders_summary">Otomatik yükleme klasörleri yönetimi</string>
     <string name="prefs_synced_folders_local_path_title">Yerel klasör</string>
     <string name="prefs_synced_folders_remote_path_title">Uzak klasör</string>
@@ -853,6 +853,7 @@
     <string name="storage_description_default">Varsayılan</string>
     <string name="storage_documents">Belgeler</string>
     <string name="storage_downloads">İndirmeler</string>
+    <string name="storage_external_storage">Dış depolama</string>
     <string name="storage_internal_storage">İç depolama</string>
     <string name="storage_movies">Filmler</string>
     <string name="storage_music">Müzikler</string>

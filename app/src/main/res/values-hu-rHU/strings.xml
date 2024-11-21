@@ -612,7 +612,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud alkalmazásjavaslatok a navigációs fejlécben</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_sourcecode">Forráskód beszerzése</string>
-    <string name="prefs_data_storage_location">Adattároló mappa</string>
+    <string name="prefs_storage_path">Adattároló mappa</string>
     <string name="prefs_sycned_folders_summary">Mappák kezelése az automatikus feltöltéshez</string>
     <string name="prefs_synced_folders_local_path_title">Helyi mappa</string>
     <string name="prefs_synced_folders_remote_path_title">Távoli mappa</string>
@@ -765,6 +765,7 @@
     <string name="storage_description_default">Alapértelmezett</string>
     <string name="storage_documents">Dokumentumok</string>
     <string name="storage_downloads">Letöltések</string>
+    <string name="storage_external_storage">Külső tároló</string>
     <string name="storage_internal_storage">Belső tárhely</string>
     <string name="storage_movies">Filmek</string>
     <string name="storage_music">Zene</string>

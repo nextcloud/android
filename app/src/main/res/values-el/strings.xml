@@ -587,7 +587,7 @@
     <string name="prefs_setup_e2e">Ρύθμιση κρυπτογράφησης από άκρο σε άκρο</string>
     <string name="prefs_show_hidden_files">Εμφάνιση κρυφών αρχείων</string>
     <string name="prefs_sourcecode">Λήψη πηγαίου κώδικα</string>
-    <string name="prefs_data_storage_location">Φάκελος αποθήκευσης δεδομένων</string>
+    <string name="prefs_storage_path">Φάκελος αποθήκευσης δεδομένων</string>
     <string name="prefs_sycned_folders_summary">Διαχείριση φακέλων για αυτόματη μεταφόρτωση</string>
     <string name="prefs_synced_folders_local_path_title">Τοπικός φάκελος</string>
     <string name="prefs_synced_folders_remote_path_title">Απομακρυσμένος φάκελος</string>

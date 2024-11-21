@@ -588,7 +588,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Sugestões de aplicações Nextcloud no cabeçalho da navegação</string>
     <string name="prefs_show_hidden_files">Mostrar ficheiros ocultados</string>
     <string name="prefs_sourcecode">Obter código fonte</string>
-    <string name="prefs_data_storage_location">Pasta de armazenamento de dados</string>
+    <string name="prefs_storage_path">Pasta de armazenamento de dados</string>
     <string name="prefs_sycned_folders_summary">Gerir as pastas para o envio automático</string>
     <string name="prefs_synced_folders_local_path_title">Pasta Local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta Remota</string>
@@ -733,6 +733,7 @@
     <string name="storage_description_default">Por defeito</string>
     <string name="storage_documents">Documentos</string>
     <string name="storage_downloads">Transferências</string>
+    <string name="storage_external_storage">Armazenamento Externo</string>
     <string name="storage_internal_storage">Armazenamento interno</string>
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>

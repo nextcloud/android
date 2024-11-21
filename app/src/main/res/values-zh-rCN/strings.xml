@@ -687,7 +687,7 @@
     <string name="prefs_show_ecosystem_apps_summary">导航栏中的 Nextcloud 应用推荐</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_sourcecode">获取源代码</string>
-    <string name="prefs_data_storage_location">数据存储文件夹</string>
+    <string name="prefs_storage_path">数据存储文件夹</string>
     <string name="prefs_sycned_folders_summary">管理自动上传文件夹</string>
     <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
     <string name="prefs_synced_folders_remote_path_title">远端文件夹</string>
@@ -853,6 +853,7 @@
     <string name="storage_description_default">默认</string>
     <string name="storage_documents">文档</string>
     <string name="storage_downloads">下载</string>
+    <string name="storage_external_storage">外部存储</string>
     <string name="storage_internal_storage">内部存储</string>
     <string name="storage_movies">影片</string>
     <string name="storage_music">音乐</string>

@@ -546,6 +546,7 @@
     <string name="storage_camera">กล้อง</string>
     <string name="storage_description_default">ค่าเริ่มต้น</string>
     <string name="storage_downloads">ดาวน์โหลด</string>
+    <string name="storage_external_storage">ที่จัดเก็บภายนอก</string>
     <string name="sub_folder_rule_day">ปี/เดือน/วัน</string>
     <string name="sub_folder_rule_month">ปี/เดือน</string>
     <string name="sub_folder_rule_year">ปี</string>

@@ -484,6 +484,7 @@
     <string name="status_message">Statusa ziņojums</string>
     <string name="storage_description_default">Noklusējuma</string>
     <string name="storage_downloads">Lejupielādes</string>
+    <string name="storage_external_storage">Ārējā krātuve</string>
     <string name="storage_movies">Filmas</string>
     <string name="storage_music">Mūzika</string>
     <string name="storage_pictures">Attēli</string>

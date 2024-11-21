@@ -651,7 +651,7 @@
     <string name="prefs_show_ecosystem_apps">アップスイッチャーを表示</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_sourcecode">ソースコードを入手</string>
-    <string name="prefs_data_storage_location">データ保存フォルダー</string>
+    <string name="prefs_storage_path">データ保存フォルダー</string>
     <string name="prefs_sycned_folders_summary">自動アップロードするフォルダーを管理する</string>
     <string name="prefs_synced_folders_local_path_title">ローカルフォルダー</string>
     <string name="prefs_synced_folders_remote_path_title">リモートフォルダー</string>
@@ -797,6 +797,7 @@
     <string name="storage_description_default">デフォルト</string>
     <string name="storage_documents">ドキュメント</string>
     <string name="storage_downloads">ダウンロード</string>
+    <string name="storage_external_storage">外部ストレージ</string>
     <string name="storage_internal_storage">内部ストレージ</string>
     <string name="storage_movies">動画</string>
     <string name="storage_music">音楽</string>
