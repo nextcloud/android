@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.RestrictionsManager;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -71,6 +70,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -112,7 +112,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
-import com.owncloud.android.utils.appConfig.AppConfigManager;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -320,11 +319,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         String webloginUrl = null;
 
         if (MainApp.isClientBrandedPlus()) {
-            RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-            AppConfigManager appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
-
-            if (!TextUtils.isEmpty(appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus()))) {
-                webloginUrl = appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus()) + WEB_LOGIN;
+            String baseUrl = MDMConfig.INSTANCE.getBaseUrl(this);
+            if (!TextUtils.isEmpty(baseUrl)) {
+                webloginUrl = baseUrl + WEB_LOGIN;
             }
         }
 
@@ -812,9 +809,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         passCodeManager.onActivityResumed(this);
 
         Uri data = intent.getData();
-
         if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
-            if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+            if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                 accountManager.getAccounts().length == 1) {
                 Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
                 finish();
@@ -1535,7 +1531,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     return;
                 }
 
-                if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+                if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                     accountManager.getAccounts().length == 1) {
                     Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
                 } else {

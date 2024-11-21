@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.widget.Toast;
 
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.accounts.AccountTypeUtils;
@@ -70,7 +71,7 @@ public class AccountAuthenticator extends AbstractAccountAuthenticator {
 
         final Bundle bundle = new Bundle();
 
-        if (mContext.getResources().getBoolean(R.bool.multiaccount_support) || accounts.length < 1) {
+        if (accounts.length < 1 || MDMConfig.INSTANCE.multiAccountSupport(mContext)) {
             try {
                 validateAccountType(accountType);
             } catch (AuthenticatorException e) {

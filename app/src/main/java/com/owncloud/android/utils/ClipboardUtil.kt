@@ -12,6 +12,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.text.TextUtils
 import android.widget.Toast
+import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.lib.common.utils.Log_OC
 
@@ -25,6 +26,10 @@ object ClipboardUtil {
     @JvmOverloads
     @Suppress("TooGenericExceptionCaught")
     fun copyToClipboard(activity: Activity, text: String?, showToast: Boolean = true) {
+        if (!MDMConfig.clipBoardSupport(activity)) {
+            return
+        }
+
         if (!TextUtils.isEmpty(text)) {
             try {
                 val clip = ClipData.newPlainText(

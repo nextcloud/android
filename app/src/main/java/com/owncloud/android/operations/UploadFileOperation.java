@@ -1342,7 +1342,7 @@ public class UploadFileOperation extends SyncOperation {
      * @param fileNames  list of decrypted file names
      * @return new remote path
      */
-    private String getNewAvailableRemotePath(OwnCloudClient client,
+    public static String getNewAvailableRemotePath(OwnCloudClient client,
                                              String remotePath,
                                              List<String> fileNames,
                                              boolean encrypted) {
@@ -1368,7 +1368,7 @@ public class UploadFileOperation extends SyncOperation {
         return newPath;
     }
 
-    private boolean existsFile(OwnCloudClient client,
+    private static boolean existsFile(OwnCloudClient client,
                                String remotePath,
                                List<String> fileNames,
                                boolean encrypted) {

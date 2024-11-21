@@ -35,6 +35,7 @@
     <string name="advanced_settings">進階設定</string>
     <string name="allow_resharing">允許轉貼分享</string>
     <string name="app_config_base_url_title">基礎 URL</string>
+    <string name="app_config_proxy_host_title">代理伺服器主機名稱</string>
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小部件</string>
     <string name="appbar_search_in">%s內搜尋</string>
@@ -55,6 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">任務已刪除</string>
     <string name="assistant_screen_task_list_error_state_message">無法擷取任務清單，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">刪除任務</string>
+    <string name="assistant_screen_task_output_empty_text">任務輸出尚未就緒。</string>
     <string name="assistant_screen_task_types_error_state_message">無法擷取任務類型，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_top_bar_title">助手</string>
     <string name="assistant_screen_unknown_task_status_text">不詳</string>
@@ -687,7 +689,7 @@
     <string name="prefs_show_ecosystem_apps_summary">導覽列中的 Nextcloud 應用程式建議</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_sourcecode">取得原始碼</string>
-    <string name="prefs_storage_path">資料儲存資料夾</string>
+    <string name="prefs_data_storage_location">資料儲存資料夾</string>
     <string name="prefs_sycned_folders_summary">管理資料夾以便自動上傳</string>
     <string name="prefs_synced_folders_local_path_title">近端資料夾</string>
     <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>
@@ -760,6 +762,7 @@
     <string name="screenshot_06_davdroid_subline">跟 DAVx5 同步</string>
     <string name="search_error">獲取搜索結果時出錯</string>
     <string name="secure_share_not_set_up">尚未為此用戶設定安全分享功能。</string>
+    <string name="secure_share_search">安全分享 …</string>
     <string name="select_all">全選</string>
     <string name="select_media_folder">設置媒體資料夾</string>
     <string name="select_one_template">請選擇一個模板</string>
@@ -803,6 +806,7 @@
     <string name="share_permissions">分享權限</string>
     <string name="share_remote_clarification">%1$s（遠端）</string>
     <string name="share_room_clarification">%1$s﹙對話﹚</string>
+    <string name="share_search">名稱、聯合雲端 ID 或電郵地址 …</string>
     <string name="share_send_new_email">傳送新電子郵件</string>
     <string name="share_send_note">給接收者的訊息</string>
     <string name="share_settings">設定</string>

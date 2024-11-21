@@ -689,7 +689,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Suxestións da aplicación Nextcloud no título de navegación</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
     <string name="prefs_sourcecode">Obter o código fonte</string>
-    <string name="prefs_storage_path">Cartafol de almacenamento de datos</string>
+    <string name="prefs_data_storage_location">Cartafol de almacenamento de datos</string>
     <string name="prefs_sycned_folders_summary">Xestionar os cartafoles para a envío automático</string>
     <string name="prefs_synced_folders_local_path_title">Cartafol local</string>
     <string name="prefs_synced_folders_remote_path_title">Cartafol remoto</string>

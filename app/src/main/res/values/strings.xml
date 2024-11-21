@@ -26,6 +26,12 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="unexpected_error_occurred">Unexpected error occurred</string>
+    <string name="app_config_disable_multiaccount_title">Disable Multi Account</string>
+    <string name="app_config_disable_sharing_title">Disable Sharing</string>
+    <string name="app_config_disable_clipboard_title">Disable Clipboard</string>
+    <string name="app_config_disable_more_external_site_title">Disable External Sites</string>
+    <string name="app_config_disable_intro_title">Disable Intro</string>
+    <string name="app_config_disable_log_title">Disable Log</string>
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_host_title">Proxy Hostname</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
@@ -510,6 +516,8 @@
     <string name="file_migration_failed_dir_already_exists">Nextcloud folder already exists</string>
     <string name="file_migration_failed_while_coping">Failed during migration</string>
     <string name="file_migration_failed_while_updating_index">Failed to update index</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
+    <string name="file_migration_allow_media_indexing">Allow access from other apps</string>
 
     <string name="file_migration_directory_already_exists">Data folder already exists. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
@@ -578,7 +586,8 @@
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
-    <string name="prefs_storage_path">Data storage folder</string>
+    <string name="prefs_data_storage_location">Data storage location</string>
+    <string name="prefs_data_storage_location_summary">Manage data storage location</string>
 
     <string name="pref_instant_name_collision_policy_dialogTitle">What to do if the file already exists?</string>
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
@@ -808,7 +817,7 @@
     <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="account_icon">Account icon</string>
-
+    <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
     <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_wrong_password">Error while decrypting. Wrong password?</string>
     <string name="end_to_end_encryption_decrypting">Decrypting…</string>
@@ -957,6 +966,7 @@
     <string name="new_notification">New Notification</string>
     <string name="storage_choose_location">Choose storage location</string>
     <string name="storage_internal_storage">Internal storage</string>
+    <string name="storage_external_storage">External storage</string>
     <string name="storage_camera">Camera</string>
     <string name="storage_pictures">Pictures</string>
     <string name="storage_movies">Movies</string>
@@ -1263,4 +1273,6 @@
     <string name="two_way_sync_activity_empty_list_desc">To set up a two way sync folder, please enable it in the details tab of the folder in question.</string>
     <string name="two_way_sync_activity_title">Internal two way sync</string>
     <string name="two_way_sync_activity_disable_all_button_title">Disable for all folders</string>
+
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
 </resources>

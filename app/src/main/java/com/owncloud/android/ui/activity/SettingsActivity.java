@@ -50,15 +50,13 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
-import com.owncloud.android.BuildConfig;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.AuthenticatorActivity;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
 import com.owncloud.android.datamodel.ExternalLinksProvider;
-import com.owncloud.android.datastorage.DataStorageProvider;
-import com.owncloud.android.datastorage.StoragePoint;
 import com.owncloud.android.lib.common.ExternalLink;
 import com.owncloud.android.lib.common.ExternalLinkType;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -115,6 +113,7 @@ public class SettingsActivity extends PreferenceActivity
     private static final int ACTION_REQUEST_CODE_DAVDROID_SETUP = 10;
     private static final int ACTION_SHOW_MNEMONIC = 11;
     private static final int ACTION_E2E = 12;
+    private static final int ACTION_SET_STORAGE_LOCATION = 13;
     private static final int TRUE_VALUE = 1;
 
     private static final String DAV_PATH = "/remote.php/dav";
@@ -128,7 +127,7 @@ public class SettingsActivity extends PreferenceActivity
     private ThemeableSwitchPreference showEcosystemApps;
     private AppCompatDelegate delegate;
 
-    private ListPreference prefStoragePath;
+    private  Preference prefDataLoc;
     private String storagePath;
     private String pendingLock;
 
@@ -379,11 +378,9 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void setupLoggingPreference(PreferenceCategory preferenceCategoryMore) {
-
-        boolean loggerEnabled = getResources().getBoolean(R.bool.logger_enabled) || BuildConfig.DEBUG;
         Preference pLogger = findPreference("logger");
         if (pLogger != null) {
-            if (loggerEnabled) {
+            if (MDMConfig.INSTANCE.isLogEnabled(this)) {
                 pLogger.setOnPreferenceClickListener(preference -> {
                     Intent loggerIntent = new Intent(getApplicationContext(), LogsActivity.class);
                     startActivity(loggerIntent);
@@ -802,33 +799,15 @@ public class SettingsActivity extends PreferenceActivity
         final PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
         viewThemeUtils.files.themePreferenceCategory(preferenceCategoryGeneral);
 
-        prefStoragePath = (ListPreference) findPreference(AppPreferencesImpl.STORAGE_PATH);
-        if (prefStoragePath != null) {
-            StoragePoint[] storageOptions = DataStorageProvider.getInstance().getAvailableStoragePoints();
-            String[] entries = new String[storageOptions.length];
-            String[] values = new String[storageOptions.length];
-            for (int i = 0; i < storageOptions.length; ++i) {
-                entries[i] = storageOptions[i].getDescription();
-                values[i] = storageOptions[i].getPath();
-            }
-            prefStoragePath.setEntries(entries);
-            prefStoragePath.setEntryValues(values);
-
-            prefStoragePath.setOnPreferenceChangeListener((preference, newValue) -> {
-                String newPath = (String) newValue;
-
-                if (storagePath.equals(newPath)) {
-                    return true;
-                }
-                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath, viewThemeUtils);
-                storageMigration.setStorageMigrationProgressListener(this);
-                storageMigration.migrate();
-
-                return false;
+        prefDataLoc = findPreference(AppPreferencesImpl.DATA_STORAGE_LOCATION);
+        if (prefDataLoc != null) {
+            prefDataLoc.setOnPreferenceClickListener(p -> {
+                Intent intent = new Intent(MainApp.getAppContext(), ChooseStorageLocationActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                startActivityForResult(intent, ACTION_SET_STORAGE_LOCATION);
+                return true;
             });
         }
-
-        loadStoragePath();
 
         ListPreference themePref = (ListPreference) findPreference("darkMode");
 
@@ -996,6 +975,14 @@ public class SettingsActivity extends PreferenceActivity
             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(i);
+        } else if (requestCode == ACTION_SET_STORAGE_LOCATION && data != null) {
+            String newPath = data.getStringExtra(ChooseStorageLocationActivity.KEY_RESULT_STORAGE_LOCATION);
+
+            if (!storagePath.equals(newPath)) {
+                StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath, viewThemeUtils);
+                storageMigration.setStorageMigrationProgressListener(this);
+                storageMigration.migrate();
+            }
         }
     }
 
@@ -1101,7 +1088,7 @@ public class SettingsActivity extends PreferenceActivity
     }
 
     private void loadExternalSettingLinks(PreferenceCategory preferenceCategory) {
-        if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+        if (MDMConfig.INSTANCE.externalSiteSupport(this)) {
             ExternalLinksProvider externalLinksProvider = new ExternalLinksProvider(getContentResolver());
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.SETTINGS)) {
@@ -1139,21 +1126,6 @@ public class SettingsActivity extends PreferenceActivity
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(AppPreferencesImpl.STORAGE_PATH, storagePath);
         editor.apply();
-        String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(storagePath);
-        prefStoragePath.setSummary(storageDescription);
-        prefStoragePath.setValue(newStoragePath);
-    }
-
-    /**
-     * Load storage path set on preferences
-     */
-    private void loadStoragePath() {
-        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        // Load storage path from shared preferences. Use private internal storage by default.
-        storagePath = appPrefs.getString(AppPreferencesImpl.STORAGE_PATH,
-                                         getApplicationContext().getFilesDir().getAbsolutePath());
-        String storageDescription = DataStorageProvider.getInstance().getStorageDescriptionByPath(storagePath);
-        prefStoragePath.setSummary(storageDescription);
     }
 
     @Override

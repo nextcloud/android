@@ -90,17 +90,33 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
             fileDataStorageManager.deleteOfflineOperation(it)
         }
 
-        if (files.isNotEmpty()) {
-            val cg = activity as ComponentsGetter?
-            cg?.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
-        }
+        if (requireActivity() is FileDisplayActivity) {
+            val activity = requireActivity() as FileDisplayActivity
+            activity.connectivityService.isNetworkAndServerAvailable { result ->
+                if (result) {
+                    if (files.isNotEmpty()) {
+                        val cg = activity as ComponentsGetter?
+                        cg?.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
+                    }
 
-        if (offlineFiles.isNotEmpty()) {
-            val activity = requireActivity() as? FileDisplayActivity
-            activity?.refreshCurrentDirectory()
-        }
+                    if (offlineFiles.isNotEmpty()) {
+                        activity.refreshCurrentDirectory()
+                    }
+                } else {
+                    files.forEach { file ->
+                        fileDataStorageManager.addRemoveFileOfflineOperation(
+                            file.decryptedRemotePath,
+                            file.fileName,
+                            file.parentId
+                        )
+                    }
 
-        finishActionMode()
+                    activity.refreshCurrentDirectory()
+                }
+
+                finishActionMode()
+            }
+        }
     }
 
     override fun onNeutral(callerTag: String?) {

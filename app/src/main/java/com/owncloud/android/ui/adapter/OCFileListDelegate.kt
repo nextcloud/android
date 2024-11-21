@@ -22,6 +22,7 @@ import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.createRoundedOutline
+import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -368,6 +369,12 @@ class OCFileListDelegate(
 
     private fun showShareIcon(gridViewHolder: ListViewHolder, file: OCFile) {
         val sharedIconView = gridViewHolder.shared
+
+        if (!MDMConfig.sharingSupport(context)) {
+            sharedIconView.visibility = View.GONE
+            return
+        }
+
         if (gridViewHolder is OCFileListItemViewHolder || file.unreadCommentsCount == 0) {
             sharedIconView.visibility = View.VISIBLE
             if (file.isSharedWithSharee || file.isSharedWithMe) {

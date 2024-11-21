@@ -591,7 +591,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Tillögur Nextcloud-forrita í flakkfyrirsögn</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_sourcecode">Náðu í grunnkóðann</string>
-    <string name="prefs_storage_path">Mappa fyrir geymslu gagna</string>
+    <string name="prefs_data_storage_location">Mappa fyrir geymslu gagna</string>
     <string name="prefs_sycned_folders_summary">Sýsla með möppur vegna sjálfvirkra innsendinga</string>
     <string name="prefs_synced_folders_local_path_title">Staðvær mappa</string>
     <string name="prefs_synced_folders_remote_path_title">Fjartengd mappa</string>

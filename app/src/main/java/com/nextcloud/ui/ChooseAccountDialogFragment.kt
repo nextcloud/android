@@ -25,6 +25,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.databinding.DialogChooseAccountBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -120,8 +121,7 @@ class ChooseAccountDialogFragment :
                 viewThemeUtils
             )
 
-            // hide "add account" when no multi account
-            if (!resources.getBoolean(R.bool.multiaccount_support)) {
+            if (!MDMConfig.multiAccountSupport(requireContext())) {
                 binding.addAccount.visibility = View.GONE
             }
 

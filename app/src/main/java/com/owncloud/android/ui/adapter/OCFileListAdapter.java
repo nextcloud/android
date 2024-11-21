@@ -36,9 +36,10 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.OCFileFilterType;
+import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.GridImageBinding;
@@ -458,6 +459,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             updateLivePhotoIndicators(gridViewHolder, file);
+
+            if (!MDMConfig.INSTANCE.sharingSupport(activity)) {
+                gridViewHolder.getShared().setVisibility(View.GONE);
+            }
         }
     }
 
@@ -607,28 +612,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 localSize = localFile.length();
             }
 
-            holder.getFileSize().setVisibility(View.VISIBLE);
-
-
-            if (file.isOfflineOperation()) {
-                holder.getFileSize().setText(MainApp.string(R.string.oc_file_list_adapter_offline_operation_description_text));
-            } else {
-                holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(localSize));
-            }
-
-            holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
+            prepareFileSize(holder, file, localSize);
         } else {
             final long fileLength = file.getFileLength();
             if (fileLength >= 0) {
-                holder.getFileSize().setVisibility(View.VISIBLE);
-
-                if (file.isOfflineOperation()) {
-                    holder.getFileSize().setText(MainApp.string(R.string.oc_file_list_adapter_offline_operation_description_text));
-                } else {
-                    holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(fileLength));
-                }
-
-                holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
+                prepareFileSize(holder, file, fileLength);
             } else {
                 holder.getFileSize().setVisibility(View.GONE);
                 holder.getFileSizeSeparator().setVisibility(View.GONE);
@@ -664,6 +652,28 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         applyVisualsForOfflineOperations(holder, file);
+    }
+
+    private void prepareFileSize(ListItemViewHolder holder, OCFile file, long size) {
+        holder.getFileSize().setVisibility(View.VISIBLE);
+        ViewExtensionsKt.setVisibleIf(holder.getFileSizeSeparator(), !file.isOfflineOperation());
+        String fileSizeText = getFileSizeText(file, size);
+        holder.getFileSize().setText(fileSizeText);
+    }
+
+    private String getFileSizeText(OCFile file, long size) {
+        OfflineOperationEntity entity = mStorageManager.getOfflineEntityFromOCFile(file);
+        boolean isRemoveOperation = entity != null && entity.getType() instanceof OfflineOperationType.RemoveFile;
+
+        if (isRemoveOperation) {
+            return activity.getString(R.string.oc_file_list_adapter_offline_operation_remove_description_text);
+        }
+
+        if (file.isOfflineOperation()) {
+            return activity.getString(R.string.oc_file_list_adapter_offline_operation_description_text);
+        }
+
+        return DisplayUtils.bytesToHumanReadable(size);
     }
 
     private void applyVisualsForOfflineOperations(ListItemViewHolder holder, OCFile file) {

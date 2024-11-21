@@ -314,6 +314,11 @@
             android:exported="false"
             android:launchMode="singleInstance" />
         <activity
+            android:name=".ui.activity.ChooseStorageLocationActivity"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            android:exported="false"
+            android:theme="@style/Theme.NoBackground" />
+        <activity
             android:name=".ui.activity.ReceiveExternalFilesActivity"
             android:excludeFromRecents="true"
             android:exported="true"

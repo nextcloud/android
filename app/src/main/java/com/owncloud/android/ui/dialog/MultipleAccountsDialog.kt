@@ -65,7 +65,7 @@ class MultipleAccountsDialog : DialogFragment(), Injectable, UserListAdapter.Cli
     private val accountListItems: List<UserListItem>
         /**
          * creates the account list items list including the add-account action in case
-         * multiaccount_support is enabled.
+         * multi account support is enabled.
          *
          * @return list of account list items
          */

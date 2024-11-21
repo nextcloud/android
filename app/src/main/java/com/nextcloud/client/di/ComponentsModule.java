@@ -27,6 +27,7 @@ import com.nextcloud.client.widget.DashboardWidgetProvider;
 import com.nextcloud.client.widget.DashboardWidgetService;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
+import com.nextcloud.ui.ChooseStorageLocationDialogFragment;
 import com.nextcloud.ui.ImageDetailFragment;
 import com.nextcloud.ui.SetStatusDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
@@ -89,13 +90,13 @@ import com.owncloud.android.ui.dialog.RenameFileDialogFragment;
 import com.owncloud.android.ui.dialog.RenamePublicShareDialogFragment;
 import com.owncloud.android.ui.dialog.SendFilesDialog;
 import com.owncloud.android.ui.dialog.SendShareDialog;
-import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.dialog.SharePasswordDialogFragment;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
+import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FeatureFragment;
 import com.owncloud.android.ui.fragment.FileDetailActivitiesFragment;
@@ -415,6 +416,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract SetupEncryptionDialogFragment setupEncryptionDialogFragment();
+
+    @ContributesAndroidInjector
+    abstract ChooseStorageLocationDialogFragment chooseStorageLocationDialogFragment();
 
     @ContributesAndroidInjector
     abstract SharePasswordDialogFragment sharePasswordDialogFragment();

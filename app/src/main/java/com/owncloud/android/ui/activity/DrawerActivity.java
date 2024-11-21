@@ -59,6 +59,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.authentication.PassCodeManager;
@@ -602,10 +603,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     public void openAddAccount() {
-        boolean isProviderOrOwnInstallationVisible = getResources()
-            .getBoolean(R.bool.show_provider_or_own_installation);
-
-        if (isProviderOrOwnInstallationVisible) {
+        if (MDMConfig.INSTANCE.showIntro(this)) {
             Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
             firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
             startActivity(firstRunIntent);
@@ -824,7 +822,7 @@ public abstract class DrawerActivity extends ToolbarActivity
 
     private void updateQuotaLink() {
         if (mQuotaTextLink != null) {
-            if (getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+            if (MDMConfig.INSTANCE.externalSiteSupport(this)) {
                 List<ExternalLink> quotas = externalLinksProvider.getExternalLink(ExternalLinkType.QUOTA);
 
                 float density = getResources().getDisplayMetrics().density;
@@ -973,7 +971,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void updateExternalLinksInDrawer() {
-        if (mNavigationView != null && getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+        if (mNavigationView != null && MDMConfig.INSTANCE.externalSiteSupport(this)) {
             mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
 
             int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
@@ -1222,7 +1220,7 @@ public abstract class DrawerActivity extends ToolbarActivity
      * Retrieves external links via api from 'external' app
      */
     public void fetchExternalLinks(final boolean force) {
-        if (!getBaseContext().getResources().getBoolean(R.bool.show_external_links)) {
+        if (!MDMConfig.INSTANCE.externalSiteSupport(this)) {
             return;
         }
 
