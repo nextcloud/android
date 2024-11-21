@@ -11,6 +11,7 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -67,8 +68,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        final var style = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT);
-        EdgeToEdge.enable(this, style, style);
+        makeStatusBarTransparent();
+        enableEdgeToEdge();
         super.onCreate(savedInstanceState);
         sessionMixin = new SessionMixin(this, accountManager);
         mixinRegistry.add(sessionMixin);
@@ -76,6 +77,16 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         if (enableAccountHandling) {
             mixinRegistry.onCreate(savedInstanceState);
         }
+    }
+
+    private void makeStatusBarTransparent() {
+        final var flag = WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
+        getWindow().setFlags(flag, flag);
+    }
+
+    private void enableEdgeToEdge() {
+        final var style = SystemBarStyle.light(Color.TRANSPARENT, Color.TRANSPARENT);
+        EdgeToEdge.enable(this, style, style);
     }
 
     @Override
