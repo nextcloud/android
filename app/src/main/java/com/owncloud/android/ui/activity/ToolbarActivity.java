@@ -31,6 +31,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -105,6 +106,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         viewThemeUtils.material.colorToolbarOverflowIcon(mToolbar);
         viewThemeUtils.platform.themeStatusBar(this);
         viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
+        adjustTopMarginForSearchToolbar();
     }
 
     public void setupToolbarShowOnlyMenuButtonAndTitle(String title, View.OnClickListener toggleDrawer) {
@@ -160,6 +162,25 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         if (isHomeSearchToolbarShow) {
             showHomeSearchToolbar(isRoot(chosenFile));
         }
+    }
+
+    /**
+     * Adjusts the top margin of the action bar dynamically based on the visibility
+     * of the home search toolbar. Adds extra top margin when the search toolbar is displayed
+     * to avoid overlapping with the status bar text, and resets it when the toolbar is hidden.
+     */
+    public void adjustTopMarginForSearchToolbar() {
+        if (mAppBar == null) {
+            return;
+        }
+
+        float topMargin = 0f;
+
+        if (isHomeSearchToolbarShow) {
+            topMargin = getResources().getDimension(R.dimen.standard_double_margin);
+        }
+
+        ViewExtensionsKt.setMargins(mAppBar, 0, (int) topMargin, 0, 0);
     }
 
     private void showHomeSearchToolbar(String title, boolean isRoot) {
