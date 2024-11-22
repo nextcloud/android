@@ -32,6 +32,7 @@
     <dimen name="standard_quarter_padding">4dp</dimen>
     <dimen name="standard_eight_padding">2dp</dimen>
     <dimen name="standard_margin">16dp</dimen>
+    <dimen name="settings_activity_padding">24dp</dimen>
     <dimen name="standard_double_margin">32dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
