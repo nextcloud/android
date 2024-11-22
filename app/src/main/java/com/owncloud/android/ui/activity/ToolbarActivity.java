@@ -36,6 +36,7 @@ import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -171,23 +172,29 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
      * to avoid overlapping with the status bar text, and resets it when the toolbar is hidden.
      */
     public void adjustTopMarginForSearchToolbar() {
-        if (mAppBar == null) {
+        View targetView = mAppBar;
+        if (targetView == null) {
+            targetView = mToolbar;
+        }
+
+        if (targetView == null) {
             return;
         }
 
-        int topMargin = 20;
+        float topMarginInDp = getResources().getDimension(R.dimen.standard_half_padding);
 
         if (isHomeSearchToolbarShow) {
-            topMargin = (int) getResources().getDimension(R.dimen.standard_double_margin);
-        } else if (mAppBar.getParent() != null) {
-            ViewParent parentView = mAppBar.getParent();
+            topMarginInDp = getResources().getDimension(R.dimen.standard_margin);
+        } else if (targetView.getParent() != null) {
+            ViewParent parentView = targetView.getParent();
 
             if (parentView instanceof View view) {
                 view.setBackgroundColor(ContextCompat.getColor(this, R.color.action_bar));
             }
         }
 
-        ViewExtensionsKt.setMargins(mAppBar, 0, topMargin, 0, 0);
+        int topMarginInPx = DisplayUtils.convertDpToPixel(topMarginInDp, this);
+        ViewExtensionsKt.setMargins(targetView, 0, topMarginInPx, 0, 0);
     }
 
     private void showHomeSearchToolbar(String title, boolean isRoot) {

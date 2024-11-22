@@ -83,6 +83,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         if (enableAccountHandling) {
             mixinRegistry.onCreate(savedInstanceState);
         }
+
     }
 
     private void addBottomMarginIfNavBarActive() {
