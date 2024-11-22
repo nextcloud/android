@@ -11,6 +11,8 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.nextcloud.client.account.User;
@@ -33,6 +35,9 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
@@ -68,6 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        addBottomMarginIfNavBarActive();
         makeStatusBarTransparent();
         enableEdgeToEdge();
         super.onCreate(savedInstanceState);
@@ -77,6 +83,21 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         if (enableAccountHandling) {
             mixinRegistry.onCreate(savedInstanceState);
         }
+    }
+
+    private void addBottomMarginIfNavBarActive() {
+        ViewCompat.setOnApplyWindowInsetsListener(getWindow().getDecorView(), (view, windowInsetsCompat) -> {
+            View contentView = findViewById(android.R.id.content);
+
+            if (contentView != null && contentView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams params) {
+                int typeMask = WindowInsetsCompat.Type.navigationBars();
+                Insets insets = windowInsetsCompat.getInsets(typeMask);
+                params.bottomMargin = insets.bottom;
+                contentView.setLayoutParams(params);
+            }
+
+            return windowInsetsCompat;
+        });
     }
 
     private void makeStatusBarTransparent() {

@@ -37,7 +37,7 @@ fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: Inte
  *
  * @return The height of the status bar in pixel.
  *
- * @throws Resources.NotFoundException If the resource identifier for `status_bar_height` is not found.
+ * @throws Resources NotFoundException If the resource identifier for `status_bar_height` is not found.
  *
  */
 @SuppressLint("DiscouragedApi", "InternalInsetResource")
