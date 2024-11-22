@@ -18,6 +18,8 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.view.View;
 import android.view.ViewParent;
 import android.widget.FrameLayout;
@@ -189,12 +191,33 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
             ViewParent parentView = targetView.getParent();
 
             if (parentView instanceof View view) {
-                view.setBackgroundColor(ContextCompat.getColor(this, R.color.action_bar));
+                applyColorStripBetweenStatusBarAndActionBar(view);
             }
         }
 
         int topMarginInPx = DisplayUtils.convertDpToPixel(topMarginInDp, this);
         ViewExtensionsKt.setMargins(targetView, 0, topMarginInPx, 0, 0);
+    }
+
+    private static LayerDrawable topStripLayer = null;
+
+    private void applyColorStripBetweenStatusBarAndActionBar(View view) {
+        if (topStripLayer == null) {
+            // Create a layer drawable for partial background
+            GradientDrawable topStrip = new GradientDrawable();
+            topStrip.setColor(ContextCompat.getColor(this, R.color.action_bar));
+
+            // Convert topMarginInDp to pixels for the height of colored strip
+            int stripHeight = DisplayUtils.convertDpToPixel(getResources().getDimension(R.dimen.standard_half_padding), this);
+
+            // Create a LayerDrawable to position the colored strip
+            LayerDrawable layer = new LayerDrawable(new Drawable[]{topStrip});
+            layer.setLayerHeight(0, stripHeight);
+
+            topStripLayer = layer;
+        }
+
+        view.setBackground(topStripLayer);
     }
 
     private void showHomeSearchToolbar(String title, boolean isRoot) {
