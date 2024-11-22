@@ -240,6 +240,7 @@ class PreviewMediaActivity :
         binding.imagePreview.visibility = if (isFileVideo) View.GONE else View.VISIBLE
 
         if (isFileVideo) {
+            // FIXME This line makes the status bar black on API level 35
             binding.root.setBackgroundColor(resources.getColor(R.color.black, null))
         }
     }
