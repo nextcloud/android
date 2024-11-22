@@ -21,6 +21,7 @@ import com.nextcloud.client.mixins.MixinRegistry;
 import com.nextcloud.client.mixins.SessionMixin;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.WindowExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -35,9 +36,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
@@ -53,14 +52,14 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     private boolean paused;
     protected boolean enableAccountHandling = true;
 
-    private MixinRegistry mixinRegistry = new MixinRegistry();
+    private final MixinRegistry mixinRegistry = new MixinRegistry();
     private SessionMixin sessionMixin;
 
     @Inject UserAccountManager accountManager;
     @Inject AppPreferences preferences;
     @Inject FileDataStorageManager fileDataStorageManager;
 
-    private AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
+    private final AppPreferences.Listener onPreferencesChanged = new AppPreferences.Listener() {
         @Override
         public void onDarkThemeModeChanged(DarkMode mode) {
             onThemeSettingsModeChanged();
@@ -83,7 +82,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         if (enableAccountHandling) {
             mixinRegistry.onCreate(savedInstanceState);
         }
-
     }
 
     private void addBottomMarginIfNavBarActive() {
@@ -91,9 +89,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
             View contentView = findViewById(android.R.id.content);
 
             if (contentView != null && contentView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams params) {
-                int typeMask = WindowInsetsCompat.Type.navigationBars();
-                Insets insets = windowInsetsCompat.getInsets(typeMask);
-                params.bottomMargin = insets.bottom;
+                params.bottomMargin = ActivityExtensionsKt.navBarHeight(this, windowInsetsCompat);
                 contentView.setLayoutParams(params);
             }
 
