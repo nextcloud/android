@@ -49,6 +49,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -70,6 +71,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private TextView mInfoBoxMessage;
     protected AppCompatSpinner mToolbarSpinner;
     private boolean isHomeSearchToolbarShow = false;
+    private ConstraintLayout sortListButtonGroup;
 
     @Inject public ThemeColorUtils themeColorUtils;
     @Inject public ThemeUtils themeUtils;
@@ -90,6 +92,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
         mNotificationButton = findViewById(R.id.notification_button);
+        sortListButtonGroup = findViewById(R.id.sort_list_button_group);
 
         if (showSortListButtonGroup) {
             findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
@@ -111,6 +114,18 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         viewThemeUtils.platform.themeStatusBar(this);
         viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
         adjustTopMarginForSearchToolbar();
+        adjustPaddingForSortListButtonGroup();
+    }
+
+    private void adjustPaddingForSortListButtonGroup() {
+        float topPaddingInDp = getResources().getDimension(R.dimen.standard_half_padding);
+
+        if (isHomeSearchToolbarShow) {
+            topPaddingInDp = getResources().getDimension(R.dimen.standard_eight_padding);
+        }
+
+        int topPaddingInPx = DisplayUtils.convertDpToPixel(topPaddingInDp, this);
+        sortListButtonGroup.setPadding(0, topPaddingInPx,0,0);
     }
 
     public void setupToolbarShowOnlyMenuButtonAndTitle(String title, View.OnClickListener toggleDrawer) {
