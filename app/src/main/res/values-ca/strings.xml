@@ -745,6 +745,7 @@
     <string name="storage_description_default">Per defecte</string>
     <string name="storage_documents">Documents</string>
     <string name="storage_downloads">Descàrregues</string>
+    <string name="storage_external_storage">Emmagatzematge extern</string>
     <string name="storage_internal_storage">Emmagatzematge intern</string>
     <string name="storage_movies">Peŀlícules</string>
     <string name="storage_music">Música</string>

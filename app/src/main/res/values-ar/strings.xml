@@ -35,6 +35,12 @@
     <string name="advanced_settings">الإعدادات المتقدمة</string>
     <string name="allow_resharing">السماح بإعادة المشاركة </string>
     <string name="app_config_base_url_title">عنوان URL الأساسي</string>
+    <string name="app_config_disable_clipboard_title">تعطيل الحافظة</string>
+    <string name="app_config_disable_intro_title">تعطيل المقدمة</string>
+    <string name="app_config_disable_log_title">تعطيل الشِّعار</string>
+    <string name="app_config_disable_more_external_site_title">تعطيل المواقع الخارجية</string>
+    <string name="app_config_disable_multiaccount_title">تعطيل تعدد الحسابات</string>
+    <string name="app_config_disable_sharing_title">تعطيل المشاركة</string>
     <string name="app_config_proxy_host_title">اسم المضيف الوكيل</string>
     <string name="app_config_proxy_port_title">منفذ البروكسي</string>
     <string name="app_widget_description">عرض أداة واحدة من لوحة القيادة</string>
@@ -362,6 +368,7 @@
     <string name="file_already_exists">اسم الملف موجود مسبقاً</string>
     <string name="file_delete">حذف </string>
     <string name="file_detail_activity_error">خطأ في استرداد النشاطات للملف</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">لا يوجد تطبيق لتحديد جهات الاتصال</string>
     <string name="file_details_no_content">حدث خطأ في تحميل التفاصيل</string>
     <string name="file_icon">الملف</string>
     <string name="file_keep">حفظ</string>
@@ -389,6 +396,7 @@
     <string name="file_management_permission_optional">تصريحات التخزين</string>
     <string name="file_management_permission_optional_text">%1$s يعمل بشكل أفضل مع أذونات الوصول إلى التخزين. يمكنك اختيار الوصول الكامل إلى جميع الملفات، أو الوصول للقراءة فقط إلى الصور ومقاطع الفيديو.</string>
     <string name="file_management_permission_text">%1$s يحتاج إلى أذونات إدارة الملفات لرفع الملفات. يمكنك اختيار الوصول الكامل إلى جميع الملفات، أو الوصول للقراءة فقط إلى الصور ومقاطع الفيديو.</string>
+    <string name="file_migration_allow_media_indexing">السماح بالوصول من التطبيقات الأخرى</string>
     <string name="file_migration_checking_destination">جار التحقق من الوجهة…</string>
     <string name="file_migration_cleaning">تنظيف…</string>
     <string name="file_migration_dialog_title">يجري تحديث ملفات مجلد التخزين</string>
@@ -399,6 +407,7 @@
     <string name="file_migration_failed_not_writable">لا يمكن الكتابة إلى ملف الوجهة</string>
     <string name="file_migration_failed_while_coping">حدث خطأ خلال الترحيل</string>
     <string name="file_migration_failed_while_updating_index">حدث خطأ في تحديث الفهرس</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">جارِ نقل البيانات…</string>
     <string name="file_migration_ok_finished">مكتملة</string>
     <string name="file_migration_override_data_folder">تبديل</string>
@@ -598,6 +607,7 @@
     <string name="notifications_no_results_headline">لا توجد هناك تنبيهات</string>
     <string name="notifications_no_results_message">يرجى التحقق مرة أخرى في وقت لاحق.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">عملية مُعلَّقة</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">تعليق إزالة شخص</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
     <string name="offline_mode_info_description">حتى بدون اتصال بالإنترنت، يمكنك تنظيم مجلداتك وإنشاء ملفات. بمجرد عودة الاتصال بالإنترنت، ستتم مزامنة الإجراءات المعلقة تلقائياً.</string>
     <string name="offline_mode_info_title">أنت غير متصل بالإنترنت؛ لكن العمل سيستمر</string>
@@ -660,6 +670,8 @@
     <string name="prefs_category_sync">زامن</string>
     <string name="prefs_daily_backup_summary">النسخ الاحتياطي اليومي لتقويمك و جهات اتصالك</string>
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
+    <string name="prefs_data_storage_location">موضع تخزين البيانات</string>
+    <string name="prefs_data_storage_location_summary">إدارة موضع تخزين البيانات</string>
     <string name="prefs_davx5_setup_error">خطأ غير متوقع عند تجهيز DAVx5 ( الذي كان معروفاً سابقاً باسم DAVdroid)</string>
     <string name="prefs_e2e_active">التشفير الطرفي E2EE جاهز!</string>
     <string name="prefs_e2e_mnemonic">تذكيري ل E2E</string>
@@ -863,6 +875,7 @@
     <string name="storage_description_default">افتراضي</string>
     <string name="storage_documents">الوثائق</string>
     <string name="storage_downloads">التنزيلات</string>
+    <string name="storage_external_storage">التخزين الخارجي</string>
     <string name="storage_internal_storage">التخزين الداخلي</string>
     <string name="storage_movies">الأفلام</string>
     <string name="storage_music">الموسيقى</string>

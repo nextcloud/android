@@ -35,6 +35,12 @@
     <string name="advanced_settings">Axustes avanzados</string>
     <string name="allow_resharing">Permitir compartir</string>
     <string name="app_config_base_url_title">URL base</string>
+    <string name="app_config_disable_clipboard_title">Desactivar o portapapeis.</string>
+    <string name="app_config_disable_intro_title">Desactivar a introdución</string>
+    <string name="app_config_disable_log_title">Desactivar o rexistro</string>
+    <string name="app_config_disable_more_external_site_title">Desactivar os sitios externos</string>
+    <string name="app_config_disable_multiaccount_title">Desactivar as contas múltiples</string>
+    <string name="app_config_disable_sharing_title">Desactivar as comparticións</string>
     <string name="app_config_proxy_host_title">Nome do servidor proxy</string>
     <string name="app_config_proxy_port_title">Porto do proxy</string>
     <string name="app_widget_description">Amosa un trebello do taboleiro</string>
@@ -398,6 +404,7 @@
     <string name="file_migration_failed_not_writable">Non foi posíbel escribir no ficheiro de destino</string>
     <string name="file_migration_failed_while_coping">Produciuse un fallo durante a migración</string>
     <string name="file_migration_failed_while_updating_index">Produciuse un fallo ao actualizar o índice</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Movendo datos…</string>
     <string name="file_migration_ok_finished">Rematado</string>
     <string name="file_migration_override_data_folder">Substituír</string>
@@ -655,6 +662,8 @@
     <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_daily_backup_summary">Copia de seguranza diaria do seu calendario e dos contactos</string>
     <string name="prefs_daily_contact_backup_summary">Copia de seguranza diaria dos seus contactos</string>
+    <string name="prefs_data_storage_location">Localización do almacenamento de datos</string>
+    <string name="prefs_data_storage_location_summary">Xestionar a localización do almacenamento de datos</string>
     <string name="prefs_davx5_setup_error">Produciuse un erro non agardado ao configurar DAVx5 (anteriormente coñecido como DAVdroid)</string>
     <string name="prefs_e2e_active">O cifrado de extremo a extremo está configurado.</string>
     <string name="prefs_e2e_mnemonic">Mnemotécnico do cifrado E2E</string>

@@ -733,6 +733,7 @@
     <string name="storage_description_default">Προεπιλογή</string>
     <string name="storage_documents">Έγγραφα</string>
     <string name="storage_downloads">Λήψεις</string>
+    <string name="storage_external_storage">Εξωτερικός αποθηκευτικός χώρος</string>
     <string name="storage_internal_storage">Εσωτερικός αποθηκευτικός χώρος</string>
     <string name="storage_movies">Βίντεο</string>
     <string name="storage_music">Μουσική</string>
