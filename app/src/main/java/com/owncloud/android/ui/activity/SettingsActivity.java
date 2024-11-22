@@ -50,6 +50,7 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.WindowExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -143,6 +144,7 @@ public class SettingsActivity extends PreferenceActivity
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        WindowExtensionsKt.makeStatusBarTransparent(getWindow());
         super.onCreate(savedInstanceState);
 
         getDelegate().installViewFactory();

@@ -13,7 +13,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -22,6 +21,7 @@ import com.nextcloud.client.mixins.MixinRegistry;
 import com.nextcloud.client.mixins.SessionMixin;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.WindowExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -74,7 +74,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         addBottomMarginIfNavBarActive();
-        makeStatusBarTransparent();
+        WindowExtensionsKt.makeStatusBarTransparent(getWindow());
         enableEdgeToEdge();
         super.onCreate(savedInstanceState);
         sessionMixin = new SessionMixin(this, accountManager);
@@ -99,11 +99,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
             return windowInsetsCompat;
         });
-    }
-
-    private void makeStatusBarTransparent() {
-        final var flag = WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS;
-        getWindow().setFlags(flag, flag);
     }
 
     private void enableEdgeToEdge() {
