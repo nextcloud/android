@@ -621,6 +621,7 @@
     <string name="storage_description_default">ברירת מחדל</string>
     <string name="storage_documents">מסמכי</string>
     <string name="storage_downloads">הורדות</string>
+    <string name="storage_external_storage">אחסון חיצוני</string>
     <string name="storage_internal_storage">אחסון פנימי</string>
     <string name="storage_movies">סרטים</string>
     <string name="storage_music">מוזיקה</string>

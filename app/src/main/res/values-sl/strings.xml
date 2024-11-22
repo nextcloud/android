@@ -610,7 +610,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Predlogi programov Nextcloud v naslovu</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
-    <string name="prefs_data_storage_location">Mapa podatkovne shrambe</string>
+    <string name="prefs_storage_path">Mapa podatkovne shrambe</string>
     <string name="prefs_sycned_folders_summary">Upravljanje map za samodejno pošiljanje</string>
     <string name="prefs_synced_folders_local_path_title">Krajevna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Mapa na strežniku</string>
@@ -759,6 +759,7 @@
     <string name="storage_description_default">Privzeto</string>
     <string name="storage_documents">Dokumenti</string>
     <string name="storage_downloads">Prejemi</string>
+    <string name="storage_external_storage">Zunanja shramba</string>
     <string name="storage_internal_storage">Notranja shramba</string>
     <string name="storage_movies">Video</string>
     <string name="storage_music">Glasba</string>

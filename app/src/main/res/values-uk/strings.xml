@@ -680,7 +680,7 @@
     <string name="prefs_show_ecosystem_apps_summary">Пропозиції застосунків Nextcloud у заголовку навігації</string>
     <string name="prefs_show_hidden_files">Показувати приховані файли</string>
     <string name="prefs_sourcecode">Отримати вихідний код</string>
-    <string name="prefs_data_storage_location">Місце збереження файлів</string>
+    <string name="prefs_storage_path">Місце збереження файлів</string>
     <string name="prefs_sycned_folders_summary">Налаштуйте каталоги, які будуть автоматично завантажуватися</string>
     <string name="prefs_synced_folders_local_path_title">Каталог на пристрої</string>
     <string name="prefs_synced_folders_remote_path_title">Віддалений каталог</string>
@@ -847,6 +847,7 @@
     <string name="storage_description_default">За замовчуванням</string>
     <string name="storage_documents">Документи</string>
     <string name="storage_downloads">Звантаження</string>
+    <string name="storage_external_storage">Зовнішнє сховище</string>
     <string name="storage_internal_storage">Внутрішнє сховище</string>
     <string name="storage_movies">Відео</string>
     <string name="storage_music">Музика</string>

@@ -495,7 +495,7 @@
     <string name="prefs_manage_accounts">ຈັດການບັນຊີ</string>
     <string name="prefs_show_hidden_files">ສະແດງຟາຍທີ່ເຊື່ອງໄວ້</string>
     <string name="prefs_sourcecode">ຮັບລະຫັດແຫຼ່ງຂໍ້ມູນ</string>
-    <string name="prefs_data_storage_location">ໂຟນເດີການເກັບຂໍ້ມູນ</string>
+    <string name="prefs_storage_path">ໂຟນເດີການເກັບຂໍ້ມູນ</string>
     <string name="prefs_sycned_folders_summary">ຈັດການໂຟນເດີສໍາລັບການອັບໂຫລດອັດຕະໂນມັດ</string>
     <string name="prefs_synced_folders_local_path_title">ໂຟນເດີ</string>
     <string name="prefs_synced_folders_remote_path_title">ໂຟນໄລຍະໄກ</string>

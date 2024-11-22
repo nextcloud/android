@@ -588,7 +588,7 @@
     <string name="prefs_recommend">Rekomenduoti draugui</string>
     <string name="prefs_show_hidden_files">Rodyti paslėptus failus</string>
     <string name="prefs_sourcecode">Gauti pirminį kodą</string>
-    <string name="prefs_data_storage_location">Duomenų aplankas</string>
+    <string name="prefs_storage_path">Duomenų aplankas</string>
     <string name="prefs_sycned_folders_summary">Tvarkykite automatinio įkėlimo aplankus</string>
     <string name="prefs_synced_folders_local_path_title">Aplankas vietinis</string>
     <string name="prefs_synced_folders_remote_path_title">Nuotolinis aplankas</string>
@@ -732,6 +732,7 @@
     <string name="storage_description_default">Numatytasis</string>
     <string name="storage_documents">Dokumentai</string>
     <string name="storage_downloads">Atsiuntimai</string>
+    <string name="storage_external_storage">Išorinė saugykla</string>
     <string name="storage_internal_storage">Vidinė saugykla</string>
     <string name="storage_movies">Filmai</string>
     <string name="storage_music">Muzika</string>
