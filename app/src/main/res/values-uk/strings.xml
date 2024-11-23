@@ -35,6 +35,13 @@
     <string name="advanced_settings">Розширені</string>
     <string name="allow_resharing">Дозволяти передавати у спільний доступ іншим</string>
     <string name="app_config_base_url_title">Основний URL</string>
+    <string name="app_config_disable_clipboard_title">Вимкнути буфер обміну</string>
+    <string name="app_config_disable_intro_title">Вимкнути презентацію</string>
+    <string name="app_config_disable_log_title">Вимкнути журнал</string>
+    <string name="app_config_disable_more_external_site_title">Вимкнути зовнішні сайти</string>
+    <string name="app_config_disable_multiaccount_title">Вимкнути багатокористувацький режим</string>
+    <string name="app_config_disable_sharing_title">Вимкнути надання у спільний доступ</string>
+    <string name="app_config_proxy_host_title">Хост проксі</string>
     <string name="app_config_proxy_port_title">Порт проксі-сервера</string>
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
@@ -55,6 +62,7 @@
     <string name="assistant_screen_task_delete_success_message">Завдання вилучено</string>
     <string name="assistant_screen_task_list_error_state_message">Неможливо отримати список завдань. Перевірте з\'єднання з мережею</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Вилучити завдання</string>
+    <string name="assistant_screen_task_output_empty_text">Поки неможливо показати завдання</string>
     <string name="assistant_screen_task_types_error_state_message">Не вдалося отримати типи завдань. Перевірте з\'єднання з мережею.</string>
     <string name="assistant_screen_top_bar_title">Помічник</string>
     <string name="assistant_screen_unknown_task_status_text">Невідомо</string>
@@ -360,6 +368,7 @@
     <string name="file_already_exists">Файл з таким ім\'ям вже присутній</string>
     <string name="file_delete">Вилучити</string>
     <string name="file_detail_activity_error">Помилка з отриманням дії для файлу</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Відсутній застосунок для вибору контактів</string>
     <string name="file_details_no_content">Не вдалося завантажити подробиці</string>
     <string name="file_icon">Файл</string>
     <string name="file_keep">Зберегти</string>
@@ -387,6 +396,7 @@
     <string name="file_management_permission_optional">Доступ до пам\'яти</string>
     <string name="file_management_permission_optional_text">%1$s Найкраще працює з дозволами для доступу до зберігання. Ви можете вибрати повний доступ до всіх файлів або доступ лише для читання до фотографій і відео.</string>
     <string name="file_management_permission_text">%1$s для завантаження файлів потрібні дозволи на керування файлами. Ви можете вибрати повний доступ до всіх файлів або доступ лише для читання до фотографій і відео.</string>
+    <string name="file_migration_allow_media_indexing">Дозволити доступ з інших застосунків</string>
     <string name="file_migration_checking_destination">Перевірка місця призначення...</string>
     <string name="file_migration_cleaning">Очищення...</string>
     <string name="file_migration_dialog_title">Оновлення каталогу для збереження даних</string>
@@ -588,6 +598,7 @@
     <string name="notifications_no_results_headline">Немає сповіщень</string>
     <string name="notifications_no_results_message">Будь ласка, перейдіть сюди пізніше.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Операції, що тривають</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Триває операція з вилучення</string>
     <string name="offline_mode">Відсутнє з\'єднання з мережею</string>
     <string name="offline_mode_info_description">Ви можете впорядковувати каталоги, створювати файли без наявного з\'єднання з мережею. Одразу після відновлення доступу завдання, що в очікуванні, буде автоматично виконано, а файли синхронізовано.</string>
     <string name="offline_mode_info_title">Відсутнє з\'єднанн з мережею, але ви можете продовжити роботу</string>
@@ -647,6 +658,8 @@
     <string name="prefs_category_sync">Синхронізація</string>
     <string name="prefs_daily_backup_summary">Щоденні резервні копії вашого календаря та контактів</string>
     <string name="prefs_daily_contact_backup_summary">Щоденне резервне копіювання ваших контактів</string>
+    <string name="prefs_data_storage_location">Місце збереження даних</string>
+    <string name="prefs_data_storage_location_summary">Керувати місцем збереження даних</string>
     <string name="prefs_davx5_setup_error">Неочікувана помилка під час налаштування DAVx5 (раніше відомого як DAVdroid)</string>
     <string name="prefs_e2e_active">Наскрізне шифрування налаштовано!</string>
     <string name="prefs_e2e_mnemonic">Мнемоніка E2E</string>
@@ -753,6 +766,7 @@
     <string name="screenshot_06_davdroid_subline">Синхронізувати з DAVx5</string>
     <string name="search_error">Помилка під час отримання результатів</string>
     <string name="secure_share_not_set_up">Безпечну передачу у спільний доступ не налаштовано для цього користувача</string>
+    <string name="secure_share_search">Безпечний спільний доступ...</string>
     <string name="select_all">Вибрати все</string>
     <string name="select_media_folder">Налаштувати місце збереження зображень та відео</string>
     <string name="select_one_template">Будь ласка, виберіть один шаблон.</string>
@@ -796,6 +810,7 @@
     <string name="share_permissions">Поділитися дозволами</string>
     <string name="share_remote_clarification">%1$s (віддалено)</string>
     <string name="share_room_clarification">%1$s (розмова)</string>
+    <string name="share_search">Ім\'я, ідентифікатор об\'єднаної хмари або ел.адреса...</string>
     <string name="share_send_new_email">Надіслати новий лист</string>
     <string name="share_send_note">Примітка для одержувача</string>
     <string name="share_settings">Налаштування</string>
