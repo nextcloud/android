@@ -35,6 +35,13 @@
     <string name="advanced_settings">Ardsocruithe</string>
     <string name="allow_resharing">Ceadaigh athroinnt</string>
     <string name="app_config_base_url_title">URL an bhunaigh</string>
+    <string name="app_config_disable_clipboard_title">Díchumasaigh an Ghearrthaisce</string>
+    <string name="app_config_disable_intro_title">Díchumasaigh an Réamhrá</string>
+    <string name="app_config_disable_log_title">Díchumasaigh Logáil</string>
+    <string name="app_config_disable_more_external_site_title">Díchumasaigh Suímh Sheachtracha</string>
+    <string name="app_config_disable_multiaccount_title">Díchumasaigh Ilchuntais</string>
+    <string name="app_config_disable_sharing_title">Díchumasaigh Roinnt</string>
+    <string name="app_config_proxy_host_title">Óstainm Seachfhreastalaí</string>
     <string name="app_config_proxy_port_title">Port Seachfhreastalaí</string>
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
     <string name="appbar_search_in">Cuardaigh i %s</string>
@@ -55,6 +62,7 @@
     <string name="assistant_screen_task_delete_success_message">D\'éirigh leis an tasc a scriosadh</string>
     <string name="assistant_screen_task_list_error_state_message">Ní féidir liosta tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Scrios Tasc</string>
+    <string name="assistant_screen_task_output_empty_text">Níl an t-aschur tasc réidh fós.</string>
     <string name="assistant_screen_task_types_error_state_message">Ní féidir cineálacha tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_top_bar_title">Cúntóir</string>
     <string name="assistant_screen_unknown_task_status_text">Anaithnid</string>
@@ -360,6 +368,7 @@
     <string name="file_already_exists">Tá ainm an chomhaid ann cheana</string>
     <string name="file_delete">Scrios</string>
     <string name="file_detail_activity_error">Earráid agus gníomhaíochtaí á aisghabháil don chomhad</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Níl aip ar fáil chun teagmhálaithe a roghnú</string>
     <string name="file_details_no_content">Theip ar lódáil na sonraí</string>
     <string name="file_icon">Comhad</string>
     <string name="file_keep">Coinnigh</string>
@@ -387,6 +396,7 @@
     <string name="file_management_permission_optional">Ceadanna stórála</string>
     <string name="file_management_permission_optional_text">Is fearr a oibríonn %1$s le ceadanna chun an stóras a rochtain. Is féidir leat rochtain iomlán a roghnú ar gach comhad, nó rochtain inléite amháin ar ghrianghraif agus físeáin.</string>
     <string name="file_management_permission_text">Teastaíonn cead bainistíochta comhad ó %1$s chun comhaid a uaslódáil. Is féidir leat rochtain iomlán a roghnú ar gach comhad, nó rochtain inléite amháin ar ghrianghraif agus físeáin.</string>
+    <string name="file_migration_allow_media_indexing">Ceadaigh rochtain ó aipeanna eile</string>
     <string name="file_migration_checking_destination">Ceann scríbe á sheiceáil…</string>
     <string name="file_migration_cleaning">Glanadh…</string>
     <string name="file_migration_dialog_title">Fillteán stórála sonraí á nuashonrú</string>
@@ -397,6 +407,7 @@
     <string name="file_migration_failed_not_writable">Níorbh fhéidir scríobh chuig an gcomhad sprice</string>
     <string name="file_migration_failed_while_coping">Theip air le linn imirce</string>
     <string name="file_migration_failed_while_updating_index">Theip ar nuashonrú an innéacs</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Sonraí á mbogadh…</string>
     <string name="file_migration_ok_finished">Críochnaithe</string>
     <string name="file_migration_override_data_folder">Ionadaigh</string>
@@ -592,6 +603,7 @@
     <string name="notifications_no_results_headline">Gan fógraí</string>
     <string name="notifications_no_results_message">Seiceáil ar ais ar ball le do thoil.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Oibríocht ar Feitheamh</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Ar Feitheamh Bain Oibríocht</string>
     <string name="offline_mode">Gan nasc idirlín</string>
     <string name="offline_mode_info_description">Fiú gan nasc idirlín, is féidir leat do fhillteáin a eagrú, comhaid a chruthú. Nuair a bheidh tú ar ais ar líne, déanfar do ghníomhartha ar feitheamh a shioncronú go huathoibríoch.</string>
     <string name="offline_mode_info_title">Tá tú As Líne, Ach Leanann an Obair ar aghaidh</string>
@@ -654,6 +666,8 @@
     <string name="prefs_category_sync">Sioncrónaigh</string>
     <string name="prefs_daily_backup_summary">Cúltaca laethúil de do fhéilire agus do theagmhálaithe</string>
     <string name="prefs_daily_contact_backup_summary">Cúltaca laethúil de do theagmhálaithe</string>
+    <string name="prefs_data_storage_location">Suíomh stórála sonraí</string>
+    <string name="prefs_data_storage_location_summary">Bainistigh suíomh stórála sonraí</string>
     <string name="prefs_davx5_setup_error">Earráid gan choinne agus DAVx5 á shocrú (ar a dtugtaí DAVdroid roimhe seo)</string>
     <string name="prefs_e2e_active">Tá criptiú ceann go ceann socraithe!</string>
     <string name="prefs_e2e_mnemonic">Cuimhneachán E2E</string>
@@ -760,6 +774,7 @@
     <string name="screenshot_06_davdroid_subline">Sioncrónaigh le DAVx5</string>
     <string name="search_error">Earráid agus torthaí cuardaigh á bhfáil</string>
     <string name="secure_share_not_set_up">Níl comhroinnt shlán socraithe don úsáideoir seo</string>
+    <string name="secure_share_search">Comhroinn slán…</string>
     <string name="select_all">Roghnú go léir</string>
     <string name="select_media_folder">Socraigh fillteán meáin</string>
     <string name="select_one_template">Roghnaigh teimpléad amháin le do thoil</string>
@@ -803,6 +818,7 @@
     <string name="share_permissions">Ceadanna Comhroinnte</string>
     <string name="share_remote_clarification">%1$s (iargúlta)</string>
     <string name="share_room_clarification">%1$s (comhrá)</string>
+    <string name="share_search">Ainm, ID Néal Cónaidhme nó seoladh ríomhphoist…</string>
     <string name="share_send_new_email">Seol ríomhphost nua</string>
     <string name="share_send_note">Nóta don fhaighteoir</string>
     <string name="share_settings">Socruithe</string>
