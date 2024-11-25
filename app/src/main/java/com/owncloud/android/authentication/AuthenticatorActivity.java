@@ -105,6 +105,7 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.NextcloudWebViewClient;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -123,6 +124,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -1361,11 +1363,17 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
     private void endSuccess() {
         if (!onlyAdd) {
-            Intent i = new Intent(this, FileDisplayActivity.class);
-            i.setAction(FileDisplayActivity.RESTART);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
+            if (MDMConfig.INSTANCE.enforceProtection(this) && Objects.equals(preferences.getLockPreference(), SettingsActivity.LOCK_NONE)) {
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivity(i);
+            } else {
+                Intent i = new Intent(this, FileDisplayActivity.class);
+                i.setAction(FileDisplayActivity.RESTART);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
         }
+
         finish();
     }
 
