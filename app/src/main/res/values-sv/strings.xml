@@ -35,6 +35,12 @@
     <string name="advanced_settings">Avancerade inställningar</string>
     <string name="allow_resharing">Tillåt dela vidare</string>
     <string name="app_config_base_url_title">Bas-URL</string>
+    <string name="app_config_disable_clipboard_title">Inaktivera urklipp</string>
+    <string name="app_config_disable_intro_title">Inaktivera intro</string>
+    <string name="app_config_disable_log_title">Inaktivera logg</string>
+    <string name="app_config_disable_more_external_site_title">Inaktivera externa platser</string>
+    <string name="app_config_disable_multiaccount_title">Inaktivera flera konton</string>
+    <string name="app_config_disable_sharing_title">Inaktivera delning</string>
     <string name="app_config_proxy_host_title">Proxy-värdnamn</string>
     <string name="app_config_proxy_port_title">Proxyport</string>
     <string name="app_widget_description">Visa en widget från dashboard</string>
@@ -361,6 +367,7 @@
     <string name="file_already_exists">Filnamnet finns redan</string>
     <string name="file_delete">Ta bort</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Ingen app tillgänglig för att välja kontakter</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behåll</string>
@@ -388,6 +395,7 @@
     <string name="file_management_permission_optional">Lagringsbehörigheter</string>
     <string name="file_management_permission_optional_text">%1$s fungerar bäst med åtkomstbehörighet till lagringsutrymmet. Du kan välja att ha fullständig åtkomst till alla filer eller läsåtkomst till bilder och videor.</string>
     <string name="file_management_permission_text">%1$s behöver behörighet för filåtkomst för filuppladdning. Du kan välja att ha fullständig åtkomst till alla filer eller endast läsåtkomst till bilder och videor.</string>
+    <string name="file_migration_allow_media_indexing">Tillåt åtkomst från andra appar</string>
     <string name="file_migration_checking_destination">Kontrollerar mål…</string>
     <string name="file_migration_cleaning">Rensar upp…</string>
     <string name="file_migration_dialog_title">Uppdaterar datalagringsmapp</string>
@@ -593,6 +601,7 @@
     <string name="notifications_no_results_headline">Inga aviseringar</string>
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Väntande operation</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Väntar på borttagningsåtgärd</string>
     <string name="offline_mode">Ingen internetanslutning</string>
     <string name="offline_mode_info_description">Även utan internetanslutning kan du organisera dina mappar och skapa filer. När du är online igen synkroniseras dina väntande åtgärder automatiskt.</string>
     <string name="offline_mode_info_title">Du är offline, men kan fortsätta arbeta</string>
@@ -655,6 +664,8 @@
     <string name="prefs_category_sync">Synkronisera</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kalender och dina kontakter </string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup av dina kontakter</string>
+    <string name="prefs_data_storage_location">Datalagringsplats</string>
+    <string name="prefs_data_storage_location_summary">Hantera plats för datalagring</string>
     <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx5 (tidigare känd som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end-kryptering är inställd!</string>
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>

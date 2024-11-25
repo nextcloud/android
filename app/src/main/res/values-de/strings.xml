@@ -35,6 +35,12 @@
     <string name="advanced_settings">Erweiterte Einstellungen</string>
     <string name="allow_resharing">Weiterteilen erlauben</string>
     <string name="app_config_base_url_title">Basis-URL</string>
+    <string name="app_config_disable_clipboard_title">Zwischenablage deaktivieren</string>
+    <string name="app_config_disable_intro_title">Intro deaktivieren</string>
+    <string name="app_config_disable_log_title">Protokoll deaktivieren</string>
+    <string name="app_config_disable_more_external_site_title">Externe Seiten deaktivieren</string>
+    <string name="app_config_disable_multiaccount_title">Multi-Konten deaktivieren</string>
+    <string name="app_config_disable_sharing_title">Teilen deaktivieren</string>
     <string name="app_config_proxy_host_title">Proxy-Hostname</string>
     <string name="app_config_proxy_port_title">Proxy-Port</string>
     <string name="app_widget_description">Zeigt ein Widget aus dem Dashboard an</string>
@@ -362,6 +368,7 @@
     <string name="file_already_exists">Dateiname bereits vorhanden</string>
     <string name="file_delete">Löschen</string>
     <string name="file_detail_activity_error">Fehler beim Abrufen der Aktivitäten für die Datei</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Keine App zum Auswählen von Kontakten verfügbar</string>
     <string name="file_details_no_content">Fehler beim Laden der Details</string>
     <string name="file_icon">Datei</string>
     <string name="file_keep">Behalten</string>
@@ -389,6 +396,7 @@
     <string name="file_management_permission_optional">Speicherberechtigungen</string>
     <string name="file_management_permission_optional_text">%1$s funktioniert am besten mit Berechtigungen für den Zugriff auf den Speicher. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen.</string>
     <string name="file_management_permission_text">%1$s benötigt Dateiverwaltungsberechtigungen, um Dateien hochzuladen. Sie können vollen Zugriff auf alle Dateien oder schreibgeschützten Zugriff auf Fotos und Videos wählen. </string>
+    <string name="file_migration_allow_media_indexing">Zugriff von anderen Apps zulassen</string>
     <string name="file_migration_checking_destination">Prüfe Zielort…</string>
     <string name="file_migration_cleaning">Aufräumen…</string>
     <string name="file_migration_dialog_title">Aktualisiere Speicherordner</string>
@@ -399,6 +407,7 @@
     <string name="file_migration_failed_not_writable">Für das Ziel existieren keine Schreibrechte</string>
     <string name="file_migration_failed_while_coping">Migration fehlgeschlagen</string>
     <string name="file_migration_failed_while_updating_index">Aktualisierung des Index fehlgeschlagen</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Verschiebe Daten…</string>
     <string name="file_migration_ok_finished">Abgeschlossen</string>
     <string name="file_migration_override_data_folder">Überschreiben</string>
@@ -594,6 +603,7 @@
     <string name="notifications_no_results_headline">Keine Benachrichtigungen</string>
     <string name="notifications_no_results_message">Bitte später noch einmal nachsehen.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Ausstehende Operationen</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Ausstehender Entfernungsvorgang</string>
     <string name="offline_mode">Keine Internetverbindung</string>
     <string name="offline_mode_info_description">Auch ohne Internetverbindung können Sie Ihre Ordner organisieren und Dateien erstellen. Sobald Sie wieder online sind, werden die ausstehenden Aktionen automatisch synchronisiert.</string>
     <string name="offline_mode_info_title">Sie sind offline, aber die Arbeit geht weiter</string>
@@ -656,6 +666,8 @@
     <string name="prefs_category_sync">Synchronisieren</string>
     <string name="prefs_daily_backup_summary">Tägliche Sicherung Ihrer Kalender und Kontakte</string>
     <string name="prefs_daily_contact_backup_summary">Tägliche Sicherung Ihrer Kontakte</string>
+    <string name="prefs_data_storage_location">Speicherort der Daten</string>
+    <string name="prefs_data_storage_location_summary">Speicherort der Daten verwalten</string>
     <string name="prefs_davx5_setup_error">Unerwarteter Fehler beim Einrichten von DAVx5 (früher bekannt als DAVdroid)</string>
     <string name="prefs_e2e_active">Ende-zu-Ende-Verschlüsselung ist eingerichtet!</string>
     <string name="prefs_e2e_mnemonic">E2E-Gedächtnisstütze</string>
@@ -858,6 +870,7 @@
     <string name="storage_description_default">Standard</string>
     <string name="storage_documents">Dokumente</string>
     <string name="storage_downloads">Downloads</string>
+    <string name="storage_external_storage">Externer Speicher</string>
     <string name="storage_internal_storage">Interner Speicher</string>
     <string name="storage_movies">Filme</string>
     <string name="storage_music">Musik</string>

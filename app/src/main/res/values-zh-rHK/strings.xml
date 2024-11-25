@@ -35,6 +35,12 @@
     <string name="advanced_settings">進階設定</string>
     <string name="allow_resharing">允許轉貼分享</string>
     <string name="app_config_base_url_title">基礎 URL</string>
+    <string name="app_config_disable_clipboard_title">停用剪貼板</string>
+    <string name="app_config_disable_intro_title">停用簡介</string>
+    <string name="app_config_disable_log_title">停用記錄</string>
+    <string name="app_config_disable_more_external_site_title">停用外部網站</string>
+    <string name="app_config_disable_multiaccount_title">停用多重帳戶</string>
+    <string name="app_config_disable_sharing_title">停用分享</string>
     <string name="app_config_proxy_host_title">代理伺服器主機名稱</string>
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小部件</string>
@@ -362,6 +368,7 @@
     <string name="file_already_exists">檔案名已存在</string>
     <string name="file_delete">刪除</string>
     <string name="file_detail_activity_error">取得檔案活動時發生錯誤</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">沒有應用程式可選取聯絡人</string>
     <string name="file_details_no_content">載入詳細資訊失敗</string>
     <string name="file_icon">檔案</string>
     <string name="file_keep">保留</string>
@@ -389,6 +396,7 @@
     <string name="file_management_permission_optional">儲存空間權限</string>
     <string name="file_management_permission_optional_text">%1$s 在有存取儲存空間的權限時運作得最好。您可以選擇完整存取所有檔案，或是對照片及影片的唯讀存取。</string>
     <string name="file_management_permission_text">%1$s 需要檔案管理權限以上傳檔案。您可以選擇完整存取所有檔案，或是對照片及影片的唯讀存取。</string>
+    <string name="file_migration_allow_media_indexing">允許從其他應用程式存取</string>
     <string name="file_migration_checking_destination">檢查目的地…</string>
     <string name="file_migration_cleaning">清理中…</string>
     <string name="file_migration_dialog_title">正在更新資料儲存資料夾</string>
@@ -594,6 +602,7 @@
     <string name="notifications_no_results_headline">沒有通知</string>
     <string name="notifications_no_results_message">請稍候再檢查</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">擱置中的操作</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">擱置中的移除操作</string>
     <string name="offline_mode">沒有網路連線</string>
     <string name="offline_mode_info_description">即使沒有網路連接，您也可以組織資料夾、建立檔案。一旦您重新上線，您的待處理操作將自動同步。</string>
     <string name="offline_mode_info_title">您處於離線狀態，但工作仍在繼續</string>
@@ -656,6 +665,8 @@
     <string name="prefs_category_sync">同步</string>
     <string name="prefs_daily_backup_summary">日曆與通訊錄的每日備份</string>
     <string name="prefs_daily_contact_backup_summary">每日通訊錄備份</string>
+    <string name="prefs_data_storage_location">資料儲存位置</string>
+    <string name="prefs_data_storage_location_summary">管理資料儲存位置</string>
     <string name="prefs_davx5_setup_error">設置 DAVx5（以前稱為 DAVdroid）時出現意外錯誤</string>
     <string name="prefs_e2e_active">端到端加密設置完畢！</string>
     <string name="prefs_e2e_mnemonic">端到端助記碼</string>

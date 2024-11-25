@@ -521,6 +521,7 @@
     <string name="storage_description_default">Por defeutu</string>
     <string name="storage_documents">Documentos</string>
     <string name="storage_downloads">Descargués</string>
+    <string name="storage_external_storage">Almacenamientu esternu</string>
     <string name="storage_internal_storage">Almacenamientu internu</string>
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>

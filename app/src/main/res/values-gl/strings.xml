@@ -35,6 +35,12 @@
     <string name="advanced_settings">Axustes avanzados</string>
     <string name="allow_resharing">Permitir compartir</string>
     <string name="app_config_base_url_title">URL base</string>
+    <string name="app_config_disable_clipboard_title">Desactivar o portapapeis.</string>
+    <string name="app_config_disable_intro_title">Desactivar a introdución</string>
+    <string name="app_config_disable_log_title">Desactivar o rexistro</string>
+    <string name="app_config_disable_more_external_site_title">Desactivar os sitios externos</string>
+    <string name="app_config_disable_multiaccount_title">Desactivar as contas múltiples</string>
+    <string name="app_config_disable_sharing_title">Desactivar as comparticións</string>
     <string name="app_config_proxy_host_title">Nome do servidor proxy</string>
     <string name="app_config_proxy_port_title">Porto do proxy</string>
     <string name="app_widget_description">Amosa un trebello do taboleiro</string>
@@ -56,6 +62,7 @@
     <string name="assistant_screen_task_delete_success_message">A tarefa foi eliminada satisfactoriamente</string>
     <string name="assistant_screen_task_list_error_state_message">Non é posíbel recuperar a lista de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarefa</string>
+    <string name="assistant_screen_task_output_empty_text">A saída da tarefa aínda non está preparada.</string>
     <string name="assistant_screen_task_types_error_state_message">Non é posíbel recuperar os tipos de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
     <string name="assistant_screen_unknown_task_status_text">Descoñecido</string>
@@ -361,6 +368,7 @@
     <string name="file_already_exists">O nome de ficheiro xa existe</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Produciuse un erro ao recuperar actividades para o ficheiro</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Non hai ningunha aplicación dispoñíbel para seleccionar contactos</string>
     <string name="file_details_no_content">Produciuse un fallo ao cargar os detalles</string>
     <string name="file_icon">Ficheiro</string>
     <string name="file_keep">Conservar</string>
@@ -388,6 +396,7 @@
     <string name="file_management_permission_optional">Permisos de almacenamento</string>
     <string name="file_management_permission_optional_text">%1$s funciona mellor con permisos para acceder ao almacenamento. Pode escoller acceso completo a todos os ficheiros ou acceso de só lectura a fotos e vídeos.</string>
     <string name="file_management_permission_text">%1$s precisa permisos de xestión de ficheiros para enviar ficheiros. Pode escoller acceso completo a todos os ficheiros ou acceso de só lectura a fotos e vídeos.</string>
+    <string name="file_migration_allow_media_indexing">Permitir o acceso desde outras aplicacións</string>
     <string name="file_migration_checking_destination">Comprobando o destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
     <string name="file_migration_dialog_title">Actualizando o cartafol de almacenamento de datos</string>
@@ -398,6 +407,7 @@
     <string name="file_migration_failed_not_writable">Non foi posíbel escribir no ficheiro de destino</string>
     <string name="file_migration_failed_while_coping">Produciuse un fallo durante a migración</string>
     <string name="file_migration_failed_while_updating_index">Produciuse un fallo ao actualizar o índice</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Movendo datos…</string>
     <string name="file_migration_ok_finished">Rematado</string>
     <string name="file_migration_override_data_folder">Substituír</string>
@@ -562,13 +572,13 @@
     <string name="new_notification">Nova notificación</string>
     <string name="new_version_was_created">Creouse unha versión nova</string>
     <string name="no_actions">Non hai accións para este usuario</string>
-    <string name="no_browser_available">Non hai ningunha aplicación para manexar ligazóns</string>
+    <string name="no_browser_available">Non hai ningunha aplicación dispoñíbel para manexar ligazóns</string>
     <string name="no_calendar_exists">Non existe ningún calendario</string>
     <string name="no_email_app_available">Non hai ningunha aplicación dispoñíbel para xestionar o enderezo de correo-e</string>
     <string name="no_items">Non hai elementos</string>
-    <string name="no_map_app_availble">Non hai ningunha aplicación para manexar mapas</string>
+    <string name="no_map_app_availble">Non hai ningunha aplicación dispoñíbel para manexar mapas</string>
     <string name="no_mutliple_accounts_allowed">Só se permite unha conta</string>
-    <string name="no_pdf_app_available">Non hai ningunha aplicación para manexar PDF</string>
+    <string name="no_pdf_app_available">Non hai ningunha aplicación dispoñíbel para manexar PDF</string>
     <string name="no_send_app">Non hai ningunha aplicación dispoñíbel para enviar os ficheiros seleccionados</string>
     <string name="no_share_permission_selected">Seleccione polo menos un permiso para compartir.</string>
     <string name="note_could_not_sent">Non foi posíbel enviar a nota</string>
@@ -593,6 +603,7 @@
     <string name="notifications_no_results_headline">Non hai notificacións</string>
     <string name="notifications_no_results_message">Compróbeo máis adiante.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Operación pendente</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Operación de retirada pendente</string>
     <string name="offline_mode">Sen conexión coa Internet</string>
     <string name="offline_mode_info_description">Mesmo sen conexión a Internet, pode organizar os seus cartafoles, crear ficheiros. Unha vez que volva estar conectado, as túas accións pendentes sincronizaranse automaticamente.</string>
     <string name="offline_mode_info_title">Está sen conexión, mais o traballo continúa</string>
@@ -655,6 +666,8 @@
     <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_daily_backup_summary">Copia de seguranza diaria do seu calendario e dos contactos</string>
     <string name="prefs_daily_contact_backup_summary">Copia de seguranza diaria dos seus contactos</string>
+    <string name="prefs_data_storage_location">Localización do almacenamento de datos</string>
+    <string name="prefs_data_storage_location_summary">Xestionar a localización do almacenamento de datos</string>
     <string name="prefs_davx5_setup_error">Produciuse un erro non agardado ao configurar DAVx5 (anteriormente coñecido como DAVdroid)</string>
     <string name="prefs_e2e_active">O cifrado de extremo a extremo está configurado.</string>
     <string name="prefs_e2e_mnemonic">Mnemotécnico do cifrado E2E</string>
@@ -762,6 +775,7 @@
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="search_error">Produciuse un erro ao obter os resultados da busca</string>
     <string name="secure_share_not_set_up">A compartición segura non está definida para este usuario</string>
+    <string name="secure_share_search">Compartición segura…</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_media_folder">Definir o cartafol multimedia</string>
     <string name="select_one_template">Seleccione un modelo</string>
@@ -805,6 +819,7 @@
     <string name="share_permissions">Permisos ao compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
+    <string name="share_search">Nome, ID da nube federada ou enderezo de correo…</string>
     <string name="share_send_new_email">Enviar correo-e novo</string>
     <string name="share_send_note">Nota para o destinatario</string>
     <string name="share_settings">Axustes</string>
