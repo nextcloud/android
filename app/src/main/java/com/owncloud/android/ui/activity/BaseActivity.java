@@ -10,6 +10,8 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -18,6 +20,7 @@ import com.nextcloud.client.mixins.MixinRegistry;
 import com.nextcloud.client.mixins.SessionMixin;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -29,6 +32,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.ViewCompat;
 
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
@@ -64,6 +68,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        addBottomMarginIfNavBarActive();
         super.onCreate(savedInstanceState);
         sessionMixin = new SessionMixin(this, accountManager);
         mixinRegistry.add(sessionMixin);
@@ -127,6 +132,19 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         } else {
             recreate();
         }
+    }
+
+    private void addBottomMarginIfNavBarActive() {
+        ViewCompat.setOnApplyWindowInsetsListener(getWindow().getDecorView(), (view, windowInsetsCompat) -> {
+            View contentView = findViewById(android.R.id.content);
+
+            if (contentView != null && contentView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams params) {
+                params.bottomMargin = ActivityExtensionsKt.navBarHeight(this, windowInsetsCompat);
+                contentView.setLayoutParams(params);
+            }
+
+            return windowInsetsCompat;
+        });
     }
 
     /**
