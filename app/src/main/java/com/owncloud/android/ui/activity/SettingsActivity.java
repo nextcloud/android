@@ -819,6 +819,8 @@ public class SettingsActivity extends PreferenceActivity
         final PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
         viewThemeUtils.files.themePreferenceCategory(preferenceCategoryGeneral);
 
+        readStoragePath();
+
         prefDataLoc = findPreference(AppPreferencesImpl.DATA_STORAGE_LOCATION);
         if (prefDataLoc != null) {
             prefDataLoc.setOnPreferenceClickListener(p -> {
@@ -1000,7 +1002,7 @@ public class SettingsActivity extends PreferenceActivity
         } else if (requestCode == ACTION_SET_STORAGE_LOCATION && data != null) {
             String newPath = data.getStringExtra(ChooseStorageLocationActivity.KEY_RESULT_STORAGE_LOCATION);
 
-            if (!storagePath.equals(newPath)) {
+            if (storagePath != null && !storagePath.equals(newPath)) {
                 StorageMigration storageMigration = new StorageMigration(this, user, storagePath, newPath, viewThemeUtils);
                 storageMigration.setStorageMigrationProgressListener(this);
                 storageMigration.migrate();
@@ -1148,6 +1150,12 @@ public class SettingsActivity extends PreferenceActivity
         SharedPreferences.Editor editor = appPrefs.edit();
         editor.putString(AppPreferencesImpl.STORAGE_PATH, storagePath);
         editor.apply();
+    }
+
+    private void readStoragePath() {
+        SharedPreferences appPrefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        // Load storage path from shared preferences. Use private internal storage by default.
+        storagePath = appPrefs.getString(AppPreferencesImpl.STORAGE_PATH, getApplicationContext().getFilesDir().getAbsolutePath());
     }
 
     @Override
