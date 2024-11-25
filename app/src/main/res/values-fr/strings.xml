@@ -35,6 +35,13 @@
     <string name="advanced_settings">Paramètres avancés</string>
     <string name="allow_resharing">Autoriser le repartage</string>
     <string name="app_config_base_url_title">URL de base</string>
+    <string name="app_config_disable_clipboard_title">Désactiver le Presse-papiers</string>
+    <string name="app_config_disable_intro_title">Désactiver l\'introduction</string>
+    <string name="app_config_disable_log_title">Désactiver les logs</string>
+    <string name="app_config_disable_more_external_site_title">Désactiver les sites externes</string>
+    <string name="app_config_disable_multiaccount_title">Désactiver le Multi-comptes</string>
+    <string name="app_config_disable_sharing_title">Désactiver le partage</string>
+    <string name="app_config_proxy_host_title">Nom d\'hôte du proxy</string>
     <string name="app_config_proxy_port_title">Port Proxy</string>
     <string name="app_widget_description">Affiche un widget du tableau de bord</string>
     <string name="appbar_search_in">Recherche dans %s</string>
@@ -55,6 +62,7 @@
     <string name="assistant_screen_task_delete_success_message">Tâche supprimée avec succès</string>
     <string name="assistant_screen_task_list_error_state_message">Impossible de récupérer la liste des tâches, veuillez vérifier votre connexion Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Supprimer la tâche</string>
+    <string name="assistant_screen_task_output_empty_text">Le résultat de la tâche n\'est pas encore prêt.</string>
     <string name="assistant_screen_task_types_error_state_message">Impossible de récupérer les types des tâches, veuillez vérifier votre connexion Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_unknown_task_status_text">Inconnu</string>
@@ -360,6 +368,7 @@
     <string name="file_already_exists">Ce nom de fichier existe déjà</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l\'activité du fichier</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Aucune application disponible pour sélectionner des contacts</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
     <string name="file_icon">Fichier</string>
     <string name="file_keep">Conserver</string>
@@ -387,6 +396,7 @@
     <string name="file_management_permission_optional">Autorisations d\'accès au stockage</string>
     <string name="file_management_permission_optional_text">%1$s fonctionne mieux avec les autorisations d\'accès au stockage. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
     <string name="file_management_permission_text">%1$s a besoin d\'autorisations concernant la gestion des fichiers afin de téléverser des fichiers. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
+    <string name="file_migration_allow_media_indexing">Autoriser l\'accès à partir d\'autres applications</string>
     <string name="file_migration_checking_destination">Vérification de la destination…</string>
     <string name="file_migration_cleaning">Nettoyage…</string>
     <string name="file_migration_dialog_title">Mise à jour du dossier de stockage des données</string>
@@ -397,6 +407,7 @@
     <string name="file_migration_failed_not_writable">Le fichier de destination n\'est pas modifiable</string>
     <string name="file_migration_failed_while_coping">Échec lors de la migration</string>
     <string name="file_migration_failed_while_updating_index">Échec lors de la mise à jour de l\'index</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Déplacement des données…</string>
     <string name="file_migration_ok_finished">Terminé</string>
     <string name="file_migration_override_data_folder">Remplacer</string>
@@ -592,6 +603,7 @@
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Opération en attente</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Opération de suppression en attente</string>
     <string name="offline_mode">Aucune connexion Internet</string>
     <string name="offline_mode_info_description">Même sans connexion Internet, vous pouvez organiser vos dossiers, créer des fichiers. Dès que vous êtes de nouveau en ligne, vos actions en cours sont automatiquement synchronisées.</string>
     <string name="offline_mode_info_title">Vous êtes hors ligne, mais le travail continue</string>
@@ -654,6 +666,8 @@
     <string name="prefs_category_sync">Synchroniser</string>
     <string name="prefs_daily_backup_summary">Sauvegarde quotidienne de votre agenda et des contacts</string>
     <string name="prefs_daily_contact_backup_summary">Sauvegarde quotidienne de vos contacts</string>
+    <string name="prefs_data_storage_location">Emplacement de stockage des données</string>
+    <string name="prefs_data_storage_location_summary">Gérer l\'emplacement de stockage des données</string>
     <string name="prefs_davx5_setup_error">Erreur inattendue lors de la configuration de DAVx5 (anciennement connu sous le nom de DAVdroid)</string>
     <string name="prefs_e2e_active">Le chiffrement de bout en bout est configuré !</string>
     <string name="prefs_e2e_mnemonic">Phrase secrète E2E</string>
@@ -760,6 +774,7 @@
     <string name="screenshot_06_davdroid_subline">Synchroniser avec DAVx5</string>
     <string name="search_error">Erreur lors de l\'obtention des résultats de recherche</string>
     <string name="secure_share_not_set_up">Le partage sécurité n\'est pas configuré pour cet utilisateur</string>
+    <string name="secure_share_search">Partage sécurisé…</string>
     <string name="select_all">Tout sélectionner</string>
     <string name="select_media_folder">Paramétrer le dossier média</string>
     <string name="select_one_template">Veuillez sélectionner un modèle</string>
@@ -803,6 +818,7 @@
     <string name="share_permissions">Autorisations pour le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
+    <string name="share_search">Nom, identifiant de Cloud fédéré ou adresse e-mail…</string>
     <string name="share_send_new_email">Envoyer un nouvel e-mail</string>
     <string name="share_send_note">Note au destinataire</string>
     <string name="share_settings">Paramètres</string>
