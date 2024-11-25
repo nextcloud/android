@@ -50,6 +50,8 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.ViewExtensionsKt;
+import com.nextcloud.utils.extensions.WindowExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -144,7 +146,9 @@ public class SettingsActivity extends PreferenceActivity
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        WindowExtensionsKt.makeStatusBarTransparent(getWindow());
         super.onCreate(savedInstanceState);
+        adjustTopMarginForActionBar();
 
         getDelegate().installViewFactory();
         getDelegate().onCreate(savedInstanceState);
@@ -195,6 +199,18 @@ public class SettingsActivity extends PreferenceActivity
             lock.dismissible(false);
             lock.enableCancelButton(false);
         }
+    }
+
+    private void adjustTopMarginForActionBar() {
+        if (getListView() == null) {
+            return;
+        }
+
+        float topMarginInDp = getResources().getDimension(R.dimen.settings_activity_padding);
+        int topMarginInPx = DisplayUtils.convertDpToPixel(topMarginInDp, this);
+        ViewExtensionsKt.setMargins(getListView(), 0, topMarginInPx, 0, 0);
+
+        getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.bg_default));
     }
 
     private void setupDevCategory(PreferenceScreen preferenceScreen) {

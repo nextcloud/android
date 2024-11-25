@@ -573,6 +573,8 @@ public abstract class DrawerActivity extends ToolbarActivity
                 Log_OC.w(TAG, "Unknown drawer menu item clicked: " + menuItem.getTitle());
             }
         }
+
+        adjustTopMarginForSearchToolbar();
     }
 
     private void startComposeActivity(ComposeDestination destination, int titleId) {
