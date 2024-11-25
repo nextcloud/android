@@ -18,7 +18,10 @@ import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.view.View;
+import android.view.ViewParent;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -31,9 +34,11 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textview.MaterialTextView;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.theme.ThemeColorUtils;
 import com.owncloud.android.utils.theme.ThemeUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
@@ -44,6 +49,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 /**
@@ -65,6 +71,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
     private TextView mInfoBoxMessage;
     protected AppCompatSpinner mToolbarSpinner;
     private boolean isHomeSearchToolbarShow = false;
+    private ConstraintLayout sortListButtonGroup;
 
     @Inject public ThemeColorUtils themeColorUtils;
     @Inject public ThemeUtils themeUtils;
@@ -85,6 +92,7 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         mSearchText = findViewById(R.id.search_text);
         mSwitchAccountButton = findViewById(R.id.switch_account_button);
         mNotificationButton = findViewById(R.id.notification_button);
+        sortListButtonGroup = findViewById(R.id.sort_list_button_group);
 
         if (showSortListButtonGroup) {
             findViewById(R.id.sort_list_button_group).setVisibility(View.VISIBLE);
@@ -105,6 +113,19 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
         viewThemeUtils.material.colorToolbarOverflowIcon(mToolbar);
         viewThemeUtils.platform.themeStatusBar(this);
         viewThemeUtils.material.colorMaterialTextButton(mSwitchAccountButton);
+        adjustTopMarginForSearchToolbar();
+        adjustPaddingForSortListButtonGroup();
+    }
+
+    private void adjustPaddingForSortListButtonGroup() {
+        float topPaddingInDp = getResources().getDimension(R.dimen.standard_half_padding);
+
+        if (isHomeSearchToolbarShow) {
+            topPaddingInDp = getResources().getDimension(R.dimen.standard_eight_padding);
+        }
+
+        int topPaddingInPx = DisplayUtils.convertDpToPixel(topPaddingInDp, this);
+        sortListButtonGroup.setPadding(0, topPaddingInPx,0,0);
     }
 
     public void setupToolbarShowOnlyMenuButtonAndTitle(String title, View.OnClickListener toggleDrawer) {
@@ -185,6 +206,58 @@ public abstract class ToolbarActivity extends BaseActivity implements Injectable
             mDefaultToolbar.setVisibility(View.VISIBLE);
             mHomeSearchToolbar.setVisibility(View.GONE);
         }
+    }
+
+    /**
+     * Adjusts the top margin of the action bar dynamically based on the visibility
+     * of the home search toolbar. Adds extra top margin when the search toolbar is displayed
+     * to avoid overlapping with the status bar text, and resets it when the toolbar is hidden.
+     */
+    public void adjustTopMarginForSearchToolbar() {
+        View targetView = mAppBar;
+        if (targetView == null) {
+            targetView = mToolbar;
+        }
+
+        if (targetView == null) {
+            return;
+        }
+
+        float topMarginInDp = getResources().getDimension(R.dimen.standard_half_padding);
+
+        if (isHomeSearchToolbarShow) {
+            topMarginInDp = getResources().getDimension(R.dimen.standard_margin);
+        } else if (targetView.getParent() != null) {
+            ViewParent parentView = targetView.getParent();
+
+            if (parentView instanceof View view) {
+                applyColorStripBetweenStatusBarAndActionBar(view);
+            }
+        }
+
+        int topMarginInPx = DisplayUtils.convertDpToPixel(topMarginInDp, this);
+        ViewExtensionsKt.setMargins(targetView, 0, topMarginInPx, 0, 0);
+    }
+
+    private static LayerDrawable topStripLayer = null;
+
+    private void applyColorStripBetweenStatusBarAndActionBar(View view) {
+        if (topStripLayer == null) {
+            // Create a layer drawable for partial background
+            GradientDrawable topStrip = new GradientDrawable();
+            topStrip.setColor(ContextCompat.getColor(this, R.color.action_bar));
+
+            // Convert topMarginInDp to pixels for the height of colored strip
+            int stripHeight = DisplayUtils.convertDpToPixel(getResources().getDimension(R.dimen.standard_half_padding), this);
+
+            // Create a LayerDrawable to position the colored strip
+            LayerDrawable layer = new LayerDrawable(new Drawable[]{topStrip});
+            layer.setLayerHeight(0, stripHeight);
+
+            topStripLayer = layer;
+        }
+
+        view.setBackground(topStripLayer);
     }
 
     /**
