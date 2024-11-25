@@ -62,7 +62,7 @@ class ShortcutUtil @Inject constructor(private val mContext: Context) {
                 val isDarkModeActive = syncedFolderProvider.preferences.isDarkModeEnabled
 
                 val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
-                val drawable = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, mContext, viewThemeUtils)
+                val drawable = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, mContext, viewThemeUtils)
                 val bitmapIcon = drawable.toBitmap()
                 icon = IconCompat.createWithBitmap(bitmapIcon)
             } else {
