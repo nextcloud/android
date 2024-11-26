@@ -247,31 +247,49 @@ public class EncryptionTestIT extends AbstractIT {
     }
 
     @Test
-    public void encryptPrivateKey() throws Exception {
-        int max = 10;
-        for (int i = 0; i < max; i++) {
-            Log_OC.d("EncryptionTestIT", i + " of " + max);
+    // Add a field to store the passphrase
+private static String storedPassphrase = null;
 
-            String keyPhrase = "moreovertelevisionfactorytendencyindependenceinternationalintellectualimpress" +
-                "interestvolunteer";
-            KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-            keyGen.initialize(4096, new SecureRandom());
-            KeyPair keyPair = keyGen.generateKeyPair();
-            PrivateKey privateKey = keyPair.getPrivate();
-            byte[] privateKeyBytes = privateKey.getEncoded();
-            String privateKeyString = encodeBytesToBase64String(privateKeyBytes);
+public void encryptPrivateKey() throws Exception {
+    int max = 10;
+    for (int i = 0; i < max; i++) {
+        Log_OC.d("EncryptionTestIT", i + " of " + max);
 
-            String encryptedString;
-            if (new Random().nextBoolean()) {
-                encryptedString = EncryptionUtils.encryptPrivateKey(privateKeyString, keyPhrase);
-            } else {
-                encryptedString = EncryptionUtils.encryptPrivateKeyOld(privateKeyString, keyPhrase);
-            }
-            String decryptedString = decryptPrivateKey(encryptedString, keyPhrase);
-
-            assertEquals(privateKeyString, decryptedString);
+        // Check if passphrase is already generated
+        String keyPhrase;
+        if (storedPassphrase == null) {
+            // Generate a new passphrase if it doesn't exist
+            keyPhrase = generatePassphrase();
+            storedPassphrase = keyPhrase;  // Store it for reuse
+        } else {
+            keyPhrase = storedPassphrase;  // Reuse the stored passphrase
         }
+
+        // RSA key generation and encryption logic
+        KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
+        keyGen.initialize(4096, new SecureRandom());
+        KeyPair keyPair = keyGen.generateKeyPair();
+        PrivateKey privateKey = keyPair.getPrivate();
+        byte[] privateKeyBytes = privateKey.getEncoded();
+        String privateKeyString = encodeBytesToBase64String(privateKeyBytes);
+
+        String encryptedString;
+        if (new Random().nextBoolean()) {
+            encryptedString = EncryptionUtils.encryptPrivateKey(privateKeyString, keyPhrase);
+        } else {
+            encryptedString = EncryptionUtils.encryptPrivateKeyOld(privateKeyString, keyPhrase);
+        }
+
+        // Decrypt and verify the private key
+        String decryptedString = decryptPrivateKey(encryptedString, keyPhrase);
+        assertEquals(privateKeyString, decryptedString);
     }
+}
+
+// Method to generate a passphrase (if not already present)
+public static String generatePassphrase() {
+    return UUID.randomUUID().toString().replaceAll("-", "");  // Example passphrase generation
+}
 
     @Test
     public void generateCSR() throws Exception {
