@@ -817,6 +817,7 @@
     <string name="storage_description_default">Predeterminado</string>
     <string name="storage_documents">Documentos</string>
     <string name="storage_downloads">Descargas</string>
+    <string name="storage_external_storage">Almacenamiento externo</string>
     <string name="storage_internal_storage">Almacenamiento interno</string>
     <string name="storage_movies">Películas</string>
     <string name="storage_music">Música</string>
