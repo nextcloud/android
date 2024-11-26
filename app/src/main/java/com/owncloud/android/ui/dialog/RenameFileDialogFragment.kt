@@ -37,6 +37,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.KeyboardUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import java.io.File
 import javax.inject.Inject
 
 /**
@@ -178,9 +179,13 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
 
         if (isFileHidden(newFileName)) {
             binding.userInputContainer.error = getText(R.string.hidden_file_name_warning)
+            positiveButton?.isEnabled = true
         } else if (errorMessage != null) {
             binding.userInputContainer.error = errorMessage
             positiveButton?.isEnabled = false
+        } else if (checkExtensionRenamed(newFileName)) {
+            binding.userInputContainer.error = getText(R.string.warn_rename_extension)
+            positiveButton?.isEnabled = true
         } else if (binding.userInputContainer.error != null) {
             binding.userInputContainer.error = null
             // Called to remove extra padding
@@ -190,6 +195,17 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
     }
 
     override fun afterTextChanged(s: Editable) = Unit
+
+    private fun checkExtensionRenamed(newFileName: String): Boolean {
+        mTargetFile?.fileName?.let { previousFileName ->
+            val previousExtension = File(previousFileName).extension
+            val newExtension = File(newFileName).extension
+
+            return previousExtension != newExtension
+        }
+
+        return false
+    }
 
     companion object {
         private const val ARG_TARGET_FILE = "TARGET_FILE"

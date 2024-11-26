@@ -35,6 +35,7 @@
     <string name="app_config_base_url_title">Base URL</string>
     <string name="app_config_proxy_host_title">Proxy Hostname</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
+    <string name="app_config_enforce_protection_title">Enforce Protection</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Delete Offline Folder</string>
     <string name="offline_operations_worker_notification_conflict_text">Conflicted Folder: %s</string>
@@ -1268,11 +1269,10 @@
     <string name="please_select_a_server">Please select a server…</string>
     <string name="notification_icon_description">Unread notifications exist</string>
     <string name="unset_internal_two_way_sync_description">Remove folder from internal two way sync</string>
-
     <string name="two_way_sync_activity_empty_list_title">Two way sync not set up</string>
     <string name="two_way_sync_activity_empty_list_desc">To set up a two way sync folder, please enable it in the details tab of the folder in question.</string>
     <string name="two_way_sync_activity_title">Internal two way sync</string>
     <string name="two_way_sync_activity_disable_all_button_title">Disable for all folders</string>
-
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
+    <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
 </resources>

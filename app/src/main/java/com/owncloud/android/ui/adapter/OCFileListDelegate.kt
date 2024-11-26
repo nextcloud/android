@@ -21,7 +21,7 @@ import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.preferences.AppPreferences
-import com.nextcloud.utils.extensions.createRoundedOutline
+import com.nextcloud.utils.extensions.makeRounded
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -250,7 +250,7 @@ class OCFileListDelegate(
         if (shouldHideShare) {
             gridViewHolder.shared.visibility = View.GONE
         } else {
-            showShareIcon(gridViewHolder, file)
+            configureSharedIconView(gridViewHolder, file)
         }
     }
 
@@ -307,9 +307,8 @@ class OCFileListDelegate(
             R.color.bg_default
         }
 
-        gridViewHolder.itemLayout.apply {
-            outlineProvider = createRoundedOutline(context, cornerRadius)
-            clipToOutline = true
+        gridViewHolder.itemLayout.run {
+            makeRounded(context, cornerRadius)
             setBackgroundColor(ContextCompat.getColor(context, itemLayoutBackgroundColorId))
         }
     }
@@ -367,34 +366,38 @@ class OCFileListDelegate(
         }
     }
 
-    private fun showShareIcon(gridViewHolder: ListViewHolder, file: OCFile) {
-        val sharedIconView = gridViewHolder.shared
+    private fun configureSharedIconView(gridViewHolder: ListViewHolder, file: OCFile) {
+        val result = getShareIconIdAndContentDescriptionId(gridViewHolder, file)
 
+        gridViewHolder.shared.run {
+            if (result == null) {
+                visibility = View.GONE
+                return
+            }
+
+            setImageResource(result.first)
+            contentDescription = context.getString(result.second)
+            visibility = View.VISIBLE
+            setOnClickListener { ocFileListFragmentInterface.onShareIconClick(file) }
+        }
+    }
+
+    @Suppress("ReturnCount")
+    private fun getShareIconIdAndContentDescriptionId(holder: ListViewHolder, file: OCFile): Pair<Int, Int>? {
         if (!MDMConfig.sharingSupport(context)) {
-            sharedIconView.visibility = View.GONE
-            return
+            return null
         }
 
-        if (gridViewHolder is OCFileListItemViewHolder || file.unreadCommentsCount == 0) {
-            sharedIconView.visibility = View.VISIBLE
-            if (file.isSharedWithSharee || file.isSharedWithMe) {
-                if (showShareAvatar) {
-                    sharedIconView.visibility = View.GONE
-                } else {
-                    sharedIconView.visibility = View.VISIBLE
-                    sharedIconView.setImageResource(R.drawable.shared_via_users)
-                    sharedIconView.contentDescription = context.getString(R.string.shared_icon_shared)
-                }
-            } else if (file.isSharedViaLink) {
-                sharedIconView.setImageResource(R.drawable.shared_via_link)
-                sharedIconView.contentDescription = context.getString(R.string.shared_icon_shared_via_link)
-            } else {
-                sharedIconView.setImageResource(R.drawable.ic_unshared)
-                sharedIconView.contentDescription = context.getString(R.string.shared_icon_share)
+        if (file.isOfflineOperation) return null
+
+        if (holder !is OCFileListItemViewHolder && file.unreadCommentsCount != 0) return null
+
+        return when {
+            file.isSharedWithSharee || file.isSharedWithMe -> {
+                if (showShareAvatar) null else R.drawable.shared_via_users to R.string.shared_icon_shared
             }
-            sharedIconView.setOnClickListener { ocFileListFragmentInterface.onShareIconClick(file) }
-        } else {
-            sharedIconView.visibility = View.GONE
+            file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
+            else -> R.drawable.ic_unshared to R.string.shared_icon_share
         }
     }
 

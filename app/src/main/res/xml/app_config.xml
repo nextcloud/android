@@ -61,4 +61,10 @@
         android:restrictionType="bool"
         android:title="@string/app_config_disable_log_title" />
 
+    <restriction
+        android:key="enforce_protection"
+        android:defaultValue="false"
+        android:restrictionType="bool"
+        android:title="@string/app_config_enforce_protection_title" />
+
 </restrictions>

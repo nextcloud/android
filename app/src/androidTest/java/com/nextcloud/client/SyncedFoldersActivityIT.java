@@ -7,8 +7,8 @@
  */
 package com.nextcloud.client;
 
-import android.app.Activity;
 import android.content.Intent;
+import android.os.Looper;
 
 import com.nextcloud.client.preferences.SubFolderRule;
 import com.owncloud.android.AbstractIT;
@@ -25,6 +25,7 @@ import org.junit.Test;
 
 import java.util.Objects;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 
 import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
@@ -77,5 +78,25 @@ public class SyncedFoldersActivityIT extends AbstractIT {
         shortSleep();
 
         screenshot(Objects.requireNonNull(sut.requireDialog().getWindow()).getDecorView());
+    }
+    
+    @Test
+    @ScreenshotTest
+    public void showPowerCheckDialog() {
+        if (Looper.myLooper() == null) {
+            Looper.prepare();
+        }
+        
+        Intent intent = new Intent(targetContext, SyncedFoldersActivity.class);
+        SyncedFoldersActivity activity = activityRule.launchActivity(intent);
+
+        AlertDialog sut = activity.buildPowerCheckDialog();
+        
+        activity.runOnUiThread(sut::show);
+        
+        getInstrumentation().waitForIdleSync();
+        shortSleep();
+
+        screenshot(Objects.requireNonNull(sut.getWindow()).getDecorView());
     }
 }
