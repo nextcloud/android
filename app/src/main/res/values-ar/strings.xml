@@ -451,7 +451,7 @@
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
     <string name="folder_name_empty">اسم المجلد لا يمكن أن يكون فارغاً</string>
-    <string name="folder_picker_choose_button_text">إختَر</string>
+    <string name="folder_picker_choose_button_text">إختر</string>
     <string name="folder_picker_choose_caption_text">اختر مكان المجلد</string>
     <string name="folder_picker_copy_button_text">إنسَخ</string>
     <string name="folder_picker_move_button_text">نقل</string>
