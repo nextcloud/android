@@ -41,6 +41,7 @@
     <string name="app_config_disable_more_external_site_title">Disable External Sites</string>
     <string name="app_config_disable_multiaccount_title">Disable Multi Account</string>
     <string name="app_config_disable_sharing_title">Disable Sharing</string>
+    <string name="app_config_enforce_protection_title">Enforce Protection</string>
     <string name="app_config_proxy_host_title">Proxy Hostname</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
@@ -1068,6 +1069,7 @@
     <string name="wait_a_moment">Wait a moment…</string>
     <string name="wait_checking_credentials">Checking stored credentials</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copying file from private storage</string>
+    <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
     <string name="webview_version_check_alert_dialog_message">Please update the Android System WebView app for a login</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
     <string name="webview_version_check_alert_dialog_title">Update Android System WebView</string>

@@ -41,6 +41,7 @@
     <string name="app_config_disable_more_external_site_title">停用外部網站</string>
     <string name="app_config_disable_multiaccount_title">停用多重帳號</string>
     <string name="app_config_disable_sharing_title">停用分享</string>
+    <string name="app_config_enforce_protection_title">強制保護</string>
     <string name="app_config_proxy_host_title">代理伺服器主機名稱</string>
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小工具</string>
@@ -1068,6 +1069,7 @@
     <string name="wait_a_moment">稍候…</string>
     <string name="wait_checking_credentials">正在檢查儲存的憑證</string>
     <string name="wait_for_tmp_copy_from_private_storage">從私有儲存空間複製檔案中</string>
+    <string name="warn_rename_extension">變更副檔名可能會導致此檔案在其他應用程式中開啟</string>
     <string name="webview_version_check_alert_dialog_message">請更新 Android System WebView 應用程式以登入</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
     <string name="webview_version_check_alert_dialog_title">更新 Android System WebView</string>
