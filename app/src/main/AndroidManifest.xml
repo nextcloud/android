@@ -264,6 +264,10 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.canhub.cropper.CropImageActivity"
+            android:exported="false"
+            tools:replace="android:exported" />
 
         <receiver
             android:name="com.nextcloud.receiver.OfflineOperationActionReceiver"
