@@ -521,6 +521,7 @@
     <string name="storage_description_default">Defaŭlta</string>
     <string name="storage_documents">Dokumentoj</string>
     <string name="storage_downloads">Elŝutoj</string>
+    <string name="storage_external_storage">Ekstera konservejo</string>
     <string name="storage_internal_storage">Interna konservejo</string>
     <string name="storage_movies">Videaĵoj</string>
     <string name="storage_music">Muziko</string>
