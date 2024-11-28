@@ -14,12 +14,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.Window
-import androidx.annotation.ColorInt
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.canhub.cropper.CropImageView
@@ -27,6 +24,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.setNavBarColor
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityEditImageBinding
 import com.owncloud.android.datamodel.OCFile
@@ -88,26 +86,6 @@ class EditImageActivity :
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
         window.setNavBarColor(getColor(R.color.black))
         setupCropper()
-    }
-
-    // TODO move it to the WindowExtensions
-    private fun Window?.setNavBarColor(@ColorInt color: Int) {
-        if (this == null) {
-            return
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(decorView) { v: View, insets: WindowInsetsCompat ->
-            val navigationBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
-            v.setPadding(
-                v.paddingLeft,
-                v.top,
-                v.paddingRight,
-                navigationBarInsets.bottom,
-            )
-            insets
-        }
-
-        decorView.setBackgroundColor(color)
     }
 
     override fun onCropImageComplete(view: CropImageView, result: CropImageView.CropResult) {

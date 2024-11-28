@@ -10,18 +10,16 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
-import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.mixins.MixinRegistry;
 import com.nextcloud.client.mixins.SessionMixin;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
+import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -33,9 +31,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
@@ -71,7 +66,7 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        addBottomMarginIfNavBarActive();
+        ActivityExtensionsKt.setNavBarColor(getWindow(), getColor(R.color.bg_default));
         super.onCreate(savedInstanceState);
         sessionMixin = new SessionMixin(this, accountManager);
         mixinRegistry.add(sessionMixin);
@@ -137,18 +132,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         }
     }
 
-    // TODO Use Window Extensions
-    private void addBottomMarginIfNavBarActive() {
-        ViewCompat.setOnApplyWindowInsetsListener(getWindow().getDecorView(), (view, windowInsetsCompat) -> {
-            Insets navigationBarInsets = windowInsetsCompat.getInsets(WindowInsetsCompat.Type.navigationBars());
-            view.setPadding(view.getPaddingLeft(), view.getTop(), view.getPaddingRight(), navigationBarInsets.bottom);
-            return windowInsetsCompat;
-        });
-    }
-
     /**
      * Sets and validates the ownCloud {@link Account} associated to the Activity.
-     *
      * If not valid, tries to swap it for other valid and existing ownCloud {@link Account}.
      *
      * @param account      New {@link Account} to set.
