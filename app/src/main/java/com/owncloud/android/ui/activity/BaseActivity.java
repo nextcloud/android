@@ -11,6 +11,7 @@ import android.accounts.Account;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.WindowManager;
 
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -20,6 +21,7 @@ import com.nextcloud.client.mixins.SessionMixin;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
+import com.nextcloud.utils.extensions.WindowExtensionsKt;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -33,6 +35,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.SystemBarStyle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.WindowCompat;
 
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
@@ -69,7 +72,8 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         enableEdgeToEdge();
-        ActivityExtensionsKt.addStatusBarPadding(getWindow());
+        WindowExtensionsKt.makeStatusBarTransparent(getWindow());
+        WindowExtensionsKt.addStatusBarPadding(getWindow());
         super.onCreate(savedInstanceState);
         sessionMixin = new SessionMixin(this, accountManager);
         mixinRegistry.add(sessionMixin);
