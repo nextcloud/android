@@ -14,9 +14,12 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.Window
+import androidx.annotation.ColorInt
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
+import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.canhub.cropper.CropImageView
@@ -84,10 +87,28 @@ class EditImageActivity :
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
 
-        // TODO replace deprecated and disabled usage
-        window.navigationBarColor = getColor(R.color.black)
-
+        // TODO move it to the WindowExtensions
+        window.setNavBarColor(getColor(R.color.black))
         setupCropper()
+    }
+
+    private fun Window?.setNavBarColor(@ColorInt color: Int) {
+        if (this == null) {
+            return
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(decorView) { v: View, insets: WindowInsetsCompat ->
+            val navigationBarInsets = insets.getInsets(WindowInsetsCompat.Type.navigationBars())
+            v.setPadding(
+                v.paddingLeft,
+                v.top,
+                v.paddingRight,
+                navigationBarInsets.bottom,
+            )
+            insets
+        }
+
+        decorView.setBackgroundColor(color)
     }
 
     override fun onCropImageComplete(view: CropImageView, result: CropImageView.CropResult) {
