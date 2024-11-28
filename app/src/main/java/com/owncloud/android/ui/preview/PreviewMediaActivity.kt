@@ -266,7 +266,8 @@ class PreviewMediaActivity :
 
                 it.setHomeAsUpIndicator(
                     ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_back, theme)
-                        ?.apply { setTint(Color.WHITE) })
+                        ?.apply { setTint(Color.WHITE) }
+                )
 
                 it.setBackgroundDrawable(ColorDrawable(Color.BLACK))
             }
