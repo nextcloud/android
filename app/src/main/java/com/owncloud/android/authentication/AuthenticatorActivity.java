@@ -581,6 +581,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
 
                 if (mServerInfo.mVersion != null && mServerInfo.mVersion.isOlderThan(NextcloudVersion.nextcloud_25)) {
                     viewThemeUtils.platform.colorStatusBar(AuthenticatorActivity.this, primaryColor);
+
+                    // TODO replace deprecated and disabled usage
                     getWindow().setNavigationBarColor(primaryColor);
                 } else {
                     viewThemeUtils.platform.resetStatusBar(AuthenticatorActivity.this);

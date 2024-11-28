@@ -83,6 +83,8 @@ class EditImageActivity :
         windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+
+        // TODO replace deprecated and disabled usage
         window.navigationBarColor = getColor(R.color.black)
 
         setupCropper()
