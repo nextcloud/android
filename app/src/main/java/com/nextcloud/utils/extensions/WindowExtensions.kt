@@ -23,8 +23,6 @@ fun Window?.addStatusBarPadding() {
         return
     }
 
-    val decorView: View = decorView
-
     ViewCompat.setOnApplyWindowInsetsListener(decorView) { v: View, insets: WindowInsetsCompat ->
         val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
         v.setPadding(
