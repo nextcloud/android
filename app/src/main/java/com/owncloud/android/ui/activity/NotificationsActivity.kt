@@ -9,12 +9,10 @@
  */
 package com.owncloud.android.ui.activity
 
-import android.os.Build
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.WindowInsetsController
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -28,6 +26,8 @@ import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.network.ClientFactory.CreationException
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.common.NextcloudClient
+import com.nextcloud.utils.extensions.changeStatusBarColor
+import com.nextcloud.utils.extensions.changeSystemBar
 import com.owncloud.android.R
 import com.owncloud.android.databinding.NotificationsLayoutBinding
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -108,24 +108,9 @@ class NotificationsActivity : AppCompatActivity(), NotificationsContract.View, I
     }
 
     private fun setupStatusBar() {
-        window.statusBarColor = ContextCompat.getColor(this, R.color.bg_default)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            val appearanceLightStatusBars = if (preferences.isDarkModeEnabled) {
-                0
-            } else {
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            }
-            window.insetsController?.setSystemBarsAppearance(
-                appearanceLightStatusBars,
-                WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-            )
-        } else {
-            @Suppress("DEPRECATION")
-            window.decorView.systemUiVisibility = if (preferences.isDarkModeEnabled) {
-                0
-            } else {
-                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
-            }
+        window?.run {
+            changeStatusBarColor(ContextCompat.getColor(this@NotificationsActivity, R.color.bg_default))
+            changeSystemBar(preferences.isDarkModeEnabled)
         }
     }
 

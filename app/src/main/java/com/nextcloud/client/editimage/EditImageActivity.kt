@@ -23,6 +23,7 @@ import com.canhub.cropper.CropImageView
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
+import com.nextcloud.utils.extensions.changeStatusBarColor
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityEditImageBinding
@@ -82,7 +83,7 @@ class EditImageActivity :
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
         windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
 
-        window.statusBarColor = ContextCompat.getColor(this, R.color.black)
+        window.changeStatusBarColor(ContextCompat.getColor(this, R.color.black))
         window.navigationBarColor = getColor(R.color.black)
 
         setupCropper()
