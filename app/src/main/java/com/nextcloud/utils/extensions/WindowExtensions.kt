@@ -9,9 +9,15 @@ package com.nextcloud.utils.extensions
 
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+
+fun Window?.setNoLimitLayout() {
+    val flag = WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+    this?.setFlags(flag, flag)
+}
 
 fun Window?.addSystemBarPaddings() {
     if (this == null) {
