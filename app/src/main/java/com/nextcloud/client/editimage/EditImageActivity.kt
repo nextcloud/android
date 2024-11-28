@@ -86,12 +86,11 @@ class EditImageActivity :
         windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
-
-        // TODO move it to the WindowExtensions
         window.setNavBarColor(getColor(R.color.black))
         setupCropper()
     }
 
+    // TODO move it to the WindowExtensions
     private fun Window?.setNavBarColor(@ColorInt color: Int) {
         if (this == null) {
             return

@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
+import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.mixins.MixinRegistry;
 import com.nextcloud.client.mixins.SessionMixin;
 import com.nextcloud.client.preferences.AppPreferences;
@@ -32,7 +33,9 @@ import javax.inject.Inject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
 
 /**
  * Base activity with common behaviour for activities dealing with ownCloud {@link Account}s .
@@ -134,15 +137,11 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
         }
     }
 
+    // TODO Use Window Extensions
     private void addBottomMarginIfNavBarActive() {
         ViewCompat.setOnApplyWindowInsetsListener(getWindow().getDecorView(), (view, windowInsetsCompat) -> {
-            View contentView = findViewById(android.R.id.content);
-
-            if (contentView != null && contentView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams params) {
-                params.bottomMargin = ActivityExtensionsKt.navBarHeight(this, windowInsetsCompat);
-                contentView.setLayoutParams(params);
-            }
-
+            Insets navigationBarInsets = windowInsetsCompat.getInsets(WindowInsetsCompat.Type.navigationBars());
+            view.setPadding(view.getPaddingLeft(), view.getTop(), view.getPaddingRight(), navigationBarInsets.bottom);
             return windowInsetsCompat;
         });
     }
