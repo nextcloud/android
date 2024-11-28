@@ -9,28 +9,25 @@ package com.nextcloud.utils.extensions
 
 import android.view.View
 import android.view.Window
-import android.view.WindowManager
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 
-fun Window?.makeStatusBarTransparent() {
-    val flag = WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-    this?.setFlags(flag, flag)
-}
-
-fun Window?.addStatusBarPadding() {
+fun Window?.addSystemBarPaddings() {
     if (this == null) {
         return
     }
 
     ViewCompat.setOnApplyWindowInsetsListener(decorView) { v: View, insets: WindowInsetsCompat ->
-        val statusBarInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars())
-        v.setPadding(
-            v.paddingLeft,
-            statusBarInsets.top,
-            v.paddingRight,
-            v.paddingBottom
+        val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+        v.updatePadding(
+            left = bars.left,
+            top = bars.top,
+            right = bars.right,
+            bottom = bars.bottom,
         )
-        insets
+
+        WindowInsetsCompat.CONSUMED
     }
 }
