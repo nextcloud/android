@@ -41,6 +41,7 @@
     <string name="app_config_disable_more_external_site_title">Díchumasaigh Suímh Sheachtracha</string>
     <string name="app_config_disable_multiaccount_title">Díchumasaigh Ilchuntais</string>
     <string name="app_config_disable_sharing_title">Díchumasaigh Roinnt</string>
+    <string name="app_config_enforce_protection_title">Cosaint a Fhorfheidhmiú</string>
     <string name="app_config_proxy_host_title">Óstainm Seachfhreastalaí</string>
     <string name="app_config_proxy_port_title">Port Seachfhreastalaí</string>
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
@@ -1068,6 +1069,7 @@
     <string name="wait_a_moment">Fan nóiméad…</string>
     <string name="wait_checking_credentials">Dintiúir stóráilte a sheiceáil</string>
     <string name="wait_for_tmp_copy_from_private_storage">Comhad á chóipeáil ó stór príobháideach</string>
+    <string name="warn_rename_extension">Seans go n-osclóidh an comhad seo i bhfeidhmchlár eile má athraítear an síneadh ama</string>
     <string name="webview_version_check_alert_dialog_message">Nuashonraigh an aip Android System WebView le haghaidh logáil isteach</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Nuashonrú</string>
     <string name="webview_version_check_alert_dialog_title">Nuashonraigh Android System WebView</string>

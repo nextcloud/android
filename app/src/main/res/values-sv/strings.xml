@@ -41,6 +41,7 @@
     <string name="app_config_disable_more_external_site_title">Inaktivera externa platser</string>
     <string name="app_config_disable_multiaccount_title">Inaktivera flera konton</string>
     <string name="app_config_disable_sharing_title">Inaktivera delning</string>
+    <string name="app_config_enforce_protection_title">Tillämpa skydd</string>
     <string name="app_config_proxy_host_title">Proxy-värdnamn</string>
     <string name="app_config_proxy_port_title">Proxyport</string>
     <string name="app_widget_description">Visa en widget från dashboard</string>
@@ -1067,6 +1068,7 @@
     <string name="wait_a_moment">Vänligen vänta…</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
+    <string name="warn_rename_extension">Att ändra tillägg kan göra att filen öppnas i en annan app</string>
     <string name="webview_version_check_alert_dialog_message">Uppdatera Android System WebView-appen för inloggning</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Uppdatera</string>
     <string name="webview_version_check_alert_dialog_title">Uppdatera Android System WebView</string>

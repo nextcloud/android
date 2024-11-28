@@ -41,6 +41,7 @@
     <string name="app_config_disable_more_external_site_title">Вимкнути зовнішні сайти</string>
     <string name="app_config_disable_multiaccount_title">Вимкнути багатокористувацький режим</string>
     <string name="app_config_disable_sharing_title">Вимкнути надання у спільний доступ</string>
+    <string name="app_config_enforce_protection_title">Увімкнути захист</string>
     <string name="app_config_proxy_host_title">Хост проксі</string>
     <string name="app_config_proxy_port_title">Порт проксі-сервера</string>
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
@@ -1058,6 +1059,7 @@
     <string name="wait_a_moment">Зачекайте трохи…</string>
     <string name="wait_checking_credentials">Перевірка збережених даних авторизації</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копіювання файлу з приватного сховища</string>
+    <string name="warn_rename_extension">Зміна розширення файлу може призвести до того, що його буде відкривати інший застосунок</string>
     <string name="webview_version_check_alert_dialog_message">Оновіть застосунок Android System WebView для отримання доступу до входу</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Оновлення</string>
     <string name="webview_version_check_alert_dialog_title">Оновити Android System WebView</string>

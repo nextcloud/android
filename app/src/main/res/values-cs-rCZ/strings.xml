@@ -35,6 +35,13 @@
     <string name="advanced_settings">Pokročilá nastavení</string>
     <string name="allow_resharing">Povolit sdílet dál dalším</string>
     <string name="app_config_base_url_title">Základní URL</string>
+    <string name="app_config_disable_clipboard_title">Zakázat schránku</string>
+    <string name="app_config_disable_intro_title">Zakázat úvod</string>
+    <string name="app_config_disable_log_title">Zakázat zaznamenávání událostí</string>
+    <string name="app_config_disable_more_external_site_title">Zakázat externí stránky</string>
+    <string name="app_config_disable_multiaccount_title">Zakázat vícero uživatelských účtů</string>
+    <string name="app_config_disable_sharing_title">Zakázat sdílení</string>
+    <string name="app_config_enforce_protection_title">Vynutit ochranu</string>
     <string name="app_config_proxy_host_title">Název stroje s proxy</string>
     <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Zobrazuje jeden ovládací prvek z nástěnky</string>
@@ -362,6 +369,7 @@
     <string name="file_already_exists">Takto nazvaný soubor už zde existuje</string>
     <string name="file_delete">Smazat</string>
     <string name="file_detail_activity_error">Při načítání aktivit u souboru došlo k chybě</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Pro označené kontakty není k dispozici žádná aplikace</string>
     <string name="file_details_no_content">Nepodařilo se načíst podrobnosti.</string>
     <string name="file_icon">Soubor</string>
     <string name="file_keep">Ponechat</string>
@@ -389,6 +397,7 @@
     <string name="file_management_permission_optional">Oprávnění k úložišti</string>
     <string name="file_management_permission_optional_text">%1$s funguje nejlépe s oprávněními pro přístup k úložišti. Je možné zvolit plný přístup k veškerým souborům nebo přístup pouze pro čtení k fotkám a videím.</string>
     <string name="file_management_permission_text">Aby %1$s mohlo nahrávat soubory na server, potřebuje oprávnění pro správu souborů. Je možné zvolit plný přístup k veškerým souborům nebo přístup pouze pro čtení k fotkám a videím.</string>
+    <string name="file_migration_allow_media_indexing">Umožnit přístup z ostatních aplikací</string>
     <string name="file_migration_checking_destination">Prověřování cílového umístění…</string>
     <string name="file_migration_cleaning">Čištění…</string>
     <string name="file_migration_dialog_title">Aktualizuje se složka pro ukládání dat</string>
@@ -399,6 +408,7 @@
     <string name="file_migration_failed_not_writable">Do cílového souboru se nedaří zapsat</string>
     <string name="file_migration_failed_while_coping">Nezdar během migrace</string>
     <string name="file_migration_failed_while_updating_index">Nepodařilo se aktualizovat rejstřík</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Přesouvání dat…</string>
     <string name="file_migration_ok_finished">Dokončeno</string>
     <string name="file_migration_override_data_folder">Nahradit</string>
@@ -594,6 +604,7 @@
     <string name="notifications_no_results_headline">Žádná upozornění</string>
     <string name="notifications_no_results_message">Vraťte se sem později.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Čekající operace</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Čekající operace odebrání</string>
     <string name="offline_mode">Bez připojení k Internetu</string>
     <string name="offline_mode_info_description">I bez připojení k Internetu je možné uspořádávat své složky a vytvářet soubory. Jakmile budete opět online, vaše čekající změny budou automaticky synchronizovány.</string>
     <string name="offline_mode_info_title">Jste bez připojení, ale práce pokračuje</string>
@@ -656,6 +667,8 @@
     <string name="prefs_category_sync">Synchronizovat</string>
     <string name="prefs_daily_backup_summary">Každodenní záloha vašeho kalendáře a kontaktů</string>
     <string name="prefs_daily_contact_backup_summary">Každodenní záloha vašich kontaktů</string>
+    <string name="prefs_data_storage_location">Umístění úložiště dat</string>
+    <string name="prefs_data_storage_location_summary">Spravovat umístění úložiště dat</string>
     <string name="prefs_davx5_setup_error">Neočekávaná chyba při nastavování DAVx5 (dříve známého jako  DAVdroid)</string>
     <string name="prefs_e2e_active">Šifrování mezi koncovými body je nastaveno!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemotechnická</string>
@@ -1056,6 +1069,7 @@
     <string name="wait_a_moment">Chvilku strpení…</string>
     <string name="wait_checking_credentials">Ověřování uložených přihlašovacích údajů</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírování souboru ze soukromého úložiště</string>
+    <string name="warn_rename_extension">Změna přípony může způsobit, že se soubor bude otevírat jinou aplikací</string>
     <string name="webview_version_check_alert_dialog_message">Aby se bylo možné přihlásit, zaktualizujte systémovou aplikaci WebView Androidu</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizovat</string>
     <string name="webview_version_check_alert_dialog_title">Zaktualizovat Android System WebView</string>
