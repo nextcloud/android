@@ -24,6 +24,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.extensions.setNavBarColor
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityEditImageBinding
 import com.owncloud.android.datamodel.OCFile
@@ -83,8 +84,7 @@ class EditImageActivity :
         windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
 
         window.statusBarColor = ContextCompat.getColor(this, R.color.black)
-        window.navigationBarColor = getColor(R.color.black)
-
+        window.setNavBarColor(getColor(R.color.black))
         setupCropper()
     }
 
