@@ -18,6 +18,8 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.AsyncTask
@@ -34,6 +36,8 @@ import android.widget.LinearLayout
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
@@ -72,6 +76,7 @@ import com.nextcloud.ui.fileactions.FileActionsBottomSheet.Companion.newInstance
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet.ResultListener
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.logFileSize
+import com.nextcloud.utils.extensions.setTitleColor
 import com.nextcloud.utils.extensions.statusBarHeight
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityPreviewMediaBinding
@@ -234,15 +239,15 @@ class PreviewMediaActivity :
             return
         }
 
-        val isFileVideo = MimeTypeUtil.isVideo(file)
+        binding.exoplayerView.visibility = if (isFileVideo()) View.VISIBLE else View.GONE
+        binding.imagePreview.visibility = if (isFileVideo()) View.GONE else View.VISIBLE
 
-        binding.exoplayerView.visibility = if (isFileVideo) View.VISIBLE else View.GONE
-        binding.imagePreview.visibility = if (isFileVideo) View.GONE else View.VISIBLE
-
-        if (isFileVideo) {
+        if (isFileVideo()) {
             binding.root.setBackgroundColor(resources.getColor(R.color.black, null))
         }
     }
+
+    private fun isFileVideo(): Boolean = MimeTypeUtil.isVideo(file)
 
     private fun configureSystemBars() {
         updateActionBarTitleAndHomeButton(file)
@@ -250,6 +255,21 @@ class PreviewMediaActivity :
         supportActionBar?.let {
             it.setDisplayHomeAsUpEnabled(true)
             viewThemeUtils.files.themeActionBar(this, it)
+
+            if (isFileVideo()) {
+                it.setTitleColor(
+                    resources.getColor(
+                        R.color.white,
+                        null
+                    )
+                )
+
+                it.setHomeAsUpIndicator(
+                    ResourcesCompat.getDrawable(resources, R.drawable.ic_arrow_back, theme)
+                        ?.apply { setTint(Color.WHITE) })
+
+                it.setBackgroundDrawable(ColorDrawable(Color.BLACK))
+            }
         }
 
         viewThemeUtils.platform.themeStatusBar(
@@ -520,6 +540,12 @@ class PreviewMediaActivity :
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.custom_menu_placeholder, menu)
+
+        if (isFileVideo()) {
+            val moreMenuItem = menu?.findItem(R.id.custom_menu_placeholder_item)
+            moreMenuItem?.icon?.setTint(ContextCompat.getColor(this, R.color.white))
+        }
+
         return true
     }
 
