@@ -10,6 +10,7 @@ package com.owncloud.android.ui.activity;
 import android.accounts.Account;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.nextcloud.client.account.User;
@@ -68,8 +69,13 @@ public abstract class BaseActivity extends AppCompatActivity implements Injectab
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        enableEdgeToEdge();
-        WindowExtensionsKt.addSystemBarPaddings(getWindow());
+        boolean isApiLevel35OrHigher = (Build.VERSION.SDK_INT >= 35);
+
+        if (isApiLevel35OrHigher) {
+            enableEdgeToEdge();
+            WindowExtensionsKt.addSystemBarPaddings(getWindow());
+        }
+
         super.onCreate(savedInstanceState);
         sessionMixin = new SessionMixin(this, accountManager);
         mixinRegistry.add(sessionMixin);

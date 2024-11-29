@@ -23,6 +23,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -146,8 +147,12 @@ public class SettingsActivity extends PreferenceActivity
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        WindowExtensionsKt.addSystemBarPaddings(getWindow());
-        WindowExtensionsKt.setNoLimitLayout(getWindow());
+        boolean isApiLevel35OrHigher = (Build.VERSION.SDK_INT >= 35);
+        if (isApiLevel35OrHigher) {
+            WindowExtensionsKt.addSystemBarPaddings(getWindow());
+            WindowExtensionsKt.setNoLimitLayout(getWindow());
+        }
+
         super.onCreate(savedInstanceState);
 
         getDelegate().installViewFactory();
@@ -191,7 +196,10 @@ public class SettingsActivity extends PreferenceActivity
         // workaround for mismatched color when app dark mode and system dark mode don't agree
         setListBackground();
         showPasscodeDialogIfEnforceAppProtection();
-        adjustTopMarginForActionBar();
+
+        if (isApiLevel35OrHigher) {
+            adjustTopMarginForActionBar();
+        }
     }
 
     private void adjustTopMarginForActionBar() {
