@@ -27,6 +27,7 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.documentscan.GeneratePdfFromImagesWork
 import com.nextcloud.client.jobs.download.FileDownloadWorker
 import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
+import com.nextcloud.client.jobs.sync.SyncWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.utils.extensions.isWorkRunning
@@ -85,7 +86,7 @@ internal class BackgroundJobManagerImpl(
         const val JOB_PERIODIC_OFFLINE_OPERATIONS = "periodic_offline_operations"
         const val JOB_PERIODIC_HEALTH_STATUS = "periodic_health_status"
         const val JOB_IMMEDIATE_HEALTH_STATUS = "immediate_health_status"
-
+        const val JOB_SYNC_FOLDER = "sync_folder"
         const val JOB_INTERNAL_TWO_WAY_SYNC = "internal_two_way_sync"
 
         const val JOB_TEST = "test_job"
@@ -716,5 +717,17 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
+    }
+
+    override fun syncFolder(filePaths: List<String>) {
+        val data = Data.Builder()
+            .putStringArray(SyncWorker.FILE_PATHS, filePaths.toTypedArray())
+            .build()
+
+        val request = oneTimeRequestBuilder(SyncWorker::class, JOB_SYNC_FOLDER)
+            .setInputData(data)
+            .build()
+
+        workManager.enqueueUniqueWork(JOB_SYNC_FOLDER, ExistingWorkPolicy.REPLACE, request)
     }
 }
