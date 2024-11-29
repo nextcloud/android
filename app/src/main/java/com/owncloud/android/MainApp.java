@@ -834,6 +834,8 @@ public class MainApp extends Application implements HasAndroidInjector {
         }
     }
 
+    
+
     private static void showAutoUploadAlertDialog(Context context) {
         new MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)
             .setTitle(R.string.drawer_synced_folders)
