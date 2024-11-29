@@ -176,7 +176,7 @@
     <string name="community_release_candidate_headline">Candidata de publicación</string>
     <string name="community_release_candidate_text">A candidata de publicación (release candidate - RC) é unha instantánea da versión máis próxima a publicar e agardase que sexa estábel. Probar a súa configuración individual podería axudarnos a asegurar iso. Rexístrese para facer probas na Play Store ou búsquea manualmente na sección «Versións» no F-Droid.</string>
     <string name="community_testing_bug_text">Atopou un fallo? hai algo estraño?</string>
-    <string name="community_testing_headline">Axudanos facendo probas</string>
+    <string name="community_testing_headline">Axúdenos facendo probas</string>
     <string name="community_testing_report_text">Informe dun incidente no GitHub</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirm_removal">Retirar o cifrado local</string>
