@@ -49,6 +49,7 @@ import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.LocalFileListFragment;
 import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
+import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.PermissionUtil;
 
 import java.io.File;
@@ -563,7 +564,8 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void checkWritableFolder(File folder) {
-        boolean canWriteIntoFolder = folder.canWrite();
+        boolean canWriteIntoFolder = FileStorageUtils.isFolderWritable(folder);
+        
         binding.uploadFilesSpinnerBehaviour.setEnabled(canWriteIntoFolder);
 
         TextView textView = findViewById(R.id.upload_files_upload_files_behaviour_text);
