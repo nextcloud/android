@@ -141,4 +141,8 @@ class FileDownloadHelper {
             conflictUploadId
         )
     }
+
+    fun syncFolder(filePaths: List<String>) {
+        backgroundJobManager.syncFolder(filePaths)
+    }
 }
