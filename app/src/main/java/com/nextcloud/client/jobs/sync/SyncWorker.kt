@@ -29,6 +29,7 @@ class SyncWorker(
 
     @Suppress("DEPRECATION")
     override suspend fun doWork(): Result {
+        // TODO add notifications
         Log_OC.d(TAG, "SyncWorker started")
         val filePaths = inputData.getStringArray(FILE_PATHS)
 
@@ -44,6 +45,7 @@ class SyncWorker(
         var result = true
         filePaths.forEach { path ->
             fileDataStorageManager.getFileByDecryptedRemotePath(path)?.let { file ->
+                // TODO dont download downloaded files??
                 val operation = DownloadFileOperation(user, file, context).execute(client)
                 Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
                 if (!operation.isSuccess) {
@@ -51,6 +53,9 @@ class SyncWorker(
                 }
             }
         }
+
+        // TODO add isDownloading
+        // TODO add cancel only one file download
 
         return if (result) {
             Log_OC.d(TAG, "SyncWorker completed")
