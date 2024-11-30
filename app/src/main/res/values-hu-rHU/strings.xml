@@ -13,6 +13,7 @@
     <string name="action_send_share">Küldés/megosztás</string>
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
+    <string name="actionbar_calendar_contacts_restore">Névjegyek és naptár helyreállítása</string>
     <string name="actionbar_mkdir">Új mappa</string>
     <string name="actionbar_move_or_copy">Áthelyezés vagy Másolás</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
@@ -34,6 +35,8 @@
     <string name="advanced_settings">Speciális beállítások</string>
     <string name="allow_resharing">Újra megosztás engedélyezése</string>
     <string name="app_config_base_url_title">Alap URL</string>
+    <string name="app_config_disable_clipboard_title">Vágólap letiltása</string>
+    <string name="app_config_disable_intro_title">Bevezető kikapcsolása</string>
     <string name="app_config_proxy_port_title">Proxy portja</string>
     <string name="app_widget_description">Egy modult jelenít meg a irányítópultról</string>
     <string name="appbar_search_in">Keresés itt: %s</string>

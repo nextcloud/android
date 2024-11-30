@@ -408,6 +408,7 @@
     <string name="file_migration_failed_not_writable">無法寫入目的檔案</string>
     <string name="file_migration_failed_while_coping">遷移失敗</string>
     <string name="file_migration_failed_while_updating_index">更新索引失敗</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">數據移動中…</string>
     <string name="file_migration_ok_finished">完成</string>
     <string name="file_migration_override_data_folder">取代</string>
