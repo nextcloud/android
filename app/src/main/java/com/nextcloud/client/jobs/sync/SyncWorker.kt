@@ -12,6 +12,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
@@ -26,8 +27,17 @@ class SyncWorker(
 ) : CoroutineWorker(context, params) {
 
     companion object {
-        const val FILE_PATHS = "FILE_PATHS"
         private const val TAG = "SyncWorker"
+
+        const val FILE_PATHS = "FILE_PATHS"
+
+        // FIXME it's not synchronous
+        fun isDownloading(fileId: Long): Boolean {
+            return downloadFileIds.contains(fileId) ||  currentDownloadFolderId == fileId
+        }
+
+        private var currentDownloadFolderId: Long? = null
+        private var downloadFileIds = ArrayList<Long>()
     }
 
     private val notificationManager = SyncWorkerNotificationManager(context)
@@ -59,15 +69,15 @@ class SyncWorker(
                 }
 
                 fileDataStorageManager.getFileByDecryptedRemotePath(path)?.let { file ->
-
                     withContext(Dispatchers.Main) {
                         notificationManager.showProgressNotification(file.fileName, index, filePaths.size)
                     }
 
                     delay(1000)
 
-                    // TODO dont download downloaded files??
                     val operation = DownloadFileOperation(user, file, context).execute(client)
+                    setCurrentDownloadFileIds(fileDataStorageManager, file)
+
                     Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
                     if (!operation.isSuccess) {
                         result = false
@@ -78,25 +88,26 @@ class SyncWorker(
             // TODO add isDownloading
             // TODO add cancel only one file download
 
+            downloadFileIds.clear()
+            withContext(Dispatchers.Main) {
+                notificationManager.showCompletionMessage(result)
+            }
+
             if (result) {
                 Log_OC.d(TAG, "SyncWorker completed")
-
-                withContext(Dispatchers.Main) {
-                    notificationManager.showSuccessNotification()
-                }
-
                 Result.success()
             } else {
                 Log_OC.d(TAG, "SyncWorker failed")
-
-                withContext(Dispatchers.Main) {
-                    notificationManager.showErrorNotification()
-                    delay(1000)
-                    notificationManager.dismiss()
-                }
-
                 Result.failure()
             }
         }
+    }
+
+    private fun setCurrentDownloadFileIds(fileDataStorageManager: FileDataStorageManager, file: OCFile) {
+        if (currentDownloadFolderId == null) {
+            currentDownloadFolderId = fileDataStorageManager.getTopParentId(file)
+        }
+
+        downloadFileIds.add(file.fileId)
     }
 }
