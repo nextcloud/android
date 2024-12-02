@@ -27,13 +27,6 @@ class AssistantViewModel(
     private val context: WeakReference<Context>
 ) : ViewModel() {
 
-    sealed class MessageState {
-        data object Loading : MessageState()
-        data class Error(val messageId: Int) : MessageState()
-        data class TaskCreated(val messageId: Int) : MessageState()
-        data class TaskDeleted(val messageId: Int) : MessageState()
-    }
-
     sealed class ScreenState {
         data class DeleteTask(val id: Long): ScreenState()
         data class AddTask(val taskType: TaskType, val input: String): ScreenState()
@@ -43,8 +36,8 @@ class AssistantViewModel(
     private val _screenState = MutableStateFlow<ScreenState?>(null)
     val screenState: StateFlow<ScreenState?> = _screenState
 
-    private val _messageState = MutableStateFlow<MessageState?>(MessageState.Loading)
-    val messageState: StateFlow<MessageState?> = _messageState
+    private val _messageId = MutableStateFlow<Int?>(R.string.assistant_screen_loading)
+    val messageId: StateFlow<Int?> = _messageId
 
     private val _selectedTaskType = MutableStateFlow<TaskType?>(null)
     val selectedTaskType: StateFlow<TaskType?> = _selectedTaskType
@@ -76,8 +69,7 @@ class AssistantViewModel(
                 R.string.assistant_screen_task_create_fail_message
             }
 
-            val message = MessageState.TaskCreated(messageId)
-            updateMessageState(message)
+            updateMessageId(messageId)
 
             delay(2000L)
             fetchTaskList()
@@ -107,8 +99,7 @@ class AssistantViewModel(
 
                 selectTaskType(result.first())
             } else {
-                val message = MessageState.Error(R.string.assistant_screen_task_types_error_state_message)
-                updateMessageState(message)
+                updateMessageId(R.string.assistant_screen_task_types_error_state_message)
             }
         }
     }
@@ -123,10 +114,9 @@ class AssistantViewModel(
             if (result.isSuccess) {
                 taskList = result.resultData.tasks
                 filterTaskList(_selectedTaskType.value?.id)
-                updateMessageState(null)
+                updateMessageId(null)
             } else {
-                val message = MessageState.Error(R.string.assistant_screen_task_list_error_state_message)
-                updateMessageState(message)
+                updateMessageId(R.string.assistant_screen_task_list_error_state_message)
             }
 
             _isRefreshing.update {
@@ -145,7 +135,7 @@ class AssistantViewModel(
                 R.string.assistant_screen_task_delete_fail_message
             }
 
-            updateMessageState(MessageState.TaskDeleted(messageId))
+            updateMessageId(messageId)
 
             if (result.isSuccess) {
                 removeTaskFromList(id)
@@ -153,8 +143,8 @@ class AssistantViewModel(
         }
     }
 
-    fun updateMessageState(value: MessageState?) {
-        _messageState.update {
+    fun updateMessageId(value: Int?) {
+        _messageId.update {
             value
         }
     }
