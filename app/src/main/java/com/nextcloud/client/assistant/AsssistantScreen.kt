@@ -30,10 +30,7 @@ import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -47,6 +44,7 @@ import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
+import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
@@ -59,16 +57,13 @@ import java.lang.ref.WeakReference
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
-    val state by viewModel.state.collectAsState()
+    val messageState by viewModel.messageState.collectAsState()
+    val alertDialogState by viewModel.screenState.collectAsState()
+
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
     val filteredTaskList by viewModel.filteredTaskList.collectAsState()
     val isRefreshing by viewModel.isRefreshing.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
-    var showAddTaskAlertDialog by remember { mutableStateOf(false) }
-    var showDeleteTaskAlertDialog by remember { mutableStateOf(false) }
-    var taskIdToDeleted: Long? by remember {
-        mutableStateOf(null)
-    }
     val scope = rememberCoroutineScope()
     val pullRefreshState = rememberPullToRefreshState()
 
@@ -81,7 +76,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
             }
         })
     ) {
-        if (state == AssistantViewModel.State.Loading || isRefreshing) {
+        if (messageState == AssistantViewModel.MessageState.Loading || isRefreshing) {
             CenterText(text = stringResource(id = R.string.assistant_screen_loading))
         } else {
             if (filteredTaskList.isNullOrEmpty()) {
@@ -91,11 +86,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
                     filteredTaskList!!,
                     taskTypes,
                     selectedTaskType,
-                    viewModel,
-                    showDeleteTaskAlertDialog = { taskId ->
-                        taskIdToDeleted = taskId
-                        showDeleteTaskAlertDialog = true
-                    }
+                    viewModel
                 )
             }
         }
@@ -115,7 +106,9 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
                     .align(Alignment.BottomEnd)
                     .padding(16.dp),
                 onClick = {
-                    showAddTaskAlertDialog = true
+                    selectedTaskType?.let {
+                        viewModel.showAddTaskAlertDialog(it)
+                    }
                 }
             ) {
                 Icon(Icons.Filled.Add, "Add Task Icon")
@@ -123,49 +116,70 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
         }
     }
 
-    ScreenState(state, activity, viewModel)
+    HandleMessageState(messageState, activity, viewModel)
+    ScreenState(alertDialogState, viewModel)
+}
 
-    if (showDeleteTaskAlertDialog) {
-        taskIdToDeleted?.let { id ->
-            SimpleAlertDialog(
-                title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
-                description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
-                dismiss = { showDeleteTaskAlertDialog = false },
-                onComplete = { viewModel.deleteTask(id) }
-            )
-        }
-    }
-
-    if (showAddTaskAlertDialog) {
-        selectedTaskType?.let { taskType ->
+@Composable
+private fun ScreenState(state: AssistantViewModel.ScreenState?, viewModel: AssistantViewModel) {
+    when(state) {
+        is AssistantViewModel.ScreenState.AddTask -> {
             AddTaskAlertDialog(
-                title = taskType.name,
-                description = taskType.description,
+                title =  state.taskType.name,
+                description =  state.taskType.description,
                 addTask = { input ->
-                    taskType.id?.let {
+                    state.taskType.id?.let {
                         viewModel.createTask(input = input, type = it)
                     }
                 },
                 dismiss = {
-                    showAddTaskAlertDialog = false
+                    viewModel.resetAlertDialogState()
                 }
             )
         }
+
+        is AssistantViewModel.ScreenState.DeleteTask -> {
+            SimpleAlertDialog(
+                title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
+                description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
+                dismiss = { viewModel.resetAlertDialogState() },
+                onComplete = { viewModel.deleteTask(state.id) }
+            )
+        }
+
+        is AssistantViewModel.ScreenState.TaskActions -> {
+            val bottomSheetAction = listOf(
+                Triple(
+                    R.drawable.ic_delete,
+                    R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
+                ) {
+
+                }
+            )
+
+            MoreActionsBottomSheet(
+                title = state.task.input,
+                actions = bottomSheetAction,
+                dismiss = { viewModel.resetAlertDialogState() }
+            )
+        }
+
+        else -> Unit
     }
 }
 
 @Composable
-private fun ScreenState(state: AssistantViewModel.State, activity: Activity, viewModel: AssistantViewModel) {
-    val messageId: Int? = when (state) {
-        is AssistantViewModel.State.Error -> {
+private fun HandleMessageState(state: AssistantViewModel.MessageState?, activity: Activity, viewModel: AssistantViewModel) {
+    val messageStateId: Int? = when (state) {
+        is AssistantViewModel.MessageState.Error -> {
             state.messageId
         }
 
-        is AssistantViewModel.State.TaskCreated -> {
+        is AssistantViewModel.MessageState.TaskCreated -> {
             state.messageId
         }
 
-        is AssistantViewModel.State.TaskDeleted -> {
+        is AssistantViewModel.MessageState.TaskDeleted -> {
             state.messageId
         }
 
@@ -174,13 +188,13 @@ private fun ScreenState(state: AssistantViewModel.State, activity: Activity, vie
         }
     }
 
-    messageId?.let {
+    messageStateId?.let {
         DisplayUtils.showSnackMessage(
             activity,
-            stringResource(id = messageId)
+            stringResource(id = messageStateId)
         )
 
-        viewModel.resetState()
+        viewModel.resetMessageState()
     }
 }
 
@@ -190,8 +204,7 @@ private fun AssistantContent(
     taskList: List<Task>,
     taskTypes: List<TaskType>?,
     selectedTaskType: TaskType?,
-    viewModel: AssistantViewModel,
-    showDeleteTaskAlertDialog: (Long) -> Unit
+    viewModel: AssistantViewModel
 ) {
     LazyColumn(
         modifier = Modifier
@@ -208,10 +221,8 @@ private fun AssistantContent(
 
         items(taskList) { task ->
             TaskView(task,
-                showDeleteTaskAlertDialog = { showDeleteTaskAlertDialog(task.id) },
-                showTaskActions = {
-
-                }
+                showDeleteTaskAlertDialog = { viewModel.showDeleteTaskAlertDialog(task.id) },
+                showTaskActions = { viewModel.showTaskActionsBottomSheet(task) }
             )
             Spacer(modifier = Modifier.height(8.dp))
         }

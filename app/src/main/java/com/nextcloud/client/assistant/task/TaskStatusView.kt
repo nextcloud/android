@@ -27,7 +27,7 @@ import com.nextcloud.client.assistant.extensions.statusData
 import com.owncloud.android.lib.resources.assistant.model.Task
 
 @Composable
-fun TaskStatus(task: Task, foregroundColor: Color) {
+fun TaskStatusView(task: Task, foregroundColor: Color) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
