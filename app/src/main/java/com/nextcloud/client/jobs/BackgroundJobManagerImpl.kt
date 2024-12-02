@@ -732,6 +732,7 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         val request = oneTimeRequestBuilder(SyncWorker::class, JOB_SYNC_FOLDER)
+            .addTag(JOB_SYNC_FOLDER)
             .setInputData(data)
             .build()
 
