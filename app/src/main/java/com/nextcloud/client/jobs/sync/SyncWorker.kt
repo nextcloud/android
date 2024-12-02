@@ -15,6 +15,8 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class SyncWorker(
     private val user: User,
@@ -29,40 +31,42 @@ class SyncWorker(
 
     @Suppress("DEPRECATION")
     override suspend fun doWork(): Result {
-        // TODO add notifications
-        Log_OC.d(TAG, "SyncWorker started")
-        val filePaths = inputData.getStringArray(FILE_PATHS)
+        return withContext(Dispatchers.IO) {
+            // TODO add notifications
+            Log_OC.d(TAG, "SyncWorker started")
+            val filePaths = inputData.getStringArray(FILE_PATHS)
 
-        if (filePaths.isNullOrEmpty()) {
-            return Result.failure()
-        }
+            if (filePaths.isNullOrEmpty()) {
+                return@withContext Result.failure()
+            }
 
-        val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
+            val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
 
-        val account = user.toOwnCloudAccount()
-        val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(account, context)
+            val account = user.toOwnCloudAccount()
+            val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(account, context)
 
-        var result = true
-        filePaths.forEach { path ->
-            fileDataStorageManager.getFileByDecryptedRemotePath(path)?.let { file ->
-                // TODO dont download downloaded files??
-                val operation = DownloadFileOperation(user, file, context).execute(client)
-                Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
-                if (!operation.isSuccess) {
-                    result = false
+            var result = true
+            filePaths.forEach { path ->
+                fileDataStorageManager.getFileByDecryptedRemotePath(path)?.let { file ->
+                    // TODO dont download downloaded files??
+                    val operation = DownloadFileOperation(user, file, context).execute(client)
+                    Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
+                    if (!operation.isSuccess) {
+                        result = false
+                    }
                 }
             }
-        }
 
-        // TODO add isDownloading
-        // TODO add cancel only one file download
+            // TODO add isDownloading
+            // TODO add cancel only one file download
 
-        return if (result) {
-            Log_OC.d(TAG, "SyncWorker completed")
-            Result.success()
-        } else {
-            Log_OC.d(TAG, "SyncWorker failed")
-            Result.failure()
+            if (result) {
+                Log_OC.d(TAG, "SyncWorker completed")
+                Result.success()
+            } else {
+                Log_OC.d(TAG, "SyncWorker failed")
+                Result.failure()
+            }
         }
     }
 }
