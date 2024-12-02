@@ -12,7 +12,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
 import com.owncloud.android.datamodel.FileDataStorageManager
-import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
@@ -31,13 +30,11 @@ class SyncWorker(
 
         const val FILE_PATHS = "FILE_PATHS"
 
-        // FIXME it's not synchronous
-        fun isDownloading(fileId: Long): Boolean {
-            return downloadFileIds.contains(fileId) ||  currentDownloadFolderId == fileId
-        }
+        private var downloadingFilePaths = ArrayList<String>()
 
-        private var currentDownloadFolderId: Long? = null
-        private var downloadFileIds = ArrayList<Long>()
+        fun isDownloading(path: String): Boolean {
+            return downloadingFilePaths.contains(path)
+        }
     }
 
     private val notificationManager = SyncWorkerNotificationManager(context)
@@ -55,6 +52,9 @@ class SyncWorker(
             if (filePaths.isNullOrEmpty()) {
                 return@withContext Result.failure()
             }
+
+            // TODO
+            // downloadingFilePaths = filePaths
 
             val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
 
@@ -76,8 +76,6 @@ class SyncWorker(
                     delay(1000)
 
                     val operation = DownloadFileOperation(user, file, context).execute(client)
-                    setCurrentDownloadFileIds(fileDataStorageManager, file)
-
                     Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
                     if (!operation.isSuccess) {
                         result = false
@@ -87,8 +85,6 @@ class SyncWorker(
 
             // TODO add isDownloading
             // TODO add cancel only one file download
-
-            downloadFileIds.clear()
             withContext(Dispatchers.Main) {
                 notificationManager.showCompletionMessage(result)
             }
@@ -101,13 +97,5 @@ class SyncWorker(
                 Result.failure()
             }
         }
-    }
-
-    private fun setCurrentDownloadFileIds(fileDataStorageManager: FileDataStorageManager, file: OCFile) {
-        if (currentDownloadFolderId == null) {
-            currentDownloadFolderId = fileDataStorageManager.getTopParentId(file)
-        }
-
-        downloadFileIds.add(file.fileId)
     }
 }
