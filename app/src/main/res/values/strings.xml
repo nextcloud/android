@@ -55,6 +55,7 @@
     <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete Task</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Are you sure you want to delete this task?</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Add New Task</string>
 
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Delete Task</string>
 

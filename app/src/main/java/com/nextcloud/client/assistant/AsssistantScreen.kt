@@ -143,6 +143,7 @@ private fun ScreenState(
             AddTaskAlertDialog(
                 title =  state.taskType.name,
                 description =  state.taskType.description,
+                defaultInput = state.input,
                 addTask = { input ->
                     state.taskType.id?.let { taskTypeId ->
                         viewModel.createTask(input = input, type = taskTypeId)
@@ -181,9 +182,13 @@ private fun ScreenState(
                     R.drawable.ic_edit,
                     R.string.action_edit
                 ) {
-                    val taskType = TaskType(state.task.type, "", "")
+                    val taskType = TaskType(
+                        state.task.type,
+                        activity.getString(R.string.assistant_screen_add_task_alert_dialog_title),
+                        null
+                    )
                     val newState =
-                        AssistantViewModel.ScreenState.AddTask(taskType, state.task.output ?: "")
+                        AssistantViewModel.ScreenState.AddTask(taskType, state.task.input ?: "")
                     viewModel.updateScreenState(newState)
                 }
             )
