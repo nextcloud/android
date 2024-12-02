@@ -8,7 +8,6 @@
 package com.nextcloud.client.assistant
 
 import android.app.Activity
-import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -46,6 +45,7 @@ import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
+import com.nextcloud.utils.extensions.showShareIntent
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
@@ -59,7 +59,7 @@ import java.lang.ref.WeakReference
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
-    val messageState by viewModel.messageState.collectAsState()
+    val messageId by viewModel.messageId.collectAsState()
     val alertDialogState by viewModel.screenState.collectAsState()
 
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
@@ -78,7 +78,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
             }
         })
     ) {
-        if (messageState == AssistantViewModel.MessageState.Loading || isRefreshing) {
+        if (messageId == R.string.assistant_screen_loading || isRefreshing) {
             CenterText(text = stringResource(id = R.string.assistant_screen_loading))
         } else {
             if (filteredTaskList.isNullOrEmpty()) {
@@ -120,7 +120,15 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
         }
     }
 
-    HandleMessageState(messageState, activity, viewModel)
+    messageId?.let {
+        DisplayUtils.showSnackMessage(
+            activity,
+            activity.getString(it)
+        )
+
+        viewModel.updateMessageId(null)
+    }
+
     ScreenState(alertDialogState, activity, viewModel)
 }
 
@@ -161,13 +169,7 @@ private fun ScreenState(
                     R.drawable.ic_share,
                     R.string.common_share
                 ) {
-                    val sendIntent = Intent(Intent.ACTION_SEND).apply {
-                        putExtra(Intent.EXTRA_TEXT, state.task.output)
-                        type = "text/plain"
-                    }
-
-                    val shareIntent = Intent.createChooser(sendIntent, null)
-                    activity.startActivity(shareIntent)
+                    activity.showShareIntent(state.task.output)
                 },
                 Triple(
                     R.drawable.ic_content_copy,
@@ -194,36 +196,6 @@ private fun ScreenState(
         }
 
         else -> Unit
-    }
-}
-
-@Composable
-private fun HandleMessageState(state: AssistantViewModel.MessageState?, activity: Activity, viewModel: AssistantViewModel) {
-    val messageStateId: Int? = when (state) {
-        is AssistantViewModel.MessageState.Error -> {
-            state.messageId
-        }
-
-        is AssistantViewModel.MessageState.TaskCreated -> {
-            state.messageId
-        }
-
-        is AssistantViewModel.MessageState.TaskDeleted -> {
-            state.messageId
-        }
-
-        else -> {
-            null
-        }
-    }
-
-    messageStateId?.let {
-        DisplayUtils.showSnackMessage(
-            activity,
-            stringResource(id = messageStateId)
-        )
-
-        viewModel.updateMessageState(null)
     }
 }
 
