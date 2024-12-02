@@ -352,7 +352,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         } catch (Exception e) {
             Log_OC.d("Debug", "Failed to disable uri exposure");
         }
-        initSyncOperations(this,
+        initSyncOperations(true,
+                    this,
                            preferences,
                            uploadsStorageManager,
                            accountManager,
@@ -363,7 +364,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                            viewThemeUtils,
                            walledCheckCache,
                            syncedFolderProvider);
-        initContactsBackup(accountManager, backgroundJobManager);
+        initContactsBackup(accountManager, backgroundJobManager, true);
         notificationChannels();
 
         if (backgroundJobManager != null) {
@@ -503,7 +504,11 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         });
     }
 
-    public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager) {
+    public static void initContactsBackup(UserAccountManager accountManager, BackgroundJobManager backgroundJobManager, boolean shouldSchedulePeriodicContactsBackup) {
+        if (!shouldSchedulePeriodicContactsBackup) {
+            return;
+        }
+
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(appContext.get());
         if (accountManager == null) {
             return;
@@ -604,7 +609,14 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         }
     }
 
+    /**
+     * @param shouldSync Android 15 restricts BOOT_COMPLETED broadcast receivers from starting certain foreground
+     *                   services (dataSync, mediaPlayback, mediaProjection ...), throwing a
+     *                   ForegroundServiceStartNotAllowedException if violated. Under the hood, WorkManager manages and
+     *                   runs a foreground service. The shouldSync flag ensures proper WorkManager usage.
+     */
     public static void initSyncOperations(
+        final boolean shouldSync,
         final Context context,
         final AppPreferences preferences,
         final UploadsStorageManager uploadsStorageManager,
@@ -616,6 +628,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         final ViewThemeUtils viewThemeUtils,
         final WalledCheckCache walledCheckCache,
         final SyncedFolderProvider syncedFolderProvider) {
+
         updateToAutoUpload(context);
         cleanOldEntries(clock);
         updateAutoUploadEntries(clock);
@@ -628,35 +641,40 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             }
         }
 
-        if (!preferences.isAutoUploadInitialized()) {
+        if (!preferences.isAutoUploadInitialized() && shouldSync) {
             FilesSyncHelper.startFilesSyncForAllFolders(syncedFolderProvider, backgroundJobManager,false, new String[]{});
             preferences.setAutoUploadInit(true);
         }
 
-        FilesSyncHelper.scheduleFilesSyncForAllFoldersIfNeeded(appContext.get(), syncedFolderProvider, backgroundJobManager);
-        FilesSyncHelper.restartUploadsIfNeeded(
-            uploadsStorageManager,
-            accountManager,
-            connectivityService,
-            powerManagementService);
+        if (shouldSync) {
+            FilesSyncHelper.scheduleFilesSyncForAllFoldersIfNeeded(appContext.get(), syncedFolderProvider, backgroundJobManager);
+            FilesSyncHelper.restartUploadsIfNeeded(
+                uploadsStorageManager,
+                accountManager,
+                connectivityService,
+                powerManagementService);
 
-        backgroundJobManager.scheduleOfflineSync();
+            backgroundJobManager.scheduleOfflineSync();
+        }
 
         ReceiversHelper.registerNetworkChangeReceiver(uploadsStorageManager,
                                                       accountManager,
                                                       connectivityService,
                                                       powerManagementService,
-                                                      walledCheckCache);
+                                                      walledCheckCache,
+                                                      shouldSync);
 
         ReceiversHelper.registerPowerChangeReceiver(uploadsStorageManager,
                                                     accountManager,
                                                     connectivityService,
-                                                    powerManagementService);
+                                                    powerManagementService,
+                                                    shouldSync);
 
         ReceiversHelper.registerPowerSaveReceiver(uploadsStorageManager,
                                                   accountManager,
                                                   connectivityService,
-                                                  powerManagementService);
+                                                  powerManagementService,
+                                                  shouldSync);
     }
 
     public static void notificationChannels() {
