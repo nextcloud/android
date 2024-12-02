@@ -47,6 +47,7 @@ fun MoreActionsBottomSheet(
 
     ModalBottomSheet(
         modifier = Modifier.padding(top = 32.dp),
+        containerColor = colorScheme.surface,
         onDismissRequest = {
             dismiss()
         },
