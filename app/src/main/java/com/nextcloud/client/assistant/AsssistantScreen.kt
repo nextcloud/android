@@ -207,7 +207,12 @@ private fun AssistantContent(
         }
 
         items(taskList) { task ->
-            TaskView(task, showDeleteTaskAlertDialog = { showDeleteTaskAlertDialog(task.id) })
+            TaskView(task,
+                showDeleteTaskAlertDialog = { showDeleteTaskAlertDialog(task.id) },
+                showTaskActions = {
+
+                }
+            )
             Spacer(modifier = Modifier.height(8.dp))
         }
     }
