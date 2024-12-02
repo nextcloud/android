@@ -41,6 +41,7 @@
     <string name="app_config_disable_more_external_site_title">Externe Seiten deaktivieren</string>
     <string name="app_config_disable_multiaccount_title">Multi-Konten deaktivieren</string>
     <string name="app_config_disable_sharing_title">Teilen deaktivieren</string>
+    <string name="app_config_enforce_protection_title">Schutz erzwingen</string>
     <string name="app_config_proxy_host_title">Proxy-Hostname</string>
     <string name="app_config_proxy_port_title">Proxy-Port</string>
     <string name="app_widget_description">Zeigt ein Widget aus dem Dashboard an</string>
@@ -1068,6 +1069,7 @@
     <string name="wait_a_moment">Bitte warten…</string>
     <string name="wait_checking_credentials">Überprüfe gespeicherte Anmeldeinformationen</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiere Datei von privatem Speicher</string>
+    <string name="warn_rename_extension">Das Ändern der Erweiterung kann dazu führen, dass diese Datei in einer anderen Anwendung geöffnet wird</string>
     <string name="webview_version_check_alert_dialog_message">Bitte aktualisieren Sie die Android System WebView-App für eine Anmeldung</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Aktualisieren</string>
     <string name="webview_version_check_alert_dialog_title">Android System WebView aktualisieren</string>

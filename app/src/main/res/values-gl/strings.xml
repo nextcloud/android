@@ -41,6 +41,7 @@
     <string name="app_config_disable_more_external_site_title">Desactivar os sitios externos</string>
     <string name="app_config_disable_multiaccount_title">Desactivar as contas múltiples</string>
     <string name="app_config_disable_sharing_title">Desactivar as comparticións</string>
+    <string name="app_config_enforce_protection_title">Obrigar a protección</string>
     <string name="app_config_proxy_host_title">Nome do servidor proxy</string>
     <string name="app_config_proxy_port_title">Porto do proxy</string>
     <string name="app_widget_description">Amosa un trebello do taboleiro</string>
@@ -175,7 +176,7 @@
     <string name="community_release_candidate_headline">Candidata de publicación</string>
     <string name="community_release_candidate_text">A candidata de publicación (release candidate - RC) é unha instantánea da versión máis próxima a publicar e agardase que sexa estábel. Probar a súa configuración individual podería axudarnos a asegurar iso. Rexístrese para facer probas na Play Store ou búsquea manualmente na sección «Versións» no F-Droid.</string>
     <string name="community_testing_bug_text">Atopou un fallo? hai algo estraño?</string>
-    <string name="community_testing_headline">Axudanos facendo probas</string>
+    <string name="community_testing_headline">Axúdenos facendo probas</string>
     <string name="community_testing_report_text">Informe dun incidente no GitHub</string>
     <string name="configure_new_media_folder_detection_notifications">Configurar</string>
     <string name="confirm_removal">Retirar o cifrado local</string>
@@ -639,7 +640,7 @@
     <string name="placeholder_filename">marcadordesubstitución.txt</string>
     <string name="placeholder_media_time">12:23:45</string>
     <string name="placeholder_sentence">Isto é un marcador de substitución</string>
-    <string name="placeholder_timestamp">18/05/2012 12:23 PM</string>
+    <string name="placeholder_timestamp">18/05/2012 12:23 p.m.</string>
     <string name="player_stop">parar</string>
     <string name="player_toggle">alternar</string>
     <string name="please_select_a_server">Seleccione un servidor…</string>
@@ -1069,6 +1070,7 @@
     <string name="wait_a_moment">Agarde un chisco…</string>
     <string name="wait_checking_credentials">Verificando as credenciais almacenadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando o ficheiro desde o almacenamento privado</string>
+    <string name="warn_rename_extension">Cambiar a extensión pode provocar que este ficheiro se abra nunha aplicación diferente</string>
     <string name="webview_version_check_alert_dialog_message">Actualice a aplicación WebView do sistema Android para acceder</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
     <string name="webview_version_check_alert_dialog_title">Actualizar WebView do sistema Android</string>

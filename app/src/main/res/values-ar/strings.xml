@@ -41,6 +41,7 @@
     <string name="app_config_disable_more_external_site_title">تعطيل المواقع الخارجية</string>
     <string name="app_config_disable_multiaccount_title">تعطيل تعدد الحسابات</string>
     <string name="app_config_disable_sharing_title">تعطيل المشاركة</string>
+    <string name="app_config_enforce_protection_title">فرض الحماية</string>
     <string name="app_config_proxy_host_title">اسم المضيف الوكيل</string>
     <string name="app_config_proxy_port_title">منفذ البروكسي</string>
     <string name="app_widget_description">عرض أداة واحدة من لوحة القيادة</string>
@@ -1095,6 +1096,7 @@
     <string name="wait_a_moment">انتظر لحظة…</string>
     <string name="wait_checking_credentials">التحقق من معلومات تسجيل الدخول المحفوظة</string>
     <string name="wait_for_tmp_copy_from_private_storage">نسخ الملف من التخزين الخاص</string>
+    <string name="warn_rename_extension">تغيير امتداد الملف يمكن أن يتسبب في فتح الملف باستعمال تطبيق مختلف</string>
     <string name="webview_version_check_alert_dialog_message">يرجى تحديث تطبيق  WebView في نظام أندرويد لتسجيل الدخول</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">تحديث</string>
     <string name="webview_version_check_alert_dialog_title">تحديث تطبيق  WebView في نظام أندرويد</string>

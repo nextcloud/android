@@ -11,8 +11,8 @@
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
     <string name="action_empty_trashbin">Vider la corbeille</string>
     <string name="action_send_share">Envoyer / Partager</string>
-    <string name="action_switch_grid_view">Affichage mosaïque</string>
-    <string name="action_switch_list_view">Affichage liste</string>
+    <string name="action_switch_grid_view">Vue en grille</string>
+    <string name="action_switch_list_view">Vue en liste</string>
     <string name="actionbar_calendar_contacts_restore">Restaurer les contacts et l\'agenda</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move_or_copy">Déplacer ou copier</string>
