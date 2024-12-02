@@ -15,6 +15,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.owncloud.android.ui.notifications.NotificationUtils
+import kotlinx.coroutines.delay
 
 class SyncWorkerNotificationManager(private val context: Context) {
 
@@ -75,12 +76,23 @@ class SyncWorkerNotificationManager(private val context: Context) {
         notificationManager.notify(notificationId, notification)
     }
 
-    fun showSuccessNotification() {
+    suspend fun showCompletionMessage(success: Boolean) {
+        if (success) {
+            showSuccessNotification()
+        } else {
+            showErrorNotification()
+        }
+
+        delay(1000)
+        dismiss()
+    }
+
+    private fun showSuccessNotification() {
         val notification = getNotification("Download Complete", "File downloaded successfully")
         notificationManager.notify(notificationId, notification)
     }
 
-    fun showErrorNotification() {
+    private fun showErrorNotification() {
         val notification = getNotification("Download Failed", "Error downloading file")
         notificationManager.notify(notificationId, notification)
     }
