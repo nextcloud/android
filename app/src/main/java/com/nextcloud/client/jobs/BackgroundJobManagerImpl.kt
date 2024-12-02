@@ -597,10 +597,6 @@ internal class BackgroundJobManagerImpl(
         return JOB_FOLDER_DOWNLOAD + user.accountName + fileId
     }
 
-    override fun isStartFileDownloadJobScheduled(user: User, fileId: Long): Boolean {
-        return workManager.isWorkScheduled(startFileDownloadJobTag(user, fileId))
-    }
-
     override fun startFileDownloadJob(
         user: User,
         file: OCFile,
