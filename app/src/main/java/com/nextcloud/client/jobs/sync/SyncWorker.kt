@@ -16,6 +16,7 @@ import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 class SyncWorker(
@@ -29,10 +30,15 @@ class SyncWorker(
         private const val TAG = "SyncWorker"
     }
 
+    private val notificationManager = SyncWorkerNotificationManager(context)
+
     @Suppress("DEPRECATION")
     override suspend fun doWork(): Result {
+        withContext(Dispatchers.Main) {
+            notificationManager.showStartNotification()
+        }
+
         return withContext(Dispatchers.IO) {
-            // TODO add notifications
             Log_OC.d(TAG, "SyncWorker started")
             val filePaths = inputData.getStringArray(FILE_PATHS)
 
@@ -46,8 +52,15 @@ class SyncWorker(
             val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(account, context)
 
             var result = true
-            filePaths.forEach { path ->
+            filePaths.forEachIndexed { index, path ->
                 fileDataStorageManager.getFileByDecryptedRemotePath(path)?.let { file ->
+
+                    withContext(Dispatchers.Main) {
+                        notificationManager.showProgressNotification(file.fileName, index, filePaths.size)
+                    }
+
+                    delay(1000)
+
                     // TODO dont download downloaded files??
                     val operation = DownloadFileOperation(user, file, context).execute(client)
                     Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
@@ -62,9 +75,19 @@ class SyncWorker(
 
             if (result) {
                 Log_OC.d(TAG, "SyncWorker completed")
+
+                withContext(Dispatchers.Main) {
+                    notificationManager.showSuccessNotification()
+                }
+
                 Result.success()
             } else {
                 Log_OC.d(TAG, "SyncWorker failed")
+
+                withContext(Dispatchers.Main) {
+                    notificationManager.showErrorNotification()
+                }
+
                 Result.failure()
             }
         }
