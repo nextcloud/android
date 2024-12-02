@@ -109,7 +109,7 @@ fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit, showTaskActi
                     showDeleteTaskAlertDialog(task.id)
                 }, dismiss = {
                     bottomSheetType = null
-                })
+                }, showTaskActions = showTaskActions)
             }
         }
 
@@ -131,12 +131,15 @@ fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit, showTaskActi
 private fun TaskViewBottomSheet(
     bottomSheetType: TaskViewBottomSheetType,
     task: Task,
+    showTaskActions: () -> Unit,
     showDeleteTaskAlertDialog: () -> Unit,
     dismiss: () -> Unit
 ) {
     when (bottomSheetType) {
         TaskViewBottomSheetType.Detail -> {
-            TaskDetailBottomSheet(task) {
+            TaskDetailBottomSheet(task, showTaskActions = {
+                showTaskActions()
+            }) {
                 dismiss()
             }
         }

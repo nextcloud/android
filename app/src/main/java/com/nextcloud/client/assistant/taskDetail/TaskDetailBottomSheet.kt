@@ -22,9 +22,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -35,6 +39,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +53,7 @@ import com.owncloud.android.lib.resources.assistant.model.Task
 @Suppress("LongMethod")
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
+fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -> Unit) {
     var showInput by remember { mutableStateOf(true) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -58,13 +63,31 @@ fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
         onDismissRequest = { dismiss() },
         sheetState = sheetState
     ) {
-        LazyColumn(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+        LazyColumn(modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)) {
             stickyHeader {
                 Row(
-                    modifier = Modifier.fillMaxWidth().background(
-                        color = colorResource(id = R.color.light_grey),
-                        shape = RoundedCornerShape(8.dp)
-                    )
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Spacer(modifier = Modifier.weight(1f))
+
+                    IconButton(onClick = showTaskActions) {
+                        Icon(
+                            imageVector = Icons.Filled.MoreVert,
+                            contentDescription = "More button",
+                            tint = Color.White
+                        )
+                    }
+                }
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(
+                            color = colorResource(id = R.color.light_grey),
+                            shape = RoundedCornerShape(8.dp)
+                        )
                 ) {
                     TextInputSelectButton(
                         Modifier.weight(1f),
@@ -90,10 +113,13 @@ fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
                 Spacer(modifier = Modifier.height(16.dp))
 
                 Column(
-                    modifier = Modifier.fillMaxSize().background(
-                        color = MaterialTheme.colorScheme.secondaryContainer,
-                        shape = RoundedCornerShape(8.dp)
-                    ).padding(16.dp)
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            color = MaterialTheme.colorScheme.secondaryContainer,
+                            shape = RoundedCornerShape(8.dp)
+                        )
+                        .padding(16.dp)
                 ) {
                     Text(
                         text = if (showInput) {
@@ -154,7 +180,10 @@ private fun TaskDetailScreenPreview() {
             "output".getRandomString(300),
             "",
             ""
-        )
+        ),
+        showTaskActions = {
+
+        }
     ) {
     }
 }
