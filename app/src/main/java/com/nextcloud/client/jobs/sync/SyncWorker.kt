@@ -53,6 +53,11 @@ class SyncWorker(
 
             var result = true
             filePaths.forEachIndexed { index, path ->
+                if (isStopped) {
+                    notificationManager.dismiss()
+                    return@withContext Result.failure()
+                }
+
                 fileDataStorageManager.getFileByDecryptedRemotePath(path)?.let { file ->
 
                     withContext(Dispatchers.Main) {
@@ -86,6 +91,8 @@ class SyncWorker(
 
                 withContext(Dispatchers.Main) {
                     notificationManager.showErrorNotification()
+                    delay(1000)
+                    notificationManager.dismiss()
                 }
 
                 Result.failure()
