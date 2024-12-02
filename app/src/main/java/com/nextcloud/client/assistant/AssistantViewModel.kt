@@ -36,7 +36,7 @@ class AssistantViewModel(
 
     sealed class ScreenState {
         data class DeleteTask(val id: Long): ScreenState()
-        data class AddTask(val taskType: TaskType): ScreenState()
+        data class AddTask(val taskType: TaskType, val input: String): ScreenState()
         data class TaskActions(val task: Task): ScreenState()
     }
 
@@ -76,9 +76,8 @@ class AssistantViewModel(
                 R.string.assistant_screen_task_create_fail_message
             }
 
-            _messageState.update {
-                MessageState.TaskCreated(messageId)
-            }
+            val message = MessageState.TaskCreated(messageId)
+            updateMessageState(message)
 
             delay(2000L)
             fetchTaskList()
@@ -108,9 +107,8 @@ class AssistantViewModel(
 
                 selectTaskType(result.first())
             } else {
-                _messageState.update {
-                    MessageState.Error(R.string.assistant_screen_task_types_error_state_message)
-                }
+                val message = MessageState.Error(R.string.assistant_screen_task_types_error_state_message)
+                updateMessageState(message)
             }
         }
     }
@@ -124,16 +122,11 @@ class AssistantViewModel(
             val result = repository.getTaskList(appId)
             if (result.isSuccess) {
                 taskList = result.resultData.tasks
-
                 filterTaskList(_selectedTaskType.value?.id)
-
-                _messageState.update {
-                    null
-                }
+                updateMessageState(null)
             } else {
-                _messageState.update {
-                    MessageState.Error(R.string.assistant_screen_task_list_error_state_message)
-                }
+                val message = MessageState.Error(R.string.assistant_screen_task_list_error_state_message)
+                updateMessageState(message)
             }
 
             _isRefreshing.update {
@@ -152,9 +145,7 @@ class AssistantViewModel(
                 R.string.assistant_screen_task_delete_fail_message
             }
 
-            _messageState.update {
-                MessageState.TaskDeleted(messageId)
-            }
+            updateMessageState(MessageState.TaskDeleted(messageId))
 
             if (result.isSuccess) {
                 removeTaskFromList(id)
@@ -162,33 +153,15 @@ class AssistantViewModel(
         }
     }
 
-    fun resetMessageState() {
+    fun updateMessageState(value: MessageState?) {
         _messageState.update {
-            null
+            value
         }
     }
 
-    fun resetAlertDialogState() {
+    fun updateScreenState(value: ScreenState?) {
         _screenState.update {
-            null
-        }
-    }
-
-    fun showDeleteTaskAlertDialog(id: Long) {
-        _screenState.update {
-            ScreenState.DeleteTask(id)
-        }
-    }
-
-    fun showAddTaskAlertDialog(taskType: TaskType) {
-        _screenState.update {
-            ScreenState.AddTask(taskType)
-        }
-    }
-
-    fun showTaskActionsBottomSheet(task: Task) {
-        _screenState.update {
-            ScreenState.TaskActions(task)
+            value
         }
     }
 
