@@ -8,6 +8,7 @@
 package com.nextcloud.client.assistant
 
 import android.app.Activity
+import android.content.Intent
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,6 +49,7 @@ import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskType
+import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -107,7 +109,9 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
                     .padding(16.dp),
                 onClick = {
                     selectedTaskType?.let {
-                        viewModel.showAddTaskAlertDialog(it)
+                        val newState =
+                            AssistantViewModel.ScreenState.AddTask(it, "")
+                        viewModel.updateScreenState(newState)
                     }
                 }
             ) {
@@ -117,23 +121,27 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
     }
 
     HandleMessageState(messageState, activity, viewModel)
-    ScreenState(alertDialogState, viewModel)
+    ScreenState(alertDialogState, activity, viewModel)
 }
 
 @Composable
-private fun ScreenState(state: AssistantViewModel.ScreenState?, viewModel: AssistantViewModel) {
+private fun ScreenState(
+    state: AssistantViewModel.ScreenState?,
+    activity: Activity,
+    viewModel: AssistantViewModel
+) {
     when(state) {
         is AssistantViewModel.ScreenState.AddTask -> {
             AddTaskAlertDialog(
                 title =  state.taskType.name,
                 description =  state.taskType.description,
                 addTask = { input ->
-                    state.taskType.id?.let {
-                        viewModel.createTask(input = input, type = it)
+                    state.taskType.id?.let { taskTypeId ->
+                        viewModel.createTask(input = input, type = taskTypeId)
                     }
                 },
                 dismiss = {
-                    viewModel.resetAlertDialogState()
+                    viewModel.updateScreenState(null)
                 }
             )
         }
@@ -142,7 +150,7 @@ private fun ScreenState(state: AssistantViewModel.ScreenState?, viewModel: Assis
             SimpleAlertDialog(
                 title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
                 description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
-                dismiss = { viewModel.resetAlertDialogState() },
+                dismiss = { viewModel.updateScreenState(null) },
                 onComplete = { viewModel.deleteTask(state.id) }
             )
         }
@@ -150,17 +158,38 @@ private fun ScreenState(state: AssistantViewModel.ScreenState?, viewModel: Assis
         is AssistantViewModel.ScreenState.TaskActions -> {
             val bottomSheetAction = listOf(
                 Triple(
-                    R.drawable.ic_delete,
-                    R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
+                    R.drawable.ic_share,
+                    R.string.common_share
                 ) {
+                    val sendIntent = Intent(Intent.ACTION_SEND).apply {
+                        putExtra(Intent.EXTRA_TEXT, state.task.output)
+                        type = "text/plain"
+                    }
 
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    activity.startActivity(shareIntent)
+                },
+                Triple(
+                    R.drawable.ic_content_copy,
+                    R.string.common_copy
+                ) {
+                    ClipboardUtil.copyToClipboard(activity, state.task.output)
+                },
+                Triple(
+                    R.drawable.ic_edit,
+                    R.string.action_edit
+                ) {
+                    val taskType = TaskType(state.task.type, "", "")
+                    val newState =
+                        AssistantViewModel.ScreenState.AddTask(taskType, state.task.output ?: "")
+                    viewModel.updateScreenState(newState)
                 }
             )
 
             MoreActionsBottomSheet(
                 title = state.task.input,
                 actions = bottomSheetAction,
-                dismiss = { viewModel.resetAlertDialogState() }
+                dismiss = { viewModel.updateScreenState(null) }
             )
         }
 
@@ -194,7 +223,7 @@ private fun HandleMessageState(state: AssistantViewModel.MessageState?, activity
             stringResource(id = messageStateId)
         )
 
-        viewModel.resetMessageState()
+        viewModel.updateMessageState(null)
     }
 }
 
@@ -221,8 +250,14 @@ private fun AssistantContent(
 
         items(taskList) { task ->
             TaskView(task,
-                showDeleteTaskAlertDialog = { viewModel.showDeleteTaskAlertDialog(task.id) },
-                showTaskActions = { viewModel.showTaskActionsBottomSheet(task) }
+                showDeleteTaskAlertDialog = {
+                    val newState = AssistantViewModel.ScreenState.DeleteTask(task.id)
+                    viewModel.updateScreenState(newState)
+                },
+                showTaskActions = {
+                    val newState = AssistantViewModel.ScreenState.TaskActions(task)
+                    viewModel.updateScreenState(newState)
+                }
             )
             Spacer(modifier = Modifier.height(8.dp))
         }
