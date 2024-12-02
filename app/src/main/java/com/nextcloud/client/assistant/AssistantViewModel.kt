@@ -27,16 +27,24 @@ class AssistantViewModel(
     private val context: WeakReference<Context>
 ) : ViewModel() {
 
-    sealed class State {
-        data object Idle : State()
-        data object Loading : State()
-        data class Error(val messageId: Int) : State()
-        data class TaskCreated(val messageId: Int) : State()
-        data class TaskDeleted(val messageId: Int) : State()
+    sealed class MessageState {
+        data object Loading : MessageState()
+        data class Error(val messageId: Int) : MessageState()
+        data class TaskCreated(val messageId: Int) : MessageState()
+        data class TaskDeleted(val messageId: Int) : MessageState()
     }
 
-    private val _state = MutableStateFlow<State>(State.Loading)
-    val state: StateFlow<State> = _state
+    sealed class ScreenState {
+        data class DeleteTask(val id: Long): ScreenState()
+        data class AddTask(val taskType: TaskType): ScreenState()
+        data class TaskActions(val task: Task): ScreenState()
+    }
+
+    private val _screenState = MutableStateFlow<ScreenState?>(null)
+    val screenState: StateFlow<ScreenState?> = _screenState
+
+    private val _messageState = MutableStateFlow<MessageState?>(MessageState.Loading)
+    val messageState: StateFlow<MessageState?> = _messageState
 
     private val _selectedTaskType = MutableStateFlow<TaskType?>(null)
     val selectedTaskType: StateFlow<TaskType?> = _selectedTaskType
@@ -68,8 +76,8 @@ class AssistantViewModel(
                 R.string.assistant_screen_task_create_fail_message
             }
 
-            _state.update {
-                State.TaskCreated(messageId)
+            _messageState.update {
+                MessageState.TaskCreated(messageId)
             }
 
             delay(2000L)
@@ -100,8 +108,8 @@ class AssistantViewModel(
 
                 selectTaskType(result.first())
             } else {
-                _state.update {
-                    State.Error(R.string.assistant_screen_task_types_error_state_message)
+                _messageState.update {
+                    MessageState.Error(R.string.assistant_screen_task_types_error_state_message)
                 }
             }
         }
@@ -119,12 +127,12 @@ class AssistantViewModel(
 
                 filterTaskList(_selectedTaskType.value?.id)
 
-                _state.update {
-                    State.Idle
+                _messageState.update {
+                    null
                 }
             } else {
-                _state.update {
-                    State.Error(R.string.assistant_screen_task_list_error_state_message)
+                _messageState.update {
+                    MessageState.Error(R.string.assistant_screen_task_list_error_state_message)
                 }
             }
 
@@ -144,8 +152,8 @@ class AssistantViewModel(
                 R.string.assistant_screen_task_delete_fail_message
             }
 
-            _state.update {
-                State.TaskDeleted(messageId)
+            _messageState.update {
+                MessageState.TaskDeleted(messageId)
             }
 
             if (result.isSuccess) {
@@ -154,9 +162,33 @@ class AssistantViewModel(
         }
     }
 
-    fun resetState() {
-        _state.update {
-            State.Idle
+    fun resetMessageState() {
+        _messageState.update {
+            null
+        }
+    }
+
+    fun resetAlertDialogState() {
+        _screenState.update {
+            null
+        }
+    }
+
+    fun showDeleteTaskAlertDialog(id: Long) {
+        _screenState.update {
+            ScreenState.DeleteTask(id)
+        }
+    }
+
+    fun showAddTaskAlertDialog(taskType: TaskType) {
+        _screenState.update {
+            ScreenState.AddTask(taskType)
+        }
+    }
+
+    fun showTaskActionsBottomSheet(task: Task) {
+        _screenState.update {
+            ScreenState.TaskActions(task)
         }
     }
 

@@ -40,6 +40,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nextcloud.client.assistant.task.model.TaskViewBottomSheetType
 import com.nextcloud.client.assistant.taskDetail.TaskDetailBottomSheet
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
@@ -101,7 +102,7 @@ fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit, showTaskActi
                 )
             }
 
-            TaskStatus(task, foregroundColor = Color.White)
+            TaskStatusView(task, foregroundColor = Color.White)
 
             bottomSheetType?.let {
                 TaskViewBottomSheet(it, task, showDeleteTaskAlertDialog = {

@@ -40,7 +40,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nextcloud.client.assistant.task.TaskStatus
+import com.nextcloud.client.assistant.task.TaskStatusView
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
@@ -113,7 +113,7 @@ fun TaskDetailBottomSheet(task: Task, dismiss: () -> Unit) {
                     )
                 }
 
-                TaskStatus(task, foregroundColor = MaterialTheme.colorScheme.onPrimaryContainer)
+                TaskStatusView(task, foregroundColor = MaterialTheme.colorScheme.onPrimaryContainer)
 
                 Spacer(modifier = Modifier.height(32.dp))
             }
