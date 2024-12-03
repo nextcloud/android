@@ -10,6 +10,8 @@ package com.nextcloud.client.assistant
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nextcloud.client.assistant.model.ScreenOverlayState
+import com.nextcloud.client.assistant.model.ScreenState
 import com.nextcloud.client.assistant.repository.AssistantRepositoryType
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
@@ -27,17 +29,14 @@ class AssistantViewModel(
     private val context: WeakReference<Context>
 ) : ViewModel() {
 
-    sealed class ScreenState {
-        data class DeleteTask(val id: Long): ScreenState()
-        data class AddTask(val taskType: TaskType, val input: String): ScreenState()
-        data class TaskActions(val task: Task): ScreenState()
-    }
-
     private val _screenState = MutableStateFlow<ScreenState?>(null)
     val screenState: StateFlow<ScreenState?> = _screenState
 
-    private val _messageId = MutableStateFlow<Int?>(R.string.assistant_screen_loading)
-    val messageId: StateFlow<Int?> = _messageId
+    private val _screenOverlayState = MutableStateFlow<ScreenOverlayState?>(null)
+    val screenOverlayState: StateFlow<ScreenOverlayState?> = _screenOverlayState
+
+    private val _snackbarMessageId = MutableStateFlow<Int?>(null)
+    val snackbarMessageId: StateFlow<Int?> = _snackbarMessageId
 
     private val _selectedTaskType = MutableStateFlow<TaskType?>(null)
     val selectedTaskType: StateFlow<TaskType?> = _selectedTaskType
@@ -49,9 +48,6 @@ class AssistantViewModel(
 
     private val _filteredTaskList = MutableStateFlow<List<Task>?>(null)
     val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
-
-    private val _isRefreshing = MutableStateFlow(false)
-    val isRefreshing: StateFlow<Boolean> = _isRefreshing
 
     init {
         fetchTaskTypes()
@@ -69,7 +65,7 @@ class AssistantViewModel(
                 R.string.assistant_screen_task_create_fail_message
             }
 
-            updateMessageId(messageId)
+            updateSnackbarMessage(messageId)
 
             delay(2000L)
             fetchTaskList()
@@ -81,6 +77,8 @@ class AssistantViewModel(
             filterTaskList(task.id)
             task
         }
+
+        updateScreenState()
     }
 
     private fun fetchTaskTypes() {
@@ -99,28 +97,36 @@ class AssistantViewModel(
 
                 selectTaskType(result.first())
             } else {
-                updateMessageId(R.string.assistant_screen_task_types_error_state_message)
+                updateSnackbarMessage(R.string.assistant_screen_task_types_error_state_message)
             }
         }
     }
 
     fun fetchTaskList(appId: String = "assistant") {
         viewModelScope.launch(Dispatchers.IO) {
-            _isRefreshing.update {
-                true
+            _screenState.update {
+                ScreenState.Refreshing
             }
 
             val result = repository.getTaskList(appId)
             if (result.isSuccess) {
                 taskList = result.resultData.tasks
                 filterTaskList(_selectedTaskType.value?.id)
-                updateMessageId(null)
+                updateSnackbarMessage(null)
             } else {
-                updateMessageId(R.string.assistant_screen_task_list_error_state_message)
+                updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
             }
 
-            _isRefreshing.update {
-                false
+            updateScreenState()
+        }
+    }
+
+    private fun updateScreenState() {
+        _screenState.update {
+            if (_filteredTaskList.value?.isEmpty() == true) {
+                ScreenState.EmptyContent
+            } else {
+                ScreenState.Content
             }
         }
     }
@@ -135,7 +141,7 @@ class AssistantViewModel(
                 R.string.assistant_screen_task_delete_fail_message
             }
 
-            updateMessageId(messageId)
+            updateSnackbarMessage(messageId)
 
             if (result.isSuccess) {
                 removeTaskFromList(id)
@@ -143,14 +149,14 @@ class AssistantViewModel(
         }
     }
 
-    fun updateMessageId(value: Int?) {
-        _messageId.update {
+    fun updateSnackbarMessage(value: Int?) {
+        _snackbarMessageId.update {
             value
         }
     }
 
-    fun updateScreenState(value: ScreenState?) {
-        _screenState.update {
+    fun updateScreenState(value: ScreenOverlayState?) {
+        _screenOverlayState.update {
             value
         }
     }

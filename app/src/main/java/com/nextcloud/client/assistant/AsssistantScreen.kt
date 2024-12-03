@@ -25,6 +25,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.material3.pulltorefresh.pullToRefresh
 import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
@@ -39,6 +40,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.component.AddTaskAlertDialog
 import com.nextcloud.client.assistant.component.CenterText
+import com.nextcloud.client.assistant.model.ScreenOverlayState
+import com.nextcloud.client.assistant.model.ScreenState
 import com.nextcloud.client.assistant.repository.AssistantMockRepository
 import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
@@ -59,87 +62,124 @@ import java.lang.ref.WeakReference
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
-    val messageId by viewModel.messageId.collectAsState()
-    val alertDialogState by viewModel.screenState.collectAsState()
+    val messageId by viewModel.snackbarMessageId.collectAsState()
+    val screenOverlayState by viewModel.screenOverlayState.collectAsState()
 
     val selectedTaskType by viewModel.selectedTaskType.collectAsState()
     val filteredTaskList by viewModel.filteredTaskList.collectAsState()
-    val isRefreshing by viewModel.isRefreshing.collectAsState()
+    val screenState by viewModel.screenState.collectAsState()
     val taskTypes by viewModel.taskTypes.collectAsState()
     val scope = rememberCoroutineScope()
     val pullRefreshState = rememberPullToRefreshState()
 
     @Suppress("MagicNumber")
     Box(
-        modifier = Modifier.pullToRefresh(isRefreshing, pullRefreshState, onRefresh = {
+        modifier = Modifier.pullToRefresh(
+            screenState == ScreenState.Refreshing,
+            pullRefreshState,
+            onRefresh = {
             scope.launch {
                 delay(1500)
                 viewModel.fetchTaskList()
             }
         })
     ) {
-        if (messageId == R.string.assistant_screen_loading || isRefreshing) {
-            CenterText(text = stringResource(id = R.string.assistant_screen_loading))
-        } else {
-            if (filteredTaskList.isNullOrEmpty()) {
-                EmptyTaskList(selectedTaskType, taskTypes, viewModel)
-            } else {
-                AssistantContent(
-                    filteredTaskList!!,
-                    taskTypes,
-                    selectedTaskType,
-                    viewModel
-                )
-            }
-        }
+        ShowScreenState(screenState, selectedTaskType, taskTypes, viewModel, filteredTaskList)
 
-        if (isRefreshing) {
-            LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-        } else {
-            LinearProgressIndicator(
-                progress = { pullRefreshState.distanceFraction },
-                modifier = Modifier.fillMaxWidth()
-            )
-        }
+        ShowLinearProgressIndicator(screenState, pullRefreshState)
 
         if (selectedTaskType?.name != stringResource(id = R.string.assistant_screen_all_task_type)) {
-            FloatingActionButton(
+            AddFloatingActionButton(
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
                     .padding(16.dp),
-                onClick = {
-                    selectedTaskType?.let {
-                        val newState =
-                            AssistantViewModel.ScreenState.AddTask(it, "")
-                        viewModel.updateScreenState(newState)
-                    }
-                }
-            ) {
-                Icon(Icons.Filled.Add, "Add Task Icon")
-            }
+                selectedTaskType,
+                viewModel
+            )
         }
     }
 
+    showSnackBarMessage(messageId, activity, viewModel)
+    ShowOverlayState(screenOverlayState, activity, viewModel)
+}
+
+@Composable
+private fun ShowScreenState(
+    screenState: ScreenState?,
+    selectedTaskType: TaskType?,
+    taskTypes: List<TaskType>?,
+    viewModel: AssistantViewModel,
+    filteredTaskList: List<Task>?
+) {
+    when(screenState) {
+        ScreenState.Refreshing -> {
+            CenterText(text = stringResource(id = R.string.assistant_screen_loading))
+        }
+
+        ScreenState.EmptyContent -> {
+            EmptyTaskList(selectedTaskType, taskTypes, viewModel)
+        }
+
+        ScreenState.Content -> {
+            AssistantContent(
+                filteredTaskList!!,
+                taskTypes,
+                selectedTaskType,
+                viewModel
+            )
+        }
+
+        null -> Unit
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun ShowLinearProgressIndicator(screenState: ScreenState?, pullToRefreshState: PullToRefreshState) {
+    if (screenState == ScreenState.Refreshing) {
+        LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
+    } else {
+        LinearProgressIndicator(
+            progress = { pullToRefreshState.distanceFraction },
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Composable
+private fun AddFloatingActionButton(modifier: Modifier, selectedTaskType: TaskType?, viewModel: AssistantViewModel) {
+    FloatingActionButton(
+        modifier = modifier,
+        onClick = {
+            selectedTaskType?.let {
+                val newState = ScreenOverlayState.AddTask(it, "")
+                viewModel.updateScreenState(newState)
+            }
+        }
+    ) {
+        Icon(Icons.Filled.Add, "Add Task Icon")
+    }
+}
+
+private fun showSnackBarMessage(messageId: Int?, activity: Activity, viewModel: AssistantViewModel) {
     messageId?.let {
         DisplayUtils.showSnackMessage(
             activity,
             activity.getString(it)
         )
 
-        viewModel.updateMessageId(null)
+        viewModel.updateSnackbarMessage(null)
     }
-
-    ScreenState(alertDialogState, activity, viewModel)
 }
 
 @Composable
-private fun ScreenState(
-    state: AssistantViewModel.ScreenState?,
+private fun ShowOverlayState(
+    state: ScreenOverlayState?,
     activity: Activity,
     viewModel: AssistantViewModel
 ) {
     when(state) {
-        is AssistantViewModel.ScreenState.AddTask -> {
+        is ScreenOverlayState.AddTask -> {
             AddTaskAlertDialog(
                 title =  state.taskType.name,
                 description =  state.taskType.description,
@@ -155,7 +195,7 @@ private fun ScreenState(
             )
         }
 
-        is AssistantViewModel.ScreenState.DeleteTask -> {
+        is ScreenOverlayState.DeleteTask -> {
             SimpleAlertDialog(
                 title = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_title),
                 description = stringResource(id = R.string.assistant_screen_delete_task_alert_dialog_description),
@@ -164,7 +204,7 @@ private fun ScreenState(
             )
         }
 
-        is AssistantViewModel.ScreenState.TaskActions -> {
+        is ScreenOverlayState.TaskActions -> {
             val bottomSheetAction = listOf(
                 Triple(
                     R.drawable.ic_share,
@@ -188,7 +228,7 @@ private fun ScreenState(
                         null
                     )
                     val newState =
-                        AssistantViewModel.ScreenState.AddTask(taskType, state.task.input ?: "")
+                        ScreenOverlayState.AddTask(taskType, state.task.input ?: "")
                     viewModel.updateScreenState(newState)
                 }
             )
@@ -228,11 +268,11 @@ private fun AssistantContent(
         items(taskList) { task ->
             TaskView(task,
                 showDeleteTaskAlertDialog = {
-                    val newState = AssistantViewModel.ScreenState.DeleteTask(task.id)
+                    val newState = ScreenOverlayState.DeleteTask(task.id)
                     viewModel.updateScreenState(newState)
                 },
                 showTaskActions = {
-                    val newState = AssistantViewModel.ScreenState.TaskActions(task)
+                    val newState = ScreenOverlayState.TaskActions(task)
                     viewModel.updateScreenState(newState)
                 }
             )
