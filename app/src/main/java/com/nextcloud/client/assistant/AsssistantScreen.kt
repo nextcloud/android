@@ -34,7 +34,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -45,18 +44,17 @@ import com.nextcloud.client.assistant.model.ScreenState
 import com.nextcloud.client.assistant.repository.AssistantMockRepository
 import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
+import com.nextcloud.client.assistant.taskTypes.model.AssistantTaskType
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.nextcloud.utils.extensions.showShareIntent
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.lang.ref.WeakReference
 
 @Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -88,15 +86,13 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
 
         ShowLinearProgressIndicator(screenState, pullRefreshState)
 
-        if (selectedTaskType?.name != stringResource(id = R.string.assistant_screen_all_task_type)) {
-            AddFloatingActionButton(
-                modifier = Modifier
-                    .align(Alignment.BottomEnd)
-                    .padding(16.dp),
-                selectedTaskType,
-                viewModel
-            )
-        }
+        AddFloatingActionButton(
+            modifier = Modifier
+                .align(Alignment.BottomEnd)
+                .padding(16.dp),
+            selectedTaskType,
+            viewModel
+        )
     }
 
     showSnackBarMessage(messageId, activity, viewModel)
@@ -106,8 +102,8 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
 @Composable
 private fun ShowScreenState(
     screenState: ScreenState?,
-    selectedTaskType: TaskType?,
-    taskTypes: List<TaskType>?,
+    selectedTaskType: AssistantTaskType?,
+    taskTypes: List<AssistantTaskType>?,
     viewModel: AssistantViewModel,
     filteredTaskList: List<Task>?
 ) {
@@ -147,7 +143,7 @@ private fun ShowLinearProgressIndicator(screenState: ScreenState?, pullToRefresh
 }
 
 @Composable
-private fun AddFloatingActionButton(modifier: Modifier, selectedTaskType: TaskType?, viewModel: AssistantViewModel) {
+private fun AddFloatingActionButton(modifier: Modifier, selectedTaskType: AssistantTaskType?, viewModel: AssistantViewModel) {
     FloatingActionButton(
         modifier = modifier,
         onClick = {
@@ -222,7 +218,7 @@ private fun ShowOverlayState(
                     R.drawable.ic_edit,
                     R.string.action_edit
                 ) {
-                    val taskType = TaskType(
+                    val taskType = AssistantTaskType(
                         state.task.type,
                         activity.getString(R.string.assistant_screen_add_task_alert_dialog_title),
                         null
@@ -248,8 +244,8 @@ private fun ShowOverlayState(
 @Composable
 private fun AssistantContent(
     taskList: List<Task>,
-    taskTypes: List<TaskType>?,
-    selectedTaskType: TaskType?,
+    taskTypes: List<AssistantTaskType>?,
+    selectedTaskType: AssistantTaskType?,
     viewModel: AssistantViewModel
 ) {
     LazyColumn(
@@ -282,15 +278,11 @@ private fun AssistantContent(
 }
 
 @Composable
-private fun EmptyTaskList(selectedTaskType: TaskType?, taskTypes: List<TaskType>?, viewModel: AssistantViewModel) {
-    val text = if (selectedTaskType?.name == stringResource(id = R.string.assistant_screen_all_task_type)) {
-        stringResource(id = R.string.assistant_screen_no_task_available_for_all_task_filter_text)
-    } else {
-        stringResource(
-            id = R.string.assistant_screen_no_task_available_text,
-            selectedTaskType?.name ?: ""
-        )
-    }
+private fun EmptyTaskList(selectedTaskType: AssistantTaskType?, taskTypes: List<AssistantTaskType>?, viewModel: AssistantViewModel) {
+    val text = stringResource(
+        id = R.string.assistant_screen_no_task_available_text,
+        selectedTaskType?.name ?: ""
+    )
 
     Column(
         modifier = Modifier
@@ -314,10 +306,7 @@ private fun AssistantScreenPreview() {
     MaterialTheme(
         content = {
             AssistantScreen(
-                viewModel = AssistantViewModel(
-                    repository = mockRepository,
-                    context = WeakReference(LocalContext.current)
-                ),
+                viewModel = AssistantViewModel(repository = mockRepository),
                 activity = ComposeActivity()
             )
         }
@@ -331,10 +320,7 @@ private fun AssistantEmptyScreenPreview() {
     MaterialTheme(
         content = {
             AssistantScreen(
-                viewModel = AssistantViewModel(
-                    repository = mockRepository,
-                    context = WeakReference(LocalContext.current)
-                ),
+                viewModel = AssistantViewModel(repository = mockRepository),
                 activity = ComposeActivity()
             )
         }

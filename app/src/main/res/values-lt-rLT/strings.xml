@@ -37,7 +37,6 @@
     <string name="app_config_proxy_port_title">Įgaliotojo serverio prievadas</string>
     <string name="app_widget_description">Rodo vieną valdiklį iš skydelio</string>
     <string name="appbar_search_in">Ieškoti %s</string>
-    <string name="assistant_screen_all_task_type">Visos</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Įrašykite kokį nors tekstą</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ar tikrai norite ištrinti šią užduotį?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ištrinti užduotį</string>

@@ -46,7 +46,6 @@
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小工具</string>
     <string name="appbar_search_in">搜尋 %s</string>
-    <string name="assistant_screen_all_task_type">全部</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除工作項目</string>

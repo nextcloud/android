@@ -45,7 +45,6 @@
     <string name="app_config_proxy_port_title">Port del proxy</string>
     <string name="app_widget_description">Mostra un giny del tauler</string>
     <string name="appbar_search_in">Cerca a %s</string>
-    <string name="assistant_screen_all_task_type">Totes</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriu una mica de text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Segur que voleu suprimir aquesta tasca?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Suprimeix la tasca</string>

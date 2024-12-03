@@ -38,7 +38,6 @@
     <string name="app_config_proxy_port_title">پورت پروکسی</string>
     <string name="app_widget_description">نمایش یک ابزارک از پیشخوان</string>
     <string name="appbar_search_in">جستجو در %s</string>
-    <string name="assistant_screen_all_task_type">همه</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">مقداری متن را تایپ کنید</string>
     <string name="assistant_screen_failed_task_text">Failed</string>
     <string name="assistant_screen_scheduled_task_status_text">Scheduled</string>

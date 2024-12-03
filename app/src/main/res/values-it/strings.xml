@@ -46,7 +46,6 @@
     <string name="app_config_proxy_port_title">Porta proxy</string>
     <string name="app_widget_description">Mostra un widget dal cruscotto</string>
     <string name="appbar_search_in">Cerca in %s</string>
-    <string name="assistant_screen_all_task_type">Tutti</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Aggiungi del testo</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Sei sicuro di voler rimuovere questa attività?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Elimina attività</string>

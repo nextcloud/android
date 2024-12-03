@@ -37,7 +37,6 @@
     <string name="app_config_proxy_port_title">Porzh Proksi</string>
     <string name="app_widget_description">Diskouez a ra ur widget dre daolenn-vourzh</string>
     <string name="appbar_search_in">Klask e %s</string>
-    <string name="assistant_screen_all_task_type">Pep tra</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skrivañ un tamm testenn</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ha sur oc\'h e fell deoc\'h dilemel an trevell-mañ ?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Dilemel an trevell</string>

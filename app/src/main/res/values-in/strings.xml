@@ -35,7 +35,6 @@
     <string name="allow_resharing">Izinkan pembagian ulang</string>
     <string name="app_widget_description">Menampilkan satu gawit dari dasbor</string>
     <string name="appbar_search_in">Cari dalam %s</string>
-    <string name="assistant_screen_all_task_type">Semua</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tulis beberapa teks</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Apakah Anda yakin ingin menghapus tugas ini?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Hapus Tugas</string>

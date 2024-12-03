@@ -36,7 +36,6 @@
     <string name="app_config_proxy_port_title">Puerto del proxy</string>
     <string name="app_widget_description">Muestra un widget del panel de control</string>
     <string name="appbar_search_in">Compartir en %s</string>
-    <string name="assistant_screen_all_task_type">Todos</string>
     <string name="assistant_screen_failed_task_text">Error</string>
     <string name="assistant_screen_scheduled_task_status_text">Programado</string>
     <string name="assistant_screen_successful_task_text">Completado</string>

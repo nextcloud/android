@@ -31,7 +31,6 @@
     <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_resharing">Permitir volver a compartir</string>
     <string name="appbar_search_in">Buscar en %s</string>
-    <string name="assistant_screen_all_task_type">Todos</string>
     <string name="assistant_screen_successful_task_text">Completado</string>
     <string name="assistant_screen_unknown_task_status_text">Desconocido</string>
     <string name="associated_account_not_found">¡No se encontró la cuenta asociada!</string>

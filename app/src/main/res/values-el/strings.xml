@@ -35,7 +35,6 @@
     <string name="app_config_proxy_port_title">Θύρα διαμεσολαβητή</string>
     <string name="app_widget_description">Εμφάνιση ενός γραφικού στοιχείου από τον πίνακα ελέγχου</string>
     <string name="appbar_search_in">Αναζήτηση στο %s</string>
-    <string name="assistant_screen_all_task_type">\'Ολα</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Πληκτρολογήστε κάποιο κείμενο</string>
     <string name="assistant_screen_failed_task_text">Απέτυχε</string>
     <string name="assistant_screen_successful_task_text">Ολοκληρωμένες</string>

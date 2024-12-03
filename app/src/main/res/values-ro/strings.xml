@@ -37,7 +37,6 @@
     <string name="app_config_proxy_port_title">Port proxy </string>
     <string name="app_widget_description">Arată un singur widget din panoul principal</string>
     <string name="appbar_search_in">Caută in %s</string>
-    <string name="assistant_screen_all_task_type">Toate </string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tastează un text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Sigur doriți să ștergeți acest task?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Şterge task</string>
