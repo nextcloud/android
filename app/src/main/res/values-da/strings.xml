@@ -36,7 +36,6 @@
     <string name="allow_resharing">Tillad videredeling</string>
     <string name="app_widget_description">Viser én widget fra dashboard</string>
     <string name="appbar_search_in">Søg i %s</string>
-    <string name="assistant_screen_all_task_type">Alle</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv noget tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på du vil slette denne opgave?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Slet opgave</string>

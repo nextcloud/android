@@ -30,7 +30,6 @@
     <string name="add_to_cloud">Dodaj u %1$s</string>
     <string name="advanced_settings">Napredna podešavanja</string>
     <string name="appbar_search_in">Pretraga u %s</string>
-    <string name="assistant_screen_all_task_type">Sve</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Da li ste sigurni da želite da izbrišete ovaj zadatak?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Izbriši zadatak</string>
     <string name="assistant_screen_failed_task_text">Nije uspelo</string>

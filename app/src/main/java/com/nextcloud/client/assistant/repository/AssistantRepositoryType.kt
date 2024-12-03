@@ -16,7 +16,7 @@ interface AssistantRepositoryType {
 
     fun createTask(input: String, type: String): RemoteOperationResult<Void>
 
-    fun getTaskList(appId: String): RemoteOperationResult<TaskList>
+    fun getTaskList(taskType: String): RemoteOperationResult<TaskList>
 
     fun deleteTask(id: Long): RemoteOperationResult<Void>
 }

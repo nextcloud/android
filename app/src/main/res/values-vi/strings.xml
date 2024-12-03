@@ -33,7 +33,6 @@
     <string name="allow_resharing">Cho phép chia sẻ lại</string>
     <string name="app_widget_description">Hiện thị lối tắt từ dashboard</string>
     <string name="appbar_search_in">Tìm kiếm trong %s</string>
-    <string name="assistant_screen_all_task_type">Tất cả</string>
     <string name="assistant_screen_scheduled_task_status_text">Lên kế hoạch</string>
     <string name="assistant_screen_successful_task_text">Hoàn thành</string>
     <string name="assistant_screen_unknown_task_status_text">Không xác định</string>

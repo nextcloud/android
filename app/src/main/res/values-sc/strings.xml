@@ -35,7 +35,6 @@
     <string name="app_config_base_url_title">URL de base</string>
     <string name="app_config_proxy_port_title">Port serbidore intermèdiu</string>
     <string name="appbar_search_in">Chirca in %s</string>
-    <string name="assistant_screen_all_task_type">Totu</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">Peruna faina a disponimentu. Seletziona sa genia de faina pro nde creare una noa.</string>
     <string name="assistant_screen_no_task_available_text">Peruna faina a disponimentu pro sa genia %s. Nde podes creare una noa dae su cugione in bassu a dereta.</string>
     <string name="assistant_screen_successful_task_text">Cumpletadu</string>

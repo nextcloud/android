@@ -36,7 +36,6 @@
     <string name="app_config_proxy_port_title">Порт на прокси сървъра</string>
     <string name="app_widget_description">Показва един изпълним модул от таблото за управление</string>
     <string name="appbar_search_in">Търсене в %s</string>
-    <string name="assistant_screen_all_task_type">Всички</string>
     <string name="assistant_screen_failed_task_text">Неуспешно</string>
     <string name="assistant_screen_scheduled_task_status_text">Планирано</string>
     <string name="assistant_screen_successful_task_text">Завършен</string>

@@ -34,7 +34,6 @@
     <string name="allow_resharing">อนุญาตให้แชร์ซ้ำ</string>
     <string name="app_widget_description">แสดงหนึ่งวิดเจ็ตจากแดชบอร์ด</string>
     <string name="appbar_search_in">ค้นหาใน %s</string>
-    <string name="assistant_screen_all_task_type">ทั้งหมด</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">พิมพ์ข้อความของคุณ</string>
     <string name="assistant_screen_running_task_text">อยู่ระหว่างการดำเนินการ</string>
     <string name="assistant_screen_successful_task_text">เสร็จแล้ว</string>

@@ -35,7 +35,6 @@
     <string name="allow_resharing">Allow resharing</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
-    <string name="assistant_screen_all_task_type">All</string>
     <string name="assistant_screen_failed_task_text">Failed</string>
     <string name="assistant_screen_successful_task_text">Completed</string>
     <string name="assistant_screen_unknown_task_status_text">Unknown</string>

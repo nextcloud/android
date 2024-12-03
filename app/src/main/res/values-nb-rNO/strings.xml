@@ -38,7 +38,6 @@
     <string name="app_config_proxy_port_title">Proxy-port</string>
     <string name="app_widget_description">Viser en widget fra dashbordet</string>
     <string name="appbar_search_in">Søk i %s</string>
-    <string name="assistant_screen_all_task_type">Alle</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv inn litt tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på at du vil slette denne oppgaven?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Slett oppgave</string>

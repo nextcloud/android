@@ -7,11 +7,11 @@
 
 package com.nextcloud.client.assistant.model
 
+import com.nextcloud.client.assistant.taskTypes.model.AssistantTaskType
 import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskType
 
 sealed class ScreenOverlayState {
     data class DeleteTask(val id: Long): ScreenOverlayState()
-    data class AddTask(val taskType: TaskType, val input: String): ScreenOverlayState()
+    data class AddTask(val taskType: AssistantTaskType, val input: String): ScreenOverlayState()
     data class TaskActions(val task: Task): ScreenOverlayState()
 }

@@ -24,7 +24,6 @@
     <string name="app_config_base_url_title">URL base</string>
     <string name="app_config_proxy_port_title">Puertu del proxy</string>
     <string name="appbar_search_in">Buscar en: %s</string>
-    <string name="assistant_screen_all_task_type">Too</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escribi daqué</string>
     <string name="assistant_screen_failed_task_text">Falló</string>
     <string name="assistant_screen_scheduled_task_status_text">Planificóse</string>

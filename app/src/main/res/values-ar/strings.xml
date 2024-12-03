@@ -46,7 +46,6 @@
     <string name="app_config_proxy_port_title">منفذ البروكسي</string>
     <string name="app_widget_description">عرض أداة واحدة من لوحة القيادة</string>
     <string name="appbar_search_in">بحث في %s</string>
-    <string name="assistant_screen_all_task_type">الكل</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">أكتُب أيَّ نص</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">هل أنت متأكد أنك ترغب بحذف هذه المهمة؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">حذف مهمة</string>

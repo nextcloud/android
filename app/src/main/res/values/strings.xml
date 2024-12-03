@@ -76,8 +76,6 @@
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
 
-    <string name="assistant_screen_all_task_type">All</string>
-
     <string name="drawer_item_assistant">Assistant</string>
     <string name="drawer_item_all_files">All files</string>
     <string name="drawer_item_personal_files">Personal files</string>

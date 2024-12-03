@@ -33,7 +33,6 @@
     <string name="allow_resharing">Atļaut atkārtotu koplietošanu</string>
     <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
-    <string name="assistant_screen_all_task_type">Visi</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Dzēst uzdevumu</string>
     <string name="assistant_screen_failed_task_text">Neizdevās</string>
     <string name="assistant_screen_successful_task_text">Pabeigts</string>
