@@ -7,6 +7,7 @@
 
 package com.nextcloud.client.assistant.taskTypes.model
 
+import com.owncloud.android.lib.resources.assistant.model.TaskIds
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
 data class AssistantTaskType(
@@ -17,12 +18,9 @@ data class AssistantTaskType(
 
 fun TaskTypes.toAssistantTaskTypeList(): List<AssistantTaskType> {
     return arrayListOf<AssistantTaskType>().apply {
-        add(AssistantTaskType("core:text2text", types.coreText2text.name, types.coreText2text.description))
-        add(AssistantTaskType("core:text2text:topics", types.coreText2textTopics.name, types.coreText2textTopics.description))
-        add(AssistantTaskType("core:text2text:headline", types.coreText2textHeadline.name, types.coreText2textHeadline.description))
-        add(AssistantTaskType("core:text2text:summary", types.coreText2textSummary.name, types.coreText2textSummary.description))
-        add(AssistantTaskType("core:text2text:translate", types.coreText2textTranslate.name, types.coreText2textTranslate.description))
-        add(AssistantTaskType("core:contextwrite", types.coreContextwrite.name, types.coreContextwrite.description))
-        add(AssistantTaskType("context_chat:context_chat", types.contextChatContextChat.name, types.contextChatContextChat.description))
+        add(AssistantTaskType(TaskIds.GenerateText.id, types.generateText.name, types.generateText.description))
+        add(AssistantTaskType(TaskIds.ExtractTopics.id, types.extractTopics.name, types.extractTopics.description))
+        add(AssistantTaskType(TaskIds.GenerateHeadline.id, types.generateHeadline.name, types.generateHeadline.description))
+        add(AssistantTaskType(TaskIds.Summarize.id, types.summarize.name, types.summarize.description))
     }
 }

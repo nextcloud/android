@@ -53,7 +53,7 @@ fun Task.getModifiedAtRepresentation(context: Context): String? {
     val timeDifferenceInHours = (timeDifference / 3600)
 
     return when {
-        timeDifference == 0 -> {
+        timeDifference < 0 -> {
             context.getString(R.string.common_now)
         }
 
