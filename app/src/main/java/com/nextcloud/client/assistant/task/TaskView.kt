@@ -9,9 +9,8 @@ package com.nextcloud.client.assistant.task
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -42,16 +41,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.task.model.TaskViewBottomSheetType
 import com.nextcloud.client.assistant.taskDetail.TaskDetailBottomSheet
-import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
-import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskInput
 import com.owncloud.android.lib.resources.assistant.model.TaskOutput
 
-@OptIn(ExperimentalFoundationApi::class)
 @Suppress("LongMethod", "MagicNumber")
 @Composable
-fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit, showTaskActions: () -> Unit) {
+fun TaskView(task: Task, showTaskActions: () -> Unit) {
     var bottomSheetType by remember { mutableStateOf<TaskViewBottomSheetType?>(null) }
 
     Box {
@@ -60,11 +56,9 @@ fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit, showTaskActi
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
                 .background(MaterialTheme.colorScheme.primary)
-                .combinedClickable(onClick = {
+                .clickable {
                     bottomSheetType = TaskViewBottomSheetType.Detail
-                }, onLongClick = {
-                    bottomSheetType = TaskViewBottomSheetType.MoreAction
-                })
+                }
                 .padding(16.dp)
         ) {
             Spacer(modifier = Modifier.height(8.dp))
@@ -107,9 +101,7 @@ fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit, showTaskActi
             TaskStatusView(task, foregroundColor = Color.White)
 
             bottomSheetType?.let {
-                TaskViewBottomSheet(it, task, showDeleteTaskAlertDialog = {
-                    showDeleteTaskAlertDialog(task.id)
-                }, dismiss = {
+                TaskViewBottomSheet(it, task, dismiss = {
                     bottomSheetType = null
                 }, showTaskActions = {
                     showTaskActions()
@@ -136,7 +128,6 @@ private fun TaskViewBottomSheet(
     bottomSheetType: TaskViewBottomSheetType,
     task: Task,
     showTaskActions: () -> Unit,
-    showDeleteTaskAlertDialog: () -> Unit,
     dismiss: () -> Unit
 ) {
     when (bottomSheetType) {
@@ -147,25 +138,6 @@ private fun TaskViewBottomSheet(
             }) {
                 dismiss()
             }
-        }
-
-        TaskViewBottomSheetType.MoreAction -> {
-            val bottomSheetAction = listOf(
-                Triple(
-                    R.drawable.ic_delete,
-                    R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
-                ) {
-                    showDeleteTaskAlertDialog()
-                }
-            )
-
-            MoreActionsBottomSheet(
-                title = task.input?.input,
-                actions = bottomSheetAction,
-                dismiss = {
-                    dismiss()
-                }
-            )
         }
     }
 }
@@ -190,8 +162,6 @@ private fun TaskViewPreview() {
             1707692337,
             1707692337,
         ), showTaskActions = {
-
-        }, showDeleteTaskAlertDialog = {
 
         }
     )
