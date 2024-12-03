@@ -49,6 +49,8 @@ import com.nextcloud.client.assistant.task.TaskStatusView
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
+import com.owncloud.android.lib.resources.assistant.model.TaskInput
+import com.owncloud.android.lib.resources.assistant.model.TaskOutput
 
 @Suppress("LongMethod")
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
@@ -123,9 +125,9 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
                 ) {
                     Text(
                         text = if (showInput) {
-                            task.input ?: ""
+                            task.input?.input ?: ""
                         } else {
-                            task.output ?: stringResource(R.string.assistant_screen_task_output_empty_text)
+                            task.output?.output ?: stringResource(R.string.assistant_screen_task_output_empty_text)
                         },
                         fontSize = 12.sp,
                         color = MaterialTheme.colorScheme.onPrimaryContainer,
@@ -173,13 +175,16 @@ private fun TaskDetailScreenPreview() {
         task = Task(
             1,
             "Free Prompt",
-            0,
+            null,
             "1",
             "1",
-            "Give me text".getRandomString(100),
-            "output".getRandomString(300),
-            "",
-            ""
+            TaskInput("Give me text".getRandomString(100)),
+            TaskOutput("output".getRandomString(300)),
+            1707692337,
+            1707692337,
+            1707692337,
+            1707692337,
+            1707692337,
         ),
         showTaskActions = {
 

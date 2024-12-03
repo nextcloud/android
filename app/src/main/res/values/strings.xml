@@ -135,6 +135,21 @@
         <item quantity="other">%d minutes</item>
     </plurals>
 
+    <plurals name="time_seconds_ago">
+        <item quantity="one">1 second ago</item>
+        <item quantity="other">%d seconds ago</item>
+    </plurals>
+
+    <plurals name="time_minutes_ago">
+        <item quantity="one">1 minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+
+    <plurals name="time_hours_ago">
+        <item quantity="one">1 hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
     <string name="recommend_urls">%1$s or %2$s</string>
@@ -191,6 +206,7 @@
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
     <string name="common_ok">OK</string>
+    <string name="common_now">Now</string>
     <string name="common_cancel_sync">Cancel sync</string>
     <string name="common_cancel">Cancel</string>
     <string name="common_back">Back</string>

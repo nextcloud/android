@@ -9,34 +9,82 @@
 
 package com.nextcloud.client.assistant.extensions
 
+import android.content.Context
+import android.icu.text.SimpleDateFormat
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
+import java.util.Date
+import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 @Suppress("MagicNumber")
-fun Task.statusData(): Pair<Int, Int> {
+fun Task.getStatusIcon(): Int {
     return when (status) {
-        0L -> {
-            Pair(R.drawable.ic_unknown, R.string.assistant_screen_unknown_task_status_text)
+        "STATUS_UNKNOWN" -> {
+            R.drawable.ic_unknown
         }
-        1L -> {
-            Pair(R.drawable.ic_clock, R.string.assistant_screen_scheduled_task_status_text)
+        "STATUS_SCHEDULED" -> {
+            R.drawable.ic_clock
         }
-        2L -> {
-            Pair(R.drawable.ic_modification_desc, R.string.assistant_screen_running_task_text)
+        "STATUS_RUNNING" -> {
+            R.drawable.ic_modification_desc
         }
-        3L -> {
-            Pair(R.drawable.ic_info, R.string.assistant_screen_successful_task_text)
+        "STATUS_SUCCESSFUL" -> {
+            R.drawable.ic_check_circle_outline
         }
-        4L -> {
-            Pair(R.drawable.image_fail, R.string.assistant_screen_failed_task_text)
+        "STATUS_FAILED" -> {
+            R.drawable.image_fail
         }
         else -> {
-            Pair(R.drawable.ic_unknown, R.string.assistant_screen_unknown_task_status_text)
+            R.drawable.ic_unknown
         }
     }
 }
 
-// TODO add
-fun Task.completionDateRepresentation(): String {
-    return completionExpectedAt ?: "TODO IMPLEMENT IT"
+fun Task.getModifiedAtRepresentation(context: Context): String? {
+    if (lastUpdated == null) {
+        return null
+    }
+
+    val modifiedAt = lastUpdated!!.toLong()
+    val currentTime = System.currentTimeMillis() / 1000
+    val timeDifference = (currentTime - modifiedAt).toInt()
+    val timeDifferenceInMinutes = (timeDifference / 60)
+    val timeDifferenceInHours = (timeDifference / 3600)
+
+    return when {
+        timeDifference == 0 -> {
+            context.getString(R.string.common_now)
+        }
+
+        timeDifference < TimeUnit.MINUTES.toSeconds(1) -> {
+            context.resources.getQuantityString(R.plurals.time_seconds_ago, timeDifference, timeDifference)
+        }
+
+        timeDifference < TimeUnit.HOURS.toSeconds(1) -> {
+            context.resources.getQuantityString(
+                R.plurals.time_minutes_ago,
+                timeDifferenceInMinutes,
+                timeDifferenceInMinutes
+            )
+        }
+
+        timeDifference < TimeUnit.DAYS.toSeconds(1)  -> {
+            context.resources.getQuantityString(
+                R.plurals.time_hours_ago,
+                timeDifferenceInHours,
+                timeDifferenceInHours
+            )
+        }
+
+        else -> {
+            convertToDateFormat(modifiedAt)
+        }
+    }
+}
+
+private fun convertToDateFormat(timestamp: Long): String {
+    val date = Date(timestamp * 1000)
+    val format = SimpleDateFormat("MMM d", Locale.getDefault())
+    return format.format(date)
 }
