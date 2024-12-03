@@ -868,7 +868,7 @@ public final class DisplayUtils {
             boolean isDarkModeActive = preferences.isDarkModeEnabled();
 
             Integer overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder);
-            LayerDrawable fileIcon = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
+            LayerDrawable fileIcon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
             thumbnailView.setImageDrawable(fileIcon);
         } else {
             if (file.getRemoteId() != null && file.isPreviewAvailable()) {

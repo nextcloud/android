@@ -26,7 +26,16 @@ class AutoRenameTests : AbstractOnServerIT() {
         testOnlyOnServer(NextcloudVersion.nextcloud_30)
 
         capability = capability.apply {
-            forbiddenFilenameExtensionJson = """[" ",".",".part",".part"]"""
+            forbiddenFilenameExtensionJson = listOf(
+                """[" ",".",".part",".part"]""",
+                """[".",".part",".part"," "]""",
+                """[".",".part"," ", ".part"]""",
+                """[".part"," ", ".part","."]""",
+                """[" ",".",".PART",".PART"]""",
+                """[".",".PART",".PART"," "]""",
+                """[".",".PART"," ", ".PART"]""",
+                """[".PART"," ", ".PART","."]"""
+            ).random()
             forbiddenFilenameCharactersJson = """["<", ">", ":", "\\\\", "/", "|", "?", "*", "&"]"""
         }
     }
@@ -157,5 +166,13 @@ class AutoRenameTests : AbstractOnServerIT() {
         val result = AutoRename.rename(folderPath, capability, true)
         val expectedFolderName = "/COm02/2569.webp"
         assert(result == expectedFolderName) { "Expected $expectedFolderName but got $result" }
+    }
+
+    @Test
+    fun testValidFilename() {
+        val filename = ".file.TXT"
+        val result = AutoRename.rename(filename, capability)
+        val expectedFilename = "_file.txt"
+        assert(result == expectedFilename) { "Expected $expectedFilename but got $result" }
     }
 }

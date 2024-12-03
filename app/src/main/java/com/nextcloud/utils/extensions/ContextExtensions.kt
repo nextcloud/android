@@ -17,7 +17,12 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import com.google.common.io.Resources
+import com.owncloud.android.R
 import com.owncloud.android.datamodel.ReceiverFlag
+
+fun Context.hourPlural(hour: Int): String = resources.getQuantityString(R.plurals.hours, hour, hour)
+
+fun Context.minPlural(min: Int): String = resources.getQuantityString(R.plurals.minutes, min, min)
 
 @SuppressLint("UnspecifiedRegisterReceiverFlag")
 fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: IntentFilter, flag: ReceiverFlag): Intent? {

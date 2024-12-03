@@ -622,8 +622,6 @@
     <string name="rename_local_fail_msg">Αδυναμία μετονομασίας τοπικού αντιγράφου, δοκιμάστε διαφορετικό όνομα</string>
     <string name="rename_server_fail_msg">Αδύνατη μετονομασία, το όνομα έχει ήδη δοθεί</string>
     <string name="request_account_deletion">Αίτηση διαγραφής λογαριασμού</string>
-    <string name="reshare_not_allowed">Δεν επιτρέπεται ο επαναμοιρασμός</string>
-    <string name="resharing_is_not_allowed">Δεν επιτρέπεται ο διαμοιρασμός</string>
     <string name="resized_image_not_possible_download">Δεν υπάρχει διαθέσιμη εικόνα με αλλαγμένο μέγεθος. Κατέβασμα της πλήρους εικόνας;</string>
     <string name="restore">Επαναφορά αρχείου</string>
     <string name="restore_backup">Επαναφορά αντιγράφου ασφαλείας</string>
@@ -685,7 +683,6 @@
     <string name="share_permissions">Δικαιώματα κοινής χρήσης</string>
     <string name="share_remote_clarification">%1$s (απομακρυσμένα)</string>
     <string name="share_room_clarification">%1$s (συνομιλιία)</string>
-    <string name="share_search">Όνομα, Ομοσπονδιακό Cloud ID   ή διεύθυνση ηλεκτρονικού ταχυδρομείου...</string>
     <string name="share_send_new_email">Αποστολή νέου email</string>
     <string name="share_send_note">Σημείωση στον παραλήπτη</string>
     <string name="share_settings">Ρυθμίσεις</string>
@@ -736,6 +733,7 @@
     <string name="storage_description_default">Προεπιλογή</string>
     <string name="storage_documents">Έγγραφα</string>
     <string name="storage_downloads">Λήψεις</string>
+    <string name="storage_external_storage">Εξωτερικός αποθηκευτικός χώρος</string>
     <string name="storage_internal_storage">Εσωτερικός αποθηκευτικός χώρος</string>
     <string name="storage_movies">Βίντεο</string>
     <string name="storage_music">Μουσική</string>
@@ -911,7 +909,6 @@
     <string name="whats_new_skip">Παράλειψη</string>
     <string name="whats_new_title">Τι νέο υπάρχει στο %1$s</string>
     <string name="whats_your_status">Ποια είναι η κατάστασή σας;</string>
-    <string name="widgets_not_available">Τα γραφικά στοιχεία είναι διαθέσιμα μόνο στην %1$s 25 ή νεότερη</string>
     <string name="widgets_not_available_title">Δεν είναι διαθέσιμο</string>
     <string name="worker_download">Λήψη αρχείων…</string>
     <string name="write_email">Αποστολή email</string>

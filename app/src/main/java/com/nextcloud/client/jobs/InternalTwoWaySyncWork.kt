@@ -13,6 +13,7 @@ import androidx.work.WorkerParameters
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.network.ConnectivityService
+import com.nextcloud.client.preferences.AppPreferences
 import com.owncloud.android.MainApp
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
@@ -21,20 +22,26 @@ import com.owncloud.android.operations.SynchronizeFolderOperation
 import com.owncloud.android.utils.FileStorageUtils
 import java.io.File
 
-@Suppress("Detekt.NestedBlockDepth", "ReturnCount")
+@Suppress("Detekt.NestedBlockDepth", "ReturnCount", "LongParameterList")
 class InternalTwoWaySyncWork(
     private val context: Context,
     params: WorkerParameters,
     private val userAccountManager: UserAccountManager,
     private val powerManagementService: PowerManagementService,
-    private val connectivityService: ConnectivityService
+    private val connectivityService: ConnectivityService,
+    private val appPreferences: AppPreferences
 ) : Worker(context, params) {
+    private var shouldRun = true
+    private var operation: SynchronizeFolderOperation? = null
+
     override fun doWork(): Result {
         Log_OC.d(TAG, "Worker started!")
 
         var result = true
 
-        if (powerManagementService.isPowerSavingEnabled ||
+        @Suppress("ComplexCondition")
+        if (!appPreferences.isTwoWaySyncEnabled ||
+            powerManagementService.isPowerSavingEnabled ||
             !connectivityService.isConnected ||
             connectivityService.isInternetWalled ||
             !connectivityService.connectivity.isWifi
@@ -50,22 +57,20 @@ class InternalTwoWaySyncWork(
             val folders = fileDataStorageManager.getInternalTwoWaySyncFolders(user)
 
             for (folder in folders) {
+                if (!shouldRun) {
+                    Log_OC.d(TAG, "Worker was stopped!")
+                    return Result.failure()
+                }
+
                 checkFreeSpace(folder)?.let { checkFreeSpaceResult ->
                     return checkFreeSpaceResult
                 }
 
-                // do not attempt to sync root folder
-                if (folder.remotePath == OCFile.ROOT_PATH) {
-                    folder.internalFolderSyncTimestamp = -1L
-                    fileDataStorageManager.saveFile(folder)
-                    continue
-                }
-
                 Log_OC.d(TAG, "Folder ${folder.remotePath}: started!")
-                val operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager)
-                    .execute(context)
+                operation = SynchronizeFolderOperation(context, folder.remotePath, user, fileDataStorageManager, true)
+                val operationResult = operation?.execute(context)
 
-                if (operation.isSuccess) {
+                if (operationResult?.isSuccess == true) {
                     Log_OC.d(TAG, "Folder ${folder.remotePath}: finished!")
                 } else {
                     Log_OC.d(TAG, "Folder ${folder.remotePath} failed!")
@@ -73,7 +78,10 @@ class InternalTwoWaySyncWork(
                 }
 
                 folder.apply {
-                    internalFolderSyncResult = operation.code.toString()
+                    operationResult?.let {
+                        internalFolderSyncResult = it.code.toString()
+                    }
+
                     internalFolderSyncTimestamp = System.currentTimeMillis()
                 }
 
@@ -88,6 +96,13 @@ class InternalTwoWaySyncWork(
             Log_OC.d(TAG, "Worker finished with failure!")
             Result.failure()
         }
+    }
+
+    override fun onStopped() {
+        Log_OC.d(TAG, "OnStopped of worker called!")
+        operation?.cancel()
+        shouldRun = false
+        super.onStopped()
     }
 
     @Suppress("TooGenericExceptionCaught")

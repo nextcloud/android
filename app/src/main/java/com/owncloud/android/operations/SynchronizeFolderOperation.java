@@ -86,6 +86,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
 
     private final AtomicBoolean mCancellationRequested;
 
+    private final boolean syncInBackgroundWorker;
+
     /**
      * Creates a new instance of {@link SynchronizeFolderOperation}.
      *
@@ -96,7 +98,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
     public SynchronizeFolderOperation(Context context,
                                       String remotePath,
                                       User user,
-                                      FileDataStorageManager storageManager) {
+                                      FileDataStorageManager storageManager,
+                                      boolean syncInBackgroundWorker) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -106,6 +109,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
         mFilesForDirectDownload = new Vector<>();
         mFilesToSyncContents = new Vector<>();
         mCancellationRequested = new AtomicBoolean(false);
+        this.syncInBackgroundWorker = syncInBackgroundWorker;
     }
 
 
@@ -129,13 +133,12 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (result.isSuccess()) {
                 if (mRemoteFolderChanged) {
                     result = fetchAndSyncRemoteFolder(client);
-
                 } else {
                     prepareOpsFromLocalKnowledge();
                 }
 
                 if (result.isSuccess()) {
-                    syncContents();
+                    syncContents(client);
                 }
             }
 
@@ -406,7 +409,8 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 user,
                 true,
                 mContext,
-                getStorageManager()
+                getStorageManager(),
+                syncInBackgroundWorker
             );
             mFilesToSyncContents.add(operation);
         }
@@ -419,7 +423,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
             if (!child.isFolder()) {
                 if (!child.isDown()) {
                     mFilesForDirectDownload.add(child);
-
                 } else {
                     /// this should result in direct upload of files that were locally modified
                     SynchronizeFileOperation operation = new SynchronizeFileOperation(
@@ -428,23 +431,77 @@ public class SynchronizeFolderOperation extends SyncOperation {
                         user,
                         true,
                         mContext,
-                        getStorageManager()
+                        getStorageManager(),
+                        syncInBackgroundWorker
                     );
                     mFilesToSyncContents.add(operation);
-
                 }
             }
         }
     }
 
-    private void syncContents() throws OperationCancelledException {
+    private void syncContents(OwnCloudClient client) throws OperationCancelledException {
         startDirectDownloads();
         startContentSynchronizations(mFilesToSyncContents);
+        updateETag(client);
     }
 
+    /**
+     * Updates the eTag of the local folder after a successful synchronization.
+     * This ensures that any changes to local files, which may alter the eTag, are correctly reflected.
+     *
+     * @param client the OwnCloudClient instance used to execute remote operations.
+     */
+    private void updateETag(OwnCloudClient client) {
+        ReadFolderRemoteOperation operation = new ReadFolderRemoteOperation(mRemotePath);
+        final var result = operation.execute(client);
+
+        if (result.getData().get(0) instanceof RemoteFile remoteFile) {
+            String eTag = remoteFile.getEtag();
+            mLocalFolder.setEtag(eTag);
+
+            final FileDataStorageManager storageManager = getStorageManager();
+            storageManager.saveFile(mLocalFolder);
+        }
+    }
 
     private void startDirectDownloads() {
-        FileDownloadHelper.Companion.instance().downloadFile(user, mLocalFolder);
+        final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
+        
+        if (syncInBackgroundWorker) {
+            try {
+                for (OCFile file: mFilesForDirectDownload) {
+                    synchronized (mCancellationRequested) {
+                        if (mCancellationRequested.get()) {
+                            break;
+                        }
+                    }
+
+                    if (file == null) {
+                        continue;
+                    }
+
+                    final var operation = new DownloadFileOperation(user, file, mContext);
+                    var result = operation.execute(getClient());
+
+                    String filename = file.getFileName();
+                    if (filename == null) {
+                        continue;
+                    }
+
+                    if (result.isSuccess()) {
+                        fileDownloadHelper.saveFile(file, operation, getStorageManager());
+                        Log_OC.d(TAG, "startDirectDownloads completed for: " + file.getFileName());
+                    } else {
+                        Log_OC.d(TAG, "startDirectDownloads failed for: " + file.getFileName());
+                    }
+                }
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
+            }
+        } else {
+            mFilesForDirectDownload.forEach(file -> fileDownloadHelper.downloadFile(user, file));
+        }
     }
 
     /**

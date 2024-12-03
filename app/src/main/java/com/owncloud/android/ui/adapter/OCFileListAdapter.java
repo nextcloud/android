@@ -18,7 +18,6 @@ import android.content.ContentValues;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -36,9 +35,10 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
-import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.model.OCFileFilterType;
+import com.nextcloud.model.OfflineOperationType;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.GridImageBinding;
@@ -96,6 +96,7 @@ import java.util.stream.Collectors;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
@@ -140,6 +141,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
+    private final SyncedFolderProvider syncedFolderProvider;
 
     public OCFileListAdapter(
         Activity activity,
@@ -171,9 +173,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             .get(activity)
             .getUserData(this.user.toPlatformAccount(),
                          AccountUtils.Constants.KEY_USER_ID);
-
+        this.syncedFolderProvider = syncedFolderProvider;
         this.viewThemeUtils = viewThemeUtils;
-
         ocFileListDelegate = new OCFileListDelegate(FileUploadHelper.Companion.instance(),
                                                     activity,
                                                     ocFileListFragmentInterface,
@@ -458,6 +459,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
             updateLivePhotoIndicators(gridViewHolder, file);
+
+            if (!MDMConfig.INSTANCE.sharingSupport(activity)) {
+                gridViewHolder.getShared().setVisibility(View.GONE);
+            }
         }
     }
 
@@ -518,7 +523,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     private void bindListGridItemViewHolder(ListGridItemViewHolder holder, OCFile file) {
-        holder.getFileName().setText(file.getDecryptedFileName());
+        holder.getFileName().setText(mStorageManager.getFilenameConsideringOfflineOperation(file));
 
         boolean gridImage = MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file);
         if (gridView && gridImage) {
@@ -531,12 +536,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
-        if (file.isFolder()) {
-            setColorFilterForOfflineCreateFolderOperations(holder, file);
-        } else {
-            setColorFilterForOfflineCreateFileOperations(holder, file);
-        }
+        configureThumbnail(holder, file);
     }
 
     private void bindListItemViewHolder(ListItemViewHolder holder, OCFile file) {
@@ -607,28 +607,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 localSize = localFile.length();
             }
 
-            holder.getFileSize().setVisibility(View.VISIBLE);
-
-
-            if (file.isOfflineOperation()) {
-                holder.getFileSize().setText(MainApp.string(R.string.oc_file_list_adapter_offline_operation_description_text));
-            } else {
-                holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(localSize));
-            }
-
-            holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
+            prepareFileSize(holder, file, localSize);
         } else {
             final long fileLength = file.getFileLength();
             if (fileLength >= 0) {
-                holder.getFileSize().setVisibility(View.VISIBLE);
-
-                if (file.isOfflineOperation()) {
-                    holder.getFileSize().setText(MainApp.string(R.string.oc_file_list_adapter_offline_operation_description_text));
-                } else {
-                    holder.getFileSize().setText(DisplayUtils.bytesToHumanReadable(fileLength));
-                }
-
-                holder.getFileSizeSeparator().setVisibility(View.VISIBLE);
+                prepareFileSize(holder, file, fileLength);
             } else {
                 holder.getFileSize().setVisibility(View.GONE);
                 holder.getFileSizeSeparator().setVisibility(View.GONE);
@@ -663,51 +646,66 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getOverflowMenu().setImageResource(R.drawable.ic_dots_vertical);
         }
 
-        applyVisualsForOfflineOperations(holder, file);
+        configureThumbnail(holder, file);
     }
 
-    private void applyVisualsForOfflineOperations(ListItemViewHolder holder, OCFile file) {
-        ViewExtensionsKt.setVisibleIf(holder.getShared(), !file.isOfflineOperation());
+    private void prepareFileSize(ListItemViewHolder holder, OCFile file, long size) {
+        holder.getFileSize().setVisibility(View.VISIBLE);
+        String fileSizeText = getFileSizeText(file, size);
+        holder.getFileSize().setText(fileSizeText);
+    }
 
-        if (file.isFolder()) {
-            setColorFilterForOfflineCreateFolderOperations(holder, file);
-        } else {
-            setColorFilterForOfflineCreateFileOperations(holder, file);
+    private String getFileSizeText(OCFile file, long size) {
+        if (!file.isOfflineOperation()) {
+            return DisplayUtils.bytesToHumanReadable(size);
         }
+
+        OfflineOperationEntity entity = mStorageManager.getOfflineEntityFromOCFile(file);
+        boolean isRemoveOperation = (entity != null && entity.getType() instanceof OfflineOperationType.RemoveFile);
+        if (isRemoveOperation) {
+            return activity.getString(R.string.oc_file_list_adapter_offline_operation_remove_description_text);
+        }
+
+        return activity.getString(R.string.oc_file_list_adapter_offline_operation_description_text);
     }
 
     private final ExecutorService executorService = Executors.newCachedThreadPool();
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
 
-    private void setColorFilterForOfflineCreateFileOperations(ListViewHolder holder, OCFile file) {
-        if (!file.isOfflineOperation()) {
-            return;
-        }
+    private void configureThumbnail(ListViewHolder holder, OCFile file) {
+        final var context = MainApp.getAppContext();
 
-        executorService.execute(() -> {
-            OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+        if (file.isOfflineOperation()) {
+            if (file.isFolder()) {
+                Drawable icon = ContextCompat.getDrawable(context, R.drawable.ic_folder_offline);
+                holder.getThumbnail().setImageDrawable(icon);
+            } else {
+                executorService.execute(() -> {
+                    OfflineOperationEntity entity = mStorageManager.offlineOperationDao.getByPath(file.getDecryptedRemotePath());
 
-            if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
-                Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
-                if (bitmap == null) return;
+                    if (entity != null && entity.getType() != null && entity.getType() instanceof OfflineOperationType.CreateFile createFileOperation) {
+                        Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(createFileOperation.getLocalPath(), holder.getThumbnail().getWidth(), holder.getThumbnail().getHeight());
+                        if (bitmap == null) return;
 
-                Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
-                mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
+                        Bitmap thumbnail = BitmapUtils.addColorFilter(bitmap, Color.GRAY,100);
+                        mainHandler.post(() -> holder.getThumbnail().setImageBitmap(thumbnail));
+                    }
+                });
             }
-        });
+        } else {
+            boolean isAutoUpload = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
+            boolean isDarkModeActive = preferences.isDarkModeEnabled();
+            Drawable icon = MimeTypeUtil.getOCFileIcon(file, context, viewThemeUtils, isAutoUpload, isDarkModeActive);
+            holder.getThumbnail().setImageDrawable(icon);
+
+            if (!file.isFolder()) {
+                ViewExtensionsKt.makeRounded(holder.getThumbnail(), context, 4);
+            }
+        }
     }
 
     public void onDestroy() {
         executorService.shutdown();
-    }
-
-    private void setColorFilterForOfflineCreateFolderOperations(ListViewHolder holder, OCFile file) {
-        if (file.isOfflineOperation()) {
-            holder.getThumbnail().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
-        } else {
-            Drawable drawable = viewThemeUtils.platform.tintDrawable(MainApp.getAppContext(), holder.getThumbnail().getDrawable(), ColorRole.PRIMARY);
-            holder.getThumbnail().setImageDrawable(drawable);
-        }
     }
 
     @Override

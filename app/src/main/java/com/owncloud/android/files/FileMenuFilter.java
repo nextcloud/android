@@ -23,6 +23,7 @@ import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.utils.EditorUtils;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -184,9 +185,24 @@ public class FileMenuFilter {
     }
 
     private void filterSendFiles(List<Integer> toHide, boolean inSingleFileFragment) {
-        if ((overflowMenu || SEND_OFF.equalsIgnoreCase(context.getString(R.string.send_files_to_other_apps)) || containsEncryptedFile()) ||
-            (!inSingleFileFragment && (isSingleSelection() || !allFileDown())) ||
-            !toHide.contains(R.id.action_send_share_file)) {
+        boolean sendFilesNotSupported = context != null && !MDMConfig.INSTANCE.sendFilesSupport(context);
+        boolean hasEncryptedFile = containsEncryptedFile();
+        boolean isSingleSelection = isSingleSelection();
+        boolean allFilesNotDown = !allFileDown();
+
+        if (sendFilesNotSupported) {
+            toHide.add(R.id.action_send_file);
+            return;
+        }
+
+        if (overflowMenu || hasEncryptedFile) {
+            toHide.add(R.id.action_send_file);
+            return;
+        }
+
+        if (!inSingleFileFragment && (isSingleSelection || allFilesNotDown)) {
+            toHide.add(R.id.action_send_file);
+        } else if (!toHide.contains(R.id.action_send_share_file)) {
             toHide.add(R.id.action_send_file);
         }
     }
@@ -397,8 +413,10 @@ public class FileMenuFilter {
     }
 
     private boolean anyFileDownloading() {
+        final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
+
         for (OCFile file : files) {
-            if (FileDownloadHelper.Companion.instance().isDownloading(user, file)) {
+            if (fileDownloadHelper.isDownloading(user, file)) {
                 return true;
             }
         }
@@ -423,13 +441,11 @@ public class FileMenuFilter {
     }
 
     private boolean isShareWithUsersAllowed() {
-        return context != null &&
-            context.getResources().getBoolean(R.bool.share_with_users_feature);
+        return context != null && MDMConfig.INSTANCE.shareViaUser(context);
     }
 
     private boolean isShareViaLinkAllowed() {
-        return context != null &&
-            context.getResources().getBoolean(R.bool.share_via_link_feature);
+        return context != null && MDMConfig.INSTANCE.shareViaLink(context);
     }
 
     private boolean isSingleSelection() {

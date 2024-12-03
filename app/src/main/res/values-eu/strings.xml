@@ -35,7 +35,6 @@
     <string name="advanced_settings">Ezarpen aurreratuak</string>
     <string name="allow_resharing">Baimendu birpartekatzea</string>
     <string name="app_config_base_url_title">Oinarri URLa</string>
-    <string name="app_config_proxy_host_title">Proxy ostalariaren izena</string>
     <string name="app_config_proxy_port_title">Proxy-ataka</string>
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
@@ -56,7 +55,6 @@
     <string name="assistant_screen_task_delete_success_message">Zeregina ongi ezabatu da</string>
     <string name="assistant_screen_task_list_error_state_message">Ezin da zereginen zerrenda eskuratu. Egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ezabatu zeregina</string>
-    <string name="assistant_screen_task_output_empty_text">Zereginaren irteera ez dago oraindik prest.</string>
     <string name="assistant_screen_task_types_error_state_message">Ezin dira zeregin motak eskuratu, egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_top_bar_title">Morroia</string>
     <string name="assistant_screen_unknown_task_status_text">Ezezaguna</string>
@@ -103,7 +101,6 @@
     <string name="autoupload_custom_folder">Konfiguratu karpeta berria</string>
     <string name="autoupload_disable_power_save_check">Desgaitu energia aurrezteko kontrola</string>
     <string name="autoupload_hide_folder">Ezkutatu karpeta</string>
-    <string name="autoupload_worker_foreground_info">Igoera automatikoa prestatzen</string>
     <string name="avatar">Abatarra</string>
     <string name="away">Kanpoan</string>
     <string name="backup_settings">Babeskopiaren ezarpenak</string>
@@ -251,7 +248,6 @@
     <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
     <string name="downloader_download_failed_ticker">Deskargak huts egin du</string>
     <string name="downloader_download_file_not_found">Fitxategia jadanik ez dago eskuragarri zerbitzarian</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Deskargatzen %2$s</string>
     <string name="downloader_download_in_progress_ticker">Deskargatzen…</string>
     <string name="downloader_download_succeeded_content">%1$s deskargatuta</string>
@@ -737,8 +733,6 @@
     <string name="request_account_deletion">Eskatu kontuaren ezabaketa</string>
     <string name="request_account_deletion_button">Ezabatzeko eskaera</string>
     <string name="request_account_deletion_details">Eskatu kontua behin betiko ezabatzea zerbitzu-hornitzailetik</string>
-    <string name="reshare_not_allowed">Birpartekatzea ez da onartzen</string>
-    <string name="resharing_is_not_allowed">Birpartekatzea ez da onartzen</string>
     <string name="resized_image_not_possible_download">Ez dago tamainaz aldatutako irudirik eskuragarri. Irudi osoa deskargatu nahi duzu?</string>
     <string name="restore">Berreskuratu fitxategia</string>
     <string name="restore_backup">Berrezarri babeskopia</string>
@@ -763,7 +757,6 @@
     <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx5ekin</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
     <string name="secure_share_not_set_up">Partekatze segurua ez dago konfiguratuta erabiltzaile honentzat</string>
-    <string name="secure_share_search">Partekatze segurua...</string>
     <string name="select_all">Hautatu dena</string>
     <string name="select_media_folder">Ezarri multimedia karpeta</string>
     <string name="select_one_template">Hautatu txantiloi bat</string>
@@ -807,7 +800,6 @@
     <string name="share_permissions">Partekatze baimenak</string>
     <string name="share_remote_clarification">%1$s (urrunekoa)</string>
     <string name="share_room_clarification">%1$s (elkarrizketa)</string>
-    <string name="share_search">Izena, federatutako hodei IDa edo helbide elektronikoa...</string>
     <string name="share_send_new_email">Bidali posta-mezu berria</string>
     <string name="share_send_note">Oharra hartzailearentzat</string>
     <string name="share_settings">Ezarpenak</string>
@@ -859,6 +851,7 @@
     <string name="storage_description_default">Lehenetsia</string>
     <string name="storage_documents">Dokumentuak</string>
     <string name="storage_downloads">Deskargak</string>
+    <string name="storage_external_storage">Kanpoko biltegia</string>
     <string name="storage_internal_storage">Barneko biltegiratzea</string>
     <string name="storage_movies">Pelikulak</string>
     <string name="storage_music">Musika</string>
@@ -925,6 +918,7 @@
     <string name="trashbin_file_remove">Ezabatu betirako</string>
     <string name="trashbin_loading_failed">Zakarrontzia kargatzeak huts egin du!</string>
     <string name="trashbin_not_emptied">Fitxategiak ezin dira betirako ezabatu!</string>
+    <string name="two_way_sync_activity_title">Barneko bi norabideko sinkronizazioa</string>
     <string name="unexpected_error_occurred">Ustekabeko errore bat gertatu da</string>
     <string name="unified_search_fragment_calendar_event_not_found">Gertaera ez da aurkitu, beti sinkroniza dezakezu eguneratzeko. Webera birbideratzen…</string>
     <string name="unified_search_fragment_contact_not_found">Kontaktua ez da aurkitu, beti sinkroniza dezakezu eguneratzeko. Webera birbideratzen…</string>
@@ -1005,7 +999,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantendu fitxategia jatorrizko karpetan</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ezabatu fitxategia jatorrizko karpetatik</string>
     <string name="uploader_upload_forbidden_permissions">kargatzeko karpeta honetara</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Igotzen %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Kargatzen…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s igota</string>
@@ -1059,7 +1052,6 @@
     <string name="whats_new_skip">Salto egin</string>
     <string name="whats_new_title">Berria %1$s-n</string>
     <string name="whats_your_status">Zein da zure egoera?</string>
-    <string name="widgets_not_available">Widgetak %1$s 25 edo geroago bakarrik daude eskuragarri</string>
     <string name="widgets_not_available_title">Ez dago erabilgarri</string>
     <string name="worker_download">Fitxategiak deskargatzen…</string>
     <string name="write_email">Bidali mezu elektronikoa</string>

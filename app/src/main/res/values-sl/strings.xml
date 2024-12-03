@@ -646,8 +646,6 @@
     <string name="rename_local_fail_msg">Ni mogoče preimenovati krajevne kopije. Poskusite vpisati drugačno ime.</string>
     <string name="rename_server_fail_msg">Preimenovanje ni mogoče. Ime je že uporabljeno.</string>
     <string name="request_account_deletion">Zahtevaj izbris računa</string>
-    <string name="reshare_not_allowed">Osveževanje ni dovoljena</string>
-    <string name="resharing_is_not_allowed">Osveževanje ni dovoljeno</string>
     <string name="resized_image_not_possible_download">Slika prilagojene velikosti ni na voljo. Ali želite prejeti sliko polne velikosti?</string>
     <string name="restore">Obnovi datoteko</string>
     <string name="restore_backup">Obnovi varnostno kopijo</string>
@@ -711,7 +709,6 @@
     <string name="share_permissions">Dovoljenja souporabe</string>
     <string name="share_remote_clarification">%1$s (oddaljeno)</string>
     <string name="share_room_clarification">%1$s (pogovor)</string>
-    <string name="share_search">Ime, ID zveznega oblaka ali elektronski naslov…</string>
     <string name="share_send_new_email">Pošlji novo elektronsko sporočilo</string>
     <string name="share_send_note">Sporočilo za prejemnika</string>
     <string name="share_settings">Nastavitve</string>
@@ -762,6 +759,7 @@
     <string name="storage_description_default">Privzeto</string>
     <string name="storage_documents">Dokumenti</string>
     <string name="storage_downloads">Prejemi</string>
+    <string name="storage_external_storage">Zunanja shramba</string>
     <string name="storage_internal_storage">Notranja shramba</string>
     <string name="storage_movies">Video</string>
     <string name="storage_music">Glasba</string>
@@ -941,7 +939,6 @@
     <string name="whats_new_skip">Preskoči</string>
     <string name="whats_new_title">Novo v %1$s</string>
     <string name="whats_your_status">Kako želite nastaviti stanje?</string>
-    <string name="widgets_not_available">Gradniki so na voljo samo na %1$s 25 ali pozneje</string>
     <string name="widgets_not_available_title">Ni na voljo</string>
     <string name="worker_download">Poteka prejemanje datotek …</string>
     <string name="write_email">Pošlji elektronsko sporočilo</string>

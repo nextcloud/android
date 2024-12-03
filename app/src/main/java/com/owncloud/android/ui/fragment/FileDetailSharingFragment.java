@@ -37,6 +37,7 @@ import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileDetailsSharingFragmentBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
@@ -239,10 +240,18 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                 binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
             }
         } else {
-            binding.searchView.setQueryHint(getResources().getString(R.string.reshare_not_allowed));
+            binding.searchView.setQueryHint(getResources().getString(R.string.resharing_is_not_allowed));
             binding.searchView.setInputType(InputType.TYPE_NULL);
             binding.pickContactEmailBtn.setVisibility(View.GONE);
             disableSearchView(binding.searchView);
+        }
+
+        checkShareViaUser();
+    }
+
+    private void checkShareViaUser() {
+        if (!MDMConfig.INSTANCE.shareViaUser(requireContext())) {
+            binding.searchContainer.setVisibility(View.GONE);
         }
     }
 
@@ -494,9 +503,13 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     }
 
     private void pickContactEmail() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setDataAndType(ContactsContract.Contacts.CONTENT_URI, ContactsContract.CommonDataKinds.Email.CONTENT_TYPE);
-        onContactSelectionResultLauncher.launch(intent);
+        Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Email.CONTENT_URI);
+
+        if (intent.resolveActivity(requireContext().getPackageManager()) != null) {
+            onContactSelectionResultLauncher.launch(intent);
+        } else {
+            DisplayUtils.showSnackMessage(requireActivity(), getString(R.string.file_detail_sharing_fragment_no_contact_app_message));
+        }
     }
 
     private void handleContactResult(@NonNull Uri contactUri) {

@@ -391,4 +391,13 @@ public interface AppPreferences {
 
     @NonNull
     String getLastSelectedMediaFolder();
+
+    void setTwoWaySyncStatus(boolean value);
+    boolean isTwoWaySyncEnabled();
+
+    void setTwoWaySyncInterval(Long value);
+    Long getTwoWaySyncInterval();
+
+    boolean shouldStopDownloadJobsOnStart();
+    void setStopDownloadJobsOnStart(boolean value);
 }

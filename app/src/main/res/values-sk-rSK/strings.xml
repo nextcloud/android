@@ -35,7 +35,6 @@
     <string name="advanced_settings">Rozšírené nastavenia</string>
     <string name="allow_resharing">Povoliť zdieľanie ďalej</string>
     <string name="app_config_base_url_title">Základná URL</string>
-    <string name="app_config_proxy_host_title">Názov proxy servera</string>
     <string name="app_config_proxy_port_title">Brána proxy</string>
     <string name="app_widget_description">Zobrazí jeden widget z hlavného panela</string>
     <string name="appbar_search_in">Hľadať v %s</string>
@@ -101,7 +100,6 @@
     <string name="autoupload_custom_folder">Nastaviť vlastný priečinok</string>
     <string name="autoupload_disable_power_save_check">Vypnúť kontrolu úspory energie</string>
     <string name="autoupload_hide_folder">Skryť priečinok</string>
-    <string name="autoupload_worker_foreground_info">Príprava automatického nahrávania</string>
     <string name="avatar">Avatar</string>
     <string name="away">Preč</string>
     <string name="backup_settings">Nastavenie zálohovania</string>
@@ -179,6 +177,7 @@
     <string name="confirmation_remove_local">Iba lokálne</string>
     <string name="conflict_dialog_error">Dialógové okno riešenia konfliktov nemožno vytvoriť</string>
     <string name="conflict_file_headline">Konfliktný súbor %1$s</string>
+    <string name="conflict_folder_headline">Konflikt adresárov</string>
     <string name="conflict_local_file">Lokálny súbor</string>
     <string name="conflict_message_description">Ak vyberiete obe verzie, miestny súbor bude mať k svojmu názvu pridané číslo.</string>
     <string name="conflict_server_file">Súbor na serveri</string>
@@ -245,7 +244,6 @@
     <string name="downloader_download_failed_credentials_error">Sťahovanie neúspešné, je potrebné sa znovu prihlásiť</string>
     <string name="downloader_download_failed_ticker">Stiahnutie zlyhalo</string>
     <string name="downloader_download_file_not_found">Súbor už na serveri nie je dostupný</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Sťahovanie %2$s</string>
     <string name="downloader_download_in_progress_ticker">Sťahujem…</string>
     <string name="downloader_download_succeeded_content">%1$s stiahnuté</string>
@@ -443,6 +441,7 @@
     <string name="foreign_files_success">Všetky súbory boli presunuté</string>
     <string name="forward">Preposlať</string>
     <string name="fourHours">4 hodiny</string>
+    <string name="gplay_restriction">Google obmedzil sťahovanie APK/AAB súborov!</string>
     <string name="grid_file_features_live_photo_content_description">Tento ikonka označuje dostupnosť živej fotografie.</string>
     <string name="hidden_file_name_warning">Názov bude mať za následok skrytý súbor</string>
     <string name="hint_name">Meno</string>
@@ -470,6 +469,7 @@
     <string name="instant_upload_existing">Nahrať aj existujúce súbory</string>
     <string name="instant_upload_on_charging">Nahrať iba počas nabíjania</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync">Interná obojsmerná synchronizácia</string>
     <string name="invalid_url">Neplatná URL</string>
     <string name="invisible">Neviditeľné</string>
     <string name="label_empty">Štítok nemôže byť prázdny</string>
@@ -568,6 +568,7 @@
     <string name="notification_icon">Ikona notifikácie</string>
     <string name="notifications_no_results_headline">Žiadne upozornenia</string>
     <string name="notifications_no_results_message">Prosím skontrolujte znova neskôr.</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Čakajúca operácia</string>
     <string name="offline_mode">Bez internetového pripojenia</string>
     <string name="oneHour">1 hodina</string>
     <string name="online">Pripojené</string>
@@ -598,6 +599,7 @@
     <string name="placeholder_timestamp">2012/05/18 12:23 PM</string>
     <string name="player_stop">zastaviť</string>
     <string name="player_toggle">prepnúť</string>
+    <string name="please_select_a_server">Prosím vyberte server ...</string>
     <string name="power_save_check_dialog_message">Vypnutie kontroly úspory energie môže spôsobiť nahrávanie súborov v čase keď je batérie takmer vybitá!</string>
     <string name="pref_behaviour_entries_delete_file">vymazané</string>
     <string name="pref_behaviour_entries_keep_file">ponechané v pôvodnom priečinku</string>
@@ -659,12 +661,14 @@
     <string name="prefs_synced_folders_local_path_title">Lokálny priečinok</string>
     <string name="prefs_synced_folders_remote_path_title">Vzdialený priečinok</string>
     <string name="prefs_theme_title">Motív vzhľadu</string>
+    <string name="prefs_two_way_sync_interval">Interval</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Svetlý</string>
     <string name="prefs_value_theme_system">Nasledovať systém</string>
     <string name="preview_image_description">Ukážka obrazu</string>
     <string name="preview_image_error_no_local_file">Nepodarilo sa zobraziť lokálny súbor</string>
     <string name="preview_image_error_unknown_format">Nemožno zobraziť obrázok</string>
+    <string name="preview_image_file_is_not_downloaded">Súbor nebol stiahnutý</string>
     <string name="preview_image_file_is_not_exist">Súbor neexistuje</string>
     <string name="preview_sorry">Prepáčte</string>
     <string name="privacy">Súkromie</string>
@@ -694,8 +698,6 @@
     <string name="request_account_deletion">Žiadosť o zmazanie účtu</string>
     <string name="request_account_deletion_button">Žiadosť o zmazanie</string>
     <string name="request_account_deletion_details">Žiadosť o trvalé odstránenie účtu poskytovateľom</string>
-    <string name="reshare_not_allowed">Opätovné sprístupňovanie nie je povolené</string>
-    <string name="resharing_is_not_allowed">Sprístupnenie už sprístupnenej položky nie je povolené</string>
     <string name="resized_image_not_possible_download">Obrázok v inom rozlíšení nedostupný.  Stiahnuť pôvodný obrázok?</string>
     <string name="restore">Obnoviť súbor</string>
     <string name="restore_backup">Obnoviť zo zálohy</string>
@@ -720,7 +722,6 @@
     <string name="screenshot_06_davdroid_subline">Synchronizácia s DAVx5</string>
     <string name="search_error">Chyba pri získavaní výsledkov vyhľadávania</string>
     <string name="secure_share_not_set_up">Zabezpečené zdieľanie nie je nastavené pre tohto užívateľa.</string>
-    <string name="secure_share_search">Bezpečné zdieľanie …</string>
     <string name="select_all">Vybrať všetko</string>
     <string name="select_media_folder">Nastaviť priečinok médií</string>
     <string name="select_one_template">Vyberte jednu šablónu</string>
@@ -764,7 +765,6 @@
     <string name="share_permissions">Zdieľať oprávnenia</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_room_clarification">%1$s (rozhovor)</string>
-    <string name="share_search">Meno, ID v rámci združeného cloudu, alebo e-mailová adresa…</string>
     <string name="share_send_new_email">Odoslať nový e-mail</string>
     <string name="share_send_note">Poznámka pre príjemcu</string>
     <string name="share_settings">Nastavenia</string>
@@ -816,6 +816,7 @@
     <string name="storage_description_default">Predvolené</string>
     <string name="storage_documents">Dokumenty</string>
     <string name="storage_downloads">Sťahovania</string>
+    <string name="storage_external_storage">Externé úložisko</string>
     <string name="storage_internal_storage">Interné úložisko</string>
     <string name="storage_movies">Videá</string>
     <string name="storage_music">Hudba</string>
@@ -882,6 +883,9 @@
     <string name="trashbin_file_remove">Zmazať  natrvalo</string>
     <string name="trashbin_loading_failed">Načítanie obsahu koša sa nepodarilo!</string>
     <string name="trashbin_not_emptied">Nepodarilo sa trvalo vymazať súbory!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Zakázať pre všetky adresáre</string>
+    <string name="two_way_sync_activity_empty_list_title">Obojsmerná synchronizácia nie je nastavená</string>
+    <string name="two_way_sync_activity_title">Interná obojsmerná synchronizácia</string>
     <string name="unexpected_error_occurred">Vyskytla sa neočakávaná chyba</string>
     <string name="unlock_file">Odomknúť súbor</string>
     <string name="unread_comments">Existujú neprečítané komentáre</string>
@@ -907,6 +911,7 @@
     <string name="upload_content_from_other_apps">Nahrať obsah z iných aplikácií</string>
     <string name="upload_direct_camera_photo">Fotka</string>
     <string name="upload_direct_camera_upload">Nahrať z fotoaparátu</string>
+    <string name="upload_direct_camera_video">Video</string>
     <string name="upload_file_dialog_filename">Názov súboru</string>
     <string name="upload_file_dialog_filetype">Typ súboru</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Odkaz na Google mapy(%s)</string>
@@ -924,6 +929,7 @@
     <string name="upload_local_storage_not_copied">Nepodarilo sa skopírovať súbor na lokálne úložište</string>
     <string name="upload_lock_failed">Uzamknutie priečinka zlyhalo</string>
     <string name="upload_manually_cancelled">Nahrávanie bolo zrušené užívateľom</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">Šifrovanie je možné iba pri &gt;= Android 5.0</string>
     <string name="upload_query_move_foreign_files">Pre skopírovanie vybratých súborov do adresára %1$s nie je dostatok voľného miesta. Chcete ich namiesto toho presunúť?</string>
     <string name="upload_quota_exceeded">Kapacita úložiska prekročená</string>
@@ -954,7 +960,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Ponechaj súbor v pôvodnom priečinku</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Odstráň súbor z pôvodného priečinka</string>
     <string name="uploader_upload_forbidden_permissions">nahrávať do tohto priečinka</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Odosielam %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Nahrávanie…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s odoslané</string>
@@ -1008,12 +1013,23 @@
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>
     <string name="whats_your_status">Aký je váš stav?</string>
-    <string name="widgets_not_available">Widgety sú dostupné iba na %1$s 25 alebo vyšší</string>
     <string name="widgets_not_available_title">Nie je k dispozícií</string>
     <string name="worker_download">Sťahovanie súborov…</string>
     <string name="write_email">Odoslať email</string>
     <string name="wrong_storage_path">Priečinok pre úložisko dát neexistuje!</string>
     <string name="wrong_storage_path_desc">Môže to byť spôsobené obnovením zálohy na inom zariadení. Návrat na predvolené hodnoty. Skontrolujte priečinok a upravte adresár pre ukladanie údajov.</string>
+    <plurals name="hours">
+        <item quantity="one">%d hodina</item>
+        <item quantity="few">%d hodiny</item>
+        <item quantity="many">%d hodín</item>
+        <item quantity="other">%d hodín</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minúta</item>
+        <item quantity="few">%d minúty</item>
+        <item quantity="many">%d minút</item>
+        <item quantity="other">%d minút</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nie je možné synchronizovať %1$d súbor (konflikty: %2$d)</item>
         <item quantity="few">Nie je možné synchronizovať %1$d súbory (konflikty: %2$d)</item>

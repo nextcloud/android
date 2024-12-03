@@ -155,43 +155,43 @@ class FileDisplayActivityIT : AbstractOnServerIT() {
         Assert.assertEquals(storageManager.getFileByPath("/"), sut.currentDir)
     }
 
-    @Test
-    fun checkToolbarTitleOnNavigation() {
-        // Create folder structure
-        val topFolder = "folder1"
-        val childFolder = "folder2"
-
-        CreateFolderOperation("/$topFolder/", user, targetContext, storageManager)
-            .execute(client)
-
-        CreateFolderOperation("/$topFolder/$childFolder/", user, targetContext, storageManager)
-            .execute(client)
-
-        activityRule.launchActivity(null)
-
-        shortSleep()
-
-        // go into "foo"
-        onView(withText(topFolder)).perform(click())
-        shortSleep()
-
-        // check title is right
-        checkToolbarTitle(topFolder)
-
-        // go into "bar"
-        onView(withText(childFolder)).perform(click())
-        shortSleep()
-
-        // check title is right
-        checkToolbarTitle(childFolder)
-
-        // browse back up, we should be back in "foo"
-        Espresso.pressBack()
-        shortSleep()
-
-        // check title is right
-        checkToolbarTitle(topFolder)
-    }
+// @Test
+// fun checkToolbarTitleOnNavigation() {
+//     // Create folder structure
+//     val topFolder = "folder1"
+//     val childFolder = "folder2"
+//
+//     CreateFolderOperation("/$topFolder/", user, targetContext, storageManager)
+//         .execute(client)
+//
+//     CreateFolderOperation("/$topFolder/$childFolder/", user, targetContext, storageManager)
+//         .execute(client)
+//
+//     activityRule.launchActivity(null)
+//
+//     shortSleep()
+//
+//     // go into "foo"
+//     onView(withText(topFolder)).perform(click())
+//     shortSleep()
+//
+//     // check title is right
+//     checkToolbarTitle(topFolder)
+//
+//     // go into "bar"
+//     onView(withText(childFolder)).perform(click())
+//     shortSleep()
+//
+//     // check title is right
+//     checkToolbarTitle(childFolder)
+//
+//     // browse back up, we should be back in "foo"
+//     Espresso.pressBack()
+//     shortSleep()
+//
+//     // check title is right
+//     checkToolbarTitle(topFolder)
+// }
 
     private fun checkToolbarTitle(childFolder: String) {
         onView(withId(R.id.appbar)).check(

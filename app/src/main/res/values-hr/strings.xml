@@ -582,8 +582,6 @@
     <string name="rename_local_fail_msg">Nije moguće preimenovati lokalnu kopiju, pokušajte s drugim nazivom</string>
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, naziv je već zauzet</string>
     <string name="request_account_deletion">Zatraži brisanje računa</string>
-    <string name="reshare_not_allowed">Ponovno dijeljenje nije dopušteno</string>
-    <string name="resharing_is_not_allowed">Ponovno dijeljenje nije dopušteno</string>
     <string name="resized_image_not_possible_download">Nema dostupne slike promijenjene veličine. Preuzeti punu sliku?</string>
     <string name="restore">Vrati datoteku</string>
     <string name="restore_backup">Vrati sigurnosnu kopiju</string>
@@ -642,7 +640,6 @@
     <string name="share_permissions">Dopuštenja za dijeljenje</string>
     <string name="share_remote_clarification">%1$s (udaljeno)</string>
     <string name="share_room_clarification">%1$s (razgovor)</string>
-    <string name="share_search">Naziv, ID udruženog oblaka ili adresa e-pošte…</string>
     <string name="share_send_new_email">Pošalji novu poruku e-pošte</string>
     <string name="share_send_note">Obavijest primatelju</string>
     <string name="share_settings">Postavke</string>
@@ -693,6 +690,7 @@
     <string name="storage_description_default">Zadano</string>
     <string name="storage_documents">Dokumenti</string>
     <string name="storage_downloads">Preuzimanja</string>
+    <string name="storage_external_storage">Vanjsko spremište za pohranu</string>
     <string name="storage_internal_storage">Unutarnja pohrana</string>
     <string name="storage_movies">Filmovi</string>
     <string name="storage_music">Glazba</string>

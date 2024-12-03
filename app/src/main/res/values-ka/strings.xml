@@ -647,8 +647,6 @@
     <string name="request_account_deletion">Request account deletion</string>
     <string name="request_account_deletion_button">Request deletion</string>
     <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
-    <string name="reshare_not_allowed">Resharing is not allowed</string>
-    <string name="resharing_is_not_allowed">Resharing is not allowed</string>
     <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
     <string name="restore">Restore file</string>
     <string name="restore_backup">Restore backup</string>
@@ -711,7 +709,6 @@
     <string name="share_permissions">Share Permissions</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
-    <string name="share_search">Name, Federated Cloud ID or email address …</string>
     <string name="share_send_new_email">Send new email</string>
     <string name="share_send_note">Note to recipient</string>
     <string name="share_settings">Settings</string>
@@ -762,6 +759,7 @@
     <string name="storage_description_default">Default</string>
     <string name="storage_documents">Documents</string>
     <string name="storage_downloads">Downloads</string>
+    <string name="storage_external_storage">External storage</string>
     <string name="storage_internal_storage">Internal storage</string>
     <string name="storage_movies">Movies</string>
     <string name="storage_music">Music</string>
@@ -940,7 +938,6 @@
     <string name="whats_new_skip">Skip</string>
     <string name="whats_new_title">New in %1$s</string>
     <string name="whats_your_status">What is your status?</string>
-    <string name="widgets_not_available">Widgets are only available on %1$s 25 or later</string>
     <string name="widgets_not_available_title">Not available</string>
     <string name="worker_download">Downloading files…</string>
     <string name="write_email">Send email</string>

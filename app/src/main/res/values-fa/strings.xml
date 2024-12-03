@@ -83,7 +83,6 @@
     <string name="autoupload_custom_folder">راه اندازی پوشه تنظیمات</string>
     <string name="autoupload_disable_power_save_check">غیرفعال کردن بررسی ذخیره انرژی</string>
     <string name="autoupload_hide_folder">مخفی کردن پوشه</string>
-    <string name="autoupload_worker_foreground_info">آماده‌سازی آپلود خودکار</string>
     <string name="avatar">آواتار</string>
     <string name="away">دور</string>
     <string name="backup_settings">تنظیمات پشتیبان</string>
@@ -226,7 +225,6 @@
     <string name="downloader_download_failed_credentials_error">بارگیری شکست خورد. دوباره وارد شوید</string>
     <string name="downloader_download_failed_ticker">دانلود ناموفق</string>
     <string name="downloader_download_file_not_found">این فایل دیگر روی سرور وجود ندارد</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% در حال دانلود %2$s</string>
     <string name="downloader_download_in_progress_ticker">بارگیری…</string>
     <string name="downloader_download_succeeded_content">%1$sدانلود شده </string>
@@ -670,8 +668,6 @@
     <string name="request_account_deletion">درخواست حذف اکانت</string>
     <string name="request_account_deletion_button">درخواست حذف</string>
     <string name="request_account_deletion_details">درخواست حذف دائمی حساب از ارائه‌دهنده خدمت</string>
-    <string name="reshare_not_allowed">اشتراک‌گذاری مجدد مجاز نمی باشد</string>
-    <string name="resharing_is_not_allowed">اشتراک‌گذاری مجدد مجاز نمی باشد</string>
     <string name="resized_image_not_possible_download">هیچ تصویری تغییر اندازه شده‌ای در دسترس نیست. تصویر کامل را بارگیری می کنید؟</string>
     <string name="restore">بازیابی پرونده</string>
     <string name="restore_backup">بازیابی نسخه پشتیبان</string>
@@ -696,7 +692,6 @@
     <string name="screenshot_06_davdroid_subline">همگام سازی با DAVx5</string>
     <string name="search_error">خطا در دریافت نتایج جستجو</string>
     <string name="secure_share_not_set_up">اشتراک‌گذاری امن برای این حساب تنظیم نشده است</string>
-    <string name="secure_share_search">اشتراک‌گذاری امن …</string>
     <string name="select_all">انتخاب همه</string>
     <string name="select_media_folder">پوشه رسانه را تنظیم کنید.</string>
     <string name="select_one_template">لطفا یک قالب را انتخاب کنید</string>
@@ -740,7 +735,6 @@
     <string name="share_permissions">اجازه‌های هم‌رسانی</string>
     <string name="share_remote_clarification">%1$s (دوردست)</string>
     <string name="share_room_clarification">%1$s (گفت‌وگو)</string>
-    <string name="share_search">نام، شناسهٔ ابری خودگردان یا نشانی رایانامه…</string>
     <string name="share_send_new_email">فرستادن رایانامهٔ جدید</string>
     <string name="share_send_note">یادداشت به گیرنده</string>
     <string name="share_settings">تنظیمات</string>
@@ -791,6 +785,7 @@
     <string name="storage_description_default">پیش‌گزیده</string>
     <string name="storage_documents">سندها</string>
     <string name="storage_downloads">بارگیری‌ها</string>
+    <string name="storage_external_storage">محل ذخیره خارجی</string>
     <string name="storage_internal_storage">ذخیره‌ساز داخلی</string>
     <string name="storage_movies">فیلم‌ها</string>
     <string name="storage_music">آهنگ‌ها</string>
@@ -927,7 +922,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">نگهداری فایل در پوشه منبع</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">حذف فایل از پوشه منبع</string>
     <string name="uploader_upload_forbidden_permissions">برای بارگذاری در این پوشه</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% در حال آپلود%2$s</string>
     <string name="uploader_upload_in_progress_ticker">بارگذاری…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s آپلود شده</string>
@@ -981,7 +975,6 @@
     <string name="whats_new_skip">رد شدن</string>
     <string name="whats_new_title">جدید در %1$s</string>
     <string name="whats_your_status">وضعیت شما چیست؟</string>
-    <string name="widgets_not_available">ویجت ها فقط در%1$s 25 یا بالاتر در دسترس هستند</string>
     <string name="widgets_not_available_title">در دسترس نیست</string>
     <string name="worker_download">در حال دریافت فایل ها...</string>
     <string name="write_email">ارسال ایمیل</string>

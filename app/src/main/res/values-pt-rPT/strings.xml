@@ -623,8 +623,6 @@
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Renomeação impossível, nome já utilizado</string>
     <string name="request_account_deletion">Solicitar eliminação da conta</string>
-    <string name="reshare_not_allowed">Voltar a partilhar não é permitido</string>
-    <string name="resharing_is_not_allowed">Não é permitido voltar a partilhar</string>
     <string name="resized_image_not_possible_download">Nenhuma imagem redimensionada disponível. Deseja transferir a imagem completa?</string>
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_backup">Restaurar cópia de segurança </string>
@@ -685,7 +683,6 @@
     <string name="share_permissions">Permissões de Partilha</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversação)</string>
-    <string name="share_search">Nome, Id. da Nuvem Federada ou endereço de correio eletrónico...</string>
     <string name="share_send_new_email">Enviar nova mensagem</string>
     <string name="share_send_note">Nota para o destinatário</string>
     <string name="share_settings">Definições</string>
@@ -736,6 +733,7 @@
     <string name="storage_description_default">Por defeito</string>
     <string name="storage_documents">Documentos</string>
     <string name="storage_downloads">Transferências</string>
+    <string name="storage_external_storage">Armazenamento Externo</string>
     <string name="storage_internal_storage">Armazenamento interno</string>
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Música</string>
@@ -909,7 +907,6 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="whats_new_skip">Passar à frente</string>
     <string name="whats_new_title">Novo em %1$s</string>
     <string name="whats_your_status">Qual é o seu estado?</string>
-    <string name="widgets_not_available">Os widgets só estão disponíveis em %1$s 25 ou posterior</string>
     <string name="widgets_not_available_title">Não disponível</string>
     <string name="worker_download">A transferir os ficheiros…</string>
     <string name="write_email">Enviar mensagem</string>

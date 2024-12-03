@@ -629,8 +629,6 @@
     <string name="request_account_deletion">Biðja um að aðgangi sé eytt</string>
     <string name="request_account_deletion_button">Biðja um eyðingu</string>
     <string name="request_account_deletion_details">Biðja um endanlega eyðingu aðgangs hjá þjónustuveitu</string>
-    <string name="reshare_not_allowed">Endurdeiling er ekki leyfð</string>
-    <string name="resharing_is_not_allowed">Endurdeiling er ekki leyfð</string>
     <string name="resized_image_not_possible_download">Engin stærðarbreytt mynd í boði. Sækja alla myndina?</string>
     <string name="restore">Endurheimta skrá</string>
     <string name="restore_backup">Endurheimta úr öryggisafriti</string>
@@ -690,7 +688,6 @@
     <string name="share_permissions">Heimildir sameignar</string>
     <string name="share_remote_clarification">%1$s (fjartengt)</string>
     <string name="share_room_clarification">%1$s (samtal)</string>
-    <string name="share_search">Nafn, skýjasambandsauðkenni eða tölvupóstfang …</string>
     <string name="share_send_new_email">Senda nýjan tölvupóst</string>
     <string name="share_send_note">Minnispunktur til viðtakanda</string>
     <string name="share_settings">Stillingar</string>
@@ -741,6 +738,7 @@
     <string name="storage_description_default">Sjálfgefið</string>
     <string name="storage_documents">Skjöl</string>
     <string name="storage_downloads">Sótt gögn</string>
+    <string name="storage_external_storage">Ytri gagnageymsla</string>
     <string name="storage_internal_storage">Innbyggð geymsla</string>
     <string name="storage_movies">Kvikmyndir</string>
     <string name="storage_music">Tónlist</string>
@@ -914,7 +912,6 @@
     <string name="whats_new_skip">Sleppa</string>
     <string name="whats_new_title">(Nýtt í %s)</string>
     <string name="whats_your_status">Hver er staðan á þér?</string>
-    <string name="widgets_not_available">Viðmótshlutar eru einungis í boði á %1$s 25 eða nýrra</string>
     <string name="widgets_not_available_title">Not available</string>
     <string name="worker_download">Sæki skrár…</string>
     <string name="write_email">Senda tölvupóst</string>

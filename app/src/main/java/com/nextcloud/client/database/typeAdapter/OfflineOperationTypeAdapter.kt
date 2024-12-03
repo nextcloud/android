@@ -40,8 +40,20 @@ class OfflineOperationTypeAdapter : JsonSerializer<OfflineOperationType>, JsonDe
                 jsonObject.addProperty("mimeType", src.mimeType)
             }
 
+            is OfflineOperationType.RenameFile -> {
+                jsonObject.addProperty("type", src.type)
+                jsonObject.addProperty("ocFileId", src.ocFileId)
+                jsonObject.addProperty("newName", src.newName)
+            }
+
+            is OfflineOperationType.RemoveFile -> {
+                jsonObject.addProperty("type", src.type)
+                jsonObject.addProperty("path", src.path)
+            }
+
             null -> Unit
         }
+
         return jsonObject
     }
 
@@ -63,6 +75,17 @@ class OfflineOperationTypeAdapter : JsonSerializer<OfflineOperationType>, JsonDe
                 jsonObject.get("localPath").asString,
                 jsonObject.get("remotePath").asString,
                 jsonObject.get("mimeType").asString
+            )
+
+            OfflineOperationRawType.RenameFile.name -> OfflineOperationType.RenameFile(
+                jsonObject.get("type").asString,
+                jsonObject.get("ocFileId").asLong,
+                jsonObject.get("newName").asString
+            )
+
+            OfflineOperationRawType.RemoveFile.name -> OfflineOperationType.RemoveFile(
+                jsonObject.get("type").asString,
+                jsonObject.get("path").asString
             )
 
             else -> null

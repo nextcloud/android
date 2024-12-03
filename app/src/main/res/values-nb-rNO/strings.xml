@@ -35,7 +35,6 @@
     <string name="advanced_settings">Avanserte innstillinger</string>
     <string name="allow_resharing">TIllat videre deling</string>
     <string name="app_config_base_url_title">Grunnleggende URL-adresse</string>
-    <string name="app_config_proxy_host_title">Proxy-vertsnavn</string>
     <string name="app_config_proxy_port_title">Proxy-port</string>
     <string name="app_widget_description">Viser en widget fra dashbordet</string>
     <string name="appbar_search_in">Søk i %s</string>
@@ -102,7 +101,6 @@
     <string name="autoupload_custom_folder">Sett opp en tilpasset mappe</string>
     <string name="autoupload_disable_power_save_check">Deaktivere strømsparing sjekk</string>
     <string name="autoupload_hide_folder">Skjul mappe</string>
-    <string name="autoupload_worker_foreground_info">Forbereder auto-opplasting</string>
     <string name="avatar">Avatar</string>
     <string name="away">Borte</string>
     <string name="backup_settings">Sikkerhetskopier innstillinger</string>
@@ -248,7 +246,6 @@
     <string name="downloader_download_failed_credentials_error">Nedlasting mislyktes, prøv igjen</string>
     <string name="downloader_download_failed_ticker">Nedlasting mislyktes</string>
     <string name="downloader_download_file_not_found">Filen finnes ikke på serveren lenger</string>
-    <string name="downloader_download_in_progress">%1$d %% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Laster ned %2$s</string>
     <string name="downloader_download_in_progress_ticker">Laster ned…</string>
     <string name="downloader_download_succeeded_content">%1$s lastet ned</string>
@@ -714,8 +711,6 @@
     <string name="request_account_deletion">Request account deletion</string>
     <string name="request_account_deletion_button">Be om sletting</string>
     <string name="request_account_deletion_details">Be om permanent sletting av kontoen av tjenesteleverandøren</string>
-    <string name="reshare_not_allowed">Videre deling er ikke tillatt</string>
-    <string name="resharing_is_not_allowed">Videredeling er ikke tillatt</string>
     <string name="resized_image_not_possible_download">Inget mindre bilde tilgjengelig. Last ned fullversjon?</string>
     <string name="restore">Gjenopprett fil</string>
     <string name="restore_backup">Gjenopprett sikkerhetskopi</string>
@@ -740,7 +735,6 @@
     <string name="screenshot_06_davdroid_subline">Synkroniser med DAVx5</string>
     <string name="search_error">Feil ved henting av søke resultat</string>
     <string name="secure_share_not_set_up">Sikker deling er ikke konfigurert for denne brukeren</string>
-    <string name="secure_share_search">Sikker deling...</string>
     <string name="select_all">Velg alle</string>
     <string name="select_media_folder">Velg mediamappe</string>
     <string name="select_one_template">Velg en mal</string>
@@ -784,7 +778,6 @@
     <string name="share_permissions">Rettigheter for deling</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s(samtale)</string>
-    <string name="share_search">Navn, Sammenknyttet sky-ID eller e-postadresse</string>
     <string name="share_send_new_email">Send ny e-post</string>
     <string name="share_send_note">Melding til mottaker</string>
     <string name="share_settings">Innstillinger</string>
@@ -836,6 +829,7 @@
     <string name="storage_description_default">Standard</string>
     <string name="storage_documents">Dokumenter</string>
     <string name="storage_downloads">Nedlastinger</string>
+    <string name="storage_external_storage">Ekstern lagring</string>
     <string name="storage_internal_storage">Intern lagring</string>
     <string name="storage_movies">Filmer</string>
     <string name="storage_music">Musikk</string>
@@ -902,6 +896,7 @@
     <string name="trashbin_file_remove">Slett for godt</string>
     <string name="trashbin_loading_failed">Lasting av papirkurv feilet</string>
     <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
+    <string name="two_way_sync_activity_title">Intern toveis synkronisering</string>
     <string name="unexpected_error_occurred">Det oppstod en uventet feil</string>
     <string name="unified_search_fragment_calendar_event_not_found">Finner ikke hendelsen, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
     <string name="unified_search_fragment_contact_not_found">Finner ikke kontakten, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
@@ -982,7 +977,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Behold filen i kildemappe</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Slett filen fra kildemappen</string>
     <string name="uploader_upload_forbidden_permissions">å laste opp i denne mappen</string>
-    <string name="uploader_upload_in_progress">%1$d %% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Laster opp %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Laster opp…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s lastet opp</string>
@@ -1036,7 +1030,6 @@
     <string name="whats_new_skip">Hopp over</string>
     <string name="whats_new_title">Nytt i %1$s</string>
     <string name="whats_your_status">Hva er din status?</string>
-    <string name="widgets_not_available">Widgeter er bare tilgjengelige på %1$s 25 eller nyere</string>
     <string name="widgets_not_available_title">Ikke tilgjengelig</string>
     <string name="worker_download">Laster ned filer…</string>
     <string name="write_email">Send e-post</string>

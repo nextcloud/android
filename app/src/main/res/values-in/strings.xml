@@ -95,7 +95,6 @@
     <string name="autoupload_custom_folder">Pasang folder kostum.</string>
     <string name="autoupload_disable_power_save_check">Non-aktifkan pemeriksaan mode hemat daya</string>
     <string name="autoupload_hide_folder">Sembunyikan folder</string>
-    <string name="autoupload_worker_foreground_info">Menyiapkan unggah otomatis</string>
     <string name="avatar">Avatar</string>
     <string name="away">Jauh</string>
     <string name="backup_settings">Pengaturan Pencadangan</string>
@@ -648,8 +647,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="request_account_deletion">Minta penghapusan akun</string>
     <string name="request_account_deletion_button">Minta penghapusan</string>
     <string name="request_account_deletion_details">Minta penghapusan permanen akun oleh penyedia layanan</string>
-    <string name="reshare_not_allowed">Berbagi ulang tidak diizinkan</string>
-    <string name="resharing_is_not_allowed">Berbagi ulang tidak diijinkan.</string>
     <string name="resized_image_not_possible_download">Tidak ada gambar yang diubah ukurannya tersedia. Unduh gambar penuh?</string>
     <string name="restore">Pulihkan berkas</string>
     <string name="restore_backup">Pulihkan cadangan</string>
@@ -706,7 +703,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="share_permissions">Bagikan Izin</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
     <string name="share_room_clarification">%1$s (percakapan)</string>
-    <string name="share_search">Nama, ID Awan Federasi, atau alamat surel…</string>
     <string name="share_send_new_email">Kirim surel baru</string>
     <string name="share_send_note">Catatan untuk penerima</string>
     <string name="share_settings">Setelan</string>
@@ -755,6 +751,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="storage_description_default">Bawaan</string>
     <string name="storage_documents">Dokumen</string>
     <string name="storage_downloads">Unduhan</string>
+    <string name="storage_external_storage">Penyimpanan eksternal</string>
     <string name="storage_internal_storage">Penyimpanan internal</string>
     <string name="storage_movies">Film</string>
     <string name="storage_music">Musik</string>
@@ -931,7 +928,6 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="whats_new_skip">Lewat</string>
     <string name="whats_new_title">Apa yang baru di %1$s</string>
     <string name="whats_your_status">Apa status Anda?</string>
-    <string name="widgets_not_available">Widget hanya tersedia di %1$s 25 atau versi yang lebih baru.</string>
     <string name="widgets_not_available_title">Tidak tersedia</string>
     <string name="worker_download">Mengunduh berkas…</string>
     <string name="write_email">Kirim surel</string>

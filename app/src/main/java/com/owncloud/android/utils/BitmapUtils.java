@@ -15,6 +15,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
+import android.graphics.ImageDecoder;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -24,6 +25,7 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.widget.ImageView;
 
 import com.owncloud.android.MainApp;
@@ -33,9 +35,9 @@ import com.owncloud.android.lib.resources.users.Status;
 import com.owncloud.android.lib.resources.users.StatusType;
 import com.owncloud.android.ui.StatusDrawable;
 
-import org.apache.commons.codec.binary.Hex;
 
-import java.nio.charset.Charset;
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Locale;
@@ -58,13 +60,9 @@ public final class BitmapUtils {
     }
 
     public static Bitmap addColorFilter(Bitmap originalBitmap, int filterColor, int opacity) {
-        int width = originalBitmap.getWidth();
-        int height = originalBitmap.getHeight();
-
-        Bitmap resultBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Bitmap resultBitmap = originalBitmap.copy(Bitmap.Config.ARGB_8888, true);
         Canvas canvas = new Canvas(resultBitmap);
-
-        canvas.drawBitmap(originalBitmap, 0, 0, null);
+        canvas.drawBitmap(resultBitmap, 0, 0, null);
 
         Paint paint = new Paint();
         paint.setColor(filterColor);
@@ -72,7 +70,7 @@ public final class BitmapUtils {
         paint.setAlpha(opacity);
 
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-        canvas.drawRect(0, 0, width, height, paint);
+        canvas.drawRect(0, 0, resultBitmap.getWidth(), resultBitmap.getHeight(), paint);
 
         return resultBitmap;
     }
@@ -87,13 +85,20 @@ public final class BitmapUtils {
      * @return decoded bitmap
      */
     public static Bitmap decodeSampledBitmapFromFile(String srcPath, int reqWidth, int reqHeight) {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            // For API 28 and above, use ImageDecoder
+            try {
+                return ImageDecoder.decodeBitmap(ImageDecoder.createSource(new File(srcPath)),
+                                                 (decoder, info, source) -> {
+                                                     // Set the target size
+                                                     decoder.setTargetSize(reqWidth, reqHeight);
+                                                 });
+            } catch (Exception exception) {
+                Log_OC.e("BitmapUtil", "Error decoding the bitmap from file: " + srcPath + ", exception: " + exception.getMessage());
+            }
+        }
         // set desired options that will affect the size of the bitmap
         final Options options = new Options();
-        options.inScaled = true;
-        options.inPurgeable = true;
-        options.inPreferQualityOverSpeed = false;
-        options.inMutable = false;
 
         // make a false load of the bitmap to get its dimensions
         options.inJustDecodeBounds = true;
@@ -171,45 +176,53 @@ public final class BitmapUtils {
             ExifInterface exifInterface = new ExifInterface(storagePath);
             int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
 
-            Matrix matrix = new Matrix();
+            if (orientation != ExifInterface.ORIENTATION_NORMAL) {
+                Matrix matrix = new Matrix();
+                switch (orientation) {
+                    // 2
+                    case ExifInterface.ORIENTATION_FLIP_HORIZONTAL: {
+                        matrix.postScale(-1.0f, 1.0f);
+                        break;
+                    }
+                    // 3
+                    case ExifInterface.ORIENTATION_ROTATE_180: {
+                        matrix.postRotate(180);
+                        break;
+                    }
+                    // 4
+                    case ExifInterface.ORIENTATION_FLIP_VERTICAL: {
+                        matrix.postScale(1.0f, -1.0f);
+                        break;
+                    }
+                    // 5
+                    case ExifInterface.ORIENTATION_TRANSPOSE: {
+                        matrix.postRotate(-90);
+                        matrix.postScale(1.0f, -1.0f);
+                        break;
+                    }
+                    // 6
+                    case ExifInterface.ORIENTATION_ROTATE_90: {
+                        matrix.postRotate(90);
+                        break;
+                    }
+                    // 7
+                    case ExifInterface.ORIENTATION_TRANSVERSE: {
+                        matrix.postRotate(90);
+                        matrix.postScale(1.0f, -1.0f);
+                        break;
+                    }
+                    // 8
+                    case ExifInterface.ORIENTATION_ROTATE_270: {
+                        matrix.postRotate(270);
+                        break;
+                    }
+                }
 
-            // 1: nothing to do
-
-            // 2
-            if (orientation == ExifInterface.ORIENTATION_FLIP_HORIZONTAL) {
-                matrix.postScale(-1.0f, 1.0f);
-            }
-            // 3
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_180) {
-                matrix.postRotate(180);
-            }
-            // 4
-            else if (orientation == ExifInterface.ORIENTATION_FLIP_VERTICAL) {
-                matrix.postScale(1.0f, -1.0f);
-            }
-            // 5
-            else if (orientation == ExifInterface.ORIENTATION_TRANSPOSE) {
-                matrix.postRotate(-90);
-                matrix.postScale(1.0f, -1.0f);
-            }
-            // 6
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_90) {
-                matrix.postRotate(90);
-            }
-            // 7
-            else if (orientation == ExifInterface.ORIENTATION_TRANSVERSE) {
-                matrix.postRotate(90);
-                matrix.postScale(1.0f, -1.0f);
-            }
-            // 8
-            else if (orientation == ExifInterface.ORIENTATION_ROTATE_270) {
-                matrix.postRotate(270);
-            }
-
-            // Rotate the bitmap
-            resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
-            if (!resultBitmap.equals(bitmap)) {
-                bitmap.recycle();
+                // Rotate the bitmap
+                resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                if (!resultBitmap.equals(bitmap)) {
+                    bitmap.recycle();
+                }
             }
         } catch (Exception exception) {
             Log_OC.e("BitmapUtil", "Could not rotate the image: " + storagePath);
@@ -227,8 +240,8 @@ public final class BitmapUtils {
     public static Color usernameToColor(String name) {
         String hash = name.toLowerCase(Locale.ROOT);
 
-        // already a md5 hash?
-        if (!hash.matches("([0-9a-f]{4}-?){8}$")) {
+        // Check if the input is already a valid MD5 hash (32 hex characters)
+        if (hash.length() != 32 || !hash.matches("[0-9a-f]+")) {
             try {
                 hash = md5(hash);
             } catch (NoSuchAlgorithmException e) {
@@ -249,22 +262,15 @@ public final class BitmapUtils {
 
     private static int hashToInt(String hash, int maximum) {
         int finalInt = 0;
-        int[] result = new int[hash.length()];
 
-        // splitting evenly the string
+        // Sum the values of the hexadecimal digits
         for (int i = 0; i < hash.length(); i++) {
-            // chars in md5 goes up to f, hex: 16
-            result[i] = Integer.parseInt(String.valueOf(hash.charAt(i)), 16) % 16;
+            // Efficient hex char-to-int conversion
+            finalInt += Character.digit(hash.charAt(i), 16);
         }
 
-        // adds up all results
-        for (int value : result) {
-            finalInt += value;
-        }
-
-        // chars in md5 goes up to f, hex:16
-        // make sure we're always using int in our operation
-        return Integer.parseInt(String.valueOf(Integer.parseInt(String.valueOf(finalInt), 10) % maximum), 10);
+        // Return the sum modulo maximum
+        return finalInt % maximum;
     }
 
     private static Color[] generateColors(int steps) {
@@ -277,13 +283,9 @@ public final class BitmapUtils {
         Color[] palette3 = mixPalette(steps, blue, red);
 
         Color[] resultPalette = new Color[palette1.length + palette2.length + palette3.length];
-        System.arraycopy(palette1, 0, resultPalette, 0, palette1.length);
-        System.arraycopy(palette2, 0, resultPalette, palette1.length, palette2.length);
-        System.arraycopy(palette3,
-                         0,
-                         resultPalette,
-                         palette1.length + palette2.length,
-                         palette1.length);
+        System.arraycopy(palette1, 0, resultPalette, 0, steps);
+        System.arraycopy(palette2, 0, resultPalette, steps, steps);
+        System.arraycopy(palette3, 0, resultPalette, steps * 2, steps);
 
         return resultPalette;
     }
@@ -346,15 +348,21 @@ public final class BitmapUtils {
 
         @Override
         public int hashCode() {
-            return r * 10000 + g * 1000 + b;
+            return (r << 16) + (g << 8) + b;
         }
     }
 
     public static String md5(String string) throws NoSuchAlgorithmException {
         MessageDigest md5 = MessageDigest.getInstance("MD5");
-        md5.update(string.getBytes(Charset.defaultCharset()));
+        // Use UTF-8 for consistency
+        byte[] hashBytes = md5.digest(string.getBytes(StandardCharsets.UTF_8));
 
-        return new String(Hex.encodeHex(md5.digest()));
+        StringBuilder hexString = new StringBuilder(32);
+        for (byte b : hashBytes) {
+            // Convert each byte to a 2-digit hex string
+            hexString.append(String.format("%02x", b));
+        }
+        return hexString.toString();
     }
 
     /**

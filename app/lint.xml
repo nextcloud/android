@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Nextcloud Talk - Android Client
+  ~ Nextcloud - Android Client
   ~ 
   ~ SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
   ~ SPDX-FileCopyrightText: 2022 Andy Scherzinger <info@andy-scherzinger.de>
@@ -32,6 +32,10 @@
     </issue>
 
     <issue id="UnusedQuantity">
+        <ignore path="**/values-**/strings.xml" />
+    </issue>
+    
+    <issue id="StringFormatCount">
         <ignore path="**/values-**/strings.xml" />
     </issue>
 

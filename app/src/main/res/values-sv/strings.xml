@@ -35,6 +35,13 @@
     <string name="advanced_settings">Avancerade inställningar</string>
     <string name="allow_resharing">Tillåt dela vidare</string>
     <string name="app_config_base_url_title">Bas-URL</string>
+    <string name="app_config_disable_clipboard_title">Inaktivera urklipp</string>
+    <string name="app_config_disable_intro_title">Inaktivera intro</string>
+    <string name="app_config_disable_log_title">Inaktivera logg</string>
+    <string name="app_config_disable_more_external_site_title">Inaktivera externa platser</string>
+    <string name="app_config_disable_multiaccount_title">Inaktivera flera konton</string>
+    <string name="app_config_disable_sharing_title">Inaktivera delning</string>
+    <string name="app_config_enforce_protection_title">Tillämpa skydd</string>
     <string name="app_config_proxy_host_title">Proxy-värdnamn</string>
     <string name="app_config_proxy_port_title">Proxyport</string>
     <string name="app_widget_description">Visa en widget från dashboard</string>
@@ -56,7 +63,6 @@
     <string name="assistant_screen_task_delete_success_message">Uppgiften har raderats</string>
     <string name="assistant_screen_task_list_error_state_message">Det går inte att hämta uppgiftslistan, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ta bort uppgift</string>
-    <string name="assistant_screen_task_output_empty_text">Uppgiftens resultat är inte redo än</string>
     <string name="assistant_screen_task_types_error_state_message">Det går inte att hämta uppgiftstyper, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Okänd</string>
@@ -103,7 +109,6 @@
     <string name="autoupload_custom_folder">Skapa en anpassad mapp</string>
     <string name="autoupload_disable_power_save_check">Inaktivera strömsparingskontrollen</string>
     <string name="autoupload_hide_folder">Göm mapp</string>
-    <string name="autoupload_worker_foreground_info">Förbereder automatisk uppladdning</string>
     <string name="avatar">Avatar</string>
     <string name="away">Iväg</string>
     <string name="backup_settings">Backupinställningar</string>
@@ -251,7 +256,6 @@
     <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
     <string name="downloader_download_failed_ticker">Hämtning misslyckades</string>
     <string name="downloader_download_file_not_found">Filen är inte längre tillgänglig på servern</string>
-    <string name="downloader_download_in_progress">%1$d%%%2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Hämtar %2$s</string>
     <string name="downloader_download_in_progress_ticker">Hämtar…</string>
     <string name="downloader_download_succeeded_content">%1$s hämtad</string>
@@ -364,6 +368,7 @@
     <string name="file_already_exists">Filnamnet finns redan</string>
     <string name="file_delete">Ta bort</string>
     <string name="file_detail_activity_error">Fel vid hämtning av aktiviteter för fil</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Ingen app tillgänglig för att välja kontakter</string>
     <string name="file_details_no_content">Kunde inte läsa in detaljer</string>
     <string name="file_icon">Fil</string>
     <string name="file_keep">Behåll</string>
@@ -391,6 +396,7 @@
     <string name="file_management_permission_optional">Lagringsbehörigheter</string>
     <string name="file_management_permission_optional_text">%1$s fungerar bäst med åtkomstbehörighet till lagringsutrymmet. Du kan välja att ha fullständig åtkomst till alla filer eller läsåtkomst till bilder och videor.</string>
     <string name="file_management_permission_text">%1$s behöver behörighet för filåtkomst för filuppladdning. Du kan välja att ha fullständig åtkomst till alla filer eller endast läsåtkomst till bilder och videor.</string>
+    <string name="file_migration_allow_media_indexing">Tillåt åtkomst från andra appar</string>
     <string name="file_migration_checking_destination">Kontrollerar mål…</string>
     <string name="file_migration_cleaning">Rensar upp…</string>
     <string name="file_migration_dialog_title">Uppdaterar datalagringsmapp</string>
@@ -596,6 +602,7 @@
     <string name="notifications_no_results_headline">Inga aviseringar</string>
     <string name="notifications_no_results_message">Vänligen kontrollera igen senare.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Väntande operation</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Väntar på borttagningsåtgärd</string>
     <string name="offline_mode">Ingen internetanslutning</string>
     <string name="offline_mode_info_description">Även utan internetanslutning kan du organisera dina mappar och skapa filer. När du är online igen synkroniseras dina väntande åtgärder automatiskt.</string>
     <string name="offline_mode_info_title">Du är offline, men kan fortsätta arbeta</string>
@@ -658,6 +665,8 @@
     <string name="prefs_category_sync">Synkronisera</string>
     <string name="prefs_daily_backup_summary">Daglig backup av din kalender och dina kontakter </string>
     <string name="prefs_daily_contact_backup_summary">Daglig backup av dina kontakter</string>
+    <string name="prefs_data_storage_location">Datalagringsplats</string>
+    <string name="prefs_data_storage_location_summary">Hantera plats för datalagring</string>
     <string name="prefs_davx5_setup_error">Oväntat fel vid installation av DAVx5 (tidigare känd som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end-kryptering är inställd!</string>
     <string name="prefs_e2e_mnemonic">E2E krypteringsord</string>
@@ -697,7 +706,9 @@
     <string name="prefs_synced_folders_local_path_title">Lokal mapp</string>
     <string name="prefs_synced_folders_remote_path_title">Extern mapp</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_interval">Intervall </string>
     <string name="prefs_two_way_sync_summary">Hantera interna mappar för tvåvägssynk</string>
+    <string name="prefs_two_way_sync_switch_title">Aktivera tvåvägssynk</string>
     <string name="prefs_value_theme_dark">Mörkt</string>
     <string name="prefs_value_theme_light">Ljust</string>
     <string name="prefs_value_theme_system">Följ systemet</string>
@@ -738,8 +749,7 @@
     <string name="request_account_deletion">Begär att radera ditt konto</string>
     <string name="request_account_deletion_button">Begäran om radering</string>
     <string name="request_account_deletion_details">Begär permanent borttagning av konto av tjänsteleverantör</string>
-    <string name="reshare_not_allowed">Dela vidare är inte tillåtet</string>
-    <string name="resharing_is_not_allowed">Att dela på nytt är inte tillåtet</string>
+    <string name="resharing_is_not_allowed">Policy eller behörigheter förhindrar vidaredelning</string>
     <string name="resized_image_not_possible_download">Ingen storleksändrad bild tillgänglig. Hämta hela bilden?</string>
     <string name="restore">Återställ fil</string>
     <string name="restore_backup">Återställ säkerhetskopiering</string>
@@ -764,7 +774,7 @@
     <string name="screenshot_06_davdroid_subline">Synka med DAVx5</string>
     <string name="search_error">Ett fel uppstod vid sökning</string>
     <string name="secure_share_not_set_up">Säker delning är inte konfigurerad för denna användare</string>
-    <string name="secure_share_search">Säker delning ...</string>
+    <string name="secure_share_search">Säker delning...</string>
     <string name="select_all">Välj alla</string>
     <string name="select_media_folder">Ställ in mapp för media</string>
     <string name="select_one_template">Vänligen välj en mall</string>
@@ -808,7 +818,7 @@
     <string name="share_permissions">Dela behörigheter</string>
     <string name="share_remote_clarification">%1$s (extern)</string>
     <string name="share_room_clarification">%1$s (konversation)</string>
-    <string name="share_search">Namn, federerat Cloud ID eller epost-adress</string>
+    <string name="share_search">Namn, federerat moln-ID eller e-postadress...</string>
     <string name="share_send_new_email">Skicka nytt mail</string>
     <string name="share_send_note">Notering till mottagare</string>
     <string name="share_settings">Inställningar</string>
@@ -860,6 +870,7 @@
     <string name="storage_description_default">Standard</string>
     <string name="storage_documents">Dokument</string>
     <string name="storage_downloads">Hämtningar</string>
+    <string name="storage_external_storage">Extern lagring</string>
     <string name="storage_internal_storage">Intern lagring</string>
     <string name="storage_movies">Filmer</string>
     <string name="storage_music">Musik</string>
@@ -926,6 +937,10 @@
     <string name="trashbin_file_remove">Ta bort permanent</string>
     <string name="trashbin_loading_failed">Laddning av papperskorg misslyckades!</string>
     <string name="trashbin_not_emptied">Filer kunde inte tas bort permanent!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Inaktivera för alla mappar</string>
+    <string name="two_way_sync_activity_empty_list_desc">För att ställa in en mapp för tvåvägssynkronisering, aktivera den på informationsfliken för den aktuella mappen.</string>
+    <string name="two_way_sync_activity_empty_list_title">Tvåvägssynkronisering är inte inställd</string>
+    <string name="two_way_sync_activity_title">Intern tvåvägssynk</string>
     <string name="unexpected_error_occurred">Ett oväntat fel inträffade</string>
     <string name="unified_search_fragment_calendar_event_not_found">Händelsen hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
     <string name="unified_search_fragment_contact_not_found">Kontakten hittades inte, du kan alltid synkronisera för att uppdatera. Omdirigerar till webben...</string>
@@ -1007,7 +1022,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Behåll fil i källmappen</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Ta bort fil från källmappen</string>
     <string name="uploader_upload_forbidden_permissions">att ladda upp denna mapp</string>
-    <string name="uploader_upload_in_progress">%1$d%%%2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Laddar upp %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Laddar upp…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uppladdad</string>
@@ -1054,6 +1068,7 @@
     <string name="wait_a_moment">Vänligen vänta…</string>
     <string name="wait_checking_credentials">Kontrollerar lagrade inloggningsuppgifter</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierar fil från privat lagring</string>
+    <string name="warn_rename_extension">Att ändra tillägg kan göra att filen öppnas i en annan app</string>
     <string name="webview_version_check_alert_dialog_message">Uppdatera Android System WebView-appen för inloggning</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Uppdatera</string>
     <string name="webview_version_check_alert_dialog_title">Uppdatera Android System WebView</string>
@@ -1061,12 +1076,20 @@
     <string name="whats_new_skip">Hoppa över</string>
     <string name="whats_new_title">Ny i %1$s</string>
     <string name="whats_your_status">Vad är din status?</string>
-    <string name="widgets_not_available">Widgets är endast tillgängliga på %1$s 25 eller senare</string>
+    <string name="widgets_not_available">Widgetar är endast tillgängliga i %1$s 25 eller senare när Dashboard-appen är aktiverad</string>
     <string name="widgets_not_available_title">Inte tillgänglig</string>
     <string name="worker_download">Hämtar filer…</string>
     <string name="write_email">Skicka e-post</string>
     <string name="wrong_storage_path">Datalagringsmapp finns inte!</string>
     <string name="wrong_storage_path_desc">Detta kan bero på en säkerhetskopiering som återställts på en annan enhet. Kommer använda standarden. Vänligen kontrollera inställningarna för att konfigurera datalagringsmappen.</string>
+    <plurals name="hours">
+        <item quantity="one">%d timme</item>
+        <item quantity="other">%d timmar</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minut</item>
+        <item quantity="other">%d minuter</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kunde inte synkronisera %1$d fil (konflikter: %2$d)</item>
         <item quantity="other">Kunde inte synkronisera %1$d filer (konflikter: %2$d)</item>

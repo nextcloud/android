@@ -55,6 +55,7 @@ public final class AppPreferencesImpl implements AppPreferences {
      */
     public static final String AUTO_PREF__LAST_SEEN_VERSION_CODE = "lastSeenVersionCode";
     public static final String STORAGE_PATH = "storage_path";
+    public static final String DATA_STORAGE_LOCATION = "data_storage_location";
     public static final String STORAGE_PATH_VALID = "storage_path_valid";
     public static final String PREF__DARK_THEME = "dark_theme_mode";
     public static final float DEFAULT_GRID_COLUMN = 3f;
@@ -101,6 +102,11 @@ public final class AppPreferencesImpl implements AppPreferences {
 
     private static final String PREF__STORAGE_PERMISSION_REQUESTED = "storage_permission_requested";
     private static final String PREF__IN_APP_REVIEW_DATA = "in_app_review_data";
+
+    private static final String PREF__TWO_WAY_STATUS = "two_way_sync_status";
+    private static final String PREF__TWO_WAY_SYNC_INTERVAL = "two_way_sync_interval";
+
+    private static final String PREF__STOP_DOWNLOAD_JOBS_ON_START = "stop_download_jobs_on_start";
 
     private static final String LOG_ENTRY = "log_entry";
 
@@ -788,5 +794,35 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public String getLastSelectedMediaFolder() {
         return preferences.getString(PREF__MEDIA_FOLDER_LAST_PATH, OCFile.ROOT_PATH);
+    }
+
+    @Override
+    public void setTwoWaySyncStatus(boolean value) {
+        preferences.edit().putBoolean(PREF__TWO_WAY_STATUS, value).apply();
+    }
+
+    @Override
+    public boolean isTwoWaySyncEnabled() {
+        return preferences.getBoolean(PREF__TWO_WAY_STATUS, true);
+    }
+
+    @Override
+    public void setTwoWaySyncInterval(Long value) {
+        preferences.edit().putLong(PREF__TWO_WAY_SYNC_INTERVAL, value).apply();
+    }
+
+    @Override
+    public Long getTwoWaySyncInterval() {
+        return preferences.getLong(PREF__TWO_WAY_SYNC_INTERVAL, 15L);
+    }
+
+    @Override
+    public boolean shouldStopDownloadJobsOnStart() {
+        return preferences.getBoolean(PREF__STOP_DOWNLOAD_JOBS_ON_START, true);
+    }
+
+    @Override
+    public void setStopDownloadJobsOnStart(boolean value) {
+        preferences.edit().putBoolean(PREF__STOP_DOWNLOAD_JOBS_ON_START, value).apply();
     }
 }

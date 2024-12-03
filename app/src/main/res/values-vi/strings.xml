@@ -588,8 +588,6 @@
     <string name="rename_dialog_title">Nhập tên mới</string>
     <string name="rename_local_fail_msg">Không thể đổi tên bản sao cục bộ, hãy thử một tên khác</string>
     <string name="rename_server_fail_msg">Không thể đổi tên, tên đã được sử dụng</string>
-    <string name="reshare_not_allowed">Chia sẻ lại không được cho phép</string>
-    <string name="resharing_is_not_allowed">Chia sẻ lại không được cho phép</string>
     <string name="resized_image_not_possible_download">Không có hình ảnh thay đổi kích thước có sẵn. Tải xuống hình ảnh đầy đủ?</string>
     <string name="restore">Khôi phục tệp</string>
     <string name="restore_backup">Khôi phục bản sao lưu</string>
@@ -648,7 +646,6 @@
     <string name="share_permissions">Quyền kho</string>
     <string name="share_remote_clarification">%1$s (từ xa)</string>
     <string name="share_room_clarification">%1$s (cuộc hội thoại)</string>
-    <string name="share_search">Tên, ID đám mây liên kết hoặc địa chỉ email…</string>
     <string name="share_send_new_email">Gửi email mới</string>
     <string name="share_send_note">Ghi chú cho người nhận</string>
     <string name="share_settings">Cài đặt</string>
@@ -699,6 +696,7 @@
     <string name="storage_description_default">Mặc định</string>
     <string name="storage_documents">Tài liệu</string>
     <string name="storage_downloads">Các tải xuống</string>
+    <string name="storage_external_storage">Lưu trữ ngoài</string>
     <string name="storage_internal_storage">Bộ nhớ trong</string>
     <string name="storage_movies">Phim</string>
     <string name="storage_music">Nhạc</string>

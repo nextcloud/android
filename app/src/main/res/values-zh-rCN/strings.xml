@@ -27,17 +27,23 @@
     <string name="activities_no_results_message">还没有类似添加、更改和共享这样的事件。</string>
     <string name="activity_chooser_send_file_title">发送</string>
     <string name="activity_chooser_title">发送链接到…</string>
-    <string name="activity_icon">激活</string>
+    <string name="activity_icon">动态</string>
     <string name="add_another_public_share_link">添加其他链接</string>
     <string name="add_new_public_share">添加新的公共共享链接</string>
-    <string name="add_new_secure_file_drop">添加新的安全档案投放箱</string>
+    <string name="add_new_secure_file_drop">添加新的安全文件投放箱</string>
     <string name="add_to_cloud">添加%1$s</string>
     <string name="advanced_settings">高级设置</string>
     <string name="allow_resharing">允许再次共享</string>
     <string name="app_config_base_url_title">基础 URL</string>
+    <string name="app_config_disable_clipboard_title">禁用剪贴板</string>
+    <string name="app_config_disable_intro_title">禁用简介</string>
+    <string name="app_config_disable_log_title">禁用日志</string>
+    <string name="app_config_disable_more_external_site_title">禁用外部网站</string>
+    <string name="app_config_disable_multiaccount_title">禁用多账号</string>
+    <string name="app_config_disable_sharing_title">禁用共享</string>
     <string name="app_config_proxy_host_title">代理主机名称</string>
     <string name="app_config_proxy_port_title">代理端口</string>
-    <string name="app_widget_description">显示仪表盘中的一个小工具</string>
+    <string name="app_widget_description">显示仪表盘中的一个小部件</string>
     <string name="appbar_search_in">在 %s 中搜索</string>
     <string name="assistant_screen_all_task_type">所有</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">输入一些文字</string>
@@ -103,7 +109,6 @@
     <string name="autoupload_custom_folder">设置一个自定义文件夹</string>
     <string name="autoupload_disable_power_save_check">禁用节能检查</string>
     <string name="autoupload_hide_folder">隐藏文件夹</string>
-    <string name="autoupload_worker_foreground_info">正在准备自动上传</string>
     <string name="avatar">头像</string>
     <string name="away">离开</string>
     <string name="backup_settings">备份设置</string>
@@ -123,7 +128,7 @@
     <string name="choose_remote_folder">选择远程文件夹…</string>
     <string name="choose_template_helper_text">请选择一个模板并输入一个文件名</string>
     <string name="choose_which_file">选择保留的文件！</string>
-    <string name="choose_widget">选择小工具</string>
+    <string name="choose_widget">选择小部件</string>
     <string name="clear_notifications_failed">清除通知失败</string>
     <string name="clear_status_message">清除状态信息</string>
     <string name="clear_status_message_after">清除状态信息于</string>
@@ -251,7 +256,6 @@
     <string name="downloader_download_failed_credentials_error">下载失败，请重新登录</string>
     <string name="downloader_download_failed_ticker">下载失败</string>
     <string name="downloader_download_file_not_found">该文件在服务器上不可用</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% 正在下载 %2$s</string>
     <string name="downloader_download_in_progress_ticker">正在下载…</string>
     <string name="downloader_download_succeeded_content">已下载了 %1$s</string>
@@ -282,6 +286,7 @@
     <string name="drawer_quota">%1$s 中 %2$s 已使用</string>
     <string name="drawer_quota_unlimited">%1$s 已使用</string>
     <string name="drawer_synced_folders">自动上传</string>
+    <string name="e2e_counter_too_old">计数器过旧</string>
     <string name="e2e_hash_not_found">未找到哈希值</string>
     <string name="e2e_not_yet_setup">尚未安装端到端加密</string>
     <string name="e2e_offline">无互联网连接</string>
@@ -363,6 +368,7 @@
     <string name="file_already_exists">文件名已存在</string>
     <string name="file_delete">删除</string>
     <string name="file_detail_activity_error">获取文件动态时出错</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">没有可用于选择联系人的应用</string>
     <string name="file_details_no_content">加载详情失败</string>
     <string name="file_icon">文件</string>
     <string name="file_keep">保留</string>
@@ -390,6 +396,7 @@
     <string name="file_management_permission_optional">存储权限</string>
     <string name="file_management_permission_optional_text">%1$s在有权限访问的存储上工作得最好。您可以选择对所有文件获取完整权限，或者对照片和视频提供只读权限。</string>
     <string name="file_management_permission_text">%1$s需要文件管理权限以上传文件。您可以选择对所有文件获取完整权限，或者对照片和视频提供只读权限。</string>
+    <string name="file_migration_allow_media_indexing">允许从其他应用访问</string>
     <string name="file_migration_checking_destination">正在检查目的地…</string>
     <string name="file_migration_cleaning">清除中…</string>
     <string name="file_migration_dialog_title">正在更新数据存储文件夹</string>
@@ -400,6 +407,7 @@
     <string name="file_migration_failed_not_writable">无法写入目标文件</string>
     <string name="file_migration_failed_while_coping">迁移失败</string>
     <string name="file_migration_failed_while_updating_index">更新索引失败</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">正在迁移数据…</string>
     <string name="file_migration_ok_finished">完成</string>
     <string name="file_migration_override_data_folder">替换</string>
@@ -470,8 +478,8 @@
     <string name="host_not_available">服务器不可用</string>
     <string name="host_your_own_server">自己搭建服务器</string>
     <string name="icon_for_empty_list">空列表的图标</string>
-    <string name="icon_of_dashboard_widget">仪表盘小工具的图标</string>
-    <string name="icon_of_widget_entry">小工具图标</string>
+    <string name="icon_of_dashboard_widget">仪表盘小部件的图标</string>
+    <string name="icon_of_widget_entry">小部件图标</string>
     <string name="image_editor_file_edited_suffix">已编辑</string>
     <string name="image_editor_flip_horizontal">水平翻转</string>
     <string name="image_editor_flip_vertical">垂直翻转</string>
@@ -595,6 +603,7 @@
     <string name="notifications_no_results_headline">没有提示</string>
     <string name="notifications_no_results_message">请稍后核对</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">待处理操作</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">待定移除操作</string>
     <string name="offline_mode">无网络连接</string>
     <string name="offline_mode_info_description">即使没有互联网连接，你也可以组织文件夹、创建文件。一旦您重新在线，你的待处理操作将自动同步。</string>
     <string name="offline_mode_info_title">你已离线，但工作仍在继续</string>
@@ -657,6 +666,8 @@
     <string name="prefs_category_sync">同步</string>
     <string name="prefs_daily_backup_summary">每日备份您的日历与联系人</string>
     <string name="prefs_daily_contact_backup_summary">每日备份您的联系人</string>
+    <string name="prefs_data_storage_location">数据存储位置</string>
+    <string name="prefs_data_storage_location_summary">管理数据存储位置</string>
     <string name="prefs_davx5_setup_error">设置 DAVx5（以前为 DAVdroid）时出现意外错误</string>
     <string name="prefs_e2e_active">端对端加密已设置完成</string>
     <string name="prefs_e2e_mnemonic">端到端加密</string>
@@ -695,7 +706,9 @@
     <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
     <string name="prefs_synced_folders_remote_path_title">远端文件夹</string>
     <string name="prefs_theme_title">主题</string>
+    <string name="prefs_two_way_sync_interval">间隔</string>
     <string name="prefs_two_way_sync_summary">管理内部文件夹以实现双向同步</string>
+    <string name="prefs_two_way_sync_switch_title">启用双向同步</string>
     <string name="prefs_value_theme_dark">深色</string>
     <string name="prefs_value_theme_light">浅色</string>
     <string name="prefs_value_theme_system">跟随系统</string>
@@ -736,8 +749,7 @@
     <string name="request_account_deletion">请求删除账号</string>
     <string name="request_account_deletion_button">请求删除</string>
     <string name="request_account_deletion_details">请求服务商永久删除账号</string>
-    <string name="reshare_not_allowed">不允许再次共享</string>
-    <string name="resharing_is_not_allowed">不允许再次共享</string>
+    <string name="resharing_is_not_allowed">策略或权限阻止再次共享</string>
     <string name="resized_image_not_possible_download">重整大小的图片不可用。下载完整图片？</string>
     <string name="restore">恢复文件</string>
     <string name="restore_backup">还原备份</string>
@@ -806,7 +818,7 @@
     <string name="share_permissions">共享权限</string>
     <string name="share_remote_clarification">%1$s (远程)</string>
     <string name="share_room_clarification">%1$s (对话)</string>
-    <string name="share_search">名称、联合云 ID 或电子邮件地址 ...</string>
+    <string name="share_search">名称，联合云 ID 或电子邮箱地址…</string>
     <string name="share_send_new_email">发送新邮件</string>
     <string name="share_send_note">收件人备注</string>
     <string name="share_settings">设置</string>
@@ -858,6 +870,7 @@
     <string name="storage_description_default">默认</string>
     <string name="storage_documents">文档</string>
     <string name="storage_downloads">下载</string>
+    <string name="storage_external_storage">外部存储</string>
     <string name="storage_internal_storage">内部存储</string>
     <string name="storage_movies">影片</string>
     <string name="storage_music">音乐</string>
@@ -947,6 +960,10 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="trashbin_file_remove">彻底删除</string>
     <string name="trashbin_loading_failed">加载回收站失败！</string>
     <string name="trashbin_not_emptied">文件无法永久删除！</string>
+    <string name="two_way_sync_activity_disable_all_button_title">禁用所有文件夹</string>
+    <string name="two_way_sync_activity_empty_list_desc">要设置双向同步文件夹，请在相关文件夹的详情选项卡中启用它。</string>
+    <string name="two_way_sync_activity_empty_list_title">未设置双向同步</string>
+    <string name="two_way_sync_activity_title">内部双向同步</string>
     <string name="unexpected_error_occurred">发生了意外错误</string>
     <string name="unified_search_fragment_calendar_event_not_found">未找到活动，你随时可以同步更新。正在重定向至网络…</string>
     <string name="unified_search_fragment_contact_not_found">未找到联系人，你可以随时同步更新。正在重定向至网络…</string>
@@ -1028,7 +1045,6 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="uploader_upload_files_behaviour_only_upload">在原文件夹中保留文件</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">从原文件夹中删除文件</string>
     <string name="uploader_upload_forbidden_permissions">上传到此文件夹</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% 正在上传 %2$s</string>
     <string name="uploader_upload_in_progress_ticker">正在上传…</string>
     <string name="uploader_upload_succeeded_content_single">已上传了 %1$s</string>
@@ -1054,10 +1070,10 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="uploads_view_upload_status_fetching_server_version">正在获取服务器版本…</string>
     <string name="uploads_view_upload_status_service_interrupted">应用程序已终止</string>
     <string name="uploads_view_upload_status_succeeded">已完成</string>
-    <string name="uploads_view_upload_status_succeeded_same_file">服务器端已存在相同的文件,跳过上传</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">服务器端已存在相同的文件，跳过上传</string>
     <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
     <string name="uploads_view_upload_status_virus_detected">检测到病毒。无法完成上传！</string>
-    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待退出节能模式</string>
+    <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待退出省电模式</string>
     <string name="uploads_view_upload_status_waiting_for_charging">等待充电</string>
     <string name="uploads_view_upload_status_waiting_for_wifi">等待非流量计费的 Wi-Fi 连接</string>
     <string name="user_icon">用户</string>
@@ -1082,12 +1098,18 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="whats_new_skip">跳过</string>
     <string name="whats_new_title">新建%1$s</string>
     <string name="whats_your_status">你什么状态？</string>
-    <string name="widgets_not_available">小工具仅在%1$s25及更高版本中可用</string>
+    <string name="widgets_not_available">启用仪表盘应用程序后，小部件仅在 %1$s 25 或更高版本中可用</string>
     <string name="widgets_not_available_title">不可用</string>
     <string name="worker_download">正在下载文件…</string>
     <string name="write_email">发送邮件</string>
     <string name="wrong_storage_path">数据存储文件夹不存在！</string>
     <string name="wrong_storage_path_desc">这可能是由于另一台设备上的备份还原。正退回到默认。请检查设置来调整数据存储文件夹。</string>
+    <plurals name="hours">
+        <item quantity="other">%d 小时</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="other">%d 分钟</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 个文件无法被同步 (与%2$d冲突)</item>
     </plurals>

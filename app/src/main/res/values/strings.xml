@@ -26,9 +26,16 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Pending Operation</string>
     <string name="ecosystem_apps_display_assistant">Assistant</string>
     <string name="unexpected_error_occurred">Unexpected error occurred</string>
+    <string name="app_config_disable_multiaccount_title">Disable Multi Account</string>
+    <string name="app_config_disable_sharing_title">Disable Sharing</string>
+    <string name="app_config_disable_clipboard_title">Disable Clipboard</string>
+    <string name="app_config_disable_more_external_site_title">Disable External Sites</string>
+    <string name="app_config_disable_intro_title">Disable Intro</string>
+    <string name="app_config_disable_log_title">Disable Log</string>
     <string name="app_config_base_url_title">Base URL</string>
-    <string name="app_config_proxy_host_title">Proxy Host Name</string>
+    <string name="app_config_proxy_host_title">Proxy Hostname</string>
     <string name="app_config_proxy_port_title">Proxy Port</string>
+    <string name="app_config_enforce_protection_title">Enforce Protection</string>
     <string name="offline_operations_file_does_not_exists_yet">File does not exists, yet. Please upload the file first.</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">Delete Offline Folder</string>
     <string name="offline_operations_worker_notification_conflict_text">Conflicted Folder: %s</string>
@@ -43,7 +50,7 @@
 
     <string name="assistant_screen_top_bar_title">Assistant</string>
     <string name="assistant_screen_loading">Task List are loading, please wait</string>
-    <string name="assistant_screen_task_output_empty_text">The task output isn’t ready yet.</string>
+    <string name="assistant_screen_task_output_empty_text">The task output is not ready yet.</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">No task available. Select a task type to create a new task.</string>
     <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete Task</string>
@@ -115,6 +122,17 @@
     <string name="prefs_value_theme_dark">Dark</string>
     <string name="prefs_value_theme_system">Follow system</string>
     <string name="prefs_theme_title">Theme</string>
+    <string name="prefs_two_way_sync_switch_title">Enable two way sync</string>
+    <string name="prefs_two_way_sync_interval">Interval</string>
+
+    <plurals name="hours">
+        <item quantity="one">%d hour</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
 
     <string name="recommend_subject">Try %1$s on your device!</string>
     <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
@@ -503,6 +521,8 @@
     <string name="file_migration_failed_dir_already_exists">Nextcloud folder already exists</string>
     <string name="file_migration_failed_while_coping">Failed during migration</string>
     <string name="file_migration_failed_while_updating_index">Failed to update index</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
+    <string name="file_migration_allow_media_indexing">Allow access from other apps</string>
 
     <string name="file_migration_directory_already_exists">Data folder already exists. Choose one of the following:</string>
     <string name="file_migration_override_data_folder">Replace</string>
@@ -571,7 +591,8 @@
     <string name="pref_behaviour_entries_keep_file">kept in original folder</string>
     <string name="pref_behaviour_entries_move">moved to app folder</string>
     <string name="pref_behaviour_entries_delete_file">deleted</string>
-    <string name="prefs_storage_path">Data storage folder</string>
+    <string name="prefs_data_storage_location">Data storage location</string>
+    <string name="prefs_data_storage_location_summary">Manage data storage location</string>
 
     <string name="pref_instant_name_collision_policy_dialogTitle">What to do if the file already exists?</string>
     <string name="pref_instant_name_collision_policy_title">What to do if the file already exists?</string>
@@ -599,8 +620,8 @@
     <string name="share_with_title">Share with…</string>
     <string name="share_via_link_unset_password">Unset</string>
 
-    <string name="share_search">Name, Federated Cloud ID or email address …</string>
-    <string name="secure_share_search">Secure share …</string>
+    <string name="share_search">Name, Federated Cloud ID or email address…</string>
+    <string name="secure_share_search">Secure share…</string>
 
     <string name="share_group_clarification">%1$s (group)</string>
     <string name="share_remote_clarification">%1$s (remote)</string>
@@ -726,7 +747,7 @@
     <string name="empty" translatable="false" />
     <string name="test_server_button">Test server connection</string>
     <string name="info_separator" translatable="false">&#160;&#x2022;</string>
-    <string name="resharing_is_not_allowed">Resharing is not allowed</string>
+    <string name="resharing_is_not_allowed">Policy or permissions prevent resharing</string>
 
     <string name="foreground_service_upload">Uploading files…</string>
     <string name="worker_download">Downloading files…</string>
@@ -807,7 +828,7 @@
     <string name="userinfo_no_info_text">Add name, picture and contact details on your profile page.</string>
     <string name="drawer_header_background">Background image of drawer header</string>
     <string name="account_icon">Account icon</string>
-
+    <string name="file_detail_sharing_fragment_no_contact_app_message">No app available to select contacts</string>
     <string name="end_to_end_encryption_folder_not_empty">This folder is not empty.</string>
     <string name="end_to_end_encryption_wrong_password">Error while decrypting. Wrong password?</string>
     <string name="end_to_end_encryption_decrypting">Decrypting…</string>
@@ -956,6 +977,7 @@
     <string name="new_notification">New Notification</string>
     <string name="storage_choose_location">Choose storage location</string>
     <string name="storage_internal_storage">Internal storage</string>
+    <string name="storage_external_storage">External storage</string>
     <string name="storage_camera">Camera</string>
     <string name="storage_pictures">Pictures</string>
     <string name="storage_movies">Movies</string>
@@ -964,7 +986,6 @@
     <string name="storage_downloads">Downloads</string>
     <string name="shared_avatar_desc">Avatar from shared user</string>
     <string name="shared_with_you_by">Shared with you by %1$s</string>
-    <string name="reshare_not_allowed">Resharing is not allowed</string>
     <string name="retrieving_file">Retrieving file…</string>
     <string name="associated_account_not_found">Associated account not found!</string>
     <string name="logged_in_as">Logged in as %1$s</string>
@@ -1175,7 +1196,7 @@
     <string name="icon_of_widget_entry">Icon of widget entry</string>
     <string name="choose_widget">Choose widget</string>
     <string name="reload">Reload</string>
-    <string name="widgets_not_available">Widgets are only available on %1$s 25 or later</string>
+    <string name="widgets_not_available">Widgets are only available in %1$s 25 or later when the Dashboard app is enabled</string>
     <string name="widgets_not_available_title">Not available</string>
     <string name="icon_for_empty_list">Icon for empty list</string>
     <string name="no_items">No items</string>
@@ -1258,4 +1279,10 @@
     <string name="please_select_a_server">Please select a server…</string>
     <string name="notification_icon_description">Unread notifications exist</string>
     <string name="unset_internal_two_way_sync_description">Remove folder from internal two way sync</string>
+    <string name="two_way_sync_activity_empty_list_title">Two way sync not set up</string>
+    <string name="two_way_sync_activity_empty_list_desc">To set up a two way sync folder, please enable it in the details tab of the folder in question.</string>
+    <string name="two_way_sync_activity_title">Internal two way sync</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Disable for all folders</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
+    <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
 </resources>

@@ -115,7 +115,7 @@ class ReceiveExternalFilesAdapter(
         val isAutoUploadFolder = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user)
         val isDarkModeActive = syncedFolderProvider.preferences.isDarkModeEnabled
         val overlayIconId = file.getFileOverlayIconId(isAutoUploadFolder)
-        val icon = MimeTypeUtil.getFileIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils)
+        val icon = MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils)
         thumbnailImageView.setImageDrawable(icon)
     }
 

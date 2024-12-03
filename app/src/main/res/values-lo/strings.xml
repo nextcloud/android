@@ -525,8 +525,6 @@
     <string name="rename_dialog_title">ໃສ່ຊື່ໃໝ່</string>
     <string name="rename_local_fail_msg">ບໍ່ສາມາດປ່ຽນຊື່ສໍາເນົາໃນຊ່ອງເກັບຂໍ້ມູນໄດ້, ລອງໃຊ້ຊື່ອື່ນ</string>
     <string name="rename_server_fail_msg">ປ່ຽນຊື່ບໍ່ໄດ້  ມີຊື່ແລ້ວ</string>
-    <string name="reshare_not_allowed">ບໍ່ອະນຸຍາດໃຫ້ແບ່ງປັນ</string>
-    <string name="resharing_is_not_allowed">ບໍ່ອະນຸຍາດໃຫ້ແບ່ງປັນ</string>
     <string name="resized_image_not_possible_download">ບໍ່ມີຮູບພາບທີ່ຖືກປັບໃຫມ. ດາວໂຫລດຮູບພາບເຕັມ?</string>
     <string name="restore">ກູ້ຟາຍຄຶນ</string>
     <string name="restore_button_description">ກຸ້ຟາຍທີ່ລືບ</string>
@@ -575,7 +573,6 @@
     <string name="share_permission_can_edit">ແກ້ໄຂໄດ້</string>
     <string name="share_remote_clarification"> %1$s(ໄລຍະໄກ)</string>
     <string name="share_room_clarification"> %1$s(ສົນທະນາ)</string>
-    <string name="share_search">ຊື່, IDCloud  ຫຼື ທີ່ຢູ່ອີເມວ ...</string>
     <string name="share_send_note">ລະບຸຜູ້ຮັບ</string>
     <string name="share_settings">ການຕັ້ງຄ່າ</string>
     <string name="share_via_link_hide_download">ເຊື່ອງການດາວໂຫຼດ</string>

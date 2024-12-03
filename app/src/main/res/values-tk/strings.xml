@@ -514,8 +514,6 @@
     <string name="rename_dialog_title">Täze at giriziň</string>
     <string name="rename_local_fail_msg">Ýerli göçürmäniň adyny üýtgedip bilmedim, başga bir at synap görüň</string>
     <string name="rename_server_fail_msg">Adyny üýtgetmek mümkin däl, at eýýäm alyndy</string>
-    <string name="reshare_not_allowed">Täzeden paýlaşmaga rugsat berilmeýär</string>
-    <string name="resharing_is_not_allowed">Täzeden paýlaşmaga rugsat berilmeýär</string>
     <string name="resized_image_not_possible_download">Ölçegli surat ýok. Doly suraty göçürip alyň?</string>
     <string name="restore">Faýly dikelt</string>
     <string name="restore_button_description">Pozulan faýly yzyna dikelt</string>
@@ -563,7 +561,6 @@
     <string name="share_password_title">Parol bilen goralan</string>
     <string name="share_remote_clarification">(uzakdan)%1$s</string>
     <string name="share_room_clarification">(söhbetdeşlik)%1$s</string>
-    <string name="share_search">Ady, Federatiw Bulut ID ýa-da e-poçta salgysy…</string>
     <string name="share_send_note">Alyja bellik</string>
     <string name="share_settings">Sazlamalar</string>
     <string name="share_via_link_hide_download">Ýüklemegi gizle </string>

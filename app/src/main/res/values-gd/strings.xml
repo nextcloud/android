@@ -525,8 +525,6 @@
     <string name="rename_dialog_title">Cuir a-steach ainm ùr</string>
     <string name="rename_local_fail_msg">Cha b’ urrainn dhuinn an t-ainm ùr a thoirt air an lethbhreac ionadail, feuch ainm eile</string>
     <string name="rename_server_fail_msg">Tha ghabh an t-ainm ùr a thoirt air on a tha e ’ga chleachdadh mu thràth</string>
-    <string name="reshare_not_allowed">Chan fhaod thu a cho-roinneadh às ùr</string>
-    <string name="resharing_is_not_allowed">Chan fhaod thu a cho-roinneadh às ùr</string>
     <string name="resized_image_not_possible_download">Chan eil dealbh air ath-mheudachadh ri làimh. An luchdaich thu a-nuas an dealbh slàn?</string>
     <string name="restore">Aisig am faidhle</string>
     <string name="restore_button_description">Aisig faidhle a chaidh a sguabadh às</string>
@@ -574,7 +572,6 @@
     <string name="share_password_title">Fo dhìon facail-fhaire</string>
     <string name="share_remote_clarification">%1$s (cèin)</string>
     <string name="share_room_clarification">%1$s (còmhradh)</string>
-    <string name="share_search">Ainm, ID neòil cho-naisgte no seòladh puist-d…</string>
     <string name="share_send_note">Nòta dhan fhaightear</string>
     <string name="share_settings">Roghainnean</string>
     <string name="share_via_link_hide_download">Falaich an luchdadh a-nuas</string>

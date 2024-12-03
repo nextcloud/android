@@ -24,6 +24,7 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.appinfo.AppInfo
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.BuildConfig
 import com.owncloud.android.R
 import com.owncloud.android.authentication.AuthenticatorActivity
@@ -76,13 +77,12 @@ class FirstRunActivity : BaseActivity(), Injectable {
         binding = FirstRunActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_provider_or_own_installation)
         setSlideshowSize(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
 
         registerActivityResult()
         setupLoginButton()
-        setupSignupButton(isProviderOrOwnInstallationVisible)
-        setupHostOwnServerTextView(isProviderOrOwnInstallationVisible)
+        setupSignupButton(MDMConfig.showIntro(this))
+        setupHostOwnServerTextView(MDMConfig.showIntro(this))
         deleteAccountAtFirstLaunch()
         setupFeaturesViewAdapter()
         handleOnBackPressed()
@@ -90,7 +90,7 @@ class FirstRunActivity : BaseActivity(), Injectable {
 
     private fun applyDefaultTheme() {
         defaultViewThemeUtils = viewThemeUtilsFactory?.withPrimaryAsBackground()
-        defaultViewThemeUtils?.platform?.themeStatusBar(this, ColorRole.PRIMARY)
+        defaultViewThemeUtils?.platform?.colorStatusBar(this, resources.getColor(R.color.primary))
     }
 
     private fun registerActivityResult() {
@@ -207,10 +207,9 @@ class FirstRunActivity : BaseActivity(), Injectable {
     }
 
     private fun setSlideshowSize(isLandscape: Boolean) {
-        val isProviderOrOwnInstallationVisible = resources.getBoolean(R.bool.show_provider_or_own_installation)
         binding.buttonLayout.orientation = if (isLandscape) LinearLayout.HORIZONTAL else LinearLayout.VERTICAL
 
-        val layoutParams: LinearLayout.LayoutParams = if (isProviderOrOwnInstallationVisible) {
+        val layoutParams: LinearLayout.LayoutParams = if (MDMConfig.showIntro(this)) {
             LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT

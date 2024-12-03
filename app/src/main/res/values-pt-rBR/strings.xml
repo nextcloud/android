@@ -35,7 +35,7 @@
     <string name="advanced_settings">Configurações avançadas </string>
     <string name="allow_resharing">Permitir recompartilhamento</string>
     <string name="app_config_base_url_title">URL base</string>
-    <string name="app_config_proxy_host_title">Nome do host proxy</string>
+    <string name="app_config_proxy_host_title">Nome do Host do Proxy</string>
     <string name="app_config_proxy_port_title">Porta do Proxy</string>
     <string name="app_widget_description">Mostra um widget do painel</string>
     <string name="appbar_search_in">Pesquisar em %s</string>
@@ -56,7 +56,7 @@
     <string name="assistant_screen_task_delete_success_message">Tarefa excluída com sucesso</string>
     <string name="assistant_screen_task_list_error_state_message">Não foi possível buscar a lista de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Excluir tarefa</string>
-    <string name="assistant_screen_task_output_empty_text">A saída da tarefa ainda não está pronta.</string>
+    <string name="assistant_screen_task_output_empty_text">O resultado da tarefa ainda não está pronto.</string>
     <string name="assistant_screen_task_types_error_state_message">Não foi possível buscar os tipos de tarefas. Verifique sua conexão com a Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistente</string>
     <string name="assistant_screen_unknown_task_status_text">Desconhecido</string>
@@ -103,7 +103,6 @@
     <string name="autoupload_custom_folder">Configurar uma pasta personalizada</string>
     <string name="autoupload_disable_power_save_check">Desativar verificação de economia de energia</string>
     <string name="autoupload_hide_folder">Ocultar pasta</string>
-    <string name="autoupload_worker_foreground_info">Preparando upload automático</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ausente</string>
     <string name="backup_settings">Configurações de backup </string>
@@ -251,7 +250,6 @@
     <string name="downloader_download_failed_credentials_error">Download falhou, logue-se novamente</string>
     <string name="downloader_download_failed_ticker">Download falhou</string>
     <string name="downloader_download_file_not_found">Este arquivo não está mais disponível neste servidor</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Baixando %2$s</string>
     <string name="downloader_download_in_progress_ticker">Baixando…</string>
     <string name="downloader_download_succeeded_content">%1$s baixado</string>
@@ -696,7 +694,9 @@
     <string name="prefs_synced_folders_local_path_title">Pasta local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta remota</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_interval">Intervalo</string>
     <string name="prefs_two_way_sync_summary">Gerencie pastas internas para sincronização bidirecional</string>
+    <string name="prefs_two_way_sync_switch_title">Ativar sincronização bidirecional</string>
     <string name="prefs_value_theme_dark">Escuro</string>
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir o sistema</string>
@@ -737,8 +737,7 @@
     <string name="request_account_deletion">Solicitar a exclusão da conta</string>
     <string name="request_account_deletion_button">Solicitar exclusão</string>
     <string name="request_account_deletion_details">Solicitar exclusão permanente da conta pelo provedor de serviços</string>
-    <string name="reshare_not_allowed">Recompartilhamento não é permitido</string>
-    <string name="resharing_is_not_allowed">Recompartilhamento não é permitido</string>
+    <string name="resharing_is_not_allowed">Política ou permissões impedem o compartilhamento</string>
     <string name="resized_image_not_possible_download">Não há imagem redimensionada disponível. Baixar a imagem completa?</string>
     <string name="restore">Restaurar arquivo</string>
     <string name="restore_backup">Restaurar backup</string>
@@ -807,7 +806,7 @@
     <string name="share_permissions">Permissões de compartilhamento </string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversa)</string>
-    <string name="share_search">Nome, ID de nuvem federada ou endereço de e-mail...</string>
+    <string name="share_search">Nome, Federated Cloud ID ou endereço de e-mail…</string>
     <string name="share_send_new_email">Enviar novo e-mail </string>
     <string name="share_send_note">Anotação ao destinatário</string>
     <string name="share_settings">Configurações</string>
@@ -859,6 +858,7 @@
     <string name="storage_description_default">Padrão</string>
     <string name="storage_documents">Documentos</string>
     <string name="storage_downloads">Baixados</string>
+    <string name="storage_external_storage">Armazenamento externo</string>
     <string name="storage_internal_storage">Armazenamento interno</string>
     <string name="storage_movies">Filmes</string>
     <string name="storage_music">Músicas</string>
@@ -925,6 +925,10 @@
     <string name="trashbin_file_remove">Remover permanentemente</string>
     <string name="trashbin_loading_failed">Falha ao carregar a lixeira! </string>
     <string name="trashbin_not_emptied">Os arquivos não puderam ser excluídos permanentemente!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Desative para todas as pastas</string>
+    <string name="two_way_sync_activity_empty_list_desc">Para configurar uma pasta de sincronização de duas vias, ative-a na guia Detalhes da pasta em questão.</string>
+    <string name="two_way_sync_activity_empty_list_title">Sincroniza de duas maneiras não configuradas</string>
+    <string name="two_way_sync_activity_title">Sincronização interna bidirecional</string>
     <string name="unexpected_error_occurred">Ocorreu um erro inesperado</string>
     <string name="unified_search_fragment_calendar_event_not_found">Evento não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para a web…</string>
     <string name="unified_search_fragment_contact_not_found">Contato não encontrado, você sempre pode sincronizar para atualizar. Redirecionando para web…</string>
@@ -933,6 +937,7 @@
     <string name="unread_comments">Existem comentários não lidos</string>
     <string name="unset_encrypted">Definir como não criptografado</string>
     <string name="unset_favorite">Remover dos favoritos</string>
+    <string name="unset_internal_two_way_sync_description">Remova a pasta da sincronização interna de duas maneiras</string>
     <string name="unshare_link_file_error">Ocorreu um erro ao tentar descompartilhar este arquivo ou pasta.</string>
     <string name="unshare_link_file_no_exist">Não foi possível descompartilhar. Verifique se o arquivo existe.</string>
     <string name="unshare_link_forbidden_permissions">para descompartilhar este arquivo</string>
@@ -1005,7 +1010,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Manter arquivo na pasta de origem</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Excluir arquivo da pasta de origem</string>
     <string name="uploader_upload_forbidden_permissions">para enviar a esta pasta</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% enviando %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Enviando…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s enviado</string>
@@ -1059,12 +1063,22 @@
     <string name="whats_new_skip">Saltar</string>
     <string name="whats_new_title">Novo em %1$s</string>
     <string name="whats_your_status">Qual é o seu status?</string>
-    <string name="widgets_not_available">Widgets apenas estão disponíveis em %1$s 25 ou posterior</string>
+    <string name="widgets_not_available">Os widgets estão disponíveis apenas em %1$s 25 ou posterior quando o aplicativo Dashboard está ativado</string>
     <string name="widgets_not_available_title">Indisponível</string>
     <string name="worker_download">Baixando arquivos…</string>
     <string name="write_email">Enviar e-mail</string>
     <string name="wrong_storage_path">A pasta de armazenamento de dados não existe!</string>
     <string name="wrong_storage_path_desc">Isto pode ser decorrente de uma restauração de backup em outro dispositivo. Retornando ao padrão. Verifique as configurações para ajustar a pasta de armazenamento.</string>
+    <plurals name="hours">
+        <item quantity="one">%d horas</item>
+        <item quantity="many">%d horas</item>
+        <item quantity="other">%d hours</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minutos</item>
+        <item quantity="many">%d minutos</item>
+        <item quantity="other">%d ata</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Erro ao sincronizar %1$d arquivo (conflitos: %2$d)</item>
         <item quantity="many">Erro ao sincronizar %1$d arquivos (conflitos: %2$d)</item>

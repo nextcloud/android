@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.databinding.FileDetailsSharingMenuBottomSheetFragmentBinding;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
@@ -72,7 +73,10 @@ public class FileDetailSharingMenuBottomSheetDialog extends BottomSheetDialog {
     private void updateUI() {
         if (ocShare.getShareType() == ShareType.PUBLIC_LINK) {
             binding.menuShareAddAnotherLink.setVisibility(View.VISIBLE);
-            binding.menuShareSendLink.setVisibility(View.VISIBLE);
+
+            if (MDMConfig.INSTANCE.sendFilesSupport(getContext())) {
+                binding.menuShareSendLink.setVisibility(View.VISIBLE);
+            }
         } else {
             binding.menuShareAddAnotherLink.setVisibility(View.GONE);
             binding.menuShareSendLink.setVisibility(View.GONE);

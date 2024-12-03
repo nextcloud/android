@@ -13,6 +13,7 @@
     <string name="action_send_share">Küldés/megosztás</string>
     <string name="action_switch_grid_view">Rács nézet</string>
     <string name="action_switch_list_view">Lista nézet</string>
+    <string name="actionbar_calendar_contacts_restore">Névjegyek és naptár helyreállítása</string>
     <string name="actionbar_mkdir">Új mappa</string>
     <string name="actionbar_move_or_copy">Áthelyezés vagy Másolás</string>
     <string name="actionbar_open_with">Megnyitás ezzel</string>
@@ -34,6 +35,8 @@
     <string name="advanced_settings">Speciális beállítások</string>
     <string name="allow_resharing">Újra megosztás engedélyezése</string>
     <string name="app_config_base_url_title">Alap URL</string>
+    <string name="app_config_disable_clipboard_title">Vágólap letiltása</string>
+    <string name="app_config_disable_intro_title">Bevezető kikapcsolása</string>
     <string name="app_config_proxy_port_title">Proxy portja</string>
     <string name="app_widget_description">Egy modult jelenít meg a irányítópultról</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
@@ -652,14 +655,13 @@
     <string name="request_account_deletion">Fióktörlés kérése</string>
     <string name="request_account_deletion_button">Törlés kérése</string>
     <string name="request_account_deletion_details">A fiók végleges törlésének kérése a szolgáltatótól</string>
-    <string name="reshare_not_allowed">Az újra megosztás nem engedélyezett</string>
-    <string name="resharing_is_not_allowed">Az újra megosztás nem engedélyezett</string>
     <string name="resized_image_not_possible_download">Nincs elérhető átméretezett kép. Letölti a teljes képet?</string>
     <string name="restore">Fájl visszaállítása</string>
     <string name="restore_backup">Biztonsági mentés helyreállítása</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
     <string name="restore_selected">Kiválasztottak helyreállítása</string>
     <string name="retrieving_file">Fájl lekérése…</string>
+    <string name="retry">Újra</string>
     <string name="richdocuments_failed_to_load_document">A dokumentum betöltése sikertelen!</string>
     <string name="scanQR_description">Belépés QR-kóddal</string>
     <string name="scan_page">Kép szkennelése</string>
@@ -716,7 +718,6 @@
     <string name="share_permissions">Megosztási jogosultságok</string>
     <string name="share_remote_clarification">%1$s (távoli)</string>
     <string name="share_room_clarification">%1$s(beszélgetés)</string>
-    <string name="share_search">Név, egyesített felhőazonosító vagy e-mail-cím…</string>
     <string name="share_send_new_email">Új e-mail küldése</string>
     <string name="share_send_note">Jegyzet a címzettnek</string>
     <string name="share_settings">Beállítások</string>
@@ -767,6 +768,7 @@
     <string name="storage_description_default">Alapértelmezett</string>
     <string name="storage_documents">Dokumentumok</string>
     <string name="storage_downloads">Letöltések</string>
+    <string name="storage_external_storage">Külső tároló</string>
     <string name="storage_internal_storage">Belső tárhely</string>
     <string name="storage_movies">Filmek</string>
     <string name="storage_music">Zene</string>
@@ -948,7 +950,6 @@
     <string name="whats_new_skip">Kihagyás</string>
     <string name="whats_new_title">Új itt: %1$s</string>
     <string name="whats_your_status">Mi az állapota?</string>
-    <string name="widgets_not_available">A modulok csak %1$s 25 vagy újabb esetén érhetők el</string>
     <string name="widgets_not_available_title">Nem érhető el</string>
     <string name="worker_download">Fájlok letöltése…</string>
     <string name="write_email">E-mail küldése</string>

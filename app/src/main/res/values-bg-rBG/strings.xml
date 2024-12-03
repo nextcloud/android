@@ -617,8 +617,6 @@
     <string name="rename_local_fail_msg">Локалното копие не може да бъде преименувано; опитайте с друго име</string>
     <string name="rename_server_fail_msg">Сървърът не може да бъде преименуван</string>
     <string name="request_account_deletion">Заявка за изтриване на профил</string>
-    <string name="reshare_not_allowed">Повторното споделяне е забранено</string>
-    <string name="resharing_is_not_allowed">Повторното споделяне е забранено</string>
     <string name="resized_image_not_possible_download">Няма налично оразмерено изображение. Да се свали ли изображението?</string>
     <string name="restore">Възстанови файл</string>
     <string name="restore_backup">Възстановяване на архив</string>
@@ -681,7 +679,6 @@
     <string name="share_permissions">Права за споделяне</string>
     <string name="share_remote_clarification">%1$s (отдалечен)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
-    <string name="share_search">Име, Федериран/обединен/ облачен идентификатор или имейл адрес ...</string>
     <string name="share_send_new_email">Изпращане на нов имейл</string>
     <string name="share_send_note">Бележка за получателя</string>
     <string name="share_settings">Настройки</string>
@@ -732,6 +729,7 @@
     <string name="storage_description_default">Стандартно</string>
     <string name="storage_documents">Документи</string>
     <string name="storage_downloads">Сваляне</string>
+    <string name="storage_external_storage">Външно хранилище</string>
     <string name="storage_internal_storage">Вътрешна памет</string>
     <string name="storage_movies">Филми</string>
     <string name="storage_music">Музика</string>
@@ -904,7 +902,6 @@
     <string name="whats_new_skip">Пропусни</string>
     <string name="whats_new_title">Ново в %1$s</string>
     <string name="whats_your_status">Какъв е вашият статус?</string>
-    <string name="widgets_not_available">Изпълнимите модули са налични само в %1$s, 25 или по-нова версия</string>
     <string name="widgets_not_available_title">Не е наличен</string>
     <string name="worker_download">Сваляне на файлове...</string>
     <string name="write_email">Изпращане на имейл</string>

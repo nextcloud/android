@@ -35,7 +35,6 @@
     <string name="advanced_settings">고급 설정</string>
     <string name="allow_resharing">다시 공유 허용</string>
     <string name="app_config_base_url_title">기본 URL</string>
-    <string name="app_config_proxy_host_title">프록시 호스트 이름</string>
     <string name="app_config_proxy_port_title">프록시 포트</string>
     <string name="app_widget_description">대시보드에 위젯 하나만 표시</string>
     <string name="appbar_search_in">%s에서 검색</string>
@@ -102,7 +101,6 @@
     <string name="autoupload_custom_folder">사용자 정의 폴더 설정</string>
     <string name="autoupload_disable_power_save_check">에너지 절약 사용 안함</string>
     <string name="autoupload_hide_folder">폴더 숨기기</string>
-    <string name="autoupload_worker_foreground_info">자동 업로드 준비 중</string>
     <string name="avatar">아바타</string>
     <string name="away">자리 비움</string>
     <string name="backup_settings">백업 설정</string>
@@ -250,7 +248,6 @@
     <string name="downloader_download_failed_credentials_error">다운로드 실패, 다시 로그인하십시오</string>
     <string name="downloader_download_failed_ticker">다운로드 실패</string>
     <string name="downloader_download_file_not_found">이 파일을 서버에서 더 이상 사용할 수 없음</string>
-    <string name="downloader_download_in_progress">%1$d%%%2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% %2$s 다운로드 중</string>
     <string name="downloader_download_in_progress_ticker">다운로드 중…</string>
     <string name="downloader_download_succeeded_content">%1$s 다운로드됨</string>
@@ -705,14 +702,13 @@
     <string name="request_account_deletion">계정 삭제 요청</string>
     <string name="request_account_deletion_button">삭제 요청</string>
     <string name="request_account_deletion_details">서비스 제공자에게 계정 영구 삭제 요청</string>
-    <string name="reshare_not_allowed">다시 공유할 수 없음</string>
-    <string name="resharing_is_not_allowed">다시 공유할 수 없습니다</string>
     <string name="resized_image_not_possible_download">크기 조정된 사진을 사용할 수 없습니다. 원본 크기로 다운로드하시겠습니까?</string>
     <string name="restore">파일 복구</string>
     <string name="restore_backup">백업 복구</string>
     <string name="restore_button_description">삭제된 파일 복구</string>
     <string name="restore_selected">선택한 항목 복구</string>
     <string name="retrieving_file">파일 가져오는 중...</string>
+    <string name="retry">다시 시도</string>
     <string name="richdocuments_failed_to_load_document">문서를 불러올 수 없음</string>
     <string name="scanQR_description">QR 코드로 로그인</string>
     <string name="scan_page">페이지 스캔</string>
@@ -730,7 +726,6 @@
     <string name="screenshot_06_davdroid_subline">DAVx5와 동기화</string>
     <string name="search_error">검색 결과 조회 오류</string>
     <string name="secure_share_not_set_up">이 사용자에 대해 보안 공유가 설정되지 않았습니다</string>
-    <string name="secure_share_search">보안 공유 ...</string>
     <string name="select_all">모두 선택</string>
     <string name="select_media_folder">미디어 폴더 설정</string>
     <string name="select_one_template">하나의 템플릿을 선택하세요.</string>
@@ -774,7 +769,6 @@
     <string name="share_permissions">공유 권한</string>
     <string name="share_remote_clarification">%1$s(원격)</string>
     <string name="share_room_clarification">%1$s (대화)</string>
-    <string name="share_search">이름, 연합 클라우드 ID 및 이메일 주소…</string>
     <string name="share_send_new_email">새 이메일 보내기</string>
     <string name="share_send_note">받는 사람 메모</string>
     <string name="share_settings">설정</string>
@@ -826,6 +820,7 @@
     <string name="storage_description_default">기본값</string>
     <string name="storage_documents">문서</string>
     <string name="storage_downloads">다운로드</string>
+    <string name="storage_external_storage">외부 저장소</string>
     <string name="storage_internal_storage">내부 저장소</string>
     <string name="storage_movies">영화</string>
     <string name="storage_music">음악</string>
@@ -969,7 +964,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">원본 폴더에 파일 유지</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">원본 폴더에서 파일 삭제</string>
     <string name="uploader_upload_forbidden_permissions">이 폴더에 업로드할</string>
-    <string name="uploader_upload_in_progress">%1$d%%%2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% %2$s 업로드 중</string>
     <string name="uploader_upload_in_progress_ticker">업로드 중…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s 업로드 완료</string>
@@ -1023,7 +1017,6 @@
     <string name="whats_new_skip">건너뛰기</string>
     <string name="whats_new_title">%1$s의 새로운 것</string>
     <string name="whats_your_status">당신의 상태는?</string>
-    <string name="widgets_not_available">위젯 기능은 %1$s 버전 25 이후부터 사용할 수 있습니다.</string>
     <string name="widgets_not_available_title">사용할 수 없음</string>
     <string name="worker_download">파일 다운로드 중…</string>
     <string name="write_email">이메일 보내기</string>

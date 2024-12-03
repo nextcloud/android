@@ -35,7 +35,14 @@
     <string name="advanced_settings">Ardsocruithe</string>
     <string name="allow_resharing">Ceadaigh athroinnt</string>
     <string name="app_config_base_url_title">URL an bhunaigh</string>
-    <string name="app_config_proxy_host_title">Ainm Óstach Seachfhreastalaí</string>
+    <string name="app_config_disable_clipboard_title">Díchumasaigh an Ghearrthaisce</string>
+    <string name="app_config_disable_intro_title">Díchumasaigh an Réamhrá</string>
+    <string name="app_config_disable_log_title">Díchumasaigh Logáil</string>
+    <string name="app_config_disable_more_external_site_title">Díchumasaigh Suímh Sheachtracha</string>
+    <string name="app_config_disable_multiaccount_title">Díchumasaigh Ilchuntais</string>
+    <string name="app_config_disable_sharing_title">Díchumasaigh Roinnt</string>
+    <string name="app_config_enforce_protection_title">Cosaint a Fhorfheidhmiú</string>
+    <string name="app_config_proxy_host_title">Óstainm Seachfhreastalaí</string>
     <string name="app_config_proxy_port_title">Port Seachfhreastalaí</string>
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
     <string name="appbar_search_in">Cuardaigh i %s</string>
@@ -56,7 +63,7 @@
     <string name="assistant_screen_task_delete_success_message">D\'éirigh leis an tasc a scriosadh</string>
     <string name="assistant_screen_task_list_error_state_message">Ní féidir liosta tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Scrios Tasc</string>
-    <string name="assistant_screen_task_output_empty_text">Níl an t-aschur taisc réidh fós.</string>
+    <string name="assistant_screen_task_output_empty_text">Níl an t-aschur tasc réidh fós.</string>
     <string name="assistant_screen_task_types_error_state_message">Ní féidir cineálacha tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_top_bar_title">Cúntóir</string>
     <string name="assistant_screen_unknown_task_status_text">Anaithnid</string>
@@ -103,7 +110,6 @@
     <string name="autoupload_custom_folder">Socraigh fillteán saincheaptha</string>
     <string name="autoupload_disable_power_save_check">Díchumasaigh seiceáil sábhála cumhachta</string>
     <string name="autoupload_hide_folder">Folaigh fillteán</string>
-    <string name="autoupload_worker_foreground_info">Ullmhú uathoibríoch íoslódáil</string>
     <string name="avatar">Avatar</string>
     <string name="away">Amach</string>
     <string name="backup_settings">Socruithe cúltaca</string>
@@ -251,7 +257,6 @@
     <string name="downloader_download_failed_credentials_error">Theip ar an íoslódáil, logáil isteach arís</string>
     <string name="downloader_download_failed_ticker">Theip ar an íoslódáil</string>
     <string name="downloader_download_file_not_found">Níl an comhad ar fáil ar an bhfreastalaí a thuilleadh</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Ag íosluchtú %2$s</string>
     <string name="downloader_download_in_progress_ticker">Ag íosluchtú…</string>
     <string name="downloader_download_succeeded_content">%1$s íoslódáilte</string>
@@ -364,6 +369,7 @@
     <string name="file_already_exists">Tá ainm an chomhaid ann cheana</string>
     <string name="file_delete">Scrios</string>
     <string name="file_detail_activity_error">Earráid agus gníomhaíochtaí á aisghabháil don chomhad</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Níl aip ar fáil chun teagmhálaithe a roghnú</string>
     <string name="file_details_no_content">Theip ar lódáil na sonraí</string>
     <string name="file_icon">Comhad</string>
     <string name="file_keep">Coinnigh</string>
@@ -391,6 +397,7 @@
     <string name="file_management_permission_optional">Ceadanna stórála</string>
     <string name="file_management_permission_optional_text">Is fearr a oibríonn %1$s le ceadanna chun an stóras a rochtain. Is féidir leat rochtain iomlán a roghnú ar gach comhad, nó rochtain inléite amháin ar ghrianghraif agus físeáin.</string>
     <string name="file_management_permission_text">Teastaíonn cead bainistíochta comhad ó %1$s chun comhaid a uaslódáil. Is féidir leat rochtain iomlán a roghnú ar gach comhad, nó rochtain inléite amháin ar ghrianghraif agus físeáin.</string>
+    <string name="file_migration_allow_media_indexing">Ceadaigh rochtain ó aipeanna eile</string>
     <string name="file_migration_checking_destination">Ceann scríbe á sheiceáil…</string>
     <string name="file_migration_cleaning">Glanadh…</string>
     <string name="file_migration_dialog_title">Fillteán stórála sonraí á nuashonrú</string>
@@ -401,6 +408,7 @@
     <string name="file_migration_failed_not_writable">Níorbh fhéidir scríobh chuig an gcomhad sprice</string>
     <string name="file_migration_failed_while_coping">Theip air le linn imirce</string>
     <string name="file_migration_failed_while_updating_index">Theip ar nuashonrú an innéacs</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Sonraí á mbogadh…</string>
     <string name="file_migration_ok_finished">Críochnaithe</string>
     <string name="file_migration_override_data_folder">Ionadaigh</string>
@@ -596,6 +604,7 @@
     <string name="notifications_no_results_headline">Gan fógraí</string>
     <string name="notifications_no_results_message">Seiceáil ar ais ar ball le do thoil.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Oibríocht ar Feitheamh</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Ar Feitheamh Bain Oibríocht</string>
     <string name="offline_mode">Gan nasc idirlín</string>
     <string name="offline_mode_info_description">Fiú gan nasc idirlín, is féidir leat do fhillteáin a eagrú, comhaid a chruthú. Nuair a bheidh tú ar ais ar líne, déanfar do ghníomhartha ar feitheamh a shioncronú go huathoibríoch.</string>
     <string name="offline_mode_info_title">Tá tú As Líne, Ach Leanann an Obair ar aghaidh</string>
@@ -658,6 +667,8 @@
     <string name="prefs_category_sync">Sioncrónaigh</string>
     <string name="prefs_daily_backup_summary">Cúltaca laethúil de do fhéilire agus do theagmhálaithe</string>
     <string name="prefs_daily_contact_backup_summary">Cúltaca laethúil de do theagmhálaithe</string>
+    <string name="prefs_data_storage_location">Suíomh stórála sonraí</string>
+    <string name="prefs_data_storage_location_summary">Bainistigh suíomh stórála sonraí</string>
     <string name="prefs_davx5_setup_error">Earráid gan choinne agus DAVx5 á shocrú (ar a dtugtaí DAVdroid roimhe seo)</string>
     <string name="prefs_e2e_active">Tá criptiú ceann go ceann socraithe!</string>
     <string name="prefs_e2e_mnemonic">Cuimhneachán E2E</string>
@@ -696,7 +707,9 @@
     <string name="prefs_synced_folders_local_path_title">Fillteán áitiúil</string>
     <string name="prefs_synced_folders_remote_path_title">Fillteán cianda</string>
     <string name="prefs_theme_title">Téama</string>
+    <string name="prefs_two_way_sync_interval">Eatramh</string>
     <string name="prefs_two_way_sync_summary">Bainistigh fillteáin inmheánacha le haghaidh sioncronaithe dhá bhealach</string>
+    <string name="prefs_two_way_sync_switch_title">Cumasaigh sioncronú dhá bhealach</string>
     <string name="prefs_value_theme_dark">Dorcha</string>
     <string name="prefs_value_theme_light">Solas</string>
     <string name="prefs_value_theme_system">Lean an córas</string>
@@ -737,8 +750,7 @@
     <string name="request_account_deletion">Iarr ar scriosadh an chuntais</string>
     <string name="request_account_deletion_button">Iarr scriosadh</string>
     <string name="request_account_deletion_details">Iarr ar sholáthraí seirbhíse scriosadh buan an chuntais</string>
-    <string name="reshare_not_allowed">Ní cheadaítear athroinnt</string>
-    <string name="resharing_is_not_allowed">Ní cheadaítear athroinnt</string>
+    <string name="resharing_is_not_allowed">Cuireann beartais nó ceadanna cosc ​​ar athroinnt</string>
     <string name="resized_image_not_possible_download">Níl aon íomhá athraithe ar fáil. Íoslódáil an íomhá iomlán?</string>
     <string name="restore">Athchóirigh comhad</string>
     <string name="restore_backup">Athchóirigh cúltaca</string>
@@ -763,7 +775,7 @@
     <string name="screenshot_06_davdroid_subline">Sioncrónaigh le DAVx5</string>
     <string name="search_error">Earráid agus torthaí cuardaigh á bhfáil</string>
     <string name="secure_share_not_set_up">Níl comhroinnt shlán socraithe don úsáideoir seo</string>
-    <string name="secure_share_search">Roinn slán…</string>
+    <string name="secure_share_search">Comhroinn slán…</string>
     <string name="select_all">Roghnú go léir</string>
     <string name="select_media_folder">Socraigh fillteán meáin</string>
     <string name="select_one_template">Roghnaigh teimpléad amháin le do thoil</string>
@@ -859,6 +871,7 @@
     <string name="storage_description_default">Réamhshocrú</string>
     <string name="storage_documents">Doiciméid</string>
     <string name="storage_downloads">Íoslódálacha</string>
+    <string name="storage_external_storage">Stóráil sheachtrach</string>
     <string name="storage_internal_storage">Stóráil inmheánach</string>
     <string name="storage_movies">Scannáin</string>
     <string name="storage_music">Ceol</string>
@@ -925,6 +938,10 @@
     <string name="trashbin_file_remove">Scrios go buan</string>
     <string name="trashbin_loading_failed">Theip ar lódáil an bhosca bruscair!</string>
     <string name="trashbin_not_emptied">Níorbh fhéidir na comhaid a scriosadh go buan!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Díchumasaigh do gach fillteán</string>
+    <string name="two_way_sync_activity_empty_list_desc">Chun fillteán sioncronaithe dhá bhealach a shocrú, cumasaigh é i gcluaisín sonraí an fhillteáin atá i gceist.</string>
+    <string name="two_way_sync_activity_empty_list_title">Sioncronú dhá bhealach gan socrú</string>
+    <string name="two_way_sync_activity_title">Sioncronú inmheánach dhá bhealach</string>
     <string name="unexpected_error_occurred">Tharla earráid gan choinne</string>
     <string name="unified_search_fragment_calendar_event_not_found">Níor aimsíodh an t-imeacht, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
     <string name="unified_search_fragment_contact_not_found">Níor aimsíodh an teagmhálaí, is féidir leat sioncronú a dhéanamh i gcónaí chun nuashonrú a dhéanamh. Á atreorú chuig an ngréasán…</string>
@@ -1006,7 +1023,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Coinnigh an comhad san fhillteán foinse</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Scrios an comhad as an bhfillteán foinse</string>
     <string name="uploader_upload_forbidden_permissions">a uaslódáil chuig an bhfillteán seo</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% %2$s á uaslódáil</string>
     <string name="uploader_upload_in_progress_ticker">Á uaslódáil…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uaslódáilte</string>
@@ -1053,6 +1069,7 @@
     <string name="wait_a_moment">Fan nóiméad…</string>
     <string name="wait_checking_credentials">Dintiúir stóráilte a sheiceáil</string>
     <string name="wait_for_tmp_copy_from_private_storage">Comhad á chóipeáil ó stór príobháideach</string>
+    <string name="warn_rename_extension">Seans go n-osclóidh an comhad seo i bhfeidhmchlár eile má athraítear an síneadh ama</string>
     <string name="webview_version_check_alert_dialog_message">Nuashonraigh an aip Android System WebView le haghaidh logáil isteach</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Nuashonrú</string>
     <string name="webview_version_check_alert_dialog_title">Nuashonraigh Android System WebView</string>
@@ -1060,12 +1077,26 @@
     <string name="whats_new_skip">Scipeáil</string>
     <string name="whats_new_title">Nua i %1$s</string>
     <string name="whats_your_status">Cad é do stádas?</string>
-    <string name="widgets_not_available">Níl giuirléidí ar fáil ach ar %1$s 25 nó níos déanaí</string>
+    <string name="widgets_not_available">Níl giuirléidí ar fáil ach i %1$s 25 nó níos déanaí nuair atá an aip Deais cumasaithe</string>
     <string name="widgets_not_available_title">Níl sé ar fáil</string>
     <string name="worker_download">Comhaid á n-íoslódáil…</string>
     <string name="write_email">Seol ríomhphost</string>
     <string name="wrong_storage_path">Níl fillteán stórála sonraí ann!</string>
     <string name="wrong_storage_path_desc">D\'fhéadfadh sé seo a bheith mar gheall ar aischur cúltaca ar ghléas eile. Ag titim ar ais go réamhshocraithe. Seiceáil le do thoil socruithe chun fillteán stórála sonraí a choigeartú.</string>
+    <plurals name="hours">
+        <item quantity="one">%d uair</item>
+        <item quantity="two">%d uair an chloig</item>
+        <item quantity="few">%d uair an chloig</item>
+        <item quantity="many">%d uair an chloig</item>
+        <item quantity="other">%d uair an chloig</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d nóiméad</item>
+        <item quantity="two">%d nóiméad</item>
+        <item quantity="few">%d nóiméad</item>
+        <item quantity="many">%d nóiméad</item>
+        <item quantity="other">%d nóiméad</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Níorbh fhéidir comhad %1$d a shioncronú (coimhlint: %2$d)</item>
         <item quantity="two">Níorbh fhéidir %1$d comhad a shioncronú (coimhlint: %2$d)</item>

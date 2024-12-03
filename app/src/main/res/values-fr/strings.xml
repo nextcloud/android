@@ -11,8 +11,8 @@
     <string name="action_empty_notifications">Effacer toutes les notifications</string>
     <string name="action_empty_trashbin">Vider la corbeille</string>
     <string name="action_send_share">Envoyer / Partager</string>
-    <string name="action_switch_grid_view">Affichage mosaïque</string>
-    <string name="action_switch_list_view">Affichage liste</string>
+    <string name="action_switch_grid_view">Vue en grille</string>
+    <string name="action_switch_list_view">Vue en liste</string>
     <string name="actionbar_calendar_contacts_restore">Restaurer les contacts et l\'agenda</string>
     <string name="actionbar_mkdir">Nouveau dossier</string>
     <string name="actionbar_move_or_copy">Déplacer ou copier</string>
@@ -35,7 +35,13 @@
     <string name="advanced_settings">Paramètres avancés</string>
     <string name="allow_resharing">Autoriser le repartage</string>
     <string name="app_config_base_url_title">URL de base</string>
-    <string name="app_config_proxy_host_title">Nom de l\'hôte du proxy</string>
+    <string name="app_config_disable_clipboard_title">Désactiver le Presse-papiers</string>
+    <string name="app_config_disable_intro_title">Désactiver l\'introduction</string>
+    <string name="app_config_disable_log_title">Désactiver les logs</string>
+    <string name="app_config_disable_more_external_site_title">Désactiver les sites externes</string>
+    <string name="app_config_disable_multiaccount_title">Désactiver le Multi-comptes</string>
+    <string name="app_config_disable_sharing_title">Désactiver le partage</string>
+    <string name="app_config_proxy_host_title">Nom d\'hôte du proxy</string>
     <string name="app_config_proxy_port_title">Port Proxy</string>
     <string name="app_widget_description">Affiche un widget du tableau de bord</string>
     <string name="appbar_search_in">Recherche dans %s</string>
@@ -103,7 +109,6 @@
     <string name="autoupload_custom_folder">Définir un dossier personnalisé</string>
     <string name="autoupload_disable_power_save_check">Désactiver l\'économie de batterie</string>
     <string name="autoupload_hide_folder">Masquer le dossier</string>
-    <string name="autoupload_worker_foreground_info">Préparation du téléversement automatique</string>
     <string name="avatar">Avatar</string>
     <string name="away">Absent</string>
     <string name="backup_settings">Paramètres de sauvegarde</string>
@@ -251,7 +256,6 @@
     <string name="downloader_download_failed_credentials_error">Téléchargement échoué, reconnectez-vous</string>
     <string name="downloader_download_failed_ticker">Le téléchargement a échoué</string>
     <string name="downloader_download_file_not_found">Ce fichier n\'est plus disponible sur le serveur</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">Téléchargement de %2$s : %1$d%% effectués</string>
     <string name="downloader_download_in_progress_ticker">Téléchargement…</string>
     <string name="downloader_download_succeeded_content">%1$s reçu</string>
@@ -364,6 +368,7 @@
     <string name="file_already_exists">Ce nom de fichier existe déjà</string>
     <string name="file_delete">Supprimer</string>
     <string name="file_detail_activity_error">Erreur lors de la récupération de l\'activité du fichier</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Aucune application disponible pour sélectionner des contacts</string>
     <string name="file_details_no_content">Impossible de charger les détails</string>
     <string name="file_icon">Fichier</string>
     <string name="file_keep">Conserver</string>
@@ -391,6 +396,7 @@
     <string name="file_management_permission_optional">Autorisations d\'accès au stockage</string>
     <string name="file_management_permission_optional_text">%1$s fonctionne mieux avec les autorisations d\'accès au stockage. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
     <string name="file_management_permission_text">%1$s a besoin d\'autorisations concernant la gestion des fichiers afin de téléverser des fichiers. Vous pouvez choisir un accès complet à tous les fichiers ou un accès en lecture seule aux photos et vidéos.</string>
+    <string name="file_migration_allow_media_indexing">Autoriser l\'accès à partir d\'autres applications</string>
     <string name="file_migration_checking_destination">Vérification de la destination…</string>
     <string name="file_migration_cleaning">Nettoyage…</string>
     <string name="file_migration_dialog_title">Mise à jour du dossier de stockage des données</string>
@@ -401,6 +407,7 @@
     <string name="file_migration_failed_not_writable">Le fichier de destination n\'est pas modifiable</string>
     <string name="file_migration_failed_while_coping">Échec lors de la migration</string>
     <string name="file_migration_failed_while_updating_index">Échec lors de la mise à jour de l\'index</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Déplacement des données…</string>
     <string name="file_migration_ok_finished">Terminé</string>
     <string name="file_migration_override_data_folder">Remplacer</string>
@@ -596,6 +603,7 @@
     <string name="notifications_no_results_headline">Aucune notification</string>
     <string name="notifications_no_results_message">Veuillez revenir plus tard.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Opération en attente</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Opération de suppression en attente</string>
     <string name="offline_mode">Aucune connexion Internet</string>
     <string name="offline_mode_info_description">Même sans connexion Internet, vous pouvez organiser vos dossiers, créer des fichiers. Dès que vous êtes de nouveau en ligne, vos actions en cours sont automatiquement synchronisées.</string>
     <string name="offline_mode_info_title">Vous êtes hors ligne, mais le travail continue</string>
@@ -658,6 +666,8 @@
     <string name="prefs_category_sync">Synchroniser</string>
     <string name="prefs_daily_backup_summary">Sauvegarde quotidienne de votre agenda et des contacts</string>
     <string name="prefs_daily_contact_backup_summary">Sauvegarde quotidienne de vos contacts</string>
+    <string name="prefs_data_storage_location">Emplacement de stockage des données</string>
+    <string name="prefs_data_storage_location_summary">Gérer l\'emplacement de stockage des données</string>
     <string name="prefs_davx5_setup_error">Erreur inattendue lors de la configuration de DAVx5 (anciennement connu sous le nom de DAVdroid)</string>
     <string name="prefs_e2e_active">Le chiffrement de bout en bout est configuré !</string>
     <string name="prefs_e2e_mnemonic">Phrase secrète E2E</string>
@@ -696,7 +706,9 @@
     <string name="prefs_synced_folders_local_path_title">Dossier local</string>
     <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
     <string name="prefs_theme_title">Thème</string>
+    <string name="prefs_two_way_sync_interval">Intervalle</string>
     <string name="prefs_two_way_sync_summary">Gestion les dossiers internes pour une synchronisation bidirectionnelle</string>
+    <string name="prefs_two_way_sync_switch_title">Activer la synchronisation bidirectionnelle</string>
     <string name="prefs_value_theme_dark">Sombre</string>
     <string name="prefs_value_theme_light">Clair</string>
     <string name="prefs_value_theme_system">Selon le système</string>
@@ -737,8 +749,7 @@
     <string name="request_account_deletion">Demander la suppression du compte</string>
     <string name="request_account_deletion_button">Demander la suppression</string>
     <string name="request_account_deletion_details">Demander la suppression permanente du compte par le fournisseur de services</string>
-    <string name="reshare_not_allowed">Le repartage n\'est pas autorisé</string>
-    <string name="resharing_is_not_allowed">Le repartage est interdit</string>
+    <string name="resharing_is_not_allowed">La réglementation ou les autorisations empêchent le re-partage</string>
     <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
     <string name="restore">Restaurer le fichier</string>
     <string name="restore_backup">Restaurer une sauvegarde</string>
@@ -807,7 +818,7 @@
     <string name="share_permissions">Autorisations pour le partage</string>
     <string name="share_remote_clarification">%1$s (distant)</string>
     <string name="share_room_clarification">%1$s (conversation)</string>
-    <string name="share_search">Nom, ID de Cloud Fédéré ou adresse e-mail…</string>
+    <string name="share_search">Nom, identifiant de Cloud fédéré ou adresse e-mail…</string>
     <string name="share_send_new_email">Envoyer un nouvel e-mail</string>
     <string name="share_send_note">Note au destinataire</string>
     <string name="share_settings">Paramètres</string>
@@ -859,6 +870,7 @@
     <string name="storage_description_default">Défaut</string>
     <string name="storage_documents">Documents</string>
     <string name="storage_downloads">Téléchargements</string>
+    <string name="storage_external_storage">Stockage externe</string>
     <string name="storage_internal_storage">Stockage interne</string>
     <string name="storage_movies">Vidéos</string>
     <string name="storage_music">Musique</string>
@@ -925,6 +937,10 @@
     <string name="trashbin_file_remove">Supprimer définitivement</string>
     <string name="trashbin_loading_failed">Le chargement de la corbeille a échoué !</string>
     <string name="trashbin_not_emptied">Des fichiers n\'ont pas pu être supprimés de manière définitive !</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Désactiver pour tous les dossiers</string>
+    <string name="two_way_sync_activity_empty_list_desc">Pour configurer un dossier de synchronisation bidirectionnelle, veuillez l\'activer dans l\'onglet détails du dossier en question.</string>
+    <string name="two_way_sync_activity_empty_list_title">La synchronisation bidirectionnelle n\'est pas configurée</string>
+    <string name="two_way_sync_activity_title">Synchronisation interne bidirectionnelle</string>
     <string name="unexpected_error_occurred">Une erreur est survenue</string>
     <string name="unified_search_fragment_calendar_event_not_found">Événement introuvable; vous pouvez toujours synchroniser pour mettre à jour. Redirection au web…</string>
     <string name="unified_search_fragment_contact_not_found">Contact introuvable, vous pouvez toujours synchroniser pour mettre à jour. Redirection au web...</string>
@@ -1006,7 +1022,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Conserver le fichier dans le dossier original</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Supprimer le fichier du dossier original</string>
     <string name="uploader_upload_forbidden_permissions">d\'envoyer dans ce dossier</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">Téléversement de %2$s : %1$d%%</string>
     <string name="uploader_upload_in_progress_ticker">Téléversement en cours…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s téléversé</string>
@@ -1060,12 +1075,22 @@
     <string name="whats_new_skip">Ignorer</string>
     <string name="whats_new_title">Nouveautés dans %1$s</string>
     <string name="whats_your_status">Quel est votre statut ?</string>
-    <string name="widgets_not_available">Les widgets ne sont disponibles que sur %1$s 25 ou plus tard</string>
+    <string name="widgets_not_available">Les widgets ne sont disponibles que dans %1$s 25 ou supérieur lorsque l\'application Dashboard est activée</string>
     <string name="widgets_not_available_title">Non disponible</string>
     <string name="worker_download">Téléchargement des fichiers…</string>
     <string name="write_email">Envoyer un e-mail</string>
     <string name="wrong_storage_path">Le dossier de stockage des données n\'existe pas !</string>
     <string name="wrong_storage_path_desc">Cela peut être dû à une restauration de sauvegarde sur un autre appareil. Retour aux valeurs par défaut. Veuillez vérifier les paramètres pour ajuster le chemin de stockage.</string>
+    <plurals name="hours">
+        <item quantity="one">%d heure</item>
+        <item quantity="many">%d heures</item>
+        <item quantity="other">%d heures</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minute</item>
+        <item quantity="many">%d minutes</item>
+        <item quantity="other">%d minutes</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
         <item quantity="many">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>

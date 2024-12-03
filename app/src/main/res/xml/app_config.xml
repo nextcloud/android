@@ -25,4 +25,46 @@
         android:restrictionType="string"
         android:title="@string/app_config_base_url_title" />
 
+    <restriction
+        android:key="disable_multiaccount"
+        android:defaultValue="false"
+        android:restrictionType="bool"
+        android:title="@string/app_config_disable_multiaccount_title" />
+
+    <restriction
+        android:key="disable_sharing"
+        android:defaultValue="false"
+        android:restrictionType="bool"
+        android:title="@string/app_config_disable_sharing_title" />
+
+    <restriction
+        android:key="disable_clipboard"
+        android:defaultValue="false"
+        android:restrictionType="bool"
+        android:title="@string/app_config_disable_clipboard_title" />
+
+    <restriction
+        android:key="disable_more_external_site"
+        android:defaultValue="false"
+        android:restrictionType="bool"
+        android:title="@string/app_config_disable_more_external_site_title" />
+
+    <restriction
+        android:key="disable_intro"
+        android:defaultValue="false"
+        android:restrictionType="bool"
+        android:title="@string/app_config_disable_intro_title" />
+
+    <restriction
+        android:key="disable_log"
+        android:defaultValue="true"
+        android:restrictionType="bool"
+        android:title="@string/app_config_disable_log_title" />
+
+    <restriction
+        android:key="enforce_protection"
+        android:defaultValue="false"
+        android:restrictionType="bool"
+        android:title="@string/app_config_enforce_protection_title" />
+
 </restrictions>

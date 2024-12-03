@@ -9,7 +9,7 @@ name: tests-stable
 
 steps:
   - name: gplay
-    image: ghcr.io/nextcloud/continuous-integration-android8:3
+    image: ghcr.io/nextcloud/continuous-integration-android8:4
     privileged: true
     environment:
       LOG_USERNAME:
@@ -55,7 +55,7 @@ services:
       - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/end_to_end_encryption.git /var/www/html/apps/end_to_end_encryption/"
       - su www-data -c "php /var/www/html/occ app:enable end_to_end_encryption"
       - su www-data -c "git clone --depth 1 -b $SERVER_VERSION https://github.com/nextcloud/photos.git /var/www/html/apps/photos/"
-      - su www-data -c "cd /var/www/html/apps/photos; composer install"
+      - su www-data -c "cd /var/www/html/apps/photos; composer install --no-dev"
       - su www-data -c "php /var/www/html/occ app:enable -f photos"
       - /usr/local/bin/run.sh
 
@@ -113,7 +113,7 @@ services:
       - su www-data -c "git clone --depth 1 -b master https://github.com/nextcloud/end_to_end_encryption/  /var/www/html/apps/end_to_end_encryption/"
       - su www-data -c "php /var/www/html/occ app:enable end_to_end_encryption"
       - su www-data -c "git clone --depth 1 https://github.com/nextcloud/photos.git /var/www/html/apps/photos/"
-      - su www-data -c "cd /var/www/html/apps/photos; composer install"
+      - su www-data -c "cd /var/www/html/apps/photos; composer install --no-dev"
       - su www-data -c "php /var/www/html/occ app:enable -f photos"
       - /usr/local/bin/run.sh
 
@@ -132,7 +132,7 @@ name: allScreenshots
 
 steps:
   - name: runAllScreenshots
-    image: ghcr.io/nextcloud/continuous-integration-android8:3
+    image: ghcr.io/nextcloud/continuous-integration-android8:4
     privileged: true
     environment:
       GIT_USERNAME:
@@ -183,6 +183,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: a659f1f06a609743077c77b6a07a369e55db67adbd8343fc027ac1c9473d1a43
+hmac: f0d3fa25f7f901e8b3deacec52db0d5a81f05f7d4f13af27c633ad712ecdbc4d
 
 ...

@@ -11,6 +11,8 @@
 package com.owncloud.android.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
@@ -19,6 +21,7 @@ import android.webkit.MimeTypeMap;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
+import com.owncloud.android.datamodel.ThumbnailsCacheManager;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -95,9 +98,12 @@ public final class MimeTypeUtil {
         if (context != null) {
             int iconId = MimeTypeUtil.getFileTypeIconId(mimetype, filename);
             Drawable icon = ContextCompat.getDrawable(context, iconId);
+            if (icon == null) {
+                return null;
+            }
 
             if (R.drawable.file_zip == iconId) {
-                viewThemeUtils.platform.tintPrimaryDrawable(context, icon);
+                viewThemeUtils.platform.tintDrawable(context, icon, ColorRole.PRIMARY);
             }
 
             return icon;
@@ -141,6 +147,45 @@ public final class MimeTypeUtil {
         return determineIconIdByMimeTypeList(possibleMimeTypes);
     }
 
+    /**
+     * Returns a drawable representing a file or folder.
+     * <p>
+     *
+     * - For folders: Returns a folder icon. If an overlay is needed, it includes an overlay icon on the folder.
+     *
+     * <p>
+     * - For files: Returns the file's thumbnail if it exists. Otherwise, it provides a thumbnail based on the file's MIME type.
+     *
+     * @return A drawable for the file or folder.
+     */
+    public static Drawable getOCFileIcon(OCFile file, Context context, ViewThemeUtils viewThemeUtils, boolean isAutoUpload, boolean isDarkModeActive) {
+        if (file.isFolder()) {
+            Integer overlayIconId = file.getFileOverlayIconId(isAutoUpload);
+            return MimeTypeUtil.getFolderIcon(isDarkModeActive, overlayIconId, context, viewThemeUtils);
+        }
+
+        if (!(MimeTypeUtil.isImage(file) || MimeTypeUtil.isVideo(file)) || file.getRemoteId() == null) {
+            return MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
+        }
+
+        Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.getRemoteId());
+        if (thumbnail == null || file.isUpdateThumbnailNeeded()) {
+            return MimeTypeUtil.getFileTypeIcon(file.getMimeType(), file.getFileName(), context, viewThemeUtils);
+        }
+
+        Drawable background = new BitmapDrawable(context.getResources(), thumbnail);
+        if (!MimeTypeUtil.isVideo(file)) {
+            return background;
+        }
+
+        Drawable videoOverlay = ContextCompat.getDrawable(context, R.drawable.video_white);
+        if (videoOverlay == null) {
+            return background;
+        }
+
+        return DrawableUtil.INSTANCE.addDrawableAsOverlay(background, videoOverlay);
+    }
+
     public static Drawable getDefaultFolderIcon(Context context, ViewThemeUtils viewThemeUtils) {
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.folder);
         assert(drawable != null);
@@ -149,7 +194,7 @@ public final class MimeTypeUtil {
         return drawable;
     }
 
-    public static LayerDrawable getFileIcon(Boolean isDarkModeActive, Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
+    public static LayerDrawable getFolderIcon(boolean isDarkModeActive, Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
         Drawable folderDrawable = getDefaultFolderIcon(context, viewThemeUtils);
         assert(folderDrawable != null);
 
@@ -159,16 +204,14 @@ public final class MimeTypeUtil {
             return folderLayerDrawable;
         }
 
-        DrawableUtil drawableUtil = new DrawableUtil();
-
         Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
         assert(overlayDrawable != null);
 
         if (isDarkModeActive) {
-            overlayDrawable = drawableUtil.changeColor(overlayDrawable, R.color.dark);
+            overlayDrawable = DrawableUtil.INSTANCE.changeColor(overlayDrawable, R.color.dark);
         }
 
-        return drawableUtil.addDrawableAsOverlay(folderDrawable, overlayDrawable);
+        return DrawableUtil.INSTANCE.addDrawableAsOverlay(folderDrawable, overlayDrawable);
     }
 
     /**

@@ -300,6 +300,14 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             sut.storageManager.saveFile(this)
         }
 
+        OCFile("/offlineOperation/").apply {
+            mimeType = MimeType.DIRECTORY
+            decryptedRemotePath = "/offlineOperation/"
+            modificationTimestamp = System.currentTimeMillis()
+            parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
+            sut.storageManager.saveFile(this)
+        }
+
         sut.addFragment(fragment)
 
         shortSleep()

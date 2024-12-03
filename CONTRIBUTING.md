@@ -198,7 +198,7 @@ Source code of app:
  XML (layout) file:
  ```xml
 <!--
-  ~ Nextcloud Talk - Android Client
+  ~ Nextcloud - Android Client
   ~ 
   ~ SPDX-FileCopyrightText: 2024 Your name <your@email.com>
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only

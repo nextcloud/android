@@ -22,11 +22,11 @@ import android.app.Application;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.RestrictionsManager;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -62,6 +62,7 @@ import com.nextcloud.client.preferences.DarkMode;
 import com.nextcloud.receiver.NetworkChangeListener;
 import com.nextcloud.receiver.NetworkChangeReceiver;
 import com.nextcloud.utils.extensions.ContextExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.authentication.PassCodeManager;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -87,7 +88,6 @@ import com.owncloud.android.utils.FilesSyncHelper;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.ReceiversHelper;
 import com.owncloud.android.utils.SecurityUtils;
-import com.owncloud.android.utils.appConfig.AppConfigManager;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import org.conscrypt.Conscrypt;
@@ -198,8 +198,6 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
     @SuppressWarnings("unused")
     private boolean mBound;
-
-    private AppConfigManager appConfigManager;
 
     private static AppComponent appComponent;
 
@@ -326,16 +324,14 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
         fixStoragePath();
 
+        checkCancelDownloadJobs();
+
         MainApp.storagePath = preferences.getStoragePath(getApplicationContext().getFilesDir().getAbsolutePath());
 
         OwnCloudClientManagerFactory.setUserAgent(getUserAgent());
 
         if (isClientBrandedPlus()) {
-            RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-            appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
-            appConfigManager.setProxyConfig(isClientBrandedPlus());
-
-            // Listen app config changes
+            setProxyConfig();
             ContextExtensionsKt.registerBroadcastReceiver(this, restrictionsReceiver, restrictionsFilter, ReceiverFlag.NotExported);
         } else {
             setProxyForNonBrandedPlusClients();
@@ -344,8 +340,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
 
-
-        if (BuildConfig.DEBUG || getApplicationContext().getResources().getBoolean(R.bool.logger_enabled)) {
+        if (MDMConfig.INSTANCE.isLogEnabled(this)) {
             // use app writable dir, no permissions needed
             Log_OC.setLoggerImplementation(new LegacyLoggerAdapter(logger));
             Log_OC.d("Debug", "start logging");
@@ -375,13 +370,29 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             backgroundJobManager.scheduleMediaFoldersDetectionJob();
             backgroundJobManager.startMediaFoldersDetectionJob();
             backgroundJobManager.schedulePeriodicHealthStatus();
-            backgroundJobManager.scheduleInternal2WaySync();
+
+            if (preferences.isTwoWaySyncEnabled()) {
+                backgroundJobManager.scheduleInternal2WaySync(preferences.getTwoWaySyncInterval());
+            }
+
             backgroundJobManager.startPeriodicallyOfflineOperation();
         }
 
         registerGlobalPassCodeProtection();
         networkChangeReceiver = new NetworkChangeReceiver(this, connectivityService);
         registerNetworkChangeReceiver();
+
+        if (!MDMConfig.INSTANCE.sendFilesSupport(this)) {
+            disableDocumentsStorageProvider();
+        }
+     }
+
+    public void disableDocumentsStorageProvider() {
+        String packageName = getPackageName();
+        String providerClassName = "com.owncloud.android.providers.DocumentsStorageProvider";
+        ComponentName componentName = new ComponentName(packageName, providerClassName);
+        PackageManager packageManager = getPackageManager();
+        packageManager.setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
     }
 
     private final LifecycleEventObserver lifecycleEventObserver = ((lifecycleOwner, event) -> {
@@ -391,8 +402,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             passCodeManager.setCanAskPin(true);
             Log_OC.d(TAG, "APP IN BACKGROUND");
         } else if (event == Lifecycle.Event.ON_RESUME) {
-            if (appConfigManager == null) return;
-            appConfigManager.setProxyConfig(isClientBrandedPlus());
+            setProxyConfig();
             Log_OC.d(TAG, "APP ON RESUME");
         }
     });
@@ -414,10 +424,33 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
 
     private final BroadcastReceiver restrictionsReceiver = new BroadcastReceiver() {
         @Override public void onReceive(Context context, Intent intent) {
-            if (appConfigManager == null) return;
-            appConfigManager.setProxyConfig(isClientBrandedPlus());
+            setProxyConfig();
         }
     };
+
+    private void setProxyConfig() {
+        if (!isClientBrandedPlus()) {
+            Log_OC.d(TAG, "Proxy configuration cannot be set. Client is not branded plus.");
+            return;
+        }
+
+        String host = MDMConfig.INSTANCE.getHost(this);
+        int port = MDMConfig.INSTANCE.getPort(this);
+
+        if (TextUtils.isEmpty(host) || port == -1) {
+            Log_OC.d(TAG, "Proxy configuration cannot be found");
+            return;
+        }
+
+        try {
+            OwnCloudClientManagerFactory.setProxyHost(host);
+            OwnCloudClientManagerFactory.setProxyPort(port);
+
+            Log_OC.d(TAG, "Proxy configuration successfully set");
+        } catch (Resources.NotFoundException e) {
+            Log_OC.e(TAG, "Proxy config cannot able to set due to: $e");
+        }
+    }
 
     private void registerGlobalPassCodeProtection() {
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
@@ -561,6 +594,13 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
                                        .detectLeakedClosableObjects()
                                        .penaltyLog()
                                        .build());
+        }
+    }
+
+    private void checkCancelDownloadJobs() {
+        if (backgroundJobManager != null && preferences.shouldStopDownloadJobsOnStart()) {
+            backgroundJobManager.cancelAllFilesDownloadJobs();
+            preferences.setStopDownloadJobsOnStart(false);
         }
     }
 

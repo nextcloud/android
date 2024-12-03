@@ -238,7 +238,6 @@
     <string name="downloader_download_failed_credentials_error">Scaricamento non riuscito, effettua nuovamente l\'accesso</string>
     <string name="downloader_download_failed_ticker">Scaricamento non riuscito</string>
     <string name="downloader_download_file_not_found">Il file non è più disponibile sul server</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% Scaricamento di %2$s</string>
     <string name="downloader_download_in_progress_ticker">Scaricamento in corso…</string>
     <string name="downloader_download_succeeded_content">%1$s scaricato</string>
@@ -673,8 +672,6 @@
     <string name="request_account_deletion">Richiesta di eliminazione account</string>
     <string name="request_account_deletion_button">Richiedi eliminazione</string>
     <string name="request_account_deletion_details">Richiedi l\'eliminazione permanente dell\'account al fornitore del servizio</string>
-    <string name="reshare_not_allowed">La ri-condivisione non è consentita</string>
-    <string name="resharing_is_not_allowed">La ri-condivisione non è consentita</string>
     <string name="resized_image_not_possible_download">Immagine ridimensionata non disponibile. Scaricare l\'immagine completa?</string>
     <string name="restore">Ripristina file</string>
     <string name="restore_backup">Ripristina backup</string>
@@ -739,7 +736,6 @@
     <string name="share_permissions">Condividi permessi</string>
     <string name="share_remote_clarification">%1$s (remota)</string>
     <string name="share_room_clarification">%1$s (conversazione)</string>
-    <string name="share_search">Nome, ID di cloud federata o indirizzo email…</string>
     <string name="share_send_new_email">Invia una nuova email</string>
     <string name="share_send_note">Nota per destinatario</string>
     <string name="share_settings">Impostazioni</string>
@@ -790,6 +786,7 @@
     <string name="storage_description_default">Predefinito</string>
     <string name="storage_documents">Documenti</string>
     <string name="storage_downloads">Scaricamenti</string>
+    <string name="storage_external_storage">Archiviazione esterna</string>
     <string name="storage_internal_storage">Archiviazione interna</string>
     <string name="storage_movies">Video</string>
     <string name="storage_music">Musica</string>
@@ -918,7 +915,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Mantieni il file nella cartella di origine</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Elimina il file dalla cartella di origine</string>
     <string name="uploader_upload_forbidden_permissions">per caricare in questa cartella</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Caricamento di %2$s</string>
     <string name="uploader_upload_in_progress_ticker">Caricamento in corso…</string>
     <string name="uploader_upload_succeeded_content_single">%1$s caricato</string>
@@ -971,7 +967,6 @@
     <string name="whats_new_skip">Salta</string>
     <string name="whats_new_title">Prima volta su %1$s</string>
     <string name="whats_your_status">Qual è il tuo stato?</string>
-    <string name="widgets_not_available">I widget sono disponibili solo su %1$s 25 o dopo </string>
     <string name="widgets_not_available_title">Non disponibile</string>
     <string name="worker_download">Scaricamento file in corso…</string>
     <string name="write_email">Invia email</string>

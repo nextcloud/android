@@ -503,6 +503,14 @@ internal class BackgroundJobManagerImpl(
         )
     }
 
+    override fun cancelTwoWaySyncJob() {
+        workManager.cancelJob(JOB_INTERNAL_TWO_WAY_SYNC)
+    }
+
+    override fun cancelAllFilesDownloadJobs() {
+        workManager.cancelAllWorkByTag(formatClassTag(FileDownloadWorker::class))
+    }
+
     override fun scheduleOfflineSync() {
         val constrains = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.UNMETERED)
@@ -698,12 +706,15 @@ internal class BackgroundJobManagerImpl(
         )
     }
 
-    override fun scheduleInternal2WaySync() {
+    override fun scheduleInternal2WaySync(intervalMinutes: Long) {
         val request = periodicRequestBuilder(
             jobClass = InternalTwoWaySyncWork::class,
-            jobName = JOB_INTERNAL_TWO_WAY_SYNC
-        ).build()
+            jobName = JOB_INTERNAL_TWO_WAY_SYNC,
+            intervalMins = intervalMinutes
+        )
+            .setInitialDelay(intervalMinutes, TimeUnit.MINUTES)
+            .build()
 
-        workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.KEEP, request)
+        workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 }

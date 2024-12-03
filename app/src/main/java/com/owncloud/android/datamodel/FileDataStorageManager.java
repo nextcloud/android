@@ -175,6 +175,10 @@ public class FileDataStorageManager {
         }
     }
 
+    public OfflineOperationEntity getOfflineEntityFromOCFile(OCFile file) {
+        return offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+    }
+
     public OfflineOperationEntity addCreateFolderOfflineOperation(String path, String filename, Long parentOCFileId) {
         OfflineOperationEntity entity = new OfflineOperationEntity();
 
@@ -215,6 +219,54 @@ public class FileDataStorageManager {
 
     public void deleteOfflineOperation(OCFile file) {
         offlineOperationsRepository.deleteOperation(file);
+    }
+
+    public void addRenameFileOfflineOperation(OCFile file, String newName) {
+        OfflineOperationEntity entity = new OfflineOperationEntity();
+
+        entity.setFilename(newName);
+        entity.setParentOCFileId(file.getParentId());
+
+        OfflineOperationType operationType = new OfflineOperationType.RenameFile(OfflineOperationRawType.RenameFile.name(), file.getFileId(), newName);
+        entity.setType(operationType);
+        entity.setPath(file.getDecryptedRemotePath());
+
+        long createdAt = System.currentTimeMillis();
+        long modificationTimestamp = System.currentTimeMillis();
+
+        entity.setCreatedAt(createdAt);
+        entity.setModifiedAt(modificationTimestamp / 1000);
+
+        offlineOperationDao.insert(entity);
+    }
+
+    public String getFilenameConsideringOfflineOperation(OCFile file) {
+        String filename = file.getDecryptedFileName();
+        OfflineOperationEntity renameEntity = offlineOperationDao.getByPath(file.getDecryptedRemotePath());
+        if (renameEntity != null && renameEntity.getType() instanceof OfflineOperationType.RenameFile renameFile) {
+            filename = renameFile.getNewName();
+        }
+
+        return filename;
+    }
+
+    public void addRemoveFileOfflineOperation(String path, String filename, Long parentOCFileId) {
+        OfflineOperationEntity entity = new OfflineOperationEntity();
+
+        entity.setFilename(filename);
+        entity.setParentOCFileId(parentOCFileId);
+
+        OfflineOperationType.RemoveFile operationType = new OfflineOperationType.RemoveFile(OfflineOperationRawType.RemoveFile.name(), path);
+        entity.setType(operationType);
+        entity.setPath(path);
+
+        long createdAt = System.currentTimeMillis();
+        long modificationTimestamp = System.currentTimeMillis();
+
+        entity.setCreatedAt(createdAt);
+        entity.setModifiedAt(modificationTimestamp / 1000);
+
+        offlineOperationDao.insert(entity);
     }
 
     public void renameOfflineOperation(OCFile file, String newFolderName) {
@@ -2643,7 +2695,10 @@ public class FileDataStorageManager {
         List<OCFile> files = new ArrayList<>(fileEntities.size());
 
         for (FileEntity fileEntity : fileEntities) {
-            files.add(createFileInstance(fileEntity));
+            OCFile file = createFileInstance(fileEntity);
+            if (file.isFolder() && !file.isRootDirectory()) {
+                files.add(file);
+            }
         }
 
         return files;

@@ -35,6 +35,13 @@
     <string name="advanced_settings">الإعدادات المتقدمة</string>
     <string name="allow_resharing">السماح بإعادة المشاركة </string>
     <string name="app_config_base_url_title">عنوان URL الأساسي</string>
+    <string name="app_config_disable_clipboard_title">تعطيل الحافظة</string>
+    <string name="app_config_disable_intro_title">تعطيل المقدمة</string>
+    <string name="app_config_disable_log_title">تعطيل الشِّعار</string>
+    <string name="app_config_disable_more_external_site_title">تعطيل المواقع الخارجية</string>
+    <string name="app_config_disable_multiaccount_title">تعطيل تعدد الحسابات</string>
+    <string name="app_config_disable_sharing_title">تعطيل المشاركة</string>
+    <string name="app_config_enforce_protection_title">فرض الحماية</string>
     <string name="app_config_proxy_host_title">اسم المضيف الوكيل</string>
     <string name="app_config_proxy_port_title">منفذ البروكسي</string>
     <string name="app_widget_description">عرض أداة واحدة من لوحة القيادة</string>
@@ -44,7 +51,7 @@
     <string name="assistant_screen_delete_task_alert_dialog_description">هل أنت متأكد أنك ترغب بحذف هذه المهمة؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">حذف مهمة</string>
     <string name="assistant_screen_failed_task_text">فشل</string>
-    <string name="assistant_screen_loading">يتم الآن تحميل قائمة المهام؛ يرجى الانتظار ...</string>
+    <string name="assistant_screen_loading">يتم الآن تحميل قائمة المهام؛ يرجى الانتظار...</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">لا توجد أي مهام متوفرة. حدِّد نوع المهمة لإنشاء واحدة جديدة.</string>
     <string name="assistant_screen_no_task_available_text">لا توجد أي مهام متوفرة من النوع %s. يمكنك إنشاء مهمة جديدة من الشريط السفلي الجانبي.</string>
     <string name="assistant_screen_running_task_text">قيد التجهيز</string>
@@ -56,7 +63,7 @@
     <string name="assistant_screen_task_delete_success_message">تمّ حذف المهمة بنجاح</string>
     <string name="assistant_screen_task_list_error_state_message">تعذّر جلب قائمة المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">حذف مهمة</string>
-    <string name="assistant_screen_task_output_empty_text">مخرجات المهمة لم تجهز بعدُ.</string>
+    <string name="assistant_screen_task_output_empty_text">نتيجة المهمة غير جاهة بعدُ.</string>
     <string name="assistant_screen_task_types_error_state_message">تعذّر جلب أنواع المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
     <string name="assistant_screen_top_bar_title">المُساعِد</string>
     <string name="assistant_screen_unknown_task_status_text">غير معروف</string>
@@ -103,7 +110,6 @@
     <string name="autoupload_custom_folder">إعداد مجلد خاص</string>
     <string name="autoupload_disable_power_save_check">تعطيل التحقق من حفظ الطاقة</string>
     <string name="autoupload_hide_folder">إخفاء المجلد</string>
-    <string name="autoupload_worker_foreground_info">التحضير للرفع التلقائي</string>
     <string name="avatar">الصورة الرمزية</string>
     <string name="away">بالخارج</string>
     <string name="backup_settings">اعدادات النسخ الاحتياطي</string>
@@ -251,7 +257,6 @@
     <string name="downloader_download_failed_credentials_error">فشل التنزيل، قم بتسجيل الدخول مرة أخرى</string>
     <string name="downloader_download_failed_ticker">فشل التحميل</string>
     <string name="downloader_download_file_not_found">الملف غير متوفر في الخادم</string>
-    <string name="downloader_download_in_progress">%1$d%% %2$s</string>
     <string name="downloader_download_in_progress_content">%1$d%% تحميل  %2$s</string>
     <string name="downloader_download_in_progress_ticker">التنزيل جارِ …</string>
     <string name="downloader_download_succeeded_content">%1$s مُنزَّلَة</string>
@@ -289,10 +294,10 @@
     <string name="e2e_signature_does_not_match">التوقيع غير مُطابق</string>
     <string name="ecosystem_apps_display_assistant">المُساعِد</string>
     <string name="ecosystem_apps_display_more">المزيد</string>
-    <string name="ecosystem_apps_display_notes">الملاحظات Notes</string>
+    <string name="ecosystem_apps_display_notes">الملاحظات</string>
     <string name="ecosystem_apps_display_talk">محادثة Talk</string>
     <string name="ecosystem_apps_more">المزيد من تطبيقات نكست كلاود</string>
-    <string name="ecosystem_apps_notes">ملاحظات Notes نيكست كلاود</string>
+    <string name="ecosystem_apps_notes">ملاحظات نيكست كلاود</string>
     <string name="ecosystem_apps_talk">تطبيق \"المحادثة\" talk من نكست كلاود</string>
     <string name="email_pick_failed">تعذّر التقاط عنوان الإيميل.</string>
     <string name="encrypted">عيّنه كَمشفر</string>
@@ -364,16 +369,17 @@
     <string name="file_already_exists">اسم الملف موجود مسبقاً</string>
     <string name="file_delete">حذف </string>
     <string name="file_detail_activity_error">خطأ في استرداد النشاطات للملف</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">لا يوجد تطبيق لتحديد جهات الاتصال</string>
     <string name="file_details_no_content">حدث خطأ في تحميل التفاصيل</string>
     <string name="file_icon">الملف</string>
     <string name="file_keep">حفظ</string>
     <string name="file_list_empty">قم برفع بعض المحتوى أو زامن مع أجهزتك</string>
     <string name="file_list_empty_favorite_headline">ليس لديك ملفات مفضلة</string>
     <string name="file_list_empty_favorites_filter_list">الملفات والمجلدات التي تضع عليها علامة كمفضلة سوف تظهر هنا.</string>
-    <string name="file_list_empty_gallery">لا توجد أية صور أو ملفات فيديو</string>
-    <string name="file_list_empty_headline">لا يوجد ملفات هنا </string>
+    <string name="file_list_empty_gallery">لا توجد أي صور أو مقاطع فيديو</string>
+    <string name="file_list_empty_headline">لا توجد ملفات هنا </string>
     <string name="file_list_empty_headline_search">لم يتم العثور على أية بيانات في هذا المجلد</string>
-    <string name="file_list_empty_headline_server_search">لا توجد أية نتيجة</string>
+    <string name="file_list_empty_headline_server_search">لا توجد أي نتيجة</string>
     <string name="file_list_empty_local_search">لا يوجد ملف أو مجلد يتطابق مع بحثك</string>
     <string name="file_list_empty_moving">لا يوجد شيء هنا. يمكنك إضافة مجلد.</string>
     <string name="file_list_empty_on_device">الملفات والمجلدات التي تم تنزيلها سوف تظهر هنا.</string>
@@ -391,6 +397,7 @@
     <string name="file_management_permission_optional">تصريحات التخزين</string>
     <string name="file_management_permission_optional_text">%1$s يعمل بشكل أفضل مع أذونات الوصول إلى التخزين. يمكنك اختيار الوصول الكامل إلى جميع الملفات، أو الوصول للقراءة فقط إلى الصور ومقاطع الفيديو.</string>
     <string name="file_management_permission_text">%1$s يحتاج إلى أذونات إدارة الملفات لرفع الملفات. يمكنك اختيار الوصول الكامل إلى جميع الملفات، أو الوصول للقراءة فقط إلى الصور ومقاطع الفيديو.</string>
+    <string name="file_migration_allow_media_indexing">السماح بالوصول من التطبيقات الأخرى</string>
     <string name="file_migration_checking_destination">جار التحقق من الوجهة…</string>
     <string name="file_migration_cleaning">تنظيف…</string>
     <string name="file_migration_dialog_title">يجري تحديث ملفات مجلد التخزين</string>
@@ -401,6 +408,7 @@
     <string name="file_migration_failed_not_writable">لا يمكن الكتابة إلى ملف الوجهة</string>
     <string name="file_migration_failed_while_coping">حدث خطأ خلال الترحيل</string>
     <string name="file_migration_failed_while_updating_index">حدث خطأ في تحديث الفهرس</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">جارِ نقل البيانات…</string>
     <string name="file_migration_ok_finished">مكتملة</string>
     <string name="file_migration_override_data_folder">تبديل</string>
@@ -444,7 +452,7 @@
     <string name="folder_confirm_create">إنشاء</string>
     <string name="folder_list_empty_headline">لا توجد مجلدات</string>
     <string name="folder_name_empty">اسم المجلد لا يمكن أن يكون فارغاً</string>
-    <string name="folder_picker_choose_button_text">إختَر</string>
+    <string name="folder_picker_choose_button_text">إختر</string>
     <string name="folder_picker_choose_caption_text">اختر مكان المجلد</string>
     <string name="folder_picker_copy_button_text">إنسَخ</string>
     <string name="folder_picker_move_button_text">نقل</string>
@@ -600,10 +608,11 @@
     <string name="notifications_no_results_headline">لا توجد هناك تنبيهات</string>
     <string name="notifications_no_results_message">يرجى التحقق مرة أخرى في وقت لاحق.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">عملية مُعلَّقة</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">تعليق إزالة شخص</string>
     <string name="offline_mode">ليس هناك اتصال بالأنترنت</string>
     <string name="offline_mode_info_description">حتى بدون اتصال بالإنترنت، يمكنك تنظيم مجلداتك وإنشاء ملفات. بمجرد عودة الاتصال بالإنترنت، ستتم مزامنة الإجراءات المعلقة تلقائياً.</string>
     <string name="offline_mode_info_title">أنت غير متصل بالإنترنت؛ لكن العمل سيستمر</string>
-    <string name="offline_operations_file_does_not_exists_yet">الملف لم يتوفر بعدُ. رجاءً، قم برفع الملف أوّلاً.</string>
+    <string name="offline_operations_file_does_not_exists_yet">الملف لم يتوفر حتى الآن. يرجى رفع الملف أولاً.</string>
     <string name="offline_operations_worker_notification_conflict_text">مجلد متعارض: %s</string>
     <string name="offline_operations_worker_notification_delete_offline_folder">حذف مجلد غير متصل</string>
     <string name="offline_operations_worker_notification_error_text">لا يمكن إكمال العملية دون اتصال. %s</string>
@@ -662,6 +671,8 @@
     <string name="prefs_category_sync">زامن</string>
     <string name="prefs_daily_backup_summary">النسخ الاحتياطي اليومي لتقويمك و جهات اتصالك</string>
     <string name="prefs_daily_contact_backup_summary">نسخ أحتياطي يومي لجهات الإتصال</string>
+    <string name="prefs_data_storage_location">موضع تخزين البيانات</string>
+    <string name="prefs_data_storage_location_summary">إدارة موضع تخزين البيانات</string>
     <string name="prefs_davx5_setup_error">خطأ غير متوقع عند تجهيز DAVx5 ( الذي كان معروفاً سابقاً باسم DAVdroid)</string>
     <string name="prefs_e2e_active">التشفير الطرفي E2EE جاهز!</string>
     <string name="prefs_e2e_mnemonic">تذكيري ل E2E</string>
@@ -700,7 +711,9 @@
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
     <string name="prefs_theme_title">السمة</string>
+    <string name="prefs_two_way_sync_interval">الفسحة الزمنية</string>
     <string name="prefs_two_way_sync_summary">إدارة المجلدات الداخلية للمزامنة في الاتجاهين</string>
+    <string name="prefs_two_way_sync_switch_title">تمكين المزامنة في الاتجاهين</string>
     <string name="prefs_value_theme_dark">غامق</string>
     <string name="prefs_value_theme_light">فاتح</string>
     <string name="prefs_value_theme_system">اتبع النظام</string>
@@ -742,8 +755,7 @@
     <string name="request_account_deletion">طلب حذف حساب</string>
     <string name="request_account_deletion_button">طلب الإزالة</string>
     <string name="request_account_deletion_details">طلب الإزالة الدائمة للحساب من قِبل مُزوّد الخدمة</string>
-    <string name="reshare_not_allowed">لا يسمح بعملية إعادة المشاركة</string>
-    <string name="resharing_is_not_allowed">لا يسمح بعملية إعادة المشاركة</string>
+    <string name="resharing_is_not_allowed">السياسة و الأذونات تمنع إعادة المشاركة</string>
     <string name="resized_image_not_possible_download">لا توجد صورة بحجمها متاح. تنزيل الصورة الكاملة؟</string>
     <string name="restore">استعادة الملف</string>
     <string name="restore_backup">استعادة النسخ الاحتياطي</string>
@@ -768,7 +780,7 @@
     <string name="screenshot_06_davdroid_subline">مزامنة مع DAVx5</string>
     <string name="search_error">خطاء في الحصول على نتائج البحث</string>
     <string name="secure_share_not_set_up">المشاركة الآمنة لم يتم إعدادها بالنسبة لهذا المستخدِم</string>
-    <string name="secure_share_search">المشاركة الآمنة ...</string>
+    <string name="secure_share_search">مشاركة آمنة ...</string>
     <string name="select_all">تحديد الكل</string>
     <string name="select_media_folder">تعيين مجلد الوسائط</string>
     <string name="select_one_template">الرجاء تحديد قالب واحد</string>
@@ -812,7 +824,7 @@
     <string name="share_permissions">صلاحيات المشاركة</string>
     <string name="share_remote_clarification">%1$s (بعيد)</string>
     <string name="share_room_clarification">%1$s (محادثة)</string>
-    <string name="share_search">الاسم , معرف السحابة , أو البريد الالكتروني ...</string>
+    <string name="share_search">الاسم أو مُعرِّف السحابة الاتحادية أو عنوان البريد الإلكتروني ...</string>
     <string name="share_send_new_email">إرسال بريد جديد</string>
     <string name="share_send_note">ملاحظة للمستلم</string>
     <string name="share_settings">الإعدادات</string>
@@ -864,6 +876,7 @@
     <string name="storage_description_default">افتراضي</string>
     <string name="storage_documents">الوثائق</string>
     <string name="storage_downloads">التنزيلات</string>
+    <string name="storage_external_storage">التخزين الخارجي</string>
     <string name="storage_internal_storage">التخزين الداخلي</string>
     <string name="storage_movies">الأفلام</string>
     <string name="storage_music">الموسيقى</string>
@@ -951,6 +964,10 @@
     <string name="trashbin_file_remove">حذف نهائي</string>
     <string name="trashbin_loading_failed">فشل تحميل سلة المحذوفات</string>
     <string name="trashbin_not_emptied">تعذر حذف الملفات نهائياً!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">التعطيل لكل المجلدات</string>
+    <string name="two_way_sync_activity_empty_list_desc">لإعداد مجلد المزامنة ثنائي الاتجاه، يرجى تمكينه في علامة التبويب \"التفاصيل\" للمجلد المعني.</string>
+    <string name="two_way_sync_activity_empty_list_title">لم يتم إعداد المزامنة ثنائية الاتجاه</string>
+    <string name="two_way_sync_activity_title">مزامنة داخلية في الاتجاهين</string>
     <string name="unexpected_error_occurred">حدث خطأ غير متوقع</string>
     <string name="unified_search_fragment_calendar_event_not_found">لم يمكن العثور على الحدث. يمكنك دائمًا المزامنة للتحديث. جارٍ إعادة التوجيه إلى الويب...</string>
     <string name="unified_search_fragment_contact_not_found">لم يمكن العثور على جهة الاتصال. يمكنك دائمًا المزامنة للتحديث. جارٍ إعادة التوجيه إلى الويب...</string>
@@ -1017,7 +1034,7 @@
     <string name="uploader_error_message_source_file_not_found">لم يتم إيجاد الملف المحدد للرفع. الرجاء التأكد من أن الملف موجود.</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">لا يمكن رفع هذا الملف</string>
     <string name="uploader_error_title_no_file_to_upload">لا يوجد ملف لترفعه</string>
-    <string name="uploader_file_not_found_message">تعذّر العثور على الملف. هل أنت متأكد من وجود هذا الملف؛ أم أنه هنالك تعارضاً لم يُحل بعدُ؟</string>
+    <string name="uploader_file_not_found_message">تعذّر العثور على الملف. هل أنت متأكد من وجود هذا الملف؛ أم أنه هنالك تعارضاً لم يُحل حتى الآن؟</string>
     <string name="uploader_file_not_found_on_server_message">لم نتمكن من إيجاد الملف على الخادم. يمكن أن يكون قد تمّ حذفه من قِبل مُستخدِمٍ آخر</string>
     <string name="uploader_info_dirname">اسم المجلد</string>
     <string name="uploader_local_files_uploaded">إعادة عملية الرفع غير الناجحة للملفات المحلية</string>
@@ -1033,7 +1050,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">الإبقاء على الملف في المجلد الأصلي</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">إحذف الملف من المجلد الأصلي</string>
     <string name="uploader_upload_forbidden_permissions">للرفع إلى هذا المجلد</string>
-    <string name="uploader_upload_in_progress">%1$d%% %2$s</string>
     <string name="uploader_upload_in_progress_content">%1$d%% رفع %2$s</string>
     <string name="uploader_upload_in_progress_ticker">يتم الرفع…</string>
     <string name="uploader_upload_succeeded_content_single">تم رفع %1$s</string>
@@ -1080,6 +1096,7 @@
     <string name="wait_a_moment">انتظر لحظة…</string>
     <string name="wait_checking_credentials">التحقق من معلومات تسجيل الدخول المحفوظة</string>
     <string name="wait_for_tmp_copy_from_private_storage">نسخ الملف من التخزين الخاص</string>
+    <string name="warn_rename_extension">تغيير امتداد الملف يمكن أن يتسبب في فتح الملف باستعمال تطبيق مختلف</string>
     <string name="webview_version_check_alert_dialog_message">يرجى تحديث تطبيق  WebView في نظام أندرويد لتسجيل الدخول</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">تحديث</string>
     <string name="webview_version_check_alert_dialog_title">تحديث تطبيق  WebView في نظام أندرويد</string>
@@ -1087,12 +1104,28 @@
     <string name="whats_new_skip">تخطى</string>
     <string name="whats_new_title">جديد على %1$s</string>
     <string name="whats_your_status">ماهي حالتك؟</string>
-    <string name="widgets_not_available">الأدوات مُتاحة فقط في %1$s الإصدار 25 و ما بعده  </string>
+    <string name="widgets_not_available">الودجات widgets متاحة في %1$s الإصدار 25 فما أحدث فقط عندما تكون لوحة المعلومات مُفعّلة</string>
     <string name="widgets_not_available_title">غير متوفر</string>
     <string name="worker_download">جارٍ تنزيل الملفات…</string>
     <string name="write_email">إرسال بريد</string>
     <string name="wrong_storage_path">مجلد التخزين غير موجود !</string>
     <string name="wrong_storage_path_desc">قد يكون هذا بسبب استعادة نسخة احتياطية على جهاز آخر . العودة الى الافتراضي . يرجى التحقق من الإعدادات لضبط مجلد تخزين البيانات.</string>
+    <plurals name="hours">
+        <item quantity="zero">%d ساعة</item>
+        <item quantity="one">%d ساعة</item>
+        <item quantity="two">%d ساعة</item>
+        <item quantity="few">%d ساعات</item>
+        <item quantity="many">%d ساعة</item>
+        <item quantity="other">%d ساعة</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="zero">%d دقيقة</item>
+        <item quantity="one">%d دقيقة</item>
+        <item quantity="two">%d دقيقة</item>
+        <item quantity="few">%d دقائق</item>
+        <item quantity="many">%d دقيقة</item>
+        <item quantity="other">%d دقيقة</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="zero">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>
         <item quantity="one">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>

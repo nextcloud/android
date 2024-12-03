@@ -46,6 +46,8 @@ public class SynchronizeFileOperation extends SyncOperation {
     private boolean mSyncFileContents;
     private Context mContext;
     private boolean mTransferWasRequested;
+    private final boolean syncInBackgroundWorker;
+
 
     /**
      * When 'false', uploads to the server are not done; only downloads or conflict detection. This is a temporal
@@ -74,7 +76,8 @@ public class SynchronizeFileOperation extends SyncOperation {
         User user,
         boolean syncFileContents,
         Context context,
-        FileDataStorageManager storageManager) {
+        FileDataStorageManager storageManager,
+        boolean syncInBackgroundWorker) {
         super(storageManager);
 
         mRemotePath = remotePath;
@@ -84,6 +87,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         mSyncFileContents = syncFileContents;
         mContext = context;
         mAllowUploads = true;
+        this.syncInBackgroundWorker = syncInBackgroundWorker;
     }
 
 
@@ -110,7 +114,8 @@ public class SynchronizeFileOperation extends SyncOperation {
         User user,
         boolean syncFileContents,
         Context context,
-        FileDataStorageManager storageManager) {
+        FileDataStorageManager storageManager,
+        boolean syncInBackgroundWorker) {
         super(storageManager);
 
         mLocalFile = localFile;
@@ -130,6 +135,7 @@ public class SynchronizeFileOperation extends SyncOperation {
         mSyncFileContents = syncFileContents;
         mContext = context;
         mAllowUploads = true;
+        this.syncInBackgroundWorker = syncInBackgroundWorker;
     }
 
 
@@ -159,9 +165,9 @@ public class SynchronizeFileOperation extends SyncOperation {
         boolean syncFileContents,
         boolean allowUploads,
         Context context,
-        FileDataStorageManager storageManager) {
-
-        this(localFile, serverFile, user, syncFileContents, context, storageManager);
+        FileDataStorageManager storageManager,
+        boolean syncInBackgroundWorker) {
+        this(localFile, serverFile, user, syncFileContents, context, storageManager, syncInBackgroundWorker);
         mAllowUploads = allowUploads;
     }
 
@@ -295,13 +301,32 @@ public class SynchronizeFileOperation extends SyncOperation {
     }
 
     private void requestForDownload(OCFile file) {
-        Log_OC.d("InternalTwoWaySyncWork", "download file: " + file.getFileName());
+        final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
         
-        FileDownloadHelper.Companion.instance().downloadFile(
-            mUser,
-            file);
+        if (syncInBackgroundWorker) {
+            Log_OC.d("InternalTwoWaySyncWork", "download file: " + file.getFileName());
 
-        mTransferWasRequested = true;
+            try {
+                final var operation = new DownloadFileOperation(mUser, file, mContext);
+                var result = operation.execute(getClient());
+
+                mTransferWasRequested = true;
+
+                String filename = file.getFileName();
+                if (filename != null) {
+                    if (result.isSuccess()) {
+                        fileDownloadHelper.saveFile(file, operation, getStorageManager());
+                        Log_OC.d(TAG, "requestForDownload completed for: " + file.getFileName());
+                    } else {
+                        Log_OC.d(TAG, "requestForDownload failed for: " + file.getFileName());
+                    }
+                }
+            } catch (Exception e) {
+                Log_OC.d(TAG, "Exception caught at requestForDownload" + e);
+            }
+        } else {
+            fileDownloadHelper.downloadFile(mUser, file);
+        }
     }
 
     public boolean transferWasRequested() {

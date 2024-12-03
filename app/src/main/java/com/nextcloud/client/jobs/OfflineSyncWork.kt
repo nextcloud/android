@@ -77,7 +77,8 @@ class OfflineSyncWork constructor(
                     user,
                     true,
                     context,
-                    storageManager
+                    storageManager,
+                    true
                 )
                 synchronizeFileOperation.execute(context)
             }

@@ -13,9 +13,10 @@
     <PreferenceCategory
         android:title="@string/prefs_category_general"
         android:key="general">
-        <ListPreference
-            android:title="@string/prefs_storage_path"
-            android:key="storage_path"/>
+        <Preference
+            android:title="@string/prefs_data_storage_location"
+            android:key="data_storage_location"
+            android:summary="@string/prefs_data_storage_location_summary" />
         <ListPreference
             android:title="@string/prefs_theme_title"
             android:key="darkMode"
@@ -34,7 +35,7 @@
 	</PreferenceCategory>
 
 	<PreferenceCategory android:title="@string/prefs_category_details" android:key="details">
-		<ListPreference
+		<com.owncloud.android.ui.ListPreferenceDialog
 			android:title="@string/prefs_lock"
 			android:key="lock"
 			android:dialogTitle="@string/prefs_lock_title"

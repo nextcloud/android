@@ -49,7 +49,6 @@
     <string name="assistant_screen_task_delete_fail_message">En fejl opstod under sletning af opgaven</string>
     <string name="assistant_screen_task_delete_success_message">Opgaven er slettet</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Slet opgave</string>
-    <string name="assistant_screen_task_output_empty_text">Opgaveoutputtet er ikke klar endnu.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Ukendt</string>
     <string name="associated_account_not_found">Forbundet konto blev ikke fundet!</string>
@@ -90,7 +89,6 @@
     <string name="autoupload_custom_folder">Indstil en selvvalgt mappe</string>
     <string name="autoupload_disable_power_save_check">Deaktiver strømsparecheck</string>
     <string name="autoupload_hide_folder">Skjul mappe</string>
-    <string name="autoupload_worker_foreground_info">Forbereder automatisk upload</string>
     <string name="avatar">Avatar</string>
     <string name="away">Ikke tilstede</string>
     <string name="backup_settings">Backup indstilinger</string>
@@ -672,8 +670,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="rename_server_fail_msg">Omdøbning ikke mulig, navnet eksisterer</string>
     <string name="request_account_deletion">Anmodning om sletning af konto</string>
     <string name="request_account_deletion_button">Anmod om sletning</string>
-    <string name="reshare_not_allowed">Gendeling er ikke tilladt</string>
-    <string name="resharing_is_not_allowed">Videredeling ikke tilladt</string>
     <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>
     <string name="restore">Genskab fil</string>
     <string name="restore_backup">Gendan backup</string>
@@ -740,7 +736,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_permissions">Del Tilladelser</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s (samtale)</string>
-    <string name="share_search">Navn, Fødereret Cloud ID eller email adresse ...</string>
     <string name="share_send_new_email">Send ny email</string>
     <string name="share_send_note">Note til modtager</string>
     <string name="share_settings">Indstillinger</string>
@@ -791,6 +786,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="storage_description_default">Standard</string>
     <string name="storage_documents">Dokumenter</string>
     <string name="storage_downloads">Downloads</string>
+    <string name="storage_external_storage">Eksternt lager</string>
     <string name="storage_internal_storage">Internt lager</string>
     <string name="storage_movies">Film</string>
     <string name="storage_music">Musik</string>
@@ -970,7 +966,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="whats_new_skip">Spring over</string>
     <string name="whats_new_title">Nyt i %1$s</string>
     <string name="whats_your_status">Hvad er din status</string>
-    <string name="widgets_not_available">Widgets er kun tilgængelige for %1$s 25 eller senere</string>
     <string name="widgets_not_available_title">Ikke tilgængelig</string>
     <string name="worker_download">Henter filer...</string>
     <string name="write_email">Send email</string>

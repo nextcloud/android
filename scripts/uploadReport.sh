@@ -8,6 +8,9 @@ upload() {
     scripts/deleteOldComments.sh "$BRANCH" "$TYPE" "$PR"
 
     cd $1
+    pwd
+    find . -type d
+    find . -type f
 
     find . -type d -exec curl > /dev/null 2>&1 -u $USER:$PASS -X MKCOL $URL/$REMOTE_FOLDER/$(echo {} | sed s#\./##) \;
     find . -type f -exec curl > /dev/null 2>&1 -u $USER:$PASS -X PUT $URL/$REMOTE_FOLDER/$(echo {} | sed s#\./##) --upload-file {} \;

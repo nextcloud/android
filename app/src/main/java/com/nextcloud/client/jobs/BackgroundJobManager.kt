@@ -130,6 +130,8 @@ interface BackgroundJobManager {
         changedFiles: Array<String> = arrayOf<String>()
     )
 
+    fun cancelTwoWaySyncJob()
+
     fun scheduleOfflineSync()
 
     fun scheduleMediaFoldersDetectionJob()
@@ -170,5 +172,6 @@ interface BackgroundJobManager {
     fun bothFilesSyncJobsRunning(syncedFolderID: Long): Boolean
     fun startOfflineOperations()
     fun startPeriodicallyOfflineOperation()
-    fun scheduleInternal2WaySync()
+    fun scheduleInternal2WaySync(intervalMinutes: Long)
+    fun cancelAllFilesDownloadJobs()
 }

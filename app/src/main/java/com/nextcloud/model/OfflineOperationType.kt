@@ -11,15 +11,26 @@ sealed class OfflineOperationType {
     abstract val type: String
 
     data class CreateFolder(override val type: String, var path: String) : OfflineOperationType()
+
     data class CreateFile(
         override val type: String,
         val localPath: String,
         var remotePath: String,
         val mimeType: String
     ) : OfflineOperationType()
+
+    data class RenameFile(
+        override val type: String,
+        var ocFileId: Long,
+        val newName: String
+    ) : OfflineOperationType()
+
+    data class RemoveFile(override val type: String, var path: String) : OfflineOperationType()
 }
 
 enum class OfflineOperationRawType {
     CreateFolder,
-    CreateFile
+    CreateFile,
+    RenameFile,
+    RemoveFile
 }

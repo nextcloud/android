@@ -1,7 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2023 TSI-mc
+ * SPDX-FileCopyrightText: 2023-2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2019-2021 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
@@ -21,7 +21,6 @@ import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.RestrictionsManager;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -71,6 +70,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.common.PlainClient;
 import com.nextcloud.operations.PostMethod;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
+import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.AccountSetupBinding;
@@ -105,6 +105,7 @@ import com.owncloud.android.services.OperationsService;
 import com.owncloud.android.services.OperationsService.OperationsServiceBinder;
 import com.owncloud.android.ui.NextcloudWebViewClient;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
+import com.owncloud.android.ui.activity.SettingsActivity;
 import com.owncloud.android.ui.dialog.IndeterminateProgressDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.SslUntrustedCertDialog.OnSslUntrustedCertListener;
@@ -112,7 +113,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.ErrorMessageAdapter;
 import com.owncloud.android.utils.PermissionUtil;
 import com.owncloud.android.utils.WebViewUtil;
-import com.owncloud.android.utils.appConfig.AppConfigManager;
 import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -124,6 +124,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -272,7 +273,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewThemeUtils = viewThemeUtilsFactory.withPrimaryAsBackground();
-        viewThemeUtils.platform.themeStatusBar(this, ColorRole.PRIMARY);
+        viewThemeUtils.platform.colorStatusBar(this, getResources().getColor(R.color.primary));
 
         // WebViewUtil webViewUtil = new WebViewUtil(this);
 
@@ -320,11 +321,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         String webloginUrl = null;
 
         if (MainApp.isClientBrandedPlus()) {
-            RestrictionsManager restrictionsManager = (RestrictionsManager) getSystemService(Context.RESTRICTIONS_SERVICE);
-            AppConfigManager appConfigManager = new AppConfigManager(this, restrictionsManager.getApplicationRestrictions());
-
-            if (!TextUtils.isEmpty(appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus()))) {
-                webloginUrl = appConfigManager.getBaseUrl(MainApp.isClientBrandedPlus()) + WEB_LOGIN;
+            String baseUrl = MDMConfig.INSTANCE.getBaseUrl(this);
+            if (!TextUtils.isEmpty(baseUrl)) {
+                webloginUrl = baseUrl + WEB_LOGIN;
             }
         }
 
@@ -812,9 +811,8 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         passCodeManager.onActivityResumed(this);
 
         Uri data = intent.getData();
-
         if (data != null && data.toString().startsWith(getString(R.string.login_data_own_scheme))) {
-            if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+            if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                 accountManager.getAccounts().length == 1) {
                 Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
                 finish();
@@ -1364,14 +1362,19 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
     }
 
     private void endSuccess() {
-        if (onlyAdd) {
-            finish();
-        } else {
-            Intent i = new Intent(this, FileDisplayActivity.class);
-            i.setAction(FileDisplayActivity.RESTART);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(i);
+        if (!onlyAdd) {
+            if (MDMConfig.INSTANCE.enforceProtection(this) && Objects.equals(preferences.getLockPreference(), SettingsActivity.LOCK_NONE)) {
+                Intent i = new Intent(this, SettingsActivity.class);
+                startActivity(i);
+            } else {
+                Intent i = new Intent(this, FileDisplayActivity.class);
+                i.setAction(FileDisplayActivity.RESTART);
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(i);
+            }
         }
+
+        finish();
     }
 
     private void getUserCapabilitiesAndFinish() {
@@ -1536,7 +1539,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
                     return;
                 }
 
-                if (!getResources().getBoolean(R.bool.multiaccount_support) &&
+                if (!MDMConfig.INSTANCE.multiAccountSupport(this) &&
                     accountManager.getAccounts().length == 1) {
                     Toast.makeText(this, R.string.no_mutliple_accounts_allowed, Toast.LENGTH_LONG).show();
                 } else {
