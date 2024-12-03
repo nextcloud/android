@@ -10,7 +10,9 @@ package com.nextcloud.client.assistant.repository
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.model.Task
+import com.owncloud.android.lib.resources.assistant.model.TaskInput
 import com.owncloud.android.lib.resources.assistant.model.TaskList
+import com.owncloud.android.lib.resources.assistant.model.TaskOutput
 import com.owncloud.android.lib.resources.assistant.model.TaskType
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
@@ -44,76 +46,15 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
                         null,
                         "12",
                         "",
-                        "Give me some long text 1",
-                        "Lorem ipsum".getRandomString(100),
-                        ""
+                        TaskInput("Give me some long text 1"),
+                        TaskOutput("Lorem ipsum".getRandomString(100)),
+                        1707692337,
+                        1707692337,
+                        1707692337,
+                        1707692337,
+                        1707692337,
                     ),
-                    Task(
-                        2,
-                        "GenerateHeadline",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 2",
-                        "Lorem".getRandomString(100),
-                        "",
-                        ""
-                    ),
-                    Task(
-                        3,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 3",
-                        "Lorem".getRandomString(300),
-                        "",
-                        ""
-                    ),
-                    Task(
-                        4,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 4",
-                        "Lorem".getRandomString(300),
-                        "",
-                        ""
-                    ),
-                    Task(
-                        5,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 5",
-                        "Lorem".getRandomString(300),
-                        "",
-                        ""
-                    ),
-                    Task(
-                        6,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 6",
-                        "Lorem".getRandomString(300),
-                        "",
-                        ""
-                    ),
-                    Task(
-                        7,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 7",
-                        "Lorem".getRandomString(300),
-                        "",
-                        ""
-                    )
+
                 )
             )
         }

@@ -45,6 +45,8 @@ import com.nextcloud.client.assistant.taskDetail.TaskDetailBottomSheet
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
+import com.owncloud.android.lib.resources.assistant.model.TaskInput
+import com.owncloud.android.lib.resources.assistant.model.TaskOutput
 
 @OptIn(ExperimentalFoundationApi::class)
 @Suppress("LongMethod", "MagicNumber")
@@ -67,7 +69,7 @@ fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit, showTaskActi
         ) {
             Spacer(modifier = Modifier.height(8.dp))
 
-            task.input?.let {
+            task.input?.input?.let {
                 Text(
                     text = it,
                     color = Color.White,
@@ -80,7 +82,7 @@ fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit, showTaskActi
 
             Spacer(modifier = Modifier.height(12.dp))
 
-            task.output?.let {
+            task.output?.output?.let {
                 val output = if (it.length >= 100) {
                     it.take(100) + "..."
                 } else {
@@ -158,7 +160,7 @@ private fun TaskViewBottomSheet(
             )
 
             MoreActionsBottomSheet(
-                title = task.input,
+                title = task.input?.input,
                 actions = bottomSheetAction,
                 dismiss = {
                     dismiss()
@@ -176,14 +178,17 @@ private fun TaskViewPreview() {
         task = Task(
             1,
             "Free Prompt",
-            0,
+            "STATUS_COMPLETED",
             "1",
             "1",
-            "What about other promising tokens like",
-            "Several tokens show promise for future growth in the" +
-                "cryptocurrency market",
-            "",
-            ""
+            TaskInput("What about other promising tokens like"),
+            TaskOutput("Several tokens show promise for future growth in the" +
+                "cryptocurrency market"),
+            1707692337,
+            1707692337,
+            1707692337,
+            1707692337,
+            1707692337,
         ), showTaskActions = {
 
         }, showDeleteTaskAlertDialog = {

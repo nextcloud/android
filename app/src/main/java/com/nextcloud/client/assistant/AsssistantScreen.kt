@@ -122,7 +122,7 @@ private fun ShowScreenState(
 
         ScreenState.Content -> {
             AssistantContent(
-                filteredTaskList!!,
+                filteredTaskList ?: listOf(),
                 taskTypes,
                 selectedTaskType,
                 viewModel
@@ -210,13 +210,13 @@ private fun ShowOverlayState(
                     R.drawable.ic_share,
                     R.string.common_share
                 ) {
-                    activity.showShareIntent(state.task.output)
+                    activity.showShareIntent(state.task.output?.output)
                 },
                 Triple(
                     R.drawable.ic_content_copy,
                     R.string.common_copy
                 ) {
-                    ClipboardUtil.copyToClipboard(activity, state.task.output)
+                    ClipboardUtil.copyToClipboard(activity, state.task.output?.output)
                 },
                 Triple(
                     R.drawable.ic_edit,
@@ -228,13 +228,13 @@ private fun ShowOverlayState(
                         null
                     )
                     val newState =
-                        ScreenOverlayState.AddTask(taskType, state.task.input ?: "")
+                        ScreenOverlayState.AddTask(taskType, state.task.input?.input ?: "")
                     viewModel.updateScreenState(newState)
                 }
             )
 
             MoreActionsBottomSheet(
-                title = state.task.input,
+                title = state.task.input?.input,
                 actions = bottomSheetAction,
                 dismiss = { viewModel.updateScreenState(null) }
             )
