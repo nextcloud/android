@@ -22,8 +22,6 @@ fun TaskTypes.toAssistantTaskTypeList(): List<AssistantTaskType> {
         add(AssistantTaskType("core:text2text:headline", types.coreText2textHeadline.name, types.coreText2textHeadline.description))
         add(AssistantTaskType("core:text2text:summary", types.coreText2textSummary.name, types.coreText2textSummary.description))
         add(AssistantTaskType("core:text2text:translate", types.coreText2textTranslate.name, types.coreText2textTranslate.description))
-        add(AssistantTaskType("core:text2image", types.coreText2image.name, types.coreText2image.description))
-        add(AssistantTaskType("core:audio2text", types.coreAudio2text.name, types.coreAudio2text.description))
         add(AssistantTaskType("core:contextwrite", types.coreContextwrite.name, types.coreContextwrite.description))
         add(AssistantTaskType("context_chat:context_chat", types.contextChatContextChat.name, types.contextChatContextChat.description))
     }
