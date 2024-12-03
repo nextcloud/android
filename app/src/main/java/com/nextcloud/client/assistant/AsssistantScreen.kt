@@ -226,7 +226,15 @@ private fun ShowOverlayState(
                     val newState =
                         ScreenOverlayState.AddTask(taskType, state.task.input?.input ?: "")
                     viewModel.updateScreenState(newState)
-                }
+                },
+                Triple(
+                    R.drawable.ic_delete,
+                    R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
+                ) {
+                    val newState =
+                        ScreenOverlayState.DeleteTask(state.task.id)
+                    viewModel.updateScreenState(newState)
+                },
             )
 
             MoreActionsBottomSheet(
@@ -263,10 +271,6 @@ private fun AssistantContent(
 
         items(taskList) { task ->
             TaskView(task,
-                showDeleteTaskAlertDialog = {
-                    val newState = ScreenOverlayState.DeleteTask(task.id)
-                    viewModel.updateScreenState(newState)
-                },
                 showTaskActions = {
                     val newState = ScreenOverlayState.TaskActions(task)
                     viewModel.updateScreenState(newState)

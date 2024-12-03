@@ -8,5 +8,5 @@
 package com.nextcloud.client.assistant.task.model
 
 enum class TaskViewBottomSheetType {
-    Detail, MoreAction
+    Detail
 }
