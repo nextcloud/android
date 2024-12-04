@@ -39,6 +39,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.component.AddTaskAlertDialog
 import com.nextcloud.client.assistant.component.CenterText
+import com.nextcloud.client.assistant.extensions.getInputTitle
 import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.model.ScreenState
 import com.nextcloud.client.assistant.repository.AssistantMockRepository
@@ -240,7 +241,7 @@ private fun ShowOverlayState(
             )
 
             MoreActionsBottomSheet(
-                title = state.task.input?.input,
+                title = state.task.getInputTitle(),
                 actions = bottomSheetAction,
                 dismiss = { viewModel.updateScreenState(null) }
             )
