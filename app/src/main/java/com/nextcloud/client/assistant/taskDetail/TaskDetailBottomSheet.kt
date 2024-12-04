@@ -39,7 +39,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -61,7 +60,7 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
 
     ModalBottomSheet(
         modifier = Modifier.padding(top = 32.dp),
-        containerColor = MaterialTheme.colorScheme.surface,
+        containerColor = colorResource(R.color.bg_default),
         onDismissRequest = { dismiss() },
         sheetState = sheetState
     ) {
@@ -80,7 +79,7 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
                         Icon(
                             imageVector = Icons.Filled.MoreVert,
                             contentDescription = "More button",
-                            tint = Color.White
+                            tint = colorResource(R.color.text_color)
                         )
                     }
                 }
@@ -143,7 +142,7 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
                     )
                 }
 
-                TaskStatusView(task, foregroundColor = MaterialTheme.colorScheme.onPrimaryContainer)
+                TaskStatusView(task, foregroundColor = colorResource(R.color.text_color))
 
                 Spacer(modifier = Modifier.height(32.dp))
             }
