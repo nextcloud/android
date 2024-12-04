@@ -221,6 +221,8 @@ private fun ShowOverlayState(
                     val taskType = TaskTypeData(
                         state.task.type,
                         activity.getString(R.string.assistant_screen_add_task_alert_dialog_title),
+                        null,
+                        null,
                         null
                     )
                     val newState =

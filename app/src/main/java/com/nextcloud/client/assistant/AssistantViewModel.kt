@@ -15,7 +15,6 @@ import com.nextcloud.client.assistant.repository.AssistantRepositoryType
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
-import com.owncloud.android.lib.resources.assistant.model.toTaskTypeDataList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -82,7 +81,7 @@ class AssistantViewModel(
             val taskTypesResult = repository.getTaskTypes()
 
             if (taskTypesResult.isSuccess) {
-                val result = taskTypesResult.resultData.toTaskTypeDataList()
+                val result = taskTypesResult.resultData
                 _taskTypes.update {
                     result
                 }

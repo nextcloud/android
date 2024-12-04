@@ -14,12 +14,11 @@ import com.owncloud.android.lib.resources.assistant.model.TaskInput
 import com.owncloud.android.lib.resources.assistant.model.TaskList
 import com.owncloud.android.lib.resources.assistant.model.TaskOutput
 import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
-import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
 @Suppress("MagicNumber")
 class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : AssistantRepositoryType {
-    override fun getTaskTypes(): RemoteOperationResult<TaskTypes> {
-        return RemoteOperationResult<TaskTypes>(RemoteOperationResult.ResultCode.OK).apply {
+    override fun getTaskTypes(): RemoteOperationResult<List<TaskTypeData>> {
+        return RemoteOperationResult<List<TaskTypeData>>(RemoteOperationResult.ResultCode.OK).apply {
             resultData = null
         }
     }
