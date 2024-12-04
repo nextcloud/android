@@ -10,11 +10,10 @@
 package com.nextcloud.client.assistant.extensions
 
 import android.content.Context
-import android.icu.text.SimpleDateFormat
+import com.nextcloud.utils.date.DateFormatPattern
+import com.nextcloud.utils.date.DateFormatter
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
-import java.util.Date
-import java.util.Locale
 import java.util.concurrent.TimeUnit
 
 fun Task.getInput(): String? = input?.input
@@ -95,14 +94,7 @@ fun Task.getModifiedAtRepresentation(context: Context): String? {
         }
 
         else -> {
-            convertToDateFormat(modifiedAt)
+            DateFormatter.timestampToDateRepresentation(modifiedAt, DateFormatPattern.MonthWithDate)
         }
     }
-}
-
-@Suppress("MagicNumber")
-private fun convertToDateFormat(timestamp: Long): String {
-    val date = Date(timestamp * 1000)
-    val format = SimpleDateFormat("MMM d", Locale.getDefault())
-    return format.format(date)
 }
