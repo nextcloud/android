@@ -1,0 +1,8 @@
+## 3.30.5 (December 4, 2024)
+
+- MANAGE_EXTERNAL_STORAGE permission removed for Google Play Store
+- Performance improvements and bug fixes have been implemented
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/103
