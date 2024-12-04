@@ -48,11 +48,9 @@ import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
-import com.nextcloud.utils.extensions.showShareIntent
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
-import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -204,47 +202,15 @@ private fun ShowOverlayState(state: ScreenOverlayState?, activity: Activity, vie
         }
 
         is ScreenOverlayState.TaskActions -> {
-            val bottomSheetAction = listOf(
-                Triple(
-                    R.drawable.ic_share,
-                    R.string.common_share
-                ) {
-                    activity.showShareIntent(state.task.output?.output)
-                },
-                Triple(
-                    R.drawable.ic_content_copy,
-                    R.string.common_copy
-                ) {
-                    ClipboardUtil.copyToClipboard(activity, state.task.output?.output)
-                },
-                Triple(
-                    R.drawable.ic_edit,
-                    R.string.action_edit
-                ) {
-                    val taskType = TaskTypeData(
-                        state.task.type,
-                        activity.getString(R.string.assistant_screen_add_task_alert_dialog_title),
-                        null,
-                        null,
-                        null
-                    )
-                    val newState =
-                        ScreenOverlayState.AddTask(taskType, state.task.input?.input ?: "")
-                    viewModel.updateScreenState(newState)
-                },
-                Triple(
-                    R.drawable.ic_delete,
-                    R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
-                ) {
-                    val newState =
-                        ScreenOverlayState.DeleteTask(state.task.id)
-                    viewModel.updateScreenState(newState)
-                }
-            )
+            val actions = state.getAction(activity, onEditCompleted = { addTask ->
+                viewModel.updateScreenState(addTask)
+            }, onDeleteCompleted =  { deleteTask ->
+                viewModel.updateScreenState(deleteTask)
+            })
 
             MoreActionsBottomSheet(
                 title = state.task.getInputTitle(),
-                actions = bottomSheetAction,
+                actions = actions,
                 dismiss = { viewModel.updateScreenState(null) }
             )
         }

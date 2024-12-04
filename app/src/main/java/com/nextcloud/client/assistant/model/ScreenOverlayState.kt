@@ -7,11 +7,82 @@
 
 package com.nextcloud.client.assistant.model
 
+import android.app.Activity
+import com.nextcloud.client.assistant.extensions.getInput
+import com.nextcloud.client.assistant.extensions.getOutput
+import com.nextcloud.utils.extensions.showShareIntent
+import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
+import com.owncloud.android.utils.ClipboardUtil
 
 sealed class ScreenOverlayState {
     data class DeleteTask(val id: Long) : ScreenOverlayState()
     data class AddTask(val taskType: TaskTypeData, val input: String) : ScreenOverlayState()
-    data class TaskActions(val task: Task) : ScreenOverlayState()
+    data class TaskActions(val task: Task) : ScreenOverlayState() {
+        private fun getInput(): String? = task.getInput()
+        private fun getOutput(): String? = task.getOutput()
+
+        private fun getCopyToClipboardAction(activity: Activity): Triple<Int, Int, () -> Unit> {
+            return Triple(
+                R.drawable.ic_content_copy,
+                R.string.common_copy
+            ) {
+                ClipboardUtil.copyToClipboard(activity, getOutput())
+            }
+        }
+
+        private fun getShareAction(activity: Activity): Triple<Int, Int, () -> Unit> {
+            return Triple(
+                R.drawable.ic_share,
+                R.string.common_share
+            ) {
+                activity.showShareIntent(getOutput())
+            }
+        }
+
+        private fun getEditAction(activity: Activity, onComplete: (AddTask) -> Unit): Triple<Int, Int, () -> Unit> {
+            return Triple(
+                R.drawable.ic_edit,
+                R.string.action_edit
+            ) {
+                val taskType = TaskTypeData(
+                    task.type,
+                    activity.getString(R.string.assistant_screen_add_task_alert_dialog_title),
+                    null,
+                    null,
+                    null
+                )
+                val newState = AddTask(taskType, getInput() ?: "")
+                onComplete(newState)
+            }
+        }
+
+        private fun getDeleteAction(onComplete: (DeleteTask) -> Unit): Triple<Int, Int, () -> Unit> {
+            return Triple(
+                R.drawable.ic_delete,
+                R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
+            ) {
+                val newState = DeleteTask(task.id)
+                onComplete(newState)
+            }
+        }
+
+        fun getAction(
+            activity: Activity,
+            onEditCompleted: (AddTask) -> Unit,
+            onDeleteCompleted: (DeleteTask) -> Unit
+        ): List<Triple<Int, Int, () -> Unit>> {
+            return listOf(
+                getShareAction(activity),
+                getCopyToClipboardAction(activity),
+                getEditAction(activity, onComplete = {
+                    onEditCompleted(it)
+                }),
+                getDeleteAction(onComplete = {
+                    onDeleteCompleted(it)
+                })
+            )
+        }
+    }
 }
