@@ -12,10 +12,10 @@ import androidx.lifecycle.viewModelScope
 import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.model.ScreenState
 import com.nextcloud.client.assistant.repository.AssistantRepositoryType
-import com.nextcloud.client.assistant.taskTypes.model.AssistantTaskType
-import com.nextcloud.client.assistant.taskTypes.model.toAssistantTaskTypeList
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
+import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.model.toTaskTypeDataList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -36,11 +36,11 @@ class AssistantViewModel(
     private val _snackbarMessageId = MutableStateFlow<Int?>(null)
     val snackbarMessageId: StateFlow<Int?> = _snackbarMessageId
 
-    private val _selectedTaskType = MutableStateFlow<AssistantTaskType?>(null)
-    val selectedTaskType: StateFlow<AssistantTaskType?> = _selectedTaskType
+    private val _selectedTaskType = MutableStateFlow<TaskTypeData?>(null)
+    val selectedTaskType: StateFlow<TaskTypeData?> = _selectedTaskType
 
-    private val _taskTypes = MutableStateFlow<List<AssistantTaskType>?>(null)
-    val taskTypes: StateFlow<List<AssistantTaskType>?> = _taskTypes
+    private val _taskTypes = MutableStateFlow<List<TaskTypeData>?>(null)
+    val taskTypes: StateFlow<List<TaskTypeData>?> = _taskTypes
 
     private var taskList: List<Task>? = null
 
@@ -52,9 +52,9 @@ class AssistantViewModel(
     }
 
     @Suppress("MagicNumber")
-    fun createTask(input: String, type: String) {
+    fun createTask(input: String, taskType: TaskTypeData) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.createTask(input, type)
+            val result = repository.createTask(input, taskType)
 
             val messageId = if (result.isSuccess) {
                 R.string.assistant_screen_task_create_success_message
@@ -69,7 +69,7 @@ class AssistantViewModel(
         }
     }
 
-    fun selectTaskType(task: AssistantTaskType) {
+    fun selectTaskType(task: TaskTypeData) {
         _selectedTaskType.update {
             task
         }
@@ -82,7 +82,7 @@ class AssistantViewModel(
             val taskTypesResult = repository.getTaskTypes()
 
             if (taskTypesResult.isSuccess) {
-                val result = taskTypesResult.resultData.toAssistantTaskTypeList()
+                val result = taskTypesResult.resultData.toTaskTypeDataList()
                 _taskTypes.update {
                     result
                 }

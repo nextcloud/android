@@ -9,6 +9,8 @@ package com.nextcloud.client.assistant
 
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.owncloud.android.AbstractOnServerIT
+import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.model.toTaskTypeDataList
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -35,7 +37,7 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
         val result = sut?.getTaskTypes()
         assertTrue(result?.isSuccess == true)
 
-        val taskTypes = result?.resultData?.types
+        val taskTypes = result?.resultData?.toTaskTypeDataList()
         assertTrue(taskTypes?.isNotEmpty() == true)
     }
 
@@ -63,8 +65,12 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
         }
 
         val input = "Give me some random output for test purpose"
-        val type = "OCP\\TextProcessing\\FreePromptTaskType"
-        val result = sut?.createTask(input, type)
+        val taskType = TaskTypeData(
+            "core:text2text",
+            "Free text to text prompt",
+            "Runs an arbitrary prompt through a language model that returns a reply"
+        )
+        val result = sut?.createTask(input, taskType)
         assertTrue(result?.isSuccess == true)
     }
 
