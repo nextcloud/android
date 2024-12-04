@@ -524,7 +524,7 @@
     <string name="locked_by_app">Bloqueado pola aplicación %1$s</string>
     <string name="log_send_mail_subject">Atopáronse %1$s aplicacións de rexistros para Android</string>
     <string name="log_send_no_mail_app">Non se atopou ningunha aplicación para enviar rexistros. Instale un cliente de correo-e.</string>
-    <string name="logged_in_as">Accedeu como %1$s</string>
+    <string name="logged_in_as">Conectado como %1$s</string>
     <string name="login">Acceder</string>
     <string name="login_url_helper_text">A ligazón á súa interface web %1$s cando a abre no navegador.</string>
     <string name="logs_menu_delete">Eliminar rexistros</string>
@@ -595,8 +595,8 @@
     <string name="notification_channel_general_name">Notificacións xerais</string>
     <string name="notification_channel_media_description">Progreso do reprodutor de música</string>
     <string name="notification_channel_media_name">Reprodutor de medios</string>
-    <string name="notification_channel_push_description">Amosar as notificacións automáticas: mencións en comentarios, recepción de novos ficheiros compartidos remotos, anuncios publicados por un administrador, etc.</string>
-    <string name="notification_channel_push_name">Notificacións automáticas</string>
+    <string name="notification_channel_push_description">Amosar as notificacións emerxentes: mencións en comentarios, recepción de novos ficheiros compartidos remotos, anuncios publicados por un administrador, etc.</string>
+    <string name="notification_channel_push_name">Notificacións emerxentes</string>
     <string name="notification_channel_upload_description">Amosa o progreso do envío</string>
     <string name="notification_channel_upload_name_short">Envíos</string>
     <string name="notification_icon">Icona de notificación</string>
@@ -724,9 +724,9 @@
     <string name="preview_sorry">Desculpe.</string>
     <string name="privacy">Privacidade</string>
     <string name="public_share_name">Nome novo</string>
-    <string name="push_notifications_not_implemented">Foron desactivadas as notificacións automáticas por depender de servizos propietarios de Google Play.</string>
-    <string name="push_notifications_old_login">Non dispón de notificacións automáticas por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
-    <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións automáticas.</string>
+    <string name="push_notifications_not_implemented">Foron desactivadas as notificacións emerxentes por depender de servizos propietarios de Google Play.</string>
+    <string name="push_notifications_old_login">Non dispón de notificacións emerxentes por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
+    <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións emerxentes.</string>
     <string name="qr_could_not_be_read">Non foi posíbel ler o código QR.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Non é posíbel atopar o cartafol, a operación de sincronización foi cancelada</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Non é posíbel atopar o ficheiro para enviar</string>
