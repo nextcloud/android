@@ -48,13 +48,8 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Wpisz jakiś tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Czy na pewno chcesz usunąć to zadanie?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
-    <string name="assistant_screen_failed_task_text">Nie powiodło się</string>
     <string name="assistant_screen_loading">Trwa wczytywanie listy zadań. Proszę czekać</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Brak dostępnych zadań. Wybierz typ zadania, aby utworzyć nowe zadanie.</string>
     <string name="assistant_screen_no_task_available_text">Brak dostępnych zadań dla typu zadania %s. Możesz utworzyć nowe zadanie w prawym dolnym rogu.</string>
-    <string name="assistant_screen_running_task_text">W trakcie</string>
-    <string name="assistant_screen_scheduled_task_status_text">Zaplanowane</string>
-    <string name="assistant_screen_successful_task_text">Zakończone</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
     <string name="assistant_screen_task_create_success_message">Zadanie pomyślnie utworzone</string>
     <string name="assistant_screen_task_delete_fail_message">Wystąpił błąd podczas usuwania zadania</string>
@@ -64,7 +59,6 @@
     <string name="assistant_screen_task_output_empty_text">Wynik zadanie nie jest jeszcze gotowy</string>
     <string name="assistant_screen_task_types_error_state_message">Nie można pobrać typów zadań. Sprawdź swoje połączenie internetowe.</string>
     <string name="assistant_screen_top_bar_title">Asystent</string>
-    <string name="assistant_screen_unknown_task_status_text">Nieznany</string>
     <string name="assistant_task_detail_screen_input_button_title">Wejście</string>
     <string name="assistant_task_detail_screen_output_button_title">Wyjście</string>
     <string name="associated_account_not_found">Nie znaleziono powiązanego konta!</string>

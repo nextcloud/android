@@ -40,15 +40,12 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Įrašykite kokį nors tekstą</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ar tikrai norite ištrinti šią užduotį?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ištrinti užduotį</string>
-    <string name="assistant_screen_failed_task_text">Nepavyko</string>
-    <string name="assistant_screen_successful_task_text">Užbaigta</string>
     <string name="assistant_screen_task_create_fail_message">Kuriant užduotį, įvyko klaida</string>
     <string name="assistant_screen_task_create_success_message">Užduotis sėkmingai sukurta</string>
     <string name="assistant_screen_task_delete_fail_message">Ištrinant užduotį, įvyko klaida</string>
     <string name="assistant_screen_task_delete_success_message">Užduotis sėkmingai ištrinta</string>
     <string name="assistant_screen_task_list_error_state_message">Nepavyko gauti užduočių sąrašo, patikrinkite savo interneto ryšį.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ištrinti užduotį</string>
-    <string name="assistant_screen_unknown_task_status_text">Nežinoma</string>
     <string name="assistant_task_detail_screen_output_button_title">Išvestis</string>
     <string name="associated_account_not_found">Susieta paskyra nerasta!</string>
     <string name="auth_access_failed">Prieiga nepavyko: %1$s</string>

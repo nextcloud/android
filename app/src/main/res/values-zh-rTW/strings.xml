@@ -49,13 +49,8 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除工作項目</string>
-    <string name="assistant_screen_failed_task_text">失敗</string>
     <string name="assistant_screen_loading">未載入工作項目清單，請稍候</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">無可用的工作項目。選取工作項目類型以建立新工作項目。</string>
     <string name="assistant_screen_no_task_available_text">沒有可用於 %s 工作項目類型的工作項目，您可以從右下角建立新工作項目。</string>
-    <string name="assistant_screen_running_task_text">進行中</string>
-    <string name="assistant_screen_scheduled_task_status_text">已安排</string>
-    <string name="assistant_screen_successful_task_text">已完成</string>
     <string name="assistant_screen_task_create_fail_message">建立工作項目時發生錯誤</string>
     <string name="assistant_screen_task_create_success_message">已成功建立工作項目</string>
     <string name="assistant_screen_task_delete_fail_message">刪除工作項目時發生錯誤</string>
@@ -65,7 +60,6 @@
     <string name="assistant_screen_task_output_empty_text">任務輸出尚未就緒。</string>
     <string name="assistant_screen_task_types_error_state_message">無法擷取工作項目類型，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_top_bar_title">助理</string>
-    <string name="assistant_screen_unknown_task_status_text">未知</string>
     <string name="assistant_task_detail_screen_input_button_title">輸入</string>
     <string name="assistant_task_detail_screen_output_button_title">輸出</string>
     <string name="associated_account_not_found">找不到相關的帳號！</string>
