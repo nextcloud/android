@@ -49,13 +49,8 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algún texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Confirma que quere eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
-    <string name="assistant_screen_failed_task_text">Fallado</string>
     <string name="assistant_screen_loading">Estase a cargar a lista de tarefas, agarde</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Non hai ningunha tarefa dispoñíbel. Seleccione un tipo de tarefa para crear unha nova tarefa.</string>
     <string name="assistant_screen_no_task_available_text">Non hai ningunha tarefa dispoñible para o tipo de tarefa %s, pode crear unha nova desde a parte inferior dereita.</string>
-    <string name="assistant_screen_running_task_text">En proceso</string>
-    <string name="assistant_screen_scheduled_task_status_text">Programado</string>
-    <string name="assistant_screen_successful_task_text">Completado</string>
     <string name="assistant_screen_task_create_fail_message">Produciuse un erro ao crear a tarefa</string>
     <string name="assistant_screen_task_create_success_message">A tarefa creouse satisfactoriamente</string>
     <string name="assistant_screen_task_delete_fail_message">Produciuse un erro ao eliminar a tarefa</string>
@@ -65,7 +60,6 @@
     <string name="assistant_screen_task_output_empty_text">A saída da tarefa aínda non está preparada.</string>
     <string name="assistant_screen_task_types_error_state_message">Non é posíbel recuperar os tipos de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
-    <string name="assistant_screen_unknown_task_status_text">Descoñecido</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Saída</string>
     <string name="associated_account_not_found">Non se atopou unha conta asociada!</string>

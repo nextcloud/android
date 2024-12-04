@@ -41,13 +41,8 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">텍스트 입력</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">이 작업을 삭제하시겠습니까?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">작업 삭제</string>
-    <string name="assistant_screen_failed_task_text">실패</string>
     <string name="assistant_screen_loading">작업 목록을 로드하는 중입니다. 잠시 기다려 주세요.</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">사용할 수 있는 작업이 없습니다. 새 작업을 생성하려면 작업 유형을 선택하세요.</string>
     <string name="assistant_screen_no_task_available_text">%s작업 유형을 위해 사용 가능한 작업이 없습니다, 오른쪽 하단에서 새 작업을 만들 수 있습니다.</string>
-    <string name="assistant_screen_running_task_text">진행 중</string>
-    <string name="assistant_screen_scheduled_task_status_text">예정됨</string>
-    <string name="assistant_screen_successful_task_text">완료됨</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_create_success_message">작업이 성공적으로 생성됨</string>
     <string name="assistant_screen_task_delete_fail_message">작업을 삭제하는 중에 오류가 발생했습니다.</string>
@@ -56,7 +51,6 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">작업 삭제</string>
     <string name="assistant_screen_task_types_error_state_message">작업 유형을 가져올 수 없습니다. 인터넷 연결을 확인하세요.</string>
     <string name="assistant_screen_top_bar_title">어시스턴트</string>
-    <string name="assistant_screen_unknown_task_status_text">알 수 없음</string>
     <string name="assistant_task_detail_screen_input_button_title">입력</string>
     <string name="assistant_task_detail_screen_output_button_title">출력</string>
     <string name="associated_account_not_found">관련 계정을 찾을 수 없습니다!</string>

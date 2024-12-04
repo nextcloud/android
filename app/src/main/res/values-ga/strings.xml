@@ -49,13 +49,8 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Clóscríobh roinnt téacs</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">An bhfuil tú cinnte gur mhaith leat an tasc seo a scriosadh?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Scrios Tasc</string>
-    <string name="assistant_screen_failed_task_text">Theip</string>
     <string name="assistant_screen_loading">Tá an Liosta Tasc á lódáil, fan go fóill, le do thoil</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Níl aon tasc ar fáil. Roghnaigh cineál taisc chun tasc nua a chruthú.</string>
     <string name="assistant_screen_no_task_available_text">Níl aon tasc ar fáil do chineál taisc %s, is féidir leat tasc nua a chruthú ón mbun ar dheis.</string>
-    <string name="assistant_screen_running_task_text">Ar Siúl</string>
-    <string name="assistant_screen_scheduled_task_status_text">Sceidealta</string>
-    <string name="assistant_screen_successful_task_text">Críochnaithe</string>
     <string name="assistant_screen_task_create_fail_message">Tharla earráid agus an tasc á chruthú</string>
     <string name="assistant_screen_task_create_success_message">D\'éirigh leis an tasc a chruthú</string>
     <string name="assistant_screen_task_delete_fail_message">Tharla earráid agus an tasc á scriosadh</string>
@@ -65,7 +60,6 @@
     <string name="assistant_screen_task_output_empty_text">Níl an t-aschur tasc réidh fós.</string>
     <string name="assistant_screen_task_types_error_state_message">Ní féidir cineálacha tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_top_bar_title">Cúntóir</string>
-    <string name="assistant_screen_unknown_task_status_text">Anaithnid</string>
     <string name="assistant_task_detail_screen_input_button_title">Ionchur</string>
     <string name="assistant_task_detail_screen_output_button_title">Aschur</string>
     <string name="associated_account_not_found">Cuntas gaolmhar gan aimsiú!</string>

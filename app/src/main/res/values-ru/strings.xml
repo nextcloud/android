@@ -41,13 +41,8 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Наберите какой-то текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Вы уверены, что хотите удалить эту задачу?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Удалить задачу</string>
-    <string name="assistant_screen_failed_task_text">Не удалось</string>
     <string name="assistant_screen_loading">Список задач загружается, пожалуйста подождите</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Нет доступных задач. Выберите тип задачи, чтобы создать новую задачу.</string>
     <string name="assistant_screen_no_task_available_text">Нет доступной задачи для типа задачи %s, вы можете создать новую задачу в правом нижнем углу.</string>
-    <string name="assistant_screen_running_task_text">Выполянется</string>
-    <string name="assistant_screen_scheduled_task_status_text">Запланированное</string>
-    <string name="assistant_screen_successful_task_text">Выполнено</string>
     <string name="assistant_screen_task_create_fail_message">Произошла ошибка при создании задачи</string>
     <string name="assistant_screen_task_create_success_message">Задача успешно создана</string>
     <string name="assistant_screen_task_delete_fail_message">Произошла ошибка во время удаления задачи</string>
@@ -56,7 +51,6 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Удалить задачу</string>
     <string name="assistant_screen_task_types_error_state_message">Не удается получить список задач, проверьте ваше подключение к Интернету.</string>
     <string name="assistant_screen_top_bar_title">Помощник</string>
-    <string name="assistant_screen_unknown_task_status_text">Неизвестно</string>
     <string name="assistant_task_detail_screen_input_button_title">Ввод</string>
     <string name="assistant_task_detail_screen_output_button_title">Вывод</string>
     <string name="associated_account_not_found">Связанный аккаунт не найден!</string>

@@ -41,13 +41,8 @@
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">بەزى تېكىستلەرنى كىرگۈزۈڭ</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">بۇ ۋەزىپىنى ئۆچۈرمەكچىمۇ؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">ۋەزىپىنى ئۆچۈرۈڭ</string>
-    <string name="assistant_screen_failed_task_text">مەغلۇب بولدى</string>
     <string name="assistant_screen_loading">ۋەزىپە تىزىملىكى يۈكلىنىۋاتىدۇ ، ساقلاپ تۇرۇڭ</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">ھېچقانداق ۋەزىپە يوق. يېڭى ۋەزىپە يارىتىش ئۈچۈن ۋەزىپە تۈرىنى تاللاڭ.</string>
     <string name="assistant_screen_no_task_available_text">% S ۋەزىپە تىپىغا ماس كېلىدىغان ۋەزىپە يوق ، ئاستىدىن ئوڭدىن يېڭى ۋەزىپە قۇرالايسىز.</string>
-    <string name="assistant_screen_running_task_text">ئىلگىرىلەۋاتىدۇ</string>
-    <string name="assistant_screen_scheduled_task_status_text">پىلانلانغان</string>
-    <string name="assistant_screen_successful_task_text">تاماملاندى</string>
     <string name="assistant_screen_task_create_fail_message">ۋەزىپە قۇرغاندا خاتالىق كۆرۈلدى</string>
     <string name="assistant_screen_task_create_success_message">ۋەزىپە مۇۋەپپەقىيەتلىك قۇرۇلدى</string>
     <string name="assistant_screen_task_delete_fail_message">ۋەزىپىنى ئۆچۈرگەندە خاتالىق كۆرۈلدى</string>
@@ -56,7 +51,6 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">ۋەزىپىنى ئۆچۈرۈڭ</string>
     <string name="assistant_screen_task_types_error_state_message">ۋەزىپە تۈرلىرىنى ئېلىپ كېتەلمىدىڭىز ، تور ئۇلىنىشىڭىزنى تەكشۈرۈپ بېقىڭ.</string>
     <string name="assistant_screen_top_bar_title">ياردەمچى</string>
-    <string name="assistant_screen_unknown_task_status_text">نامەلۇم</string>
     <string name="assistant_task_detail_screen_input_button_title">كىرگۈزۈش</string>
     <string name="assistant_task_detail_screen_output_button_title">چىقىرىش</string>
     <string name="associated_account_not_found">بىرلەشمە ھېسابات تېپىلمىدى!</string>
