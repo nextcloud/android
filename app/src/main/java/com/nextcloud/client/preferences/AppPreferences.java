@@ -400,4 +400,7 @@ public interface AppPreferences {
 
     boolean shouldStopDownloadJobsOnStart();
     void setStopDownloadJobsOnStart(boolean value);
+    
+    boolean isAutoUploadGPlayWarningShown();
+    void setAutoUploadGPlayWarningShown(boolean value);
 }
