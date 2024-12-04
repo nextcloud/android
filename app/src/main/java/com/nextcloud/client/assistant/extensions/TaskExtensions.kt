@@ -17,6 +17,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
+@Suppress("MagicNumber")
 fun Task.getInputTitle(): String {
     val maxTitleLength = 20
     val title = input?.input ?: ""
@@ -52,6 +53,7 @@ fun Task.getStatusIcon(): Int {
     }
 }
 
+@Suppress("MagicNumber")
 fun Task.getModifiedAtRepresentation(context: Context): String? {
     if (lastUpdated == null) {
         return null
@@ -80,7 +82,7 @@ fun Task.getModifiedAtRepresentation(context: Context): String? {
             )
         }
 
-        timeDifference < TimeUnit.DAYS.toSeconds(1)  -> {
+        timeDifference < TimeUnit.DAYS.toSeconds(1) -> {
             context.resources.getQuantityString(
                 R.plurals.time_hours_ago,
                 timeDifferenceInHours,
@@ -94,6 +96,7 @@ fun Task.getModifiedAtRepresentation(context: Context): String? {
     }
 }
 
+@Suppress("MagicNumber")
 private fun convertToDateFormat(timestamp: Long): String {
     val date = Date(timestamp * 1000)
     val format = SimpleDateFormat("MMM d", Locale.getDefault())

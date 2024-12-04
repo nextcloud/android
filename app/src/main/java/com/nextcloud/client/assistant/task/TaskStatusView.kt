@@ -60,6 +60,7 @@ fun TaskStatusView(task: Task, foregroundColor: Color) {
     }
 }
 
+@Suppress("LongMethod", "MagicNumber")
 @Composable
 @Preview
 private fun TaskStatusViewPreview() {

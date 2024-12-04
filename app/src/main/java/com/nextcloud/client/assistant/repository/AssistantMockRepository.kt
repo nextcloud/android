@@ -45,8 +45,8 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
                         1707692337,
                         1707692337,
                         1707692337,
-                        1707692337,
-                    ),
+                        1707692337
+                    )
                 )
             )
         }

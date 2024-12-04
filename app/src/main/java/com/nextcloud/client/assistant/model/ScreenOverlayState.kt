@@ -11,7 +11,7 @@ import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
 
 sealed class ScreenOverlayState {
-    data class DeleteTask(val id: Long): ScreenOverlayState()
-    data class AddTask(val taskType: TaskTypeData, val input: String): ScreenOverlayState()
-    data class TaskActions(val task: Task): ScreenOverlayState()
+    data class DeleteTask(val id: Long) : ScreenOverlayState()
+    data class AddTask(val taskType: TaskTypeData, val input: String) : ScreenOverlayState()
+    data class TaskActions(val task: Task) : ScreenOverlayState()
 }
