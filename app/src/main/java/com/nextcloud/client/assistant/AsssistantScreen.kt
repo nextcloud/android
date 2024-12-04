@@ -77,11 +77,12 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
             screenState == ScreenState.Refreshing,
             pullRefreshState,
             onRefresh = {
-            scope.launch {
-                delay(1500)
-                viewModel.fetchTaskList()
+                scope.launch {
+                    delay(1500)
+                    viewModel.fetchTaskList()
+                }
             }
-        })
+        )
     ) {
         ShowScreenState(screenState, selectedTaskType, taskTypes, viewModel, filteredTaskList)
 
@@ -108,7 +109,7 @@ private fun ShowScreenState(
     viewModel: AssistantViewModel,
     filteredTaskList: List<Task>?
 ) {
-    when(screenState) {
+    when (screenState) {
         ScreenState.Refreshing -> {
             CenterText(text = stringResource(id = R.string.assistant_screen_loading))
         }
@@ -144,7 +145,11 @@ private fun ShowLinearProgressIndicator(screenState: ScreenState?, pullToRefresh
 }
 
 @Composable
-private fun AddFloatingActionButton(modifier: Modifier, selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel) {
+private fun AddFloatingActionButton(
+    modifier: Modifier,
+    selectedTaskType: TaskTypeData?,
+    viewModel: AssistantViewModel
+) {
     FloatingActionButton(
         modifier = modifier,
         onClick = {
@@ -169,17 +174,14 @@ private fun showSnackBarMessage(messageId: Int?, activity: Activity, viewModel: 
     }
 }
 
+@Suppress("LongMethod")
 @Composable
-private fun ShowOverlayState(
-    state: ScreenOverlayState?,
-    activity: Activity,
-    viewModel: AssistantViewModel
-) {
-    when(state) {
+private fun ShowOverlayState(state: ScreenOverlayState?, activity: Activity, viewModel: AssistantViewModel) {
+    when (state) {
         is ScreenOverlayState.AddTask -> {
             AddTaskAlertDialog(
-                title =  state.taskType.name,
-                description =  state.taskType.description,
+                title = state.taskType.name,
+                description = state.taskType.description,
                 defaultInput = state.input,
                 addTask = { input ->
                     state.taskType.let { taskType ->
@@ -237,7 +239,7 @@ private fun ShowOverlayState(
                     val newState =
                         ScreenOverlayState.DeleteTask(state.task.id)
                     viewModel.updateScreenState(newState)
-                },
+                }
             )
 
             MoreActionsBottomSheet(
@@ -273,7 +275,8 @@ private fun AssistantContent(
         }
 
         items(taskList) { task ->
-            TaskView(task,
+            TaskView(
+                task,
                 showTaskActions = {
                     val newState = ScreenOverlayState.TaskActions(task)
                     viewModel.updateScreenState(newState)
@@ -285,7 +288,11 @@ private fun AssistantContent(
 }
 
 @Composable
-private fun EmptyTaskList(selectedTaskType: TaskTypeData?, taskTypes: List<TaskTypeData>?, viewModel: AssistantViewModel) {
+private fun EmptyTaskList(
+    selectedTaskType: TaskTypeData?,
+    taskTypes: List<TaskTypeData>?,
+    viewModel: AssistantViewModel
+) {
     val text = stringResource(
         id = R.string.assistant_screen_no_task_available_text,
         selectedTaskType?.name ?: ""

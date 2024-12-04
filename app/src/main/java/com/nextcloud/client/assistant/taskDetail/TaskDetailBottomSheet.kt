@@ -65,10 +65,11 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
         onDismissRequest = { dismiss() },
         sheetState = sheetState
     ) {
-        LazyColumn(modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)) {
-
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
             stickyHeader {
                 Row(
                     modifier = Modifier.fillMaxWidth()
@@ -185,10 +186,9 @@ private fun TaskDetailScreenPreview() {
             1707692337,
             1707692337,
             1707692337,
-            1707692337,
+            1707692337
         ),
         showTaskActions = {
-
         }
     ) {
     }

@@ -112,8 +112,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
         IconButton(
             modifier = Modifier.align(Alignment.TopEnd),
             onClick = showTaskActions
-        )
-        {
+        ) {
             Icon(
                 imageVector = Icons.Filled.MoreVert,
                 contentDescription = "More button",
@@ -154,15 +153,17 @@ private fun TaskViewPreview() {
             "1",
             "1",
             TaskInput("What about other promising tokens like"),
-            TaskOutput("Several tokens show promise for future growth in the" +
-                "cryptocurrency market"),
+            TaskOutput(
+                "Several tokens show promise for future growth in the" +
+                    "cryptocurrency market"
+            ),
             1707692337,
             1707692337,
             1707692337,
             1707692337,
-            1707692337,
-        ), showTaskActions = {
-
+            1707692337
+        ),
+        showTaskActions = {
         }
     )
 }
