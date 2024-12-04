@@ -202,7 +202,7 @@ private fun ShowOverlayState(state: ScreenOverlayState?, activity: Activity, vie
         }
 
         is ScreenOverlayState.TaskActions -> {
-            val actions = state.getAction(activity, onEditCompleted = { addTask ->
+            val actions = state.getActions(activity, onEditCompleted = { addTask ->
                 viewModel.updateScreenState(addTask)
             }, onDeleteCompleted =  { deleteTask ->
                 viewModel.updateScreenState(deleteTask)

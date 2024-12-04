@@ -68,7 +68,7 @@ sealed class ScreenOverlayState {
             }
         }
 
-        fun getAction(
+        fun getActions(
             activity: Activity,
             onEditCompleted: (AddTask) -> Unit,
             onDeleteCompleted: (DeleteTask) -> Unit
