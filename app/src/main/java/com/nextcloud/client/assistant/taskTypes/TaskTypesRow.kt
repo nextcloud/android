@@ -7,45 +7,61 @@
  */
 package com.nextcloud.client.assistant.taskTypes
 
-import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.FilledTonalButton
+import android.annotation.SuppressLint
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ScrollableTabRow
+import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRowDefaults
+import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
 
+@SuppressLint("ResourceType")
 @Composable
-fun TaskTypesRow(selectedTaskType: TaskTypeData?, data: List<TaskTypeData>?, selectTaskType: (TaskTypeData) -> Unit) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .horizontalScroll(rememberScrollState())
-    ) {
-        data?.forEach { taskType ->
-            taskType.name?.let { taskTypeName ->
-                FilledTonalButton(
-                    onClick = { selectTaskType(taskType) },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if (selectedTaskType?.id == taskType.id) {
-                            Color.Unspecified
-                        } else {
-                            Color.Gray
-                        }
-                    )
-                ) {
-                    Text(text = taskTypeName)
-                }
+fun TaskTypesRow(selectedTaskType: TaskTypeData?, data: List<TaskTypeData>, selectTaskType: (TaskTypeData) -> Unit) {
+    val selectedTabIndex = data.indexOfFirst { it.id == selectedTaskType?.id }.takeIf { it >= 0 } ?: 0
 
-                Spacer(modifier = Modifier.padding(end = 8.dp))
+    ScrollableTabRow(
+        selectedTabIndex = selectedTabIndex,
+        edgePadding = 0.dp,
+        containerColor = colorResource(R.color.actionbar_color),
+        indicator = {
+            TabRowDefaults.SecondaryIndicator(
+                Modifier.tabIndicatorOffset(it[selectedTabIndex]),
+                color = MaterialTheme.colorScheme.primary,
+            )
+        }
+    ) {
+        data.forEach { taskType ->
+            taskType.name?.let { taskTypeName ->
+                Tab(
+                    selected = selectedTaskType?.id == taskType.id,
+                    onClick = { selectTaskType(taskType) },
+                    selectedContentColor = colorResource(R.color.text_color),
+                    unselectedContentColor = colorResource(R.color.disabled_text),
+                    text = { Text(text = taskTypeName) }
+                )
             }
         }
     }
+}
+
+@Composable
+@Preview
+private fun TaskTypesRowPreview() {
+    val selectedTaskType = TaskTypeData("1", "Free text to text prompt", "", null, null)
+    val taskTypes = listOf(
+        TaskTypeData("1", "Free text to text prompt", "", null, null),
+        TaskTypeData("2", "Extract topics", "", null, null),
+        TaskTypeData("3", "Generate Headline", "", null, null),
+        TaskTypeData("4", "Summarize", "", null, null)
+    )
+
+    TaskTypesRow(selectedTaskType, taskTypes) { }
 }
