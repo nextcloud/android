@@ -8,7 +8,6 @@
 package com.nextcloud.client.assistant
 
 import android.app.Activity
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -219,7 +218,6 @@ private fun ShowOverlayState(state: ScreenOverlayState?, activity: Activity, vie
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun AssistantContent(
     taskList: List<Task>,
@@ -227,28 +225,29 @@ private fun AssistantContent(
     selectedTaskType: TaskTypeData?,
     viewModel: AssistantViewModel
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        stickyHeader {
+
+    Column(modifier = Modifier.fillMaxSize()) {
+        taskTypes?.let {
             TaskTypesRow(selectedTaskType, data = taskTypes) { task ->
                 viewModel.selectTaskType(task)
             }
-
-            Spacer(modifier = Modifier.height(8.dp))
         }
 
-        items(taskList) { task ->
-            TaskView(
-                task,
-                showTaskActions = {
-                    val newState = ScreenOverlayState.TaskActions(task)
-                    viewModel.updateScreenState(newState)
-                }
-            )
-            Spacer(modifier = Modifier.height(8.dp))
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(12.dp)
+        ) {
+            items(taskList) { task ->
+                TaskView(
+                    task,
+                    showTaskActions = {
+                        val newState = ScreenOverlayState.TaskActions(task)
+                        viewModel.updateScreenState(newState)
+                    }
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
         }
     }
 }
@@ -269,11 +268,13 @@ private fun EmptyTaskList(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        TaskTypesRow(selectedTaskType, data = taskTypes) { task ->
-            viewModel.selectTaskType(task)
-        }
+        taskTypes?.let {
+            TaskTypesRow(selectedTaskType, data = taskTypes) { task ->
+                viewModel.selectTaskType(task)
+            }
 
-        Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(8.dp))
+        }
 
         CenterText(text = text)
     }
