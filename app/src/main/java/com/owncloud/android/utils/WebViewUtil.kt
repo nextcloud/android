@@ -77,7 +77,7 @@ class WebViewUtil(private val context: Context) {
 
         return try {
             val pi = pm.getPackageInfo("com.google.android.webview", 0)
-            val fullVersion = pi.versionName
+            val fullVersion = pi.versionName ?: return null
 
             // Split the version string by "." and get the first part
             val versionParts = fullVersion.split("\\.".toRegex()).dropLastWhile { it.isEmpty() }
