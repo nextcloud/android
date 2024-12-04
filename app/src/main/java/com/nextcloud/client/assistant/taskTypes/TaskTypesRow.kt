@@ -20,10 +20,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.nextcloud.client.assistant.taskTypes.model.AssistantTaskType
+import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
 
 @Composable
-fun TaskTypesRow(selectedTaskType: AssistantTaskType?, data: List<AssistantTaskType>?, selectTaskType: (AssistantTaskType) -> Unit) {
+fun TaskTypesRow(selectedTaskType: TaskTypeData?, data: List<TaskTypeData>?, selectTaskType: (TaskTypeData) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

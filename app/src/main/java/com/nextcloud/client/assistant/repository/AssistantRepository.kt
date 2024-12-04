@@ -14,6 +14,7 @@ import com.owncloud.android.lib.resources.assistant.DeleteTaskRemoteOperation
 import com.owncloud.android.lib.resources.assistant.GetTaskListRemoteOperation
 import com.owncloud.android.lib.resources.assistant.GetTaskTypesRemoteOperation
 import com.owncloud.android.lib.resources.assistant.model.TaskList
+import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
 class AssistantRepository(private val client: NextcloudClient) : AssistantRepositoryType {
@@ -22,8 +23,8 @@ class AssistantRepository(private val client: NextcloudClient) : AssistantReposi
         return GetTaskTypesRemoteOperation().execute(client)
     }
 
-    override fun createTask(input: String, type: String): RemoteOperationResult<Void> {
-        return CreateTaskRemoteOperation(input, type).execute(client)
+    override fun createTask(input: String, taskType: TaskTypeData): RemoteOperationResult<Void> {
+        return CreateTaskRemoteOperation(input, taskType).execute(client)
     }
 
     override fun getTaskList(taskType: String): RemoteOperationResult<TaskList> {

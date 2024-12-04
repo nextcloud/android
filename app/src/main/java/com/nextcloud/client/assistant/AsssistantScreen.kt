@@ -44,13 +44,13 @@ import com.nextcloud.client.assistant.model.ScreenState
 import com.nextcloud.client.assistant.repository.AssistantMockRepository
 import com.nextcloud.client.assistant.task.TaskView
 import com.nextcloud.client.assistant.taskTypes.TaskTypesRow
-import com.nextcloud.client.assistant.taskTypes.model.AssistantTaskType
 import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.nextcloud.utils.extensions.showShareIntent
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
+import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.delay
@@ -102,8 +102,8 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
 @Composable
 private fun ShowScreenState(
     screenState: ScreenState?,
-    selectedTaskType: AssistantTaskType?,
-    taskTypes: List<AssistantTaskType>?,
+    selectedTaskType: TaskTypeData?,
+    taskTypes: List<TaskTypeData>?,
     viewModel: AssistantViewModel,
     filteredTaskList: List<Task>?
 ) {
@@ -143,7 +143,7 @@ private fun ShowLinearProgressIndicator(screenState: ScreenState?, pullToRefresh
 }
 
 @Composable
-private fun AddFloatingActionButton(modifier: Modifier, selectedTaskType: AssistantTaskType?, viewModel: AssistantViewModel) {
+private fun AddFloatingActionButton(modifier: Modifier, selectedTaskType: TaskTypeData?, viewModel: AssistantViewModel) {
     FloatingActionButton(
         modifier = modifier,
         onClick = {
@@ -181,8 +181,8 @@ private fun ShowOverlayState(
                 description =  state.taskType.description,
                 defaultInput = state.input,
                 addTask = { input ->
-                    state.taskType.id?.let { taskTypeId ->
-                        viewModel.createTask(input = input, type = taskTypeId)
+                    state.taskType.let { taskType ->
+                        viewModel.createTask(input = input, taskType = taskType)
                     }
                 },
                 dismiss = {
@@ -218,7 +218,7 @@ private fun ShowOverlayState(
                     R.drawable.ic_edit,
                     R.string.action_edit
                 ) {
-                    val taskType = AssistantTaskType(
+                    val taskType = TaskTypeData(
                         state.task.type,
                         activity.getString(R.string.assistant_screen_add_task_alert_dialog_title),
                         null
@@ -252,8 +252,8 @@ private fun ShowOverlayState(
 @Composable
 private fun AssistantContent(
     taskList: List<Task>,
-    taskTypes: List<AssistantTaskType>?,
-    selectedTaskType: AssistantTaskType?,
+    taskTypes: List<TaskTypeData>?,
+    selectedTaskType: TaskTypeData?,
     viewModel: AssistantViewModel
 ) {
     LazyColumn(
@@ -282,7 +282,7 @@ private fun AssistantContent(
 }
 
 @Composable
-private fun EmptyTaskList(selectedTaskType: AssistantTaskType?, taskTypes: List<AssistantTaskType>?, viewModel: AssistantViewModel) {
+private fun EmptyTaskList(selectedTaskType: TaskTypeData?, taskTypes: List<TaskTypeData>?, viewModel: AssistantViewModel) {
     val text = stringResource(
         id = R.string.assistant_screen_no_task_available_text,
         selectedTaskType?.name ?: ""
