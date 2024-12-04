@@ -13,7 +13,7 @@ import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
 import com.owncloud.android.lib.resources.assistant.model.TaskTypes
 
 interface AssistantRepositoryType {
-    fun getTaskTypes(): RemoteOperationResult<TaskTypes>
+    fun getTaskTypes(): RemoteOperationResult<List<TaskTypeData>>
 
     fun createTask(input: String, taskType: TaskTypeData): RemoteOperationResult<Void>
 
