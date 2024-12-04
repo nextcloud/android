@@ -959,6 +959,10 @@ class EncryptionUtilsV2 {
         oldCounter: Long,
         signature: String
     ) {
+        if (signature.isEmpty()) {
+            return
+        }
+
         if (decryptedFolderMetadataFile.metadata.counter < oldCounter) {
             MainApp.showMessage(R.string.e2e_counter_too_old)
             return
@@ -968,7 +972,7 @@ class EncryptionUtilsV2 {
         val certs = decryptedFolderMetadataFile.users.map { EncryptionUtils.convertCertFromString(it.certificate) }
         val signedData = getSignedData(signature, message)
 
-        if (!verifySignedData(signedData, certs)) {
+        if (certs.isNotEmpty() && !verifySignedData(signedData, certs)) {
             MainApp.showMessage(R.string.e2e_signature_does_not_match)
             return
         }
@@ -980,7 +984,7 @@ class EncryptionUtilsV2 {
         }
     }
 
-    fun getSignedData(base64encodedSignature: String, message: String): CMSSignedData {
+    private fun getSignedData(base64encodedSignature: String, message: String): CMSSignedData {
         val signature = EncryptionUtils.decodeStringToBase64Bytes(base64encodedSignature)
         val asn1Signature = ASN1Sequence.fromByteArray(signature)
         val contentInfo = ContentInfo.getInstance(asn1Signature)
