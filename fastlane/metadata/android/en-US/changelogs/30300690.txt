@@ -1,4 +1,4 @@
-## 3.30.5 (December 4, 2024)
+## 3.30.6 (December 4, 2024)
 
 - MANAGE_EXTERNAL_STORAGE permission removed for Google Play Store
 - Performance improvements and bug fixes have been implemented
