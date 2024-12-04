@@ -1253,4 +1253,6 @@
     <string name="two_way_sync_activity_empty_list_desc">To set up a two way sync folder, please enable it in the details tab of the folder in question.</string>
     <string name="two_way_sync_activity_title">Internal two way sync</string>
     <string name="two_way_sync_activity_disable_all_button_title">Disable for all folders</string>
+    <string name="auto_upload_gplay">Auto upload behaviour changed</string>
+    <string name="auto_upload_gplay_desc">Due to new restrictions imposed by Google, the auto upload feature will no longer be able to automatically remove uploaded files.</string>
 </resources>
