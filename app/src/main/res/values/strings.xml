@@ -576,6 +576,10 @@
         <item quantity="one">%1$d file</item>
         <item quantity="other">%1$d files</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
+    </plurals>
     <string name="set_picture_as">Use picture as</string>
     <string name="set_as">Set As</string>
 
@@ -872,6 +876,7 @@
     <string name="first_run_4_text">Screensharing, online meetings and web conferences</string>
     <string name="restore_button_description">Restore deleted file</string>
     <string name="restore">Restore file</string>
+    <string name="restore_item">Restore</string>
     <string name="new_version_was_created">New version was created</string>
     <string name="new_comment">New comment…</string>
     <string name="error_comment_file">Error commenting file</string>
