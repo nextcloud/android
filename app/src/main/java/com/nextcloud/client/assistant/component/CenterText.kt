@@ -9,13 +9,14 @@ package com.nextcloud.client.assistant.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
+import com.owncloud.android.R
 
 @Composable
 fun CenterText(text: String) {
@@ -24,7 +25,7 @@ fun CenterText(text: String) {
             text = text,
             fontSize = 18.sp,
             textAlign = TextAlign.Center,
-            color = MaterialTheme.colorScheme.onPrimaryContainer
+            color = colorResource(R.color.text_color)
         )
     }
 }

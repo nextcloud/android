@@ -23,7 +23,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,13 +32,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.taskDetail.TaskDetailBottomSheet
+import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskInput
 import com.owncloud.android.lib.resources.assistant.model.TaskOutput
@@ -54,7 +54,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
             modifier = Modifier
                 .fillMaxWidth()
                 .clip(RoundedCornerShape(8.dp))
-                .background(MaterialTheme.colorScheme.primary)
+                .background(colorResource(R.color.primary))
                 .clickable {
                     showTaskDetailBottomSheet = true
                 }
@@ -65,7 +65,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
             task.input?.input?.let {
                 Text(
                     text = it,
-                    color = Color.White,
+                    color = colorResource(R.color.text_color),
                     fontSize = 18.sp,
                     textAlign = TextAlign.Left,
                     fontWeight = FontWeight.Bold,
@@ -85,7 +85,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
                 Text(
                     text = output,
                     fontSize = 18.sp,
-                    color = Color.White,
+                    color = colorResource(R.color.text_color),
                     textAlign = TextAlign.Left,
                     modifier = Modifier
                         .animateContentSize(
@@ -97,7 +97,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
                 )
             }
 
-            TaskStatusView(task, foregroundColor = Color.White)
+            TaskStatusView(task, foregroundColor = colorResource(R.color.text_color))
 
             if (showTaskDetailBottomSheet) {
                 TaskDetailBottomSheet(task, showTaskActions = {
@@ -116,7 +116,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
             Icon(
                 imageVector = Icons.Filled.MoreVert,
                 contentDescription = "More button",
-                tint = Color.White
+                tint = colorResource(R.color.text_color)
             )
         }
     }

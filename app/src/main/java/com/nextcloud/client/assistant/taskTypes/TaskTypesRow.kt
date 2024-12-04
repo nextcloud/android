@@ -8,7 +8,6 @@
 package com.nextcloud.client.assistant.taskTypes
 
 import android.annotation.SuppressLint
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRowDefaults
@@ -34,7 +33,7 @@ fun TaskTypesRow(selectedTaskType: TaskTypeData?, data: List<TaskTypeData>, sele
         indicator = {
             TabRowDefaults.SecondaryIndicator(
                 Modifier.tabIndicatorOffset(it[selectedTabIndex]),
-                color = MaterialTheme.colorScheme.primary,
+                color = colorResource(R.color.primary),
             )
         }
     ) {
