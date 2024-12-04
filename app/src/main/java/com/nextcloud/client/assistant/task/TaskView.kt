@@ -32,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -65,7 +66,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
             task.input?.input?.let {
                 Text(
                     text = it,
-                    color = colorResource(R.color.text_color),
+                    color = Color.White,
                     fontSize = 18.sp,
                     textAlign = TextAlign.Left,
                     fontWeight = FontWeight.Bold,
@@ -85,7 +86,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
                 Text(
                     text = output,
                     fontSize = 18.sp,
-                    color = colorResource(R.color.text_color),
+                    color = Color.White,
                     textAlign = TextAlign.Left,
                     modifier = Modifier
                         .animateContentSize(
@@ -97,7 +98,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
                 )
             }
 
-            TaskStatusView(task, foregroundColor = colorResource(R.color.text_color))
+            TaskStatusView(task, foregroundColor = Color.White)
 
             if (showTaskDetailBottomSheet) {
                 TaskDetailBottomSheet(task, showTaskActions = {
@@ -116,7 +117,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
             Icon(
                 imageVector = Icons.Filled.MoreVert,
                 contentDescription = "More button",
-                tint = colorResource(R.color.text_color)
+                tint = Color.White
             )
         }
     }
