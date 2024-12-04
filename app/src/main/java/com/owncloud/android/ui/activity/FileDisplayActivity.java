@@ -292,6 +292,11 @@ public class FileDisplayActivity extends FileActivity
         if (!"gplay".equals(BuildConfig.FLAVOR)) {
             return;
         }
+
+        // only show on Android11+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            return;
+        }
         
         if (PermissionUtil.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE)) {
             return;
