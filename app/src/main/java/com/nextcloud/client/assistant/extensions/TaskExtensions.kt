@@ -17,10 +17,14 @@ import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
+fun Task.getInput(): String? = input?.input
+
+fun Task.getOutput(): String? = output?.output
+
 @Suppress("MagicNumber")
 fun Task.getInputTitle(): String {
     val maxTitleLength = 20
-    val title = input?.input ?: ""
+    val title = getInput() ?: ""
 
     return if (title.length > maxTitleLength) {
         title.take(maxTitleLength) + "..."
