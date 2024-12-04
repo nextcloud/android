@@ -33,7 +33,7 @@ fun TaskTypesRow(selectedTaskType: TaskTypeData?, data: List<TaskTypeData>, sele
         indicator = {
             TabRowDefaults.SecondaryIndicator(
                 Modifier.tabIndicatorOffset(it[selectedTabIndex]),
-                color = colorResource(R.color.primary),
+                color = colorResource(R.color.primary)
             )
         }
     ) {

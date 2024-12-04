@@ -225,7 +225,6 @@ private fun AssistantContent(
     selectedTaskType: TaskTypeData?,
     viewModel: AssistantViewModel
 ) {
-
     Column(modifier = Modifier.fillMaxSize()) {
         taskTypes?.let {
             TaskTypesRow(selectedTaskType, data = taskTypes) { task ->
