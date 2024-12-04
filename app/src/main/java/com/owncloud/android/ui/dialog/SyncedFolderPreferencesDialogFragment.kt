@@ -277,8 +277,9 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding?.settingInstantBehaviourContainer?.alpha = ALPHA_DISABLED
             return
         }
-        if (syncedFolder!!.localPath != null && 
-            FileStorageUtils.isFolderWritable(File(syncedFolder!!.localPath))) {
+        if (syncedFolder!!.localPath != null &&
+            FileStorageUtils.isFolderWritable(File(syncedFolder!!.localPath))
+        ) {
             binding?.settingInstantBehaviourContainer?.isEnabled = true
             binding?.settingInstantBehaviourContainer?.alpha = ALPHA_ENABLED
             binding?.settingInstantBehaviourSummary?.text =

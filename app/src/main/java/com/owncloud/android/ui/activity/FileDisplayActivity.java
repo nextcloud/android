@@ -65,6 +65,7 @@ import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
+import com.nextcloud.utils.BuildHelper;
 import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
@@ -289,7 +290,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void checkAutoUploadOnGPlay() {
-        if (!"gplay".equals(BuildConfig.FLAVOR)) {
+        if (!BuildHelper.GPLAY.equals(BuildConfig.FLAVOR)) {
             return;
         }
 
