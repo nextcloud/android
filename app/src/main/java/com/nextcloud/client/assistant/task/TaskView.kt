@@ -39,7 +39,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nextcloud.client.assistant.task.model.TaskViewBottomSheetType
 import com.nextcloud.client.assistant.taskDetail.TaskDetailBottomSheet
 import com.owncloud.android.lib.resources.assistant.model.Task
 import com.owncloud.android.lib.resources.assistant.model.TaskInput
@@ -48,7 +47,7 @@ import com.owncloud.android.lib.resources.assistant.model.TaskOutput
 @Suppress("LongMethod", "MagicNumber")
 @Composable
 fun TaskView(task: Task, showTaskActions: () -> Unit) {
-    var bottomSheetType by remember { mutableStateOf<TaskViewBottomSheetType?>(null) }
+    var showTaskDetailBottomSheet by remember { mutableStateOf(false) }
 
     Box {
         Column(
@@ -57,7 +56,7 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
                 .clip(RoundedCornerShape(8.dp))
                 .background(MaterialTheme.colorScheme.primary)
                 .clickable {
-                    bottomSheetType = TaskViewBottomSheetType.Detail
+                    showTaskDetailBottomSheet = true
                 }
                 .padding(16.dp)
         ) {
@@ -100,12 +99,13 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
 
             TaskStatusView(task, foregroundColor = Color.White)
 
-            bottomSheetType?.let {
-                TaskViewBottomSheet(it, task, dismiss = {
-                    bottomSheetType = null
-                }, showTaskActions = {
+            if (showTaskDetailBottomSheet) {
+                TaskDetailBottomSheet(task, showTaskActions = {
+                    showTaskDetailBottomSheet = false
                     showTaskActions()
-                })
+                }) {
+                    showTaskDetailBottomSheet = false
+                }
             }
         }
 
@@ -118,25 +118,6 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
                 contentDescription = "More button",
                 tint = Color.White
             )
-        }
-    }
-}
-
-@Composable
-private fun TaskViewBottomSheet(
-    bottomSheetType: TaskViewBottomSheetType,
-    task: Task,
-    showTaskActions: () -> Unit,
-    dismiss: () -> Unit
-) {
-    when (bottomSheetType) {
-        TaskViewBottomSheetType.Detail -> {
-            TaskDetailBottomSheet(task, showTaskActions = {
-                dismiss()
-                showTaskActions()
-            }) {
-                dismiss()
-            }
         }
     }
 }
