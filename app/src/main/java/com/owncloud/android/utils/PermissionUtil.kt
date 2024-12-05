@@ -251,10 +251,16 @@ object PermissionUtil {
                     activity,
                     listener
                 )
-            }
 
-            val dialogFragment = StoragePermissionDialogFragment.newInstance(permissionRequired)
-            dialogFragment.show(activity.supportFragmentManager, PERMISSION_CHOICE_DIALOG_TAG)
+                // Check if the dialog is already added to the FragmentManager.
+                val existingDialog = activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG)
+
+                // Only show the dialog if it's not already shown.
+                if (existingDialog == null) {
+                    val dialogFragment = StoragePermissionDialogFragment.newInstance(permissionRequired)
+                    dialogFragment.show(activity.supportFragmentManager, PERMISSION_CHOICE_DIALOG_TAG)
+                }
+            }
         }
     }
 
