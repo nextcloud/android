@@ -692,6 +692,7 @@
     <string name="prefs_synced_folders_local_path_title">Karpeta lokala</string>
     <string name="prefs_synced_folders_remote_path_title">Urruneko karpeta</string>
     <string name="prefs_theme_title">Gaia</string>
+    <string name="prefs_two_way_sync_interval">Tarteak</string>
     <string name="prefs_two_way_sync_summary">Kudeatu barruko karpetak bi norabideko sinkronizaziorako</string>
     <string name="prefs_value_theme_dark">Iluna</string>
     <string name="prefs_value_theme_light">Argia</string>

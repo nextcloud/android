@@ -107,6 +107,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__TWO_WAY_SYNC_INTERVAL = "two_way_sync_interval";
 
     private static final String PREF__STOP_DOWNLOAD_JOBS_ON_START = "stop_download_jobs_on_start";
+    
+    private static final String PREF__AUTO_UPLOAD_GPLAY_WARNING_SHOWN = "auto_upload_gplay_warning_shown";
 
     private static final String LOG_ENTRY = "log_entry";
 
@@ -824,5 +826,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setStopDownloadJobsOnStart(boolean value) {
         preferences.edit().putBoolean(PREF__STOP_DOWNLOAD_JOBS_ON_START, value).apply();
+    }
+
+    @Override
+    public boolean isAutoUploadGPlayWarningShown() {
+        return preferences.getBoolean(PREF__AUTO_UPLOAD_GPLAY_WARNING_SHOWN, false);
+    }
+
+    @Override
+    public void setAutoUploadGPlayWarningShown(boolean value) {
+        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_GPLAY_WARNING_SHOWN, value).apply();
     }
 }

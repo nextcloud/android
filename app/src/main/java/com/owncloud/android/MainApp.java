@@ -385,6 +385,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         if (!MDMConfig.INSTANCE.sendFilesSupport(this)) {
             disableDocumentsStorageProvider();
         }
+        
+        
      }
 
     public void disableDocumentsStorageProvider() {
@@ -843,6 +845,8 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             }
         }
     }
+
+    
 
     private static void showAutoUploadAlertDialog(Context context) {
         new MaterialAlertDialogBuilder(context, R.style.Theme_ownCloud_Dialog)
