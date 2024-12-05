@@ -99,6 +99,7 @@ object PermissionUtil {
         ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
     }
 
+    // TODO rename function name to requestExternalStoragePermissionIfNeeded to prevent confusion
     /**
      * Request relevant external storage permission depending on SDK, if needed.
      *
@@ -132,10 +133,6 @@ object PermissionUtil {
         }
     }
 
-    /**
-     * Request a storage permission
-     */
-    // TODO inject this class to avoid passing ViewThemeUtils around
     private fun requestStoragePermission(
         activity: Activity,
         readOnly: Boolean,
@@ -145,10 +142,8 @@ object PermissionUtil {
         val preferences: AppPreferences = AppPreferencesImpl.fromContext(activity)
 
         if (permissionRequired || !preferences.isStoragePermissionRequested) {
-            // determine required permissions
             val permissions = if (readOnly && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    // use granular media permissions
                     arrayOf(
                         Manifest.permission.READ_MEDIA_IMAGES,
                         Manifest.permission.READ_MEDIA_VIDEO
@@ -160,29 +155,39 @@ object PermissionUtil {
                 arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
 
-            fun doRequest() {
-                ActivityCompat.requestPermissions(
-                    activity,
-                    permissions,
-                    PERMISSIONS_EXTERNAL_STORAGE
-                )
-                preferences.isStoragePermissionRequested = true
+            val grantedPermissions = permissions.all {
+                ContextCompat.checkSelfPermission(activity, it) == PackageManager.PERMISSION_GRANTED
             }
 
-            // Check if we should show an explanation
-            if (permissions.any { shouldShowRequestPermissionRationale(activity, it) }) {
-                // Show explanation to the user and then request permission
+            if (grantedPermissions) {
+                // Permissions already granted, proceed with functionality
+                return
+            }
+
+            val permanentlyDeniedPermissions = permissions.filter {
+                !ActivityCompat.shouldShowRequestPermissionRationale(activity, it) &&
+                    ContextCompat.checkSelfPermission(activity, it) != PackageManager.PERMISSION_GRANTED
+            }
+
+            if (permissions.any { ActivityCompat.shouldShowRequestPermissionRationale(activity, it) } ||
+                permanentlyDeniedPermissions.isNotEmpty()
+            ) {
                 Snackbar.make(
                     activity.findViewById(android.R.id.content),
                     R.string.permission_storage_access,
-                    Snackbar.LENGTH_INDEFINITE
-                ).setAction(R.string.common_ok) {
-                    doRequest()
+                    Snackbar.LENGTH_LONG
+                ).setAction(R.string.common_settings) {
+                    val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                        data = Uri.fromParts("package", activity.packageName, null)
+                    }
+                    activity.startActivity(intent)
                 }.also { viewThemeUtils.material.themeSnackbar(it) }.show()
             } else {
-                // No explanation needed, request the permission.
-                doRequest()
+                ActivityCompat.requestPermissions(activity, permissions, PERMISSIONS_EXTERNAL_STORAGE)
             }
+
+            // Only mark as requested after actual request
+            preferences.isStoragePermissionRequested = true
         }
     }
 
