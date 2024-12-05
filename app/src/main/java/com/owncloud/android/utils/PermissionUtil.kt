@@ -99,7 +99,6 @@ object PermissionUtil {
         ActivityCompat.checkSelfPermission(context, it) == PackageManager.PERMISSION_GRANTED
     }
 
-
     // TODO: Rename the function to requestExternalStoragePermissionIfNeeded to avoid confusion.
     /**
      * Request relevant external storage permission depending on SDK, if needed.
