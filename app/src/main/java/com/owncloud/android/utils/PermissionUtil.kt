@@ -160,7 +160,7 @@ object PermissionUtil {
             }
 
             if (grantedPermissions) {
-                // Permissions already granted, proceed with functionality
+                // Permissions already granted
                 return
             }
 
