@@ -758,6 +758,7 @@
     <string name="screenshot_06_davdroid_subline">Sinkronizatu DAVx5ekin</string>
     <string name="search_error">Errorea bilaketaren emaitzak lortzean</string>
     <string name="secure_share_not_set_up">Partekatze segurua ez dago konfiguratuta erabiltzaile honentzat</string>
+    <string name="secure_share_search">Partekatze segurua...</string>
     <string name="select_all">Hautatu dena</string>
     <string name="select_media_folder">Ezarri multimedia karpeta</string>
     <string name="select_one_template">Hautatu txantiloi bat</string>

@@ -788,6 +788,7 @@
     <string name="set_picture_as">画像を使用する</string>
     <string name="set_status">ステータスを設定</string>
     <string name="set_status_message">メッセージを設定</string>
+    <string name="setup_e2e">End-to-End 暗号化の設定中に、12語のランダムなニーモニックが表示されます。これは他のデバイスでファイルを開くために必要です。この情報はこのデバイスにのみ保存され、この画面で再表示することができます。安全な場所にメモしておいてください！</string>
     <string name="share">共有</string>
     <string name="share_copy_link">リンクをコピーして共有</string>
     <string name="share_dialog_title">共有</string>
@@ -809,6 +810,7 @@
     <string name="share_link_with_label">リンクを共有(%1$s)</string>
     <string name="share_no_expiration_date_label">有効期限を設定</string>
     <string name="share_no_password_title">パスワードを設定</string>
+    <string name="share_not_allowed_when_file_drop">セキュアファイルドロップ中は再共有できません。</string>
     <string name="share_password_title">パスワード保護</string>
     <string name="share_permission_can_edit">編集可能</string>
     <string name="share_permission_file_drop">ファイルを転送</string>
@@ -817,6 +819,7 @@
     <string name="share_permissions">共有権限</string>
     <string name="share_remote_clarification">%1$s (リモート)</string>
     <string name="share_room_clarification">%1$s(会話)</string>
+    <string name="share_search">ユーザ名、クラウド統合ID、またはEメールアドレス ...</string>
     <string name="share_send_new_email">メールを送信</string>
     <string name="share_send_note">受取人への注意</string>
     <string name="share_settings">設定</string>
@@ -831,6 +834,7 @@
     <string name="shared_icon_shared_via_link">リンク経由で共有</string>
     <string name="shared_with_you_by">%1$sと共有中</string>
     <string name="sharee_add_failed">共有を追加できませんでした</string>
+    <string name="sharee_already_added_to_file">共有の追加に失敗しました。このファイルまたはフォルダはすでにその人物またはグループと共有されています。</string>
     <string name="show_images">写真を表示</string>
     <string name="show_video">動画を表示</string>
     <string name="signup_with_provider">他のサービスでサインアップ</string>
@@ -874,6 +878,7 @@
     <string name="storage_permission_full_access">フルアクセス</string>
     <string name="storage_permission_media_read_only">メディア読み取り専用</string>
     <string name="storage_pictures">写真</string>
+    <string name="store_full_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム\n\n特徴：\n* あなたのサーバと同調した、分かりやすくモダンなインターフェース\n* あなたのNextcloudサーバーにファイルをアップロード\n* それらのファイルの共有\n* お気に入りのファイルやフォルダーをいつでも同期\n* サーバーのすべてのフォルダーをまとめて検索\n* 撮影した写真やビデオの自動アップロード\n* 更新の通知\n* 複数アカウントのサポート\n* 指紋やPIN認証であなたのデータに安全にアクセス\n* DAVx5 (旧称 DAVdroid) との統合によりカレンダー連絡先の同期を簡単にセットアップ\n\n問題の報告は https://github.com/nextcloud/android/issues 、アプリについての議論は https://help.nextcloud.com/c/clients/android まで\n\nNextcloudは初めてですか? Nextcloud は個人ファイルの同期共有とコミュニケーションのためのサーバです。無償のソフトウェアにより自分でホストをたてたり、そのための有償サービスを企業から受けることが出来ます。これにより、あなたの写真やカレンダー、連絡先、ドキュメントその他あらゆるファイルを自身でコントロールできます。\n\n詳細はNextcloud（https://nextcloud.com）まで。</string>
     <string name="store_full_dev_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム。\nこれは公式の開発バージョンです。まだ十分なテストをしていない新しいサンプル機能を毎日提供しており、不安定な挙動やデータの消失を招く可能性があります。 このアプリはテストユーザーのためのもので、不具合が発生した場合にレポートを必要とします。 実業務では使用しないでください！\n\n公式開発の正規バージョンはF-droidからもインストールできます。</string>
     <string name="store_short_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム</string>
     <string name="store_short_dev_desc">あなたの作業を強力に管理する、自己ホスト型の生産性向上プラットフォーム（開発プレビューバージョン）</string>
@@ -933,12 +938,19 @@
     <string name="trashbin_file_remove">永久に削除</string>
     <string name="trashbin_loading_failed">ゴミ箱へのロードに失敗しました！</string>
     <string name="trashbin_not_emptied">ファイルを完全に削除できませんでした。</string>
+    <string name="two_way_sync_activity_disable_all_button_title">すべてのフォルダで無効にする</string>
+    <string name="two_way_sync_activity_empty_list_desc">双方向同期フォルダを設定するには、該当フォルダの詳細タブで有効にしてください。</string>
+    <string name="two_way_sync_activity_empty_list_title">双方向同期が設定されていません</string>
     <string name="two_way_sync_activity_title">内部的な双方向同期</string>
     <string name="unexpected_error_occurred">予期せぬエラーが発生しました</string>
+    <string name="unified_search_fragment_calendar_event_not_found">イベントが見つかりません。常に同期して更新できます。WEBにリダイレクトしています...</string>
+    <string name="unified_search_fragment_contact_not_found">連絡先が見つかりません。常に同期して更新できます。WEBにリダイレクトしています...</string>
+    <string name="unified_search_fragment_permission_needed">検索結果を開くには権限が必要です。さもなければWEBにリダイレクトされます...</string>
     <string name="unlock_file">ファイルのロックを解除</string>
     <string name="unread_comments">未読のコメントがあります</string>
     <string name="unset_encrypted">暗号化解除</string>
     <string name="unset_favorite">お気に入りから削除</string>
+    <string name="unset_internal_two_way_sync_description">内部の双方向同期からフォルダを削除します</string>
     <string name="unshare_link_file_error">このファイルまたはフォルダーの共有を解除する際にエラーが発生しました</string>
     <string name="unshare_link_file_no_exist">共有を解除できません。ファイルがあるか確認してください。</string>
     <string name="unshare_link_forbidden_permissions">ファイルの共有を解除</string>
@@ -949,13 +961,19 @@
     <string name="update_link_forbidden_permissions">共有を更新</string>
     <string name="updating_share_failed">共有の更新に失敗しました</string>
     <string name="upload_action_cancelled_clear">キャンセルされたアップロードのクリア</string>
+    <string name="upload_action_cancelled_resume">キャンセルされたアップロードを再開します</string>
     <string name="upload_action_failed_clear">失敗したアップロードのクリア</string>
     <string name="upload_action_failed_retry">失敗したアップロードを再試行する</string>
+    <string name="upload_action_file_not_exist_message">いくつかのファイルがもう存在しません。これらのアップロードは再開できません。</string>
     <string name="upload_action_global_upload_pause">全てのアップロードを一時停止</string>
+    <string name="upload_action_global_upload_resume">すべてのアップロードを再開します</string>
     <string name="upload_cannot_create_file">ローカルファイルが作成できません</string>
     <string name="upload_chooser_title">アップロード…</string>
     <string name="upload_content_from_other_apps">他のアプリからコンテンツをアップロードする</string>
+    <string name="upload_direct_camera_photo">写真</string>
+    <string name="upload_direct_camera_promt">写真またはビデオを撮影しますか？</string>
     <string name="upload_direct_camera_upload">カメラからアップロード</string>
+    <string name="upload_direct_camera_video">ビデオ</string>
     <string name="upload_file_dialog_filename">ファイル名</string>
     <string name="upload_file_dialog_filetype">ファイルタイプ</string>
     <string name="upload_file_dialog_filetype_googlemap_shortcut">Googleマップショートカットファイル(%s)</string>
@@ -963,17 +981,21 @@
     <string name="upload_file_dialog_filetype_snippet_text">スニペットテキストファイル(.txt)</string>
     <string name="upload_file_dialog_title">アップロードするファイル名とファイルタイプを入力</string>
     <string name="upload_files">アップロードファイル</string>
+    <string name="upload_global_pause_title">すべてのアップロードが一時停止しています</string>
     <string name="upload_item_action_button">アイテムアクションのアップロードボタン</string>
     <string name="upload_list_delete">削除</string>
     <string name="upload_list_empty_headline">アップロードは利用できません</string>
     <string name="upload_list_empty_text_auto_upload">何かコンテンツをアップロードするか、自動アップロードを有効にしてください。</string>
+    <string name="upload_list_expand_header">ヘッダーの展開を切り替え</string>
     <string name="upload_list_resolve_conflict">競合の解決</string>
     <string name="upload_local_storage_full">ローカルストレージに空きがありません</string>
     <string name="upload_local_storage_not_copied">ローカルストレージへにファイルをコピーできませんでした</string>
     <string name="upload_lock_failed">フォルダのロックに失敗しました</string>
     <string name="upload_manually_cancelled">アップロードはユーザーによってキャンセルされました</string>
+    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_old_android">暗号化は、Android 5.0以降で使えます。</string>
     <string name="upload_query_move_foreign_files">十分な空き容量が無い場合、選択したファイルは%1$sにコピーできません。コピーせず移動にしますか？</string>
+    <string name="upload_quota_exceeded">ストレージの割り当てを超過しました</string>
     <string name="upload_scan_doc_upload">カメラから書類をスキャン</string>
     <string name="upload_sync_conflict">同期の競合が発生しました。手動で解決してください。</string>
     <string name="upload_unknown_error">不明なエラー</string>
@@ -985,6 +1007,8 @@
     <string name="uploader_error_message_source_file_not_found">選択したアップロードするファイルが見つかりません。ファイルが存在するかどうか確認してください。</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">このファイルはアップロードできません</string>
     <string name="uploader_error_title_no_file_to_upload">アップロードするファイルはありません</string>
+    <string name="uploader_file_not_found_message">ファイルが見つかりません。このファイルが存在することを確認するか、以前の競合が解決されていない可能性はありますか？</string>
+    <string name="uploader_file_not_found_on_server_message">サーバ上でファイルを見つけられませんでした。別のユーザがファイルを削除した可能性があります</string>
     <string name="uploader_info_dirname">フォルダー名</string>
     <string name="uploader_local_files_uploaded">失敗したローカル ファイルのアップロードを再試行します</string>
     <string name="uploader_top_message">アップロードフォルダーを選択</string>
@@ -1024,6 +1048,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">サーバーのバージョンを取得中…</string>
     <string name="uploads_view_upload_status_service_interrupted">アプリが終了しました</string>
     <string name="uploads_view_upload_status_succeeded">完了</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">同じファイルがリモートに見つかったため、アップロードをスキップします</string>
     <string name="uploads_view_upload_status_unknown_fail">不明なエラー</string>
     <string name="uploads_view_upload_status_virus_detected">ウイルスが検出されました！アップロードを完了できません。</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">省電力モード解除待機中</string>
@@ -1040,9 +1065,11 @@
     <string name="userinfo_no_info_text">プロフィールページに名前、写真、連絡先の詳細を追加します。</string>
     <string name="username">ユーザー名</string>
     <string name="version_dev_download">ダウンロード</string>
+    <string name="video_overlay_icon">ビデオオーバーレイアイコン</string>
     <string name="wait_a_moment">少々お待ちください…</string>
     <string name="wait_checking_credentials">保存された資格情報をチェック</string>
     <string name="wait_for_tmp_copy_from_private_storage">プライベートストレージからファイルをコピー中</string>
+    <string name="warn_rename_extension">拡張子を変更すると、このファイルが異なるアプリケーションで開かれる可能性があります</string>
     <string name="webview_version_check_alert_dialog_message">ログインするにはAndroidシステムのWebViewを更新してください</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
     <string name="webview_version_check_alert_dialog_title">AndroidシステムのWebViewをアップデート</string>
@@ -1050,11 +1077,18 @@
     <string name="whats_new_skip">スキップ</string>
     <string name="whats_new_title">%1$sの新機能</string>
     <string name="whats_your_status">あなたのステータスは？</string>
+    <string name="widgets_not_available">ウィジェットは、ダッシュボードアプリが有効になっている場合、%1$s 25以降でのみ利用可能です</string>
     <string name="widgets_not_available_title">利用できません</string>
     <string name="worker_download">ファイルをダウンロード中…</string>
     <string name="write_email">メールを送信</string>
     <string name="wrong_storage_path">データ保存フォルダーが存在しません!</string>
     <string name="wrong_storage_path_desc">これはバックアップの復元を違うデバイスで行ったためです。既定値に戻されています。データストレージフォルダーを調整するために設定を確認してください。</string>
+    <plurals name="hours">
+        <item quantity="other">%d 時間</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="other">%d 分</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 個のファイルを同期出ません (コンフリクト: %2$d)</item>
     </plurals>
