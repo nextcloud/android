@@ -35,6 +35,14 @@
     <string name="advanced_settings">Напредне поставке</string>
     <string name="allow_resharing">Дозволи дељење даље</string>
     <string name="app_config_base_url_title">Базни URL</string>
+    <string name="app_config_disable_clipboard_title">Искључи клипборд</string>
+    <string name="app_config_disable_intro_title">Искључи интро</string>
+    <string name="app_config_disable_log_title">Искључи дневник</string>
+    <string name="app_config_disable_more_external_site_title">Искључи спољашње сајтове</string>
+    <string name="app_config_disable_multiaccount_title">Искључи вишеструке налоге</string>
+    <string name="app_config_disable_sharing_title">Искључи дељење</string>
+    <string name="app_config_enforce_protection_title">Форсирај заштиту</string>
+    <string name="app_config_proxy_host_title">Хост име проксија</string>
     <string name="app_config_proxy_port_title">Прокси порт</string>
     <string name="app_widget_description">Приказује један виџет са контролне табле</string>
     <string name="appbar_search_in">Тражи у %s</string>
@@ -55,6 +63,7 @@
     <string name="assistant_screen_task_delete_success_message">Задатак је успешно завршен</string>
     <string name="assistant_screen_task_list_error_state_message">Не може да се преузме листа задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Обриши задатак</string>
+    <string name="assistant_screen_task_output_empty_text">Излаз задатка још увек није спреман.</string>
     <string name="assistant_screen_task_types_error_state_message">Не могу да се преузму типови задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_top_bar_title">Асистент</string>
     <string name="assistant_screen_unknown_task_status_text">Непознато</string>
@@ -94,6 +103,8 @@
     <string name="authenticator_activity_login_error">Дошло је до проблема при обради вашег захтева за пријаву. Молимо вас да касније покушате поново.</string>
     <string name="authenticator_activity_please_complete_login_process">Молимо вас да довршите процес пријаве у интернет прегледачу</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">остављен у оригиналној фасцикли јер је само за читање</string>
+    <string name="auto_upload_gplay">Промењено је понашање аутоматског отпремања</string>
+    <string name="auto_upload_gplay_desc">Услед нових ограничења које је поставио Google, функционалност аутоматског отпремања више неће моћи аутоматски да отпрема фајлове.</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
     <string name="autoupload_configure">Подеси</string>
@@ -360,6 +371,7 @@
     <string name="file_already_exists">Име фајла већ постоји</string>
     <string name="file_delete">Обриши</string>
     <string name="file_detail_activity_error">Грешка при добављању активности за фајл</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Нема апликације којом могу да се изаберу контакти</string>
     <string name="file_details_no_content">Грешка при учитавању детаља</string>
     <string name="file_icon">Фајл</string>
     <string name="file_keep">Задржи</string>
@@ -387,6 +399,7 @@
     <string name="file_management_permission_optional">Дозволе за складиште</string>
     <string name="file_management_permission_optional_text">%1$s најбоље ради када има дозволу да приступи складишту. Можете избрати пуни приступ свим фајловима, или приступ само-за -читање фотографија и видео снимака.</string>
     <string name="file_management_permission_text">%1$s захтева дозволе управљања за отпремање фајлова. Можете изабрати пуни приступ свим фајловима, или приступ само-за-читање слика и видео снимака.</string>
+    <string name="file_migration_allow_media_indexing">Дозволи приступ из осталих апликација</string>
     <string name="file_migration_checking_destination">Проверавам одредиште…</string>
     <string name="file_migration_cleaning">Чистим…</string>
     <string name="file_migration_dialog_title">Ажурирам фасциклу са подацима</string>
@@ -397,6 +410,7 @@
     <string name="file_migration_failed_not_writable">Не могу да пишем у одредишни фајл </string>
     <string name="file_migration_failed_while_coping">Грешка приликом пресељења</string>
     <string name="file_migration_failed_while_updating_index">Грешка при ажурирању индекса</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Премештам податке…</string>
     <string name="file_migration_ok_finished">Завршено</string>
     <string name="file_migration_override_data_folder">Замени</string>
@@ -592,6 +606,7 @@
     <string name="notifications_no_results_headline">Нема обавештења</string>
     <string name="notifications_no_results_message">Проверите касније.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Операције на чекању</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Операција уклањања на чекању</string>
     <string name="offline_mode">Нема везе са интернетом</string>
     <string name="offline_mode_info_description">Чак и без везе са интернетом можете да организујете фолдере, креирате фајлове. Када поново будете на мрежи, ваше акције на чекању ће се аутоматски синхронизовати.</string>
     <string name="offline_mode_info_title">Ван мреже сте, али се рад наставља</string>
@@ -654,6 +669,8 @@
     <string name="prefs_category_sync">Синхронизуј</string>
     <string name="prefs_daily_backup_summary">Дневна резервна копија вашег календара и контаката</string>
     <string name="prefs_daily_contact_backup_summary">Дневно архивирање ваших контаката</string>
+    <string name="prefs_data_storage_location">Локација складишта података</string>
+    <string name="prefs_data_storage_location_summary">Управљање локацијом складишта података</string>
     <string name="prefs_davx5_setup_error">Неочекивана грешка приликом подешавања DAVx5 (раније познатог под именом DAVdroid)</string>
     <string name="prefs_e2e_active">Подешено је шифрирање од почетка-до-краја!</string>
     <string name="prefs_e2e_mnemonic">Е2Е мнемоник</string>
@@ -760,6 +777,7 @@
     <string name="screenshot_06_davdroid_subline">Синхронизација помоћу DAVx5</string>
     <string name="search_error">Грешка приликом добијања резултата претраге</string>
     <string name="secure_share_not_set_up">За овог корисника није подешено безбедно дељење</string>
+    <string name="secure_share_search">Безбедно дељење</string>
     <string name="select_all">Означи све</string>
     <string name="select_media_folder">Поставите фолдер са медијима</string>
     <string name="select_one_template">Молимо вас да изаберете један шаблон</string>
@@ -803,6 +821,7 @@
     <string name="share_permissions">Дозволе за дељење</string>
     <string name="share_remote_clarification">%1$s(удаљено)</string>
     <string name="share_room_clarification">%1$s (разговор)</string>
+    <string name="share_search">Име, ИД здруженог облака или адреса е-поште…</string>
     <string name="share_send_new_email">Пошаљи нови и-мејл</string>
     <string name="share_send_note">Напомена примаоцу</string>
     <string name="share_settings">Поставке</string>
@@ -1052,6 +1071,7 @@
     <string name="wait_a_moment">Сачекајте мало…</string>
     <string name="wait_checking_credentials">Проверавам сачуване акредитиве</string>
     <string name="wait_for_tmp_copy_from_private_storage">Копирам фајл из личног складишта</string>
+    <string name="warn_rename_extension">Ако се промена екстензија, фајл ће се можда отварати у другој апликацији</string>
     <string name="webview_version_check_alert_dialog_message">Да бисте се пријавили, молимо вас да ажурирате Андроид апликацију System WebView</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Ажурирај</string>
     <string name="webview_version_check_alert_dialog_title">Ажурирај Андроид System WebView</string>

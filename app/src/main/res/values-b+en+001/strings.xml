@@ -103,6 +103,8 @@
     <string name="authenticator_activity_login_error">There was an issue processing your login request. Please try again later.</string>
     <string name="authenticator_activity_please_complete_login_process">Please complete login process in your browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
+    <string name="auto_upload_gplay">Auto upload behaviour changed</string>
+    <string name="auto_upload_gplay_desc">Due to new restrictions imposed by Google, the auto upload feature will no longer be able to automatically remove uploaded files.</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Configure</string>
