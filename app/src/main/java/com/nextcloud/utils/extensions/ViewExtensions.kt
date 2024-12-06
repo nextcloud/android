@@ -11,6 +11,7 @@ import android.content.Context
 import android.graphics.Outline
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewOutlineProvider
 
 fun View?.setVisibleIf(condition: Boolean) {
@@ -24,6 +25,18 @@ fun View?.makeRounded(context: Context, cornerRadius: Float) {
             outlineProvider = createRoundedOutline(context, cornerRadius)
             clipToOutline = true
         }
+    }
+}
+
+fun View?.setMargins(left: Int, top: Int, right: Int, bottom: Int) {
+    if (this == null) {
+        return
+    }
+
+    if (layoutParams is ViewGroup.MarginLayoutParams) {
+        val param = layoutParams as ViewGroup.MarginLayoutParams
+        param.setMargins(left, top, right, bottom)
+        requestLayout()
     }
 }
 

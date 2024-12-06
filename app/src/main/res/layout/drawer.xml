@@ -17,7 +17,6 @@
         android:layout_gravity="start"
         android:layout_weight="1"
         android:background="@color/appbar"
-        android:fitsSystemWindows="true"
         android:theme="@style/NavigationView_ItemTextAppearance"
         app:headerLayout="@layout/drawer_header"
         app:itemTextColor="@color/drawer_text_color"
