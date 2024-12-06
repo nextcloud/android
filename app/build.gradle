@@ -147,6 +147,7 @@ android {
         buildTypes {
             debug {
                 testCoverageEnabled(project.hasProperty('coverage'))
+                resConfigs "en", "xxxhdpi"
             }
         }
 
@@ -185,7 +186,6 @@ android {
                 versionName "1"
             }
         }
-
 
         testOptions {
             unitTests.returnDefaultValues = true
@@ -260,6 +260,10 @@ android {
     sourceSets {
         // Adds exported schema location as test app assets.
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+
+    kapt {
+        useBuildCache true
     }
 }
 
