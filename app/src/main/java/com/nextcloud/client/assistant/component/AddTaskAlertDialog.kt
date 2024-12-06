@@ -22,9 +22,15 @@ import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.owncloud.android.R
 
 @Composable
-fun AddTaskAlertDialog(title: String?, description: String?, addTask: (String) -> Unit, dismiss: () -> Unit) {
+fun AddTaskAlertDialog(
+    title: String?,
+    description: String?,
+    defaultInput: String = "",
+    addTask: (String) -> Unit,
+    dismiss: () -> Unit
+) {
     var input by remember {
-        mutableStateOf("")
+        mutableStateOf(defaultInput)
     }
 
     SimpleAlertDialog(
