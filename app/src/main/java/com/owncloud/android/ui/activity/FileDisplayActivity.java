@@ -313,7 +313,8 @@ public class FileDisplayActivity extends FileActivity
         boolean showInfoDialog = false;
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
             // move or delete after success
-            if (syncedFolder.getUploadAction() == 1 || syncedFolder.getUploadAction() == 2) {
+            if (syncedFolder.getUploadAction() == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE || 
+                syncedFolder.getUploadAction() == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE) {
                 showInfoDialog = true;
                 break;
             }
