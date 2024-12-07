@@ -103,6 +103,8 @@
     <string name="authenticator_activity_login_error">حدث إشكال عند معالجة طلبك للدخول. يُرجى المحاولة مرةً أخرى.</string>
     <string name="authenticator_activity_please_complete_login_process">يرجى إكمال عملية تسجيل الدخول في المتصفح الخاص بك</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
+    <string name="auto_upload_gplay">تمّ تغيير سلوك التحميل التلقائي</string>
+    <string name="auto_upload_gplay_desc">بسبب القيود الجديدة المفروضة من قِبل شركة قوقل، فإن خاصية التحميل التلقائي سوف لن يمكنها بعدُ الحذف التلقائي للملفات المرفوعة.</string>
     <string name="auto_upload_on_wifi">قم بالرفع عبر شبكة لاسلكية غير محدودة البيانات فقط</string>
     <string name="auto_upload_path">/رفع تلقائي</string>
     <string name="autoupload_configure">إعداد</string>
