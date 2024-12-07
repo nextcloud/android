@@ -1285,4 +1285,6 @@
     <string name="two_way_sync_activity_disable_all_button_title">Disable for all folders</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Pending Remove Operation</string>
     <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
+    <string name="auto_upload_gplay">Auto upload behaviour changed</string>
+    <string name="auto_upload_gplay_desc">Due to new restrictions imposed by Google, the auto upload feature will no longer be able to automatically remove uploaded files.</string>
 </resources>

@@ -191,6 +191,7 @@ class SyncedFoldersActivity :
             setTheme(R.style.FallbackThemingTheme)
         }
         binding.emptyList.emptyListViewAction.setOnClickListener { showHiddenItems() }
+        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -817,9 +818,6 @@ class SyncedFoldersActivity :
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // permission was granted
                     load(getItemsDisplayedPerFolder(), true)
-                } else {
-                    // permission denied --> request again
-                    PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true)
                 }
             }
             else -> super.onRequestPermissionsResult(requestCode, permissions, grantResults)

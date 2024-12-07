@@ -35,6 +35,13 @@
     <string name="advanced_settings">Ustawienia zaawansowane</string>
     <string name="allow_resharing">Zezwalaj na udostępnianie dalej</string>
     <string name="app_config_base_url_title">Podstawowy adres URL</string>
+    <string name="app_config_disable_clipboard_title">Wyłącz schowek</string>
+    <string name="app_config_disable_intro_title">Wyłącz intro</string>
+    <string name="app_config_disable_log_title">Wyłącz log</string>
+    <string name="app_config_disable_more_external_site_title">Wyłącz zewnętrzne strony</string>
+    <string name="app_config_disable_multiaccount_title">Wyłącz multi konta</string>
+    <string name="app_config_disable_sharing_title">Wyłącz udostępnianie</string>
+    <string name="app_config_proxy_host_title">Host Proxy</string>
     <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
@@ -55,6 +62,7 @@
     <string name="assistant_screen_task_delete_success_message">Zadanie pomyślnie usunięte</string>
     <string name="assistant_screen_task_list_error_state_message">Nie można pobrać listy zadań. Sprawdź swoje połączenie internetowe.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Usuń zadanie</string>
+    <string name="assistant_screen_task_output_empty_text">Wynik zadanie nie jest jeszcze gotowy</string>
     <string name="assistant_screen_task_types_error_state_message">Nie można pobrać typów zadań. Sprawdź swoje połączenie internetowe.</string>
     <string name="assistant_screen_top_bar_title">Asystent</string>
     <string name="assistant_screen_unknown_task_status_text">Nieznany</string>
@@ -360,6 +368,7 @@
     <string name="file_already_exists">Nazwa pliku już istnieje</string>
     <string name="file_delete">Usuń</string>
     <string name="file_detail_activity_error">Błąd podczas pobierania aktywności dla pliku</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Brak aplikacji dla wybranego kontaktu</string>
     <string name="file_details_no_content">Nie udało się załadować szczegółów</string>
     <string name="file_icon">Plik</string>
     <string name="file_keep">Zachowaj</string>
@@ -387,6 +396,7 @@
     <string name="file_management_permission_optional">Uprawnienia do pamięci</string>
     <string name="file_management_permission_optional_text">%1$s działa najlepiej z uprawnieniami dostępu do pamięci. Możesz wybrać pełny dostęp do wszystkich plików lub dostęp tylko do odczytu dla zdjęć i filmów.</string>
     <string name="file_management_permission_text">%1$s potrzebuje uprawnień do zarządzania plikami, aby wysyłać pliki. Możesz wybrać pełny dostęp do wszystkich plików lub dostęp tylko do odczytu dla zdjęć i filmów.</string>
+    <string name="file_migration_allow_media_indexing">Zezwól na dostęp z innych aplikacji</string>
     <string name="file_migration_checking_destination">Sprawdzanie miejsca…</string>
     <string name="file_migration_cleaning">Czyszczenie…</string>
     <string name="file_migration_dialog_title">Aktualizacja katalogu przechowywania danych</string>
@@ -397,6 +407,7 @@
     <string name="file_migration_failed_not_writable">Nie można zapisać w pliku docelowym</string>
     <string name="file_migration_failed_while_coping">Błąd podczas migracji</string>
     <string name="file_migration_failed_while_updating_index">Nie udało się zaktualizować indeksu</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Przenoszenie danych…</string>
     <string name="file_migration_ok_finished">Skończone</string>
     <string name="file_migration_override_data_folder">Zamień</string>
@@ -592,6 +603,7 @@
     <string name="notifications_no_results_headline">Brak powiadomień</string>
     <string name="notifications_no_results_message">Sprawdź później.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Trwające działania</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Trwa usuwanie</string>
     <string name="offline_mode">Brak połączenia z Internetem</string>
     <string name="offline_mode_info_description">Nawet bez połączenia internetowego możesz organizować swoje katalogi, tworzyć pliki. Gdy tylko wrócisz do połączenia z internetem, Twoje oczekujące działania zostaną automatycznie zsynchronizowane.</string>
     <string name="offline_mode_info_title">Jesteś offline, ale praca trwa</string>
@@ -803,6 +815,7 @@
     <string name="share_permissions">Uprawnienia udostępniania</string>
     <string name="share_remote_clarification">%1$s (zdalny)</string>
     <string name="share_room_clarification">%1$s (rozmowa)</string>
+    <string name="share_search">Nazwa, ID chmury stowarzyszonej lub adres e-mail</string>
     <string name="share_send_new_email">Wyślij nowy e-mail</string>
     <string name="share_send_note">Notatka dla odbiorcy</string>
     <string name="share_settings">Ustawienia</string>
@@ -1052,6 +1065,7 @@
     <string name="wait_a_moment">Proszę czekać…</string>
     <string name="wait_checking_credentials">Sprawdzanie danych</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopiowanie pliku z prywatnego magazynu</string>
+    <string name="warn_rename_extension">Zmiana rozszerzenia spowoduje otwarcie pliku w innej aplikacji</string>
     <string name="webview_version_check_alert_dialog_message">Aby się zalogować, zaktualizuj aplikację WebView systemu Android</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizuj</string>
     <string name="webview_version_check_alert_dialog_title">Zaktualizuj WebView systemu Android</string>

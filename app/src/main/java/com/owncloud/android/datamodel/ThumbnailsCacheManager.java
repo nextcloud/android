@@ -1400,7 +1400,7 @@ public final class ThumbnailsCacheManager {
                     GetMethod getMethod = null;
                     try {
                         String uri = mClient.getBaseUri() + "/index.php/core/preview?fileId="
-                            + file.getRemoteId()
+                            + file.getLocalId()
                             + "&x=" + (pxW / 2) + "&y=" + (pxH / 2) + "&a=1&mode=cover&forceIcon=0";
                         Log_OC.d(TAG, "generate resized image: " + file.getFileName() + " URI: " + uri);
                         getMethod = new GetMethod(uri);
