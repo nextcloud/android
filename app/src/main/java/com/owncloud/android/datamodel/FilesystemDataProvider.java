@@ -12,6 +12,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.google.common.collect.ObjectArrays;
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.utils.SyncedFolderUtils;
@@ -63,19 +64,27 @@ public class FilesystemDataProvider {
                               );
     }
 
-    public Set<String> getFilesForUpload(String localPath, String syncedFolderId) {
+    public Set<String> getFilesForUpload(String localPath, String syncedFolderId, long minFileAge) {
         Set<String> localPathsToUpload = new HashSet<>();
 
+        String query = ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?";
         String likeParam = localPath + "%";
+        String[] queryParams = new String[]{likeParam, syncedFolderId, "0", "0"};
+
+        if (minFileAge > 0) {
+            query += " and " + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " <= ?";
+            long olderThanParam = (System.currentTimeMillis() - minFileAge) / 1000;
+            queryParams = ObjectArrays.concat(queryParams, Long.toString(olderThanParam));
+        }
 
         Cursor cursor = contentResolver.query(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
             null,
-            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?",
-            new String[]{likeParam, syncedFolderId, "0", "0"},
+                query,
+                queryParams,
             null);
 
         if (cursor != null) {
