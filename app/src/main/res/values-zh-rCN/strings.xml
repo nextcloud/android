@@ -41,6 +41,7 @@
     <string name="app_config_disable_more_external_site_title">禁用外部网站</string>
     <string name="app_config_disable_multiaccount_title">禁用多账号</string>
     <string name="app_config_disable_sharing_title">禁用共享</string>
+    <string name="app_config_enforce_protection_title">强制保护</string>
     <string name="app_config_proxy_host_title">代理主机名称</string>
     <string name="app_config_proxy_port_title">代理端口</string>
     <string name="app_widget_description">显示仪表盘中的一个小部件</string>
@@ -102,6 +103,8 @@
     <string name="authenticator_activity_login_error">处理你的登录请求时出现问题。请稍后再试。</string>
     <string name="authenticator_activity_please_complete_login_process">请在浏览器中完成登录流程</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
+    <string name="auto_upload_gplay">自动上传行为已更改</string>
+    <string name="auto_upload_gplay_desc">由于谷歌施加的新限制，自动上传功能将不再能够自动删除已上传的文件。</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
     <string name="autoupload_configure">配置</string>
@@ -644,7 +647,7 @@
     <string name="player_toggle">切换</string>
     <string name="please_select_a_server">请选择服务器…</string>
     <string name="power_save_check_dialog_message">禁用节能检查可能会导致在低电池电量状态下仍然上传文件！</string>
-    <string name="pref_behaviour_entries_delete_file">已删除</string>
+    <string name="pref_behaviour_entries_delete_file">被删除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">如果文件已经存在怎么办？</string>
@@ -954,7 +957,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="today">今天</string>
     <string name="trashbin_activity_title">回收站</string>
     <string name="trashbin_empty_headline">没有被删除的文件</string>
-    <string name="trashbin_empty_message">您可以在此处恢复已删除的文件。</string>
+    <string name="trashbin_empty_message">你可以在此处还原已删除的文件。</string>
     <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
     <string name="trashbin_file_not_restored">文件 %1$s 无法被恢复！</string>
     <string name="trashbin_file_remove">彻底删除</string>
@@ -1091,6 +1094,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="wait_a_moment">请稍等…</string>
     <string name="wait_checking_credentials">正在检查保存的证书</string>
     <string name="wait_for_tmp_copy_from_private_storage">正在从私有存储中复制文件</string>
+    <string name="warn_rename_extension">修改扩展名可能会导致此文件被不同的应用打开</string>
     <string name="webview_version_check_alert_dialog_message">请更新 Android System WebView 应用程序以进行登录</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
     <string name="webview_version_check_alert_dialog_title">更新 Android System WebView</string>

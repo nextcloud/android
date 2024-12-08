@@ -103,6 +103,8 @@
     <string name="authenticator_activity_login_error">Помилка під час обробки запиту на вхід. Спробуйте пізніше.</string>
     <string name="authenticator_activity_please_complete_login_process">Завершити авторизацію у бравзері</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">залишено у вихідному каталозі, оскільки він доступний лише для читання</string>
+    <string name="auto_upload_gplay">Режим автоматичного завантаження змінено</string>
+    <string name="auto_upload_gplay_desc">Через нові обмеження, які було запроваджено Google, в процесі автоматичного завантаження завантажені файли неможливо буде вилучити.</string>
     <string name="auto_upload_on_wifi">Завантаження тільки через WiFi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Налаштування</string>
