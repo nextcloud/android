@@ -36,7 +36,8 @@ public final class ReceiversHelper {
                                                      final UserAccountManager accountManager,
                                                      final ConnectivityService connectivityService,
                                                      final PowerManagementService powerManagementService,
-                                                     final WalledCheckCache walledCheckCache) {
+                                                     final WalledCheckCache walledCheckCache,
+                                                     final boolean shouldRegister) {
         Context context = MainApp.getAppContext();
 
         IntentFilter intentFilter = new IntentFilter();
@@ -48,7 +49,7 @@ public final class ReceiversHelper {
             public void onReceive(Context context, Intent intent) {
                 DNSCache.clear();
                 walledCheckCache.clear();
-                if (connectivityService.getConnectivity().isConnected()) {
+                if (connectivityService.getConnectivity().isConnected() && shouldRegister) {
                     FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
                                                            accountManager,
                                                            connectivityService,
@@ -64,8 +65,8 @@ public final class ReceiversHelper {
         final UploadsStorageManager uploadsStorageManager,
         final UserAccountManager accountManager,
         final ConnectivityService connectivityService,
-        final PowerManagementService powerManagementService
-                                                  ) {
+        final PowerManagementService powerManagementService,
+        final boolean shouldRegister) {
         Context context = MainApp.getAppContext();
 
         IntentFilter intentFilter = new IntentFilter();
@@ -75,7 +76,7 @@ public final class ReceiversHelper {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (Intent.ACTION_POWER_CONNECTED.equals(intent.getAction())) {
+                if (Intent.ACTION_POWER_CONNECTED.equals(intent.getAction()) && shouldRegister) {
                     FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
                                                            accountManager,
                                                            connectivityService,
@@ -91,8 +92,8 @@ public final class ReceiversHelper {
         final UploadsStorageManager uploadsStorageManager,
         final UserAccountManager accountManager,
         final ConnectivityService connectivityService,
-        final PowerManagementService powerManagementService
-                                                ) {
+        final PowerManagementService powerManagementService,
+        final boolean shouldRegister) {
         Context context = MainApp.getAppContext();
 
         IntentFilter intentFilter = new IntentFilter();
@@ -101,7 +102,7 @@ public final class ReceiversHelper {
         BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                if (!powerManagementService.isPowerSavingEnabled()) {
+                if (!powerManagementService.isPowerSavingEnabled() && shouldRegister) {
                     FilesSyncHelper.restartUploadsIfNeeded(uploadsStorageManager,
                                                            accountManager,
                                                            connectivityService,
