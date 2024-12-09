@@ -1310,4 +1310,7 @@
         <item quantity="one">%1$d download remaining</item>
         <item quantity="other">%1$d downloads remaining</item>
     </plurals>
+    <string name="sign_tos_failed">Please manually check terms of service!</string>
+    <string name="terms_of_service_title">Terms of service</string>
+    <string name="terms_of_services_agree">I agree to the above ToS</string>
 </resources>

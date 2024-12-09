@@ -108,6 +108,7 @@ import com.owncloud.android.ui.asynctasks.GetRemoteFileTask;
 import com.owncloud.android.ui.dialog.SendShareDialog;
 import com.owncloud.android.ui.dialog.SortingOrderDialogFragment;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
+import com.owncloud.android.ui.dialog.TermsOfServiceDialog;
 import com.owncloud.android.ui.events.SearchEvent;
 import com.owncloud.android.ui.events.SyncEventFinished;
 import com.owncloud.android.ui.events.TokenPushEvent;
@@ -153,6 +154,7 @@ import java.util.Optional;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
@@ -202,6 +204,7 @@ public class FileDisplayActivity extends FileActivity
     private static final String KEY_WAITING_TO_PREVIEW = "WAITING_TO_PREVIEW";
     private static final String KEY_SYNC_IN_PROGRESS = "SYNC_IN_PROGRESS";
     private static final String KEY_WAITING_TO_SEND = "WAITING_TO_SEND";
+    private static final String DIALOG_TAG_SHOW_TOS = "DIALOG_TAG_SHOW_TOS";
 
     public static final String ACTION_DETAILS = "com.owncloud.android.ui.activity.action.DETAILS";
 
@@ -773,11 +776,11 @@ public class FileDisplayActivity extends FileActivity
         listOfFiles.onOverflowIconClicked(file, null);
     }
 
-    public @androidx.annotation.Nullable Fragment getLeftFragment() {
+    public @Nullable Fragment getLeftFragment() {
         return getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
     }
 
-    public @androidx.annotation.Nullable
+    public @Nullable
     @Deprecated OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
         if (listOfFiles instanceof OCFileListFragment) {
@@ -1433,6 +1436,11 @@ public class FileDisplayActivity extends FileActivity
                                         case HOST_NOT_AVAILABLE:
                                             showInfoBox(R.string.host_not_available);
                                             break;
+                                            
+                                        case SIGNING_TOS_NEEDED:
+                                            showTermsOfServiceDialog();
+                                            
+                                            break;
 
                                         default:
                                             // nothing to do
@@ -1475,6 +1483,11 @@ public class FileDisplayActivity extends FileActivity
                     Log_OC.i(TAG, "Ignoring error deleting data");
                 }
             }
+        }
+    }
+    private void showTermsOfServiceDialog() {
+        if (getSupportFragmentManager().findFragmentByTag(DIALOG_TAG_SHOW_TOS) == null) {
+            new TermsOfServiceDialog().show(getSupportFragmentManager(), DIALOG_TAG_SHOW_TOS);
         }
     }
 
