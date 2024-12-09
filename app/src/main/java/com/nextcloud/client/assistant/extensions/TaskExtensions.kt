@@ -16,9 +16,14 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
 import java.util.concurrent.TimeUnit
 
-fun Task.getInput(): String? = input?.input
+fun Task.getInputAndOutput(): String {
+    val inputText = input?.input ?: ""
+    val outputText = output?.output ?: ""
 
-fun Task.getOutput(): String? = output?.output
+    return "$inputText\n\n$outputText"
+}
+
+fun Task.getInput(): String? = input?.input
 
 @Suppress("MagicNumber")
 fun Task.getInputTitle(): String {
