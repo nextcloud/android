@@ -55,6 +55,7 @@ public final class DrawerMenuUtil {
         }
     }
 
+    // TODO: simplify
     public static boolean isAssistantAvailable(@Nullable OCCapability capability, Resources resources) {
         if (resources.getBoolean(R.bool.is_branded_client)) {
             if (capability != null && capability.getAssistant().isFalse()) {
