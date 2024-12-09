@@ -63,9 +63,9 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
         AndroidInjection.inject(this, context);
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            boolean isApiLevel35OrHigher = (Build.VERSION.SDK_INT >= 35);
+            boolean isApiLevelLowerThan35 = (Build.VERSION.SDK_INT < 35);
 
-            MainApp.initSyncOperations(!isApiLevel35OrHigher,
+            MainApp.initSyncOperations(isApiLevelLowerThan35,
                                        context,
                                        preferences,
                                        uploadsStorageManager,
@@ -78,7 +78,7 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
                                        walledCheckCache,
                                        syncedFolderProvider
                                       );
-            MainApp.initContactsBackup(accountManager, backgroundJobManager, !isApiLevel35OrHigher);
+            MainApp.initContactsBackup(accountManager, backgroundJobManager, isApiLevelLowerThan35);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
         }
