@@ -23,6 +23,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -50,6 +51,8 @@ import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.preferences.AppPreferencesImpl;
 import com.nextcloud.client.preferences.DarkMode;
+import com.nextcloud.utils.extensions.ViewExtensionsKt;
+import com.nextcloud.utils.extensions.WindowExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -144,6 +147,12 @@ public class SettingsActivity extends PreferenceActivity
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        boolean isApiLevel35OrHigher = (Build.VERSION.SDK_INT >= 35);
+        if (isApiLevel35OrHigher) {
+            WindowExtensionsKt.addSystemBarPaddings(getWindow());
+            WindowExtensionsKt.setNoLimitLayout(getWindow());
+        }
+
         super.onCreate(savedInstanceState);
 
         getDelegate().installViewFactory();
@@ -187,6 +196,22 @@ public class SettingsActivity extends PreferenceActivity
         // workaround for mismatched color when app dark mode and system dark mode don't agree
         setListBackground();
         showPasscodeDialogIfEnforceAppProtection();
+
+        if (isApiLevel35OrHigher) {
+            adjustTopMarginForActionBar();
+        }
+    }
+
+    private void adjustTopMarginForActionBar() {
+        if (getListView() == null) {
+            return;
+        }
+
+        float topMarginInDp = getResources().getDimension(R.dimen.settings_activity_padding);
+        int topMarginInPx = DisplayUtils.convertDpToPixel(topMarginInDp, this);
+        ViewExtensionsKt.setMargins(getListView(), 0, topMarginInPx, 0, 0);
+
+        getWindow().getDecorView().setBackgroundColor(ContextCompat.getColor(this, R.color.bg_default));
     }
 
     private void showPasscodeDialogIfEnforceAppProtection() {
