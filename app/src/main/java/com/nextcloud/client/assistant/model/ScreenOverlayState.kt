@@ -9,7 +9,7 @@ package com.nextcloud.client.assistant.model
 
 import android.app.Activity
 import com.nextcloud.client.assistant.extensions.getInput
-import com.nextcloud.client.assistant.extensions.getOutput
+import com.nextcloud.client.assistant.extensions.getInputAndOutput
 import com.nextcloud.utils.extensions.showShareIntent
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.model.Task
@@ -20,15 +20,15 @@ sealed class ScreenOverlayState {
     data class DeleteTask(val id: Long) : ScreenOverlayState()
     data class AddTask(val taskType: TaskTypeData, val input: String) : ScreenOverlayState()
     data class TaskActions(val task: Task) : ScreenOverlayState() {
+        private fun getInputAndOutput(): String = task.getInputAndOutput()
         private fun getInput(): String? = task.getInput()
-        private fun getOutput(): String? = task.getOutput()
 
         private fun getCopyToClipboardAction(activity: Activity): Triple<Int, Int, () -> Unit> {
             return Triple(
                 R.drawable.ic_content_copy,
                 R.string.common_copy
             ) {
-                ClipboardUtil.copyToClipboard(activity, getOutput())
+                ClipboardUtil.copyToClipboard(activity, getInputAndOutput(), showToast = false)
             }
         }
 
@@ -37,7 +37,7 @@ sealed class ScreenOverlayState {
                 R.drawable.ic_share,
                 R.string.common_share
             ) {
-                activity.showShareIntent(getOutput())
+                activity.showShareIntent(getInputAndOutput())
             }
         }
 
