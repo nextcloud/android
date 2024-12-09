@@ -253,15 +253,28 @@ public abstract class DrawerActivity extends ToolbarActivity
                     fda.browseToRoot();
                     EventBus.getDefault().post(new ChangeMenuEvent());
                 }
+
+                menuItemId = R.id.nav_all_files;
             } else if (itemId == R.id.bottom_nav_favorites) {
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), R.id.nav_favorites);
+                menuItemId = R.id.nav_favorites;
             } else if (itemId == R.id.bottom_nav_assistant) {
                 startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+                menuItemId = R.id.nav_assistant;
             } else if (itemId == R.id.bottom_nav_photos) {
                 startPhotoSearch(menuItem.getItemId());
+                menuItemId = R.id.nav_gallery;
             }
 
+            // Highlight selected menu item
             menuItem.setChecked(true);
+
+            // Remove extra icon from the action bar
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setIcon(null);
+            }
+
+            setDrawerMenuItemChecked();
 
             return false;
         });
