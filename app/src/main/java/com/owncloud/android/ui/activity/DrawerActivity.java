@@ -231,15 +231,28 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
-        handleBottomNavigationViewClicks();
+        if (bottomNavigationView != null) {
+            themeBottomNavigationMenu();
+            checkAssistantBottomNavigationMenu();
+            handleBottomNavigationViewClicks();
+        }
+    }
+
+    private void themeBottomNavigationMenu() {
+        viewThemeUtils.platform.colorBottomNavigationView(bottomNavigationView);
+    }
+
+    // FIXME: isAssistantAvailable not updating correctly...
+    private void checkAssistantBottomNavigationMenu() {
+        boolean isAssistantAvailable = DrawerMenuUtil.isAssistantAvailable(getCapabilities(), getResources());
+
+        bottomNavigationView
+            .getMenu()
+            .findItem(R.id.bottom_nav_assistant)
+            .setVisible(isAssistantAvailable);
     }
 
     private void handleBottomNavigationViewClicks() {
-        if (bottomNavigationView == null) {
-            return;
-        }
-
-        viewThemeUtils.platform.colorBottomNavigationView(bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
             int itemId = menuItem.getItemId();
 
@@ -248,6 +261,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 intent.setAction(FileDisplayActivity.ALL_FILES);
                 startActivity(intent);
+
                 EventBus.getDefault().post(new ChangeMenuEvent());
                 menuItemId = R.id.nav_all_files;
             } else if (itemId == R.id.bottom_nav_favorites) {
