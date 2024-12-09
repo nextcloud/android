@@ -352,12 +352,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             }
         });
 
-        // FIXME file detail not opening from Media tab
-        if (binding != null) {
-            TabLayout.Tab tab = binding.tabLayout.getTabAt(activeTab);
-            if (tab == null) return;
-            binding.tabLayout.selectTab(tab);
-        }
+        binding.tabLayout.post(() -> {
+            if (binding != null) {
+                TabLayout.Tab tab = binding.tabLayout.getTabAt(activeTab);
+                if (tab == null) return;
+                tab.select();
+            }
+        });
     }
 
     @Override
