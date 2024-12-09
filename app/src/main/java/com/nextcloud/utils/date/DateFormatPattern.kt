@@ -9,7 +9,12 @@ package com.nextcloud.utils.date
 
 enum class DateFormatPattern(val pattern: String) {
     /**
-     * e.g. 10.11.2024 - 12:44
+     * 10.11.2024 - 12:44
      */
-    FullDateWithHours("dd.MM.yyyy - HH:mm")
+    FullDateWithHours("dd.MM.yyyy - HH:mm"),
+
+    /**
+     * Aug 3
+     */
+    MonthWithDate("MMM d")
 }
