@@ -46,7 +46,9 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.nextcloud.client.account.User;
@@ -196,6 +198,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     private ExternalLinksProvider externalLinksProvider;
     private ArbitraryDataProvider arbitraryDataProvider;
 
+    private BottomNavigationView bottomNavigationView;
+
     @Inject
     AppPreferences preferences;
 
@@ -225,6 +229,42 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        handleBottomNavigationViewClicks();
+    }
+
+    private void handleBottomNavigationViewClicks() {
+        if (bottomNavigationView == null) {
+            return;
+        }
+
+        viewThemeUtils.platform.colorBottomNavigationView(bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
+            int itemId = menuItem.getItemId();
+
+            if (itemId == R.id.bottom_nav_files) {
+                Intent intent = new Intent(this, FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+
+                if (this instanceof FileDisplayActivity fda) {
+                    showFiles(false, false);
+                    fda.browseToRoot();
+                    EventBus.getDefault().post(new ChangeMenuEvent());
+                }
+            } else if (itemId == R.id.bottom_nav_favorites) {
+                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), R.id.nav_favorites);
+            } else if (itemId == R.id.bottom_nav_assistant) {
+                startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+            } else if (itemId == R.id.bottom_nav_photos) {
+                startPhotoSearch(menuItem.getItemId());
+            }
+
+            menuItem.setChecked(true);
+
+            return false;
+        });
     }
 
     /**
