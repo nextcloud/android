@@ -244,16 +244,8 @@ public abstract class DrawerActivity extends ToolbarActivity
             int itemId = menuItem.getItemId();
 
             if (itemId == R.id.bottom_nav_files) {
-                Intent intent = new Intent(this, FileDisplayActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                startActivity(intent);
-
-                if (this instanceof FileDisplayActivity fda) {
-                    showFiles(false, false);
-                    fda.browseToRoot();
-                    EventBus.getDefault().post(new ChangeMenuEvent());
-                }
-
+                showFiles(false, false);
+                EventBus.getDefault().post(new ChangeMenuEvent());
                 menuItemId = R.id.nav_all_files;
             } else if (itemId == R.id.bottom_nav_favorites) {
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), R.id.nav_favorites);
