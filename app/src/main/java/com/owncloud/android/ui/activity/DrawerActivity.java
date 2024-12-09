@@ -244,7 +244,10 @@ public abstract class DrawerActivity extends ToolbarActivity
             int itemId = menuItem.getItemId();
 
             if (itemId == R.id.bottom_nav_files) {
-                showFiles(false, false);
+                Intent intent = new Intent(this, FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setAction(FileDisplayActivity.ALL_FILES);
+                startActivity(intent);
                 EventBus.getDefault().post(new ChangeMenuEvent());
                 menuItemId = R.id.nav_all_files;
             } else if (itemId == R.id.bottom_nav_favorites) {
