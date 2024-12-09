@@ -47,6 +47,10 @@ import android.view.WindowManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.nextcloud.android.lib.resources.tos.GetTermsRemoteOperation;
+import com.nextcloud.android.lib.resources.tos.SignTermRemoteOperation;
+import com.nextcloud.android.lib.resources.tos.Term;
+import com.nextcloud.android.lib.resources.tos.Terms;
 import com.nextcloud.appReview.InAppReviewHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -63,6 +67,7 @@ import com.nextcloud.client.media.PlayerServiceConnection;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.client.utils.IntentUtil;
+import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.model.WorkerState;
 import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.BuildHelper;
@@ -1378,6 +1383,52 @@ public class FileDisplayActivity extends FileActivity
 
                                         case HOST_NOT_AVAILABLE:
                                             showInfoBox(R.string.host_not_available);
+                                            break;
+                                            
+                                        case SIGNING_TOS_NEEDED:
+                                            new Thread(() -> {
+                                                try {
+                                                    NextcloudClient client =
+                                                        clientFactory.createNextcloudClient(accountManager.getUser()); 
+                                                    RemoteOperationResult<Terms> result = new GetTermsRemoteOperation()
+                                                        .execute(client);
+
+                                                    if (result.isSuccess() &&
+                                                        !result.getResultData().getHasSigned() &&
+                                                        !result.getResultData().getTerms().isEmpty()) {
+                                                        Term term = result.getResultData().getTerms().get(0);
+
+                                                        runOnUiThread(() -> {
+                                                            MaterialAlertDialogBuilder builder =
+                                                                new MaterialAlertDialogBuilder(binding.getRoot().getContext(),
+                                                                                               R.style.Theme_ownCloud_Dialog)
+                                                                    .setTitle(R.string.terms_of_service_title)
+                                                                    .setMessage(term.getBody())
+                                                                    .setNegativeButton("Close", (dialog, which) -> {
+                                                                        runOnUiThread(() -> showInfoBox(R.string.sign_tos_failed));
+                                                                        dialog.dismiss();
+                                                                    })
+                                                                    .setPositiveButton("Accept", (dialog, which) -> {
+                                                                        dialog.dismiss();
+
+                                                                        new Thread(() -> {
+                                                                            RemoteOperationResult<Void> signResult = new SignTermRemoteOperation(term.getId()).execute(client);
+                                                                            if (!signResult.isSuccess()) {
+                                                                                runOnUiThread(() -> showInfoBox(R.string.sign_tos_failed));
+                                                                            }
+                                                                        }).start();
+                                                                    });
+
+                                                            viewThemeUtils.dialog.colorMaterialAlertDialogBackground(context, builder);
+
+                                                            builder.create().show();
+                                                        });
+                                                    }
+                                                } catch (ClientFactory.CreationException e) {
+                                                    showInfoBox(R.string.sign_tos_failed);
+                                                }
+                                            }).start();
+                                            
                                             break;
 
                                         default:
