@@ -50,13 +50,21 @@ public final class DrawerMenuUtil {
     }
 
     public static void filterAssistantMenuItem(Menu menu, @Nullable OCCapability capability, Resources resources) {
-        if (resources.getBoolean(R.bool.is_branded_client)) {
-            if (capability != null && capability.getAssistant().isFalse()) {
-                removeMenuItem(menu, R.id.nav_assistant);
-            }
-        } else {
+        if (!isAssistantAvailable(capability,resources)) {
             removeMenuItem(menu, R.id.nav_assistant);
         }
+    }
+
+    public static boolean isAssistantAvailable(@Nullable OCCapability capability, Resources resources) {
+        if (resources.getBoolean(R.bool.is_branded_client)) {
+            if (capability != null && capability.getAssistant().isFalse()) {
+                return false;
+            }
+        } else {
+           return false;
+        }
+
+        return true;
     }
 
     public static void filterGroupfoldersMenuItem(Menu menu, @Nullable OCCapability capability) {
