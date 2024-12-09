@@ -33,7 +33,7 @@
 
         <TextView
             android:id="@+id/version_created"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:text="@string/new_version_was_created"
@@ -41,7 +41,7 @@
 
         <TextView
             android:id="@+id/size"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:ellipsize="end"
