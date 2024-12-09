@@ -46,7 +46,9 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.nextcloud.client.account.User;
@@ -196,6 +198,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     private ExternalLinksProvider externalLinksProvider;
     private ArbitraryDataProvider arbitraryDataProvider;
 
+    private BottomNavigationView bottomNavigationView;
+
     @Inject
     AppPreferences preferences;
 
@@ -225,6 +229,64 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+            themeBottomNavigationMenu();
+            checkAssistantBottomNavigationMenu();
+            handleBottomNavigationViewClicks();
+        }
+    }
+
+    private void themeBottomNavigationMenu() {
+        viewThemeUtils.platform.colorBottomNavigationView(bottomNavigationView);
+    }
+
+    // FIXME: isAssistantAvailable not updating correctly...
+    private void checkAssistantBottomNavigationMenu() {
+        boolean isAssistantAvailable = DrawerMenuUtil.isAssistantAvailable(getCapabilities(), getResources());
+
+        bottomNavigationView
+            .getMenu()
+            .findItem(R.id.bottom_nav_assistant)
+            .setVisible(isAssistantAvailable);
+    }
+
+    private void handleBottomNavigationViewClicks() {
+        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
+            int itemId = menuItem.getItemId();
+
+            if (itemId == R.id.bottom_nav_files) {
+                Intent intent = new Intent(this, FileDisplayActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setAction(FileDisplayActivity.ALL_FILES);
+                startActivity(intent);
+
+                EventBus.getDefault().post(new ChangeMenuEvent());
+                menuItemId = R.id.nav_all_files;
+            } else if (itemId == R.id.bottom_nav_favorites) {
+                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), R.id.nav_favorites);
+                menuItemId = R.id.nav_favorites;
+            } else if (itemId == R.id.bottom_nav_assistant) {
+                startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+                menuItemId = R.id.nav_assistant;
+            } else if (itemId == R.id.bottom_nav_photos) {
+                startPhotoSearch(menuItem.getItemId());
+                menuItemId = R.id.nav_gallery;
+            }
+
+            // Highlight selected menu item
+            menuItem.setChecked(true);
+
+            // Remove extra icon from the action bar
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setIcon(null);
+            }
+
+            setDrawerMenuItemChecked();
+
+            return false;
+        });
     }
 
     /**
