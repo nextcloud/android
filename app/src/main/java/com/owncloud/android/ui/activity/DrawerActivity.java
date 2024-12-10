@@ -48,7 +48,6 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.nextcloud.client.account.User;
@@ -242,9 +241,8 @@ public abstract class DrawerActivity extends ToolbarActivity
         viewThemeUtils.platform.colorBottomNavigationView(bottomNavigationView);
     }
 
-    // FIXME: isAssistantAvailable not updating correctly...
     private void checkAssistantBottomNavigationMenu() {
-        boolean isAssistantAvailable = DrawerMenuUtil.isAssistantAvailable(getCapabilities(), getResources());
+        boolean isAssistantAvailable = getCapabilities().getAssistant().isTrue();
 
         bottomNavigationView
             .getMenu()
