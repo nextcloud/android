@@ -15,8 +15,11 @@ import android.content.IntentFilter
 import android.os.Build
 import android.os.Handler
 import android.os.Looper
+import android.view.WindowInsets
+import android.view.WindowManager
 import android.widget.Toast
-import com.google.common.io.Resources
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ReceiverFlag
 
@@ -33,21 +36,24 @@ fun Context.registerBroadcastReceiver(receiver: BroadcastReceiver?, filter: Inte
     }
 }
 
-/**
- *
- * @return The height of the status bar in pixel.
- *
- * @throws Resources.NotFoundException If the resource identifier for `status_bar_height` is not found.
- *
- */
-@SuppressLint("DiscouragedApi", "InternalInsetResource")
 fun Context.statusBarHeight(): Int {
-    return try {
-        resources.getDimensionPixelSize(
-            resources.getIdentifier("status_bar_height", "dimen", "android")
-        )
-    } catch (e: android.content.res.Resources.NotFoundException) {
-        0
+    return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+        val windowInsets = (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
+            .currentWindowMetrics
+            .windowInsets
+        val insets = windowInsets.getInsets(WindowInsets.Type.statusBars())
+        insets.top
+    } else {
+        @Suppress("DEPRECATION")
+        val decorView = (getSystemService(Context.WINDOW_SERVICE) as WindowManager)
+            .defaultDisplay
+            .let { display ->
+                val decorView = android.view.View(this)
+                display.getRealMetrics(android.util.DisplayMetrics())
+                decorView
+            }
+        val windowInsetsCompat = ViewCompat.getRootWindowInsets(decorView)
+        windowInsetsCompat?.getInsets(WindowInsetsCompat.Type.statusBars())?.top ?: 0
     }
 }
 
