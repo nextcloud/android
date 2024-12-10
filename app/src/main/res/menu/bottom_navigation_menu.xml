@@ -7,25 +7,25 @@
 
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/bottom_nav_files"
+        android:id="@+id/nav_all_files"
         android:enabled="true"
         android:icon="@drawable/folder"
         android:title="@string/bottom_navigation_menu_files_label"/>
 
     <item
-        android:id="@+id/bottom_nav_favorites"
+        android:id="@+id/nav_favorites"
         android:enabled="true"
         android:icon="@drawable/nav_favorites"
         android:title="@string/bottom_navigation_menu_favorites_label"/>
 
     <item
-        android:id="@+id/bottom_nav_assistant"
+        android:id="@+id/nav_assistant"
         android:enabled="true"
         android:icon="@drawable/ic_assistant"
         android:title="@string/bottom_navigation_menu_assistant_label"/>
 
     <item
-        android:id="@+id/bottom_nav_photos"
+        android:id="@+id/nav_gallery"
         android:enabled="true"
         android:icon="@drawable/nav_photos"
         android:title="@string/bottom_navigation_menu_photos_label"/>
