@@ -241,7 +241,6 @@ public abstract class DrawerActivity extends ToolbarActivity
         viewThemeUtils.platform.colorBottomNavigationView(bottomNavigationView);
     }
 
-    @SuppressWarnings("unused")
     private void checkAssistantBottomNavigationMenu() {
         boolean isAssistantAvailable = getCapabilities().getAssistant().isTrue();
 
@@ -251,7 +250,6 @@ public abstract class DrawerActivity extends ToolbarActivity
             .setVisible(isAssistantAvailable);
     }
 
-    @SuppressWarnings("unused")
     private void handleBottomNavigationViewClicks() {
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
             menuItemId = menuItem.getItemId();
