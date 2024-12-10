@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2023 Nextcloud GmbH
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
@@ -17,6 +18,8 @@ import android.text.method.LinkMovementMethod
 import android.text.style.ClickableSpan
 import android.view.View
 import android.widget.TextView
+import com.owncloud.android.datamodel.OCFile
+import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -78,4 +81,13 @@ fun Long.isCurrentYear(yearToCompare: String?): Boolean {
 fun Long.getFormattedStringDate(format: String): String {
     val simpleDateFormat = SimpleDateFormat(format, Locale.getDefault())
     return simpleDateFormat.format(Date(this))
+}
+
+fun TrashbinFile.toOCFile(): OCFile {
+    val ocFile = OCFile(this.remotePath)
+    ocFile.mimeType = this.mimeType
+    ocFile.fileLength = this.fileLength
+    ocFile.remoteId = this.remoteId
+    ocFile.fileName = this.fileName
+    return ocFile
 }
