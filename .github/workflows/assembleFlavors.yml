@@ -30,5 +30,8 @@ jobs:
                     java-version: 17
             -   name: Build ${{ matrix.flavor }}
                 run: |
-                    echo "org.gradle.jvmargs=-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError" >> gradle.properties
+                    echo "org.gradle.jvmargs=-Xmx6g -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8 -XX:+UseParallelGC -XX:MaxMetaspaceSize=1g" >> gradle.properties
+                    echo "org.gradle.caching=true" >> gradle.properties
+                    echo "org.gradle.parallel=true" >> gradle.properties
+                    echo "org.gradle.configureondemand=true" >> gradle.properties
                     ./gradlew assemble${{ matrix.flavor }}
