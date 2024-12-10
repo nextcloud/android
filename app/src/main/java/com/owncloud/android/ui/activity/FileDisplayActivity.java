@@ -1249,7 +1249,7 @@ public class FileDisplayActivity extends FileActivity
             menuItemId = R.id.nav_all_files;
         }
 
-        setDrawerMenuItemChecked();
+        setNavigationViewItemChecked();
 
         if (MainApp.isOnlyOnDevice()) {
             setupToolbar();
