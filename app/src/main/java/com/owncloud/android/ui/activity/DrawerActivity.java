@@ -257,8 +257,10 @@ public abstract class DrawerActivity extends ToolbarActivity
             menuItemId = menuItem.getItemId();
 
             if (menuItemId == R.id.nav_all_files) {
-                // TODO: show root
                 showFiles(false,false);
+                if (this instanceof FileDisplayActivity fda) {
+                    fda.browseToRoot();
+                }
             } else if (menuItemId == R.id.nav_favorites) {
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
             } else if (menuItemId == R.id.nav_assistant) {
