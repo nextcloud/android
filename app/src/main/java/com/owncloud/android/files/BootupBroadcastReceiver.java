@@ -14,6 +14,7 @@ package com.owncloud.android.files;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
@@ -62,7 +63,10 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
         AndroidInjection.inject(this, context);
 
         if (Intent.ACTION_BOOT_COMPLETED.equals(intent.getAction())) {
-            MainApp.initSyncOperations(context,
+            boolean isApiLevelLowerThan35 = (Build.VERSION.SDK_INT < 35);
+
+            MainApp.initSyncOperations(isApiLevelLowerThan35,
+                                       context,
                                        preferences,
                                        uploadsStorageManager,
                                        accountManager,
@@ -73,8 +77,8 @@ public class BootupBroadcastReceiver extends BroadcastReceiver {
                                        viewThemeUtils,
                                        walledCheckCache,
                                        syncedFolderProvider
-                                       );
-            MainApp.initContactsBackup(accountManager, backgroundJobManager);
+                                      );
+            MainApp.initContactsBackup(accountManager, backgroundJobManager, isApiLevelLowerThan35);
         } else {
             Log_OC.d(TAG, "Getting wrong intent: " + intent.getAction());
         }
