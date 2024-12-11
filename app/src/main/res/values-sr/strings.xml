@@ -46,17 +46,11 @@
     <string name="app_config_proxy_port_title">Прокси порт</string>
     <string name="app_widget_description">Приказује један виџет са контролне табле</string>
     <string name="appbar_search_in">Тражи у %s</string>
-    <string name="assistant_screen_all_task_type">Све</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Откуцајте неки текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Да ли сте сигурни да желите да обришете овај задатак?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Обриши задатак</string>
-    <string name="assistant_screen_failed_task_text">Није успело</string>
     <string name="assistant_screen_loading">Листа задатака се учитава, молимо вас сачекајте</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Не постоји ниједан задатак. Да бисте креирали нови задатак, изаберите тип задатка.</string>
     <string name="assistant_screen_no_task_available_text">Не постоји ниједан задатак типа %s, нови задатак можете да креирате доле десно.</string>
-    <string name="assistant_screen_running_task_text">Напредује</string>
-    <string name="assistant_screen_scheduled_task_status_text">Заказано</string>
-    <string name="assistant_screen_successful_task_text">Завршено</string>
     <string name="assistant_screen_task_create_fail_message">Дошло је до грешке током креирања задатка</string>
     <string name="assistant_screen_task_create_success_message">Задатак је успешно креиран</string>
     <string name="assistant_screen_task_delete_fail_message">Дошло је до грешке током брисања задатка</string>
@@ -66,7 +60,6 @@
     <string name="assistant_screen_task_output_empty_text">Излаз задатка још увек није спреман.</string>
     <string name="assistant_screen_task_types_error_state_message">Не могу да се преузму типови задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_top_bar_title">Асистент</string>
-    <string name="assistant_screen_unknown_task_status_text">Непознато</string>
     <string name="assistant_task_detail_screen_input_button_title">Унос</string>
     <string name="assistant_task_detail_screen_output_button_title">Излаз</string>
     <string name="associated_account_not_found">Придружени налог није нађен!</string>
