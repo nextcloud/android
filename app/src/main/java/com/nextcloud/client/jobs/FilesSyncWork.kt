@@ -37,6 +37,8 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
+import com.owncloud.android.utils.SyncedFolderUtils.isFileNameQualifiedForAutoUpload
+import com.owncloud.android.utils.SyncedFolderUtils.isQualifiedFolder
 import java.io.File
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
@@ -217,6 +219,30 @@ class FilesSyncWork(
         syncedFolderProvider.updateSyncFolder(syncedFolder)
     }
 
+    private fun getAllFiles(path: String): Set<String> {
+        val result = mutableListOf<String>()
+        val directory = File(path)
+
+        if (directory.exists()) {
+            val files = directory.listFiles()
+
+            files?.forEach { file ->
+                if (file.isFile) {
+                    if (file.exists() &&
+                        isQualifiedFolder(file.getParent()) &&
+                        isFileNameQualifiedForAutoUpload(file.getName())) {
+                        result.add(file.path)
+                    }
+                } else if (file.isDirectory) {
+                    val allFiles = getAllFiles(file.path)
+                    result.addAll(allFiles)
+                }
+            }
+        }
+
+        return result.toSet()
+    }
+
     @Suppress("LongMethod") // legacy code
     private fun uploadFilesFromFolder(
         context: Context,
@@ -232,22 +258,21 @@ class FilesSyncWork(
         val needsWifi: Boolean
         var file: File
         val accountName = syncedFolder.account
+
         val optionalUser = userAccountManager.getUser(accountName)
         if (!optionalUser.isPresent) {
             return
         }
+
         val user = optionalUser.get()
         val arbitraryDataProvider: ArbitraryDataProvider? = if (lightVersion) {
             ArbitraryDataProviderImpl(context)
         } else {
             null
         }
-        val paths = filesystemDataProvider.getFilesForUpload(
-            syncedFolder.localPath,
-            syncedFolder.id.toString()
-        )
 
-        if (paths.size == 0) {
+        val paths = getAllFiles(syncedFolder.localPath)
+        if (paths.isEmpty()) {
             return
         }
 
@@ -260,6 +285,7 @@ class FilesSyncWork(
                 MimeTypeUtil.getBestMimeTypeByFilename(localPath)
             )
         }
+
         val localPaths = pathsAndMimes.map { it.first }.toTypedArray()
         val remotePaths = pathsAndMimes.map { it.second }.toTypedArray()
 
@@ -276,6 +302,7 @@ class FilesSyncWork(
             needsWifi = syncedFolder.isWifiOnly
             uploadAction = syncedFolder.uploadAction
         }
+
         FileUploadHelper.instance().uploadNewFiles(
             user,
             localPaths,
