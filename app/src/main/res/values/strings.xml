@@ -1277,4 +1277,7 @@
     <string name="warn_rename_extension">Changing the extension might cause this file to open in a different application</string>
     <string name="auto_upload_gplay">Auto upload behaviour changed</string>
     <string name="auto_upload_gplay_desc">Due to new restrictions imposed by Google, the auto upload feature will no longer be able to automatically remove uploaded files.</string>
+    <string name="sign_tos_needed">Please sign ToS</string>
+    <string name="sign_tos_failed">Please manually check terms of service!</string>
+    <string name="terms_of_service_title">Terms of service</string>
 </resources>
