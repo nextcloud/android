@@ -124,6 +124,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
 
 import static com.nextcloud.utils.extensions.DrawerActivityExtensionsKt.getMenuItemIdFromTitle;
@@ -241,6 +242,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         viewThemeUtils.platform.colorBottomNavigationView(bottomNavigationView);
     }
 
+    @SuppressFBWarnings("RV")
     private void checkAssistantBottomNavigationMenu() {
         boolean isAssistantAvailable = getCapabilities().getAssistant().isTrue();
 
@@ -250,6 +252,7 @@ public abstract class DrawerActivity extends ToolbarActivity
             .setVisible(isAssistantAvailable);
     }
 
+    @SuppressFBWarnings("RV")
     private void handleBottomNavigationViewClicks() {
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
             menuItemId = menuItem.getItemId();
@@ -932,6 +935,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * Sets the menu item as checked in both the drawer and bottom navigation views, if applicable.
      */
+    @SuppressFBWarnings("RV")
     public void setNavigationViewItemChecked() {
         if (drawerNavigationView != null) {
             MenuItem menuItem = drawerNavigationView.getMenu().findItem(menuItemId);
