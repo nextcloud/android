@@ -28,6 +28,6 @@
         android:id="@+id/nav_gallery"
         android:enabled="true"
         android:icon="@drawable/nav_photos"
-        android:title="@string/bottom_navigation_menu_photos_label"/>
+        android:title="@string/bottom_navigation_menu_media_label"/>
 
 </menu>
