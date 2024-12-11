@@ -35,6 +35,8 @@
     <string name="advanced_settings">Дополнительные настройки</string>
     <string name="allow_resharing">Разрешить повторную публикацию</string>
     <string name="app_config_base_url_title">Основной URL</string>
+    <string name="app_config_disable_log_title">Отключить журнал</string>
+    <string name="app_config_proxy_host_title">Адрес прокси-сервера</string>
     <string name="app_config_proxy_port_title">Порт прокси</string>
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
     <string name="appbar_search_in">Искать в %s</string>
