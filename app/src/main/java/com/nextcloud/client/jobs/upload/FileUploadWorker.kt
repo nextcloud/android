@@ -90,6 +90,7 @@ class FileUploadWorker(
         }
     }
 
+    private var currentUploadIndex: Int = 1
     private var lastPercent = 0
     private val notificationManager = UploadNotificationManager(context, viewThemeUtils)
     private val intents = FileUploaderIntents(context)
@@ -164,7 +165,7 @@ class FileUploadWorker(
         setWorkerState(user.get(), uploadsPerPage)
 
         run uploads@{
-            uploadsPerPage.forEachIndexed { currentUploadIndex, upload ->
+            uploadsPerPage.forEach { upload ->
                 if (isStopped) {
                     return@uploads
                 }
@@ -178,11 +179,15 @@ class FileUploadWorker(
                         uploadFileOperation,
                         cancelPendingIntent = intents.startIntent(uploadFileOperation),
                         startIntent = intents.notificationStartIntent(uploadFileOperation),
-                        currentUploadIndex = currentUploadIndex + 1,
+                        currentUploadIndex = currentUploadIndex,
                         totalUploadSize = totalUploadSize
                     )
 
                     val result = upload(uploadFileOperation, user.get())
+
+                    if (result.isSuccess) {
+                        currentUploadIndex += 1
+                    }
 
                     currentUploadFileOperation = null
 

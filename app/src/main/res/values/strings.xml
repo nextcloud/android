@@ -201,7 +201,6 @@
     <string name="upload_chooser_title">Upload from…</string>
     <string name="uploader_info_dirname">Folder name</string>
 
-    <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_notification_manager_upload_in_progress_text" translatable="false">%1$d%%</string>
 
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
