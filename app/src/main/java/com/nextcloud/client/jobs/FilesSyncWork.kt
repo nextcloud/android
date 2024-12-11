@@ -23,7 +23,6 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.R
-import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FilesystemDataProvider
 import com.owncloud.android.datamodel.MediaFolderType
@@ -219,28 +218,18 @@ class FilesSyncWork(
         syncedFolderProvider.updateSyncFolder(syncedFolder)
     }
 
-    private fun getAllFiles(path: String): Set<String> {
-        val result = mutableListOf<String>()
-        val directory = File(path)
-
-        if (directory.exists()) {
-            val files = directory.listFiles()
-
-            files?.forEach { file ->
-                if (file.isFile) {
-                    if (file.exists() &&
-                        isQualifiedFolder(file.getParent()) &&
-                        isFileNameQualifiedForAutoUpload(file.getName())) {
-                        result.add(file.path)
-                    }
-                } else if (file.isDirectory) {
-                    val allFiles = getAllFiles(file.path)
-                    result.addAll(allFiles)
-                }
+    private fun getAllFiles(path: String): Set<File> {
+        return File(path).takeIf { it.exists() }
+            ?.walkTopDown()
+            ?.asSequence()
+            ?.filter { file ->
+                file.isFile &&
+                    file.exists() &&
+                    isQualifiedFolder(file.parentFile?.path) &&
+                    isFileNameQualifiedForAutoUpload(file.name)
             }
-        }
-
-        return result.toSet()
+            ?.toSet()
+            ?: emptySet()
     }
 
     @Suppress("LongMethod") // legacy code
@@ -256,7 +245,6 @@ class FilesSyncWork(
         val uploadAction: Int?
         val needsCharging: Boolean
         val needsWifi: Boolean
-        var file: File
         val accountName = syncedFolder.account
 
         val optionalUser = userAccountManager.getUser(accountName)
@@ -265,19 +253,18 @@ class FilesSyncWork(
         }
 
         val user = optionalUser.get()
-        val arbitraryDataProvider: ArbitraryDataProvider? = if (lightVersion) {
+        val arbitraryDataProvider = if (lightVersion) {
             ArbitraryDataProviderImpl(context)
         } else {
             null
         }
 
-        val paths = getAllFiles(syncedFolder.localPath)
-        if (paths.isEmpty()) {
+        val files = getAllFiles(syncedFolder.localPath)
+        if (files.isEmpty()) {
             return
         }
 
-        val pathsAndMimes = paths.map { path ->
-            file = File(path)
+        val pathsAndMimes = files.map { file ->
             val localPath = file.absolutePath
             Triple(
                 localPath,
@@ -291,10 +278,11 @@ class FilesSyncWork(
 
         if (lightVersion) {
             needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging)
-            needsWifi = arbitraryDataProvider!!.getBooleanValue(
+            needsWifi = arbitraryDataProvider?.getBooleanValue(
                 accountName,
                 SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
-            )
+            ) ?: true
+
             val uploadActionString = resources.getString(R.string.syncedFolder_light_upload_behaviour)
             uploadAction = getUploadAction(uploadActionString)
         } else {
@@ -316,10 +304,9 @@ class FilesSyncWork(
             syncedFolder.nameCollisionPolicy
         )
 
-        for (path in paths) {
-            // TODO batch update
+        for (file in files) {
             filesystemDataProvider.updateFilesystemFileAsSentForUpload(
-                path,
+                file.path,
                 syncedFolder.id.toString()
             )
         }
