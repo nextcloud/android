@@ -9,7 +9,7 @@
     <string name="bottom_navigation_menu_files_label">All files</string>
     <string name="bottom_navigation_menu_favorites_label">Favorites</string>
     <string name="bottom_navigation_menu_assistant_label">Assistant</string>
-    <string name="bottom_navigation_menu_photos_label">Photos</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
 
 
     <string name="about_android">%1$s Android app</string>
