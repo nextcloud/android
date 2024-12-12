@@ -48,7 +48,7 @@ class FileDownloadHelper {
         }
 
         return if (file.isFolder) {
-            SyncWorker.isDownloading(file.fileId)
+            SyncWorker.isDownloading(file.decryptedRemotePath)
         } else {
             FileDownloadWorker.isDownloading(user.accountName, file.fileId)
         }
@@ -139,7 +139,7 @@ class FileDownloadHelper {
         )
     }
 
-    fun syncFolder(filePaths: List<String>) {
-        backgroundJobManager.syncFolder(filePaths)
+    fun syncFolder(filePaths: List<String>, topParentPath: String) {
+        backgroundJobManager.syncFolder(filePaths, topParentPath)
     }
 }
