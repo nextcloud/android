@@ -46,11 +46,17 @@
     <string name="app_config_proxy_port_title">Proxy poort</string>
     <string name="app_widget_description">Toont één widget van dashboard</string>
     <string name="appbar_search_in">Zoeken in %s</string>
+    <string name="assistant_screen_all_task_type">Alle</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Geef wat tekst in</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bent u zeker dat u deze taak wilt verwijderen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Verwijder taak</string>
+    <string name="assistant_screen_failed_task_text">Mislukt</string>
     <string name="assistant_screen_loading">Takenlijst wordt geladen, even geduld</string>
+    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Geen taak beschikbaar. Selecteer een taaktype om een nieuwe aan te maken.</string>
     <string name="assistant_screen_no_task_available_text">Geen taak beschikbaar voor %s taaktype, u kunt rechts onder een nieuwe taak aanmaken.</string>
+    <string name="assistant_screen_running_task_text">Bezig</string>
+    <string name="assistant_screen_scheduled_task_status_text">Ingepland</string>
+    <string name="assistant_screen_successful_task_text">Voltooid</string>
     <string name="assistant_screen_task_create_fail_message">Er is een fout opgetreden bij het aanmaken van de taak</string>
     <string name="assistant_screen_task_create_success_message">Taak succesvol aangemaakt</string>
     <string name="assistant_screen_task_delete_fail_message">Er is een fout opgetreden bij het verwijderen van de taak</string>
@@ -59,6 +65,7 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Verwijder taak</string>
     <string name="assistant_screen_task_types_error_state_message">Kan taken types niet ophalen. Controleer je internetverbinding.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
+    <string name="assistant_screen_unknown_task_status_text">Onbekend</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
     <string name="associated_account_not_found">Bijbehorend account niet gevonden!</string>

@@ -46,11 +46,17 @@
     <string name="app_config_proxy_port_title">Proxy-ataka</string>
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
+    <string name="assistant_screen_all_task_type">Denak</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Idatzi testu bat</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ziur zeregin hau ezabatu nahi duzula?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ezabatu zeregina</string>
+    <string name="assistant_screen_failed_task_text">Huts egin du</string>
     <string name="assistant_screen_loading">Zereginen zerrenda kargatzen ari da, itxaron mesedez</string>
+    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Ez dago zereginik. Hautatu zeregin mota bat zeregin berri bat sortzeko.</string>
     <string name="assistant_screen_no_task_available_text">Ez dago zereginik %s zeregin motarako, zeregin berri bat sor dezakezu behean eskuinean.</string>
+    <string name="assistant_screen_running_task_text">Abian</string>
+    <string name="assistant_screen_scheduled_task_status_text">Antolatuta</string>
+    <string name="assistant_screen_successful_task_text">Osatua</string>
     <string name="assistant_screen_task_create_fail_message">Errore bat gertatu da zeregina sortzean</string>
     <string name="assistant_screen_task_create_success_message">Zeregina behar bezala sortu da</string>
     <string name="assistant_screen_task_delete_fail_message">Errore bat gertatu da zeregina ezabatzean</string>
@@ -60,6 +66,7 @@
     <string name="assistant_screen_task_output_empty_text">Zereginaren irteera ez dago prest oraindik.</string>
     <string name="assistant_screen_task_types_error_state_message">Ezin dira zeregin motak eskuratu, egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_top_bar_title">Morroia</string>
+    <string name="assistant_screen_unknown_task_status_text">Ezezaguna</string>
     <string name="assistant_task_detail_screen_input_button_title">Sarrera</string>
     <string name="assistant_task_detail_screen_output_button_title">Irteera</string>
     <string name="associated_account_not_found">Ez da aurkitu lotutako konturik</string>
@@ -145,6 +152,7 @@
     <string name="common_loading">Kargatzen…</string>
     <string name="common_next">Hurrengoa</string>
     <string name="common_no">Ez</string>
+    <string name="common_now">Orain</string>
     <string name="common_ok">Ados</string>
     <string name="common_pending">Zain</string>
     <string name="common_remove">Ezabatu</string>

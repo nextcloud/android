@@ -46,11 +46,17 @@
     <string name="app_config_proxy_port_title">Proxy-Port</string>
     <string name="app_widget_description">Zeigt ein Widget aus dem Dashboard an</string>
     <string name="appbar_search_in">Suche in %s</string>
+    <string name="assistant_screen_all_task_type">Alle</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bitte einen Text eingeben</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Möchten Sie diese Aufgabe wirklich löschen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Aufgabe löschen</string>
+    <string name="assistant_screen_failed_task_text">Fehlgeschlagen</string>
     <string name="assistant_screen_loading">Aufgabenlisten werden geladen, bitte warten</string>
+    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Keine Aufgabe verfügbar. Aufgabentyp auswählen, um eine neue Aufgabe zu erstellen.</string>
     <string name="assistant_screen_no_task_available_text">Für den Aufgabentyp %s ist keine Aufgabe verfügbar. Sie können unten rechts eine neue Aufgabe erstellen.</string>
+    <string name="assistant_screen_running_task_text">In Bearbeitung</string>
+    <string name="assistant_screen_scheduled_task_status_text">Geplant</string>
+    <string name="assistant_screen_successful_task_text">Fertiggestellt</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
     <string name="assistant_screen_task_create_success_message">Aufgabe erfolgreich erstellt</string>
     <string name="assistant_screen_task_delete_fail_message">Es ist ein Fehler beim Löschen der Aufgabe aufgetreten</string>
@@ -60,6 +66,7 @@
     <string name="assistant_screen_task_output_empty_text">Die Aufgabenausgabe ist noch nicht fertig.</string>
     <string name="assistant_screen_task_types_error_state_message">Die Aufgabentypen können nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
+    <string name="assistant_screen_unknown_task_status_text">Unbekannt</string>
     <string name="assistant_task_detail_screen_input_button_title">Eingabe</string>
     <string name="assistant_task_detail_screen_output_button_title">Ausgabe</string>
     <string name="associated_account_not_found">Verknüpftes Konto nicht gefunden!</string>
@@ -145,6 +152,7 @@
     <string name="common_loading">Lade…</string>
     <string name="common_next">Nächste</string>
     <string name="common_no">Nein</string>
+    <string name="common_now">Jetzt</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Ausstehend</string>
     <string name="common_remove">Löschen</string>
@@ -424,7 +432,7 @@
     <string name="file_name_validator_rename_before_move_or_copy">%s. Bitte Datei umbenennen, bevor diese verschoben oder kopiert wird</string>
     <string name="file_name_validator_upload_content_error">Einige Inhalte können nicht hochgeladen werden, da sie reservierte Namen oder unzulässige Zeichen enthalten</string>
     <string name="file_not_found">Datei nicht gefunden</string>
-    <string name="file_not_synced">Die gewünschte Datei konnte nicht synchronisiert werden. Die letzte verfügbare Version wird angezeigt. </string>
+    <string name="file_not_synced">Datei konnte nicht synchronisiert werden. Zeige letzte verfügbare Version. </string>
     <string name="file_rename">Umbenennen</string>
     <string name="file_upload_worker_same_file_already_exists">Dieselbe Datei existiert bereits, kein Konflikt erkannt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
