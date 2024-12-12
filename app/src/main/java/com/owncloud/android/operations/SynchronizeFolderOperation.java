@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -502,15 +503,11 @@ public class SynchronizeFolderOperation extends SyncOperation {
         } else {
             final var filePaths = new ArrayList<String>();
             mFilesForDirectDownload.forEach(file -> filePaths.add(file.getDecryptedRemotePath()));
-
             if (filePaths.isEmpty()) {
                 return;
             }
 
-            final var storageManager = getStorageManager();
-            final OCFile firstFile = storageManager.getFileByDecryptedRemotePath(filePaths.get(0));
-            final OCFile topParent = storageManager.getTopParent(firstFile);
-            fileDownloadHelper.syncFolder(filePaths, topParent.getDecryptedRemotePath());
+            fileDownloadHelper.syncFolder(filePaths);
         }
     }
 
