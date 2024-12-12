@@ -49,7 +49,7 @@ class SyncWorker(
 
     private val notificationManager = SyncWorkerNotificationManager(context)
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "MagicNumber")
     override suspend fun doWork(): Result {
         withContext(Dispatchers.Main) {
             notificationManager.showStartNotification()

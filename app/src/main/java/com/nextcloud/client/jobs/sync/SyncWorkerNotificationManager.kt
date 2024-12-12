@@ -21,9 +21,13 @@ import kotlinx.coroutines.delay
 class SyncWorkerNotificationManager(private val context: Context) {
 
     private val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+    @Suppress("MagicNumber")
     private val notificationId = 129
+
     private val channelId = NotificationUtils.NOTIFICATION_CHANNEL_DOWNLOAD
 
+    @Suppress("MagicNumber")
     private fun getNotification(title: String, description: String? = null, progress: Int? = null): Notification {
         return NotificationCompat.Builder(context, channelId).apply {
             setSmallIcon(android.R.drawable.stat_sys_download_done)
@@ -70,6 +74,7 @@ class SyncWorkerNotificationManager(private val context: Context) {
         notificationManager.notify(notificationId, notification)
     }
 
+    @Suppress("MagicNumber")
     fun showProgressNotification(filename: String, currentIndex: Int, totalFileSize: Int) {
         val currentFileIndex = (currentIndex + 1)
         val title = "$currentFileIndex / $totalFileSize - $filename"
@@ -78,30 +83,28 @@ class SyncWorkerNotificationManager(private val context: Context) {
         notificationManager.notify(notificationId, notification)
     }
 
+    @Suppress("MagicNumber")
     suspend fun showCompletionMessage(success: Boolean) {
         if (success) {
-            showSuccessNotification()
+            showNotification(
+                R.string.sync_worker_success_notification_title,
+                R.string.sync_worker_success_notification_description
+            )
         } else {
-            showErrorNotification()
+            showNotification(
+                R.string.sync_worker_error_notification_title,
+                R.string.sync_worker_error_notification_description
+            )
         }
 
         delay(1000)
         dismiss()
     }
 
-    private fun showSuccessNotification() {
+    private fun showNotification(titleId: Int, descriptionId: Int) {
         val notification = getNotification(
-            context.getString(R.string.sync_worker_success_notification_title),
-            context.getString(R.string.sync_worker_success_notification_description)
-        )
-
-        notificationManager.notify(notificationId, notification)
-    }
-
-    private fun showErrorNotification() {
-        val notification = getNotification(
-            context.getString(R.string.sync_worker_error_notification_title),
-            context.getString(R.string.sync_worker_error_notification_description)
+            context.getString(titleId),
+            context.getString(descriptionId)
         )
 
         notificationManager.notify(notificationId, notification)
