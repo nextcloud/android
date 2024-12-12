@@ -152,6 +152,7 @@
     <string name="common_loading">Loading…</string>
     <string name="common_next">Next</string>
     <string name="common_no">No</string>
+    <string name="common_now">Now</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Pending</string>
     <string name="common_remove">Delete</string>

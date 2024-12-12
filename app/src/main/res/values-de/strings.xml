@@ -152,6 +152,7 @@
     <string name="common_loading">Lade…</string>
     <string name="common_next">Nächste</string>
     <string name="common_no">Nein</string>
+    <string name="common_now">Jetzt</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Ausstehend</string>
     <string name="common_remove">Löschen</string>
@@ -431,7 +432,7 @@
     <string name="file_name_validator_rename_before_move_or_copy">%s. Bitte Datei umbenennen, bevor diese verschoben oder kopiert wird</string>
     <string name="file_name_validator_upload_content_error">Einige Inhalte können nicht hochgeladen werden, da sie reservierte Namen oder unzulässige Zeichen enthalten</string>
     <string name="file_not_found">Datei nicht gefunden</string>
-    <string name="file_not_synced">Die gewünschte Datei konnte nicht synchronisiert werden. Die letzte verfügbare Version wird angezeigt. </string>
+    <string name="file_not_synced">Datei konnte nicht synchronisiert werden. Zeige letzte verfügbare Version. </string>
     <string name="file_rename">Umbenennen</string>
     <string name="file_upload_worker_same_file_already_exists">Dieselbe Datei existiert bereits, kein Konflikt erkannt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>

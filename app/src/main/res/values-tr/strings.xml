@@ -141,6 +141,7 @@
     <string name="common_loading">Yükleniyor …</string>
     <string name="common_next">Sonraki</string>
     <string name="common_no">Hayır</string>
+    <string name="common_now">Şimdi</string>
     <string name="common_ok">Tamam</string>
     <string name="common_pending">Bekleyen</string>
     <string name="common_remove">Sil</string>

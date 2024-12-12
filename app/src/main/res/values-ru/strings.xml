@@ -143,6 +143,7 @@
     <string name="common_loading">Загрузка…</string>
     <string name="common_next">Далее</string>
     <string name="common_no">Нет</string>
+    <string name="common_now">Сейчас</string>
     <string name="common_ok">ОК</string>
     <string name="common_pending">Ожидается</string>
     <string name="common_remove">Удалить</string>

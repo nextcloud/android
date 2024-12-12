@@ -134,6 +134,7 @@
     <string name="common_loading">Ladataan…</string>
     <string name="common_next">Seuraava</string>
     <string name="common_no">Ei</string>
+    <string name="common_now">Nyt</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Odottaa</string>
     <string name="common_remove">Poista</string>

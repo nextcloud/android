@@ -141,6 +141,7 @@
     <string name="common_loading">불러오는 중…</string>
     <string name="common_next">다음</string>
     <string name="common_no">아니요</string>
+    <string name="common_now">지금</string>
     <string name="common_ok">확인</string>
     <string name="common_pending">대기 중</string>
     <string name="common_remove">삭제</string>

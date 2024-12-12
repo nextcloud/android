@@ -152,6 +152,7 @@
     <string name="common_loading">正在載入…</string>
     <string name="common_next">下一步</string>
     <string name="common_no">否</string>
+    <string name="common_now">現在</string>
     <string name="common_ok">確定</string>
     <string name="common_pending">待處理</string>
     <string name="common_remove">刪除</string>
