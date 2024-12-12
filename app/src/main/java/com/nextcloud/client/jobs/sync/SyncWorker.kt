@@ -59,7 +59,7 @@ class SyncWorker(
             val filePaths = inputData.getStringArray(FILE_PATHS)
 
             if (filePaths.isNullOrEmpty()) {
-                return@withContext Result.failure()
+                return@withContext Result.success()
             }
 
             val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)

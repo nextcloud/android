@@ -138,7 +138,7 @@ class FileDownloadHelper {
         )
     }
 
-    fun syncFolder(filePaths: List<String>) {
-        backgroundJobManager.syncFolder(filePaths)
+    fun syncFolder(files: List<OCFile>) {
+        backgroundJobManager.syncFolder(files)
     }
 }

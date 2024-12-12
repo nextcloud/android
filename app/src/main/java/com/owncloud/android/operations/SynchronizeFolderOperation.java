@@ -40,7 +40,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.function.Consumer;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -501,13 +500,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
         } else {
-            final var filePaths = new ArrayList<String>();
-            mFilesForDirectDownload.forEach(file -> filePaths.add(file.getDecryptedRemotePath()));
-            if (filePaths.isEmpty()) {
-                return;
-            }
-
-            fileDownloadHelper.syncFolder(filePaths);
+            fileDownloadHelper.syncFolder(mFilesForDirectDownload);
         }
     }
 
