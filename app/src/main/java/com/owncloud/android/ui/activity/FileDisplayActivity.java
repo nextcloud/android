@@ -43,6 +43,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -75,6 +77,7 @@ import com.nextcloud.utils.extensions.ActivityExtensionsKt;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
+import com.nextcloud.utils.extensions.TextViewExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.BuildConfig;
@@ -154,11 +157,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.SearchView;
@@ -243,6 +248,8 @@ public class FileDisplayActivity extends FileActivity
     private SearchView searchView;
     private PlayerServiceConnection mPlayerConnection;
     private Optional<User> lastDisplayedUser = Optional.empty();
+    
+    private boolean tosIsShown = false;
 
     @Inject AppPreferences preferences;
 
@@ -727,11 +734,11 @@ public class FileDisplayActivity extends FileActivity
         listOfFiles.onOverflowIconClicked(file, null);
     }
 
-    public @androidx.annotation.Nullable Fragment getLeftFragment() {
+    public @Nullable Fragment getLeftFragment() {
         return getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
     }
 
-    public @androidx.annotation.Nullable
+    public @Nullable
     @Deprecated OCFileListFragment getListOfFilesFragment() {
         Fragment listOfFiles = getSupportFragmentManager().findFragmentByTag(FileDisplayActivity.TAG_LIST_OF_FILES);
         if (listOfFiles instanceof OCFileListFragment) {
@@ -1446,7 +1453,8 @@ public class FileDisplayActivity extends FileActivity
                 if (result.isSuccess() &&
                     !result.getResultData().getHasSigned() &&
                     !result.getResultData().getTerms().isEmpty()) {
-                    Term term = result.getResultData().getTerms().get(0);
+                    Map<String, String> languages = result.getResultData().getLanguages();
+                    List<Term> terms = result.getResultData().getTerms();
 
                     runOnUiThread(() -> {
                         DialogShowTosBinding binding = DialogShowTosBinding.inflate(getLayoutInflater());
@@ -1455,25 +1463,62 @@ public class FileDisplayActivity extends FileActivity
                             new MaterialAlertDialogBuilder(binding.getRoot().getContext())
                                 .setView(binding.getRoot())
                                 .setTitle(R.string.terms_of_service_title)
-                                .setMessage(term.getBody())
-                                .setNegativeButton("Close", (dialog, which) -> {
-                                    runOnUiThread(() -> showInfoBox(R.string.sign_tos_failed));
-                                    dialog.dismiss();
+                                .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
+                                   finishAffinity();
                                 })
-                                .setPositiveButton("Accept", (dialog, which) -> {
+                                .setPositiveButton(R.string.terms_of_services_agree, (dialog, which) -> {
                                     dialog.dismiss();
 
                                     new Thread(() -> {
-                                        RemoteOperationResult<Void> signResult = new SignTermRemoteOperation(term.getId()).execute(client);
-                                        if (!signResult.isSuccess()) {
+                                        int id = binding.languageDropdown.getSelectedItemPosition();
+                                        RemoteOperationResult<Void> signResult = new SignTermRemoteOperation(terms.get(id).getId()).execute(client);
+                                        if (signResult.isSuccess()) {
+                                            tosIsShown = false;
+                                        } else {
                                             runOnUiThread(() -> showInfoBox(R.string.sign_tos_failed));
                                         }
                                     }).start();
                                 });
 
-                        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(context, builder);
+                        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(binding.getRoot().getContext(),
+                                                                                 builder);
 
-                        builder.create().show();
+                        builder.create();
+
+                        TextViewExtensionsKt.setHtmlContent(binding.message, terms.get(0).getRenderedBody());
+
+                        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(binding.getRoot().getContext(),
+                                                                               android.R.layout.simple_spinner_item);
+
+                        for (Term term: terms) {
+                            arrayAdapter.add(languages.get(term.getLanguageCode()));
+                        }
+
+                        arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        
+                        
+                        binding.languageDropdown.setAdapter(arrayAdapter);
+                        binding.languageDropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                                TextViewExtensionsKt.setHtmlContent(binding.message,
+                                                                    terms.get(position).getRenderedBody());
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+                                // nothing to do
+                            }
+                        });
+                        
+                        if (terms.size() == 1) {
+                            binding.languageDropdown.setVisibility(View.GONE);
+                        }
+                        
+                        if (!tosIsShown) {
+                            tosIsShown = true;
+                            builder.create().show();
+                        }
                     });
                 }
             } catch (ClientFactory.CreationException e) {
