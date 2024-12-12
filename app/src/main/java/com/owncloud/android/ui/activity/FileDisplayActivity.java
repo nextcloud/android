@@ -80,6 +80,7 @@ import com.nextcloud.utils.view.FastScrollUtils;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
+import com.owncloud.android.databinding.DialogShowTosBinding;
 import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -1386,48 +1387,7 @@ public class FileDisplayActivity extends FileActivity
                                             break;
                                             
                                         case SIGNING_TOS_NEEDED:
-                                            new Thread(() -> {
-                                                try {
-                                                    NextcloudClient client =
-                                                        clientFactory.createNextcloudClient(accountManager.getUser()); 
-                                                    RemoteOperationResult<Terms> result = new GetTermsRemoteOperation()
-                                                        .execute(client);
-
-                                                    if (result.isSuccess() &&
-                                                        !result.getResultData().getHasSigned() &&
-                                                        !result.getResultData().getTerms().isEmpty()) {
-                                                        Term term = result.getResultData().getTerms().get(0);
-
-                                                        runOnUiThread(() -> {
-                                                            MaterialAlertDialogBuilder builder =
-                                                                new MaterialAlertDialogBuilder(binding.getRoot().getContext(),
-                                                                                               R.style.Theme_ownCloud_Dialog)
-                                                                    .setTitle(R.string.terms_of_service_title)
-                                                                    .setMessage(term.getBody())
-                                                                    .setNegativeButton("Close", (dialog, which) -> {
-                                                                        runOnUiThread(() -> showInfoBox(R.string.sign_tos_failed));
-                                                                        dialog.dismiss();
-                                                                    })
-                                                                    .setPositiveButton("Accept", (dialog, which) -> {
-                                                                        dialog.dismiss();
-
-                                                                        new Thread(() -> {
-                                                                            RemoteOperationResult<Void> signResult = new SignTermRemoteOperation(term.getId()).execute(client);
-                                                                            if (!signResult.isSuccess()) {
-                                                                                runOnUiThread(() -> showInfoBox(R.string.sign_tos_failed));
-                                                                            }
-                                                                        }).start();
-                                                                    });
-
-                                                            viewThemeUtils.dialog.colorMaterialAlertDialogBackground(context, builder);
-
-                                                            builder.create().show();
-                                                        });
-                                                    }
-                                                } catch (ClientFactory.CreationException e) {
-                                                    showInfoBox(R.string.sign_tos_failed);
-                                                }
-                                            }).start();
+                                            showDialog();
                                             
                                             break;
 
@@ -1473,6 +1433,53 @@ public class FileDisplayActivity extends FileActivity
                 }
             }
         }
+    }
+    
+    private void showDialog() {
+        new Thread(() -> {
+            try {
+                NextcloudClient client =
+                    clientFactory.createNextcloudClient(accountManager.getUser());
+                RemoteOperationResult<Terms> result = new GetTermsRemoteOperation()
+                    .execute(client);
+
+                if (result.isSuccess() &&
+                    !result.getResultData().getHasSigned() &&
+                    !result.getResultData().getTerms().isEmpty()) {
+                    Term term = result.getResultData().getTerms().get(0);
+
+                    runOnUiThread(() -> {
+                        DialogShowTosBinding binding = DialogShowTosBinding.inflate(getLayoutInflater());
+                        MaterialAlertDialogBuilder builder =
+                            // custom XML
+                            new MaterialAlertDialogBuilder(binding.getRoot().getContext())
+                                .setView(binding.getRoot())
+                                .setTitle(R.string.terms_of_service_title)
+                                .setMessage(term.getBody())
+                                .setNegativeButton("Close", (dialog, which) -> {
+                                    runOnUiThread(() -> showInfoBox(R.string.sign_tos_failed));
+                                    dialog.dismiss();
+                                })
+                                .setPositiveButton("Accept", (dialog, which) -> {
+                                    dialog.dismiss();
+
+                                    new Thread(() -> {
+                                        RemoteOperationResult<Void> signResult = new SignTermRemoteOperation(term.getId()).execute(client);
+                                        if (!signResult.isSuccess()) {
+                                            runOnUiThread(() -> showInfoBox(R.string.sign_tos_failed));
+                                        }
+                                    }).start();
+                                });
+
+                        viewThemeUtils.dialog.colorMaterialAlertDialogBackground(context, builder);
+
+                        builder.create().show();
+                    });
+                }
+            } catch (ClientFactory.CreationException e) {
+                showInfoBox(R.string.sign_tos_failed);
+            }
+        }).start();
     }
 
     private boolean checkForRemoteOperationError(RemoteOperationResult syncResult) {
