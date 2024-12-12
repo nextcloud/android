@@ -31,7 +31,6 @@ class SyncWorker(
         private const val TAG = "SyncWorker"
 
         const val FILE_PATHS = "FILE_PATHS"
-        const val TOP_PARENT_PATH = "TOP_PARENT_PATH"
 
         const val SYNC_WORKER_COMPLETION_BROADCAST = "SYNC_WORKER_COMPLETION_BROADCAST"
         const val FILE_DOWNLOAD_COMPLETION_BROADCAST = "FILE_DOWNLOAD_COMPLETION_BROADCAST"
@@ -58,17 +57,18 @@ class SyncWorker(
         return withContext(Dispatchers.IO) {
             Log_OC.d(TAG, "SyncWorker started")
             val filePaths = inputData.getStringArray(FILE_PATHS)
-            val topParentPath = inputData.getString(TOP_PARENT_PATH)
 
-            if (filePaths.isNullOrEmpty() || topParentPath.isNullOrEmpty()) {
+            if (filePaths.isNullOrEmpty()) {
                 return@withContext Result.failure()
             }
 
+            val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
+
+            // Add the topParentPath to mark the sync icon on the selected folder.
+            val topParentPath = getTopParentPath(fileDataStorageManager, filePaths.first())
             downloadingFilePaths = ArrayList(filePaths.toList()).apply {
                 add(topParentPath)
             }
-
-            val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
 
             val account = user.toOwnCloudAccount()
             val client = OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(account, context)
@@ -113,6 +113,12 @@ class SyncWorker(
                 Result.failure()
             }
         }
+    }
+
+    private fun getTopParentPath(fileDataStorageManager: FileDataStorageManager, firstFilePath: String): String {
+        val firstFile = fileDataStorageManager.getFileByDecryptedRemotePath(firstFilePath)
+        val topParentFile = fileDataStorageManager.getTopParent(firstFile)
+        return topParentFile.decryptedRemotePath
     }
 
     /**
