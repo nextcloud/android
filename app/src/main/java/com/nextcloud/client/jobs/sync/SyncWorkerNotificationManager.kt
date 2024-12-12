@@ -14,6 +14,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import com.owncloud.android.R
 import com.owncloud.android.ui.notifications.NotificationUtils
 import kotlinx.coroutines.delay
 
@@ -37,7 +38,7 @@ class SyncWorkerNotificationManager(private val context: Context) {
 
                 addAction(
                     android.R.drawable.ic_menu_close_clear_cancel,
-                    "Cancel",
+                    context.getString(R.string.common_cancel),
                     getCancelPendingIntent()
                 )
             }
@@ -64,7 +65,8 @@ class SyncWorkerNotificationManager(private val context: Context) {
     }
 
     fun showStartNotification() {
-        val notification = getNotification("Sync Operation Started", progress = 0)
+        val notification =
+            getNotification(context.getString(R.string.sync_worker_start_notification_title), progress = 0)
         notificationManager.notify(notificationId, notification)
     }
 
@@ -88,12 +90,20 @@ class SyncWorkerNotificationManager(private val context: Context) {
     }
 
     private fun showSuccessNotification() {
-        val notification = getNotification("Download Complete", "File downloaded successfully")
+        val notification = getNotification(
+            context.getString(R.string.sync_worker_success_notification_title),
+            context.getString(R.string.sync_worker_success_notification_description)
+        )
+
         notificationManager.notify(notificationId, notification)
     }
 
     private fun showErrorNotification() {
-        val notification = getNotification("Download Failed", "Error downloading file")
+        val notification = getNotification(
+            context.getString(R.string.sync_worker_error_notification_title),
+            context.getString(R.string.sync_worker_error_notification_description)
+        )
+
         notificationManager.notify(notificationId, notification)
     }
 

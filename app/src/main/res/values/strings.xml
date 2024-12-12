@@ -233,6 +233,14 @@
     <string name="upload_notification_manager_start_text">%1$d / %2$d - %3$s</string>
     <string name="upload_notification_manager_upload_in_progress_text" translatable="false">%1$d%%</string>
 
+    <string name="sync_worker_start_notification_title">Sync Operation Started</string>
+
+    <string name="sync_worker_success_notification_title">Download Complete</string>
+    <string name="sync_worker_success_notification_description">Folder successfully synchronized</string>
+
+    <string name="sync_worker_error_notification_title">Download Failed</string>
+    <string name="sync_worker_error_notification_description">An error occurred during folder synchronization</string>
+
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
