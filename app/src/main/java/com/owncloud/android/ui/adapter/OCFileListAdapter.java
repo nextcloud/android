@@ -222,8 +222,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 return;
             }
 
-            int updatedPosition = getItemPosition(file);
-            notifyItemChanged(updatedPosition);
+            notifyItemChanged(file);
         }
     };
 
