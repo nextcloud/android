@@ -8,6 +8,8 @@
 package com.nextcloud.client.jobs.sync
 
 import android.content.Context
+import android.content.Intent
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.nextcloud.client.account.User
@@ -30,6 +32,8 @@ class SyncWorker(
 
         const val FILE_PATHS = "FILE_PATHS"
         const val TOP_PARENT_PATH = "TOP_PARENT_PATH"
+        const val FILE_DOWNLOAD_COMPLETION_BROADCAST = "FILE_DOWNLOAD_COMPLETION_BROADCAST"
+        const val FILE_PATH = "FILE_PATH"
 
         private var downloadingFilePaths = ArrayList<String>()
 
@@ -82,6 +86,7 @@ class SyncWorker(
                     Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
 
                     if (operation.isSuccess) {
+                        sendFileDownloadCompletionBroadcast(path)
                         downloadingFilePaths.remove(path)
                     } else {
                         result = false
@@ -89,7 +94,6 @@ class SyncWorker(
                 }
             }
 
-            // TODO add notify isDownloading for adapter
             // TODO add cancel only one file download
             withContext(Dispatchers.Main) {
                 notificationManager.showCompletionMessage(result)
@@ -104,5 +108,13 @@ class SyncWorker(
                 Result.failure()
             }
         }
+    }
+
+    private fun sendFileDownloadCompletionBroadcast(path: String) {
+        val intent = Intent(FILE_DOWNLOAD_COMPLETION_BROADCAST).apply {
+            putExtra(FILE_PATH, path)
+        }
+
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
     }
 }
