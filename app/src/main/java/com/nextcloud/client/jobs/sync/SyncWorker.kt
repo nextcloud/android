@@ -29,6 +29,7 @@ class SyncWorker(
         private const val TAG = "SyncWorker"
 
         const val FILE_PATHS = "FILE_PATHS"
+        const val TOP_PARENT_PATH = "TOP_PARENT_PATH"
 
         private var downloadingFilePaths = ArrayList<String>()
 
@@ -48,13 +49,15 @@ class SyncWorker(
         return withContext(Dispatchers.IO) {
             Log_OC.d(TAG, "SyncWorker started")
             val filePaths = inputData.getStringArray(FILE_PATHS)
+            val topParentPath = inputData.getString(TOP_PARENT_PATH)
 
-            if (filePaths.isNullOrEmpty()) {
+            if (filePaths.isNullOrEmpty() || topParentPath.isNullOrEmpty()) {
                 return@withContext Result.failure()
             }
 
-            // TODO
-            // downloadingFilePaths = filePaths
+            downloadingFilePaths = ArrayList(filePaths.toList()).apply {
+                add(topParentPath)
+            }
 
             val fileDataStorageManager = FileDataStorageManager(user, context.contentResolver)
 
@@ -77,19 +80,23 @@ class SyncWorker(
 
                     val operation = DownloadFileOperation(user, file, context).execute(client)
                     Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
-                    if (!operation.isSuccess) {
+
+                    if (operation.isSuccess) {
+                        downloadingFilePaths.remove(path)
+                    } else {
                         result = false
                     }
                 }
             }
 
-            // TODO add isDownloading
+            // TODO add notify isDownloading for adapter
             // TODO add cancel only one file download
             withContext(Dispatchers.Main) {
                 notificationManager.showCompletionMessage(result)
             }
 
             if (result) {
+                downloadingFilePaths.remove(topParentPath)
                 Log_OC.d(TAG, "SyncWorker completed")
                 Result.success()
             } else {
