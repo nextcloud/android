@@ -32,6 +32,8 @@ class SyncWorker(
 
         const val FILE_PATHS = "FILE_PATHS"
         const val TOP_PARENT_PATH = "TOP_PARENT_PATH"
+
+        const val SYNC_WORKER_COMPLETION_BROADCAST = "SYNC_WORKER_COMPLETION_BROADCAST"
         const val FILE_DOWNLOAD_COMPLETION_BROADCAST = "FILE_DOWNLOAD_COMPLETION_BROADCAST"
         const val FILE_PATH = "FILE_PATH"
 
@@ -94,13 +96,13 @@ class SyncWorker(
                 }
             }
 
-            // TODO add cancel only one file download
             withContext(Dispatchers.Main) {
                 notificationManager.showCompletionMessage(result)
             }
 
             if (result) {
                 downloadingFilePaths.remove(topParentPath)
+                sendSyncWorkerCompletionBroadcast()
                 Log_OC.d(TAG, "SyncWorker completed")
                 Result.success()
             } else {
@@ -115,6 +117,11 @@ class SyncWorker(
             putExtra(FILE_PATH, path)
         }
 
+        LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
+    }
+
+    private fun sendSyncWorkerCompletionBroadcast() {
+        val intent = Intent(SYNC_WORKER_COMPLETION_BROADCAST)
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
     }
 }
