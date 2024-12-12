@@ -949,7 +949,8 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (bottomNavigationView != null) {
             MenuItem menuItem = bottomNavigationView.getMenu().findItem(menuItemId);
 
-            if (menuItem != null && !menuItem.isChecked()) {
+            // Don't highlight assistant bottom navigation item because Assistant screen doesn't have bottom navigation bar
+            if (menuItem != null && !menuItem.isChecked() && menuItem.getItemId() != R.id.nav_assistant) {
                 menuItem.setChecked(true);
             }
         }
