@@ -720,7 +720,9 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
-    override fun syncFolder(filePaths: List<String>) {
+    override fun syncFolder(files: List<OCFile>) {
+        val filePaths = files.map { it.decryptedRemotePath }
+
         val data = Data.Builder()
             .putStringArray(SyncWorker.FILE_PATHS, filePaths.toTypedArray())
             .build()
