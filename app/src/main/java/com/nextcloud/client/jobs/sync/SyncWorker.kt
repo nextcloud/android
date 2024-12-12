@@ -39,6 +39,9 @@ class SyncWorker(
 
         private var downloadingFilePaths = ArrayList<String>()
 
+        /**
+         * It is used to add the sync icon next to the file in the folder.
+         */
         fun isDownloading(path: String): Boolean {
             return downloadingFilePaths.contains(path)
         }
@@ -112,6 +115,9 @@ class SyncWorker(
         }
     }
 
+    /**
+     * It is used to remove the sync icon next to the file in the folder.
+     */
     private fun sendFileDownloadCompletionBroadcast(path: String) {
         val intent = Intent(FILE_DOWNLOAD_COMPLETION_BROADCAST).apply {
             putExtra(FILE_PATH, path)
@@ -120,6 +126,10 @@ class SyncWorker(
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
     }
 
+    /**
+     * This function is called when the download of all files in a folder is complete.
+     * It is used to add a green tick icon next to the files after the download process is finished.
+     */
     private fun sendSyncWorkerCompletionBroadcast() {
         val intent = Intent(SYNC_WORKER_COMPLETION_BROADCAST)
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
