@@ -51,7 +51,7 @@ if [ -z $USER ] || [ -z $PASS ]; then
 fi
 
 if [ $TYPE = "IT" ]; then
-    FOLDER=app/build/reports/androidTests/connected/debug/flavors/gplay
+    FOLDER=app/build/reports/androidTests/connected/flavors/gplay
 elif [ $TYPE = "Unit" ]; then
     FOLDER=app/build/reports/tests/testGplayDebugUnitTest
 else
