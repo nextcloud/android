@@ -102,7 +102,7 @@ class AssistantViewModel(
             val taskType = _selectedTaskType.value?.id ?: return@launch
             val result = repository.getTaskList(taskType)
             if (result != null) {
-                taskList = result.tasks.filter { it.appId == "assistant" }
+                taskList = result
                 _filteredTaskList.update {
                     taskList?.sortedByDescending { task ->
                         task.id

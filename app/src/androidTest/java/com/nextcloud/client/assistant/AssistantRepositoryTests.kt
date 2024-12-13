@@ -46,7 +46,7 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
         }
 
         val result = sut?.getTaskList("assistant")
-        assertTrue(result?.tasks?.isEmpty() == true || (result?.tasks?.size ?: 0) > 0)
+        assertTrue(result?.isEmpty() == true || (result?.size ?: 0) > 0)
     }
 
     @Test
@@ -81,12 +81,10 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
         sleep(120)
 
-        val resultOfTaskList = sut?.getTaskList("assistant")
-        assertTrue(resultOfTaskList != null)
+        val taskList = sut?.getTaskList("assistant")
+        assertTrue(taskList != null)
 
         sleep(120)
-
-        val taskList = resultOfTaskList?.tasks
 
         assert((taskList?.size ?: 0) > 0)
 

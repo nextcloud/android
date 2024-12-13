@@ -19,7 +19,7 @@ import com.owncloud.android.lib.resources.assistant.v2.CreateTaskRemoteOperation
 import com.owncloud.android.lib.resources.assistant.v2.DeleteTaskRemoteOperationV2
 import com.owncloud.android.lib.resources.assistant.v2.GetTaskListRemoteOperationV2
 import com.owncloud.android.lib.resources.assistant.v2.GetTaskTypesRemoteOperationV2
-import com.owncloud.android.lib.resources.assistant.v2.model.TaskList
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import com.owncloud.android.lib.resources.status.OCCapability
@@ -58,16 +58,16 @@ class AssistantRepository(private val client: NextcloudClient, capability: OCCap
     }
 
     @Suppress("ReturnCount")
-    override fun getTaskList(taskType: String): TaskList? {
+    override fun getTaskList(taskType: String): List<Task>? {
         if (supportsV2) {
             val result = GetTaskListRemoteOperationV2(taskType).execute(client)
             if (result.isSuccess) {
-                return result.resultData
+                return result.resultData.tasks.filter { it.appId == "assistant" }
             }
         } else {
             val result = GetTaskListRemoteOperationV1("assistant").execute(client)
             if (result.isSuccess) {
-                return result.resultData.toV2()
+                return result.resultData.toV2().tasks.filter { it.type == taskType }
             }
         }
 

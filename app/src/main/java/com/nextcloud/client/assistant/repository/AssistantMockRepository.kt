@@ -12,7 +12,6 @@ import com.owncloud.android.lib.common.operations.RemoteOperationResult
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInputShape
-import com.owncloud.android.lib.resources.assistant.v2.model.TaskList
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutputShape
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
@@ -47,26 +46,24 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
         return RemoteOperationResult<Void>(RemoteOperationResult.ResultCode.OK)
     }
 
-    override fun getTaskList(taskType: String): TaskList {
+    override fun getTaskList(taskType: String): List<Task> {
         return if (giveEmptyTasks) {
-            TaskList(listOf())
+            listOf()
         } else {
-            TaskList(
-                listOf(
-                    Task(
-                        1,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        TaskInput("Give me some long text 1"),
-                        TaskOutput("Lorem ipsum".getRandomString(100)),
-                        1707692337,
-                        1707692337,
-                        1707692337,
-                        1707692337,
-                        1707692337
-                    )
+            listOf(
+                Task(
+                    1,
+                    "FreePrompt",
+                    null,
+                    "12",
+                    "",
+                    TaskInput("Give me some long text 1"),
+                    TaskOutput("Lorem ipsum".getRandomString(100)),
+                    1707692337,
+                    1707692337,
+                    1707692337,
+                    1707692337,
+                    1707692337
                 )
             )
         }
