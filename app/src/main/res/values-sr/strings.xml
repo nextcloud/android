@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Прокси порт</string>
     <string name="app_widget_description">Приказује један виџет са контролне табле</string>
     <string name="appbar_search_in">Тражи у %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Додај нови задатак</string>
     <string name="assistant_screen_all_task_type">Све</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Откуцајте неки текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Да ли сте сигурни да желите да обришете овај задатак?</string>
@@ -1095,6 +1096,21 @@
         <item quantity="one">%d минут</item>
         <item quantity="few">%d минута</item>
         <item quantity="other">%d минута</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">пре 1 секунде</item>
+        <item quantity="few">пре %d секунде</item>
+        <item quantity="other">пре %d секунди</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">пре минут</item>
+        <item quantity="few">пре %d минута</item>
+        <item quantity="other">пре %d минута</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">пре сат времена</item>
+        <item quantity="few">пре %d сата</item>
+        <item quantity="other">пре %d сати</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Не могу да синхронизујем %1$d фајл (конфликата: %2$d)</item>

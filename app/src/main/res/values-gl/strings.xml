@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Porto do proxy</string>
     <string name="app_widget_description">Amosa un trebello do taboleiro</string>
     <string name="appbar_search_in">Buscar en %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Engadir unha nova tarefa</string>
     <string name="assistant_screen_all_task_type">Todo</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algún texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Confirma que quere eliminar esta tarefa?</string>
@@ -1094,6 +1095,18 @@
     <plurals name="minutes">
         <item quantity="one">%d minuto</item>
         <item quantity="other">%d minutos</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">Hai 1 segundo</item>
+        <item quantity="other">Hai %d segundos</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">Hai 1 minuto</item>
+        <item quantity="other">Hai %d minutos</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">Hai 1 hora</item>
+        <item quantity="other">Hai %d horas</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Non foi posíbel sincronizar  %1$d ficheiro (conflitos: %2$d)</item>

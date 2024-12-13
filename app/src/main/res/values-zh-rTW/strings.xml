@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小工具</string>
     <string name="appbar_search_in">搜尋 %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">新增任務</string>
     <string name="assistant_screen_all_task_type">全部</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
@@ -1091,6 +1092,15 @@
     </plurals>
     <plurals name="minutes">
         <item quantity="other">%d分鐘</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="other">%d秒前</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="other">%d分鐘前</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="other">%d小時前</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">無法同步 %1$d 個檔案（衝突：%2$d）</item>
