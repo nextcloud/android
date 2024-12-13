@@ -27,11 +27,15 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/standard_padding"
         android:contentDescription="@null"
         android:src="@drawable/preview_markdown_gradient_shape" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recommended_files_recycler_view"
+        android:paddingLeft="@dimen/standard_padding"
+        android:paddingTop="@dimen/standard_padding"
+        android:paddingRight="@dimen/standard_padding"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

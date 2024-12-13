@@ -5,37 +5,33 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="80dp"
+    android:layout_height="80dp"
+    android:layout_marginEnd="8dp"
+    android:background="@drawable/rounded_rect_8dp"
+    android:orientation="vertical"
     android:padding="@dimen/standard_padding"
-    android:gravity="center_vertical">
+    android:gravity="center">
 
     <ImageView
         android:id="@+id/icon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:contentDescription="@string/preview_image_description"
         android:src="@drawable/preview_image_gradient_shape" />
 
     <TextView
+        android:text="aaa"
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:textColor="@color/text_color"
         android:ellipsize="end"
         android:maxLines="1"/>
-
-    <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="12sp"
-        android:textColor="@color/text_color"
-        android:layout_marginStart="8dp" />
 
 </LinearLayout>

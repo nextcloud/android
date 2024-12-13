@@ -8,11 +8,13 @@
 package com.owncloud.android.ui.adapter
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.R
@@ -64,9 +66,22 @@ class RecommendedFilesAdapter(
         val item = recommendations[position]
 
         holder.binding.name.text = item.name
-        holder.binding.timestamp.text = DisplayUtils.getRelativeTimestamp(context,  item.timestamp)
+        // holder.binding.timestamp.text = DisplayUtils.getRelativeTimestamp(context,  item.timestamp)
 
         val thumbnail = getThumbnail(item)
+
+        /*
+        val centerPixel = thumbnail.getPixel(thumbnail.width / 2, thumbnail.height / 2)
+
+        val redValue = Color.red(centerPixel)
+        val blueValue = Color.blue(centerPixel)
+        val greenValue = Color.green(centerPixel)
+
+        val centerColor = Color.argb(0.8f, redValue.toFloat(), greenValue.toFloat(), blueValue.toFloat())
+         */
+
+        val containerColor = ContextCompat.getColor(context, R.color.primary)
+        holder.binding.container.backgroundTintList = ColorStateList.valueOf(containerColor)
         holder.binding.icon.setImageBitmap(thumbnail)
     }
 
