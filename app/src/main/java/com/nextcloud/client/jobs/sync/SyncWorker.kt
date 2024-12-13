@@ -17,6 +17,7 @@ import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.OwnCloudClientManagerFactory
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.DownloadFileOperation
+import com.owncloud.android.ui.helpers.FileOperationsHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
@@ -81,6 +82,15 @@ class SyncWorker(
                 }
 
                 fileDataStorageManager.getFileByDecryptedRemotePath(path)?.let { file ->
+                    val fileSizeInByte = file.fileLength
+                    val availableDiskSpace = FileOperationsHelper.getAvailableSpaceOnDevice()
+
+                    // TODO check
+                    if (availableDiskSpace < fileSizeInByte) {
+                        notificationManager.showNotAvailableDiskSpace()
+                        return@withContext Result.failure()
+                    }
+
                     withContext(Dispatchers.Main) {
                         notificationManager.showProgressNotification(file.fileName, index, filePaths.size)
                     }
