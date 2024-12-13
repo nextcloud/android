@@ -210,7 +210,7 @@ services:
     image: nextcloudci/server:server-13
     environment:
       EVAL: true
-      BRANCH: stable17
+      BRANCH: stable18
     commands:
       - /initnc.sh
       - su www-data -c "php /var/www/html/occ log:manage --level warning"
@@ -223,11 +223,11 @@ services:
       - su www-data -c "php /var/www/html/occ group:add users"
       - su www-data -c "php /var/www/html/occ group:adduser users user1"
       - su www-data -c "php /var/www/html/occ group:adduser users user2"
-      - su www-data -c "git clone -b stable17 https://github.com/nextcloud/activity.git /var/www/html/apps/activity/"
+      - su www-data -c "git clone -b stable18 https://github.com/nextcloud/activity.git /var/www/html/apps/activity/"
       - su www-data -c "php /var/www/html/occ app:enable activity"
-      - su www-data -c "git clone -b stable17 https://github.com/nextcloud/text.git /var/www/html/apps/text/"
+      - su www-data -c "git clone -b stable18 https://github.com/nextcloud/text.git /var/www/html/apps/text/"
       - su www-data -c "php /var/www/html/occ app:enable text"
-      - su www-data -c "git clone -b stable17 https://github.com/nextcloud/end_to_end_encryption.git /var/www/html/apps/end_to_end_encryption/"
+      - su www-data -c "git clone -b stable18 https://github.com/nextcloud/end_to_end_encryption.git /var/www/html/apps/end_to_end_encryption/"
       - su www-data -c "php /var/www/html/occ app:enable end_to_end_encryption"
       - /run.sh
 
@@ -244,6 +244,6 @@ name: GIT_TOKEN
 data: XIoa9IYq+xQ+N5iln8dlpWv0jV6ROr7HuE24ioUr4uQ8m8SjyH0yognWYLYLqnbTKrFWlFZiEMQTH/sZiWjRFvV1iL0=
 ---
 kind: signature
-hmac: d7a67fff5b5e2daf2f9aaa3eccd48557e66f9258ebcf7c3278b26715c416e72e
+hmac: da3fcde2f001f4a52d28201a189177bfa647722a6b613c16c3aeb4d2618fde60
 
 ...
