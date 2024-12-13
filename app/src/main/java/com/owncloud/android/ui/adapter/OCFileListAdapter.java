@@ -85,6 +85,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -100,6 +101,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
@@ -435,6 +437,67 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof OCFileListHeaderViewHolder headerViewHolder) {
             String text = currentDirectory.getRichWorkspace();
+
+            final var recommendedFiles = headerViewHolder.getBinding().recommendedFilesRecyclerView;
+
+            final LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+            recommendedFiles.setLayoutManager(layoutManager);
+
+            // TODO use actual data
+            ArrayList<Recommendation> mockData = new ArrayList<>(Arrays.asList(
+                new Recommendation(
+                    1L,
+                    System.currentTimeMillis(),
+                    "Document1",
+                    "/documents",
+                    "pdf",
+                    "application/pdf",
+                    true,
+                    "Recently opened"
+                ),
+                new Recommendation(
+                    2L,
+                    System.currentTimeMillis() - 3600000,
+                    "Image1",
+                    "/pictures",
+                    "jpg",
+                    "image/jpeg",
+                    true,
+                    "Frequently viewed"
+                ),
+                new Recommendation(
+                    3L,
+                    System.currentTimeMillis() - 7200000,
+                    "Presentation1",
+                    "/presentations",
+                    "pptx",
+                    "application/vnd.ms-powerpoint",
+                    false,
+                    "Shared with you"
+                ),
+                new Recommendation(
+                    4L,
+                    System.currentTimeMillis() - 86400000,
+                    "Video1",
+                    "/videos",
+                    "mp4",
+                    "video/mp4",
+                    true,
+                    "Recent download"
+                ),
+                new Recommendation(
+                    5L,
+                    System.currentTimeMillis() - 604800000,
+                    "Spreadsheet1",
+                    "/spreadsheets",
+                    "xlsx",
+                    "application/vnd.ms-excel",
+                    false,
+                    "Marked as important"
+                )));
+
+            final var adapter = new RecommendedFilesAdapter(activity, viewThemeUtils, mockData);
+            recommendedFiles.setAdapter(adapter);
 
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
             headerViewHolder.getHeaderView().setOnClickListener(v -> ocFileListFragmentInterface.onHeaderClicked());
@@ -785,11 +848,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return false;
         }
 
+        // TODO add or condition for recommended files
+
         if (currentDirectory.getRichWorkspace() == null) {
             return false;
         }
 
-        return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim());
+        return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim()) || true;
     }
 
     /**
