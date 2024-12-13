@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
@@ -123,6 +124,7 @@ import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
+import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 
 import androidx.annotation.OptIn;
@@ -224,6 +226,9 @@ abstract class ComponentsModule {
 
     @ContributesAndroidInjector
     abstract TrashbinActivity trashbinActivity();
+
+    @ContributesAndroidInjector
+    abstract TrashbinFileActionsBottomSheet trashbinFileActionsBottomSheet();
 
     @ContributesAndroidInjector
     abstract UploadFilesActivity uploadFilesActivity();
