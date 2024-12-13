@@ -241,6 +241,8 @@
     <string name="sync_worker_error_notification_title">Download Failed</string>
     <string name="sync_worker_error_notification_description">An error occurred during folder synchronization</string>
 
+    <string name="sync_worker_insufficient_disk_space_notification_title">Insufficient disk space, sync operation canceled</string>
+
     <string name="uploader_upload_in_progress_ticker">Uploading…</string>
     <string name="uploader_upload_in_progress_content">%1$d%% Uploading %2$s</string>
     <string name="uploader_upload_succeeded_content_single">%1$s uploaded</string>
