@@ -13,8 +13,8 @@ import com.nextcloud.client.assistant.model.ScreenOverlayState
 import com.nextcloud.client.assistant.model.ScreenState
 import com.nextcloud.client.assistant.repository.AssistantRepositoryType
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -80,16 +80,16 @@ class AssistantViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val taskTypesResult = repository.getTaskTypes()
 
-            if (taskTypesResult.isSuccess) {
-                val result = taskTypesResult.resultData
-                _taskTypes.update {
-                    result
-                }
-
-                selectTaskType(result.first())
-            } else {
+            if (taskTypesResult.isNullOrEmpty()) {
                 updateSnackbarMessage(R.string.assistant_screen_task_types_error_state_message)
+                return@launch
             }
+
+            _taskTypes.update {
+                taskTypesResult
+            }
+
+            selectTaskType(taskTypesResult.first())
         }
     }
 
@@ -101,8 +101,8 @@ class AssistantViewModel(
 
             val taskType = _selectedTaskType.value?.id ?: return@launch
             val result = repository.getTaskList(taskType)
-            if (result.isSuccess) {
-                taskList = result.resultData.tasks.filter { it.appId == "assistant" }
+            if (result != null) {
+                taskList = result.tasks.filter { it.appId == "assistant" }
                 _filteredTaskList.update {
                     taskList?.sortedByDescending { task ->
                         task.id

@@ -28,9 +28,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.extensions.getModifiedAtRepresentation
 import com.nextcloud.client.assistant.extensions.getStatusIcon
-import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskInput
-import com.owncloud.android.lib.resources.assistant.model.TaskOutput
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
 import java.util.concurrent.TimeUnit
 
 @Composable

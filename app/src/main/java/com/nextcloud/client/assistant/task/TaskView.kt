@@ -41,9 +41,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.taskDetail.TaskDetailBottomSheet
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskInput
-import com.owncloud.android.lib.resources.assistant.model.TaskOutput
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
 
 @Suppress("LongMethod", "MagicNumber")
 @Composable

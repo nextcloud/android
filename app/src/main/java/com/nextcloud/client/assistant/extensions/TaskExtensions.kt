@@ -13,7 +13,7 @@ import android.content.Context
 import com.nextcloud.utils.date.DateFormatPattern
 import com.nextcloud.utils.date.DateFormatter
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import java.util.concurrent.TimeUnit
 
 fun Task.getInputAndOutput(): String {

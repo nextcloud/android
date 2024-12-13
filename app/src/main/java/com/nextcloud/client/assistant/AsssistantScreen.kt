@@ -48,8 +48,8 @@ import com.nextcloud.ui.composeActivity.ComposeActivity
 import com.nextcloud.ui.composeComponents.alertDialog.SimpleAlertDialog
 import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
