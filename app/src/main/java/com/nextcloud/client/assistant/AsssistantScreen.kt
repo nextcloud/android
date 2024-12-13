@@ -50,6 +50,7 @@ import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
+import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.utils.DisplayUtils
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -57,7 +58,7 @@ import kotlinx.coroutines.launch
 @Suppress("LongMethod")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
+fun AssistantScreen(viewModel: AssistantViewModel, capability: OCCapability, activity: Activity) {
     val messageId by viewModel.snackbarMessageId.collectAsState()
     val screenOverlayState by viewModel.screenOverlayState.collectAsState()
 
@@ -81,7 +82,7 @@ fun AssistantScreen(viewModel: AssistantViewModel, activity: Activity) {
             }
         )
     ) {
-        ShowScreenState(screenState, selectedTaskType, taskTypes, viewModel, filteredTaskList)
+        ShowScreenState(screenState, selectedTaskType, taskTypes, viewModel, filteredTaskList, capability)
 
         ShowLinearProgressIndicator(screenState, pullRefreshState)
 
@@ -104,7 +105,8 @@ private fun ShowScreenState(
     selectedTaskType: TaskTypeData?,
     taskTypes: List<TaskTypeData>?,
     viewModel: AssistantViewModel,
-    filteredTaskList: List<Task>?
+    filteredTaskList: List<Task>?,
+    capability: OCCapability
 ) {
     when (screenState) {
         ScreenState.Refreshing -> {
@@ -120,7 +122,8 @@ private fun ShowScreenState(
                 filteredTaskList ?: listOf(),
                 taskTypes,
                 selectedTaskType,
-                viewModel
+                viewModel,
+                capability
             )
         }
 
@@ -223,7 +226,8 @@ private fun AssistantContent(
     taskList: List<Task>,
     taskTypes: List<TaskTypeData>?,
     selectedTaskType: TaskTypeData?,
-    viewModel: AssistantViewModel
+    viewModel: AssistantViewModel,
+    capability: OCCapability
 ) {
     Column(modifier = Modifier.fillMaxSize()) {
         taskTypes?.let {
@@ -240,6 +244,7 @@ private fun AssistantContent(
             items(taskList) { task ->
                 TaskView(
                     task,
+                    capability,
                     showTaskActions = {
                         val newState = ScreenOverlayState.TaskActions(task)
                         viewModel.updateScreenState(newState)
@@ -279,6 +284,7 @@ private fun EmptyTaskList(
     }
 }
 
+@Suppress("MagicNumber")
 @Composable
 @Preview
 private fun AssistantScreenPreview() {
@@ -287,12 +293,16 @@ private fun AssistantScreenPreview() {
         content = {
             AssistantScreen(
                 viewModel = AssistantViewModel(repository = mockRepository),
-                activity = ComposeActivity()
+                activity = ComposeActivity(),
+                capability = OCCapability().apply {
+                    versionMayor = 30
+                }
             )
         }
     )
 }
 
+@Suppress("MagicNumber")
 @Composable
 @Preview
 private fun AssistantEmptyScreenPreview() {
@@ -301,7 +311,10 @@ private fun AssistantEmptyScreenPreview() {
         content = {
             AssistantScreen(
                 viewModel = AssistantViewModel(repository = mockRepository),
-                activity = ComposeActivity()
+                activity = ComposeActivity(),
+                capability = OCCapability().apply {
+                    versionMayor = 30
+                }
             )
         }
     )

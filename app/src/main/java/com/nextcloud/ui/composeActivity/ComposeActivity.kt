@@ -89,7 +89,8 @@ class ComposeActivity : DrawerActivity() {
                     viewModel = AssistantViewModel(
                         repository = AssistantRepository(client, capabilities)
                     ),
-                    activity = this
+                    activity = this,
+                    capability = capabilities
                 )
             }
         }

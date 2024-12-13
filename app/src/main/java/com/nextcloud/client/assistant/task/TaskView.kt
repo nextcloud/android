@@ -44,10 +44,11 @@ import com.owncloud.android.R
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
+import com.owncloud.android.lib.resources.status.OCCapability
 
 @Suppress("LongMethod", "MagicNumber")
 @Composable
-fun TaskView(task: Task, showTaskActions: () -> Unit) {
+fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) {
     var showTaskDetailBottomSheet by remember { mutableStateOf(false) }
 
     Box {
@@ -98,10 +99,10 @@ fun TaskView(task: Task, showTaskActions: () -> Unit) {
                 )
             }
 
-            TaskStatusView(task, foregroundColor = Color.White)
+            TaskStatusView(task, foregroundColor = Color.White, capability)
 
             if (showTaskDetailBottomSheet) {
-                TaskDetailBottomSheet(task, showTaskActions = {
+                TaskDetailBottomSheet(task, capability, showTaskActions = {
                     showTaskDetailBottomSheet = false
                     showTaskActions()
                 }) {
@@ -145,6 +146,9 @@ private fun TaskViewPreview() {
             1707692337,
             1707692337
         ),
+        OCCapability().apply {
+            versionMayor = 30
+        },
         showTaskActions = {
         }
     )
