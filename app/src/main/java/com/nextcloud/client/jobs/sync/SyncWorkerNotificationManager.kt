@@ -101,6 +101,15 @@ class SyncWorkerNotificationManager(private val context: Context) {
         dismiss()
     }
 
+    suspend fun showNotAvailableDiskSpace() {
+        val notification =
+            getNotification(context.getString(R.string.sync_worker_insufficient_disk_space_notification_title))
+        notificationManager.notify(notificationId, notification)
+
+        delay(1000)
+        dismiss()
+    }
+
     private fun showNotification(titleId: Int, descriptionId: Int) {
         val notification = getNotification(
             context.getString(titleId),
