@@ -220,14 +220,11 @@ class TrashbinFileActionsBottomSheet : BottomSheetDialogFragment(), Injectable {
         private const val RESULT_KEY_ACTION_ID = "RESULT_KEY_ACTION_ID"
 
         @JvmStatic
-        fun newInstance(
-            numberOfAllFiles: Int,
-            files: Collection<TrashbinFile>,
-        ): TrashbinFileActionsBottomSheet {
+        fun newInstance(numberOfAllFiles: Int, files: Collection<TrashbinFile>): TrashbinFileActionsBottomSheet {
             return TrashbinFileActionsBottomSheet().apply {
                 val argsBundle = bundleOf(
                     TrashbinFileActionsViewModel.ARG_ALL_FILES_COUNT to numberOfAllFiles,
-                    TrashbinFileActionsViewModel.ARG_FILES to ArrayList<TrashbinFile>(files),
+                    TrashbinFileActionsViewModel.ARG_FILES to ArrayList<TrashbinFile>(files)
                 )
                 arguments = argsBundle
             }

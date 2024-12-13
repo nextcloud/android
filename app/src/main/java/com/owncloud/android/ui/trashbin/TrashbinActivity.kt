@@ -178,7 +178,9 @@ class TrashbinActivity :
         handleOnBackPressed()
 
         mMultiChoiceModeListener = MultiChoiceModeListener(
-            this, trashbinListAdapter, viewThemeUtils,
+            this,
+            trashbinListAdapter,
+            viewThemeUtils
         ) { filesCount, checkedFiles -> openActionsMenu(filesCount, checkedFiles) }
         addDrawerListener(mMultiChoiceModeListener)
     }
@@ -373,7 +375,8 @@ class TrashbinActivity :
 
             TrashbinFileActionsBottomSheet.newInstance(filesCount, checkedFiles)
                 .setResultListener(
-                    supportFragmentManager, this
+                    supportFragmentManager,
+                    this
                 ) { id: Int ->
                     onFileActionChosen(
                         id,
@@ -533,7 +536,7 @@ class TrashbinActivity :
             val inflater: MenuInflater = activity.menuInflater
             inflater.inflate(R.menu.custom_menu_placeholder, menu)
             val item = menu.findItem(R.id.custom_menu_placeholder_item)
-            item.icon?.let{
+            item.icon?.let {
                 item.setIcon(
                     viewThemeUtils.platform.colorDrawable(
                         it,

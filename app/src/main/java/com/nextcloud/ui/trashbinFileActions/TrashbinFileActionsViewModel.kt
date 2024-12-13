@@ -29,7 +29,7 @@ class TrashbinFileActionsViewModel @Inject constructor(
         data object Error : UiState
         data class LoadedForSingleFile(
             val actions: List<TrashbinFileAction>,
-            val titleFile: TrashbinFile?,
+            val titleFile: TrashbinFile?
         ) : UiState
 
         data class LoadedForMultipleFiles(val actions: List<TrashbinFileAction>, val fileCount: Int) : UiState
@@ -56,10 +56,7 @@ class TrashbinFileActionsViewModel @Inject constructor(
         }
     }
 
-    private fun load(
-        files: Collection<TrashbinFile>,
-        numberOfAllFiles: Int?,
-    ) {
+    private fun load(files: Collection<TrashbinFile>, numberOfAllFiles: Int?) {
         viewModelScope.launch(Dispatchers.IO) {
             val toHide = getHiddenActions(numberOfAllFiles, files)
             val availableActions = getActionsToShow(toHide)
@@ -67,10 +64,7 @@ class TrashbinFileActionsViewModel @Inject constructor(
         }
     }
 
-    private fun getHiddenActions(
-        numberOfAllFiles: Int?,
-        files: Collection<TrashbinFile>,
-    ): List<Int> {
+    private fun getHiddenActions(numberOfAllFiles: Int?, files: Collection<TrashbinFile>): List<Int> {
         numberOfAllFiles?.let {
             if (files.size >= it) {
                 return listOf(R.id.action_select_all_action_menu)

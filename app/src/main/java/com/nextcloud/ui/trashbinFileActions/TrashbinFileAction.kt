@@ -26,7 +26,7 @@ enum class TrashbinFileAction(@IdRes val id: Int, @StringRes val title: Int, @Dr
             DELETE_PERMANENTLY,
             RESTORE,
             SELECT_ALL,
-            SELECT_NONE,
+            SELECT_NONE
         )
     }
 }
