@@ -758,6 +758,7 @@
     <string name="restore">Restaurer le fichier</string>
     <string name="restore_backup">Restaurer une sauvegarde</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
+    <string name="restore_item">Restaurer</string>
     <string name="restore_selected">Restaurer la sélection</string>
     <string name="retrieving_file">Téléchargement en cours…</string>
     <string name="retry">Réessayer</string>

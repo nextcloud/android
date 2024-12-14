@@ -759,6 +759,7 @@
     <string name="restore">復原檔案</string>
     <string name="restore_backup">復原備份</string>
     <string name="restore_button_description">復原已刪除檔案</string>
+    <string name="restore_item">復原</string>
     <string name="restore_selected">復原已選取的部份</string>
     <string name="retrieving_file">正在檢索檔案…</string>
     <string name="retry">重試</string>

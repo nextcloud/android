@@ -758,6 +758,7 @@
     <string name="restore">Berreskuratu fitxategia</string>
     <string name="restore_backup">Berrezarri babeskopia</string>
     <string name="restore_button_description">Berreskuratu ezabatutako fitxategia</string>
+    <string name="restore_item">Leheneratu</string>
     <string name="restore_selected">Berrezarri hautatutakoak</string>
     <string name="retrieving_file">Fitxategia berreskuratzen ...</string>
     <string name="retry">saiatu berriro</string>

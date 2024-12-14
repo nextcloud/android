@@ -651,6 +651,7 @@
     <string name="restore">Restore file</string>
     <string name="restore_backup">Restore backup</string>
     <string name="restore_button_description">Restore deleted file</string>
+    <string name="restore_item">Restore</string>
     <string name="restore_selected">Restore selected</string>
     <string name="retrieving_file">Retrieving file…</string>
     <string name="retry">Retry</string>

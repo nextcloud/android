@@ -673,6 +673,7 @@
     <string name="restore">بازیابی پرونده</string>
     <string name="restore_backup">بازیابی نسخه پشتیبان</string>
     <string name="restore_button_description">بازیابی پرونده حذف شده</string>
+    <string name="restore_item">بازیابی</string>
     <string name="restore_selected">بازیابی انتخاب شده</string>
     <string name="retrieving_file">در حال بازیابی پرونده ...</string>
     <string name="retry">تلاش دوباره</string>

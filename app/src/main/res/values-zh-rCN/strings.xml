@@ -757,6 +757,7 @@
     <string name="restore">恢复文件</string>
     <string name="restore_backup">还原备份</string>
     <string name="restore_button_description">恢复已删除的文件</string>
+    <string name="restore_item">恢复</string>
     <string name="restore_selected">已选择备份</string>
     <string name="retrieving_file">获取文件中…</string>
     <string name="retry">重试</string>

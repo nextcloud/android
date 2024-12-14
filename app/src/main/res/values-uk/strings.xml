@@ -751,6 +751,7 @@
     <string name="restore">Відновити файл</string>
     <string name="restore_backup">Відновити</string>
     <string name="restore_button_description">Відновити файл, який було вилучено</string>
+    <string name="restore_item">Відновити</string>
     <string name="restore_selected">Відновити обране</string>
     <string name="retrieving_file">Отримання файлу...</string>
     <string name="retry">Ще раз</string>

@@ -760,6 +760,7 @@
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_backup">Restaurar a copia de seguranza</string>
     <string name="restore_button_description">Restaurar ficheiro eliminado</string>
+    <string name="restore_item">Restaurar</string>
     <string name="restore_selected">Restaurar o seleccionado</string>
     <string name="retrieving_file">Recuperando o ficheiro…</string>
     <string name="retry">Volver tentar</string>

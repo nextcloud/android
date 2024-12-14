@@ -497,6 +497,7 @@
     <string name="remove_success_msg">ลบแล้ว</string>
     <string name="rename_dialog_title">กรอกชื่อใหม่</string>
     <string name="request_account_deletion">ขอลบบัญชี</string>
+    <string name="restore_item">คืนค่า</string>
     <string name="scanQR_description">เข้าสู่ระบบผ่านคิวอาร์โค้ด</string>
     <string name="select_all">เลือกทั้งหมด</string>
     <string name="send">ส่ง</string>

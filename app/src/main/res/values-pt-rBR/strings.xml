@@ -743,6 +743,7 @@
     <string name="restore">Restaurar arquivo</string>
     <string name="restore_backup">Restaurar backup</string>
     <string name="restore_button_description">Restaurar arquivo excluído</string>
+    <string name="restore_item">Recuperar</string>
     <string name="restore_selected">Restaurar selecionado </string>
     <string name="retrieving_file">Recuperando arquivo…</string>
     <string name="retry">Tentar novamente</string>

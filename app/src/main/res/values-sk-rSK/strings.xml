@@ -752,6 +752,7 @@
     <string name="restore">Obnoviť súbor</string>
     <string name="restore_backup">Obnoviť zo zálohy</string>
     <string name="restore_button_description">Obnovenie zmazaného súboru</string>
+    <string name="restore_item">Obnoviť</string>
     <string name="restore_selected">Obnoviť vybrané</string>
     <string name="retrieving_file">Získava sa súbor…</string>
     <string name="retry">Zopakovať</string>

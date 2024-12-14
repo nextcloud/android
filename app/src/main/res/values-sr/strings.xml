@@ -759,6 +759,7 @@
     <string name="restore">Поврати фајл</string>
     <string name="restore_backup">Обнови резервну копију</string>
     <string name="restore_button_description">Поврати обрисани фајл</string>
+    <string name="restore_item">Врати</string>
     <string name="restore_selected">Обнови изабрано</string>
     <string name="retrieving_file">Добављам фајл…</string>
     <string name="retry">Покушај поново</string>

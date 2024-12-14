@@ -757,6 +757,7 @@
     <string name="restore">Ripristina file</string>
     <string name="restore_backup">Ripristina backup</string>
     <string name="restore_button_description">Ripristina file eliminato</string>
+    <string name="restore_item">Ripristina</string>
     <string name="restore_selected">Ripristina selezionato</string>
     <string name="retrieving_file">Recupero file…</string>
     <string name="retry">Riprova</string>

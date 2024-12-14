@@ -660,6 +660,7 @@
     <string name="restore">Fájl visszaállítása</string>
     <string name="restore_backup">Biztonsági mentés helyreállítása</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>
+    <string name="restore_item">Helyreállítás</string>
     <string name="restore_selected">Kiválasztottak helyreállítása</string>
     <string name="retrieving_file">Fájl lekérése…</string>
     <string name="retry">Újra</string>

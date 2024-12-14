@@ -758,6 +758,7 @@
     <string name="restore">Återställ fil</string>
     <string name="restore_backup">Återställ säkerhetskopiering</string>
     <string name="restore_button_description">Återställ raderad fil</string>
+    <string name="restore_item">Återställ</string>
     <string name="restore_selected">Återställ vald</string>
     <string name="retrieving_file">Tar emot fil…</string>
     <string name="retry">Försök igen</string>

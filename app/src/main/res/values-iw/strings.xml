@@ -531,6 +531,7 @@
     <string name="resized_image_not_possible_download">אין תמונה מוקטנת. להוריד את התמונה המלאה?</string>
     <string name="restore">שחזור קובץ</string>
     <string name="restore_button_description">שחזור קובץ שנמחק</string>
+    <string name="restore_item">שחזור</string>
     <string name="retrieving_file">הקובץ מתקבל…</string>
     <string name="retry">ניסיון חוזר</string>
     <string name="richdocuments_failed_to_load_document">טעינת המסמך נכשלה!</string>
