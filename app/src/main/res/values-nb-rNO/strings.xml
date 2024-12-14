@@ -716,6 +716,7 @@
     <string name="restore">Gjenopprett fil</string>
     <string name="restore_backup">Gjenopprett sikkerhetskopi</string>
     <string name="restore_button_description">Gjenopprett slettet fil</string>
+    <string name="restore_item">Gjenopprett</string>
     <string name="restore_selected">Gjenopprett valgt</string>
     <string name="retrieving_file">Får tilbake fil</string>
     <string name="retry">Prøv igjen</string>

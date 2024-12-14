@@ -755,6 +755,7 @@
     <string name="restore">ファイルを復元</string>
     <string name="restore_backup">バックアップを復元</string>
     <string name="restore_button_description">選択したファイルを復元する</string>
+    <string name="restore_item">復元</string>
     <string name="restore_selected">選択した項目を復元する</string>
     <string name="retrieving_file">ファイルを取得中...</string>
     <string name="retry">リトライ</string>

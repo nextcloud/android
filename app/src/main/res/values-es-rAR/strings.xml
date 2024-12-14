@@ -703,6 +703,7 @@
     <string name="restore">Restaurar archivo</string>
     <string name="restore_backup">Restaurar copia de seguridad</string>
     <string name="restore_button_description">Restaurar archivo borrado</string>
+    <string name="restore_item">Restaurar</string>
     <string name="restore_selected">Restaurar seleccionados</string>
     <string name="retrieving_file">Recuperando archivo...</string>
     <string name="retry">Reintentar</string>

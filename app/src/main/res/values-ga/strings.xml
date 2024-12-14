@@ -758,6 +758,7 @@
     <string name="restore">Athchóirigh comhad</string>
     <string name="restore_backup">Athchóirigh cúltaca</string>
     <string name="restore_button_description">Athchóirigh comhad scriosta</string>
+    <string name="restore_item">Athchóirigh</string>
     <string name="restore_selected">Athchóirigh roghnaithe</string>
     <string name="retrieving_file">Comhad á aisghabháil…</string>
     <string name="retry">Bain triail eile as</string>

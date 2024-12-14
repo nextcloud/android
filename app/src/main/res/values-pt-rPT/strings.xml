@@ -627,6 +627,7 @@
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_backup">Restaurar cópia de segurança </string>
     <string name="restore_button_description">Restaurar ficheiro apagado</string>
+    <string name="restore_item">Restaurar</string>
     <string name="restore_selected">Restaurar o selecionado</string>
     <string name="retrieving_file">A obter o ficheiro…</string>
     <string name="retry">Repetir</string>

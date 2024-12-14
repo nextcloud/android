@@ -743,6 +743,7 @@
     <string name="restore">Восстановить файл</string>
     <string name="restore_backup">Восстановить резервную копию</string>
     <string name="restore_button_description">Восстановить удалённый файл</string>
+    <string name="restore_item">Восстановить</string>
     <string name="restore_selected">Восстановить выбранные</string>
     <string name="retrieving_file">Получение файла…</string>
     <string name="retry">Попробовать снова</string>

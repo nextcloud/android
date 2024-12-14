@@ -648,6 +648,7 @@
     <string name="restore">Restaurează fișier</string>
     <string name="restore_backup">Restaurează copia de rezervă</string>
     <string name="restore_button_description">Restaurează fișier șters</string>
+    <string name="restore_item">Restaurare</string>
     <string name="restore_selected">Restaurează selecția</string>
     <string name="retrieving_file">Recuperearea fișierului...</string>
     <string name="retry">Reîncearcă</string>

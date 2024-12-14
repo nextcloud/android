@@ -753,6 +753,7 @@
     <string name="restore">Przywróć plik</string>
     <string name="restore_backup">Przywróć kopię zapasową</string>
     <string name="restore_button_description">Przywróć usunięty plik</string>
+    <string name="restore_item">Przywróć</string>
     <string name="restore_selected">Przywróć wybrane</string>
     <string name="retrieving_file">Pobieranie pliku…</string>
     <string name="retry">Powtórz</string>

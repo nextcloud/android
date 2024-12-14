@@ -650,6 +650,7 @@
     <string name="restore">Obnovi datoteko</string>
     <string name="restore_backup">Obnovi varnostno kopijo</string>
     <string name="restore_button_description">Obnovi izbrisano datoteko</string>
+    <string name="restore_item">Obnovi</string>
     <string name="restore_selected">Obnovi izbrano</string>
     <string name="retrieving_file">Poteka pridobivanje datoteke…</string>
     <string name="retry">Poskusi znova</string>
