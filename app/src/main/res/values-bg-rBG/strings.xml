@@ -622,6 +622,7 @@
     <string name="restore">Възстанови файл</string>
     <string name="restore_backup">Възстановяване на архив</string>
     <string name="restore_button_description">Възстанови изтрития файл</string>
+    <string name="restore_item">Възстановяне</string>
     <string name="restore_selected">Възстановяване на избраните</string>
     <string name="retrieving_file">Извличане на файл...</string>
     <string name="retry">Опитай отново</string>

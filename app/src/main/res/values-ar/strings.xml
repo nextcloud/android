@@ -764,6 +764,7 @@
     <string name="restore">استعادة الملف</string>
     <string name="restore_backup">استعادة النسخ الاحتياطي</string>
     <string name="restore_button_description">استعادة الملف المحذوف</string>
+    <string name="restore_item">إستعادة </string>
     <string name="restore_selected">تم اختيار الاستعادة</string>
     <string name="retrieving_file">جارٍ استرداد الملف…</string>
     <string name="retry">أعِدِ المحاولة</string>
