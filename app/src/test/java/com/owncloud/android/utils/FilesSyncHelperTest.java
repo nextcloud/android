@@ -44,7 +44,10 @@ public class FilesSyncHelperTest {
         mockPath = mock(Path.class);
         Mockito.when(mockFile.isDirectory()).thenReturn(true);
         Mockito.when(mockPath.toFile()).thenReturn(mockFile);
-        Mockito.when(mockFile.listFiles()).thenReturn(new File[]{mockFile, mockFile, mockFile}).thenReturn(new File[0]).thenReturn(null);
+        Mockito.when(mockFile.listFiles())
+            .thenReturn(new File[]{mockFile, mockFile, mockFile})
+            .thenReturn(new File[0])
+            .thenReturn(null);
         Mockito.when(mockFile.canRead()).thenReturn(true);
 
         SimpleFileVisitor<Path> visitor = new SimpleFileVisitor<Path>() {
