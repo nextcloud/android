@@ -13,7 +13,9 @@ import android.content.Context
 import com.nextcloud.utils.date.DateFormatPattern
 import com.nextcloud.utils.date.DateFormatter
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.status.NextcloudVersion
+import com.owncloud.android.lib.resources.status.OCCapability
 import java.util.concurrent.TimeUnit
 
 fun Task.getInputAndOutput(): String {
@@ -37,8 +39,38 @@ fun Task.getInputTitle(): String {
     }
 }
 
-@Suppress("MagicNumber")
-fun Task.getStatusIcon(): Int {
+fun Task.getStatusIcon(capability: OCCapability): Int {
+    return if (capability.version.isNewerOrEqual(NextcloudVersion.nextcloud_30)) {
+        getStatusIconV2()
+    } else {
+        getStatusIconV1()
+    }
+}
+
+private fun Task.getStatusIconV1(): Int {
+    return when (status) {
+        "0" -> {
+            R.drawable.ic_unknown
+        }
+        "1" -> {
+            R.drawable.ic_clock
+        }
+        "2" -> {
+            R.drawable.ic_modification_desc
+        }
+        "3" -> {
+            R.drawable.ic_check_circle_outline
+        }
+        "4" -> {
+            R.drawable.image_fail
+        }
+        else -> {
+            R.drawable.ic_unknown
+        }
+    }
+}
+
+private fun Task.getStatusIconV2(): Int {
     return when (status) {
         "STATUS_UNKNOWN" -> {
             R.drawable.ic_unknown

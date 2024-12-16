@@ -28,13 +28,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.nextcloud.client.assistant.extensions.getModifiedAtRepresentation
 import com.nextcloud.client.assistant.extensions.getStatusIcon
-import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskInput
-import com.owncloud.android.lib.resources.assistant.model.TaskOutput
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
+import com.owncloud.android.lib.resources.status.OCCapability
 import java.util.concurrent.TimeUnit
 
 @Composable
-fun TaskStatusView(task: Task, foregroundColor: Color) {
+fun TaskStatusView(task: Task, foregroundColor: Color, capability: OCCapability) {
     val context = LocalContext.current
 
     Row(
@@ -43,7 +44,7 @@ fun TaskStatusView(task: Task, foregroundColor: Color) {
             .padding(vertical = 16.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        val iconId = task.getStatusIcon()
+        val iconId = task.getStatusIcon(capability)
         val description = task.getModifiedAtRepresentation(context)
 
         Image(
@@ -124,7 +125,7 @@ private fun TaskStatusViewPreview() {
         ),
 
         Task(
-            id = 7L,
+            id = 6L,
             type = "type7",
             status = "STATUS_UNKNOWN",
             userId = "user7",
@@ -138,7 +139,13 @@ private fun TaskStatusViewPreview() {
 
     LazyColumn {
         items(tasks) {
-            TaskStatusView(it, foregroundColor = Color.White)
+            TaskStatusView(
+                it,
+                foregroundColor = Color.White,
+                OCCapability().apply {
+                    versionMayor = 30
+                }
+            )
         }
     }
 }

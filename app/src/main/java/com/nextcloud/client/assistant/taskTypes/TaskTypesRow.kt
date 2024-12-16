@@ -19,7 +19,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 
 @SuppressLint("ResourceType")
 @Composable

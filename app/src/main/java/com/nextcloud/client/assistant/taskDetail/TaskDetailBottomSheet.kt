@@ -47,14 +47,15 @@ import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.task.TaskStatusView
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskInput
-import com.owncloud.android.lib.resources.assistant.model.TaskOutput
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
+import com.owncloud.android.lib.resources.status.OCCapability
 
 @Suppress("LongMethod")
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -> Unit) {
+fun TaskDetailBottomSheet(task: Task, capability: OCCapability, showTaskActions: () -> Unit, dismiss: () -> Unit) {
     var showInput by remember { mutableStateOf(true) }
     val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
 
@@ -142,7 +143,7 @@ fun TaskDetailBottomSheet(task: Task, showTaskActions: () -> Unit, dismiss: () -
                     )
                 }
 
-                TaskStatusView(task, foregroundColor = colorResource(R.color.text_color))
+                TaskStatusView(task, foregroundColor = colorResource(R.color.text_color), capability)
 
                 Spacer(modifier = Modifier.height(32.dp))
             }
@@ -187,6 +188,9 @@ private fun TaskDetailScreenPreview() {
             1707692337,
             1707692337
         ),
+        OCCapability().apply {
+            versionMayor = 30
+        },
         showTaskActions = {
         }
     ) {

@@ -12,8 +12,8 @@ import com.nextcloud.client.assistant.extensions.getInput
 import com.nextcloud.client.assistant.extensions.getInputAndOutput
 import com.nextcloud.utils.extensions.showShareIntent
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskTypeData
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.utils.ClipboardUtil
 
 sealed class ScreenOverlayState {

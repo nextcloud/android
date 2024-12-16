@@ -87,9 +87,10 @@ class ComposeActivity : DrawerActivity() {
             nextcloudClient?.let { client ->
                 AssistantScreen(
                     viewModel = AssistantViewModel(
-                        repository = AssistantRepository(client)
+                        repository = AssistantRepository(client, capabilities)
                     ),
-                    activity = this
+                    activity = this,
+                    capability = capabilities
                 )
             }
         }
