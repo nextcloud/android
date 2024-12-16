@@ -111,7 +111,7 @@ import me.zhanghai.android.fastscroll.PopupTextProvider;
  */
 public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     implements DisplayUtils.AvatarGenerationListener,
-    CommonOCFileListAdapterInterface, PopupTextProvider {
+    CommonOCFileListAdapterInterface, PopupTextProvider, RecommendedFilesAdapter.OnItemClickListener {
 
     private static final int showFilenameColumnThreshold = 4;
     private final String userId;
@@ -493,7 +493,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     "Marked as important"
                 )));
 
-            final var adapter = new RecommendedFilesAdapter(activity, mockData, ocFileListDelegate);
+            final var adapter = new RecommendedFilesAdapter(activity, mockData, ocFileListDelegate, this);
             recommendedFiles.setAdapter(adapter);
 
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
@@ -1339,5 +1339,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public void notifyItemChanged(@NonNull OCFile file) {
         notifyItemChanged(getItemPosition(file));
+    }
+
+    @Override
+    public void selectRecommendedFile(long fileId) {
+        // TODO Implement
+    }
+
+    @Override
+    public void showRecommendedFileMoreActions(long fileId) {
+        // TODO Implement
     }
 }
