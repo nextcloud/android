@@ -7,9 +7,9 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
-    android:layout_width="180dp"
+    android:layout_width="@dimen/recommended_files_layout_width"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="8dp"
+    android:layout_marginEnd="@dimen/standard_half_margin"
     android:orientation="vertical"
     android:gravity="start">
 
@@ -21,7 +21,7 @@
         <ImageView
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_height="@dimen/recommended_files_thumbnail_height"
             android:background="@drawable/rounded_rect_8dp"
             android:contentDescription="@string/preview_image_description"
             android:src="@drawable/file" />
@@ -37,13 +37,12 @@
         <com.elyeproj.loaderviewlibrary.LoaderImageView
             android:id="@+id/shimmer_thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="120dp" />
+            android:layout_height="@dimen/recommended_files_thumbnail_height" />
 
     </FrameLayout>
 
 
     <TextView
-        android:text="to Pay up.pdf"
         android:layout_marginTop="@dimen/standard_half_margin"
         android:id="@+id/name"
         android:layout_width="match_parent"
@@ -55,7 +54,6 @@
         android:maxLines="1"/>
 
     <TextView
-        android:text="Dropbox"
         android:layout_marginTop="@dimen/standard_half_margin"
         android:id="@+id/timestamp"
         android:layout_width="match_parent"
