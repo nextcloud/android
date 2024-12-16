@@ -12,22 +12,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.nextcloud.android.lib.resources.recommendations.Recommendation
 import com.owncloud.android.databinding.RecommendedFilesListItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.DisplayUtils
-
-// TODO delete mock data
-data class Recommendation(
-    val id: Long,
-    val timestamp: Long,
-    val name: String,
-    val directory: String,
-    val extension: String,
-    val mimeType: String,
-    val hasPreview: Boolean,
-    val reason: String
-)
 
 class RecommendedFilesAdapter(
     private val context: Context,
