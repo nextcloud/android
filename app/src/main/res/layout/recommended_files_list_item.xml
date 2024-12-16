@@ -5,32 +5,64 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later
   -->
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/container"
-    android:layout_width="80dp"
-    android:layout_height="80dp"
+    android:layout_width="180dp"
+    android:layout_height="wrap_content"
     android:layout_marginEnd="8dp"
-    android:background="@drawable/rounded_rect_8dp"
     android:orientation="vertical"
-    android:padding="@dimen/standard_padding"
-    android:gravity="center">
+    android:gravity="start">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:contentDescription="@string/preview_image_description"
-        android:src="@drawable/preview_image_gradient_shape" />
+    <FrameLayout
+        android:layout_gravity="center|start"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:background="@drawable/rounded_rect_8dp"
+            android:contentDescription="@string/preview_image_description"
+            android:src="@drawable/file" />
+
+        <ImageButton
+            android:src="@drawable/ic_dots_horizontal"
+            android:contentDescription="@string/preview_image_description"
+            android:background="@drawable/ic_circle"
+            android:layout_gravity="top|end"
+            android:layout_width="@dimen/more_icon_size"
+            android:layout_height="@dimen/more_icon_size"/>
+
+        <com.elyeproj.loaderviewlibrary.LoaderImageView
+            android:id="@+id/shimmer_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="120dp" />
+
+    </FrameLayout>
+
 
     <TextView
-        android:text="aaa"
+        android:text="to Pay up.pdf"
+        android:layout_marginTop="@dimen/standard_half_margin"
         android:id="@+id/name"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
+        android:gravity="start|center"
         android:textSize="12sp"
         android:textColor="@color/text_color"
+        android:ellipsize="end"
+        android:maxLines="1"/>
+
+    <TextView
+        android:text="Dropbox"
+        android:layout_marginTop="@dimen/standard_half_margin"
+        android:id="@+id/timestamp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="start|center"
+        android:textSize="11sp"
+        android:textColor="@color/secondary_text_color"
         android:ellipsize="end"
         android:maxLines="1"/>
 
