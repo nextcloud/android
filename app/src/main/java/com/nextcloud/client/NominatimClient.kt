@@ -12,7 +12,7 @@ import com.google.gson.annotations.SerializedName
 import com.owncloud.android.MainApp
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import okhttp3.internal.http.HTTP_OK
+import java.net.HttpURLConnection.HTTP_OK
 import java.net.URLEncoder
 
 class NominatimClient constructor(geocoderBaseUrl: String, email: String) {
