@@ -34,7 +34,7 @@
 
     <LinearLayout
         android:id="@+id/recommended_files_layout"
-        android:layout_marginTop="150dp"
+        android:layout_marginTop="@dimen/recommended_files_layout_margin_top"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
         android:orientation="vertical"
