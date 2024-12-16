@@ -1139,6 +1139,9 @@
     <plurals name="file_list__footer__file">
         <item quantity="other">%1$d 個檔案</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="other">%1$d 個項目</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="other">顯示 %1$d 個隱藏資料夾</item>
     </plurals>
