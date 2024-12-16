@@ -33,6 +33,8 @@ import android.widget.LinearLayout;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.chip.Chip;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
+import com.nextcloud.android.lib.resources.recommendations.GetRecommendationsRemoteOperation;
+import com.nextcloud.android.lib.resources.recommendations.Recommendation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
@@ -85,7 +87,6 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -148,6 +149,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
     private final SyncedFolderProvider syncedFolderProvider;
 
+    private final ArrayList<Recommendation> recommendedFiles;
+
     public OCFileListAdapter(
         Activity activity,
         @NonNull User user,
@@ -157,7 +160,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         OCFileListFragmentInterface ocFileListFragmentInterface,
         boolean argHideItemOptions,
         boolean gridView,
-        final ViewThemeUtils viewThemeUtils) {
+        final ViewThemeUtils viewThemeUtils,
+        final ArrayList<Recommendation> recommendedFiles) {
+        this.recommendedFiles = recommendedFiles;
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
         this.preferences = preferences;
@@ -415,6 +420,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 );
             }
             case VIEW_TYPE_HEADER -> {
+                // TODO add height if recommended files is empty
                 ListHeaderBinding binding = ListHeaderBinding.inflate(
                     LayoutInflater.from(parent.getContext()),
                     parent,
@@ -434,61 +440,20 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 ocFileListFragmentInterface.isLoading() ? View.VISIBLE : View.GONE);
         } else if (holder instanceof OCFileListHeaderViewHolder headerViewHolder) {
             String text = currentDirectory.getRichWorkspace();
-
-            final var recommendedFiles = headerViewHolder.getBinding().recommendedFilesRecyclerView;
-
-            final LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
-            recommendedFiles.setLayoutManager(layoutManager);
-
-            // TODO use actual data
-            ArrayList<Recommendation> mockData = new ArrayList<>(Arrays.asList(
-                new Recommendation(
-                    2124L,
-                    System.currentTimeMillis(),
-                    "Document1",
-                    "/documents",
-                    "pdf",
-                    "application/pdf",
-                    true,
-                    "Recently opened"
-                ),
-                new Recommendation(
-                    2130L,
-                    System.currentTimeMillis() - 3600000,
-                    "Image1",
-                    "/pictures",
-                    "jpg",
-                    "image/jpeg",
-                    true,
-                    "Frequently viewed"
-                ),
-                new Recommendation(
-                    2131L,
-                    System.currentTimeMillis() - 7200000,
-                    "Presentation1",
-                    "/presentations",
-                    "pptx",
-                    "application/vnd.ms-powerpoint",
-                    false,
-                    "Shared with you"
-                ),
-                new Recommendation(
-                    2126L,
-                    System.currentTimeMillis() - 7200000,
-                    "Presentation1",
-                    "/presentations",
-                    "pptx",
-                    "application/vnd.ms-powerpoint",
-                    false,
-                    "Shared with you"
-                ))
-            );
-
-            final var adapter = new RecommendedFilesAdapter(activity, mockData, ocFileListDelegate, this, mStorageManager);
-            recommendedFiles.setAdapter(adapter);
-
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
             headerViewHolder.getHeaderView().setOnClickListener(v -> ocFileListFragmentInterface.onHeaderClicked());
+
+            ViewExtensionsKt.setVisibleIf(headerViewHolder.getBinding().recommendedFilesLayout, !recommendedFiles.isEmpty());
+
+            if (!recommendedFiles.isEmpty()) {
+                final var recommendedFilesRecyclerView = headerViewHolder.getBinding().recommendedFilesRecyclerView;
+
+                final LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
+                recommendedFilesRecyclerView.setLayoutManager(layoutManager);
+
+                final var adapter = new RecommendedFilesAdapter(activity, recommendedFiles, ocFileListDelegate, this, mStorageManager);
+                recommendedFilesRecyclerView.setAdapter(adapter);
+            }
         } else {
             ListViewHolder gridViewHolder = (ListViewHolder) holder;
             OCFile file = getItem(position);
@@ -836,13 +801,15 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return false;
         }
 
-        // TODO add or condition for recommended files
+        if (!recommendedFiles.isEmpty()) {
+            return true;
+        }
 
         if (currentDirectory.getRichWorkspace() == null) {
             return false;
         }
 
-        return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim()) || true;
+        return !TextUtils.isEmpty(currentDirectory.getRichWorkspace().trim());
     }
 
     /**
