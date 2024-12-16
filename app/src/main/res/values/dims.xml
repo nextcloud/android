@@ -161,4 +161,5 @@
     <dimen name="more_icon_size">32dp</dimen>
     <dimen name="recommended_files_thumbnail_height">120dp</dimen>
     <dimen name="recommended_files_layout_width">180dp</dimen>
+    <dimen name="recommended_files_layout_margin_top">150dp</dimen>
 </resources>
