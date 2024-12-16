@@ -1371,6 +1371,10 @@ public class FileDisplayActivity extends FileActivity
                                         case MAINTENANCE_MODE:
                                             showInfoBox(R.string.maintenance_mode);
                                             break;
+                                            
+                                        case USER_DISABLED:
+                                            showInfoBox(R.string.disabled_user);
+                                            break;
 
                                         case NO_NETWORK_CONNECTION:
                                             showInfoBox(R.string.offline_mode);
