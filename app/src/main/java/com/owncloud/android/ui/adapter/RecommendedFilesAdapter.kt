@@ -29,20 +29,17 @@ data class Recommendation(
 class RecommendedFilesAdapter(
     private val context: Context,
     private val recommendations: List<Recommendation>,
-    private val delegate: OCFileListDelegate
+    private val delegate: OCFileListDelegate,
+    private val onItemClickListener: OnItemClickListener
 ) : RecyclerView.Adapter<RecommendedFilesAdapter.RecommendedFilesViewHolder>() {
 
-    inner class RecommendedFilesViewHolder(val binding: RecommendedFilesListItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.root.setOnClickListener {
-                val position = bindingAdapterPosition
-                if (position != RecyclerView.NO_POSITION) {
-                    // TODO onclick item
-                }
-            }
-        }
+    interface OnItemClickListener {
+        fun selectRecommendedFile(fileId: Long)
+        fun showRecommendedFileMoreActions(fileId: Long)
     }
+
+    inner class RecommendedFilesViewHolder(val binding: RecommendedFilesListItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecommendedFilesViewHolder {
         val binding = RecommendedFilesListItemBinding
@@ -59,6 +56,14 @@ class RecommendedFilesAdapter(
             name.text = item.name
             timestamp.text = DisplayUtils.getRelativeTimestamp(context,  item.timestamp)
             delegate.setThumbnailFromFileId(thumbnail, shimmerThumbnail, item.id)
+
+            container.setOnClickListener {
+                onItemClickListener.selectRecommendedFile(item.id)
+            }
+
+            moreAction.setOnClickListener {
+                onItemClickListener.showRecommendedFileMoreActions(item.id)
+            }
         }
     }
 }
