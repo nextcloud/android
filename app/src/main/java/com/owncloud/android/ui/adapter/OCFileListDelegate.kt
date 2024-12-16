@@ -195,6 +195,28 @@ class OCFileListDelegate(
         }
     }
 
+    fun setThumbnailFromFileId(thumbnail: ImageView, shimmerThumbnail: LoaderImageView?, fileId: Long) {
+        storageManager.getFileById(fileId)?.let { file ->
+            setThumbnail(thumbnail, shimmerThumbnail, file)
+        }
+    }
+
+    private fun setThumbnail(thumbnail: ImageView, shimmerThumbnail: LoaderImageView?, file: OCFile) {
+        DisplayUtils.setThumbnail(
+            file,
+            thumbnail,
+            user,
+            storageManager,
+            asyncTasks,
+            gridView,
+            context,
+            shimmerThumbnail,
+            preferences,
+            viewThemeUtils,
+            syncFolderProvider
+        )
+    }
+
     fun bindGridViewHolder(
         gridViewHolder: ListViewHolder,
         file: OCFile,
@@ -204,19 +226,7 @@ class OCFileListDelegate(
         // thumbnail
         gridViewHolder.imageFileName?.text = file.fileName
         gridViewHolder.thumbnail.tag = file.fileId
-        DisplayUtils.setThumbnail(
-            file,
-            gridViewHolder.thumbnail,
-            user,
-            storageManager,
-            asyncTasks,
-            gridView,
-            context,
-            gridViewHolder.shimmerThumbnail,
-            preferences,
-            viewThemeUtils,
-            syncFolderProvider
-        )
+        setThumbnail(gridViewHolder.thumbnail, gridViewHolder.shimmerThumbnail, file)
 
         // item layout + click listeners
         bindGridItemLayout(file, gridViewHolder)

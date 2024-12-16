@@ -158,4 +158,5 @@
     <dimen name="adaptive_icon_size">108dp</dimen>
     <dimen name="adaptive_icon_padding">18dp</dimen>
     <dimen name="tag_height">18dp</dimen>
+    <dimen name="more_icon_size">32dp</dimen>
 </resources>

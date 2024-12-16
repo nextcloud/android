@@ -8,9 +8,10 @@
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/headerView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:showDividers="none">
 
@@ -26,17 +27,42 @@
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:paddingBottom="@dimen/standard_padding"
         android:contentDescription="@null"
         android:src="@drawable/preview_markdown_gradient_shape" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recommended_files_recycler_view"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
+    <LinearLayout
+        android:id="@+id/recommended_files_layout"
+        android:layout_marginTop="150dp"
         android:layout_gravity="bottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/recommended_files_title"
+            android:text="@string/recommended_files_title"
+            app:drawableStartCompat="@drawable/ic_star"
+            app:drawableTint="@color/text_color"
+            android:gravity="center|start"
+            android:drawablePadding="@dimen/standard_half_padding"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:paddingBottom="@dimen/zero"
+            android:textColor="@color/text_color" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recommended_files_recycler_view"
+            android:paddingLeft="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_padding"
+            android:paddingRight="@dimen/standard_padding"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
 </FrameLayout>

@@ -419,9 +419,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     LayoutInflater.from(parent.getContext()),
                     parent,
                     false);
-                ViewGroup.LayoutParams layoutParams = binding.headerView.getLayoutParams();
-                layoutParams.height = (int) (parent.getHeight() * 0.3);
-                binding.headerView.setLayoutParams(layoutParams);
                 return new OCFileListHeaderViewHolder(binding);
             }
         }
@@ -496,7 +493,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     "Marked as important"
                 )));
 
-            final var adapter = new RecommendedFilesAdapter(activity, viewThemeUtils, mockData);
+            final var adapter = new RecommendedFilesAdapter(activity, mockData, ocFileListDelegate);
             recommendedFiles.setAdapter(adapter);
 
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
