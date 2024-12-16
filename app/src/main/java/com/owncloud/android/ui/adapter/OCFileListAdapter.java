@@ -443,7 +443,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             // TODO use actual data
             ArrayList<Recommendation> mockData = new ArrayList<>(Arrays.asList(
                 new Recommendation(
-                    1L,
+                    2124L,
                     System.currentTimeMillis(),
                     "Document1",
                     "/documents",
@@ -453,7 +453,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     "Recently opened"
                 ),
                 new Recommendation(
-                    2L,
+                    2130L,
                     System.currentTimeMillis() - 3600000,
                     "Image1",
                     "/pictures",
@@ -463,7 +463,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     "Frequently viewed"
                 ),
                 new Recommendation(
-                    3L,
+                    2131L,
                     System.currentTimeMillis() - 7200000,
                     "Presentation1",
                     "/presentations",
@@ -473,27 +473,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                     "Shared with you"
                 ),
                 new Recommendation(
-                    4L,
-                    System.currentTimeMillis() - 86400000,
-                    "Video1",
-                    "/videos",
-                    "mp4",
-                    "video/mp4",
-                    true,
-                    "Recent download"
-                ),
-                new Recommendation(
-                    5L,
-                    System.currentTimeMillis() - 604800000,
-                    "Spreadsheet1",
-                    "/spreadsheets",
-                    "xlsx",
-                    "application/vnd.ms-excel",
+                    2126L,
+                    System.currentTimeMillis() - 7200000,
+                    "Presentation1",
+                    "/presentations",
+                    "pptx",
+                    "application/vnd.ms-powerpoint",
                     false,
-                    "Marked as important"
-                )));
+                    "Shared with you"
+                ))
+            );
 
-            final var adapter = new RecommendedFilesAdapter(activity, mockData, ocFileListDelegate, this);
+            final var adapter = new RecommendedFilesAdapter(activity, mockData, ocFileListDelegate, this, mStorageManager);
             recommendedFiles.setAdapter(adapter);
 
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
@@ -1342,12 +1333,12 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     @Override
-    public void selectRecommendedFile(long fileId) {
-        // TODO Implement
+    public void selectRecommendedFile(@NonNull OCFile file) {
+        ocFileListFragmentInterface.onItemClicked(file);
     }
 
     @Override
-    public void showRecommendedFileMoreActions(long fileId) {
-        // TODO Implement
+    public void showRecommendedFileMoreActions(@NonNull OCFile file, @NonNull View view) {
+        ocFileListFragmentInterface.onOverflowIconClicked(file, view);
     }
 }

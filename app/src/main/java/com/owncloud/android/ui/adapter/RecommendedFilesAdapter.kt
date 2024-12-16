@@ -9,9 +9,12 @@ package com.owncloud.android.ui.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.RecommendedFilesListItemBinding
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.DisplayUtils
 
 // TODO delete mock data
@@ -30,12 +33,13 @@ class RecommendedFilesAdapter(
     private val context: Context,
     private val recommendations: List<Recommendation>,
     private val delegate: OCFileListDelegate,
-    private val onItemClickListener: OnItemClickListener
+    private val onItemClickListener: OnItemClickListener,
+    private val storageManager: FileDataStorageManager
 ) : RecyclerView.Adapter<RecommendedFilesAdapter.RecommendedFilesViewHolder>() {
 
     interface OnItemClickListener {
-        fun selectRecommendedFile(fileId: Long)
-        fun showRecommendedFileMoreActions(fileId: Long)
+        fun selectRecommendedFile(file: OCFile)
+        fun showRecommendedFileMoreActions(file: OCFile, view: View)
     }
 
     inner class RecommendedFilesViewHolder(val binding: RecommendedFilesListItemBinding) :
@@ -55,14 +59,17 @@ class RecommendedFilesAdapter(
         holder.binding.run {
             name.text = item.name
             timestamp.text = DisplayUtils.getRelativeTimestamp(context,  item.timestamp)
-            delegate.setThumbnailFromFileId(thumbnail, shimmerThumbnail, item.id)
+
+            val file = storageManager.getFileById(item.id) ?: return
+
+            delegate.setThumbnail(thumbnail, shimmerThumbnail, file)
 
             container.setOnClickListener {
-                onItemClickListener.selectRecommendedFile(item.id)
+                onItemClickListener.selectRecommendedFile(file)
             }
 
             moreAction.setOnClickListener {
-                onItemClickListener.showRecommendedFileMoreActions(item.id)
+                onItemClickListener.showRecommendedFileMoreActions(file, holder.itemView)
             }
         }
     }
