@@ -387,6 +387,7 @@ class TrashbinActivity :
         }
     }
 
+    @Suppress("ReturnCount")
     private fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: Set<TrashbinFile>): Boolean {
         if (checkedFiles.isEmpty()) {
             return false
