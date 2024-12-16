@@ -450,6 +450,7 @@
     <string name="resized_image_not_possible_download">Neniu regrandigita bildo disponeblas. Ĉu elŝuti originan bildon?</string>
     <string name="restore">Restaŭri dosieron</string>
     <string name="restore_button_description">Restaŭri forigitajn dosierojn</string>
+    <string name="restore_item">Restaŭri</string>
     <string name="retry">Reprovi</string>
     <string name="richdocuments_failed_to_load_document">Malsukcesis ŝargi dokumenton!</string>
     <string name="scanQR_description">Ensaluti pere de rapidresponda (QR) kodo</string>

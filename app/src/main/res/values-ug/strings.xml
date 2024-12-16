@@ -141,6 +141,7 @@
     <string name="common_loading">Loading…</string>
     <string name="common_next">كېيىنكى</string>
     <string name="common_no">ياق</string>
+    <string name="common_now">ھازىر</string>
     <string name="common_ok">جەزملە</string>
     <string name="common_pending">ساقلىنىۋاتىدۇ</string>
     <string name="common_remove">ئۆچۈرۈش</string>
@@ -737,6 +738,7 @@
     <string name="restore">ھۆججەتنى ئەسلىگە كەلتۈرۈش</string>
     <string name="restore_backup">زاپاسلاشنى ئەسلىگە كەلتۈرۈڭ</string>
     <string name="restore_button_description">ئۆچۈرۈلگەن ھۆججەتنى ئەسلىگە كەلتۈرۈڭ</string>
+    <string name="restore_item">ئەسلىگە كەلتۈرۈش</string>
     <string name="restore_selected">تاللانغاننى ئەسلىگە كەلتۈرۈڭ</string>
     <string name="retrieving_file">ھۆججەتنى ئەسلىگە كەلتۈرۈش…</string>
     <string name="retry">قايتا سىناڭ</string>

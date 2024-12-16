@@ -544,6 +544,7 @@
     <string name="resized_image_not_possible_download">Нема достапно смалена слика. Превземете ја во целосната големина?</string>
     <string name="restore">Врати датотека</string>
     <string name="restore_button_description">Вратете ги избришаните датотеки</string>
+    <string name="restore_item">Врати</string>
     <string name="retrieving_file">Превземање на датотеки…</string>
     <string name="retry">Обидете се повторно</string>
     <string name="richdocuments_failed_to_load_document">Неуспешно вчитување на документ!</string>

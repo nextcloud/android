@@ -43,6 +43,7 @@ fun MoreActionsBottomSheet(title: String? = null, actions: List<Triple<Int, Int,
 
     ModalBottomSheet(
         modifier = Modifier.padding(top = 32.dp),
+        containerColor = colorScheme.surface,
         onDismissRequest = {
             dismiss()
         },
@@ -72,8 +73,8 @@ fun MoreActionsBottomSheet(title: String? = null, actions: List<Triple<Int, Int,
                                 .launch { sheetState.hide() }
                                 .invokeOnCompletion {
                                     if (!sheetState.isVisible) {
-                                        action.third()
                                         dismiss()
+                                        action.third()
                                     }
                                 }
                         }

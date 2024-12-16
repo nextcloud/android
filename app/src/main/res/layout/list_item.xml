@@ -81,7 +81,6 @@
             android:id="@+id/Filename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:ellipsize="middle"
             android:singleLine="true"
             android:textColor="@color/text_color"

@@ -119,6 +119,7 @@
     <string name="common_loading">Зареждане…</string>
     <string name="common_next">Следващ</string>
     <string name="common_no">Не</string>
+    <string name="common_now">Сега</string>
     <string name="common_ok">ОК</string>
     <string name="common_pending">В очакване</string>
     <string name="common_remove">Изтриване</string>
@@ -621,6 +622,7 @@
     <string name="restore">Възстанови файл</string>
     <string name="restore_backup">Възстановяване на архив</string>
     <string name="restore_button_description">Възстанови изтрития файл</string>
+    <string name="restore_item">Възстановяне</string>
     <string name="restore_selected">Възстановяване на избраните</string>
     <string name="retrieving_file">Извличане на файл...</string>
     <string name="retry">Опитай отново</string>

@@ -586,6 +586,7 @@
     <string name="restore">Vrati datoteku</string>
     <string name="restore_backup">Vrati sigurnosnu kopiju</string>
     <string name="restore_button_description">Vrati izbrisanu datoteku</string>
+    <string name="restore_item">Vrati</string>
     <string name="restore_selected">Vrati odabrano</string>
     <string name="retrieving_file">Dohvaćanje datoteke...</string>
     <string name="richdocuments_failed_to_load_document">Učitavanje dokumenta nije uspjelo!</string>

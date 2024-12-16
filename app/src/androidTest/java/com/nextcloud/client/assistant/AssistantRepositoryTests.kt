@@ -9,6 +9,7 @@ package com.nextcloud.client.assistant
 
 import com.nextcloud.client.assistant.repository.AssistantRepository
 import com.owncloud.android.AbstractOnServerIT
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import com.owncloud.android.lib.resources.status.NextcloudVersion
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -21,7 +22,7 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
     @Before
     fun setup() {
-        sut = AssistantRepository(nextcloudClient)
+        sut = AssistantRepository(nextcloudClient, capability)
     }
 
     @Test
@@ -33,10 +34,7 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
         }
 
         val result = sut?.getTaskTypes()
-        assertTrue(result?.isSuccess == true)
-
-        val taskTypes = result?.resultData?.types
-        assertTrue(taskTypes?.isNotEmpty() == true)
+        assertTrue(result?.isNotEmpty() == true)
     }
 
     @Test
@@ -48,10 +46,7 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
         }
 
         val result = sut?.getTaskList("assistant")
-        assertTrue(result?.isSuccess == true)
-
-        val taskList = result?.resultData?.tasks
-        assertTrue(taskList?.isEmpty() == true || (taskList?.size ?: 0) > 0)
+        assertTrue(result?.isEmpty() == true || (result?.size ?: 0) > 0)
     }
 
     @Test
@@ -63,8 +58,14 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
         }
 
         val input = "Give me some random output for test purpose"
-        val type = "OCP\\TextProcessing\\FreePromptTaskType"
-        val result = sut?.createTask(input, type)
+        val taskType = TaskTypeData(
+            "core:text2text",
+            "Free text to text prompt",
+            "Runs an arbitrary prompt through a language model that returns a reply",
+            null,
+            null
+        )
+        val result = sut?.createTask(input, taskType)
         assertTrue(result?.isSuccess == true)
     }
 
@@ -80,12 +81,10 @@ class AssistantRepositoryTests : AbstractOnServerIT() {
 
         sleep(120)
 
-        val resultOfTaskList = sut?.getTaskList("assistant")
-        assertTrue(resultOfTaskList?.isSuccess == true)
+        val taskList = sut?.getTaskList("assistant")
+        assertTrue(taskList != null)
 
         sleep(120)
-
-        val taskList = resultOfTaskList?.resultData?.tasks
 
         assert((taskList?.size ?: 0) > 0)
 

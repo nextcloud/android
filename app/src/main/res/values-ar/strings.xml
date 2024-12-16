@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">منفذ البروكسي</string>
     <string name="app_widget_description">عرض أداة واحدة من لوحة القيادة</string>
     <string name="appbar_search_in">بحث في %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">إضافة مهمة جديدة</string>
     <string name="assistant_screen_all_task_type">الكل</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">أكتُب أيَّ نص</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">هل أنت متأكد أنك ترغب بحذف هذه المهمة؟</string>
@@ -152,6 +153,7 @@
     <string name="common_loading">التحميل جارٍ …</string>
     <string name="common_next">التالي</string>
     <string name="common_no">لا</string>
+    <string name="common_now">الآن</string>
     <string name="common_ok">تم</string>
     <string name="common_pending">مُعلَّق</string>
     <string name="common_remove">إزالة</string>
@@ -762,6 +764,7 @@
     <string name="restore">استعادة الملف</string>
     <string name="restore_backup">استعادة النسخ الاحتياطي</string>
     <string name="restore_button_description">استعادة الملف المحذوف</string>
+    <string name="restore_item">إستعادة </string>
     <string name="restore_selected">تم اختيار الاستعادة</string>
     <string name="retrieving_file">جارٍ استرداد الملف…</string>
     <string name="retry">أعِدِ المحاولة</string>
@@ -1127,6 +1130,30 @@
         <item quantity="few">%d دقائق</item>
         <item quantity="many">%d دقيقة</item>
         <item quantity="other">%d دقيقة</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="zero">%d ثوانٍ مضت</item>
+        <item quantity="one">1 ثانية مضت</item>
+        <item quantity="two">%d ثوانٍ مضت</item>
+        <item quantity="few">%d ثوانٍ مضت</item>
+        <item quantity="many">%d ثوانٍ مضت</item>
+        <item quantity="other">%d ثوانٍ مضت</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="zero">%d دقائق مضت</item>
+        <item quantity="one">1 دقيقة مضت</item>
+        <item quantity="two">%d دقائق مضت</item>
+        <item quantity="few">%d دقائق مضت</item>
+        <item quantity="many">%d دقائق مضت</item>
+        <item quantity="other">%d دقائق مضت</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="zero">%d ساعات مضت</item>
+        <item quantity="one">1 ساعة مضت</item>
+        <item quantity="two">%d ساعات مضت</item>
+        <item quantity="few">%d ساعات مضت</item>
+        <item quantity="many">%d ساعات مضت</item>
+        <item quantity="other">%d ساعات مضت</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="zero">تعذرت مزامنة الملفات %1$d (التعارضات:%2$d)</item>

@@ -46,8 +46,7 @@ public abstract class SyncOperation extends RemoteOperation {
      */
     public RemoteOperationResult execute(Context context) {
         if (storageManager.getUser().isAnonymous()) {
-            throw new IllegalArgumentException("Trying to execute a sync operation with a " +
-                                                   "storage manager for an anonymous account");
+            return new RemoteOperationResult(RemoteOperationResult.ResultCode.ACCOUNT_EXCEPTION);
         }
         return super.execute(this.storageManager.getUser(), context);
     }

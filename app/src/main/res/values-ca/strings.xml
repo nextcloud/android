@@ -151,6 +151,7 @@
     <string name="common_loading">S\'està carregant…</string>
     <string name="common_next">Següent</string>
     <string name="common_no">No</string>
+    <string name="common_now">Ara</string>
     <string name="common_ok">D\'acord</string>
     <string name="common_pending">Pendent</string>
     <string name="common_remove">Suprimeix</string>
@@ -674,6 +675,7 @@
     <string name="restore">Restaura el fitxer</string>
     <string name="restore_backup">Restaurar còpia de seguretat</string>
     <string name="restore_button_description">Restaura el fitxer suprimit</string>
+    <string name="restore_item">Restablir</string>
     <string name="restore_selected">Restaurar la sel·lecció</string>
     <string name="retrieving_file">S\'està recuperant el fitxer…</string>
     <string name="retry">Torna-ho a provar</string>

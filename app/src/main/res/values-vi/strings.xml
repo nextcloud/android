@@ -592,6 +592,7 @@
     <string name="restore">Khôi phục tệp</string>
     <string name="restore_backup">Khôi phục bản sao lưu</string>
     <string name="restore_button_description">Khôi phục tệp đã xóa</string>
+    <string name="restore_item">Khôi phục</string>
     <string name="restore_selected">Khôi phục mục đã chọn</string>
     <string name="retrieving_file">Đang truy xuất tệp…</string>
     <string name="retry">Thử lại</string>

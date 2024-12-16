@@ -273,7 +273,7 @@ dependencies {
     }
 
     // Jetpack Compose
-    implementation(platform("androidx.compose:compose-bom:2024.11.00"))
+    implementation(platform("androidx.compose:compose-bom:2024.12.01"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.material3:material3")
@@ -420,7 +420,7 @@ dependencies {
     gplayImplementation 'com.google.android.gms:play-services-base:18.5.0'
     gplayImplementation 'com.google.android.play:review-ktx:2.0.2'
 
-    implementation 'com.github.nextcloud.android-common:ui:0.23.2'
+    implementation 'com.github.nextcloud.android-common:ui:0.24.0'
 
     implementation "androidx.room:room-runtime:$roomVersion"
     ksp "androidx.room:room-compiler:$roomVersion"

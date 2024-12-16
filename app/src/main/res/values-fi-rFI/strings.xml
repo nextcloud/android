@@ -134,6 +134,7 @@
     <string name="common_loading">Ladataan…</string>
     <string name="common_next">Seuraava</string>
     <string name="common_no">Ei</string>
+    <string name="common_now">Nyt</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Odottaa</string>
     <string name="common_remove">Poista</string>
@@ -691,6 +692,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="restore">Palauta tiedosto</string>
     <string name="restore_backup">Palauta varmuuskopio</string>
     <string name="restore_button_description">Palauta poistettu tiedosto</string>
+    <string name="restore_item">Palauta</string>
     <string name="restore_selected">Palauta valitut</string>
     <string name="retrieving_file">Noudetaan tiedostoa…</string>
     <string name="retry">Yritä uudelleen</string>

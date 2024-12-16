@@ -730,6 +730,7 @@
     <string name="restore">Herstellen bestand</string>
     <string name="restore_backup">Herstel backup</string>
     <string name="restore_button_description">Herstel verwijderd bestand</string>
+    <string name="restore_item">Herstellen</string>
     <string name="restore_selected">Herstel geselecteerde</string>
     <string name="retrieving_file">Bestand ophalen…</string>
     <string name="retry">Opnieuw</string>

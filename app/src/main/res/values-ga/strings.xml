@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Port Seachfhreastalaí</string>
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
     <string name="appbar_search_in">Cuardaigh i %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Cuir tasc nua leis</string>
     <string name="assistant_screen_all_task_type">Gach</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Clóscríobh roinnt téacs</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">An bhfuil tú cinnte gur mhaith leat an tasc seo a scriosadh?</string>
@@ -152,6 +153,7 @@
     <string name="common_loading">Á lódáil…</string>
     <string name="common_next">Ar aghaidh</string>
     <string name="common_no">Níl</string>
+    <string name="common_now">Anois</string>
     <string name="common_ok">Ceart go leor</string>
     <string name="common_pending">Ar feitheamh</string>
     <string name="common_remove">Scrios</string>
@@ -757,6 +759,7 @@
     <string name="restore">Athchóirigh comhad</string>
     <string name="restore_backup">Athchóirigh cúltaca</string>
     <string name="restore_button_description">Athchóirigh comhad scriosta</string>
+    <string name="restore_item">Athchóirigh</string>
     <string name="restore_selected">Athchóirigh roghnaithe</string>
     <string name="retrieving_file">Comhad á aisghabháil…</string>
     <string name="retry">Bain triail eile as</string>
@@ -1099,6 +1102,27 @@
         <item quantity="many">%d nóiméad</item>
         <item quantity="other">%d nóiméad</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">1 soicind ó shin</item>
+        <item quantity="two">%d soicind ó shin</item>
+        <item quantity="few">%d soicind ó shin</item>
+        <item quantity="many">%d soicind ó shin</item>
+        <item quantity="other">%d soicind ó shin</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">1 nóiméad ó shin</item>
+        <item quantity="two">%d nóiméad ó shin</item>
+        <item quantity="few">%d nóiméad ó shin</item>
+        <item quantity="many">%d nóiméad ó shin</item>
+        <item quantity="other">%d nóiméad ó shin</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">1 uair ó shin</item>
+        <item quantity="two">%d uair ó shin</item>
+        <item quantity="few">%d uair ó shin</item>
+        <item quantity="many">%d uair ó shin</item>
+        <item quantity="other">%d uair ó shin</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Níorbh fhéidir comhad %1$d a shioncronú (coimhlint: %2$d)</item>
         <item quantity="two">Níorbh fhéidir %1$d comhad a shioncronú (coimhlint: %2$d)</item>
@@ -1182,6 +1206,13 @@
         <item quantity="few">%1$d comhad</item>
         <item quantity="many">%1$d comhad</item>
         <item quantity="other">%1$d comhad</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d mír</item>
+        <item quantity="two">%1$d mír</item>
+        <item quantity="few">%1$d mír</item>
+        <item quantity="many">%1$d mír</item>
+        <item quantity="other">%1$d mír</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Taispeáin %1$d fillteán folaithe</item>

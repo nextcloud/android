@@ -141,6 +141,7 @@
     <string name="common_loading">Yükleniyor …</string>
     <string name="common_next">Sonraki</string>
     <string name="common_no">Hayır</string>
+    <string name="common_now">Şimdi</string>
     <string name="common_ok">Tamam</string>
     <string name="common_pending">Bekleyen</string>
     <string name="common_remove">Sil</string>
@@ -739,6 +740,7 @@
     <string name="restore">Dosyayı geri yükle</string>
     <string name="restore_backup">Yedeği geri yükle</string>
     <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>
+    <string name="restore_item">Geri yükle</string>
     <string name="restore_selected">Seçilmişi geri yükle</string>
     <string name="retrieving_file">Dosya alınıyor …</string>
     <string name="retry">Yeniden dene</string>

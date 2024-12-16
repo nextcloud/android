@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Proxyport</string>
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Lägg till ny uppgift</string>
     <string name="assistant_screen_all_task_type">Alla</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
@@ -152,6 +153,7 @@
     <string name="common_loading">Läser in…</string>
     <string name="common_next">Nästa</string>
     <string name="common_no">Nej</string>
+    <string name="common_now">Nu</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Väntar</string>
     <string name="common_remove">Ta bort</string>
@@ -757,6 +759,7 @@
     <string name="restore">Återställ fil</string>
     <string name="restore_backup">Återställ säkerhetskopiering</string>
     <string name="restore_button_description">Återställ raderad fil</string>
+    <string name="restore_item">Återställ</string>
     <string name="restore_selected">Återställ vald</string>
     <string name="retrieving_file">Tar emot fil…</string>
     <string name="retry">Försök igen</string>
@@ -1093,6 +1096,18 @@
         <item quantity="one">%d minut</item>
         <item quantity="other">%d minuter</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">1 sekund sedan</item>
+        <item quantity="other">%d sekunder sedan</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">1 minut sedan</item>
+        <item quantity="other">%d minuter sedan</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">1 timme sedan</item>
+        <item quantity="other">%d timmar sedan</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kunde inte synkronisera %1$d fil (konflikter: %2$d)</item>
         <item quantity="other">Kunde inte synkronisera %1$d filer (konflikter: %2$d)</item>
@@ -1140,6 +1155,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d fil</item>
         <item quantity="other">%1$d filer</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d objekt</item>
+        <item quantity="other">%1$d objekt</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Visa %1$d dold mapp</item>

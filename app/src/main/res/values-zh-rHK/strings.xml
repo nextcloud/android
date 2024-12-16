@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">proxy代理伺服器連接埠</string>
     <string name="app_widget_description">顯示儀表板中的一個小部件</string>
     <string name="appbar_search_in">%s內搜尋</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">添加新任務</string>
     <string name="assistant_screen_all_task_type">全部</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
@@ -152,6 +153,7 @@
     <string name="common_loading">載入中…</string>
     <string name="common_next">下一</string>
     <string name="common_no">否</string>
+    <string name="common_now">現在</string>
     <string name="common_ok">確定</string>
     <string name="common_pending">等候中</string>
     <string name="common_remove">刪除</string>
@@ -757,6 +759,7 @@
     <string name="restore">復原檔案</string>
     <string name="restore_backup">復原備份</string>
     <string name="restore_button_description">復原已刪除檔案</string>
+    <string name="restore_item">還原</string>
     <string name="restore_selected">復原已選取的部份</string>
     <string name="retrieving_file">正在檢索檔案…</string>
     <string name="retry">重試</string>
@@ -1091,6 +1094,15 @@
     <plurals name="minutes">
         <item quantity="other">%d 分鐘</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="other">%d 秒前</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="other">%d 分鐘前</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="other">%d 小時前</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">無法同步 %1$d 檔案（抵觸： %2$d）</item>
     </plurals>
@@ -1126,6 +1138,9 @@
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="other">%1$d個檔案</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="other">%1$d 個項目</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="other">顯示%1$d個隱藏的資料夾</item>

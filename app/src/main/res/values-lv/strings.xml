@@ -421,6 +421,7 @@
     <string name="request_account_deletion">Pieprasīt konta dzēšanu</string>
     <string name="restore">Atjaunot datni</string>
     <string name="restore_button_description">Atjaunot dzēstu datni</string>
+    <string name="restore_item">Atjaunot</string>
     <string name="retry">Mēģināt vēlreiz</string>
     <string name="search_error">Kļūda meklēšanas iznākuma iegūšanā</string>
     <string name="select_all">Atzīmēt visu</string>

@@ -479,6 +479,7 @@
     <string name="resized_image_not_possible_download">Nuk ka në gjëndje asnjë imazh me përmasa të reja. Doni të shkarkoni imazhin e plotë?</string>
     <string name="restore">Rikthe skedarin</string>
     <string name="restore_button_description">Rikthe skedarin e fshirë</string>
+    <string name="restore_item">Rikthe</string>
     <string name="retrieving_file">Marrja e skedarit…</string>
     <string name="retry">Riprovoni</string>
     <string name="richdocuments_failed_to_load_document">Dështoi ngarkimi i dokumentit!</string>

@@ -82,6 +82,7 @@
     <string name="common_loading">Cargando…</string>
     <string name="common_next">Siguiente</string>
     <string name="common_no">Non</string>
+    <string name="common_now">Agora</string>
     <string name="common_ok">Aceutar</string>
     <string name="common_pending">Pendiente</string>
     <string name="common_remove">Desaniciar</string>
@@ -449,6 +450,7 @@
     <string name="request_account_deletion_button">Solicitar el desaniciu</string>
     <string name="restore">Restaurar el ficheru</string>
     <string name="restore_button_description">Restaurar el ficheru desainiciáu</string>
+    <string name="restore_item">Restaurar</string>
     <string name="retrieving_file">Recuperando\'l ficheru…</string>
     <string name="retry">Retentar</string>
     <string name="richdocuments_failed_to_load_document">¡Nun se pue cargar el documentu!</string>

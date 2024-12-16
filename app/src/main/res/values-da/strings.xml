@@ -128,6 +128,7 @@
     <string name="common_loading">Indlæser...</string>
     <string name="common_next">Næste</string>
     <string name="common_no">Nej</string>
+    <string name="common_now">Nu</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">afventende</string>
     <string name="common_remove">Slet</string>

@@ -141,6 +141,7 @@
     <string name="common_loading">불러오는 중…</string>
     <string name="common_next">다음</string>
     <string name="common_no">아니요</string>
+    <string name="common_now">지금</string>
     <string name="common_ok">확인</string>
     <string name="common_pending">대기 중</string>
     <string name="common_remove">삭제</string>
@@ -706,6 +707,7 @@
     <string name="restore">파일 복구</string>
     <string name="restore_backup">백업 복구</string>
     <string name="restore_button_description">삭제된 파일 복구</string>
+    <string name="restore_item">복원</string>
     <string name="restore_selected">선택한 항목 복구</string>
     <string name="retrieving_file">파일 가져오는 중...</string>
     <string name="retry">다시 시도</string>

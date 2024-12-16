@@ -149,6 +149,7 @@
     <string name="common_loading">Wczytywanie…</string>
     <string name="common_next">Następne</string>
     <string name="common_no">Nie</string>
+    <string name="common_now">Teraz</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Oczekuje</string>
     <string name="common_remove">Usuń</string>
@@ -752,6 +753,7 @@
     <string name="restore">Przywróć plik</string>
     <string name="restore_backup">Przywróć kopię zapasową</string>
     <string name="restore_button_description">Przywróć usunięty plik</string>
+    <string name="restore_item">Przywróć</string>
     <string name="restore_selected">Przywróć wybrane</string>
     <string name="retrieving_file">Pobieranie pliku…</string>
     <string name="retry">Powtórz</string>

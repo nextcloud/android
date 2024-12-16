@@ -129,6 +129,7 @@
     <string name="common_loading">Įkeliama…</string>
     <string name="common_next">Kitas</string>
     <string name="common_no">Ne</string>
+    <string name="common_now">Dabar</string>
     <string name="common_ok">Gerai</string>
     <string name="common_pending">Laukiantis</string>
     <string name="common_remove">Ištrinti</string>
@@ -630,6 +631,7 @@
     <string name="restore">Atkurti failą</string>
     <string name="restore_backup">Atkurti atsarginę kopiją</string>
     <string name="restore_button_description">Atkurti ištrintą failą</string>
+    <string name="restore_item">Atkurti</string>
     <string name="restore_selected">Atkurti pažymėtus</string>
     <string name="retrieving_file">Gaunamas failas…</string>
     <string name="retry">Bandyti dar kartą</string>

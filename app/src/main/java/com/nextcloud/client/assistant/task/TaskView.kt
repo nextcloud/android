@@ -9,107 +9,117 @@ package com.nextcloud.client.assistant.task
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.combinedClickable
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nextcloud.client.assistant.taskDetail.TaskDetailBottomSheet
-import com.nextcloud.ui.composeComponents.bottomSheet.MoreActionsBottomSheet
-import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
+import com.owncloud.android.lib.resources.status.OCCapability
 
-@OptIn(ExperimentalFoundationApi::class)
 @Suppress("LongMethod", "MagicNumber")
 @Composable
-fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit) {
+fun TaskView(task: Task, capability: OCCapability, showTaskActions: () -> Unit) {
     var showTaskDetailBottomSheet by remember { mutableStateOf(false) }
-    var showMoreActionsBottomSheet by remember { mutableStateOf(false) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .clip(RoundedCornerShape(16.dp))
-            .background(MaterialTheme.colorScheme.primary)
-            .combinedClickable(onClick = {
-                showTaskDetailBottomSheet = true
-            }, onLongClick = {
-                showMoreActionsBottomSheet = true
-            })
-            .padding(start = 8.dp)
-    ) {
-        Spacer(modifier = Modifier.height(8.dp))
-
-        task.input?.let {
-            Text(
-                text = it,
-                color = Color.White,
-                fontSize = 18.sp
-            )
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
-
-        task.output?.let {
-            HorizontalDivider(modifier = Modifier.padding(horizontal = 4.dp, vertical = 8.dp))
-
-            Text(
-                text = it.take(100),
-                fontSize = 12.sp,
-                color = Color.White,
-                modifier = Modifier
-                    .height(100.dp)
-                    .animateContentSize(
-                        animationSpec = spring(
-                            dampingRatio = Spring.DampingRatioLowBouncy,
-                            stiffness = Spring.StiffnessLow
-                        )
-                    )
-            )
-        }
-
-        TaskStatus(task, foregroundColor = Color.White)
-
-        if (showMoreActionsBottomSheet) {
-            val bottomSheetAction = listOf(
-                Triple(
-                    R.drawable.ic_delete,
-                    R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
-                ) {
-                    showDeleteTaskAlertDialog(task.id)
+    Box {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+                .background(colorResource(R.color.primary))
+                .clickable {
+                    showTaskDetailBottomSheet = true
                 }
-            )
+                .padding(16.dp)
+        ) {
+            Spacer(modifier = Modifier.height(8.dp))
 
-            MoreActionsBottomSheet(
-                title = task.input,
-                actions = bottomSheetAction,
-                dismiss = { showMoreActionsBottomSheet = false }
-            )
+            task.input?.input?.let {
+                Text(
+                    text = it,
+                    color = Color.White,
+                    fontSize = 18.sp,
+                    textAlign = TextAlign.Left,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.width(300.dp)
+                )
+            }
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            task.output?.output?.let {
+                val output = if (it.length >= 100) {
+                    it.take(100) + "..."
+                } else {
+                    it
+                }
+
+                Text(
+                    text = output,
+                    fontSize = 18.sp,
+                    color = Color.White,
+                    textAlign = TextAlign.Left,
+                    modifier = Modifier
+                        .animateContentSize(
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioLowBouncy,
+                                stiffness = Spring.StiffnessLow
+                            )
+                        )
+                )
+            }
+
+            TaskStatusView(task, foregroundColor = Color.White, capability)
+
+            if (showTaskDetailBottomSheet) {
+                TaskDetailBottomSheet(task, capability, showTaskActions = {
+                    showTaskDetailBottomSheet = false
+                    showTaskActions()
+                }) {
+                    showTaskDetailBottomSheet = false
+                }
+            }
         }
 
-        if (showTaskDetailBottomSheet) {
-            TaskDetailBottomSheet(task) {
-                showTaskDetailBottomSheet = false
-            }
+        IconButton(
+            modifier = Modifier.align(Alignment.TopEnd),
+            onClick = showTaskActions
+        ) {
+            Icon(
+                imageVector = Icons.Filled.MoreVert,
+                contentDescription = "More button",
+                tint = Color.White
+            )
         }
     }
 }
@@ -118,20 +128,28 @@ fun TaskView(task: Task, showDeleteTaskAlertDialog: (Long) -> Unit) {
 @Preview
 @Composable
 private fun TaskViewPreview() {
-    val output = "Lorem".getRandomString(100)
-
     TaskView(
         task = Task(
             1,
             "Free Prompt",
-            0,
+            "STATUS_COMPLETED",
             "1",
             "1",
-            "Give me text",
-            output,
-            "",
-            ""
-        )
-    ) {
-    }
+            TaskInput("What about other promising tokens like"),
+            TaskOutput(
+                "Several tokens show promise for future growth in the" +
+                    "cryptocurrency market"
+            ),
+            1707692337,
+            1707692337,
+            1707692337,
+            1707692337,
+            1707692337
+        ),
+        OCCapability().apply {
+            versionMayor = 30
+        },
+        showTaskActions = {
+        }
+    )
 }

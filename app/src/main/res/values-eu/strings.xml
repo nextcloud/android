@@ -152,6 +152,7 @@
     <string name="common_loading">Kargatzen…</string>
     <string name="common_next">Hurrengoa</string>
     <string name="common_no">Ez</string>
+    <string name="common_now">Orain</string>
     <string name="common_ok">Ados</string>
     <string name="common_pending">Zain</string>
     <string name="common_remove">Ezabatu</string>
@@ -757,6 +758,7 @@
     <string name="restore">Berreskuratu fitxategia</string>
     <string name="restore_backup">Berrezarri babeskopia</string>
     <string name="restore_button_description">Berreskuratu ezabatutako fitxategia</string>
+    <string name="restore_item">Leheneratu</string>
     <string name="restore_selected">Berrezarri hautatutakoak</string>
     <string name="retrieving_file">Fitxategia berreskuratzen ...</string>
     <string name="retry">saiatu berriro</string>
