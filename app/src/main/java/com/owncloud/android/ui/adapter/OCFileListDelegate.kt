@@ -195,13 +195,7 @@ class OCFileListDelegate(
         }
     }
 
-    fun setThumbnailFromFileId(thumbnail: ImageView, shimmerThumbnail: LoaderImageView?, fileId: Long) {
-        storageManager.getFileById(fileId)?.let { file ->
-            setThumbnail(thumbnail, shimmerThumbnail, file)
-        }
-    }
-
-    private fun setThumbnail(thumbnail: ImageView, shimmerThumbnail: LoaderImageView?, file: OCFile) {
+    fun setThumbnail(thumbnail: ImageView, shimmerThumbnail: LoaderImageView?, file: OCFile) {
         DisplayUtils.setThumbnail(
             file,
             thumbnail,
