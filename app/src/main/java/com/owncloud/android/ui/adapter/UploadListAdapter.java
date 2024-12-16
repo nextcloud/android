@@ -798,6 +798,9 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
             case MAINTENANCE_MODE:
                 status = parentActivity.getString(R.string.maintenance_mode);
                 break;
+            case USER_DISABLED:
+                status = parentActivity.getString(R.string.disabled_user);
+                break;
             case SSL_RECOVERABLE_PEER_UNVERIFIED:
                 status =
                     parentActivity.getString(

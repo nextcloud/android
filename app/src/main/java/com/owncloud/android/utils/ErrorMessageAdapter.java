@@ -430,6 +430,8 @@ public final class ErrorMessageAdapter {
             } else if (result.getCode() == ResultCode.QUOTA_EXCEEDED) {
                 message = res.getString(R.string.upload_quota_exceeded);
 
+            } else if (result.getCode() == ResultCode.USER_DISABLED) {
+                message = res.getString(R.string.disabled_user);
             }
 
             else if (!TextUtils.isEmpty(result.getHttpPhrase())) {
