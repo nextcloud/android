@@ -1180,6 +1180,12 @@
         <item quantity="many">%1$d файлів</item>
         <item quantity="other">%1$d файлів</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d об\'єкт</item>
+        <item quantity="few">%1$d об\'єкти</item>
+        <item quantity="many">%1$d об\'єктів</item>
+        <item quantity="other">%1$d об\'єктів</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Показати %1$d приховану теку</item>
         <item quantity="few">Показати %1$d прихованих тек</item>
