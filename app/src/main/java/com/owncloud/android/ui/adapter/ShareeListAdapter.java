@@ -14,7 +14,6 @@ package com.owncloud.android.ui.adapter;
 import android.annotation.SuppressLint;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
@@ -26,6 +25,7 @@ import com.owncloud.android.databinding.FileDetailsShareLinkShareItemBinding;
 import com.owncloud.android.databinding.FileDetailsSharePublicLinkAddNewItemBinding;
 import com.owncloud.android.databinding.FileDetailsShareSecureFileDropAddNewItemBinding;
 import com.owncloud.android.databinding.FileDetailsShareShareItemBinding;
+import com.owncloud.android.datamodel.SharesType;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.ui.activity.FileActivity;
@@ -52,6 +52,8 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final User user;
     private final ViewThemeUtils viewThemeUtils;
     private final boolean encrypted;
+    private final SharesType sharesType;
+    private boolean showAll = false;
 
     public ShareeListAdapter(FileActivity fileActivity,
                              List<OCShare> shares,
@@ -59,7 +61,8 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                              String userId,
                              User user,
                              final ViewThemeUtils viewThemeUtils,
-                             boolean encrypted) {
+                             boolean encrypted,
+                             SharesType sharesType) {
         this.fileActivity = fileActivity;
         this.shares = shares;
         this.listener = listener;
@@ -67,6 +70,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.user = user;
         this.viewThemeUtils = viewThemeUtils;
         this.encrypted = encrypted;
+        this.sharesType = sharesType;
 
         avatarRadiusDimension = fileActivity.getResources().getDimension(R.dimen.user_icon_radius);
 
@@ -170,10 +174,24 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public int getItemCount() {
         boolean shareViaLink = MDMConfig.INSTANCE.shareViaLink(fileActivity);
         if (shareViaLink) {
-            return shares.size();
+            if (showAll) {
+                return shares.size();
+            } else {
+                return Math.min(shares.size(), 3);
+            }
         } else {
             return 1;
         }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void toggleShowAll() {
+        this.showAll = !this.showAll;
+        notifyDataSetChanged();
+    }
+
+    public boolean isShowAll() {
+        return showAll;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -227,7 +245,7 @@ public class ShareeListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         shares.addAll(users);
 
         // add internal share link at end
-        if (!encrypted) {
+        if (!encrypted && sharesType == SharesType.INTERNAL) {
             final OCShare ocShare = new OCShare();
             ocShare.setShareType(ShareType.INTERNAL);
             shares.add(ocShare);
