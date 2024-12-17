@@ -23,6 +23,7 @@ import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.network.ConnectivityService
 import com.nextcloud.client.preferences.SubFolderRule
 import com.owncloud.android.R
+import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
 import com.owncloud.android.datamodel.FilesystemDataProvider
 import com.owncloud.android.datamodel.MediaFolderType
@@ -36,8 +37,6 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.SyncedFolderUtils.isFileNameQualifiedForAutoUpload
-import com.owncloud.android.utils.SyncedFolderUtils.isQualifiedFolder
 import java.io.File
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
@@ -218,20 +217,6 @@ class FilesSyncWork(
         syncedFolderProvider.updateSyncFolder(syncedFolder)
     }
 
-    private fun getAllFiles(path: String): Set<File> {
-        return File(path).takeIf { it.exists() }
-            ?.walkTopDown()
-            ?.asSequence()
-            ?.filter { file ->
-                file.isFile &&
-                    file.exists() &&
-                    isQualifiedFolder(file.parentFile?.path) &&
-                    isFileNameQualifiedForAutoUpload(file.name)
-            }
-            ?.toSet()
-            ?: emptySet()
-    }
-
     @Suppress("LongMethod") // legacy code
     private fun uploadFilesFromFolder(
         context: Context,
@@ -245,26 +230,29 @@ class FilesSyncWork(
         val uploadAction: Int?
         val needsCharging: Boolean
         val needsWifi: Boolean
+        var file: File
         val accountName = syncedFolder.account
-
         val optionalUser = userAccountManager.getUser(accountName)
         if (!optionalUser.isPresent) {
             return
         }
-
         val user = optionalUser.get()
-        val arbitraryDataProvider = if (lightVersion) {
+        val arbitraryDataProvider: ArbitraryDataProvider? = if (lightVersion) {
             ArbitraryDataProviderImpl(context)
         } else {
             null
         }
+        val paths = filesystemDataProvider.getFilesForUpload(
+            syncedFolder.localPath,
+            syncedFolder.id.toString()
+        )
 
-        val files = getAllFiles(syncedFolder.localPath)
-        if (files.isEmpty()) {
+        if (paths.size == 0) {
             return
         }
 
-        val pathsAndMimes = files.map { file ->
+        val pathsAndMimes = paths.map { path ->
+            file = File(path)
             val localPath = file.absolutePath
             Triple(
                 localPath,
@@ -272,17 +260,15 @@ class FilesSyncWork(
                 MimeTypeUtil.getBestMimeTypeByFilename(localPath)
             )
         }
-
         val localPaths = pathsAndMimes.map { it.first }.toTypedArray()
         val remotePaths = pathsAndMimes.map { it.second }.toTypedArray()
 
         if (lightVersion) {
             needsCharging = resources.getBoolean(R.bool.syncedFolder_light_on_charging)
-            needsWifi = arbitraryDataProvider?.getBooleanValue(
+            needsWifi = arbitraryDataProvider!!.getBooleanValue(
                 accountName,
                 SettingsActivity.SYNCED_FOLDER_LIGHT_UPLOAD_ON_WIFI
-            ) ?: true
-
+            )
             val uploadActionString = resources.getString(R.string.syncedFolder_light_upload_behaviour)
             uploadAction = getUploadAction(uploadActionString)
         } else {
@@ -290,7 +276,6 @@ class FilesSyncWork(
             needsWifi = syncedFolder.isWifiOnly
             uploadAction = syncedFolder.uploadAction
         }
-
         FileUploadHelper.instance().uploadNewFiles(
             user,
             localPaths,
@@ -304,9 +289,10 @@ class FilesSyncWork(
             syncedFolder.nameCollisionPolicy
         )
 
-        for (file in files) {
+        for (path in paths) {
+            // TODO batch update
             filesystemDataProvider.updateFilesystemFileAsSentForUpload(
-                file.path,
+                path,
                 syncedFolder.id.toString()
             )
         }
