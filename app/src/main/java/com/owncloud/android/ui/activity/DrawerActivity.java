@@ -255,7 +255,14 @@ public abstract class DrawerActivity extends ToolbarActivity
     @SuppressFBWarnings("RV")
     private void handleBottomNavigationViewClicks() {
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
-            menuItemId = menuItem.getItemId();
+            int previousMenuItemId = menuItemId;
+            int newMenuItemId = menuItem.getItemId();
+
+            if (previousMenuItemId == newMenuItemId) {
+                return false;
+            }
+
+            menuItemId = newMenuItemId;
 
             if (menuItemId == R.id.nav_all_files) {
                 showFiles(false,false);
@@ -949,7 +956,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (bottomNavigationView != null) {
             MenuItem menuItem = bottomNavigationView.getMenu().findItem(menuItemId);
 
-            // Don't highlight assistant bottom navigation item because Assistant screen doesn't have bottom navigation bar
+            // Don't highlight assistant bottom navigation item because Assistant screen doesn't have same bottom navigation bar
             if (menuItem != null && !menuItem.isChecked() && menuItem.getItemId() != R.id.nav_assistant) {
                 menuItem.setChecked(true);
             }
