@@ -6,6 +6,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="@dimen/recommended_files_layout_width"
     android:layout_height="wrap_content"
@@ -36,6 +37,7 @@
             android:layout_height="@dimen/more_icon_size"/>
 
         <com.elyeproj.loaderviewlibrary.LoaderImageView
+            app:corners="24"
             android:id="@+id/shimmer_thumbnail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recommended_files_thumbnail_height" />
@@ -49,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start|center"
-        android:textSize="12sp"
+        android:textSize="14sp"
         android:textColor="@color/text_color"
         android:ellipsize="end"
         android:maxLines="1"/>
@@ -60,7 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="start|center"
-        android:textSize="11sp"
+        android:textSize="12sp"
         android:textColor="@color/secondary_text_color"
         android:ellipsize="end"
         android:maxLines="1"/>
