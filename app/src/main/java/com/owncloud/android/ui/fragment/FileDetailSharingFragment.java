@@ -162,7 +162,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         String userId = accountManager.getUserData(user.toPlatformAccount(),
                                                    com.owncloud.android.lib.common.accounts.AccountUtils.Constants.KEY_USER_ID);
 
-        binding.sharesList.setAdapter(new ShareeListAdapter(fileActivity,
+        binding.sharesListExternal.setAdapter(new ShareeListAdapter(fileActivity,
                                                             new ArrayList<>(),
                                                             this,
                                                             userId,
@@ -170,7 +170,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                                                             viewThemeUtils,
                                                             file.isEncrypted()));
 
-        binding.sharesList.setLayoutManager(new LinearLayoutManager(requireContext()));
+        binding.sharesListExternal.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         binding.pickContactEmailBtn.setOnClickListener(v -> checkContactPermission());
 
@@ -217,33 +217,33 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
         FileDetailSharingFragmentHelper.setupSearchView(
             (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
-            binding.searchView,
+            binding.searchViewExternal,
             fileActivity.getComponentName());
-        viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
+        viewThemeUtils.androidx.themeToolbarSearchView(binding.searchViewExternal);
 
 
         if (file.canReshare()) {
             if (file.isEncrypted() || (parentFile != null && parentFile.isEncrypted())) {
                 if (file.getE2eCounter() == -1) {
                     // V1 cannot share
-                    binding.searchContainer.setVisibility(View.GONE);
+                    binding.searchContainerExternal.setVisibility(View.GONE);
                 } else {
-                    binding.searchView.setQueryHint(getResources().getString(R.string.secure_share_search));
+                    binding.searchViewExternal.setQueryHint(getResources().getString(R.string.secure_share_search));
 
                     if (file.isSharedViaLink()) {
-                        binding.searchView.setQueryHint(getResources().getString(R.string.share_not_allowed_when_file_drop));
-                        binding.searchView.setInputType(InputType.TYPE_NULL);
-                        disableSearchView(binding.searchView);
+                        binding.searchViewExternal.setQueryHint(getResources().getString(R.string.share_not_allowed_when_file_drop));
+                        binding.searchViewExternal.setInputType(InputType.TYPE_NULL);
+                        disableSearchView(binding.searchViewExternal);
                     }
                 }
             } else {
-                binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
+                binding.searchViewExternal.setQueryHint(getResources().getString(R.string.share_search));
             }
         } else {
-            binding.searchView.setQueryHint(getResources().getString(R.string.resharing_is_not_allowed));
-            binding.searchView.setInputType(InputType.TYPE_NULL);
+            binding.searchViewExternal.setQueryHint(getResources().getString(R.string.resharing_is_not_allowed));
+            binding.searchViewExternal.setInputType(InputType.TYPE_NULL);
             binding.pickContactEmailBtn.setVisibility(View.GONE);
-            disableSearchView(binding.searchView);
+            disableSearchView(binding.searchViewExternal);
         }
 
         checkShareViaUser();
@@ -251,7 +251,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
 
     private void checkShareViaUser() {
         if (!MDMConfig.INSTANCE.shareViaUser(requireContext())) {
-            binding.searchContainer.setVisibility(View.GONE);
+            binding.searchContainerExternal.setVisibility(View.GONE);
         }
     }
 
@@ -459,7 +459,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             file = newFile;
         }
 
-        ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
+        ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesListExternal.getAdapter();
 
         if (adapter == null) {
             DisplayUtils.showSnackMessage(getView(), getString(R.string.could_not_retrieve_shares));
@@ -526,9 +526,9 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                     // Use the email address as needed.
                     // email variable contains the selected contact's email address.
                     String email = cursor.getString(columnIndex);
-                    binding.searchView.post(() -> {
-                        binding.searchView.setQuery(email, false);
-                        binding.searchView.requestFocus();
+                    binding.searchViewExternal.post(() -> {
+                        binding.searchViewExternal.setQuery(email, false);
+                        binding.searchViewExternal.requestFocus();
                     });
                 } else {
                     DisplayUtils.showSnackMessage(binding.getRoot(), R.string.email_pick_failed);
@@ -598,7 +598,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
     @Override
     public void unShare(OCShare share) {
         unshareWith(share);
-        ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesList.getAdapter();
+        ShareeListAdapter adapter = (ShareeListAdapter) binding.sharesListExternal.getAdapter();
         if (adapter == null) {
             DisplayUtils.showSnackMessage(getView(), getString(R.string.failed_update_ui));
             return;
