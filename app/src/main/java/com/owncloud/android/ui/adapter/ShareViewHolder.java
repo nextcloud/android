@@ -60,6 +60,11 @@ class ShareViewHolder extends RecyclerView.ViewHolder {
                      float avatarRadiusDimension) {
         this.avatarRadiusDimension = avatarRadiusDimension;
         String name = share.getSharedWithDisplayName();
+        
+        if ("".equals(name) && !"".equals(share.getShareWith())) {
+            name = share.getShareWith();
+        }
+        
         binding.icon.setTag(null);
 
         switch (share.getShareType()) {
