@@ -68,6 +68,7 @@ class ComposeActivity : DrawerActivity() {
         }
     }
 
+    // FIXME: show previous screen
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             finish()
