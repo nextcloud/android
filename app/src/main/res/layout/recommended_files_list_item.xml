@@ -10,7 +10,7 @@
     android:id="@+id/container"
     android:layout_width="@dimen/recommended_files_layout_width"
     android:layout_height="wrap_content"
-    android:layout_marginEnd="@dimen/standard_half_margin"
+    android:layout_marginEnd="@dimen/standard_margin"
     android:orientation="vertical"
     android:gravity="start">
 
