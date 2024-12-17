@@ -33,7 +33,6 @@ import android.widget.LinearLayout;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.chip.Chip;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
-import com.nextcloud.android.lib.resources.recommendations.GetRecommendationsRemoteOperation;
 import com.nextcloud.android.lib.resources.recommendations.Recommendation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
@@ -420,11 +419,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 );
             }
             case VIEW_TYPE_HEADER -> {
-                // TODO add height if recommended files is empty
                 ListHeaderBinding binding = ListHeaderBinding.inflate(
                     LayoutInflater.from(parent.getContext()),
                     parent,
                     false);
+
                 return new OCFileListHeaderViewHolder(binding);
             }
         }

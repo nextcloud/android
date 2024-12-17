@@ -76,7 +76,6 @@ import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFi
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
 import com.owncloud.android.lib.common.OwnCloudClientFactory;
-import com.owncloud.android.lib.common.accounts.AccountUtils;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -155,7 +154,6 @@ import androidx.media3.common.util.UnstableApi;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import kotlin.collections.CollectionsKt;
 
 import static com.owncloud.android.datamodel.OCFile.ROOT_PATH;
 import static com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment.SETUP_ENCRYPTION_DIALOG_TAG;
@@ -451,7 +449,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                         @SuppressLint("NotifyDataSetChanged")
                         @Override
                         public void run() {
-                            mAdapter.notifyDataSetChanged();
+                            mAdapter.notifyItemChanged(0);
                         }
                     });
                 }
