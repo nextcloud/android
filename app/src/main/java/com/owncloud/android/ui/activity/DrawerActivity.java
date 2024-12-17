@@ -255,14 +255,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     @SuppressFBWarnings("RV")
     private void handleBottomNavigationViewClicks() {
         bottomNavigationView.setOnItemSelectedListener(menuItem -> {
-            int previousMenuItemId = menuItemId;
-            int newMenuItemId = menuItem.getItemId();
-
-            if (previousMenuItemId == newMenuItemId) {
-                return false;
-            }
-
-            menuItemId = newMenuItemId;
+            menuItemId = menuItem.getItemId();
 
             if (menuItemId == R.id.nav_all_files) {
                 showFiles(false,false);
@@ -271,7 +264,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                 }
             } else if (menuItemId == R.id.nav_favorites) {
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
-            } else if (menuItemId == R.id.nav_assistant) {
+            } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
                 startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
             } else if (menuItemId == R.id.nav_gallery) {
                 startPhotoSearch(menuItem.getItemId());

@@ -10,6 +10,7 @@ package com.nextcloud.ui.composeActivity
 import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.activity.OnBackPressedCallback
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -55,6 +56,8 @@ class ComposeActivity : DrawerActivity() {
             openDrawer()
         }
 
+        handleOnBackPressed()
+
         binding.composeView.setContent {
             MaterialTheme(
                 colorScheme = viewThemeUtils.getColorScheme(this),
@@ -63,6 +66,19 @@ class ComposeActivity : DrawerActivity() {
                 }
             )
         }
+    }
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            finish()
+        }
+    }
+
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            onBackPressedCallback
+        )
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
