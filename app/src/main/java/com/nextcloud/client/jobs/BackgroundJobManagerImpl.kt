@@ -481,7 +481,7 @@ internal class BackgroundJobManagerImpl(
     override fun startImmediateFilesSyncJob(
         syncedFolderID: Long,
         overridePowerSaving: Boolean,
-        changedFiles: Array<String>
+        changedFiles: Array<String?>
     ) {
         val arguments = Data.Builder()
             .putBoolean(FilesSyncWork.OVERRIDE_POWER_SAVING, overridePowerSaving)
