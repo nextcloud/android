@@ -162,4 +162,6 @@
     <dimen name="recommended_files_thumbnail_height">120dp</dimen>
     <dimen name="recommended_files_layout_width">180dp</dimen>
     <dimen name="recommended_files_layout_margin_top">150dp</dimen>
+
+    <dimen name="large_title_text_size">22sp</dimen>
 </resources>

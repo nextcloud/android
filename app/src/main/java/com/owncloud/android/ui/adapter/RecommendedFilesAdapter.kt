@@ -47,7 +47,8 @@ class RecommendedFilesAdapter(
 
         holder.binding.run {
             name.text = item.name
-            timestamp.text = DisplayUtils.getRelativeTimestamp(context, item.timestamp)
+            val secondsInMillisecond = (item.timestamp * 1000)
+            timestamp.text = DisplayUtils.getRelativeTimestamp(context, secondsInMillisecond)
 
             val file = storageManager.getFileByLocalId(item.id) ?: return
 
