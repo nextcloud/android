@@ -975,6 +975,10 @@ public class FileOperationsHelper {
             }
         }
 
+        if (file.isFolder()) {
+            // TODO: Call cancellation function
+        }
+
         if (FileDownloadHelper.Companion.instance().isDownloading(currentUser, file)) {
             List<OCFile> files = fileActivity.getStorageManager().getAllFilesRecursivelyInsideFolder(file);
             FileDownloadHelper.Companion.instance().cancelPendingOrCurrentDownloads(currentUser, files);
