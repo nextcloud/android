@@ -443,7 +443,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 final var client = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), requireActivity());
                 final var result = new GetRecommendationsRemoteOperation().execute(client);
                 if (result.isSuccess()) {
-                    recommendedFiles.addAll(result.getResultData());
+                    recommendedFiles.addAll(result.getResultData().getRecommendations());
                     requireActivity().runOnUiThread(new Runnable() {
                         @SuppressLint("NotifyDataSetChanged")
                         @Override
