@@ -77,6 +77,9 @@
     <string name="battery_optimization_disable">Cuir à comas</string>
     <string name="battery_optimization_message">Dh’fhaoidte gu bheil piseach a’ bhataraidh an comas air an uidheam agad. Chan obraich an luchdadh suas fèin-obrachail mar bu chòir ach ma bheir thu an aplacaid seo air falbh uaithe.</string>
     <string name="battery_optimization_title">Piseachadh a’ bhataraidh</string>
+    <string name="bottom_navigation_menu_favorites_label">Annsachdan</string>
+    <string name="bottom_navigation_menu_files_label">Na h-uile faidhle</string>
+    <string name="bottom_navigation_menu_media_label">Meadhanan</string>
     <string name="brute_force_delay">Tha dàil air leis gun deach feuchainn ris ro thric</string>
     <string name="certificate_load_problem">Thachair duilgheadas le luchdadh an teisteanais.</string>
     <string name="changelog_dev_version">Loga nan atharraichean – tionndadh leasachaidh</string>

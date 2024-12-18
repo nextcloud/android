@@ -82,6 +82,9 @@
     <string name="battery_optimization_disable">Onemogući</string>
     <string name="battery_optimization_message">Možda je omogućena optimizacija rada baterije na uređaju. Mogućnost automatskog otpremanja AutoUpload djeluje samo ako izuzmete ovu aplikaciju iz optimizacije baterije.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoriti</string>
+    <string name="bottom_navigation_menu_files_label">Sve datoteke</string>
+    <string name="bottom_navigation_menu_media_label">Medij</string>
     <string name="brute_force_delay">Odgođeno zbog previše pogrešnih pokušaja</string>
     <string name="calendar">Kalendar</string>
     <string name="calendars">Kalendari</string>

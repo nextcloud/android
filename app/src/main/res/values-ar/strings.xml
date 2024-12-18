@@ -121,6 +121,10 @@
     <string name="battery_optimization_disable">تعطيل</string>
     <string name="battery_optimization_message">قد يكون حفظ البطارية مفعلاً في جهازك. لذلك قد لا يعمل الرفع التلقائي إلا إذا سمحت لهذا التطبيق من أن يستبعد من هذه الميزة.</string>
     <string name="battery_optimization_title">تحسين البطارية</string>
+    <string name="bottom_navigation_menu_assistant_label">المُساعِد</string>
+    <string name="bottom_navigation_menu_favorites_label">المُفضّلة</string>
+    <string name="bottom_navigation_menu_files_label">كل الملفات</string>
+    <string name="bottom_navigation_menu_media_label">الوسائط</string>
     <string name="brute_force_delay">تأخر بسبب المحاولات الخاطئة المستمرة</string>
     <string name="calendar">التقويم</string>
     <string name="calendars">التقاويم</string>
@@ -1250,6 +1254,14 @@
         <item quantity="few">%1$d ملفات</item>
         <item quantity="many">%1$d ملفات</item>
         <item quantity="other">%1$d ملفات</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="zero">%1$d عنصر</item>
+        <item quantity="one">%1$d عنصر</item>
+        <item quantity="two">%1$d عنصر</item>
+        <item quantity="few">%1$d عناصر</item>
+        <item quantity="many">%1$d عنصر</item>
+        <item quantity="other">%1$d عنصر</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="zero">إظهار %1$d المجلدات المخفية</item>

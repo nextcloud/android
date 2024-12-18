@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Proxy-ataka</string>
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Gehitu zeregin berria</string>
     <string name="assistant_screen_all_task_type">Denak</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Idatzi testu bat</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ziur zeregin hau ezabatu nahi duzula?</string>
@@ -120,6 +121,10 @@
     <string name="battery_optimization_disable">Desaktibatu</string>
     <string name="battery_optimization_message">Zure gailuak bateriaren optimizazioa aktibatuta eduki dezake. Auto-karga funtzioak ongi funtzionatzeko aplikazio hau bertatik kanpora utzi behar duzu.</string>
     <string name="battery_optimization_title">Bateria optimizazioa</string>
+    <string name="bottom_navigation_menu_assistant_label">Morroia</string>
+    <string name="bottom_navigation_menu_favorites_label">Gogokoak</string>
+    <string name="bottom_navigation_menu_files_label">Fitxategi guztiak</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Atzeratuta saiakera oker gehiegi egin direlako</string>
     <string name="calendar">Egutegia</string>
     <string name="calendars">Egutegiak</string>
@@ -1095,6 +1100,18 @@
         <item quantity="one">minutu %d</item>
         <item quantity="other">%d minutu</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">duela segundo 1</item>
+        <item quantity="other">duela %d segundo</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">duela minutu 1</item>
+        <item quantity="other">duela %d minutu</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">duela ordu 1</item>
+        <item quantity="other">duela %d ordu</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Ezin izan da %1$d fitxategia sinkronizatu (gatazkak: %2$d)</item>
         <item quantity="other">Ezin izan dira %1$d fitxategi sinkronizatu (gatazkak: %2$d)</item>
@@ -1142,6 +1159,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">fitxategi %1$d</item>
         <item quantity="other">%1$d fitxategi</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">elementu %1$d</item>
+        <item quantity="other">%1$d elementu</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Erakutsi ezkutatutako karpeta %1$d</item>

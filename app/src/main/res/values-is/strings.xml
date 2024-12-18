@@ -83,6 +83,8 @@
     <string name="battery_optimization_disable">Gera óvirkt</string>
     <string name="battery_optimization_message">Tækið þitt gæti verið með virka orkusparnaðarstýringu. Sjalfvirka innsendingaforritið (AutoUpload) virkar ekki rétt nema að þetta forrit sé undanþegið í slíkri stýringu.</string>
     <string name="battery_optimization_title">Bestun fyrir rafhlöðunotkun</string>
+    <string name="bottom_navigation_menu_favorites_label">Eftirlæti</string>
+    <string name="bottom_navigation_menu_files_label">Allar skrár</string>
     <string name="brute_force_delay">Frestað vegna of margra tilrauna</string>
     <string name="calendar">Dagatal</string>
     <string name="calendars">Dagatöl</string>

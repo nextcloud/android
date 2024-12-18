@@ -118,6 +118,10 @@
     <string name="battery_optimization_disable">無効</string>
     <string name="battery_optimization_message">あなたのデバイスでバッテリー最適化が有効に設定されている場合、自動アップロードはこのアプリを最適化の対象から除外した場合にのみ正常に動作します</string>
     <string name="battery_optimization_title">バッテリー最適化</string>
+    <string name="bottom_navigation_menu_assistant_label">アシスタント</string>
+    <string name="bottom_navigation_menu_favorites_label">お気に入り</string>
+    <string name="bottom_navigation_menu_files_label">すべてのファイル</string>
+    <string name="bottom_navigation_menu_media_label">メディア</string>
     <string name="brute_force_delay">大量の誤った試みによる遅延</string>
     <string name="calendar">カレンダー</string>
     <string name="calendars">カレンダー</string>

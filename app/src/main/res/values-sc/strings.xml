@@ -85,6 +85,9 @@
     <string name="battery_optimization_disable">Disativa</string>
     <string name="battery_optimization_message">Forsis su dispositivu tuo tenet s\'otimizatzione de sa bateria ativada. S\'AutoCarrigamentu funtzionat isceti si nch\'escludes custa aplicatzione.</string>
     <string name="battery_optimization_title">Otimizatzione de bateria</string>
+    <string name="bottom_navigation_menu_favorites_label">Preferidos</string>
+    <string name="bottom_navigation_menu_files_label">Totu is archìvios</string>
+    <string name="bottom_navigation_menu_media_label">Elementos multimediales</string>
     <string name="brute_force_delay">Lassadu a coa pro tropu proas faddidas</string>
     <string name="calendar">Calendàriu</string>
     <string name="calendars">Calendàrios</string>

@@ -109,6 +109,10 @@
     <string name="battery_optimization_disable">Kullanımdan kaldır</string>
     <string name="battery_optimization_message">Aygıtınızda pil kullanımı iyileştirmesi kullanılıyor olabilir. Otomatik yükleme yalnızca bu uygulamayı pil kullanımı iyileştirmesinin dışında tuttuğunuzda düzgün çalışır.</string>
     <string name="battery_optimization_title">Pil kullanımı iyileştirmesi</string>
+    <string name="bottom_navigation_menu_assistant_label">Yardımcı</string>
+    <string name="bottom_navigation_menu_favorites_label">Sık kullanılanlar</string>
+    <string name="bottom_navigation_menu_files_label">Tüm dosyalar</string>
+    <string name="bottom_navigation_menu_media_label">Ortam</string>
     <string name="brute_force_delay">Çok sayıda hatalı deneme nedeniyle geciktirildi</string>
     <string name="calendar">Takvim</string>
     <string name="calendars">Takvimler</string>
