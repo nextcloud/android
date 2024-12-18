@@ -252,7 +252,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
-    private ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
+    private final ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -443,7 +443,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 final var client = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), requireActivity());
                 final var result = new GetRecommendationsRemoteOperation().execute(client);
                 if (result.isSuccess()) {
-                    recommendedFiles.addAll(result.getResultData().getRecommendations());
+                    final var recommendations = result.getResultData().getRecommendations();
+                    recommendedFiles.addAll(recommendations);
                     requireActivity().runOnUiThread(new Runnable() {
                         @SuppressLint("NotifyDataSetChanged")
                         @Override
