@@ -163,6 +163,7 @@ class FileUploadWorker(
         return Result.success()
     }
 
+    @Suppress("NestedBlockDepth")
     private fun uploadFiles(totalUploadSize: Int, uploadsPerPage: List<OCUpload>, accountName: String) {
         val user = userAccountManager.getUser(accountName)
         setWorkerState(user.get(), uploadsPerPage)

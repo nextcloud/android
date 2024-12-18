@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2024 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_all_files"
+        android:enabled="true"
+        android:icon="@drawable/folder"
+        android:title="@string/bottom_navigation_menu_files_label"/>
+
+    <item
+        android:id="@+id/nav_favorites"
+        android:enabled="true"
+        android:icon="@drawable/nav_favorites"
+        android:title="@string/bottom_navigation_menu_favorites_label"/>
+
+    <item
+        android:id="@+id/nav_assistant"
+        android:enabled="true"
+        android:icon="@drawable/ic_assistant"
+        android:title="@string/bottom_navigation_menu_assistant_label"/>
+
+    <item
+        android:id="@+id/nav_gallery"
+        android:enabled="true"
+        android:icon="@drawable/nav_photos"
+        android:title="@string/bottom_navigation_menu_media_label"/>
+
+</menu>

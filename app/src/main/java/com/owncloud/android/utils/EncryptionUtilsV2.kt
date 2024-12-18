@@ -596,7 +596,7 @@ class EncryptionUtilsV2 {
     }
 
     @Throws(IllegalStateException::class)
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "LongMethod")
     fun parseAnyMetadata(
         metadataResponse: MetadataResponse,
         user: User,
