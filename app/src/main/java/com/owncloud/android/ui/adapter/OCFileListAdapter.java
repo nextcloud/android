@@ -439,9 +439,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
             headerViewHolder.getHeaderView().setOnClickListener(v -> ocFileListFragmentInterface.onHeaderClicked());
 
-            ViewExtensionsKt.setVisibleIf(headerViewHolder.getBinding().recommendedFilesLayout, !recommendedFiles.isEmpty());
+            ViewExtensionsKt.setVisibleIf(headerViewHolder.getBinding().recommendedFilesLayout, shouldShowRecommendedFiles());
 
-            if (!recommendedFiles.isEmpty()) {
+            if (shouldShowRecommendedFiles()) {
                 final var recommendedFilesRecyclerView = headerViewHolder.getBinding().recommendedFilesRecyclerView;
 
                 final LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
@@ -479,6 +479,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 gridViewHolder.getShared().setVisibility(View.GONE);
             }
         }
+    }
+
+    private boolean shouldShowRecommendedFiles() {
+        return !recommendedFiles.isEmpty() && currentDirectory.isRootDirectory();
     }
 
     private void checkVisibilityOfFileFeaturesLayout(ListViewHolder holder) {
@@ -781,7 +785,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return false;
         }
 
-        if (!recommendedFiles.isEmpty() && currentDirectory.isRootDirectory()) {
+        if (shouldShowRecommendedFiles()) {
             return true;
         }
 
