@@ -30,11 +30,14 @@
         <ImageButton
             android:id="@+id/more_action"
             android:src="@drawable/ic_dots_horizontal"
-            android:contentDescription="@string/preview_image_description"
             android:background="@drawable/ic_circle"
+            android:scaleType="centerInside"
+            app:tint="@color/text_color"
+            android:contentDescription="@string/preview_image_description"
             android:layout_gravity="top|end"
-            android:layout_width="@dimen/more_icon_size"
-            android:layout_height="@dimen/more_icon_size"/>
+            android:padding="@dimen/standard_eight_padding"
+            android:layout_width="@dimen/activity_icon_radius"
+            android:layout_height="@dimen/activity_icon_radius"/>
 
         <com.elyeproj.loaderviewlibrary.LoaderImageView
             app:corners="24"
