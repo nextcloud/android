@@ -360,6 +360,15 @@ public class FileDataStorageManager {
     }
 
     public @Nullable
+    OCFile getFileByLocalId(long localId) {
+        FileEntity fileEntity = fileDao.getFileByLocalId(localId);
+        if (fileEntity != null) {
+            return createFileInstance(fileEntity);
+        }
+        return null;
+    }
+
+    public @Nullable
     OCFile getFileByLocalPath(String path) {
         FileEntity fileEntity = fileDao.getFileByLocalPath(path, user.getAccountName());
         if (fileEntity != null) {

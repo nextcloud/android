@@ -800,7 +800,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             return false;
         }
 
-        if (!recommendedFiles.isEmpty()) {
+        if (!recommendedFiles.isEmpty() && currentDirectory.isRootDirectory()) {
             return true;
         }
 

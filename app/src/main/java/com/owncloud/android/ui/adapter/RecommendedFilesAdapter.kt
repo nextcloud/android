@@ -49,7 +49,7 @@ class RecommendedFilesAdapter(
             name.text = item.name
             timestamp.text = DisplayUtils.getRelativeTimestamp(context, item.timestamp)
 
-            val file = storageManager.getFileById(item.id) ?: return
+            val file = storageManager.getFileByLocalId(item.id) ?: return
 
             delegate.setThumbnail(thumbnail, shimmerThumbnail, file)
 
