@@ -117,6 +117,10 @@
     <string name="battery_optimization_disable">Wyłącz</string>
     <string name="battery_optimization_message">Twoje urządzenie może mieć włączoną optymalizację baterii. Automatyczne wysyłanie działa poprawnie tylko wtedy, gdy wykluczysz z niej tę aplikację.</string>
     <string name="battery_optimization_title">Optymalizacja baterii</string>
+    <string name="bottom_navigation_menu_assistant_label">Asystent</string>
+    <string name="bottom_navigation_menu_favorites_label">Ulubione</string>
+    <string name="bottom_navigation_menu_files_label">Wszystkie pliki</string>
+    <string name="bottom_navigation_menu_media_label">Multimedia</string>
     <string name="brute_force_delay">Opóźnienie z powodu zbyt wielu błędnych prób</string>
     <string name="calendar">Kalendarz</string>
     <string name="calendars">Kalendarze</string>

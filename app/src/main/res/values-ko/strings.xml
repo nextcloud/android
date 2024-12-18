@@ -109,6 +109,9 @@
     <string name="battery_optimization_disable">비활성화</string>
     <string name="battery_optimization_message">기기의 배터리 최적화가 활성화되어있습니다. 자동 업로드는 이 앱을 배터리 최적화에서 제외해야만 정상적으로 동작합니다.</string>
     <string name="battery_optimization_title">배터리 최적화</string>
+    <string name="bottom_navigation_menu_assistant_label">어시스턴트</string>
+    <string name="bottom_navigation_menu_favorites_label">즐겨찾기</string>
+    <string name="bottom_navigation_menu_files_label">모든 파일</string>
     <string name="brute_force_delay">시도 횟수가 너무 많아 기다려야 합니다.</string>
     <string name="calendar">일정</string>
     <string name="calendars">일정</string>

@@ -121,6 +121,10 @@
     <string name="battery_optimization_disable">停用</string>
     <string name="battery_optimization_message">您的裝置可能啟用了電池最佳化。自動上傳功能只能在排除此應用程式的情況下才能運作。</string>
     <string name="battery_optimization_title">電池最佳化</string>
+    <string name="bottom_navigation_menu_assistant_label">助理</string>
+    <string name="bottom_navigation_menu_favorites_label">喜愛</string>
+    <string name="bottom_navigation_menu_files_label">所有檔案</string>
+    <string name="bottom_navigation_menu_media_label">媒體</string>
     <string name="brute_force_delay">由於太多次嘗試錯誤而延遲</string>
     <string name="calendar">行事曆</string>
     <string name="calendars">行事曆</string>

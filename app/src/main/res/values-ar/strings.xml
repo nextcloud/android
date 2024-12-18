@@ -1251,6 +1251,14 @@
         <item quantity="many">%1$d ملفات</item>
         <item quantity="other">%1$d ملفات</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="zero">%1$d عنصر</item>
+        <item quantity="one">%1$d عنصر</item>
+        <item quantity="two">%1$d عنصر</item>
+        <item quantity="few">%1$d عناصر</item>
+        <item quantity="many">%1$d عنصر</item>
+        <item quantity="other">%1$d عنصر</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="zero">إظهار %1$d المجلدات المخفية</item>
         <item quantity="one">إظهار %1$d المجلد المخفي</item>

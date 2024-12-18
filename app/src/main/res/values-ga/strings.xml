@@ -121,6 +121,10 @@
     <string name="battery_optimization_disable">Díchumasaigh</string>
     <string name="battery_optimization_message">Seans go bhfuil barrfheabhsú ceallraí cumasaithe ag do ghléas. Ní oibríonn AutoUpload i gceart ach amháin má dhéanann tú an aip seo a eisiamh uaidh.</string>
     <string name="battery_optimization_title">Optimization ceallraí</string>
+    <string name="bottom_navigation_menu_assistant_label">Cúntóir</string>
+    <string name="bottom_navigation_menu_favorites_label">Ceanáin</string>
+    <string name="bottom_navigation_menu_files_label">Gach comhad</string>
+    <string name="bottom_navigation_menu_media_label">Meáin</string>
     <string name="brute_force_delay">Cuireadh moill orthu mar gheall ar an iomarca iarrachtaí míchearta</string>
     <string name="calendar">Féilire</string>
     <string name="calendars">Féilirí</string>

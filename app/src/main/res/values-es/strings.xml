@@ -109,6 +109,9 @@
     <string name="battery_optimization_disable">Desactivar</string>
     <string name="battery_optimization_message">Tu dispositivo puede tener activada la optimización de batería. La subida automática solo funciona bien si excluyes  de ahí esta app</string>
     <string name="battery_optimization_title">Optimización de batería</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistente</string>
+    <string name="bottom_navigation_menu_files_label">Todos los archivos</string>
+    <string name="bottom_navigation_menu_media_label">Multimedia</string>
     <string name="brute_force_delay">Retrasado debido a los muchos intentos fallidos</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>

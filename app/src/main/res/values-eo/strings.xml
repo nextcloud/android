@@ -73,6 +73,7 @@
     <string name="battery_optimization_disable">Malŝalti</string>
     <string name="battery_optimization_message">Bateria optimumigo estas eble ŝaltita en via aparato. Aŭtomata alŝuto bone funkcias, nur se vi esceptas tiun ĉi aplikaĵon el bateria optimumigo.</string>
     <string name="battery_optimization_title">Bateria optimumigo</string>
+    <string name="bottom_navigation_menu_files_label">Ĉiuj dosieroj</string>
     <string name="calendar">Kalendaro</string>
     <string name="certificate_load_problem">Ekestis problemo dum ŝargo de la atestilo.</string>
     <string name="checkbox">Markobutono</string>

@@ -92,6 +92,9 @@
     <string name="battery_optimization_disable">Letiltás</string>
     <string name="battery_optimization_message">Az eszközön lehet, hogy be van kapcsolva az akkumulátor optimalizálás. Az automatikus feltöltés csak akkor működik megfelelően, ha tiltólistára teszi ezt az alkalmazást.</string>
     <string name="battery_optimization_title">Akkumulátor optimalizálás</string>
+    <string name="bottom_navigation_menu_favorites_label">Kedvencek</string>
+    <string name="bottom_navigation_menu_files_label">Összes fájl</string>
+    <string name="bottom_navigation_menu_media_label">Média</string>
     <string name="brute_force_delay">Túl sok hibás próbálkozás miatt halasztva</string>
     <string name="calendar">Naptár</string>
     <string name="calendars">Naptárak</string>

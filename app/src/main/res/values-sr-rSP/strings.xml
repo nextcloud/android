@@ -84,6 +84,8 @@
     <string name="battery_optimization_disable">Isključi</string>
     <string name="battery_optimization_message">Vaš uređaj možda ima uključenu optimizaciju baterije. Automatsko otpremanje radi samo ako isključite ovu aplikaciju iz optimizacije baterije.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
+    <string name="bottom_navigation_menu_favorites_label">Omiljene</string>
+    <string name="bottom_navigation_menu_files_label">Svi fajlovi</string>
     <string name="certificate_load_problem">Pojavio se problem prilikom učitavanja sertifikata.</string>
     <string name="changelog_dev_version">Dnevnik izmena razvojne verzije</string>
     <string name="checkbox">Štikliranje</string>

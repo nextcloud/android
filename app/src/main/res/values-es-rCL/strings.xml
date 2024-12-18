@@ -108,6 +108,9 @@
     <string name="battery_optimization_disable">Deshabilitar</string>
     <string name="battery_optimization_message">Tu dispositivo puede tener el ahorro de energía activado. La carga automática solo funciona correctamente al dejar sin ahorro de energía.</string>
     <string name="battery_optimization_title">Ahorro de energía</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistente</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
+    <string name="bottom_navigation_menu_files_label">Todos los archivos</string>
     <string name="brute_force_delay">Retrasado debido a demasiados intentos erróneos</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>

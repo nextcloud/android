@@ -34,23 +34,42 @@
     <string name="add_to_cloud">Tilføj til %1$s</string>
     <string name="advanced_settings">Avancerede indstillinger</string>
     <string name="allow_resharing">Tillad videredeling</string>
+    <string name="app_config_base_url_title">Grund URL</string>
+    <string name="app_config_disable_clipboard_title">Deaktiver klippebord</string>
+    <string name="app_config_disable_intro_title">Deaktiver intro</string>
+    <string name="app_config_disable_log_title">Deaktiver log</string>
+    <string name="app_config_disable_more_external_site_title">Deaktiver eksterne websteder</string>
+    <string name="app_config_disable_multiaccount_title">Deaktiver multikonto</string>
+    <string name="app_config_disable_sharing_title">Deaktiver deling</string>
+    <string name="app_config_enforce_protection_title">Styrk beskyttelse</string>
+    <string name="app_config_proxy_host_title">Proxy hostnavn</string>
+    <string name="app_config_proxy_port_title">Proxy port</string>
     <string name="app_widget_description">Viser én widget fra dashboard</string>
     <string name="appbar_search_in">Søg i %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Tilføj en ny opgave</string>
     <string name="assistant_screen_all_task_type">Alle</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv noget tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på du vil slette denne opgave?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Slet opgave</string>
     <string name="assistant_screen_failed_task_text">Mislykkede</string>
     <string name="assistant_screen_loading">Opgavelisten indlæser, vent venligst</string>
+    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Ingen opgaver tilgængelige. Vælg en opgavetype for at oprette en ny opgave.</string>
+    <string name="assistant_screen_no_task_available_text">Ingen opgave tilgænge for %s opgavetype. Du kan oprette en ny opgave via bunden til højre.</string>
     <string name="assistant_screen_running_task_text">I gang</string>
     <string name="assistant_screen_scheduled_task_status_text">Planlagt</string>
     <string name="assistant_screen_successful_task_text">Fuldført</string>
+    <string name="assistant_screen_task_create_fail_message">En fejl opstod under oprettelse af opgaven</string>
     <string name="assistant_screen_task_create_success_message">Opgaven er oprettet</string>
     <string name="assistant_screen_task_delete_fail_message">En fejl opstod under sletning af opgaven</string>
     <string name="assistant_screen_task_delete_success_message">Opgaven er slettet</string>
+    <string name="assistant_screen_task_list_error_state_message">Kan ikke hente ophaveliste. Kontroller venligst din internetforbindelse.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Slet opgave</string>
+    <string name="assistant_screen_task_output_empty_text">Opgaveoutputtet er endnu ikke klar.</string>
+    <string name="assistant_screen_task_types_error_state_message">Kan ikke hente opgavetyper. Kontroller venligst din internetforbindelse.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
     <string name="assistant_screen_unknown_task_status_text">Ukendt</string>
+    <string name="assistant_task_detail_screen_input_button_title">Input</string>
+    <string name="assistant_task_detail_screen_output_button_title">Output</string>
     <string name="associated_account_not_found">Forbundet konto blev ikke fundet!</string>
     <string name="auth_access_failed">Adgang fejlede: %1$s</string>
     <string name="auth_account_does_not_exist">Kontoen findes endnu ikke på enheden</string>
@@ -81,6 +100,7 @@
     <string name="auth_unknown_host_title">Kunne ikke finde host</string>
     <string name="auth_unsupported_multiaccount">%1$s understøtter ikke flere konti</string>
     <string name="auth_wrong_connection_title">Kunne ikke etablere forbindelse</string>
+    <string name="authenticator_activity_cancel_login">Annuller log på</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">Forblevet i oprindelig folder, da den er skrivebeskyttet</string>
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
     <string name="auto_upload_path">/AutoUpload</string>
@@ -96,6 +116,7 @@
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_message">Din enhed har batterioptimisering aktiveret. Autoupload aktiveret. Autoupload virker kun korrekt hvis du ekskluderer denne app fra det.</string>
     <string name="battery_optimization_title">Batterioptimisering</string>
+    <string name="bottom_navigation_menu_media_label">Medier</string>
     <string name="brute_force_delay">Udsat på grund af for mange forkerte forsøg</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendere</string>
@@ -675,6 +696,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="restore">Genskab fil</string>
     <string name="restore_backup">Gendan backup</string>
     <string name="restore_button_description">Genskab slettet fil</string>
+    <string name="restore_item">Gendan</string>
     <string name="restore_selected">Gendan udvalgt</string>
     <string name="retrieving_file">Modtager fil…</string>
     <string name="retry">Prøv igen</string>
@@ -972,6 +994,26 @@ Enheds legitimationsoplysninger er sat op
     <string name="write_email">Send email</string>
     <string name="wrong_storage_path">Datalagrings mappe eksisterer ikke</string>
     <string name="wrong_storage_path_desc">Dette kan være på grund af en gendannet sikkerhedskopi på en anden enhed. Ruller tilbage til standard. Undersøg indstillingerne for at tilpasse data lagringsmappen.</string>
+    <plurals name="hours">
+        <item quantity="one">%d time</item>
+        <item quantity="other">%d timer</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d minut</item>
+        <item quantity="other">%d minutter</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">1 sekund siden</item>
+        <item quantity="other">%d sekunder siden</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">1 minut siden</item>
+        <item quantity="other">%d minutter siden</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">1 time siden</item>
+        <item quantity="other">%d timer siden</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Kunne ikke synkronisere %1$d fil (konflikter: %2$d)</item>
         <item quantity="other">Kunne ikke synkronisere %1$d filer (konflikter: %2$d)</item>
@@ -1019,6 +1061,10 @@ Enheds legitimationsoplysninger er sat op
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d fil</item>
         <item quantity="other">%1$d filer</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d element</item>
+        <item quantity="other">%1$d elementer</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Vis %1$d skjult mappe</item>

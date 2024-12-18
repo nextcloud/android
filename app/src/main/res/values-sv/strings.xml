@@ -121,6 +121,10 @@
     <string name="battery_optimization_disable">Inaktivera</string>
     <string name="battery_optimization_message">Din enhet kan ha batterioptimering aktiverad. För att auto-uppladdning ska fungera måste du utesluta denna app från batterioptimering.</string>
     <string name="battery_optimization_title">Batterioptimering</string>
+    <string name="bottom_navigation_menu_assistant_label">Assistent</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoriter</string>
+    <string name="bottom_navigation_menu_files_label">Alla filer</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Fördröjd på grund av för många misslyckade försök</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendrar</string>

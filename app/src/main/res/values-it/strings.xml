@@ -120,6 +120,10 @@
     <string name="battery_optimization_disable">Disabilita</string>
     <string name="battery_optimization_message">Il tuo dispositivo potrebbe avere l\'ottimizzazione della batteria abilitata. Il caricamento automatico funziona correttamente solo se escludi questa applicazione dall\'ottimizzazione.</string>
     <string name="battery_optimization_title">Ottimizzazione batteria</string>
+    <string name="bottom_navigation_menu_assistant_label">Assistente</string>
+    <string name="bottom_navigation_menu_favorites_label">Preferiti</string>
+    <string name="bottom_navigation_menu_files_label">Tutti i file</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Ritardato a causa di troppi tentativi errati</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendari</string>
