@@ -30,6 +30,7 @@ import com.nextcloud.client.jobs.offlineOperations.OfflineOperationsWorker
 import com.nextcloud.client.jobs.sync.SyncWorker
 import com.nextcloud.client.jobs.upload.FileUploadWorker
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.StringConstants
 import com.nextcloud.utils.extensions.isWorkRunning
 import com.nextcloud.utils.extensions.isWorkScheduled
 import com.owncloud.android.datamodel.OCFile
@@ -716,6 +717,7 @@ internal class BackgroundJobManagerImpl(
     }
 
     override fun syncFolder(files: List<OCFile>, folderId: Long) {
+        val tag = getSyncFolderTag(folderId)
         val filePaths = files.map { it.decryptedRemotePath }
 
         val data = Data.Builder()
@@ -723,7 +725,7 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         val request = oneTimeRequestBuilder(SyncWorker::class, JOB_SYNC_FOLDER)
-            .addTag(JOB_SYNC_FOLDER + folderId.toString())
+            .addTag(tag)
             .setInputData(data)
             .build()
 
@@ -731,6 +733,9 @@ internal class BackgroundJobManagerImpl(
     }
 
     override fun cancelSyncFolder(folderId: Long) {
-        workManager.cancelAllWorkByTag(JOB_SYNC_FOLDER + folderId.toString())
+        val tag = getSyncFolderTag(folderId)
+        workManager.cancelAllWorkByTag(tag)
     }
+
+    private fun getSyncFolderTag(folderId: Long): String = JOB_SYNC_FOLDER + StringConstants.SPACE + folderId.toString()
 }
