@@ -22,7 +22,6 @@ import com.owncloud.android.operations.DownloadFileOperation
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.Collections
 
 class SyncWorker(
     private val user: User,
@@ -33,19 +32,19 @@ class SyncWorker(
     companion object {
         private const val TAG = "SyncWorker"
 
-        const val FILE_PATHS = "FILE_PATHS"
+        const val FOLDER_ID = "FOLDER_ID"
 
         const val SYNC_WORKER_COMPLETION_BROADCAST = "SYNC_WORKER_COMPLETION_BROADCAST"
         const val FILE_DOWNLOAD_COMPLETION_BROADCAST = "FILE_DOWNLOAD_COMPLETION_BROADCAST"
         const val FILE_PATH = "FILE_PATH"
 
-        private var downloadingFilePaths = mutableListOf<String>()
+        private var files = mutableListOf<OCFile>()
 
         /**
          * It is used to add the sync icon next to the file in the folder.
          */
         fun isDownloading(path: String): Boolean {
-            return downloadingFilePaths.contains(path)
+            return files.any { it.decryptedRemotePath == path }
         }
     }
 
@@ -61,35 +60,36 @@ class SyncWorker(
 
         return withContext(Dispatchers.IO) {
             try {
-                val filePaths = inputData.getStringArray(FILE_PATHS)
-                if (filePaths.isNullOrEmpty()) {
-                    return@withContext Result.success()
+                val folderID = inputData.getLong(FOLDER_ID, -1)
+                if (folderID == -1L) {
+                    return@withContext Result.failure()
                 }
 
                 val storageManager = FileDataStorageManager(user, context.contentResolver)
-
-                val topParentPath = prepareDownloadingFilePathsAndGetTopParentPath(storageManager, filePaths)
+                val folder = storageManager.getFileById(folderID) ?: return@withContext Result.failure()
+                files = ArrayList(getFiles(folder, storageManager)).apply {
+                    // Add the topParentPath to mark the sync icon on the selected folder.
+                    add(folder)
+                }
 
                 val client = getClient()
 
                 var result = true
-                filePaths.forEachIndexed { index, path ->
+                files.forEachIndexed { index, file ->
                     if (isStopped) {
                         notificationManager.dismiss()
                         return@withContext Result.failure()
                     }
-
-                    val file = storageManager.getFileByDecryptedRemotePath(path) ?: return@forEachIndexed
 
                     if (!checkDiskSize(file)) {
                         return@withContext Result.failure()
                     }
 
                     withContext(Dispatchers.Main) {
-                        notificationManager.showProgressNotification(file.fileName, index, filePaths.size)
+                        notificationManager.showProgressNotification(file.fileName, index, files.size)
                     }
 
-                    val syncFileResult = syncFile(file, path, client)
+                    val syncFileResult = syncFile(file, client)
                     if (!syncFileResult) {
                         result = false
                     }
@@ -100,7 +100,7 @@ class SyncWorker(
                 }
 
                 if (result) {
-                    downloadingFilePaths.remove(topParentPath)
+                    files.remove(folder)
                     sendSyncWorkerCompletionBroadcast()
                     Log_OC.d(TAG, "SyncWorker completed")
                     Result.success()
@@ -115,25 +115,14 @@ class SyncWorker(
         }
     }
 
+    private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
+        storageManager.getFolderContent(folder, false)
+            .filter { !it.isFolder && !it.isDown }
+
     @Suppress("DEPRECATION")
     private fun getClient(): OwnCloudClient {
         val account = user.toOwnCloudAccount()
         return OwnCloudClientManagerFactory.getDefaultSingleton().getClientFor(account, context)
-    }
-
-    /**
-     * Add the topParentPath to mark the sync icon on the selected folder.
-     */
-    private fun prepareDownloadingFilePathsAndGetTopParentPath(
-        storageManager: FileDataStorageManager,
-        filePaths: Array<String>
-    ): String {
-        val topParentPath = getTopParentPath(storageManager, filePaths.first())
-        downloadingFilePaths = Collections.synchronizedList(ArrayList(filePaths.toList())).apply {
-            add(topParentPath)
-        }
-
-        return topParentPath
     }
 
     private suspend fun checkDiskSize(file: OCFile): Boolean {
@@ -149,31 +138,25 @@ class SyncWorker(
     }
 
     @Suppress("DEPRECATION")
-    private fun syncFile(file: OCFile, path: String, client: OwnCloudClient): Boolean {
+    private fun syncFile(file: OCFile, client: OwnCloudClient): Boolean {
         val operation = DownloadFileOperation(user, file, context).execute(client)
         Log_OC.d(TAG, "Syncing file: " + file.decryptedRemotePath)
 
         return if (operation.isSuccess) {
-            sendFileDownloadCompletionBroadcast(path)
-            downloadingFilePaths.remove(path)
+            sendFileDownloadCompletionBroadcast(file)
+            files.remove(file)
             true
         } else {
             false
         }
     }
 
-    private fun getTopParentPath(storageManager: FileDataStorageManager, firstFilePath: String): String {
-        val firstFile = storageManager.getFileByDecryptedRemotePath(firstFilePath)
-        val topParentFile = storageManager.getTopParent(firstFile)
-        return topParentFile.decryptedRemotePath
-    }
-
     /**
      * It is used to remove the sync icon next to the file in the folder.
      */
-    private fun sendFileDownloadCompletionBroadcast(path: String) {
+    private fun sendFileDownloadCompletionBroadcast(file: OCFile) {
         val intent = Intent(FILE_DOWNLOAD_COMPLETION_BROADCAST).apply {
-            putExtra(FILE_PATH, path)
+            putExtra(FILE_PATH, file.decryptedRemotePath)
         }
 
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
