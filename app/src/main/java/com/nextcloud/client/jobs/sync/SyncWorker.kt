@@ -78,10 +78,6 @@ class SyncWorker(
 
                 var result = true
                 files.forEachIndexed { index, file ->
-                    if (file.isFolder) {
-                        return@forEachIndexed
-                    }
-
                     if (isStopped) {
                         notificationManager.dismiss()
                         return@withContext Result.failure()
