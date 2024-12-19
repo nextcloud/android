@@ -134,11 +134,26 @@ class UploadFilesActivityIT : AbstractIT() {
         }
     }
 
-    fun fileSelected() {
+    @Test
+    @ScreenshotTest
+    fun selectAll() {
         val sut: UploadFilesActivity = activityRule.launchActivity(null)
 
-        // TODO select one
+        sut.runOnUiThread {
+            sut.fileListFragment.setFiles(
+                listOf(
+                    File("1.txt"),
+                    File("2.pdf"),
+                    File("3.mp3")
+                )
+            )
 
-        screenshot(sut)
+            sut.fileListFragment.selectAllFiles(true)
+        }
+
+        onIdleSync {
+            val screenShotName = createName(testClassName + "_" + "selectAll", "")
+            screenshotViaName(sut.fileListFragment.binding.listRoot, screenShotName)
+        }
     }
 }

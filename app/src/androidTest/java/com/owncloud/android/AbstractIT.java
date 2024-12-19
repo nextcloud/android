@@ -17,7 +17,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.NetworkOnMainThreadException;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -466,6 +465,12 @@ public abstract class AbstractIT {
     protected void screenshotViaName(Activity activity, String name) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             Screenshot.snapActivity(activity).setName(name).record();
+        }
+    }
+
+    protected void screenshotViaName(View view, String name) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            Screenshot.snap(view).setName(name).record();
         }
     }
 
