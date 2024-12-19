@@ -172,6 +172,6 @@ interface BackgroundJobManager {
     fun startPeriodicallyOfflineOperation()
     fun scheduleInternal2WaySync(intervalMinutes: Long)
     fun cancelAllFilesDownloadJobs()
-    fun syncFolder(files: List<OCFile>)
-    fun cancelSyncFolder()
+    fun syncFolder(files: List<OCFile>, folderId: Long)
+    fun cancelSyncFolder(folderId: Long)
 }
