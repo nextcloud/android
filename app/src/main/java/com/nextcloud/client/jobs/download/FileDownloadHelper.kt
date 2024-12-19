@@ -27,6 +27,9 @@ class FileDownloadHelper {
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
 
+    @Inject
+    lateinit var fileStorageManager: FileDataStorageManager
+
     companion object {
         private var instance: FileDownloadHelper? = null
 
@@ -143,6 +146,8 @@ class FileDownloadHelper {
     }
 
     fun syncFolder(files: List<OCFile>) {
-        backgroundJobManager.syncFolder(files)
+        val firstFile = files.first()
+        val topParentFileId = fileStorageManager.getTopParentId(firstFile)
+        backgroundJobManager.syncFolder(files, topParentFileId)
     }
 }
