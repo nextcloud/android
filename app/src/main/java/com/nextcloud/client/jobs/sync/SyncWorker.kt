@@ -122,7 +122,7 @@ class SyncWorker(
     }
 
     private fun getFiles(folder: OCFile, storageManager: FileDataStorageManager): List<OCFile> =
-        storageManager.getFolderContent(folder, false)
+        storageManager.getAllFilesRecursivelyInsideFolder(folder)
             .filter { !it.isFolder && !it.isDown }
 
     @Suppress("DEPRECATION")
