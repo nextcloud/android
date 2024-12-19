@@ -53,7 +53,7 @@ class FileDownloadHelper {
         return FileDownloadWorker.isDownloading(
             user.accountName,
             file.fileId
-        ) || SyncWorker.isDownloading(file.decryptedRemotePath)
+        ) || SyncWorker.isDownloading(file)
     }
 
     fun cancelPendingOrCurrentDownloads(user: User?, files: List<OCFile>?) {
