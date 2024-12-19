@@ -111,25 +111,78 @@ public class UserAccountManagerImpl implements UserAccountManager {
 
     @Override
     public boolean exists(Account account) {
-        Account[] nextcloudAccounts = getAccounts();
+        try {
+            if (account == null) {
+                Log_OC.d(TAG, "account is null");
+                return false;
+            }
 
-        if (account != null && account.name != null) {
+            Account[] nextcloudAccounts = getAccounts();
+            if (nextcloudAccounts.length == 0) {
+                Log_OC.d(TAG, "nextcloudAccounts are empty");
+                return false;
+            }
+
+            if (account.name.isEmpty()) {
+                Log_OC.d(TAG, "account name is empty");
+                return false;
+            }
+
             int lastAtPos = account.name.lastIndexOf('@');
+            if (lastAtPos == -1) {
+                Log_OC.d(TAG, "lastAtPos cannot be found");
+                return false;
+            }
+
+            boolean isLastAtPosInBoundsForHostAndPort = lastAtPos + 1 < account.name.length();
+            if (!isLastAtPosInBoundsForHostAndPort) {
+                Log_OC.d(TAG, "lastAtPos not in bounds");
+                return false;
+            }
+
             String hostAndPort = account.name.substring(lastAtPos + 1);
+
             String username = account.name.substring(0, lastAtPos);
+            if (hostAndPort.isEmpty() || username.isEmpty()) {
+                Log_OC.d(TAG, "hostAndPort or username is empty");
+                return false;
+            }
+
             String otherHostAndPort;
             String otherUsername;
+
             for (Account otherAccount : nextcloudAccounts) {
+                // Skip null accounts or accounts with null names
+                if (otherAccount == null || otherAccount.name.isEmpty()) {
+                    continue;
+                }
+
                 lastAtPos = otherAccount.name.lastIndexOf('@');
+
+                // Skip invalid account names
+                if (lastAtPos == -1) {
+                    continue;
+                }
+
+                boolean isLastAtPosInBoundsForOtherHostAndPort = lastAtPos + 1 < otherAccount.name.length();
+                if (!isLastAtPosInBoundsForOtherHostAndPort) {
+                    continue;
+                }
                 otherHostAndPort = otherAccount.name.substring(lastAtPos + 1);
+
                 otherUsername = otherAccount.name.substring(0, lastAtPos);
+
                 if (otherHostAndPort.equals(hostAndPort) &&
                     otherUsername.equalsIgnoreCase(username)) {
                     return true;
                 }
             }
+
+            return false;
+        } catch (Exception e) {
+            Log_OC.d(TAG, "Exception caught at UserAccountManagerImpl.exists(): " + e);
+            return false;
         }
-        return false;
     }
 
     @Override
