@@ -725,6 +725,11 @@ internal class BackgroundJobManagerImpl(
         val tag = getSyncFolderTag(folderId)
         val filePaths = files.map { it.decryptedRemotePath }
 
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiresStorageNotLow(true)
+            .build()
+
         val data = Data.Builder()
             .putStringArray(SyncWorker.FILE_PATHS, filePaths.toTypedArray())
             .build()
@@ -732,6 +737,7 @@ internal class BackgroundJobManagerImpl(
         val request = oneTimeRequestBuilder(SyncWorker::class, JOB_SYNC_FOLDER)
             .addTag(tag)
             .setInputData(data)
+            .setConstraints(constraints)
             .build()
 
         workManager.enqueueUniqueWork(JOB_SYNC_FOLDER, ExistingWorkPolicy.REPLACE, request)
