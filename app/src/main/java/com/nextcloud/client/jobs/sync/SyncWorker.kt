@@ -107,7 +107,7 @@ class SyncWorker(
 
                 if (result) {
                     downloadingFiles.remove(folder)
-                    sendSyncWorkerCompletionBroadcast()
+                    sendRefreshFolderEvent()
                     Log_OC.d(TAG, "SyncWorker completed")
                     Result.success()
                 } else {
@@ -172,7 +172,7 @@ class SyncWorker(
      * This function is called when the download of all files in a folder is complete.
      * It is used to add a green tick icon next to the files after the download process is finished.
      */
-    private fun sendSyncWorkerCompletionBroadcast() {
+    private fun sendRefreshFolderEvent() {
         val intent = Intent(FileDisplayActivity.REFRESH_FOLDER_EVENT_RECEIVER)
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent)
     }
