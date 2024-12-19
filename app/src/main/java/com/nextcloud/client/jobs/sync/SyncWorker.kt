@@ -96,8 +96,6 @@ class SyncWorker(
                     notificationManager.showCompletionMessage(result)
                 }
 
-                downloadingFiles.clear()
-
                 if (result) {
                     sendRefreshFolderEvent()
                     Log_OC.d(TAG, "SyncWorker completed")
