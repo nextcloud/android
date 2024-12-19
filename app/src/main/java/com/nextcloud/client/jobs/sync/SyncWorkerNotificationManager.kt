@@ -101,6 +101,7 @@ class SyncWorkerNotificationManager(private val context: Context) {
         dismiss()
     }
 
+    @Suppress("MagicNumber")
     suspend fun showNotAvailableDiskSpace() {
         val notification =
             getNotification(context.getString(R.string.sync_worker_insufficient_disk_space_notification_title))
