@@ -116,6 +116,9 @@
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_message">Din enhed har batterioptimisering aktiveret. Autoupload aktiveret. Autoupload virker kun korrekt hvis du ekskluderer denne app fra det.</string>
     <string name="battery_optimization_title">Batterioptimisering</string>
+    <string name="bottom_navigation_menu_assistant_label">Assistent</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoritter</string>
+    <string name="bottom_navigation_menu_files_label">Alle filer</string>
     <string name="bottom_navigation_menu_media_label">Medier</string>
     <string name="brute_force_delay">Udsat på grund af for mange forkerte forsøg</string>
     <string name="calendar">Kalender</string>

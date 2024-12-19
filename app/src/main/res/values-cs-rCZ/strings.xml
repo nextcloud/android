@@ -121,6 +121,9 @@
     <string name="battery_optimization_disable">Vypnout</string>
     <string name="battery_optimization_message">Vaše zařízení nejspíš má zapnuté snižování vybíjení akumulátoru. Automatické nahrávání funguje správně jen tehdy, když pro tuto aplikaci nastavíte výjimku.</string>
     <string name="battery_optimization_title">Optimalizace pro snižování vybíjení akumulátoru</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistent</string>
+    <string name="bottom_navigation_menu_favorites_label">Oblíbené</string>
+    <string name="bottom_navigation_menu_files_label">Všechny soubory</string>
     <string name="bottom_navigation_menu_media_label">Média</string>
     <string name="brute_force_delay">Pozdrženo z důvodu příliš mnoha nezdařených pokusů</string>
     <string name="calendar">Kalendář</string>
