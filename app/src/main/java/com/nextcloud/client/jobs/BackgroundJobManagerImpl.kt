@@ -720,8 +720,7 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
-    // TODO: Add tag for chosen folder
-    override fun syncFolder(files: List<OCFile>) {
+    override fun syncFolder(files: List<OCFile>, folderId: Long) {
         val filePaths = files.map { it.decryptedRemotePath }
 
         val data = Data.Builder()
@@ -729,15 +728,14 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         val request = oneTimeRequestBuilder(SyncWorker::class, JOB_SYNC_FOLDER)
-            .addTag(JOB_SYNC_FOLDER)
+            .addTag(JOB_SYNC_FOLDER + folderId.toString())
             .setInputData(data)
             .build()
 
         workManager.enqueueUniqueWork(JOB_SYNC_FOLDER, ExistingWorkPolicy.REPLACE, request)
     }
 
-    // TODO: Add cancellation for chosen folder
-    override fun cancelSyncFolder() {
-        TODO("Not yet implemented")
+    override fun cancelSyncFolder(folderId: Long) {
+        workManager.cancelAllWorkByTag(JOB_SYNC_FOLDER + folderId.toString())
     }
 }
