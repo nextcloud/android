@@ -38,13 +38,13 @@ class SyncWorker(
         const val FILE_DOWNLOAD_COMPLETION_BROADCAST = "FILE_DOWNLOAD_COMPLETION_BROADCAST"
         const val FILE_PATH = "FILE_PATH"
 
-        private var files = mutableListOf<OCFile>()
+        private var downloadingFiles = mutableListOf<OCFile>()
 
         /**
          * It is used to add the sync icon next to the file in the folder.
          */
         fun isDownloading(path: String): Boolean {
-            return files.any { it.decryptedRemotePath == path }
+            return downloadingFiles.any { it.decryptedRemotePath == path }
         }
     }
 
@@ -67,8 +67,10 @@ class SyncWorker(
 
                 val storageManager = FileDataStorageManager(user, context.contentResolver)
                 val folder = storageManager.getFileById(folderID) ?: return@withContext Result.failure()
-                files = ArrayList(getFiles(folder, storageManager)).apply {
-                    // Add the topParentPath to mark the sync icon on the selected folder.
+                val files = getFiles(folder, storageManager)
+
+                downloadingFiles = ArrayList(files).apply {
+                    // Add folder to mark the sync icon on the selected folder.
                     add(folder)
                 }
 
@@ -76,6 +78,10 @@ class SyncWorker(
 
                 var result = true
                 files.forEachIndexed { index, file ->
+                    if (file.isFolder) {
+                        return@forEachIndexed
+                    }
+
                     if (isStopped) {
                         notificationManager.dismiss()
                         return@withContext Result.failure()
@@ -100,7 +106,7 @@ class SyncWorker(
                 }
 
                 if (result) {
-                    files.remove(folder)
+                    downloadingFiles.remove(folder)
                     sendSyncWorkerCompletionBroadcast()
                     Log_OC.d(TAG, "SyncWorker completed")
                     Result.success()
@@ -144,7 +150,7 @@ class SyncWorker(
 
         return if (operation.isSuccess) {
             sendFileDownloadCompletionBroadcast(file)
-            files.remove(file)
+            downloadingFiles.remove(file)
             true
         } else {
             false
