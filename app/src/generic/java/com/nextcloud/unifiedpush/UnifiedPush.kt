@@ -8,7 +8,9 @@
 package com.nextcloud.unifiedpush
 
 import android.content.Context
+import android.content.Context.POWER_SERVICE
 import android.content.res.Resources
+import android.os.PowerManager
 import android.util.TypedValue
 import androidx.appcompat.view.ContextThemeWrapper
 import androidx.work.WorkManager
@@ -35,8 +37,8 @@ class UnifiedPush : MessagingReceiver() {
     private val TAG: String? = UnifiedPush::class.java.simpleName
 
     companion object {
-        fun registerForPushMessaging(activity: DrawerActivity, accountName: String) {
-            if ((activity === null) || (activity.mHandler === null) || (activity.isFinishing === true))
+        fun registerForPushMessaging(activity: DrawerActivity?, accountName: String) {
+            if ((activity === null) || (activity.mHandler === null) || (activity.isFinishing == true))
                 return
 
             // if a distributor is registered and available, re-register to ensure in sync
@@ -73,6 +75,12 @@ class UnifiedPush : MessagingReceiver() {
     }
 
     override fun onMessage(context: Context, message: ByteArray, instance: String) {
+        // get a wake lock to 'help' background job run more promptly since it can take minutes to run if phone is
+        // sleeping/dozing - 15 secs should be well long enough to get the notification displayed
+        val pm = context!!.getSystemService(POWER_SERVICE) as PowerManager
+        val wakeLock = pm!!.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "nc:timedPartialwakelock")
+        wakeLock!!.acquire(15 * 1000)
+
         // called when a new message is received. The message contains the full POST body of the push message
         Log_OC.d(TAG, "unified push message received")
 
