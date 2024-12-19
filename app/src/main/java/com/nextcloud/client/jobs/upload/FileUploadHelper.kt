@@ -15,7 +15,6 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.device.BatteryStatus
 import com.nextcloud.client.device.PowerManagementService
 import com.nextcloud.client.jobs.BackgroundJobManager
-import com.nextcloud.client.jobs.BackgroundJobManagerImpl.Companion.JOB_SYNC_FOLDER
 import com.nextcloud.client.jobs.upload.FileUploadWorker.Companion.currentUploadFileOperation
 import com.nextcloud.client.network.Connectivity
 import com.nextcloud.client.network.ConnectivityService
