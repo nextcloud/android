@@ -43,8 +43,8 @@ class SyncWorker(
         /**
          * It is used to add the sync icon next to the file in the folder.
          */
-        fun isDownloading(path: String): Boolean {
-            return downloadingFiles.any { it.decryptedRemotePath == path }
+        fun isDownloading(file: OCFile): Boolean {
+            return downloadingFiles.contains(file)
         }
     }
 
