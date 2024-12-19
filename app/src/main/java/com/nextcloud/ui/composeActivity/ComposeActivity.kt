@@ -84,6 +84,9 @@ class ComposeActivity : DrawerActivity() {
         }
 
         if (destination == ComposeDestination.AssistantScreen) {
+            val assistantMenuItem = binding.bottomNavigation.menu.findItem(R.id.nav_assistant)
+            assistantMenuItem.setChecked(true)
+
             nextcloudClient?.let { client ->
                 AssistantScreen(
                     viewModel = AssistantViewModel(
