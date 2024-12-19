@@ -42,6 +42,7 @@ class RecommendedFilesAdapter(
 
     override fun getItemCount(): Int = recommendations.size
 
+    @Suppress("MagicNumber")
     override fun onBindViewHolder(holder: RecommendedFilesViewHolder, position: Int) {
         val item = recommendations[position]
 
