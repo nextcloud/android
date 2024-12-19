@@ -723,9 +723,8 @@ internal class BackgroundJobManagerImpl(
         workManager.enqueueUniquePeriodicWork(JOB_INTERNAL_TWO_WAY_SYNC, ExistingPeriodicWorkPolicy.UPDATE, request)
     }
 
-    override fun syncFolder(files: List<OCFile>, folderId: Long) {
-        val tag = getSyncFolderTag(folderId)
-        val filePaths = files.map { it.decryptedRemotePath }
+    override fun syncFolder(folder: OCFile) {
+        val tag = getSyncFolderTag(folder.fileId)
 
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.CONNECTED)
@@ -733,7 +732,7 @@ internal class BackgroundJobManagerImpl(
             .build()
 
         val data = Data.Builder()
-            .putStringArray(SyncWorker.FILE_PATHS, filePaths.toTypedArray())
+            .putLong(SyncWorker.FOLDER_ID, folder.fileId)
             .build()
 
         val request = oneTimeRequestBuilder(SyncWorker::class, JOB_SYNC_FOLDER)
