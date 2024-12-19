@@ -78,11 +78,6 @@ class SyncWorker(
 
                 var result = true
                 files.forEachIndexed { index, file ->
-                    if (isStopped) {
-                        notificationManager.dismiss()
-                        return@withContext Result.failure()
-                    }
-
                     if (!checkDiskSize(file)) {
                         return@withContext Result.failure()
                     }
@@ -101,8 +96,9 @@ class SyncWorker(
                     notificationManager.showCompletionMessage(result)
                 }
 
+                downloadingFiles.clear()
+
                 if (result) {
-                    downloadingFiles.remove(folder)
                     sendRefreshFolderEvent()
                     Log_OC.d(TAG, "SyncWorker completed")
                     Result.success()
@@ -113,6 +109,9 @@ class SyncWorker(
             } catch (e: Exception) {
                 Log_OC.d(TAG, "SyncWorker failed reason: $e")
                 Result.failure()
+            } finally {
+                downloadingFiles.clear()
+                notificationManager.dismiss()
             }
         }
     }
