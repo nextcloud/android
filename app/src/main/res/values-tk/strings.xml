@@ -9,10 +9,13 @@
     <string name="account_not_found">Hasap tapylmady</string>
     <string name="action_edit">Redaktirläň</string>
     <string name="action_empty_notifications">ähli bildirişleri arassala</string>
+    <string name="action_empty_trashbin">Boşadylan zibil</string>
     <string name="action_send_share">Iber / Paýlaş</string>
     <string name="action_switch_grid_view">Gözenegiň görnüşi</string>
     <string name="action_switch_list_view">Sanaw görnüşi</string>
+    <string name="actionbar_calendar_contacts_restore">Aragatnaşyklary we senenamany dikelt</string>
     <string name="actionbar_mkdir">Täze papka döretmek</string>
+    <string name="actionbar_move_or_copy">Göçürmek ýa-da Nusga almak</string>
     <string name="actionbar_open_with">Şunyň bilen açyň</string>
     <string name="actionbar_search">Gözlemek</string>
     <string name="actionbar_see_details">Jikme-jiklikleri</string>
@@ -76,6 +79,9 @@
     <string name="battery_optimization_disable">Öçüriň</string>
     <string name="battery_optimization_message">Enjamyňyzda batareýa optimizasiýasy açyk bolup biler. “AutoUpload” diňe bu programmany ondan aýyrsaňyz dogry işleýär.</string>
     <string name="battery_optimization_title">Batareýany optimizasiýa</string>
+    <string name="bottom_navigation_menu_favorites_label">Halanýanlar</string>
+    <string name="bottom_navigation_menu_files_label">Ähli faýllar</string>
+    <string name="bottom_navigation_menu_media_label">Mediýa</string>
     <string name="brute_force_delay">Gaty ýalňyş synanyşyklar sebäpli gijä galdy</string>
     <string name="certificate_load_problem">Şahadatnamany ýüklemekde näsazlyk bar.</string>
     <string name="changelog_dev_version">Özgeriş žurnalynyň gowlaşdyrmak döwri</string>
@@ -758,10 +764,15 @@
     <string name="wait_a_moment">Biraz garaşyň ...</string>
     <string name="wait_checking_credentials">Saklanan şahsyýet maglumatlaryny barlamak</string>
     <string name="wait_for_tmp_copy_from_private_storage">Şahsy ammardan faýly göçürmek</string>
+    <string name="warn_rename_extension">Giňeltmäni üýtgetmek, bu faýlyň başga bir programmada açylmagyna sebäp bolup biler</string>
+    <string name="webview_version_check_alert_dialog_message">Giriş üçin Android System WebView programmasyny täzeläň</string>
+    <string name="webview_version_check_alert_dialog_positive_button_title">Täzelemek</string>
     <string name="what_s_new_image">Täze şekil näme</string>
     <string name="whats_new_skip">Geçmek</string>
     <string name="whats_new_title">Täze%1$s-da</string>
+    <string name="widgets_not_available_title">Elýeterli däl</string>
     <string name="worker_download">Faýllary göçürip almaklyk...</string>
+    <string name="write_email">E-poçta iber</string>
     <string name="wrong_storage_path">Maglumat saklaýyş bukjasy ýok!</string>
     <string name="wrong_storage_path_desc">Bu başga bir enjamda ätiýaçlyk dikeldişi sebäpli bolup biler. Asyl görnüşine gaýdyp gelmek. Maglumat saklaýyş bukjasyny sazlamak üçin sazlamalary barlaň.</string>
     </resources>

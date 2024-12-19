@@ -60,6 +60,10 @@
     <string name="away">Ausente</string>
     <string name="battery_optimization_close">Zarrar</string>
     <string name="battery_optimization_disable">Desactivar</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistente</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
+    <string name="bottom_navigation_menu_files_label">Tolos ficheros</string>
+    <string name="bottom_navigation_menu_media_label">Multimedia</string>
     <string name="calendar">Calendariu</string>
     <string name="calendars">Calendarios</string>
     <string name="certificate_load_problem">Hai un problema cargando\'l certificáu</string>

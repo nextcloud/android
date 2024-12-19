@@ -105,6 +105,10 @@
     <string name="battery_optimization_disable">Dezactivează</string>
     <string name="battery_optimization_message">Dispozitivul dumneavoastră poate avea economizorul de baterie activat. Incărcarea automată AutoUpload funcționează corespunzător daca excludeti această funcție din aplicație.</string>
     <string name="battery_optimization_title">Optimizare baterie</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistent</string>
+    <string name="bottom_navigation_menu_favorites_label">Favorite</string>
+    <string name="bottom_navigation_menu_files_label">Toate fișierele</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Amânat datorită unui număr prea mare de încercări greșite</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendare</string>

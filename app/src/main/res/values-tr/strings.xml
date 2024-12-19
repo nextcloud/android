@@ -35,9 +35,18 @@
     <string name="advanced_settings">Gelişmiş ayarlar</string>
     <string name="allow_resharing">Yeniden paylaşılabilsin</string>
     <string name="app_config_base_url_title">Temel adres</string>
+    <string name="app_config_disable_clipboard_title">Pano kullanılmasın</string>
+    <string name="app_config_disable_intro_title">Giriş kullanılmasın</string>
+    <string name="app_config_disable_log_title">Günlük kullanılmasın</string>
+    <string name="app_config_disable_more_external_site_title">Dış siteler kullanılmasın</string>
+    <string name="app_config_disable_multiaccount_title">Birden fazla hesap kullanılmasın</string>
+    <string name="app_config_disable_sharing_title">Paylaşım kullanılmasın</string>
+    <string name="app_config_enforce_protection_title">Koruma dayatılsın</string>
+    <string name="app_config_proxy_host_title">Vekil sunucu adı</string>
     <string name="app_config_proxy_port_title">Vekil sunucu bağlantı noktası</string>
     <string name="app_widget_description">Panodan bir pano bileşeni görüntüler</string>
     <string name="appbar_search_in">%s içinde arama</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Yeni görev ekle</string>
     <string name="assistant_screen_all_task_type">Tümü</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bir şeyler yazın</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bu görevi silmek istediğinize emin misiniz?</string>
@@ -55,6 +64,7 @@
     <string name="assistant_screen_task_delete_success_message">Görev silindi</string>
     <string name="assistant_screen_task_list_error_state_message">Görev listesi alınamadı. Lütfen İnternet bağlantınızı denetleyin.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Görevi sil</string>
+    <string name="assistant_screen_task_output_empty_text">Görev çıktısı henüz hazır değil.</string>
     <string name="assistant_screen_task_types_error_state_message">Görev türleri alınamadı. Lütfen İnternet bağlantınızı denetleyin.</string>
     <string name="assistant_screen_top_bar_title">Yardımcı</string>
     <string name="assistant_screen_unknown_task_status_text">Bilinmiyor</string>
@@ -94,6 +104,8 @@
     <string name="authenticator_activity_login_error">Oturum açma isteğiniz işlenirken bir sorun çıktı. Lütfen bir süre sonra yeniden deneyin.</string>
     <string name="authenticator_activity_please_complete_login_process">Lütfen oturum açma işlemini tarayıcınızdan tamamlayın</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
+    <string name="auto_upload_gplay">Otomatik yükleme davranışı değiştirildi</string>
+    <string name="auto_upload_gplay_desc">Google tarafından getirilen yeni kısıtlamalar nedeniyle otomatik yükleme özelliği artık yüklenen dosyaları otomatik olarak kaldıramayacak.</string>
     <string name="auto_upload_on_wifi">Yalnızca kullanıma göre ücretlendirilmeyen kablosuz ağ üzerinden yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="autoupload_configure">Yapılandır</string>
@@ -109,6 +121,10 @@
     <string name="battery_optimization_disable">Kullanımdan kaldır</string>
     <string name="battery_optimization_message">Aygıtınızda pil kullanımı iyileştirmesi kullanılıyor olabilir. Otomatik yükleme yalnızca bu uygulamayı pil kullanımı iyileştirmesinin dışında tuttuğunuzda düzgün çalışır.</string>
     <string name="battery_optimization_title">Pil kullanımı iyileştirmesi</string>
+    <string name="bottom_navigation_menu_assistant_label">Yardımcı</string>
+    <string name="bottom_navigation_menu_favorites_label">Sık kullanılanlar</string>
+    <string name="bottom_navigation_menu_files_label">Tüm dosyalar</string>
+    <string name="bottom_navigation_menu_media_label">Ortam</string>
     <string name="brute_force_delay">Çok sayıda hatalı deneme nedeniyle geciktirildi</string>
     <string name="calendar">Takvim</string>
     <string name="calendars">Takvimler</string>
@@ -361,6 +377,7 @@
     <string name="file_already_exists">Dosya adı zaten var</string>
     <string name="file_delete">Sil</string>
     <string name="file_detail_activity_error">Dosya işlemleri alınırken sorun çıktı</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Kişilerin seçilmesi için kullanılabilecek bir uygulama yok</string>
     <string name="file_details_no_content">Ayrıntılar yüklenemedi</string>
     <string name="file_icon">Dosya</string>
     <string name="file_keep">Tut</string>
@@ -388,6 +405,7 @@
     <string name="file_management_permission_optional">Depolama izinleri</string>
     <string name="file_management_permission_optional_text">%1$s depolamaya erişim izinleriyle en iyi şekilde çalışır. Tüm dosyalara tam erişim ya da fotoğraf ve videolara salt okunur erişim vermeyi seçebilirsiniz.</string>
     <string name="file_management_permission_text">%1$sdosya yükleyebilmek için dosya yönetimi izinlerine gerek duyuyor. Tüm dosyalara tam erişim ya da fotoğraf ve videolara salt okunur erişim vermeyi seçebilirsiniz.</string>
+    <string name="file_migration_allow_media_indexing">Diğer uygulamalardan erişilebilsin</string>
     <string name="file_migration_checking_destination">Hedef denetleniyor …</string>
     <string name="file_migration_cleaning">Temizleniyor …</string>
     <string name="file_migration_dialog_title">Veri depolama klasörü güncelleniyor</string>
@@ -398,6 +416,7 @@
     <string name="file_migration_failed_not_writable">Hedef dosyaya yazılamadı</string>
     <string name="file_migration_failed_while_coping">Aktarım sırasında sorun çıktı</string>
     <string name="file_migration_failed_while_updating_index">Dizin güncellenirken sorun çıktı</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Veriler taşınıyor …</string>
     <string name="file_migration_ok_finished">Tamamlandı</string>
     <string name="file_migration_override_data_folder">Değiştirilsin</string>
@@ -593,6 +612,7 @@
     <string name="notifications_no_results_headline">Herhangi bir bildirim yok</string>
     <string name="notifications_no_results_message">Lütfen bir süre sonra yeniden bakın.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">İşlenmeyi bekliyor</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Kaldırma işlemi bekliyor</string>
     <string name="offline_mode">İnternet bağlantısı yok</string>
     <string name="offline_mode_info_description">İnternet bağlantınız olmasa bile klasörlerinizi düzenleyebilir, dosyalar oluşturabilirsiniz. Yeniden çevrim içi olduğunuzda, bekleyen işlemleriniz otomatik olarak eşitlenir.</string>
     <string name="offline_mode_info_title">Çevrim dışınız ancak iş sürüyor</string>
@@ -655,6 +675,8 @@
     <string name="prefs_category_sync">Eşitle</string>
     <string name="prefs_daily_backup_summary">Takvim ve kişilerinizin günlük yedeği</string>
     <string name="prefs_daily_contact_backup_summary">Kişilerinizin günlük yedeği</string>
+    <string name="prefs_data_storage_location">Veri depolama konumu</string>
+    <string name="prefs_data_storage_location_summary">Veri depolama konumunu yönet</string>
     <string name="prefs_davx5_setup_error">DAVx5 (eski adıyla DAVdroid) kurulurken beklenmeyen bir sorun çıktı</string>
     <string name="prefs_e2e_active">Uçtan uca şifreleme kuruldu!</string>
     <string name="prefs_e2e_mnemonic">E2E belleği</string>
@@ -736,6 +758,7 @@
     <string name="request_account_deletion">Hesabınızın silinmesini isteyin</string>
     <string name="request_account_deletion_button">Silme isteğinde bulunun</string>
     <string name="request_account_deletion_details">Hesabın hizmet sağlayıcı tarafından kalıcı olarak silinmesini isteyin</string>
+    <string name="resharing_is_not_allowed">Yeniden paylaşımı engelleyen ilke ya da izinler</string>
     <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam boyuttaki görsel indirilsin mi?</string>
     <string name="restore">Dosyayı geri yükle</string>
     <string name="restore_backup">Yedeği geri yükle</string>
@@ -761,6 +784,7 @@
     <string name="screenshot_06_davdroid_subline">DAVx5 ile eşitleme</string>
     <string name="search_error">Arama sonuçları alınırken sorun çıktı</string>
     <string name="secure_share_not_set_up">Bu kullanıcı için güvenli paylaşım kurulmamış</string>
+    <string name="secure_share_search">Güvenli paylaşım…</string>
     <string name="select_all">Tümünü seç</string>
     <string name="select_media_folder">Ortam klasörünü ayarla</string>
     <string name="select_one_template">Lütfen bir kalıp seçin</string>
@@ -804,6 +828,7 @@
     <string name="share_permissions">İzinleri paylaş</string>
     <string name="share_remote_clarification">%1$s (uzak)</string>
     <string name="share_room_clarification">%1$s (görüşme)</string>
+    <string name="share_search">Ad, birleşik bulut kimliği ya da e-posta adresi…</string>
     <string name="share_send_new_email">Yeni e-posta gönder</string>
     <string name="share_send_note">Alıcıya not</string>
     <string name="share_settings">Ayarlar</string>
@@ -1053,6 +1078,7 @@
     <string name="wait_a_moment">Lütfen bekleyin …</string>
     <string name="wait_checking_credentials">Kayıtlı kimlik bilgileri denetleniyor</string>
     <string name="wait_for_tmp_copy_from_private_storage">Dosya kişisel depolamadan kopyalanıyor</string>
+    <string name="warn_rename_extension">Uzantının değiştirilmesi bu dosyanın başka bir uygulama ile açılmasına neden olabilir</string>
     <string name="webview_version_check_alert_dialog_message">Lütfen oturum açmak için Android Sistem Web Görünümü uygulamasını güncelleyin</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Güncelle</string>
     <string name="webview_version_check_alert_dialog_title">Android Sistem Web Görünümü uygulamasını güncelle</string>
@@ -1060,6 +1086,7 @@
     <string name="whats_new_skip">Atla</string>
     <string name="whats_new_title">%1$s yenilikleri</string>
     <string name="whats_your_status">Durumunuz nedir?</string>
+    <string name="widgets_not_available">Pano bileşenlerinin kullanılabilmesi için %1$s 25 veya üzeri sürümlerde Pano uygulaması kullanıma alınmalıdır</string>
     <string name="widgets_not_available_title">Kullanılamaz</string>
     <string name="worker_download">Dosyalar indiriliyor…</string>
     <string name="write_email">E-posta gönder</string>
@@ -1072,6 +1099,18 @@
     <plurals name="minutes">
         <item quantity="one">%d dakika</item>
         <item quantity="other">%d dakika</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">1 saniye önce</item>
+        <item quantity="other">%d saniye önce</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">1 dakika önce</item>
+        <item quantity="other">%d dakika önce</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">1 saat önce</item>
+        <item quantity="other">%d saat önce</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">%1$d dosya eşitlenemedi (çakışma: %2$d)</item>
@@ -1120,6 +1159,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d dosya</item>
         <item quantity="other">%1$d dosya</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d öge</item>
+        <item quantity="other">%1$d öge</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">%1$d gizli klasörü görüntüle</item>

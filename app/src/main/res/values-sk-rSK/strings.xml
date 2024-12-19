@@ -119,6 +119,10 @@
     <string name="battery_optimization_disable">Zakázať</string>
     <string name="battery_optimization_message">Vaše zariadenie môže mať zapnutú optimalizáciu batérie. AutoUpload správne funguje iba pokiaľ z túto aplikáciu z optimalizácie vynecháte.</string>
     <string name="battery_optimization_title">Optimalizácia batérie</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistent</string>
+    <string name="bottom_navigation_menu_favorites_label">Obľúbené</string>
+    <string name="bottom_navigation_menu_files_label">Všetky súbory</string>
+    <string name="bottom_navigation_menu_media_label">Média</string>
     <string name="brute_force_delay">Spracovanie oneskorené z dôvodu veľkého množstva chybných požiadavok</string>
     <string name="calendar">Kalendár</string>
     <string name="calendars">Kalendáre</string>

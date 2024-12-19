@@ -109,6 +109,10 @@
     <string name="battery_optimization_disable">Deaktiver</string>
     <string name="battery_optimization_message">Din enhet har muligens batterioptimalisering aktivert. Auto-opplasting fungerer kun hvis du ekskluderer appen fra optimalisering.</string>
     <string name="battery_optimization_title">Batterioptimalisering</string>
+    <string name="bottom_navigation_menu_assistant_label">Assistent</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoritter</string>
+    <string name="bottom_navigation_menu_files_label">Alle filer</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Forsinket grunnet for mange forsøk med feil</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalendere</string>

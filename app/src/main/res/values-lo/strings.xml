@@ -81,6 +81,9 @@
     <string name="battery_optimization_disable">ປີດ</string>
     <string name="battery_optimization_message">ອຸປະກອນຂອງທ່ານອາດຈະເປີດໃຊ້ງານປະສິດທິພາບ. ການອັບໂຫຼດອັດຕະໂນມັດ ເພື່ອເຮັດວຽກໄດ້ຢ່າງຖືກຕ້ອງ.</string>
     <string name="battery_optimization_title">ການເພີ່ມປະສີດທິພາບແບັດເຕີລີ</string>
+    <string name="bottom_navigation_menu_favorites_label">ລາຍການທີ່ມັກ</string>
+    <string name="bottom_navigation_menu_files_label">ຟາຍທັງໝົດ</string>
+    <string name="bottom_navigation_menu_media_label">ຊື່ມວນຊົນ</string>
     <string name="brute_force_delay">ລ່າຊ້າ ຍ້ອນຄວາມພະຍາຍາມທີ່ຜິດຫລາຍເກີນ ໄປ</string>
     <string name="calendar">ປະຕິທິນ</string>
     <string name="certificate_load_problem">ມີບັນຫາໃນການໂຫຼດການຢັ້ງຢືນ</string>

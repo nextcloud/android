@@ -89,6 +89,8 @@
     <string name="battery_optimization_disable">Onemogoči</string>
     <string name="battery_optimization_message">Naprava ima najverjetneje omogočeno možnost optimizacije porabe baterije. Program AutoUpload pravilno deluje le, če je izvzet iz nje.</string>
     <string name="battery_optimization_title">Optimizacija baterije</string>
+    <string name="bottom_navigation_menu_favorites_label">Priljubljeno</string>
+    <string name="bottom_navigation_menu_files_label">Vse datoteke</string>
     <string name="brute_force_delay">Zadržano zaradi preveč napačnih poskusov.</string>
     <string name="calendar">Koledar</string>
     <string name="calendars">Koledarji</string>

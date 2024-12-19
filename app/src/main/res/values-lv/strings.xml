@@ -81,6 +81,8 @@
     <string name="battery_optimization_disable">Deaktivēt</string>
     <string name="battery_optimization_message">Jūsu ierīcē ir iespējota akumulatora optimizācija. Auto augšupielāde pareizi darbosies tikai tad, kad jūs lietotni izņemsiet no šīs opcijas.</string>
     <string name="battery_optimization_title">Akumulatora optimizācija</string>
+    <string name="bottom_navigation_menu_favorites_label">Izlases vienumi</string>
+    <string name="bottom_navigation_menu_files_label">Visas datnes</string>
     <string name="calendar">Kalendārs</string>
     <string name="calendars">Kalendāri</string>
     <string name="certificate_load_problem">Radusies problēma, ielādējot sertifikātu.</string>
@@ -416,7 +418,7 @@
     <string name="remove_push_notification">Izņemt</string>
     <string name="remove_success_msg">Dzēstie</string>
     <string name="rename_dialog_title">Ievadīt jaunu nosaukumu</string>
-    <string name="rename_local_fail_msg">Nevarēja pārsaukt lokālo kopiju, pamēģiniet citu nosaukumu</string>
+    <string name="rename_local_fail_msg">Nevarēja pārsaukt vietējo kopiju, jāmēģina cits nosaukums</string>
     <string name="rename_server_fail_msg">Pārsaukšana nav iespējama, nosaukums jau izmantots</string>
     <string name="request_account_deletion">Pieprasīt konta dzēšanu</string>
     <string name="restore">Atjaunot datni</string>

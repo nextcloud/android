@@ -120,6 +120,10 @@
     <string name="battery_optimization_disable">Désactiver</string>
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil. Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
     <string name="battery_optimization_title">Optimisation de la batterie</string>
+    <string name="bottom_navigation_menu_assistant_label">Assistant</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoris</string>
+    <string name="bottom_navigation_menu_files_label">Tous les fichiers</string>
+    <string name="bottom_navigation_menu_media_label">Médias</string>
     <string name="brute_force_delay">Retardé à cause de trop d\'essais infructueux</string>
     <string name="calendar">Agenda</string>
     <string name="calendars">Agendas</string>

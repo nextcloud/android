@@ -82,6 +82,9 @@
     <string name="battery_optimization_disable">Desativar</string>
     <string name="battery_optimization_message">O seu dispositivo pode ter a optimização de bateria activa. O AutoUpload apenas funciona correctamente se excluir esta aplicação.</string>
     <string name="battery_optimization_title">Optimização de bateria</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
+    <string name="bottom_navigation_menu_files_label">Todos os ficheiros</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Suspenso devido a demasiadas tentativas erradas</string>
     <string name="calendar">Calendário</string>
     <string name="calendars">Calendários</string>

@@ -91,6 +91,9 @@
     <string name="battery_optimization_disable">غیرفعال کردن</string>
     <string name="battery_optimization_message">ممکن است وسیله شما بهینه ساز باطری را فعال کرده باشد.  بارگذاری خودکار به درستی کار می کند اگر این برنامه را از آن حذف کنید.</string>
     <string name="battery_optimization_title">بهینه سازی باتری</string>
+    <string name="bottom_navigation_menu_favorites_label">مورد علاقه‌ها</string>
+    <string name="bottom_navigation_menu_files_label">تمامی فایل‌ها</string>
+    <string name="bottom_navigation_menu_media_label">رسانه‌ها</string>
     <string name="brute_force_delay">به دلیل تلاش‌های نادرست متعدد، به تاخیر افتاد</string>
     <string name="calendar">تقویم</string>
     <string name="calendars">تقویم‌ها</string>

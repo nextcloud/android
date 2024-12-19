@@ -119,6 +119,10 @@
     <string name="battery_optimization_disable">Inhabilita</string>
     <string name="battery_optimization_message">El vostre dispositiu pot tenir l\'optimització de bateria activada. AutoUpload només funciona correctament si hi excluïu aquesta aplicació.</string>
     <string name="battery_optimization_title">Optimització de la bateria</string>
+    <string name="bottom_navigation_menu_assistant_label">Assistent</string>
+    <string name="bottom_navigation_menu_favorites_label">Preferits</string>
+    <string name="bottom_navigation_menu_files_label">Tots els fitxers</string>
+    <string name="bottom_navigation_menu_media_label">Multimèdia</string>
     <string name="brute_force_delay">S\'ha endarrerit perquè s\'han produït massa intents erronis</string>
     <string name="calendar">Calendari</string>
     <string name="calendars">Calendaris</string>

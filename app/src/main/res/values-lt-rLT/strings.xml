@@ -98,6 +98,9 @@
     <string name="battery_optimization_message">Gali būti, kad Jūsų įrenginyje įjungta akumuliatriaus energijos naudojimo optimizacija. Automatinis įkėlimas tinkamai veikia tik tuo atveju, jei iš jo pašalinsite šią programą.
  </string>
     <string name="battery_optimization_title">Akumuliatoriaus energijos optimizacija</string>
+    <string name="bottom_navigation_menu_favorites_label">Mėgstami</string>
+    <string name="bottom_navigation_menu_files_label">Visi failai</string>
+    <string name="bottom_navigation_menu_media_label">Medija</string>
     <string name="brute_force_delay">Uždelsta dėl per didelio neteisingų bandymų skaičiaus</string>
     <string name="calendar">Kalendorius</string>
     <string name="calendars">Kalendoriai</string>

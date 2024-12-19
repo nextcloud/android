@@ -74,6 +74,8 @@
     <string name="battery_optimization_disable">Çaktivizoje</string>
     <string name="battery_optimization_message">Pajisja juaj mund të aktivizohet nga optimizimi i baterisë. AutoUpload funksionon  si duhet vetëm nëse e përjashton këtë aplikacion nga ai.</string>
     <string name="battery_optimization_title">Optimizimi i baterive</string>
+    <string name="bottom_navigation_menu_favorites_label">Favorites</string>
+    <string name="bottom_navigation_menu_files_label">Të gjithë skedarët</string>
     <string name="calendar">Kalendar</string>
     <string name="certificate_load_problem">Pati një problem gjatë ngarkimit të dëshmisë.</string>
     <string name="changelog_dev_version">Versioni dev i ndryshimeve</string>
