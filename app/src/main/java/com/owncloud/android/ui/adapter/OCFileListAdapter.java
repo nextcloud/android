@@ -200,27 +200,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         setHasStableIds(true);
 
-        registerSyncWorkerCompletionReceiver();
         registerFileDownloadCompletionReceiver();
 
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
     }
-
-    private void registerSyncWorkerCompletionReceiver() {
-        LocalBroadcastManager
-            .getInstance(activity)
-            .registerReceiver(syncWorkerCompletionReceiver, new IntentFilter(SyncWorker.SYNC_WORKER_COMPLETION_BROADCAST));
-    }
-
-    private final BroadcastReceiver syncWorkerCompletionReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (activity instanceof FileDisplayActivity fda) {
-                fda.refreshList();
-            }
-        }
-    };
 
     private void registerFileDownloadCompletionReceiver() {
         LocalBroadcastManager
