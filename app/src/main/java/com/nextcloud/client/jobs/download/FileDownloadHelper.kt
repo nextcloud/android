@@ -142,6 +142,10 @@ class FileDownloadHelper {
     }
 
     fun syncFolder(files: List<OCFile>) {
+        if (files.isEmpty()) {
+            return
+        }
+
         val firstFile = files.first()
         val topParentFileId = fileStorageManager.getTopParentId(firstFile)
         backgroundJobManager.syncFolder(files, topParentFileId)
