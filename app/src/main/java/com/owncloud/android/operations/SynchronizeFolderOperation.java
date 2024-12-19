@@ -397,7 +397,6 @@ public class SynchronizeFolderOperation extends SyncOperation {
         }
     }
 
-
     private void prepareOpsFromLocalKnowledge() throws OperationCancelledException {
         List<OCFile> children = getStorageManager().getFolderContent(mLocalFolder, false);
         for (OCFile child : children) {
@@ -481,7 +480,7 @@ public class SynchronizeFolderOperation extends SyncOperation {
                 Log_OC.d(TAG, "Exception caught at startDirectDownloads" + e);
             }
         } else {
-            fileDownloadHelper.syncFolder(mFilesForDirectDownload);
+            fileDownloadHelper.syncFolder(mLocalFolder);
         }
     }
 
