@@ -14,7 +14,11 @@ import android.accounts.AuthenticatorException;
 import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -33,6 +37,7 @@ import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
+import com.nextcloud.client.jobs.sync.SyncWorker;
 import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OCFileFilterType;
@@ -97,6 +102,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import me.zhanghai.android.fastscroll.PopupTextProvider;
@@ -194,9 +200,31 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         setHasStableIds(true);
 
+        registerFileDownloadCompletionReceiver();
+
         // initialise thumbnails cache on background thread
         new ThumbnailsCacheManager.InitDiskCacheTask().execute();
     }
+
+    private void registerFileDownloadCompletionReceiver() {
+        LocalBroadcastManager
+            .getInstance(activity)
+            .registerReceiver(fileDownloadCompletionReceiver, new IntentFilter(SyncWorker.FILE_DOWNLOAD_COMPLETION_BROADCAST));
+    }
+
+    private final BroadcastReceiver fileDownloadCompletionReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String path = intent.getStringExtra(SyncWorker.FILE_PATH);
+            OCFile file = mStorageManager.getFileByDecryptedRemotePath(path);
+
+            if (file == null) {
+                return;
+            }
+
+            notifyItemChanged(file);
+        }
+    };
 
     public boolean isMultiSelect() {
         return ocFileListDelegate.isMultiSelect();
