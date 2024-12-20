@@ -225,6 +225,7 @@
             <trusting group="androidx.room"/>
             <trusting group="androidx.sqlite"/>
             <trusting group="androidx.tracing" name="tracing" version="1.2.0"/>
+            <trusting group="androidx.tracing" name="tracing-ktx" version="1.2.0"/>
             <trusting group="androidx.webkit" name="webkit" version="1.10.0"/>
             <trusting group="androidx.webkit" name="webkit" version="1.9.0"/>
             <trusting group="androidx.work"/>
