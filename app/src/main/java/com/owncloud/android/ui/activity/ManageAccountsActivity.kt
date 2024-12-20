@@ -8,176 +8,168 @@
  * SPDX-FileCopyrightText: 2016-2018 Andy Scherzinger <info@andy-scherzinger.de>
  * SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
  */
-package com.owncloud.android.ui.activity;
+package com.owncloud.android.ui.activity
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
-import android.accounts.AccountManagerCallback;
-import android.accounts.AccountManagerFuture;
-import android.accounts.OperationCanceledException;
-import android.content.Intent;
-import android.os.Bundle;
-import android.os.Handler;
-import android.view.MenuItem;
-import android.view.View;
-
-import com.google.common.collect.Sets;
-import com.nextcloud.client.account.User;
-import com.nextcloud.client.account.UserAccountManager;
-import com.nextcloud.client.jobs.BackgroundJobManager;
-import com.nextcloud.client.jobs.download.FileDownloadHelper;
-import com.nextcloud.client.onboarding.FirstRunActivity;
-import com.nextcloud.model.WorkerState;
-import com.nextcloud.model.WorkerStateLiveData;
-import com.nextcloud.utils.extensions.BundleExtensionsKt;
-import com.nextcloud.utils.mdm.MDMConfig;
-import com.owncloud.android.MainApp;
-import com.owncloud.android.R;
-import com.owncloud.android.authentication.AuthenticatorActivity;
-import com.owncloud.android.datamodel.ArbitraryDataProvider;
-import com.owncloud.android.datamodel.ArbitraryDataProviderImpl;
-import com.owncloud.android.datamodel.FileDataStorageManager;
-import com.owncloud.android.lib.common.OwnCloudAccount;
-import com.owncloud.android.lib.common.UserInfo;
-import com.owncloud.android.lib.common.utils.Log_OC;
-import com.owncloud.android.operations.DownloadFileOperation;
-import com.owncloud.android.services.OperationsService;
-import com.owncloud.android.ui.adapter.UserListAdapter;
-import com.owncloud.android.ui.adapter.UserListItem;
-import com.owncloud.android.ui.dialog.AccountRemovalDialog;
-import com.owncloud.android.ui.events.AccountRemovedEvent;
-import com.owncloud.android.ui.helpers.FileOperationsHelper;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-
-import javax.inject.Inject;
-
-import androidx.annotation.VisibleForTesting;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import static com.owncloud.android.ui.activity.UserInfoActivity.KEY_USER_DATA;
-import static com.owncloud.android.ui.adapter.UserListAdapter.KEY_DISPLAY_NAME;
-import static com.owncloud.android.ui.adapter.UserListAdapter.KEY_USER_INFO_REQUEST_CODE;
+import android.accounts.Account
+import android.accounts.AccountManager
+import android.accounts.AccountManagerCallback
+import android.accounts.AccountManagerFuture
+import android.accounts.OperationCanceledException
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.os.Bundle
+import android.os.Handler
+import android.view.MenuItem
+import android.view.View
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.VisibleForTesting
+import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.FragmentManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.common.collect.Sets
+import com.nextcloud.client.account.User
+import com.nextcloud.client.account.UserAccountManager
+import com.nextcloud.client.jobs.download.FileDownloadHelper
+import com.nextcloud.client.onboarding.FirstRunActivity
+import com.nextcloud.model.WorkerState
+import com.nextcloud.model.WorkerState.DownloadStarted
+import com.nextcloud.model.WorkerStateLiveData
+import com.nextcloud.utils.extensions.getParcelableArgument
+import com.nextcloud.utils.mdm.MDMConfig.multiAccountSupport
+import com.owncloud.android.MainApp
+import com.owncloud.android.R
+import com.owncloud.android.authentication.AuthenticatorActivity
+import com.owncloud.android.datamodel.ArbitraryDataProvider
+import com.owncloud.android.datamodel.ArbitraryDataProviderImpl
+import com.owncloud.android.datamodel.FileDataStorageManager
+import com.owncloud.android.lib.common.UserInfo
+import com.owncloud.android.lib.common.utils.Log_OC
+import com.owncloud.android.operations.DownloadFileOperation
+import com.owncloud.android.services.OperationsService.OperationsServiceBinder
+import com.owncloud.android.ui.adapter.UserListAdapter
+import com.owncloud.android.ui.adapter.UserListItem
+import com.owncloud.android.ui.dialog.AccountRemovalDialog.Companion.newInstance
+import com.owncloud.android.ui.events.AccountRemovedEvent
+import com.owncloud.android.ui.helpers.FileOperationsHelper
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * An Activity that allows the user to manage accounts.
  */
-public class ManageAccountsActivity extends FileActivity implements UserListAdapter.Listener,
-    AccountManagerCallback<Boolean>,
+class ManageAccountsActivity :
+    FileActivity(),
+    UserListAdapter.Listener,
+    AccountManagerCallback<Boolean?>,
     ComponentsGetter,
     UserListAdapter.ClickListener {
-    private static final String TAG = ManageAccountsActivity.class.getSimpleName();
 
-    public static final String KEY_ACCOUNT_LIST_CHANGED = "ACCOUNT_LIST_CHANGED";
-    public static final String KEY_CURRENT_ACCOUNT_CHANGED = "CURRENT_ACCOUNT_CHANGED";
-    public static final String PENDING_FOR_REMOVAL = UserAccountManager.PENDING_FOR_REMOVAL;
+    private var recyclerView: RecyclerView? = null
+    private val handler = Handler()
+    private var accountName: String? = null
+    private var userListAdapter: UserListAdapter? = null
+    private var originalUsers: Set<String>? = null
+    private var originalCurrentUser: String? = null
 
-    private static final int KEY_DELETE_CODE = 101;
-    private static final int SINGLE_ACCOUNT = 1;
-    private static final int MIN_MULTI_ACCOUNT_SIZE = 2;
+    private var multipleAccountsSupported = false
 
-    private RecyclerView recyclerView;
-    private final Handler handler = new Handler();
-    private String accountName;
-    private UserListAdapter userListAdapter;
-    private Set<String> originalUsers;
-    private String originalCurrentUser;
+    private var workerAccountName: String? = null
+    private var workerCurrentDownload: DownloadFileOperation? = null
 
-    private ArbitraryDataProvider arbitraryDataProvider;
-    private boolean multipleAccountsSupported;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-    private String workerAccountName;
-    private DownloadFileOperation workerCurrentDownload;
+        setContentView(R.layout.accounts_layout)
 
-    @Inject BackgroundJobManager backgroundJobManager;
-    @Inject UserAccountManager accountManager;
+        setupToolbar()
+        setupActionBar()
+        setupUsers()
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        @Suppress("DEPRECATION")
+        arbitraryDataProvider = ArbitraryDataProviderImpl(this)
+        multipleAccountsSupported = multiAccountSupport(this)
 
-        setContentView(R.layout.accounts_layout);
-
-        recyclerView = findViewById(R.id.account_list);
-
-        setupToolbar();
-
-        // set the back button from action bar
-        ActionBar actionBar = getSupportActionBar();
-
-        // check if is not null
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setDisplayShowHomeEnabled(true);
-            viewThemeUtils.files.themeActionBar(this, actionBar, R.string.prefs_manage_accounts);
-        }
-
-        List<User> users = accountManager.getAllUsers();
-        originalUsers = toAccountNames(users);
-
-        Optional<User> currentUser = getUser();
-        if (currentUser.isPresent()) {
-            originalCurrentUser = currentUser.get().getAccountName();
-        }
-
-        arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-        multipleAccountsSupported = MDMConfig.INSTANCE.multiAccountSupport(this);
-
-        userListAdapter = new UserListAdapter(this,
-                                              accountManager,
-                                              getUserListItems(),
-                                              this,
-                                              multipleAccountsSupported,
-                                              true,
-                                              true,
-                                              viewThemeUtils);
-
-        recyclerView.setAdapter(userListAdapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        observeWorkerState();
+        setupUserList()
+        handleOnBackPressed()
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == KEY_DELETE_CODE && data != null) {
-            Bundle bundle = data.getExtras();
-            if (bundle != null && bundle.containsKey(UserInfoActivity.KEY_ACCOUNT)) {
-                final Account account = BundleExtensionsKt.getParcelableArgument(bundle, UserInfoActivity.KEY_ACCOUNT, Account.class);
-                if (account != null) {
-                    User user = accountManager.getUser(account.name).orElseThrow(RuntimeException::new);
-                    accountName = account.name;
-                    performAccountRemoval(user);
-                }
+    private fun setupUsers() {
+        val users = accountManager.allUsers
+        originalUsers = toAccountNames(users)
+
+        user.ifPresent {
+            originalCurrentUser = user.get().accountName
+        }
+    }
+
+    private fun setupActionBar() {
+        supportActionBar?.let {
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowHomeEnabled(true)
+            viewThemeUtils.files.themeActionBar(this, it, R.string.prefs_manage_accounts)
+        }
+    }
+
+    private fun setupUserList() {
+        userListAdapter = UserListAdapter(
+            this,
+            accountManager,
+            userListItems,
+            this,
+            multipleAccountsSupported,
+            true,
+            true,
+            viewThemeUtils
+        )
+
+        recyclerView = findViewById(R.id.account_list)
+        recyclerView?.setAdapter(userListAdapter)
+        recyclerView?.setLayoutManager(LinearLayoutManager(this))
+        observeWorkerState()
+    }
+
+    @Deprecated("Use ActivityResultLauncher")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode != KEY_DELETE_CODE || data == null) {
+            return
+        }
+
+        val bundle = data.extras
+        if (bundle == null || !bundle.containsKey(UserInfoActivity.KEY_ACCOUNT)) {
+            return
+        }
+
+        val account = bundle.getParcelableArgument(UserInfoActivity.KEY_ACCOUNT, Account::class.java) ?: return
+        val user = accountManager.getUser(account.name).orElseThrow { RuntimeException() }
+        accountName = account.name
+        performAccountRemoval(user)
+    }
+
+    private fun handleOnBackPressed() {
+        onBackPressedDispatcher.addCallback(
+            this,
+            onBackPressedCallback
+        )
+    }
+
+    private val onBackPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val resultIntent = Intent()
+
+            if (accountManager.allUsers.size > 0) {
+                resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged())
+                resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged())
+                setResult(RESULT_OK, resultIntent)
+            } else {
+                val intent = Intent(this@ManageAccountsActivity, AuthenticatorActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+                startActivity(intent)
             }
-        }
-    }
 
-    @Override
-    public void onBackPressed() {
-        Intent resultIntent = new Intent();
-        if (accountManager.getAllUsers().size() > 0) {
-            resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, hasAccountListChanged());
-            resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, hasCurrentAccountChanged());
-            setResult(RESULT_OK, resultIntent);
-
-            super.onBackPressed();
-        } else {
-            final Intent intent = new Intent(this, AuthenticatorActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finish();
+            finish()
         }
     }
 
@@ -186,26 +178,18 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
      *
      * @return true if account list has changed, false if not
      */
-    private boolean hasAccountListChanged() {
-        List<User> users = accountManager.getAllUsers();
-        List<User> newList = new ArrayList<>();
-        for (User user : users) {
-            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(user, PENDING_FOR_REMOVAL);
+    private fun hasAccountListChanged(): Boolean {
+        val users = accountManager.allUsers
+        val newList: MutableList<User> = ArrayList()
+        for (user in users) {
+            val pendingForRemoval = arbitraryDataProvider.getBooleanValue(user, PENDING_FOR_REMOVAL)
 
             if (!pendingForRemoval) {
-                newList.add(user);
+                newList.add(user)
             }
         }
-        Set<String> actualAccounts = toAccountNames(newList);
-        return !originalUsers.equals(actualAccounts);
-    }
-
-    private static Set<String> toAccountNames(Collection<User> users) {
-        Set<String> accountNames = Sets.newHashSetWithExpectedSize(users.size());
-        for (User user : users) {
-            accountNames.add(user.getAccountName());
-        }
-        return accountNames;
+        val actualAccounts = toAccountNames(newList)
+        return originalUsers != actualAccounts
     }
 
     /**
@@ -213,262 +197,307 @@ public class ManageAccountsActivity extends FileActivity implements UserListAdap
      *
      * @return true if account list has changed, false if not
      */
-    private boolean hasCurrentAccountChanged() {
-        User user = getUserAccountManager().getUser();
-        if (user.isAnonymous()) {
-            return true;
+    private fun hasCurrentAccountChanged(): Boolean {
+        val user = userAccountManager.user
+        return if (user.isAnonymous) {
+            true
         } else {
-            return !user.getAccountName().equals(originalCurrentUser);
+            user.accountName != originalCurrentUser
         }
     }
 
-    private List<UserListItem> getUserListItems() {
-        List<User> users = accountManager.getAllUsers();
-        List<UserListItem> userListItems = new ArrayList<>(users.size());
-        for (User user : users) {
-            boolean pendingForRemoval = arbitraryDataProvider.getBooleanValue(user, PENDING_FOR_REMOVAL);
-            userListItems.add(new UserListItem(user, !pendingForRemoval));
-        }
-
-        if (MDMConfig.INSTANCE.multiAccountSupport(this)) {
-            userListItems.add(new UserListItem());
-        }
-
-        return userListItems;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        boolean retval = true;
-
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-        } else {
-            retval = super.onOptionsItemSelected(item);
-        }
-
-        return retval;
-    }
-
-    @Override
-    public void showFirstRunActivity() {
-        Intent firstRunIntent = new Intent(getApplicationContext(), FirstRunActivity.class);
-        firstRunIntent.putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true);
-        startActivity(firstRunIntent);
-    }
-
-    @Override
-    public void startAccountCreation() {
-        AccountManager am = AccountManager.get(getApplicationContext());
-        am.addAccount(MainApp.getAccountType(this),
-                      null,
-                      null,
-                      null,
-                      this,
-                      future -> {
-                          if (future != null) {
-                              try {
-                                  Bundle result = future.getResult();
-                                  String name = result.getString(AccountManager.KEY_ACCOUNT_NAME);
-                                  accountManager.setCurrentOwnCloudAccount(name);
-                                  userListAdapter = new UserListAdapter(
-                                      this,
-                                      accountManager,
-                                      getUserListItems(),
-                                      this,
-                                      multipleAccountsSupported,
-                                      false,
-                                      true,
-                                      viewThemeUtils);
-                                  recyclerView.setAdapter(userListAdapter);
-                                  runOnUiThread(() -> userListAdapter.notifyDataSetChanged());
-                              } catch (OperationCanceledException e) {
-                                  Log_OC.d(TAG, "Account creation canceled");
-                              } catch (Exception e) {
-                                  Log_OC.e(TAG, "Account creation finished in exception: ", e);
-                              }
-                          }
-                      }, handler);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onAccountRemovedEvent(AccountRemovedEvent event) {
-        List<UserListItem> userListItemArray = getUserListItems();
-        userListAdapter.clear();
-        userListAdapter.addAll(userListItemArray);
-        userListAdapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void run(AccountManagerFuture<Boolean> future) {
-        if (future.isDone()) {
-            // after remove account
-            Optional<User> user = accountManager.getUser(accountName);
-            if (!user.isPresent()) {
-                fileUploadHelper.cancel(accountName);
-                FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload);
+    private val userListItems: List<UserListItem>
+        get() {
+            val users = accountManager.allUsers
+            val userListItems: MutableList<UserListItem> =
+                ArrayList(users.size)
+            for (user in users) {
+                val pendingForRemoval =
+                    arbitraryDataProvider.getBooleanValue(user, PENDING_FOR_REMOVAL)
+                userListItems.add(UserListItem(user, !pendingForRemoval))
             }
 
-            User currentUser = getUserAccountManager().getUser();
-            if (currentUser.isAnonymous()) {
-                String accountName = "";
-                List<User> users = accountManager.getAllUsers();
-                if (users.size() > 0) {
-                    accountName = users.get(0).getAccountName();
+            if (multiAccountSupport(this)) {
+                userListItems.add(UserListItem())
+            }
+
+            return userListItems
+        }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var result = true
+
+        if (item.itemId == android.R.id.home) {
+            onBackPressed()
+        } else {
+            result = super.onOptionsItemSelected(item)
+        }
+
+        return result
+    }
+
+    override fun showFirstRunActivity() {
+        val intent = Intent(applicationContext, FirstRunActivity::class.java).apply {
+            putExtra(FirstRunActivity.EXTRA_ALLOW_CLOSE, true)
+        }
+        startActivity(intent)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    override fun startAccountCreation() {
+        val am = AccountManager.get(applicationContext)
+        am.addAccount(
+            MainApp.getAccountType(this),
+            null,
+            null,
+            null,
+            this,
+            { future: AccountManagerFuture<Bundle>? ->
+                if (future != null) {
+                    try {
+                        val result = future.result
+                        val name = result.getString(AccountManager.KEY_ACCOUNT_NAME)
+                        accountManager.setCurrentOwnCloudAccount(name)
+                        userListAdapter = UserListAdapter(
+                            this,
+                            accountManager,
+                            userListItems,
+                            this,
+                            multipleAccountsSupported,
+                            false,
+                            true,
+                            viewThemeUtils
+                        )
+                        recyclerView?.adapter = userListAdapter
+                        runOnUiThread { userListAdapter?.notifyDataSetChanged() }
+                    } catch (e: OperationCanceledException) {
+                        Log_OC.d(TAG, "Account creation canceled")
+                    } catch (e: Exception) {
+                        Log_OC.e(TAG, "Account creation finished in exception: ", e)
+                    }
                 }
-                accountManager.setCurrentOwnCloudAccount(accountName);
-            }
+            },
+            handler
+        )
+    }
 
-            List<UserListItem> userListItemArray = getUserListItems();
-            if (userListItemArray.size() > SINGLE_ACCOUNT) {
-                userListAdapter = new UserListAdapter(this,
-                                                      accountManager,
-                                                      userListItemArray,
-                                                      this,
-                                                      multipleAccountsSupported,
-                                                      false,
-                                                      true,
-                                                      viewThemeUtils);
-                recyclerView.setAdapter(userListAdapter);
-            } else {
-                onBackPressed();
+    @SuppressLint("NotifyDataSetChanged")
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    override fun onAccountRemovedEvent(event: AccountRemovedEvent) {
+        val userListItemArray = userListItems
+        userListAdapter?.clear()
+        userListAdapter?.addAll(userListItemArray)
+        userListAdapter?.notifyDataSetChanged()
+    }
+
+    override fun run(future: AccountManagerFuture<Boolean?>) {
+        if (!future.isDone) {
+            return
+        }
+
+        // after remove account
+        accountName?.let {
+            val user = accountManager.getUser(it)
+
+            if (!user.isPresent) {
+                fileUploadHelper.cancel(it)
+                FileDownloadHelper.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload)
             }
+        }
+
+        val currentUser = userAccountManager.user
+        if (currentUser.isAnonymous) {
+            var accountName = ""
+            val users = accountManager.allUsers
+            if (users.size > 0) {
+                accountName = users[0].accountName
+            }
+            accountManager.setCurrentOwnCloudAccount(accountName)
+        }
+
+        val userListItemArray = userListItems
+        if (userListItemArray.size > SINGLE_ACCOUNT) {
+            userListAdapter = UserListAdapter(
+                this,
+                accountManager,
+                userListItemArray,
+                this,
+                multipleAccountsSupported,
+                false,
+                true,
+                viewThemeUtils
+            )
+            recyclerView?.adapter = userListAdapter
+        } else {
+            onBackPressed()
         }
     }
 
-    public Handler getHandler() {
-        return handler;
+    override fun getHandler(): Handler {
+        return handler
     }
 
-    @Override
-    public OperationsService.OperationsServiceBinder getOperationsServiceBinder() {
-        return null;
+    override fun getOperationsServiceBinder(): OperationsServiceBinder? {
+        return null
     }
 
-    @Override
-    public FileDataStorageManager getStorageManager() {
-        return super.getStorageManager();
+    override fun getStorageManager(): FileDataStorageManager {
+        return super.getStorageManager()
     }
 
-    @Override
-    public FileOperationsHelper getFileOperationsHelper() {
-        return null;
+    override fun getFileOperationsHelper(): FileOperationsHelper? {
+        return null
     }
 
-    private void performAccountRemoval(User user) {
+    @Suppress("DEPRECATION")
+    @SuppressLint("NotifyDataSetChanged")
+    private fun performAccountRemoval(user: User) {
+        val itemCount = userListAdapter?.itemCount ?: 0
+
         // disable account in recycler view
-        for (int i = 0; i < userListAdapter.getItemCount(); i++) {
-            UserListItem item = userListAdapter.getItem(i);
+        for (i in 0 until itemCount) {
+            val item = userListAdapter?.getItem(i)
 
-            if (item != null && item.getUser().getAccountName().equalsIgnoreCase(user.getAccountName())) {
-                item.setEnabled(false);
-                break;
+            if (item != null && item.user.accountName.equals(user.accountName, ignoreCase = true)) {
+                item.isEnabled = false
+                break
             }
 
-            userListAdapter.notifyDataSetChanged();
+            userListAdapter?.notifyDataSetChanged()
         }
 
         // store pending account removal
-        ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(this);
-        arbitraryDataProvider.storeOrUpdateKeyValue(user.getAccountName(), PENDING_FOR_REMOVAL, String.valueOf(true));
+        val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(this)
+        arbitraryDataProvider.storeOrUpdateKeyValue(user.accountName, PENDING_FOR_REMOVAL, true.toString())
 
-        FileDownloadHelper.Companion.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload);
-        fileUploadHelper.cancel(user.getAccountName());
-        backgroundJobManager.startAccountRemovalJob(user.getAccountName(), false);
+        FileDownloadHelper.instance().cancelAllDownloadsForAccount(workerAccountName, workerCurrentDownload)
+        fileUploadHelper.cancel(user.accountName)
+        backgroundJobManager.startAccountRemovalJob(user.accountName, false)
 
         // immediately select a new account
-        List<User> users = accountManager.getAllUsers();
+        val users = accountManager.allUsers
 
-        String newAccountName = "";
-        for (User u : users) {
-            if (!u.getAccountName().equalsIgnoreCase(u.getAccountName())) {
-                newAccountName = u.getAccountName();
-                break;
+        var newAccountName = ""
+        for (u in users) {
+            if (!u.accountName.equals(u.accountName, ignoreCase = true)) {
+                newAccountName = u.accountName
+                break
             }
         }
 
         if (newAccountName.isEmpty()) {
-            Log_OC.d(TAG, "new account set to null");
-            accountManager.resetOwnCloudAccount();
+            Log_OC.d(TAG, "new account set to null")
+            accountManager.resetOwnCloudAccount()
         } else {
-            Log_OC.d(TAG, "new account set to: " + newAccountName);
-            accountManager.setCurrentOwnCloudAccount(newAccountName);
+            Log_OC.d(TAG, "new account set to: $newAccountName")
+            accountManager.setCurrentOwnCloudAccount(newAccountName)
         }
 
         // only one to be (deleted) account remaining
-        if (users.size() < MIN_MULTI_ACCOUNT_SIZE) {
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, true);
-            resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, true);
-            setResult(RESULT_OK, resultIntent);
+        if (users.size < MIN_MULTI_ACCOUNT_SIZE) {
+            val resultIntent = Intent()
+            resultIntent.putExtra(KEY_ACCOUNT_LIST_CHANGED, true)
+            resultIntent.putExtra(KEY_CURRENT_ACCOUNT_CHANGED, true)
+            setResult(RESULT_OK, resultIntent)
 
-            super.onBackPressed();
+            super.onBackPressed()
         }
     }
 
-    public static void openAccountRemovalDialog(User user, FragmentManager fragmentManager) {
-        AccountRemovalDialog dialog = AccountRemovalDialog.newInstance(user);
-        dialog.show(fragmentManager, "dialog");
+    @Suppress("DEPRECATION")
+    private fun openAccount(user: User) {
+        val intent = Intent(this, UserInfoActivity::class.java).apply {
+            putExtra(UserInfoActivity.KEY_ACCOUNT, user)
+
+            val oca = user.toOwnCloudAccount()
+            putExtra(UserListAdapter.KEY_DISPLAY_NAME, oca.displayName)
+        }
+
+        startActivityForResult(intent, UserListAdapter.KEY_USER_INFO_REQUEST_CODE)
     }
 
-    private void openAccount(User user) {
-        final Intent intent = new Intent(this, UserInfoActivity.class);
-        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
-        OwnCloudAccount oca = user.toOwnCloudAccount();
-        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-        startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
-    }
-
+    @Suppress("DEPRECATION")
     @VisibleForTesting
-    public void showUser(User user, UserInfo userInfo) {
-        final Intent intent = new Intent(this, UserInfoActivity.class);
-        OwnCloudAccount oca = user.toOwnCloudAccount();
-        intent.putExtra(UserInfoActivity.KEY_ACCOUNT, user);
-        intent.putExtra(KEY_DISPLAY_NAME, oca.getDisplayName());
-        intent.putExtra(KEY_USER_DATA, userInfo);
-        startActivityForResult(intent, KEY_USER_INFO_REQUEST_CODE);
+    fun showUser(user: User, userInfo: UserInfo?) {
+        val intent = Intent(this, UserInfoActivity::class.java).apply {
+            val oca = user.toOwnCloudAccount()
+            putExtra(UserInfoActivity.KEY_ACCOUNT, user)
+            putExtra(UserListAdapter.KEY_DISPLAY_NAME, oca.displayName)
+            putExtra(UserInfoActivity.KEY_USER_DATA, userInfo)
+        }
+
+        startActivityForResult(intent, UserListAdapter.KEY_USER_INFO_REQUEST_CODE)
     }
 
-    @Override
-    public void onOptionItemClicked(User user, View view) {
-        if (view.getId() == R.id.account_menu) {
-            PopupMenu popup = new PopupMenu(this, view);
-            popup.getMenuInflater().inflate(R.menu.item_account, popup.getMenu());
+    override fun onOptionItemClicked(user: User, view: View) {
+        if (view.id == R.id.account_menu) {
+            val popup = PopupMenu(this, view)
+            popup.menuInflater.inflate(R.menu.item_account, popup.menu)
 
-            if (accountManager.getUser().equals(user)) {
-                popup.getMenu().findItem(R.id.action_open_account).setVisible(false);
+            if (accountManager.user == user) {
+                popup.menu.findItem(R.id.action_open_account).setVisible(false)
             }
-            popup.setOnMenuItemClickListener(item -> {
-                int itemId = item.getItemId();
 
-                if (itemId == R.id.action_open_account) {
-                    accountClicked(user.hashCode());
-                } else if (itemId == R.id.action_delete_account) {
-                    openAccountRemovalDialog(user, getSupportFragmentManager());
-                } else {
-                    openAccount(user);
+            popup.setOnMenuItemClickListener { item: MenuItem ->
+                val itemId = item.itemId
+                when (itemId) {
+                    R.id.action_open_account -> {
+                        accountClicked(user.hashCode())
+                    }
+                    R.id.action_delete_account -> {
+                        openAccountRemovalDialog(user, supportFragmentManager)
+                    }
+                    else -> {
+                        openAccount(user)
+                    }
                 }
+                true
+            }
 
-                return true;
-            });
-            popup.show();
+            popup.show()
         } else {
-            openAccount(user);
+            openAccount(user)
         }
     }
 
-    private void observeWorkerState() {
-        WorkerStateLiveData.Companion.instance().observe(this, state -> {
-            if (state instanceof WorkerState.DownloadStarted) {
-                Log_OC.d(TAG, "Download worker started");
-                workerAccountName = ((WorkerState.DownloadStarted) state).getUser().getAccountName();
-                workerCurrentDownload = ((WorkerState.DownloadStarted) state).getCurrentDownload();
+    private fun observeWorkerState() {
+        WorkerStateLiveData.instance().observe(
+            this
+        ) { state: WorkerState? ->
+            if (state is DownloadStarted) {
+                Log_OC.d(TAG, "Download worker started")
+                workerAccountName = state.user?.accountName
+                workerCurrentDownload = state.currentDownload
             }
-        });
+        }
     }
 
-    @Override
-    public void onAccountClicked(User user) {
-        openAccount(user);
+    override fun onAccountClicked(user: User) {
+        openAccount(user)
+    }
+
+    companion object {
+        private val TAG: String = ManageAccountsActivity::class.java.simpleName
+
+        const val KEY_ACCOUNT_LIST_CHANGED: String = "ACCOUNT_LIST_CHANGED"
+        const val KEY_CURRENT_ACCOUNT_CHANGED: String = "CURRENT_ACCOUNT_CHANGED"
+        const val PENDING_FOR_REMOVAL: String = UserAccountManager.PENDING_FOR_REMOVAL
+
+        private const val KEY_DELETE_CODE = 101
+        private const val SINGLE_ACCOUNT = 1
+        private const val MIN_MULTI_ACCOUNT_SIZE = 2
+
+        private fun toAccountNames(users: Collection<User>): Set<String> {
+            val accountNames: MutableSet<String> = Sets.newHashSetWithExpectedSize(users.size)
+            for (user in users) {
+                accountNames.add(user.accountName)
+            }
+            return accountNames
+        }
+
+        fun openAccountRemovalDialog(user: User, fragmentManager: FragmentManager) {
+            val dialog = newInstance(user)
+            dialog.show(fragmentManager, "dialog")
+        }
     }
 }
