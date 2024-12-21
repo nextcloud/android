@@ -262,9 +262,10 @@ public abstract class DrawerActivity extends ToolbarActivity
                 if (this instanceof FileDisplayActivity fda) {
                     fda.browseToRoot();
                 }
+                EventBus.getDefault().post(new ChangeMenuEvent());
             } else if (menuItemId == R.id.nav_favorites) {
                 handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
-            } else if (menuItemId == R.id.nav_assistant) {
+            } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
                 startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
             } else if (menuItemId == R.id.nav_gallery) {
                 startPhotoSearch(menuItem.getItemId());
@@ -949,7 +950,7 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (bottomNavigationView != null) {
             MenuItem menuItem = bottomNavigationView.getMenu().findItem(menuItemId);
 
-            // Don't highlight assistant bottom navigation item because Assistant screen doesn't have bottom navigation bar
+            // Don't highlight assistant bottom navigation item because Assistant screen doesn't have same bottom navigation bar
             if (menuItem != null && !menuItem.isChecked() && menuItem.getItemId() != R.id.nav_assistant) {
                 menuItem.setChecked(true);
             }
