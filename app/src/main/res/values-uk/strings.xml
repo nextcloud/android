@@ -124,6 +124,7 @@
     <string name="bottom_navigation_menu_assistant_label">Помічник</string>
     <string name="bottom_navigation_menu_favorites_label">Із зірочкою</string>
     <string name="bottom_navigation_menu_files_label">Усі документи</string>
+    <string name="bottom_navigation_menu_media_label">Зображення та відео</string>
     <string name="brute_force_delay">Затримка в доступі через занадто багато неправильних спроб</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календарі</string>
