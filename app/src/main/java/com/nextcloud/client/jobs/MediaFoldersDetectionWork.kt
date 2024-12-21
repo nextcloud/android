@@ -41,7 +41,7 @@ import com.owncloud.android.datamodel.MediaFoldersModel
 import com.owncloud.android.datamodel.MediaProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.activity.ManageAccountsActivity.PENDING_FOR_REMOVAL
+import com.owncloud.android.ui.activity.ManageAccountsActivity
 import com.owncloud.android.ui.activity.SyncedFoldersActivity
 import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.SyncedFolderUtils
@@ -134,7 +134,7 @@ class MediaFoldersDetectionWork constructor(
                     val allUsers = userAccountManager.allUsers
                     val activeUsers: MutableList<User> = ArrayList()
                     for (user in allUsers) {
-                        if (!arbitraryDataProvider.getBooleanValue(user, PENDING_FOR_REMOVAL)) {
+                        if (!arbitraryDataProvider.getBooleanValue(user, ManageAccountsActivity.PENDING_FOR_REMOVAL)) {
                             activeUsers.add(user)
                         }
                     }
