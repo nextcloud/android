@@ -830,7 +830,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="share_permissions">Del Tilladelser</string>
     <string name="share_remote_clarification">%1$s (ekstern)</string>
     <string name="share_room_clarification">%1$s (samtale)</string>
-    <string name="share_search">Navn, Federated Cloud ID eller e-mailadresse…</string>
+    <string name="share_search">Navn, Føderalt cloud ID eller e-mailadresse…</string>
     <string name="share_send_new_email">Send ny email</string>
     <string name="share_send_note">Note til modtager</string>
     <string name="share_settings">Indstillinger</string>
@@ -889,6 +889,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="storage_permission_full_access">Fuld adgang</string>
     <string name="storage_permission_media_read_only">Læsebegrænset til medier</string>
     <string name="storage_pictures">Billeder</string>
+    <string name="store_full_desc">Den selv-hostede produktivitetsplatform som giver dig kontrollen.\n\nFunktioner:\n* Let, moderne interface, tilpasset til temaet på din server\n* Upload filer til din Nextcloud server\n* Del dem med andre\n* Hold dine favoritfiler og mapper synkroniserede\n* Søg på tværs af alle mapper på din server\n* Auto upload for billeder og videoer taget med dit apparat\n* Hold dig opdateret med notifikationer\n* Multi-konto understøttelse\n* Sikker adgang til dine data med fingeraftryk eller PIN\n* Integration med DAVx5 (tidligere kendt som DAVdroid) for let opsætning af kalender- og kontaktsynkronisering\n\nRapporter venligst alle problemer på https://github.com/nextcloud/android/issues og diskuter denne app på https://help.nextcloud.com/c/clients/android\n\nNy i forhol til Nextcloud? Nextcloud er en privat filsynkroniseringsis- delings- og kommunikationsserver. Det er gratis software, og du kan selv hoste det eller betale et firma for at gøre det for dig. På den måde har du fuldstændig kontrol over dine billeder, din kalender og dine kontaktdata, samt dine dokumenter og alt andet.\n\nTjek Nextcloud ud på https://nextcloud.com</string>
     <string name="store_full_dev_desc">Produktivitets platformen der giver dig fuld kontrol.\nDette er den officielle udvikler version som indeholder et dagligt udvalg af nye utestede funktioner der kan medføre ustabilitet og tab af data. Denne er app er kun til brugere villige til at teste og indrapportere fejl og mangler. Brug den ikke i dit produktionsmiljø!\n\nBåde den officielle udvikler og almindelige version er tilgængelig på F-droid og kan begge være installeret på samme tid.</string>
     <string name="store_short_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen.</string>
     <string name="store_short_dev_desc">Vært i eget hus produktivitets platform, hvor du bevarer kontrollen. (tidlig udviklingsversion)</string>
@@ -1087,7 +1088,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="whats_new_skip">Spring over</string>
     <string name="whats_new_title">Nyt i %1$s</string>
     <string name="whats_your_status">Hvad er din status</string>
-    <string name="widgets_not_available">Widgets er kun tilgængelige i %1$s 25 eller senere når Kontrolpanel app\'en er aktiveret</string>
+    <string name="widgets_not_available">Widgets er kun tilgængelige i %1$s 25 eller senere når kontrolpanel app\'en er aktiveret</string>
     <string name="widgets_not_available_title">Ikke tilgængelig</string>
     <string name="worker_download">Henter filer...</string>
     <string name="write_email">Send email</string>

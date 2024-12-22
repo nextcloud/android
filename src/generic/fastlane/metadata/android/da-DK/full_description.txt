@@ -1,18 +1,19 @@
-Produktivitets platformen der giver dig fuld kontrol.
-Features:
-* Simpelt, moderne interface skræddersyet efter dit server tema.
+Den selv-hostede produktivitetsplatform som giver dig kontrollen.
+
+Funktioner:
+* Let, moderne interface, tilpasset til temaet på din server
 * Upload filer til din Nextcloud server
 * Del dem med andre
-* Få dine favorit filer og mapper synkroniseret
-* Søg på tværs af alle dine mapper på din server
-* Auto upload fotos og videoer taget med din device
-* Vær up to date med notifikationer
-* Supporterer flere konti
+* Hold dine favoritfiler og mapper synkroniserede
+* Søg på tværs af alle mapper på din server
+* Auto upload for billeder og videoer taget med dit apparat
+* Hold dig opdateret med notifikationer
+* Multi-konto understøttelse
 * Sikker adgang til dine data med fingeraftryk eller PIN
-* Integration med DAVx5 (tidligere DAVdroid) for nem opsætning af kalender &Synkronisering af kontaker
+* Integration med DAVx5 (tidligere kendt som DAVdroid) for let opsætning af kalender- og kontaktsynkronisering
 
-Venligst rapporter alle fejl og mangler på https://github.com/nextcloud/android/issues og deltag i debat om denne app på https://help.nextcloud.com/c/clients/android
+Rapporter venligst alle problemer på https://github.com/nextcloud/android/issues og diskuter denne app på https://help.nextcloud.com/c/clients/android
 
-Første gang du prøver Nextcloud? Nextcloud er en privat fil synkroniserings- &, dele- og kommunikationsserver. Det er fri software, og du kan være din egen vært eller betale et firma for at være vært for dig. På den måde har du kontrol over dine photos, din kalender og kontakt data, dine dokumenter og alt det andet.
+Ny i forhol til Nextcloud? Nextcloud er en privat filsynkroniseringsis- delings- og kommunikationsserver. Det er gratis software, og du kan selv hoste det eller betale et firma for at gøre det for dig. På den måde har du fuldstændig kontrol over dine billeder, din kalender og dine kontaktdata, samt dine dokumenter og alt andet.
 
- Tjek Nextcloud på https://nextcloud.com
+Tjek Nextcloud ud på https://nextcloud.com
