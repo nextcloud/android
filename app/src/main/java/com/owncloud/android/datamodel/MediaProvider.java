@@ -161,9 +161,8 @@ public final class MediaProvider {
 
     private static void checkPermissions(@Nullable AppCompatActivity activity,
                                          final ViewThemeUtils viewThemeUtils) {
-        if (activity != null &&
-            !PermissionUtil.checkStoragePermission(activity.getApplicationContext())) {
-            PermissionUtil.requestStoragePermission(activity, viewThemeUtils, true);
+        if (activity != null) {
+            PermissionUtil.requestStoragePermissionIfNeeded(activity, viewThemeUtils, true);
         }
     }
 
