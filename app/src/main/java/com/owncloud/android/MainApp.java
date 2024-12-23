@@ -628,7 +628,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
         updateAutoUploadEntries(clock);
 
         if (getAppContext() != null) {
-            if (PermissionUtil.checkExternalStoragePermission(getAppContext())) {
+            if (PermissionUtil.checkStoragePermission(getAppContext())) {
                 splitOutAutoUploadEntries(clock, viewThemeUtils);
             } else {
                 preferences.setAutoUploadSplitEntriesEnabled(true);
