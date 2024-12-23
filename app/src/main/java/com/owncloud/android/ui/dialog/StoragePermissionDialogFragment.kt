@@ -23,15 +23,10 @@ import com.owncloud.android.utils.PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-/**
- * Dialog that shows permission options in SDK >= 30
- *
- * Allows choosing "full access" (MANAGE_ALL_FILES) or "read-only media" (READ_EXTERNAL_STORAGE)
- */
 @RequiresApi(Build.VERSION_CODES.R)
 class StoragePermissionDialogFragment : DialogFragment(), Injectable {
 
-    private var permissionRequired = false
+    private var showStrictText = false
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -39,7 +34,7 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            permissionRequired = it.getBoolean(ARG_PERMISSION_REQUIRED, false)
+            showStrictText = it.getBoolean(ARG_SHOW_STRICT_TEXT, false)
         }
     }
 
@@ -61,11 +56,11 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val title = when {
-            permissionRequired -> R.string.file_management_permission
+            showStrictText -> R.string.file_management_permission
             else -> R.string.file_management_permission_optional
         }
         val explanationResource = when {
-            permissionRequired -> R.string.file_management_permission_text
+            showStrictText -> R.string.file_management_permission_text
             else -> R.string.file_management_permission_optional_text
         }
         val message = getString(explanationResource, getString(R.string.app_name))
@@ -102,22 +97,21 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
         activity?.let {
             PermissionUtil.showStoragePermissionsSnackbarOrRequest(
                 activity = it,
-                readOnly = true,
                 viewThemeUtils = viewThemeUtils
             )
         }
     }
 
     companion object {
-        private const val ARG_PERMISSION_REQUIRED = "ARG_PERMISSION_REQUIRED"
+        private const val ARG_SHOW_STRICT_TEXT = "ARG_SHOW_STRICT_TEXT"
 
         /**
-         * @param permissionRequired Whether the permission is absolutely required by the calling component.
+         * @param showStrictText Whether the permission is absolutely required by the calling component.
          * This changes the texts to a more strict version.
          */
-        fun newInstance(permissionRequired: Boolean): StoragePermissionDialogFragment {
+        fun newInstance(showStrictText: Boolean): StoragePermissionDialogFragment {
             return StoragePermissionDialogFragment().apply {
-                arguments = bundleOf(ARG_PERMISSION_REQUIRED to permissionRequired)
+                arguments = bundleOf(ARG_SHOW_STRICT_TEXT to showStrictText)
             }
         }
     }
