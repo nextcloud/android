@@ -191,7 +191,7 @@ class SyncedFoldersActivity :
             setTheme(R.style.FallbackThemingTheme)
         }
         binding.emptyList.emptyListViewAction.setOnClickListener { showHiddenItems() }
-        PermissionUtil.requestStoragePermission(this, viewThemeUtils, true)
+        PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils, true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -548,7 +548,7 @@ class SyncedFoldersActivity :
                     )
                     onSyncFolderSettingsClick(0, emptyCustomFolder)
                 } else {
-                    PermissionUtil.requestStoragePermission(this, viewThemeUtils, true)
+                    PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils, true)
                 }
                 result = super.onOptionsItemSelected(item)
             }
