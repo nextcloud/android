@@ -111,7 +111,7 @@ object PermissionUtil {
      */
     @JvmStatic
     @JvmOverloads
-    fun requestStoragePermission(
+    fun requestStoragePermissionIfNeeded(
         activity: AppCompatActivity,
         viewThemeUtils: ViewThemeUtils,
         permissionRequired: Boolean = false
