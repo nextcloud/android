@@ -10,7 +10,6 @@ package com.owncloud.android.ui.dialog
 import android.app.Dialog
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
@@ -19,8 +18,9 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
+import com.owncloud.android.utils.PermissionUtil
+import com.owncloud.android.utils.PermissionUtil.REQUEST_CODE_MANAGE_ALL_FILES
 import com.owncloud.android.utils.theme.ViewThemeUtils
-import kotlinx.parcelize.Parcelize
 import javax.inject.Inject
 
 /**
@@ -74,15 +74,14 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
             .setTitle(title)
             .setMessage(message)
             .setPositiveButton(R.string.storage_permission_full_access) { _, _ ->
-                setResult(Result.FULL_ACCESS)
+                requestManageAllFiles()
                 dismiss()
             }
             .setNegativeButton(R.string.storage_permission_media_read_only) { _, _ ->
-                setResult(Result.MEDIA_READ_ONLY)
+                requestMediaReadOnly()
                 dismiss()
             }
             .setNeutralButton(R.string.common_cancel) { _, _ ->
-                setResult(Result.CANCEL)
                 dismiss()
             }
 
@@ -91,21 +90,26 @@ class StoragePermissionDialogFragment : DialogFragment(), Injectable {
         return dialogBuilder.create()
     }
 
-    private fun setResult(result: Result) {
-        parentFragmentManager.setFragmentResult(REQUEST_KEY, bundleOf(RESULT_KEY to result))
+    @Suppress("DEPRECATION")
+    private fun requestManageAllFiles() {
+        activity?.let {
+            val intent = PermissionUtil.getManageAllFilesIntent(it)
+            it.startActivityForResult(intent, REQUEST_CODE_MANAGE_ALL_FILES)
+        }
     }
 
-    @Parcelize
-    enum class Result : Parcelable {
-        CANCEL,
-        FULL_ACCESS,
-        MEDIA_READ_ONLY
+    private fun requestMediaReadOnly() {
+        activity?.let {
+            PermissionUtil.showStoragePermissionsSnackbarOrRequest(
+                activity = it,
+                readOnly = true,
+                viewThemeUtils = viewThemeUtils
+            )
+        }
     }
 
     companion object {
         private const val ARG_PERMISSION_REQUIRED = "ARG_PERMISSION_REQUIRED"
-        const val REQUEST_KEY = "REQUEST_KEY_STORAGE_PERMISSION"
-        const val RESULT_KEY = "RESULT"
 
         /**
          * @param permissionRequired Whether the permission is absolutely required by the calling component.
