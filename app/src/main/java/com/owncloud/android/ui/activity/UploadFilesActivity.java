@@ -259,7 +259,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void requestPermissions() {
-        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true);
+        PermissionUtil.requestStoragePermission(this, viewThemeUtils, true);
     }
 
     public void showToolbarSpinner() {
@@ -319,7 +319,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
     }
 
     private void checkLocalStoragePathPickerPermission() {
-        if (!PermissionUtil.checkExternalStoragePermission(this)) {
+        if (!PermissionUtil.checkStoragePermission(this)) {
             requestPermissions();
         } else {
             showLocalStoragePathPickerDialog();
@@ -628,7 +628,7 @@ public class UploadFilesActivity extends DrawerActivity implements LocalFileList
             finish();
 
         } else if (v.getId() == R.id.upload_files_btn_upload) {
-            if (PermissionUtil.checkExternalStoragePermission(this)) {
+            if (PermissionUtil.checkStoragePermission(this)) {
                 if (mCurrentDir != null) {
                     preferences.setUploadFromLocalLastPath(mCurrentDir.getAbsolutePath());
                 }
