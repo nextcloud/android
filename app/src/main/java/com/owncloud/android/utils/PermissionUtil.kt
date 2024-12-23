@@ -132,11 +132,7 @@ object PermissionUtil {
         }
     }
 
-    fun showStoragePermissionsSnackbarOrRequest(
-        activity: Activity,
-        readOnly: Boolean,
-        viewThemeUtils: ViewThemeUtils
-    ) {
+    fun showStoragePermissionsSnackbarOrRequest(activity: Activity, readOnly: Boolean, viewThemeUtils: ViewThemeUtils) {
         val permissions = getStoragePermissions(readOnly)
 
         if (permissions.any { shouldShowRequestPermissionRationale(activity, it) }) {
@@ -146,19 +142,15 @@ object PermissionUtil {
         }
     }
 
-    private fun getStoragePermissions(readOnly: Boolean): Array<String> {
-        return if (readOnly && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                arrayOf(
-                    Manifest.permission.READ_MEDIA_IMAGES,
-                    Manifest.permission.READ_MEDIA_VIDEO
-                )
-            } else {
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-            }
-        } else {
-            arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-        }
+    private fun getStoragePermissions(readOnly: Boolean) = when {
+        readOnly && Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU -> arrayOf(
+            Manifest.permission.READ_MEDIA_IMAGES,
+            Manifest.permission.READ_MEDIA_VIDEO
+        )
+        readOnly && Build.VERSION.SDK_INT >= Build.VERSION_CODES.R -> arrayOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        else -> arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE)
     }
 
     private fun requestPermissions(activity: Activity, permissions: Array<String>) {
@@ -203,10 +195,7 @@ object PermissionUtil {
     }
 
     @RequiresApi(Build.VERSION_CODES.R)
-    private fun showStoragePermissionDialogFragment(
-        activity: AppCompatActivity,
-        permissionRequired: Boolean
-    ) {
+    private fun showStoragePermissionDialogFragment(activity: AppCompatActivity, permissionRequired: Boolean) {
         activity.runOnUiThread {
             // Check if the dialog is already added to the FragmentManager.
             val existingDialog = activity.supportFragmentManager.findFragmentByTag(PERMISSION_CHOICE_DIALOG_TAG)
