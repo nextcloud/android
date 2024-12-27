@@ -11,7 +11,7 @@ libraryHash=$(grep androidLibraryVersion build.gradle | cut -d= -f2 | tr -d \")
 target=$(curl https://api.github.com/repos/nextcloud/android-library/commits/$libraryHash/pulls | jq ".[] .base.ref")
 merged_at=$(curl https://api.github.com/repos/nextcloud/android-library/commits/$libraryHash/pulls | jq ".[] .merged_at")
 
-if [[ $target != "master" -o $merget_at == "null" ]]; then
+if [[ $target != "master" ]] -o [[ $merget_at == "null" ]]; then
     echo "Library commit wrong!"
     exit 1
 fi
