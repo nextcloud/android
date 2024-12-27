@@ -9,9 +9,9 @@ betaCount=$(grep "<bool name=\"is_beta\">true</bool>" app/src/main/res/values/se
 libraryHash=$(grep androidLibraryVersion build.gradle | cut -d= -f2 | tr -d \")
 
 target=$(curl https://api.github.com/repos/nextcloud/android-library/commits/$libraryHash/pulls | jq ".[] .base.ref" | tr -d \")
-merged_at=$(curl https://api.github.com/repos/nextcloud/android-library/commits/$libraryHash/pulls | jq ".[] .merged_at" | tr -d\")
+merged_at=$(curl https://api.github.com/repos/nextcloud/android-library/commits/$libraryHash/pulls | jq ".[] .merged_at" | tr -d \")
 
-if [[ $target != "master" ]] -o [[ -z $merget_at  ]]; then
+if [[ $target != "master" ]] || [[ -z $merged_at  ]]; then
     echo "Library commit wrong!"
     exit 1
 fi
