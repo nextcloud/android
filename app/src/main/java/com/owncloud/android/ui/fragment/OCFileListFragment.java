@@ -132,7 +132,6 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.RejectedExecutionException;
 
 import javax.inject.Inject;
 
@@ -491,6 +490,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // is not available in FolderPickerActivity
             viewThemeUtils.material.themeFAB(mFabMain);
             mFabMain.setOnClickListener(v -> {
+                PermissionUtil.requestMediaLocationPermission(activity);
+
+
                 final OCFileListBottomSheetDialog dialog =
                     new OCFileListBottomSheetDialog(activity,
                                                     this,
