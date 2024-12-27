@@ -39,6 +39,7 @@ object PermissionUtil {
     const val PERMISSIONS_READ_CALENDAR_AUTOMATIC = 6
     const val PERMISSIONS_WRITE_CALENDAR = 7
     const val PERMISSIONS_POST_NOTIFICATIONS = 8
+    const val PERMISSIONS_MEDIA_LOCATION = 9
 
     const val REQUEST_CODE_MANAGE_ALL_FILES = 19203
 
@@ -297,6 +298,25 @@ object PermissionUtil {
                 ActivityCompat.requestPermissions(
                     activity,
                     arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    PERMISSIONS_POST_NOTIFICATIONS
+                )
+            }
+        }
+    }
+
+    /**
+     * Request media location permission. Required on API level >= 34.
+     * Does not have any effect on API level < 34.
+     *
+     * @param activity target activity
+     */
+    @JvmStatic
+    fun requestMediaLocationPermission(activity: Activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (!checkSelfPermission(activity, Manifest.permission.ACCESS_MEDIA_LOCATION)) {
+                ActivityCompat.requestPermissions(
+                    activity,
+                    arrayOf(Manifest.permission.ACCESS_MEDIA_LOCATION),
                     PERMISSIONS_POST_NOTIFICATIONS
                 )
             }
