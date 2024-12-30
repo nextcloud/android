@@ -81,6 +81,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.FutureTask;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -109,6 +112,7 @@ public class FileDataStorageManager {
     private final FileDao fileDao = NextcloudDatabase.getInstance(MainApp.getAppContext()).fileDao();
     private final Gson gson = new Gson();
     public final OfflineOperationsRepositoryType offlineOperationsRepository;
+    private final ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public FileDataStorageManager(User user, ContentResolver contentResolver) {
         this.contentProviderClient = null;
@@ -524,42 +528,54 @@ public class FileDataStorageManager {
      * @return the parent file
      */
     public OCFile saveFileWithParent(OCFile ocFile, Context context) {
-        if (ocFile.getParentId() == 0 && !OCFile.ROOT_PATH.equals(ocFile.getRemotePath())) {
-            String remotePath = ocFile.getRemotePath();
-            String parentPath = remotePath.substring(0, remotePath.lastIndexOf(ocFile.getFileName()));
+        try {
+            FutureTask<OCFile> task = new FutureTask<>(() -> {
+                if (ocFile.getParentId() == 0 && !OCFile.ROOT_PATH.equals(ocFile.getRemotePath())) {
+                    String remotePath = ocFile.getRemotePath();
+                    String parentPath = remotePath.substring(0, remotePath.lastIndexOf(ocFile.getFileName()));
 
-            OCFile parentFile = getFileByPath(parentPath);
-            OCFile returnFile;
+                    OCFile parentFile = getFileByPath(parentPath);
+                    OCFile returnFile;
 
-            if (parentFile == null) {
-                // remote request
-                ReadFileRemoteOperation operation = new ReadFileRemoteOperation(parentPath);
-                // TODO Deprecated
-                RemoteOperationResult result = operation.execute(getUser(), context);
-                if (result.isSuccess()) {
-                    OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
+                    if (parentFile == null) {
+                        // remote request
+                        ReadFileRemoteOperation operation = new ReadFileRemoteOperation(parentPath);
+                        // TODO Deprecated
+                        RemoteOperationResult result = operation.execute(getUser(), context);
+                        if (result.isSuccess()) {
+                            OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
 
-                    returnFile = saveFileWithParent(remoteFolder, context);
-                } else {
-                    Exception exception = result.getException();
-                    String message = "Error during saving file with parents: " + ocFile.getRemotePath() + " / "
-                        + result.getLogMessage();
+                            returnFile = saveFileWithParent(remoteFolder, context);
+                        } else {
+                            Exception exception = result.getException();
+                            String message = "Error during saving file with parents: " + ocFile.getRemotePath() + " / "
+                                + result.getLogMessage();
 
-                    if (exception != null) {
-                        throw new RemoteOperationFailedException(message, exception);
+                            if (exception != null) {
+                                throw new RemoteOperationFailedException(message, exception);
+                            } else {
+                                throw new RemoteOperationFailedException(message);
+                            }
+                        }
                     } else {
-                        throw new RemoteOperationFailedException(message);
+                        returnFile = saveFileWithParent(parentFile, context);
                     }
+
+                    ocFile.setParentId(returnFile.getFileId());
+                    saveFile(ocFile);
                 }
-            } else {
-                returnFile = saveFileWithParent(parentFile, context);
-            }
 
-            ocFile.setParentId(returnFile.getFileId());
-            saveFile(ocFile);
+                return ocFile;
+            });
+
+            Thread thread = new Thread(task);
+            thread.start();
+
+            return task.get();
+        } catch (Exception e) {
+            Log_OC.d(TAG,"Exception caught at saveFileWithParent: " + e);
+            return null;
         }
-
-        return ocFile;
     }
 
     public static void clearTempEncryptedFolder(String accountName) {
