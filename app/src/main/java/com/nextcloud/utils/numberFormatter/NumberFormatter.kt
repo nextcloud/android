@@ -11,6 +11,8 @@ import java.text.NumberFormat
 import java.util.Locale
 
 object NumberFormatter {
+
+    @Suppress("MagicNumber")
     fun getPercentageText(percent: Int): String {
         val formatter = NumberFormat.getPercentInstance(Locale.getDefault())
         formatter.maximumFractionDigits = 0
