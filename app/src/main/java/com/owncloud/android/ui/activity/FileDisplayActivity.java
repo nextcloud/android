@@ -2037,6 +2037,9 @@ public class FileDisplayActivity extends FileActivity
      * @param ignoreFocus reloads file list even without focus, e.g. on tablet mode, focus can still be in detail view
      */
     public void startSyncFolderOperation(final OCFile folder, final boolean ignoreETag, boolean ignoreFocus) {
+        if (folder == null) {
+            return;
+        }
 
         // the execution is slightly delayed to allow the activity get the window focus if it's being started
         // or if the method is called from a dialog that is being dismissed
