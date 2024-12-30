@@ -111,7 +111,7 @@ class FileDownloadWorker(
 
     private var downloadError: FileDownloadError? = null
 
-    @Suppress("TooGenericExceptionCaught")
+    @Suppress("TooGenericExceptionCaught", "ReturnCount")
     override suspend fun doWork(): Result {
         val foregroundInfo = createWorkerForegroundInfo()
         setForeground(foregroundInfo)
