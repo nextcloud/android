@@ -10,3 +10,4 @@ contact_links:
     - name: 💼 Nextcloud Enterprise
       url: https://portal.nextcloud.com/
       about: If you are a Nextcloud Enterprise customer, or need Professional support, so it can be resolved directly by our dedicated engineers more quickly
+blank_issues_enabled: false
