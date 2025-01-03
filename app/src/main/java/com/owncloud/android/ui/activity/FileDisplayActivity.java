@@ -411,7 +411,7 @@ public class FileDisplayActivity extends FileActivity
                 if (dialog != null && dialog.isShowing()) {
                     dialog.dismiss();
                     getSupportFragmentManager().beginTransaction().remove(fragment).commitNowAllowingStateLoss();
-                    PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
+                    PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils);
                 }
             }
         }
@@ -427,7 +427,7 @@ public class FileDisplayActivity extends FileActivity
             // storage permissions handled in onRequestPermissionsResult
             PermissionUtil.requestNotificationPermission(this);
         } else {
-            PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
+            PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils);
         }
 
         if (IntentExtensionsKt.getParcelableArgument(getIntent(), OCFileListFragment.SEARCH_EVENT, SearchEvent.class) != null) {
@@ -504,7 +504,7 @@ public class FileDisplayActivity extends FileActivity
             case PermissionUtil.PERMISSIONS_POST_NOTIFICATIONS:
                 // handle notification permission on API level >= 33
                 // dialogue was dismissed -> prompt for storage permissions
-                PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
+                PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils);
                 break;
             case PermissionUtil.PERMISSIONS_EXTERNAL_STORAGE:
                 // If request is cancelled, result arrays are empty.
