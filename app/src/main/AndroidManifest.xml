@@ -47,6 +47,7 @@
     <uses-permission
         android:name="com.android.launcher.permission.INSTALL_SHORTCUT"
         android:maxSdkVersion="25" />
+    <uses-permission android:name="android.permission.ACCESS_MEDIA_LOCATION" />
     <!--
  Apps that target Android 9 (API level 28) or higher and use foreground services
     must request the FOREGROUND_SERVICE permission
