@@ -92,7 +92,7 @@ public class SyncedFoldersActivityIT extends AbstractIT {
 
         AlertDialog sut = activity.buildPowerCheckDialog();
         
-        activity.runOnUiThread(sut::show);
+        activity.runOnUiThread(activity::showPowerCheckDialog);
         
         getInstrumentation().waitForIdleSync();
         shortSleep();
