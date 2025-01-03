@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Brána proxy</string>
     <string name="app_widget_description">Zobrazí jeden widget z hlavného panela</string>
     <string name="appbar_search_in">Hľadať v %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Pridať novú úlohu</string>
     <string name="assistant_screen_all_task_type">Všetko</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Napíšte nejaký text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Naozaj chcete vymazať túto úlohu?</string>
