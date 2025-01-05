@@ -416,6 +416,7 @@
     <string name="file_migration_failed_not_writable">Kunde inte skriva till destinationsfilen</string>
     <string name="file_migration_failed_while_coping">Misslyckades under migrationen</string>
     <string name="file_migration_failed_while_updating_index">Misslyckades med indexuppdatering</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Flyttar data…</string>
     <string name="file_migration_ok_finished">Slutförd</string>
     <string name="file_migration_override_data_folder">Ersätt</string>
