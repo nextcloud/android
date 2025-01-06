@@ -103,6 +103,8 @@
     <string name="authenticator_activity_login_error">Un problème est survenu lors du traitement de votre demande de connexion. Veuillez réessayer plus tard.</string>
     <string name="authenticator_activity_please_complete_login_process">Veuillez finaliser la connexion dans votre navigateur</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
+    <string name="auto_upload_gplay">Le comportement du téléversement automatique a changé</string>
+    <string name="auto_upload_gplay_desc">À cause de nouvelles restrictions imposées par Google, la fonctionnalité de téléversement automatique ne pourra plus automatiquement supprimer les fichiers téléversés.</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/TéléversementAuto</string>
     <string name="autoupload_configure">Configurer</string>
@@ -118,6 +120,10 @@
     <string name="battery_optimization_disable">Désactiver</string>
     <string name="battery_optimization_message">L\'optimisation de la batterie est peut-être active sur votre appareil. Le téléversement automatique ne fonctionne correctement que si vous excluez cette application de l\'optimisation.</string>
     <string name="battery_optimization_title">Optimisation de la batterie</string>
+    <string name="bottom_navigation_menu_assistant_label">Assistant</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoris</string>
+    <string name="bottom_navigation_menu_files_label">Tous les fichiers</string>
+    <string name="bottom_navigation_menu_media_label">Médias</string>
     <string name="brute_force_delay">Retardé à cause de trop d\'essais infructueux</string>
     <string name="calendar">Agenda</string>
     <string name="calendars">Agendas</string>
@@ -150,6 +156,7 @@
     <string name="common_loading">Chargement…</string>
     <string name="common_next">Suivant</string>
     <string name="common_no">Non</string>
+    <string name="common_now">Maintenant</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">En attente</string>
     <string name="common_remove">Supprimer</string>
@@ -755,6 +762,7 @@
     <string name="restore">Restaurer le fichier</string>
     <string name="restore_backup">Restaurer une sauvegarde</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>
+    <string name="restore_item">Restaurer</string>
     <string name="restore_selected">Restaurer la sélection</string>
     <string name="retrieving_file">Téléchargement en cours…</string>
     <string name="retry">Réessayer</string>

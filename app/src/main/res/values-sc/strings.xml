@@ -85,6 +85,9 @@
     <string name="battery_optimization_disable">Disativa</string>
     <string name="battery_optimization_message">Forsis su dispositivu tuo tenet s\'otimizatzione de sa bateria ativada. S\'AutoCarrigamentu funtzionat isceti si nch\'escludes custa aplicatzione.</string>
     <string name="battery_optimization_title">Otimizatzione de bateria</string>
+    <string name="bottom_navigation_menu_favorites_label">Preferidos</string>
+    <string name="bottom_navigation_menu_files_label">Totu is archìvios</string>
+    <string name="bottom_navigation_menu_media_label">Elementos multimediales</string>
     <string name="brute_force_delay">Lassadu a coa pro tropu proas faddidas</string>
     <string name="calendar">Calendàriu</string>
     <string name="calendars">Calendàrios</string>
@@ -574,6 +577,7 @@
     <string name="resized_image_not_possible_download">Impossìbile a modificare sa mannària de s\'immàgine. Dda boles iscarrigare intrea?</string>
     <string name="restore">Recùpera documentu</string>
     <string name="restore_button_description">Recùpera su documentu cantzelladu</string>
+    <string name="restore_item">Riprìstina</string>
     <string name="restore_selected">Recùpera sa seletzione</string>
     <string name="retrieving_file">Recuperende su documentu…</string>
     <string name="richdocuments_failed_to_load_document">No at fatu a carrigare su documentu!</string>

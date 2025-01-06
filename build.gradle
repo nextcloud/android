@@ -10,13 +10,13 @@
  */
 buildscript {
     ext {
-        androidLibraryVersion ="406b50853375215998190d661110ae8c881a054e"
+        androidLibraryVersion ="856c2516c6dd92058535d726ab55f0aef19ee089"
         androidPluginVersion = '8.7.3'
-        androidxMediaVersion = '1.4.1'
+        androidxMediaVersion = '1.5.1'
         androidxTestVersion = "1.6.1"
         appCompatVersion = '1.7.0'
         checkerVersion = "3.21.2"
-        daggerVersion = "2.52"
+        daggerVersion = "2.54"
         documentScannerVersion = "1.1.1"
         espressoVersion = "3.6.1"
         jacoco_version = '0.8.12'
@@ -27,7 +27,7 @@ buildscript {
         mockkVersion = "1.13.13"
         prismVersion = "2.0.0"
         roomVersion = "2.6.1"
-        workRuntime = "2.9.1"
+        workRuntime = "2.10.0"
 
         ciBuild = System.getenv("CI") == "true"
         shotTest = System.getenv("SHOT_TEST") == "true"
@@ -37,9 +37,9 @@ buildscript {
 subprojects {
     buildscript {
         repositories {
-            gradlePluginPortal()
             google()
             mavenCentral()
+            gradlePluginPortal()
         }
     }
     repositories {

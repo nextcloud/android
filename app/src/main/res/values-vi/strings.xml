@@ -82,6 +82,9 @@
     <string name="battery_optimization_disable">Tắt</string>
     <string name="battery_optimization_message">Thiết bị của bạn có thể đã bật tính năng tối ưu hóa pin. AutoUpload chỉ hoạt động bình thường nếu bạn loại trừ ứng dụng này khỏi nó.</string>
     <string name="battery_optimization_title">Tối ưu hoá pin</string>
+    <string name="bottom_navigation_menu_favorites_label">Ưa thích</string>
+    <string name="bottom_navigation_menu_files_label">Tất cả tệp tin</string>
+    <string name="bottom_navigation_menu_media_label">Phương tiện</string>
     <string name="brute_force_delay">Đã bị trì hoãn vì quá nhiều lần thử sai</string>
     <string name="calendar">Lịch</string>
     <string name="calendars">Lịch</string>
@@ -592,6 +595,7 @@
     <string name="restore">Khôi phục tệp</string>
     <string name="restore_backup">Khôi phục bản sao lưu</string>
     <string name="restore_button_description">Khôi phục tệp đã xóa</string>
+    <string name="restore_item">Khôi phục</string>
     <string name="restore_selected">Khôi phục mục đã chọn</string>
     <string name="retrieving_file">Đang truy xuất tệp…</string>
     <string name="retry">Thử lại</string>

@@ -46,6 +46,7 @@ import com.bumptech.glide.load.model.StreamEncoder;
 import com.bumptech.glide.load.resource.file.FileToStreamDecoder;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
@@ -123,6 +124,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import hct.Hct;
 
 import static com.nextcloud.utils.extensions.DrawerActivityExtensionsKt.getMenuItemIdFromTitle;
@@ -155,7 +157,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     /**
      * Reference to the navigation view.
      */
-    private NavigationView mNavigationView;
+    private NavigationView drawerNavigationView;
 
     /**
      * Reference to the navigation view header.
@@ -196,6 +198,8 @@ public abstract class DrawerActivity extends ToolbarActivity
     private ExternalLinksProvider externalLinksProvider;
     private ArbitraryDataProvider arbitraryDataProvider;
 
+    private BottomNavigationView bottomNavigationView;
+
     @Inject
     AppPreferences preferences;
 
@@ -208,14 +212,14 @@ public abstract class DrawerActivity extends ToolbarActivity
     protected void setupDrawer() {
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        mNavigationView = findViewById(R.id.nav_view);
-        if (mNavigationView != null) {
+        drawerNavigationView = findViewById(R.id.nav_view);
+        if (drawerNavigationView != null) {
 
             // Setting up drawer header
-            mNavigationViewHeader = mNavigationView.getHeaderView(0);
+            mNavigationViewHeader = drawerNavigationView.getHeaderView(0);
             updateHeader();
 
-            setupDrawerMenu(mNavigationView);
+            setupDrawerMenu(drawerNavigationView);
             getAndDisplayUserQuota();
             setupQuotaElement();
         }
@@ -225,6 +229,57 @@ public abstract class DrawerActivity extends ToolbarActivity
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        if (bottomNavigationView != null) {
+            themeBottomNavigationMenu();
+            checkAssistantBottomNavigationMenu();
+            handleBottomNavigationViewClicks();
+        }
+    }
+
+    private void themeBottomNavigationMenu() {
+        viewThemeUtils.platform.colorBottomNavigationView(bottomNavigationView);
+    }
+
+    @SuppressFBWarnings("RV")
+    private void checkAssistantBottomNavigationMenu() {
+        boolean isAssistantAvailable = getCapabilities().getAssistant().isTrue();
+
+        bottomNavigationView
+            .getMenu()
+            .findItem(R.id.nav_assistant)
+            .setVisible(isAssistantAvailable);
+    }
+
+    @SuppressFBWarnings("RV")
+    private void handleBottomNavigationViewClicks() {
+        bottomNavigationView.setOnItemSelectedListener(menuItem -> {
+            menuItemId = menuItem.getItemId();
+
+            if (menuItemId == R.id.nav_all_files) {
+                showFiles(false,false);
+                if (this instanceof FileDisplayActivity fda) {
+                    fda.browseToRoot();
+                }
+                EventBus.getDefault().post(new ChangeMenuEvent());
+            } else if (menuItemId == R.id.nav_favorites) {
+                handleSearchEvents(new SearchEvent("", SearchRemoteOperation.SearchType.FAVORITE_SEARCH), menuItemId);
+            } else if (menuItemId == R.id.nav_assistant && !(this instanceof ComposeActivity)) {
+                startComposeActivity(ComposeDestination.AssistantScreen, R.string.assistant_screen_top_bar_title);
+            } else if (menuItemId == R.id.nav_gallery) {
+                startPhotoSearch(menuItem.getItemId());
+            }
+
+            // Remove extra icon from the action bar
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setIcon(null);
+            }
+
+            setNavigationViewItemChecked();
+
+            return false;
+        });
     }
 
     /**
@@ -242,7 +297,7 @@ public abstract class DrawerActivity extends ToolbarActivity
                     if (menuItemIdFromTitle != null && menuItemIdFromTitle != menuItemId) {
                         menuItemId = menuItemIdFromTitle;
                     }
-                    setDrawerMenuItemChecked();
+                    setNavigationViewItemChecked();
                     isMenuItemChecked = true;
                 }
             }
@@ -500,7 +555,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     private void onNavigationItemClicked(final MenuItem menuItem) {
         int itemId = menuItem.getItemId();
         menuItemId = itemId;
-        setDrawerMenuItemChecked();
+        setNavigationViewItemChecked();
 
         if (itemId == R.id.nav_all_files || itemId == R.id.nav_personal_files) {
             if (this instanceof FileDisplayActivity &&
@@ -809,9 +864,9 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void unsetAllDrawerMenuItems() {
-        if (mNavigationView != null) {
-            mNavigationView.getMenu();
-            Menu menu = mNavigationView.getMenu();
+        if (drawerNavigationView != null) {
+            drawerNavigationView.getMenu();
+            Menu menu = drawerNavigationView.getMenu();
             for (int i = 0; i < menu.size(); i++) {
                 menu.getItem(i).setChecked(false);
             }
@@ -879,29 +934,29 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     /**
-     * checks/highlights the provided menu item if the drawer has been initialized and the menu item exists.
-     *
+     * Sets the menu item as checked in both the drawer and bottom navigation views, if applicable.
      */
-    public void setDrawerMenuItemChecked() {
-        if (mNavigationView == null) {
-            return;
+    @SuppressFBWarnings("RV")
+    public void setNavigationViewItemChecked() {
+        if (drawerNavigationView != null) {
+            MenuItem menuItem = drawerNavigationView.getMenu().findItem(menuItemId);
+
+            if (menuItem != null && !menuItem.isChecked()) {
+                viewThemeUtils.platform.colorNavigationView(drawerNavigationView);
+                menuItem.setChecked(true);
+            }
         }
 
-        MenuItem menuItem = mNavigationView.getMenu().findItem(menuItemId);
+        if (bottomNavigationView != null) {
+            MenuItem menuItem = bottomNavigationView.getMenu().findItem(menuItemId);
 
-        if (menuItem == null) {
-            Log_OC.w(TAG, "setDrawerMenuItemChecked has been called with invalid menu-item-ID");
-            return;
-        }
-
-        if (menuItem.isChecked()) {
-            return;
+            // Don't highlight assistant bottom navigation item because Assistant screen doesn't have same bottom navigation bar
+            if (menuItem != null && !menuItem.isChecked() && menuItem.getItemId() != R.id.nav_assistant) {
+                menuItem.setChecked(true);
+            }
         }
 
         Log_OC.d(TAG, "New menu item is: " + menuItemId);
-
-        viewThemeUtils.platform.colorNavigationView(mNavigationView);
-        menuItem.setChecked(true);
     }
 
     /**
@@ -971,14 +1026,14 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void updateExternalLinksInDrawer() {
-        if (mNavigationView != null && MDMConfig.INSTANCE.externalSiteSupport(this)) {
-            mNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
+        if (drawerNavigationView != null && MDMConfig.INSTANCE.externalSiteSupport(this)) {
+            drawerNavigationView.getMenu().removeGroup(R.id.drawer_menu_external_links);
 
             int greyColor = ContextCompat.getColor(this, R.color.drawer_menu_icon);
 
             for (final ExternalLink link : externalLinksProvider.getExternalLink(ExternalLinkType.LINK)) {
-                int id = mNavigationView.getMenu().add(R.id.drawer_menu_external_links,
-                                                       MENU_ITEM_EXTERNAL_LINK + link.getId(), MENU_ORDER_EXTERNAL_LINKS, link.getName())
+                int id = drawerNavigationView.getMenu().add(R.id.drawer_menu_external_links,
+                                                            MENU_ITEM_EXTERNAL_LINK + link.getId(), MENU_ORDER_EXTERNAL_LINKS, link.getName())
                     .setCheckable(true).getItemId();
 
                 MenuSimpleTarget target = new MenuSimpleTarget<Drawable>(id) {
@@ -1005,7 +1060,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void setExternalLinkIcon(int id, Drawable drawable, int greyColor) {
-        MenuItem menuItem = mNavigationView.getMenu().findItem(id);
+        MenuItem menuItem = drawerNavigationView.getMenu().findItem(id);
 
         if (menuItem != null) {
             if (drawable != null) {
@@ -1037,7 +1092,7 @@ public abstract class DrawerActivity extends ToolbarActivity
     public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         mIsAccountChooserActive = savedInstanceState.getBoolean(KEY_IS_ACCOUNT_CHOOSER_ACTIVE, false);
-        setDrawerMenuItemChecked();
+        setNavigationViewItemChecked();
     }
 
     @Override
@@ -1312,10 +1367,10 @@ public abstract class DrawerActivity extends ToolbarActivity
     }
 
     private void handleNavItemClickEvent(@IdRes int menuItemId) {
-        if (mNavigationView == null) {
-            mNavigationView = findViewById(R.id.nav_view);
+        if (drawerNavigationView == null) {
+            drawerNavigationView = findViewById(R.id.nav_view);
         }
-        Menu navMenu = mNavigationView.getMenu();
+        Menu navMenu = drawerNavigationView.getMenu();
         onNavigationItemClicked(navMenu.findItem(menuItemId));
     }
 }

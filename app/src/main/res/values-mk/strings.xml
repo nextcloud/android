@@ -82,6 +82,9 @@
     <string name="battery_optimization_disable">Оневозможи</string>
     <string name="battery_optimization_message">Вашиот уред може да има овозможено оптимизација на батеријата. Автоматското прикачување работи само ако соодветно ја исклучите оваа апликација од оптимизацијата на батеријата.</string>
     <string name="battery_optimization_title">Оптимизација на батеријата</string>
+    <string name="bottom_navigation_menu_favorites_label">Омилени</string>
+    <string name="bottom_navigation_menu_files_label">Сите датотеки</string>
+    <string name="bottom_navigation_menu_media_label">Медија</string>
     <string name="calendar">Календар</string>
     <string name="calendars">Календари</string>
     <string name="certificate_load_problem">Има проблем со вчитување на сертификатот.</string>
@@ -544,6 +547,7 @@
     <string name="resized_image_not_possible_download">Нема достапно смалена слика. Превземете ја во целосната големина?</string>
     <string name="restore">Врати датотека</string>
     <string name="restore_button_description">Вратете ги избришаните датотеки</string>
+    <string name="restore_item">Врати</string>
     <string name="retrieving_file">Превземање на датотеки…</string>
     <string name="retry">Обидете се повторно</string>
     <string name="richdocuments_failed_to_load_document">Неуспешно вчитување на документ!</string>

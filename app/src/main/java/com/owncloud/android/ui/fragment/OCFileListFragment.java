@@ -1839,7 +1839,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
         // avoid calling api multiple times if async task is already executing
         if (remoteOperationAsyncTask != null && remoteOperationAsyncTask.getStatus() != AsyncTask.Status.FINISHED) {
-            Log_OC.d(TAG, "OCFileListSearchAsyncTask already running skipping new api call for search event: " + searchEvent.getSearchType());
+            if (searchEvent != null) {
+                Log_OC.d(TAG, "OCFileListSearchAsyncTask already running skipping new api call for search event: " + searchEvent.getSearchType());
+            }
+
             return;
         }
 

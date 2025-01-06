@@ -1,6 +1,7 @@
 /*
  * Nextcloud - Android Client
  *
+ * SPDX-FileCopyrightText: 2024 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018 Nextcloud GmbH
@@ -10,23 +11,32 @@ package com.owncloud.android.ui.trashbin
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.ActionMode
 import android.view.Menu
+import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
+import android.widget.AbsListView
 import android.widget.PopupMenu
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.annotation.IdRes
 import androidx.annotation.VisibleForTesting
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.client.utils.Throttler
+import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet
 import com.owncloud.android.R
 import com.owncloud.android.databinding.TrashbinActivityBinding
+import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.lib.resources.trashbin.model.TrashbinFile
 import com.owncloud.android.ui.activity.DrawerActivity
 import com.owncloud.android.ui.adapter.TrashbinListAdapter
@@ -51,6 +61,9 @@ class TrashbinActivity :
     @Inject
     var preferences: AppPreferences? = null
 
+    @Inject
+    lateinit var syncedFolderProvider: SyncedFolderProvider
+
     @JvmField
     @Inject
     var accountProvider: CurrentAccountProvider? = null
@@ -59,9 +72,8 @@ class TrashbinActivity :
     @Inject
     var clientFactory: ClientFactory? = null
 
-    @JvmField
     @Inject
-    var viewThemeUtils: ViewThemeUtils? = null
+    lateinit var throttler: Throttler
 
     private var trashbinListAdapter: TrashbinListAdapter? = null
 
@@ -70,6 +82,8 @@ class TrashbinActivity :
 
     private var active = false
     lateinit var binding: TrashbinActivityBinding
+
+    private var mMultiChoiceModeListener: MultiChoiceModeListener? = null
 
     private val onBackPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
@@ -134,6 +148,7 @@ class TrashbinActivity :
             this,
             storageManager,
             preferences,
+            syncedFolderProvider,
             this,
             user.orElse(accountProvider!!.user),
             viewThemeUtils
@@ -161,6 +176,13 @@ class TrashbinActivity :
         loadFolder()
 
         handleOnBackPressed()
+
+        mMultiChoiceModeListener = MultiChoiceModeListener(
+            this,
+            trashbinListAdapter,
+            viewThemeUtils
+        ) { filesCount, checkedFiles -> openActionsMenu(filesCount, checkedFiles) }
+        addDrawerListener(mMultiChoiceModeListener)
     }
 
     private fun handleOnBackPressed() {
@@ -171,6 +193,8 @@ class TrashbinActivity :
     }
 
     fun loadFolder(onComplete: () -> Unit = {}, onError: () -> Unit = {}) {
+        // exit action mode on data refresh
+        mMultiChoiceModeListener?.exitSelectionMode()
         trashbinListAdapter?.let {
             if (it.itemCount > EMPTY_LIST_COUNT) {
                 binding.swipeContainingList.isRefreshing = true
@@ -205,20 +229,50 @@ class TrashbinActivity :
         val popup = PopupMenu(this, view)
         popup.inflate(R.menu.item_trashbin)
         popup.setOnMenuItemClickListener {
-            trashbinPresenter?.removeTrashbinFile(file)
+            onFileActionChosen(it.itemId, setOf(file))
             true
         }
         popup.show()
     }
 
     override fun onItemClicked(file: TrashbinFile) {
-        if (file.isFolder) {
+        if (trashbinListAdapter?.isMultiSelect == true) {
+            toggleItemToCheckedList(file)
+        } else if (file.isFolder) {
             trashbinPresenter?.enterFolder(file.remotePath)
         }
     }
 
-    override fun onRestoreIconClicked(file: TrashbinFile, view: View) {
-        trashbinPresenter?.restoreTrashbinFile(file)
+    override fun onRestoreIconClicked(file: TrashbinFile) {
+        trashbinPresenter?.restoreTrashbinFile(listOf(file))
+    }
+
+    override fun onLongItemClicked(file: TrashbinFile): Boolean {
+        // Create only once instance of action mode
+        if (mMultiChoiceModeListener?.mActiveActionMode != null) {
+            toggleItemToCheckedList(file)
+        } else {
+            startActionMode(mMultiChoiceModeListener)
+            trashbinListAdapter?.addCheckedFile(file)
+        }
+        mMultiChoiceModeListener?.updateActionModeFile(file)
+        return true
+    }
+
+    /**
+     * Will toggle a file selection status from the action mode
+     *
+     * @param file The concerned TrashbinFile by the selection/deselection
+     */
+    private fun toggleItemToCheckedList(file: TrashbinFile) {
+        trashbinListAdapter?.run {
+            if (isCheckedFile(file)) {
+                removeCheckedFile(file)
+            } else {
+                addCheckedFile(file)
+            }
+        }
+        mMultiChoiceModeListener?.updateActionModeFile(file)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -315,7 +369,263 @@ class TrashbinActivity :
         }
     }
 
+    private fun openActionsMenu(filesCount: Int, checkedFiles: Set<TrashbinFile>) {
+        throttler.run("overflowClick") {
+            val supportFragmentManager = supportFragmentManager
+
+            TrashbinFileActionsBottomSheet.newInstance(filesCount, checkedFiles)
+                .setResultListener(
+                    supportFragmentManager,
+                    this
+                ) { id: Int ->
+                    onFileActionChosen(
+                        id,
+                        checkedFiles
+                    )
+                }
+                .show(supportFragmentManager, "actions")
+        }
+    }
+
+    @Suppress("ReturnCount")
+    private fun onFileActionChosen(@IdRes itemId: Int, checkedFiles: Set<TrashbinFile>): Boolean {
+        if (checkedFiles.isEmpty()) {
+            return false
+        }
+
+        when (itemId) {
+            R.id.action_delete -> {
+                trashbinPresenter?.removeTrashbinFile(checkedFiles)
+                mMultiChoiceModeListener?.exitSelectionMode()
+                return true
+            }
+
+            R.id.restore -> {
+                trashbinPresenter?.restoreTrashbinFile(checkedFiles)
+                mMultiChoiceModeListener?.exitSelectionMode()
+                return true
+            }
+
+            R.id.action_select_all_action_menu -> {
+                selectAllFiles(true)
+                return true
+            }
+
+            R.id.action_deselect_all_action_menu -> {
+                selectAllFiles(false)
+                return true
+            }
+
+            else -> return false
+        }
+    }
+
+    /**
+     * De-/select all elements in the current list view.
+     *
+     * @param select `true` to select all, `false` to deselect all
+     */
+    private fun selectAllFiles(select: Boolean) {
+        trashbinListAdapter?.let {
+            if (select) {
+                it.addAllFilesToCheckedFiles()
+            } else {
+                it.clearCheckedItems()
+            }
+            for (i in 0 until it.itemCount) {
+                it.notifyItemChanged(i)
+            }
+
+            mMultiChoiceModeListener?.invalidateActionMode()
+        }
+    }
+
     companion object {
         const val EMPTY_LIST_COUNT = 1
+    }
+
+    /**
+     * Handler for multiple selection mode.
+     *
+     *
+     * Manages input from the user when one or more files or folders are selected in the list.
+     *
+     *
+     * Also listens to changes in navigation drawer to hide and recover multiple selection when it's opened and closed.
+     */
+    internal class MultiChoiceModeListener(
+        val activity: TrashbinActivity,
+        val adapter: TrashbinListAdapter?,
+        val viewThemeUtils: ViewThemeUtils,
+        val openActionsMenu: (Int, Set<TrashbinFile>) -> Unit
+    ) : AbsListView.MultiChoiceModeListener, DrawerLayout.DrawerListener {
+
+        var mActiveActionMode: ActionMode? = null
+        private var mIsActionModeNew = false
+
+        /**
+         * True when action mode is finished because the drawer was opened
+         */
+        private var mActionModeClosedByDrawer = false
+
+        /**
+         * Selected items in list when action mode is closed by drawer
+         */
+        private val mSelectionWhenActionModeClosedByDrawer: MutableSet<TrashbinFile> = HashSet()
+
+        override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
+            // nothing to do
+        }
+
+        override fun onDrawerOpened(drawerView: View) {
+            // nothing to do
+        }
+
+        /**
+         * When the navigation drawer is closed, action mode is recovered in the same state as was when the drawer was
+         * (started to be) opened.
+         *
+         * @param drawerView Navigation drawer just closed.
+         */
+        override fun onDrawerClosed(drawerView: View) {
+            if (mActionModeClosedByDrawer && mSelectionWhenActionModeClosedByDrawer.size > 0) {
+                activity.startActionMode(this)
+
+                adapter?.setCheckedItem(mSelectionWhenActionModeClosedByDrawer)
+
+                mActiveActionMode?.invalidate()
+
+                mSelectionWhenActionModeClosedByDrawer.clear()
+            }
+        }
+
+        /**
+         * If the action mode is active when the navigation drawer starts to move, the action mode is closed and the
+         * selection stored to be recovered when the drawer is closed.
+         *
+         * @param newState One of STATE_IDLE, STATE_DRAGGING or STATE_SETTLING.
+         */
+        override fun onDrawerStateChanged(newState: Int) {
+            if (DrawerLayout.STATE_DRAGGING == newState && mActiveActionMode != null) {
+                adapter?.let {
+                    mSelectionWhenActionModeClosedByDrawer.addAll(
+                        it.checkedItems
+                    )
+                }
+
+                mActiveActionMode?.finish()
+                mActionModeClosedByDrawer = true
+            }
+        }
+
+        /**
+         * Update action mode bar when an item is selected / unselected in the list
+         */
+        override fun onItemCheckedStateChanged(mode: ActionMode, position: Int, id: Long, checked: Boolean) {
+            // nothing to do here
+        }
+
+        /**
+         * Load menu and customize UI when action mode is started.
+         */
+        override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+            mActiveActionMode = mode
+            // Determine if actionMode is "new" or not (already affected by item-selection)
+            mIsActionModeNew = true
+
+            // fake menu to be able to use bottom sheet instead
+            val inflater: MenuInflater = activity.menuInflater
+            inflater.inflate(R.menu.custom_menu_placeholder, menu)
+            val item = menu.findItem(R.id.custom_menu_placeholder_item)
+            item.icon?.let {
+                item.setIcon(
+                    viewThemeUtils.platform.colorDrawable(
+                        it,
+                        ContextCompat.getColor(activity, R.color.white)
+                    )
+                )
+            }
+
+            mode.invalidate()
+
+            // set actionMode color
+            viewThemeUtils.platform.colorStatusBar(
+                activity,
+                ContextCompat.getColor(activity, R.color.action_mode_background)
+            )
+
+            adapter?.setMultiSelect(true)
+            return true
+        }
+
+        /**
+         * Updates available action in menu depending on current selection.
+         */
+        override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+            val checkedFiles: Set<TrashbinFile> = adapter?.checkedItems ?: emptySet()
+            val checkedCount = checkedFiles.size
+            val title: String =
+                activity.getResources().getQuantityString(R.plurals.items_selected_count, checkedCount, checkedCount)
+            mode.title = title
+
+            // Determine if we need to finish the action mode because there are no items selected
+            if (checkedCount == 0 && !mIsActionModeNew) {
+                exitSelectionMode()
+            }
+
+            return true
+        }
+
+        /**
+         * Exits the multi file selection mode.
+         */
+        fun exitSelectionMode() {
+            mActiveActionMode?.run {
+                finish()
+            }
+        }
+
+        /**
+         * Will update (invalidate) the action mode adapter/mode to refresh an item selection change
+         *
+         * @param file The concerned TrashbinFile to refresh in adapter
+         */
+        fun updateActionModeFile(file: TrashbinFile) {
+            mIsActionModeNew = false
+            mActiveActionMode?.let {
+                it.invalidate()
+                adapter?.notifyItemChanged(file)
+            }
+        }
+
+        fun invalidateActionMode() {
+            mActiveActionMode?.invalidate()
+        }
+
+        /**
+         * Starts the corresponding action when a menu item is tapped by the user.
+         */
+        override fun onActionItemClicked(mode: ActionMode, item: MenuItem): Boolean {
+            adapter?.let {
+                val checkedFiles: Set<TrashbinFile> = it.checkedItems
+                if (item.itemId == R.id.custom_menu_placeholder_item) {
+                    openActionsMenu(it.filesCount, checkedFiles)
+                }
+                return true
+            }
+            return false
+        }
+
+        /**
+         * Restores UI.
+         */
+        override fun onDestroyActionMode(mode: ActionMode) {
+            mActiveActionMode = null
+
+            viewThemeUtils.platform.resetStatusBar(activity)
+
+            adapter?.setMultiSelect(false)
+            adapter?.clearCheckedItems()
+        }
     }
 }

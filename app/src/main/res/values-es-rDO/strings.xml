@@ -74,6 +74,8 @@
     <string name="away">Lejos</string>
     <string name="battery_optimization_close">Cerrar</string>
     <string name="battery_optimization_disable">Deshabilitar</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
+    <string name="bottom_navigation_menu_files_label">Todos los archivos</string>
     <string name="calendar">Calendario</string>
     <string name="certificate_load_problem">Se presentó un problema al cargar el certificado.</string>
     <string name="checkbox">Casilla de verificación</string>
@@ -386,6 +388,7 @@
     <string name="rename_local_fail_msg">No se pudo renombrar la copia local, intenta con un nombre diferente </string>
     <string name="rename_server_fail_msg">No fue posible renombrar, el nombre ya está ocupado</string>
     <string name="resized_image_not_possible_download">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
+    <string name="restore_item">Restaurar</string>
     <string name="retry">Reintentar</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="send">Enviar</string>

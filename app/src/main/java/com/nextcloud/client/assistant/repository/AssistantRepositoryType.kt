@@ -8,15 +8,14 @@
 package com.nextcloud.client.assistant.repository
 
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
-import com.owncloud.android.lib.resources.assistant.model.TaskList
-import com.owncloud.android.lib.resources.assistant.model.TaskTypes
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 
 interface AssistantRepositoryType {
-    fun getTaskTypes(): RemoteOperationResult<TaskTypes>
+    fun getTaskTypes(): List<TaskTypeData>?
 
-    fun createTask(input: String, type: String): RemoteOperationResult<Void>
+    fun createTask(input: String, taskType: TaskTypeData): RemoteOperationResult<Void>
 
-    fun getTaskList(appId: String): RemoteOperationResult<TaskList>
+    fun getTaskList(taskType: String): List<com.owncloud.android.lib.resources.assistant.v2.model.Task>?
 
     fun deleteTask(id: Long): RemoteOperationResult<Void>
 }

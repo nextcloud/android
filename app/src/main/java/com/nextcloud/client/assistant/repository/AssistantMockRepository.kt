@@ -9,117 +9,63 @@ package com.nextcloud.client.assistant.repository
 
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
-import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskList
-import com.owncloud.android.lib.resources.assistant.model.TaskType
-import com.owncloud.android.lib.resources.assistant.model.TaskTypes
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskInputShape
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutput
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskOutputShape
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 
 @Suppress("MagicNumber")
 class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : AssistantRepositoryType {
-    override fun getTaskTypes(): RemoteOperationResult<TaskTypes> {
-        return RemoteOperationResult<TaskTypes>(RemoteOperationResult.ResultCode.OK).apply {
-            resultData = TaskTypes(
+    override fun getTaskTypes(): List<TaskTypeData> {
+        return listOf(
+            TaskTypeData(
+                "core:text2text",
+                "Free text to text prompt",
+                "Runs an arbitrary prompt through a language model that returns a reply",
                 listOf(
-                    TaskType("1", "FreePrompt", "You can create free prompt text"),
-                    TaskType("2", "Generate Headline", "You can create generate headline text")
-                )
-            )
-        }
-    }
-
-    override fun createTask(input: String, type: String): RemoteOperationResult<Void> {
-        return RemoteOperationResult<Void>(RemoteOperationResult.ResultCode.OK)
-    }
-
-    @Suppress("LongMethod")
-    override fun getTaskList(appId: String): RemoteOperationResult<TaskList> {
-        val taskList = if (giveEmptyTasks) {
-            TaskList(listOf())
-        } else {
-            TaskList(
+                    TaskInputShape(
+                        "Prompt",
+                        "Describe a task that you want the assistant to do or ask a question",
+                        "Text"
+                    )
+                ),
                 listOf(
-                    Task(
-                        1,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some long text 1",
-                        "Lorem ipsum".getRandomString(100),
-                        ""
-                    ),
-                    Task(
-                        2,
-                        "GenerateHeadline",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 2",
-                        "Lorem".getRandomString(100),
-                        "",
-                        ""
-                    ),
-                    Task(
-                        3,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 3",
-                        "Lorem".getRandomString(300),
-                        "",
-                        ""
-                    ),
-                    Task(
-                        4,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 4",
-                        "Lorem".getRandomString(300),
-                        "",
-                        ""
-                    ),
-                    Task(
-                        5,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 5",
-                        "Lorem".getRandomString(300),
-                        "",
-                        ""
-                    ),
-                    Task(
-                        6,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 6",
-                        "Lorem".getRandomString(300),
-                        "",
-                        ""
-                    ),
-                    Task(
-                        7,
-                        "FreePrompt",
-                        null,
-                        "12",
-                        "",
-                        "Give me some text 7",
-                        "Lorem".getRandomString(300),
-                        "",
-                        ""
+                    TaskOutputShape(
+                        "Generated reply",
+                        "The generated text from the assistant",
+                        "Text"
                     )
                 )
             )
-        }
+        )
+    }
 
-        return RemoteOperationResult<TaskList>(RemoteOperationResult.ResultCode.OK).apply {
-            resultData = taskList
+    override fun createTask(input: String, taskType: TaskTypeData): RemoteOperationResult<Void> {
+        return RemoteOperationResult<Void>(RemoteOperationResult.ResultCode.OK)
+    }
+
+    override fun getTaskList(taskType: String): List<Task> {
+        return if (giveEmptyTasks) {
+            listOf()
+        } else {
+            listOf(
+                Task(
+                    1,
+                    "FreePrompt",
+                    null,
+                    "12",
+                    "",
+                    TaskInput("Give me some long text 1"),
+                    TaskOutput("Lorem ipsum".getRandomString(100)),
+                    1707692337,
+                    1707692337,
+                    1707692337,
+                    1707692337,
+                    1707692337
+                )
+            )
         }
     }
 

@@ -7,60 +7,53 @@
  */
 package com.nextcloud.client.assistant
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nextcloud.client.assistant.model.ScreenOverlayState
+import com.nextcloud.client.assistant.model.ScreenState
 import com.nextcloud.client.assistant.repository.AssistantRepositoryType
 import com.owncloud.android.R
-import com.owncloud.android.lib.resources.assistant.model.Task
-import com.owncloud.android.lib.resources.assistant.model.TaskType
+import com.owncloud.android.lib.resources.assistant.v2.model.Task
+import com.owncloud.android.lib.resources.assistant.v2.model.TaskTypeData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.lang.ref.WeakReference
 
 class AssistantViewModel(
-    private val repository: AssistantRepositoryType,
-    private val context: WeakReference<Context>
+    private val repository: AssistantRepositoryType
 ) : ViewModel() {
 
-    sealed class State {
-        data object Idle : State()
-        data object Loading : State()
-        data class Error(val messageId: Int) : State()
-        data class TaskCreated(val messageId: Int) : State()
-        data class TaskDeleted(val messageId: Int) : State()
-    }
+    private val _screenState = MutableStateFlow<ScreenState?>(null)
+    val screenState: StateFlow<ScreenState?> = _screenState
 
-    private val _state = MutableStateFlow<State>(State.Loading)
-    val state: StateFlow<State> = _state
+    private val _screenOverlayState = MutableStateFlow<ScreenOverlayState?>(null)
+    val screenOverlayState: StateFlow<ScreenOverlayState?> = _screenOverlayState
 
-    private val _selectedTaskType = MutableStateFlow<TaskType?>(null)
-    val selectedTaskType: StateFlow<TaskType?> = _selectedTaskType
+    private val _snackbarMessageId = MutableStateFlow<Int?>(null)
+    val snackbarMessageId: StateFlow<Int?> = _snackbarMessageId
 
-    private val _taskTypes = MutableStateFlow<List<TaskType>?>(null)
-    val taskTypes: StateFlow<List<TaskType>?> = _taskTypes
+    private val _selectedTaskType = MutableStateFlow<TaskTypeData?>(null)
+    val selectedTaskType: StateFlow<TaskTypeData?> = _selectedTaskType
+
+    private val _taskTypes = MutableStateFlow<List<TaskTypeData>?>(null)
+    val taskTypes: StateFlow<List<TaskTypeData>?> = _taskTypes
 
     private var taskList: List<Task>? = null
 
     private val _filteredTaskList = MutableStateFlow<List<Task>?>(null)
     val filteredTaskList: StateFlow<List<Task>?> = _filteredTaskList
 
-    private val _isRefreshing = MutableStateFlow(false)
-    val isRefreshing: StateFlow<Boolean> = _isRefreshing
-
     init {
         fetchTaskTypes()
-        fetchTaskList()
     }
 
     @Suppress("MagicNumber")
-    fun createTask(input: String, type: String) {
+    fun createTask(input: String, taskType: TaskTypeData) {
         viewModelScope.launch(Dispatchers.IO) {
-            val result = repository.createTask(input, type)
+            val result = repository.createTask(input, taskType)
 
             val messageId = if (result.isSuccess) {
                 R.string.assistant_screen_task_create_success_message
@@ -68,68 +61,68 @@ class AssistantViewModel(
                 R.string.assistant_screen_task_create_fail_message
             }
 
-            _state.update {
-                State.TaskCreated(messageId)
-            }
+            updateSnackbarMessage(messageId)
 
             delay(2000L)
             fetchTaskList()
         }
     }
 
-    fun selectTaskType(task: TaskType) {
+    fun selectTaskType(task: TaskTypeData) {
         _selectedTaskType.update {
-            filterTaskList(task.id)
             task
         }
+
+        fetchTaskList()
     }
 
     private fun fetchTaskTypes() {
         viewModelScope.launch(Dispatchers.IO) {
-            val allTaskType = context.get()?.getString(R.string.assistant_screen_all_task_type)
-            val excludedIds = listOf("OCA\\ContextChat\\TextProcessing\\ContextChatTaskType")
-            val result = arrayListOf(TaskType(null, allTaskType, null))
             val taskTypesResult = repository.getTaskTypes()
 
-            if (taskTypesResult.isSuccess) {
-                val excludedTaskTypes = taskTypesResult.resultData.types.filter { item -> item.id !in excludedIds }
-                result.addAll(excludedTaskTypes)
-                _taskTypes.update {
-                    result.toList()
-                }
-
-                selectTaskType(result.first())
-            } else {
-                _state.update {
-                    State.Error(R.string.assistant_screen_task_types_error_state_message)
-                }
+            if (taskTypesResult.isNullOrEmpty()) {
+                updateSnackbarMessage(R.string.assistant_screen_task_types_error_state_message)
+                return@launch
             }
+
+            _taskTypes.update {
+                taskTypesResult
+            }
+
+            selectTaskType(taskTypesResult.first())
         }
     }
 
-    fun fetchTaskList(appId: String = "assistant") {
+    fun fetchTaskList() {
         viewModelScope.launch(Dispatchers.IO) {
-            _isRefreshing.update {
-                true
+            _screenState.update {
+                ScreenState.Refreshing
             }
 
-            val result = repository.getTaskList(appId)
-            if (result.isSuccess) {
-                taskList = result.resultData.tasks
-
-                filterTaskList(_selectedTaskType.value?.id)
-
-                _state.update {
-                    State.Idle
+            val taskType = _selectedTaskType.value?.id ?: return@launch
+            val result = repository.getTaskList(taskType)
+            if (result != null) {
+                taskList = result
+                _filteredTaskList.update {
+                    taskList?.sortedByDescending { task ->
+                        task.id
+                    }
                 }
+                updateSnackbarMessage(null)
             } else {
-                _state.update {
-                    State.Error(R.string.assistant_screen_task_list_error_state_message)
-                }
+                updateSnackbarMessage(R.string.assistant_screen_task_list_error_state_message)
             }
 
-            _isRefreshing.update {
-                false
+            updateScreenState()
+        }
+    }
+
+    private fun updateScreenState() {
+        _screenState.update {
+            if (_filteredTaskList.value?.isEmpty() == true) {
+                ScreenState.EmptyContent
+            } else {
+                ScreenState.Content
             }
         }
     }
@@ -144,9 +137,7 @@ class AssistantViewModel(
                 R.string.assistant_screen_task_delete_fail_message
             }
 
-            _state.update {
-                State.TaskDeleted(messageId)
-            }
+            updateSnackbarMessage(messageId)
 
             if (result.isSuccess) {
                 removeTaskFromList(id)
@@ -154,27 +145,15 @@ class AssistantViewModel(
         }
     }
 
-    fun resetState() {
-        _state.update {
-            State.Idle
+    fun updateSnackbarMessage(value: Int?) {
+        _snackbarMessageId.update {
+            value
         }
     }
 
-    private fun filterTaskList(taskTypeId: String?) {
-        if (taskTypeId == null) {
-            _filteredTaskList.update {
-                taskList
-            }
-        } else {
-            _filteredTaskList.update {
-                taskList?.filter { it.type == taskTypeId }
-            }
-        }
-
-        _filteredTaskList.update {
-            it?.sortedByDescending { task ->
-                task.id
-            }
+    fun updateScreenState(value: ScreenOverlayState?) {
+        _screenOverlayState.update {
+            value
         }
     }
 

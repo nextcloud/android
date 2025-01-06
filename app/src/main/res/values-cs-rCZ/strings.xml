@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Zobrazuje jeden ovládací prvek z nástěnky</string>
     <string name="appbar_search_in">Hledat v %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Přidat nový úkol</string>
     <string name="assistant_screen_all_task_type">Vše</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Zadejte nějaký text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Opravdu chcete tuto úlohu smazat?</string>
@@ -103,6 +104,8 @@
     <string name="authenticator_activity_login_error">Došlo k problému při zpracovávání vašeho požadavku na přihlášení se. Zkuste to prosím později.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokončete proces přihlášení prostřednictvím webového prohlížeče</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechán v původní složce, protože je pouze pro čtení</string>
+    <string name="auto_upload_gplay">Chování automatického nahrávání změněno</string>
+    <string name="auto_upload_gplay_desc">Kvůli novým omezením zavedeným společností Google, funkce pro automatické nahrávání už nebude schopná automaticky odebrat soubory, které už byly nahrány.</string>
     <string name="auto_upload_on_wifi">Nahrávat pouze přes neúčtované Wi-Fi připojení</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Nastavit</string>
@@ -118,6 +121,10 @@
     <string name="battery_optimization_disable">Vypnout</string>
     <string name="battery_optimization_message">Vaše zařízení nejspíš má zapnuté snižování vybíjení akumulátoru. Automatické nahrávání funguje správně jen tehdy, když pro tuto aplikaci nastavíte výjimku.</string>
     <string name="battery_optimization_title">Optimalizace pro snižování vybíjení akumulátoru</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistent</string>
+    <string name="bottom_navigation_menu_favorites_label">Oblíbené</string>
+    <string name="bottom_navigation_menu_files_label">Všechny soubory</string>
+    <string name="bottom_navigation_menu_media_label">Média</string>
     <string name="brute_force_delay">Pozdrženo z důvodu příliš mnoha nezdařených pokusů</string>
     <string name="calendar">Kalendář</string>
     <string name="calendars">Kalendáře</string>
@@ -150,6 +157,7 @@
     <string name="common_loading">Načítání…</string>
     <string name="common_next">Další</string>
     <string name="common_no">Ne</string>
+    <string name="common_now">Nyní</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Čekající</string>
     <string name="common_remove">Smazat</string>
@@ -755,6 +763,7 @@
     <string name="restore">Obnovit soubor</string>
     <string name="restore_backup">Obnovit ze zálohy</string>
     <string name="restore_button_description">Obnovit smazaný soubor</string>
+    <string name="restore_item">Obnovit</string>
     <string name="restore_selected">Obnovit označené</string>
     <string name="retrieving_file">Získávání souboru…</string>
     <string name="retry">Zkusit znovu</string>
@@ -1095,6 +1104,24 @@
         <item quantity="many">%d minut</item>
         <item quantity="other">%d minuty</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">před sekundou</item>
+        <item quantity="few">před %d sekundami</item>
+        <item quantity="many">před %d sekundami</item>
+        <item quantity="other">před %d sekundami</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">před minutou</item>
+        <item quantity="few">před %d minutami</item>
+        <item quantity="many">před %d minutami</item>
+        <item quantity="other">před %d minutami</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">před hodinou</item>
+        <item quantity="few">před %d hodinami</item>
+        <item quantity="many">před %d hodinami</item>
+        <item quantity="other">před %d hodinami</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nedaří se synchronizovat %1$d soubor (konflikty: %2$d)</item>
         <item quantity="few">Nedaří se synchronizovat %1$d soubory (konflikty: %2$d)</item>
@@ -1166,6 +1193,12 @@
         <item quantity="few">%1$d soubory</item>
         <item quantity="many">%1$d souborů</item>
         <item quantity="other">%1$d soubory</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d položka</item>
+        <item quantity="few">%1$d položky</item>
+        <item quantity="many">%1$d položek</item>
+        <item quantity="other">%1$d položky</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Zobrazit %1$d skrytou složku</item>

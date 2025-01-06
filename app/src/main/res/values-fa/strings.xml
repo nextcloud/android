@@ -91,6 +91,9 @@
     <string name="battery_optimization_disable">غیرفعال کردن</string>
     <string name="battery_optimization_message">ممکن است وسیله شما بهینه ساز باطری را فعال کرده باشد.  بارگذاری خودکار به درستی کار می کند اگر این برنامه را از آن حذف کنید.</string>
     <string name="battery_optimization_title">بهینه سازی باتری</string>
+    <string name="bottom_navigation_menu_favorites_label">مورد علاقه‌ها</string>
+    <string name="bottom_navigation_menu_files_label">تمامی فایل‌ها</string>
+    <string name="bottom_navigation_menu_media_label">رسانه‌ها</string>
     <string name="brute_force_delay">به دلیل تلاش‌های نادرست متعدد، به تاخیر افتاد</string>
     <string name="calendar">تقویم</string>
     <string name="calendars">تقویم‌ها</string>
@@ -123,6 +126,7 @@
     <string name="common_loading">بار کردن…</string>
     <string name="common_next">بعدی</string>
     <string name="common_no">نه</string>
+    <string name="common_now">Now</string>
     <string name="common_ok">تایید</string>
     <string name="common_pending">در انتظار</string>
     <string name="common_remove">حذف</string>
@@ -672,6 +676,7 @@
     <string name="restore">بازیابی پرونده</string>
     <string name="restore_backup">بازیابی نسخه پشتیبان</string>
     <string name="restore_button_description">بازیابی پرونده حذف شده</string>
+    <string name="restore_item">بازیابی</string>
     <string name="restore_selected">بازیابی انتخاب شده</string>
     <string name="retrieving_file">در حال بازیابی پرونده ...</string>
     <string name="retry">تلاش دوباره</string>

@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Porto do proxy</string>
     <string name="app_widget_description">Amosa un trebello do taboleiro</string>
     <string name="appbar_search_in">Buscar en %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Engadir unha nova tarefa</string>
     <string name="assistant_screen_all_task_type">Todo</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algún texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Confirma que quere eliminar esta tarefa?</string>
@@ -103,6 +104,8 @@
     <string name="authenticator_activity_login_error">Houbo un problema ao procesar a súa solicitude de acceso. Ténteo de novo máis tarde.</string>
     <string name="authenticator_activity_please_complete_login_process">Complete o proceso de acceso no seu navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
+    <string name="auto_upload_gplay">O comportamento do envío automático cambiou</string>
+    <string name="auto_upload_gplay_desc">Por mor dás novas restricións impostas por Google, a función de envío automático xa non poderá retirar automaticamente os ficheiros enviados.</string>
     <string name="auto_upload_on_wifi">Enviar só con wifi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
     <string name="autoupload_configure">Configurar</string>
@@ -118,6 +121,10 @@
     <string name="battery_optimization_disable">Desactivar</string>
     <string name="battery_optimization_message">É posíbel que o seu dispositivo teña activada a optimización da batería. O envío automático só funciona correctamente se exclúe esta aplicación.</string>
     <string name="battery_optimization_title">Optimización da batería</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistente</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
+    <string name="bottom_navigation_menu_files_label">Todos os ficheiros</string>
+    <string name="bottom_navigation_menu_media_label">Multimedia</string>
     <string name="brute_force_delay">Atrasado por mor de demasiados intentos errados</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
@@ -150,6 +157,7 @@
     <string name="common_loading">Cargando…</string>
     <string name="common_next">Seguinte</string>
     <string name="common_no">Non</string>
+    <string name="common_now">Agora</string>
     <string name="common_ok">Aceptar</string>
     <string name="common_pending">Pendente</string>
     <string name="common_remove">Eliminar</string>
@@ -228,7 +236,7 @@
     <string name="delete_account">Retirar a conta</string>
     <string name="delete_entries">Eliminar entradas</string>
     <string name="delete_link">Eliminar a ligazón</string>
-    <string name="deselect_all">Desmarcar todo</string>
+    <string name="deselect_all">Deseleccionar todo</string>
     <string name="destination_filename">Nome do ficheiro de destino</string>
     <string name="dev_version_new_version_available">Non hai versión nova dispoñíbel</string>
     <string name="dev_version_no_information_available">Sen información dispoñíbel</string>
@@ -756,6 +764,7 @@
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_backup">Restaurar a copia de seguranza</string>
     <string name="restore_button_description">Restaurar ficheiro eliminado</string>
+    <string name="restore_item">Restaurar</string>
     <string name="restore_selected">Restaurar o seleccionado</string>
     <string name="retrieving_file">Recuperando o ficheiro…</string>
     <string name="retry">Volver tentar</string>
@@ -1092,6 +1101,18 @@
         <item quantity="one">%d minuto</item>
         <item quantity="other">%d minutos</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">Hai 1 segundo</item>
+        <item quantity="other">Hai %d segundos</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">Hai 1 minuto</item>
+        <item quantity="other">Hai %d minutos</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">Hai 1 hora</item>
+        <item quantity="other">Hai %d horas</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Non foi posíbel sincronizar  %1$d ficheiro (conflitos: %2$d)</item>
         <item quantity="other">Non foi posíbel sincronizar  %1$d ficheiros (conflitos: %2$d)</item>
@@ -1139,6 +1160,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d ficheiro</item>
         <item quantity="other">%1$d ficheiros</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d elemento</item>
+        <item quantity="other">%1$d elementos</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Amosar %1$d ficheiro agochado</item>

@@ -87,6 +87,8 @@
     <string name="battery_optimization_disable">Изключване</string>
     <string name="battery_optimization_message">Възможно е устройството ви да има активирана оптимизация на батерията. AutoUpload работи правилно само, ако изключите това приложение от него.</string>
     <string name="battery_optimization_title">Оптимизация на батерията</string>
+    <string name="bottom_navigation_menu_favorites_label">Любими</string>
+    <string name="bottom_navigation_menu_files_label">Всички файлове</string>
     <string name="brute_force_delay">Забавяне, поради твърде много грешни опити</string>
     <string name="calendar">Kалендар</string>
     <string name="calendars">Kалендари</string>
@@ -119,6 +121,7 @@
     <string name="common_loading">Зареждане…</string>
     <string name="common_next">Следващ</string>
     <string name="common_no">Не</string>
+    <string name="common_now">Сега</string>
     <string name="common_ok">ОК</string>
     <string name="common_pending">В очакване</string>
     <string name="common_remove">Изтриване</string>
@@ -621,6 +624,7 @@
     <string name="restore">Възстанови файл</string>
     <string name="restore_backup">Възстановяване на архив</string>
     <string name="restore_button_description">Възстанови изтрития файл</string>
+    <string name="restore_item">Възстановяне</string>
     <string name="restore_selected">Възстановяване на избраните</string>
     <string name="retrieving_file">Извличане на файл...</string>
     <string name="retry">Опитай отново</string>

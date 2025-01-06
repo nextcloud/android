@@ -102,6 +102,10 @@
     <string name="battery_optimization_disable">Poista käytöstä</string>
     <string name="battery_optimization_message">Laitteellasi on ehkä päällä akun optimisointi tälle sovellukselle. AutoUpload ei välttämättä toimi oikein ellet poista sovellusta optimisointilistalta.</string>
     <string name="battery_optimization_title">Akun optimointi</string>
+    <string name="bottom_navigation_menu_assistant_label">Avustaja</string>
+    <string name="bottom_navigation_menu_favorites_label">Suosikit</string>
+    <string name="bottom_navigation_menu_files_label">Kaikki tiedostot</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Viivästetty liian monen epäonnistuneen yrityksen takia</string>
     <string name="calendar">Kalenteri</string>
     <string name="calendars">Kalenterit</string>
@@ -134,6 +138,7 @@
     <string name="common_loading">Ladataan…</string>
     <string name="common_next">Seuraava</string>
     <string name="common_no">Ei</string>
+    <string name="common_now">Nyt</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Odottaa</string>
     <string name="common_remove">Poista</string>
@@ -691,6 +696,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="restore">Palauta tiedosto</string>
     <string name="restore_backup">Palauta varmuuskopio</string>
     <string name="restore_button_description">Palauta poistettu tiedosto</string>
+    <string name="restore_item">Palauta</string>
     <string name="restore_selected">Palauta valitut</string>
     <string name="retrieving_file">Noudetaan tiedostoa…</string>
     <string name="retry">Yritä uudelleen</string>

@@ -85,6 +85,8 @@
     <string name="battery_optimization_disable">Απενεργοποίηση</string>
     <string name="battery_optimization_message">Η συσκευή σας ίσως έχει ενεργές ρυθμίσεις εξοικονόμησης ενέργειας. Η αυτόματη μεταφόρτωση δουλεύει μόνο εάν η εφαρμογή εξαιρεθεί από αυτές.</string>
     <string name="battery_optimization_title">Βελτιστοποίηση μπαταρίας</string>
+    <string name="bottom_navigation_menu_files_label">Όλα τα αρχεία</string>
+    <string name="bottom_navigation_menu_media_label">Μέσα ενημέρωσης</string>
     <string name="brute_force_delay">Καθυστέρηση λόγω πάρα πολλών λανθασμένων προσπαθειών</string>
     <string name="calendar">Ημερολόγιο</string>
     <string name="calendars">Ημερολόγια</string>
@@ -117,6 +119,7 @@
     <string name="common_loading">Φόρτωση…</string>
     <string name="common_next">Επόμενο</string>
     <string name="common_no">Όχι</string>
+    <string name="common_now">Τώρα</string>
     <string name="common_ok">Εντάξει</string>
     <string name="common_pending">Εκκρεμεί</string>
     <string name="common_remove">Διαγραφή</string>
@@ -626,6 +629,7 @@
     <string name="restore">Επαναφορά αρχείου</string>
     <string name="restore_backup">Επαναφορά αντιγράφου ασφαλείας</string>
     <string name="restore_button_description">Επαναφορά διαγραμμένου αρχείου</string>
+    <string name="restore_item">Επαναφορά</string>
     <string name="restore_selected">Επαναφορά επιλεγμένων</string>
     <string name="retrieving_file">Ανάκτηση αρχείου…</string>
     <string name="retry">Δοκιμή ξανά</string>

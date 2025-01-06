@@ -109,6 +109,10 @@
     <string name="battery_optimization_disable">چەكلەش</string>
     <string name="battery_optimization_message">ئۈسكۈنىڭىزدە باتارېيە ئەلالاشتۇرۇلغان بولۇشى مۇمكىن. AutoUpload پەقەت بۇ ئەپنى چىقىرىۋەتسىڭىزلا نورمال ئىشلەيدۇ.</string>
     <string name="battery_optimization_title">باتارېيەنى ئەلالاشتۇرۇش</string>
+    <string name="bottom_navigation_menu_assistant_label">ياردەمچى</string>
+    <string name="bottom_navigation_menu_favorites_label">ياقتۇرىدىغانلار</string>
+    <string name="bottom_navigation_menu_files_label">بارلىق ھۆججەتلەر</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">بەك كۆپ خاتا ئۇرۇنۇش سەۋەبىدىن كېچىكتۈرۈلدى</string>
     <string name="calendar">كالېندار</string>
     <string name="calendars">كالېندار</string>
@@ -141,6 +145,7 @@
     <string name="common_loading">Loading…</string>
     <string name="common_next">كېيىنكى</string>
     <string name="common_no">ياق</string>
+    <string name="common_now">ھازىر</string>
     <string name="common_ok">جەزملە</string>
     <string name="common_pending">ساقلىنىۋاتىدۇ</string>
     <string name="common_remove">ئۆچۈرۈش</string>
@@ -737,6 +742,7 @@
     <string name="restore">ھۆججەتنى ئەسلىگە كەلتۈرۈش</string>
     <string name="restore_backup">زاپاسلاشنى ئەسلىگە كەلتۈرۈڭ</string>
     <string name="restore_button_description">ئۆچۈرۈلگەن ھۆججەتنى ئەسلىگە كەلتۈرۈڭ</string>
+    <string name="restore_item">ئەسلىگە كەلتۈرۈش</string>
     <string name="restore_selected">تاللانغاننى ئەسلىگە كەلتۈرۈڭ</string>
     <string name="retrieving_file">ھۆججەتنى ئەسلىگە كەلتۈرۈش…</string>
     <string name="retry">قايتا سىناڭ</string>

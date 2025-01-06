@@ -35,6 +35,8 @@
     <string name="advanced_settings">Дополнительные настройки</string>
     <string name="allow_resharing">Разрешить повторную публикацию</string>
     <string name="app_config_base_url_title">Основной URL</string>
+    <string name="app_config_disable_log_title">Отключить журнал</string>
+    <string name="app_config_proxy_host_title">Адрес прокси-сервера</string>
     <string name="app_config_proxy_port_title">Порт прокси</string>
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
     <string name="appbar_search_in">Искать в %s</string>
@@ -109,6 +111,10 @@
     <string name="battery_optimization_disable">Отключить</string>
     <string name="battery_optimization_message">Вероятно, используется оптимизация использования батареи. Функция автоматической передачи файлов на сервер при использовании оптимизации может работать неправильно. </string>
     <string name="battery_optimization_title">Оптимизация использования батареи</string>
+    <string name="bottom_navigation_menu_assistant_label">Помощник</string>
+    <string name="bottom_navigation_menu_favorites_label">Избранное</string>
+    <string name="bottom_navigation_menu_files_label">Все файлы</string>
+    <string name="bottom_navigation_menu_media_label">Медиа</string>
     <string name="brute_force_delay">Слишком много неверных попыток, операция отложена</string>
     <string name="calendar">Календарь</string>
     <string name="calendars">Календари</string>
@@ -141,6 +147,7 @@
     <string name="common_loading">Загрузка…</string>
     <string name="common_next">Далее</string>
     <string name="common_no">Нет</string>
+    <string name="common_now">Сейчас</string>
     <string name="common_ok">ОК</string>
     <string name="common_pending">Ожидается</string>
     <string name="common_remove">Удалить</string>
@@ -740,6 +747,7 @@
     <string name="restore">Восстановить файл</string>
     <string name="restore_backup">Восстановить резервную копию</string>
     <string name="restore_button_description">Восстановить удалённый файл</string>
+    <string name="restore_item">Восстановить</string>
     <string name="restore_selected">Восстановить выбранные</string>
     <string name="retrieving_file">Получение файла…</string>
     <string name="retry">Попробовать снова</string>

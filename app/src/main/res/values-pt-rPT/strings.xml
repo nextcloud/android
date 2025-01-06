@@ -82,6 +82,9 @@
     <string name="battery_optimization_disable">Desativar</string>
     <string name="battery_optimization_message">O seu dispositivo pode ter a optimização de bateria activa. O AutoUpload apenas funciona correctamente se excluir esta aplicação.</string>
     <string name="battery_optimization_title">Optimização de bateria</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
+    <string name="bottom_navigation_menu_files_label">Todos os ficheiros</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Suspenso devido a demasiadas tentativas erradas</string>
     <string name="calendar">Calendário</string>
     <string name="calendars">Calendários</string>
@@ -219,6 +222,7 @@
     <string name="downloader_download_succeeded_content">%1$s transferido</string>
     <string name="downloader_download_succeeded_ticker">Transferido</string>
     <string name="downloader_not_downloaded_yet">Ainda não transferido</string>
+    <string name="downloader_unexpected_error">Ocorreu um erro inesperado enquanto transferia os ficheiros</string>
     <string name="drawer_close">Fechar barra lateral</string>
     <string name="drawer_community">Comunidade</string>
     <string name="drawer_header_background">Imagem de fundo de drawer header</string>
@@ -238,6 +242,7 @@
     <string name="drawer_quota">Usado %1$s de %2$s</string>
     <string name="drawer_quota_unlimited">%1$s utilizado</string>
     <string name="drawer_synced_folders">Carregamento automático</string>
+    <string name="e2e_offline">Não é possível sem uma ligação à Internet</string>
     <string name="ecosystem_apps_display_more">Mais</string>
     <string name="ecosystem_apps_display_notes">Notas</string>
     <string name="ecosystem_apps_display_talk">Falar</string>
@@ -346,7 +351,7 @@
     <string name="file_migration_preparing">Preparando migração…</string>
     <string name="file_migration_restoring_accounts_configuration">Restaurando configurações da conta…</string>
     <string name="file_migration_saving_accounts_configuration">Guardando configurações da conta…</string>
-    <string name="file_migration_source_not_readable">Quer alterar a pasta onde estão armazenados os dados para %1$s ?\n\nNota: Todos os dados terão de ser novamente descarregados.</string>
+    <string name="file_migration_source_not_readable">Ainda pretende alterar a pasta de armazenados de dados para %1$s ?\n\nNota: todos os dados terão de ser novamente transferidos.</string>
     <string name="file_migration_source_not_readable_title">Impossível ler a pasta de origem</string>
     <string name="file_migration_updating_index">Actualizando indíce…</string>
     <string name="file_migration_use_data_folder">Use</string>
@@ -414,6 +419,7 @@
     <string name="instant_upload_existing">Também envia ficheiros existentes</string>
     <string name="instant_upload_on_charging">Carregar ficheiros apenas quando o carregador está ligado</string>
     <string name="instant_upload_path">/Envio Instantâneo </string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">É necessária uma ligação à Internet para configurar a pasta encriptada</string>
     <string name="invalid_url">URL inválido</string>
     <string name="invisible">Invisível </string>
     <string name="label_empty">O nome não pode ficar em branco</string>
@@ -475,7 +481,7 @@
     <string name="move_file_invalid_overwrite">O ficheiro já existe na pasta de destino</string>
     <string name="move_file_not_found">Não é possível mover o ficheiro. por favor, verifique se este existe.</string>
     <string name="network_error_connect_timeout_exception">Erro quando esperava uma resposta do servidor. A operação em curso não foi concluída.</string>
-    <string name="network_error_socket_exception">Ocorreu um erro na conexão com o servidor</string>
+    <string name="network_error_socket_exception">Ocorreu um erro durante a ligação ao servidor</string>
     <string name="network_error_socket_timeout_exception">Erro quando esperava uma resposta do servidor. A operação em curso não foi concluída.</string>
     <string name="network_host_not_available">Impossível terminar a operação em curso. O servidor está indisponível.</string>
     <string name="new_comment">Novo comentário…</string>
@@ -510,7 +516,7 @@
     <string name="notification_icon">Ícone de notificação</string>
     <string name="notifications_no_results_headline">Sem notificações</string>
     <string name="notifications_no_results_message">Por favor, confirme novamente mais tarde.</string>
-    <string name="offline_mode">Sem conexão à Internet</string>
+    <string name="offline_mode">Sem ligação à Internet</string>
     <string name="oneHour">1 hora</string>
     <string name="online">On-line</string>
     <string name="online_status">Estado on-line</string>
@@ -527,7 +533,7 @@
     <string name="pass_code_wrong">Código incorreto</string>
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Negar</string>
-    <string name="permission_storage_access">Permissões adicionais são necessárias para enviar e transferir ficheiros.</string>
+    <string name="permission_storage_access">Necessário permissões adicionais para enviar e transferir ficheiros.</string>
     <string name="picture_set_as_no_app">Nenhuma aplicação encontrada para definir a imagem</string>
     <string name="pin_home">Afixar no ecrã Início</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
@@ -597,8 +603,10 @@
     <string name="prefs_value_theme_light">Claro</string>
     <string name="prefs_value_theme_system">Seguir sistema</string>
     <string name="preview_image_description">Pré-Visualizar imagem</string>
+    <string name="preview_image_downloading_image_for_edit">A transferir a imagem para iniciar o ecrã de edição, por favor, aguarde...</string>
     <string name="preview_image_error_no_local_file">Não existe ficheiro local para pré-visualizar</string>
     <string name="preview_image_error_unknown_format">Impossível mostrar a imagem</string>
+    <string name="preview_image_file_is_not_downloaded">O ficheiro não foi transferido</string>
     <string name="preview_sorry">Desculpa</string>
     <string name="privacy">Privacidade</string>
     <string name="public_share_name">Novo nome</string>
@@ -627,6 +635,7 @@
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_backup">Restaurar cópia de segurança </string>
     <string name="restore_button_description">Restaurar ficheiro apagado</string>
+    <string name="restore_item">Restaurar</string>
     <string name="restore_selected">Restaurar o selecionado</string>
     <string name="retrieving_file">A obter o ficheiro…</string>
     <string name="retry">Repetir</string>
@@ -781,7 +790,7 @@ Aproveite o novo e melhorado envio automático.</string>
     <string name="synced_folders_type">Tipo</string>
     <string name="synced_icon">Sincronizado</string>
     <string name="tags">Etiquetas</string>
-    <string name="test_server_button">Testar conexão ao servidor</string>
+    <string name="test_server_button">Testar ligação ao servidor</string>
     <string name="thirtyMinutes">30 minutos</string>
     <string name="thisWeek">Esta semana</string>
     <string name="thumbnail">Miniatura</string>

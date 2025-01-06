@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Proxy Port</string>
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Add new task</string>
     <string name="assistant_screen_all_task_type">All</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Are you sure you want to delete this task?</string>
@@ -120,6 +121,9 @@
     <string name="battery_optimization_disable">Disable</string>
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
     <string name="battery_optimization_title">Battery optimization</string>
+    <string name="bottom_navigation_menu_assistant_label">Assistant</string>
+    <string name="bottom_navigation_menu_files_label">All files</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendars</string>
@@ -152,6 +156,7 @@
     <string name="common_loading">Loading…</string>
     <string name="common_next">Next</string>
     <string name="common_no">No</string>
+    <string name="common_now">Now</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Pending</string>
     <string name="common_remove">Delete</string>
@@ -757,6 +762,7 @@
     <string name="restore">Restore file</string>
     <string name="restore_backup">Restore backup</string>
     <string name="restore_button_description">Restore deleted file</string>
+    <string name="restore_item">Restore</string>
     <string name="restore_selected">Restore selected</string>
     <string name="retrieving_file">Retrieving file…</string>
     <string name="retry">Retry</string>
@@ -1093,6 +1099,18 @@
         <item quantity="one">%d minute</item>
         <item quantity="other">%d minutes</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">1 second ago</item>
+        <item quantity="other">%d seconds ago</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">1 minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">1 hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Could not sync %1$d file (conflicts: %2$d)</item>
         <item quantity="other">Could not sync %1$d files (conflicts: %2$d)</item>
@@ -1140,6 +1158,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d file</item>
         <item quantity="other">%1$d files</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d item</item>
+        <item quantity="other">%1$d items</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Show %1$d hidden folder</item>

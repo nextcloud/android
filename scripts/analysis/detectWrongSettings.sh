@@ -6,8 +6,14 @@
 
 snapshotCount=$(./gradlew dependencies | grep SNAPSHOT -c)
 betaCount=$(grep "<bool name=\"is_beta\">true</bool>" app/src/main/res/values/setup.xml -c)
-libraryHash=$(grep androidLibraryVersion build.gradle | cut -f2 -d'"' | grep -vi "snapshot"  | grep "^[0-9a-zA-Z]\{10,40\}$" -c)
+libraryHash=$(grep androidLibraryVersion build.gradle | cut -d= -f2 | tr -d \")
 
+lastHashes=$(curl https://api.github.com/repos/nextcloud/android-library/commits | jq ".[] .sha" | head -n 10)
+
+if [[ $(echo "$lastHashes"  | grep -c $libraryHash) -ne 1  ]]; then
+    echo "Library commit not within last 10 hashes, please rebase!"
+    exit 1
+fi
 
 if [[ $snapshotCount -gt 0 ]] ; then
     echo "Snapshot found in dependencies"
@@ -18,10 +24,5 @@ if [[ $betaCount -gt 0 ]] ; then
     exit 1
 fi
  
-if [[ $libraryHash -eq 0 ]] ; then
-    echo "Library hash is wrong!"
-    exit 1
-fi
-
 exit 0
 

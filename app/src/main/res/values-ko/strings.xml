@@ -109,6 +109,9 @@
     <string name="battery_optimization_disable">비활성화</string>
     <string name="battery_optimization_message">기기의 배터리 최적화가 활성화되어있습니다. 자동 업로드는 이 앱을 배터리 최적화에서 제외해야만 정상적으로 동작합니다.</string>
     <string name="battery_optimization_title">배터리 최적화</string>
+    <string name="bottom_navigation_menu_assistant_label">어시스턴트</string>
+    <string name="bottom_navigation_menu_favorites_label">즐겨찾기</string>
+    <string name="bottom_navigation_menu_files_label">모든 파일</string>
     <string name="brute_force_delay">시도 횟수가 너무 많아 기다려야 합니다.</string>
     <string name="calendar">일정</string>
     <string name="calendars">일정</string>
@@ -141,6 +144,7 @@
     <string name="common_loading">불러오는 중…</string>
     <string name="common_next">다음</string>
     <string name="common_no">아니요</string>
+    <string name="common_now">지금</string>
     <string name="common_ok">확인</string>
     <string name="common_pending">대기 중</string>
     <string name="common_remove">삭제</string>
@@ -706,6 +710,7 @@
     <string name="restore">파일 복구</string>
     <string name="restore_backup">백업 복구</string>
     <string name="restore_button_description">삭제된 파일 복구</string>
+    <string name="restore_item">복원</string>
     <string name="restore_selected">선택한 항목 복구</string>
     <string name="retrieving_file">파일 가져오는 중...</string>
     <string name="retry">다시 시도</string>

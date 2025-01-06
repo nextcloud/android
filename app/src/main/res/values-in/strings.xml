@@ -104,6 +104,10 @@
     <string name="battery_optimization_message">Optimisasi baterai perangkat Anda mungkin sedang aktif.
 Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini dari itu.</string>
     <string name="battery_optimization_title">Optimisasi baterai</string>
+    <string name="bottom_navigation_menu_assistant_label">Asisten</string>
+    <string name="bottom_navigation_menu_favorites_label">Disukai</string>
+    <string name="bottom_navigation_menu_files_label">Semua berkas</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Ditahan karena terlalu banyak percobaan gagal</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalender</string>
@@ -651,6 +655,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="restore">Pulihkan berkas</string>
     <string name="restore_backup">Pulihkan cadangan</string>
     <string name="restore_button_description">Pulihkan berkas yang terhapus</string>
+    <string name="restore_item">Pulihkan</string>
     <string name="restore_selected">Pulihkan yang dipilih</string>
     <string name="retrieving_file">Memperoleh berkas...</string>
     <string name="retry">Ulangi</string>

@@ -84,6 +84,9 @@
     <string name="battery_optimization_disable">ปิดใช้งาน</string>
     <string name="battery_optimization_message">อุปกรณ์ของคุณอาจเปิดใช้การเพิ่มประสิทธิภาพแบตเตอรี่อยู่ ฟังก์ชันอัปโหลดอัตโนมัติจะทำงานได้อย่างถูกต้องเฉพาะถ้ายกเว้นแอปนี้</string>
     <string name="battery_optimization_title">การเพิ่มประสิทธิภาพแบตเตอรี่</string>
+    <string name="bottom_navigation_menu_favorites_label">รายการโปรด</string>
+    <string name="bottom_navigation_menu_files_label">ไฟล์ทั้งหมด</string>
+    <string name="bottom_navigation_menu_media_label">สื่อ</string>
     <string name="brute_force_delay">ล่าช้าเนื่องจากผิดหลายครั้งติดต่อกัน</string>
     <string name="calendar">ปฏิทิน</string>
     <string name="calendars">ปฏิทิน</string>
@@ -497,6 +500,7 @@
     <string name="remove_success_msg">ลบแล้ว</string>
     <string name="rename_dialog_title">กรอกชื่อใหม่</string>
     <string name="request_account_deletion">ขอลบบัญชี</string>
+    <string name="restore_item">คืนค่า</string>
     <string name="scanQR_description">เข้าสู่ระบบผ่านคิวอาร์โค้ด</string>
     <string name="select_all">เลือกทั้งหมด</string>
     <string name="send">ส่ง</string>

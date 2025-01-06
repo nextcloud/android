@@ -23,7 +23,7 @@ jobs:
         steps:
             -   uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
             -   name: Set up JDK 17
-                uses: actions/setup-java@8df1039502a15bceb9433410b1a100fbe190c53b # v4.5.0
+                uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
                 with:
                     distribution: "temurin"
                     java-version: 17
@@ -42,14 +42,14 @@ jobs:
                     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                 run: scripts/uploadReport.sh "${{ secrets.LOG_USERNAME }}" "${{ secrets.LOG_PASSWORD }}" ${{github.event.number}} "test" "Unit" ${{github.event.number}}
             -   name: Upload coverage to codecov
-                uses: codecov/codecov-action@015f24e6818733317a2da2edd6290ab26238649a # v5.0.7
+                uses: codecov/codecov-action@1e68e06f1dbfde0e4cefc87efeba9e4643565303 # v5.1.2
                 with:
                     token: ${{ secrets.CODECOV_TOKEN }}
                     flags: unit
                     fail_ci_if_error: true
             -   name: Upload jacoco artifacts
                 if: ${{ failure() }}
-                uses: actions/upload-artifact@b4b15b8c7c6ac21ea08fcf65892d2ee8f75cf882 # v4.4.3
+                uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
                 with:
                     name: test-results
                     path: app/build/reports/tests/testGplayDebugUnitTest/

@@ -108,6 +108,10 @@
     <string name="battery_optimization_disable">Deshabilitar</string>
     <string name="battery_optimization_message">Tu dispositivo puede tener la optimización de batería habilitada. La Carga Automática solo funciona adecuadamente si excluyes esta alicación de la optimización.</string>
     <string name="battery_optimization_title">Optimización de la batería</string>
+    <string name="bottom_navigation_menu_assistant_label">Asistente</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoritos</string>
+    <string name="bottom_navigation_menu_files_label">Todos los archivos</string>
+    <string name="bottom_navigation_menu_media_label">Multimedia</string>
     <string name="brute_force_delay">Suspendido debido a múltiples intentos fallidos de inicio de sesión.</string>
     <string name="calendar">Calendario</string>
     <string name="calendars">Calendarios</string>
@@ -704,6 +708,7 @@
     <string name="restore">Restaurar archivo</string>
     <string name="restore_backup">Restaurar respaldo</string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
+    <string name="restore_item">Restaurar</string>
     <string name="restore_selected">Restaurar seleccionados</string>
     <string name="retrieving_file">Recuperando archivo...</string>
     <string name="retry">Reintentar</string>

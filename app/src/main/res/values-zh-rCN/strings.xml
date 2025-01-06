@@ -41,10 +41,12 @@
     <string name="app_config_disable_more_external_site_title">禁用外部网站</string>
     <string name="app_config_disable_multiaccount_title">禁用多账号</string>
     <string name="app_config_disable_sharing_title">禁用共享</string>
+    <string name="app_config_enforce_protection_title">强制保护</string>
     <string name="app_config_proxy_host_title">代理主机名称</string>
     <string name="app_config_proxy_port_title">代理端口</string>
     <string name="app_widget_description">显示仪表盘中的一个小部件</string>
     <string name="appbar_search_in">在 %s 中搜索</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">添加新任务</string>
     <string name="assistant_screen_all_task_type">所有</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">输入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您确定要删除这些任务吗？</string>
@@ -102,6 +104,8 @@
     <string name="authenticator_activity_login_error">处理你的登录请求时出现问题。请稍后再试。</string>
     <string name="authenticator_activity_please_complete_login_process">请在浏览器中完成登录流程</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
+    <string name="auto_upload_gplay">自动上传行为已更改</string>
+    <string name="auto_upload_gplay_desc">由于谷歌施加的新限制，自动上传功能将不再能够自动删除已上传的文件。</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
     <string name="autoupload_configure">配置</string>
@@ -117,6 +121,10 @@
     <string name="battery_optimization_disable">禁用</string>
     <string name="battery_optimization_message">您的设备可能启用了电池优化。仅当您从中排除（允许后台运行）此应用时，自动上传才能正常工作。</string>
     <string name="battery_optimization_title">电池优化</string>
+    <string name="bottom_navigation_menu_assistant_label">助手</string>
+    <string name="bottom_navigation_menu_favorites_label">收藏</string>
+    <string name="bottom_navigation_menu_files_label">全部文件</string>
+    <string name="bottom_navigation_menu_media_label">媒体文件</string>
     <string name="brute_force_delay">因过多的错误尝试而延误</string>
     <string name="calendar">日历</string>
     <string name="calendars">日历</string>
@@ -149,6 +157,7 @@
     <string name="common_loading">正在加载…</string>
     <string name="common_next">下一个</string>
     <string name="common_no">否</string>
+    <string name="common_now">现在</string>
     <string name="common_ok">确定</string>
     <string name="common_pending">待定</string>
     <string name="common_remove">删除</string>
@@ -644,7 +653,7 @@
     <string name="player_toggle">切换</string>
     <string name="please_select_a_server">请选择服务器…</string>
     <string name="power_save_check_dialog_message">禁用节能检查可能会导致在低电池电量状态下仍然上传文件！</string>
-    <string name="pref_behaviour_entries_delete_file">已删除</string>
+    <string name="pref_behaviour_entries_delete_file">被删除</string>
     <string name="pref_behaviour_entries_keep_file">保留在原始文件夹</string>
     <string name="pref_behaviour_entries_move">移动到应用文件夹</string>
     <string name="pref_instant_name_collision_policy_dialogTitle">如果文件已经存在怎么办？</string>
@@ -754,6 +763,7 @@
     <string name="restore">恢复文件</string>
     <string name="restore_backup">还原备份</string>
     <string name="restore_button_description">恢复已删除的文件</string>
+    <string name="restore_item">恢复</string>
     <string name="restore_selected">已选择备份</string>
     <string name="retrieving_file">获取文件中…</string>
     <string name="retry">重试</string>
@@ -954,7 +964,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="today">今天</string>
     <string name="trashbin_activity_title">回收站</string>
     <string name="trashbin_empty_headline">没有被删除的文件</string>
-    <string name="trashbin_empty_message">您可以在此处恢复已删除的文件。</string>
+    <string name="trashbin_empty_message">你可以在此处还原已删除的文件。</string>
     <string name="trashbin_file_not_deleted">文件 %1$s 无法被删除！</string>
     <string name="trashbin_file_not_restored">文件 %1$s 无法被恢复！</string>
     <string name="trashbin_file_remove">彻底删除</string>
@@ -1070,7 +1080,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="uploads_view_upload_status_fetching_server_version">正在获取服务器版本…</string>
     <string name="uploads_view_upload_status_service_interrupted">应用程序已终止</string>
     <string name="uploads_view_upload_status_succeeded">已完成</string>
-    <string name="uploads_view_upload_status_succeeded_same_file">服务器端已存在相同的文件，跳过上传</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">服务端已存在相同的文件，跳过上传</string>
     <string name="uploads_view_upload_status_unknown_fail">未知错误</string>
     <string name="uploads_view_upload_status_virus_detected">检测到病毒。无法完成上传！</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">等待退出省电模式</string>
@@ -1091,6 +1101,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="wait_a_moment">请稍等…</string>
     <string name="wait_checking_credentials">正在检查保存的证书</string>
     <string name="wait_for_tmp_copy_from_private_storage">正在从私有存储中复制文件</string>
+    <string name="warn_rename_extension">修改扩展名可能会导致此文件被不同的应用打开</string>
     <string name="webview_version_check_alert_dialog_message">请更新 Android System WebView 应用程序以进行登录</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">更新</string>
     <string name="webview_version_check_alert_dialog_title">更新 Android System WebView</string>
@@ -1109,6 +1120,15 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     </plurals>
     <plurals name="minutes">
         <item quantity="other">%d 分钟</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="other">%d 秒前</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="other">%d 分钟前</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="other">%d 小时前</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="other">%1$d 个文件无法被同步 (与%2$d冲突)</item>
@@ -1145,6 +1165,9 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     </plurals>
     <plurals name="file_list__footer__file">
         <item quantity="other">%1$d个文件</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="other">%1$d 个项目</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="other">显示 %1$d 个隐藏文件夹</item>

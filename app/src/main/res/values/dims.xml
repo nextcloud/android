@@ -34,6 +34,8 @@
     <dimen name="standard_margin">16dp</dimen>
     <dimen name="standard_double_margin">32dp</dimen>
     <dimen name="standard_half_margin">8dp</dimen>
+    <dimen name="floating_action_button_bottom_margin">100dp</dimen>
+    <dimen name="bottom_navigation_view_margin">100dp</dimen>
     <dimen name="standard_quarter_margin">4dp</dimen>
     <dimen name="grid_layout_item_size">10dp</dimen>
     <dimen name="grid_layout_file_features_margin_end">24dp</dimen>
@@ -51,7 +53,6 @@
     <dimen name="list_item_share_right_margin">12dp</dimen>
     <dimen name="live_photo_indicator_vertical_padding">3dp</dimen>
     <dimen name="live_photo_indicator_horizontal_padding">16dp</dimen>
-
     <dimen name="file_list_item_avatar_icon_radius">10dp</dimen>
     <dimen name="account_action_layout_height">72dp</dimen>
     <dimen name="zero">0dp</dimen>
@@ -136,7 +137,7 @@
     <dimen name="permission_dialog_text_size">18sp</dimen>
     <dimen name="button_corner_radius">24dp</dimen>
     <dimen name="backup_button_width">160dp</dimen>
-
+    <dimen name="settings_activity_padding">24dp</dimen>
     <integer name="media_grid_width">4</integer>
     <dimen name="account_action_button_margin">12dp</dimen>
     <dimen name="account_action_button_height">50dp</dimen>

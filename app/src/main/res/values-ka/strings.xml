@@ -84,6 +84,9 @@
     <string name="battery_optimization_disable">Disable</string>
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
     <string name="battery_optimization_title">Battery optimization</string>
+    <string name="bottom_navigation_menu_favorites_label">Favorites</string>
+    <string name="bottom_navigation_menu_files_label">All files</string>
+    <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
     <string name="calendar">Calendar</string>
     <string name="calendars">Calendars</string>
@@ -651,6 +654,7 @@
     <string name="restore">Restore file</string>
     <string name="restore_backup">Restore backup</string>
     <string name="restore_button_description">Restore deleted file</string>
+    <string name="restore_item">Restore</string>
     <string name="restore_selected">Restore selected</string>
     <string name="retrieving_file">Retrieving file…</string>
     <string name="retry">Retry</string>

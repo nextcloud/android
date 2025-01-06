@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Proxy-Port</string>
     <string name="app_widget_description">Zeigt ein Widget aus dem Dashboard an</string>
     <string name="appbar_search_in">Suche in %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Neue Aufgabe hinzufügen</string>
     <string name="assistant_screen_all_task_type">Alle</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bitte einen Text eingeben</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Möchten Sie diese Aufgabe wirklich löschen?</string>
@@ -120,6 +121,10 @@
     <string name="battery_optimization_disable">Deaktivieren</string>
     <string name="battery_optimization_message">Ihr Gerät hat möglicherweise Batterieoptimierung aktiv. AutoUpload funktioniert nur dann richtig, wenn Sie diese App davon ausschließen.</string>
     <string name="battery_optimization_title">Batterie-Optimierung</string>
+    <string name="bottom_navigation_menu_assistant_label">Assistent</string>
+    <string name="bottom_navigation_menu_favorites_label">Favoriten</string>
+    <string name="bottom_navigation_menu_files_label">Alle Dateien</string>
+    <string name="bottom_navigation_menu_media_label">Medien</string>
     <string name="brute_force_delay">Durch zu viele Fehlversuche verzögert</string>
     <string name="calendar">Kalender</string>
     <string name="calendars">Kalender</string>
@@ -152,6 +157,7 @@
     <string name="common_loading">Lade…</string>
     <string name="common_next">Nächste</string>
     <string name="common_no">Nein</string>
+    <string name="common_now">Jetzt</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">Ausstehend</string>
     <string name="common_remove">Löschen</string>
@@ -431,7 +437,7 @@
     <string name="file_name_validator_rename_before_move_or_copy">%s. Bitte Datei umbenennen, bevor diese verschoben oder kopiert wird</string>
     <string name="file_name_validator_upload_content_error">Einige Inhalte können nicht hochgeladen werden, da sie reservierte Namen oder unzulässige Zeichen enthalten</string>
     <string name="file_not_found">Datei nicht gefunden</string>
-    <string name="file_not_synced">Die gewünschte Datei konnte nicht synchronisiert werden. Die letzte verfügbare Version wird angezeigt. </string>
+    <string name="file_not_synced">Datei konnte nicht synchronisiert werden. Zeige letzte verfügbare Version. </string>
     <string name="file_rename">Umbenennen</string>
     <string name="file_upload_worker_same_file_already_exists">Dieselbe Datei existiert bereits, kein Konflikt erkannt</string>
     <string name="file_version_restored_error">Fehler beim Wiederherstellen der Dateiversion!</string>
@@ -757,6 +763,7 @@
     <string name="restore">Datei wiederherstellen</string>
     <string name="restore_backup">Letzte Sicherung wiederherstellen</string>
     <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
+    <string name="restore_item">Wiederherstellen</string>
     <string name="restore_selected">Ausgewählte wiederherstellen</string>
     <string name="retrieving_file">Abrufen der Datei…</string>
     <string name="retry">Wiederholen</string>
@@ -1093,6 +1100,18 @@
         <item quantity="one">%d Minute</item>
         <item quantity="other">%d Minuten</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">Vor 1 Sekunde</item>
+        <item quantity="other">Vor %d Sekunden</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">Vor 1 Minute</item>
+        <item quantity="other">Vor %d Minuten</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">Vor 1 Stunde</item>
+        <item quantity="other">Vor %d Stunden</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Inhalte von %1$d Datei konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
         <item quantity="other">Inhalte von %1$d Dateien konnten nicht synchronisiert werden (Konflikte: %2$d)</item>
@@ -1140,6 +1159,10 @@
     <plurals name="file_list__footer__file">
         <item quantity="one">%1$d Datei</item>
         <item quantity="other">%1$d Dateien</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d Element</item>
+        <item quantity="other">%1$d Elemente</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Zeige %1$dversteckten Ordner</item>
