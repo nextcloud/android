@@ -20,7 +20,7 @@ import com.owncloud.android.utils.DisplayUtils
 
 class RecommendedFilesAdapter(
     private val context: Context,
-    private val recommendations: List<Recommendation>,
+    private val recommendations: Set<Recommendation>,
     private val delegate: OCFileListDelegate,
     private val onItemClickListener: OnItemClickListener,
     private val storageManager: FileDataStorageManager
@@ -44,7 +44,7 @@ class RecommendedFilesAdapter(
 
     @Suppress("MagicNumber")
     override fun onBindViewHolder(holder: RecommendedFilesViewHolder, position: Int) {
-        val item = recommendations[position]
+        val item = recommendations.elementAt(position)
 
         holder.binding.run {
             name.text = item.name

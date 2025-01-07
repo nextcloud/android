@@ -252,7 +252,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
-    private final ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
+    private final Set<Recommendation> recommendedFiles = new HashSet<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -148,7 +148,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
     private final SyncedFolderProvider syncedFolderProvider;
 
-    private final ArrayList<Recommendation> recommendedFiles;
+    private final Set<Recommendation> recommendedFiles;
 
     public OCFileListAdapter(
         Activity activity,
@@ -160,7 +160,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         boolean argHideItemOptions,
         boolean gridView,
         final ViewThemeUtils viewThemeUtils,
-        final ArrayList<Recommendation> recommendedFiles) {
+        final Set<Recommendation> recommendedFiles) {
         this.recommendedFiles = recommendedFiles;
         this.ocFileListFragmentInterface = ocFileListFragmentInterface;
         this.activity = activity;
