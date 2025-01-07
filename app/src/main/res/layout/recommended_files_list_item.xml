@@ -23,6 +23,7 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recommended_files_thumbnail_height"
+            android:padding="@dimen/standard_padding"
             android:background="@drawable/rounded_rect_8dp"
             android:contentDescription="@string/preview_image_description"
             android:src="@drawable/file" />
@@ -36,12 +37,15 @@
             android:contentDescription="@string/preview_image_description"
             android:layout_gravity="top|end"
             android:padding="@dimen/standard_eight_padding"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:layout_marginEnd="@dimen/standard_half_margin"
             android:layout_width="@dimen/activity_icon_radius"
             android:layout_height="@dimen/activity_icon_radius"/>
 
         <com.elyeproj.loaderviewlibrary.LoaderImageView
             app:corners="24"
             android:id="@+id/shimmer_thumbnail"
+            android:padding="@dimen/standard_padding"
             android:layout_width="match_parent"
             android:layout_height="@dimen/recommended_files_thumbnail_height" />
 
