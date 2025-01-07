@@ -25,6 +25,7 @@
             android:layout_height="@dimen/recommended_files_thumbnail_height"
             android:padding="@dimen/standard_padding"
             android:background="@drawable/rounded_rect_8dp"
+            android:backgroundTint="@color/transparent"
             android:contentDescription="@string/preview_image_description"
             android:src="@drawable/file" />
 

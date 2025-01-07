@@ -442,7 +442,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
             headerViewHolder.getHeaderView().setOnClickListener(v -> ocFileListFragmentInterface.onHeaderClicked());
 
-            ViewExtensionsKt.setVisibleIf(headerViewHolder.getBinding().recommendedFilesLayout, shouldShowRecommendedFiles());
+            ViewExtensionsKt.setVisibleIf(headerViewHolder.getBinding().recommendedFilesRecyclerView, shouldShowRecommendedFiles());
+            ViewExtensionsKt.setVisibleIf(headerViewHolder.getBinding().recommendedFilesTitle, shouldShowRecommendedFiles());
+            ViewExtensionsKt.setVisibleIf(headerViewHolder.getBinding().allFilesTitle, shouldShowRecommendedFiles());
 
             if (shouldShowRecommendedFiles()) {
                 final var recommendedFilesRecyclerView = headerViewHolder.getBinding().recommendedFilesRecyclerView;
