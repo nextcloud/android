@@ -41,10 +41,12 @@
     <string name="app_config_disable_more_external_site_title">Wyłącz zewnętrzne strony</string>
     <string name="app_config_disable_multiaccount_title">Wyłącz multi konta</string>
     <string name="app_config_disable_sharing_title">Wyłącz udostępnianie</string>
+    <string name="app_config_enforce_protection_title">Wyegzekwuj ochronę</string>
     <string name="app_config_proxy_host_title">Host Proxy</string>
     <string name="app_config_proxy_port_title">Port proxy</string>
     <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Dodaj nowe zadanie</string>
     <string name="assistant_screen_all_task_type">Wszystkie</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Wpisz jakiś tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Czy na pewno chcesz usunąć to zadanie?</string>
@@ -102,6 +104,8 @@
     <string name="authenticator_activity_login_error">Wystąpił problem podczas przetwarzania żądania logowania. Spróbuj ponownie później.</string>
     <string name="authenticator_activity_please_complete_login_process">Dokończ proces logowania w przeglądarce</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">zachowany w oryginalnym katalogu, jak jest tylko do odczytu</string>
+    <string name="auto_upload_gplay">Zmieniono zachowanie automatycznego przesyłania</string>
+    <string name="auto_upload_gplay_desc">Ze względu na nowe ograniczenia nałożone przez Google funkcja automatycznego przesyłania nie będzie już w stanie automatycznie usuwać przesłanych plików.</string>
     <string name="auto_upload_on_wifi">Wysyłaj tylko przez Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Konfiguruj</string>
@@ -671,6 +675,8 @@
     <string name="prefs_category_sync">Synchronizuj</string>
     <string name="prefs_daily_backup_summary">Codzienna kopia zapasowa kalendarza i kontaktów</string>
     <string name="prefs_daily_contact_backup_summary">Codzienne tworzenie kopii zapasowej kontaktów</string>
+    <string name="prefs_data_storage_location">Miejsce przechowywania danych</string>
+    <string name="prefs_data_storage_location_summary">Zarządzaj lokalizacją przechowywania danych</string>
     <string name="prefs_davx5_setup_error">Nieoczekiwany błąd podczas konfigurowania DAVx5 (wcześniej znanego jako DAVdroid)</string>
     <string name="prefs_e2e_active">Szyfrowanie end-to-end jest skonfigurowane!</string>
     <string name="prefs_e2e_mnemonic">Mnemonik E2E</string>

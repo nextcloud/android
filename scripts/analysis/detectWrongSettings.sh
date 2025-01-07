@@ -8,11 +8,10 @@ snapshotCount=$(./gradlew dependencies | grep SNAPSHOT -c)
 betaCount=$(grep "<bool name=\"is_beta\">true</bool>" app/src/main/res/values/setup.xml -c)
 libraryHash=$(grep androidLibraryVersion build.gradle | cut -d= -f2 | tr -d \")
 
-target=$(curl https://api.github.com/repos/nextcloud/android-library/commits/$libraryHash/pulls | jq ".[] .base.ref" | tr -d \")
-merged_at=$(curl https://api.github.com/repos/nextcloud/android-library/commits/$libraryHash/pulls | jq ".[] .merged_at" | tr -d \")
+lastHashes=$(curl https://api.github.com/repos/nextcloud/android-library/commits | jq ".[] .sha" | head -n 10)
 
-if [[ $target != "master" ]] || [[ -z $merged_at  ]]; then
-    echo "Library commit wrong!"
+if [[ $(echo "$lastHashes"  | grep -c $libraryHash) -ne 1  ]]; then
+    echo "Library commit not within last 10 hashes, please rebase!"
     exit 1
 fi
 

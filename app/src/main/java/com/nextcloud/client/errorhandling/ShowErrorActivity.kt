@@ -17,7 +17,6 @@ import com.owncloud.android.R
 import com.owncloud.android.databinding.ActivityShowErrorBinding
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
-import java.net.URLEncoder
 
 class ShowErrorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowErrorBinding
@@ -51,10 +50,7 @@ class ShowErrorActivity : AppCompatActivity() {
 
     private fun reportIssue() {
         ClipboardUtil.copyToClipboard(this, binding.textViewError.text.toString(), false)
-        val issueLink = String.format(
-            getString(R.string.report_issue_link),
-            URLEncoder.encode(binding.textViewError.text.toString(), Charsets.UTF_8.name())
-        )
+        val issueLink = getString(R.string.report_issue_link)
         DisplayUtils.startLinkIntent(this, issueLink)
         Toast.makeText(this, R.string.copied_to_clipboard, Toast.LENGTH_LONG).show()
     }
