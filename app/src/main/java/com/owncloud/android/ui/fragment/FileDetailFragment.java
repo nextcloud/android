@@ -12,6 +12,7 @@ package com.owncloud.android.ui.fragment;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -251,6 +252,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 chip.setEnsureMinTouchTargetSize(false);
                 chip.setClickable(false);
                 viewThemeUtils.material.themeChipSuggestion(chip);
+
+                if (tag.getColor() != null) {
+                    int color = Color.parseColor(tag.getColor());
+                    chip.setChipStrokeColor(ColorStateList.valueOf(color));
+                    chip.setTextColor(color);
+                }
+
                 binding.tagsGroup.addView(chip);
             }
         }
