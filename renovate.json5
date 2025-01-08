@@ -1,12 +1,12 @@
 {
-    $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-    extends: [
-        'config:recommended',
-        ':gitSignOff',
+    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+    "extends": [
+        "config:recommended",
+        ":gitSignOff"
     ],
-    timezone: 'Europe/Berlin',
-    labels: [
-        'dependencies',
-        '3. to review',
+    "timezone": "Europe/Berlin",
+    "labels": [
+        "dependencies",
+        "3. to review"
     ],
 }
