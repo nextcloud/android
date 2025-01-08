@@ -53,7 +53,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/zero"
                     android:layout_marginEnd="@dimen/standard_eighth_margin"
-                    android:contentDescription="@null"
+                    android:contentDescription="@string/favorite"
                     android:src="@drawable/ic_star_outline" />
 
                 <TextView
