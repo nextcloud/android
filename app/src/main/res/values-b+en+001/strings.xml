@@ -122,6 +122,7 @@
     <string name="battery_optimization_message">Your device may have battery optimization enabled. AutoUpload works only properly if you exclude this app from it.</string>
     <string name="battery_optimization_title">Battery optimization</string>
     <string name="bottom_navigation_menu_assistant_label">Assistant</string>
+    <string name="bottom_navigation_menu_favorites_label">Favourites</string>
     <string name="bottom_navigation_menu_files_label">All files</string>
     <string name="bottom_navigation_menu_media_label">Media</string>
     <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
