@@ -241,9 +241,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (getFile().getTags().isEmpty()) {
             binding.tagsGroup.setVisibility(View.GONE);
         } else {
-            for (String tag : getFile().getTags()) {
+            for (SystemTag tag : getFile().getTags()) {
                 Chip chip = new Chip(context);
-                chip.setText(tag);
+                chip.setText(tag.getName());
                 chip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
                                                                                            context.getTheme())));
                 chip.setShapeAppearanceModel(chip.getShapeAppearanceModel().toBuilder().setAllCornerSizes((100.0f))

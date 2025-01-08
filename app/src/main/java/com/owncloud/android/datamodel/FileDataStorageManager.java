@@ -62,6 +62,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.systemTag.SystemTag;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
@@ -1283,7 +1284,7 @@ public class FileDataStorageManager {
             ocFile.setTags(new ArrayList<>());
         } else {
             try {
-                String[] tagsArray = gson.fromJson(tags, String[].class);
+                SystemTag[] tagsArray = gson.fromJson(tags, SystemTag[].class);
                 ocFile.setTags(new ArrayList<>(Arrays.asList(tagsArray)));
             } catch (JsonSyntaxException e) {
                 // ignore saved value due to api change

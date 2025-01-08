@@ -15,6 +15,7 @@ import android.accounts.OperationCanceledException;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -30,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
+import com.google.android.material.chip.Chip;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.entity.OfflineOperationEntity;
@@ -62,6 +64,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
+import com.owncloud.android.lib.resources.systemTag.SystemTag;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -580,12 +583,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             holder.getSecondTag().setVisibility(View.GONE);
             holder.getTagMore().setVisibility(View.GONE);
 
-            holder.getFirstTag().setText(file.getTags().get(0));
+            applyChipVisuals(holder.getFirstTag(),file.getTags().get(0));
 
             if (file.getTags().size() > 1) {
-                viewThemeUtils.material.themeChipSuggestion(holder.getSecondTag());
                 holder.getSecondTag().setVisibility(View.VISIBLE);
-                holder.getSecondTag().setText(file.getTags().get(1));
+                applyChipVisuals(holder.getSecondTag(),file.getTags().get(1));
             }
 
             if (file.getTags().size() > 2) {
@@ -647,6 +649,19 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         configureThumbnail(holder, file);
+    }
+
+    private void applyChipVisuals(Chip chip, SystemTag tag) {
+        viewThemeUtils.material.themeChipSuggestion(chip);
+        chip.setText(tag.getName());
+
+        if (tag.getColor() == null) {
+            return;
+        }
+
+        int color = Color.parseColor(tag.getColor());
+        chip.setChipStrokeColor(ColorStateList.valueOf(color));
+        chip.setTextColor(color);
     }
 
     private void prepareFileSize(ListItemViewHolder holder, OCFile file, long size) {
