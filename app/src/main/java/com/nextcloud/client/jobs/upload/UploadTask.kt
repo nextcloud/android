@@ -44,16 +44,14 @@ class UploadTask(
         private val clientProvider: () -> OwnCloudClient,
         private val fileDataStorageManager: FileDataStorageManager
     ) {
-        fun create(): UploadTask {
-            return UploadTask(
-                applicationContext,
-                uploadsStorageManager,
-                connectivityService,
-                powerManagementService,
-                clientProvider,
-                fileDataStorageManager
-            )
-        }
+        fun create(): UploadTask = UploadTask(
+            applicationContext,
+            uploadsStorageManager,
+            connectivityService,
+            powerManagementService,
+            clientProvider,
+            fileDataStorageManager
+        )
     }
 
     fun upload(user: User, upload: OCUpload): Result {

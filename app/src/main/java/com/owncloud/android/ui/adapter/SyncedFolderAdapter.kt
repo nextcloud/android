@@ -149,12 +149,10 @@ class SyncedFolderAdapter(
         }
     }
 
-    override fun getSectionCount(): Int {
-        return if (filteredSyncFolderItems.size > 0) {
-            filteredSyncFolderItems.size + 1
-        } else {
-            0
-        }
+    override fun getSectionCount(): Int = if (filteredSyncFolderItems.size > 0) {
+        filteredSyncFolderItems.size + 1
+    } else {
+        0
     }
 
     @VisibleForTesting
@@ -184,42 +182,33 @@ class SyncedFolderAdapter(
         }
     }
 
-    fun get(section: Int): SyncedFolderDisplayItem? {
-        return if (section in filteredSyncFolderItems.indices) {
-            filteredSyncFolderItems[section]
-        } else {
-            null
-        }
+    fun get(section: Int): SyncedFolderDisplayItem? = if (section in filteredSyncFolderItems.indices) {
+        filteredSyncFolderItems[section]
+    } else {
+        null
     }
 
-    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int {
-        return if (isLastSection(section)) {
+    override fun getItemViewType(section: Int, relativePosition: Int, absolutePosition: Int): Int =
+        if (isLastSection(section)) {
             VIEW_TYPE_EMPTY
         } else {
             VIEW_TYPE_ITEM
         }
+
+    override fun getHeaderViewType(section: Int): Int = if (isLastSection(section)) {
+        VIEW_TYPE_EMPTY
+    } else {
+        VIEW_TYPE_HEADER
     }
 
-    override fun getHeaderViewType(section: Int): Int {
-        return if (isLastSection(section)) {
-            VIEW_TYPE_EMPTY
-        } else {
-            VIEW_TYPE_HEADER
-        }
+    override fun getFooterViewType(section: Int): Int = if (isLastSection(section) && showFooter()) {
+        VIEW_TYPE_FOOTER
+    } else {
+        // only show footer after last item and only if folders have been hidden
+        VIEW_TYPE_EMPTY
     }
 
-    override fun getFooterViewType(section: Int): Int {
-        return if (isLastSection(section) && showFooter()) {
-            VIEW_TYPE_FOOTER
-        } else {
-            // only show footer after last item and only if folders have been hidden
-            VIEW_TYPE_EMPTY
-        }
-    }
-
-    private fun showFooter(): Boolean {
-        return syncFolderItems.size > filteredSyncFolderItems.size
-    }
+    private fun showFooter(): Boolean = syncFolderItems.size > filteredSyncFolderItems.size
 
     /**
      * returns the section of a synced folder for the given local path and type.
@@ -369,50 +358,46 @@ class SyncedFolderAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder {
-        return when (viewType) {
-            VIEW_TYPE_HEADER -> {
-                HeaderViewHolder(
-                    SyncedFoldersItemHeaderBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SectionedViewHolder = when (viewType) {
+        VIEW_TYPE_HEADER -> {
+            HeaderViewHolder(
+                SyncedFoldersItemHeaderBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
-            }
-            VIEW_TYPE_FOOTER -> {
-                FooterViewHolder(
-                    SyncedFoldersFooterBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+            )
+        }
+        VIEW_TYPE_FOOTER -> {
+            FooterViewHolder(
+                SyncedFoldersFooterBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
-            }
-            VIEW_TYPE_EMPTY -> {
-                EmptyViewHolder(
-                    SyncedFoldersEmptyBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+            )
+        }
+        VIEW_TYPE_EMPTY -> {
+            EmptyViewHolder(
+                SyncedFoldersEmptyBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
-            }
-            else -> {
-                MainViewHolder(
-                    GridSyncItemBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent,
-                        false
-                    )
+            )
+        }
+        else -> {
+            MainViewHolder(
+                GridSyncItemBinding.inflate(
+                    LayoutInflater.from(parent.context),
+                    parent,
+                    false
                 )
-            }
+            )
         }
     }
 
-    private fun isLastSection(section: Int): Boolean {
-        return section >= sectionCount - 1
-    }
+    private fun isLastSection(section: Int): Boolean = section >= sectionCount - 1
 
     val hiddenFolderCount: Int
         get() = syncFolderItems.size - filteredSyncFolderItems.size
@@ -423,19 +408,22 @@ class SyncedFolderAdapter(
         fun onVisibilityToggleClick(section: Int, item: SyncedFolderDisplayItem?)
     }
 
-    internal class HeaderViewHolder(var binding: SyncedFoldersItemHeaderBinding) : SectionedViewHolder(
-        binding.root
-    )
+    internal class HeaderViewHolder(var binding: SyncedFoldersItemHeaderBinding) :
+        SectionedViewHolder(
+            binding.root
+        )
 
-    internal class FooterViewHolder(var binding: SyncedFoldersFooterBinding) : SectionedViewHolder(
-        binding.root
-    )
+    internal class FooterViewHolder(var binding: SyncedFoldersFooterBinding) :
+        SectionedViewHolder(
+            binding.root
+        )
 
     internal class EmptyViewHolder(binding: SyncedFoldersEmptyBinding) : SectionedViewHolder(binding.root)
 
-    internal class MainViewHolder(var binding: GridSyncItemBinding) : SectionedViewHolder(
-        binding.root
-    )
+    internal class MainViewHolder(var binding: GridSyncItemBinding) :
+        SectionedViewHolder(
+            binding.root
+        )
 
     private fun setSyncButtonActiveIcon(syncStatusButton: ImageButton, enabled: Boolean) {
         if (enabled) {

@@ -42,9 +42,7 @@ class Migrations @Inject constructor(
      * into [MigrationException]
      */
     class Step(val id: Int, val description: String, val mandatory: Boolean = true, val run: (s: Step) -> Unit) {
-        override fun toString(): String {
-            return "Migration $id: $description"
-        }
+        override fun toString(): String = "Migration $id: $description"
     }
 
     /**

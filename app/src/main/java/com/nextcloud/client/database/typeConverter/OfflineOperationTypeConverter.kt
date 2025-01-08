@@ -10,9 +10,9 @@ package com.nextcloud.client.database.typeConverter
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.nextcloud.model.OfflineOperationType
 import com.google.gson.GsonBuilder
 import com.nextcloud.client.database.typeAdapter.OfflineOperationTypeAdapter
+import com.nextcloud.model.OfflineOperationType
 
 @ProvidedTypeConverter
 class OfflineOperationTypeConverter {
@@ -22,12 +22,9 @@ class OfflineOperationTypeConverter {
         .create()
 
     @TypeConverter
-    fun fromOfflineOperationType(type: OfflineOperationType?): String? {
-        return gson.toJson(type)
-    }
+    fun fromOfflineOperationType(type: OfflineOperationType?): String? = gson.toJson(type)
 
     @TypeConverter
-    fun toOfflineOperationType(type: String?): OfflineOperationType? {
-        return gson.fromJson(type, OfflineOperationType::class.java)
-    }
+    fun toOfflineOperationType(type: String?): OfflineOperationType? =
+        gson.fromJson(type, OfflineOperationType::class.java)
 }

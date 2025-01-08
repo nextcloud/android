@@ -10,11 +10,10 @@ package com.nextcloud.utils.extensions
 import android.os.Parcel
 import android.os.Parcelable
 
-inline fun <reified T : Parcelable> Parcel.readParcelableCompat(classLoader: ClassLoader?): T? {
-    return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+inline fun <reified T : Parcelable> Parcel.readParcelableCompat(classLoader: ClassLoader?): T? =
+    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
         readParcelable(classLoader, T::class.java)
     } else {
         @Suppress("DEPRECATION")
         readParcelable(classLoader)
     }
-}

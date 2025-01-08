@@ -335,21 +335,13 @@ class ManageAccountsActivity :
         }
     }
 
-    override fun getHandler(): Handler {
-        return handler
-    }
+    override fun getHandler(): Handler = handler
 
-    override fun getOperationsServiceBinder(): OperationsServiceBinder? {
-        return null
-    }
+    override fun getOperationsServiceBinder(): OperationsServiceBinder? = null
 
-    override fun getStorageManager(): FileDataStorageManager {
-        return super.getStorageManager()
-    }
+    override fun getStorageManager(): FileDataStorageManager = super.getStorageManager()
 
-    override fun getFileOperationsHelper(): FileOperationsHelper? {
-        return null
-    }
+    override fun getFileOperationsHelper(): FileOperationsHelper? = null
 
     @Suppress("DEPRECATION")
     @SuppressLint("NotifyDataSetChanged")

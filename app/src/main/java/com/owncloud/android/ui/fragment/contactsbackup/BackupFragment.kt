@@ -50,7 +50,10 @@ import java.util.GregorianCalendar
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions")
-class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
+class BackupFragment :
+    FileFragment(),
+    OnDateSetListener,
+    Injectable {
     private lateinit var binding: BackupFragmentBinding
 
     @Inject
@@ -348,13 +351,15 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
                 if (Manifest.permission.WRITE_CALENDAR.equals(
                         permissions[index],
                         ignoreCase = true
-                    ) && grantResults[index] >= 0
+                    ) &&
+                    grantResults[index] >= 0
                 ) {
                     writeGranted = true
                 } else if (Manifest.permission.READ_CALENDAR.equals(
                         permissions[index],
                         ignoreCase = true
-                    ) && grantResults[index] >= 0
+                    ) &&
+                    grantResults[index] >= 0
                 ) {
                     readGranted = true
                 }
@@ -476,16 +481,15 @@ class BackupFragment : FileFragment(), OnDateSetListener, Injectable {
         }
     }
 
-    private fun checkCalendarBackupPermission(context: Context): Boolean {
-        return checkSelfPermission(context, Manifest.permission.READ_CALENDAR) && checkSelfPermission(
-            context,
-            Manifest.permission.WRITE_CALENDAR
-        )
-    }
+    private fun checkCalendarBackupPermission(context: Context): Boolean =
+        checkSelfPermission(context, Manifest.permission.READ_CALENDAR) &&
+            checkSelfPermission(
+                context,
+                Manifest.permission.WRITE_CALENDAR
+            )
 
-    private fun checkContactBackupPermission(): Boolean {
-        return checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS)
-    }
+    private fun checkContactBackupPermission(): Boolean =
+        checkSelfPermission(requireContext(), Manifest.permission.READ_CONTACTS)
 
     private fun openCleanDate() {
         if (checkAndAskForCalendarReadPermission() && checkAndAskForContactsReadPermission()) {

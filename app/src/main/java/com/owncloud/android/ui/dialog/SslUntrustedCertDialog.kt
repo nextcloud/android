@@ -43,7 +43,9 @@ import javax.inject.Inject
  * Abstract implementation of common functionality for different dialogs that get the information about the error and
  * the certificate from different classes.
  */
-open class SslUntrustedCertDialog : DialogFragment(), Injectable {
+open class SslUntrustedCertDialog :
+    DialogFragment(),
+    Injectable {
 
     @JvmField
     @Inject

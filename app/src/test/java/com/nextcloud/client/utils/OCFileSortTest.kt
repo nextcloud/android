@@ -47,9 +47,7 @@ class OCFileSortTest {
         verifySort(toSort)
     }
 
-    private fun getShuffledList(): MutableList<OCFile> {
-        return expected.toMutableList().apply { shuffle() }
-    }
+    private fun getShuffledList(): MutableList<OCFile> = expected.toMutableList().apply { shuffle() }
 
     private fun verifySort(actual: MutableList<OCFile>) {
         val targetNames = expected.map { it.fileName }.toTypedArray()

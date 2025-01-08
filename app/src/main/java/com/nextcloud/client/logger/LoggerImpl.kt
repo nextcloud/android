@@ -22,7 +22,8 @@ internal class LoggerImpl(
     private val handler: FileLogHandler,
     private val mainThreadHandler: Handler,
     queueCapacity: Int
-) : Logger, LogsRepository {
+) : Logger,
+    LogsRepository {
 
     data class Load(val onResult: (List<LogEntry>, Long) -> Unit)
     class Delete

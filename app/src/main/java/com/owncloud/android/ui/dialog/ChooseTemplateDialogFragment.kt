@@ -58,7 +58,11 @@ import javax.inject.Inject
 /**
  * Dialog to show templates for new documents/spreadsheets/presentations.
  */
-class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, TemplateAdapter.ClickListener, Injectable {
+class ChooseTemplateDialogFragment :
+    DialogFragment(),
+    View.OnClickListener,
+    TemplateAdapter.ClickListener,
+    Injectable {
 
     private lateinit var fileNames: List<String>
 
@@ -252,10 +256,11 @@ class ChooseTemplateDialogFragment : DialogFragment(), View.OnClickListener, Tem
 
         val selectedTemplate = adapter?.selectedTemplate
         val name = binding.filename.text.toString().trim()
-        val isNameJustExtension = selectedTemplate != null && name.equals(
-            DOT + selectedTemplate.extension,
-            ignoreCase = true
-        )
+        val isNameJustExtension = selectedTemplate != null &&
+            name.equals(
+                DOT + selectedTemplate.extension,
+                ignoreCase = true
+            )
         val fileNameValidatorResult = FileNameValidator.checkFileName(name, getOCCapability(), requireContext())
 
         val errorMessage = when {

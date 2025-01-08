@@ -70,11 +70,7 @@ open class WorkerNotificationManager(
         }, delay)
     }
 
-    fun getId(): Int {
-        return id
-    }
+    fun getId(): Int = id
 
-    fun getNotification(): Notification {
-        return notificationBuilder.build()
-    }
+    fun getNotification(): Notification = notificationBuilder.build()
 }

@@ -7,7 +7,4 @@
  */
 package com.owncloud.android.datamodel.e2e.v2.encrypted
 
-data class EncryptedFiledropUser(
-    val userId: String,
-    val encryptedFiledropKey: String
-)
+data class EncryptedFiledropUser(val userId: String, val encryptedFiledropKey: String)

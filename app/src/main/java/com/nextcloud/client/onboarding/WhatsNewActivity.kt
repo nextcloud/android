@@ -29,7 +29,9 @@ import javax.inject.Inject
 /**
  * Activity displaying new features after an update.
  */
-class WhatsNewActivity : FragmentActivity(), Injectable {
+class WhatsNewActivity :
+    FragmentActivity(),
+    Injectable {
 
     @JvmField
     @Inject

@@ -20,7 +20,8 @@ internal class Task<T, P>(
     private val onSuccess: OnResultCallback<T>?,
     private val onError: OnErrorCallback?,
     private val onProgress: OnProgressCallback<P>?
-) : Runnable, Cancellable {
+) : Runnable,
+    Cancellable {
 
     val isCancelled: Boolean
         get() = cancelled.get()

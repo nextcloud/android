@@ -18,7 +18,9 @@ import com.owncloud.android.R
 import com.owncloud.android.ui.activity.ToolbarActivity
 import javax.inject.Inject
 
-class EtmActivity : ToolbarActivity(), Injectable {
+class EtmActivity :
+    ToolbarActivity(),
+    Injectable {
 
     companion object {
         @JvmStatic
@@ -46,16 +48,14 @@ class EtmActivity : ToolbarActivity(), Injectable {
         )
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                if (!vm.onBackPressed()) {
-                    finish()
-                }
-                true
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            if (!vm.onBackPressed()) {
+                finish()
             }
-            else -> super.onOptionsItemSelected(item)
+            true
         }
+        else -> super.onOptionsItemSelected(item)
     }
 
     @Deprecated("Deprecated in Java")

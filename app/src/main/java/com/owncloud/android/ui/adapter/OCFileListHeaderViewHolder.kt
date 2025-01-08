@@ -10,9 +10,10 @@ package com.owncloud.android.ui.adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.ListHeaderBinding
 
-internal class OCFileListHeaderViewHolder(var binding: ListHeaderBinding) : RecyclerView.ViewHolder(
-    binding.root
-) {
+internal class OCFileListHeaderViewHolder(var binding: ListHeaderBinding) :
+    RecyclerView.ViewHolder(
+        binding.root
+    ) {
     val headerText
         get() = binding.headerText
 

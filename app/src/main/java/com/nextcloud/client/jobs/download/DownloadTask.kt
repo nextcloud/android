@@ -45,9 +45,7 @@ class DownloadTask(
         private val clientProvider: () -> OwnCloudClient,
         private val contentResolver: ContentResolver
     ) {
-        fun create(): DownloadTask {
-            return DownloadTask(context, contentResolver, clientProvider)
-        }
+        fun create(): DownloadTask = DownloadTask(context, contentResolver, clientProvider)
     }
 
     // Unused progress, isCancelled arguments needed for TransferManagerTest

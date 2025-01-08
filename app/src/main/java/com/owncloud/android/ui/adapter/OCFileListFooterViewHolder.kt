@@ -10,9 +10,10 @@ package com.owncloud.android.ui.adapter
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.databinding.ListFooterBinding
 
-internal class OCFileListFooterViewHolder(var binding: ListFooterBinding) : RecyclerView.ViewHolder(
-    binding.root
-) {
+internal class OCFileListFooterViewHolder(var binding: ListFooterBinding) :
+    RecyclerView.ViewHolder(
+        binding.root
+    ) {
     val footerText
         get() = binding.footerText
 

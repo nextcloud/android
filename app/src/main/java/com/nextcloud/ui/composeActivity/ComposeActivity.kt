@@ -65,14 +65,12 @@ class ComposeActivity : DrawerActivity() {
         }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                toggleDrawer()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        android.R.id.home -> {
+            toggleDrawer()
+            true
         }
+        else -> super.onOptionsItemSelected(item)
     }
 
     @Composable
@@ -99,8 +97,8 @@ class ComposeActivity : DrawerActivity() {
         }
     }
 
-    private suspend fun getNextcloudClient(user: User, context: Context): NextcloudClient? {
-        return withContext(Dispatchers.IO) {
+    private suspend fun getNextcloudClient(user: User, context: Context): NextcloudClient? =
+        withContext(Dispatchers.IO) {
             try {
                 OwnCloudClientFactory.createNextcloudClient(user, context)
             } catch (e: AccountUtils.AccountNotFoundException) {
@@ -108,5 +106,4 @@ class ComposeActivity : DrawerActivity() {
                 null
             }
         }
-    }
 }

@@ -60,14 +60,12 @@ class ShowErrorActivity : AppCompatActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.error_share -> {
-                onClickedShare()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.error_share -> {
+            onClickedShare()
+            true
         }
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun onClickedShare() {

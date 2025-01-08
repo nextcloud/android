@@ -15,10 +15,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.owncloud.android.R
 
-class EtmMenuAdapter(
-    context: Context,
-    val onItemClicked: (Int) -> Unit
-) : RecyclerView.Adapter<EtmMenuAdapter.PageViewHolder>() {
+class EtmMenuAdapter(context: Context, val onItemClicked: (Int) -> Unit) :
+    RecyclerView.Adapter<EtmMenuAdapter.PageViewHolder>() {
 
     private val layoutInflater = LayoutInflater.from(context)
     var pages: List<EtmMenuEntry> = listOf()
@@ -49,7 +47,5 @@ class EtmMenuAdapter(
         holder.secondaryAction.setImageResource(0)
     }
 
-    override fun getItemCount(): Int {
-        return pages.size
-    }
+    override fun getItemCount(): Int = pages.size
 }

@@ -18,10 +18,8 @@ class WorkerStateLiveData private constructor() : LiveData<WorkerState>() {
     companion object {
         private var instance: WorkerStateLiveData? = null
 
-        fun instance(): WorkerStateLiveData {
-            return instance ?: synchronized(this) {
-                instance ?: WorkerStateLiveData().also { instance = it }
-            }
+        fun instance(): WorkerStateLiveData = instance ?: synchronized(this) {
+            instance ?: WorkerStateLiveData().also { instance = it }
         }
     }
 }

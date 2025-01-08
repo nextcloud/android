@@ -15,15 +15,13 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.users.ClearStatusMessageRemoteOperation
 
 public class ClearStatusTask(val account: Account?, val context: Context?) : Function0<Boolean> {
-    override fun invoke(): Boolean {
-        return try {
-            val client = OwnCloudClientFactory.createNextcloudClient(account, context)
+    override fun invoke(): Boolean = try {
+        val client = OwnCloudClientFactory.createNextcloudClient(account, context)
 
-            ClearStatusMessageRemoteOperation().execute(client).isSuccess
-        } catch (e: AccountUtils.AccountNotFoundException) {
-            Log_OC.e(this, "Error clearing status", e)
+        ClearStatusMessageRemoteOperation().execute(client).isSuccess
+    } catch (e: AccountUtils.AccountNotFoundException) {
+        Log_OC.e(this, "Error clearing status", e)
 
-            false
-        }
+        false
     }
 }

@@ -44,7 +44,11 @@ import javax.inject.Inject
  * Dialog to input a new name for an [OCFile] being renamed.
  * Triggers the rename operation.
  */
-class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListener, TextWatcher, Injectable {
+class RenameFileDialogFragment :
+    DialogFragment(),
+    DialogInterface.OnClickListener,
+    TextWatcher,
+    Injectable {
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 

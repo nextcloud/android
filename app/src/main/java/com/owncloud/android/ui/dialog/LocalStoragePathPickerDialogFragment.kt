@@ -128,8 +128,6 @@ class LocalStoragePathPickerDialogFragment :
         }
 
         @JvmStatic
-        fun newInstance(): LocalStoragePathPickerDialogFragment {
-            return LocalStoragePathPickerDialogFragment()
-        }
+        fun newInstance(): LocalStoragePathPickerDialogFragment = LocalStoragePathPickerDialogFragment()
     }
 }

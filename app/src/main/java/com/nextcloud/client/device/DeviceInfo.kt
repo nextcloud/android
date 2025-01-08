@@ -16,7 +16,6 @@ class DeviceInfo {
     val apiLevel: Int = Build.VERSION.SDK_INT
     val androidVersion = Build.VERSION.RELEASE
 
-    fun hasCamera(context: Context): Boolean {
-        return context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
-    }
+    fun hasCamera(context: Context): Boolean =
+        context.packageManager.hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)
 }

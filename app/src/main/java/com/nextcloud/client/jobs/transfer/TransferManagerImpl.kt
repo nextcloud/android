@@ -118,8 +118,8 @@ class TransferManagerImpl(
         }
     }
 
-    private fun createDownloadTask(request: DownloadRequest): TaskFunction<DownloadTask.Result, Int> {
-        return if (request.test) {
+    private fun createDownloadTask(request: DownloadRequest): TaskFunction<DownloadTask.Result, Int> =
+        if (request.test) {
             { progress: OnProgressCallback<Int>, isCancelled: IsCancelled ->
                 testDownloadTask(request.file, progress, isCancelled)
             }
@@ -130,25 +130,22 @@ class TransferManagerImpl(
             }
             wrapper
         }
-    }
 
-    private fun createUploadTask(request: UploadRequest): TaskFunction<UploadTask.Result, Int> {
-        return if (request.test) {
-            { progress: OnProgressCallback<Int>, isCancelled: IsCancelled ->
-                val file = UploadFileOperation.obtainNewOCFileToUpload(
-                    request.upload.remotePath,
-                    request.upload.localPath,
-                    request.upload.mimeType
-                )
-                testUploadTask(file, progress, isCancelled)
-            }
-        } else {
-            val uploadTask = uploadTaskFactory.create()
-            val wrapper: TaskFunction<UploadTask.Result, Int> = { _: ((Int) -> Unit), _ ->
-                uploadTask.upload(request.user, request.upload)
-            }
-            wrapper
+    private fun createUploadTask(request: UploadRequest): TaskFunction<UploadTask.Result, Int> = if (request.test) {
+        { progress: OnProgressCallback<Int>, isCancelled: IsCancelled ->
+            val file = UploadFileOperation.obtainNewOCFileToUpload(
+                request.upload.remotePath,
+                request.upload.localPath,
+                request.upload.mimeType
+            )
+            testUploadTask(file, progress, isCancelled)
         }
+    } else {
+        val uploadTask = uploadTaskFactory.create()
+        val wrapper: TaskFunction<UploadTask.Result, Int> = { _: ((Int) -> Unit), _ ->
+            uploadTask.upload(request.user, request.upload)
+        }
+        wrapper
     }
 
     private fun onTransferUpdate(transfer: Transfer) {

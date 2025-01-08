@@ -11,7 +11,9 @@ import android.accounts.Account
 import android.os.Parcelable
 import com.owncloud.android.lib.common.OwnCloudAccount
 
-interface User : Parcelable, com.nextcloud.common.User {
+interface User :
+    Parcelable,
+    com.nextcloud.common.User {
     override val accountName: String
     val server: Server
     val isAnonymous: Boolean

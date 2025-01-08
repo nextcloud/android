@@ -61,7 +61,11 @@ import kotlin.math.max
  * Holds a swiping gallery where image files contained in an Nextcloud directory are shown.
  */
 @Suppress("TooManyFunctions")
-class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnRemoteOperationListener, Injectable {
+class PreviewImageActivity :
+    FileActivity(),
+    FileFragment.ContainerActivity,
+    OnRemoteOperationListener,
+    Injectable {
     private var livePhotoFile: OCFile? = null
     private var viewPager: ViewPager2? = null
     private var previewImagePagerAdapter: PreviewImagePagerAdapter? = null
@@ -86,10 +90,12 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
         actionBar = supportActionBar
 
-        if (savedInstanceState != null && !savedInstanceState.getBoolean(
+        if (savedInstanceState != null &&
+            !savedInstanceState.getBoolean(
                 KEY_SYSTEM_VISIBLE,
                 true
-            ) && actionBar != null
+            ) &&
+            actionBar != null
         ) {
             actionBar?.hide()
         }
@@ -388,7 +394,8 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
             screenState = PreviewImageActivityState.WaitingForBinder
         } else {
             if (currentFile != null) {
-                if (currentFile.isEncrypted && !currentFile.isDown &&
+                if (currentFile.isEncrypted &&
+                    !currentFile.isDown &&
                     previewImagePagerAdapter?.pendingErrorAt(position) == false
                 ) {
                     requestForDownload(currentFile)
@@ -563,11 +570,10 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         private const val KEY_WAITING_FOR_BINDER = "WAITING_FOR_BINDER"
         private const val KEY_SYSTEM_VISIBLE = "TRUE"
 
-        fun previewFileIntent(context: Context?, user: User?, file: OCFile?): Intent {
-            return Intent(context, PreviewImageActivity::class.java).apply {
+        fun previewFileIntent(context: Context?, user: User?, file: OCFile?): Intent =
+            Intent(context, PreviewImageActivity::class.java).apply {
                 putExtra(EXTRA_FILE, file)
                 putExtra(EXTRA_USER, user)
             }
-        }
     }
 }

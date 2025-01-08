@@ -36,7 +36,8 @@ class ProfileBottomSheetDialog(
     private val user: User,
     private val hoverCard: HoverCard,
     private val viewThemeUtils: ViewThemeUtils
-) : BottomSheetDialog(fileActivity), DisplayUtils.AvatarGenerationListener {
+) : BottomSheetDialog(fileActivity),
+    DisplayUtils.AvatarGenerationListener {
     private var _binding: ProfileBottomSheetFragmentBinding? = null
 
     // This property is only valid between onCreateView and onDestroyView.

@@ -230,17 +230,11 @@ internal class Player(
 
     // region Media player controls
 
-    override fun isPlaying(): Boolean {
-        return stateMachine.isInState(State.PLAYING)
-    }
+    override fun isPlaying(): Boolean = stateMachine.isInState(State.PLAYING)
 
-    override fun canSeekForward(): Boolean {
-        return duration > MIN_DURATION_ALLOWING_SEEK
-    }
+    override fun canSeekForward(): Boolean = duration > MIN_DURATION_ALLOWING_SEEK
 
-    override fun canSeekBackward(): Boolean {
-        return duration > MIN_DURATION_ALLOWING_SEEK
-    }
+    override fun canSeekBackward(): Boolean = duration > MIN_DURATION_ALLOWING_SEEK
 
     override fun getDuration(): Int {
         val hasDuration = setOf(State.PLAYING, State.PAUSED)
@@ -256,9 +250,7 @@ internal class Player(
         stateMachine.post(Event.PAUSE)
     }
 
-    override fun getBufferPercentage(): Int {
-        return 0
-    }
+    override fun getBufferPercentage(): Int = 0
 
     override fun seekTo(pos: Int) {
         if (stateMachine.isInState(State.PLAYING)) {
@@ -266,21 +258,15 @@ internal class Player(
         }
     }
 
-    override fun getCurrentPosition(): Int {
-        return mediaPlayer?.currentPosition ?: 0
-    }
+    override fun getCurrentPosition(): Int = mediaPlayer?.currentPosition ?: 0
 
     override fun start() {
         stateMachine.post(Event.PLAY)
     }
 
-    override fun getAudioSessionId(): Int {
-        return 0
-    }
+    override fun getAudioSessionId(): Int = 0
 
-    override fun canPause(): Boolean {
-        return stateMachine.isInState(State.PLAYING)
-    }
+    override fun canPause(): Boolean = stateMachine.isInState(State.PLAYING)
 
     // endregion
 }

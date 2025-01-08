@@ -17,9 +17,7 @@ import dagger.Reusable
 internal class VariantModule {
     @Provides
     @Reusable
-    fun scanOptionalFeature(): AppScanOptionalFeature {
-        return object : AppScanOptionalFeature() {
-            override fun getScanContract() = ScanPageContract()
-        }
+    fun scanOptionalFeature(): AppScanOptionalFeature = object : AppScanOptionalFeature() {
+        override fun getScanContract() = ScanPageContract()
     }
 }

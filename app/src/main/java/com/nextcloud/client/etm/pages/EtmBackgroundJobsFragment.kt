@@ -30,7 +30,9 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 import javax.inject.Inject
 
-class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
+class EtmBackgroundJobsFragment :
+    EtmBaseFragment(),
+    Injectable {
 
     @Inject
     lateinit var preferences: AppPreferences
@@ -97,9 +99,7 @@ class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
             return viewHolder
         }
 
-        override fun getItemCount(): Int {
-            return backgroundJobs.size
-        }
+        override fun getItemCount(): Int = backgroundJobs.size
 
         @SuppressLint("SetTextI18n")
         override fun onBindViewHolder(vh: ViewHolder, position: Int) {
@@ -170,35 +170,33 @@ class EtmBackgroundJobsFragment : EtmBaseFragment(), Injectable {
         inflater.inflate(R.menu.fragment_etm_background_jobs, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.etm_background_jobs_cancel -> {
-                vm.cancelAllJobs()
-                true
-            }
-
-            R.id.etm_background_jobs_prune -> {
-                vm.pruneJobs()
-                true
-            }
-
-            R.id.etm_background_jobs_start_test -> {
-                vm.startTestJob(periodic = false)
-                true
-            }
-
-            R.id.etm_background_jobs_schedule_test -> {
-                vm.startTestJob(periodic = true)
-                true
-            }
-
-            R.id.etm_background_jobs_cancel_test -> {
-                vm.cancelTestJob()
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
+        R.id.etm_background_jobs_cancel -> {
+            vm.cancelAllJobs()
+            true
         }
+
+        R.id.etm_background_jobs_prune -> {
+            vm.pruneJobs()
+            true
+        }
+
+        R.id.etm_background_jobs_start_test -> {
+            vm.startTestJob(periodic = false)
+            true
+        }
+
+        R.id.etm_background_jobs_schedule_test -> {
+            vm.startTestJob(periodic = true)
+            true
+        }
+
+        R.id.etm_background_jobs_cancel_test -> {
+            vm.cancelTestJob()
+            true
+        }
+
+        else -> super.onOptionsItemSelected(item)
     }
 
     private fun onBackgroundJobsUpdated(backgroundJobs: List<JobInfo>) {

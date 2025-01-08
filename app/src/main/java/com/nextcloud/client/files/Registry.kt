@@ -144,7 +144,5 @@ internal class Registry(
      * @param id transfer id
      * @return transfer status if found, null otherwise
      */
-    fun getTransfer(uuid: UUID): Transfer? {
-        return pendingQueue[uuid] ?: runningQueue[uuid] ?: completedQueue[uuid]
-    }
+    fun getTransfer(uuid: UUID): Transfer? = pendingQueue[uuid] ?: runningQueue[uuid] ?: completedQueue[uuid]
 }

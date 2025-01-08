@@ -22,9 +22,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class AssistantViewModel(
-    private val repository: AssistantRepositoryType
-) : ViewModel() {
+class AssistantViewModel(private val repository: AssistantRepositoryType) : ViewModel() {
 
     private val _screenState = MutableStateFlow<ScreenState?>(null)
     val screenState: StateFlow<ScreenState?> = _screenState

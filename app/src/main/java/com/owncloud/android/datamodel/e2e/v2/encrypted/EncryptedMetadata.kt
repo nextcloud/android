@@ -7,8 +7,4 @@
  */
 package com.owncloud.android.datamodel.e2e.v2.encrypted
 
-data class EncryptedMetadata(
-    val ciphertext: String,
-    val nonce: String,
-    val authenticationTag: String
-)
+data class EncryptedMetadata(val ciphertext: String, val nonce: String, val authenticationTag: String)

@@ -14,9 +14,8 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 
-class OfflineOperationsRepository(
-    private val fileDataStorageManager: FileDataStorageManager
-) : OfflineOperationsRepositoryType {
+class OfflineOperationsRepository(private val fileDataStorageManager: FileDataStorageManager) :
+    OfflineOperationsRepositoryType {
 
     private val dao = fileDataStorageManager.offlineOperationDao
     private val pathSeparator = '/'

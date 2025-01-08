@@ -41,7 +41,9 @@ import javax.inject.Inject
 /**
  * Dialog which will be displayed to user upon keep-in-sync file conflict.
  */
-class ConflictsResolveDialog : DialogFragment(), Injectable {
+class ConflictsResolveDialog :
+    DialogFragment(),
+    Injectable {
     private lateinit var binding: ConflictResolveDialogBinding
 
     var listener: OnConflictDecisionMadeListener? = null
@@ -142,17 +144,15 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         return builder.create()
     }
 
-    private fun createDialogBuilder(): MaterialAlertDialogBuilder {
-        return MaterialAlertDialogBuilder(requireContext())
-            .setView(binding.root)
-            .setPositiveButton(R.string.common_ok) { _: DialogInterface?, _: Int ->
-                okButtonClick()
-            }
-            .setNegativeButton(R.string.common_cancel) { _: DialogInterface?, _: Int ->
-                listener?.conflictDecisionMade(Decision.CANCEL)
-            }
-            .setTitle(data?.dialogTitle)
-    }
+    private fun createDialogBuilder(): MaterialAlertDialogBuilder = MaterialAlertDialogBuilder(requireContext())
+        .setView(binding.root)
+        .setPositiveButton(R.string.common_ok) { _: DialogInterface?, _: Int ->
+            okButtonClick()
+        }
+        .setNegativeButton(R.string.common_cancel) { _: DialogInterface?, _: Int ->
+            listener?.conflictDecisionMade(Decision.CANCEL)
+        }
+        .setTitle(data?.dialogTitle)
 
     private fun okButtonClick() {
         binding.run {

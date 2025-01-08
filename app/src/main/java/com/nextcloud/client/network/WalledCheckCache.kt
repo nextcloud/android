@@ -17,13 +17,11 @@ class WalledCheckCache @Inject constructor(private val clock: Clock) {
     private var cachedEntry: Pair<Long, Boolean>? = null
 
     @Synchronized
-    fun isExpired(): Boolean {
-        return when (val timestamp = cachedEntry?.first) {
-            null -> true
-            else -> {
-                val diff = clock.currentTime - timestamp
-                diff >= CACHE_TIME_MS
-            }
+    fun isExpired(): Boolean = when (val timestamp = cachedEntry?.first) {
+        null -> true
+        else -> {
+            val diff = clock.currentTime - timestamp
+            diff >= CACHE_TIME_MS
         }
     }
 
@@ -33,11 +31,9 @@ class WalledCheckCache @Inject constructor(private val clock: Clock) {
     }
 
     @Synchronized
-    fun getValue(): Boolean? {
-        return when (isExpired()) {
-            true -> null
-            else -> cachedEntry?.second
-        }
+    fun getValue(): Boolean? = when (isExpired()) {
+        true -> null
+        else -> cachedEntry?.second
     }
 
     @Synchronized

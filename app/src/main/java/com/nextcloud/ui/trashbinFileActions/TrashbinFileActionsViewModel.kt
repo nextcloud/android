@@ -20,17 +20,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class TrashbinFileActionsViewModel @Inject constructor(
-    private val logger: Logger
-) : ViewModel() {
+class TrashbinFileActionsViewModel @Inject constructor(private val logger: Logger) : ViewModel() {
 
     sealed interface UiState {
         data object Loading : UiState
         data object Error : UiState
-        data class LoadedForSingleFile(
-            val actions: List<TrashbinFileAction>,
-            val titleFile: TrashbinFile?
-        ) : UiState
+        data class LoadedForSingleFile(val actions: List<TrashbinFileAction>, val titleFile: TrashbinFile?) : UiState
 
         data class LoadedForMultipleFiles(val actions: List<TrashbinFileAction>, val fileCount: Int) : UiState
     }

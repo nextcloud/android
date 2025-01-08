@@ -19,7 +19,9 @@ import com.owncloud.android.databinding.LoadingDialogBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class LoadingDialog : DialogFragment(), Injectable {
+class LoadingDialog :
+    DialogFragment(),
+    Injectable {
 
     @JvmField
     @Inject

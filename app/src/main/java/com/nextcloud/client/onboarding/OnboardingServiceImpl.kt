@@ -47,9 +47,8 @@ internal class OnboardingServiceImpl(
             return accountProvider.user.isAnonymous
         }
 
-    override fun shouldShowWhatsNew(callingContext: Context): Boolean {
-        return callingContext !is PassCodeActivity && whatsNew.isNotEmpty()
-    }
+    override fun shouldShowWhatsNew(callingContext: Context): Boolean =
+        callingContext !is PassCodeActivity && whatsNew.isNotEmpty()
 
     override fun launchActivityIfNeeded(activity: Activity) {
         if (!resources.getBoolean(R.bool.show_whats_new) || activity is WhatsNewActivity) {

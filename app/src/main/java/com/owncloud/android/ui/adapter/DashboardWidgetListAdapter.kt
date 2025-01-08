@@ -23,18 +23,16 @@ class DashboardWidgetListAdapter(
     val clientFactory: ClientFactory,
     val context: Context,
     private val dashboardWidgetConfigurationInterface: DashboardWidgetConfigurationInterface
-) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private var widgets = emptyList<DashboardWidget>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return WidgetListItemViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
+        WidgetListItemViewHolder(
             WidgetListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             accountManager,
             clientFactory,
             context
         )
-    }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val widgetListItemViewHolder = holder as WidgetListItemViewHolder
@@ -42,9 +40,7 @@ class DashboardWidgetListAdapter(
         widgetListItemViewHolder.bind(widgets[position], dashboardWidgetConfigurationInterface)
     }
 
-    override fun getItemCount(): Int {
-        return widgets.size
-    }
+    override fun getItemCount(): Int = widgets.size
 
     @SuppressLint("NotifyDataSetChanged")
     fun setWidgetList(list: Map<String, DashboardWidget>?) {

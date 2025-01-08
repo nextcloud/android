@@ -21,12 +21,11 @@ fun OCCapability.forbiddenFilenameExtensions(): List<String> = jsonToList(forbid
 
 fun OCCapability.forbiddenFilenameBaseNames(): List<String> = jsonToList(forbiddenFilenameBaseNamesJson)
 
-fun OCCapability.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8(): Boolean {
-    return forbiddenFilenames().isNotEmpty() ||
+fun OCCapability.shouldRemoveNonPrintableUnicodeCharactersAndConvertToUTF8(): Boolean =
+    forbiddenFilenames().isNotEmpty() ||
         forbiddenFilenameCharacters().isNotEmpty() ||
         forbiddenFilenameExtensions().isNotEmpty() ||
         forbiddenFilenameBaseNames().isNotEmpty()
-}
 
 @Suppress("ReturnCount")
 private fun jsonToList(json: String?): List<String> {

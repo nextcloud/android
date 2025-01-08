@@ -38,18 +38,16 @@ class DeckApiImpl(private val context: Context, private val packageManager: Pack
         )
     }
 
-    private fun putExtrasToIntent(intent: Intent, notification: Notification, user: User): Intent {
-        return intent
-            .putExtra(EXTRA_ACCOUNT, user.accountName)
-            .putExtra(EXTRA_LINK, notification.getLink())
-            .putExtra(EXTRA_OBJECT_ID, notification.getObjectId())
-            .putExtra(EXTRA_SUBJECT, notification.getSubject())
-            .putExtra(EXTRA_SUBJECT_RICH, notification.getSubjectRich())
-            .putExtra(EXTRA_MESSAGE, notification.getMessage())
-            .putExtra(EXTRA_MESSAGE_RICH, notification.getMessageRich())
-            .putExtra(EXTRA_USER, notification.getUser())
-            .putExtra(EXTRA_NID, notification.getNotificationId())
-    }
+    private fun putExtrasToIntent(intent: Intent, notification: Notification, user: User): Intent = intent
+        .putExtra(EXTRA_ACCOUNT, user.accountName)
+        .putExtra(EXTRA_LINK, notification.getLink())
+        .putExtra(EXTRA_OBJECT_ID, notification.getObjectId())
+        .putExtra(EXTRA_SUBJECT, notification.getSubject())
+        .putExtra(EXTRA_SUBJECT_RICH, notification.getSubjectRich())
+        .putExtra(EXTRA_MESSAGE, notification.getMessage())
+        .putExtra(EXTRA_MESSAGE_RICH, notification.getMessageRich())
+        .putExtra(EXTRA_USER, notification.getUser())
+        .putExtra(EXTRA_NID, notification.getNotificationId())
 
     companion object {
         const val APP_NAME = "deck"

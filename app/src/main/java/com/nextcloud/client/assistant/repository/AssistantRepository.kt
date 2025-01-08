@@ -45,15 +45,13 @@ class AssistantRepository(private val client: NextcloudClient, capability: OCCap
         return null
     }
 
-    override fun createTask(input: String, taskType: TaskTypeData): RemoteOperationResult<Void> {
-        return if (supportsV2) {
-            CreateTaskRemoteOperationV2(input, taskType).execute(client)
+    override fun createTask(input: String, taskType: TaskTypeData): RemoteOperationResult<Void> = if (supportsV2) {
+        CreateTaskRemoteOperationV2(input, taskType).execute(client)
+    } else {
+        if (taskType.id.isNullOrEmpty()) {
+            RemoteOperationResult<Void>(ResultCode.CANCELLED)
         } else {
-            if (taskType.id.isNullOrEmpty()) {
-                RemoteOperationResult<Void>(ResultCode.CANCELLED)
-            } else {
-                CreateTaskRemoteOperationV1(input, taskType.id!!).execute(client)
-            }
+            CreateTaskRemoteOperationV1(input, taskType.id!!).execute(client)
         }
     }
 
@@ -74,11 +72,9 @@ class AssistantRepository(private val client: NextcloudClient, capability: OCCap
         return null
     }
 
-    override fun deleteTask(id: Long): RemoteOperationResult<Void> {
-        return if (supportsV2) {
-            DeleteTaskRemoteOperationV2(id).execute(client)
-        } else {
-            DeleteTaskRemoteOperationV1(id).execute(client)
-        }
+    override fun deleteTask(id: Long): RemoteOperationResult<Void> = if (supportsV2) {
+        DeleteTaskRemoteOperationV2(id).execute(client)
+    } else {
+        DeleteTaskRemoteOperationV1(id).execute(client)
     }
 }

@@ -41,9 +41,8 @@ class OCUploadComparatorTest {
             private const val UPLOAD_ID = 40L
             private const val UPLOAD_ID2 = 43L
 
-            fun uploads(): Array<OCUpload> {
-                return arrayOf(failed, failedLater, inProgress, inProgressNow, failedSameTimeOtherId)
-            }
+            fun uploads(): Array<OCUpload> =
+                arrayOf(failed, failedLater, inProgress, inProgressNow, failedSameTimeOtherId)
 
             @JvmStatic
             @BeforeClass
@@ -142,12 +141,10 @@ class OCUploadComparatorTest {
         companion object {
             @JvmStatic
             @Parameterized.Parameters(name = "{0}, {1}, {2}")
-            fun data(): List<Array<OCUpload>> {
-                return uploads().flatMap { u1 ->
-                    uploads().flatMap { u2 ->
-                        uploads().map { u3 ->
-                            arrayOf(u1, u2, u3)
-                        }
+            fun data(): List<Array<OCUpload>> = uploads().flatMap { u1 ->
+                uploads().flatMap { u2 ->
+                    uploads().map { u3 ->
+                        arrayOf(u1, u2, u3)
                     }
                 }
             }

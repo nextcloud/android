@@ -34,20 +34,18 @@ object SyncedFolderUtils {
      * @param mediaFolder media folder to analyse
      * @return `true` if it qualifies as a media folder else `false`
      */
-    fun isQualifyingMediaFolder(mediaFolder: MediaFolder?): Boolean {
-        return when {
-            mediaFolder == null -> false
-            AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(mediaFolder.type) -> true
-            !isQualifiedFolder(mediaFolder.absolutePath) -> false
-            else -> {
-                when {
-                    mediaFolder.numberOfFiles < SINGLE_FILE -> false
-                    // music album (just one cover-art image)
-                    mediaFolder.type == MediaFolderType.IMAGE -> containsQualifiedImages(
-                        mediaFolder.filePaths.map { File(it) }
-                    )
-                    else -> true
-                }
+    fun isQualifyingMediaFolder(mediaFolder: MediaFolder?): Boolean = when {
+        mediaFolder == null -> false
+        AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(mediaFolder.type) -> true
+        !isQualifiedFolder(mediaFolder.absolutePath) -> false
+        else -> {
+            when {
+                mediaFolder.numberOfFiles < SINGLE_FILE -> false
+                // music album (just one cover-art image)
+                mediaFolder.type == MediaFolderType.IMAGE -> containsQualifiedImages(
+                    mediaFolder.filePaths.map { File(it) }
+                )
+                else -> true
             }
         }
     }
@@ -74,20 +72,18 @@ object SyncedFolderUtils {
      * @param folderType type of the folder
      * @return `true` if it qualifies as a media folder else `false`
      */
-    fun isQualifyingMediaFolder(folderPath: String?, folderType: MediaFolderType): Boolean {
-        return when {
-            AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(folderType) -> true
-            !isQualifiedFolder(folderPath) -> false
-            folderPath == null -> false
-            else -> {
-                val files: List<File> = getFileList(File(folderPath))
-                when {
-                    // no files
-                    files.size < SINGLE_FILE -> false
-                    // music album (just one cover-art image)
-                    folderType == MediaFolderType.IMAGE -> containsQualifiedImages(files)
-                    else -> true
-                }
+    fun isQualifyingMediaFolder(folderPath: String?, folderType: MediaFolderType): Boolean = when {
+        AUTO_QUALIFYING_FOLDER_TYPE_SET.contains(folderType) -> true
+        !isQualifiedFolder(folderPath) -> false
+        folderPath == null -> false
+        else -> {
+            val files: List<File> = getFileList(File(folderPath))
+            when {
+                // no files
+                files.size < SINGLE_FILE -> false
+                // music album (just one cover-art image)
+                folderType == MediaFolderType.IMAGE -> containsQualifiedImages(files)
+                else -> true
             }
         }
     }
@@ -114,9 +110,8 @@ object SyncedFolderUtils {
      * @param files list of files
      * @return `true` if at least one files qualifies as auto upload relevant else `false`
      */
-    private fun containsQualifiedImages(files: List<File>): Boolean {
-        return files.any { isFileNameQualifiedForAutoUpload(it.name) && MimeTypeUtil.isImage(it) }
-    }
+    private fun containsQualifiedImages(files: List<File>): Boolean =
+        files.any { isFileNameQualifiedForAutoUpload(it.name) && MimeTypeUtil.isImage(it) }
 
     /**
      * check if given file is auto upload relevant files.
@@ -125,14 +120,12 @@ object SyncedFolderUtils {
      * @return `true` if the file qualifies as auto upload relevant else `false`
      */
     @JvmStatic
-    fun isFileNameQualifiedForAutoUpload(fileName: String?): Boolean {
-        return when {
-            fileName != null -> {
-                !DISQUALIFIED_MEDIA_DETECTION_FILE_SET.contains(fileName.lowercase()) &&
-                    !fileName.startsWith(THUMBNAIL_DATA_FILE_PREFIX)
-            }
-            else -> false
+    fun isFileNameQualifiedForAutoUpload(fileName: String?): Boolean = when {
+        fileName != null -> {
+            !DISQUALIFIED_MEDIA_DETECTION_FILE_SET.contains(fileName.lowercase()) &&
+                !fileName.startsWith(THUMBNAIL_DATA_FILE_PREFIX)
         }
+        else -> false
     }
 
     /**

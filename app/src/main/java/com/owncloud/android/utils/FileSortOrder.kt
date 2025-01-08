@@ -91,30 +91,22 @@ open class FileSortOrder(@JvmField var name: String, var isAscending: Boolean) {
         }
     }
 
-    open fun sortCloudFiles(files: MutableList<OCFile>): List<OCFile> {
-        return sortCloudFilesByFavourite(files)
-    }
+    open fun sortCloudFiles(files: MutableList<OCFile>): List<OCFile> = sortCloudFilesByFavourite(files)
 
-    open fun sortLocalFiles(files: MutableList<File>): List<File> {
-        return files
-    }
+    open fun sortLocalFiles(files: MutableList<File>): List<File> = files
 
-    open fun sortTrashbinFiles(files: MutableList<TrashbinFile>): List<TrashbinFile> {
-        return files
-    }
+    open fun sortTrashbinFiles(files: MutableList<TrashbinFile>): List<TrashbinFile> = files
 
-    open fun getType(): SortType {
-        return when (name) {
-            SORT_Z_TO_A_ID,
-            SORT_A_TO_Z_ID -> SortType.ALPHABET
+    open fun getType(): SortType = when (name) {
+        SORT_Z_TO_A_ID,
+        SORT_A_TO_Z_ID -> SortType.ALPHABET
 
-            SORT_SMALL_TO_BIG_ID,
-            SORT_BIG_TO_SMALL_ID -> SortType.SIZE
+        SORT_SMALL_TO_BIG_ID,
+        SORT_BIG_TO_SMALL_ID -> SortType.SIZE
 
-            SORT_NEW_TO_OLD_ID,
-            SORT_OLD_TO_NEW_ID -> SortType.DATE
+        SORT_NEW_TO_OLD_ID,
+        SORT_OLD_TO_NEW_ID -> SortType.DATE
 
-            else -> SortType.ALPHABET
-        }
+        else -> SortType.ALPHABET
     }
 }

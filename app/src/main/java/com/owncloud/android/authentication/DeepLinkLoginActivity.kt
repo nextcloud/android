@@ -14,7 +14,9 @@ import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.mdm.MDMConfig
 import com.owncloud.android.R
 
-class DeepLinkLoginActivity : AuthenticatorActivity(), Injectable {
+class DeepLinkLoginActivity :
+    AuthenticatorActivity(),
+    Injectable {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

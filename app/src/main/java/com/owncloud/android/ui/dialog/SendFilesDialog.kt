@@ -30,7 +30,9 @@ import com.owncloud.android.ui.components.SendButtonData
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class SendFilesDialog : BottomSheetDialogFragment(R.layout.send_files_fragment), Injectable {
+class SendFilesDialog :
+    BottomSheetDialogFragment(R.layout.send_files_fragment),
+    Injectable {
 
     private var files: Array<OCFile>? = null
     private lateinit var binding: SendFilesFragmentBinding
@@ -79,15 +81,14 @@ class SendFilesDialog : BottomSheetDialogFragment(R.layout.send_files_fragment),
         binding.sendButtonRecyclerView.adapter = SendButtonAdapter(sendButtonDataList, clickListener)
     }
 
-    private fun setupSendButtonClickListener(sendIntent: Intent): SendButtonAdapter.ClickListener {
-        return SendButtonAdapter.ClickListener { sendButtonDataData: SendButtonData ->
+    private fun setupSendButtonClickListener(sendIntent: Intent): SendButtonAdapter.ClickListener =
+        SendButtonAdapter.ClickListener { sendButtonDataData: SendButtonData ->
             val packageName = sendButtonDataData.packageName
             val activityName = sendButtonDataData.activityName
             sendIntent.component = ComponentName(packageName, activityName)
             requireActivity().startActivity(Intent.createChooser(sendIntent, getString(R.string.send)))
             dismiss()
         }
-    }
 
     private fun setupSendButtonData(matches: List<ResolveInfo>): List<SendButtonData> {
         var icon: Drawable

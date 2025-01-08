@@ -20,11 +20,9 @@ class StoragePathAdapter(
     private val viewThemeUtils: ViewThemeUtils
 ) : RecyclerView.Adapter<StoragePathViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoragePathViewHolder {
-        return StoragePathViewHolder(
-            StoragePathItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        )
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoragePathViewHolder = StoragePathViewHolder(
+        StoragePathItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
 
     override fun onBindViewHolder(holder: StoragePathViewHolder, position: Int) {
         if (pathList != null && pathList.size > position) {
@@ -35,9 +33,7 @@ class StoragePathAdapter(
         }
     }
 
-    override fun getItemCount(): Int {
-        return pathList?.size ?: 0
-    }
+    override fun getItemCount(): Int = pathList?.size ?: 0
 
     interface StoragePathAdapterListener {
         /**

@@ -17,7 +17,9 @@ import javax.inject.Inject
 /**
  * Sample activity to check test overriding injections
  */
-class InjectionTestActivity : AppCompatActivity(), Injectable {
+class InjectionTestActivity :
+    AppCompatActivity(),
+    Injectable {
     @Inject
     lateinit var appPreferences: AppPreferences
 

@@ -50,7 +50,9 @@ class FileDownloadWorker(
     private var localBroadcastManager: LocalBroadcastManager,
     private val context: Context,
     params: WorkerParameters
-) : Worker(context, params), OnAccountsUpdateListener, OnDatatransferProgressListener {
+) : Worker(context, params),
+    OnAccountsUpdateListener,
+    OnDatatransferProgressListener {
 
     companion object {
         private val TAG = FileDownloadWorker::class.java.simpleName
@@ -63,8 +65,8 @@ class FileDownloadWorker(
             }
         }
 
-        fun isDownloading(accountName: String, fileId: Long): Boolean {
-            return pendingDownloads.all.any { it.value?.payload?.isMatching(accountName, fileId) == true }
+        fun isDownloading(accountName: String, fileId: Long): Boolean = pendingDownloads.all.any {
+            it.value?.payload?.isMatching(accountName, fileId) == true
         }
 
         const val FILE_REMOTE_PATH = "FILE_REMOTE_PATH"
@@ -80,13 +82,9 @@ class FileDownloadWorker(
         const val EXTRA_LINKED_TO_PATH = "EXTRA_LINKED_TO_PATH"
         const val EXTRA_ACCOUNT_NAME = "EXTRA_ACCOUNT_NAME"
 
-        fun getDownloadAddedMessage(): String {
-            return FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
-        }
+        fun getDownloadAddedMessage(): String = FileDownloadWorker::class.java.name + "DOWNLOAD_ADDED"
 
-        fun getDownloadFinishMessage(): String {
-            return FileDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
-        }
+        fun getDownloadFinishMessage(): String = FileDownloadWorker::class.java.name + "DOWNLOAD_FINISH"
     }
 
     private var currentDownload: DownloadFileOperation? = null
@@ -112,38 +110,36 @@ class FileDownloadWorker(
     private var downloadError: FileDownloadError? = null
 
     @Suppress("TooGenericExceptionCaught")
-    override fun doWork(): Result {
-        return try {
-            val requestDownloads = getRequestDownloads()
-            addAccountUpdateListener()
+    override fun doWork(): Result = try {
+        val requestDownloads = getRequestDownloads()
+        addAccountUpdateListener()
 
-            val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
-                notificationManager.getId(),
-                notificationManager.getNotification(),
-                ForegroundServiceType.DataSync
-            )
-            setForegroundAsync(foregroundInfo)
+        val foregroundInfo = ForegroundServiceHelper.createWorkerForegroundInfo(
+            notificationManager.getId(),
+            notificationManager.getNotification(),
+            ForegroundServiceType.DataSync
+        )
+        setForegroundAsync(foregroundInfo)
 
-            requestDownloads.forEachIndexed { currentDownloadIndex, requestedDownload ->
-                downloadFile(requestedDownload, currentDownloadIndex, requestDownloads.size)
-            }
-
-            downloadError?.let {
-                showDownloadErrorNotification(it)
-                notificationManager.dismissNotification()
-            }
-
-            setIdleWorkerState()
-
-            Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
-            Result.success()
-        } catch (t: Throwable) {
-            notificationManager.dismissNotification()
-            notificationManager.showNewNotification(context.getString(R.string.downloader_unexpected_error))
-            Log_OC.e(TAG, "Error caught at FilesDownloadWorker(): " + t.localizedMessage)
-            setIdleWorkerState()
-            Result.failure()
+        requestDownloads.forEachIndexed { currentDownloadIndex, requestedDownload ->
+            downloadFile(requestedDownload, currentDownloadIndex, requestDownloads.size)
         }
+
+        downloadError?.let {
+            showDownloadErrorNotification(it)
+            notificationManager.dismissNotification()
+        }
+
+        setIdleWorkerState()
+
+        Log_OC.e(TAG, "FilesDownloadWorker successfully completed")
+        Result.success()
+    } catch (t: Throwable) {
+        notificationManager.dismissNotification()
+        notificationManager.showNewNotification(context.getString(R.string.downloader_unexpected_error))
+        Log_OC.e(TAG, "Error caught at FilesDownloadWorker(): " + t.localizedMessage)
+        setIdleWorkerState()
+        Result.failure()
     }
 
     override fun onStopped() {
@@ -428,9 +424,7 @@ class FileDownloadWorker(
     inner class FileDownloadProgressListener : OnDatatransferProgressListener {
         private val boundListeners: MutableMap<Long, OnDatatransferProgressListener> = HashMap()
 
-        fun isDownloading(user: User?, file: OCFile?): Boolean {
-            return FileDownloadHelper.instance().isDownloading(user, file)
-        }
+        fun isDownloading(user: User?, file: OCFile?): Boolean = FileDownloadHelper.instance().isDownloading(user, file)
 
         fun addDataTransferProgressListener(listener: OnDatatransferProgressListener?, file: OCFile?) {
             if (file == null || listener == null) {

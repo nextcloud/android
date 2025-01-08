@@ -26,8 +26,6 @@ enum class MediaFolderType(@JvmField val id: Int) {
         }
 
         @JvmStatic
-        fun getById(id: Int?): MediaFolderType {
-            return reverseMap[id!!]
-        }
+        fun getById(id: Int?): MediaFolderType = reverseMap[id!!]
     }
 }

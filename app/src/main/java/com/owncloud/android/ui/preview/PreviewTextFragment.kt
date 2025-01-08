@@ -64,7 +64,10 @@ import javax.inject.Inject
     ],
     grammarLocatorClassName = ".MarkwonGrammarLocator"
 )
-abstract class PreviewTextFragment : FileFragment(), SearchView.OnQueryTextListener, Injectable {
+abstract class PreviewTextFragment :
+    FileFragment(),
+    SearchView.OnQueryTextListener,
+    Injectable {
 
     @JvmField
     protected var searchView: SearchView? = null

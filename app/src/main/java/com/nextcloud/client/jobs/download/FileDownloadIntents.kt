@@ -22,60 +22,53 @@ import com.owncloud.android.ui.preview.PreviewImageFragment
 
 class FileDownloadIntents(private val context: Context) {
 
-    fun newDownloadIntent(download: DownloadFileOperation, linkedToRemotePath: String): Intent {
-        return Intent(FileDownloadWorker.getDownloadAddedMessage()).apply {
+    fun newDownloadIntent(download: DownloadFileOperation, linkedToRemotePath: String): Intent =
+        Intent(FileDownloadWorker.getDownloadAddedMessage()).apply {
             putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, download.user.accountName)
             putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
             putExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH, linkedToRemotePath)
             setPackage(context.packageName)
         }
-    }
 
     fun downloadFinishedIntent(
         download: DownloadFileOperation,
         downloadResult: RemoteOperationResult<*>,
         unlinkedFromRemotePath: String?
-    ): Intent {
-        return Intent(FileDownloadWorker.getDownloadFinishMessage()).apply {
-            putExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess)
-            putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, download.user.accountName)
-            putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
-            putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.behaviour)
-            putExtra(SendShareDialog.ACTIVITY_NAME, download.activityName)
-            putExtra(SendShareDialog.PACKAGE_NAME, download.packageName)
-            if (unlinkedFromRemotePath != null) {
-                putExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
-            }
-            setPackage(context.packageName)
+    ): Intent = Intent(FileDownloadWorker.getDownloadFinishMessage()).apply {
+        putExtra(FileDownloadWorker.EXTRA_DOWNLOAD_RESULT, downloadResult.isSuccess)
+        putExtra(FileDownloadWorker.EXTRA_ACCOUNT_NAME, download.user.accountName)
+        putExtra(FileDownloadWorker.EXTRA_REMOTE_PATH, download.remotePath)
+        putExtra(OCFileListFragment.DOWNLOAD_BEHAVIOUR, download.behaviour)
+        putExtra(SendShareDialog.ACTIVITY_NAME, download.activityName)
+        putExtra(SendShareDialog.PACKAGE_NAME, download.packageName)
+        if (unlinkedFromRemotePath != null) {
+            putExtra(FileDownloadWorker.EXTRA_LINKED_TO_PATH, unlinkedFromRemotePath)
         }
+        setPackage(context.packageName)
     }
 
-    fun credentialContentIntent(user: User): Intent {
-        return Intent(context, AuthenticatorActivity::class.java).apply {
-            putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, user.toPlatformAccount())
-            putExtra(
-                AuthenticatorActivity.EXTRA_ACTION,
-                AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
-            )
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
-            addFlags(Intent.FLAG_FROM_BACKGROUND)
-        }
+    fun credentialContentIntent(user: User): Intent = Intent(context, AuthenticatorActivity::class.java).apply {
+        putExtra(AuthenticatorActivity.EXTRA_ACCOUNT, user.toPlatformAccount())
+        putExtra(
+            AuthenticatorActivity.EXTRA_ACTION,
+            AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN
+        )
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS)
+        addFlags(Intent.FLAG_FROM_BACKGROUND)
     }
 
-    fun detailsIntent(operation: DownloadFileOperation?): Intent {
-        return if (operation != null) {
-            if (PreviewImageFragment.canBePreviewed(operation.file)) {
-                Intent(context, PreviewImageActivity::class.java)
-            } else {
-                Intent(context, FileDisplayActivity::class.java)
-            }.apply {
-                putExtra(FileActivity.EXTRA_FILE, operation.file)
-                putExtra(FileActivity.EXTRA_USER, operation.user)
-                flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            }
+    fun detailsIntent(operation: DownloadFileOperation?): Intent = if (operation != null) {
+        if (PreviewImageFragment.canBePreviewed(operation.file)) {
+            Intent(context, PreviewImageActivity::class.java)
         } else {
-            Intent()
+            Intent(context, FileDisplayActivity::class.java)
+        }.apply {
+            putExtra(FileActivity.EXTRA_FILE, operation.file)
+            putExtra(FileActivity.EXTRA_USER, operation.user)
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
         }
+    } else {
+        Intent()
     }
 }

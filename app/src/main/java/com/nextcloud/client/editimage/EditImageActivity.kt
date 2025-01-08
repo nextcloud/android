@@ -58,9 +58,7 @@ class EditImageActivity :
             MimeType.HEIC
         )
 
-        fun canBePreviewed(file: OCFile): Boolean {
-            return file.mimeType in supportedMimeTypes
-        }
+        fun canBePreviewed(file: OCFile): Boolean = file.mimeType in supportedMimeTypes
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

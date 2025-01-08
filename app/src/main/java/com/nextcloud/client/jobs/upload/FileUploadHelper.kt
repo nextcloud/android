@@ -77,15 +77,11 @@ class FileUploadHelper {
 
         private val retryFailedUploadsSemaphore = Semaphore(1)
 
-        fun instance(): FileUploadHelper {
-            return instance ?: synchronized(this) {
-                instance ?: FileUploadHelper().also { instance = it }
-            }
+        fun instance(): FileUploadHelper = instance ?: synchronized(this) {
+            instance ?: FileUploadHelper().also { instance = it }
         }
 
-        fun buildRemoteName(accountName: String, remotePath: String): String {
-            return accountName + remotePath
-        }
+        fun buildRemoteName(accountName: String, remotePath: String): String = accountName + remotePath
     }
 
     fun retryFailedUploads(

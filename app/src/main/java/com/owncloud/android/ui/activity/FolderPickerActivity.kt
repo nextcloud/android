@@ -293,13 +293,11 @@ open class FolderPickerActivity :
         Log_OC.d(TAG, "onResume() end")
     }
 
-    private fun getSyncIntentFilter(): IntentFilter {
-        return IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START).apply {
-            addAction(FileSyncAdapter.EVENT_FULL_SYNC_END)
-            addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED)
-            addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED)
-            addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED)
-        }
+    private fun getSyncIntentFilter(): IntentFilter = IntentFilter(FileSyncAdapter.EVENT_FULL_SYNC_START).apply {
+        addAction(FileSyncAdapter.EVENT_FULL_SYNC_END)
+        addAction(FileSyncAdapter.EVENT_FULL_SYNC_FOLDER_CONTENTS_SYNCED)
+        addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED)
+        addAction(RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED)
     }
 
     override fun onPause() {
@@ -409,20 +407,18 @@ open class FolderPickerActivity :
     }
 
     // for copy and move, disable selecting parent folder of target files
-    private fun isFolderSelectable(type: String): Boolean {
-        return when {
-            action != MOVE_OR_COPY -> true
-            action == MOVE_OR_COPY && type == COPY -> true
-            targetFilePaths.isNullOrEmpty() -> true
-            file?.isFolder != true -> true
+    private fun isFolderSelectable(type: String): Boolean = when {
+        action != MOVE_OR_COPY -> true
+        action == MOVE_OR_COPY && type == COPY -> true
+        targetFilePaths.isNullOrEmpty() -> true
+        file?.isFolder != true -> true
 
-            // all of the target files are already in the selected directory
-            targetFilePaths?.all { PathUtils.isDirectParent(file.remotePath, it) } == true -> false
+        // all of the target files are already in the selected directory
+        targetFilePaths?.all { PathUtils.isDirectParent(file.remotePath, it) } == true -> false
 
-            // some of the target files are parents of the selected folder
-            targetFilePaths?.any { PathUtils.isAncestor(it, file.remotePath) } == true -> false
-            else -> true
-        }
+        // some of the target files are parents of the selected folder
+        targetFilePaths?.any { PathUtils.isAncestor(it, file.remotePath) } == true -> false
+        else -> true
     }
 
     private fun updateNavigationElementsInActionBar() {
@@ -623,7 +619,8 @@ open class FolderPickerActivity :
         private fun checkCredentials(syncResult: RemoteOperationResult<*>, context: Context, event: String?) {
             if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED == event && !syncResult.isSuccess
             ) {
-                if (ResultCode.UNAUTHORIZED == syncResult.code || (
+                if (ResultCode.UNAUTHORIZED == syncResult.code ||
+                    (
                         syncResult.isException &&
                             syncResult.exception is AuthenticatorException
                         )

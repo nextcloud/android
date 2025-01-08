@@ -34,7 +34,9 @@ import javax.inject.Inject
  * A Fragment that lists folders shared by the user
  */
 @Suppress("TooManyFunctions")
-class SharedListFragment : OCFileListFragment(), Injectable {
+class SharedListFragment :
+    OCFileListFragment(),
+    Injectable {
 
     @Inject
     lateinit var logger: Logger
@@ -65,32 +67,29 @@ class SharedListFragment : OCFileListFragment(), Injectable {
         }
     }
 
-    override fun getSearchRemoteOperation(currentUser: User?, event: SearchEvent?): RemoteOperation<*> {
-        return GetSharesRemoteOperation()
-    }
+    override fun getSearchRemoteOperation(currentUser: User?, event: SearchEvent?): RemoteOperation<*> =
+        GetSharesRemoteOperation()
 
-    private suspend fun fetchFileData(partialFile: OCFile): OCFile? {
-        return withContext(Dispatchers.IO) {
-            val user = accountManager.user
-            val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
-            if (!fetchResult.isSuccess) {
-                logger.e(SHARED_TAG, "Error fetching file")
-                if (fetchResult.isException && fetchResult.exception != null) {
-                    logger.e(SHARED_TAG, "exception: ", fetchResult.exception!!)
-                }
-                null
-            } else {
-                val remoteFile = fetchResult.data[0] as RemoteFile
-                val file = FileStorageUtils.fillOCFile(remoteFile)
-                FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
-                val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
-                savedFile.apply {
-                    isSharedViaLink = partialFile.isSharedViaLink
-                    isSharedWithSharee = partialFile.isSharedWithSharee
-                    sharees = partialFile.sharees
-                }
-                savedFile
+    private suspend fun fetchFileData(partialFile: OCFile): OCFile? = withContext(Dispatchers.IO) {
+        val user = accountManager.user
+        val fetchResult = ReadFileRemoteOperation(partialFile.remotePath).execute(user, context)
+        if (!fetchResult.isSuccess) {
+            logger.e(SHARED_TAG, "Error fetching file")
+            if (fetchResult.isException && fetchResult.exception != null) {
+                logger.e(SHARED_TAG, "exception: ", fetchResult.exception!!)
             }
+            null
+        } else {
+            val remoteFile = fetchResult.data[0] as RemoteFile
+            val file = FileStorageUtils.fillOCFile(remoteFile)
+            FileStorageUtils.searchForLocalFileInDefaultPath(file, user.accountName)
+            val savedFile = mContainerActivity.storageManager.saveFileWithParent(file, context)
+            savedFile.apply {
+                isSharedViaLink = partialFile.isSharedViaLink
+                isSharedWithSharee = partialFile.isSharedWithSharee
+                sharees = partialFile.sharees
+            }
+            savedFile
         }
     }
 

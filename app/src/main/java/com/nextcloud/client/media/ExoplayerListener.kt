@@ -22,8 +22,7 @@ class ExoplayerListener(
     private val playerView: View,
     private val exoPlayer: ExoPlayer,
     private val onCompleted: () -> Unit = { }
-) :
-    Player.Listener {
+) : Player.Listener {
 
     override fun onPlaybackStateChanged(playbackState: Int) {
         super.onPlaybackStateChanged(playbackState)

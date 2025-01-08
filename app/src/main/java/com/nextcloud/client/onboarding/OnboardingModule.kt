@@ -22,7 +22,5 @@ class OnboardingModule {
         resources: Resources,
         preferences: AppPreferences,
         accountProvider: CurrentAccountProvider
-    ): OnboardingService {
-        return OnboardingServiceImpl(resources, preferences, accountProvider)
-    }
+    ): OnboardingService = OnboardingServiceImpl(resources, preferences, accountProvider)
 }

@@ -26,7 +26,5 @@ class EditorUtils @Inject constructor(private val arbitraryDataProvider: Arbitra
             ?: editors.firstOrNull { mimeType in it.optionalMimetypes }
     }
 
-    fun isEditorAvailable(user: User?, mimeType: String?): Boolean {
-        return getEditor(user, mimeType) != null
-    }
+    fun isEditorAvailable(user: User?, mimeType: String?): Boolean = getEditor(user, mimeType) != null
 }

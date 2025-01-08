@@ -30,7 +30,10 @@ import javax.inject.Inject
 /**
  * Dialog to rename a public share.
  */
-class RenamePublicShareDialogFragment : DialogFragment(), DialogInterface.OnClickListener, Injectable {
+class RenamePublicShareDialogFragment :
+    DialogFragment(),
+    DialogInterface.OnClickListener,
+    Injectable {
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 
