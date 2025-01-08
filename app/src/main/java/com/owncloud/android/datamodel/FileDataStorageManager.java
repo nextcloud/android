@@ -241,19 +241,6 @@ public class FileDataStorageManager {
         offlineOperationDao.insert(entity);
     }
 
-    public String getFileNameBasedOnEncryptionStatus(OCFile file) {
-        FileEntity entity = fileDao.getFileById(file.getFileId());
-        if (entity == null) {
-            return file.getFileName();
-        }
-
-        if (file.isEncrypted()) {
-            return entity.getEncryptedName();
-        } else {
-            return entity.getName();
-        }
-    }
-
     public String getFilenameConsideringOfflineOperation(OCFile file) {
         String filename = file.getDecryptedFileName();
         OfflineOperationEntity renameEntity = offlineOperationDao.getByPath(file.getDecryptedRemotePath());
