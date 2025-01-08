@@ -29,6 +29,7 @@ import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
+import com.owncloud.android.db.ProviderMeta
 import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.SettingsActivity
@@ -218,7 +219,7 @@ class FilesSyncWork(
         syncedFolderProvider.updateSyncFolder(syncedFolder)
     }
 
-    private fun getAllFiles(path: String): Set<File> {
+    private fun getAllFiles(path: String, syncedFolderId: String): Set<File> {
         return File(path).takeIf { it.exists() }
             ?.walkTopDown()
             ?.asSequence()
@@ -226,10 +227,37 @@ class FilesSyncWork(
                 file.isFile &&
                     file.exists() &&
                     isQualifiedFolder(file.parentFile?.path) &&
-                    isFileNameQualifiedForAutoUpload(file.name)
+                    isFileNameQualifiedForAutoUpload(file.name) &&
+                    !isFileUploaded(file.path, syncedFolderId)
             }
             ?.toSet()
             ?: emptySet()
+    }
+
+    private fun isFileUploaded(path: String, syncedFolderId: String): Boolean {
+        val projection = arrayOf(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD)
+        val selection =
+            "${ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH} = ? AND " +
+                "${ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID} = ?"
+        val selectionArgs = arrayOf(path, syncedFolderId)
+
+        val cursor = contentResolver.query(
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
+            projection,
+            selection,
+            selectionArgs,
+            null
+        )
+
+        return cursor?.use {
+            if (it.moveToFirst()) {
+                val isSentForUpload =
+                    it.getInt(it.getColumnIndexOrThrow(ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD))
+                isSentForUpload == 1
+            } else {
+                false
+            }
+        } ?: false
     }
 
     @Suppress("LongMethod") // legacy code
@@ -259,7 +287,7 @@ class FilesSyncWork(
             null
         }
 
-        val files = getAllFiles(syncedFolder.localPath)
+        val files = getAllFiles(syncedFolder.localPath, syncedFolder.id.toString())
         if (files.isEmpty()) {
             return
         }
