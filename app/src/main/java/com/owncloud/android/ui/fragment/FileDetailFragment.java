@@ -600,10 +600,12 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
     private void setFavoriteIconStatus(boolean isFavorite) {
         if (isFavorite) {
             binding.favorite.setImageDrawable(ResourcesCompat.getDrawable(getResources(), R.drawable.ic_star, null));
+            binding.favorite.setContentDescription(getString(R.string.unset_favorite));
         } else {
             binding.favorite.setImageDrawable(ResourcesCompat.getDrawable(getResources(),
                                                                           R.drawable.ic_star_outline,
                                                                           null));
+            binding.favorite.setContentDescription(getString(R.string.favorite));
         }
     }
 
