@@ -490,9 +490,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // is not available in FolderPickerActivity
             viewThemeUtils.material.themeFAB(mFabMain);
             mFabMain.setOnClickListener(v -> {
-                PermissionUtil.requestMediaLocationPermission(activity);
-
-
                 final OCFileListBottomSheetDialog dialog =
                     new OCFileListBottomSheetDialog(activity,
                                                     this,

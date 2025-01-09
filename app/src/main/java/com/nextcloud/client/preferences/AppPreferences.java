@@ -403,4 +403,7 @@ public interface AppPreferences {
     
     boolean isAutoUploadGPlayWarningShown();
     void setAutoUploadGPlayWarningShown(boolean value);
+
+    boolean isAutoUploadGPlayWarning2Shown();
+    void setAutoUploadGPlayWarning2Shown(boolean value);
 }
