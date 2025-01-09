@@ -9,6 +9,7 @@ package com.nextcloud.client.assistant.repository
 
 import com.nextcloud.utils.extensions.getRandomString
 import com.owncloud.android.lib.common.operations.RemoteOperationResult
+import com.owncloud.android.lib.resources.assistant.v2.model.Shape
 import com.owncloud.android.lib.resources.assistant.v2.model.Task
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInput
 import com.owncloud.android.lib.resources.assistant.v2.model.TaskInputShape
@@ -24,15 +25,15 @@ class AssistantMockRepository(private val giveEmptyTasks: Boolean = false) : Ass
                 "core:text2text",
                 "Free text to text prompt",
                 "Runs an arbitrary prompt through a language model that returns a reply",
-                listOf(
-                    TaskInputShape(
+                inputShape = TaskInputShape(
+                    input = Shape(
                         "Prompt",
                         "Describe a task that you want the assistant to do or ask a question",
                         "Text"
                     )
                 ),
-                listOf(
-                    TaskOutputShape(
+                outputShape = TaskOutputShape(
+                    output = Shape(
                         "Generated reply",
                         "The generated text from the assistant",
                         "Text"
