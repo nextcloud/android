@@ -85,6 +85,7 @@
     <string name="battery_optimization_disable">Απενεργοποίηση</string>
     <string name="battery_optimization_message">Η συσκευή σας ίσως έχει ενεργές ρυθμίσεις εξοικονόμησης ενέργειας. Η αυτόματη μεταφόρτωση δουλεύει μόνο εάν η εφαρμογή εξαιρεθεί από αυτές.</string>
     <string name="battery_optimization_title">Βελτιστοποίηση μπαταρίας</string>
+    <string name="bottom_navigation_menu_favorites_label">Αγαπημένα</string>
     <string name="bottom_navigation_menu_files_label">Όλα τα αρχεία</string>
     <string name="bottom_navigation_menu_media_label">Μέσα ενημέρωσης</string>
     <string name="brute_force_delay">Καθυστέρηση λόγω πάρα πολλών λανθασμένων προσπαθειών</string>
