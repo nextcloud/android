@@ -645,6 +645,7 @@
     <string name="permission_allow">سماح</string>
     <string name="permission_deny">رفض</string>
     <string name="permission_storage_access">الصلاحيات الإضافية المطلوبة لتحميل وتنزيل الملفات.</string>
+    <string name="pick_contact_to_share_with">إختَر جهة اتصال للمشاركة معها</string>
     <string name="picture_set_as_no_app">لم يتم العثور على تطبيق لتعيين صورة به</string>
     <string name="pin_home">تثبيت في الشاشة الرئيسية</string>
     <string name="pin_shortcut_label">فتح %1$s</string>
