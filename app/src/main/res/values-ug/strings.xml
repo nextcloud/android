@@ -45,7 +45,7 @@
     <string name="assistant_screen_failed_task_text">مەغلۇب بولدى</string>
     <string name="assistant_screen_loading">ۋەزىپە تىزىملىكى يۈكلىنىۋاتىدۇ ، ساقلاپ تۇرۇڭ</string>
     <string name="assistant_screen_no_task_available_for_all_task_filter_text">ھېچقانداق ۋەزىپە يوق. يېڭى ۋەزىپە يارىتىش ئۈچۈن ۋەزىپە تۈرىنى تاللاڭ.</string>
-    <string name="assistant_screen_no_task_available_text">% %s ۋەزىپە تىپىغا ماس كېلىدىغان ۋەزىپە يوق ، ئاستىدىن ئوڭدىن يېڭى ۋەزىپە قۇرالايسىز.</string>
+    <string name="assistant_screen_no_task_available_text"> %s ۋەزىپە تىپىغا ماس كېلىدىغان ۋەزىپە يوق ، ئاستىدىن ئوڭدىن يېڭى ۋەزىپە قۇرالايسىز.</string>
     <string name="assistant_screen_running_task_text">ئىلگىرىلەۋاتىدۇ</string>
     <string name="assistant_screen_scheduled_task_status_text">پىلانلانغان</string>
     <string name="assistant_screen_successful_task_text">تاماملاندى</string>
