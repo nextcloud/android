@@ -641,6 +641,7 @@
     <string name="permission_allow">Ceadaigh</string>
     <string name="permission_deny">shéanadh</string>
     <string name="permission_storage_access">Ceadanna breise a theastaíonn chun comhaid a uaslódáil agus a íoslódáil.</string>
+    <string name="pick_contact_to_share_with">Roghnaigh teagmháil le roinnt leis</string>
     <string name="picture_set_as_no_app">Níor aimsíodh aon aip chun pictiúr a shocrú leis</string>
     <string name="pin_home">PIN ar an scáileán Baile</string>
     <string name="pin_shortcut_label">Oscail %1$s</string>

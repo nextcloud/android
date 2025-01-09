@@ -641,6 +641,7 @@
     <string name="permission_allow">Zulassen</string>
     <string name="permission_deny">Ablehnen</string>
     <string name="permission_storage_access">Sie haben nicht die erforderlichen Rechte, um Dateien hoch- oder herunterzuladen.</string>
+    <string name="pick_contact_to_share_with">Kontakt zum Teilen auswählen</string>
     <string name="picture_set_as_no_app">Keine App gefunden, mit der ein Bid gesetzt werden könnte</string>
     <string name="pin_home">An Startbildschirm anheften</string>
     <string name="pin_shortcut_label">%1$s öffnen</string>

@@ -641,6 +641,7 @@
     <string name="permission_allow">Allow</string>
     <string name="permission_deny">Deny</string>
     <string name="permission_storage_access">Additional permissions required to upload and download files.</string>
+    <string name="pick_contact_to_share_with">Pick contact to share with</string>
     <string name="picture_set_as_no_app">No app found to set a picture with</string>
     <string name="pin_home">Pin to Home screen</string>
     <string name="pin_shortcut_label">Open %1$s</string>
