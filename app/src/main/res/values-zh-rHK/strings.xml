@@ -641,6 +641,7 @@
     <string name="permission_allow">允許</string>
     <string name="permission_deny">拒絕</string>
     <string name="permission_storage_access">上傳與下載檔案需要額外的權限。</string>
+    <string name="pick_contact_to_share_with">挑選要分享的聯絡人</string>
     <string name="picture_set_as_no_app">沒有找到編輯圖片的應用程式</string>
     <string name="pin_home">釘選至主畫面</string>
     <string name="pin_shortcut_label">公開 %1$s</string>
