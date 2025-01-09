@@ -16,7 +16,9 @@ import com.nextcloud.client.account.User;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.documentscan.AppScanOptionalFeature;
+import com.nextcloud.utils.BuildHelper;
 import com.nextcloud.utils.EditorUtils;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FileListActionsBottomSheetCreatorBinding;
 import com.owncloud.android.databinding.FileListActionsBottomSheetFragmentBinding;
@@ -154,6 +156,10 @@ public class OCFileListBottomSheetDialog extends BottomSheetDialog implements In
         } else {
             binding.menuCreateRichWorkspace.setVisibility(View.GONE);
             binding.menuCreateRichWorkspaceDivider.setVisibility(View.GONE);
+        }
+
+        if (BuildHelper.GPLAY.equals(BuildConfig.FLAVOR)) {
+            binding.menuUploadFiles.setVisibility(View.GONE);
         }
 
         setupClickListener();
