@@ -641,6 +641,7 @@
     <string name="permission_allow">Povolit</string>
     <string name="permission_deny">Odepřít</string>
     <string name="permission_storage_access">Vyžadována dodatečná oprávnění pro nahrávání a stahování souborů.</string>
+    <string name="pick_contact_to_share_with">Vyberte kontakt kterému nasdílet</string>
     <string name="picture_set_as_no_app">Nenalezena žádná aplikace pro nastavení obrázku</string>
     <string name="pin_home">Připnout na domovskou obrazovku</string>
     <string name="pin_shortcut_label">Otevřít %1$s</string>
