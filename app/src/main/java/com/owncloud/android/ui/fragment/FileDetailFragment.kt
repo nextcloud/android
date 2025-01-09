@@ -217,7 +217,7 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
 
     private fun addMenuProvider() {
         requireActivity().addMenuProvider(
-            object : MenuProvider {
+            object: MenuProvider {
                 override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 }
 
@@ -256,7 +256,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
     }
 
     private fun onOverflowIconClicked() {
-        val file = file
         val additionalFilter = mutableListOf(
             R.id.action_lock_file,
             R.id.action_unlock_file,
@@ -269,61 +268,77 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
             R.id.action_send_share_file,
             R.id.action_pin_to_homescreen
         )
-        if (getFile().isFolder) {
+
+        if (file.isFolder) {
             additionalFilter.add(R.id.action_send_file)
             additionalFilter.add(R.id.action_sync_file)
         }
-        if (getFile().isAPKorAAB) {
+
+        if (file.isAPKorAAB) {
             additionalFilter.add(R.id.action_download_file)
             additionalFilter.add(R.id.action_export_file)
         }
-        val fragmentManager = childFragmentManager
+
         newInstance(file, true, additionalFilter)
             .setResultListener(
-                fragmentManager,
+                childFragmentManager,
                 this
             ) { itemId: Int -> this.optionsItemSelected(itemId) }
-            .show(fragmentManager, "actions")
+            .show(childFragmentManager, "actions")
     }
 
-    private fun setupTabs() {
-        binding?.tabLayout?.removeAllTabs()
+    private fun setupTabLayout() {
+        binding?.tabLayout?.run {
+            removeAllTabs()
 
-        val activitiesTab =
-            binding?.tabLayout?.newTab()?.setText(R.string.drawer_item_activities)?.setIcon(R.drawable.ic_activity)
-        activitiesTab?.let {
-            binding?.tabLayout?.addTab(it)
-        }
-
-        if (showSharingTab()) {
-            binding?.tabLayout?.newTab()?.setText(R.string.share_dialog_title)?.setIcon(R.drawable.shared_via_users)
-                ?.let {
-                    binding?.tabLayout?.addTab(it)
-                }
-        }
-
-        if (MimeTypeUtil.isImage(file)) {
-            binding?.tabLayout?.newTab()?.setText(R.string.filedetails_details)?.setIcon(R.drawable.image_32dp)?.let {
-                binding?.tabLayout?.addTab(it)
+            newTab().setText(R.string.drawer_item_activities).setIcon(R.drawable.ic_activity).let {
+                addTab(it)
             }
-        }
 
-        binding?.let {
-            viewThemeUtils.material.themeTabLayout(it.tabLayout)
+            if (showSharingTab()) {
+                newTab().setText(R.string.share_dialog_title).setIcon(R.drawable.shared_via_users).let {
+                    addTab(it)
+                }
+            }
+
+            if (MimeTypeUtil.isImage(file)) {
+                newTab().setText(R.string.filedetails_details).setIcon(R.drawable.image_32dp).let {
+                    addTab(it)
+                }
+            }
+
+            addOnTabSelectedListener(object : OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab) {
+                    binding?.pager?.currentItem = tab.position
+                    if (tab.position == 0) {
+                        fileDetailActivitiesFragment?.markCommentsAsRead()
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab) = Unit
+
+                override fun onTabReselected(tab: TabLayout.Tab) = Unit
+            })
+
+            post {
+                getTabAt(activeTab)?.select()
+            }
+
+            viewThemeUtils.material.themeTabLayout(this)
         }
     }
 
     private fun setupViewPager() {
-        val adapter = FileDetailTabAdapter(
+        val fileDetailTabAdapter = FileDetailTabAdapter(
             requireActivity(),
             file,
             user,
             showSharingTab()
         )
 
-        binding?.pager?.let {
-            it.adapter = adapter
-            it.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+        binding?.pager?.run {
+            adapter = fileDetailTabAdapter
+            registerOnPageChangeCallback(object : OnPageChangeCallback() {
                 override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
                     if (activeTab == 0) {
                         fileDetailActivitiesFragment?.markCommentsAsRead()
@@ -331,28 +346,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
                     super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 }
             })
-        }
-    }
-
-    private fun setupTabLayout() {
-        binding?.tabLayout?.addOnTabSelectedListener(object : OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab) {
-                binding?.pager?.currentItem = tab.position
-                if (tab.position == 0) {
-                    fileDetailActivitiesFragment?.markCommentsAsRead()
-                }
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab) = Unit
-
-            override fun onTabReselected(tab: TabLayout.Tab) = Unit
-        })
-
-        binding?.tabLayout?.post {
-            if (binding != null) {
-                val tab = binding?.tabLayout?.getTabAt(activeTab) ?: return@post
-                tab.select()
-            }
         }
     }
 
@@ -440,11 +433,8 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
             R.id.action_retry -> {
                 backgroundJobManager.startOfflineOperations()
             }
-            R.id.action_encrypted -> {
-                // TODO implement or remove
-            }
-            R.id.action_unset_encrypted -> { // TODO implement or remove
-            }
+            R.id.action_encrypted -> Unit
+            R.id.action_unset_encrypted -> Unit
         }
     }
 
@@ -497,7 +487,7 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
     fun updateFileDetails(file: OCFile?, user: User?) {
         setFile(file)
         this.user = user
-        updateFileDetails(false, false)
+        updateFileDetails(transferring = false, refresh = false)
     }
 
     /**
@@ -563,9 +553,8 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
             }
         }
 
-        setupTabs()
-        setupViewPager()
         setupTabLayout()
+        setupViewPager()
         getView()?.invalidate()
     }
 
