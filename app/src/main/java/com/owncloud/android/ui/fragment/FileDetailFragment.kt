@@ -16,11 +16,15 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.annotation.IdRes
 import androidx.core.content.res.ResourcesCompat
+import androidx.core.view.MenuProvider
+import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.widget.ViewPager2.OnPageChangeCallback
 import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -44,7 +48,6 @@ import com.nextcloud.utils.extensions.logFileSize
 import com.nextcloud.utils.extensions.setVisibleIf
 import com.nextcloud.utils.mdm.MDMConfig.shareViaLink
 import com.nextcloud.utils.mdm.MDMConfig.shareViaUser
-import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsFragmentBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -61,7 +64,7 @@ import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.activity.ToolbarActivity
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter
 import com.owncloud.android.ui.dialog.RemoveFilesDialogFragment
-import com.owncloud.android.ui.dialog.RenameFileDialogFragment.Companion.newInstance
+import com.owncloud.android.ui.dialog.RenameFileDialogFragment
 import com.owncloud.android.ui.events.FavoriteEvent
 import com.owncloud.android.ui.fragment.FileDetailsSharingProcessFragment.Companion.newInstance
 import com.owncloud.android.utils.DisplayUtils
@@ -117,11 +120,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
     lateinit var backgroundJobManager: BackgroundJobManager
 
     val fileDetailSharingFragment: FileDetailSharingFragment?
-        /**
-         * return the reference to the file detail sharing fragment to communicate with it.
-         *
-         * @return reference to the [FileDetailSharingFragment]
-         */
         get() {
             if (binding == null) {
                 return null
@@ -136,11 +134,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
         }
 
     val fileDetailActivitiesFragment: FileDetailActivitiesFragment?
-        /**
-         * return the reference to the file detail activity fragment to communicate with it.
-         *
-         * @return reference to the [FileDetailActivitiesFragment]
-         */
         get() {
             if (binding?.pager?.adapter is FileDetailTabAdapter) {
                 val adapter = binding?.pager?.adapter as FileDetailTabAdapter
@@ -151,12 +144,7 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
         }
 
     fun goBackToOCFileListFragment() {
-        requireActivity().onBackPressed()
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        setHasOptionsMenu(true)
+        requireActivity().onBackPressedDispatcher.onBackPressed()
     }
 
     @Suppress("MagicNumber")
@@ -165,6 +153,18 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
 
         requireNotNull(arguments) { "Arguments may not be null" }
 
+        initArgs(savedInstanceState, arguments)
+        binding = FileDetailsFragmentBinding.inflate(inflater, container, false)
+        view = binding?.root
+
+        setupEmptyList()
+        setupTags()
+        addMenuProvider()
+
+        return view
+    }
+
+    private fun initArgs(savedInstanceState: Bundle?, arguments: Bundle) {
         file = arguments.getParcelableArgument(ARG_FILE, OCFile::class.java)
         parentFolder = arguments.getParcelableArgument(ARG_PARENT_FOLDER, OCFile::class.java)
         user = arguments.getParcelableArgument(
@@ -180,17 +180,18 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
                 User::class.java
             )
         }
+    }
 
-        binding = FileDetailsFragmentBinding.inflate(inflater, container, false)
-        view = binding?.root
-
+    private fun setupEmptyList() {
         if (file == null || user == null) {
             showEmptyContent()
         } else {
             binding?.emptyList?.emptyListView?.visibility = View.GONE
         }
+    }
 
-        val context = context ?: return null
+    private fun setupTags() {
+        val context = context ?: return
 
         if (file.tags.isEmpty()) {
             binding?.tagsGroup?.visibility = View.GONE
@@ -212,8 +213,25 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
                 binding?.tagsGroup?.addView(chip)
             }
         }
+    }
 
-        return view
+    private fun addMenuProvider() {
+        requireActivity().addMenuProvider(
+            object : MenuProvider {
+                override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                }
+
+                override fun onPrepareMenu(menu: Menu) {
+                    hideAll(menu)
+                }
+
+                override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                    return false
+                }
+            },
+            viewLifecycleOwner,
+            Lifecycle.State.RESUMED
+        )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -221,6 +239,10 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
             return
         }
 
+        setupOnClickListeners()
+    }
+
+    private fun setupOnClickListeners() {
         binding?.run {
             viewThemeUtils.platform.themeHorizontalProgressBar(progressBar)
             progressListener = ProgressListener(progressBar)
@@ -264,7 +286,7 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
             .show(fragmentManager, "actions")
     }
 
-    private fun setupViewPager() {
+    private fun setupTabs() {
         binding?.tabLayout?.removeAllTabs()
 
         val activitiesTab =
@@ -289,23 +311,30 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
         binding?.let {
             viewThemeUtils.material.themeTabLayout(it.tabLayout)
         }
+    }
 
+    private fun setupViewPager() {
         val adapter = FileDetailTabAdapter(
             requireActivity(),
             file,
             user,
             showSharingTab()
         )
-        binding?.pager?.adapter = adapter
 
-        binding?.pager?.registerOnPageChangeCallback(object : OnPageChangeCallback() {
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-                if (activeTab == 0) {
-                    fileDetailActivitiesFragment?.markCommentsAsRead()
+        binding?.pager?.let {
+            it.adapter = adapter
+            it.registerOnPageChangeCallback(object : OnPageChangeCallback() {
+                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                    if (activeTab == 0) {
+                        fileDetailActivitiesFragment?.markCommentsAsRead()
+                    }
+                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                 }
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-            }
-        })
+            })
+        }
+    }
+
+    private fun setupTabLayout() {
         binding?.tabLayout?.addOnTabSelectedListener(object : OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab) {
                 binding?.pager?.currentItem = tab.position
@@ -314,13 +343,9 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
                 }
             }
 
-            override fun onTabUnselected(tab: TabLayout.Tab) {
-                // unused at the moment
-            }
+            override fun onTabUnselected(tab: TabLayout.Tab) = Unit
 
-            override fun onTabReselected(tab: TabLayout.Tab) {
-                // unused at the moment
-            }
+            override fun onTabReselected(tab: TabLayout.Tab) = Unit
         })
 
         binding?.tabLayout?.post {
@@ -334,8 +359,11 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         file.logFileSize(TAG)
-        outState.putParcelable(ARG_FILE, file)
-        outState.putParcelable(ARG_USER, user)
+
+        outState.run {
+            putParcelable(ARG_FILE, file)
+            putParcelable(ARG_USER, user)
+        }
     }
 
     override fun onStart() {
@@ -361,6 +389,7 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+
         if (context is ToolbarActivity) {
             toolbarActivity = context
         }
@@ -375,12 +404,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
         return if (super.getView() == null) view else super.getView()
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        super.onPrepareOptionsMenu(menu)
-
-        hideAll(menu)
-    }
-
     private fun optionsItemSelected(@IdRes itemId: Int) {
         when (itemId) {
             R.id.action_send_file -> {
@@ -390,12 +413,10 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
                 containerActivity.fileOperationsHelper.openFile(file)
             }
             R.id.action_remove_file -> {
-                val dialog = RemoveFilesDialogFragment.newInstance(file)
-                dialog.show(parentFragmentManager, FTAG_CONFIRMATION)
+                RemoveFilesDialogFragment.newInstance(file).show(parentFragmentManager, FTAG_CONFIRMATION)
             }
             R.id.action_rename_file -> {
-                val dialog = newInstance(file, parentFolder)
-                dialog.show(parentFragmentManager, FTAG_RENAME_FILE)
+                RenameFileDialogFragment.newInstance(file, parentFolder).show(parentFragmentManager, FTAG_RENAME_FILE)
             }
             R.id.action_cancel_sync -> {
                 (containerActivity as FileDisplayActivity).cancelTransference(file)
@@ -428,8 +449,7 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
     }
 
     override fun onClick(v: View) {
-        val id = v.id
-        when (id) {
+        when (v.id) {
             R.id.cancelBtn -> {
                 (containerActivity as FileDisplayActivity).cancelTransference(file)
             }
@@ -543,18 +563,22 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
             }
         }
 
+        setupTabs()
         setupViewPager()
+        setupTabLayout()
         getView()?.invalidate()
     }
 
     private fun setFileModificationTimestamp(file: OCFile, showDetailedTimestamp: Boolean) {
-        if (showDetailedTimestamp) {
-            binding?.lastModificationTimestamp?.text = DisplayUtils.unixTimeToHumanReadable(file.modificationTimestamp)
-        } else {
-            binding?.lastModificationTimestamp?.text = DisplayUtils.getRelativeTimestamp(
-                context,
-                file.modificationTimestamp
-            )
+        binding?.lastModificationTimestamp?.run {
+            text = if (showDetailedTimestamp) {
+                DisplayUtils.unixTimeToHumanReadable(file.modificationTimestamp)
+            } else {
+                DisplayUtils.getRelativeTimestamp(
+                    context,
+                    file.modificationTimestamp
+                )
+            }
         }
     }
 
@@ -642,7 +666,7 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
 
                 val asyncDrawable =
                     AsyncResizedImageDrawable(
-                        MainApp.getAppContext().resources,
+                        requireContext().resources,
                         resizedImage,
                         task
                     )
@@ -745,12 +769,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
         }
     }
 
-    /**
-     * open the sharing process fragment for creating new share
-     *
-     * @param shareeName
-     * @param shareType
-     */
     fun initiateSharingProcess(shareeName: String, shareType: ShareType, secureShare: Boolean) {
         requireActivity()
             .supportFragmentManager
@@ -770,11 +788,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
         showHideFragmentView(true)
     }
 
-    /**
-     * method will handle the views need to be hidden when sharing process fragment shows
-     *
-     * @param isFragmentReplaced
-     */
     fun showHideFragmentView(isFragmentReplaced: Boolean) {
         binding?.run {
             tabLayout.setVisibleIf(!isFragmentReplaced)
@@ -790,14 +803,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
         }
     }
 
-    /**
-     * open the new sharing screen process to modify the created share
-     *
-     * @param share
-     * @param screenTypePermission
-     * @param isReshareShown
-     * @param isExpiryDateShown
-     */
     fun editExistingShare(
         share: OCShare,
         screenTypePermission: Int,
@@ -862,9 +867,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
         }
     }
 
-    /**
-     * Helper class responsible for updating the progress bar shown for file downloading.
-     */
     private inner class ProgressListener(progressBar: ProgressBar) : OnDatatransferProgressListener {
         private var lastPercent = 0
         private val progressBarReference =
@@ -898,8 +900,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
         private const val ARG_ACTIVE_TAB = "TAB"
 
         /**
-         * Public factory method to create new FileDetailFragment instances.
-         *
          *
          * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout
          * (to use when a file wasn't tapped before).
@@ -922,8 +922,6 @@ class FileDetailFragment : FileFragment(), View.OnClickListener, Injectable {
         }
 
         /**
-         * Public factory method to create new FileDetailFragment instances.
-         *
          *
          * When 'fileToDetail' or 'ocAccount' are null, creates a dummy layout (to use when a file wasn't tapped before).
          *
