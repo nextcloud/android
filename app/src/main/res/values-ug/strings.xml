@@ -170,7 +170,7 @@
     <string name="community_rc_fdroid">F-Droid دېتالىدىن قويۇپ بېرىش نامزاتىغا ئېرىشىڭ</string>
     <string name="community_rc_play_store">Google Play دۇكىنىدىن قويۇپ بېرىش نامزاتىغا ئېرىشىڭ</string>
     <string name="community_release_candidate_headline">كاندىداتنى قويۇپ بېرىش</string>
-    <string name="community_release_candidate_text">قويۇپ بېرىلىدىغان كاندىدات (RC) پات ئارىدا ئېلان قىلىنىدىغان سۈرەت بولۇپ ، مۇقىم بولۇشى مۆلچەرلەنمەكتە. شەخسىي تەڭشىكىڭىزنى سىناش بۇنىڭغا كاپالەتلىك قىلالايدۇ. Play دۇكىنىدا سىناققا تىزىملىتىڭ ياكى F-Droid نىڭ \ "نەشرى \" بۆلىكىنى قولدا كۆرۈڭ.</string>
+    <string name="community_release_candidate_text">The release candidate (RC) is a snapshot of the upcoming release and is expected to be stable. Testing your individual setup could help ensure this. Sign up for testing on the Play store or manually look in the \"Version\" section of F-Droid.</string>
     <string name="community_testing_bug_text">خاتالىق بايقالدى؟ Oddments?</string>
     <string name="community_testing_headline">سىناق ئارقىلىق ياردەم</string>
     <string name="community_testing_report_text">GitHub دىكى بىر مەسىلىنى دوكلات قىلىڭ</string>
@@ -280,7 +280,7 @@
     <string name="drawer_item_uploads_list">يۈكلەش</string>
     <string name="drawer_logout">چېكىنىش</string>
     <string name="drawer_open">يان بالداقنى ئېچىڭ</string>
-    <string name="drawer_quota">ئىشلىتىلگەن% %2$s نىڭ%1$s</string>
+    <string name="drawer_quota">ئىشلىتىلگەن %2$s نىڭ%1$s</string>
     <string name="drawer_quota_unlimited">%1$s ئىشلىتىلگەن</string>
     <string name="drawer_synced_folders">ئاپتوماتىك يوللاش</string>
     <string name="e2e_counter_too_old">Counter بەك كونا</string>
@@ -434,7 +434,7 @@
     <string name="filedetails_sync_file">ماسقەدەملەش</string>
     <string name="filedisplay_no_file_selected">ھۆججەت تاللانمىدى</string>
     <string name="filename_empty">ھۆججەت ئىسمى قۇرۇق بولمايدۇ</string>
-    <string name="filename_forbidden_characters">چەكلەنگەن ھەرپلەر: / \\ &lt;&gt;: "|? *</string>
+    <string name="filename_forbidden_characters">Forbidden characters: / \\ &lt; &gt; : " | ? *</string>
     <string name="filename_forbidden_charaters_from_server">ھۆججەت ئىسمى كەم دېگەندە بىر ئىناۋەتسىز ھەرپنى ئۆز ئىچىگە ئالىدۇ</string>
     <string name="filename_hint">ھۆججەت ئىسمى</string>
     <string name="first_run_1_text">سانلىق مەلۇماتلىرىڭىزنى بىخەتەر ۋە كونتروللۇقىڭىزدا ساقلاڭ</string>
@@ -449,7 +449,7 @@
     <string name="folder_picker_choose_caption_text">نىشان ھۆججەت قىسقۇچىنى تاللاڭ</string>
     <string name="folder_picker_copy_button_text">كۆچۈرۈڭ</string>
     <string name="folder_picker_move_button_text">يۆتكەڭ</string>
-    <string name="forbidden_permissions">سىزگە% s رۇخسەت قىلىنمايدۇ</string>
+    <string name="forbidden_permissions">You are not permitted %s</string>
     <string name="forbidden_permissions_copy">بۇ ھۆججەتنى كۆچۈرۈش</string>
     <string name="forbidden_permissions_create">بۇ ھۆججەتنى قۇرۇش</string>
     <string name="forbidden_permissions_delete">بۇ ھۆججەتنى ئۆچۈرۈش</string>
@@ -524,9 +524,9 @@
     <string name="logs_menu_refresh">يېڭىلاش</string>
     <string name="logs_menu_search">ئىزدەش خاتىرىلىرى</string>
     <string name="logs_menu_send">ئېلېكترونلۇق خەت ئارقىلىق خاتىرە ئەۋەتىڭ</string>
-    <string name="logs_status_filtered">خاتىرە:% 1 $ d kB ، سوئال% 4 $ d ms دىكى% 2 $ d /% 3 $ d ماسلاشتى</string>
+    <string name="logs_status_filtered">Logs: %1$d kB, query matched %2$d / %3$d in %4$d ms</string>
     <string name="logs_status_loading">Loading…</string>
-    <string name="logs_status_not_filtered">خاتىرە:% %1$d kB ، سۈزگۈچ يوق</string>
+    <string name="logs_status_not_filtered">خاتىرە:%1$d kB ، سۈزگۈچ يوق</string>
     <string name="logs_title">خاتىرە</string>
     <string name="maintenance_mode">مۇلازىمېتىر ئاسراش ھالىتىدە</string>
     <string name="manage_space_clear_data">سانلىق مەلۇماتنى تازىلاش</string>
@@ -718,7 +718,7 @@
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">ھۆججەت قىسقۇچنى تاپقىلى بولمايدۇ ، ماسقەدەملەش مەشغۇلاتى بىكار قىلىنىدۇ</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">يوللاشقا ھۆججەت تاپالمىدى</string>
     <string name="recommend_subject">ئۈسكۈنىڭىزدە%1$s نى سىناپ بېقىڭ!</string>
-    <string name="recommend_text">ئۈسكۈنىڭىزدە%1$s ئىشلىتىشكە تەكلىپ قىلماقچى. \ N بۇ يەرگە چۈشۈرۈڭ:% 2 $ s</string>
+    <string name="recommend_text">I want to invite you to use %1$s on your device.\nDownload here: %2$s</string>
     <string name="recommend_urls">%1$s ياك%2$s $ s</string>
     <string name="refresh_content">مەزمۇننى يېڭىلاش</string>
     <string name="reload">قايتا يۈكلەڭ</string>
@@ -824,7 +824,7 @@
     <string name="show_images">رەسىملەرنى كۆرسەت</string>
     <string name="show_video">سىنلارنى كۆرسەت</string>
     <string name="signup_with_provider">تەمىنلىگۈچى بىلەن تىزىملىتىڭ</string>
-    <string name="single_sign_on_request_token" formatted="true">%1$s نىڭ Nextcloud ھېساباتىڭىزنى زىيارەت قىلىشىغا يول قويۇڭ% 2 $ s?</string>
+    <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="sort_by">تەرتىپلەش</string>
     <string name="ssl_validator_btn_details_hide">يوشۇر</string>
     <string name="ssl_validator_btn_details_see">تەپسىلاتى</string>
@@ -875,7 +875,7 @@
     <string name="sub_folder_rule_day">يىل / ئاي / كۈن</string>
     <string name="sub_folder_rule_month">يىل / ئاي</string>
     <string name="sub_folder_rule_year">يىل</string>
-    <string name="subject_shared_with_you">\ "%1$s \" سىز بىلەن ئورتاقلاشتى</string>
+    <string name="subject_shared_with_you">\"%1$s\" has been shared with you</string>
     <string name="subject_user_shared_with_you">%1$s سىز بىلەن ئورتاقلاشتى \ \"%2$s $ s \"</string>
     <string name="subtitle_photos_only">پەقەت رەسىملەر</string>
     <string name="subtitle_photos_videos">رەسىم ۋە سىن</string>
@@ -891,12 +891,12 @@
     <string name="sync_fail_ticker_unauthorized">ماسقەدەملەش مەغلۇپ بولدى ، قايتا كىرىڭ</string>
     <string name="sync_file_nothing_to_do_msg">ھۆججەت مەزمۇنى ماسقەدەملەندى</string>
     <string name="sync_folder_failed_content">%1$s ھۆججەت قىسقۇچنى ماسقەدەملەش تاماملانمىدى</string>
-    <string name="sync_foreign_files_forgotten_explanation">1.3.16 نەشرىگە قەدەر ، بۇ ئۈسكۈنىدىن يۈكلەنگەن ھۆججەتلەر يەرلىك%1$s ھۆججەت قىسقۇچىغا كۆچۈرۈلۈپ ، بىر ھۆججەت كۆپ ھېسابات بىلەن ماس قەدەمدە سانلىق مەلۇمات يوقاپ كېتىشنىڭ ئالدىنى ئالىدۇ. \ N \ n بۇ ئۆزگىرىش سەۋەبىدىن ، بارلىق ھۆججەتلەر ئىلگىرىكى نەشرىگە يۈكلەنگەن. بۇ دېتالنىڭ% 2 $ s ھۆججەت قىسقۇچىغا كۆچۈرۈلگەن. قانداقلا بولمىسۇن ، خاتالىق ھېسابات ماسقەدەملەش جەريانىدا بۇ مەشغۇلاتنىڭ تاماملىنىشىنىڭ ئالدىنى ئالدى. سىز ھۆججەتلەرنى (لار) نى تاشلاپ قويۇپ ، ئۇلىنىشنى% 3 $ s غا ئۆچۈرەلەيسىز ياكى ھۆججەت (لەر) نى%1$s ھۆججەت قىسقۇچىغا يۆتكىسىڭىز ھەمدە ئۇلىنىشنى% 4 $ s غا ساقلاپ قويسىڭىز بولىدۇ. \ N \ n تۆۋەندە كۆرسىتىلگەن يەرلىك ھۆججەت (لار) بولۇپ ، ئۇلانغان% 5 $ s دىكى يىراقتىكى ھۆججەتلەر.</string>
+    <string name="sync_foreign_files_forgotten_explanation">As of version 1.3.16, files uploaded from this device are copied into the local %1$s folder to prevent data loss when a single file is synced with multiple accounts.\n\nDue to this change, all files uploaded with earlier versions of this app were copied into the %2$s folder. However, an error prevented the completion of this operation during account synchronization. You may either leave the file(s) as is and delete the link to %3$s, or move the file(s) into the %1$s folder and retain the link to %4$s.\n\nListed below are the local file(s), and the remote file(s) in %5$s they were linked to.</string>
     <string name="sync_foreign_files_forgotten_ticker">بەزى يەرلىك ھۆججەتلەر ئۇنتۇلدى</string>
     <string name="sync_in_progress">ھۆججەتنىڭ ئەڭ يېڭى نەشرىنى ئېلىش.</string>
     <string name="sync_not_enough_space_dialog_action_choose">ماسقەدەملەشنى تاللاڭ</string>
     <string name="sync_not_enough_space_dialog_action_free_space">بوش ئورۇن</string>
-    <string name="sync_not_enough_space_dialog_placeholder">%1$s بولسا% 2 $ s ، ئەمما ئۈسكۈنىدە پەقەت% 3 $ s بار.</string>
+    <string name="sync_not_enough_space_dialog_placeholder">%1$s is %2$s, but there is only %3$s available on device.</string>
     <string name="sync_not_enough_space_dialog_title">يېتەرلىك بوشلۇق يوق</string>
     <string name="sync_status_button">ماسقەدەملەش ھالىتى كۇنۇپكىسى</string>
     <string name="sync_string_files">ھۆججەتلەر</string>
