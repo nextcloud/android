@@ -37,10 +37,6 @@
     <issue id="UnusedQuantity">
         <ignore path="**/values-**/strings.xml" />
     </issue>
-    
-    <issue id="StringFormatCount">
-        <ignore path="**/values-**/strings.xml" />
-    </issue>
 
     <issue id="ExtraTranslation">
         <ignore path="**/strings.xml"/>
