@@ -152,7 +152,8 @@ object PermissionUtil {
                     // use granular media permissions
                     arrayOf(
                         Manifest.permission.READ_MEDIA_IMAGES,
-                        Manifest.permission.READ_MEDIA_VIDEO
+                        Manifest.permission.READ_MEDIA_VIDEO,
+                        Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
                     )
                 } else {
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)

@@ -78,6 +78,7 @@ import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
 import com.owncloud.android.datamodel.FileDataStorageManager;
+import com.owncloud.android.datamodel.MediaFolderType;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.SyncedFolder;
 import com.owncloud.android.datamodel.SyncedFolderProvider;
@@ -284,6 +285,7 @@ public class FileDisplayActivity extends FileActivity
 
         checkStoragePath();
         checkAutoUploadOnGPlay();
+        checkAutoUploadOnGPlay2();
 
         initSyncBroadcastReceiver();
         observeWorkerState();
@@ -331,6 +333,57 @@ public class FileDisplayActivity extends FileActivity
         }
 
         preferences.setAutoUploadGPlayWarningShown(true);
+    }
+
+    private void checkAutoUploadOnGPlay2() {
+        if (!BuildHelper.GPLAY.equals(BuildConfig.FLAVOR)) {
+            return;
+        }
+
+        // only show on Android11+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            return;
+        }
+
+        boolean showAutoUploadDialog = false;
+        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            // show dialog only on
+            if (syncedFolder.getType() == MediaFolderType.CUSTOM) {
+                showAutoUploadDialog = true;
+                break;
+            }
+        }
+
+        if (showAutoUploadDialog) {
+            if (!preferences.isAutoUploadGPlayWarning2Shown()) {
+                new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+                    .setTitle(R.string.auto_upload_gplay)
+                    .setMessage(R.string.auto_upload_gplay_desc2)
+                    .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .setIcon(R.drawable.nav_synced_folders)
+                    .create()
+                    .show();
+            }
+        } else {
+            if (!preferences.isAutoUploadGPlayWarning2Shown()) {
+                new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+                    .setTitle(R.string.upload_gplay)
+                    .setMessage(R.string.upload_gplay_desc)
+                    .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
+                        dialog.dismiss();
+                    })
+                    .setIcon(R.drawable.nav_synced_folders)
+                    .create()
+                    .show();
+            } 
+        }
+
+        PermissionUtil.requestMediaLocationPermission(this);
+        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true);
+
+        preferences.setAutoUploadGPlayWarning2Shown(false);
     }
 
     @SuppressWarnings("unchecked")
