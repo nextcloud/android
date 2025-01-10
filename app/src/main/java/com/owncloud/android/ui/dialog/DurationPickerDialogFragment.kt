@@ -28,8 +28,7 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
 
     private var resultListener: Listener? = null
 
-    private var _binding: DurationPickerBinding? = null
-    val binding get() = _binding!!
+    private lateinit var binding: DurationPickerBinding
 
     private var duration: Long
         get() = TimeUnit.DAYS.toMillis(binding.daysPicker.value.toLong()) +
@@ -64,7 +63,7 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
     }
 
     override fun onCreateDialog(savedState: Bundle?): Dialog {
-        _binding = DurationPickerBinding.inflate(requireActivity().layoutInflater, null, false)
+        binding = DurationPickerBinding.inflate(requireActivity().layoutInflater, null, false)
 
         setupLimits()
 
@@ -96,11 +95,6 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
         return builder.create()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
-
     private fun setupLimits() {
         binding.daysPicker.maxValue = MAX_DAYS_VALUE
         binding.hoursPicker.maxValue = MAX_HOURS_VALUE
@@ -125,14 +119,14 @@ class DurationPickerDialogFragment : DialogFragment(), Injectable {
         private const val HINT_MESSAGE = "HINT"
 
         fun newInstance(duration: Long, title: String?, hintMessage: String?): DurationPickerDialogFragment {
-            val args = Bundle()
-            args.putLong(DURATION, duration)
-            args.putString(HINT_MESSAGE, hintMessage)
-            args.putString(DIALOG_TITLE, title)
-            val dialogFragment = DurationPickerDialogFragment()
-            dialogFragment.arguments = args
-            dialogFragment.setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
-            return dialogFragment
+            return DurationPickerDialogFragment().apply {
+                arguments = Bundle().apply {
+                    putLong(DURATION, duration)
+                    putString(HINT_MESSAGE, hintMessage)
+                    putString(DIALOG_TITLE, title)
+                }
+                setStyle(STYLE_NORMAL, R.style.Theme_ownCloud_Dialog)
+            }
         }
     }
 }
