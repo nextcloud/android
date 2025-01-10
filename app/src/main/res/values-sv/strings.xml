@@ -641,6 +641,7 @@
     <string name="permission_allow">Tillåt</string>
     <string name="permission_deny">Neka</string>
     <string name="permission_storage_access">Ytterligare rättigheter krävs för att ladda upp eller hämta filer</string>
+    <string name="pick_contact_to_share_with">Välj kontakt att dela med</string>
     <string name="picture_set_as_no_app">Ingen app hittades för att ställa in en bild med</string>
     <string name="pin_home">Fäst upp på hemskärmen</string>
     <string name="pin_shortcut_label">Öppna %1$s</string>
