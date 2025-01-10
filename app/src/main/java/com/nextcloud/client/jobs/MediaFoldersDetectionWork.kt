@@ -32,6 +32,8 @@ import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.preferences.AppPreferences
 import com.nextcloud.client.preferences.AppPreferencesImpl
+import com.nextcloud.utils.BuildHelper
+import com.owncloud.android.BuildConfig
 import com.owncloud.android.MainApp
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.ArbitraryDataProvider
@@ -75,6 +77,7 @@ class MediaFoldersDetectionWork constructor(
 
     @Suppress("LongMethod", "ComplexMethod", "NestedBlockDepth") // legacy code
     override fun doWork(): Result {
+        
         val arbitraryDataProvider: ArbitraryDataProvider = ArbitraryDataProviderImpl(context)
         val gson = Gson()
         val mediaFoldersModel: MediaFoldersModel
@@ -190,7 +193,46 @@ class MediaFoldersDetectionWork constructor(
                 gson.toJson(mediaFoldersModel)
             )
         }
+
+        // only send notification when synced folder is setup, gplay flavor and not branded client
+        if (syncedFolderProvider.syncedFolders.isNotEmpty() && 
+            BuildHelper.GPLAY == BuildConfig.FLAVOR && 
+            !preferences.isAutoUploadGPlayNotificationShown &&
+            !MainApp.isClientBranded()) {
+                sendAutoUploadNotification()
+            }
+        
         return Result.success()
+    }
+    
+    private fun sendAutoUploadNotification() {
+        val notificationId = randomIdGenerator.nextInt()
+        val intent = Intent(context, FileDisplayActivity::class.java).apply {
+            setAction(FileDisplayActivity.AUTO_UPLOAD_NOTIFICATION)
+        }
+        val pendingIntent = PendingIntent.getActivity(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_ONE_SHOT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val notificationBuilder = NotificationCompat.Builder(
+            context,
+            NotificationUtils.NOTIFICATION_CHANNEL_GENERAL
+        )
+            .setSmallIcon(R.drawable.notification_icon)
+            .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
+            .setContentTitle("Re-enable Disrupted Auto Uploads")
+            .setContentText("Click to learn how to re-enable auto uploads")
+            .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+
+        viewThemeUtils.androidx.themeNotificationCompatBuilder(context, notificationBuilder)
+
+        val notificationManager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(notificationId, notificationBuilder.build())
     }
 
     @Suppress("LongMethod")

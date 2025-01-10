@@ -109,6 +109,7 @@ public final class AppPreferencesImpl implements AppPreferences {
     
     private static final String PREF__AUTO_UPLOAD_GPLAY_WARNING_SHOWN = "auto_upload_gplay_warning_shown";
     private static final String PREF__AUTO_UPLOAD_GPLAY_WARNING2_SHOWN = "auto_upload_gplay_warning2_shown";
+    private static final String PREF__AUTO_UPLOAD_GPLAY_NOTIFICATION_SHOWN = "auto_upload_gplay_notification_shown";
 
     private static final String LOG_ENTRY = "log_entry";
 
@@ -846,5 +847,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setAutoUploadGPlayWarning2Shown(boolean value) {
         preferences.edit().putBoolean(PREF__AUTO_UPLOAD_GPLAY_WARNING2_SHOWN, value).apply();
+    }
+
+    @Override
+    public boolean isAutoUploadGPlayNotificationShown() {
+        return preferences.getBoolean(PREF__AUTO_UPLOAD_GPLAY_NOTIFICATION_SHOWN, false);
+    }
+
+    @Override
+    public void setAutoUploadGPlayNotificationShown(boolean value) {
+        preferences.edit().putBoolean(PREF__AUTO_UPLOAD_GPLAY_NOTIFICATION_SHOWN, value).apply();
     }
 }

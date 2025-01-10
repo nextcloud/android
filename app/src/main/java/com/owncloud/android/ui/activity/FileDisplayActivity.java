@@ -177,6 +177,7 @@ public class FileDisplayActivity extends FileActivity
     public static final String RESTART = "RESTART";
     public static final String ALL_FILES = "ALL_FILES";
     public static final String LIST_GROUPFOLDERS = "LIST_GROUPFOLDERS";
+    public static final String AUTO_UPLOAD_NOTIFICATION = "AUTO_UPLOAD_NOTIFICATION";
     public static final int SINGLE_USER_SIZE = 1;
     public static final String OPEN_FILE = "NC_OPEN_FILE";
 
@@ -293,7 +294,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void checkAutoUploadOnGPlay() {
-        if (!BuildHelper.GPLAY.equals(BuildConfig.FLAVOR)) {
+        if (!BuildHelper.GPLAY.equals(BuildConfig.FLAVOR) || MainApp.isClientBranded()) {
             return;
         }
 
@@ -336,7 +337,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     private void checkAutoUploadOnGPlay2() {
-        if (!BuildHelper.GPLAY.equals(BuildConfig.FLAVOR)) {
+        if (!BuildHelper.GPLAY.equals(BuildConfig.FLAVOR) || MainApp.isClientBranded()) {
             return;
         }
 
@@ -361,6 +362,7 @@ public class FileDisplayActivity extends FileActivity
                     .setMessage(R.string.auto_upload_gplay_desc2)
                     .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
                         dialog.dismiss();
+                        preferences.setAutoUploadGPlayWarning2Shown(true);
                     })
                     .setIcon(R.drawable.nav_synced_folders)
                     .create()
@@ -373,6 +375,7 @@ public class FileDisplayActivity extends FileActivity
                     .setMessage(R.string.upload_gplay_desc)
                     .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
                         dialog.dismiss();
+                        preferences.setAutoUploadGPlayWarning2Shown(true);
                     })
                     .setIcon(R.drawable.nav_synced_folders)
                     .create()
@@ -383,7 +386,7 @@ public class FileDisplayActivity extends FileActivity
         PermissionUtil.requestMediaLocationPermission(this);
         PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true);
 
-        preferences.setAutoUploadGPlayWarning2Shown(false);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -670,6 +673,17 @@ public class FileDisplayActivity extends FileActivity
 
                 setLeftFragment(new GroupfolderListFragment());
                 getSupportFragmentManager().executePendingTransactions();
+            } else if (AUTO_UPLOAD_NOTIFICATION.equals(intent.getAction())) {
+                new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+                    .setTitle(R.string.re_enable_auto_upload)
+                    .setMessage(R.string.re_enable_auto_upload_desc)
+                    .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
+                        dialog.dismiss();
+                        preferences.setAutoUploadGPlayNotificationShown(true);
+                    })
+                    .setIcon(R.drawable.nav_synced_folders)
+                    .create()
+                    .show();
             }
         }
     }

@@ -403,9 +403,13 @@ public class MainApp extends Application implements HasAndroidInjector {
             Log_OC.d(TAG, "Error caught at setProxyForNonBrandedPlusClients: " + e);
         }
     }
+    
+    public static boolean isClientBranded() {
+        return getAppContext().getResources().getBoolean(R.bool.is_branded_client);
+    }
 
     public static boolean isClientBrandedPlus() {
-        return (getAppContext().getResources().getBoolean(R.bool.is_branded_plus_client));
+        return getAppContext().getResources().getBoolean(R.bool.is_branded_plus_client);
     }
 
     private final IntentFilter restrictionsFilter = new IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED);
