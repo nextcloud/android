@@ -37,6 +37,7 @@ public class SyncedFolderParcelable implements Parcelable {
     private int section;
     private SubFolderRule subFolderRule;
     private boolean excludeHidden;
+    private long uploadDelayTimeMs;
 
     public SyncedFolderParcelable(SyncedFolderDisplayItem syncedFolderDisplayItem, int section) {
         id = syncedFolderDisplayItem.getId();
@@ -53,6 +54,7 @@ public class SyncedFolderParcelable implements Parcelable {
         uploadAction = syncedFolderDisplayItem.getUploadAction();
         nameCollisionPolicy = NameCollisionPolicy.deserialize(
             syncedFolderDisplayItem.getNameCollisionPolicyInt());
+        uploadDelayTimeMs = syncedFolderDisplayItem.getUploadDelayTimeMs();
         this.section = section;
         hidden = syncedFolderDisplayItem.isHidden();
         subFolderRule = syncedFolderDisplayItem.getSubfolderRule();
@@ -77,6 +79,7 @@ public class SyncedFolderParcelable implements Parcelable {
         hidden = read.readInt() != 0;
         subFolderRule = SubFolderRule.values()[read.readInt()];
         excludeHidden = read.readInt() != 0;
+        uploadDelayTimeMs = read.readLong();
     }
 
     public SyncedFolderParcelable() {
@@ -102,6 +105,7 @@ public class SyncedFolderParcelable implements Parcelable {
         dest.writeInt(hidden ? 1 : 0);
         dest.writeInt(subFolderRule.ordinal());
         dest.writeInt(excludeHidden ? 1 : 0);
+        dest.writeLong(uploadDelayTimeMs);
     }
 
     public static final Creator<SyncedFolderParcelable> CREATOR =
@@ -184,6 +188,10 @@ public class SyncedFolderParcelable implements Parcelable {
         return this.subfolderByDate;
     }
 
+    public long getUploadDelayTimeMs() {
+        return uploadDelayTimeMs;
+    }
+
     public Integer getUploadAction() {
         return this.uploadAction;
     }
@@ -244,6 +252,10 @@ public class SyncedFolderParcelable implements Parcelable {
 
     public void setSubfolderByDate(boolean subfolderByDate) {
         this.subfolderByDate = subfolderByDate;
+    }
+
+    public void setUploadDelayTimeMs(long uploadDelayTimeMs) {
+        this.uploadDelayTimeMs = uploadDelayTimeMs;
     }
 
     public void setNameCollisionPolicy(NameCollisionPolicy nameCollisionPolicy) {

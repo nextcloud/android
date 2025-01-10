@@ -9,6 +9,7 @@ package com.owncloud.android.ui.dialog
 
 import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Typeface
@@ -35,6 +36,7 @@ import com.owncloud.android.ui.activity.UploadFilesActivity
 import com.owncloud.android.ui.dialog.parcel.SyncedFolderParcelable
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.FileStorageUtils
+import com.owncloud.android.utils.TimeUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
 import javax.inject.Inject
@@ -219,6 +221,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             )
             binding.settingInstantNameCollisionPolicySummary.text =
                 nameCollisionPolicyItemStrings[nameCollisionPolicyIndex]
+            binding.settingInstantUploadDelaySummary.text =
+                getDelaySummary(requireContext(), it.uploadDelayTimeMs)
         }
     }
 
@@ -324,6 +328,8 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             binding.settingInstantUploadExistingCheckbox.isEnabled = enable
             binding.settingInstantUploadPathUseSubfoldersCheckbox.isEnabled = enable
             binding.settingInstantUploadExcludeHiddenCheckbox.isEnabled = enable
+            binding.settingInstantUploadDelayContainer.isEnabled = enable
+            binding.settingInstantUploadDelayContainer.alpha = alpha
         }
 
         checkWritableFolder()
@@ -400,6 +406,7 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
 
         binding.settingInstantBehaviourContainer.setOnClickListener { showBehaviourDialog() }
         binding.settingInstantNameCollisionPolicyContainer.setOnClickListener { showNameCollisionPolicyDialog() }
+        binding.settingInstantUploadDelayContainer.setOnClickListener { showUploadDelayDialog() }
     }
 
     private fun showBehaviourDialog() {
@@ -441,6 +448,27 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
             viewThemeUtils?.dialog?.colorMaterialAlertDialogBackground(requireActivity(), builder)
             behaviourDialog = builder.create()
             behaviourDialog?.show()
+        }
+    }
+
+    private fun showUploadDelayDialog() {
+        syncedFolder?.let {
+            val dialog = DurationPickerDialogFragment.newInstance(
+                it.uploadDelayTimeMs,
+                getString(R.string.pref_instant_upload_delay_dialogTitle),
+                getString(R.string.pref_instant_upload_delay_hint)
+            )
+
+            dialog.setListener(object : DurationPickerDialogFragment.Listener {
+                override fun onDurationPickerResult(resultCode: Int, duration: Long) {
+                    if (resultCode == Activity.RESULT_OK) {
+                        it.uploadDelayTimeMs = duration
+                        binding?.settingInstantUploadDelaySummary?.text = getDelaySummary(requireContext(), duration)
+                    }
+                    dialog.dismiss()
+                }
+            })
+            dialog.show(parentFragmentManager, "UPLOAD_DELAY_PICKER_DIALOG")
         }
     }
 
@@ -569,6 +597,30 @@ class SyncedFolderPreferencesDialogFragment : DialogFragment(), Injectable {
                 0 -> NameCollisionPolicy.ASK_USER
                 else -> NameCollisionPolicy.ASK_USER
             }
+        }
+
+        @Suppress("MagicNumber")
+        private fun getDelaySummary(context: Context, duration: Long): String {
+            if (duration == 0L) {
+                return context.getString(R.string.pref_instant_upload_delay_disabled)
+            }
+            val durationParts = TimeUtils.getDurationParts(duration)
+            val durationSummary = StringBuilder()
+            if (durationParts.days > 0) {
+                durationSummary.append(durationParts.days)
+                durationSummary.append(context.getString(R.string.common_days_short))
+                durationSummary.append(' ')
+            }
+            if (durationParts.hours > 0) {
+                durationSummary.append(durationParts.hours)
+                durationSummary.append(context.getString(R.string.common_hours_short))
+                durationSummary.append(' ')
+            }
+            if (durationParts.minutes > 0) {
+                durationSummary.append(durationParts.minutes)
+                durationSummary.append(context.getString(R.string.common_minutes_short))
+            }
+            return context.getString(R.string.pref_instant_upload_delay_enabled, durationSummary.toString().trim())
         }
     }
 }

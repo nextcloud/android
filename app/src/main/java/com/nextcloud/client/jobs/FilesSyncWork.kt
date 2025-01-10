@@ -218,7 +218,7 @@ class FilesSyncWork(
         syncedFolderProvider.updateSyncFolder(syncedFolder)
     }
 
-    private fun getAllFiles(path: String): Set<File> {
+    private fun getAllFiles(path: String, maxFileTimestamp: Long?): Set<File> {
         return File(path).takeIf { it.exists() }
             ?.walkTopDown()
             ?.asSequence()
@@ -226,7 +226,8 @@ class FilesSyncWork(
                 file.isFile &&
                     file.exists() &&
                     isQualifiedFolder(file.parentFile?.path) &&
-                    isFileNameQualifiedForAutoUpload(file.name)
+                    isFileNameQualifiedForAutoUpload(file.name) &&
+                    maxFileTimestamp?.let { it >= file.lastModified() } ?: true
             }
             ?.toSet()
             ?: emptySet()
@@ -259,7 +260,13 @@ class FilesSyncWork(
             null
         }
 
-        val files = getAllFiles(syncedFolder.localPath)
+        val maxFileTimestamp = if (syncedFolder.uploadDelayTimeMs > 0) {
+            System.currentTimeMillis() - syncedFolder.uploadDelayTimeMs
+        } else {
+            null
+        }
+
+        val files = getAllFiles(syncedFolder.localPath, maxFileTimestamp)
         if (files.isEmpty()) {
             return
         }
