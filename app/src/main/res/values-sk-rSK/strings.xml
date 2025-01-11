@@ -64,6 +64,7 @@
     <string name="assistant_screen_task_delete_success_message">Úloha bola úspešne odstránená</string>
     <string name="assistant_screen_task_list_error_state_message">Nie je možné načítať zoznam úloh, skontrolujte svoje internetové pripojenie.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Vymazať Úlohu</string>
+    <string name="assistant_screen_task_output_empty_text">Výstup úlohy ešte nie je dostupný.</string>
     <string name="assistant_screen_task_types_error_state_message">Nie je možné načítať typy úloh, skontrolujte svoje internetové pripojenie.</string>
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_screen_unknown_task_status_text">Neznámy</string>
@@ -640,6 +641,7 @@
     <string name="permission_allow">Povoliť</string>
     <string name="permission_deny">Odmietnuť</string>
     <string name="permission_storage_access">Na nahrávanie a sťahovanie súborov sú potrebné dodatočné oprávnenia.</string>
+    <string name="pick_contact_to_share_with">Vybrať kontakt pre zdieľanie</string>
     <string name="picture_set_as_no_app">Aplikácia na nastavenie obrázku sa nenašla</string>
     <string name="pin_home">Pripnúť na domovskú obrazovku</string>
     <string name="pin_shortcut_label">Otvoriť %1$s</string>
@@ -715,15 +717,18 @@
     <string name="prefs_synced_folders_remote_path_title">Vzdialený priečinok</string>
     <string name="prefs_theme_title">Motív vzhľadu</string>
     <string name="prefs_two_way_sync_interval">Interval</string>
+    <string name="prefs_two_way_sync_summary">Spravovať interné adresáre pre obojsmernú synchronizáciu</string>
     <string name="prefs_two_way_sync_switch_title">Povoliť obojstrannú synchronizáciu</string>
     <string name="prefs_value_theme_dark">Tmavý</string>
     <string name="prefs_value_theme_light">Svetlý</string>
     <string name="prefs_value_theme_system">Nasledovať systém</string>
     <string name="preview_image_description">Ukážka obrazu</string>
+    <string name="preview_image_downloading_image_for_edit">Sťahovanie obrázku pre spustenie obrazovky úprav, prosím čakajte...</string>
     <string name="preview_image_error_no_local_file">Nepodarilo sa zobraziť lokálny súbor</string>
     <string name="preview_image_error_unknown_format">Nemožno zobraziť obrázok</string>
     <string name="preview_image_file_is_not_downloaded">Súbor nebol stiahnutý</string>
     <string name="preview_image_file_is_not_exist">Súbor neexistuje</string>
+    <string name="preview_media_unhandled_http_code_message">Súbor je momentálne uzamknutý iným užívateľom alebo procesom, a preto ho nemožno odstrániť. Skúste to znova neskôr.</string>
     <string name="preview_sorry">Prepáčte</string>
     <string name="privacy">Súkromie</string>
     <string name="public_share_name">Nový názov</string>
@@ -731,6 +736,7 @@
     <string name="push_notifications_old_login">Žiadne push notifikácie z dôvodu zastaraného prihlásenia.  Prosím skúste znova pridať váš účet.</string>
     <string name="push_notifications_temp_error">Push notifikácie sú v súčasnosti nedostupné.</string>
     <string name="qr_could_not_be_read">QR kód nie je možné načítať!</string>
+    <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Adresár sa nenašiel, operácia synchronizácie bola prerušená</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Nepodarilo sa nájisť súbor pre nahratie</string>
     <string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
     <string name="recommend_text">Chcel by som odporučiť %1$s pre vaše zariadenie.\nZískať ho môžete aj tu: %2$s</string>
@@ -753,6 +759,7 @@
     <string name="request_account_deletion">Žiadosť o zmazanie účtu</string>
     <string name="request_account_deletion_button">Žiadosť o zmazanie</string>
     <string name="request_account_deletion_details">Žiadosť o trvalé odstránenie účtu poskytovateľom</string>
+    <string name="resharing_is_not_allowed">Opätovnému zdieľaniu bránia pravidlá alebo práva</string>
     <string name="resized_image_not_possible_download">Obrázok v inom rozlíšení nedostupný.  Stiahnuť pôvodný obrázok?</string>
     <string name="restore">Obnoviť súbor</string>
     <string name="restore_backup">Obnoviť zo zálohy</string>
@@ -822,6 +829,7 @@
     <string name="share_permissions">Zdieľať oprávnenia</string>
     <string name="share_remote_clarification">%1$s (vzdialený)</string>
     <string name="share_room_clarification">%1$s (rozhovor)</string>
+    <string name="share_search">Meno, ID v rámci Federatívneho cloudu, alebo e-mailová adresa…</string>
     <string name="share_send_new_email">Odoslať nový e-mail</string>
     <string name="share_send_note">Poznámka pre príjemcu</string>
     <string name="share_settings">Nastavenia</string>
@@ -941,13 +949,18 @@
     <string name="trashbin_loading_failed">Načítanie obsahu koša sa nepodarilo!</string>
     <string name="trashbin_not_emptied">Nepodarilo sa trvalo vymazať súbory!</string>
     <string name="two_way_sync_activity_disable_all_button_title">Zakázať pre všetky adresáre</string>
+    <string name="two_way_sync_activity_empty_list_desc">Ak chcete nastaviť adresár obojsmernej synchronizácie, povoľte ho na karte podrobností príslušného adresára.</string>
     <string name="two_way_sync_activity_empty_list_title">Obojsmerná synchronizácia nie je nastavená</string>
     <string name="two_way_sync_activity_title">Interná obojsmerná synchronizácia</string>
     <string name="unexpected_error_occurred">Vyskytla sa neočakávaná chyba</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Udalosť sa nenašla, vždy ju môžete synchronizovať a aktualizovať. Prebieha presmerovanie na web…</string>
+    <string name="unified_search_fragment_contact_not_found">Kontakt sa nenašiel, vždy ho môžete synchronizovať a aktualizovať. Prebieha presmerovanie na web…</string>
+    <string name="unified_search_fragment_permission_needed">Pre otvorenie výsledku vyhľadávania sú potrebné práva, inak bude presmerovaný na web…</string>
     <string name="unlock_file">Odomknúť súbor</string>
     <string name="unread_comments">Existujú neprečítané komentáre</string>
     <string name="unset_encrypted">Vypnúť šifrovanie</string>
     <string name="unset_favorite">Odstrániť z obľúbených</string>
+    <string name="unset_internal_two_way_sync_description">Odobrať adresár z internej obojsmernej synchronizácie</string>
     <string name="unshare_link_file_error">Pri pokuse o zrušenie sprístupnenia tohto súboru alebo priečinka došlo k chybe.</string>
     <string name="unshare_link_file_no_exist">Zdieľanie nie je možné zrušiť. Skontrolujte, či súbor existuje.</string>
     <string name="unshare_link_forbidden_permissions">zrušiť sprístupnenie tohto súboru</string>
@@ -961,6 +974,7 @@
     <string name="upload_action_cancelled_resume">Obnoviť zrušené nahrávania</string>
     <string name="upload_action_failed_clear">Odstrániť zlyhané nahrávania</string>
     <string name="upload_action_failed_retry">Zopakovať zlyhané nahrávania</string>
+    <string name="upload_action_file_not_exist_message">Niektoré súbory už neexistujú. Tieto súbory nie je možné znova nahrať.</string>
     <string name="upload_action_global_upload_pause">Pozastaviť všetky nahrávania</string>
     <string name="upload_action_global_upload_resume">Obnoviť všetky nahrávania</string>
     <string name="upload_cannot_create_file">Nieje možné vytvoriť lokálny súbor</string>
@@ -982,6 +996,7 @@
     <string name="upload_list_delete">Zmazať</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
     <string name="upload_list_empty_text_auto_upload">Nahrajte nejaký obsah alebo si zapnite automatické nahrávanie.</string>
+    <string name="upload_list_expand_header">Prepnúť rozšírenie hlavičky</string>
     <string name="upload_list_resolve_conflict">Vyriešiť konflikt</string>
     <string name="upload_local_storage_full">Lokálne úložište je plné</string>
     <string name="upload_local_storage_not_copied">Nepodarilo sa skopírovať súbor na lokálne úložište</string>
@@ -1064,6 +1079,7 @@
     <string name="wait_a_moment">Počkajte chvíľu…</string>
     <string name="wait_checking_credentials">Overujem uložené prihlasovacie údaje</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopírovanie súboru z privátneho úložiska</string>
+    <string name="warn_rename_extension">Zmena prípony môže spôsobiť, že sa tento súbor otvorí v inej aplikácii</string>
     <string name="webview_version_check_alert_dialog_message">Pre prihlásenie prosím aktualizujte aplikáciu Android System WebView</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Aktualizovať</string>
     <string name="webview_version_check_alert_dialog_title">Aktualizujte Android System WebView</string>
@@ -1071,6 +1087,7 @@
     <string name="whats_new_skip">Preskočiť</string>
     <string name="whats_new_title">Nové v %1$s</string>
     <string name="whats_your_status">Aký je váš stav?</string>
+    <string name="widgets_not_available">Widgety sú dostupné iba na %1$s 25 alebo vyššej ked je aplikácia Dashboard povolená</string>
     <string name="widgets_not_available_title">Nie je k dispozícií</string>
     <string name="worker_download">Sťahovanie súborov…</string>
     <string name="write_email">Odoslať email</string>
@@ -1087,6 +1104,24 @@
         <item quantity="few">%d minúty</item>
         <item quantity="many">%d minút</item>
         <item quantity="other">%d minút</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">pred 1 sekundou</item>
+        <item quantity="few">pred %d sekundami</item>
+        <item quantity="many">pred %d sekundami</item>
+        <item quantity="other">pred %d sekundami</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">pred 1 minútou</item>
+        <item quantity="few">pred %d minútami</item>
+        <item quantity="many">pred %d minútami</item>
+        <item quantity="other">pred %d minútami</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">pred 1 hodinou</item>
+        <item quantity="few">pred %d hodinami</item>
+        <item quantity="many">pred %d hodinami</item>
+        <item quantity="other">pred %d hodinami</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nie je možné synchronizovať %1$d súbor (konflikty: %2$d)</item>
@@ -1159,6 +1194,12 @@
         <item quantity="few">%1$d súbory</item>
         <item quantity="many">%1$d súborov</item>
         <item quantity="other">%1$d súborov</item>
+    </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d položka</item>
+        <item quantity="few">%1$d položky</item>
+        <item quantity="many">%1$d položiek</item>
+        <item quantity="other">%1$d položiek</item>
     </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Zobraziť %1$d skrytý priečinok</item>
