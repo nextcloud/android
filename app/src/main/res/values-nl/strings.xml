@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Proxy poort</string>
     <string name="app_widget_description">Toont één widget van dashboard</string>
     <string name="appbar_search_in">Zoeken in %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Nieuwe taak toevoegen</string>
     <string name="assistant_screen_all_task_type">Alle</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Geef wat tekst in</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bent u zeker dat u deze taak wilt verwijderen?</string>
@@ -154,6 +155,7 @@
     <string name="common_loading">Laden…</string>
     <string name="common_next">Volgende</string>
     <string name="common_no">Nee</string>
+    <string name="common_now">Nu</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">In behandeling</string>
     <string name="common_remove">Verwijderen</string>
@@ -431,6 +433,7 @@
     <string name="file_name_validator_error_invalid_character">Naam bevat ongeldige tekens %s</string>
     <string name="file_name_validator_error_reserved_names">%s is een ongeldige naam</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Hernoem het bestand voor verplaatsen of kopiëren</string>
+    <string name="file_name_validator_upload_content_error">Een deel van de inhoud kan niet geüpload worden omdat het gereserveerde namen of ongeldige tekens bevat</string>
     <string name="file_not_found">Bestand niet gevonden</string>
     <string name="file_not_synced">Synchroniseren van het gewenste bestand mislukt. Laatst beschikbare versie wordt weergegeven.</string>
     <string name="file_rename">Hernoemen</string>
@@ -454,6 +457,7 @@
     <string name="folder_already_exists">Map bestaat al</string>
     <string name="folder_confirm_create">Aanmaken</string>
     <string name="folder_list_empty_headline">Hier zijn geen bestanden</string>
+    <string name="folder_name_empty">Mapnaam mag niet leeg zijn</string>
     <string name="folder_picker_choose_button_text">Kies</string>
     <string name="folder_picker_choose_caption_text">Kies doelmap…</string>
     <string name="folder_picker_copy_button_text">Kopiëren</string>
@@ -500,6 +504,8 @@
     <string name="instant_upload_existing">Upload ook bestaande bestanden</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync_not_yet">Nog niet, binnenkort gesynchroniseerd</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Voor het instellen van de versleutelde map is een internetverbinding vereist</string>
     <string name="invalid_url">Ongeldige URL</string>
     <string name="invisible">Verborgen</string>
     <string name="label_empty">Label mag niet leeg zijn</string>
@@ -584,6 +590,7 @@
     <string name="note_could_not_sent">Kon notitie niet versturen</string>
     <string name="note_icon_hint">Notitie icoon</string>
     <string name="notification_action_failed">Niet gelukt om actie uit te voeren</string>
+    <string name="notification_channel_background_operations_name">Achtergrondtaken</string>
     <string name="notification_channel_download_description">Geef download voortgang weer</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Geeft bestand sync voortgang en resultaten weer</string>
@@ -597,9 +604,12 @@
     <string name="notification_channel_upload_description">Geef upload voortgang weer</string>
     <string name="notification_channel_upload_name_short">Uploads</string>
     <string name="notification_icon">Meldingenpictogram</string>
+    <string name="notification_icon_description">Er zijn ongelezen meldingen</string>
     <string name="notifications_no_results_headline">Geen meldingen</string>
     <string name="notifications_no_results_message">Controleer later opnieuw.</string>
     <string name="offline_mode">Geen internet verbinding</string>
+    <string name="offline_mode_info_description">Zelfs zonder internetverbinding kun je je mappen organiseren en bestanden aanmaken. Zodra je weer online bent, worden de wachtende acties automatisch gesynchroniseerd.</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Offline Map Verwijderen</string>
     <string name="oneHour">1 uur</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>
@@ -619,6 +629,7 @@
     <string name="permission_allow">Toestaan</string>
     <string name="permission_deny">Weigeren</string>
     <string name="permission_storage_access">Aanvullende machtigingen vereist voor het uploaden en downloaden van bestanden.</string>
+    <string name="pick_contact_to_share_with">Kies contact om mee te delen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="pin_home">Toevoegen aan startscherm</string>
     <string name="pin_shortcut_label">Open %1$s</string>
