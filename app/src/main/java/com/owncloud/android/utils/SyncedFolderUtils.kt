@@ -27,6 +27,7 @@ object SyncedFolderUtils {
     private const val THUMBNAIL_FOLDER_PREFIX = ".thumbnail"
     private const val THUMBNAIL_DATA_FILE_PREFIX = ".thumbdata"
     private const val SINGLE_FILE = 1
+    private const val EXTERNAL_TRASHCAN_PREFIX = ".trashed"
 
     /**
      * analyzes a given media folder if its content qualifies for the folder to be handled as a media folder.
@@ -129,7 +130,8 @@ object SyncedFolderUtils {
         return when {
             fileName != null -> {
                 !DISQUALIFIED_MEDIA_DETECTION_FILE_SET.contains(fileName.lowercase()) &&
-                    !fileName.startsWith(THUMBNAIL_DATA_FILE_PREFIX)
+                    !fileName.startsWith(THUMBNAIL_DATA_FILE_PREFIX) &&
+                    !fileName.startsWith(EXTERNAL_TRASHCAN_PREFIX)
             }
             else -> false
         }
