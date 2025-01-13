@@ -1302,4 +1302,6 @@
     <string name="upload_gplay_desc">A new permission \"access location\" is required for persisting GPS information in images.\nPlease also double check that \"all access\" is granted for photo and video access.</string>
     <string name="re_enable_auto_upload">Re-enable disrupted Auto Uploads</string>
     <string name="re_enable_auto_upload_desc">Please check manually for missing file uploads since mid-December.\nTo re-enable Auto Uploads for new photos and videos:\n- Grant \"Photos and Videos\" permission in the next dialog,\n- Grant \"Location\" permission to keep location data in uploaded photos.\n\nTo re-enable Auto Uploads for all other files:\n- Auto Uploads of other files are not possible anymore with the Play Store version of the Nextcloud app.\n\nAuto Uploads stopped working because Google rejected the necessary file permission in a previous app update. Nextcloud is working with Google to rectify the situation and restore full functionality.</string>
+    <string name="re_enable_disrupted_auto_uploads">Re-enable Disrupted Auto Uploads</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Click to learn how to re-enable auto uploads</string>
 </resources>

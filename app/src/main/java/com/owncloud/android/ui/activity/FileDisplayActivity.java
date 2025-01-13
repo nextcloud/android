@@ -72,7 +72,6 @@ import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
-import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
@@ -284,8 +283,8 @@ public class FileDisplayActivity extends FileActivity
         mPlayerConnection = new PlayerServiceConnection(this);
 
         checkStoragePath();
-        checkAutoUploadOnGPlay();
-        checkAutoUploadOnGPlay2();
+        notifyGPlayPermissionChanges();
+        showAutoUploadWarningForGPlayFlavour();
 
         initSyncBroadcastReceiver();
         observeWorkerState();
@@ -295,8 +294,8 @@ public class FileDisplayActivity extends FileActivity
         offlineFolderConflictManager.registerRefreshSearchEventReceiver();
     }
 
-    private void checkAutoUploadOnGPlay() {
-        if (!BuildHelper.GPLAY.equals(BuildConfig.FLAVOR) || MainApp.isClientBranded()) {
+    private void notifyGPlayPermissionChanges() {
+        if (!BuildHelper.INSTANCE.isFlavourGPlay() || MainApp.isClientBranded()) {
             return;
         }
 
@@ -338,51 +337,37 @@ public class FileDisplayActivity extends FileActivity
         preferences.setAutoUploadGPlayWarningShown(true);
     }
 
-    private void checkAutoUploadOnGPlay2() {
-        if (!BuildHelper.GPLAY.equals(BuildConfig.FLAVOR) || MainApp.isClientBranded()) {
+    private void showAutoUploadWarningForGPlayFlavour() {
+        if (!BuildHelper.INSTANCE.isFlavourGPlay() || MainApp.isClientBranded()) {
             return;
         }
 
-        // only show on Android11+
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
             return;
         }
 
         boolean showAutoUploadDialog = false;
         for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
-            // show dialog only on
             if (syncedFolder.getType() == MediaFolderType.CUSTOM) {
                 showAutoUploadDialog = true;
                 break;
             }
         }
 
-        if (showAutoUploadDialog) {
-            if (!preferences.isAutoUploadGPlayWarning2Shown()) {
-                new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.auto_upload_gplay)
-                    .setMessage(R.string.auto_upload_gplay_desc2)
-                    .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
-                        dialog.dismiss();
-                        preferences.setAutoUploadGPlayWarning2Shown(true);
-                    })
-                    .setIcon(R.drawable.nav_synced_folders)
-                    .create()
-                    .show();
-            }
-        } else {
-            if (!preferences.isAutoUploadGPlayWarning2Shown()) {
-                new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.upload_gplay)
-                    .setMessage(R.string.upload_gplay_desc)
-                    .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
-                        dialog.dismiss();
-                        preferences.setAutoUploadGPlayWarning2Shown(true);
-                    })
-                    .setIcon(R.drawable.nav_synced_folders)
-                    .create()
-                    .show();
-            } 
+        if (!preferences.isAutoUploadGPlayWarning2Shown()) {
+            String title = showAutoUploadDialog ? getString(R.string.auto_upload_gplay) : getString(R.string.upload_gplay);
+            String message = showAutoUploadDialog ? getString(R.string.auto_upload_gplay_desc2) : getString(R.string.upload_gplay_desc);
+
+            new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+                .setTitle(title)
+                .setMessage(message)
+                .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
+                    dialog.dismiss();
+                    preferences.setAutoUploadGPlayWarning2Shown(true);
+                })
+                .setIcon(R.drawable.nav_synced_folders)
+                .create()
+                .show();
         }
 
         PermissionUtil.requestMediaLocationPermission(this);
@@ -692,18 +677,22 @@ public class FileDisplayActivity extends FileActivity
                 setLeftFragment(new GroupfolderListFragment());
                 getSupportFragmentManager().executePendingTransactions();
             } else if (AUTO_UPLOAD_NOTIFICATION.equals(intent.getAction())) {
-                new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
-                    .setTitle(R.string.re_enable_auto_upload)
-                    .setMessage(R.string.re_enable_auto_upload_desc)
-                    .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
-                        dialog.dismiss();
-                        preferences.setAutoUploadGPlayNotificationShown(true);
-                    })
-                    .setIcon(R.drawable.nav_synced_folders)
-                    .create()
-                    .show();
+                handleAutoUploadNotification();
             }
         }
+    }
+    
+    private void handleAutoUploadNotification() {
+        new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+            .setTitle(R.string.re_enable_auto_upload)
+            .setMessage(R.string.re_enable_auto_upload_desc)
+            .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
+                dialog.dismiss();
+                preferences.setAutoUploadGPlayNotificationShown(true);
+            })
+            .setIcon(R.drawable.nav_synced_folders)
+            .create()
+            .show();
     }
 
     private void onOpenFileIntent(Intent intent) {
