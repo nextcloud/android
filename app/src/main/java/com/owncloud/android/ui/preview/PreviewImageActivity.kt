@@ -357,7 +357,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         }
 
         startActivity(intent)
-        backToDisplayActivity()
+        finish()
     }
 
     override fun showDetails(file: OCFile, activeTab: Int) {
