@@ -641,6 +641,7 @@
     <string name="permission_allow">Baimendu</string>
     <string name="permission_deny">Ukatu</string>
     <string name="permission_storage_access">Fitxategiak kargatu eta deskargatzeko baimen gehigarriak behar dira</string>
+    <string name="pick_contact_to_share_with">Aukeratu partekatzeko kontaktua</string>
     <string name="picture_set_as_no_app">Ez da aplikaziorik aurkitu irudia ezartzeko</string>
     <string name="pin_home">Ainguratu hasierako pantailan</string>
     <string name="pin_shortcut_label">Ireki %1$s</string>
