@@ -1304,4 +1304,7 @@
     <string name="re_enable_auto_upload">Changes to auto upload</string>
     <string name="re_enable_auto_upload_desc">Due to new restrictions imposed by Google, we have been forced to remove an important permission. We are currently working with Google to resolve this issue and restore full functionality.\n\nTo re-enable auto upload for new photos and videos:\nSelect \"Allow all\" in the following dialogue or the system settings.\nAllow media location when prompted, as this allows Nextcloud to store location data when uploading images.\n\nThe permissions dialogue is only displayed when necessary. If in doubt, check the system settings.\n\nAuto upload will only be able to upload image and video files when using the Google Play version of the Nextcloud app.\n\nPlease check for any files that may not have been uploaded since December 2024.</string>
     <string name="click_to_learn_how_to_re_enable_auto_uploads">Manual intervention required to re-enable auto-upload</string>
+    <string name="share_download_limit">Set download limit</string>
+    <string name="download_limit">Download limit</string>
+    <string name="share_download_limit_description">%1$d downloads remaining</string>
 </resources>
