@@ -356,6 +356,7 @@
     <string name="file_migration_failed_not_writable">Nepavyko rašyti į paskirties failą</string>
     <string name="file_migration_failed_while_coping">Perkėlimo metu patirta nesėkmė</string>
     <string name="file_migration_failed_while_updating_index">Nepavyko atnaujinti indekso</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Perkeliami duomenys…</string>
     <string name="file_migration_ok_finished">Baigta</string>
     <string name="file_migration_override_data_folder">Pakeisti</string>
