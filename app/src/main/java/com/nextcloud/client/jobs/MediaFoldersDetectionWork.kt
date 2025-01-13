@@ -207,7 +207,8 @@ class MediaFoldersDetectionWork constructor(
 
     private fun sendAutoUploadNotification() {
         val notificationId = randomIdGenerator.nextInt()
-        val intent = Intent(context, FileDisplayActivity::class.java).apply {
+        val intent = Intent().apply {
+            setClassName(context, FileDisplayActivity::class.java.name)
             setAction(FileDisplayActivity.AUTO_UPLOAD_NOTIFICATION)
         }
         val pendingIntent = PendingIntent.getActivity(
