@@ -1,7 +1,8 @@
-## 3.30.8 RC1 (January 13, 2025)
+## 3.30.8 RC1 (January 14, 2025)
 
 - Resolved an issue where the file index would reset during uploads after 100 files.
 - Fixed the appearance of the E2E setup dialog in the Google Play version.
+- Added location access permission to preserve GPS data in images for Google Play version.
 - Bugfixes
 
 Minimum: NC 16 Server, Android 7.0 Nougat
