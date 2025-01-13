@@ -636,6 +636,7 @@
     <string name="permission_allow">Дозволити</string>
     <string name="permission_deny">Заборонити</string>
     <string name="permission_storage_access">Додаткові дозволи потрібні для завантаження та звантаження файлів.</string>
+    <string name="pick_contact_to_share_with">Виберіть контакт для обміну</string>
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
     <string name="pin_home">Закріпити на Домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
