@@ -32,6 +32,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.nextcloud.android.lib.resources.files.FileDownloadLimit;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.FileDao;
@@ -1556,6 +1557,11 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LINK, share.getShareLink());
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LABEL, share.getLabel());
 
+        if (share.getFileDownloadLimit() != null) {
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, share.getFileDownloadLimit().getLimit());
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, share.getFileDownloadLimit().getCount());
+        }
+
         return contentValues;
     }
 
@@ -1579,6 +1585,8 @@ public class FileDataStorageManager {
         share.setHideFileDownload(getInt(cursor, ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD) == 1);
         share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
         share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LABEL));
+
+        share.setFileDownloadLimit(new FileDownloadLimit(share.getToken(), getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT), getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT)));
 
         return share;
     }
@@ -2294,6 +2302,8 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES, capability.getForbiddenFilenamesJson());
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS, capability.getForbiddenFilenameExtensionJson());
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES, capability.getForbiddenFilenameBaseNamesJson());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT, capability.getFilesDownloadLimit().getValue());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT, capability.getFilesDownloadLimitDefault());
 
         contentValues.put(ProviderTableMeta.CAPABILITIES_RECOMMENDATION, capability.getRecommendations().getValue());
 
@@ -2470,7 +2480,8 @@ public class FileDataStorageManager {
             capability.setForbiddenFilenamesJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES));
             capability.setForbiddenFilenameExtensionJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS));
             capability.setForbiddenFilenameBaseNamesJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES));
-
+            capability.setFilesDownloadLimit(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT));
+            capability.setFilesDownloadLimitDefault(getInt(cursor, ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT));
             capability.setRecommendations(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_RECOMMENDATION));
         }
 
