@@ -1774,38 +1774,45 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                          ocCapability);
     }
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EncryptionEvent event) {
-        final User user = accountManager.getUser();
+        new Thread(() -> {{
+            final User user = accountManager.getUser();
 
-        // check if keys are stored
-        String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
-        String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
+            // check if keys are stored
+            String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
+            String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
 
-        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        OCFile file = storageManager.getFileByRemoteId(event.getRemoteId());
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+            OCFile file = storageManager.getFileByRemoteId(event.getRemoteId());
 
-        if (publicKey.isEmpty() || privateKey.isEmpty()) {
-            Log_OC.d(TAG, "no public key for " + user.getAccountName());
+            if (publicKey.isEmpty() || privateKey.isEmpty()) {
+                Log_OC.d(TAG, "no public key for " + user.getAccountName());
 
-            int position = -1;
-            if (file != null) {
-                position = mAdapter.getItemPosition(file);
+                int position;
+                if (file != null) {
+                    position = mAdapter.getItemPosition(file);
+                } else {
+                    position = -1;
+                }
+
+                requireActivity().runOnUiThread(() -> {
+                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
+                    dialog.setTargetFragment(OCFileListFragment.this, SETUP_ENCRYPTION_REQUEST_CODE);
+                    dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
+                });
+            } else {
+                // TODO E2E: if encryption fails, to not set it as encrypted!
+                encryptFolder(file,
+                              event.getLocalId(),
+                              event.getRemoteId(),
+                              event.getRemotePath(),
+                              event.getShouldBeEncrypted(),
+                              publicKey,
+                              privateKey,
+                              storageManager);
             }
-            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
-            dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
-            dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
-        } else {
-            // TODO E2E: if encryption fails, to not set it as encrypted!
-            encryptFolder(file,
-                          event.getLocalId(),
-                          event.getRemoteId(),
-                          event.getRemotePath(),
-                          event.getShouldBeEncrypted(),
-                          publicKey,
-                          privateKey,
-                          storageManager);
-        }
+        }}).start();
     }
 
     private void encryptFolder(OCFile folder,
@@ -1867,15 +1874,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     throw new IllegalArgumentException("Unknown E2E version");
                 }
 
-                mAdapter.setEncryptionAttributeForItemID(remoteId, shouldBeEncrypted);
+                requireActivity().runOnUiThread(() -> mAdapter.setEncryptionAttributeForItemID(remoteId, shouldBeEncrypted));
             } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-                Snackbar.make(getRecyclerView(),
-                              R.string.end_to_end_encryption_folder_not_empty,
-                              Snackbar.LENGTH_LONG).show();
+                requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
+                                                            R.string.end_to_end_encryption_folder_not_empty,
+                                                            Snackbar.LENGTH_LONG).show());
             } else {
-                Snackbar.make(getRecyclerView(),
-                              R.string.common_error_unknown,
-                              Snackbar.LENGTH_LONG).show();
+                requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
+                                                            R.string.common_error_unknown,
+                                                            Snackbar.LENGTH_LONG).show());
             }
 
         } catch (Throwable e) {
