@@ -72,8 +72,8 @@ public final class FilesSyncHelper {
                 FileVisitResult preVisitDirectoryResult = visitor.preVisitDirectory(start, (BasicFileAttributes)null);
                 if (preVisitDirectoryResult == FileVisitResult.CONTINUE) {
                     File[] children = start.toFile().listFiles();
-                    Collections.shuffle(Arrays.asList(children));
                     if (children != null) {
+                        Collections.shuffle(Arrays.asList(children));
                         File[] var5 = children;
                         int var6 = children.length;
 
