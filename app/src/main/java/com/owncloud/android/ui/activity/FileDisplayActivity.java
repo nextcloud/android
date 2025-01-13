@@ -360,18 +360,14 @@ public class FileDisplayActivity extends FileActivity
                 .setTitle(title)
                 .setMessage(message)
                 .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
-                    dialog.dismiss();
+                    PermissionUtil.requestMediaLocationPermission(this);
                     preferences.setAutoUploadGPlayWarning2Shown(true);
+                    dialog.dismiss();
                 })
                 .setIcon(R.drawable.nav_synced_folders)
                 .create()
                 .show();
         }
-
-        PermissionUtil.requestMediaLocationPermission(this);
-        PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils, true);
-
-        
     }
 
     @SuppressWarnings("unchecked")
