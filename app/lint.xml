@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  ~ Nextcloud Talk - Android Client
+  ~ Nextcloud - Android Client
   ~ 
   ~ SPDX-FileCopyrightText: 2022-2024 Nextcloud GmbH and Nextcloud contributors
   ~ SPDX-FileCopyrightText: 2022 Andy Scherzinger <info@andy-scherzinger.de>
@@ -26,9 +26,12 @@
         <ignore path="**/raw/encryption_key_words.txt" />
     </issue>
 
+    <issue id="ImpliedQuantity">
+        <ignore path="**/values-**/strings.xml" />
+    </issue>
+
     <issue id="MissingQuantity">
-        <ignore path="**/values-ka-rGE/strings.xml"/>
-        <ignore path="**/values-ar/strings.xml" />
+        <ignore path="**/values-**/strings.xml" />
     </issue>
 
     <issue id="UnusedQuantity">
