@@ -654,13 +654,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void applyChipVisuals(Chip chip, SystemTag tag) {
         viewThemeUtils.material.themeChipSuggestion(chip);
         chip.setText(tag.getName());
-
-        if (tag.getColor() == null || tag.getColor().isEmpty()) {
+        
+        String tagColor = tag.getColor();
+        if (tagColor == null || tagColor.isEmpty()) {
             return;
         }
 
         try {
-            int color = Color.parseColor(tag.getColor());
+            int color = Color.parseColor(tagColor);
             chip.setChipStrokeColor(ColorStateList.valueOf(color));
             chip.setTextColor(color);
         } catch (IllegalArgumentException e) {
