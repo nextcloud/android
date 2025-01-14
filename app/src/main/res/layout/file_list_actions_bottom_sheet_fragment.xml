@@ -94,6 +94,7 @@
                     app:tint="@color/primary" />
 
                 <TextView
+                    android:id="@+id/upload_content_from_other_apps"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
