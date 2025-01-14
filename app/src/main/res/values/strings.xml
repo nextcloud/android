@@ -1297,11 +1297,10 @@
     <string name="auto_upload_gplay">Auto upload behaviour changed</string>
     <string name="auto_upload_gplay_desc">Due to new restrictions imposed by Google, the auto upload feature will no longer be able to automatically remove uploaded files.</string>
     <string name="pick_contact_to_share_with">Pick contact to share with</string>
-    <string name="auto_upload_gplay_desc2">Google restricted our app and removed an important permission.\nThus auto upload can only access images and videos, but no other file formats.\nFurthermore \"access location\" is required for persisting GPS information in images.\nPlease also double check that "all access" is granted for photo and video access.</string>
-    <string name="upload_gplay">Upload needs more permissions</string>
-    <string name="upload_gplay_desc">A new permission \"access location\" is required for persisting GPS information in images.\nPlease also double check that \"all access\" is granted for photo and video access.</string>
-    <string name="re_enable_auto_upload">Re-enable disrupted Auto Uploads</string>
-    <string name="re_enable_auto_upload_desc">Please check manually for missing file uploads since mid-December.\nTo re-enable Auto Uploads for new photos and videos:\n- Grant \"Photos and Videos\" permission in the next dialog,\n- Grant \"Location\" permission to keep location data in uploaded photos.\n\nTo re-enable Auto Uploads for all other files:\n- Auto Uploads of other files are not possible anymore with the Play Store version of the Nextcloud app.\n\nAuto Uploads stopped working because Google rejected the necessary file permission in a previous app update. Nextcloud is working with Google to rectify the situation and restore full functionality.</string>
-    <string name="re_enable_disrupted_auto_uploads">Re-enable Disrupted Auto Uploads</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Click to learn how to re-enable auto uploads</string>
+    <string name="auto_upload_gplay_desc2">Due to new restrictions imposed by Google, we have been forced to remove an important permission. As a result, auto upload will only be able to upload image and video files.\nAdditionally, a new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
+    <string name="upload_gplay">Permission changes</string>
+    <string name="upload_gplay_desc">A new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
+    <string name="re_enable_auto_upload">Changes to auto upload</string>
+    <string name="re_enable_auto_upload_desc">Due to new restrictions imposed by Google, we have been forced to remove an important permission. We are currently working with Google to resolve this issue and restore full functionality.\n\nTo re-enable auto upload for new photos and videos:\nSelect \"Allow all\" in the following dialogue or the system settings.\nAllow Nextcloud to use location when prompted, as this allows us to store location when uploading images.\n\nAuto upload will no longer be able to upload any other files when using the Google Play version of the Nextcloud app.\n\nPlease check for any files that may not have been uploaded since December 2024.</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Manual intervention required to re-enable auto-upload</string>
 </resources>
