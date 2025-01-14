@@ -221,6 +221,8 @@
     <string name="downloader_download_in_progress_ticker">A transferir…</string>
     <string name="downloader_download_succeeded_content">%1$s transferido</string>
     <string name="downloader_download_succeeded_ticker">Transferido</string>
+    <string name="downloader_file_download_cancelled">Certos ficheiros foram cancelados pelo utilizador durante a transferência</string>
+    <string name="downloader_file_download_failed">Ocorreu um erro ao transferir os ficheiros</string>
     <string name="downloader_not_downloaded_yet">Ainda não transferido</string>
     <string name="downloader_unexpected_error">Ocorreu um erro inesperado enquanto transferia os ficheiros</string>
     <string name="drawer_close">Fechar barra lateral</string>
@@ -393,6 +395,7 @@
     <string name="foreign_files_success">Todos os ficheiros foram movidos</string>
     <string name="forward">Avançar</string>
     <string name="fourHours">4 horas</string>
+    <string name="gplay_restriction">Google restringiu a transferência dos ficheiros APK/AAB!</string>
     <string name="hidden_file_name_warning">O nome resultará num ficheiro oculto</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Nota</string>
