@@ -318,7 +318,7 @@ object PermissionUtil {
                 ActivityCompat.requestPermissions(
                     activity,
                     arrayOf(Manifest.permission.ACCESS_MEDIA_LOCATION),
-                    PERMISSIONS_POST_NOTIFICATIONS
+                    PERMISSIONS_MEDIA_LOCATION
                 )
             }
         }
