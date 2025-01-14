@@ -313,14 +313,24 @@ object PermissionUtil {
      */
     @JvmStatic
     fun requestMediaLocationPermission(activity: Activity) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            if (!checkSelfPermission(activity, Manifest.permission.ACCESS_MEDIA_LOCATION)) {
-                ActivityCompat.requestPermissions(
-                    activity,
-                    arrayOf(Manifest.permission.ACCESS_MEDIA_LOCATION),
-                    PERMISSIONS_MEDIA_LOCATION
-                )
-            }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            return
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
+            return
+        }
+
+        if (checkSelfPermission(activity, Manifest.permission.ACCESS_MEDIA_LOCATION)) {
+            return
+        }
+
+        ActivityCompat.requestPermissions(
+            activity,
+            arrayOf(Manifest.permission.ACCESS_MEDIA_LOCATION),
+            PERMISSIONS_MEDIA_LOCATION
+        )
+
+
     }
 }
