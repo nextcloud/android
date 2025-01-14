@@ -249,6 +249,19 @@ public class FileDataStorageManager {
         return duplicatedFile;
     }
 
+    public String getFileNameBasedOnEncryptionStatus(OCFile file) {
+        FileEntity entity = fileDao.getFileById(file.getFileId());
+        if (entity == null) {
+            return file.getFileName();
+        }
+
+        if (file.isEncrypted()) {
+            return entity.getEncryptedName();
+        } else {
+            return entity.getName();
+        }
+    }
+
     public List<OCFile> getFolderImages(OCFile folder, boolean onlyOnDevice) {
         List<OCFile> imageList = new ArrayList<>();
 
