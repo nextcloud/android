@@ -655,13 +655,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         viewThemeUtils.material.themeChipSuggestion(chip);
         chip.setText(tag.getName());
 
-        if (tag.getColor() == null) {
+        if (tag.getColor() == null || tag.getColor().isEmpty()) {
             return;
         }
 
-        int color = Color.parseColor(tag.getColor());
-        chip.setChipStrokeColor(ColorStateList.valueOf(color));
-        chip.setTextColor(color);
+        try {
+            int color = Color.parseColor(tag.getColor());
+            chip.setChipStrokeColor(ColorStateList.valueOf(color));
+            chip.setTextColor(color);
+        } catch (IllegalArgumentException e) {
+            // do nothing
+        }
     }
 
     private void prepareFileSize(ListItemViewHolder holder, OCFile file, long size) {
