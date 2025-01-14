@@ -22,17 +22,7 @@ import com.owncloud.android.operations.common.SyncOperation
 /**
  * Provide a list shares for a specific file.
  */
-class GetSharesForFileOperation
-/**
- * Constructor
- *
- * @param path     Path to file or folder
- * @param reshares If set to false (default), only shares from the current user are returned If set to true, all
- * shares from the given file are returned
- * @param subfiles If set to false (default), lists only the folder being shared If set to true, all shared files
- * within the folder are returned.
- */
-    (
+class GetSharesForFileOperation(
     private val path: String,
     private val reshares: Boolean,
     private val subfiles: Boolean,

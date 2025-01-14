@@ -376,9 +376,9 @@ class FileDetailsSharingProcessFragment :
                 chosenExpDateInMills = share.expirationDate
                 binding.shareProcessSetExpDateSwitch.isChecked = true
                 binding.shareProcessSelectExpDate.text = getString(
-                        R.string.share_expiration_date_format,
+                    R.string.share_expiration_date_format,
                     SimpleDateFormat.getDateInstance().format(Date(share.expirationDate))
-                    )
+                )
             }
         }
     }
@@ -652,7 +652,8 @@ class FileDetailsSharingProcessFragment :
 
     override fun onDateSet(year: Int, monthOfYear: Int, dayOfMonth: Int, chosenDateInMillis: Long) {
         binding.shareProcessSelectExpDate.text = getString(
-            R.string.share_expiration_date_format, SimpleDateFormat.getDateInstance().format(Date(chosenDateInMillis))
+            R.string.share_expiration_date_format,
+            SimpleDateFormat.getDateInstance().format(Date(chosenDateInMillis))
         )
         this.chosenExpDateInMills = chosenDateInMillis
     }
