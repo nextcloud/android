@@ -223,7 +223,7 @@ class MediaFoldersDetectionWork constructor(
         )
             .setSmallIcon(R.drawable.notification_icon)
             .setLargeIcon(BitmapFactory.decodeResource(context.resources, R.drawable.notification_icon))
-            .setContentTitle(context.getString(R.string.re_enable_disrupted_auto_uploads))
+            .setContentTitle(context.getString(R.string.re_enable_auto_upload))
             .setContentText(context.getString(R.string.click_to_learn_how_to_re_enable_auto_uploads))
             .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
             .setAutoCancel(true)

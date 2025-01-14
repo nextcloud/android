@@ -488,7 +488,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             mFabMain.setOnClickListener(v -> {
                 PermissionUtil.requestMediaLocationPermission(activity);
 
-
                 final OCFileListBottomSheetDialog dialog =
                     new OCFileListBottomSheetDialog(activity,
                                                     this,
