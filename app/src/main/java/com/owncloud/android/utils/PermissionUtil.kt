@@ -330,7 +330,5 @@ object PermissionUtil {
             arrayOf(Manifest.permission.ACCESS_MEDIA_LOCATION),
             PERMISSIONS_MEDIA_LOCATION
         )
-
-
     }
 }
