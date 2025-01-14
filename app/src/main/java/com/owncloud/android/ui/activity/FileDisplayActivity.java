@@ -673,18 +673,20 @@ public class FileDisplayActivity extends FileActivity
                 setLeftFragment(new GroupfolderListFragment());
                 getSupportFragmentManager().executePendingTransactions();
             } else if (AUTO_UPLOAD_NOTIFICATION.equals(intent.getAction())) {
-                handleAutoUploadNotification();
+                showReEnableAutoUploadDialog();
             }
         }
     }
     
-    private void handleAutoUploadNotification() {
+    private void showReEnableAutoUploadDialog() {
         new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
             .setTitle(R.string.re_enable_auto_upload)
             .setMessage(R.string.re_enable_auto_upload_desc)
             .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
-                dialog.dismiss();
+                PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
+                PermissionUtil.requestMediaLocationPermission(this);
                 preferences.setAutoUploadGPlayNotificationShown(true);
+                dialog.dismiss();
             })
             .setIcon(R.drawable.nav_synced_folders)
             .create()
