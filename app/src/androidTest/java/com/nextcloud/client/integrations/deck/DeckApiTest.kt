@@ -65,9 +65,7 @@ class DeckApiTest {
         companion object {
             @Parameterized.Parameters
             @JvmStatic
-            fun initParametrs(): Array<String> {
-                return DeckApiImpl.DECK_APP_PACKAGES
-            }
+            fun initParametrs(): Array<String> = DeckApiImpl.DECK_APP_PACKAGES
         }
 
         @Before

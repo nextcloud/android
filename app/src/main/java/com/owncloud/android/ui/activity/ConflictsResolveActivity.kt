@@ -46,7 +46,9 @@ import javax.inject.Inject
 /**
  * Wrapper activity which will be launched if keep-in-sync file will be modified by external application.
  */
-class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener {
+class ConflictsResolveActivity :
+    FileActivity(),
+    OnConflictDecisionMadeListener {
     @Inject
     lateinit var uploadsStorageManager: UploadsStorageManager
 
@@ -322,20 +324,16 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         }
     }
 
-    private fun parseErrorMessage(code: Int?): String {
-        return if (code == HTTPStatusCodes.NOT_FOUND.code) {
-            getString(R.string.uploader_file_not_found_on_server_message)
-        } else {
-            getString(R.string.conflict_dialog_error)
-        }
+    private fun parseErrorMessage(code: Int?): String = if (code == HTTPStatusCodes.NOT_FOUND.code) {
+        getString(R.string.uploader_file_not_found_on_server_message)
+    } else {
+        getString(R.string.conflict_dialog_error)
     }
 
     /**
      * @return whether the local version of the files is to be deleted.
      */
-    private fun shouldDeleteLocal(): Boolean {
-        return localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
-    }
+    private fun shouldDeleteLocal(): Boolean = localBehaviour == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
 
     companion object {
         /**
@@ -353,8 +351,8 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
         private val TAG = ConflictsResolveActivity::class.java.simpleName
 
         @JvmStatic
-        fun createIntent(file: OCFile?, user: User?, conflictUploadId: Long, flag: Int?, context: Context?): Intent {
-            return Intent(context, ConflictsResolveActivity::class.java).apply {
+        fun createIntent(file: OCFile?, user: User?, conflictUploadId: Long, flag: Int?, context: Context?): Intent =
+            Intent(context, ConflictsResolveActivity::class.java).apply {
                 if (flag != null) {
                     flags = flags or flag
                 }
@@ -362,14 +360,12 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 putExtra(EXTRA_USER, user)
                 putExtra(EXTRA_CONFLICT_UPLOAD_ID, conflictUploadId)
             }
-        }
 
         @JvmStatic
-        fun createIntent(file: OCFile, offlineOperationPath: String, context: Context): Intent {
-            return Intent(context, ConflictsResolveActivity::class.java).apply {
+        fun createIntent(file: OCFile, offlineOperationPath: String, context: Context): Intent =
+            Intent(context, ConflictsResolveActivity::class.java).apply {
                 putExtra(EXTRA_FILE, file)
                 putExtra(EXTRA_OFFLINE_OPERATION_PATH, offlineOperationPath)
             }
-        }
     }
 }

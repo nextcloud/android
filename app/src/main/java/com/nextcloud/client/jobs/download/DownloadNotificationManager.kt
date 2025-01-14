@@ -18,11 +18,8 @@ import java.io.File
 import java.security.SecureRandom
 
 @Suppress("TooManyFunctions")
-class DownloadNotificationManager(
-    id: Int,
-    private val context: Context,
-    viewThemeUtils: ViewThemeUtils
-) : WorkerNotificationManager(id, context, viewThemeUtils, R.string.downloader_download_in_progress_ticker) {
+class DownloadNotificationManager(id: Int, private val context: Context, viewThemeUtils: ViewThemeUtils) :
+    WorkerNotificationManager(id, context, viewThemeUtils, R.string.downloader_download_in_progress_ticker) {
 
     @Suppress("MagicNumber")
     fun prepareForStart(operation: DownloadFileOperation, currentDownloadIndex: Int, totalDownloadSize: Int) {

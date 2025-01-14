@@ -23,26 +23,22 @@ sealed class ScreenOverlayState {
         private fun getInputAndOutput(): String = task.getInputAndOutput()
         private fun getInput(): String? = task.getInput()
 
-        private fun getCopyToClipboardAction(activity: Activity): Triple<Int, Int, () -> Unit> {
-            return Triple(
-                R.drawable.ic_content_copy,
-                R.string.common_copy
-            ) {
-                ClipboardUtil.copyToClipboard(activity, getInputAndOutput(), showToast = false)
-            }
+        private fun getCopyToClipboardAction(activity: Activity): Triple<Int, Int, () -> Unit> = Triple(
+            R.drawable.ic_content_copy,
+            R.string.common_copy
+        ) {
+            ClipboardUtil.copyToClipboard(activity, getInputAndOutput(), showToast = false)
         }
 
-        private fun getShareAction(activity: Activity): Triple<Int, Int, () -> Unit> {
-            return Triple(
-                R.drawable.ic_share,
-                R.string.common_share
-            ) {
-                activity.showShareIntent(getInputAndOutput())
-            }
+        private fun getShareAction(activity: Activity): Triple<Int, Int, () -> Unit> = Triple(
+            R.drawable.ic_share,
+            R.string.common_share
+        ) {
+            activity.showShareIntent(getInputAndOutput())
         }
 
-        private fun getEditAction(activity: Activity, onComplete: (AddTask) -> Unit): Triple<Int, Int, () -> Unit> {
-            return Triple(
+        private fun getEditAction(activity: Activity, onComplete: (AddTask) -> Unit): Triple<Int, Int, () -> Unit> =
+            Triple(
                 R.drawable.ic_edit,
                 R.string.action_edit
             ) {
@@ -56,33 +52,28 @@ sealed class ScreenOverlayState {
                 val newState = AddTask(taskType, getInput() ?: "")
                 onComplete(newState)
             }
-        }
 
-        private fun getDeleteAction(onComplete: (DeleteTask) -> Unit): Triple<Int, Int, () -> Unit> {
-            return Triple(
-                R.drawable.ic_delete,
-                R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
-            ) {
-                val newState = DeleteTask(task.id)
-                onComplete(newState)
-            }
+        private fun getDeleteAction(onComplete: (DeleteTask) -> Unit): Triple<Int, Int, () -> Unit> = Triple(
+            R.drawable.ic_delete,
+            R.string.assistant_screen_task_more_actions_bottom_sheet_delete_action
+        ) {
+            val newState = DeleteTask(task.id)
+            onComplete(newState)
         }
 
         fun getActions(
             activity: Activity,
             onEditCompleted: (AddTask) -> Unit,
             onDeleteCompleted: (DeleteTask) -> Unit
-        ): List<Triple<Int, Int, () -> Unit>> {
-            return listOf(
-                getShareAction(activity),
-                getCopyToClipboardAction(activity),
-                getEditAction(activity, onComplete = {
-                    onEditCompleted(it)
-                }),
-                getDeleteAction(onComplete = {
-                    onDeleteCompleted(it)
-                })
-            )
-        }
+        ): List<Triple<Int, Int, () -> Unit>> = listOf(
+            getShareAction(activity),
+            getCopyToClipboardAction(activity),
+            getEditAction(activity, onComplete = {
+                onEditCompleted(it)
+            }),
+            getDeleteAction(onComplete = {
+                onDeleteCompleted(it)
+            })
+        )
     }
 }

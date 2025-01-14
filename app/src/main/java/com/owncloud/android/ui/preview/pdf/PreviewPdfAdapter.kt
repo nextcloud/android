@@ -23,8 +23,7 @@ class PreviewPdfAdapter(
     private val renderer: PdfRenderer,
     private val screenWidth: Int,
     private val onClickListener: (Bitmap) -> Unit
-) :
-    RecyclerView.Adapter<PreviewPdfAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<PreviewPdfAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: PreviewPdfPageItemBinding, val onClickListener: (Bitmap) -> Unit) :
         RecyclerView.ViewHolder(binding.root) {

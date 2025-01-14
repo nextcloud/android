@@ -21,9 +21,9 @@ import com.owncloud.android.databinding.FragmentGalleryBottomSheetBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
 
-class GalleryFragmentBottomSheetDialog(
-    private val actions: GalleryFragmentBottomSheetActions
-) : BottomSheetDialogFragment(R.layout.fragment_gallery_bottom_sheet), Injectable {
+class GalleryFragmentBottomSheetDialog(private val actions: GalleryFragmentBottomSheetActions) :
+    BottomSheetDialogFragment(R.layout.fragment_gallery_bottom_sheet),
+    Injectable {
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
 

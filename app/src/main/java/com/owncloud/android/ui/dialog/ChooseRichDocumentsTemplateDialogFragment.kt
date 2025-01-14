@@ -199,19 +199,17 @@ class ChooseRichDocumentsTemplateDialogFragment :
         return builder
     }
 
-    private fun getTitle(type: Type): Int {
-        return when (type) {
-            Type.DOCUMENT -> {
-                R.string.create_new_document
-            }
+    private fun getTitle(type: Type): Int = when (type) {
+        Type.DOCUMENT -> {
+            R.string.create_new_document
+        }
 
-            Type.SPREADSHEET -> {
-                R.string.create_new_spreadsheet
-            }
+        Type.SPREADSHEET -> {
+            R.string.create_new_spreadsheet
+        }
 
-            Type.PRESENTATION -> {
-                R.string.create_new_presentation
-            }
+        Type.PRESENTATION -> {
+            R.string.create_new_presentation
         }
     }
 
@@ -307,10 +305,11 @@ class ChooseRichDocumentsTemplateDialogFragment :
             fileNames
         )
         val isExtension = (
-            selectedTemplate == null || !name.equals(
-                DOT + selectedTemplate.extension,
-                ignoreCase = true
-            )
+            selectedTemplate == null ||
+                !name.equals(
+                    DOT + selectedTemplate.extension,
+                    ignoreCase = true
+                )
             )
         val isEnable = isExtension && errorMessage == null
 

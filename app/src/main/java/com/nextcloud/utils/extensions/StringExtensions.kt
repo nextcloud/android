@@ -31,8 +31,6 @@ object StringConstants {
     const val SPACE = " "
 }
 
-fun String.getContentOfPublicKey(): String {
-    return replace("-----BEGIN PUBLIC KEY-----", "")
-        .replace("-----END PUBLIC KEY-----", "")
-        .replace("\\s+".toRegex(), "")
-}
+fun String.getContentOfPublicKey(): String = replace("-----BEGIN PUBLIC KEY-----", "")
+    .replace("-----END PUBLIC KEY-----", "")
+    .replace("\\s+".toRegex(), "")

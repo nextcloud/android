@@ -218,19 +218,17 @@ class FilesSyncWork(
         syncedFolderProvider.updateSyncFolder(syncedFolder)
     }
 
-    private fun getAllFiles(path: String): Set<File> {
-        return File(path).takeIf { it.exists() }
-            ?.walkTopDown()
-            ?.asSequence()
-            ?.filter { file ->
-                file.isFile &&
-                    file.exists() &&
-                    isQualifiedFolder(file.parentFile?.path) &&
-                    isFileNameQualifiedForAutoUpload(file.name)
-            }
-            ?.toSet()
-            ?: emptySet()
-    }
+    private fun getAllFiles(path: String): Set<File> = File(path).takeIf { it.exists() }
+        ?.walkTopDown()
+        ?.asSequence()
+        ?.filter { file ->
+            file.isFile &&
+                file.exists() &&
+                isQualifiedFolder(file.parentFile?.path) &&
+                isFileNameQualifiedForAutoUpload(file.name)
+        }
+        ?.toSet()
+        ?: emptySet()
 
     @Suppress("LongMethod") // legacy code
     private fun uploadFilesFromFolder(
@@ -372,12 +370,10 @@ class FilesSyncWork(
         return lastModificationTime
     }
 
-    private fun getUploadAction(action: String): Int? {
-        return when (action) {
-            "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
-            "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
-            "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
-            else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
-        }
+    private fun getUploadAction(action: String): Int? = when (action) {
+        "LOCAL_BEHAVIOUR_FORGET" -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
+        "LOCAL_BEHAVIOUR_MOVE" -> FileUploadWorker.LOCAL_BEHAVIOUR_MOVE
+        "LOCAL_BEHAVIOUR_DELETE" -> FileUploadWorker.LOCAL_BEHAVIOUR_DELETE
+        else -> FileUploadWorker.LOCAL_BEHAVIOUR_FORGET
     }
 }

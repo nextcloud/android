@@ -7,7 +7,4 @@
 
 package com.owncloud.android.datamodel
 
-data class Credentials(
-    val publicKey: String,
-    val certificate: String
-)
+data class Credentials(val publicKey: String, val certificate: String)

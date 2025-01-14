@@ -33,17 +33,15 @@ data class LogEntry(val timestamp: Date, val level: Level, val tag: String, val 
         )
 
         @JvmStatic
-        fun buildDateFormat(tz: TimeZone? = null): SimpleDateFormat {
-            return if (tz == null) {
-                SimpleDateFormat(UTC_DATE_FORMAT, Locale.US).apply {
-                    timeZone = TIME_ZONE
-                    isLenient = false
-                }
-            } else {
-                SimpleDateFormat(TZ_DATE_FORMAT, Locale.US).apply {
-                    timeZone = tz
-                    isLenient = false
-                }
+        fun buildDateFormat(tz: TimeZone? = null): SimpleDateFormat = if (tz == null) {
+            SimpleDateFormat(UTC_DATE_FORMAT, Locale.US).apply {
+                timeZone = TIME_ZONE
+                isLenient = false
+            }
+        } else {
+            SimpleDateFormat(TZ_DATE_FORMAT, Locale.US).apply {
+                timeZone = tz
+                isLenient = false
             }
         }
 

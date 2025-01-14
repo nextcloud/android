@@ -54,9 +54,7 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
     var canAskPin = true
     private var askPinWhenDeviceLocked = false
 
-    private fun isExemptActivity(activity: Activity): Boolean {
-        return exemptOfPasscodeActivities.contains(activity.javaClass)
-    }
+    private fun isExemptActivity(activity: Activity): Boolean = exemptOfPasscodeActivities.contains(activity.javaClass)
 
     fun onActivityResumed(activity: Activity): Boolean {
         var askedForPin = false
@@ -117,28 +115,21 @@ class PassCodeManager(private val preferences: AppPreferences, private val clock
     /**
      * `true` if the time elapsed since last unlock is longer than [PASS_CODE_TIMEOUT] and no activities are visible
      */
-    private fun shouldBeLocked(timestamp: Long): Boolean {
-        return (abs(clock.millisSinceBoot - timestamp) > PASS_CODE_TIMEOUT && canAskPin) || askPinWhenDeviceLocked
-    }
+    private fun shouldBeLocked(timestamp: Long): Boolean =
+        (abs(clock.millisSinceBoot - timestamp) > PASS_CODE_TIMEOUT && canAskPin) || askPinWhenDeviceLocked
 
     @VisibleForTesting
-    fun passCodeShouldBeRequested(timestamp: Long): Boolean {
-        return shouldBeLocked(timestamp) && isPassCodeEnabled()
-    }
+    fun passCodeShouldBeRequested(timestamp: Long): Boolean = shouldBeLocked(timestamp) && isPassCodeEnabled()
 
     private fun isPassCodeEnabled(): Boolean = SettingsActivity.LOCK_PASSCODE == preferences.lockPreference
 
-    private fun deviceCredentialsShouldBeRequested(timestamp: Long, activity: Activity): Boolean {
-        return shouldBeLocked(timestamp) && deviceCredentialsAreEnabled(activity)
-    }
+    private fun deviceCredentialsShouldBeRequested(timestamp: Long, activity: Activity): Boolean =
+        shouldBeLocked(timestamp) && deviceCredentialsAreEnabled(activity)
 
-    private fun deviceCredentialsAreEnabled(activity: Activity): Boolean {
-        return SettingsActivity.LOCK_DEVICE_CREDENTIALS == preferences.lockPreference ||
+    private fun deviceCredentialsAreEnabled(activity: Activity): Boolean =
+        SettingsActivity.LOCK_DEVICE_CREDENTIALS == preferences.lockPreference ||
             (preferences.isFingerprintUnlockEnabled && DeviceCredentialUtils.areCredentialsAvailable(activity))
-    }
 
-    private fun getActivityRootView(activity: Activity): View? {
-        return activity.window?.findViewById(android.R.id.content)
-            ?: activity.window?.decorView?.findViewById(android.R.id.content)
-    }
+    private fun getActivityRootView(activity: Activity): View? = activity.window?.findViewById(android.R.id.content)
+        ?: activity.window?.decorView?.findViewById(android.R.id.content)
 }

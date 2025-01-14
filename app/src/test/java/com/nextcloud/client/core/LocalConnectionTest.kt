@@ -45,9 +45,7 @@ class LocalConnectionTest {
         MockKAnnotations.init(this, relaxed = true)
         context = mockk()
         connection = object : LocalConnection<Service>(context) {
-            override fun createBindIntent(): Intent? {
-                return mockIntent
-            }
+            override fun createBindIntent(): Intent? = mockIntent
 
             override fun onBound(binder: IBinder) {
                 mockOnBound.invoke(binder)

@@ -17,8 +17,7 @@ class UnifiedSearchFooterViewHolder(
     val binding: UnifiedSearchFooterBinding,
     val context: Context,
     private val listInterface: UnifiedSearchListInterface
-) :
-    SectionedViewHolder(binding.root) {
+) : SectionedViewHolder(binding.root) {
 
     fun bind(section: UnifiedSearchSection) {
         binding.unifiedSearchFooterLayout.setOnClickListener {

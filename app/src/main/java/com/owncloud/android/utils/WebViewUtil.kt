@@ -99,9 +99,7 @@ class WebViewUtil(private val context: Context) {
      * Google
      *
      */
-    private fun getMinimumSupportedMajorWebViewVersion(): String {
-        return "118"
-    }
+    private fun getMinimumSupportedMajorWebViewVersion(): String = "118"
 
     /**
      * From https://stackoverflow.com/a/18453384
