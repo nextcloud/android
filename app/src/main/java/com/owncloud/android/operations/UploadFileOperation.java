@@ -1198,6 +1198,10 @@ public class UploadFileOperation extends SyncOperation {
     }
 
     public void handleLocalBehaviour() {
+        if (user == null || mFile == null || mContext == null) {
+            return;
+        }
+
         String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
         File expectedFile = new File(expectedPath);
         File originalFile = new File(mOriginalStoragePath);
