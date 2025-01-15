@@ -16,6 +16,7 @@
       </ignored-keys>
       <trusted-keys>
          <trusted-key id="015479E1055341431B4545AB72475FD306B9CAB7" group="com.googlecode.javaewah" name="JavaEWAH" version="1.2.3"/>
+         <trusted-key id="03C123038C20AAE9E286C857479D601F3A7B5C1A" group="^com[.]github[.]ajalt($|([.].*))" regex="true"/>
          <trusted-key id="042B29E928995B9DB963C636C7CA19B7B620D787" group="com.github.stephenc.jcip" name="jcip-annotations" version="1.0-1"/>
          <trusted-key id="04543577D6A9CC626239C50C7ECBD740FF06AEB5">
             <trusting group="org.glassfish.jaxb"/>
@@ -140,6 +141,7 @@
          <trusted-key id="47EB6836245D2D40E89DFB4136D4E9618F3ADAB5">
             <trusting group="io.github.microutils" name="kotlin-logging-jvm" version="3.0.5"/>
             <trusting group="io.github.oshai" name="kotlin-logging-jvm" version="5.1.4"/>
+            <trusting group="io.github.oshai" name="kotlin-logging-jvm" version="7.0.3"/>
          </trusted-key>
          <trusted-key id="48B086A7D843CFA258E83286928FBF39003C0425">
             <trusting group="org.springframework"/>
