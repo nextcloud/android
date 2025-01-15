@@ -282,6 +282,7 @@ class FileUploadWorker(
                 context
             )
         ) {
+            uploadFileOperation.handleLocalBehaviour()
             return
         }
 

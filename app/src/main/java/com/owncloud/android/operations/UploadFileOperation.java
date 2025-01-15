@@ -845,7 +845,7 @@ public class UploadFileOperation extends SyncOperation {
 
     private void completeE2EUpload(RemoteOperationResult result, E2EFiles e2eFiles, OwnCloudClient client) {
         if (result.isSuccess()) {
-            handleSuccessfulUpload(e2eFiles.getTemporalFile(), e2eFiles.getExpectedFile(), e2eFiles.getOriginalFile(), client);
+            handleLocalBehaviour(e2eFiles.getTemporalFile(), e2eFiles.getExpectedFile(), e2eFiles.getOriginalFile(), client);
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
@@ -1098,7 +1098,7 @@ public class UploadFileOperation extends SyncOperation {
         }
 
         if (result.isSuccess()) {
-            handleSuccessfulUpload(temporalFile, expectedFile, originalFile, client);
+            handleLocalBehaviour(temporalFile, expectedFile, originalFile, client);
         } else if (result.getCode() == ResultCode.SYNC_CONFLICT) {
             getStorageManager().saveConflict(mFile, mFile.getEtagInConflict());
         }
@@ -1197,10 +1197,20 @@ public class UploadFileOperation extends SyncOperation {
         return null;
     }
 
-    private void handleSuccessfulUpload(File temporalFile,
-                                        File expectedFile,
-                                        File originalFile,
-                                        OwnCloudClient client) {
+    public void handleLocalBehaviour() {
+        String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
+        File expectedFile = new File(expectedPath);
+        File originalFile = new File(mOriginalStoragePath);
+        String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) + mFile.getRemotePath();
+        File temporalFile = new File(temporalPath);
+
+        handleLocalBehaviour(temporalFile, expectedFile, originalFile, getClient());
+    }
+
+    private void handleLocalBehaviour(File temporalFile,
+                                      File expectedFile,
+                                      File originalFile,
+                                      OwnCloudClient client) {
         switch (mLocalBehaviour) {
             case FileUploadWorker.LOCAL_BEHAVIOUR_FORGET:
             default:
