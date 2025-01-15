@@ -452,13 +452,11 @@ public class UploadFileOperation extends SyncOperation {
         }
     }
 
-    private E2EFiles e2eFiles;
-
     // region E2E Upload
     @SuppressLint("AndroidLintUseSparseArrays") // gson cannot handle sparse arrays easily, therefore use hashmap
     private RemoteOperationResult encryptedUpload(OwnCloudClient client, OCFile parentFile) {
         RemoteOperationResult result = null;
-        e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
+        E2EFiles e2eFiles = new E2EFiles(parentFile, null, new File(mOriginalStoragePath), null, null);
         FileLock fileLock = null;
         long size;
 
@@ -1211,22 +1209,13 @@ public class UploadFileOperation extends SyncOperation {
             return;
         }
 
-        if (encryptedAncestor) {
-            if (e2eFiles == null) {
-                Log_OC.d(TAG, "handleLocalBehaviour: e2eFiles is null");
-                return;
-            }
+        String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
+        File expectedFile = new File(expectedPath);
+        File originalFile = new File(mOriginalStoragePath);
+        String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) + mFile.getRemotePath();
+        File temporalFile = new File(temporalPath);
 
-            handleLocalBehaviour(e2eFiles.getTemporalFile(), e2eFiles.getExpectedFile(), e2eFiles.getOriginalFile(), client);
-        } else {
-            String expectedPath = FileStorageUtils.getDefaultSavePathFor(user.getAccountName(), mFile);
-            File expectedFile = new File(expectedPath);
-            File originalFile = new File(mOriginalStoragePath);
-            String temporalPath = FileStorageUtils.getInternalTemporalPath(user.getAccountName(), mContext) + mFile.getRemotePath();
-            File temporalFile = new File(temporalPath);
-
-            handleLocalBehaviour(temporalFile, expectedFile, originalFile, client);
-        }
+        handleLocalBehaviour(temporalFile, expectedFile, originalFile, client);
     }
 
     private void handleLocalBehaviour(File temporalFile,
