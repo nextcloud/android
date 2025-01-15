@@ -172,7 +172,6 @@
     <string name="uploader_upload_files_behaviour_only_upload">Keep file in source folder</string>
     <string name="uploader_upload_files_behaviour_upload_and_delete_from_source">Delete file from source folder</string>
     <string name="file_list_seconds_ago">seconds ago</string>
-    <string name="file_upload_worker_same_file_already_exists">Same file already exists, no conflict detected</string>
     <string name="file_list_live">LIVE</string>
     <string name="file_list_empty_headline">No files here</string>
     <string name="folder_list_empty_headline">No folders here</string>
