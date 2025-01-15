@@ -82,7 +82,7 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
 
             if (downloadLimit.getLimit() > 0) {
                 int remaining = downloadLimit.getLimit() - downloadLimit.getCount();
-                String text = String.format(context.getString(R.string.share_download_limit_description), remaining);
+                String text = context.getResources().getQuantityString(R.plurals.share_download_limit_description, remaining, remaining);
 
                 binding.subline.setText(text);
                 binding.subline.setVisibility(View.VISIBLE);

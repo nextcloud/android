@@ -1306,5 +1306,8 @@
     <string name="click_to_learn_how_to_re_enable_auto_uploads">Manual intervention required to re-enable auto-upload</string>
     <string name="share_download_limit">Set download limit</string>
     <string name="download_limit">Download limit</string>
-    <string name="share_download_limit_description">%1$d downloads remaining</string>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d download remaining</item>
+        <item quantity="other">%1$d downloads remaining</item>
+    </plurals>
 </resources>
