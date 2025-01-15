@@ -641,6 +641,7 @@
     <string name="permission_allow">İzin ver</string>
     <string name="permission_deny">Reddet</string>
     <string name="permission_storage_access">Dosya yüklemek ve indirmek için ek izinler gerekli.</string>
+    <string name="pick_contact_to_share_with">Paylaşılacak kişiyi seçin</string>
     <string name="picture_set_as_no_app">Görselin ayarlanabileceği bir uygulama bulunamadı</string>
     <string name="pin_home">Ana sayfaya sabitle</string>
     <string name="pin_shortcut_label">%1$s aç</string>

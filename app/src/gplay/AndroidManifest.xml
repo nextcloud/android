@@ -18,6 +18,8 @@
         tools:node="remove"
         tools:ignore="ScopedStorage" />
 
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+
     <application
         android:name=".MainApp"
         android:icon="@mipmap/ic_launcher"

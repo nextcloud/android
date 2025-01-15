@@ -21,7 +21,6 @@ import android.os.Parcelable;
 import android.text.TextUtils;
 
 import com.nextcloud.utils.BuildHelper;
-import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
 import com.owncloud.android.lib.common.network.WebdavEntry;
 import com.owncloud.android.lib.common.network.WebdavUtils;
@@ -1093,7 +1092,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     }
     
     public boolean isAPKorAAB() {
-        if (BuildHelper.GPLAY.equals(BuildConfig.FLAVOR)) {
+        if (BuildHelper.INSTANCE.isFlavourGPlay()) {
             return getFileName().endsWith(".apk") || getFileName().endsWith(".aab");
         } else {
             return false;

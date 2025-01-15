@@ -237,7 +237,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             case "POST":
                 method = new PostMethod(requestUrl);
                 if (requestBodyInputStream != null) {
-                    RequestEntity requestEntity = new InputStreamRequestEntity(requestBodyInputStream, -1);
+                    RequestEntity requestEntity = new InputStreamRequestEntity(requestBodyInputStream);
                     ((PostMethod) method).setRequestEntity(requestEntity);
                 } else if (request.getRequestBody() != null) {
                     StringRequestEntity requestEntity = new StringRequestEntity(
@@ -251,7 +251,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             case "PATCH":
                 method = new PatchMethod(requestUrl);
                 if (requestBodyInputStream != null) {
-                    RequestEntity requestEntity = new InputStreamRequestEntity(requestBodyInputStream, -1);
+                    RequestEntity requestEntity = new InputStreamRequestEntity(requestBodyInputStream);
                     ((PatchMethod) method).setRequestEntity(requestEntity);
                 } else if (request.getRequestBody() != null) {
                     StringRequestEntity requestEntity = new StringRequestEntity(
@@ -265,7 +265,7 @@ public class InputStreamBinder extends IInputStreamService.Stub {
             case "PUT":
                 method = new PutMethod(requestUrl);
                 if (requestBodyInputStream != null) {
-                    RequestEntity requestEntity = new InputStreamRequestEntity(requestBodyInputStream, -1);
+                    RequestEntity requestEntity = new InputStreamRequestEntity(requestBodyInputStream);
                     ((PutMethod) method).setRequestEntity(requestEntity);
                 } else if (request.getRequestBody() != null) {
                     StringRequestEntity requestEntity = new StringRequestEntity(
