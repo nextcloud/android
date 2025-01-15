@@ -19,7 +19,7 @@ class GetFilesDownloadLimitOperation(val share: OCShare, storageManager: FileDat
     storageManager
 ) {
     override fun run(client: NextcloudClient): RemoteOperationResult<List<FileDownloadLimit>> {
-        val token = share.token!!
+        val token = share.token ?: return RemoteOperationResult(RemoteOperationResult.ResultCode.SHARE_NOT_FOUND)
         val operation = GetFilesDownloadLimitRemoteOperation(token)
 
         val result = operation.execute(client)
