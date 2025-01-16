@@ -106,6 +106,9 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
     <string name="auto_upload_gplay">تمّ تغيير سلوك التحميل التلقائي</string>
     <string name="auto_upload_gplay_desc">بسبب القيود الجديدة المفروضة من قِبل شركة قوقل، فإن خاصية التحميل التلقائي سوف لن يمكنها بعدُ الحذف التلقائي للملفات المرفوعة.</string>
+    <string name="auto_upload_gplay_desc2">بسبب القيود الجديدة التي فرضتها شركة Google، اضطررنا إلى إزالة إذنٍ مهم. ونتيجة لذلك، ميزة التحميل التلقائي لن تقوم بتحميل سوى ملفات الصور والفيديو. 
+بالإضافة إلى ذلك، يلزم الحصول على إذن جديد للوصول إلى معلومات الموقع للصور التي تم تحميلها. 
+تأكد من تعيين حقل \"الوصول إلى الوسائط\" media access على خيار \"السماح دائمًا للجميع\" Always allow all.</string>
     <string name="auto_upload_on_wifi">قم بالرفع عبر شبكة لاسلكية غير محدودة البيانات فقط</string>
     <string name="auto_upload_path">/رفع تلقائي</string>
     <string name="autoupload_configure">إعداد</string>
@@ -140,6 +143,7 @@
     <string name="clear_notifications_failed">فشلت عملية إزالة التنبيهات.</string>
     <string name="clear_status_message">مسح رسالة الحالة</string>
     <string name="clear_status_message_after">مسح رسالة الحالة بعد</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">يجب التدخل يدويّاً لإعادة تمكين التحميل التلقائي</string>
     <string name="clipboard_label">تم نسخ النص من %1$s</string>
     <string name="clipboard_no_text_to_copy">لم يستلم نص لنسخه في الحافظة</string>
     <string name="clipboard_text_copied">تم نسخ الرابط</string>
@@ -740,6 +744,14 @@
     <string name="push_notifications_old_login">لا توجد إشعارات دفع بسبب جلسة تسجيل الدخول القديمة. يرجى النظر في إعادة إضافة حسابك.</string>
     <string name="push_notifications_temp_error">إشعارات الدفع غير متوفرة حاليا.</string>
     <string name="qr_could_not_be_read">لايمكن قراءة رمز QR</string>
+    <string name="re_enable_auto_upload">تغيُّرات في التحميل التلقائي</string>
+    <string name="re_enable_auto_upload_desc">بسبب القيود الجديدة التي فرضتها شركة Google، اضطررنا إلى إزالة إذن مهم. نحن نعمل حاليًا مع Google لحل هذه المشكلة واستعادة الوظائف الكاملة.
+
+لإعادة تمكين التحميل التلقائي للصور ومقاطع الفيديو الجديدة:
+حدد \"السماح للجميع\" Always allow all في مربع الحوار التالي أو إعدادات النظام.
+أعطِ الإذن لموقع الوسائط إذا طُولبت بذلك؛ حيث يتيح هذا لنكست كلاود تخزين بيانات الموقع عند تحميل الصور.
+لن يتمكن التحميل التلقائي من تحميل ملفات الصور والفيديو إلا عند استعمال إصدار Google Play من تطبيق نكست كلاود.
+يرجى التحقق من أي ملفات ربما لم يتم تحميلها منذ ديسمبر 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">تعذّر إيجاد المجلد. عملية المزامنة تمّ إلغاؤها</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">تعذّر إيجاد ملف لرفعه</string>
     <string name="recommend_subject">جرب %1$s على جهازك !</string>
@@ -1018,6 +1030,8 @@
     <string name="upload_file_dialog_title">إدخال اسم الملف ونوع الملف للرفع</string>
     <string name="upload_files">حمل الملفات</string>
     <string name="upload_global_pause_title">كل عمليات الرفع مجمدة</string>
+    <string name="upload_gplay">تَغيُّرات في الأُذونات</string>
+    <string name="upload_gplay_desc">يلزم إذن جديد للوصول إلى معلومات الموقع للصور التي تم تحميلها. تأكد من تعيين خانة \"الوصول إلى الوسائط\" media access على خيار \"السماح دائمًا للجميع\" Always allow all.</string>
     <string name="upload_item_action_button">زر إجراء رفع العنصر</string>
     <string name="upload_list_delete">حذف</string>
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
