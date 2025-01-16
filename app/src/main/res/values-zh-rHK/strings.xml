@@ -736,6 +736,7 @@
     <string name="push_notifications_old_login">由於登入已過期，因此沒有推送通知。請考慮重新添加您的帳戶。</string>
     <string name="push_notifications_temp_error">推送通知目前無法使用。</string>
     <string name="qr_could_not_be_read">QR 碼無法讀取！</string>
+    <string name="re_enable_auto_upload">自動上傳的更新</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">找不到資料夾，同步操作已取消</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">無法找到要上傳的檔案</string>
     <string name="recommend_subject">在您的裝置上試用 %1$s！</string>
@@ -992,6 +993,7 @@
     <string name="upload_file_dialog_title">輸入上傳的檔名和類型</string>
     <string name="upload_files">上傳檔案</string>
     <string name="upload_global_pause_title">所有上傳皆已暫停</string>
+    <string name="upload_gplay">權限更新</string>
     <string name="upload_item_action_button">上傳操作按鈕</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
