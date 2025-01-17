@@ -201,13 +201,14 @@ class MediaFoldersDetectionWork constructor(
             !MainApp.isClientBranded()
         ) {
             sendAutoUploadNotification()
+            preferences.setAutoUploadGPlayNotificationShown(true)
         }
 
         return Result.success()
     }
 
     private fun sendAutoUploadNotification() {
-        val notificationId = randomIdGenerator.nextInt()
+        val notificationId = 326
         val intent = Intent(context, FileDisplayActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_SINGLE_TOP
             action = FileDisplayActivity.AUTO_UPLOAD_NOTIFICATION
