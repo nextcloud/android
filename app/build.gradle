@@ -16,7 +16,7 @@ import org.gradle.internal.jvm.Jvm
 buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
-        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:6.1.0'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:6.1.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.7"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
