@@ -35,9 +35,16 @@
     <string name="advanced_settings">Avanserte innstillinger</string>
     <string name="allow_resharing">TIllat videre deling</string>
     <string name="app_config_base_url_title">Grunnleggende URL-adresse</string>
+    <string name="app_config_disable_clipboard_title">Slå av Utklippstavlen</string>
+    <string name="app_config_disable_intro_title">Slå av Intro</string>
+    <string name="app_config_disable_log_title">Slå av Logg</string>
+    <string name="app_config_disable_more_external_site_title">Slå av Eksterne sider</string>
+    <string name="app_config_disable_sharing_title">Slå av Deling</string>
+    <string name="app_config_proxy_host_title">Vertsnavn for proxy</string>
     <string name="app_config_proxy_port_title">Proxy-port</string>
     <string name="app_widget_description">Viser en widget fra dashbordet</string>
     <string name="appbar_search_in">Søk i %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Legg til ny oppgave</string>
     <string name="assistant_screen_all_task_type">Alle</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv inn litt tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på at du vil slette denne oppgaven?</string>
@@ -411,8 +418,14 @@
     <string name="file_migration_updating_index">Oppdaterer indeks…</string>
     <string name="file_migration_use_data_folder">Bruk</string>
     <string name="file_migration_waiting_for_unfinished_sync">Venter på full synkronisering…</string>
+    <string name="file_name_validator_current_path_is_invalid">Gjeldende mappenavn er ugyldig, vennligst gi mappen et nytt navn. Går tilbake til hjem…</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Mappesti inneholder reserverte navn eller ugyldige tegn</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s er ikke en tillatt filutvidelse</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Filnavn kan ikke begynne eller slutte med mellomrom</string>
+    <string name="file_name_validator_error_invalid_character">Navn inneholder ugyldige tegn: %s</string>
     <string name="file_name_validator_error_reserved_names">%s er et forbudt navn</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Gi nytt navn til filen før du flytter eller kopierer</string>
+    <string name="file_name_validator_upload_content_error">Noe innhold kan ikke lastes opp fordi det inneholder reserverte navn eller ugyldige tegn</string>
     <string name="file_not_found">Finner ikke filen</string>
     <string name="file_not_synced">Kunne ikke synkronisere fil. Viser sist tilgjengelige versjon.</string>
     <string name="file_rename">Gi nytt navn</string>
@@ -485,6 +498,7 @@
     <string name="instant_upload_path">/Direkteopplasting</string>
     <string name="internal_two_way_sync">Intern toveis synkronisering</string>
     <string name="internal_two_way_sync_not_yet">Ikke enda, snart synkronisert</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Tilkobling til internett kreves for å sette opp en kryptert mappe</string>
     <string name="invalid_url">Ugyldig URL</string>
     <string name="invisible">Usynlig</string>
     <string name="label_empty">Merkelapp kan ikke være tom</string>
@@ -569,6 +583,7 @@
     <string name="note_could_not_sent">Kan ikke sende melding</string>
     <string name="note_icon_hint">Notatikon</string>
     <string name="notification_action_failed">Feilet å utføre aksjon.</string>
+    <string name="notification_channel_background_operations_name">Bakgrunnsoperasjoner</string>
     <string name="notification_channel_download_description">Viser nedlastingsfremgang</string>
     <string name="notification_channel_download_name_short">Last ned</string>
     <string name="notification_channel_file_sync_description">Viser filsynkroniseringsframdrift og resultater</string>
@@ -582,9 +597,11 @@
     <string name="notification_channel_upload_description">Viser opplastingsfremgang</string>
     <string name="notification_channel_upload_name_short">Last opp</string>
     <string name="notification_icon">Ikon for notifisering</string>
+    <string name="notification_icon_description">Uleste varslinger finnes</string>
     <string name="notifications_no_results_headline">Ingen varsler</string>
     <string name="notifications_no_results_message">Kom innom senere og ta en titt.</string>
     <string name="offline_mode">Ingen internettforbindelse</string>
+    <string name="offline_operations_file_does_not_exists_yet">Filen finnes ikke, ennå. Vennligst last opp filen først.</string>
     <string name="oneHour">1 time</string>
     <string name="online">Pålogget</string>
     <string name="online_status">Online status</string>
@@ -614,6 +631,7 @@
     <string name="placeholder_timestamp">18.05.2012 12:23</string>
     <string name="player_stop">stopp</string>
     <string name="player_toggle">av/på</string>
+    <string name="please_select_a_server">Vennligst velg en tjener…</string>
     <string name="power_save_check_dialog_message">Deaktivering av strømsparingsmodus vil resultere til at filene blir lastet selv om det er lavt batteri!</string>
     <string name="pref_behaviour_entries_delete_file">slettet</string>
     <string name="pref_behaviour_entries_keep_file">beholdt i opprinnelig mappe</string>
@@ -675,7 +693,9 @@
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Mappe på server</string>
     <string name="prefs_theme_title">Tema</string>
+    <string name="prefs_two_way_sync_interval">Intervall</string>
     <string name="prefs_two_way_sync_summary">Administrer interne mapper for toveis synkronisering</string>
+    <string name="prefs_two_way_sync_switch_title">Slå på toveis-synkronisering</string>
     <string name="prefs_value_theme_dark">Mørk</string>
     <string name="prefs_value_theme_light">Lys</string>
     <string name="prefs_value_theme_system">Følg system</string>
@@ -693,6 +713,7 @@
     <string name="push_notifications_old_login">Ingen push-varsler på grunn av utdatert innloggingsøkt. Du bør vurdere å legge til kontoen på nytt.</string>
     <string name="push_notifications_temp_error">Push-merknader er for tiden ikke tilgjengelige.</string>
     <string name="qr_could_not_be_read">QR-koden kunne ikke leses!</string>
+    <string name="re_enable_auto_upload">Endringer av auto-opplasting</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Finner ikke mappen, synkroniseringsoperasjonen avbrytes</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Finner ikke filen som skal lastes opp</string>
     <string name="recommend_subject">Prøv %1$s på denne enheten.</string>
@@ -902,6 +923,8 @@
     <string name="trashbin_file_remove">Slett for godt</string>
     <string name="trashbin_loading_failed">Lasting av papirkurv feilet</string>
     <string name="trashbin_not_emptied">Filene kunne ikke slettes permanent!</string>
+    <string name="two_way_sync_activity_disable_all_button_title">Slå av for alle mapper</string>
+    <string name="two_way_sync_activity_empty_list_desc">For å sette opp en mappe for toveis-synkronisering, vennligst slå det på i Detaljer-fanen til den aktuelle mappen.</string>
     <string name="two_way_sync_activity_title">Intern toveis synkronisering</string>
     <string name="unexpected_error_occurred">Det oppstod en uventet feil</string>
     <string name="unified_search_fragment_calendar_event_not_found">Finner ikke hendelsen, du kan alltid synkronisere for å oppdatere. Omdirigerer til web...</string>
