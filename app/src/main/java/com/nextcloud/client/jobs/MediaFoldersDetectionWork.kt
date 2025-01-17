@@ -207,6 +207,7 @@ class MediaFoldersDetectionWork constructor(
         return Result.success()
     }
 
+    @Suppress("MagicNumber")
     private fun sendAutoUploadNotification() {
         val notificationId = 326
         val intent = Intent(context, FileDisplayActivity::class.java).apply {
