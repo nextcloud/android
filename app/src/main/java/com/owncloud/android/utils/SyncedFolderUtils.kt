@@ -24,9 +24,9 @@ object SyncedFolderUtils {
     )
     private val DISQUALIFIED_MEDIA_DETECTION_FILE_SET: Set<String> = DISQUALIFIED_MEDIA_DETECTION_SOURCE.toSet()
     private val AUTO_QUALIFYING_FOLDER_TYPE_SET: Set<MediaFolderType> = setOf(MediaFolderType.CUSTOM)
-    private const val THUMBNAIL_FOLDER_PREFIX = ".thumbnail"
     private const val SINGLE_FILE = 1
-    private val EXCLUDE_FILENAME_PREFIXES = listOf(
+    private val EXCLUDE_PREFIXES = listOf(
+        ".thumbnail",
         ".thumbdata",
         ".trashed",
         ".pending",
@@ -110,7 +110,7 @@ object SyncedFolderUtils {
         }
         val folder = File(folderPath)
         // check if folder starts with thumbnail prefix
-        return folder.isDirectory && !folder.name.startsWith(THUMBNAIL_FOLDER_PREFIX)
+        return folder.isDirectory && !hasExcludePrefix(folder.name)
     }
 
     /**
@@ -155,18 +155,18 @@ object SyncedFolderUtils {
     }
 
     /**
-     * check if filename has prefix in the list to exclude from auto upload
+     * check if file or folder name has prefix in the list to exclude from auto upload
      *
-     * @param fileName name of file to check
+     * @param name name of file to check
      * @return `true` if file has one of the prefixes in EXCLUDE_FILENAME_PREFIXES
      */
-    private fun hasExcludePrefix(fileName: String?): Boolean {
-        if (fileName == null) {
-            return false
-        }
-        EXCLUDE_FILENAME_PREFIXES.forEach {
-            if (fileName.startsWith(it)) {
-                return true
+    fun hasExcludePrefix(name: String?): Boolean {
+        val hasPrefix = false
+        if (name != null) {
+            EXCLUDE_PREFIXES.forEach {
+                if (name.startsWith(it)) {
+                    return true
+                }
             }
         }
         return false
