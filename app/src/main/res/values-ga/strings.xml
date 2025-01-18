@@ -739,7 +739,6 @@
     <string name="push_notifications_temp_error">Níl fógraí brúigh ar fáil faoi láthair.</string>
     <string name="qr_could_not_be_read">Níorbh fhéidir an cód QR a léamh!</string>
     <string name="re_enable_auto_upload">Athruithe ar uaslódáil uathoibríoch</string>
-    <string name="re_enable_auto_upload_desc">De bharr srianta nua a chuir Google i bhfeidhm, b\'éigean dúinn cead tábhachtach a bhaint. Táimid ag obair le Google faoi láthair chun an fhadhb seo a réiteach agus feidhmiúlacht iomlán a athbhunú.\n\nChun uaslódáil uathoibríoch a athchumasú do ghrianghraif agus fhíseáin nua:\nRoghnaigh \"Ceadaigh gach rud\" sa dialóg seo a leanas nó i socruithe an chórais.\nCeadaigh suíomh meán nuair a leid, toisc go gceadaíonn sé seo do Nextcloud sonraí suímh a stóráil agus íomhánna á n-uaslódáil.\n\nNí bheidh uaslódáil uathoibríoch in ann comhaid íomhá agus físe a uaslódáil ach amháin nuair a bhíonn leagan Google Play den aip Nextcloud in úsáid.\n\nSeiceáil le haghaidh comhaid ar bith b’fhéidir nár uaslódáladh iad ó mhí na Nollag 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Ní féidir fillteán a aimsiú, tá an oibríocht sioncronaithe curtha ar ceal</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Ní féidir an comhad a aimsiú le huaslódáil</string>
     <string name="recommend_subject">Bain triail as %1$s ar do ghléas!</string>
