@@ -161,7 +161,6 @@ object SyncedFolderUtils {
      * @return `true` if file has one of the prefixes in EXCLUDE_FILENAME_PREFIXES
      */
     fun hasExcludePrefix(name: String?): Boolean {
-        val hasPrefix = false
         if (name != null) {
             EXCLUDE_PREFIXES.forEach {
                 if (name.startsWith(it)) {
