@@ -739,7 +739,6 @@
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
     <string name="qr_could_not_be_read">QR-Code konnte nicht gelesen werden!</string>
     <string name="re_enable_auto_upload">Änderungen beim automatischen Hochladen</string>
-    <string name="re_enable_auto_upload_desc">Aufgrund neuer, von Google eingeführter Einschränkungen waren wir gezwungen, eine wichtige Berechtigung zu entfernen. Wir arbeiten derzeit mit Google zusammen, um dieses Problem zu lösen und die volle Funktionalität wiederherzustellen.\n\nUm den automatischen Upload für neue Fotos und Videos wieder zu aktivieren:\nWählen Sie im folgenden Dialog oder in den Systemeinstellungen „Alle zulassen“. \nErlauben Sie den Medienstandort, wenn Sie dazu aufgefordert werden, da dies Nextcloud erlaubt, Standortdaten beim Hochladen von Bildern zu speichern.\n\nDas automatische Hochladen kann nur Bild- und Videodateien hochladen, wenn Sie die Google Play-Version der Nextcloud-App verwenden.\n\nBitte überprüfen Sie, ob Dateien vorhanden sind, die seit Dezember 2024 nicht mehr hochgeladen wurden.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Ordner nicht gefunden, Synchronisierungsvorgang wurde abgebrochen</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Datei zum Hochladen konnte nicht gefunden werden</string>
     <string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone</string>

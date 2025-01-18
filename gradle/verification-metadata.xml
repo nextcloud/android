@@ -102,6 +102,7 @@
          <trusted-key id="3288B8BE8512D6C0CA185268C51E6CBC7FF46F0B" group="com.google.auto"/>
          <trusted-key id="33FD4BFD33554634053D73C0C2148900BCD3C2AF" group="org.jetbrains" name="annotations" version="23.0.0"/>
          <trusted-key id="34441E504A937F43EB0DAEF96A65176A0FB1CD0B">
+            <trusting group="org.apache.groovy" name="groovy-bom" version="4.0.22"/>
             <trusting group="org.codehaus.groovy"/>
             <trusting group="org.codehaus.groovy" name="groovy" version="3.0.10"/>
             <trusting group="org.codehaus.groovy" name="groovy-bom" version="3.0.19"/>

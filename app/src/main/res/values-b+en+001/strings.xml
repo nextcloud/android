@@ -106,6 +106,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">kept in original folder, as it is readonly</string>
     <string name="auto_upload_gplay">Auto upload behaviour changed</string>
     <string name="auto_upload_gplay_desc">Due to new restrictions imposed by Google, the auto upload feature will no longer be able to automatically remove uploaded files.</string>
+    <string name="auto_upload_gplay_desc2">Due to new restrictions imposed by Google, we have been forced to remove an important permission. As a result, auto upload will only be able to upload image and video files.\nAdditionally, a new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
     <string name="auto_upload_on_wifi">Only upload on unmetered Wi-Fi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Configure</string>
@@ -140,6 +141,7 @@
     <string name="clear_notifications_failed">Failed to clear notifications.</string>
     <string name="clear_status_message">Clear status message</string>
     <string name="clear_status_message_after">Clear status message after</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Manual intervention required to re-enable auto-upload</string>
     <string name="clipboard_label">Text copied from %1$s</string>
     <string name="clipboard_no_text_to_copy">Received no text to copy to clipboard</string>
     <string name="clipboard_text_copied">Link copied</string>
@@ -736,6 +738,7 @@
     <string name="push_notifications_old_login">No push notifications due to outdated login session. Please consider re-adding your account.</string>
     <string name="push_notifications_temp_error">Push notifications currently not available.</string>
     <string name="qr_could_not_be_read">QR code could not be read!</string>
+    <string name="re_enable_auto_upload">Changes to auto upload</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Folder cannot be found, sync operation is cancelled</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Unable to find file to upload</string>
     <string name="recommend_subject">Try %1$s on your device!</string>
@@ -992,6 +995,8 @@
     <string name="upload_file_dialog_title">Input filename and filetype to upload</string>
     <string name="upload_files">Upload files</string>
     <string name="upload_global_pause_title">All uploads are paused</string>
+    <string name="upload_gplay">Permission changes</string>
+    <string name="upload_gplay_desc">A new permission is required to access location information for uploaded images.\nMake sure that media access is set to \"Always allow all\".</string>
     <string name="upload_item_action_button">Upload item action button</string>
     <string name="upload_list_delete">Delete</string>
     <string name="upload_list_empty_headline">No uploads available</string>

@@ -106,6 +106,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">以唯讀模式保留在原本的資料夾</string>
     <string name="auto_upload_gplay">自動上傳行為已更改</string>
     <string name="auto_upload_gplay_desc">由於 Google 新施加的限制，自動上傳功能將不再能自動刪除已上傳的檔案。</string>
+    <string name="auto_upload_gplay_desc2">由於 Google 施加了新的限制，我們不得不移除一個重要的權限。因此，自動上傳將只能上傳圖片與視訊檔案。此外，還需要新的權限才能存取上傳圖片的位置資訊。</string>
     <string name="auto_upload_on_wifi">僅在未計量的Wi-Fi上傳</string>
     <string name="auto_upload_path">自動上傳</string>
     <string name="autoupload_configure">設定</string>
@@ -140,6 +141,7 @@
     <string name="clear_notifications_failed">清空通知訊息失敗</string>
     <string name="clear_status_message">清空狀態列訊息</string>
     <string name="clear_status_message_after">繼此之後清空狀態訊息</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">重新啟用自動上傳功能需要手動介入</string>
     <string name="clipboard_label">文字已由 %1$s 複製</string>
     <string name="clipboard_no_text_to_copy">無任何文字複製到剪貼板。</string>
     <string name="clipboard_text_copied">連結已複製</string>
@@ -994,6 +996,7 @@
     <string name="upload_files">上傳檔案</string>
     <string name="upload_global_pause_title">所有上傳皆已暫停</string>
     <string name="upload_gplay">權限更新</string>
+    <string name="upload_gplay_desc">要存取上傳圖片的位置資訊，需要新的權限。\n確定媒體存取已設定為「一律全部允許」。</string>
     <string name="upload_item_action_button">上傳操作按鈕</string>
     <string name="upload_list_delete">刪除</string>
     <string name="upload_list_empty_headline">沒有上傳的檔案</string>
