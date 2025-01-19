@@ -106,6 +106,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">ponechané v pôvodnom priečinku, pretože je iba na čítanie</string>
     <string name="auto_upload_gplay">Správanie automatického nahrávania sa zmenilo</string>
     <string name="auto_upload_gplay_desc">Z dôvodu nových obmedzení uložených spoločnosťou Google už funkcia automatického nahrávania nebude môcť automaticky odstraňovať nahrané súbory.</string>
+    <string name="auto_upload_gplay_desc2">Z dôvodu nových obmedzení uložených spoločnosťou Google sme boli nútení odstrániť dôležité práva. Výsledkom je, že automatické nahrávanie bude môcť nahrať iba súbory obrázkov a videí.\nOkrem toho sa vyžadujú nové práva pre prístup k informáciám o polohe pre odovzdané obrázky.\nUistite sa, že prístup k médiám je nastavený na „Vždy povoliť všetky“.</string>
     <string name="auto_upload_on_wifi">Nahrávaj iba na neobmedzenom Wi-Fi</string>
     <string name="auto_upload_path">/AutomatickéNahrávanie</string>
     <string name="autoupload_configure">Nastaviť</string>
@@ -140,6 +141,7 @@
     <string name="clear_notifications_failed">Odstránenie upozornení zlyhalo.</string>
     <string name="clear_status_message">Vyčistiť správu o stave</string>
     <string name="clear_status_message_after">Vyčistiť správu o stave po</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Na opätovné zapnutie automatického nahrávania je potrebný manuálny zásah</string>
     <string name="clipboard_label">Text kopírovaný z %1$s</string>
     <string name="clipboard_no_text_to_copy">Nebol prijatý žiadny text pri kopírovaní do schránky</string>
     <string name="clipboard_text_copied">Odkaz skopírovaný</string>
@@ -736,6 +738,8 @@
     <string name="push_notifications_old_login">Žiadne push notifikácie z dôvodu zastaraného prihlásenia.  Prosím skúste znova pridať váš účet.</string>
     <string name="push_notifications_temp_error">Push notifikácie sú v súčasnosti nedostupné.</string>
     <string name="qr_could_not_be_read">QR kód nie je možné načítať!</string>
+    <string name="re_enable_auto_upload">Zmeny v automatickom nahrávaní</string>
+    <string name="re_enable_auto_upload_desc">Z dôvodu nových obmedzení uložených spoločnosťou Google sme boli nútení odstrániť dôležité práva. Momentálne spolupracujeme so spoločnosťou Google na vyriešení tohto problému a obnovení plnej funkčnosti.\n\nAk chcete znova povoliť automatické nahrávanie nových fotiek a videí:\nV nasledujúcom dialógovom okne alebo v systémových nastaveniach vyberte možnosť „Povoliť všetko“.\nPovoľte umiestnenie médií, keď sa zobrazí výzva, pretože to spoločnosti Nextcloud umožňuje ukladať údaje o polohe pri nahrávaní obrázkov.\n\nDialógové okno práv sa zobrazuje iba v prípade potreby. V prípade pochybností si to prosím overte v nastaveniach systému.\n\nAutomatické nahrávanie bude môcť nahrať súbory s obrázkami a videami iba pri použití verzie aplikácie Nextcloud pre Google Play.\n\nSkontrolujte, či existujú nejaké súbory, ktoré  neboli nahrané od decembra 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Adresár sa nenašiel, operácia synchronizácie bola prerušená</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Nepodarilo sa nájisť súbor pre nahratie</string>
     <string name="recommend_subject">Vyskúšajte %1$s na vašom zariadení!</string>
@@ -992,6 +996,8 @@
     <string name="upload_file_dialog_title">Zadaj meno a typ súboru na nahratie</string>
     <string name="upload_files">Nahrať súbory</string>
     <string name="upload_global_pause_title">Všetky nahrávania sú pozastavené.</string>
+    <string name="upload_gplay">Zmeny v právach</string>
+    <string name="upload_gplay_desc">Pre prístup k informáciám o polohe nahraných obrázkov sa vyžadujú nové práva.\nUistite sa, že prístup k médiám je nastavený na „Vždy povoliť všetko“.</string>
     <string name="upload_item_action_button">Tlačítko akcie Nahrať položku</string>
     <string name="upload_list_delete">Zmazať</string>
     <string name="upload_list_empty_headline">Žiadne súbory na nahratie nie sú dostupné</string>
