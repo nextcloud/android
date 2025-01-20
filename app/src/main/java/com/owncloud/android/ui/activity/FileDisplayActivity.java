@@ -654,8 +654,6 @@ public class FileDisplayActivity extends FileActivity
 
                 setLeftFragment(new GroupfolderListFragment());
                 getSupportFragmentManager().executePendingTransactions();
-            } else if (AUTO_UPLOAD_NOTIFICATION.equals(intent.getAction())) {
-                showReEnableAutoUploadDialog();
             }
         }
     }
@@ -1227,6 +1225,8 @@ public class FileDisplayActivity extends FileActivity
             if (fileArgs != null) {
                 startFile = fileArgs;
                 setFile(startFile);
+            } else if (AUTO_UPLOAD_NOTIFICATION.equals(getIntent().getAction())) {
+                showReEnableAutoUploadDialog();
             }
         }
 
