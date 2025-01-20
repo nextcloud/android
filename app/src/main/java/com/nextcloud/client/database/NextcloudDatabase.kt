@@ -29,6 +29,7 @@ import com.nextcloud.client.database.entity.SyncedFolderEntity
 import com.nextcloud.client.database.entity.UploadEntity
 import com.nextcloud.client.database.entity.VirtualEntity
 import com.nextcloud.client.database.migrations.DatabaseMigrationUtil
+import com.nextcloud.client.database.migrations.MIGRATION_85_to_86
 import com.nextcloud.client.database.migrations.Migration67to68
 import com.nextcloud.client.database.migrations.RoomMigration
 import com.nextcloud.client.database.migrations.addLegacyMigrations
@@ -68,8 +69,7 @@ import com.owncloud.android.db.ProviderMeta
         AutoMigration(from = 81, to = 82),
         AutoMigration(from = 82, to = 83),
         AutoMigration(from = 83, to = 84),
-        AutoMigration(from = 84, to = 85, spec = DatabaseMigrationUtil.DeleteColumnSpec::class),
-        AutoMigration(from = 85, to = 86)
+        AutoMigration(from = 84, to = 85, spec = DatabaseMigrationUtil.DeleteColumnSpec::class)
     ],
     exportSchema = true
 )
@@ -102,6 +102,7 @@ abstract class NextcloudDatabase : RoomDatabase() {
                     .addLegacyMigrations(clock, context)
                     .addMigrations(RoomMigration())
                     .addMigrations(Migration67to68())
+                    .addMigrations(MIGRATION_85_to_86)
                     .fallbackToDestructiveMigration()
                     .build()
             }
