@@ -1,0 +1,7 @@
+## 3.30.8 (January 20, 2025)
+
+- Bugfixes
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/105
