@@ -1557,9 +1557,10 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LINK, share.getShareLink());
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LABEL, share.getLabel());
 
-        if (share.getFileDownloadLimit() != null) {
-            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, share.getFileDownloadLimit().getLimit());
-            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, share.getFileDownloadLimit().getCount());
+        FileDownloadLimit downloadLimit = share.getFileDownloadLimit();
+        if (downloadLimit != null) {
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
         }
 
         return contentValues;
