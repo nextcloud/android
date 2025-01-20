@@ -387,7 +387,11 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mOnlyFoldersClickable = args != null && args.getBoolean(ARG_ONLY_FOLDERS_CLICKABLE, false);
         mFileSelectable = args != null && args.getBoolean(ARG_FILE_SELECTABLE, false);
         mLimitToMimeType = args != null ? args.getString(ARG_MIMETYPE, "") : "";
-        fetchRecommendedFiles();
+
+        if (getCapabilities().getRecommendations().isTrue()) {
+            fetchRecommendedFiles();
+        }
+
         setAdapter(args);
 
         mHideFab = args != null && args.getBoolean(ARG_HIDE_FAB, false);

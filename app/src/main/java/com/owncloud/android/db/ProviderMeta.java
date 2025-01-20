@@ -25,7 +25,7 @@ import java.util.List;
  */
 public class ProviderMeta {
     public static final String DB_NAME = "filelist";
-    public static final int DB_VERSION = 85;
+    public static final int DB_VERSION = 86;
 
     private ProviderMeta() {
         // No instance
@@ -340,6 +340,8 @@ public class ProviderMeta {
         public static final String FILESYSTEM_FILE_SENT_FOR_UPLOAD = "upload_triggered";
         public static final String FILESYSTEM_SYNCED_FOLDER_ID = "syncedfolder_id";
         public static final String FILESYSTEM_CRC32 = "crc32";
+
+        public static final String CAPABILITIES_RECOMMENDATION = "recommendation";
 
         private ProviderTableMeta() {
             // No instance
