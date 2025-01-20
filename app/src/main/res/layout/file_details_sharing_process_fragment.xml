@@ -164,7 +164,8 @@
                     android:ems="10"
                     android:gravity="top"
                     android:importantForAutofill="no"
-                    android:inputType="number">
+                    android:inputType="number"
+                    android:maxLength="9">
 
                 </com.google.android.material.textfield.TextInputEditText>
 
