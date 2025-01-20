@@ -452,7 +452,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 final LinearLayoutManager layoutManager = new LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false);
                 recommendedFilesRecyclerView.setLayoutManager(layoutManager);
 
-                final var adapter = new RecommendedFilesAdapter(activity, recommendedFiles, ocFileListDelegate, this, mStorageManager);
+                final var adapter = new RecommendedFilesAdapter(recommendedFiles, ocFileListDelegate, this, mStorageManager);
                 recommendedFilesRecyclerView.setAdapter(adapter);
             }
         } else {

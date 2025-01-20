@@ -7,7 +7,6 @@
 
 package com.owncloud.android.ui.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,10 +15,8 @@ import com.nextcloud.android.lib.resources.recommendations.Recommendation
 import com.owncloud.android.databinding.RecommendedFilesListItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.utils.DisplayUtils
 
 class RecommendedFilesAdapter(
-    private val context: Context,
     private val recommendations: Set<Recommendation>,
     private val delegate: OCFileListDelegate,
     private val onItemClickListener: OnItemClickListener,
@@ -48,8 +45,7 @@ class RecommendedFilesAdapter(
 
         holder.binding.run {
             name.text = item.name
-            val modificationTimestamp = (item.timestamp * 1000)
-            timestamp.text = DisplayUtils.getRelativeTimestamp(context, modificationTimestamp)
+            reason.text = item.reason
 
             val file = storageManager.getFileByLocalId(item.id) ?: return
 
