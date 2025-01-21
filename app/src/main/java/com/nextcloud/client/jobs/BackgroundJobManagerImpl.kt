@@ -631,7 +631,8 @@ internal class BackgroundJobManagerImpl(
             .setInputData(data)
             .build()
 
-        // Since for each file new FileDownloadWorker going to be scheduled, better to use ExistingWorkPolicy.KEEP policy.
+        // Since for each file new FileDownloadWorker going to be scheduled,
+        // better to use ExistingWorkPolicy.KEEP policy.
         workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)
     }
 
