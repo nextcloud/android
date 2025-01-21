@@ -77,16 +77,13 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
             viewThemeUtils.platform.colorImageViewBackgroundAndIcon(binding.icon);
         }
 
-        if (publicShare.getFileDownloadLimit() != null) {
-            FileDownloadLimit downloadLimit = publicShare.getFileDownloadLimit();
+        FileDownloadLimit downloadLimit = publicShare.getFileDownloadLimit();
+        if (downloadLimit != null && downloadLimit.getLimit() > 0) {
+            int remaining = downloadLimit.getLimit() - downloadLimit.getCount();
+            String text = context.getResources().getQuantityString(R.plurals.share_download_limit_description, remaining, remaining);
 
-            if (downloadLimit.getLimit() > 0) {
-                int remaining = downloadLimit.getLimit() - downloadLimit.getCount();
-                String text = context.getResources().getQuantityString(R.plurals.share_download_limit_description, remaining, remaining);
-
-                binding.subline.setText(text);
-                binding.subline.setVisibility(View.VISIBLE);
-            }
+            binding.subline.setText(text);
+            binding.subline.setVisibility(View.VISIBLE);
         }
 
         String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);

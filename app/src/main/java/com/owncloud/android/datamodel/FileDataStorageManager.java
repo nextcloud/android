@@ -1576,7 +1576,8 @@ public class FileDataStorageManager {
         share.setPermissions(getInt(cursor, ProviderTableMeta.OCSHARES_PERMISSIONS));
         share.setSharedDate(getLong(cursor, ProviderTableMeta.OCSHARES_SHARED_DATE));
         share.setExpirationDate(getLong(cursor, ProviderTableMeta.OCSHARES_EXPIRATION_DATE));
-        share.setToken(getString(cursor, ProviderTableMeta.OCSHARES_TOKEN));
+        String token = getString(cursor, ProviderTableMeta.OCSHARES_TOKEN);
+        share.setToken(token);
         share.setSharedWithDisplayName(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME));
         share.setFolder(getInt(cursor, ProviderTableMeta.OCSHARES_IS_DIRECTORY) == 1);
         share.setUserId(getString(cursor, ProviderTableMeta.OCSHARES_USER_ID));
@@ -1587,7 +1588,10 @@ public class FileDataStorageManager {
         share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
         share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LABEL));
 
-        share.setFileDownloadLimit(new FileDownloadLimit(share.getToken(), getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT), getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT)));
+        FileDownloadLimit downloadLimit = new FileDownloadLimit(token,
+                                                                getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT),
+                                                                getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT));
+        share.setFileDownloadLimit(downloadLimit);
 
         return share;
     }
