@@ -99,31 +99,26 @@ object AutoRename {
         }
     }
 
-    private fun replaceDots(forbiddenExtension: String, segment: String): String {
-        return if (isSegmentContainsForbiddenExtension(forbiddenExtension, segment)) {
+    private fun replaceDots(forbiddenExtension: String, segment: String): String =
+        if (isSegmentContainsForbiddenExtension(forbiddenExtension, segment)) {
             segment.replaceFirst(forbiddenExtension, REPLACEMENT)
         } else {
             segment
         }
-    }
 
-    private fun replaceFileExtensions(forbiddenExtension: String, segment: String): String {
-        return if (isSegmentContainsForbiddenExtension(forbiddenExtension, segment)) {
+    private fun replaceFileExtensions(forbiddenExtension: String, segment: String): String =
+        if (isSegmentContainsForbiddenExtension(forbiddenExtension, segment)) {
             val newExtension = forbiddenExtension.replace(StringConstants.DOT, REPLACEMENT, ignoreCase = true)
             segment.replace(forbiddenExtension, newExtension.lowercase(), ignoreCase = true)
         } else {
             segment
         }
-    }
 
-    private fun isSegmentContainsForbiddenExtension(forbiddenExtension: String, segment: String): Boolean {
-        return segment.endsWith(forbiddenExtension, ignoreCase = true) ||
+    private fun isSegmentContainsForbiddenExtension(forbiddenExtension: String, segment: String): Boolean =
+        segment.endsWith(forbiddenExtension, ignoreCase = true) ||
             segment.startsWith(forbiddenExtension, ignoreCase = true)
-    }
 
-    private fun convertToUTF8(filename: String): String {
-        return String(filename.toByteArray(), Charsets.UTF_8)
-    }
+    private fun convertToUTF8(filename: String): String = String(filename.toByteArray(), Charsets.UTF_8)
 
     private fun removeNonPrintableUnicodeCharacters(filename: String): String {
         val regex = "\\p{C}"

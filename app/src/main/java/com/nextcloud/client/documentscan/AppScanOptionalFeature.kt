@@ -21,9 +21,8 @@ abstract class AppScanOptionalFeature {
      */
     @Suppress("unused") // used only in some variants
     object Stub : AppScanOptionalFeature() {
-        override fun getScanContract(): ActivityResultContract<Unit, String?> {
+        override fun getScanContract(): ActivityResultContract<Unit, String?> =
             throw UnsupportedOperationException("Document scan is not available")
-        }
 
         override val isAvailable = false
     }

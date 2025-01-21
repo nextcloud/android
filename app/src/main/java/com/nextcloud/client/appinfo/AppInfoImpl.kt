@@ -16,13 +16,11 @@ class AppInfoImpl : AppInfo {
     override val versionCode: Int = BuildConfig.VERSION_CODE
     override val isDebugBuild: Boolean = BuildConfig.DEBUG
 
-    override fun getAppVersion(context: Context): String {
-        return try {
-            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            packageInfo.versionName ?: "n/a"
-        } catch (e: PackageManager.NameNotFoundException) {
-            Log_OC.e(this, "Trying to get packageName", e.cause)
-            "n/a"
-        }
+    override fun getAppVersion(context: Context): String = try {
+        val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+        packageInfo.versionName ?: "n/a"
+    } catch (e: PackageManager.NameNotFoundException) {
+        Log_OC.e(this, "Trying to get packageName", e.cause)
+        "n/a"
     }
 }

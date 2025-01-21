@@ -40,7 +40,9 @@ import javax.inject.Inject
 /**
  * Activity displaying general feature after a fresh install.
  */
-class FirstRunActivity : BaseActivity(), Injectable {
+class FirstRunActivity :
+    BaseActivity(),
+    Injectable {
 
     @JvmField
     @Inject

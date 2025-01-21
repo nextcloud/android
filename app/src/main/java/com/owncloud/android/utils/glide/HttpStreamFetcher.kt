@@ -68,9 +68,7 @@ class HttpStreamFetcher internal constructor(
         Log_OC.i(TAG, "Cleanup")
     }
 
-    override fun getId(): String {
-        return url
-    }
+    override fun getId(): String = url
 
     override fun cancel() {
         Log_OC.i(TAG, "Cancel")

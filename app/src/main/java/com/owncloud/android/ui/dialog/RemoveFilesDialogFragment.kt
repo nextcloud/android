@@ -29,7 +29,10 @@ import javax.inject.Inject
  * Dialog requiring confirmation before removing a collection of given OCFiles.
  * Triggers the removal according to the user response.
  */
-class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDialogFragmentListener, Injectable {
+class RemoveFilesDialogFragment :
+    ConfirmationDialogFragment(),
+    ConfirmationDialogFragmentListener,
+    Injectable {
     private var mTargetFiles: Collection<OCFile>? = null
     private var actionMode: ActionMode? = null
 
@@ -141,11 +144,10 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
         private const val ARG_TARGET_FILES = "TARGET_FILES"
 
         @JvmStatic
-        fun newInstance(files: ArrayList<OCFile>, actionMode: ActionMode?): RemoveFilesDialogFragment {
-            return newInstance(files).apply {
+        fun newInstance(files: ArrayList<OCFile>, actionMode: ActionMode?): RemoveFilesDialogFragment =
+            newInstance(files).apply {
                 setActionMode(actionMode)
             }
-        }
 
         @JvmStatic
         fun newInstance(files: ArrayList<OCFile>): RemoveFilesDialogFragment {

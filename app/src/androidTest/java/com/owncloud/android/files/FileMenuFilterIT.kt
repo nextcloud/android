@@ -331,10 +331,7 @@ class FileMenuFilterIT : AbstractIT() {
         }
     }
 
-    private data class ExpectedLockVisibilities(
-        val lockFile: Boolean,
-        val unlockFile: Boolean
-    )
+    private data class ExpectedLockVisibilities(val lockFile: Boolean, val unlockFile: Boolean)
 
     private fun configureCapability(capability: OCCapability) {
         every { mockStorageManager.getCapability(any<User>()) } returns capability

@@ -28,9 +28,7 @@ class DocumentPageListAdapter :
         holder.bind(currentList[position])
     }
 
-    override fun getItemCount(): Int {
-        return currentList.size
-    }
+    override fun getItemCount(): Int = currentList.size
 
     class DocumentPageViewHolder(val binding: DocumentPageItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(imagePath: String) {

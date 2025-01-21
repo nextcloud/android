@@ -10,18 +10,16 @@ package com.nextcloud.utils.extensions
 import com.nextcloud.model.SearchResultEntryType
 import com.owncloud.android.lib.common.SearchResultEntry
 
-fun SearchResultEntry.getType(): SearchResultEntryType {
-    return if (icon == "icon-folder") {
-        SearchResultEntryType.Folder
-    } else if (icon.startsWith("icon-note")) {
-        SearchResultEntryType.Note
-    } else if (icon.startsWith("icon-contacts")) {
-        SearchResultEntryType.Contact
-    } else if (icon.startsWith("icon-calendar")) {
-        SearchResultEntryType.CalendarEvent
-    } else if (icon.startsWith("icon-deck")) {
-        SearchResultEntryType.Deck
-    } else {
-        SearchResultEntryType.Unknown
-    }
+fun SearchResultEntry.getType(): SearchResultEntryType = if (icon == "icon-folder") {
+    SearchResultEntryType.Folder
+} else if (icon.startsWith("icon-note")) {
+    SearchResultEntryType.Note
+} else if (icon.startsWith("icon-contacts")) {
+    SearchResultEntryType.Contact
+} else if (icon.startsWith("icon-calendar")) {
+    SearchResultEntryType.CalendarEvent
+} else if (icon.startsWith("icon-deck")) {
+    SearchResultEntryType.Deck
+} else {
+    SearchResultEntryType.Unknown
 }

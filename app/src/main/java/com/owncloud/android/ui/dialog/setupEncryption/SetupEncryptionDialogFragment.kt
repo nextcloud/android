@@ -47,7 +47,9 @@ import javax.inject.Inject
 /*
  *  Dialog to setup encryption
  */
-class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
+class SetupEncryptionDialogFragment :
+    DialogFragment(),
+    Injectable {
 
     @Inject
     lateinit var viewThemeUtils: ViewThemeUtils
@@ -127,13 +129,12 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         }
     }
 
-    private fun buildMaterialAlertDialog(v: View): MaterialAlertDialogBuilder {
-        return MaterialAlertDialogBuilder(requireContext())
+    private fun buildMaterialAlertDialog(v: View): MaterialAlertDialogBuilder =
+        MaterialAlertDialogBuilder(requireContext())
             .setView(v)
             .setPositiveButton(R.string.common_ok, null)
             .setNegativeButton(R.string.common_cancel) { dialog: DialogInterface, _: Int -> dialog.cancel() }
             .setTitle(R.string.end_to_end_encryption_title)
-    }
 
     private fun positiveButtonOnClick(dialog: DialogInterface) {
         when (keyResult) {

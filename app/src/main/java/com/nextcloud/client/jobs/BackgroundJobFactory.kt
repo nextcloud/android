@@ -103,38 +103,34 @@ class BackgroundJobFactory @Inject constructor(
         }
     }
 
-    private fun createOfflineOperationsWorker(context: Context, params: WorkerParameters): ListenableWorker {
-        return OfflineOperationsWorker(
+    private fun createOfflineOperationsWorker(context: Context, params: WorkerParameters): ListenableWorker =
+        OfflineOperationsWorker(
             accountManager.user,
             context,
             connectivityService,
             viewThemeUtils.get(),
             params
         )
-    }
 
-    private fun createFilesExportWork(context: Context, params: WorkerParameters): ListenableWorker {
-        return FilesExportWork(
-            context,
-            accountManager.user,
-            contentResolver,
-            viewThemeUtils.get(),
-            params
-        )
-    }
+    private fun createFilesExportWork(context: Context, params: WorkerParameters): ListenableWorker = FilesExportWork(
+        context,
+        accountManager.user,
+        contentResolver,
+        viewThemeUtils.get(),
+        params
+    )
 
-    private fun createContentObserverJob(context: Context, workerParameters: WorkerParameters): ListenableWorker {
-        return ContentObserverWork(
+    private fun createContentObserverJob(context: Context, workerParameters: WorkerParameters): ListenableWorker =
+        ContentObserverWork(
             context,
             workerParameters,
             SyncedFolderProvider(contentResolver, preferences, clock),
             powerManagementService,
             backgroundJobManager.get()
         )
-    }
 
-    private fun createContactsBackupWork(context: Context, params: WorkerParameters): ContactsBackupWork {
-        return ContactsBackupWork(
+    private fun createContactsBackupWork(context: Context, params: WorkerParameters): ContactsBackupWork =
+        ContactsBackupWork(
             context,
             params,
             resources,
@@ -142,63 +138,55 @@ class BackgroundJobFactory @Inject constructor(
             contentResolver,
             accountManager
         )
-    }
 
-    private fun createContactsImportWork(context: Context, params: WorkerParameters): ContactsImportWork {
-        return ContactsImportWork(
+    private fun createContactsImportWork(context: Context, params: WorkerParameters): ContactsImportWork =
+        ContactsImportWork(
             context,
             params,
             logger,
             contentResolver
         )
-    }
 
-    private fun createCalendarBackupWork(context: Context, params: WorkerParameters): CalendarBackupWork {
-        return CalendarBackupWork(
+    private fun createCalendarBackupWork(context: Context, params: WorkerParameters): CalendarBackupWork =
+        CalendarBackupWork(
             context,
             params,
             contentResolver,
             accountManager,
             preferences
         )
-    }
 
-    private fun createCalendarImportWork(context: Context, params: WorkerParameters): CalendarImportWork {
-        return CalendarImportWork(
+    private fun createCalendarImportWork(context: Context, params: WorkerParameters): CalendarImportWork =
+        CalendarImportWork(
             context,
             params,
             logger,
             contentResolver
         )
-    }
 
-    private fun createFilesSyncWork(context: Context, params: WorkerParameters): FilesSyncWork {
-        return FilesSyncWork(
-            context = context,
-            params = params,
-            contentResolver = contentResolver,
-            userAccountManager = accountManager,
-            uploadsStorageManager = uploadsStorageManager,
-            connectivityService = connectivityService,
-            powerManagementService = powerManagementService,
-            syncedFolderProvider = syncedFolderProvider,
-            backgroundJobManager = backgroundJobManager.get()
-        )
-    }
+    private fun createFilesSyncWork(context: Context, params: WorkerParameters): FilesSyncWork = FilesSyncWork(
+        context = context,
+        params = params,
+        contentResolver = contentResolver,
+        userAccountManager = accountManager,
+        uploadsStorageManager = uploadsStorageManager,
+        connectivityService = connectivityService,
+        powerManagementService = powerManagementService,
+        syncedFolderProvider = syncedFolderProvider,
+        backgroundJobManager = backgroundJobManager.get()
+    )
 
-    private fun createOfflineSyncWork(context: Context, params: WorkerParameters): OfflineSyncWork {
-        return OfflineSyncWork(
-            context = context,
-            params = params,
-            contentResolver = contentResolver,
-            userAccountManager = accountManager,
-            connectivityService = connectivityService,
-            powerManagementService = powerManagementService
-        )
-    }
+    private fun createOfflineSyncWork(context: Context, params: WorkerParameters): OfflineSyncWork = OfflineSyncWork(
+        context = context,
+        params = params,
+        contentResolver = contentResolver,
+        userAccountManager = accountManager,
+        connectivityService = connectivityService,
+        powerManagementService = powerManagementService
+    )
 
-    private fun createMediaFoldersDetectionWork(context: Context, params: WorkerParameters): MediaFoldersDetectionWork {
-        return MediaFoldersDetectionWork(
+    private fun createMediaFoldersDetectionWork(context: Context, params: WorkerParameters): MediaFoldersDetectionWork =
+        MediaFoldersDetectionWork(
             context,
             params,
             resources,
@@ -209,21 +197,18 @@ class BackgroundJobFactory @Inject constructor(
             viewThemeUtils.get(),
             syncedFolderProvider
         )
-    }
 
-    private fun createNotificationWork(context: Context, params: WorkerParameters): NotificationWork {
-        return NotificationWork(
-            context,
-            params,
-            notificationManager,
-            accountManager,
-            deckApi,
-            viewThemeUtils.get()
-        )
-    }
+    private fun createNotificationWork(context: Context, params: WorkerParameters): NotificationWork = NotificationWork(
+        context,
+        params,
+        notificationManager,
+        accountManager,
+        deckApi,
+        viewThemeUtils.get()
+    )
 
-    private fun createAccountRemovalWork(context: Context, params: WorkerParameters): AccountRemovalWork {
-        return AccountRemovalWork(
+    private fun createAccountRemovalWork(context: Context, params: WorkerParameters): AccountRemovalWork =
+        AccountRemovalWork(
             context,
             params,
             uploadsStorageManager,
@@ -234,10 +219,9 @@ class BackgroundJobFactory @Inject constructor(
             preferences,
             syncedFolderProvider
         )
-    }
 
-    private fun createFilesUploadWorker(context: Context, params: WorkerParameters): FileUploadWorker {
-        return FileUploadWorker(
+    private fun createFilesUploadWorker(context: Context, params: WorkerParameters): FileUploadWorker =
+        FileUploadWorker(
             uploadsStorageManager,
             connectivityService,
             powerManagementService,
@@ -249,20 +233,18 @@ class BackgroundJobFactory @Inject constructor(
             context,
             params
         )
-    }
 
-    private fun createFilesDownloadWorker(context: Context, params: WorkerParameters): FileDownloadWorker {
-        return FileDownloadWorker(
+    private fun createFilesDownloadWorker(context: Context, params: WorkerParameters): FileDownloadWorker =
+        FileDownloadWorker(
             viewThemeUtils.get(),
             accountManager,
             localBroadcastManager.get(),
             context,
             params
         )
-    }
 
-    private fun createPDFGenerateWork(context: Context, params: WorkerParameters): GeneratePdfFromImagesWork {
-        return GeneratePdfFromImagesWork(
+    private fun createPDFGenerateWork(context: Context, params: WorkerParameters): GeneratePdfFromImagesWork =
+        GeneratePdfFromImagesWork(
             appContext = context,
             generatePdfUseCase = generatePdfUseCase,
             viewThemeUtils = viewThemeUtils.get(),
@@ -271,28 +253,23 @@ class BackgroundJobFactory @Inject constructor(
             logger = logger,
             params = params
         )
-    }
 
-    private fun createHealthStatusWork(context: Context, params: WorkerParameters): HealthStatusWork {
-        return HealthStatusWork(
-            context,
-            params,
-            accountManager,
-            arbitraryDataProvider,
-            backgroundJobManager.get()
-        )
-    }
+    private fun createHealthStatusWork(context: Context, params: WorkerParameters): HealthStatusWork = HealthStatusWork(
+        context,
+        params,
+        accountManager,
+        arbitraryDataProvider,
+        backgroundJobManager.get()
+    )
 
-    private fun createTestJob(context: Context, params: WorkerParameters): TestJob {
-        return TestJob(
-            context,
-            params,
-            backgroundJobManager.get()
-        )
-    }
+    private fun createTestJob(context: Context, params: WorkerParameters): TestJob = TestJob(
+        context,
+        params,
+        backgroundJobManager.get()
+    )
 
-    private fun createInternalTwoWaySyncWork(context: Context, params: WorkerParameters): InternalTwoWaySyncWork {
-        return InternalTwoWaySyncWork(
+    private fun createInternalTwoWaySyncWork(context: Context, params: WorkerParameters): InternalTwoWaySyncWork =
+        InternalTwoWaySyncWork(
             context,
             params,
             accountManager,
@@ -300,5 +277,4 @@ class BackgroundJobFactory @Inject constructor(
             connectivityService,
             preferences
         )
-    }
 }

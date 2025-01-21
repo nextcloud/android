@@ -141,7 +141,6 @@ class FileStorageUtilsIT : AbstractIT() {
         assertEquals("Internal storage/", pathToUserFriendlyDisplay("/storage/emulated/0/"))
     }
 
-    private fun pathToUserFriendlyDisplay(path: String): String {
-        return pathToUserFriendlyDisplay(path, targetContext, targetContext.resources)
-    }
+    private fun pathToUserFriendlyDisplay(path: String): String =
+        pathToUserFriendlyDisplay(path, targetContext, targetContext.resources)
 }

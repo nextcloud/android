@@ -20,14 +20,12 @@ class ManualAsyncRunner : AsyncRunner {
         task: () -> T,
         onResult: OnResultCallback<T>?,
         onError: OnErrorCallback?
-    ): Cancellable {
-        return postTask(
-            task = { _: OnProgressCallback<Any>, _: IsCancelled -> task.invoke() },
-            onResult = onResult,
-            onError = onError,
-            onProgress = null
-        )
-    }
+    ): Cancellable = postTask(
+        task = { _: OnProgressCallback<Any>, _: IsCancelled -> task.invoke() },
+        onResult = onResult,
+        onError = onError,
+        onProgress = null
+    )
 
     override fun <T, P> postTask(
         task: TaskFunction<T, P>,

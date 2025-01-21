@@ -65,9 +65,7 @@ class OCFileListDelegate(
         this.highlightedItem = highlightedItem
     }
 
-    fun isCheckedFile(file: OCFile): Boolean {
-        return checkedFiles.contains(file)
-    }
+    fun isCheckedFile(file: OCFile): Boolean = checkedFiles.contains(file)
 
     fun addCheckedFile(file: OCFile) {
         checkedFiles.add(file)
@@ -245,7 +243,8 @@ class OCFileListDelegate(
                 file.isEncrypted &&
                 !EncryptionUtils.supportsSecureFiledrop(file, user) ||
                 searchType == SearchType.FAVORITE_SEARCH ||
-                file.isFolder && currentDirectory?.isEncrypted ?: false
+                file.isFolder &&
+                currentDirectory?.isEncrypted ?: false
             ) // sharing an encrypted subfolder is not possible
         if (shouldHideShare) {
             gridViewHolder.shared.visibility = View.GONE

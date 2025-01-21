@@ -28,8 +28,7 @@ class FileActionsViewModel @Inject constructor(
     private val currentAccountProvider: CurrentAccountProvider,
     private val filterFactory: FileMenuFilter.Factory,
     private val logger: Logger
-) :
-    ViewModel() {
+) : ViewModel() {
 
     data class LockInfo(val lockType: FileLockType, val lockedBy: String, val lockedUntil: Long?)
 
@@ -90,16 +89,14 @@ class FileActionsViewModel @Inject constructor(
         files: Collection<OCFile>,
         isOverflow: Boolean?,
         inSingleFileFragment: Boolean
-    ): List<Int> {
-        return filterFactory.newInstance(
-            numberOfAllFiles ?: 1,
-            files.toList(),
-            componentsGetter,
-            isOverflow ?: false,
-            currentAccountProvider.user
-        )
-            .getToHide(inSingleFileFragment)
-    }
+    ): List<Int> = filterFactory.newInstance(
+        numberOfAllFiles ?: 1,
+        files.toList(),
+        componentsGetter,
+        isOverflow ?: false,
+        currentAccountProvider.user
+    )
+        .getToHide(inSingleFileFragment)
 
     private fun getActionsToShow(additionalFilter: IntArray?, toHide: List<Int>) = FileAction.SORTED_VALUES
         .filter { additionalFilter == null || it.id !in additionalFilter }
@@ -126,12 +123,10 @@ class FileActionsViewModel @Inject constructor(
         }
     }
 
-    private fun getLockedUntil(file: OCFile): Long? {
-        return if (file.lockTimestamp == 0L || file.lockTimeout == 0L) {
-            null
-        } else {
-            (file.lockTimestamp + file.lockTimeout) * TimeConstants.MILLIS_PER_SECOND
-        }
+    private fun getLockedUntil(file: OCFile): Long? = if (file.lockTimestamp == 0L || file.lockTimeout == 0L) {
+        null
+    } else {
+        (file.lockTimestamp + file.lockTimeout) * TimeConstants.MILLIS_PER_SECOND
     }
 
     fun onClick(action: FileAction) {

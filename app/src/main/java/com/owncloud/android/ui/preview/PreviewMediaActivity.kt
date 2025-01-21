@@ -888,8 +888,7 @@ class PreviewMediaActivity :
          * @param file File to test if can be previewed.
          * @return 'True' if the file can be handled by the activity.
          */
-        fun canBePreviewed(file: OCFile?): Boolean {
-            return file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
-        }
+        fun canBePreviewed(file: OCFile?): Boolean =
+            file != null && (MimeTypeUtil.isAudio(file) || MimeTypeUtil.isVideo(file))
     }
 }

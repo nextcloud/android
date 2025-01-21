@@ -86,12 +86,10 @@ class LogsEmailSender(private val context: Context, private val clock: Clock, pr
         }
     }
 
-    private fun getPhoneInfo(): String {
-        return "Model: " + Build.MODEL + "\n" +
-            "Brand: " + Build.BRAND + "\n" +
-            "Product: " + Build.PRODUCT + "\n" +
-            "Device: " + Build.DEVICE + "\n" +
-            "Version-Codename: " + Build.VERSION.CODENAME + "\n" +
-            "Version-Release: " + Build.VERSION.RELEASE
-    }
+    private fun getPhoneInfo(): String = "Model: " + Build.MODEL + "\n" +
+        "Brand: " + Build.BRAND + "\n" +
+        "Product: " + Build.PRODUCT + "\n" +
+        "Device: " + Build.DEVICE + "\n" +
+        "Version-Codename: " + Build.VERSION.CODENAME + "\n" +
+        "Version-Release: " + Build.VERSION.RELEASE
 }

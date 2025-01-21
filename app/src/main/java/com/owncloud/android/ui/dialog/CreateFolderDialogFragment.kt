@@ -47,7 +47,10 @@ import javax.inject.Inject
  *
  * Triggers the folder creation when name is confirmed.
  */
-class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickListener, Injectable {
+class CreateFolderDialogFragment :
+    DialogFragment(),
+    DialogInterface.OnClickListener,
+    Injectable {
 
     @Inject
     lateinit var fileDataStorageManager: FileDataStorageManager
@@ -159,13 +162,12 @@ class CreateFolderDialogFragment : DialogFragment(), DialogInterface.OnClickList
         }
     }
 
-    private fun buildMaterialAlertDialog(view: View): MaterialAlertDialogBuilder {
-        return MaterialAlertDialogBuilder(requireActivity())
+    private fun buildMaterialAlertDialog(view: View): MaterialAlertDialogBuilder =
+        MaterialAlertDialogBuilder(requireActivity())
             .setView(view)
             .setPositiveButton(R.string.folder_confirm_create, this)
             .setNegativeButton(R.string.common_cancel, this)
             .setTitle(R.string.uploader_info_dirname)
-    }
 
     override fun onClick(dialog: DialogInterface, which: Int) {
         if (which == AlertDialog.BUTTON_POSITIVE) {

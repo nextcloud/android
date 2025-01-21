@@ -26,8 +26,6 @@ enum class DeepLinkConstants(val route: String, val navId: Int) {
     ACTION_APP_UPDATE("checkAppUpdate", -1);
 
     companion object {
-        fun fromPath(path: String?): DeepLinkConstants? {
-            return entries.find { it.route == path }
-        }
+        fun fromPath(path: String?): DeepLinkConstants? = entries.find { it.route == path }
     }
 }

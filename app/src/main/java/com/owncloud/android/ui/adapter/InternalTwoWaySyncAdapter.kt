@@ -30,19 +30,16 @@ class InternalTwoWaySyncAdapter(
 
     var folders: List<OCFile> = dataStorageManager.getInternalTwoWaySyncFolders(user)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InternalTwoWaySyncViewHolder {
-        return InternalTwoWaySyncViewHolder(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): InternalTwoWaySyncViewHolder =
+        InternalTwoWaySyncViewHolder(
             InternalTwoWaySyncViewHolderBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
             )
         )
-    }
 
-    override fun getItemCount(): Int {
-        return folders.size
-    }
+    override fun getItemCount(): Int = folders.size
 
     override fun onBindViewHolder(holder: InternalTwoWaySyncViewHolder, position: Int) {
         holder.bind(folders[position], context, dataStorageManager, this)

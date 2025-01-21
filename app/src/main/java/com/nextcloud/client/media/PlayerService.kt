@@ -131,9 +131,7 @@ class PlayerService : Service() {
         )
     }
 
-    override fun onBind(intent: Intent?): IBinder? {
-        return Binder(this)
-    }
+    override fun onBind(intent: Intent?): IBinder? = Binder(this)
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         when (intent.action) {

@@ -37,7 +37,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions", "MagicNumber")
-class PassCodeActivity : AppCompatActivity(), Injectable {
+class PassCodeActivity :
+    AppCompatActivity(),
+    Injectable {
 
     companion object {
         private val TAG = PassCodeActivity::class.java.simpleName
@@ -294,10 +296,8 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         }.all { it }
     }
 
-    private fun confirmPassCode(): Boolean {
-        return passCodeEditTexts.indices.all { i ->
-            passCodeEditTexts[i]?.text.toString() == passCodeDigits[i]
-        }
+    private fun confirmPassCode(): Boolean = passCodeEditTexts.indices.all { i ->
+        passCodeEditTexts[i]?.text.toString() == passCodeDigits[i]
     }
 
     private fun clearBoxes() {
@@ -394,9 +394,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
             }
         }
 
-        private operator fun next(): Int {
-            return if (mLastOne) 0 else mIndex + 1
-        }
+        private operator fun next(): Int = if (mLastOne) 0 else mIndex + 1
 
         /**
          * Performs several actions when the user types a digit in an input field: - saves the input digit to the state

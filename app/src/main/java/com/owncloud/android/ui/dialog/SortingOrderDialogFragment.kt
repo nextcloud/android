@@ -25,7 +25,9 @@ import javax.inject.Inject
 /**
  * Dialog to show and choose the sorting order for the file listing.
  */
-class SortingOrderDialogFragment : DialogFragment(), Injectable {
+class SortingOrderDialogFragment :
+    DialogFragment(),
+    Injectable {
 
     private var binding: SortingOrderFragmentBinding? = null
 

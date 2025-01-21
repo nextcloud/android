@@ -11,7 +11,5 @@ enum class DownloadType(var type: String) {
     DOWNLOAD("DOWNLOAD"),
     EXPORT("EXPORT");
 
-    override fun toString(): String {
-        return type
-    }
+    override fun toString(): String = type
 }

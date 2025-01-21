@@ -40,7 +40,5 @@ class ListPreferenceDialog(context: Context?, attrs: AttributeSet?) : ListPrefer
         }
     }
 
-    private fun isDialogCreated(): Boolean {
-        return dialog != null
-    }
+    private fun isDialogCreated(): Boolean = dialog != null
 }

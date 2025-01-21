@@ -18,9 +18,7 @@ import com.nextcloud.client.account.UserAccountManager
  *       [com.nextcloud.client.mixins.ActivityMixin] and handle UI callbacks as well
  */
 @Suppress("ForbiddenComment")
-class DeepLinkHandler(
-    private val userAccountManager: UserAccountManager
-) {
+class DeepLinkHandler(private val userAccountManager: UserAccountManager) {
 
     /**
      * Provide parsed link arguments and context information required

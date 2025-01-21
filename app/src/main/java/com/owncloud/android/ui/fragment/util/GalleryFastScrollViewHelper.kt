@@ -28,10 +28,8 @@ import kotlin.math.min
  *
  * Copied from me.zhanghai.android.fastscroll.RecyclerViewHelper and heavily modified for gallery structure
  */
-class GalleryFastScrollViewHelper(
-    private val mView: RecyclerView,
-    private val mPopupTextProvider: PopupTextProvider?
-) : FastScroller.ViewHelper {
+class GalleryFastScrollViewHelper(private val mView: RecyclerView, private val mPopupTextProvider: PopupTextProvider?) :
+    FastScroller.ViewHelper {
     // used to calculate paddings
     private val mTempRect = Rect()
 
@@ -72,9 +70,8 @@ class GalleryFastScrollViewHelper(
 
     override fun addOnTouchEventListener(onTouchEvent: Predicate<MotionEvent?>) {
         mView.addOnItemTouchListener(object : SimpleOnItemTouchListener() {
-            override fun onInterceptTouchEvent(recyclerView: RecyclerView, event: MotionEvent): Boolean {
-                return onTouchEvent.test(event)
-            }
+            override fun onInterceptTouchEvent(recyclerView: RecyclerView, event: MotionEvent): Boolean =
+                onTouchEvent.test(event)
 
             override fun onTouchEvent(recyclerView: RecyclerView, event: MotionEvent) {
                 onTouchEvent.test(event)
@@ -199,9 +196,7 @@ class GalleryFastScrollViewHelper(
         return sectionStartOffsets
     }
 
-    private fun itemCountToRowCount(itemsCount: Int): Int {
-        return ceil(itemsCount.toDouble() / columnCount).toInt()
-    }
+    private fun itemCountToRowCount(itemsCount: Int): Int = ceil(itemsCount.toDouble() / columnCount).toInt()
 
     override fun getPopupText(): String? {
         var popupTextProvider: PopupTextProvider? = mPopupTextProvider

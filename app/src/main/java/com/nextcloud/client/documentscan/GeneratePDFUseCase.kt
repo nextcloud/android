@@ -22,31 +22,27 @@ class GeneratePDFUseCase @Inject constructor(private val logger: Logger) {
      * @param imagePaths list of image paths
      * @return `true` if the PDF was generated successfully, `false` otherwise
      */
-    fun execute(imagePaths: List<String>, filePath: String): Boolean {
-        return if (imagePaths.isEmpty() || filePath.isBlank()) {
-            logger.w(TAG, "Invalid parameters: imagePaths: $imagePaths, filePath: $filePath")
-            false
-        } else {
-            val document = PdfDocument()
-            fillDocumentPages(document, imagePaths)
-            writePdfToFile(filePath, document)
-        }
+    fun execute(imagePaths: List<String>, filePath: String): Boolean = if (imagePaths.isEmpty() || filePath.isBlank()) {
+        logger.w(TAG, "Invalid parameters: imagePaths: $imagePaths, filePath: $filePath")
+        false
+    } else {
+        val document = PdfDocument()
+        fillDocumentPages(document, imagePaths)
+        writePdfToFile(filePath, document)
     }
 
     /**
      * @return `true` if the PDF was generated successfully, `false` otherwise
      */
-    private fun writePdfToFile(filePath: String, document: PdfDocument): Boolean {
-        return try {
-            val fileOutputStream = FileOutputStream(filePath)
-            document.writeTo(fileOutputStream)
-            fileOutputStream.close()
-            document.close()
-            true
-        } catch (ex: IOException) {
-            logger.e(TAG, "Error generating PDF", ex)
-            false
-        }
+    private fun writePdfToFile(filePath: String, document: PdfDocument): Boolean = try {
+        val fileOutputStream = FileOutputStream(filePath)
+        document.writeTo(fileOutputStream)
+        fileOutputStream.close()
+        document.close()
+        true
+    } catch (ex: IOException) {
+        logger.e(TAG, "Error generating PDF", ex)
+        false
     }
 
     private fun fillDocumentPages(document: PdfDocument, imagePaths: List<String>) {

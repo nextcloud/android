@@ -46,11 +46,9 @@ object ForegroundServiceHelper {
         id: Int,
         notification: Notification,
         foregroundServiceType: ForegroundServiceType
-    ): ForegroundInfo {
-        return if (isAboveOrEqualAndroid10) {
-            ForegroundInfo(id, notification, foregroundServiceType.getId())
-        } else {
-            ForegroundInfo(id, notification)
-        }
+    ): ForegroundInfo = if (isAboveOrEqualAndroid10) {
+        ForegroundInfo(id, notification, foregroundServiceType.getId())
+    } else {
+        ForegroundInfo(id, notification)
     }
 }

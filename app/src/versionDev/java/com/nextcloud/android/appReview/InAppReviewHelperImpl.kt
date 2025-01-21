@@ -11,8 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.nextcloud.appReview.InAppReviewHelper
 import com.nextcloud.client.preferences.AppPreferences
 
-class InAppReviewHelperImpl(appPreferences: AppPreferences) :
-    InAppReviewHelper {
+class InAppReviewHelperImpl(appPreferences: AppPreferences) : InAppReviewHelper {
     override fun resetAndIncrementAppRestartCounter() {
     }
 

@@ -15,20 +15,14 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.lib.resources.users.SetStatusRemoteOperation
 import com.owncloud.android.lib.resources.users.StatusType
 
-class SetStatusTask(
-    val statusType: StatusType,
-    val account: Account?,
-    val context: Context?
-) : Function0<Boolean> {
-    override fun invoke(): Boolean {
-        return try {
-            val client = OwnCloudClientFactory.createNextcloudClient(account, context)
+class SetStatusTask(val statusType: StatusType, val account: Account?, val context: Context?) : Function0<Boolean> {
+    override fun invoke(): Boolean = try {
+        val client = OwnCloudClientFactory.createNextcloudClient(account, context)
 
-            SetStatusRemoteOperation(statusType).execute(client).isSuccess
-        } catch (e: AccountUtils.AccountNotFoundException) {
-            Log_OC.e(this, "Error setting status", e)
+        SetStatusRemoteOperation(statusType).execute(client).isSuccess
+    } catch (e: AccountUtils.AccountNotFoundException) {
+        Log_OC.e(this, "Error setting status", e)
 
-            false
-        }
+        false
     }
 }
