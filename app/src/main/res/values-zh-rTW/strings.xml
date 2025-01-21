@@ -739,7 +739,6 @@
     <string name="push_notifications_temp_error">推播通知目前無法使用。</string>
     <string name="qr_could_not_be_read">無法讀取 QR Code！</string>
     <string name="re_enable_auto_upload">自動上傳的變更</string>
-    <string name="re_enable_auto_upload_desc">由於 Google 施加了新的限制，我們不得不移除一個重要的權限。我們目前正與 Google 合作解決此問題，並恢復完整功能。\n\n要重新啟用自動上傳新圖片與影片的功能： \n在下列對話方塊或系統設定中選取「全部允許」。\n如果出現提示，請允許媒體位置，因為這允許 Nextcloud 在上傳圖片時儲存位置資料。\n\n只有在需要時，才會顯示權限對話方塊。如有疑問，請透過系統設定再次確認。\n\n自動上傳只能在使用 Google Play 版本的 Nextcloud 應用程式時上傳圖片與影片檔案。\n\n請檢查是否有自2024年12月以來的未上傳檔案。</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">找不到資料夾，同步操作已取消</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">找不到要上傳的檔案</string>
     <string name="recommend_subject">在您的裝置上試用 %1$s！</string>

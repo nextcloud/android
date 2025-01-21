@@ -739,7 +739,6 @@
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
     <string name="qr_could_not_be_read">QR kodu okunamadı!</string>
     <string name="re_enable_auto_upload">Otomatik yüklenecek değişiklikler</string>
-    <string name="re_enable_auto_upload_desc">Google\'ın getirdiği yeni kısıtlamalar nedeniyle önemli bir izni kaldırmak zorunda kaldık. Şu anda bu sorunu çözmek ve tam işlevselliği geri yüklemek için Google ile birlikte çalışıyoruz.\n\nYeni fotoğraf ve videolar için otomatik yüklemeyi yeniden etkinleştirmek için:\nAşağıdaki iletişim kutusunda veya sistem ayarlarında \"Tümüne izin ver\"i seçin.\nŞu durumlarda medya konumuna izin verin: Bu, Nextcloud\'un görselleri yüklerken konum verilerini depolamasına olanak tanıdığı için sorulur.\n\nİzin iletişim kutusu yalnızca gerektiğinde gösterilir. Şüpheniz varsa, lütfen sistem ayarları aracılığıyla tekrar kontrol edin.\n\nOtomatik yükleme, yalnızca Nextcloud uygulamasının Google Play sürümünü kullanırken resim ve video dosyalarını yükleyebilecektir.\n\nLütfen yüklenmemiş olabilecek dosyaları kontrol edin. Aralık 2024\'ten beri.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Klasör bulunamadı. Eşitleme işlemi iptal edildi</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Yüklenecek dosya bulunamadı</string>
     <string name="recommend_subject">%1$s uygulamasını aygıtınız üzerinde deneyin!</string>

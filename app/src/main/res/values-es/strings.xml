@@ -224,7 +224,7 @@
     <string name="delete_account">Eliminar cuenta</string>
     <string name="delete_entries">Eliminar entradas</string>
     <string name="delete_link">Eliminar enlace</string>
-    <string name="deselect_all">Desmarcar todos</string>
+    <string name="deselect_all">Deseleccionar todos</string>
     <string name="destination_filename">Nombre del archivo de destino</string>
     <string name="dev_version_new_version_available">Nueva versión disponible</string>
     <string name="dev_version_no_information_available">No hay información disponible</string>
