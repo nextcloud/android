@@ -36,8 +36,6 @@ import com.owncloud.android.utils.FileStorageUtils
 import com.owncloud.android.utils.FilesSyncHelper
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
-import com.owncloud.android.utils.SyncedFolderUtils.isFileNameQualifiedForAutoUpload
-import com.owncloud.android.utils.SyncedFolderUtils.isQualifiedFolder
 import java.io.File
 import java.text.ParsePosition
 import java.text.SimpleDateFormat
@@ -218,20 +216,6 @@ class FilesSyncWork(
         syncedFolderProvider.updateSyncFolder(syncedFolder)
     }
 
-    private fun getAllFiles(path: String): Set<File> {
-        return File(path).takeIf { it.exists() }
-            ?.walkTopDown()
-            ?.asSequence()
-            ?.filter { file ->
-                file.isFile &&
-                    file.exists() &&
-                    isQualifiedFolder(file.parentFile?.path) &&
-                    isFileNameQualifiedForAutoUpload(file.name)
-            }
-            ?.toSet()
-            ?: emptySet()
-    }
-
     @Suppress("LongMethod") // legacy code
     private fun uploadFilesFromFolder(
         context: Context,
@@ -259,12 +243,16 @@ class FilesSyncWork(
             null
         }
 
-        val files = getAllFiles(syncedFolder.localPath)
-        if (files.isEmpty()) {
+        val paths = filesystemDataProvider.getFilesForUpload(
+            syncedFolder.localPath,
+            syncedFolder.id.toString()
+        )
+        if (paths.isEmpty()) {
             return
         }
 
-        val pathsAndMimes = files.map { file ->
+        val pathsAndMimes = paths.map { path ->
+            val file = File(path)
             val localPath = file.absolutePath
             Triple(
                 localPath,
@@ -304,9 +292,9 @@ class FilesSyncWork(
             syncedFolder.nameCollisionPolicy
         )
 
-        for (file in files) {
+        for (path in paths) {
             filesystemDataProvider.updateFilesystemFileAsSentForUpload(
-                file.path,
+                path,
                 syncedFolder.id.toString()
             )
         }
