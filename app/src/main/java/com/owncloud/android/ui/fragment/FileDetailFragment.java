@@ -50,6 +50,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.FileDetailTabAdapter;
@@ -209,6 +210,10 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
             throw new IllegalArgumentException("Arguments may not be null");
         }
 
+        if (getActivity() instanceof DrawerActivity drawerActivity) {
+            drawerActivity.showBottomNavigationBar(false);
+        }
+
         setFile(BundleExtensionsKt.getParcelableArgument(arguments, ARG_FILE, OCFile.class));
         parentFolder = BundleExtensionsKt.getParcelableArgument(arguments, ARG_PARENT_FOLDER, OCFile.class);
         user = BundleExtensionsKt.getParcelableArgument(arguments, ARG_USER, User.class);
@@ -266,6 +271,14 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
 
             updateFileDetails(false, false);
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (getActivity() instanceof DrawerActivity drawerActivity) {
+            drawerActivity.showBottomNavigationBar(true);
+        }
+        super.onDestroy();
     }
 
     private void onOverflowIconClicked() {
