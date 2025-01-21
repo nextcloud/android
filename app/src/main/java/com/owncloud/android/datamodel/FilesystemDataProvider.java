@@ -14,11 +14,15 @@ import android.net.Uri;
 
 import com.owncloud.android.db.ProviderMeta;
 import com.owncloud.android.lib.common.utils.Log_OC;
+import com.owncloud.android.utils.SyncedFolderUtils;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.zip.CRC32;
 
 /**
@@ -111,6 +115,49 @@ public class FilesystemDataProvider {
                 Log_OC.v(TAG, "Failed to update filesystem data with local path: " + localPath);
             }
         }
+    }
+
+    public Set<String> getFilesForUpload(String localPath, String syncedFolderId) {
+        Set<String> localPathsToUpload = new HashSet<>();
+
+        String likeParam = localPath + "%";
+
+        Cursor cursor = contentResolver.query(
+            ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
+            null,
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
+                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?",
+            new String[]{likeParam, syncedFolderId, "0", "0"},
+            null);
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                do {
+                    String value = cursor.getString(cursor.getColumnIndexOrThrow(
+                        ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH));
+                    if (value == null) {
+                        Log_OC.e(TAG, "Cannot get local path");
+                    } else {
+                        File file = new File(value);
+                        if (!file.exists()) {
+                            Log_OC.d(TAG, "Ignoring file for upload (doesn't exist): " + value);
+                        } else if (!SyncedFolderUtils.isQualifiedFolder(file.getParent())) {
+                            Log_OC.d(TAG, "Ignoring file for upload (unqualified folder): " + value);
+                        } else if (!SyncedFolderUtils.isFileNameQualifiedForAutoUpload(file.getName())) {
+                            Log_OC.d(TAG, "Ignoring file for upload (unqualified file): " + value);
+                        } else {
+                            localPathsToUpload.add(value);
+                        }
+                    }
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+        }
+
+        return localPathsToUpload;
     }
 
     private FileSystemDataSet getFilesystemDataSet(String localPathParam, SyncedFolder syncedFolder) {
