@@ -30,7 +30,7 @@ import com.owncloud.android.lib.resources.files.model.GeoLocation;
 import com.owncloud.android.lib.resources.files.model.ImageDimension;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
-import com.owncloud.android.lib.resources.systemTag.SystemTag;
+import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.utils.MimeType;
 
 import java.io.File;
@@ -118,7 +118,7 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
     private long e2eCounter = -1;
     @Nullable
     private GeoLocation geolocation;
-    private List<SystemTag> tags = new ArrayList<>();
+    private List<Tag> tags = new ArrayList<>();
     private Long internalFolderSyncTimestamp = -1L;
     private String internalFolderSyncResult = "";
 
@@ -1048,11 +1048,11 @@ public class OCFile implements Parcelable, Comparable<OCFile>, ServerFileInterfa
         return geolocation;
     }
 
-    public List<SystemTag> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(List<SystemTag> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 

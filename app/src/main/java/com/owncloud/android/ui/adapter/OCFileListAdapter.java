@@ -64,7 +64,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.shares.ShareeUser;
-import com.owncloud.android.lib.resources.systemTag.SystemTag;
+import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.operations.RefreshFolderOperation;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.ui.activity.ComponentsGetter;
@@ -651,7 +651,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         configureThumbnail(holder, file);
     }
 
-    private void applyChipVisuals(Chip chip, SystemTag tag) {
+    private void applyChipVisuals(Chip chip, Tag tag) {
         viewThemeUtils.material.themeChipSuggestion(chip);
         chip.setText(tag.getName());
         
@@ -665,7 +665,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             chip.setChipStrokeColor(ColorStateList.valueOf(color));
             chip.setTextColor(color);
         } catch (IllegalArgumentException e) {
-            // do nothing
+            Log_OC.d(TAG, "Exception applyChipVisuals: " + e);
         }
     }
 
