@@ -243,6 +243,10 @@ class FilesSyncWork(
             null
         }
 
+        // Ensure only new files are processed for upload.
+        // Files that have been previously uploaded cannot be re-uploaded,
+        // even if they have been deleted or moved from the target folder,
+        // as they are already marked as uploaded in the database.
         val paths = filesystemDataProvider.getFilesForUpload(
             syncedFolder.localPath,
             syncedFolder.id.toString()
