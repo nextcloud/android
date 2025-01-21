@@ -12,6 +12,7 @@ package com.owncloud.android.ui.fragment;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,6 +51,7 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ToggleFavoriteRemoteOperation;
 import com.owncloud.android.lib.resources.shares.OCShare;
 import com.owncloud.android.lib.resources.shares.ShareType;
+import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.ui.activity.DrawerActivity;
 import com.owncloud.android.ui.activity.FileDisplayActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
@@ -241,9 +243,9 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (getFile().getTags().isEmpty()) {
             binding.tagsGroup.setVisibility(View.GONE);
         } else {
-            for (String tag : getFile().getTags()) {
+            for (Tag tag : getFile().getTags()) {
                 Chip chip = new Chip(context);
-                chip.setText(tag);
+                chip.setText(tag.getName());
                 chip.setChipBackgroundColor(ColorStateList.valueOf(getResources().getColor(R.color.bg_default,
                                                                                            context.getTheme())));
                 chip.setShapeAppearanceModel(chip.getShapeAppearanceModel().toBuilder().setAllCornerSizes((100.0f))
@@ -251,6 +253,13 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
                 chip.setEnsureMinTouchTargetSize(false);
                 chip.setClickable(false);
                 viewThemeUtils.material.themeChipSuggestion(chip);
+
+                if (tag.getColor() != null) {
+                    int color = Color.parseColor(tag.getColor());
+                    chip.setChipStrokeColor(ColorStateList.valueOf(color));
+                    chip.setTextColor(color);
+                }
+
                 binding.tagsGroup.addView(chip);
             }
         }
