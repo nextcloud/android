@@ -140,6 +140,7 @@
     <string name="clear_notifications_failed">Upozornění se nepodařilo vyčistit.</string>
     <string name="clear_status_message">Vyčistit stavovou zprávu</string>
     <string name="clear_status_message_after">Vyčistit stavovou zprávu po uplynutí</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Pro znovuzapnutí automatického nahrávání je třeba ručního zásahu</string>
     <string name="clipboard_label">Text zkopírován z %1$s</string>
     <string name="clipboard_no_text_to_copy">Neobdržen žádný text pro zkopírování do schránky</string>
     <string name="clipboard_text_copied">Odkaz zkopírován</string>
@@ -736,6 +737,8 @@
     <string name="push_notifications_old_login">Žádná push upozornění kvůli zastaralé relaci přihlášení. Zvažte odebrání a opětovné přidání svého účtu.</string>
     <string name="push_notifications_temp_error">Push upozornění momentálně nejsou k dispozici.</string>
     <string name="qr_could_not_be_read">QR kód se nepodařilo načíst!</string>
+    <string name="re_enable_auto_upload">Změny v automatickém nahrávání</string>
+    <string name="re_enable_auto_upload_desc">Kvůli omezením, nově zavedeným ze strany Google jsme byli nuceni odebrat důležité oprávnění. V tuto chvíli se s Google snažíme tento problém vyřešit a obnovit tak plnou funkčnost.\n\nPokud chcete znovu zapnout automatické nahrávání nových fotek a videí:\nVyberte „Umožnit vše“ v následujícím dialogu (nebo v nastavení systému).\nKdyž budete dotázání, povolte poloha médií, protože toto Nextcloud umožní ukládat při nahrávání obrázků údaje o poloze.\n\nDialog oprávnění se zobrazí pouze v případě potřeby. Pokud si nejste jistí, důkladně toto zkontrolujte v nastavení systému.\n\nAutomatické nahrávání bude moci nahrávat obrázky a videa pouze pokud používáte instalaci aplikace Nextcloud z Google Play.\n\nPodívejte se po jakýchkoli souborech, u kterých se mohlo stát, že nebyly od prosince 2024 nahrány. </string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Složku se nepodařilo nalézt – operace synchronizace je zrušena</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Nebylo možné nalézt soubor k nahrání</string>
     <string name="recommend_subject">Vyzkoušejte %1$s ve svém zařízení!</string>
