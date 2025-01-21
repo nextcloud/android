@@ -654,7 +654,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private void applyChipVisuals(Chip chip, Tag tag) {
         viewThemeUtils.material.themeChipSuggestion(chip);
         chip.setText(tag.getName());
-        
         String tagColor = tag.getColor();
         if (tagColor == null || tagColor.isEmpty()) {
             return;
