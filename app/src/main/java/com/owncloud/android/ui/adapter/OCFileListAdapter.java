@@ -587,7 +587,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             if (file.getTags().size() > 1) {
                 holder.getSecondTag().setVisibility(View.VISIBLE);
-                applyChipVisuals(holder.getSecondTag(),file.getTags().get(1));
+                applyChipVisuals(holder.getSecondTag(), file.getTags().get(1));
             }
 
             if (file.getTags().size() > 2) {
