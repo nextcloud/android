@@ -741,6 +741,16 @@ public class FileOperationsHelper {
         queueShareIntent(updateShareIntent);
     }
 
+    public void updateFilesDownloadLimit(OCShare share, int newLimit) {
+        Intent updateDownloadLimitIntent = new Intent(fileActivity, OperationsService.class);
+        updateDownloadLimitIntent.setAction(OperationsService.ACTION_UPDATE_FILES_DOWNLOAD_LIMIT);
+        updateDownloadLimitIntent.putExtra(OperationsService.EXTRA_ACCOUNT, fileActivity.getAccount());
+        updateDownloadLimitIntent.putExtra(OperationsService.EXTRA_SHARE_ID, share.getId());
+        updateDownloadLimitIntent.putExtra(OperationsService.EXTRA_FILES_DOWNLOAD_LIMIT, newLimit);
+
+        queueShareIntent(updateDownloadLimitIntent);
+    }
+
     /**
      * Helper method to update the share information
      *

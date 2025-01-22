@@ -68,6 +68,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
+import com.owncloud.android.operations.SetFilesDownloadLimitOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
@@ -414,7 +415,7 @@ public abstract class FileActivity extends DrawerActivity
             onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
         } else if (operation instanceof CreateShareWithShareeOperation) {
             onUpdateShareInformation(result, R.string.sharee_add_failed);
-        } else if (operation instanceof UpdateShareViaLinkOperation || operation instanceof UpdateShareInfoOperation) {
+        } else if (operation instanceof UpdateShareViaLinkOperation || operation instanceof UpdateShareInfoOperation || operation instanceof SetFilesDownloadLimitOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);
         } else if (operation instanceof UpdateSharePermissionsOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);

@@ -131,6 +131,10 @@ data class CapabilityEntity(
     val forbiddenFileNameExtensions: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES)
     val forbiddenFilenameBaseNames: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT)
+    val filesDownloadLimit: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT)
+    val filesDownloadLimitDefault: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_RECOMMENDATION)
     val recommendation: Int?
 )

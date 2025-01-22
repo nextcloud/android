@@ -199,6 +199,8 @@ public class ProviderMeta {
         public static final String OCSHARES_HIDE_DOWNLOAD = "hide_download";
         public static final String OCSHARES_SHARE_LINK = "share_link";
         public static final String OCSHARES_SHARE_LABEL = "share_label";
+        public static final String OCSHARES_DOWNLOADLIMIT_LIMIT = "download_limit_limit";
+        public static final String OCSHARES_DOWNLOADLIMIT_COUNT = "download_limit_count";
 
         public static final String OCSHARES_DEFAULT_SORT_ORDER = OCSHARES_FILE_SOURCE
             + " collate nocase asc";
@@ -268,6 +270,8 @@ public class ProviderMeta {
         public static final String CAPABILITIES_FORBIDDEN_FILENAMES = "forbidden_filenames";
         public static final String CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS = "forbidden_filename_extensions";
         public static final String CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES = "forbidden_filename_basenames";
+        public static final String CAPABILITIES_FILES_DOWNLOAD_LIMIT = "files_download_limit";
+        public static final String CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT = "files_download_limit_default";
 
         //Columns of Uploads table
         public static final String UPLOADS_LOCAL_PATH = "local_path";
