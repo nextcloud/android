@@ -35,11 +35,16 @@
     <string name="advanced_settings">Дополнительные настройки</string>
     <string name="allow_resharing">Разрешить повторную публикацию</string>
     <string name="app_config_base_url_title">Основной URL</string>
+    <string name="app_config_disable_clipboard_title">Отключить буфер обмена</string>
     <string name="app_config_disable_log_title">Отключить журнал</string>
+    <string name="app_config_disable_more_external_site_title">Отключить внешние сайты</string>
+    <string name="app_config_disable_multiaccount_title">Отключить мультиаккаунт</string>
+    <string name="app_config_disable_sharing_title">Отключить общий доступ</string>
     <string name="app_config_proxy_host_title">Адрес прокси-сервера</string>
     <string name="app_config_proxy_port_title">Порт прокси</string>
     <string name="app_widget_description">Показывает один виджет с главного экрана.</string>
     <string name="appbar_search_in">Искать в %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Добавить новую задачу</string>
     <string name="assistant_screen_all_task_type">Все</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Наберите какой-то текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Вы уверены, что хотите удалить эту задачу?</string>
@@ -57,6 +62,7 @@
     <string name="assistant_screen_task_delete_success_message">Задача удалена</string>
     <string name="assistant_screen_task_list_error_state_message">Не удается получить список задач, проверьте ваше подключение к Интернету.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Удалить задачу</string>
+    <string name="assistant_screen_task_output_empty_text">Вывод задания еще не готов.</string>
     <string name="assistant_screen_task_types_error_state_message">Не удается получить список задач, проверьте ваше подключение к Интернету.</string>
     <string name="assistant_screen_top_bar_title">Помощник</string>
     <string name="assistant_screen_unknown_task_status_text">Неизвестно</string>
@@ -96,6 +102,7 @@
     <string name="authenticator_activity_login_error">При обработке вашего запроса на вход возникла проблема. Пожалуйста, повторите попытку позже.</string>
     <string name="authenticator_activity_please_complete_login_process">Пожалуйста, завершите процесс входа в вашем браузере</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">оставлен в исходном каталоге, т.к. файл только для чтения</string>
+    <string name="auto_upload_gplay">Поведение автозагрузки изменено</string>
     <string name="auto_upload_on_wifi">Только через безлимит или Wi-Fi</string>
     <string name="auto_upload_path">/Автозагрузка</string>
     <string name="autoupload_configure">Настроить</string>
