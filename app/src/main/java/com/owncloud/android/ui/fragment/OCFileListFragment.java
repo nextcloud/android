@@ -15,6 +15,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +42,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
+import com.nextcloud.android.lib.resources.recommendations.GetRecommendationsRemoteOperation;
+import com.nextcloud.android.lib.resources.recommendations.Recommendation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -72,6 +75,7 @@ import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -248,6 +252,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
+    private final Set<Recommendation> recommendedFiles = new HashSet<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -383,6 +388,10 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mFileSelectable = args != null && args.getBoolean(ARG_FILE_SELECTABLE, false);
         mLimitToMimeType = args != null ? args.getString(ARG_MIMETYPE, "") : "";
 
+        if (getCapabilities().getRecommendations().isTrue()) {
+            fetchRecommendedFiles();
+        }
+
         setAdapter(args);
 
         mHideFab = args != null && args.getBoolean(ARG_HIDE_FAB, false);
@@ -431,6 +440,29 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(MainApp.isOnlyOnDevice(), false);
     }
 
+    private void fetchRecommendedFiles() {
+        new Thread(() -> {{
+            try {
+                User user = accountManager.getUser();
+                final var client = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), requireActivity());
+                final var result = new GetRecommendationsRemoteOperation().execute(client);
+                if (result.isSuccess()) {
+                    final var recommendations = result.getResultData().getRecommendations();
+                    recommendedFiles.addAll(recommendations);
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void run() {
+                            mAdapter.notifyItemChanged(0);
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                Log_OC.d(TAG,"Error caught at fetchRecommendedFiles");
+            }
+        }}).start();
+    }
+
     protected void setAdapter(Bundle args) {
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
@@ -443,7 +475,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             this,
             hideItemOptions,
             isGridViewPreferred(mFile),
-            viewThemeUtils
+            viewThemeUtils,
+            recommendedFiles
         );
 
         setRecyclerViewAdapter(mAdapter);
