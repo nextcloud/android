@@ -144,6 +144,8 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
     }
 
     fun showConnectionErrorNotification() {
+        notificationManager.cancel(getId())
+
         notificationBuilder.run {
             setContentTitle(context.getString(R.string.file_upload_worker_error_notification_title))
             setContentText("")
