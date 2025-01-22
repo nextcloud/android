@@ -167,6 +167,8 @@ class UploadNotificationManager(private val context: Context, viewThemeUtils: Vi
         }
     }
 
+    fun dismissErrorNotification() = notificationManager.cancel(FileUploadWorker.NOTIFICATION_ERROR_ID)
+
     fun dismissOldErrorNotification(remotePath: String, localPath: String) {
         notificationManager.cancel(
             NotificationUtils.createUploadNotificationTag(remotePath, localPath),
