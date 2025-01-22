@@ -24,9 +24,14 @@ object SyncedFolderUtils {
     )
     private val DISQUALIFIED_MEDIA_DETECTION_FILE_SET: Set<String> = DISQUALIFIED_MEDIA_DETECTION_SOURCE.toSet()
     private val AUTO_QUALIFYING_FOLDER_TYPE_SET: Set<MediaFolderType> = setOf(MediaFolderType.CUSTOM)
-    private const val THUMBNAIL_FOLDER_PREFIX = ".thumbnail"
-    private const val THUMBNAIL_DATA_FILE_PREFIX = ".thumbdata"
     private const val SINGLE_FILE = 1
+    private val EXCLUDE_PREFIXES = listOf(
+        ".thumbnail",
+        ".thumbdata",
+        ".trashed",
+        ".pending",
+        ".nomedia"
+    )
 
     /**
      * analyzes a given media folder if its content qualifies for the folder to be handled as a media folder.
@@ -105,7 +110,7 @@ object SyncedFolderUtils {
         }
         val folder = File(folderPath)
         // check if folder starts with thumbnail prefix
-        return folder.isDirectory && !folder.name.startsWith(THUMBNAIL_FOLDER_PREFIX)
+        return folder.isDirectory && !hasExcludePrefix(folder.name)
     }
 
     /**
@@ -129,7 +134,7 @@ object SyncedFolderUtils {
         return when {
             fileName != null -> {
                 !DISQUALIFIED_MEDIA_DETECTION_FILE_SET.contains(fileName.lowercase()) &&
-                    !fileName.startsWith(THUMBNAIL_DATA_FILE_PREFIX)
+                    !hasExcludePrefix(fileName)
             }
             else -> false
         }
@@ -147,5 +152,22 @@ object SyncedFolderUtils {
             .map { Pair(it, it.lastModified()) }
             .sortedBy { it.second }
             .map { it.first }
+    }
+
+    /**
+     * check if file or folder name has prefix in the list to exclude from auto upload
+     *
+     * @param name name of file to check
+     * @return `true` if file has one of the prefixes in EXCLUDE_FILENAME_PREFIXES
+     */
+    fun hasExcludePrefix(name: String?): Boolean {
+        if (name != null) {
+            EXCLUDE_PREFIXES.forEach {
+                if (name.startsWith(it)) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 }
