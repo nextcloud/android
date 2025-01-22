@@ -84,6 +84,8 @@ class LinkShareViewHolder extends RecyclerView.ViewHolder {
 
             binding.subline.setText(text);
             binding.subline.setVisibility(View.VISIBLE);
+        } else {
+            binding.subline.setVisibility(View.GONE);
         }
 
         String permissionName = SharingMenuHelper.getPermissionName(context, publicShare);

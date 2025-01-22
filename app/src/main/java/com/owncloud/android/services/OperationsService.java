@@ -742,7 +742,7 @@ public class OperationsService extends Service {
                         int newLimit = operationIntent.getIntExtra(EXTRA_FILES_DOWNLOAD_LIMIT, -1);
 
                         if (shareId > 0) {
-                            operation = new SetFilesDownloadLimitOperation(shareId, newLimit, fileDataStorageManager);
+                            operation = new SetFilesDownloadLimitOperation(shareId, newLimit, fileDataStorageManager, getApplicationContext());
                         }
                         break;
 

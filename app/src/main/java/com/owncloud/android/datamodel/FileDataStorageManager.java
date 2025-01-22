@@ -1561,6 +1561,9 @@ public class FileDataStorageManager {
         if (downloadLimit != null) {
             contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
             contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
+        } else {
+            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
+            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
         }
 
         return contentValues;
