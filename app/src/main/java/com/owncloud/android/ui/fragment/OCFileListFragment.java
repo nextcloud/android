@@ -436,6 +436,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(MainApp.isOnlyOnDevice(), false);
     }
 
+    // TODO - This can be replaced via separate class
     public void fetchRecommendedFiles() {
         new Thread(() -> {{
             try {
