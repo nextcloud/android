@@ -171,10 +171,16 @@ class FileUploadWorker(
     }
 
     private fun canExitEarly(): Boolean {
-        return !connectivityService.isConnected ||
+        val result = !connectivityService.isConnected ||
             connectivityService.isInternetWalled ||
             isStopped ||
             isAirplaneModeEnabled()
+
+        if (!result) {
+            notificationManager.dismissErrorNotification()
+        }
+
+        return result
     }
 
     private fun isAirplaneModeEnabled(): Boolean {
