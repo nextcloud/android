@@ -388,10 +388,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mFileSelectable = args != null && args.getBoolean(ARG_FILE_SELECTABLE, false);
         mLimitToMimeType = args != null ? args.getString(ARG_MIMETYPE, "") : "";
 
-        if (getCapabilities().getRecommendations().isTrue()) {
-            fetchRecommendedFiles();
-        }
-
         setAdapter(args);
 
         mHideFab = args != null && args.getBoolean(ARG_HIDE_FAB, false);
@@ -440,7 +436,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(MainApp.isOnlyOnDevice(), false);
     }
 
-    private void fetchRecommendedFiles() {
+    // TODO - This can be replaced via separate class
+    public void fetchRecommendedFiles() {
         new Thread(() -> {{
             try {
                 User user = accountManager.getUser();
@@ -448,6 +445,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                 final var result = new GetRecommendationsRemoteOperation().execute(client);
                 if (result.isSuccess()) {
                     final var recommendations = result.getResultData().getRecommendations();
+                    Log_OC.d(TAG,"Recommended files fetched size: " + recommendations.size());
                     recommendedFiles.addAll(recommendations);
                     requireActivity().runOnUiThread(new Runnable() {
                         @SuppressLint("NotifyDataSetChanged")
@@ -458,7 +456,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     });
                 }
             } catch (Exception e) {
-                Log_OC.d(TAG,"Error caught at fetchRecommendedFiles");
+                Log_OC.d(TAG,"Exception fetchRecommendedFiles: " + e);
             }
         }}).start();
     }

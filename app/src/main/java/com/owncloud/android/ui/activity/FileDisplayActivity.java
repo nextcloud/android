@@ -2371,11 +2371,19 @@ public class FileDisplayActivity extends FileActivity
 
     private void syncAndUpdateFolder(boolean ignoreETag, boolean ignoreFocus) {
         OCFileListFragment listOfFiles = getListOfFilesFragment();
-        if (listOfFiles != null && !listOfFiles.isSearchFragment()) {
-            OCFile folder = listOfFiles.getCurrentFile();
-            if (folder != null) {
-                startSyncFolderOperation(folder, ignoreETag, ignoreFocus);
-            }
+        if (listOfFiles == null || listOfFiles.isSearchFragment()) {
+            return;
+        }
+
+        OCFile folder = listOfFiles.getCurrentFile();
+        if (folder == null) {
+            return;
+        }
+
+        startSyncFolderOperation(folder, ignoreETag, ignoreFocus);
+
+        if (getCapabilities().getRecommendations().isTrue() && folder.isRootDirectory()) {
+            listOfFiles.fetchRecommendedFiles();
         }
     }
 
