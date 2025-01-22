@@ -1288,7 +1288,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         Thread t = new Thread(() -> {
             // fetch capabilities as early as possible
-            if ((getCapabilities() == null || getCapabilities().getAccountName() != null && getCapabilities().getAccountName().isEmpty())
+            final OCCapability capability = getCapabilities();
+            if ((capability == null || capability.getAccountName() == null || !capability.getAccountName().isEmpty())
                 && getStorageManager() != null) {
                 GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
                 getCapabilities.execute(getBaseContext());
