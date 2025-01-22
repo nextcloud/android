@@ -11,6 +11,10 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.view.View
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import com.zynksoftware.documentscanner.ScanActivity
 import com.zynksoftware.documentscanner.model.DocumentScannerErrorModel
 import com.zynksoftware.documentscanner.model.ScannerResults
@@ -20,8 +24,28 @@ import com.zynksoftware.documentscanner.ui.DocumentScanner
 class AppScanActivity : ScanActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        addSystemBarPaddings()
         DocumentScanner.init(this)
         addFragmentContentLayout()
+    }
+
+    private fun addSystemBarPaddings() {
+        if (window == null) {
+            return
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(window.decorView) { v: View, insets: WindowInsetsCompat ->
+            val bars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+
+            v.updatePadding(
+                left = bars.left,
+                top = bars.top,
+                right = bars.right,
+                bottom = bars.bottom
+            )
+
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     override fun onError(error: DocumentScannerErrorModel) {
