@@ -106,6 +106,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">mantense no cartafol orixinal, xa que é de só lectura</string>
     <string name="auto_upload_gplay">O comportamento do envío automático cambiou</string>
     <string name="auto_upload_gplay_desc">Por mor dás novas restricións impostas por Google, a función de envío automático xa non poderá retirar automaticamente os ficheiros enviados.</string>
+    <string name="auto_upload_gplay_desc2">Por mor ás novas restricións impostas por Google, vímonos obrigados a eliminar un permiso importante. Como resultado, o envío automático só poderá enviar ficheiros de imaxe e vídeo.\nAdemais, precisase dun novo permiso para acceder á información de localización das imaxes enviadas.\nAsegúrese de que o acceso multimedia estea definido como «Permitir todo sempre».</string>
     <string name="auto_upload_on_wifi">Enviar só con wifi sen límite de datos</string>
     <string name="auto_upload_path">/EnvíoAutomático</string>
     <string name="autoupload_configure">Configurar</string>
@@ -140,6 +141,7 @@
     <string name="clear_notifications_failed">Produciuse un fallo ao limpar as notificacións.</string>
     <string name="clear_status_message">Limpar a mensaxe de estado</string>
     <string name="clear_status_message_after">Limpar a mensaxe de estado após</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Precisase de intervención manual para volver activar o envío automático</string>
     <string name="clipboard_label">Texto copiado desde %1$s</string>
     <string name="clipboard_no_text_to_copy">Non se recibiu ningún texto para copiar no portapapeis</string>
     <string name="clipboard_text_copied">Ligazón copiada</string>
@@ -303,10 +305,10 @@
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Máis</string>
     <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_display_talk">Parlar</string>
     <string name="ecosystem_apps_more">Máis aplicacións de Nextcloud</string>
     <string name="ecosystem_apps_notes">Notas de Nextcloud</string>
-    <string name="ecosystem_apps_talk">Talk de Nextcloud</string>
+    <string name="ecosystem_apps_talk">Parlar de Nextcloud</string>
     <string name="email_pick_failed">Produciuse un fallo ao escoller o enderezo de correo.</string>
     <string name="encrypted">Definir como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar o cifrado</string>
@@ -641,6 +643,7 @@
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
     <string name="permission_storage_access">Precísanse permisos adicionais para enviar e descargar ficheiros.</string>
+    <string name="pick_contact_to_share_with">Escolla un contacto co que compartir</string>
     <string name="picture_set_as_no_app">Non se atopou unha aplicación coa que definir unha imaxe</string>
     <string name="pin_home">Fixar na pantalla de Inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
@@ -736,6 +739,8 @@
     <string name="push_notifications_old_login">Non dispón de notificacións emerxentes por mor dun acceso á sesión caducado. Considere volver engadir a súa conta.</string>
     <string name="push_notifications_temp_error">Actualmente non están dispoñíbeis as notificacións emerxentes.</string>
     <string name="qr_could_not_be_read">Non foi posíbel ler o código QR.</string>
+    <string name="re_enable_auto_upload">Cambios no envío automático</string>
+    <string name="re_enable_auto_upload_desc">Por mor das novas restricións impostas por Google, vímonos obrigados a eliminar un permiso importante. Estamos a traballar con Google para resolver este problema e restaurar a funcionalidade completa.\n\nPara volver activar o envío automático de novas fotos e vídeos:\nSeleccione «Permitir todo» no seguinte diálogo ou nos axustes do sistema.\nPermitir a localización multimedia cando sexa solicitado, xa que isto permite que Nextcloud almacene datos de localización ao enviar imaxes.\n\nO diálogo de permisos só se amosa cando é necesario. Se ten dúbidas, consulte os axustes do sistema.\n\nO envío automático só poderá enviar ficheiros de imaxes e vídeos cando utilice a versión de Google Play da aplicación de Nextcloud.\n\nComprobe se hai ficheiros que non fosen enviados desde decembro de 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Non é posíbel atopar o cartafol, a operación de sincronización foi cancelada</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Non é posíbel atopar o ficheiro para enviar</string>
     <string name="recommend_subject">Probe %1$s no seu dispositivo!</string>
@@ -992,6 +997,8 @@
     <string name="upload_file_dialog_title">Introduza o nome e o tipo do ficheiro a enviar</string>
     <string name="upload_files">Enviar ficheiros</string>
     <string name="upload_global_pause_title">Todos os envíos están en pausa</string>
+    <string name="upload_gplay">Cambios de permisos</string>
+    <string name="upload_gplay_desc">Precisase dun novo permiso para acceder á información de localización das imaxes enviadas.\nAsegúrese de que o acceso multimedia estea definido como «Permitir todo sempre».</string>
     <string name="upload_item_action_button">Botón da acción do envío de elemento</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">Non hai envíos dispoñíbeis</string>

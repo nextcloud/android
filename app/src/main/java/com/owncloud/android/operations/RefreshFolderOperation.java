@@ -36,9 +36,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.ReadFileRemoteOperation;
 import com.owncloud.android.lib.resources.files.ReadFolderRemoteOperation;
 import com.owncloud.android.lib.resources.files.model.RemoteFile;
-import com.owncloud.android.lib.resources.shares.GetSharesForFileRemoteOperation;
-import com.owncloud.android.lib.resources.shares.OCShare;
-import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.users.GetPredefinedStatusesRemoteOperation;
 import com.owncloud.android.lib.resources.users.PredefinedStatus;
@@ -817,28 +814,8 @@ public class RefreshFolderOperation extends RemoteOperation {
      * operation.
      */
     private RemoteOperationResult refreshSharesForFolder(OwnCloudClient client) {
-        RemoteOperationResult result;
-
-        // remote request
-        GetSharesForFileRemoteOperation operation =
-            new GetSharesForFileRemoteOperation(mLocalFolder.getRemotePath(), true, true);
-        result = operation.execute(client);
-
-        if (result.isSuccess()) {
-            // update local database
-            ArrayList<OCShare> shares = new ArrayList<>();
-            OCShare share;
-            for (Object obj : result.getData()) {
-                share = (OCShare) obj;
-
-                if (ShareType.NO_SHARED != share.getShareType()) {
-                    shares.add(share);
-                }
-            }
-            fileDataStorageManager.saveSharesInFolder(shares, mLocalFolder);
-        }
-
-        return result;
+        GetSharesForFileOperation operation = new GetSharesForFileOperation(mLocalFolder.getRemotePath(), true, true, fileDataStorageManager);
+        return operation.execute(client);
     }
 
     /**
