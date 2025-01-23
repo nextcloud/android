@@ -332,7 +332,7 @@ public class UploadListActivity extends FileActivity {
             dismissLoadingDialog();
             Account account = (Account) result.getData().get(0);
             if (!result.isSuccess()) {
-                requestCredentialsUpdate(this, account);
+                requestCredentialsUpdate(account);
 
             } else {
                 // already updated -> just retry!

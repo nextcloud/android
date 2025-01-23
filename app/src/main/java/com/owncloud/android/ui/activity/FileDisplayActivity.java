@@ -1415,7 +1415,7 @@ public class FileDisplayActivity extends FileActivity
                             } else {
                                 // TODO refactor and make common
                                 if (checkForRemoteOperationError(synchResult)) {
-                                    requestCredentialsUpdate(context);
+                                    requestCredentialsUpdate();
                                 } else {
                                     switch (synchResult.getCode()) {
                                         case SSL_RECOVERABLE_PEER_UNVERIFIED:
