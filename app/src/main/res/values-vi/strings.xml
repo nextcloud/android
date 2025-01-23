@@ -905,4 +905,4 @@
     <plurals name="items_selected_count">
         <item quantity="other">Đã chọn %d </item>
     </plurals>
-</resources>
+    </resources>

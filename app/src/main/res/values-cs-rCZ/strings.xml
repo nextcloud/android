@@ -262,6 +262,7 @@
     <string name="download_cannot_create_file">Nedaří se vytvořit místní soubor</string>
     <string name="download_download_invalid_local_file_name">Neplatný název pro místní soubor</string>
     <string name="download_latest_dev_version">Stáhnout si nejnovější vývojářskou verzi</string>
+    <string name="download_limit">Limit stahování</string>
     <string name="downloader_download_failed_content">Nepodařilo se stáhnout %1$s</string>
     <string name="downloader_download_failed_credentials_error">Stahování se nezdařilo, přihlaste se znovu</string>
     <string name="downloader_download_failed_ticker">Stahování se nezdařilo</string>
@@ -804,6 +805,7 @@
     <string name="share">Nasdílet</string>
     <string name="share_copy_link">Nasdílet a zkopírovat odkaz</string>
     <string name="share_dialog_title">Sdílení</string>
+    <string name="share_download_limit">Nastavit limit pro stahování</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Platnost skončí %1$s</string>
     <string name="share_file">Nasdílet %1$s</string>
@@ -1216,4 +1218,4 @@
         <item quantity="many">%d vybraných</item>
         <item quantity="other">%d vybrané</item>
     </plurals>
-</resources>
+    </resources>

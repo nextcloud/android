@@ -736,4 +736,4 @@
         <item quantity="few">%d odabrana</item>
         <item quantity="other">%d odabranih</item>
     </plurals>
-</resources>
+    </resources>

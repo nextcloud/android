@@ -263,6 +263,7 @@
     <string name="download_cannot_create_file">A helyi fájlt nem lehet létrehozni</string>
     <string name="download_download_invalid_local_file_name">Érvénytelen fájlnév a helyi fájlhoz</string>
     <string name="download_latest_dev_version">A legfrissebb fejlesztői verzió letöltése</string>
+    <string name="download_limit">Letöltési korlát</string>
     <string name="downloader_download_failed_content">%1$s letöltése sikertelen</string>
     <string name="downloader_download_failed_credentials_error">Letöltés sikertelen, jelentkezzen be újra</string>
     <string name="downloader_download_failed_ticker">Letöltés sikertelen</string>
@@ -787,6 +788,7 @@
     <string name="setup_e2e">A végpontok közti titkosítás beállítása során kap egy 12 véletlenszerű szóból álló mnemonikus kódot, amelyre akkor lesz szüksége, ha más eszközökön akarja megnyitni a fájlokat. Ez csak ezen az eszközön lesz tárolva, és újra megjeleníthető ezen a képernyőn. Jegyezze le, és tárolja biztonságos helyen!</string>
     <string name="share">Megosztás</string>
     <string name="share_dialog_title">Megosztás</string>
+    <string name="share_download_limit">Letöltési korlát beállítása</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Lejárat: %1$s</string>
     <string name="share_file">%1$s megosztása</string>
@@ -1108,4 +1110,4 @@
         <item quantity="one">%d kiválasztva</item>
         <item quantity="other">%d kiválasztva</item>
     </plurals>
-</resources>
+    </resources>

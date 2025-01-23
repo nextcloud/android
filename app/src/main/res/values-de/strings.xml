@@ -263,6 +263,7 @@
     <string name="download_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
     <string name="download_download_invalid_local_file_name">Ungültiger Dateiname für lokale Datei</string>
     <string name="download_latest_dev_version">Die neueste Entwicklerversion herunterladen</string>
+    <string name="download_limit">Download-Limit</string>
     <string name="downloader_download_failed_content">Konnte %1$s nicht herunterladen</string>
     <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
@@ -806,6 +807,7 @@
     <string name="share">Teilen</string>
     <string name="share_copy_link">Teilen und Link kopieren</string>
     <string name="share_dialog_title">Teilen</string>
+    <string name="share_download_limit">Download-Limit festlegen</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Läuft am %1$s ab</string>
     <string name="share_file">Teile %1$s</string>
@@ -1179,4 +1181,4 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
-</resources>
+    </resources>

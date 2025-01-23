@@ -974,4 +974,4 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <plurals name="items_selected_count">
         <item quantity="other">%d dipilih</item>
     </plurals>
-</resources>
+    </resources>

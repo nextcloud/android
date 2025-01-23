@@ -263,6 +263,7 @@
     <string name="download_cannot_create_file">Kan inte skapa lokal fil</string>
     <string name="download_download_invalid_local_file_name">Ogiltigt filnamn för lokal fil</string>
     <string name="download_latest_dev_version">Hämta senaste utvecklingsversionen</string>
+    <string name="download_limit">Hämtningsbegränsning</string>
     <string name="downloader_download_failed_content">Kunde inte hämta %1$s</string>
     <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
     <string name="downloader_download_failed_ticker">Hämtning misslyckades</string>
@@ -807,6 +808,7 @@
     <string name="share">Dela</string>
     <string name="share_copy_link">Dela och kopiera länk</string>
     <string name="share_dialog_title">Dela</string>
+    <string name="share_download_limit">Ställ in nedladdningsgräns</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Gick ut %1$s</string>
     <string name="share_file">Dela %1$s</string>
@@ -1180,4 +1182,4 @@
         <item quantity="one">%d vald</item>
         <item quantity="other">%d vald</item>
     </plurals>
-</resources>
+    </resources>

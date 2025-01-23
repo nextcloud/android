@@ -263,6 +263,7 @@
     <string name="download_cannot_create_file">Nieje možné vytvoriť lokálny súbor</string>
     <string name="download_download_invalid_local_file_name">Nesprávny názov pre lokálny súbor</string>
     <string name="download_latest_dev_version">Stiahnuť poslednú vývojársku verziu</string>
+    <string name="download_limit">Limit sťahovania</string>
     <string name="downloader_download_failed_content">Nepodarilo sa stiahnuť %1$s</string>
     <string name="downloader_download_failed_credentials_error">Sťahovanie neúspešné, je potrebné sa znovu prihlásiť</string>
     <string name="downloader_download_failed_ticker">Stiahnutie zlyhalo</string>
@@ -805,6 +806,7 @@
     <string name="share">Zdieľať</string>
     <string name="share_copy_link">Zdieľať a Kopírovať Odkaz</string>
     <string name="share_dialog_title">Sprístupnenie</string>
+    <string name="share_download_limit">Nastaviť limit sťahovania</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vyprší %1$s</string>
     <string name="share_file">Sprístupni %1$s</string>
@@ -1218,4 +1220,4 @@
         <item quantity="many">%d vybraných</item>
         <item quantity="other">%d vybraných</item>
     </plurals>
-</resources>
+    </resources>

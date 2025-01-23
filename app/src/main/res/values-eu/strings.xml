@@ -261,6 +261,7 @@
     <string name="download_cannot_create_file">Ezin da sortu fitxategi lokala</string>
     <string name="download_download_invalid_local_file_name">Fitxategi-izen baliogabea fitxategi lokalerako</string>
     <string name="download_latest_dev_version">Deskargatu azken garapen bertsioa</string>
+    <string name="download_limit">Deskarga-muga</string>
     <string name="downloader_download_failed_content">Ezin izan da %1$s deskargatu</string>
     <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
     <string name="downloader_download_failed_ticker">Deskargak huts egin du</string>
@@ -802,6 +803,7 @@
     <string name="share">Partekatu</string>
     <string name="share_copy_link">Partekatu eta kopiatu esteka</string>
     <string name="share_dialog_title">Partekatzea</string>
+    <string name="share_download_limit">Ezarri deskarga muga</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Iraungitzen da %1$s</string>
     <string name="share_file">Partekatu %1$s</string>
@@ -1173,4 +1175,4 @@
         <item quantity="one">aukeratuta %d</item>
         <item quantity="other">%d aukeratuta</item>
     </plurals>
-</resources>
+    </resources>

@@ -263,6 +263,7 @@
     <string name="download_cannot_create_file">Не могу да направим локални фајл</string>
     <string name="download_download_invalid_local_file_name">Неисправно име за локални фајл</string>
     <string name="download_latest_dev_version">Преузмите најновију развојну верзију</string>
+    <string name="download_limit">Ограничење преузимања</string>
     <string name="downloader_download_failed_content">Не могу да преузмем %1$s</string>
     <string name="downloader_download_failed_credentials_error">Неуспешно преузимање. Поново се пријавите</string>
     <string name="downloader_download_failed_ticker">Преузимање није успело</string>
@@ -806,6 +807,7 @@
     <string name="share">Подели</string>
     <string name="share_copy_link">Дели и копирај линк</string>
     <string name="share_dialog_title">Дељење</string>
+    <string name="share_download_limit">Podesite ograničenje preuzimanja</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истиче %1$s</string>
     <string name="share_file">Подели %1$s</string>
@@ -1199,4 +1201,4 @@
         <item quantity="few">%d одабрана</item>
         <item quantity="other">%d одабраних</item>
     </plurals>
-</resources>
+    </resources>

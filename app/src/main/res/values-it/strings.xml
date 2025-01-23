@@ -259,6 +259,7 @@
     <string name="download_cannot_create_file">Impossibile creare il file locale</string>
     <string name="download_download_invalid_local_file_name">Nome file non valido per il file locale</string>
     <string name="download_latest_dev_version">Scarica l\'ultima versione di sviluppo</string>
+    <string name="download_limit">Limite di scaricamento</string>
     <string name="downloader_download_failed_content">Impossibile scaricare %1$s</string>
     <string name="downloader_download_failed_credentials_error">Scaricamento non riuscito, effettua nuovamente l\'accesso</string>
     <string name="downloader_download_failed_ticker">Scaricamento non riuscito</string>
@@ -799,6 +800,7 @@
     <string name="share">Condividi</string>
     <string name="share_copy_link">Condividi e copia il collegamento</string>
     <string name="share_dialog_title">Condivisione</string>
+    <string name="share_download_limit">Imposta il limite di scaricamento</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Scade il %1$s</string>
     <string name="share_file">Condividi %1$s</string>
@@ -1170,4 +1172,4 @@
         <item quantity="many">%d selezionati</item>
         <item quantity="other">%d selezionati</item>
     </plurals>
-</resources>
+    </resources>

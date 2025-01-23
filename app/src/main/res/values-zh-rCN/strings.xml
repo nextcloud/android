@@ -261,6 +261,7 @@
     <string name="download_cannot_create_file">无法新建本地文件</string>
     <string name="download_download_invalid_local_file_name">无效的文件名</string>
     <string name="download_latest_dev_version">下载最新的开发版本</string>
+    <string name="download_limit">下载限制</string>
     <string name="downloader_download_failed_content">无法下载 %1$s</string>
     <string name="downloader_download_failed_credentials_error">下载失败，请重新登录</string>
     <string name="downloader_download_failed_ticker">下载失败</string>
@@ -1175,4 +1176,4 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <plurals name="items_selected_count">
         <item quantity="other">已选择 %d 个</item>
     </plurals>
-</resources>
+    </resources>

@@ -202,6 +202,7 @@
     <string name="dontClear">Ne briši</string>
     <string name="download_cannot_create_file">Nije moguće stvoriti lokalnu datoteku</string>
     <string name="download_latest_dev_version">Preuzmi najnoviju razvojnu inačicu</string>
+    <string name="download_limit">Ograničenje preuzimanja</string>
     <string name="downloader_download_failed_content">Nije moguće preuzeti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Preuzimanje nije uspjelo, ponovno se prijavite</string>
     <string name="downloader_download_failed_ticker">Preuzimanje nije uspjelo</string>
@@ -941,4 +942,4 @@
         <item quantity="few">Odabrano je %d</item>
         <item quantity="other">Odabrano je %d</item>
     </plurals>
-</resources>
+    </resources>

@@ -196,6 +196,7 @@
     <string name="dontClear">Не го тргај</string>
     <string name="download_cannot_create_file">Неможе да се креира локална датотека</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
+    <string name="download_limit">Ограничување на преземање</string>
     <string name="downloader_download_failed_content">%1$s неможе да се превземе</string>
     <string name="downloader_download_failed_credentials_error">Преземањето не беше успешно, најавете се повторно</string>
     <string name="downloader_download_failed_ticker">Преземањето не беше успешно</string>
@@ -571,6 +572,7 @@
     <string name="set_status_message">Постави статус порака</string>
     <string name="share">Сподели</string>
     <string name="share_dialog_title">Споделување</string>
+    <string name="share_download_limit">Постави лимит за преземања</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истекува на %1$s</string>
     <string name="share_file">Сподели %1$s</string>
@@ -816,4 +818,4 @@
         <item quantity="one">%d означена</item>
         <item quantity="other">%d означени</item>
     </plurals>
-</resources>
+    </resources>

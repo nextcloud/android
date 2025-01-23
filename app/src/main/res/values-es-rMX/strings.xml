@@ -1097,4 +1097,4 @@
         <item quantity="many">%d seleccionados</item>
         <item quantity="other">%d seleccionados</item>
     </plurals>
-</resources>
+    </resources>

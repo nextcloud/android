@@ -666,6 +666,7 @@
     <string name="setup_e2e">Al configurar la encriptación de extremo a extremo, recibirás un memónico aleatorio de 12 palabras, que necesitarás para abrir tus archivos en otros dispositivos. Este solo se almacenará en este dispositivo y se puede mostrar nuevamente en esta pantalla. ¡Tómalo nota en un lugar seguro!</string>
     <string name="share">Compartir</string>
     <string name="share_dialog_title">Compartiendo</string>
+    <string name="share_download_limit">Establecer límite de descarga</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vence %1$s</string>
     <string name="share_file">Compartir %1$s</string>
@@ -990,4 +991,4 @@
         <item quantity="many">%d seleccionado</item>
         <item quantity="other">%d seleccionado</item>
     </plurals>
-</resources>
+    </resources>

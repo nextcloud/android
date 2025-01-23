@@ -249,6 +249,7 @@
     <string name="download_cannot_create_file">No se puede crear el archivo local</string>
     <string name="download_download_invalid_local_file_name">Nombre de archivo inválido para archivo local</string>
     <string name="download_latest_dev_version">Descargar la última versión de desarrollo</string>
+    <string name="download_limit">Límite de descargas</string>
     <string name="downloader_download_failed_content">No se ha podido descargar %1$s</string>
     <string name="downloader_download_failed_credentials_error">Descarga fallida, vuelve a iniciar sesión</string>
     <string name="downloader_download_failed_ticker">Fallo al descargar</string>
@@ -781,6 +782,7 @@
     <string name="share">Compartir</string>
     <string name="share_copy_link">Compartir y copiar enlace</string>
     <string name="share_dialog_title">Compartir</string>
+    <string name="share_download_limit">Establecer el límite de descarga</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Caduca el %1$s</string>
     <string name="share_file">Compartir %1$s</string>
@@ -1150,4 +1152,4 @@
         <item quantity="many">%d seleccionados</item>
         <item quantity="other">%d seleccionados</item>
     </plurals>
-</resources>
+    </resources>

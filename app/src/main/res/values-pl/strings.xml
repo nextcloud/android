@@ -261,6 +261,7 @@
     <string name="download_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
     <string name="download_download_invalid_local_file_name">Nieprawidłowa nazwa pliku lokalnego</string>
     <string name="download_latest_dev_version">Pobierz najnowszą wersję dev</string>
+    <string name="download_limit">Limit pobierania</string>
     <string name="downloader_download_failed_content">Nie udało się pobrać %1$s</string>
     <string name="downloader_download_failed_credentials_error">Pobieranie nieudane, zaloguj się ponownie</string>
     <string name="downloader_download_failed_ticker">Pobieranie nie powiodło się</string>
@@ -800,6 +801,7 @@
     <string name="share">Udostępnij</string>
     <string name="share_copy_link">Udostępnij i skopiuj odnośnik</string>
     <string name="share_dialog_title">Udostępnianie</string>
+    <string name="share_download_limit">Ustaw limit pobierania</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Wygaśnie o %1$s</string>
     <string name="share_file">Udostępnij %1$s</string>
@@ -1187,4 +1189,4 @@
         <item quantity="many">%d wybranych</item>
         <item quantity="other">%d wybranych</item>
     </plurals>
-</resources>
+    </resources>
