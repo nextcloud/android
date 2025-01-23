@@ -105,7 +105,7 @@ android {
 
     defaultConfig {
         applicationId "com.nextcloud.client"
-        minSdkVersion 24
+        minSdkVersion 25
         targetSdkVersion 35
         compileSdk 35
 
