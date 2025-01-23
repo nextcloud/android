@@ -746,6 +746,7 @@
     <string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone</string>
     <string name="recommend_text">Ich empfehle Ihnen %1$s auf Ihrem Smartphone zu nutzen.\nHerunterladen: %2$s</string>
     <string name="recommend_urls">%1$s oder %2$s</string>
+    <string name="recommended_files_title">Empfohlene Dateien</string>
     <string name="refresh_content">Inhalt aktualisieren</string>
     <string name="reload">Neu laden</string>
     <string name="remote">(entfernt)</string>
@@ -1181,4 +1182,8 @@
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d verbleibender Download</item>
+        <item quantity="other">%1$d verbleibende Downloads</item>
+    </plurals>
+</resources>

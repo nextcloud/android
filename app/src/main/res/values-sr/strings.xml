@@ -746,6 +746,7 @@
     <string name="recommend_subject">Испробај %1$s на свом уређају!</string>
     <string name="recommend_text">Желим да те позовем да испробаш %1$s на свом уређају.\nПреузми га овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="recommended_files_title">Препоручени фајлови</string>
     <string name="refresh_content">Освежи садржај</string>
     <string name="reload">Поново учитај</string>
     <string name="remote">(удаљено)</string>
@@ -1201,4 +1202,9 @@
         <item quantity="few">%d одабрана</item>
         <item quantity="other">%d одабраних</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">преостаје још %1$d преузимање</item>
+        <item quantity="few">преостаје још %1$d преузимања</item>
+        <item quantity="other">преостаје још %1$d преузимања</item>
+    </plurals>
+</resources>

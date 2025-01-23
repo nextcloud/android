@@ -747,6 +747,7 @@
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
     <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nHämta här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="recommended_files_title">Rekommenderade filer</string>
     <string name="refresh_content">Återinläs innhåll</string>
     <string name="reload">Uppdatera</string>
     <string name="remote">(avlägsen)</string>
@@ -1182,4 +1183,8 @@
         <item quantity="one">%d vald</item>
         <item quantity="other">%d vald</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d återstående nedladdning</item>
+        <item quantity="other">%1$d återstående nedladdningar</item>
+    </plurals>
+</resources>
