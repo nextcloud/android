@@ -142,6 +142,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private static boolean mOnlyOnDevice;
     private static boolean mOnlyPersonalFiles;
 
+    
     @Inject
     protected AppPreferences preferences;
 
