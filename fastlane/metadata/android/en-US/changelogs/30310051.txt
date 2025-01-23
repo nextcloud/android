@@ -1,0 +1,15 @@
+## 3.31.0 RC1 (January 23, 2025)
+
+- Minimum supported version is Android 7.1
+- Minimum supported server version is Nextcloud 18
+- Add support for Nextcloud 31
+- Add Android 15 support
+- Add recommended files support
+- Add files download limit support
+- Support colored tags
+- Improve RTL support
+- Bugfixes
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/100
