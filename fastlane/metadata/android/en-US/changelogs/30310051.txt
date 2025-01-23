@@ -2,6 +2,7 @@
 
 - Minimum supported version is Android 7.1
 - Minimum supported server version is Nextcloud 18
+- Add support for Nextcloud 31
 - Add Android 15 support
 - Add recommended files support
 - Add files download limit support
