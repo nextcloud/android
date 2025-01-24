@@ -47,17 +47,11 @@
     <string name="app_widget_description">Viser én widget fra dashboard</string>
     <string name="appbar_search_in">Søg i %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Tilføj en ny opgave</string>
-    <string name="assistant_screen_all_task_type">Alle</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv noget tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Er du sikker på du vil slette denne opgave?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Slet opgave</string>
-    <string name="assistant_screen_failed_task_text">Mislykkede</string>
     <string name="assistant_screen_loading">Opgavelisten indlæser, vent venligst</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Ingen opgaver tilgængelige. Vælg en opgavetype for at oprette en ny opgave.</string>
     <string name="assistant_screen_no_task_available_text">Ingen opgave tilgænge for %s opgavetype. Du kan oprette en ny opgave via bunden til højre.</string>
-    <string name="assistant_screen_running_task_text">I gang</string>
-    <string name="assistant_screen_scheduled_task_status_text">Planlagt</string>
-    <string name="assistant_screen_successful_task_text">Fuldført</string>
     <string name="assistant_screen_task_create_fail_message">En fejl opstod under oprettelse af opgaven</string>
     <string name="assistant_screen_task_create_success_message">Opgaven er oprettet</string>
     <string name="assistant_screen_task_delete_fail_message">En fejl opstod under sletning af opgaven</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Opgaveoutputtet er endnu ikke klar.</string>
     <string name="assistant_screen_task_types_error_state_message">Kan ikke hente opgavetyper. Kontroller venligst din internetforbindelse.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
-    <string name="assistant_screen_unknown_task_status_text">Ukendt</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
     <string name="associated_account_not_found">Forbundet konto blev ikke fundet!</string>
@@ -194,7 +187,6 @@
     <string name="confirmation_remove_folders_alert">Er du sikker på at du vil slette de valgte artikler med indhold?</string>
     <string name="confirmation_remove_local">Kun lokal</string>
     <string name="conflict_dialog_error">Konfliktløserdialog kan ikke oprettes</string>
-    <string name="conflict_file_headline">Fil i konflikt %1$s</string>
     <string name="conflict_folder_headline">Mappekonflikt</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Hvis du vælger begge versioner, vil den lokale fil få tilføjet et nummer til sit navn.</string>
@@ -436,7 +428,6 @@
     <string name="file_name_validator_error_invalid_character">Navn indeholde ugyldige karakterer: %s</string>
     <string name="file_name_validator_error_reserved_names">%s er et forbudt navnforbidden name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Omdøb venligst filen inden du flytter eller kopierer</string>
-    <string name="file_name_validator_upload_content_error">Noget indhold kan ikke uploades, da det indeholder reserverede navne eller ugyldige karakterer</string>
     <string name="file_not_found">Fil ikke fundet</string>
     <string name="file_not_synced">Filen kunne ikke synkroniseres. Viser senest tilgængelige version.</string>
     <string name="file_rename">Omdøb</string>
@@ -503,7 +494,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">i mappen %1$s</string>
     <string name="instant_upload_existing">Send også eksisterende filer</string>
     <string name="instant_upload_on_charging">Upload kun under opladning</string>
     <string name="instant_upload_path">/Øjeblikkelig upload</string>
@@ -713,7 +703,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app anbefalinger i navigationspanelet</string>
     <string name="prefs_show_hidden_files">Vis skjulte filer</string>
     <string name="prefs_sourcecode">Hent kildetekst</string>
-    <string name="prefs_storage_path">Lagringsmappe for data</string>
     <string name="prefs_sycned_folders_summary">Administrér mapper til auto upload</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mappe</string>
     <string name="prefs_synced_folders_remote_path_title">Ekstern mappe</string>
@@ -762,7 +751,6 @@ Enheds legitimationsoplysninger er sat op
     <string name="request_account_deletion_button">Anmod om sletning</string>
     <string name="request_account_deletion_details">Efterspørg permanent sletning af konto hos serviceudbyder</string>
     <string name="resharing_is_not_allowed">Politik eller rettigheder forhindrer gen-deling</string>
-    <string name="resized_image_not_possible_download">Intet skaleret billede tilgængeligt. Hent fuldt billede?</string>
     <string name="restore">Genskab fil</string>
     <string name="restore_backup">Gendan backup</string>
     <string name="restore_button_description">Genskab slettet fil</string>

@@ -38,17 +38,11 @@
     <string name="app_config_proxy_port_title">프록시 포트</string>
     <string name="app_widget_description">대시보드에 위젯 하나만 표시</string>
     <string name="appbar_search_in">%s에서 검색</string>
-    <string name="assistant_screen_all_task_type">모두</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">텍스트 입력</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">이 작업을 삭제하시겠습니까?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">작업 삭제</string>
-    <string name="assistant_screen_failed_task_text">실패</string>
     <string name="assistant_screen_loading">작업 목록을 로드하는 중입니다. 잠시 기다려 주세요.</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">사용할 수 있는 작업이 없습니다. 새 작업을 생성하려면 작업 유형을 선택하세요.</string>
     <string name="assistant_screen_no_task_available_text">%s작업 유형을 위해 사용 가능한 작업이 없습니다, 오른쪽 하단에서 새 작업을 만들 수 있습니다.</string>
-    <string name="assistant_screen_running_task_text">진행 중</string>
-    <string name="assistant_screen_scheduled_task_status_text">예정됨</string>
-    <string name="assistant_screen_successful_task_text">완료됨</string>
     <string name="assistant_screen_task_create_fail_message">작업을 생성하는 중에 오류가 발생했습니다.</string>
     <string name="assistant_screen_task_create_success_message">작업이 성공적으로 생성됨</string>
     <string name="assistant_screen_task_delete_fail_message">작업을 삭제하는 중에 오류가 발생했습니다.</string>
@@ -57,7 +51,6 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">작업 삭제</string>
     <string name="assistant_screen_task_types_error_state_message">작업 유형을 가져올 수 없습니다. 인터넷 연결을 확인하세요.</string>
     <string name="assistant_screen_top_bar_title">어시스턴트</string>
-    <string name="assistant_screen_unknown_task_status_text">알 수 없음</string>
     <string name="assistant_task_detail_screen_input_button_title">입력</string>
     <string name="assistant_task_detail_screen_output_button_title">출력</string>
     <string name="associated_account_not_found">관련 계정을 찾을 수 없습니다!</string>
@@ -181,7 +174,6 @@
     <string name="confirmation_remove_folders_alert">선택한 항목과 포함된 내용을 삭제하시겠습니까?</string>
     <string name="confirmation_remove_local">로컬만</string>
     <string name="conflict_dialog_error">충돌 해결 프로그램 대화 상자를 만들 수 없습니다.</string>
-    <string name="conflict_file_headline">충돌하는 파일 %1$s</string>
     <string name="conflict_folder_headline">폴더 충돌</string>
     <string name="conflict_local_file">로컬 파일</string>
     <string name="conflict_message_description">두 버전을 모두 선택하면 기존 파일 이름에 번호가 추가됩니다.</string>
@@ -477,7 +469,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s초</string>
-    <string name="in_folder">%1$s 폴더 안에</string>
     <string name="instant_upload_existing">이미 존재하는 파일도 올리기</string>
     <string name="instant_upload_on_charging">충전 중에만 업로드</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -665,7 +656,6 @@
     <string name="prefs_show_ecosystem_apps_summary">탐색창 상단에 표시되는 Nextcloud 앱 제안</string>
     <string name="prefs_show_hidden_files">숨겨진 파일 보기</string>
     <string name="prefs_sourcecode">소스 코드 보기</string>
-    <string name="prefs_storage_path">데이터 저장 폴더</string>
     <string name="prefs_sycned_folders_summary">자동 업로드를 위한 폴더 관리</string>
     <string name="prefs_synced_folders_local_path_title">로컬 폴더</string>
     <string name="prefs_synced_folders_remote_path_title">원격 폴더</string>
@@ -707,7 +697,6 @@
     <string name="request_account_deletion">계정 삭제 요청</string>
     <string name="request_account_deletion_button">삭제 요청</string>
     <string name="request_account_deletion_details">서비스 제공자에게 계정 영구 삭제 요청</string>
-    <string name="resized_image_not_possible_download">크기 조정된 사진을 사용할 수 없습니다. 원본 크기로 다운로드하시겠습니까?</string>
     <string name="restore">파일 복구</string>
     <string name="restore_backup">백업 복구</string>
     <string name="restore_button_description">삭제된 파일 복구</string>

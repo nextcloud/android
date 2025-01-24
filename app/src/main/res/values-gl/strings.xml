@@ -47,17 +47,11 @@
     <string name="app_widget_description">Amosa un trebello do taboleiro</string>
     <string name="appbar_search_in">Buscar en %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Engadir unha nova tarefa</string>
-    <string name="assistant_screen_all_task_type">Todo</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algún texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Confirma que quere eliminar esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarefa</string>
-    <string name="assistant_screen_failed_task_text">Fallado</string>
     <string name="assistant_screen_loading">Estase a cargar a lista de tarefas, agarde</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Non hai ningunha tarefa dispoñíbel. Seleccione un tipo de tarefa para crear unha nova tarefa.</string>
     <string name="assistant_screen_no_task_available_text">Non hai ningunha tarefa dispoñible para o tipo de tarefa %s, pode crear unha nova desde a parte inferior dereita.</string>
-    <string name="assistant_screen_running_task_text">En proceso</string>
-    <string name="assistant_screen_scheduled_task_status_text">Programado</string>
-    <string name="assistant_screen_successful_task_text">Completado</string>
     <string name="assistant_screen_task_create_fail_message">Produciuse un erro ao crear a tarefa</string>
     <string name="assistant_screen_task_create_success_message">A tarefa creouse satisfactoriamente</string>
     <string name="assistant_screen_task_delete_fail_message">Produciuse un erro ao eliminar a tarefa</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">A saída da tarefa aínda non está preparada.</string>
     <string name="assistant_screen_task_types_error_state_message">Non é posíbel recuperar os tipos de tarefas. Comprobe a conexión a Internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
-    <string name="assistant_screen_unknown_task_status_text">Descoñecido</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Saída</string>
     <string name="associated_account_not_found">Non se atopou unha conta asociada!</string>
@@ -196,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">Confirma que quere eliminar os elementos seleccionados e o seu contido?</string>
     <string name="confirmation_remove_local">Só local</string>
     <string name="conflict_dialog_error">Non é posíbel crear o diálogo de resolución de conflitos</string>
-    <string name="conflict_file_headline">Ficheiro en conflito %1$s</string>
     <string name="conflict_folder_headline">Conflito de cartafol</string>
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecciona ambas versións, o ficheiro local terá un número engadido ao nome.</string>
@@ -438,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">O nome contén caracteres non válidos: %s</string>
     <string name="file_name_validator_error_reserved_names">%s é un nome prohibido.</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Cambie o nome do ficheiro antes de mover ou copiar</string>
-    <string name="file_name_validator_upload_content_error">Non é posíbel enviar algún contido porque contén nomes reservados ou caracteres non válidos</string>
     <string name="file_not_found">Non se atopou o ficheiro</string>
     <string name="file_not_synced">Non foi posíbel sincronizar o ficheiro. Amosase a última versión dispoñíbel.</string>
     <string name="file_rename">Cambiar o nome</string>
@@ -505,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">no cartafol %1$s</string>
     <string name="instant_upload_existing">Envíar tamén os ficheiros existentes</string>
     <string name="instant_upload_on_charging">Enviar só cando estea cargando</string>
     <string name="instant_upload_path">/EnvíoInstantáneo</string>
@@ -715,7 +705,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Suxestións da aplicación Nextcloud no título de navegación</string>
     <string name="prefs_show_hidden_files">Amosar ficheiros agochados</string>
     <string name="prefs_sourcecode">Obter o código fonte</string>
-    <string name="prefs_storage_path">Cartafol de almacenamento de datos</string>
     <string name="prefs_sycned_folders_summary">Xestionar os cartafoles para a envío automático</string>
     <string name="prefs_synced_folders_local_path_title">Cartafol local</string>
     <string name="prefs_synced_folders_remote_path_title">Cartafol remoto</string>
@@ -767,7 +756,6 @@
     <string name="request_account_deletion_button">Solicitat a eliminación</string>
     <string name="request_account_deletion_details">Solicitar a eliminación definitiva da conta polo provedor de servizos</string>
     <string name="resharing_is_not_allowed">A directiva ou os permisos impiden volver compartir</string>
-    <string name="resized_image_not_possible_download">No se dispón da imaxe noutros tamaños. Descargala a tamaño real?</string>
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_backup">Restaurar a copia de seguranza</string>
     <string name="restore_button_description">Restaurar ficheiro eliminado</string>

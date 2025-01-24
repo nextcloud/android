@@ -46,17 +46,11 @@
     <string name="app_config_proxy_port_title">Port Proxy</string>
     <string name="app_widget_description">Affiche un widget du tableau de bord</string>
     <string name="appbar_search_in">Recherche dans %s</string>
-    <string name="assistant_screen_all_task_type">Tout</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tapez du texte</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Êtes-vous sûr de vouloir supprimer cette tâche ?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Supprimer la tâche</string>
-    <string name="assistant_screen_failed_task_text">Échec</string>
     <string name="assistant_screen_loading">La liste des tâches charge, veuillez patienter</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Aucune tâche disponible. Sélectionner un type de tâche pour créer une nouvelle tâche.</string>
     <string name="assistant_screen_no_task_available_text">Aucune tâche disponible pour le type de tâche %s, vous pouvez créer une nouvelle tâche en bas à droite.</string>
-    <string name="assistant_screen_running_task_text">En cours</string>
-    <string name="assistant_screen_scheduled_task_status_text">Planifié</string>
-    <string name="assistant_screen_successful_task_text">Terminé</string>
     <string name="assistant_screen_task_create_fail_message">Une erreur est survenue lors de la création de la tâche</string>
     <string name="assistant_screen_task_create_success_message">La tâche a bien été créée</string>
     <string name="assistant_screen_task_delete_fail_message">Une erreur est survenue lors de la suppression de la tâche</string>
@@ -66,7 +60,6 @@
     <string name="assistant_screen_task_output_empty_text">Le résultat de la tâche n\'est pas encore prêt.</string>
     <string name="assistant_screen_task_types_error_state_message">Impossible de récupérer les types des tâches, veuillez vérifier votre connexion Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistant</string>
-    <string name="assistant_screen_unknown_task_status_text">Inconnu</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrée</string>
     <string name="assistant_task_detail_screen_output_button_title">Sortie</string>
     <string name="associated_account_not_found">Compte associé introuvable !</string>
@@ -193,7 +186,6 @@
     <string name="confirmation_remove_folders_alert">Souhaitez-vous vraiment supprimer les éléments sélectionnés ainsi que leurs contenus ?</string>
     <string name="confirmation_remove_local">Local seulement</string>
     <string name="conflict_dialog_error">Erreur lors de la création de la boîte de dialogue de conflit !</string>
-    <string name="conflict_file_headline">Fichier %1$s en conflit</string>
     <string name="conflict_folder_headline">Conflit de dossiers</string>
     <string name="conflict_local_file">fichier local</string>
     <string name="conflict_message_description">Si vous sélectionnez les deux versions, le fichier local aura un numéro ajouté à son nom.</string>
@@ -435,7 +427,6 @@
     <string name="file_name_validator_error_invalid_character">Le nom contient des caractères invalides: %s</string>
     <string name="file_name_validator_error_reserved_names">%s est un nom interdit</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Veuillez renommer le fichier avant de le déplacer ou de le copier</string>
-    <string name="file_name_validator_upload_content_error">Certains contenus ne peuvent pas être téléversé car ils contiennent des noms réservés ou des caractères invalides</string>
     <string name="file_not_found">Fichier non trouvé</string>
     <string name="file_not_synced">Le fichier ne peut pas être synchronisé. Affichage de la dernière version disponible. </string>
     <string name="file_rename">Renommer</string>
@@ -502,7 +493,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">dans le dossier %1$s</string>
     <string name="instant_upload_existing">Téléverser aussi les fichiers existants</string>
     <string name="instant_upload_on_charging">Téléverser uniquement lors de la recharge</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -710,7 +700,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Suggestions d\'applications Nextcloud dans l\'en-tête de navigation</string>
     <string name="prefs_show_hidden_files">Afficher les fichiers masqués</string>
     <string name="prefs_sourcecode">Obtenir le code source</string>
-    <string name="prefs_storage_path">Dossier de stockage des données</string>
     <string name="prefs_sycned_folders_summary">Gérer les dossiers pour le téléversement automatique</string>
     <string name="prefs_synced_folders_local_path_title">Dossier local</string>
     <string name="prefs_synced_folders_remote_path_title">Dossier distant</string>
@@ -759,7 +748,6 @@
     <string name="request_account_deletion_button">Demander la suppression</string>
     <string name="request_account_deletion_details">Demander la suppression permanente du compte par le fournisseur de services</string>
     <string name="resharing_is_not_allowed">La réglementation ou les autorisations empêchent le re-partage</string>
-    <string name="resized_image_not_possible_download">Aucune image réduite disponible. Télécharger l\'image originale ?</string>
     <string name="restore">Restaurer le fichier</string>
     <string name="restore_backup">Restaurer une sauvegarde</string>
     <string name="restore_button_description">Restaurer le fichier supprimé</string>

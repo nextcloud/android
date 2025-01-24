@@ -47,17 +47,11 @@
     <string name="app_widget_description">Приказује један виџет са контролне табле</string>
     <string name="appbar_search_in">Тражи у %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додај нови задатак</string>
-    <string name="assistant_screen_all_task_type">Све</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Откуцајте неки текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Да ли сте сигурни да желите да обришете овај задатак?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Обриши задатак</string>
-    <string name="assistant_screen_failed_task_text">Није успело</string>
     <string name="assistant_screen_loading">Листа задатака се учитава, молимо вас сачекајте</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Не постоји ниједан задатак. Да бисте креирали нови задатак, изаберите тип задатка.</string>
     <string name="assistant_screen_no_task_available_text">Не постоји ниједан задатак типа %s, нови задатак можете да креирате доле десно.</string>
-    <string name="assistant_screen_running_task_text">Напредује</string>
-    <string name="assistant_screen_scheduled_task_status_text">Заказано</string>
-    <string name="assistant_screen_successful_task_text">Завршено</string>
     <string name="assistant_screen_task_create_fail_message">Дошло је до грешке током креирања задатка</string>
     <string name="assistant_screen_task_create_success_message">Задатак је успешно креиран</string>
     <string name="assistant_screen_task_delete_fail_message">Дошло је до грешке током брисања задатка</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Излаз задатка још увек није спреман.</string>
     <string name="assistant_screen_task_types_error_state_message">Не могу да се преузму типови задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_top_bar_title">Асистент</string>
-    <string name="assistant_screen_unknown_task_status_text">Непознато</string>
     <string name="assistant_task_detail_screen_input_button_title">Унос</string>
     <string name="assistant_task_detail_screen_output_button_title">Излаз</string>
     <string name="associated_account_not_found">Придружени налог није нађен!</string>
@@ -196,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">Заиста желите да обришете означене ставке и њихов садржај?</string>
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_dialog_error">Нем оже да се креира дијалог за разрешавање конфилкта</string>
-    <string name="conflict_file_headline">Конфликтни фајл %1$s</string>
     <string name="conflict_folder_headline">Конфликт фолдера</string>
     <string name="conflict_local_file">Локални фајл</string>
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
@@ -438,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">Име садржи неисправне карактере: %s</string>
     <string name="file_name_validator_error_reserved_names">%s је забрањено име</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Молимо вас да пре премештања или копирања промените име фајла</string>
-    <string name="file_name_validator_upload_content_error">Неки садржај не може да се отпреми јер садржи резервисана имена или неисправне карактере</string>
     <string name="file_not_found">Фајл није нађен</string>
     <string name="file_not_synced">Фајл не може да се синхронизује. Приказујем последњу доступну верзију.</string>
     <string name="file_rename">Преименуј</string>
@@ -505,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">У фолдеру %1$s</string>
     <string name="instant_upload_existing">Отпреми и постојеће фајлове</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -714,7 +704,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Предлози Nextcloud апликација у заглављу навигације</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_sourcecode">Узми изворни кôд</string>
-    <string name="prefs_storage_path">Фасцикла за податке</string>
     <string name="prefs_sycned_folders_summary">Управљање фолдерима за аутоматско отпремање</string>
     <string name="prefs_synced_folders_local_path_title">Локална фасцикла</string>
     <string name="prefs_synced_folders_remote_path_title">Удаљена фасцикла</string>
@@ -766,7 +755,6 @@
     <string name="request_account_deletion_button">Захтев за брисање</string>
     <string name="request_account_deletion_details">Захтев пружаоцу сервиса да неповратно обрише налог</string>
     <string name="resharing_is_not_allowed">Полиса или дозволе спречавају поновно дељење</string>
-    <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скинути пуну слику?</string>
     <string name="restore">Поврати фајл</string>
     <string name="restore_backup">Обнови резервну копију</string>
     <string name="restore_button_description">Поврати обрисани фајл</string>

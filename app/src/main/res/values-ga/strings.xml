@@ -47,17 +47,11 @@
     <string name="app_widget_description">Taispeáin giuirléid amháin ón deais</string>
     <string name="appbar_search_in">Cuardaigh i %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Cuir tasc nua leis</string>
-    <string name="assistant_screen_all_task_type">Gach</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Clóscríobh roinnt téacs</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">An bhfuil tú cinnte gur mhaith leat an tasc seo a scriosadh?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Scrios Tasc</string>
-    <string name="assistant_screen_failed_task_text">Theip</string>
     <string name="assistant_screen_loading">Tá an Liosta Tasc á lódáil, fan go fóill, le do thoil</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Níl aon tasc ar fáil. Roghnaigh cineál taisc chun tasc nua a chruthú.</string>
     <string name="assistant_screen_no_task_available_text">Níl aon tasc ar fáil do chineál taisc %s, is féidir leat tasc nua a chruthú ón mbun ar dheis.</string>
-    <string name="assistant_screen_running_task_text">Ar Siúl</string>
-    <string name="assistant_screen_scheduled_task_status_text">Sceidealta</string>
-    <string name="assistant_screen_successful_task_text">Críochnaithe</string>
     <string name="assistant_screen_task_create_fail_message">Tharla earráid agus an tasc á chruthú</string>
     <string name="assistant_screen_task_create_success_message">D\'éirigh leis an tasc a chruthú</string>
     <string name="assistant_screen_task_delete_fail_message">Tharla earráid agus an tasc á scriosadh</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Níl an t-aschur tasc réidh fós.</string>
     <string name="assistant_screen_task_types_error_state_message">Ní féidir cineálacha tascanna a fháil, seiceáil do nasc idirlín le do thoil.</string>
     <string name="assistant_screen_top_bar_title">Cúntóir</string>
-    <string name="assistant_screen_unknown_task_status_text">Anaithnid</string>
     <string name="assistant_task_detail_screen_input_button_title">Ionchur</string>
     <string name="assistant_task_detail_screen_output_button_title">Aschur</string>
     <string name="associated_account_not_found">Cuntas gaolmhar gan aimsiú!</string>
@@ -196,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">An bhfuil tú cinnte gur mhaith leat na míreanna roghnaithe agus a bhfuil iontu a scriosadh?</string>
     <string name="confirmation_remove_local">Áitiúil amháin</string>
     <string name="conflict_dialog_error">Ní féidir dialóg réititheora coinbhleachta a chruthú</string>
-    <string name="conflict_file_headline">Comhad contrártha %1$s</string>
     <string name="conflict_folder_headline">Coimhlint Fillteán</string>
     <string name="conflict_local_file">Comhad áitiúil</string>
     <string name="conflict_message_description">Má roghnaíonn tú an dá leagan, beidh uimhir ag gabháil leis an gcomhad áitiúil lena ainm.</string>
@@ -438,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">Tá carachtair neamhbhailí san ainm: %s</string>
     <string name="file_name_validator_error_reserved_names">Is ainm toirmiscthe é %s</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Athainmnigh an comhad le do thoil roimh é a bhogadh nó a chóipeáil</string>
-    <string name="file_name_validator_upload_content_error">Ní féidir roinnt ábhair a uaslódáil toisc go bhfuil ainmneacha forchoimeádta nó carachtair neamhbhailí ann</string>
     <string name="file_not_found">Comhad gan aimsiú</string>
     <string name="file_not_synced">Níorbh fhéidir an comhad a shioncronú. Ag taispeáint an leagan is déanaí atá ar fáil.</string>
     <string name="file_rename">Athainmnigh</string>
@@ -505,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">i bhfillteán %1$s</string>
     <string name="instant_upload_existing">Uaslódáil comhaid atá ann cheana féin freisin</string>
     <string name="instant_upload_on_charging">Íoslódáil ach amháin nuair a mhuirearú</string>
     <string name="instant_upload_path">/Uaslódáil Meandaracha</string>
@@ -714,7 +704,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Moltaí aip Nextcloud sa cheannteideal nascleanúna</string>
     <string name="prefs_show_hidden_files">Taispeáin comhaid i bhfolach</string>
     <string name="prefs_sourcecode">Faigh cód foinse</string>
-    <string name="prefs_storage_path">Fillteán stórála sonraí</string>
     <string name="prefs_sycned_folders_summary">Bainistigh fillteáin le haghaidh uaslódáil uathoibríoch</string>
     <string name="prefs_synced_folders_local_path_title">Fillteán áitiúil</string>
     <string name="prefs_synced_folders_remote_path_title">Fillteán cianda</string>
@@ -765,7 +754,6 @@
     <string name="request_account_deletion_button">Iarr scriosadh</string>
     <string name="request_account_deletion_details">Iarr ar sholáthraí seirbhíse scriosadh buan an chuntais</string>
     <string name="resharing_is_not_allowed">Cuireann beartais nó ceadanna cosc ​​ar athroinnt</string>
-    <string name="resized_image_not_possible_download">Níl aon íomhá athraithe ar fáil. Íoslódáil an íomhá iomlán?</string>
     <string name="restore">Athchóirigh comhad</string>
     <string name="restore_backup">Athchóirigh cúltaca</string>
     <string name="restore_button_description">Athchóirigh comhad scriosta</string>

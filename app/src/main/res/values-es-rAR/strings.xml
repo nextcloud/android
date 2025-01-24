@@ -37,17 +37,11 @@
     <string name="app_config_proxy_port_title">Puerto del Proxy</string>
     <string name="app_widget_description">Muestra un widget del panel</string>
     <string name="appbar_search_in">Buscar en %s</string>
-    <string name="assistant_screen_all_task_type">Todos</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba un texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro que desea eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
-    <string name="assistant_screen_failed_task_text">Error</string>
     <string name="assistant_screen_loading">Las listas de tareas están cargando, por favor espere</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">No hay tareas disponibles. Seleccione un tipo de tarea para crear una nueva.</string>
     <string name="assistant_screen_no_task_available_text">No hay tareas del tipo %s, puede crear una nueva tarea desde la parte inferior derecha</string>
-    <string name="assistant_screen_running_task_text">En progreso</string>
-    <string name="assistant_screen_scheduled_task_status_text">Programado</string>
-    <string name="assistant_screen_successful_task_text">Completado</string>
     <string name="assistant_screen_task_create_fail_message">Ocurrió un error al crear la tarea</string>
     <string name="assistant_screen_task_create_success_message">Tarea creada exitosamente</string>
     <string name="assistant_screen_task_delete_fail_message">Ocurrió un error al eliminar la tarea</string>
@@ -56,7 +50,6 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarea</string>
     <string name="assistant_screen_task_types_error_state_message">No se pudieron obtener los tipos de tareas, por favor, revise su conexión a internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
-    <string name="assistant_screen_unknown_task_status_text">Desconocido</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Salida</string>
     <string name="associated_account_not_found">¡Cuenta asociada no encontrada!</string>
@@ -180,7 +173,6 @@
     <string name="confirmation_remove_folders_alert">¿Realmente desea eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Sólo local</string>
     <string name="conflict_dialog_error">El diálogo de resolución de conflictos no puede ser creado</string>
-    <string name="conflict_file_headline">Archivo en conflicto %1$s</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si selecciona ambas versiones, se le agregará un número al nombre del archivo copiado.</string>
     <string name="conflict_server_file">Archivo del servidor</string>
@@ -470,7 +462,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">en la carpeta %1$s</string>
     <string name="instant_upload_existing">Cargue también archivos existentes</string>
     <string name="instant_upload_on_charging">Cargar archivos sólo con el dispositivo conectado a la toma de corriente</string>
     <string name="instant_upload_path">/SubidasInstantáneas</string>
@@ -659,7 +650,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Sugerencias de aplicaciones de Nextcloud en el encabezado de navegación</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
-    <string name="prefs_storage_path">Carpeta de almacenamiento de datos</string>
     <string name="prefs_sycned_folders_summary">Administrar carpetas para carga automática</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
@@ -703,7 +693,6 @@
     <string name="request_account_deletion">Solicitar la eliminación de la cuenta</string>
     <string name="request_account_deletion_button">Solicitar eliminación</string>
     <string name="request_account_deletion_details">Solicitar la eliminación permanente de la cuenta al proveedor del servicio</string>
-    <string name="resized_image_not_possible_download">¿No hay imagen redimensionada disponible. Descargar imagen completa?</string>
     <string name="restore">Restaurar archivo</string>
     <string name="restore_backup">Restaurar copia de seguridad</string>
     <string name="restore_button_description">Restaurar archivo borrado</string>

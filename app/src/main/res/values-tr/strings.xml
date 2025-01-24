@@ -47,17 +47,11 @@
     <string name="app_widget_description">Panodan bir pano bileşeni görüntüler</string>
     <string name="appbar_search_in">%s içinde arama</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Yeni görev ekle</string>
-    <string name="assistant_screen_all_task_type">Tümü</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bir şeyler yazın</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bu görevi silmek istediğinize emin misiniz?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Görevi sil</string>
-    <string name="assistant_screen_failed_task_text">Tamamlanamadı</string>
     <string name="assistant_screen_loading">Lütfen görev listesi yüklenirken bekleyin</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Herhangi bir görev yok.Yeni bir görev eklemek için bir görev türü seçin.</string>
     <string name="assistant_screen_no_task_available_text">%s türünde bir görev yok. Sağ alttan yeni bir görev ekleyebilirsiniz.</string>
-    <string name="assistant_screen_running_task_text">Yapılıyor</string>
-    <string name="assistant_screen_scheduled_task_status_text">Zamanlanmış</string>
-    <string name="assistant_screen_successful_task_text">Tamamlanmış</string>
     <string name="assistant_screen_task_create_fail_message">Görev oluşturulurken bir sorun çıktı</string>
     <string name="assistant_screen_task_create_success_message">Görev oluşturuldu</string>
     <string name="assistant_screen_task_delete_fail_message">Görev silinirken bir sorun çıktı</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Görev çıktısı henüz hazır değil.</string>
     <string name="assistant_screen_task_types_error_state_message">Görev türleri alınamadı. Lütfen İnternet bağlantınızı denetleyin.</string>
     <string name="assistant_screen_top_bar_title">Yardımcı</string>
-    <string name="assistant_screen_unknown_task_status_text">Bilinmiyor</string>
     <string name="assistant_task_detail_screen_input_button_title">Giriş</string>
     <string name="assistant_task_detail_screen_output_button_title">Çıkış</string>
     <string name="associated_account_not_found">İlişkili hesap bulunamadı!</string>
@@ -196,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">Seçilmiş ögeleri ve içindekileri silmek istediğinize emin misiniz?</string>
     <string name="confirmation_remove_local">Yalnızca yerel</string>
     <string name="conflict_dialog_error">Çakışma çözümleme penceresi oluşturulamadı</string>
-    <string name="conflict_file_headline">%1$s dosyası çakışıyor</string>
     <string name="conflict_folder_headline">Klasör çakışması</string>
     <string name="conflict_local_file">Yerel dosya</string>
     <string name="conflict_message_description">İki sürümü de saklamayı seçerseniz, yerel dosyanın adına bir numara eklenecek.</string>
@@ -438,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">Ad içinde geçersiz karakterler var: %s</string>
     <string name="file_name_validator_error_reserved_names">%s adına izin verilmiyor</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Kopyalamadan ya da taşımadan önce lütfen dosyayı yeniden adlandırın</string>
-    <string name="file_name_validator_upload_content_error">Bazı içerikler, içinde ayrılmış adlar veya geçersiz karakterler bulunduğundan yüklenemedi</string>
     <string name="file_not_found">Dosya bulunamadı</string>
     <string name="file_not_synced">Dosya eşitlenemedi. Kullanılabilen son sürüm görüntüleniyor.</string>
     <string name="file_rename">Yeniden adlandır</string>
@@ -505,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">%1$s klasöründe</string>
     <string name="instant_upload_existing">Var olan dosyalar da yüklensin</string>
     <string name="instant_upload_on_charging">Yalnızca şarj edilirken yüklensin</string>
     <string name="instant_upload_path">/AnındaYükle</string>
@@ -714,7 +704,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Gezinme başlığında Nextcloud uygulama önerileri</string>
     <string name="prefs_show_hidden_files">Gizli dosyaları görüntüle</string>
     <string name="prefs_sourcecode">Kaynak kodunu alın</string>
-    <string name="prefs_storage_path">Veri depolama klasörü</string>
     <string name="prefs_sycned_folders_summary">Otomatik yükleme klasörleri yönetimi</string>
     <string name="prefs_synced_folders_local_path_title">Yerel klasör</string>
     <string name="prefs_synced_folders_remote_path_title">Uzak klasör</string>
@@ -764,7 +753,6 @@
     <string name="request_account_deletion_button">Silme isteğinde bulunun</string>
     <string name="request_account_deletion_details">Hesabın hizmet sağlayıcı tarafından kalıcı olarak silinmesini isteyin</string>
     <string name="resharing_is_not_allowed">Yeniden paylaşımı engelleyen ilke ya da izinler</string>
-    <string name="resized_image_not_possible_download">Boyutu değiştirilmiş bir görsel yok. Tam boyuttaki görsel indirilsin mi?</string>
     <string name="restore">Dosyayı geri yükle</string>
     <string name="restore_backup">Yedeği geri yükle</string>
     <string name="restore_button_description">Silinmiş dosyayı geri yükle</string>

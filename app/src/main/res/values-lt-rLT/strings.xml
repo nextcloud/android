@@ -38,19 +38,15 @@
     <string name="app_widget_description">Rodo vieną valdiklį iš skydelio</string>
     <string name="appbar_search_in">Ieškoti %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Pridėti naują užduotį</string>
-    <string name="assistant_screen_all_task_type">Visos</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Įrašykite kokį nors tekstą</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ar tikrai norite ištrinti šią užduotį?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ištrinti užduotį</string>
-    <string name="assistant_screen_failed_task_text">Nepavyko</string>
-    <string name="assistant_screen_successful_task_text">Užbaigta</string>
     <string name="assistant_screen_task_create_fail_message">Kuriant užduotį, įvyko klaida</string>
     <string name="assistant_screen_task_create_success_message">Užduotis sėkmingai sukurta</string>
     <string name="assistant_screen_task_delete_fail_message">Ištrinant užduotį, įvyko klaida</string>
     <string name="assistant_screen_task_delete_success_message">Užduotis sėkmingai ištrinta</string>
     <string name="assistant_screen_task_list_error_state_message">Nepavyko gauti užduočių sąrašo, patikrinkite savo interneto ryšį.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Ištrinti užduotį</string>
-    <string name="assistant_screen_unknown_task_status_text">Nežinoma</string>
     <string name="assistant_task_detail_screen_output_button_title">Išvestis</string>
     <string name="associated_account_not_found">Susieta paskyra nerasta!</string>
     <string name="auth_access_failed">Prieiga nepavyko: %1$s</string>
@@ -169,7 +165,6 @@
     <string name="confirmation_remove_folder_alert">Ar tikrai norite ištrinti %1$s ir jo turinį?</string>
     <string name="confirmation_remove_folders_alert">Ar tikrai norite ištrinti pažymėtus elementus ir jų turinį?</string>
     <string name="confirmation_remove_local">Tik vietiniai</string>
-    <string name="conflict_file_headline">Nesuderinamas failas%1$s</string>
     <string name="conflict_local_file">Vietinis failas</string>
     <string name="conflict_message_description">Jei pasirinksite abi versijas, vietinis failas prie pavadinimo turės numerį.</string>
     <string name="conflict_server_file">Failas iš serverio</string>
@@ -428,7 +423,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s sek.</string>
-    <string name="in_folder">aplanke %1$s</string>
     <string name="instant_upload_existing">Taip pat įkelkite esamus failus</string>
     <string name="instant_upload_on_charging">Įkelti failus tik kai kraunasi</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -596,7 +590,6 @@
     <string name="prefs_recommend">Rekomenduoti draugui</string>
     <string name="prefs_show_hidden_files">Rodyti paslėptus failus</string>
     <string name="prefs_sourcecode">Gauti pirminį kodą</string>
-    <string name="prefs_storage_path">Duomenų aplankas</string>
     <string name="prefs_sycned_folders_summary">Tvarkykite automatinio įkėlimo aplankus</string>
     <string name="prefs_synced_folders_local_path_title">Aplankas vietinis</string>
     <string name="prefs_synced_folders_remote_path_title">Nuotolinis aplankas</string>
@@ -633,7 +626,6 @@
     <string name="rename_local_fail_msg">Nepavyko pervadinti vietinės kopijos, pabandykite kitą pavadinimą</string>
     <string name="rename_server_fail_msg">Pervadinimas neįmanomas, pavadinimas jau užimtas</string>
     <string name="request_account_deletion">Užklausti paskyros ištrynimo</string>
-    <string name="resized_image_not_possible_download">Nėra prieinamas pakeisto dydžio paveikslas. Atsisiųsti pilno dydžio paveikslą?</string>
     <string name="restore">Atkurti failą</string>
     <string name="restore_backup">Atkurti atsarginę kopiją</string>
     <string name="restore_button_description">Atkurti ištrintą failą</string>

@@ -47,17 +47,11 @@
     <string name="app_widget_description">Egy modult jelenít meg a irányítópultról</string>
     <string name="appbar_search_in">Keresés itt: %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Új feladat hozzáadása</string>
-    <string name="assistant_screen_all_task_type">Összes</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Gépeljen be szöveget</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Valóban törölni akarja ezt a feladatot?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Feladat törlése</string>
-    <string name="assistant_screen_failed_task_text">Sikertelen</string>
     <string name="assistant_screen_loading">A feladatlista betöltődik, kis türelmet</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Nem érhető el feladat. Válasszon egy feladattípust egy új feladat létrehozásához.</string>
     <string name="assistant_screen_no_task_available_text">Nem érhető el feladat a(z) %s feladattípushoz, a jobb alsó sarokból hozhat létre új feladatot.</string>
-    <string name="assistant_screen_running_task_text">Folyamatban</string>
-    <string name="assistant_screen_scheduled_task_status_text">Ütemezve</string>
-    <string name="assistant_screen_successful_task_text">Kész</string>
     <string name="assistant_screen_task_create_fail_message">Hiba történt egy feladat létrehozása során</string>
     <string name="assistant_screen_task_create_success_message">Feladat sikeresen létrehozva</string>
     <string name="assistant_screen_task_delete_fail_message">Hiba történt a feladat törlése során</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">A feladat kimenete még nincs kész.</string>
     <string name="assistant_screen_task_types_error_state_message">A feladattípusok nem kérhetők le, ellenőrizze az internetkapcsolatát.</string>
     <string name="assistant_screen_top_bar_title">Asszisztens</string>
-    <string name="assistant_screen_unknown_task_status_text">Ismeretlen</string>
     <string name="assistant_task_detail_screen_input_button_title">Bemenet</string>
     <string name="assistant_task_detail_screen_output_button_title">Kimenet</string>
     <string name="associated_account_not_found">A kapcsolódó fiók nem található!</string>
@@ -196,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">Biztos, hogy törli a kiválasztott elemeket és tartalmukat?</string>
     <string name="confirmation_remove_local">Csak a helyi példány</string>
     <string name="conflict_dialog_error">Az ütközésfeloldási párbeszédablak nem hozható létre</string>
-    <string name="conflict_file_headline">Ütköző fájl: %1$s</string>
     <string name="conflict_folder_headline">Mappütközés</string>
     <string name="conflict_local_file">Helyi fájl</string>
     <string name="conflict_message_description">Amennyiben mindkét verziót kiválasztja, a helyi fájl nevéhez egy szám lesz hozzáfűzve.</string>
@@ -438,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">A név érvénytelen karaktereket tartalmaz: %s</string>
     <string name="file_name_validator_error_reserved_names">A(z) %s tiltott név</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Áthelyezés vagy másolás előtt nevezze át a fájlt.</string>
-    <string name="file_name_validator_upload_content_error">Valamilyen tartalom nem tölthető fel, mert foglalt neveket vagy érvénytelen karaktereket tartalmaz.</string>
     <string name="file_not_found">A fájl nem található</string>
     <string name="file_not_synced">A fájl nem szinkronizálható. A legfrissebb elérhető verzió megjelenítése.</string>
     <string name="file_rename">Átnevezés</string>
@@ -505,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">%1$s mappában</string>
     <string name="instant_upload_existing">A meglévő fájlokat is töltse fel</string>
     <string name="instant_upload_on_charging">Feltöltés csak töltés közben</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -709,7 +699,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud alkalmazásjavaslatok a navigációs fejlécben</string>
     <string name="prefs_show_hidden_files">Rejtett fájlok megjelenítése</string>
     <string name="prefs_sourcecode">Forráskód beszerzése</string>
-    <string name="prefs_storage_path">Adattároló mappa</string>
     <string name="prefs_sycned_folders_summary">Mappák kezelése az automatikus feltöltéshez</string>
     <string name="prefs_synced_folders_local_path_title">Helyi mappa</string>
     <string name="prefs_synced_folders_remote_path_title">Távoli mappa</string>
@@ -750,7 +739,6 @@
     <string name="request_account_deletion">Fióktörlés kérése</string>
     <string name="request_account_deletion_button">Törlés kérése</string>
     <string name="request_account_deletion_details">A fiók végleges törlésének kérése a szolgáltatótól</string>
-    <string name="resized_image_not_possible_download">Nincs elérhető átméretezett kép. Letölti a teljes képet?</string>
     <string name="restore">Fájl visszaállítása</string>
     <string name="restore_backup">Biztonsági mentés helyreállítása</string>
     <string name="restore_button_description">Törölt fájl visszaállítása</string>

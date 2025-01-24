@@ -36,14 +36,10 @@
     <string name="app_config_proxy_port_title">Välityspalvelimen portti</string>
     <string name="app_widget_description">Näyttää yhden pienoissovelluksen konsolista</string>
     <string name="appbar_search_in">Etsi kohteesta %s</string>
-    <string name="assistant_screen_all_task_type">Kaikki</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Syötä tekstiä</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Haluatko varmasti poistaa tämän tehtävän?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Poista tehtävä</string>
-    <string name="assistant_screen_failed_task_text">Epäonnistui</string>
     <string name="assistant_screen_loading">Tehtävälista latautuu, odota</string>
-    <string name="assistant_screen_scheduled_task_status_text">Aikataulutettu</string>
-    <string name="assistant_screen_successful_task_text">Valmistui</string>
     <string name="assistant_screen_task_create_fail_message">Tehtävän luonti epäonnistui</string>
     <string name="assistant_screen_task_create_success_message">Tehtävä luotu</string>
     <string name="assistant_screen_task_delete_fail_message">Tehtävän poisto epäonnistui</string>
@@ -52,7 +48,6 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Poista tehtävä</string>
     <string name="assistant_screen_task_types_error_state_message">Tehtävätyyppen haku epäonnistui, tarkista internetyhteytesi.</string>
     <string name="assistant_screen_top_bar_title">Avustaja</string>
-    <string name="assistant_screen_unknown_task_status_text">Tuntematon</string>
     <string name="associated_account_not_found">Liitettyä tiliä ei löydy!</string>
     <string name="auth_access_failed">Pääsy epäonnistui: %1$s</string>
     <string name="auth_account_does_not_exist">Tälle laitteelle ei ole vielä asennettu tiliä.</string>
@@ -174,7 +169,6 @@
     <string name="confirmation_remove_folder_alert">Haluatko varmasti poistaa kohteen %1$s ja sen sisällön?</string>
     <string name="confirmation_remove_folders_alert">Haluatko varmasti poistaa valitut kohteet ja niiden sisällön?</string>
     <string name="confirmation_remove_local">Vain paikallisen</string>
-    <string name="conflict_file_headline">Ristiriitainen kohde %1$s</string>
     <string name="conflict_local_file">Paikallinen tiedosto</string>
     <string name="conflict_message_description">Jos valitset molemmat versiot, paikallisen tiedoston nimeen lisätään numero.</string>
     <string name="conflict_server_file">Palvelintiedosto</string>
@@ -459,7 +453,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">kansiossa %1$s</string>
     <string name="instant_upload_existing">Siirrä myös olemassaolevat tiedostot palvelimelle</string>
     <string name="instant_upload_on_charging">Lähetä vain ladattaessa virtaa</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -649,7 +642,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-sovellusehdotukset navigointipalkissa</string>
     <string name="prefs_show_hidden_files">Näytä piilotetut tiedostot</string>
     <string name="prefs_sourcecode">Hanki lähdekoodi</string>
-    <string name="prefs_storage_path">Tiedostojen tallennuskansio</string>
     <string name="prefs_sycned_folders_summary">Hallinnoi kansioita automaattista latausta varten</string>
     <string name="prefs_synced_folders_local_path_title">Paikallinen kansio</string>
     <string name="prefs_synced_folders_remote_path_title">Etäkansio</string>
@@ -693,7 +685,6 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="request_account_deletion">Pyydä tilin poistoa</string>
     <string name="request_account_deletion_button">Pyydä poistoa</string>
     <string name="request_account_deletion_details">Pyydä lopullista tilin poistamista palvelun tarjoajalta</string>
-    <string name="resized_image_not_possible_download">Uuden kokoinen kuva ei ole saatavilla. Ladataanko täysikokoinen kuva?</string>
     <string name="restore">Palauta tiedosto</string>
     <string name="restore_backup">Palauta varmuuskopio</string>
     <string name="restore_button_description">Palauta poistettu tiedosto</string>
