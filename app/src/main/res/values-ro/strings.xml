@@ -34,9 +34,19 @@
     <string name="add_to_cloud">Adaugă la 1 %1$s</string>
     <string name="advanced_settings">Setări avansate</string>
     <string name="allow_resharing">Permite repartajarea</string>
+    <string name="app_config_base_url_title">URL-ul de bază</string>
+    <string name="app_config_disable_clipboard_title">Dezactivează clipboard</string>
+    <string name="app_config_disable_intro_title">Deactivează introducerea</string>
+    <string name="app_config_disable_log_title">Dezactivează logul</string>
+    <string name="app_config_disable_more_external_site_title">Dezactivează site-uri externe</string>
+    <string name="app_config_disable_multiaccount_title">Dezactivează conturi multiple</string>
+    <string name="app_config_disable_sharing_title">Dezactivează partajarea</string>
+    <string name="app_config_enforce_protection_title">Impune protecție</string>
+    <string name="app_config_proxy_host_title">Nume de gazdă al proxy</string>
     <string name="app_config_proxy_port_title">Port proxy </string>
     <string name="app_widget_description">Arată un singur widget din panoul principal</string>
     <string name="appbar_search_in">Caută in %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title"> Adaugă sarcină nouă</string>
     <string name="assistant_screen_all_task_type">Toate </string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tastează un text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Sigur doriți să ștergeți acest task?</string>
@@ -54,6 +64,7 @@
     <string name="assistant_screen_task_delete_success_message">Task șters cu succes</string>
     <string name="assistant_screen_task_list_error_state_message">Nu se poate prelua lista taskurilor, vă rugăm să verificați conexiunea la internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Şterge task</string>
+    <string name="assistant_screen_task_output_empty_text">Rezultatul sarcinii nu este disponbil încă</string>
     <string name="assistant_screen_task_types_error_state_message">Nu se pot prelua tipurile taskurilor, vă rugăm să verificați conexiunea la internet.</string>
     <string name="assistant_screen_top_bar_title">Asistent</string>
     <string name="assistant_screen_unknown_task_status_text">Necunoscut</string>
@@ -90,7 +101,12 @@
     <string name="auth_unsupported_multiaccount">%1$s nu suporta conturi multiple</string>
     <string name="auth_wrong_connection_title">Nu s-a putut stabili conexiunea</string>
     <string name="authenticator_activity_cancel_login">Anulați autentificarea</string>
+    <string name="authenticator_activity_login_error">A apărut o problemă la procesarea solicitării dvs. de conectare. Vă rugăm să încercați din nou mai târziu.</string>
+    <string name="authenticator_activity_please_complete_login_process">Vă rugăm să finalizați procesul de conectare în browser</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">păstrează în directorul original deoarece este disponibil doar pentru citire</string>
+    <string name="auto_upload_gplay">Comportamentul de încărcare automată s-a schimbat</string>
+    <string name="auto_upload_gplay_desc">Din cauza noilor restricții impuse de Google, funcția de încărcare automată nu va mai putea elimina automat fișierele încărcate.</string>
+    <string name="auto_upload_gplay_desc2">Din cauza noilor restricții impuse de Google, am fost forțați să eliminăm o permisiune importantă. Ca rezultat, încărcarea automată va putea încărca numai fișiere de imagine și video.\nÎn plus, este necesară o nouă permisiune pentru a accesa informațiile despre locație pentru imaginile încărcate.\nAsigurați-vă că accesul media este setat la „Permiteți întotdeauna toate”.</string>
     <string name="auto_upload_on_wifi">Se încarcă numai pe Wi-Fi nelimitat</string>
     <string name="auto_upload_path">/AutoÎncărcare</string>
     <string name="autoupload_configure">Configurează</string>
@@ -101,6 +117,7 @@
     <string name="avatar">Avatar</string>
     <string name="away">Plecat</string>
     <string name="backup_settings">Setări pentru backup</string>
+    <string name="backup_title">Backup contacte și calendar</string>
     <string name="battery_optimization_close">Închidere</string>
     <string name="battery_optimization_disable">Dezactivează</string>
     <string name="battery_optimization_message">Dispozitivul dumneavoastră poate avea economizorul de baterie activat. Incărcarea automată AutoUpload funcționează corespunzător daca excludeti această funcție din aplicație.</string>
@@ -124,6 +141,7 @@
     <string name="clear_notifications_failed">Eroare la ștergerea notificărilor.</string>
     <string name="clear_status_message">Șterge mesajul de stare</string>
     <string name="clear_status_message_after">Șterge mesajul de stare după</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Este necesară intervenția manuală pentru a reactiva încărcarea automată</string>
     <string name="clipboard_label">Text copiat din %1$s</string>
     <string name="clipboard_no_text_to_copy">Nici un text disponibil pentru copiere</string>
     <string name="clipboard_text_copied">Link copiat</string>
@@ -141,6 +159,7 @@
     <string name="common_loading">Se încarcă…</string>
     <string name="common_next">Următorul</string>
     <string name="common_no">Nu</string>
+    <string name="common_now">Acum</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">În așteptare</string>
     <string name="common_remove">Șterge</string>
@@ -176,11 +195,15 @@
     <string name="confirmation_remove_folder_alert">Sigur vreți să eliminați %1$s și conținutul său?</string>
     <string name="confirmation_remove_folders_alert">Doriți să ștergeți elementele selectate și conținutul lor?</string>
     <string name="confirmation_remove_local">Doar local</string>
+    <string name="conflict_dialog_error">Dialogul de rezolvare a conflictelor nu poate fi creat</string>
     <string name="conflict_file_headline">Conflict cu fișierul %1$s</string>
+    <string name="conflict_folder_headline">Conflict de directoare</string>
     <string name="conflict_local_file">Fișier local</string>
     <string name="conflict_message_description">Dacă selectezi ambele variante, atunci fișierul local va avea un număr adăugat la numele său.</string>
+    <string name="conflict_message_description_for_folder">Dacă selectați ambele versiuni, folderul local va avea un număr adăugat la numele său.</string>
     <string name="conflict_server_file">Fișier pe server</string>
     <string name="contact_backup_title">Copie de rezervă contacte</string>
+    <string name="contact_no_permission">Este necesară permisiunea de contact.</string>
     <string name="contactlist_item_icon">Iconiță utilizator pentru lista de contacte</string>
     <string name="contactlist_no_permission">Nu sunt acordate permisiuni, nu s-a importat nimic.</string>
     <string name="contacts">Contacte</string>
@@ -204,6 +227,10 @@
     <string name="create_new">Nou</string>
     <string name="create_new_document">Document nou</string>
     <string name="create_new_folder">Director nou</string>
+    <string name="create_new_presentation">Prezentare nouă</string>
+    <string name="create_new_spreadsheet">Foaie de calcul nouă</string>
+    <string name="create_rich_workspace">Adăugați descrierea directorului</string>
+    <string name="creates_rich_workspace">Adăugă descrierea directorului</string>
     <string name="credentials_disabled">Autentificare dezactivată</string>
     <string name="daily_backup">Copie de rezervă zilnică</string>
     <string name="data_to_back_up">Date pentru copia de rezervă</string>
@@ -236,6 +263,7 @@
     <string name="download_cannot_create_file">Nu se poate creea un fisier local</string>
     <string name="download_download_invalid_local_file_name">Nume invalid pentru un fișier local</string>
     <string name="download_latest_dev_version">Descarcă ultima versiune dezvoltator</string>
+    <string name="download_limit">Limită de descărcare</string>
     <string name="downloader_download_failed_content">Nu s-a putut descărca %1$s</string>
     <string name="downloader_download_failed_credentials_error">Descărcarea a eșuat, autentificați-vă din nou</string>
     <string name="downloader_download_failed_ticker">Descărcarea a eșuat</string>
@@ -244,7 +272,10 @@
     <string name="downloader_download_in_progress_ticker">Se descarcă…</string>
     <string name="downloader_download_succeeded_content">%1$s descarcat</string>
     <string name="downloader_download_succeeded_ticker">Descărcat</string>
+    <string name="downloader_file_download_cancelled">Anumite fișiere au fost anulate în timpul descărcării de către utilizator</string>
+    <string name="downloader_file_download_failed">A apărut o eroare la descărcarea fișierelor</string>
     <string name="downloader_not_downloaded_yet">Nu s-a  descărcat încă</string>
+    <string name="downloader_unexpected_error">A apărut o eroare neașteptată la descărcarea fișierelor</string>
     <string name="drawer_close">Închideți bara laterală</string>
     <string name="drawer_community">Comunitate</string>
     <string name="drawer_header_background">Imagine de fundal a antetului sertarului</string>
@@ -253,9 +284,11 @@
     <string name="drawer_item_assistant">Asistent</string>
     <string name="drawer_item_favorites">Favorite</string>
     <string name="drawer_item_gallery">Media</string>
+    <string name="drawer_item_groupfolders">Gruparedirectoare</string>
     <string name="drawer_item_home">Acasă</string>
     <string name="drawer_item_notifications">Notificări</string>
     <string name="drawer_item_on_device">Pe dispozitiv</string>
+    <string name="drawer_item_personal_files">Fișiere personale</string>
     <string name="drawer_item_recently_modified">Modificate recent</string>
     <string name="drawer_item_shared">Partajate</string>
     <string name="drawer_item_trashbin">Fișiere șterse</string>
@@ -265,13 +298,19 @@
     <string name="drawer_quota">%1$s din %2$s folosiți</string>
     <string name="drawer_quota_unlimited">%1$s utilizat</string>
     <string name="drawer_synced_folders">Încărcare automată</string>
+    <string name="e2e_counter_too_old">Contorul este prea vechi</string>
+    <string name="e2e_hash_not_found">Hash nu a fost găsit</string>
     <string name="e2e_not_yet_setup">Criptarea E2E nu este încă setată</string>
     <string name="e2e_offline">Nu este posibil fără conexiune la internet</string>
+    <string name="e2e_signature_does_not_match">Semnătura nu se potrivește</string>
     <string name="ecosystem_apps_display_assistant">Asistent</string>
     <string name="ecosystem_apps_display_more">Mai mult</string>
     <string name="ecosystem_apps_display_notes">Notițe</string>
     <string name="ecosystem_apps_display_talk">Discuție</string>
+    <string name="ecosystem_apps_more">Mai multe aplicații Nextcloud</string>
     <string name="ecosystem_apps_notes">Notițe Nextcloud </string>
+    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="email_pick_failed">Nu s-a putut alege adresa de e-mail.</string>
     <string name="encrypted">Setați drept criptat</string>
     <string name="end_to_end_encryption_confirm_button">Setează criptarea</string>
     <string name="end_to_end_encryption_decrypting">Decryption…</string>
@@ -305,7 +344,9 @@
     <string name="error_showing_encryption_dialog">Eroare la afișarea ferestrei de configurare a encripției!</string>
     <string name="error_starting_direct_camera_upload">Eroare la pornirea camerei</string>
     <string name="error_starting_doc_scan">Eroare la pornirea scanării documentului</string>
+    <string name="error_uploading_direct_camera_upload">Nu s-a putut încărca conținutul media preluat</string>
     <string name="etm_accounts">Conturi</string>
+    <string name="etm_background_execution_count">Timpul rulează în 48 de ore</string>
     <string name="etm_background_job_created">A fost creat</string>
     <string name="etm_background_job_name">Numele serviciului</string>
     <string name="etm_background_job_progress">Progres</string>
@@ -335,9 +376,11 @@
     <string name="failed_update_ui">Nu s-a putut actualiza interfața</string>
     <string name="favorite">Adăugați la favorite</string>
     <string name="favorite_icon">Favorite</string>
+    <string name="file_activity_shared_file_cannot_be_updated">Fișierul partajat nu poate fi actualizat</string>
     <string name="file_already_exists">Numle fișierului deja există</string>
     <string name="file_delete">Ștergeți</string>
     <string name="file_detail_activity_error">Eroare în recuperarea activităților pentru fișier</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">Nicio aplicație disponibilă pentru a selecta contacte</string>
     <string name="file_details_no_content">Eroare în încărcarea detaliilor</string>
     <string name="file_icon">Fișier</string>
     <string name="file_keep">Păstrare</string>
@@ -348,6 +391,7 @@
     <string name="file_list_empty_headline">Niciun fișier aici</string>
     <string name="file_list_empty_headline_search">Niciun element găsit în acest director</string>
     <string name="file_list_empty_headline_server_search">Niciun rezultat</string>
+    <string name="file_list_empty_local_search">Niciun fișier sau dosar care să corespundă căutării dvs</string>
     <string name="file_list_empty_moving">Nu este nimic aici. Poți adăuga un dosar.</string>
     <string name="file_list_empty_on_device">FIșierele și dosarele descărcate vor apărea aici</string>
     <string name="file_list_empty_recently_modified">Nu au fost găsite fișiere modificate în ultimele 7 zile</string>
@@ -374,6 +418,7 @@
     <string name="file_migration_failed_not_writable">Nu se poate scrie în fișierul destinație</string>
     <string name="file_migration_failed_while_coping">Eroare în timpul migrării</string>
     <string name="file_migration_failed_while_updating_index">Eroare în timpul actualizării indexului</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s/ %3$s)</string>
     <string name="file_migration_migrating">Se mută datele…</string>
     <string name="file_migration_ok_finished">Finalizat</string>
     <string name="file_migration_override_data_folder">Suprascriere</string>
@@ -385,6 +430,14 @@
     <string name="file_migration_updating_index">Indexul se actualizează…</string>
     <string name="file_migration_use_data_folder">Utilizează</string>
     <string name="file_migration_waiting_for_unfinished_sync">Se așteaptă finalizarea sincronizării…</string>
+    <string name="file_name_validator_current_path_is_invalid">Numele actual al dosarului nu este valid, vă rugăm să redenumiți dosarului. Se redirecționează acasă...</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">Calea dosarului conține nume rezervate sau caractere nevalide</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s este o extensie de fișier interzisă</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Numele fișierelor nu trebuie să conțină spații la început sau la sfârșit</string>
+    <string name="file_name_validator_error_invalid_character">Numele conține caractere nevalide: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s este un nume interzis</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Vă rugăm să redenumiți fișierul înainte de a muta sau copia</string>
+    <string name="file_name_validator_upload_content_error">O parte din conținut nu poate fi încărcată, deoarece conține nume rezervate sau caractere nevalide</string>
     <string name="file_not_found">Fișierul nu a fost găsit</string>
     <string name="file_not_synced">Fișierul nu a putut fi sincronizat. Aceastea sunt ultimile versiuni disponibile.</string>
     <string name="file_rename">Redenumire</string>
@@ -1007,4 +1060,4 @@
         <item quantity="few">%dselectate</item>
         <item quantity="other">%dselectate</item>
     </plurals>
-</resources>
+    </resources>

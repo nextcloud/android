@@ -257,6 +257,7 @@
     <string name="download_cannot_create_file">ローカルファイルが作成できません</string>
     <string name="download_download_invalid_local_file_name">ローカルファイルに対して無効なファイル名</string>
     <string name="download_latest_dev_version">最新の開発バージョンをダウンロード</string>
+    <string name="download_limit">ダウンロード制限</string>
     <string name="downloader_download_failed_content">%1$sをダウンロードできませんでした</string>
     <string name="downloader_download_failed_credentials_error">ダウンロード失敗、要 再ログイン</string>
     <string name="downloader_download_failed_ticker">ダウンロードに失敗</string>
@@ -797,6 +798,7 @@
     <string name="share">共有</string>
     <string name="share_copy_link">リンクをコピーして共有</string>
     <string name="share_dialog_title">共有</string>
+    <string name="share_download_limit">ダウンロード制限を設定</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">有効期限%1$s</string>
     <string name="share_file">%1$s を共有</string>
@@ -1136,4 +1138,4 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d 選択</item>
     </plurals>
-</resources>
+    </resources>

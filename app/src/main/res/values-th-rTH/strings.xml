@@ -673,4 +673,4 @@
     <plurals name="items_selected_count">
         <item quantity="other">เลือก %d รายการ</item>
     </plurals>
-</resources>
+    </resources>

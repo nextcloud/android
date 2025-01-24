@@ -713,6 +713,7 @@
     <string name="share">هم‌رسانی</string>
     <string name="share_copy_link">اشتراک‌گذاری و رونوشت پیوند</string>
     <string name="share_dialog_title">اشتراک گذاری</string>
+    <string name="share_download_limit">Set download limit</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">منقضی در%1$s</string>
     <string name="share_file">هم‌رسانی %1$s</string>
@@ -1041,4 +1042,4 @@
         <item quantity="one">%d انتخاب شده</item>
         <item quantity="other">%d انتخاب شده</item>
     </plurals>
-</resources>
+    </resources>

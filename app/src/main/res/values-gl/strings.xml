@@ -263,6 +263,7 @@
     <string name="download_cannot_create_file">Non é posíbel crear o ficheiro local</string>
     <string name="download_download_invalid_local_file_name">O nome de ficheiro non é válido para o ficheiro local</string>
     <string name="download_latest_dev_version">Descargar a última versión de desenvolvemento</string>
+    <string name="download_limit">Límite de descarga</string>
     <string name="downloader_download_failed_content">Non foi posíbel descargar %1$s</string>
     <string name="downloader_download_failed_credentials_error">Produciuse un fallo na descarga, acceda de novo.</string>
     <string name="downloader_download_failed_ticker">Produciuse un fallo na descarga</string>
@@ -746,6 +747,7 @@
     <string name="recommend_subject">Probe %1$s no seu dispositivo!</string>
     <string name="recommend_text">Quixera convidalo a usar %1$s no seu dispositivo.\nDescargueo aquí: %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="recommended_files_title">Ficheiros recomendados</string>
     <string name="refresh_content">Actualizar contido</string>
     <string name="reload">Volver cargar</string>
     <string name="remote">(remoto)</string>
@@ -807,6 +809,7 @@
     <string name="share">Compartir</string>
     <string name="share_copy_link">Compartir e copiar a ligazón</string>
     <string name="share_dialog_title">Compartindo</string>
+    <string name="share_download_limit">Definir o límite de descarga</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Caduca o %1$s</string>
     <string name="share_file">Compartir %1$s</string>
@@ -1179,5 +1182,9 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d seleccionado</item>
         <item quantity="other">%d seleccionados</item>
+    </plurals>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d descarga restante</item>
+        <item quantity="other">%1$d descargas restantes</item>
     </plurals>
 </resources>

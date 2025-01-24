@@ -79,7 +79,6 @@ import com.owncloud.android.utils.DisplayUtils;
 import com.owncloud.android.utils.FileSortOrder;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeTypeUtil;
-import com.owncloud.android.utils.theme.CapabilityUtils;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
 import java.io.File;
@@ -194,10 +193,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                                                     gridView,
                                                     transferServiceGetter,
                                                     true,
-                                                    CapabilityUtils
-                                                        .getCapability(activity)
-                                                        .getVersion()
-                                                        .isShareesOnDavSupported(),
+                                                    true,
                                                     viewThemeUtils,
                                                     syncedFolderProvider);
 
@@ -835,7 +831,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         if (!updatedStorageManager.equals(mStorageManager)) {
             mStorageManager = updatedStorageManager;
-            ocFileListDelegate.setShowShareAvatar(CapabilityUtils.getCapability(account, activity).getVersion().isShareesOnDavSupported());
+            ocFileListDelegate.setShowShareAvatar(true);
             this.user = account;
         }
         if (mStorageManager != null) {
@@ -913,10 +909,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                         boolean clear) {
         if (storageManager != null && mStorageManager == null) {
             mStorageManager = storageManager;
-            ocFileListDelegate.setShowShareAvatar(mStorageManager
-                                                      .getCapability(user.getAccountName())
-                                                      .getVersion()
-                                                      .isShareesOnDavSupported());
+            ocFileListDelegate.setShowShareAvatar(true);
         }
 
 

@@ -249,6 +249,7 @@
     <string name="download_cannot_create_file">يەرلىك ھۆججەت قۇرالمايدۇ</string>
     <string name="download_download_invalid_local_file_name">يەرلىك ھۆججەتنىڭ ئىناۋەتسىز ئىسمى</string>
     <string name="download_latest_dev_version">ئەڭ يېڭى dev نەشرىنى چۈشۈرۈڭ</string>
+    <string name="download_limit">چۈشۈرۈش چېكى</string>
     <string name="downloader_download_failed_content">%1$s نى چۈشۈرەلمىدى</string>
     <string name="downloader_download_failed_credentials_error">چۈشۈرۈش مەغلۇپ بولدى ، قايتا كىرىڭ</string>
     <string name="downloader_download_failed_ticker">چۈشۈرۈش مەغلۇب بولدى</string>
@@ -779,6 +780,7 @@
     <string name="share">ھەمبەھىرلەش</string>
     <string name="share_copy_link">ئۇلىنىشنى ھەمبەھىرلەش ۋە كۆچۈرۈش</string>
     <string name="share_dialog_title">ھەمبەھىر</string>
+    <string name="share_download_limit">چۈشۈرۈش چەكلىمىسىنى بەلگىلەڭ</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">ۋاقتى%1$s</string>
     <string name="share_file">ئورتاقلىشىش%1$s</string>
@@ -1123,4 +1125,4 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
-</resources>
+    </resources>

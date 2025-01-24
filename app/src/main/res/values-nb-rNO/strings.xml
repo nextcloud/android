@@ -254,6 +254,7 @@
     <string name="download_cannot_create_file">Kan ikke opprette lokal fil</string>
     <string name="download_download_invalid_local_file_name">Ugyldig filnavn for lokal fil</string>
     <string name="download_latest_dev_version">Last ned det nyeste dev versjon</string>
+    <string name="download_limit">Nedlastingsgrense</string>
     <string name="downloader_download_failed_content">Kunne ikke laste ned %1$s</string>
     <string name="downloader_download_failed_credentials_error">Nedlasting mislyktes, prøv igjen</string>
     <string name="downloader_download_failed_ticker">Nedlasting mislyktes</string>
@@ -778,6 +779,7 @@
     <string name="share">Del</string>
     <string name="share_copy_link">Del og kopier kobling</string>
     <string name="share_dialog_title">Deling</string>
+    <string name="share_download_limit">Spesifiser nedlastings-grense</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Utløper den %1$s</string>
     <string name="share_file">Del %1$s</string>
@@ -1120,4 +1122,4 @@
         <item quantity="one">%d valgt</item>
         <item quantity="other">%d valgte</item>
     </plurals>
-</resources>
+    </resources>

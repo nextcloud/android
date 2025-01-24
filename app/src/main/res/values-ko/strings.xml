@@ -248,6 +248,7 @@
     <string name="download_cannot_create_file">로컬 파일을 만들 수 없음</string>
     <string name="download_download_invalid_local_file_name">로컬 저장소에서 사용할 수 없는 파일명입니다.</string>
     <string name="download_latest_dev_version">최신 개발 버전 다운로드</string>
+    <string name="download_limit">다운로드 횟수 제한</string>
     <string name="downloader_download_failed_content">%1$s을(를) 다운로드할 수 없습니다</string>
     <string name="downloader_download_failed_credentials_error">다운로드 실패, 다시 로그인하십시오</string>
     <string name="downloader_download_failed_ticker">다운로드 실패</string>
@@ -747,6 +748,7 @@
     <string name="share">공유</string>
     <string name="share_copy_link">링크 공유 및 복사</string>
     <string name="share_dialog_title">공유</string>
+    <string name="share_download_limit">다운로드 제한 설정</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">%1$s 에 만료됨</string>
     <string name="share_file">%1$s 공유</string>
@@ -1069,4 +1071,4 @@
     <plurals name="items_selected_count">
         <item quantity="other">%d개 선택됨</item>
     </plurals>
-</resources>
+    </resources>

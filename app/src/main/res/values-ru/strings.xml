@@ -258,6 +258,7 @@
     <string name="download_cannot_create_file">Невозможно создать локальный файл</string>
     <string name="download_download_invalid_local_file_name">Недопустимое имя для локального файла</string>
     <string name="download_latest_dev_version">Скачать последнюю версию для разработчиков</string>
+    <string name="download_limit">Лимит скачивания</string>
     <string name="downloader_download_failed_content">Скачивание %1$s не может быть завершено</string>
     <string name="downloader_download_failed_credentials_error">Ошибка скачивания, необходимо авторизоваться</string>
     <string name="downloader_download_failed_ticker">Сбой при скачивании</string>
@@ -791,6 +792,7 @@
     <string name="share">Общий ресурс</string>
     <string name="share_copy_link">Опубликовать и скопировать ссылку </string>
     <string name="share_dialog_title">Общий доступ</string>
+    <string name="share_download_limit">Установите лимит загрузки</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истекает %1$s</string>
     <string name="share_file">Общий ресурс «%1$s»</string>
@@ -1176,4 +1178,4 @@
         <item quantity="many">%d выбрано</item>
         <item quantity="other">%d выбрано</item>
     </plurals>
-</resources>
+    </resources>

@@ -10,10 +10,8 @@ package com.owncloud.android.ui.dialog
 
 import android.app.Dialog
 import android.content.Intent
-import android.os.Build
 import android.os.Bundle
 import android.os.storage.StorageManager
-import androidx.annotation.RequiresApi
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.OCFile
@@ -57,7 +55,6 @@ class SyncFileNotEnoughSpaceDialogFragment :
     /**
      * Will access to storage manager in order to empty useless files
      */
-    @RequiresApi(api = Build.VERSION_CODES.N_MR1)
     override fun onCancel(callerTag: String?) {
         val storageIntent = Intent(StorageManager.ACTION_MANAGE_STORAGE)
         startActivityForResult(storageIntent, REQUEST_CODE_STORAGE)
@@ -91,9 +88,7 @@ class SyncFileNotEnoughSpaceDialogFragment :
             if (file.isFolder) {
                 args.putInt(ARG_POSITIVE_BTN_RES, R.string.sync_not_enough_space_dialog_action_choose)
             }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-                args.putInt(ARG_NEGATIVE_BTN_RES, R.string.sync_not_enough_space_dialog_action_free_space)
-            }
+            args.putInt(ARG_NEGATIVE_BTN_RES, R.string.sync_not_enough_space_dialog_action_free_space)
             args.putInt(ARG_NEUTRAL_BTN_RES, R.string.common_cancel)
 
             frag.arguments = args

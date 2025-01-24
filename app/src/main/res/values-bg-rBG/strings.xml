@@ -967,4 +967,4 @@
         <item quantity="one">%d избран</item>
         <item quantity="other">%d избрани</item>
     </plurals>
-</resources>
+    </resources>

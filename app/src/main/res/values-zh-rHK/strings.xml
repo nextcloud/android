@@ -263,6 +263,7 @@
     <string name="download_cannot_create_file">無法建立近端檔案</string>
     <string name="download_download_invalid_local_file_name">近端檔案有無效的檔案名</string>
     <string name="download_latest_dev_version">下載最新開發的版本</string>
+    <string name="download_limit">下載限制</string>
     <string name="downloader_download_failed_content">下載 %1$s 無法完成 </string>
     <string name="downloader_download_failed_credentials_error">下載失敗，再重新登入</string>
     <string name="downloader_download_failed_ticker">下載失敗</string>
@@ -805,6 +806,7 @@
     <string name="share">分享</string>
     <string name="share_copy_link">分享並複製連結</string>
     <string name="share_dialog_title">分享</string>
+    <string name="share_download_limit">設定下載限制</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">過期 %1$s</string>
     <string name="share_file">分享 %1$s</string>
@@ -1158,4 +1160,4 @@
     <plurals name="items_selected_count">
         <item quantity="other">已選擇%d個</item>
     </plurals>
-</resources>
+    </resources>

@@ -221,6 +221,7 @@
     <string name="download_cannot_create_file">Krajevne datoteke ni mogoče ustvariti</string>
     <string name="download_download_invalid_local_file_name">Neveljavno ime krajevne datoteke</string>
     <string name="download_latest_dev_version">Prejmi najnovejšo razvojno različico</string>
+    <string name="download_limit">Omejitev prejemanja</string>
     <string name="downloader_download_failed_content">Ni mogoče prejeti %1$s</string>
     <string name="downloader_download_failed_credentials_error">Prejemanje je spodletelo; zahtevana je ponovna prijava.</string>
     <string name="downloader_download_failed_ticker">Prejemanje je spodletelo</string>
@@ -686,6 +687,7 @@
     <string name="setup_e2e">Med nastavitvijo šifriranja E2E boste prejeli naključno 12-mestno besedno geslo, brez katerega na drugih napravah datotek ne bo mogoče odpreti. To geslo bo shranjeno izključno na tej napravi in ga bo mogoče ponovno prikazati na tem zaslonu. Priporočljivo ga je zabeležiti na varno mesto!</string>
     <string name="share">Souporaba</string>
     <string name="share_dialog_title">Souporaba</string>
+    <string name="share_download_limit">Nastavi omejitev prejema</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Preteče %1$s</string>
     <string name="share_file">Omogoči souporabo %1$s</string>
@@ -1031,4 +1033,4 @@
         <item quantity="few">%d izbrane</item>
         <item quantity="other">%d izbranih</item>
     </plurals>
-</resources>
+    </resources>

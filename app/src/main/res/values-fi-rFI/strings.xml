@@ -237,6 +237,7 @@
     <string name="download_cannot_create_file">Paikallista tiedostoa ei voi luoda</string>
     <string name="download_download_invalid_local_file_name">Virheellinen tiedostonimi paikalliselle tiedostolle</string>
     <string name="download_latest_dev_version">Lataa viimeisin kehitysversio</string>
+    <string name="download_limit">Latausrajoitus</string>
     <string name="downloader_download_failed_content">Ei voitu ladata %1$s</string>
     <string name="downloader_download_failed_credentials_error">Lataus epäonnistui, kirjaudu sisään uudelleen</string>
     <string name="downloader_download_failed_ticker">Lataus epäonnistui</string>
@@ -732,6 +733,7 @@ GNU yleinen lisenssi, versio 2</string>
     <string name="share">Jaa</string>
     <string name="share_copy_link">Jaa ja kopioi linkki</string>
     <string name="share_dialog_title">Jakaminen</string>
+    <string name="share_download_limit">Aseta latausraja</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vanhenee %1$s</string>
     <string name="share_file">Jaa %1$s</string>
@@ -1049,4 +1051,4 @@ GNU yleinen lisenssi, versio 2</string>
         <item quantity="one">%d valittu</item>
         <item quantity="other">%d valittu</item>
     </plurals>
-</resources>
+    </resources>

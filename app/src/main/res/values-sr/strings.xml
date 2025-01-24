@@ -263,6 +263,7 @@
     <string name="download_cannot_create_file">Не могу да направим локални фајл</string>
     <string name="download_download_invalid_local_file_name">Неисправно име за локални фајл</string>
     <string name="download_latest_dev_version">Преузмите најновију развојну верзију</string>
+    <string name="download_limit">Ограничење преузимања</string>
     <string name="downloader_download_failed_content">Не могу да преузмем %1$s</string>
     <string name="downloader_download_failed_credentials_error">Неуспешно преузимање. Поново се пријавите</string>
     <string name="downloader_download_failed_ticker">Преузимање није успело</string>
@@ -745,6 +746,7 @@
     <string name="recommend_subject">Испробај %1$s на свом уређају!</string>
     <string name="recommend_text">Желим да те позовем да испробаш %1$s на свом уређају.\nПреузми га овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="recommended_files_title">Препоручени фајлови</string>
     <string name="refresh_content">Освежи садржај</string>
     <string name="reload">Поново учитај</string>
     <string name="remote">(удаљено)</string>
@@ -806,6 +808,7 @@
     <string name="share">Подели</string>
     <string name="share_copy_link">Дели и копирај линк</string>
     <string name="share_dialog_title">Дељење</string>
+    <string name="share_download_limit">Podesite ograničenje preuzimanja</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истиче %1$s</string>
     <string name="share_file">Подели %1$s</string>
@@ -1198,5 +1201,10 @@
         <item quantity="one">%d одабран</item>
         <item quantity="few">%d одабрана</item>
         <item quantity="other">%d одабраних</item>
+    </plurals>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">преостаје још %1$d преузимање</item>
+        <item quantity="few">преостаје још %1$d преузимања</item>
+        <item quantity="other">преостаје још %1$d преузимања</item>
     </plurals>
 </resources>

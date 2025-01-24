@@ -263,6 +263,7 @@
     <string name="download_cannot_create_file">Cannot create local file</string>
     <string name="download_download_invalid_local_file_name">Invalid filename for local file</string>
     <string name="download_latest_dev_version">Download latest dev version</string>
+    <string name="download_limit">Download limit</string>
     <string name="downloader_download_failed_content">Could not download %1$s</string>
     <string name="downloader_download_failed_credentials_error">Download failed, log in again</string>
     <string name="downloader_download_failed_ticker">Download failed</string>
@@ -805,6 +806,7 @@
     <string name="share">Share</string>
     <string name="share_copy_link">Share and Copy Link</string>
     <string name="share_dialog_title">Sharing</string>
+    <string name="share_download_limit">Set download limit</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expires %1$s</string>
     <string name="share_file">Share %1$s</string>
@@ -1178,4 +1180,4 @@
         <item quantity="one">%d selected</item>
         <item quantity="other">%d selected</item>
     </plurals>
-</resources>
+    </resources>

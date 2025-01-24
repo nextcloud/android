@@ -17,11 +17,12 @@ import org.junit.Test
 class CapabilityUtilsIT : AbstractIT() {
     @Test
     fun checkOutdatedWarning() {
+        assertFalse(test(NextcloudVersion.nextcloud_31))
         assertFalse(test(NextcloudVersion.nextcloud_30))
         assertFalse(test(NextcloudVersion.nextcloud_29))
-        assertFalse(test(NextcloudVersion.nextcloud_28))
-        assertFalse(test(NextcloudVersion.nextcloud_27))
 
+        assertTrue(test(NextcloudVersion.nextcloud_28))
+        assertTrue(test(NextcloudVersion.nextcloud_27))
         assertTrue(test(NextcloudVersion.nextcloud_26))
         assertTrue(test(NextcloudVersion.nextcloud_25))
         assertTrue(test(NextcloudVersion.nextcloud_24))
@@ -31,7 +32,6 @@ class CapabilityUtilsIT : AbstractIT() {
         assertTrue(test(OwnCloudVersion.nextcloud_20))
         assertTrue(test(OwnCloudVersion.nextcloud_19))
         assertTrue(test(OwnCloudVersion.nextcloud_18))
-        assertTrue(test(OwnCloudVersion.nextcloud_17))
     }
 
     private fun test(version: OwnCloudVersion): Boolean {

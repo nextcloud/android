@@ -261,6 +261,7 @@
     <string name="download_cannot_create_file">Kan ikke oprette filen lokalt</string>
     <string name="download_download_invalid_local_file_name">Ugyldigt filnavn på lokal fil</string>
     <string name="download_latest_dev_version">Hent seneste udiklingsversion</string>
+    <string name="download_limit">Downloadgrænse</string>
     <string name="downloader_download_failed_content">Kunne ikke hente %1$s</string>
     <string name="downloader_download_failed_credentials_error">Overførelse fejlede, log ind igen</string>
     <string name="downloader_download_failed_ticker">Download fejlede</string>
@@ -803,6 +804,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="share">Del</string>
     <string name="share_copy_link">Del og kopiér link</string>
     <string name="share_dialog_title">Deling</string>
+    <string name="share_download_limit">Indstil downloadgrænse</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Udløber %1$s</string>
     <string name="share_file">Del %1$s</string>
@@ -1174,4 +1176,4 @@ Enheds legitimationsoplysninger er sat op
         <item quantity="one">%d valgt</item>
         <item quantity="other">%d valgt</item>
     </plurals>
-</resources>
+    </resources>

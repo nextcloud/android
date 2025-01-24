@@ -581,7 +581,7 @@ open class FolderPickerActivity :
                             RefreshFolderOperation.EVENT_SINGLE_FOLDER_SHARES_SYNCED != event
                         )
 
-                    checkCredentials(syncResult, context, event)
+                    checkCredentials(syncResult, event)
                 }
 
                 DataHolderUtil.getInstance().delete(intent.getStringExtra(FileSyncAdapter.EXTRA_RESULT))
@@ -620,7 +620,7 @@ open class FolderPickerActivity :
             browseToRoot()
         }
 
-        private fun checkCredentials(syncResult: RemoteOperationResult<*>, context: Context, event: String?) {
+        private fun checkCredentials(syncResult: RemoteOperationResult<*>, event: String?) {
             if (RefreshFolderOperation.EVENT_SINGLE_FOLDER_CONTENTS_SYNCED == event && !syncResult.isSuccess
             ) {
                 if (ResultCode.UNAUTHORIZED == syncResult.code || (
@@ -628,7 +628,7 @@ open class FolderPickerActivity :
                             syncResult.exception is AuthenticatorException
                         )
                 ) {
-                    requestCredentialsUpdate(context)
+                    requestCredentialsUpdate()
                 } else if (ResultCode.SSL_RECOVERABLE_PEER_UNVERIFIED == syncResult.code) {
                     showUntrustedCertDialog(syncResult)
                 }
