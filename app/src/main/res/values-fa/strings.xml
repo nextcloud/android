@@ -38,13 +38,8 @@
     <string name="app_config_proxy_port_title">پورت پروکسی</string>
     <string name="app_widget_description">نمایش یک ابزارک از پیشخوان</string>
     <string name="appbar_search_in">جستجو در %s</string>
-    <string name="assistant_screen_all_task_type">همه</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">مقداری متن را تایپ کنید</string>
-    <string name="assistant_screen_failed_task_text">Failed</string>
-    <string name="assistant_screen_scheduled_task_status_text">Scheduled</string>
-    <string name="assistant_screen_successful_task_text">نکمیل شده</string>
     <string name="assistant_screen_task_delete_success_message">Task successfully deleted</string>
-    <string name="assistant_screen_unknown_task_status_text">ناشناخته</string>
     <string name="associated_account_not_found">حساب مرتبط یافت نشد!</string>
     <string name="auth_access_failed">دسترسی خطای  %1$s</string>
     <string name="auth_account_does_not_exist">حساب به این وسیله اضافه نشده است</string>
@@ -162,7 +157,6 @@
     <string name="confirmation_remove_folder_alert">آیا واقعا می خواهید %1$s و محتویات آن را حذف کنید؟</string>
     <string name="confirmation_remove_folders_alert">آیا واقعاً می‌خواهید موارد انتخاب شده و محتوای آنها حذف شود؟</string>
     <string name="confirmation_remove_local">فقط محلی</string>
-    <string name="conflict_file_headline">فایل متناقض %1$s</string>
     <string name="conflict_local_file">پروندهٔ محلّی</string>
     <string name="conflict_message_description">اگر هردو نسخه را انتخاب کنید، یک شماره به نام فایل محلی اضافه خواهد شد.</string>
     <string name="conflict_server_file">پروندهٔ کارساز</string>
@@ -444,7 +438,6 @@
     <string name="image_preview_unit_megapixel">%s مگاپیکسل</string>
     <string name="image_preview_unit_millimetres">%s میلی‌متر</string>
     <string name="image_preview_unit_seconds">%s ثانیه</string>
-    <string name="in_folder">در پوشه %1$s</string>
     <string name="instant_upload_existing">فایل های موجود را نیز بارگذاری کنید</string>
     <string name="instant_upload_on_charging">فقط هنگامی که گوشی شارژ می شود آپلود کنید</string>
     <string name="instant_upload_path">آپلود فوری</string>
@@ -632,7 +625,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
     <string name="prefs_show_hidden_files">فایل های مخفی را نشان بده </string>
     <string name="prefs_sourcecode">دریافت کد منبع</string>
-    <string name="prefs_storage_path">مسیر ذخیره‌سازی</string>
     <string name="prefs_sycned_folders_summary">مدیریت پوشه‌ها جهت آپلود خودکار</string>
     <string name="prefs_synced_folders_local_path_title">پوشه محلی</string>
     <string name="prefs_synced_folders_remote_path_title">پوشه از راه دور</string>
@@ -672,7 +664,6 @@
     <string name="request_account_deletion">درخواست حذف اکانت</string>
     <string name="request_account_deletion_button">درخواست حذف</string>
     <string name="request_account_deletion_details">درخواست حذف دائمی حساب از ارائه‌دهنده خدمت</string>
-    <string name="resized_image_not_possible_download">هیچ تصویری تغییر اندازه شده‌ای در دسترس نیست. تصویر کامل را بارگیری می کنید؟</string>
     <string name="restore">بازیابی پرونده</string>
     <string name="restore_backup">بازیابی نسخه پشتیبان</string>
     <string name="restore_button_description">بازیابی پرونده حذف شده</string>

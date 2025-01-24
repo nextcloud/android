@@ -47,17 +47,11 @@
     <string name="app_widget_description">顯示儀表板中的一個小部件</string>
     <string name="appbar_search_in">%s內搜尋</string>
     <string name="assistant_screen_add_task_alert_dialog_title">添加新任務</string>
-    <string name="assistant_screen_all_task_type">全部</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">輸入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您確定要刪除此工作項目嗎？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">刪除任務</string>
-    <string name="assistant_screen_failed_task_text">失敗了</string>
     <string name="assistant_screen_loading">任務清單加載中，請稍候</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">無可用的工作項目。選取工作項目類型以建立新工作項目。</string>
     <string name="assistant_screen_no_task_available_text">沒有可用於 %s 任務項目類型的任務項目，您可以從右下角建立新任務項目。</string>
-    <string name="assistant_screen_running_task_text">進行中</string>
-    <string name="assistant_screen_scheduled_task_status_text">預定</string>
-    <string name="assistant_screen_successful_task_text">已完成</string>
     <string name="assistant_screen_task_create_fail_message">建立任務項目時發生錯誤</string>
     <string name="assistant_screen_task_create_success_message">已成功建立任務項目</string>
     <string name="assistant_screen_task_delete_fail_message">刪除任務時發生了錯誤</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">任務輸出尚未就緒。</string>
     <string name="assistant_screen_task_types_error_state_message">無法擷取任務類型，請檢查您的網際網路連線。</string>
     <string name="assistant_screen_top_bar_title">助手</string>
-    <string name="assistant_screen_unknown_task_status_text">不詳</string>
     <string name="assistant_task_detail_screen_input_button_title">輸入</string>
     <string name="assistant_task_detail_screen_output_button_title">輸出</string>
     <string name="associated_account_not_found">無法找到連結帳戶</string>
@@ -196,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">您真的想要刪除所選項目和裡面的內容嗎？</string>
     <string name="confirmation_remove_local">只有近端</string>
     <string name="conflict_dialog_error">無法創建衝突解決程序對話框</string>
-    <string name="conflict_file_headline">檔案 %1$s 抵觸</string>
     <string name="conflict_folder_headline">資料夾衝突</string>
     <string name="conflict_local_file">近端檔案</string>
     <string name="conflict_message_description">若您同時選擇兩個版本，近端的檔案會在檔名後附加編號。</string>
@@ -438,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">名字含有無效的字元：「%s」</string>
     <string name="file_name_validator_error_reserved_names">「%s」是禁止使用的名字</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s。請在移動或複製之前重新命名檔案</string>
-    <string name="file_name_validator_upload_content_error">部份內容因包含保留名稱或無效字元而無法上傳</string>
     <string name="file_not_found">找不到檔案</string>
     <string name="file_not_synced">檔案不能同步，將顯示最新可用版本。</string>
     <string name="file_rename">重新命名</string>
@@ -505,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">在資料夾 %1$s</string>
     <string name="instant_upload_existing">一併上傳存在的檔案</string>
     <string name="instant_upload_on_charging">只在充電時上傳</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -714,7 +704,6 @@
     <string name="prefs_show_ecosystem_apps_summary">導覽列中的 Nextcloud 應用程式建議</string>
     <string name="prefs_show_hidden_files">顯示隱藏檔案</string>
     <string name="prefs_sourcecode">取得原始碼</string>
-    <string name="prefs_storage_path">資料儲存資料夾</string>
     <string name="prefs_sycned_folders_summary">管理資料夾以便自動上傳</string>
     <string name="prefs_synced_folders_local_path_title">近端資料夾</string>
     <string name="prefs_synced_folders_remote_path_title">遠端資料夾</string>
@@ -764,7 +753,6 @@
     <string name="request_account_deletion_button">請求刪除</string>
     <string name="request_account_deletion_details">請求服務提供者永久刪除帳戶</string>
     <string name="resharing_is_not_allowed">策略或權限阻止了重新分享。</string>
-    <string name="resized_image_not_possible_download">沒有可用調整過的圖像，下載完整圖像？</string>
     <string name="restore">復原檔案</string>
     <string name="restore_backup">復原備份</string>
     <string name="restore_button_description">復原已刪除檔案</string>

@@ -38,11 +38,6 @@
     <string name="app_config_proxy_port_title">Vrata posredniškega strežnika</string>
     <string name="app_widget_description">Pokaži en gradnik iz nadzorne plošče</string>
     <string name="appbar_search_in">Poišči v %s</string>
-    <string name="assistant_screen_all_task_type">Vse</string>
-    <string name="assistant_screen_failed_task_text">Opravilo je spodletelo!</string>
-    <string name="assistant_screen_scheduled_task_status_text">Načrtovano</string>
-    <string name="assistant_screen_successful_task_text">Končano</string>
-    <string name="assistant_screen_unknown_task_status_text">Neznano</string>
     <string name="associated_account_not_found">Povezanega računa ni mogoče najti!</string>
     <string name="auth_access_failed">Dostop je spodletel: %1$s</string>
     <string name="auth_account_does_not_exist">Račun še ni dodan na to napravo.</string>
@@ -158,7 +153,6 @@
     <string name="confirmation_remove_folder_alert">Ali res želite izbrisati %1$s skupaj z vsebino?</string>
     <string name="confirmation_remove_folders_alert">Ali zares želite izbrisati izbrane predmete in vsebino?</string>
     <string name="confirmation_remove_local">Le krajevno</string>
-    <string name="conflict_file_headline">Različice %1$s v sporu.</string>
     <string name="conflict_local_file">Krajevna datoteka</string>
     <string name="conflict_message_description">Če izberete obe različici, bo k imenu krajevne datoteke dodana številka.</string>
     <string name="conflict_server_file">Strežniška datoteka</string>
@@ -430,7 +424,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">v mapi %1$s</string>
     <string name="instant_upload_existing">Pošlji tudi obstoječe datoteke</string>
     <string name="instant_upload_on_charging">Usklajuj le med polnjenjem naprave</string>
     <string name="instant_upload_path">/Hipno nalaganje</string>
@@ -613,7 +606,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Predlogi programov Nextcloud v naslovu</string>
     <string name="prefs_show_hidden_files">Pokaži skrite datoteke</string>
     <string name="prefs_sourcecode">Pridobi izvorno kodo</string>
-    <string name="prefs_storage_path">Mapa podatkovne shrambe</string>
     <string name="prefs_sycned_folders_summary">Upravljanje map za samodejno pošiljanje</string>
     <string name="prefs_synced_folders_local_path_title">Krajevna mapa</string>
     <string name="prefs_synced_folders_remote_path_title">Mapa na strežniku</string>
@@ -649,7 +641,6 @@
     <string name="rename_local_fail_msg">Ni mogoče preimenovati krajevne kopije. Poskusite vpisati drugačno ime.</string>
     <string name="rename_server_fail_msg">Preimenovanje ni mogoče. Ime je že uporabljeno.</string>
     <string name="request_account_deletion">Zahtevaj izbris računa</string>
-    <string name="resized_image_not_possible_download">Slika prilagojene velikosti ni na voljo. Ali želite prejeti sliko polne velikosti?</string>
     <string name="restore">Obnovi datoteko</string>
     <string name="restore_backup">Obnovi varnostno kopijo</string>
     <string name="restore_button_description">Obnovi izbrisano datoteko</string>

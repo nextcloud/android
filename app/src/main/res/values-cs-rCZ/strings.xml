@@ -47,17 +47,11 @@
     <string name="app_widget_description">Zobrazuje jeden ovládací prvek z nástěnky</string>
     <string name="appbar_search_in">Hledat v %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Přidat nový úkol</string>
-    <string name="assistant_screen_all_task_type">Vše</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Zadejte nějaký text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Opravdu chcete tuto úlohu smazat?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Smazat úkol</string>
-    <string name="assistant_screen_failed_task_text">Nezdařilo se</string>
     <string name="assistant_screen_loading">Načítá se seznam úkolů – vyčkejte</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Není k dispozici žádný úkol. Aby bylo možné vytvořit nový úkol, vyberte jeho typ.</string>
     <string name="assistant_screen_no_task_available_text">Pro typ úkolu %s nejsou k dispozici žádné úkoly – nový úkol je možné vytvořit vpravo dole.</string>
-    <string name="assistant_screen_running_task_text">Probíhá</string>
-    <string name="assistant_screen_scheduled_task_status_text">Naplánováno</string>
-    <string name="assistant_screen_successful_task_text">Dokončeno</string>
     <string name="assistant_screen_task_create_fail_message">Při vytváření úlohy se vyskytla chyba</string>
     <string name="assistant_screen_task_create_success_message">Úloha byla úspěšně vytvořena</string>
     <string name="assistant_screen_task_delete_fail_message">Při mazání úlohy se vyskytla chyba</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Výstup z úkolu ještě není připraven.</string>
     <string name="assistant_screen_task_types_error_state_message">Nedaří se získat typy úloh – zkontrolujte připojení k Internetu.</string>
     <string name="assistant_screen_top_bar_title">Asistent</string>
-    <string name="assistant_screen_unknown_task_status_text">Neznámé</string>
     <string name="assistant_task_detail_screen_input_button_title">Vstup</string>
     <string name="assistant_task_detail_screen_output_button_title">Výstup</string>
     <string name="associated_account_not_found">Související účet nenalezen!</string>
@@ -195,7 +188,6 @@
     <string name="confirmation_remove_folders_alert">Opravdu chcete vybrané položky a jejich obsah odstranit?</string>
     <string name="confirmation_remove_local">Pouze místní</string>
     <string name="conflict_dialog_error">Nepodařilo se vytvořit dialog nástroje pro řešení konfliktu</string>
-    <string name="conflict_file_headline">Kolidující soubor %1$s</string>
     <string name="conflict_folder_headline">Konflikt složek</string>
     <string name="conflict_local_file">Místní soubor</string>
     <string name="conflict_message_description">Pokud zvolíte obě verze, k názvu místního souboru bude připojeno číslo.</string>
@@ -437,7 +429,6 @@
     <string name="file_name_validator_error_invalid_character">Název obsahuje neplatné znaky: %s</string>
     <string name="file_name_validator_error_reserved_names">%s je nepovolený název</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Před přesunutím nebo kopírováním soubor přejmenujte</string>
-    <string name="file_name_validator_upload_content_error">Některý obsah nebylo možné nahrát protože obsahuje rezervované názvy nebo neplatné znaky</string>
     <string name="file_not_found">Soubor nenalezen</string>
     <string name="file_not_synced">Soubor se nepodařilo synchronizovat. Zobrazuje se poslední dostupná verze.</string>
     <string name="file_rename">Přejmenovat</string>
@@ -504,7 +495,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">ve složce %1$s</string>
     <string name="instant_upload_existing">Také nahrát už existující soubory</string>
     <string name="instant_upload_on_charging">Nahrávat pouze při nabíjení</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -713,7 +703,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Doporučování Nextcloud aplikací v záhlaví navigace</string>
     <string name="prefs_show_hidden_files">Zobrazit skryté soubory</string>
     <string name="prefs_sourcecode">Získat zdrojové kódy</string>
-    <string name="prefs_storage_path">Složka pro ukládání dat</string>
     <string name="prefs_sycned_folders_summary">Spravovat složky pro automatické nahrávání</string>
     <string name="prefs_synced_folders_local_path_title">Místní složka</string>
     <string name="prefs_synced_folders_remote_path_title">Vzdálená složka</string>
@@ -763,7 +752,6 @@
     <string name="request_account_deletion_button">Vyžádat si smazání</string>
     <string name="request_account_deletion_details">Vyžádat si trvalé vymazání účtu u poskytovatele služby</string>
     <string name="resharing_is_not_allowed">Zásada nebo oprávnění brání sdílení dál dalším</string>
-    <string name="resized_image_not_possible_download">Zmenšená verze obrázku není k dispozici. Stáhnout obrázek v plné velikosti?</string>
     <string name="restore">Obnovit soubor</string>
     <string name="restore_backup">Obnovit ze zálohy</string>
     <string name="restore_button_description">Obnovit smazaný soubor</string>

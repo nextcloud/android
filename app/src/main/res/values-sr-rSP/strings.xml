@@ -30,16 +30,10 @@
     <string name="add_to_cloud">Dodaj u %1$s</string>
     <string name="advanced_settings">Napredna podešavanja</string>
     <string name="appbar_search_in">Pretraga u %s</string>
-    <string name="assistant_screen_all_task_type">Sve</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Da li ste sigurni da želite da izbrišete ovaj zadatak?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Izbriši zadatak</string>
-    <string name="assistant_screen_failed_task_text">Nije uspelo</string>
     <string name="assistant_screen_loading">Lista zadataka se učitava, molimo sačekajte</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Nijedan zadatak nije dostupan. Izaberite tip zadatka da biste kreirali novi zadatak.</string>
     <string name="assistant_screen_no_task_available_text">Nijedan zadatak nije dostupan za %s tip zadatka, možete kreirati novi zadatak dole desno.</string>
-    <string name="assistant_screen_running_task_text">U toku</string>
-    <string name="assistant_screen_scheduled_task_status_text">Zakazano</string>
-    <string name="assistant_screen_successful_task_text">Završeno</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Izbriši zadatak</string>
     <string name="associated_account_not_found">Pridruženi nalog nije nađen!</string>
     <string name="auth_access_failed">Neuspeo pristup: %1$s</string>
@@ -472,7 +466,6 @@
     <string name="rename_dialog_title">Unesite nov naziv</string>
     <string name="rename_local_fail_msg">Lokalna kopija ne može da se preimenuje, probajte drugo ime</string>
     <string name="rename_server_fail_msg">Preimenovanje nije moguće, ime je već zauzeto</string>
-    <string name="resized_image_not_possible_download">Nema dostupne umanjene sličice. Skini originalnu sliku?</string>
     <string name="restore">Povrati fajl</string>
     <string name="restore_button_description">Povrati obrisani fajl</string>
     <string name="retrieving_file">Dobavljam fajl…</string>

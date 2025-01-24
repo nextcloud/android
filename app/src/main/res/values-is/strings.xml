@@ -35,9 +35,6 @@
     <string name="app_config_proxy_port_title">Gátt milliþjóns</string>
     <string name="app_widget_description">Sýnir einn viðmótshluta af stjórnborði</string>
     <string name="appbar_search_in">Leita í %s</string>
-    <string name="assistant_screen_all_task_type">Allt</string>
-    <string name="assistant_screen_successful_task_text">Lokið</string>
-    <string name="assistant_screen_unknown_task_status_text">Óþekkt</string>
     <string name="associated_account_not_found">Tengdur notandaaðgangur fannst ekki!</string>
     <string name="auth_access_failed">Aðgangur mistókst: %1$s</string>
     <string name="auth_account_does_not_exist">Aðgangur er ekki ennþá til á tækinu</string>
@@ -417,7 +414,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">í möppunni %1$s</string>
     <string name="instant_upload_existing">Senda líka inn fyrirliggjandi skrár</string>
     <string name="instant_upload_on_charging">Einungis senda inn þegar verið er að hlaða</string>
     <string name="instant_upload_path">/BeinInnsending</string>
@@ -593,7 +589,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Tillögur Nextcloud-forrita í flakkfyrirsögn</string>
     <string name="prefs_show_hidden_files">Sýna faldar skrár</string>
     <string name="prefs_sourcecode">Náðu í grunnkóðann</string>
-    <string name="prefs_storage_path">Mappa fyrir geymslu gagna</string>
     <string name="prefs_sycned_folders_summary">Sýsla með möppur vegna sjálfvirkra innsendinga</string>
     <string name="prefs_synced_folders_local_path_title">Staðvær mappa</string>
     <string name="prefs_synced_folders_remote_path_title">Fjartengd mappa</string>
@@ -631,7 +626,6 @@
     <string name="request_account_deletion">Biðja um að aðgangi sé eytt</string>
     <string name="request_account_deletion_button">Biðja um eyðingu</string>
     <string name="request_account_deletion_details">Biðja um endanlega eyðingu aðgangs hjá þjónustuveitu</string>
-    <string name="resized_image_not_possible_download">Engin stærðarbreytt mynd í boði. Sækja alla myndina?</string>
     <string name="restore">Endurheimta skrá</string>
     <string name="restore_backup">Endurheimta úr öryggisafriti</string>
     <string name="restore_button_description">Endurheimta eydda skrá</string>
