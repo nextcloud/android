@@ -38,17 +38,11 @@
     <string name="app_config_proxy_port_title">ۋاكالەتچى ئېغىز</string>
     <string name="app_widget_description">باشقۇرۇش تاختىسىدىكى بىر كىچىك قورالنى كۆرسىتىدۇ</string>
     <string name="appbar_search_in">%s دىن ئىزدەڭ</string>
-    <string name="assistant_screen_all_task_type">ھەممىسى</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">بەزى تېكىستلەرنى كىرگۈزۈڭ</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">بۇ ۋەزىپىنى ئۆچۈرمەكچىمۇ؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">ۋەزىپىنى ئۆچۈرۈڭ</string>
-    <string name="assistant_screen_failed_task_text">مەغلۇب بولدى</string>
     <string name="assistant_screen_loading">ۋەزىپە تىزىملىكى يۈكلىنىۋاتىدۇ ، ساقلاپ تۇرۇڭ</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">ھېچقانداق ۋەزىپە يوق. يېڭى ۋەزىپە يارىتىش ئۈچۈن ۋەزىپە تۈرىنى تاللاڭ.</string>
     <string name="assistant_screen_no_task_available_text"> %s ۋەزىپە تىپىغا ماس كېلىدىغان ۋەزىپە يوق ، ئاستىدىن ئوڭدىن يېڭى ۋەزىپە قۇرالايسىز.</string>
-    <string name="assistant_screen_running_task_text">ئىلگىرىلەۋاتىدۇ</string>
-    <string name="assistant_screen_scheduled_task_status_text">پىلانلانغان</string>
-    <string name="assistant_screen_successful_task_text">تاماملاندى</string>
     <string name="assistant_screen_task_create_fail_message">ۋەزىپە قۇرغاندا خاتالىق كۆرۈلدى</string>
     <string name="assistant_screen_task_create_success_message">ۋەزىپە مۇۋەپپەقىيەتلىك قۇرۇلدى</string>
     <string name="assistant_screen_task_delete_fail_message">ۋەزىپىنى ئۆچۈرگەندە خاتالىق كۆرۈلدى</string>
@@ -57,7 +51,6 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">ۋەزىپىنى ئۆچۈرۈڭ</string>
     <string name="assistant_screen_task_types_error_state_message">ۋەزىپە تۈرلىرىنى ئېلىپ كېتەلمىدىڭىز ، تور ئۇلىنىشىڭىزنى تەكشۈرۈپ بېقىڭ.</string>
     <string name="assistant_screen_top_bar_title">ياردەمچى</string>
-    <string name="assistant_screen_unknown_task_status_text">نامەلۇم</string>
     <string name="assistant_task_detail_screen_input_button_title">كىرگۈزۈش</string>
     <string name="assistant_task_detail_screen_output_button_title">چىقىرىش</string>
     <string name="associated_account_not_found">بىرلەشمە ھېسابات تېپىلمىدى!</string>
@@ -182,7 +175,6 @@
     <string name="confirmation_remove_folders_alert">تاللانغان تۈرلەرنى ۋە ئۇلارنىڭ مەزمۇنىنى ئۆچۈرمەكچىمۇ؟</string>
     <string name="confirmation_remove_local">پەقەت يەرلىك</string>
     <string name="conflict_dialog_error">زىددىيەتنى ھەل قىلىش دىئالوگى قۇرغىلى بولمايدۇ</string>
-    <string name="conflict_file_headline">زىددىيەتلىك ھۆججەت%1$s</string>
     <string name="conflict_folder_headline">ھۆججەت قىسقۇچ</string>
     <string name="conflict_local_file">يەرلىك ھۆججەت</string>
     <string name="conflict_message_description">ئەگەر ھەر ئىككى نەشرىنى تاللىسىڭىز ، يەرلىك ھۆججەتنىڭ نامىغا بىر سان قوشۇلىدۇ.</string>
@@ -421,7 +413,6 @@
     <string name="file_name_validator_error_invalid_character">ئىسىم ئىناۋەتسىز ھەرپلەرنى ئۆز ئىچىگە ئالىدۇ:%s</string>
     <string name="file_name_validator_error_reserved_names">%s چەكلەنگەن ئىسىم</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. كۆچۈرۈش ياكى كۆچۈرۈشتىن بۇرۇن ھۆججەتنىڭ نامىنى ئۆزگەرتىڭ</string>
-    <string name="file_name_validator_upload_content_error">بەزى مەزمۇنلارنى زاپاس ئىسىملار ياكى ئىناۋەتسىز ھەرپلەر بولغاچقا يۈكلەشكە بولمايدۇ</string>
     <string name="file_not_found">ھۆججەت تېپىلمىدى</string>
     <string name="file_not_synced">ھۆججەت ماسقەدەملەنمىدى. ئەڭ يېڭى نەشرىنى كۆرسىتىش.</string>
     <string name="file_rename">ئىسىم ئۆزگەرتىش</string>
@@ -488,7 +479,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">قىسقۇچتا%1$s</string>
     <string name="instant_upload_existing">مەۋجۇت ھۆججەتلەرنىمۇ يۈكلەڭ</string>
     <string name="instant_upload_on_charging">توك قاچىلىغاندا ئاندىن يۈكلەڭ</string>
     <string name="instant_upload_path">/ InstantUpload</string>
@@ -693,7 +683,6 @@
     <string name="prefs_show_ecosystem_apps_summary">يول باشلاش ماۋزۇسىدىكى Nextcloud ئەپ تەكلىپلىرى</string>
     <string name="prefs_show_hidden_files">يوشۇرۇن ھۆججەتلەرنى كۆرسەت</string>
     <string name="prefs_sourcecode">ئەسلى كودقا ئېرىشىش</string>
-    <string name="prefs_storage_path">سانلىق مەلۇمات ساقلاش قىسقۇچى</string>
     <string name="prefs_sycned_folders_summary">ئاپتوماتىك يوللاش ئۈچۈن ھۆججەت قىسقۇچلارنى باشقۇرۇڭ</string>
     <string name="prefs_synced_folders_local_path_title">يەرلىك ھۆججەت قىسقۇچ</string>
     <string name="prefs_synced_folders_remote_path_title">يىراقتىن قىسقۇچ</string>
@@ -739,7 +728,6 @@
     <string name="request_account_deletion">ھېسابات ئۆچۈرۈشنى تەلەپ قىلىڭ</string>
     <string name="request_account_deletion_button">ئۆچۈرۈشنى تەلەپ قىلىڭ</string>
     <string name="request_account_deletion_details">مۇلازىمەت تەمىنلىگۈچى تەرىپىدىن ھېساباتنى مەڭگۈلۈك ئۆچۈرۈۋېتىشنى تەلەپ قىلىڭ</string>
-    <string name="resized_image_not_possible_download">چوڭلۇقى ئۆزگەرتىلگەن رەسىم يوق. تولۇق رەسىمنى چۈشۈرۈڭ؟</string>
     <string name="restore">ھۆججەتنى ئەسلىگە كەلتۈرۈش</string>
     <string name="restore_backup">زاپاسلاشنى ئەسلىگە كەلتۈرۈڭ</string>
     <string name="restore_button_description">ئۆچۈرۈلگەن ھۆججەتنى ئەسلىگە كەلتۈرۈڭ</string>

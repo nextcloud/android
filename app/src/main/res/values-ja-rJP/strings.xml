@@ -46,17 +46,11 @@
     <string name="app_config_proxy_port_title">プロキシポート</string>
     <string name="app_widget_description">ダッシュボードから一つのウィジェットを表示</string>
     <string name="appbar_search_in">%s の中を検索</string>
-    <string name="assistant_screen_all_task_type">すべて</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">テキストを入力</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">本当にこのタスクを削除しますか？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">タスクを削除</string>
-    <string name="assistant_screen_failed_task_text">失敗</string>
     <string name="assistant_screen_loading">タスクリストを読み込み中です。しばらくお待ちください</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">利用可能なタスクがありません。タスクの種類を選択して、新しいタスクを作成してください。</string>
     <string name="assistant_screen_no_task_available_text">タスクタイプ%sに使用できるタスクがありません。右下から新しいタスクを作成できます。</string>
-    <string name="assistant_screen_running_task_text">進行中</string>
-    <string name="assistant_screen_scheduled_task_status_text">スケジュール済</string>
-    <string name="assistant_screen_successful_task_text">完了</string>
     <string name="assistant_screen_task_create_fail_message">タスクの作成中にエラーが発生しました。</string>
     <string name="assistant_screen_task_create_success_message">タスクは正常に作成されました。</string>
     <string name="assistant_screen_task_delete_fail_message">タスクの削除中にエラーが発生しました。</string>
@@ -66,7 +60,6 @@
     <string name="assistant_screen_task_output_empty_text">タスクの出力はまだ準備ができていません。</string>
     <string name="assistant_screen_task_types_error_state_message">タスクタイプを取得できません。インターネット接続を確認してください。</string>
     <string name="assistant_screen_top_bar_title">アシスタント</string>
-    <string name="assistant_screen_unknown_task_status_text">不明</string>
     <string name="assistant_task_detail_screen_input_button_title">入力</string>
     <string name="assistant_task_detail_screen_output_button_title">出力</string>
     <string name="associated_account_not_found">関連付けられたアカウントが見つかりません！</string>
@@ -190,7 +183,6 @@
     <string name="confirmation_remove_folders_alert">本当に選択したアイテムとその内容を削除しますか？</string>
     <string name="confirmation_remove_local">ローカルのみ</string>
     <string name="conflict_dialog_error">競合解決ダイアログを作成できません</string>
-    <string name="conflict_file_headline">%1$sはすでに存在します</string>
     <string name="conflict_folder_headline">ファルダの競合</string>
     <string name="conflict_local_file">ローカルファイル</string>
     <string name="conflict_message_description">両方のバージョンを選択した場合、ローカルファイルはファイル名に数字が追加されます。</string>
@@ -432,7 +424,6 @@
     <string name="file_name_validator_error_invalid_character">名前に無効な文字が含まれています: %s</string>
     <string name="file_name_validator_error_reserved_names">%s は禁止されている名前です</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s。 移動またはコピーする前にファイルの名前を変更してください</string>
-    <string name="file_name_validator_upload_content_error">予約された名前または無効な文字を含むため、アップロードできないコンテンツがあります</string>
     <string name="file_not_found">ファイルが見つかりません</string>
     <string name="file_not_synced">ファイルを同期できませんでした。 最新の利用可能なバージョンを表示します。</string>
     <string name="file_rename">名前を変更</string>
@@ -499,7 +490,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s 秒</string>
-    <string name="in_folder">フォルダー%1$sの中で</string>
     <string name="instant_upload_existing">既存のファイルもアップロード</string>
     <string name="instant_upload_on_charging">充電中のみアップロード</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -707,7 +697,6 @@
     <string name="prefs_show_ecosystem_apps_summary">ナビゲーションの見出しにおけるNextcloudアプリの提案</string>
     <string name="prefs_show_hidden_files">隠しファイルを表示</string>
     <string name="prefs_sourcecode">ソースコードを入手</string>
-    <string name="prefs_storage_path">データ保存フォルダー</string>
     <string name="prefs_sycned_folders_summary">自動アップロードするフォルダーを管理する</string>
     <string name="prefs_synced_folders_local_path_title">ローカルフォルダー</string>
     <string name="prefs_synced_folders_remote_path_title">リモートフォルダー</string>
@@ -756,7 +745,6 @@
     <string name="request_account_deletion_button">削除要求</string>
     <string name="request_account_deletion_details">サービスプロバイダによるアカウントの永久削除を要求する</string>
     <string name="resharing_is_not_allowed">ポリシーまたは権限により再共有ができません</string>
-    <string name="resized_image_not_possible_download">サイズ変更された画像はありません。 フルイメージをダウンロードしますか？</string>
     <string name="restore">ファイルを復元</string>
     <string name="restore_backup">バックアップを復元</string>
     <string name="restore_button_description">選択したファイルを復元する</string>

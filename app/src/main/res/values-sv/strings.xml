@@ -47,17 +47,11 @@
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lägg till ny uppgift</string>
-    <string name="assistant_screen_all_task_type">Alla</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
-    <string name="assistant_screen_failed_task_text">Misslyckades</string>
     <string name="assistant_screen_loading">Uppgiftslistan laddas, vänta</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Ingen uppgift tillgänglig. Välj en uppgiftstyp för att skapa en ny uppgift.</string>
     <string name="assistant_screen_no_task_available_text">Ingen uppgift tillgänglig för uppgiftstyp %s, du kan skapa en ny uppgift längst ner till höger.</string>
-    <string name="assistant_screen_running_task_text">Pågående</string>
-    <string name="assistant_screen_scheduled_task_status_text">Schemalagd</string>
-    <string name="assistant_screen_successful_task_text">Slutförd</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
     <string name="assistant_screen_task_create_success_message">Uppgiften har skapats</string>
     <string name="assistant_screen_task_delete_fail_message">Ett fel uppstod när uppgiften skulle tas bort</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Uppgiftens resultat är inte redo än.</string>
     <string name="assistant_screen_task_types_error_state_message">Det går inte att hämta uppgiftstyper, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
-    <string name="assistant_screen_unknown_task_status_text">Okänd</string>
     <string name="assistant_task_detail_screen_input_button_title">Inmatning</string>
     <string name="assistant_task_detail_screen_output_button_title">Utdata</string>
     <string name="associated_account_not_found">Associerat konto kunde inte hittas!</string>
@@ -196,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="conflict_dialog_error">Dialogrutan för konfliktlösning kan inte skapas</string>
-    <string name="conflict_file_headline">Konfliktande fil %1$s</string>
     <string name="conflict_folder_headline">Mappkonflikt</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
@@ -438,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">Namnet innehåller ogiltiga tecken: %s</string>
     <string name="file_name_validator_error_reserved_names">%s är ett förbjudet namn</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Byt namn på filen innan du flyttar eller kopierar</string>
-    <string name="file_name_validator_upload_content_error">En del innehåll kan inte laddas upp eftersom det innehåller reserverade namn eller ogiltiga tecken</string>
     <string name="file_not_found">Filen hittades inte</string>
     <string name="file_not_synced">Filen kunde inte synkroniseras. Visar senaste tillgängliga versionen.</string>
     <string name="file_rename">Byt namn</string>
@@ -505,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">i mapp %1$s</string>
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
@@ -715,7 +705,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-appförslag i navigeringsrubriken</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_sourcecode">Hämta källkod</string>
-    <string name="prefs_storage_path">Datalagringsmapp</string>
     <string name="prefs_sycned_folders_summary">Hantera mappar för automatiskt uppladdning</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mapp</string>
     <string name="prefs_synced_folders_remote_path_title">Extern mapp</string>
@@ -767,7 +756,6 @@
     <string name="request_account_deletion_button">Begäran om radering</string>
     <string name="request_account_deletion_details">Begär permanent borttagning av konto av tjänsteleverantör</string>
     <string name="resharing_is_not_allowed">Policy eller behörigheter förhindrar vidaredelning</string>
-    <string name="resized_image_not_possible_download">Ingen storleksändrad bild tillgänglig. Hämta hela bilden?</string>
     <string name="restore">Återställ fil</string>
     <string name="restore_backup">Återställ säkerhetskopiering</string>
     <string name="restore_button_description">Återställ raderad fil</string>

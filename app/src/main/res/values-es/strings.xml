@@ -35,29 +35,32 @@
     <string name="advanced_settings">Configuración avanzada</string>
     <string name="allow_resharing">Permitir que se vuelva a compartir</string>
     <string name="app_config_base_url_title">URL base</string>
+    <string name="app_config_disable_clipboard_title">Desactivar el portapapeles</string>
+    <string name="app_config_disable_intro_title">Desactivar la introducción</string>
+    <string name="app_config_disable_log_title">Desactivar el registro</string>
+    <string name="app_config_disable_more_external_site_title">Desactivar Sitios externos</string>
+    <string name="app_config_disable_multiaccount_title">Desactivar Multicuenta</string>
+    <string name="app_config_disable_sharing_title">Desactivar Compartir</string>
+    <string name="app_config_enforce_protection_title">Imponer Protección</string>
+    <string name="app_config_proxy_host_title">Servidor de proxy</string>
     <string name="app_config_proxy_port_title">Puerto del proxy</string>
     <string name="app_widget_description">Muestra un widget del tablero</string>
     <string name="appbar_search_in">Buscar en %s</string>
-    <string name="assistant_screen_all_task_type">Todo</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Añadir nueva tarea</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriba algo de texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro de querer eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Eliminar tarea</string>
-    <string name="assistant_screen_failed_task_text">Falló</string>
     <string name="assistant_screen_loading">Las listas de tareas están cargando, por favor espere</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">No hay tareas disponibles. Seleccione un tipo de tarea para crear una nueva.</string>
     <string name="assistant_screen_no_task_available_text">No hay tareas disponibles para el tipo de tarea %s, puede crear una nueva tarea abajo a la derecha.</string>
-    <string name="assistant_screen_running_task_text">En progreso</string>
-    <string name="assistant_screen_scheduled_task_status_text">Programado</string>
-    <string name="assistant_screen_successful_task_text">Completado</string>
     <string name="assistant_screen_task_create_fail_message">Ocurrió un error al crear la tarea</string>
     <string name="assistant_screen_task_create_success_message">Tarea creada exitosamente</string>
     <string name="assistant_screen_task_delete_fail_message">Ocurrió un error al eliminar la tarea</string>
     <string name="assistant_screen_task_delete_success_message">La tarea fue eliminada exitosamente</string>
     <string name="assistant_screen_task_list_error_state_message">No se pudo obtener la lista de tareas, por favor, revise su conexión a internet.</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Eliminar tarea</string>
+    <string name="assistant_screen_task_output_empty_text">El resultado de la tarea no está listo aún.</string>
     <string name="assistant_screen_task_types_error_state_message">No se pudieron obtener los tipos de tareas, por favor, revise su conexión a internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
-    <string name="assistant_screen_unknown_task_status_text">Desconocido</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Salida</string>
     <string name="associated_account_not_found">¡Cuenta asociada no encontrada!</string>
@@ -94,6 +97,9 @@
     <string name="authenticator_activity_login_error">Ha habido un problema al procesar tu petición de acceso. Por favor, vuelve a intentarlo más tarde.</string>
     <string name="authenticator_activity_please_complete_login_process">Por favor, complete el proceso de inicio de sesión en su navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">se mantiene en la carpeta original, pues es de solo lectura</string>
+    <string name="auto_upload_gplay">Comportamiento de subida automática cambiado</string>
+    <string name="auto_upload_gplay_desc">Debido a nuevas restricciones impuestas por Google, la subida automática ya no podrá borrar automáticamente los archivos subidos.</string>
+    <string name="auto_upload_gplay_desc2">Debido a nuevas restricciones impuestas por Google, nos hemos visto obligados a quitar un permiso importante. Como consecuencia, la subida automática solo podrá subir imágenes y vídeos.\nAdemás, se necesita un nuevo permiso para ver la ubicación en la que se tomaron las imágenes.\nAsegúrate de que el permiso de multimedia está en \"Permitir siempre todo\".</string>
     <string name="auto_upload_on_wifi">Subir sólo con conexión Wi-Fi sin límite de datos</string>
     <string name="auto_upload_path">/CargaAutomática</string>
     <string name="autoupload_configure">Configurar</string>
@@ -128,6 +134,7 @@
     <string name="clear_notifications_failed">Fallo al limpiar notificaciones.</string>
     <string name="clear_status_message">Borrar mensaje de estado</string>
     <string name="clear_status_message_after">Borrar mensaje de estado después de</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Intervención manual necesaria para reactivar la subida automática</string>
     <string name="clipboard_label">Texto copiado de %1$s</string>
     <string name="clipboard_no_text_to_copy">No se ha recibido ningún mensaje para copiar al portapapeles</string>
     <string name="clipboard_text_copied">Enlace copiado</string>
@@ -182,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">¿Estás seguro de que quieres eliminar los elementos seleccionados y sus contenidos?</string>
     <string name="confirmation_remove_local">Solo local</string>
     <string name="conflict_dialog_error">El diálogo de resolución de conflictos no puede ser creado</string>
-    <string name="conflict_file_headline">Conflicto en archivo %1$s</string>
     <string name="conflict_folder_headline">Conflicto de carpetas</string>
     <string name="conflict_local_file">Archivo local</string>
     <string name="conflict_message_description">Si seleccionas ambas versiones, el archivo local tendrá un número añadido a su nombre.</string>
@@ -366,6 +372,7 @@
     <string name="file_already_exists">El nombre de archivo ya existe</string>
     <string name="file_delete">Eliminar</string>
     <string name="file_detail_activity_error">Error al recuperar las actividades del archivo</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">No hay ninguna aplicación disponible para seleccionar contactos</string>
     <string name="file_details_no_content">Fallo al cargar los detalles</string>
     <string name="file_icon">Archivo</string>
     <string name="file_keep">Mantener</string>
@@ -393,6 +400,7 @@
     <string name="file_management_permission_optional">Permisos de almacenamiento</string>
     <string name="file_management_permission_optional_text">%1$s funciona mejor con permisos para acceder al almacenamiento. Puede escoger entre el acceso completo a los archivos, o acceso solo de lectura a fotos y vídeos.</string>
     <string name="file_management_permission_text">%1$s necesita permisos de gestión de archivos para subir archivos. Puede escoger entre acceso completo a todos los archivos, o acceso de solo lectura a fotos y vídeos.</string>
+    <string name="file_migration_allow_media_indexing">Permitir acceso desde otras aplicaciones</string>
     <string name="file_migration_checking_destination">Comprobando destino…</string>
     <string name="file_migration_cleaning">Limpiando…</string>
     <string name="file_migration_dialog_title">Actualizando carpeta de almacenamiento de datos</string>
@@ -403,6 +411,7 @@
     <string name="file_migration_failed_not_writable">No se ha podido escribir el archivo de destino</string>
     <string name="file_migration_failed_while_coping">Fallo durante la migración</string>
     <string name="file_migration_failed_while_updating_index">Fallo al actualizar el índice</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">Moviendo datos…</string>
     <string name="file_migration_ok_finished">Finalizado</string>
     <string name="file_migration_override_data_folder">Reemplazar</string>
@@ -421,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">El nombre contiene caracteres inválidos: %s</string>
     <string name="file_name_validator_error_reserved_names">%s es un nombre prohibido</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Por favor, renombra el archivo antes de moverlo o copiarlo.</string>
-    <string name="file_name_validator_upload_content_error">Algún contenido no puede actualizarse puesto que contiene nombres reservados o caracteres inválidos</string>
     <string name="file_not_found">Archivo no encontrado</string>
     <string name="file_not_synced">No se ha podido sincronizar el archivo. Se muestra la última versión disponible.</string>
     <string name="file_rename">Renombrar</string>
@@ -488,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">en carpeta %1$s</string>
     <string name="instant_upload_existing">Subir también archivos existentes</string>
     <string name="instant_upload_on_charging">Subir solo al cargar batería</string>
     <string name="instant_upload_path">/SubidaInstantánea</string>
@@ -598,6 +605,7 @@
     <string name="notifications_no_results_headline">No hay notificaciones</string>
     <string name="notifications_no_results_message">Por favor, comprúebalo más tarde.</string>
     <string name="oc_file_list_adapter_offline_operation_description_text">Operación pendiente</string>
+    <string name="oc_file_list_adapter_offline_operation_remove_description_text">Operación de borrado pendiente</string>
     <string name="offline_mode">No hay conexión a internet</string>
     <string name="offline_mode_info_description">Incluso sin una conexión a internet, puede sorganizar tus carpetas o crear archivos. Una vez vuelves a estar en línea ,las acciones pendientes se sincronizarán automáticamente.</string>
     <string name="offline_mode_info_title">Estás sin conexión, pero el trabajo continúa</string>
@@ -626,6 +634,7 @@
     <string name="permission_allow">Permitir</string>
     <string name="permission_deny">Denegar</string>
     <string name="permission_storage_access">Se necesitan permisos adicionales para subir y descargar archivos.</string>
+    <string name="pick_contact_to_share_with">Elige un contacto con quien compartir</string>
     <string name="picture_set_as_no_app">No se ha encontrado una app para establecer con ella la imagen</string>
     <string name="pin_home">Anclar a la pantalla de inicio</string>
     <string name="pin_shortcut_label">Abrir %1$s</string>
@@ -660,6 +669,8 @@
     <string name="prefs_category_sync">Sincronizar</string>
     <string name="prefs_daily_backup_summary">Respaldar diariamente el calendario y contactos</string>
     <string name="prefs_daily_contact_backup_summary">Respaldo diario de sus contactos</string>
+    <string name="prefs_data_storage_location">Ubicación donde guardar los datos</string>
+    <string name="prefs_data_storage_location_summary">Gestionar ubicación de almacenamiento de datos</string>
     <string name="prefs_davx5_setup_error">Error inesperado al configurar DAVx5 (anteriormente conocido como DAVdroid)</string>
     <string name="prefs_e2e_active">¡Se ha configurado el cifrado de extremo a extremo!</string>
     <string name="prefs_e2e_mnemonic">Regla mnemotécnica del cifrado E2E</string>
@@ -693,7 +704,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Sugerencias de Nextcloud app en encabezado de navegación</string>
     <string name="prefs_show_hidden_files">Mostrar archivos ocultos</string>
     <string name="prefs_sourcecode">Obtener el código fuente</string>
-    <string name="prefs_storage_path">Carpeta de almacenamiento de datos</string>
     <string name="prefs_sycned_folders_summary">Administrar carpetas para auto-subida</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
@@ -718,11 +728,14 @@
     <string name="push_notifications_old_login">No hay notificaciones push debido a que la sesión está caducada. Por favor, considera volver a añadir la cuenta.</string>
     <string name="push_notifications_temp_error">Notificaciones push actualmente no disponibles.</string>
     <string name="qr_could_not_be_read">¡No se ha podido leer el código QR!</string>
+    <string name="re_enable_auto_upload">Cambios a la subida automática</string>
+    <string name="re_enable_auto_upload_desc">Debido a nuevas restricciones impuestas por Google, nos hemos visto obligados a quitar un permiso importante. Estamos trabajando con Google para resolver este problema y restaurar la funcionalidad completa.\n\nPara reactivar la subida automática para nuevas fotos y vídeos:\nSelecciona \"Permitir todo\" en el siguiente diálogo o en los ajustes del sistema.\nPermite ubicación de multimedia cuando se te indique, para que Nextcloud pueda incluir la ubicación de las fotos que son subidas.\n\nEl diálogo de permisos solo se muestra cuando es necesario. En caso de duda, comprueba los ajustes de permisos del sistema.\n\nLa subida automática solo podrá subir fotos y vídeos al utilizar la versión de la aplicación de Nextcloud descargada de Google Play.\n\nPor favor, comprueba si algún archivo no ha sido subido desde diciembre 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">No se puede encontrar la carpeta, la operación de sincronización se ha cancelado</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">No se ha podido encontrar el archivo para subir</string>
     <string name="recommend_subject">¡Prueba %1$s en tu móvil!</string>
     <string name="recommend_text">Quiero invitarte a usar %1$s en tu móvil.\nDescárgalo aquí: %2$s</string>
     <string name="recommend_urls">%1$s o %2$s</string>
+    <string name="recommended_files_title">Archivos recomendados</string>
     <string name="refresh_content">Refrescar contenido</string>
     <string name="reload">Volver a cargar</string>
     <string name="remote">(remoto)</string>
@@ -741,7 +754,7 @@
     <string name="request_account_deletion">Solicitar la eliminación de la cuenta</string>
     <string name="request_account_deletion_button">Solicitar eliminación</string>
     <string name="request_account_deletion_details">Solicitar eliminación permanente de la cuenta al proveedor de servicio</string>
-    <string name="resized_image_not_possible_download">No se dispone de la imagen en otros tamaños. ¿Descargar en tamaño completo?</string>
+    <string name="resharing_is_not_allowed">La política de compartir o los permisos impiden volver a compartir</string>
     <string name="restore">Restaurar archivo</string>
     <string name="restore_backup">Restaurar copia de seguridad</string>
     <string name="restore_button_description">Restaurar archivo eliminado</string>
@@ -766,6 +779,7 @@
     <string name="screenshot_06_davdroid_subline">Sincronizar con DAVx5</string>
     <string name="search_error">Error al cargar resultados de búsqueda</string>
     <string name="secure_share_not_set_up">Compartir en modo seguro no está configurado para este usuario</string>
+    <string name="secure_share_search">Compartir de forma segura...</string>
     <string name="select_all">Seleccionar todo</string>
     <string name="select_media_folder">Establezca la carpeta de medios</string>
     <string name="select_one_template">Por favor, selecciona una plantilla</string>
@@ -810,6 +824,7 @@
     <string name="share_permissions">Permisos al compartir</string>
     <string name="share_remote_clarification">%1$s (remoto)</string>
     <string name="share_room_clarification">%1$s (conversación)</string>
+    <string name="share_search">Nombre, ID de nube federada o dirección de correo electrónico...</string>
     <string name="share_send_new_email">Enviar nuevo email</string>
     <string name="share_send_note">Nota para el destinatario</string>
     <string name="share_settings">Configuración</string>
@@ -972,6 +987,8 @@
     <string name="upload_file_dialog_title">Introduce el nombre y tipo de archivo para subir</string>
     <string name="upload_files">Subir archivos</string>
     <string name="upload_global_pause_title">Todas las cargas están pausadas</string>
+    <string name="upload_gplay">Cambios de permisos</string>
+    <string name="upload_gplay_desc">Un nuevo permiso es necesario para acceder a la ubicación donde se hicieron las fotos subidas.\nComprueba que el acceso a multimedia sea \"Permitir todo siempre\".</string>
     <string name="upload_item_action_button">Botón de acción de subida de objeto</string>
     <string name="upload_list_delete">Eliminar</string>
     <string name="upload_list_empty_headline">No hay subidas disponibles</string>
@@ -1059,6 +1076,7 @@
     <string name="wait_a_moment">Espera un momento…</string>
     <string name="wait_checking_credentials">Comprobando las credenciales guardadas</string>
     <string name="wait_for_tmp_copy_from_private_storage">Copiando el archivo desde el almacenamiento privado.</string>
+    <string name="warn_rename_extension">Cambiar la extensión puede hacer que este archivo se abra con otra aplicación</string>
     <string name="webview_version_check_alert_dialog_message">Por favor actualiza la aplicación WebView de Sistema Android para iniciar sesión</string>
     <string name="webview_version_check_alert_dialog_positive_button_title">Actualizar</string>
     <string name="webview_version_check_alert_dialog_title">Actualiza WebView del Sistema Android</string>
@@ -1081,6 +1099,21 @@
         <item quantity="one">%d minuto</item>
         <item quantity="many">%d minutos</item>
         <item quantity="other">%d minutos</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">Hace 1 segundo</item>
+        <item quantity="many">Hace %d segundos</item>
+        <item quantity="other">Hace %d segundos</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">Hace 1 minuto</item>
+        <item quantity="many">Hace %d minutos</item>
+        <item quantity="other">Hace %d minutos</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">Hace 1 hora</item>
+        <item quantity="many">Hace %d horas</item>
+        <item quantity="other">Hace %d horas</item>
     </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">No se ha podido sincronizar %1$d archivo (conflicto con %2$d)</item>
@@ -1142,6 +1175,11 @@
         <item quantity="many">%1$d archivos</item>
         <item quantity="other">%1$d archivos</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d ítem</item>
+        <item quantity="many">%1$d ítems</item>
+        <item quantity="other">%1$d ítems</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Mostrar %1$d carpeta oculta</item>
         <item quantity="many">Mostrar %1$d carpetas ocultas</item>
@@ -1152,4 +1190,9 @@
         <item quantity="many">%d seleccionados</item>
         <item quantity="other">%d seleccionados</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">Queda %1$d descarga</item>
+        <item quantity="many">Quedan %1$d descargas</item>
+        <item quantity="other">Quedan %1$d descargas</item>
+    </plurals>
+</resources>

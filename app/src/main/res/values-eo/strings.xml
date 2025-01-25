@@ -31,9 +31,6 @@
     <string name="advanced_settings">Detalaj agordoj</string>
     <string name="allow_resharing">Permesi rekunhavigon</string>
     <string name="appbar_search_in">Serĉi en 1%s</string>
-    <string name="assistant_screen_all_task_type">Ĉiuj</string>
-    <string name="assistant_screen_successful_task_text">Plenumita</string>
-    <string name="assistant_screen_unknown_task_status_text">Nekonata</string>
     <string name="auth_access_failed">Aliro malsukcesis: %1$s</string>
     <string name="auth_account_does_not_exist">La konto ankoraŭ ne aldoniĝis al tiu ĉi aparato</string>
     <string name="auth_account_not_new">Konto pri samaj uzanto kaj servilo jam ekzistas tiuaparate</string>
@@ -449,7 +446,6 @@
     <string name="rename_local_fail_msg">Ne eblis alinomi lokan kopion, provu uzi alian nomon</string>
     <string name="rename_server_fail_msg">Ne eblis alinomi: la nomo jam uziĝas</string>
     <string name="request_account_deletion">Peti kontoforigadon</string>
-    <string name="resized_image_not_possible_download">Neniu regrandigita bildo disponeblas. Ĉu elŝuti originan bildon?</string>
     <string name="restore">Restaŭri dosieron</string>
     <string name="restore_button_description">Restaŭri forigitajn dosierojn</string>
     <string name="restore_item">Restaŭri</string>

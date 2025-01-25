@@ -33,12 +33,8 @@
     <string name="allow_resharing">Atļaut atkārtotu koplietošanu</string>
     <string name="app_config_proxy_port_title">Starpniekservera ports</string>
     <string name="appbar_search_in">Meklēt %s</string>
-    <string name="assistant_screen_all_task_type">Visi</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Dzēst uzdevumu</string>
-    <string name="assistant_screen_failed_task_text">Neizdevās</string>
-    <string name="assistant_screen_successful_task_text">Pabeigts</string>
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Dzēst uzdevumu</string>
-    <string name="assistant_screen_unknown_task_status_text">Nezināms</string>
     <string name="associated_account_not_found">Saistītais konts nav atrasts!</string>
     <string name="auth_access_failed">Piekļuve neizdevās: %1$s</string>
     <string name="auth_account_does_not_exist">Konts vēl nav pievienots šai iekārtai</string>
@@ -135,7 +131,6 @@
     <string name="confirmation_remove_folder_alert">Vai tiešām vēlaties izdzēst %1$s un tā saturu?</string>
     <string name="confirmation_remove_folders_alert">Vai tiešām vēlies dzēst izvēlētos objektus un to saturu?</string>
     <string name="confirmation_remove_local">Tikai lokālos</string>
-    <string name="conflict_file_headline">Konfliktējošs fails %1$s</string>
     <string name="contactlist_item_icon">Lietotāja ikona kontaktpersonu sarakstam</string>
     <string name="contactlist_no_permission">Nav dota atļauja, importēšana neizdevās</string>
     <string name="contacts">Kontakti</string>
@@ -301,7 +296,6 @@
     <string name="image_preview_unit_fnumber">ƒ/%s</string>
     <string name="image_preview_unit_iso">ISO %s</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
-    <string name="in_folder">%1$s mapē</string>
     <string name="instant_upload_on_charging">Augšupielādēt tikai uzlādes laikā</string>
     <string name="instant_upload_path">/TūlītējaAugšupielāde</string>
     <string name="invisible">Neredzama</string>

@@ -46,17 +46,11 @@
     <string name="app_widget_description">Mostra un giny del tauler</string>
     <string name="appbar_search_in">Cerca a %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Afegeix una tasca nova</string>
-    <string name="assistant_screen_all_task_type">Totes</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriu una mica de text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Segur que voleu suprimir aquesta tasca?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Suprimeix la tasca</string>
-    <string name="assistant_screen_failed_task_text">Ha fallat</string>
     <string name="assistant_screen_loading">S\'està carregant la llista de tasques, espereu</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">No hi ha cap tasca disponible. Seleccioneu un tipus de tasca per a crear una tasca nova.</string>
     <string name="assistant_screen_no_task_available_text">No hi ha cap tasca disponible per al tipus de tasca %s. Podeu crear una tasca nova des de baix a la dreta.</string>
-    <string name="assistant_screen_running_task_text">En curs</string>
-    <string name="assistant_screen_scheduled_task_status_text">Planificat</string>
-    <string name="assistant_screen_successful_task_text">S\'ha completat</string>
     <string name="assistant_screen_task_create_fail_message">S\'ha produït un error en crear la tasca</string>
     <string name="assistant_screen_task_create_success_message">La tasca s\'ha creat correctament</string>
     <string name="assistant_screen_task_delete_fail_message">S\'ha produït un error en suprimir la tasca</string>
@@ -66,7 +60,6 @@
     <string name="assistant_screen_task_output_empty_text">La sortida de la tasca encara no està a punt.</string>
     <string name="assistant_screen_task_types_error_state_message">No s\'han pogut obtenir els tipus de tasques. Comproveu la connexió a Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
-    <string name="assistant_screen_unknown_task_status_text">Desconegut</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Sortida</string>
     <string name="associated_account_not_found">No s\'ha trobat el compte associat!</string>
@@ -193,7 +186,6 @@
     <string name="confirmation_remove_folders_alert">Esteu segur que voleu suprimir els elements seleccionats i el seu contingut?</string>
     <string name="confirmation_remove_local">Només local</string>
     <string name="conflict_dialog_error">No es pot crear el quadre de diàleg del solucionador de conflictes</string>
-    <string name="conflict_file_headline">Fitxer en conflicte %1$s</string>
     <string name="conflict_folder_headline">Conflicte de carpetes</string>
     <string name="conflict_local_file">Fitxer local</string>
     <string name="conflict_message_description">Si seleccioneu ambdues versions, s\'afegirà un numero al nom del fitxer local.</string>
@@ -260,6 +252,7 @@
     <string name="download_cannot_create_file">No s\'ha pogut crear el fitxer local</string>
     <string name="download_download_invalid_local_file_name">Nom de fitxer no vàlid per al fitxer local</string>
     <string name="download_latest_dev_version">Baixa la darrera versió de desenvolupament</string>
+    <string name="download_limit">Límit de baixades</string>
     <string name="downloader_download_failed_content">No s\'ha pogut baixar%1$s</string>
     <string name="downloader_download_failed_credentials_error">La baixada ha fallat, torneu a iniciar la sessió</string>
     <string name="downloader_download_failed_ticker">S\'ha produït un error durant la baixada</string>
@@ -432,7 +425,6 @@
     <string name="file_name_validator_error_invalid_character">El nom conté caràcters no vàlids: %s</string>
     <string name="file_name_validator_error_reserved_names">%s és un nom prohibit</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Canvieu el nom del fitxer abans de moure o copiar</string>
-    <string name="file_name_validator_upload_content_error">No es pot pujar algun contingut perquè conté noms reservats o caràcters no vàlids</string>
     <string name="file_not_found">Fitxer no trobat</string>
     <string name="file_not_synced">El fitxer no s\'ha pogut sincronitzar. Se\'n mostra la darrera versió disponible.</string>
     <string name="file_rename">Canvia el nom</string>
@@ -487,7 +479,6 @@
     <string name="icon_of_dashboard_widget">Icona del giny del tauler</string>
     <string name="icon_of_widget_entry">Icona de l\'entrada del giny</string>
     <string name="image_editor_file_edited_suffix">editat</string>
-    <string name="in_folder">en la carpeta %1$s</string>
     <string name="instant_upload_existing">També pujar fitxers existents</string>
     <string name="instant_upload_on_charging">Pujada només durant la càrrega de bateria</string>
     <string name="instant_upload_path">/CàrregaInstantània</string>
@@ -663,7 +654,6 @@
     <string name="prefs_setup_e2e">Configureu el xifratge d\'extrem a extrem</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_sourcecode">Aconseguiu el codi font</string>
-    <string name="prefs_storage_path">Carpeta de dades</string>
     <string name="prefs_sycned_folders_summary">Gestiona les carpetes per a la pujada automàtica</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
@@ -698,7 +688,6 @@
     <string name="rename_local_fail_msg">No s\'ha pogut canviar el nom de la còpia local, intenteu-ho amb amb un altre nom</string>
     <string name="rename_server_fail_msg">El canvi de nom no és possible, el nom ja es troba en ús</string>
     <string name="request_account_deletion">Sol·licitud de supressió de compte</string>
-    <string name="resized_image_not_possible_download">No hi ha imatge redimensionada disponible. Voleu baixar la imatge a la resolució original?</string>
     <string name="restore">Restaura el fitxer</string>
     <string name="restore_backup">Restaurar còpia de seguretat</string>
     <string name="restore_button_description">Restaura el fitxer suprimit</string>
@@ -734,6 +723,7 @@
     <string name="setup_e2e">Durant la configuració del xifratge d\'extrem a extrem, rebreu un mnemotècnic de 12 paraules a l\'atzar, que necessitareu per obrir els vostres fitxers en altres dispositius. Només s\'emmagatzemarà en aquest dispositiu i es podrà tornar a mostrar en aquesta pantalla. Anoteu-vos-el en un lloc segur!</string>
     <string name="share">Comparteix</string>
     <string name="share_dialog_title">S\'està compartint</string>
+    <string name="share_download_limit">Estableix el límit de baixada</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Caduca el %1$s</string>
     <string name="share_file">Comparteix %1$s</string>

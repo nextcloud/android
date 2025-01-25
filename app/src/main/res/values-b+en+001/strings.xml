@@ -47,17 +47,11 @@
     <string name="app_widget_description">Shows one widget from dashboard</string>
     <string name="appbar_search_in">Search in %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Add new task</string>
-    <string name="assistant_screen_all_task_type">All</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Type some text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Are you sure you want to delete this task?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Delete Task</string>
-    <string name="assistant_screen_failed_task_text">Failed</string>
     <string name="assistant_screen_loading">Task List are loading, please wait</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">No task available. Select a task type to create a new task.</string>
     <string name="assistant_screen_no_task_available_text">No task available for %s task type, you can create a new task from bottom right.</string>
-    <string name="assistant_screen_running_task_text">In Progress</string>
-    <string name="assistant_screen_scheduled_task_status_text">Scheduled</string>
-    <string name="assistant_screen_successful_task_text">Completed</string>
     <string name="assistant_screen_task_create_fail_message">An error occurred while creating the task</string>
     <string name="assistant_screen_task_create_success_message">Task successfully created</string>
     <string name="assistant_screen_task_delete_fail_message">An error occurred while deleting the task</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">The task output is not ready yet.</string>
     <string name="assistant_screen_task_types_error_state_message">Unable to fetch task types, please check your internet connection.</string>
     <string name="assistant_screen_top_bar_title">Assistant</string>
-    <string name="assistant_screen_unknown_task_status_text">Unknown</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
     <string name="associated_account_not_found">Associated account not found!</string>
@@ -196,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">Do you really want to delete the selected items and their contents?</string>
     <string name="confirmation_remove_local">Local only</string>
     <string name="conflict_dialog_error">Conflict resolver dialog cannot be created</string>
-    <string name="conflict_file_headline">Conflicting file %1$s</string>
     <string name="conflict_folder_headline">Folder Conflict</string>
     <string name="conflict_local_file">Local file</string>
     <string name="conflict_message_description">If you select both versions, the local file will have a number appended to its name.</string>
@@ -438,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">Name contains invalid characters: %s</string>
     <string name="file_name_validator_error_reserved_names">%s is a forbidden name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Please rename the file before moving or copying</string>
-    <string name="file_name_validator_upload_content_error">Some content cannot be uploaded since it contains reserved names or invalid characters</string>
     <string name="file_not_found">File not found</string>
     <string name="file_not_synced">File could not be synced. Showing latest available version.</string>
     <string name="file_rename">Rename</string>
@@ -505,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">in folder %1$s</string>
     <string name="instant_upload_existing">Also upload existing files</string>
     <string name="instant_upload_on_charging">Only upload when charging</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -714,7 +704,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggestions in navigation heading</string>
     <string name="prefs_show_hidden_files">Show hidden files</string>
     <string name="prefs_sourcecode">Get source code</string>
-    <string name="prefs_storage_path">Data storage folder</string>
     <string name="prefs_sycned_folders_summary">Manage folders for auto upload</string>
     <string name="prefs_synced_folders_local_path_title">Local folder</string>
     <string name="prefs_synced_folders_remote_path_title">Remote folder</string>
@@ -764,7 +753,6 @@
     <string name="request_account_deletion_button">Request deletion</string>
     <string name="request_account_deletion_details">Request permanent deletion of account by service provider</string>
     <string name="resharing_is_not_allowed">Policy or permissions prevent resharing</string>
-    <string name="resized_image_not_possible_download">No resized image available. Download full image?</string>
     <string name="restore">Restore file</string>
     <string name="restore_backup">Restore backup</string>
     <string name="restore_button_description">Restore deleted file</string>
