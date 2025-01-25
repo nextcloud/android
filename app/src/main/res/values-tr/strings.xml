@@ -99,7 +99,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">salt okunur olduğundan özgün klasörde kaldı</string>
     <string name="auto_upload_gplay">Otomatik yükleme davranışı değiştirildi</string>
     <string name="auto_upload_gplay_desc">Google tarafından getirilen yeni kısıtlamalar nedeniyle otomatik yükleme özelliği artık yüklenen dosyaları otomatik olarak kaldıramayacak.</string>
-    <string name="auto_upload_gplay_desc2">Google\'ın getirdiği yeni kısıtlamalar nedeniyle önemli bir izni kaldırmak zorunda kaldık. Sonuç olarak, otomatik yükleme yalnızca resim ve video dosyalarını yükleyebilecek.\nAyrıca, yüklenen resimlerin konum bilgilerine erişmek için yeni bir izin gerekiyor.\nMedya erişiminin \"Her zaman tümüne izin ver\" olarak ayarlandığından emin olun.</string>
+    <string name="auto_upload_gplay_desc2">Google tarafından uygulanan yeni kısıtlamalar nedeniyle önemli bir izni kaldırmak zorunda kaldık. Sonuç olarak, otomatik yükleme yalnızca görsel ve video dosyalarını yükleyebilecek.\nAyrıca, yüklenen görsellerin konum bilgilerine erişmek için yeni bir izin gerekiyor.\nMedya erişiminin \"Her zaman tümüne izin verilsin\" olarak ayarlandığından emin olun.</string>
     <string name="auto_upload_on_wifi">Yalnızca kullanıma göre ücretlendirilmeyen kablosuz ağ üzerinden yüklensin</string>
     <string name="auto_upload_path">/OtomatikYükleme</string>
     <string name="autoupload_configure">Yapılandır</string>
@@ -134,7 +134,7 @@
     <string name="clear_notifications_failed">Bildirimler temizlenemedi.</string>
     <string name="clear_status_message">Durum iletisini kaldır</string>
     <string name="clear_status_message_after">Durum iletisi şu süre sonunda kaldırılsın</string>
-    <string name="click_to_learn_how_to_re_enable_auto_uploads">Otomatik yükleme(auto-upload) özelliğini yeniden etkinleştirmek için elle müdahale gerekiyor.</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Otomatik yükleme özelliğini yeniden el ile açmalısınız.</string>
     <string name="clipboard_label">Metin %1$s kaynağından kopyalandı</string>
     <string name="clipboard_no_text_to_copy">Panoya kopyalanacak bir metin alınamadı</string>
     <string name="clipboard_text_copied">Bağlantı kopyalandı</string>
@@ -729,11 +729,13 @@
     <string name="push_notifications_temp_error">Anında bildirimler şu anda kullanılamıyor.</string>
     <string name="qr_could_not_be_read">QR kodu okunamadı!</string>
     <string name="re_enable_auto_upload">Otomatik yüklenecek değişiklikler</string>
+    <string name="re_enable_auto_upload_desc">Google tarafından getirilen yeni kısıtlamalar nedeniyle önemli bir izni kaldırmak zorunda kaldık. Şu anda bu sorunu çözmek ve tam özellikleri yeniden kullanabilmek için Google ile birlikte çalışıyoruz.\n\nYeni fotoğrafları ve videoları otomatik yüklemeyi yeniden kullanıma almak için:\nAşağıdaki pencereden veya sistem ayarlarından \"Tümüne izin verilsin\" seçeneğini seçin.\nSorulduğunda medya konumu iznini verin: Böylece Nextcloud görselleri yüklerken konum verilerini kaydedebilir.\n\nİzin penceresi yalnızca gerektiğinde görüntülenir. Şüpheniz varsa, lütfen sistem ayarları bölümünden yeniden kontrol edin.\n\nOtomatik yükleme, yalnızca Nextcloud uygulamasının Google Play sürümünü kullanırken görsel ve video dosyalarını yükleyebilir.\n\nLütfen 2024 Aralık ayından sonra yüklenmemiş olabilecek dosyaları kontrol edin.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Klasör bulunamadı. Eşitleme işlemi iptal edildi</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Yüklenecek dosya bulunamadı</string>
     <string name="recommend_subject">%1$s uygulamasını aygıtınız üzerinde deneyin!</string>
     <string name="recommend_text">Aygıtında %1$s kullanmanı öneriyorum!\nŞuradan indirebilirsin: %2$s</string>
     <string name="recommend_urls">%1$s ya da %2$s</string>
+    <string name="recommended_files_title">Önerilen dosyalar</string>
     <string name="refresh_content">İçeriği yenile</string>
     <string name="reload">Yeniden yükle</string>
     <string name="remote">(uzak)</string>
@@ -986,7 +988,7 @@
     <string name="upload_files">Dosyaları yükle</string>
     <string name="upload_global_pause_title">Tüm yüklemeler duraklatıldı</string>
     <string name="upload_gplay">İzin değişiklikleri</string>
-    <string name="upload_gplay_desc">Yüklenen görsellerin konum bilgilerine erişmek için yeni bir izin gerekiyor.\nMedya erişiminin \"Her zaman tümüne izin ver\" olarak ayarlandığından emin olun.</string>
+    <string name="upload_gplay_desc">Yüklenen görsellerin konum bilgilerine erişmek için yeni bir izin gerekiyor.\nMedya erişiminin \"Her zaman tümüne izin verilsin\" olarak ayarlandığından emin olun.</string>
     <string name="upload_item_action_button">Öge yükleme işlemi düğmesi</string>
     <string name="upload_list_delete">Sil</string>
     <string name="upload_list_empty_headline">Herhangi bir yükleme yok</string>
@@ -1168,4 +1170,8 @@
         <item quantity="one">%d seçilmiş</item>
         <item quantity="other">%d seçilmiş</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d indirme kaldı</item>
+        <item quantity="other">%1$d indirme kaldı</item>
+    </plurals>
+</resources>

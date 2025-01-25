@@ -735,6 +735,7 @@
     <string name="recommend_subject">Bain triail as %1$s ar do ghléas!</string>
     <string name="recommend_text">Ba mhaith liom cuireadh a thabhairt duit %1$s a úsáid ar do ghléas.\nÍoslódáil anseo: %2$s</string>
     <string name="recommend_urls">%1$s nó %2$s</string>
+    <string name="recommended_files_title">Comhaid Molta</string>
     <string name="refresh_content">Ábhar a athnuachan</string>
     <string name="reload">Athlódáil</string>
     <string name="remote">(iargúlta)</string>
@@ -1229,4 +1230,11 @@
         <item quantity="many">%d roghnaithe</item>
         <item quantity="other">%d roghnaithe</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d íosluchtú fágtha</item>
+        <item quantity="two">%1$d íoslódálacha fágtha</item>
+        <item quantity="few">%1$d íoslódálacha fágtha</item>
+        <item quantity="many">%1$d íoslódálacha fágtha</item>
+        <item quantity="other">%1$d íoslódálacha fágtha</item>
+    </plurals>
+</resources>
