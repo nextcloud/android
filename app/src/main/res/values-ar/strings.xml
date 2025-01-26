@@ -749,6 +749,7 @@
     <string name="recommend_text">أريد أن أدعوك لاستخدام %1$s على جهازك
 التنزيل هنا %2$s</string>
     <string name="recommend_urls">%1$s أو %2$s</string>
+    <string name="recommended_files_title">ملفات مُقتَرَحة</string>
     <string name="refresh_content">تحديث المحتوى</string>
     <string name="reload">إعادة تحميل</string>
     <string name="remote">(عن بعد)</string>
@@ -1285,4 +1286,12 @@
         <item quantity="many">%d محددين</item>
         <item quantity="other">%d محددين</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="zero">مازال %1$d تنزيل</item>
+        <item quantity="one">مازال%1$d تنزيل</item>
+        <item quantity="two">مازال %1$d تنزيل</item>
+        <item quantity="few">مازال %1$d تنزيلات</item>
+        <item quantity="many">مازال %1$d تنزيل</item>
+        <item quantity="other">مازال %1$d تنزيل</item>
+    </plurals>
+</resources>
