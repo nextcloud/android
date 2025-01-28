@@ -34,6 +34,7 @@
     <string name="allow_resharing">Leisti bendrinti iš naujo</string>
     <string name="app_config_disable_clipboard_title">Išjungti iškarpinę</string>
     <string name="app_config_disable_log_title">Išjungti žurnalą</string>
+    <string name="app_config_disable_sharing_title">Išjungti bendrinimą</string>
     <string name="app_config_proxy_port_title">Įgaliotojo serverio prievadas</string>
     <string name="app_widget_description">Rodo vieną valdiklį iš skydelio</string>
     <string name="appbar_search_in">Ieškoti %s</string>
