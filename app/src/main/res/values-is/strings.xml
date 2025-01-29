@@ -176,6 +176,7 @@
     <string name="create_dir_fail_msg">gat ekki búið til möppuna %1</string>
     <string name="create_new">Nýtt</string>
     <string name="create_new_folder">Ný mappa</string>
+    <string name="create_rich_workspace">Bæta við lýsingu á möppu</string>
     <string name="credentials_disabled">Auðkenni óvirk</string>
     <string name="daily_backup">Dagleg öryggisafritun</string>
     <string name="data_to_back_up">Gögn sem á að taka öryggisafrit af</string>
