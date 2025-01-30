@@ -3,6 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
+ * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.fragment;
@@ -331,7 +332,7 @@ public class FileDetailActivitiesFragment extends Fragment implements
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
                     // show error
-                    String logMessage = result.getLogMessage();
+                    String logMessage = result.getLogMessage(requireContext());
                     if (result.getHttpCode() == HttpStatus.SC_NOT_MODIFIED) {
                         logMessage = getString(R.string.activities_no_results_message);
                     }
