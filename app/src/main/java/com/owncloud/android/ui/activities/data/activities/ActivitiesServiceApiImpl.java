@@ -3,6 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2019 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018 Edvard Holst <edvard.holst@gmail.com>
+ * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.activities.data.activities;
@@ -94,7 +95,7 @@ public class ActivitiesServiceApiImpl implements ActivitiesServiceApi {
                 } else {
                     Log_OC.d(TAG, result.getLogMessage());
                     // show error
-                    errorMessage = result.getLogMessage();
+                    errorMessage = result.getLogMessage(MainApp.getAppContext());
                     if (result.getHttpCode() == HttpStatus.SC_NOT_MODIFIED) {
                         errorMessage = context.getString(R.string.file_list_empty_headline_server_search);
                     }
