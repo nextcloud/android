@@ -35,6 +35,13 @@
     <string name="advanced_settings">Configurações avançadas </string>
     <string name="allow_resharing">Permitir recompartilhamento</string>
     <string name="app_config_base_url_title">URL base</string>
+    <string name="app_config_disable_clipboard_title">Desativar Clipboard</string>
+    <string name="app_config_disable_intro_title">Desativar Introdução</string>
+    <string name="app_config_disable_log_title">Desativar Log</string>
+    <string name="app_config_disable_more_external_site_title">Desativar Sites Externos</string>
+    <string name="app_config_disable_multiaccount_title">Desativar Múltiplas Contas</string>
+    <string name="app_config_disable_sharing_title">Desativar Compartilhamento</string>
+    <string name="app_config_enforce_protection_title">Aplicar Proteção</string>
     <string name="app_config_proxy_host_title">Nome do Host do Proxy</string>
     <string name="app_config_proxy_port_title">Porta do Proxy</string>
     <string name="app_widget_description">Mostra um widget do painel</string>
