@@ -99,7 +99,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_gplay">Automatisches Hochlade-Verhalten geändert</string>
     <string name="auto_upload_gplay_desc">Aufgrund neuer Einschränkungen durch Google kann die Funktion zum automatischen Hochladen Dateien nicht mehr automatisch entfernen.</string>
-    <string name="auto_upload_gplay_desc2">Aufgrund neuer, von Google auferlegter Beschränkungen waren wir gezwungen, eine wichtige Berechtigung zu entfernen. Infolgedessen kann das automatische Hochladen nur noch Bild- und Videodateien hochladen.\nZusätzlich ist eine neue Berechtigung erforderlich, um auf Standortinformationen für hochgeladene Bilder zuzugreifen.\nStellen Sie sicher, dass der Medienzugriff auf „Immer alles zulassen“ eingestellt ist.</string>
+    <string name="auto_upload_gplay_desc2">Aufgrund neuer, von Google auferlegter Beschränkungen waren wir gezwungen, eine wichtige Berechtigung zu entfernen. Infolgedessen kann das automatische Hochladen nur noch Bild- und Videodateien hochladen.\nZusätzlich ist eine neue Berechtigung erforderlich, um auf Standortinformationen für hochgeladene Bilder zuzugreifen.\nStellen Sie sicher, dass der Medienzugriff auf \"Immer alles zulassen\" eingestellt ist.</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Einrichten</string>
@@ -729,7 +729,7 @@
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
     <string name="qr_could_not_be_read">QR-Code konnte nicht gelesen werden!</string>
     <string name="re_enable_auto_upload">Änderungen beim automatischen Hochladen</string>
-    <string name="re_enable_auto_upload_desc">Aufgrund neuer Einschränkungen durch Google waren wir gezwungen, eine wichtige Berechtigung zu entfernen. Wir arbeiten derzeit mit Google daran, dieses Problem zu beheben und die volle Funktionalität wiederherzustellen.\n\nSo aktivieren Sie den automatischen Upload für neue Fotos und Videos wieder:\nWählen Sie im folgenden Dialog oder in den Systemeinstellungen „Alle zulassen“.\nLassen Sie die Medienstandortangabe bei entsprechender Aufforderung zu, da Nextcloud dadurch beim Hochladen von Bildern Standortdaten speichern kann.\n\nDer Berechtigungsdialog wird nur bei Bedarf angezeigt. Überprüfen Sie im Zweifelsfall die Systemeinstellungen.\n\nDer automatische Upload kann Bild- und Videodateien nur hochladen, wenn die Google Play-Version der Nextcloud-App verwendet wird.\n\nBitte prüfen Sie, ob Dateien vorhanden sind, die möglicherweise seit Dezember 2024 nicht mehr hochgeladen wurden.</string>
+    <string name="re_enable_auto_upload_desc">Aufgrund neuer Einschränkungen durch Google waren wir gezwungen, eine wichtige Berechtigung zu entfernen. Wir arbeiten derzeit mit Google daran, dieses Problem zu beheben und die volle Funktionalität wiederherzustellen.\n\nSo aktivieren Sie den automatischen Upload für neue Fotos und Videos wieder:\nWählen Sie im folgenden Dialog oder in den Systemeinstellungen \"Alle zulassen\".\nLassen Sie die Medienstandortangabe bei entsprechender Aufforderung zu, da Nextcloud dadurch beim Hochladen von Bildern Standortdaten speichern kann.\n\nDer Berechtigungsdialog wird nur bei Bedarf angezeigt. Überprüfen Sie im Zweifelsfall die Systemeinstellungen.\n\nDer automatische Upload kann Bild- und Videodateien nur hochladen, wenn die Google Play-Version der Nextcloud-App verwendet wird.\n\nBitte prüfen Sie, ob Dateien vorhanden sind, die möglicherweise seit Dezember 2024 nicht mehr hochgeladen wurden.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Ordner nicht gefunden, Synchronisierungsvorgang wurde abgebrochen</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Datei zum Hochladen konnte nicht gefunden werden</string>
     <string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone</string>
@@ -944,7 +944,7 @@
     <string name="trashbin_loading_failed">Laden des Papierkorbs fehlgeschlagen!</string>
     <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
     <string name="two_way_sync_activity_disable_all_button_title">Für alle Ordner deaktivieren</string>
-    <string name="two_way_sync_activity_empty_list_desc">Um einen Ordner mit bidirektionaler Synchronisierung einzurichten, aktivieren Sie dies bitte auf der Registerkarte \"Details“ des betreffenden Ordners.</string>
+    <string name="two_way_sync_activity_empty_list_desc">Um einen Ordner mit bidirektionaler Synchronisierung einzurichten, aktivieren Sie dies bitte auf der Registerkarte \"Details\" des betreffenden Ordners.</string>
     <string name="two_way_sync_activity_empty_list_title">Zwei-Wege-Synchronisierung nicht eingerichtet</string>
     <string name="two_way_sync_activity_title">Interne 2-Wege-Synchronisierung</string>
     <string name="unexpected_error_occurred">Es ist ein unerwarteter Fehler aufgetreten</string>
@@ -988,7 +988,7 @@
     <string name="upload_files">Dateien hochladen</string>
     <string name="upload_global_pause_title">Alle Uploads wurden pausiert</string>
     <string name="upload_gplay">Änderungen der Berechtigung</string>
-    <string name="upload_gplay_desc">Für den Zugriff auf Standortinformationen für hochgeladene Bilder ist eine neue Berechtigung erforderlich. Stellen Sie sicher, dass der Medienzugriff auf „Immer alle zulassen“ eingestellt ist.</string>
+    <string name="upload_gplay_desc">Für den Zugriff auf Standortinformationen für hochgeladene Bilder ist eine neue Berechtigung erforderlich. Stellen Sie sicher, dass der Medienzugriff auf \"Immer alle zulassen\" eingestellt ist.</string>
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
     <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
