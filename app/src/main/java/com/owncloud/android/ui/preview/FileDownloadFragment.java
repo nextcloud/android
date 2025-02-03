@@ -23,6 +23,8 @@ import android.widget.TextView;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.jobs.download.FileDownloadHelper;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
@@ -52,6 +54,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
     private static final String ARG_FILE = "FILE";
     private static final String ARG_IGNORE_FIRST = "IGNORE_FIRST";
     private static final String ARG_USER = "USER";
+    private static final String ARG_FILE_POSITION = "FILE_POSITION";
 
     private View mView;
     private User user;
@@ -64,6 +67,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
     private boolean mIgnoreFirstSavedState;
     private boolean mError;
+    private Integer filePosition;
 
 
     /**
@@ -81,10 +85,11 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
      * @param ignoreFirstSavedState     Flag to work around an unexpected behaviour of {@link FragmentStatePagerAdapter}
      *                                  TODO better solution
      */
-    public static Fragment newInstance(OCFile file, User user, boolean ignoreFirstSavedState) {
+    public static Fragment newInstance(OCFile file, User user, boolean ignoreFirstSavedState, Integer filePosition) {
         FileDownloadFragment frag = new FileDownloadFragment();
         Bundle args = new Bundle();
         args.putParcelable(ARG_FILE, file);
+        args.putInt(ARG_FILE_POSITION, filePosition);
         args.putParcelable(ARG_USER, user);
         args.putBoolean(ARG_IGNORE_FIRST, ignoreFirstSavedState);
         frag.setArguments(args);
@@ -116,6 +121,7 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
 
         mIgnoreFirstSavedState = args.getBoolean(ARG_IGNORE_FIRST);
         user = BundleExtensionsKt.getParcelableArgument(args, ARG_USER, User.class);
+        filePosition = args.getInt(ARG_FILE_POSITION);
     }
 
 
@@ -157,15 +163,27 @@ public class FileDownloadFragment extends FileFragment implements OnClickListene
             setButtonsForTransferring();
         }
 
+        observeWorkerState();
+
         return mView;
     }
 
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
+            if (state instanceof WorkerState.DownloadFinished) {
+                if (requireActivity() instanceof PreviewImageActivity activity && filePosition != null) {
+                    activity.setPreviewImagePagerCurrentItem(filePosition);
+                }
+            }
+        });
+    }
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         FileExtensionsKt.logFileSize(getFile(), TAG);
         outState.putParcelable(FileDownloadFragment.EXTRA_FILE, getFile());
+        outState.putInt(FileDownloadFragment.ARG_FILE_POSITION, filePosition);
         outState.putParcelable(FileDownloadFragment.EXTRA_USER, user);
         outState.putBoolean(FileDownloadFragment.EXTRA_ERROR, mError);
     }
