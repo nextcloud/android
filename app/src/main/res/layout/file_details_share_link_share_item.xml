@@ -13,7 +13,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/share_by_link_container"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/sharee_list_item_size"
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/sharee_list_item_size"
     android:orientation="horizontal">
 
     <ImageView
@@ -44,6 +45,19 @@
             android:gravity="center_vertical"
             android:singleLine="true"
             android:text="@string/share_via_link_section_title"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/two_line_primary_text_size" />
+
+        <TextView
+            android:id="@+id/subline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:singleLine="true"
+            tools:text="5 downloads remaining"
+            tools:visibility="visible"
             android:textColor="@color/text_color"
             android:textSize="@dimen/two_line_primary_text_size" />
 

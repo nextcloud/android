@@ -47,17 +47,11 @@
     <string name="app_widget_description">Показувати один віджет з панелі віджетів</string>
     <string name="appbar_search_in">Пошук у %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додати нове завдання</string>
-    <string name="assistant_screen_all_task_type">Всі</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Вставте будь-який текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Дійсно вилучити це завдання?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Вилучити завдання</string>
-    <string name="assistant_screen_failed_task_text">Не вдалося</string>
     <string name="assistant_screen_loading">Отримання переліку завдань, зачекайте</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Відсутні завдання. Виберіть вид завдань для додавання нового завдання</string>
     <string name="assistant_screen_no_task_available_text">Відсутні завдання для завдань типу %s. Ви можете додати нове завдання праворуч внизу. </string>
-    <string name="assistant_screen_running_task_text">В процесі</string>
-    <string name="assistant_screen_scheduled_task_status_text">Заплановано</string>
-    <string name="assistant_screen_successful_task_text">Виконано</string>
     <string name="assistant_screen_task_create_fail_message">Помилка під час додавання завдання</string>
     <string name="assistant_screen_task_create_success_message">Успішно додано завдання</string>
     <string name="assistant_screen_task_delete_fail_message">Помилка під час вилучення завдання</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Поки неможливо показати завдання</string>
     <string name="assistant_screen_task_types_error_state_message">Не вдалося отримати типи завдань. Перевірте з\'єднання з мережею.</string>
     <string name="assistant_screen_top_bar_title">Помічник</string>
-    <string name="assistant_screen_unknown_task_status_text">Невідомо</string>
     <string name="assistant_task_detail_screen_input_button_title">Введення</string>
     <string name="assistant_task_detail_screen_output_button_title">Виведення</string>
     <string name="associated_account_not_found">Пов\'язаний обліковий запис не знайдено!</string>
@@ -106,6 +99,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">залишено у вихідному каталозі, оскільки він доступний лише для читання</string>
     <string name="auto_upload_gplay">Режим автоматичного завантаження змінено</string>
     <string name="auto_upload_gplay_desc">Через нові обмеження, які було запроваджено Google, в процесі автоматичного завантаження завантажені файли неможливо буде вилучити.</string>
+    <string name="auto_upload_gplay_desc2">Через нові обмеження з боку Google ми вилучили важливий дозвіл. В результаті цього автоматично завантажувати можна тільки зображення та відео.\nКрім того, новий дозвіл вимагається для надання доступу до до місця розташування для завантажених зображень.\nПересвідчитеся, що доступ до медійного контенту встановлено у \"Завжди дозволяти все\".</string>
     <string name="auto_upload_on_wifi">Завантаження тільки через WiFi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Налаштування</string>
@@ -140,6 +134,7 @@
     <string name="clear_notifications_failed">Неможливо очистити сповіщення.</string>
     <string name="clear_status_message">Очистити повідомлення про стан</string>
     <string name="clear_status_message_after">Очистити повідомлення про стан після</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Потрібна ручна дія для повторного увімкнення автоматичного завантаження.</string>
     <string name="clipboard_label">Текст скопійовано з %1$s</string>
     <string name="clipboard_no_text_to_copy">Відсутній текст для копіювання до буферу обміну</string>
     <string name="clipboard_text_copied">Посилання скопійовано</string>
@@ -194,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">Дійсно вилучити вибрані об\'єкти та їхній вміст?</string>
     <string name="confirmation_remove_local">Лише на пристрої</string>
     <string name="conflict_dialog_error">Неможливо ініціювати діалог розв\'язання конфлікту</string>
-    <string name="conflict_file_headline">Конфліктний файл %1$s</string>
     <string name="conflict_folder_headline">Конфлікт з каталогом</string>
     <string name="conflict_local_file">Файл на пристрої</string>
     <string name="conflict_message_description">Якщо ви виберете обидві версії, то до назви локального файлу буде додано порядковий номер.</string>
@@ -261,6 +255,7 @@
     <string name="download_cannot_create_file">Неможливо створити файл на пристрої</string>
     <string name="download_download_invalid_local_file_name">Недійсна назва локального файлу</string>
     <string name="download_latest_dev_version">Отримати останню версію для розробників</string>
+    <string name="download_limit">Обмеження на звантаження</string>
     <string name="downloader_download_failed_content">Не вдалося звантажити %1$s</string>
     <string name="downloader_download_failed_credentials_error">Не вдалося звантажити, увійдіть знову</string>
     <string name="downloader_download_failed_ticker">Не вдалося звантажити</string>
@@ -434,7 +429,6 @@
     <string name="file_name_validator_error_invalid_character">Ім\'я містить недійсний символ: %s</string>
     <string name="file_name_validator_error_reserved_names">%s не є дозволеним ім\'ям</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Перейменуйте файл перед переміщенням або копіюванням</string>
-    <string name="file_name_validator_upload_content_error">Неможливо завантажити частину вмісту, оскільки він містить зарезервовані імена або недійсні символи</string>
     <string name="file_not_found">Файл не знайдено</string>
     <string name="file_not_synced">Неможливо синхронізувати файл. Буде показано останню доступну версію.</string>
     <string name="file_rename">Перейменувати</string>
@@ -498,7 +492,6 @@
     <string name="image_preview_image_taking_conditions">Умови отримання зображення</string>
     <string name="image_preview_unit_millimetres">%s мм</string>
     <string name="image_preview_unit_seconds">%s с</string>
-    <string name="in_folder">в каталозі %1$s</string>
     <string name="instant_upload_existing">Також завантажити існуючі файли</string>
     <string name="instant_upload_on_charging">Завантаження тільки під час заряджання</string>
     <string name="internal_two_way_sync">Внутрішня двостороння синхронізація</string>
@@ -636,6 +629,7 @@
     <string name="permission_allow">Дозволити</string>
     <string name="permission_deny">Заборонити</string>
     <string name="permission_storage_access">Додаткові дозволи потрібні для завантаження та звантаження файлів.</string>
+    <string name="pick_contact_to_share_with">Виберіть контакт для обміну</string>
     <string name="picture_set_as_no_app">Не знайдено застосунків для встановлення зображення для</string>
     <string name="pin_home">Закріпити на Домівці</string>
     <string name="pin_shortcut_label">Відкрити %1$s</string>
@@ -702,7 +696,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Пропозиції застосунків Nextcloud у заголовку навігації</string>
     <string name="prefs_show_hidden_files">Показувати приховані файли</string>
     <string name="prefs_sourcecode">Отримати вихідний код</string>
-    <string name="prefs_storage_path">Місце збереження файлів</string>
     <string name="prefs_sycned_folders_summary">Налаштуйте каталоги, які будуть автоматично завантажуватися</string>
     <string name="prefs_synced_folders_local_path_title">Каталог на пристрої</string>
     <string name="prefs_synced_folders_remote_path_title">Віддалений каталог</string>
@@ -727,6 +720,7 @@
     <string name="push_notifications_old_login">Сповіщення push неактивні, оскільки час сесії вичерпано. Будь ласка, додайте наново ваш обліковий запис.</string>
     <string name="push_notifications_temp_error">Зараз сповіщення push недоступні.</string>
     <string name="qr_could_not_be_read">Неможливо прочитати QR-код!</string>
+    <string name="re_enable_auto_upload">Зміни до автоматичного завантаження</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Неможливо знайти каталог, синхронізацію скасовано</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Неможливо знайти файл для завантаження</string>
     <string name="recommend_subject">Спробуйте %1$s на Вашому пристрої!</string>
@@ -751,7 +745,6 @@
     <string name="request_account_deletion_button">Запит на вилучення</string>
     <string name="request_account_deletion_details">Запит на вилучення облікового запису з боку постачальника послуг</string>
     <string name="resharing_is_not_allowed">Політика або дозволи забороняють подальшу передачу у спільний доступ</string>
-    <string name="resized_image_not_possible_download">Відсутнє зображення зі зменшеними розмірами. Звантажити повне зображення?</string>
     <string name="restore">Відновити файл</string>
     <string name="restore_backup">Відновити</string>
     <string name="restore_button_description">Відновити файл, який було вилучено</string>
@@ -793,6 +786,7 @@
     <string name="share">Спільний доступ</string>
     <string name="share_copy_link">Поділитися та копіювати посилання</string>
     <string name="share_dialog_title">Спільне</string>
+    <string name="share_download_limit">Встановити обмеження на звантаження</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Дійсне до %1$s</string>
     <string name="share_file">Спільне %1$s</string>
@@ -982,6 +976,8 @@
     <string name="upload_file_dialog_title">Зазначте ім\'я та тип файлу для завантаження</string>
     <string name="upload_files">Завантажити файл</string>
     <string name="upload_global_pause_title">Всі завантаження призупинено</string>
+    <string name="upload_gplay">Зміни в дозволах</string>
+    <string name="upload_gplay_desc">Новий дозвіл потрібний для доступу до інформації про місце розташування для завантажених зображень.\nПересвідчіться, що налаштування встановлено у \"Завжди дозволяти все\".</string>
     <string name="upload_item_action_button">Кнопка завантаження</string>
     <string name="upload_list_delete">Вилучити</string>
     <string name="upload_list_empty_headline">Ви ще нічого не завантажили</string>
@@ -1202,4 +1198,4 @@
         <item quantity="many">%d вибрано</item>
         <item quantity="other">%d вибрано</item>
     </plurals>
-</resources>
+    </resources>

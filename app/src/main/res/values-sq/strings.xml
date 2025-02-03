@@ -29,9 +29,6 @@
     <string name="advanced_settings">Cilësime të Avancuara</string>
     <string name="allow_resharing">Lejo rindarje</string>
     <string name="appbar_search_in">Kërkoni në %s</string>
-    <string name="assistant_screen_all_task_type">Të gjithë</string>
-    <string name="assistant_screen_successful_task_text">Të plotësuara</string>
-    <string name="assistant_screen_unknown_task_status_text">I panjohur</string>
     <string name="associated_account_not_found">Llogaria e lidhur nuk u gjet!</string>
     <string name="auth_access_failed">Hyrja dështoi: %1$s</string>
     <string name="auth_account_does_not_exist">Kjo llogari nuk është shtuar në këtë paisje akoma</string>
@@ -478,7 +475,6 @@
     <string name="rename_dialog_title">Jepni një emër të ri</string>
     <string name="rename_local_fail_msg">Nuk mund të riemërtohet kopja lokale, provoni një emër ndryshe</string>
     <string name="rename_server_fail_msg">Riemërtimi nuk është i mundur, emri është i zënë</string>
-    <string name="resized_image_not_possible_download">Nuk ka në gjëndje asnjë imazh me përmasa të reja. Doni të shkarkoni imazhin e plotë?</string>
     <string name="restore">Rikthe skedarin</string>
     <string name="restore_button_description">Rikthe skedarin e fshirë</string>
     <string name="restore_item">Rikthe</string>
@@ -746,4 +742,4 @@
         <item quantity="one">%di zgjedhur</item>
         <item quantity="other">%di zgjedhur</item>
     </plurals>
-</resources>
+    </resources>

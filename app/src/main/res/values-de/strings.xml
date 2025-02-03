@@ -47,17 +47,11 @@
     <string name="app_widget_description">Zeigt ein Widget aus dem Dashboard an</string>
     <string name="appbar_search_in">Suche in %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Neue Aufgabe hinzufügen</string>
-    <string name="assistant_screen_all_task_type">Alle</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Bitte einen Text eingeben</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Möchten Sie diese Aufgabe wirklich löschen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Aufgabe löschen</string>
-    <string name="assistant_screen_failed_task_text">Fehlgeschlagen</string>
     <string name="assistant_screen_loading">Aufgabenlisten werden geladen, bitte warten</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Keine Aufgabe verfügbar. Aufgabentyp auswählen, um eine neue Aufgabe zu erstellen.</string>
     <string name="assistant_screen_no_task_available_text">Für den Aufgabentyp %s ist keine Aufgabe verfügbar. Sie können unten rechts eine neue Aufgabe erstellen.</string>
-    <string name="assistant_screen_running_task_text">In Bearbeitung</string>
-    <string name="assistant_screen_scheduled_task_status_text">Geplant</string>
-    <string name="assistant_screen_successful_task_text">Fertiggestellt</string>
     <string name="assistant_screen_task_create_fail_message">Es ist ein Fehler beim Erstellen der Aufgabe aufgetreten</string>
     <string name="assistant_screen_task_create_success_message">Aufgabe erfolgreich erstellt</string>
     <string name="assistant_screen_task_delete_fail_message">Es ist ein Fehler beim Löschen der Aufgabe aufgetreten</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Die Aufgabenausgabe ist noch nicht fertig.</string>
     <string name="assistant_screen_task_types_error_state_message">Die Aufgabentypen können nicht abgerufen werden. Bitte überprüfen Sie Ihre Internetverbindung.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
-    <string name="assistant_screen_unknown_task_status_text">Unbekannt</string>
     <string name="assistant_task_detail_screen_input_button_title">Eingabe</string>
     <string name="assistant_task_detail_screen_output_button_title">Ausgabe</string>
     <string name="associated_account_not_found">Verknüpftes Konto nicht gefunden!</string>
@@ -106,6 +99,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">im Original-Verzeichnis belassen, da nur lesbar</string>
     <string name="auto_upload_gplay">Automatisches Hochlade-Verhalten geändert</string>
     <string name="auto_upload_gplay_desc">Aufgrund neuer Einschränkungen durch Google kann die Funktion zum automatischen Hochladen Dateien nicht mehr automatisch entfernen.</string>
+    <string name="auto_upload_gplay_desc2">Aufgrund neuer, von Google auferlegter Beschränkungen waren wir gezwungen, eine wichtige Berechtigung zu entfernen. Infolgedessen kann das automatische Hochladen nur noch Bild- und Videodateien hochladen.\nZusätzlich ist eine neue Berechtigung erforderlich, um auf Standortinformationen für hochgeladene Bilder zuzugreifen.\nStellen Sie sicher, dass der Medienzugriff auf \"Immer alles zulassen\" eingestellt ist.</string>
     <string name="auto_upload_on_wifi">Nur über gebührenfreies WLAN hochladen</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Einrichten</string>
@@ -140,6 +134,7 @@
     <string name="clear_notifications_failed">Löschen der Benachrichtigungen fehlgeschlagen.</string>
     <string name="clear_status_message">Statusnachricht löschen</string>
     <string name="clear_status_message_after">Statusnachricht löschen nach</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Manueller Eingriff erforderlich, um das automatische Hochladen wieder zu aktivieren</string>
     <string name="clipboard_label">Text von %1$s kopiert</string>
     <string name="clipboard_no_text_to_copy">Kein Text zum Kopieren in die Zwischenablage empfangen</string>
     <string name="clipboard_text_copied">Link kopiert</string>
@@ -194,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">Möchten Sie die ausgewählten Elemente und deren inhalt wirklich löschen?</string>
     <string name="confirmation_remove_local">Nur lokal</string>
     <string name="conflict_dialog_error">Konfliktlösungsdialog konnte nicht erstellt werden</string>
-    <string name="conflict_file_headline">Konflikt-Datei %1$s</string>
     <string name="conflict_folder_headline">Ordnerkonfilikt</string>
     <string name="conflict_local_file">Lokale Datei</string>
     <string name="conflict_message_description">Falls beide Versionen gewählt werden, wird bei der lokalen Datei eine Zahl am Ende des Dateinamens hinzugefügt.</string>
@@ -261,6 +255,7 @@
     <string name="download_cannot_create_file">Datei kann lokal nicht erstellt werden</string>
     <string name="download_download_invalid_local_file_name">Ungültiger Dateiname für lokale Datei</string>
     <string name="download_latest_dev_version">Die neueste Entwicklerversion herunterladen</string>
+    <string name="download_limit">Download-Limit</string>
     <string name="downloader_download_failed_content">Konnte %1$s nicht herunterladen</string>
     <string name="downloader_download_failed_credentials_error">Herunterladen fehlgeschlagen, erneute Anmeldung erforderlich</string>
     <string name="downloader_download_failed_ticker">Herunterladen fehlgeschlagen</string>
@@ -435,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">Der Name enthält unzulässige Zeichen: %s</string>
     <string name="file_name_validator_error_reserved_names">%s ist ein unzulässiger Name</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Bitte Datei umbenennen, bevor diese verschoben oder kopiert wird</string>
-    <string name="file_name_validator_upload_content_error">Einige Inhalte können nicht hochgeladen werden, da sie reservierte Namen oder unzulässige Zeichen enthalten</string>
     <string name="file_not_found">Datei nicht gefunden</string>
     <string name="file_not_synced">Datei konnte nicht synchronisiert werden. Zeige letzte verfügbare Version. </string>
     <string name="file_rename">Umbenennen</string>
@@ -502,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">in Ordner %1$s</string>
     <string name="instant_upload_existing">Vorhandene Dateien ebenfalls hochladen</string>
     <string name="instant_upload_on_charging">Nur während des Ladens der Batterie hochladen</string>
     <string name="instant_upload_path">/SofortUpload</string>
@@ -652,7 +645,7 @@
     <string name="placeholder_timestamp">18.5.2012 12:23</string>
     <string name="player_stop">Stopp</string>
     <string name="player_toggle">Umschalten</string>
-    <string name="please_select_a_server">Bitte einen Server auswählen...</string>
+    <string name="please_select_a_server">Bitte einen Server auswählen…</string>
     <string name="power_save_check_dialog_message">Bei deaktiviertem Energiesparmodus werden Daten auch bei niedrigem Batterieladezustand hochgeladen.</string>
     <string name="pref_behaviour_entries_delete_file">gelöscht</string>
     <string name="pref_behaviour_entries_keep_file">im Originalordner behalten</string>
@@ -711,7 +704,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-App-Vorschläge in der Navigationsüberschrift</string>
     <string name="prefs_show_hidden_files">Versteckte Dateien anzeigen</string>
     <string name="prefs_sourcecode">Zum Programmcode</string>
-    <string name="prefs_storage_path">Speicherordner</string>
     <string name="prefs_sycned_folders_summary">Ordner für \"Automatisches Hochladen\" verwalten</string>
     <string name="prefs_synced_folders_local_path_title">Lokaler Ordner</string>
     <string name="prefs_synced_folders_remote_path_title">Remote-Ordner</string>
@@ -736,11 +728,14 @@
     <string name="push_notifications_old_login">Keine Push Benachrichtigungen aufgrund veralteter Benutzersitzung. Bitte erwägen Sie das erneute Hinzufügen Ihres Kontos.</string>
     <string name="push_notifications_temp_error">Push Benachrichtigungen aktuell nicht verfügbar.</string>
     <string name="qr_could_not_be_read">QR-Code konnte nicht gelesen werden!</string>
+    <string name="re_enable_auto_upload">Änderungen beim automatischen Hochladen</string>
+    <string name="re_enable_auto_upload_desc">Aufgrund neuer Einschränkungen durch Google waren wir gezwungen, eine wichtige Berechtigung zu entfernen. Wir arbeiten derzeit mit Google daran, dieses Problem zu beheben und die volle Funktionalität wiederherzustellen.\n\nSo aktivieren Sie den automatischen Upload für neue Fotos und Videos wieder:\nWählen Sie im folgenden Dialog oder in den Systemeinstellungen \"Alle zulassen\".\nLassen Sie die Medienstandortangabe bei entsprechender Aufforderung zu, da Nextcloud dadurch beim Hochladen von Bildern Standortdaten speichern kann.\n\nDer Berechtigungsdialog wird nur bei Bedarf angezeigt. Überprüfen Sie im Zweifelsfall die Systemeinstellungen.\n\nDer automatische Upload kann Bild- und Videodateien nur hochladen, wenn die Google Play-Version der Nextcloud-App verwendet wird.\n\nBitte prüfen Sie, ob Dateien vorhanden sind, die möglicherweise seit Dezember 2024 nicht mehr hochgeladen wurden.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Ordner nicht gefunden, Synchronisierungsvorgang wurde abgebrochen</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Datei zum Hochladen konnte nicht gefunden werden</string>
     <string name="recommend_subject">Probieren Sie %1$s auf Ihrem Smartphone</string>
     <string name="recommend_text">Ich empfehle Ihnen %1$s auf Ihrem Smartphone zu nutzen.\nHerunterladen: %2$s</string>
     <string name="recommend_urls">%1$s oder %2$s</string>
+    <string name="recommended_files_title">Empfohlene Dateien</string>
     <string name="refresh_content">Inhalt aktualisieren</string>
     <string name="reload">Neu laden</string>
     <string name="remote">(entfernt)</string>
@@ -760,7 +755,6 @@
     <string name="request_account_deletion_button">Löschung anfordern</string>
     <string name="request_account_deletion_details">Beim Diensteanbieter die dauerhafte Löschung des Kontos anfordern</string>
     <string name="resharing_is_not_allowed">Richtlinien oder Berechtigungen verhindern das Weiterteilen</string>
-    <string name="resized_image_not_possible_download">Kein verkleinertes Bild verfügbar. Vollbild herunterladen?</string>
     <string name="restore">Datei wiederherstellen</string>
     <string name="restore_backup">Letzte Sicherung wiederherstellen</string>
     <string name="restore_button_description">Gelöschte Datei wiederherstellen</string>
@@ -802,6 +796,7 @@
     <string name="share">Teilen</string>
     <string name="share_copy_link">Teilen und Link kopieren</string>
     <string name="share_dialog_title">Teilen</string>
+    <string name="share_download_limit">Download-Limit festlegen</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Läuft am %1$s ab</string>
     <string name="share_file">Teile %1$s</string>
@@ -949,7 +944,7 @@
     <string name="trashbin_loading_failed">Laden des Papierkorbs fehlgeschlagen!</string>
     <string name="trashbin_not_emptied">Dateien konnten nicht endgültig gelöscht werden!</string>
     <string name="two_way_sync_activity_disable_all_button_title">Für alle Ordner deaktivieren</string>
-    <string name="two_way_sync_activity_empty_list_desc">Um einen Ordner mit bidirektionaler Synchronisierung einzurichten, aktivieren Sie dies bitte auf der Registerkarte \"Details“ des betreffenden Ordners.</string>
+    <string name="two_way_sync_activity_empty_list_desc">Um einen Ordner mit bidirektionaler Synchronisierung einzurichten, aktivieren Sie dies bitte auf der Registerkarte \"Details\" des betreffenden Ordners.</string>
     <string name="two_way_sync_activity_empty_list_title">Zwei-Wege-Synchronisierung nicht eingerichtet</string>
     <string name="two_way_sync_activity_title">Interne 2-Wege-Synchronisierung</string>
     <string name="unexpected_error_occurred">Es ist ein unerwarteter Fehler aufgetreten</string>
@@ -992,6 +987,8 @@
     <string name="upload_file_dialog_title">Dateinamen und -typ zum Hochladen eingeben</string>
     <string name="upload_files">Dateien hochladen</string>
     <string name="upload_global_pause_title">Alle Uploads wurden pausiert</string>
+    <string name="upload_gplay">Änderungen der Berechtigung</string>
+    <string name="upload_gplay_desc">Für den Zugriff auf Standortinformationen für hochgeladene Bilder ist eine neue Berechtigung erforderlich. Stellen Sie sicher, dass der Medienzugriff auf \"Immer alle zulassen\" eingestellt ist.</string>
     <string name="upload_item_action_button">Button, um Objekt hochzuladen</string>
     <string name="upload_list_delete">Löschen</string>
     <string name="upload_list_empty_headline">Keine Uploads verfügbar</string>
@@ -1172,5 +1169,9 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d ausgewählt</item>
         <item quantity="other">%d ausgewählt</item>
+    </plurals>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d verbleibender Download</item>
+        <item quantity="other">%1$d verbleibende Downloads</item>
     </plurals>
 </resources>

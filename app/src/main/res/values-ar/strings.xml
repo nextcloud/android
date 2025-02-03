@@ -47,17 +47,11 @@
     <string name="app_widget_description">عرض أداة واحدة من لوحة المعلومات</string>
     <string name="appbar_search_in">بحث في %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">إضافة مهمة جديدة</string>
-    <string name="assistant_screen_all_task_type">الكل</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">أكتُب أيَّ نص</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">هل أنت متأكد أنك ترغب بحذف هذه المهمة؟</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">حذف مهمة</string>
-    <string name="assistant_screen_failed_task_text">فشل</string>
     <string name="assistant_screen_loading">يتم الآن تحميل قائمة المهام؛ يرجى الانتظار...</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">لا توجد أي مهام متوفرة. حدِّد نوع المهمة لإنشاء واحدة جديدة.</string>
     <string name="assistant_screen_no_task_available_text">لا توجد أي مهام متوفرة من النوع %s. يمكنك إنشاء مهمة جديدة من الشريط السفلي الجانبي.</string>
-    <string name="assistant_screen_running_task_text">قيد التجهيز</string>
-    <string name="assistant_screen_scheduled_task_status_text">مُجدول</string>
-    <string name="assistant_screen_successful_task_text">مُكتمل</string>
     <string name="assistant_screen_task_create_fail_message">حدث خطأ أثناء إنشاء المهمة</string>
     <string name="assistant_screen_task_create_success_message">تمّ إنشاء المهمة بنجاح</string>
     <string name="assistant_screen_task_delete_fail_message">حدث خطأ أثناء حذف المهمة</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">مخرجات المهمة ليست جاهزة بعد.</string>
     <string name="assistant_screen_task_types_error_state_message">تعذّر جلب أنواع المهام. قم رجاءً بالتحقُّق من اتصالك بالإنترنت.</string>
     <string name="assistant_screen_top_bar_title">المُساعِد</string>
-    <string name="assistant_screen_unknown_task_status_text">غير معروف</string>
     <string name="assistant_task_detail_screen_input_button_title">مُدخَلات</string>
     <string name="assistant_task_detail_screen_output_button_title">المُخرَجَات</string>
     <string name="associated_account_not_found">الحساب المرتبط غير موجود!</string>
@@ -106,6 +99,9 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">ترك في مجلد الأصل، بسبب كونه للقرائة فقط</string>
     <string name="auto_upload_gplay">تمّ تغيير سلوك التحميل التلقائي</string>
     <string name="auto_upload_gplay_desc">بسبب القيود الجديدة المفروضة من قِبل شركة قوقل، فإن خاصية التحميل التلقائي سوف لن يمكنها بعدُ الحذف التلقائي للملفات المرفوعة.</string>
+    <string name="auto_upload_gplay_desc2">بسبب القيود الجديدة التي فرضتها شركة Google، اضطررنا إلى إزالة إذنٍ مهم. ونتيجة لذلك، ميزة التحميل التلقائي لن تقوم بتحميل سوى ملفات الصور والفيديو. 
+بالإضافة إلى ذلك، يلزم الحصول على إذن جديد للوصول إلى معلومات الموقع للصور التي تم تحميلها. 
+تأكد من تعيين حقل \"الوصول إلى الوسائط\" media access على خيار \"السماح دائمًا للجميع\" Always allow all.</string>
     <string name="auto_upload_on_wifi">قم بالرفع عبر شبكة لاسلكية غير محدودة البيانات فقط</string>
     <string name="auto_upload_path">/رفع تلقائي</string>
     <string name="autoupload_configure">إعداد</string>
@@ -140,6 +136,7 @@
     <string name="clear_notifications_failed">فشلت عملية إزالة التنبيهات.</string>
     <string name="clear_status_message">مسح رسالة الحالة</string>
     <string name="clear_status_message_after">مسح رسالة الحالة بعد</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">يجب التدخل يدويّاً لإعادة تمكين التحميل التلقائي</string>
     <string name="clipboard_label">تم نسخ النص من %1$s</string>
     <string name="clipboard_no_text_to_copy">لم يستلم نص لنسخه في الحافظة</string>
     <string name="clipboard_text_copied">تم نسخ الرابط</string>
@@ -194,7 +191,6 @@
     <string name="confirmation_remove_folders_alert">هل توَدُّ حقاً حذف العناصر المختارة وما يحتوّه؟</string>
     <string name="confirmation_remove_local">محلياً فقط</string>
     <string name="conflict_dialog_error">تعذّر إنشاء نافذة حوار حل التعارضات</string>
-    <string name="conflict_file_headline">ملف متعارض %1$s </string>
     <string name="conflict_folder_headline">تعارض مجلد</string>
     <string name="conflict_local_file">ملف محلي</string>
     <string name="conflict_message_description">إذا قمت باختيار كلا الاصدارين, الملف المحلي سيحتوي على رقم ملحق باسم الملف.</string>
@@ -261,6 +257,7 @@
     <string name="download_cannot_create_file">لا يمكن إنشاء ملف محلي</string>
     <string name="download_download_invalid_local_file_name">اسم الملف المحلي غير مقبول</string>
     <string name="download_latest_dev_version">حمّل آخر إصدار الخاص بالمطورين</string>
+    <string name="download_limit">حد التنزيل</string>
     <string name="downloader_download_failed_content">تعذر تنزيل %1$s</string>
     <string name="downloader_download_failed_credentials_error">فشل التنزيل، قم بتسجيل الدخول مرة أخرى</string>
     <string name="downloader_download_failed_ticker">فشل التحميل</string>
@@ -435,7 +432,6 @@
     <string name="file_name_validator_error_invalid_character">يحتوي الاسم على حروف غير مقبولة: %s</string>
     <string name="file_name_validator_error_reserved_names">%s اسم ممنوع</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. قُم رجاءً بتغيير اسم الملف قبل نقله أو نسخه</string>
-    <string name="file_name_validator_upload_content_error">بعض المحتوى لا يمكن رفعه لأنه يحتوي إمّا على أسماء محجوزة للنظام أو على حروف غير مقبولة</string>
     <string name="file_not_found">تعذر العثور على الملف</string>
     <string name="file_not_synced">الملف لا يمكن مزامنته. عرض آخر إصدار متوفر.</string>
     <string name="file_rename">إعادة التسمية</string>
@@ -502,7 +498,6 @@
     <string name="image_preview_unit_megapixel">%s ميغا بكسل</string>
     <string name="image_preview_unit_millimetres">%s مللي</string>
     <string name="image_preview_unit_seconds">%s ثانية</string>
-    <string name="in_folder">في مجلد %1$s</string>
     <string name="instant_upload_existing">ارفع الملفات الموجودة مسبقاً أيضاً</string>
     <string name="instant_upload_on_charging">ارفع وقت الشحن فقط</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -715,7 +710,6 @@
     <string name="prefs_show_ecosystem_apps_summary">مقترحات بتطبيقات من نكست كلاود في شريط التصفح navigation heading</string>
     <string name="prefs_show_hidden_files">عرض الملفات المخفية</string>
     <string name="prefs_sourcecode">الحصول على الشفرة المصدرية</string>
-    <string name="prefs_storage_path">مجلد تخزين البيانات</string>
     <string name="prefs_sycned_folders_summary">إدارة الملفات للتحميل التلقائي</string>
     <string name="prefs_synced_folders_local_path_title">مجلد محلي</string>
     <string name="prefs_synced_folders_remote_path_title">مجلد عن بعد</string>
@@ -740,12 +734,22 @@
     <string name="push_notifications_old_login">لا توجد إشعارات دفع بسبب جلسة تسجيل الدخول القديمة. يرجى النظر في إعادة إضافة حسابك.</string>
     <string name="push_notifications_temp_error">إشعارات الدفع غير متوفرة حاليا.</string>
     <string name="qr_could_not_be_read">لايمكن قراءة رمز QR</string>
+    <string name="re_enable_auto_upload">تغيُّرات في التحميل التلقائي</string>
+    <string name="re_enable_auto_upload_desc">بسبب القيود الجديدة التي فرضتها Google، اضطررنا إلى إزالة إذنٍ مهم. نحن نعمل حالياً مع Google لحل هذه المشكلة واستعادة الوظائف الكاملة.
+
+لإعادة تمكين التحميل التلقائي للصور ومقاطع الفيديو الجديدة:
+- حدد \"السماح للجميع\" في مربع الحوار التالي أو إعدادات النظام.
+- إسمَح بموقع الوسائط عند المطالبة بذلك، حيث يسمح هذا لنكست كلاود بتخزين بيانات الموقع عند تحميل الصور.
+- يتم عرض مربع حوار الأذونات فقط عند الضرورة. في حالة الشك، تحقق من إعدادات النظام.
+- لن يتمكن التحميل التلقائي من تحميل ملفات الصور والفيديو إلا عند استخدام إصدار Google Play من تطبيق نكست كلاود.
+- يرجى التحقق من أي ملفات ربما لم يتم تحميلها منذ ديسمبر 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">تعذّر إيجاد المجلد. عملية المزامنة تمّ إلغاؤها</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">تعذّر إيجاد ملف لرفعه</string>
     <string name="recommend_subject">جرب %1$s على جهازك !</string>
     <string name="recommend_text">أريد أن أدعوك لاستخدام %1$s على جهازك
 التنزيل هنا %2$s</string>
     <string name="recommend_urls">%1$s أو %2$s</string>
+    <string name="recommended_files_title">ملفات مُقتَرَحة</string>
     <string name="refresh_content">تحديث المحتوى</string>
     <string name="reload">إعادة تحميل</string>
     <string name="remote">(عن بعد)</string>
@@ -765,7 +769,6 @@
     <string name="request_account_deletion_button">طلب الإزالة</string>
     <string name="request_account_deletion_details">طلب الإزالة الدائمة للحساب من قِبل مُزوّد الخدمة</string>
     <string name="resharing_is_not_allowed">السياسة و الأذونات تمنع إعادة المشاركة</string>
-    <string name="resized_image_not_possible_download">لا توجد صورة بحجمها متاح. تنزيل الصورة الكاملة؟</string>
     <string name="restore">استعادة الملف</string>
     <string name="restore_backup">استعادة النسخ الاحتياطي</string>
     <string name="restore_button_description">استعادة الملف المحذوف</string>
@@ -807,6 +810,7 @@
     <string name="share">مشاركة </string>
     <string name="share_copy_link">شارك و انسخ الرابط</string>
     <string name="share_dialog_title">مشاركة</string>
+    <string name="share_download_limit">تعيين حد أقصى للتنزيل</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">تنتهي %1$s</string>
     <string name="share_file">شارك %1$s</string>
@@ -1018,6 +1022,8 @@
     <string name="upload_file_dialog_title">إدخال اسم الملف ونوع الملف للرفع</string>
     <string name="upload_files">حمل الملفات</string>
     <string name="upload_global_pause_title">كل عمليات الرفع مجمدة</string>
+    <string name="upload_gplay">تَغيُّرات في الأُذونات</string>
+    <string name="upload_gplay_desc">يلزم إذن جديد للوصول إلى معلومات الموقع للصور التي تم تحميلها. تأكد من تعيين خانة \"الوصول إلى الوسائط\" media access على خيار \"السماح دائمًا للجميع\" Always allow all.</string>
     <string name="upload_item_action_button">زر إجراء رفع العنصر</string>
     <string name="upload_list_delete">حذف</string>
     <string name="upload_list_empty_headline">لا توجد تحميلات</string>
@@ -1279,5 +1285,13 @@
         <item quantity="few">%d محددين</item>
         <item quantity="many">%d محددين</item>
         <item quantity="other">%d محددين</item>
+    </plurals>
+    <plurals name="share_download_limit_description">
+        <item quantity="zero">مازال %1$d تنزيل</item>
+        <item quantity="one">مازال%1$d تنزيل</item>
+        <item quantity="two">مازال %1$d تنزيل</item>
+        <item quantity="few">مازال %1$d تنزيلات</item>
+        <item quantity="many">مازال %1$d تنزيل</item>
+        <item quantity="other">مازال %1$d تنزيل</item>
     </plurals>
 </resources>

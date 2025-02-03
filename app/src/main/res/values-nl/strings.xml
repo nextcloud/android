@@ -46,17 +46,12 @@
     <string name="app_config_proxy_port_title">Proxy poort</string>
     <string name="app_widget_description">Toont één widget van dashboard</string>
     <string name="appbar_search_in">Zoeken in %s</string>
-    <string name="assistant_screen_all_task_type">Alle</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Nieuwe taak toevoegen</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Geef wat tekst in</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Bent u zeker dat u deze taak wilt verwijderen?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Verwijder taak</string>
-    <string name="assistant_screen_failed_task_text">Mislukt</string>
     <string name="assistant_screen_loading">Takenlijst wordt geladen, even geduld</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Geen taak beschikbaar. Selecteer een taaktype om een nieuwe aan te maken.</string>
     <string name="assistant_screen_no_task_available_text">Geen taak beschikbaar voor %s taaktype, u kunt rechts onder een nieuwe taak aanmaken.</string>
-    <string name="assistant_screen_running_task_text">Bezig</string>
-    <string name="assistant_screen_scheduled_task_status_text">Ingepland</string>
-    <string name="assistant_screen_successful_task_text">Voltooid</string>
     <string name="assistant_screen_task_create_fail_message">Er is een fout opgetreden bij het aanmaken van de taak</string>
     <string name="assistant_screen_task_create_success_message">Taak succesvol aangemaakt</string>
     <string name="assistant_screen_task_delete_fail_message">Er is een fout opgetreden bij het verwijderen van de taak</string>
@@ -65,7 +60,6 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Verwijder taak</string>
     <string name="assistant_screen_task_types_error_state_message">Kan taken types niet ophalen. Controleer je internetverbinding.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
-    <string name="assistant_screen_unknown_task_status_text">Onbekend</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
     <string name="associated_account_not_found">Bijbehorend account niet gevonden!</string>
@@ -154,6 +148,7 @@
     <string name="common_loading">Laden…</string>
     <string name="common_next">Volgende</string>
     <string name="common_no">Nee</string>
+    <string name="common_now">Nu</string>
     <string name="common_ok">OK</string>
     <string name="common_pending">In behandeling</string>
     <string name="common_remove">Verwijderen</string>
@@ -190,7 +185,6 @@
     <string name="confirmation_remove_folders_alert">Wil je de geselecteerde objecten en hun inhoud echt verwijderen?</string>
     <string name="confirmation_remove_local">Alleen lokaal</string>
     <string name="conflict_dialog_error">Conflictoplossingsvenster kan niet geladen worden</string>
-    <string name="conflict_file_headline">Conflicterend bestand%1$s</string>
     <string name="conflict_folder_headline">Mapconflict</string>
     <string name="conflict_local_file">Lokaal bestand</string>
     <string name="conflict_message_description">Als je beide versies selecteert, zal het lokale bestand een nummer aan de naam toegevoegd krijgen.</string>
@@ -257,6 +251,7 @@
     <string name="download_cannot_create_file">Kan geen lokaal bestand aanmaken</string>
     <string name="download_download_invalid_local_file_name">Ongeldige naam voor lokaal bestand</string>
     <string name="download_latest_dev_version">Downloaden laatste dev versie</string>
+    <string name="download_limit">Downloadlimiet</string>
     <string name="downloader_download_failed_content">Kon %1$s niet downloaden</string>
     <string name="downloader_download_failed_credentials_error">Downloaden mislukt, je moet opnieuw inloggen</string>
     <string name="downloader_download_failed_ticker">Downloaden mislukt</string>
@@ -454,6 +449,7 @@
     <string name="folder_already_exists">Map bestaat al</string>
     <string name="folder_confirm_create">Aanmaken</string>
     <string name="folder_list_empty_headline">Hier zijn geen bestanden</string>
+    <string name="folder_name_empty">Mapnaam mag niet leeg zijn</string>
     <string name="folder_picker_choose_button_text">Kies</string>
     <string name="folder_picker_choose_caption_text">Kies doelmap…</string>
     <string name="folder_picker_copy_button_text">Kopiëren</string>
@@ -496,10 +492,11 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">in map %1$s</string>
     <string name="instant_upload_existing">Upload ook bestaande bestanden</string>
     <string name="instant_upload_on_charging">Alleen uploaden bij opladen</string>
     <string name="instant_upload_path">/InstantUpload</string>
+    <string name="internal_two_way_sync_not_yet">Nog niet, binnenkort gesynchroniseerd</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Voor het instellen van de versleutelde map is een internetverbinding vereist</string>
     <string name="invalid_url">Ongeldige URL</string>
     <string name="invisible">Verborgen</string>
     <string name="label_empty">Label mag niet leeg zijn</string>
@@ -584,6 +581,7 @@
     <string name="note_could_not_sent">Kon notitie niet versturen</string>
     <string name="note_icon_hint">Notitie icoon</string>
     <string name="notification_action_failed">Niet gelukt om actie uit te voeren</string>
+    <string name="notification_channel_background_operations_name">Achtergrondtaken</string>
     <string name="notification_channel_download_description">Geef download voortgang weer</string>
     <string name="notification_channel_download_name_short">Downloads</string>
     <string name="notification_channel_file_sync_description">Geeft bestand sync voortgang en resultaten weer</string>
@@ -597,9 +595,12 @@
     <string name="notification_channel_upload_description">Geef upload voortgang weer</string>
     <string name="notification_channel_upload_name_short">Uploads</string>
     <string name="notification_icon">Meldingenpictogram</string>
+    <string name="notification_icon_description">Er zijn ongelezen meldingen</string>
     <string name="notifications_no_results_headline">Geen meldingen</string>
     <string name="notifications_no_results_message">Controleer later opnieuw.</string>
     <string name="offline_mode">Geen internet verbinding</string>
+    <string name="offline_mode_info_description">Zelfs zonder internetverbinding kun je je mappen organiseren en bestanden aanmaken. Zodra je weer online bent, worden de wachtende acties automatisch gesynchroniseerd.</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Offline Map Verwijderen</string>
     <string name="oneHour">1 uur</string>
     <string name="online">Online</string>
     <string name="online_status">Online status</string>
@@ -619,6 +620,7 @@
     <string name="permission_allow">Toestaan</string>
     <string name="permission_deny">Weigeren</string>
     <string name="permission_storage_access">Aanvullende machtigingen vereist voor het uploaden en downloaden van bestanden.</string>
+    <string name="pick_contact_to_share_with">Kies contact om mee te delen</string>
     <string name="picture_set_as_no_app">Geen app gevonden om afbeelding in te stellen</string>
     <string name="pin_home">Toevoegen aan startscherm</string>
     <string name="pin_shortcut_label">Open %1$s</string>
@@ -685,7 +687,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud app suggesties in navigatiekopregel</string>
     <string name="prefs_show_hidden_files">Verborgen bestanden weergeven</string>
     <string name="prefs_sourcecode">Krijg broncode</string>
-    <string name="prefs_storage_path">Gegevensopslagmap</string>
     <string name="prefs_sycned_folders_summary">Mappen beheren voor automatisch uploaden</string>
     <string name="prefs_synced_folders_local_path_title">Lokale map</string>
     <string name="prefs_synced_folders_remote_path_title">Externe map</string>
@@ -730,7 +731,6 @@
     <string name="request_account_deletion">Verwijdering van account aanvragen </string>
     <string name="request_account_deletion_button">Verwijdering aanvragen</string>
     <string name="request_account_deletion_details">Vraag permanente verwijdering van het account aan bij de service provider</string>
-    <string name="resized_image_not_possible_download">Geen verkleinde afbeelding beschikbaar. Volledige afbeelding downloaden?</string>
     <string name="restore">Herstellen bestand</string>
     <string name="restore_backup">Herstel backup</string>
     <string name="restore_button_description">Herstel verwijderd bestand</string>
@@ -771,6 +771,7 @@
     <string name="share">Delen</string>
     <string name="share_copy_link">Deel en kopieer link</string>
     <string name="share_dialog_title">Delen</string>
+    <string name="share_download_limit">Stel downloadlimiet in</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Vervalt op %1$s</string>
     <string name="share_file">Deel %1$s</string>
@@ -1103,4 +1104,4 @@
         <item quantity="one">%d geselecteerd</item>
         <item quantity="other">%d geselecteerd</item>
     </plurals>
-</resources>
+    </resources>

@@ -39,6 +39,7 @@ object PermissionUtil {
     const val PERMISSIONS_READ_CALENDAR_AUTOMATIC = 6
     const val PERMISSIONS_WRITE_CALENDAR = 7
     const val PERMISSIONS_POST_NOTIFICATIONS = 8
+    const val PERMISSIONS_MEDIA_LOCATION = 9
 
     const val REQUEST_CODE_MANAGE_ALL_FILES = 19203
 
@@ -151,7 +152,8 @@ object PermissionUtil {
                     // use granular media permissions
                     arrayOf(
                         Manifest.permission.READ_MEDIA_IMAGES,
-                        Manifest.permission.READ_MEDIA_VIDEO
+                        Manifest.permission.READ_MEDIA_VIDEO,
+                        Manifest.permission.READ_MEDIA_VISUAL_USER_SELECTED
                     )
                 } else {
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
@@ -301,5 +303,32 @@ object PermissionUtil {
                 )
             }
         }
+    }
+
+    /**
+     * Request media location permission. Required on API level >= 34.
+     * Does not have any effect on API level < 34.
+     *
+     * @param activity target activity
+     */
+    @JvmStatic
+    fun requestMediaLocationPermission(activity: Activity) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            return
+        }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R && Environment.isExternalStorageManager()) {
+            return
+        }
+
+        if (checkSelfPermission(activity, Manifest.permission.ACCESS_MEDIA_LOCATION)) {
+            return
+        }
+
+        ActivityCompat.requestPermissions(
+            activity,
+            arrayOf(Manifest.permission.ACCESS_MEDIA_LOCATION),
+            PERMISSIONS_MEDIA_LOCATION
+        )
     }
 }

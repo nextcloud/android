@@ -11,6 +11,7 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.MediaFolder
 import com.owncloud.android.datamodel.MediaFolderType
 import com.owncloud.android.datamodel.SyncedFolder
+import com.owncloud.android.utils.SyncedFolderUtils.hasExcludePrefix
 import org.apache.commons.io.FileUtils
 import org.junit.AfterClass
 import org.junit.Assert
@@ -205,6 +206,21 @@ class SyncedFolderUtilsTest : AbstractIT() {
             SyncedFolder.NOT_SCANNED_YET
         )
         Assert.assertFalse(SyncedFolderUtils.isQualifyingMediaFolder(folder))
+    }
+
+    @Test
+    fun testInstantUploadPathIgnoreExcludedPrefixes() {
+        val testFiles = listOf(
+            "IMG_nnn.jpg",
+            "my_documents",
+            "Music",
+            ".trashed_IMG_nnn.jpg",
+            ".pending_IMG_nnn.jpg",
+            ".nomedia",
+            ".thumbdata_IMG_nnn",
+            ".thumbnail"
+        ).filter { !hasExcludePrefix(it) }
+        Assert.assertTrue(testFiles.size == 3)
     }
 
     companion object {

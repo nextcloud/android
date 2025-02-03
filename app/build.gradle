@@ -16,7 +16,7 @@ import org.gradle.internal.jvm.Jvm
 buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:$androidPluginVersion"
-        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:6.0.27'
+        classpath 'com.github.spotbugs.snom:spotbugs-gradle-plugin:6.1.3'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "io.gitlab.arturbosch.detekt:detekt-gradle-plugin:1.23.7"
         classpath "commons-httpclient:commons-httpclient:3.1@jar" // remove after entire switch to lib v2
@@ -78,7 +78,7 @@ configurations.configureEach {
 
 // semantic versioning for version code
 def versionMajor = 3
-def versionMinor = 30
+def versionMinor = 32
 def versionPatch = 0
 def versionBuild = 0 // 0-50=Alpha / 51-98=RC / 90-99=stable
 
@@ -105,7 +105,7 @@ android {
 
     defaultConfig {
         applicationId "com.nextcloud.client"
-        minSdkVersion 24
+        minSdkVersion 25
         targetSdkVersion 35
         compileSdk 35
 
@@ -374,7 +374,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.mockito:mockito-core:$mockitoVersion"
     testImplementation "androidx.test:core:$androidxTestVersion"
-    testImplementation 'org.json:json:20240303'
+    testImplementation 'org.json:json:20250107'
     testImplementation "org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion"
     testImplementation 'androidx.arch.core:core-testing:2.2.0'
     testImplementation "io.mockk:mockk:$mockkVersion"

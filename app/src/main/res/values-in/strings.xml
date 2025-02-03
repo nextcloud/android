@@ -35,17 +35,11 @@
     <string name="allow_resharing">Izinkan pembagian ulang</string>
     <string name="app_widget_description">Menampilkan satu gawit dari dasbor</string>
     <string name="appbar_search_in">Cari dalam %s</string>
-    <string name="assistant_screen_all_task_type">Semua</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tulis beberapa teks</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Apakah Anda yakin ingin menghapus tugas ini?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Hapus Tugas</string>
-    <string name="assistant_screen_failed_task_text">Gagal</string>
     <string name="assistant_screen_loading">Daftar Tugas sedang dimuat, mohon tunggu</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Tidak ada tugas yang tersedia. Pilih jenis tugas untuk membuat tugas baru.</string>
     <string name="assistant_screen_no_task_available_text">Tidak ada tugas yang tersedia untuk jenis tugas %s, Anda dapat membuat tugas baru dari pojok kanan bawah.</string>
-    <string name="assistant_screen_running_task_text">Sedang Berlangsung</string>
-    <string name="assistant_screen_scheduled_task_status_text">Dijadwalkan</string>
-    <string name="assistant_screen_successful_task_text">Selesai</string>
     <string name="assistant_screen_task_create_fail_message">Terjadi kesalahan saat membuat tugas</string>
     <string name="assistant_screen_task_create_success_message">Tugas berhasil dibuat</string>
     <string name="assistant_screen_task_delete_fail_message">Terjadi kesalahan saat menghapus tugas</string>
@@ -54,7 +48,6 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Hapus Tugas</string>
     <string name="assistant_screen_task_types_error_state_message">Tidak dapat memperoleh jenis tugas, mohon periksa koneksi internet Anda.</string>
     <string name="assistant_screen_top_bar_title">Asisten</string>
-    <string name="assistant_screen_unknown_task_status_text">Tidak diketahui</string>
     <string name="assistant_task_detail_screen_input_button_title">Input</string>
     <string name="assistant_task_detail_screen_output_button_title">Output</string>
     <string name="associated_account_not_found">Akun terkait tidak ditemukan!</string>
@@ -176,7 +169,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="confirmation_remove_folders_alert">Apa anda yakin ingin menghapus item yang terpilih beserta isinya?</string>
     <string name="confirmation_remove_local">Lokal saja</string>
     <string name="conflict_dialog_error">Dialog penyelesaian konflik tidak dapat dibuat</string>
-    <string name="conflict_file_headline">File konflik %1$s</string>
     <string name="conflict_local_file">File lokal</string>
     <string name="conflict_message_description">Jika Anda memilih kedua versi, nama dari berkas lokal akan ditambahi angka.</string>
     <string name="conflict_server_file">File server</string>
@@ -433,7 +425,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="image_editor_unable_to_edit_image">Tidak dapat mengedit gambar.</string>
     <string name="image_preview_filedetails">Detail berkas</string>
     <string name="image_preview_image_taking_conditions">Kondisi pengambilan gambar</string>
-    <string name="in_folder">di folder %1$s</string>
     <string name="instant_upload_existing">Juga unggah berkas yang ada</string>
     <string name="instant_upload_on_charging">Hanya unggah ketika dicas</string>
     <string name="instant_upload_path">/UnggahInstan</string>
@@ -612,7 +603,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="prefs_show_ecosystem_apps_summary">Saran aplikasi Nextcloud dalam judul navigasi</string>
     <string name="prefs_show_hidden_files">Lihat berkas tersembunyi</string>
     <string name="prefs_sourcecode">Dapatkan kode sumber</string>
-    <string name="prefs_storage_path"> Folder penyimpanan data</string>
     <string name="prefs_sycned_folders_summary">Kelola folder untuk pengunggahan otomatis</string>
     <string name="prefs_synced_folders_local_path_title">Berkas lokal</string>
     <string name="prefs_synced_folders_remote_path_title">Folder remot</string>
@@ -651,7 +641,6 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="request_account_deletion">Minta penghapusan akun</string>
     <string name="request_account_deletion_button">Minta penghapusan</string>
     <string name="request_account_deletion_details">Minta penghapusan permanen akun oleh penyedia layanan</string>
-    <string name="resized_image_not_possible_download">Tidak ada gambar yang diubah ukurannya tersedia. Unduh gambar penuh?</string>
     <string name="restore">Pulihkan berkas</string>
     <string name="restore_backup">Pulihkan cadangan</string>
     <string name="restore_button_description">Pulihkan berkas yang terhapus</string>
@@ -974,4 +963,4 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <plurals name="items_selected_count">
         <item quantity="other">%d dipilih</item>
     </plurals>
-</resources>
+    </resources>

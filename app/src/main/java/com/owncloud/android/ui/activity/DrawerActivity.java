@@ -60,6 +60,7 @@ import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.ui.ChooseAccountDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.composeActivity.ComposeDestination;
+import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
@@ -1287,7 +1288,8 @@ public abstract class DrawerActivity extends ToolbarActivity
 
         Thread t = new Thread(() -> {
             // fetch capabilities as early as possible
-            if ((getCapabilities() == null || getCapabilities().getAccountName() != null && getCapabilities().getAccountName().isEmpty())
+            final OCCapability capability = getCapabilities();
+            if ((capability == null || capability.getAccountName() == null || !capability.getAccountName().isEmpty())
                 && getStorageManager() != null) {
                 GetCapabilitiesOperation getCapabilities = new GetCapabilitiesOperation(getStorageManager());
                 getCapabilities.execute(getBaseContext());
@@ -1372,5 +1374,9 @@ public abstract class DrawerActivity extends ToolbarActivity
         }
         Menu navMenu = drawerNavigationView.getMenu();
         onNavigationItemClicked(navMenu.findItem(menuItemId));
+    }
+
+    public void showBottomNavigationBar(boolean show) {
+        ViewExtensionsKt.setVisibleIf(bottomNavigationView, show);
     }
 }

@@ -32,6 +32,7 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
+import com.nextcloud.android.lib.resources.files.FileDownloadLimit;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.database.NextcloudDatabase;
 import com.nextcloud.client.database.dao.FileDao;
@@ -62,6 +63,7 @@ import com.owncloud.android.lib.resources.shares.ShareeUser;
 import com.owncloud.android.lib.resources.status.CapabilityBooleanType;
 import com.owncloud.android.lib.resources.status.E2EVersion;
 import com.owncloud.android.lib.resources.status.OCCapability;
+import com.owncloud.android.lib.resources.tags.Tag;
 import com.owncloud.android.operations.RemoteOperationFailedException;
 import com.owncloud.android.utils.FileStorageUtils;
 import com.owncloud.android.utils.MimeType;
@@ -240,6 +242,19 @@ public class FileDataStorageManager {
         offlineOperationDao.insert(entity);
     }
 
+    public String getFileNameBasedOnEncryptionStatus(OCFile file) {
+        FileEntity entity = fileDao.getFileById(file.getFileId());
+        if (entity == null) {
+            return file.getFileName();
+        }
+
+        if (file.isEncrypted()) {
+            return entity.getEncryptedName();
+        } else {
+            return entity.getName();
+        }
+    }
+
     public String getFilenameConsideringOfflineOperation(OCFile file) {
         String filename = file.getDecryptedFileName();
         OfflineOperationEntity renameEntity = offlineOperationDao.getByPath(file.getDecryptedRemotePath());
@@ -339,6 +354,15 @@ public class FileDataStorageManager {
     public @Nullable
     OCFile getFileById(long id) {
         FileEntity fileEntity = fileDao.getFileById(id);
+        if (fileEntity != null) {
+            return createFileInstance(fileEntity);
+        }
+        return null;
+    }
+
+    public @Nullable
+    OCFile getFileByLocalId(long localId) {
+        FileEntity fileEntity = fileDao.getFileByLocalId(localId);
         if (fileEntity != null) {
             return createFileInstance(fileEntity);
         }
@@ -1270,7 +1294,7 @@ public class FileDataStorageManager {
             ocFile.setTags(new ArrayList<>());
         } else {
             try {
-                String[] tagsArray = gson.fromJson(tags, String[].class);
+                Tag[] tagsArray = gson.fromJson(tags, Tag[].class);
                 ocFile.setTags(new ArrayList<>(Arrays.asList(tagsArray)));
             } catch (JsonSyntaxException e) {
                 // ignore saved value due to api change
@@ -1533,6 +1557,15 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LINK, share.getShareLink());
         contentValues.put(ProviderTableMeta.OCSHARES_SHARE_LABEL, share.getLabel());
 
+        FileDownloadLimit downloadLimit = share.getFileDownloadLimit();
+        if (downloadLimit != null) {
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT, downloadLimit.getLimit());
+            contentValues.put(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT, downloadLimit.getCount());
+        } else {
+            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT);
+            contentValues.putNull(ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT);
+        }
+
         return contentValues;
     }
 
@@ -1546,7 +1579,8 @@ public class FileDataStorageManager {
         share.setPermissions(getInt(cursor, ProviderTableMeta.OCSHARES_PERMISSIONS));
         share.setSharedDate(getLong(cursor, ProviderTableMeta.OCSHARES_SHARED_DATE));
         share.setExpirationDate(getLong(cursor, ProviderTableMeta.OCSHARES_EXPIRATION_DATE));
-        share.setToken(getString(cursor, ProviderTableMeta.OCSHARES_TOKEN));
+        String token = getString(cursor, ProviderTableMeta.OCSHARES_TOKEN);
+        share.setToken(token);
         share.setSharedWithDisplayName(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_WITH_DISPLAY_NAME));
         share.setFolder(getInt(cursor, ProviderTableMeta.OCSHARES_IS_DIRECTORY) == 1);
         share.setUserId(getString(cursor, ProviderTableMeta.OCSHARES_USER_ID));
@@ -1556,6 +1590,11 @@ public class FileDataStorageManager {
         share.setHideFileDownload(getInt(cursor, ProviderTableMeta.OCSHARES_HIDE_DOWNLOAD) == 1);
         share.setShareLink(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LINK));
         share.setLabel(getString(cursor, ProviderTableMeta.OCSHARES_SHARE_LABEL));
+
+        FileDownloadLimit downloadLimit = new FileDownloadLimit(token,
+                                                                getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_LIMIT),
+                                                                getInt(cursor, ProviderTableMeta.OCSHARES_DOWNLOADLIMIT_COUNT));
+        share.setFileDownloadLimit(downloadLimit);
 
         return share;
     }
@@ -2271,6 +2310,10 @@ public class FileDataStorageManager {
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES, capability.getForbiddenFilenamesJson());
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS, capability.getForbiddenFilenameExtensionJson());
         contentValues.put(ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES, capability.getForbiddenFilenameBaseNamesJson());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT, capability.getFilesDownloadLimit().getValue());
+        contentValues.put(ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT, capability.getFilesDownloadLimitDefault());
+
+        contentValues.put(ProviderTableMeta.CAPABILITIES_RECOMMENDATION, capability.getRecommendations().getValue());
 
         return contentValues;
     }
@@ -2445,6 +2488,9 @@ public class FileDataStorageManager {
             capability.setForbiddenFilenamesJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FILENAMES));
             capability.setForbiddenFilenameExtensionJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_EXTENSIONS));
             capability.setForbiddenFilenameBaseNamesJson(getString(cursor, ProviderTableMeta.CAPABILITIES_FORBIDDEN_FORBIDDEN_FILENAME_BASE_NAMES));
+            capability.setFilesDownloadLimit(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT));
+            capability.setFilesDownloadLimitDefault(getInt(cursor, ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT));
+            capability.setRecommendations(getBoolean(cursor, ProviderTableMeta.CAPABILITIES_RECOMMENDATION));
         }
 
         return capability;

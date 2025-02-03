@@ -47,17 +47,11 @@
     <string name="app_widget_description">显示仪表盘中的一个小部件</string>
     <string name="appbar_search_in">在 %s 中搜索</string>
     <string name="assistant_screen_add_task_alert_dialog_title">添加新任务</string>
-    <string name="assistant_screen_all_task_type">所有</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">输入一些文字</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">您确定要删除这些任务吗？</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">删除任务</string>
-    <string name="assistant_screen_failed_task_text">失败了</string>
     <string name="assistant_screen_loading">任务列表加载中，请稍等</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">没有可用任务。选择任务类型以创建新任务。</string>
     <string name="assistant_screen_no_task_available_text">%s任务类型没有可用任务，你可以从右下角创建新任务。</string>
-    <string name="assistant_screen_running_task_text">进行中</string>
-    <string name="assistant_screen_scheduled_task_status_text">已排程</string>
-    <string name="assistant_screen_successful_task_text">已完成</string>
     <string name="assistant_screen_task_create_fail_message">创建任务时发生错误</string>
     <string name="assistant_screen_task_create_success_message">任务已创建</string>
     <string name="assistant_screen_task_delete_fail_message">删除任务时发生错误</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">任务输出尚未就绪。</string>
     <string name="assistant_screen_task_types_error_state_message">无法获取任务类型，请检查您的网络连接。</string>
     <string name="assistant_screen_top_bar_title">助手</string>
-    <string name="assistant_screen_unknown_task_status_text">未知</string>
     <string name="assistant_task_detail_screen_input_button_title">输入</string>
     <string name="assistant_task_detail_screen_output_button_title">输出结果</string>
     <string name="associated_account_not_found">相关账号未找到！</string>
@@ -106,6 +99,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">保持为原始的文件夹，即使它是只读的</string>
     <string name="auto_upload_gplay">自动上传行为已更改</string>
     <string name="auto_upload_gplay_desc">由于谷歌施加的新限制，自动上传功能将不再能够自动删除已上传的文件。</string>
+    <string name="auto_upload_gplay_desc2">由于 Google 新的限制，我们不得不移除一个重要权限。因此，自动上传将只能上传图片或视频文件。\n此外，还需要新的权限才能访问上传影像的定位信息。\n确保媒体访问权限设置为“总是允许所有”。</string>
     <string name="auto_upload_on_wifi">仅通过无流量限制的 Wi-Fi 上传</string>
     <string name="auto_upload_path">/自动上传</string>
     <string name="autoupload_configure">配置</string>
@@ -140,6 +134,7 @@
     <string name="clear_notifications_failed">清除通知失败</string>
     <string name="clear_status_message">清除状态信息</string>
     <string name="clear_status_message_after">清除状态信息于</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">重新启动自动上传需要手动操作</string>
     <string name="clipboard_label">从%1$s复制文本</string>
     <string name="clipboard_no_text_to_copy">没有收到要复制到剪贴板的文本</string>
     <string name="clipboard_text_copied">已复制链接</string>
@@ -194,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">确定删除选中项及其内容？</string>
     <string name="confirmation_remove_local">仅本地</string>
     <string name="conflict_dialog_error">无法创建冲突解决程序对话框</string>
-    <string name="conflict_file_headline">冲突文件 %1$s</string>
     <string name="conflict_folder_headline">文件夹冲突</string>
     <string name="conflict_local_file">本地文件</string>
     <string name="conflict_message_description">如果你选择两个版本，则本地文件的名称后面将附加一个数字。</string>
@@ -261,6 +255,7 @@
     <string name="download_cannot_create_file">无法新建本地文件</string>
     <string name="download_download_invalid_local_file_name">无效的文件名</string>
     <string name="download_latest_dev_version">下载最新的开发版本</string>
+    <string name="download_limit">下载限制</string>
     <string name="downloader_download_failed_content">无法下载 %1$s</string>
     <string name="downloader_download_failed_credentials_error">下载失败，请重新登录</string>
     <string name="downloader_download_failed_ticker">下载失败</string>
@@ -435,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">名称包含无效字符：%s</string>
     <string name="file_name_validator_error_reserved_names">%s是禁止的名称</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s。请在移动或复制之前重命名文件</string>
-    <string name="file_name_validator_upload_content_error">无法上传某些内容，因为它包含保留名称或无效字符</string>
     <string name="file_not_found">无法找到文件</string>
     <string name="file_not_synced">文件无法同步。显示最新的可用版本。</string>
     <string name="file_rename">重命名</string>
@@ -502,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">在文件夹 %1$s 内 </string>
     <string name="instant_upload_existing">同时上传现有文件</string>
     <string name="instant_upload_on_charging">仅在充电时上传</string>
     <string name="instant_upload_path">/实时上传</string>
@@ -641,6 +634,7 @@
     <string name="permission_allow">允许</string>
     <string name="permission_deny">禁止</string>
     <string name="permission_storage_access">上传和下载文件所需的其他权限。</string>
+    <string name="pick_contact_to_share_with">选择需要分享的联系人</string>
     <string name="picture_set_as_no_app">找不到可以设置图片的应用程序</string>
     <string name="pin_home">固定到主屏幕</string>
     <string name="pin_shortcut_label">打开 1%1$s</string>
@@ -710,7 +704,6 @@
     <string name="prefs_show_ecosystem_apps_summary">导航栏中的 Nextcloud 应用推荐</string>
     <string name="prefs_show_hidden_files">显示隐藏文件</string>
     <string name="prefs_sourcecode">获取源代码</string>
-    <string name="prefs_storage_path">数据存储文件夹</string>
     <string name="prefs_sycned_folders_summary">管理自动上传文件夹</string>
     <string name="prefs_synced_folders_local_path_title">本地文件夹</string>
     <string name="prefs_synced_folders_remote_path_title">远端文件夹</string>
@@ -735,6 +728,8 @@
     <string name="push_notifications_old_login">由于登录会话已过期，因此没有推送通知。请考虑重新添加你的账号。</string>
     <string name="push_notifications_temp_error">推送通知目前不可用。</string>
     <string name="qr_could_not_be_read">无法读取二维码！</string>
+    <string name="re_enable_auto_upload">自动上传变更</string>
+    <string name="re_enable_auto_upload_desc">由于 Google 新的限制，我们不得不移除一个重要权限。我们正在与 Google 沟通以解决该问题并恢复所有功能。\n\n为了重新启动新照片和视频的自动上传：\n在下方对话框或系统设置中选择“允许所有”。\n当提示时，请允许媒体位置，这将允许Nextcloud在上传图像时保存位置信息。\n\n权限对话框仅在必要时显示。如有疑问，请检查系统设置。\n\n自动上传功能仅在使用Google Play版本的Nextcloud应用时才能上传图像和视频文件。\n\n请检查自2024年12月以来可能未上传的任何文件。</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">找不到文件夹，同步操作已取消</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">无法找到要上传的文件</string>
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
@@ -759,7 +754,6 @@
     <string name="request_account_deletion_button">请求删除</string>
     <string name="request_account_deletion_details">请求服务商永久删除账号</string>
     <string name="resharing_is_not_allowed">策略或权限阻止再次共享</string>
-    <string name="resized_image_not_possible_download">重整大小的图片不可用。下载完整图片？</string>
     <string name="restore">恢复文件</string>
     <string name="restore_backup">还原备份</string>
     <string name="restore_button_description">恢复已删除的文件</string>
@@ -1175,4 +1169,4 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <plurals name="items_selected_count">
         <item quantity="other">已选择 %d 个</item>
     </plurals>
-</resources>
+    </resources>

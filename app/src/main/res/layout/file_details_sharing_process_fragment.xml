@@ -140,6 +140,38 @@
                 android:background="@color/text_color" />
 
             <com.google.android.material.materialswitch.MaterialSwitch
+                android:id="@+id/share_process_set_download_limit_switch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_half_margin"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/share_download_limit"
+                android:visibility="gone" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/share_process_set_download_limit_input_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/download_limit"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/share_process_set_download_limit_input"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:importantForAutofill="no"
+                    android:inputType="number"
+                    android:maxLength="9">
+
+                </com.google.android.material.textfield.TextInputEditText>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.materialswitch.MaterialSwitch
                 android:id="@+id/share_process_hide_download_checkbox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

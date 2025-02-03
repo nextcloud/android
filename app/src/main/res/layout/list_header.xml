@@ -7,26 +7,53 @@
   ~ SPDX-FileCopyrightText: 2019 Nextcloud GmbH
   ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
 -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/headerView"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingTop="@dimen/standard_padding"
+    android:paddingStart="@dimen/standard_padding"
+    android:paddingEnd="@dimen/standard_padding"
     android:showDividers="none">
 
     <TextView
         android:id="@+id/headerText"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="@dimen/standard_padding"
-        android:paddingTop="@dimen/standard_padding"
-        android:paddingRight="@dimen/standard_padding"
-        android:paddingBottom="@dimen/zero"
+        android:layout_marginBottom="@dimen/standard_margin"
         android:textColor="@color/text_color" />
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:contentDescription="@null"
         android:src="@drawable/preview_markdown_gradient_shape" />
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/recommended_files_title"
+        android:text="@string/recommended_files_title"
+        android:textSize="@dimen/large_title_text_size"
+        android:gravity="center|start"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:textColor="@color/text_color" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:id="@+id/recommended_files_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/all_files_title"
+        android:text="@string/drawer_item_all_files"
+        android:textSize="@dimen/large_title_text_size"
+        android:gravity="center|start"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textColor="@color/text_color" />
+
+</LinearLayout>

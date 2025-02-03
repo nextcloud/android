@@ -34,9 +34,6 @@
     <string name="allow_resharing">Permitir repartilha</string>
     <string name="app_widget_description">Mostra um \'\'widget\'\' do painel</string>
     <string name="appbar_search_in">Procurar em %s</string>
-    <string name="assistant_screen_all_task_type">Todos</string>
-    <string name="assistant_screen_successful_task_text">Concluída</string>
-    <string name="assistant_screen_unknown_task_status_text">Desconhecido</string>
     <string name="associated_account_not_found">Conta associada não encontrada!</string>
     <string name="auth_access_failed">Acesso falhou: %1$s</string>
     <string name="auth_account_does_not_exist">A conta ainda não foi adicionada a este dispositivo</string>
@@ -152,7 +149,6 @@
     <string name="confirmation_remove_folder_alert">Deseja realmente apagar %1$s e o seu conteúdo?</string>
     <string name="confirmation_remove_folders_alert">Quer realmente apagar os itens seleccionados e os seus conteúdos?</string>
     <string name="confirmation_remove_local">Apenas localmente</string>
-    <string name="conflict_file_headline">Ficheiro em conflito %1$s</string>
     <string name="conflict_local_file">Ficheiro local</string>
     <string name="conflict_message_description">Se selecionou ambas as versões, o ficheiro local terá um número acrescentado ao seu nome.</string>
     <string name="conflict_server_file">Ficheiro do servidor</string>
@@ -221,6 +217,8 @@
     <string name="downloader_download_in_progress_ticker">A transferir…</string>
     <string name="downloader_download_succeeded_content">%1$s transferido</string>
     <string name="downloader_download_succeeded_ticker">Transferido</string>
+    <string name="downloader_file_download_cancelled">Certos ficheiros foram cancelados pelo utilizador durante a transferência</string>
+    <string name="downloader_file_download_failed">Ocorreu um erro ao transferir os ficheiros</string>
     <string name="downloader_not_downloaded_yet">Ainda não transferido</string>
     <string name="downloader_unexpected_error">Ocorreu um erro inesperado enquanto transferia os ficheiros</string>
     <string name="drawer_close">Fechar barra lateral</string>
@@ -393,6 +391,7 @@
     <string name="foreign_files_success">Todos os ficheiros foram movidos</string>
     <string name="forward">Avançar</string>
     <string name="fourHours">4 horas</string>
+    <string name="gplay_restriction">Google restringiu a transferência dos ficheiros APK/AAB!</string>
     <string name="hidden_file_name_warning">O nome resultará num ficheiro oculto</string>
     <string name="hint_name">Nome</string>
     <string name="hint_note">Nota</string>
@@ -415,7 +414,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">na pasta %1$s</string>
     <string name="instant_upload_existing">Também envia ficheiros existentes</string>
     <string name="instant_upload_on_charging">Carregar ficheiros apenas quando o carregador está ligado</string>
     <string name="instant_upload_path">/Envio Instantâneo </string>
@@ -594,7 +592,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Sugestões de aplicações Nextcloud no cabeçalho da navegação</string>
     <string name="prefs_show_hidden_files">Mostrar ficheiros ocultados</string>
     <string name="prefs_sourcecode">Obter código fonte</string>
-    <string name="prefs_storage_path">Pasta de armazenamento de dados</string>
     <string name="prefs_sycned_folders_summary">Gerir as pastas para o envio automático</string>
     <string name="prefs_synced_folders_local_path_title">Pasta Local</string>
     <string name="prefs_synced_folders_remote_path_title">Pasta Remota</string>
@@ -631,7 +628,6 @@
     <string name="rename_local_fail_msg">Não foi possível renomear a cópia local, tente um nome diferente</string>
     <string name="rename_server_fail_msg">Renomeação impossível, nome já utilizado</string>
     <string name="request_account_deletion">Solicitar eliminação da conta</string>
-    <string name="resized_image_not_possible_download">Nenhuma imagem redimensionada disponível. Deseja transferir a imagem completa?</string>
     <string name="restore">Restaurar ficheiro</string>
     <string name="restore_backup">Restaurar cópia de segurança </string>
     <string name="restore_button_description">Restaurar ficheiro apagado</string>
@@ -668,6 +664,7 @@
     <string name="setup_e2e">Durante a configuração da encriptação ponta-a-ponta, receberá uma mnemónica aleatória de 12 palavras, de que necessitará para abrir os seus ficheiros noutros dispositivos. Ela só será guardada neste dispositivo e pode ser mostrada novamente neste ecrã. Por favor, anote-a num local seguro!</string>
     <string name="share">Partilhar</string>
     <string name="share_dialog_title">Partilha</string>
+    <string name="share_download_limit">Definir limite de descargas</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Expira %1$s</string>
     <string name="share_file">Partilhar %1$s</string>
@@ -971,4 +968,4 @@ Aproveite o novo e melhorado envio automático.</string>
         <item quantity="many">%d selecionados</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
-</resources>
+    </resources>

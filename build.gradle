@@ -10,13 +10,13 @@
  */
 buildscript {
     ext {
-        androidLibraryVersion ="30443186505dbb16c19ac69a34122010446207fe"
+        androidLibraryVersion ="3d422b28376339c0fbd772e480dbbdc56b7ae1a1"
         androidPluginVersion = '8.8.0'
         androidxMediaVersion = '1.5.1'
         androidxTestVersion = "1.6.1"
         appCompatVersion = '1.7.0'
         checkerVersion = "3.21.2"
-        daggerVersion = "2.54"
+        daggerVersion = "2.55"
         documentScannerVersion = "1.1.1"
         espressoVersion = "3.6.1"
         jacoco_version = '0.8.12'
@@ -24,7 +24,7 @@ buildscript {
         markwonVersion = "4.6.2"
         mockitoVersion = "4.11.0"
         mockitoKotlinVersion = "4.1.0"
-        mockkVersion = "1.13.14"
+        mockkVersion = "1.13.16"
         prismVersion = "2.0.0"
         roomVersion = "2.6.1"
         workRuntime = "2.10.0"

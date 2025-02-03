@@ -47,17 +47,11 @@
     <string name="app_widget_description">Приказује један виџет са контролне табле</string>
     <string name="appbar_search_in">Тражи у %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Додај нови задатак</string>
-    <string name="assistant_screen_all_task_type">Све</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Откуцајте неки текст</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Да ли сте сигурни да желите да обришете овај задатак?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Обриши задатак</string>
-    <string name="assistant_screen_failed_task_text">Није успело</string>
     <string name="assistant_screen_loading">Листа задатака се учитава, молимо вас сачекајте</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Не постоји ниједан задатак. Да бисте креирали нови задатак, изаберите тип задатка.</string>
     <string name="assistant_screen_no_task_available_text">Не постоји ниједан задатак типа %s, нови задатак можете да креирате доле десно.</string>
-    <string name="assistant_screen_running_task_text">Напредује</string>
-    <string name="assistant_screen_scheduled_task_status_text">Заказано</string>
-    <string name="assistant_screen_successful_task_text">Завршено</string>
     <string name="assistant_screen_task_create_fail_message">Дошло је до грешке током креирања задатка</string>
     <string name="assistant_screen_task_create_success_message">Задатак је успешно креиран</string>
     <string name="assistant_screen_task_delete_fail_message">Дошло је до грешке током брисања задатка</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Излаз задатка још увек није спреман.</string>
     <string name="assistant_screen_task_types_error_state_message">Не могу да се преузму типови задатака, молимо вас да проверите везу са интернетом.</string>
     <string name="assistant_screen_top_bar_title">Асистент</string>
-    <string name="assistant_screen_unknown_task_status_text">Непознато</string>
     <string name="assistant_task_detail_screen_input_button_title">Унос</string>
     <string name="assistant_task_detail_screen_output_button_title">Излаз</string>
     <string name="associated_account_not_found">Придружени налог није нађен!</string>
@@ -106,6 +99,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">остављен у оригиналној фасцикли јер је само за читање</string>
     <string name="auto_upload_gplay">Промењено је понашање аутоматског отпремања</string>
     <string name="auto_upload_gplay_desc">Услед нових ограничења које је поставио Google, функционалност аутоматског отпремања више неће моћи аутоматски да отпрема фајлове.</string>
+    <string name="auto_upload_gplay_desc2">Услед нових ограничења која је наметнуо Google, приморани смо да уклонимо важну дозволу. Последица тога је да ће аутоматско отпремање моћи да отпреми само фајлове слика и видео клипова.\nУз то, за приступ информацијама о локацији отпремљених слика потребна је нова дозвола.\nОбезбедите да је приступ медијским фајловима подешен на „Увек дозволи све”.</string>
     <string name="auto_upload_on_wifi">Отпремај само на бежичним мрежама без ограничења</string>
     <string name="auto_upload_path">/Аутоматска отпремања</string>
     <string name="autoupload_configure">Подеси</string>
@@ -140,6 +134,7 @@
     <string name="clear_notifications_failed">Не могу да обришем обавештења.</string>
     <string name="clear_status_message">Обриши статусну поруку</string>
     <string name="clear_status_message_after">Обриши статусну поруку након</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Потребна је ручна интервенција да би се поново омогућило аутоматско отпремање</string>
     <string name="clipboard_label">Текст копиран са %1$s</string>
     <string name="clipboard_no_text_to_copy">Нема текста за копирање у клипборд</string>
     <string name="clipboard_text_copied">Веза ископирана</string>
@@ -194,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">Заиста желите да обришете означене ставке и њихов садржај?</string>
     <string name="confirmation_remove_local">Само локално</string>
     <string name="conflict_dialog_error">Нем оже да се креира дијалог за разрешавање конфилкта</string>
-    <string name="conflict_file_headline">Конфликтни фајл %1$s</string>
     <string name="conflict_folder_headline">Конфликт фолдера</string>
     <string name="conflict_local_file">Локални фајл</string>
     <string name="conflict_message_description">Ако изаберете обе верзије, локални фајл имаће број придодат свом називу.</string>
@@ -261,6 +255,7 @@
     <string name="download_cannot_create_file">Не могу да направим локални фајл</string>
     <string name="download_download_invalid_local_file_name">Неисправно име за локални фајл</string>
     <string name="download_latest_dev_version">Преузмите најновију развојну верзију</string>
+    <string name="download_limit">Ограничење преузимања</string>
     <string name="downloader_download_failed_content">Не могу да преузмем %1$s</string>
     <string name="downloader_download_failed_credentials_error">Неуспешно преузимање. Поново се пријавите</string>
     <string name="downloader_download_failed_ticker">Преузимање није успело</string>
@@ -435,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">Име садржи неисправне карактере: %s</string>
     <string name="file_name_validator_error_reserved_names">%s је забрањено име</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Молимо вас да пре премештања или копирања промените име фајла</string>
-    <string name="file_name_validator_upload_content_error">Неки садржај не може да се отпреми јер садржи резервисана имена или неисправне карактере</string>
     <string name="file_not_found">Фајл није нађен</string>
     <string name="file_not_synced">Фајл не може да се синхронизује. Приказујем последњу доступну верзију.</string>
     <string name="file_rename">Преименуј</string>
@@ -502,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">У фолдеру %1$s</string>
     <string name="instant_upload_existing">Отпреми и постојеће фајлове</string>
     <string name="instant_upload_on_charging">Отпремај само на пуњењу</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -641,6 +634,7 @@
     <string name="permission_allow">Дозволи</string>
     <string name="permission_deny">Одбиј</string>
     <string name="permission_storage_access">Потребне су дозволе за отпремање и преузимање фајлова.</string>
+    <string name="pick_contact_to_share_with">Изаберите контакт са којим желите да поделите</string>
     <string name="picture_set_as_no_app">Нема апликације којом се поставља слика</string>
     <string name="pin_home">Закачи на Почетни екран</string>
     <string name="pin_shortcut_label">Отвори %1$s</string>
@@ -710,7 +704,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Предлози Nextcloud апликација у заглављу навигације</string>
     <string name="prefs_show_hidden_files">Прикажи скривене фајлове</string>
     <string name="prefs_sourcecode">Узми изворни кôд</string>
-    <string name="prefs_storage_path">Фасцикла за податке</string>
     <string name="prefs_sycned_folders_summary">Управљање фолдерима за аутоматско отпремање</string>
     <string name="prefs_synced_folders_local_path_title">Локална фасцикла</string>
     <string name="prefs_synced_folders_remote_path_title">Удаљена фасцикла</string>
@@ -735,11 +728,14 @@
     <string name="push_notifications_old_login">Нема брзих обавештења јер је сесија застарела. Избришите и додајте поново налог.</string>
     <string name="push_notifications_temp_error">Брза обавештења тренутно нису доступна.</string>
     <string name="qr_could_not_be_read">QR кôд није могао да се прочита!</string>
+    <string name="re_enable_auto_upload">Измене у аутоматском отпремању</string>
+    <string name="re_enable_auto_upload_desc">Услед нових ограничења која је наметнуо Google, приморани смо да уклонимо важну дозволу. Тренутно радимо са компанијом Google да решимо овај проблем и обновимо пуну функционалност.\n\nДа бисте поново омогућили аутоматско отпремање нових слика и видео клипова:\nУ следећем дијалогу или у подешавањима система „Дозволи све”.\nКада се упита, дозволите локацију медија фајлова, јер тако Nextcloud добија дозволу да чува податке о локацији када отпрема слике.\n\nДијалог дозволе се приказује само у случају потребе. Ако имате сумњи, молимо вас да поново проверите у системским подешавањима.\n\nАутоматско отпремање ће моћи да отпрема само фајлова слика и видео клипова када се користи Google Play верзија Nextcloud апликације.\n\nМолимо вас да проверите фајлове који можда нису отпремљени након децембра 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Не може да се пронађе фолдер, операција синхронизације је отказана</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Не може да се пронађе фајл који треба да се отпреми</string>
     <string name="recommend_subject">Испробај %1$s на свом уређају!</string>
     <string name="recommend_text">Желим да те позовем да испробаш %1$s на свом уређају.\nПреузми га овде: %2$s</string>
     <string name="recommend_urls">%1$s или %2$s</string>
+    <string name="recommended_files_title">Препоручени фајлови</string>
     <string name="refresh_content">Освежи садржај</string>
     <string name="reload">Поново учитај</string>
     <string name="remote">(удаљено)</string>
@@ -759,7 +755,6 @@
     <string name="request_account_deletion_button">Захтев за брисање</string>
     <string name="request_account_deletion_details">Захтев пружаоцу сервиса да неповратно обрише налог</string>
     <string name="resharing_is_not_allowed">Полиса или дозволе спречавају поновно дељење</string>
-    <string name="resized_image_not_possible_download">Нема доступне умањене сличице. Скинути пуну слику?</string>
     <string name="restore">Поврати фајл</string>
     <string name="restore_backup">Обнови резервну копију</string>
     <string name="restore_button_description">Поврати обрисани фајл</string>
@@ -801,6 +796,7 @@
     <string name="share">Подели</string>
     <string name="share_copy_link">Дели и копирај линк</string>
     <string name="share_dialog_title">Дељење</string>
+    <string name="share_download_limit">Podesite ograničenje preuzimanja</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Истиче %1$s</string>
     <string name="share_file">Подели %1$s</string>
@@ -991,6 +987,8 @@
     <string name="upload_file_dialog_title">Унесите назив и тип фајла за отпремање</string>
     <string name="upload_files">Отпреми фајлове</string>
     <string name="upload_global_pause_title">Сва отпремања су паузирана</string>
+    <string name="upload_gplay">Измене дозвола</string>
+    <string name="upload_gplay_desc">За приступ информацијама о локацији слика које се отпремају потребна је нова дозвола.\nОбезбедите да је приступ медијима постављен на „Увек дозволи све”.</string>
     <string name="upload_item_action_button">Дугме за отпремање</string>
     <string name="upload_list_delete">Избриши</string>
     <string name="upload_list_empty_headline">Нема доступних отпремања</string>
@@ -1191,5 +1189,10 @@
         <item quantity="one">%d одабран</item>
         <item quantity="few">%d одабрана</item>
         <item quantity="other">%d одабраних</item>
+    </plurals>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">преостаје још %1$d преузимање</item>
+        <item quantity="few">преостаје још %1$d преузимања</item>
+        <item quantity="other">преостаје још %1$d преузимања</item>
     </plurals>
 </resources>

@@ -15,6 +15,7 @@ import com.owncloud.android.AbstractIT
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.ShareType
 import com.owncloud.android.lib.resources.shares.ShareeUser
+import com.owncloud.android.lib.resources.tags.Tag
 import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.ScreenshotTest
 import org.junit.Assert
@@ -50,7 +51,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             fileLength = 3072000
             modificationTimestamp = 746443755000
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
-            tags = listOf("Top secret")
+            tags = listOf(Tag("", "Top secret", null))
             sut.storageManager.saveFile(this)
         }
 
@@ -72,7 +73,7 @@ class OCFileListFragmentStaticServerIT : AbstractIT() {
             fileLength = 12092000
             modificationTimestamp = 746143952000
             parentId = sut.storageManager.getFileByEncryptedRemotePath("/").fileId
-            tags = listOf("Confidential", "+5")
+            tags = listOf(Tag("", "Confidential", null), Tag("", "+5", null))
             sut.storageManager.saveFile(this)
         }
 

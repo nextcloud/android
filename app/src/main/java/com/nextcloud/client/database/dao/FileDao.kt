@@ -17,6 +17,9 @@ interface FileDao {
     @Query("SELECT * FROM filelist WHERE _id = :id LIMIT 1")
     fun getFileById(id: Long): FileEntity?
 
+    @Query("SELECT * FROM filelist WHERE local_id = :localId LIMIT 1")
+    fun getFileByLocalId(localId: Long): FileEntity?
+
     @Query("SELECT * FROM filelist WHERE path = :path AND file_owner = :fileOwner LIMIT 1")
     fun getFileByEncryptedRemotePath(path: String, fileOwner: String): FileEntity?
 

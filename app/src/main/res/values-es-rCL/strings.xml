@@ -37,17 +37,11 @@
     <string name="app_config_proxy_port_title">Puerto del Proxy</string>
     <string name="app_widget_description">Muestra un widget del panel de control</string>
     <string name="appbar_search_in">Buscar en %s</string>
-    <string name="assistant_screen_all_task_type">Todos</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escribe un texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">¿Está seguro que desea eliminar esta tarea?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Tarea eliminada</string>
-    <string name="assistant_screen_failed_task_text">Falló</string>
     <string name="assistant_screen_loading">Lista de Tareas en lectura, espere por favor.</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">No hay tareas disponibles. Seleccione un tipo de tarea para crear una nueva.</string>
     <string name="assistant_screen_no_task_available_text">No hay tareas del tipo %s, puede crear una nueva tarea desde la parte inferior derecha</string>
-    <string name="assistant_screen_running_task_text">En progreso</string>
-    <string name="assistant_screen_scheduled_task_status_text">Programado</string>
-    <string name="assistant_screen_successful_task_text">Completado</string>
     <string name="assistant_screen_task_create_fail_message">Ocurrió un error mientras creaba la tarea</string>
     <string name="assistant_screen_task_create_success_message">Tarea creada con éxito</string>
     <string name="assistant_screen_task_delete_fail_message">Ocurrió un error mientras eliminaba la tarea</string>
@@ -56,7 +50,6 @@
     <string name="assistant_screen_task_more_actions_bottom_sheet_delete_action">Tarea eliminada</string>
     <string name="assistant_screen_task_types_error_state_message">No se puede recuperar los tipos de tareas, comprueba la conexión a Internet.</string>
     <string name="assistant_screen_top_bar_title">Asistente</string>
-    <string name="assistant_screen_unknown_task_status_text">Desconocido</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Salida</string>
     <string name="associated_account_not_found">¡Cuenta asociada no encontrada!</string>
@@ -429,7 +422,6 @@
     <string name="rename_dialog_title">Ingresa un nombre nuevo</string>
     <string name="rename_local_fail_msg">No se pudo renombrar la copia local, intenta con un nombre diferente </string>
     <string name="rename_server_fail_msg">No fue posible renombrar, el nombre ya está ocupado</string>
-    <string name="resized_image_not_possible_download">No hay una imagen a escala disponible. ¿Descargar la imagen completa? </string>
     <string name="restore_item">Restaurar</string>
     <string name="retry">Reintentar</string>
     <string name="select_all">Seleccionar todo</string>

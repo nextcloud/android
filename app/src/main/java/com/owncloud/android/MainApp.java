@@ -129,8 +129,8 @@ import static com.owncloud.android.ui.activity.ContactsPreferenceActivity.PREFER
  * Contains methods to build the "static" strings. These strings were before constants in different classes.
  */
 public class MainApp extends Application implements HasAndroidInjector, NetworkChangeListener {
-    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_26;
-    public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_17;
+    public static final OwnCloudVersion OUTDATED_SERVER_VERSION = NextcloudVersion.nextcloud_28;
+    public static final OwnCloudVersion MINIMUM_SUPPORTED_SERVER_VERSION = OwnCloudVersion.nextcloud_18;
 
     private static final String TAG = MainApp.class.getSimpleName();
     public static final String DOT = ".";
@@ -142,6 +142,7 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
     private static boolean mOnlyOnDevice;
     private static boolean mOnlyPersonalFiles;
 
+    
     @Inject
     protected AppPreferences preferences;
 
@@ -417,9 +418,13 @@ public class MainApp extends Application implements HasAndroidInjector, NetworkC
             Log_OC.d(TAG, "Error caught at setProxyForNonBrandedPlusClients: " + e);
         }
     }
+    
+    public static boolean isClientBranded() {
+        return getAppContext().getResources().getBoolean(R.bool.is_branded_client);
+    }
 
     public static boolean isClientBrandedPlus() {
-        return (getAppContext().getResources().getBoolean(R.bool.is_branded_plus_client));
+        return getAppContext().getResources().getBoolean(R.bool.is_branded_plus_client);
     }
 
     private final IntentFilter restrictionsFilter = new IntentFilter(Intent.ACTION_APPLICATION_RESTRICTIONS_CHANGED);

@@ -45,17 +45,12 @@
     <string name="app_config_proxy_port_title">Port del proxy</string>
     <string name="app_widget_description">Mostra un giny del tauler</string>
     <string name="appbar_search_in">Cerca a %s</string>
-    <string name="assistant_screen_all_task_type">Totes</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Afegeix una tasca nova</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Escriu una mica de text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Segur que voleu suprimir aquesta tasca?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Suprimeix la tasca</string>
-    <string name="assistant_screen_failed_task_text">Ha fallat</string>
     <string name="assistant_screen_loading">S\'està carregant la llista de tasques, espereu</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">No hi ha cap tasca disponible. Seleccioneu un tipus de tasca per a crear una tasca nova.</string>
     <string name="assistant_screen_no_task_available_text">No hi ha cap tasca disponible per al tipus de tasca %s. Podeu crear una tasca nova des de baix a la dreta.</string>
-    <string name="assistant_screen_running_task_text">En curs</string>
-    <string name="assistant_screen_scheduled_task_status_text">Planificat</string>
-    <string name="assistant_screen_successful_task_text">S\'ha completat</string>
     <string name="assistant_screen_task_create_fail_message">S\'ha produït un error en crear la tasca</string>
     <string name="assistant_screen_task_create_success_message">La tasca s\'ha creat correctament</string>
     <string name="assistant_screen_task_delete_fail_message">S\'ha produït un error en suprimir la tasca</string>
@@ -65,7 +60,6 @@
     <string name="assistant_screen_task_output_empty_text">La sortida de la tasca encara no està a punt.</string>
     <string name="assistant_screen_task_types_error_state_message">No s\'han pogut obtenir els tipus de tasques. Comproveu la connexió a Internet.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
-    <string name="assistant_screen_unknown_task_status_text">Desconegut</string>
     <string name="assistant_task_detail_screen_input_button_title">Entrada</string>
     <string name="assistant_task_detail_screen_output_button_title">Sortida</string>
     <string name="associated_account_not_found">No s\'ha trobat el compte associat!</string>
@@ -104,6 +98,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">manté a la carpeta original, ja que és només de lectura</string>
     <string name="auto_upload_gplay">S\'ha canviat el comportament de la càrrega automàtica</string>
     <string name="auto_upload_gplay_desc">A causa de les noves restriccions imposades per Google, la funció de càrrega automàtica ja no podrà eliminar automàticament els fitxers carregats.</string>
+    <string name="auto_upload_gplay_desc2">A causa de les noves restriccions imposades per Google, ens hem vist obligats a eliminar un permís important. Per consegüent, la pujada automàtica només podrà pujar fitxers d\'imatge i vídeo.\nA més a més, es requereix un altre permís per accedir a la informació d\'ubicació de les imatges pujades.\nComproveu que l\'accés multimèdia estigui establert a \"Permet sempre tot\".</string>
     <string name="auto_upload_on_wifi">Pujada només quan hi hagi Wi-Fi sense límits</string>
     <string name="auto_upload_path">/Càrrega automàtica</string>
     <string name="autoupload_configure">Configura</string>
@@ -138,6 +133,7 @@
     <string name="clear_notifications_failed">No s\'han pogut carregar les notificacions.</string>
     <string name="clear_status_message">Esborrar el missatge d\'estat</string>
     <string name="clear_status_message_after">Esborra el missatge d\'estat després</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Cal la intervenció manual per tornar a habilitar la pujada automàtica</string>
     <string name="clipboard_label">Text copiat des de %1$s</string>
     <string name="clipboard_no_text_to_copy">No s\'ha rebut cap text per copiar al porta-retalls</string>
     <string name="clipboard_text_copied">Enllaç copiat</string>
@@ -192,7 +188,6 @@
     <string name="confirmation_remove_folders_alert">Esteu segur que voleu suprimir els elements seleccionats i el seu contingut?</string>
     <string name="confirmation_remove_local">Només local</string>
     <string name="conflict_dialog_error">No es pot crear el quadre de diàleg del solucionador de conflictes</string>
-    <string name="conflict_file_headline">Fitxer en conflicte %1$s</string>
     <string name="conflict_folder_headline">Conflicte de carpetes</string>
     <string name="conflict_local_file">Fitxer local</string>
     <string name="conflict_message_description">Si seleccioneu ambdues versions, s\'afegirà un numero al nom del fitxer local.</string>
@@ -259,6 +254,7 @@
     <string name="download_cannot_create_file">No s\'ha pogut crear el fitxer local</string>
     <string name="download_download_invalid_local_file_name">Nom de fitxer no vàlid per al fitxer local</string>
     <string name="download_latest_dev_version">Baixa la darrera versió de desenvolupament</string>
+    <string name="download_limit">Límit de baixades</string>
     <string name="downloader_download_failed_content">No s\'ha pogut baixar%1$s</string>
     <string name="downloader_download_failed_credentials_error">La baixada ha fallat, torneu a iniciar la sessió</string>
     <string name="downloader_download_failed_ticker">S\'ha produït un error durant la baixada</string>
@@ -339,6 +335,7 @@
     <string name="error_showing_encryption_dialog">S\'ha produït un error en mostrar el quadre de diàleg de configuració del xifratge</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
     <string name="error_starting_doc_scan">S\'ha produït un error en iniciar l\'escaneig del document</string>
+    <string name="error_uploading_direct_camera_upload">No s\'ha pogut pujar el contingut multimèdia</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_job_created">S\'ha creat</string>
     <string name="etm_background_job_name">Nom de la tasca</string>
@@ -369,9 +366,11 @@
     <string name="failed_update_ui">No s\'ha pogut actualitzar la IU</string>
     <string name="favorite">Afegix a preferits</string>
     <string name="favorite_icon">Preferit</string>
+    <string name="file_activity_shared_file_cannot_be_updated">El fitxer compartit no es pot pujar</string>
     <string name="file_already_exists">El nom del fitxer ja existeix</string>
     <string name="file_delete">Suprimeix</string>
     <string name="file_detail_activity_error">Hi ha hagut un error mentre es recuperaven les activitats per al fitxer</string>
+    <string name="file_detail_sharing_fragment_no_contact_app_message">No hi ha cap aplicació disponible per a seleccionar contactes</string>
     <string name="file_details_no_content">No s\'han pogut carregar els detalls</string>
     <string name="file_icon">Fitxer</string>
     <string name="file_keep">Mantén</string>
@@ -382,6 +381,7 @@
     <string name="file_list_empty_headline">No hi ha fitxers</string>
     <string name="file_list_empty_headline_search">Cap resultat en aquesta carpeta</string>
     <string name="file_list_empty_headline_server_search">Sense resultats</string>
+    <string name="file_list_empty_local_search">Cap fitxer o carpeta coincideix amb la cerca.</string>
     <string name="file_list_empty_moving">Aquí no hi ha res. Podeu afegir una carpeta.</string>
     <string name="file_list_empty_on_device">Els fitxers i les carpetes que baixeu es mostraran aquí.</string>
     <string name="file_list_empty_recently_modified">No s\'han trobat fitxers modificats els darrers 7 dies</string>
@@ -390,6 +390,7 @@
     <string name="file_list_empty_shared_headline">Encara no s\'ha compartit res</string>
     <string name="file_list_empty_unified_search_no_results">No s\'han trobat resultats per la vostra consulta</string>
     <string name="file_list_folder">carpeta</string>
+    <string name="file_list_live">DIRECTE</string>
     <string name="file_list_loading">S\'està carregant…</string>
     <string name="file_list_no_app_for_file_type">No hi ha cap aplicació configurada per gestionar aquest tipus de fitxer.</string>
     <string name="file_list_seconds_ago">fa uns segons</string>
@@ -397,6 +398,7 @@
     <string name="file_management_permission_optional">Permisos d\'emmagatzematge</string>
     <string name="file_management_permission_optional_text">%1$streballa millor amb permisos d\'accés a l\'emmagatzematge. Podeu triar entre accés complet als fitxers o accés de només lectura a fotografies i vídeos.</string>
     <string name="file_management_permission_text">%1$snecessita permisos de  gestió de fitxers per a la pujada de fitxers. Podeu triar entre accés complet als fitxers o accés de només lectura a fotografies i vídeos.</string>
+    <string name="file_migration_allow_media_indexing">Permet l\'accés des d\'altres aplicacions</string>
     <string name="file_migration_checking_destination">S\'està comprovant la destinació…</string>
     <string name="file_migration_cleaning">S\'està netejant…</string>
     <string name="file_migration_dialog_title">Actualitzant la carpeta de dades</string>
@@ -407,6 +409,7 @@
     <string name="file_migration_failed_not_writable">No es pot escriure al fitxer de destinació</string>
     <string name="file_migration_failed_while_coping">La migració ha fallat</string>
     <string name="file_migration_failed_while_updating_index">L\'actualització de l\'índex ha fallat</string>
+    <string name="file_migration_free_space">%1$s\n(%2$s / %3$s)</string>
     <string name="file_migration_migrating">S\'està movent dades…</string>
     <string name="file_migration_ok_finished">Acabat</string>
     <string name="file_migration_override_data_folder">Reemplaça</string>
@@ -418,9 +421,17 @@
     <string name="file_migration_updating_index">S\'està actualitzant l\'índex…</string>
     <string name="file_migration_use_data_folder">Fes servir</string>
     <string name="file_migration_waiting_for_unfinished_sync">S\'està esperant la sincronització completa…</string>
+    <string name="file_name_validator_current_path_is_invalid">El nom de la carpeta actual no és vàlid. Canvieu el nom de la carpeta. S\'està redirigint a l\'inici...</string>
+    <string name="file_name_validator_error_contains_reserved_names_or_invalid_characters">El camí del fitxer conté noms reservats o caràcters no vàlids</string>
+    <string name="file_name_validator_error_forbidden_file_extensions">%s és una extensió de fitxer prohibida</string>
+    <string name="file_name_validator_error_forbidden_space_character_extensions">Els noms de fitxer no poden contenir espais al principi o al final</string>
+    <string name="file_name_validator_error_invalid_character">El nom conté caràcters no vàlids: %s</string>
+    <string name="file_name_validator_error_reserved_names">%s és un nom prohibit</string>
+    <string name="file_name_validator_rename_before_move_or_copy">%s. Canvieu el nom del fitxer abans de moure o copiar</string>
     <string name="file_not_found">Fitxer no trobat</string>
     <string name="file_not_synced">El fitxer no s\'ha pogut sincronitzar. Se\'n mostra la darrera versió disponible.</string>
     <string name="file_rename">Canvia el nom</string>
+    <string name="file_upload_worker_same_file_already_exists">Ja existeix el mateix fitxer, no s\'ha detectat cap conflicte</string>
     <string name="file_version_restored_error">S\'ha produït un error restaurant la versió del fitxer!</string>
     <string name="file_version_restored_successfully">Versió del fitxer restaurada amb èxit.</string>
     <string name="filedetails_details">Detalls</string>
@@ -434,9 +445,13 @@
     <string name="filename_forbidden_charaters_from_server">El nom del fitxer conté com a mínim un caràcter no vàlid</string>
     <string name="filename_hint">Nom de fitxer</string>
     <string name="first_run_1_text">Mantingueu les vostres dades segures i sota el vostre control</string>
+    <string name="first_run_2_text">Col·laboració i intercanvi de fitxers segurs</string>
+    <string name="first_run_3_text">Webmail, calendari i contactes fàcils d\'utilitzar</string>
+    <string name="first_run_4_text">Compartició de pantalla, reunions online i conferències web</string>
     <string name="folder_already_exists">La carpeta ja existeix</string>
     <string name="folder_confirm_create">Crea</string>
     <string name="folder_list_empty_headline">No hi ha carpetes</string>
+    <string name="folder_name_empty">El nom del fitxer no pot estar buit</string>
     <string name="folder_picker_choose_button_text">Tria</string>
     <string name="folder_picker_choose_caption_text">Trieu la carpeta de destinació</string>
     <string name="folder_picker_copy_button_text">Còpia</string>
@@ -455,6 +470,8 @@
     <string name="foreign_files_success">S\'han mogut tots els fitxers</string>
     <string name="forward">Endavant</string>
     <string name="fourHours">4 hores</string>
+    <string name="gplay_restriction">Google ha restringit la baixada de fitxers APK/AAB!</string>
+    <string name="grid_file_features_live_photo_content_description">Aquesta icona indica la disponibilitat de la foto en directe</string>
     <string name="hidden_file_name_warning">El nom donarà com a resultat un fitxer ocult</string>
     <string name="hint_name">Nom</string>
     <string name="hint_note">Nota</string>
@@ -464,10 +481,25 @@
     <string name="icon_for_empty_list">Icona per a la llista buida</string>
     <string name="icon_of_dashboard_widget">Icona del giny del tauler</string>
     <string name="icon_of_widget_entry">Icona de l\'entrada del giny</string>
-    <string name="in_folder">en la carpeta %1$s</string>
+    <string name="image_editor_file_edited_suffix">editat</string>
+    <string name="image_editor_flip_horizontal">Inverteix horitzontalment</string>
+    <string name="image_editor_flip_vertical">Inverteix verticalment</string>
+    <string name="image_editor_rotate_ccw">Gira en sentit antihorari</string>
+    <string name="image_editor_rotate_cw">Gira en sentit horari</string>
+    <string name="image_editor_unable_to_edit_image">No s\'ha pogut editar la imatge.</string>
+    <string name="image_preview_filedetails">Detalls del fitxer</string>
+    <string name="image_preview_image_taking_conditions">Condicions de presa d\'imatges</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="instant_upload_existing">També pujar fitxers existents</string>
     <string name="instant_upload_on_charging">Pujada només durant la càrrega de bateria</string>
     <string name="instant_upload_path">/CàrregaInstantània</string>
+    <string name="internal_two_way_sync">Sincronització interna bidireccional</string>
+    <string name="internal_two_way_sync_not_yet">Encara no, aviat se sincronitzarà</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Cal una connexió a Internet per configurar la carpeta xifrada</string>
     <string name="invalid_url">URL no vàlid</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">L\'etiqueta no pot estar buida</string>
@@ -491,6 +523,7 @@
     <string name="locked_by_app">Blocat per l\'aplicació %1$s</string>
     <string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
     <string name="log_send_no_mail_app">No s\'ha trobat cap aplicació per enviar els registres. Instal·leu un client de correu electrònic.</string>
+    <string name="logged_in_as">S\'ha iniciat la sessió com a %1$s</string>
     <string name="login">Inicia la sessió</string>
     <string name="login_url_helper_text">Enllaç a la interfície web del %1$s quan l\'obriu en el navegador.</string>
     <string name="logs_menu_delete">Suprimeix els registres</string>
@@ -505,6 +538,7 @@
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_description">Els paràmetres, la base de dades i els certificats del servidor %1$s se suprimiran de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot trigar una estona.</string>
     <string name="manage_space_title">Gestió d\'espai</string>
+    <string name="max_file_count_warning_message">Has assolit el límit màxim de pujada de fitxers. Puja menys de 500 fitxers alhora.</string>
     <string name="media_err_invalid_progressive_playback">No es pot reproduir el fitxer multimèdia</string>
     <string name="media_err_io">No s\'ha pogut llegir el fitxer multimèdia</string>
     <string name="media_err_malformed">El fitxer multimèdia té una codificació incorrecta</string>
@@ -542,6 +576,7 @@
     <string name="no_calendar_exists">No existeix el calendari</string>
     <string name="no_email_app_available">No hi ha cap aplicació disponible per gestionar l\'adreça de correu</string>
     <string name="no_items">No hi ha cap element</string>
+    <string name="no_map_app_availble">No hi ha cap aplicació disponible per gestionar mapes</string>
     <string name="no_mutliple_accounts_allowed">Només es permet un compte.</string>
     <string name="no_pdf_app_available">No hi ha cap aplicació disponible per manegar els PDF</string>
     <string name="no_send_app">No hi ha cap aplicació disponible per enviar els fitxers seleccionats</string>
@@ -549,6 +584,8 @@
     <string name="note_could_not_sent">No s\'ha pogut enviar la nota</string>
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">L\'execució de l\'acció ha fallat.</string>
+    <string name="notification_channel_background_operations_description">Mostra les notificacions a interactuar com a resultat de les operacions en segon pla</string>
+    <string name="notification_channel_background_operations_name">Operacions en segon pla</string>
     <string name="notification_channel_download_description">Mostra el progrés de les baixades</string>
     <string name="notification_channel_download_name_short">Baixades</string>
     <string name="notification_channel_file_sync_description">Mostra el procés de sincronització de fitxers i els resultats</string>
@@ -562,8 +599,10 @@
     <string name="notification_channel_upload_description">Mostra el progrés de pujada</string>
     <string name="notification_channel_upload_name_short">Pujades</string>
     <string name="notification_icon">Icona de notificació</string>
+    <string name="notification_icon_description">Hi ha notificacions sense llegir</string>
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operació pendent</string>
     <string name="offline_mode">No hi ha connexió a internet</string>
     <string name="oneHour">1 hora</string>
     <string name="online">En línia</string>
@@ -640,7 +679,6 @@
     <string name="prefs_setup_e2e">Configureu el xifratge d\'extrem a extrem</string>
     <string name="prefs_show_hidden_files">Mostra els fitxers ocults</string>
     <string name="prefs_sourcecode">Aconseguiu el codi font</string>
-    <string name="prefs_storage_path">Carpeta de dades</string>
     <string name="prefs_sycned_folders_summary">Gestiona les carpetes per a la pujada automàtica</string>
     <string name="prefs_synced_folders_local_path_title">Carpeta local</string>
     <string name="prefs_synced_folders_remote_path_title">Carpeta remota</string>
@@ -675,7 +713,6 @@
     <string name="rename_local_fail_msg">No s\'ha pogut canviar el nom de la còpia local, intenteu-ho amb amb un altre nom</string>
     <string name="rename_server_fail_msg">El canvi de nom no és possible, el nom ja es troba en ús</string>
     <string name="request_account_deletion">Sol·licitud de supressió de compte</string>
-    <string name="resized_image_not_possible_download">No hi ha imatge redimensionada disponible. Voleu baixar la imatge a la resolució original?</string>
     <string name="restore">Restaura el fitxer</string>
     <string name="restore_backup">Restaurar còpia de seguretat</string>
     <string name="restore_button_description">Restaura el fitxer suprimit</string>
@@ -711,6 +748,7 @@
     <string name="setup_e2e">Durant la configuració del xifratge d\'extrem a extrem, rebreu un mnemotècnic de 12 paraules a l\'atzar, que necessitareu per obrir els vostres fitxers en altres dispositius. Només s\'emmagatzemarà en aquest dispositiu i es podrà tornar a mostrar en aquesta pantalla. Anoteu-vos-el en un lloc segur!</string>
     <string name="share">Comparteix</string>
     <string name="share_dialog_title">S\'està compartint</string>
+    <string name="share_download_limit">Estableix el límit de baixada</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Caduca el %1$s</string>
     <string name="share_file">Comparteix %1$s</string>
@@ -848,6 +886,7 @@
     <string name="trashbin_file_remove">Suprimeix permanentment</string>
     <string name="trashbin_loading_failed">No s\'ha pogut carregar la paperera!</string>
     <string name="trashbin_not_emptied">Els fitxers no s\'han pogut suprimir permanentment!</string>
+    <string name="two_way_sync_activity_title">Sincronització interna bidireccional</string>
     <string name="unexpected_error_occurred">S\'ha produït un error inesperat</string>
     <string name="unlock_file">Desbloca el fitxer</string>
     <string name="unread_comments">Hi ha comentaris sense llegir</string>
@@ -1022,4 +1061,4 @@
         <item quantity="one">%d seleccionat</item>
         <item quantity="other">%d seleccionats</item>
     </plurals>
-</resources>
+    </resources>

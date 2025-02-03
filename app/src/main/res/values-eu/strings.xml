@@ -47,17 +47,11 @@
     <string name="app_widget_description">Paneleko trepeta bat erakusten du</string>
     <string name="appbar_search_in">Bilatu %s(e)n</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Gehitu zeregin berria</string>
-    <string name="assistant_screen_all_task_type">Denak</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Idatzi testu bat</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Ziur zeregin hau ezabatu nahi duzula?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ezabatu zeregina</string>
-    <string name="assistant_screen_failed_task_text">Huts egin du</string>
     <string name="assistant_screen_loading">Zereginen zerrenda kargatzen ari da, itxaron mesedez</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Ez dago zereginik. Hautatu zeregin mota bat zeregin berri bat sortzeko.</string>
     <string name="assistant_screen_no_task_available_text">Ez dago zereginik %s zeregin motarako, zeregin berri bat sor dezakezu behean eskuinean.</string>
-    <string name="assistant_screen_running_task_text">Abian</string>
-    <string name="assistant_screen_scheduled_task_status_text">Antolatuta</string>
-    <string name="assistant_screen_successful_task_text">Osatua</string>
     <string name="assistant_screen_task_create_fail_message">Errore bat gertatu da zeregina sortzean</string>
     <string name="assistant_screen_task_create_success_message">Zeregina behar bezala sortu da</string>
     <string name="assistant_screen_task_delete_fail_message">Errore bat gertatu da zeregina ezabatzean</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Zereginaren irteera ez dago prest oraindik.</string>
     <string name="assistant_screen_task_types_error_state_message">Ezin dira zeregin motak eskuratu, egiaztatu Interneteko konexioa.</string>
     <string name="assistant_screen_top_bar_title">Morroia</string>
-    <string name="assistant_screen_unknown_task_status_text">Ezezaguna</string>
     <string name="assistant_task_detail_screen_input_button_title">Sarrera</string>
     <string name="assistant_task_detail_screen_output_button_title">Irteera</string>
     <string name="associated_account_not_found">Ez da aurkitu lotutako konturik</string>
@@ -194,7 +187,6 @@
     <string name="confirmation_remove_folders_alert">Ziur zaude hautatutako elementuak eta beren edukiak ezabatu nahi dituzula?</string>
     <string name="confirmation_remove_local">Lokala bakarrik</string>
     <string name="conflict_dialog_error">Gatazkak konpontzeko elkarrizketa-koadroa ezin da sortu</string>
-    <string name="conflict_file_headline">%1$sfitxategi gatazkatsua</string>
     <string name="conflict_folder_headline">Karpeta gatazka</string>
     <string name="conflict_local_file">Fitxategi lokala</string>
     <string name="conflict_message_description">Bi bertsioak hautatzen badituzu, fitxategi lokalaren izenari zenbaki bat gehituko zaio.</string>
@@ -261,6 +253,7 @@
     <string name="download_cannot_create_file">Ezin da sortu fitxategi lokala</string>
     <string name="download_download_invalid_local_file_name">Fitxategi-izen baliogabea fitxategi lokalerako</string>
     <string name="download_latest_dev_version">Deskargatu azken garapen bertsioa</string>
+    <string name="download_limit">Deskarga-muga</string>
     <string name="downloader_download_failed_content">Ezin izan da %1$s deskargatu</string>
     <string name="downloader_download_failed_credentials_error">Deskargak huts egin du, hasi saioa berriz</string>
     <string name="downloader_download_failed_ticker">Deskargak huts egin du</string>
@@ -435,7 +428,6 @@
     <string name="file_name_validator_error_invalid_character">Izenak karaktere baliogabeak ditu: %s</string>
     <string name="file_name_validator_error_reserved_names">%s debekatutako izen bat da</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Aldatu fitxategiaren izena mugitu edo kopiatu aurretik</string>
-    <string name="file_name_validator_upload_content_error">Eduki batzuk ezin dira kargatu izen erreserbatuak edo karaktere baliogabeak dituelako</string>
     <string name="file_not_found">Fitxategia ez da aurkitu</string>
     <string name="file_not_synced">Fitxategia ezin izan da sinkronizatu. Eskuragarri dagoen azken bertsioa erakusten.</string>
     <string name="file_rename">Aldatu izena</string>
@@ -502,7 +494,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">%1$skarpetan</string>
     <string name="instant_upload_existing">Existitzen diren fitxategiak ere igo</string>
     <string name="instant_upload_on_charging">Igo bakarrik gailua kargatzean</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -641,6 +632,7 @@
     <string name="permission_allow">Baimendu</string>
     <string name="permission_deny">Ukatu</string>
     <string name="permission_storage_access">Fitxategiak kargatu eta deskargatzeko baimen gehigarriak behar dira</string>
+    <string name="pick_contact_to_share_with">Aukeratu partekatzeko kontaktua</string>
     <string name="picture_set_as_no_app">Ez da aplikaziorik aurkitu irudia ezartzeko</string>
     <string name="pin_home">Ainguratu hasierako pantailan</string>
     <string name="pin_shortcut_label">Ireki %1$s</string>
@@ -710,7 +702,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud aplikazioaren iradokizunak nabigazio goiburuan</string>
     <string name="prefs_show_hidden_files">Erakutsi ezkutuko fitxategiak</string>
     <string name="prefs_sourcecode">Eskuratu iturburu-kodea</string>
-    <string name="prefs_storage_path">Datu-biltegiratze karpeta</string>
     <string name="prefs_sycned_folders_summary">Kudeatu karpeten igotze automatikoa</string>
     <string name="prefs_synced_folders_local_path_title">Karpeta lokala</string>
     <string name="prefs_synced_folders_remote_path_title">Urruneko karpeta</string>
@@ -759,7 +750,6 @@
     <string name="request_account_deletion_button">Ezabatzeko eskaera</string>
     <string name="request_account_deletion_details">Eskatu kontua behin betiko ezabatzea zerbitzu-hornitzailetik</string>
     <string name="resharing_is_not_allowed">Politikak edo baimenek ez dute berriro partekatzen uzten</string>
-    <string name="resized_image_not_possible_download">Ez dago tamainaz aldatutako irudirik eskuragarri. Irudi osoa deskargatu nahi duzu?</string>
     <string name="restore">Berreskuratu fitxategia</string>
     <string name="restore_backup">Berrezarri babeskopia</string>
     <string name="restore_button_description">Berreskuratu ezabatutako fitxategia</string>
@@ -801,6 +791,7 @@
     <string name="share">Partekatu</string>
     <string name="share_copy_link">Partekatu eta kopiatu esteka</string>
     <string name="share_dialog_title">Partekatzea</string>
+    <string name="share_download_limit">Ezarri deskarga muga</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Iraungitzen da %1$s</string>
     <string name="share_file">Partekatu %1$s</string>
@@ -1172,4 +1163,4 @@
         <item quantity="one">aukeratuta %d</item>
         <item quantity="other">%d aukeratuta</item>
     </plurals>
-</resources>
+    </resources>

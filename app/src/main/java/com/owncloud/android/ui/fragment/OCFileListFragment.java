@@ -15,6 +15,7 @@
 package com.owncloud.android.ui.fragment;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +42,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
+import com.nextcloud.android.lib.resources.recommendations.GetRecommendationsRemoteOperation;
+import com.nextcloud.android.lib.resources.recommendations.Recommendation;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
@@ -72,6 +75,7 @@ import com.owncloud.android.datamodel.VirtualFolderType;
 import com.owncloud.android.datamodel.e2e.v2.decrypted.DecryptedFolderMetadataFile;
 import com.owncloud.android.lib.common.Creator;
 import com.owncloud.android.lib.common.OwnCloudClient;
+import com.owncloud.android.lib.common.OwnCloudClientFactory;
 import com.owncloud.android.lib.common.operations.RemoteOperation;
 import com.owncloud.android.lib.common.operations.RemoteOperationResult;
 import com.owncloud.android.lib.common.utils.Log_OC;
@@ -132,7 +136,6 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
-import java.util.concurrent.RejectedExecutionException;
 
 import javax.inject.Inject;
 
@@ -249,6 +252,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     protected MenuItemAddRemove menuItemAddRemoveValue = MenuItemAddRemove.ADD_GRID_AND_SORT_WITH_SEARCH;
 
     private List<MenuItem> mOriginalMenuItems = new ArrayList<>();
+    private final Set<Recommendation> recommendedFiles = new HashSet<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -432,6 +436,31 @@ public class OCFileListFragment extends ExtendedListFragment implements
         listDirectory(MainApp.isOnlyOnDevice(), false);
     }
 
+    // TODO - This can be replaced via separate class
+    public void fetchRecommendedFiles() {
+        new Thread(() -> {{
+            try {
+                User user = accountManager.getUser();
+                final var client = OwnCloudClientFactory.createNextcloudClient(user.toPlatformAccount(), requireActivity());
+                final var result = new GetRecommendationsRemoteOperation().execute(client);
+                if (result.isSuccess()) {
+                    final var recommendations = result.getResultData().getRecommendations();
+                    Log_OC.d(TAG,"Recommended files fetched size: " + recommendations.size());
+                    recommendedFiles.addAll(recommendations);
+                    requireActivity().runOnUiThread(new Runnable() {
+                        @SuppressLint("NotifyDataSetChanged")
+                        @Override
+                        public void run() {
+                            mAdapter.notifyItemChanged(0);
+                        }
+                    });
+                }
+            } catch (Exception e) {
+                Log_OC.d(TAG,"Exception fetchRecommendedFiles: " + e);
+            }
+        }}).start();
+    }
+
     protected void setAdapter(Bundle args) {
         boolean hideItemOptions = args != null && args.getBoolean(ARG_HIDE_ITEM_OPTIONS, false);
 
@@ -444,7 +473,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             this,
             hideItemOptions,
             isGridViewPreferred(mFile),
-            viewThemeUtils
+            viewThemeUtils,
+            recommendedFiles
         );
 
         setRecyclerViewAdapter(mAdapter);
@@ -491,6 +521,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // is not available in FolderPickerActivity
             viewThemeUtils.material.themeFAB(mFabMain);
             mFabMain.setOnClickListener(v -> {
+                PermissionUtil.requestMediaLocationPermission(activity);
+
                 final OCFileListBottomSheetDialog dialog =
                     new OCFileListBottomSheetDialog(activity,
                                                     this,
@@ -1892,38 +1924,45 @@ public class OCFileListFragment extends ExtendedListFragment implements
                                          ocCapability);
     }
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND)
+    @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(EncryptionEvent event) {
-        final User user = accountManager.getUser();
+        new Thread(() -> {{
+            final User user = accountManager.getUser();
 
-        // check if keys are stored
-        String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
-        String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
+            // check if keys are stored
+            String publicKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PUBLIC_KEY);
+            String privateKey = arbitraryDataProvider.getValue(user, EncryptionUtils.PRIVATE_KEY);
 
-        FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
-        OCFile file = storageManager.getFileByRemoteId(event.getRemoteId());
+            FileDataStorageManager storageManager = mContainerActivity.getStorageManager();
+            OCFile file = storageManager.getFileByRemoteId(event.getRemoteId());
 
-        if (publicKey.isEmpty() || privateKey.isEmpty()) {
-            Log_OC.d(TAG, "no public key for " + user.getAccountName());
+            if (publicKey.isEmpty() || privateKey.isEmpty()) {
+                Log_OC.d(TAG, "no public key for " + user.getAccountName());
 
-            int position = -1;
-            if (file != null) {
-                position = mAdapter.getItemPosition(file);
+                int position;
+                if (file != null) {
+                    position = mAdapter.getItemPosition(file);
+                } else {
+                    position = -1;
+                }
+
+                requireActivity().runOnUiThread(() -> {
+                    SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
+                    dialog.setTargetFragment(OCFileListFragment.this, SETUP_ENCRYPTION_REQUEST_CODE);
+                    dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
+                });
+            } else {
+                // TODO E2E: if encryption fails, to not set it as encrypted!
+                encryptFolder(file,
+                              event.getLocalId(),
+                              event.getRemoteId(),
+                              event.getRemotePath(),
+                              event.getShouldBeEncrypted(),
+                              publicKey,
+                              privateKey,
+                              storageManager);
             }
-            SetupEncryptionDialogFragment dialog = SetupEncryptionDialogFragment.newInstance(user, position);
-            dialog.setTargetFragment(this, SETUP_ENCRYPTION_REQUEST_CODE);
-            dialog.show(getParentFragmentManager(), SETUP_ENCRYPTION_DIALOG_TAG);
-        } else {
-            // TODO E2E: if encryption fails, to not set it as encrypted!
-            encryptFolder(file,
-                          event.getLocalId(),
-                          event.getRemoteId(),
-                          event.getRemotePath(),
-                          event.getShouldBeEncrypted(),
-                          publicKey,
-                          privateKey,
-                          storageManager);
-        }
+        }}).start();
     }
 
     private void encryptFolder(OCFile folder,
@@ -1985,15 +2024,15 @@ public class OCFileListFragment extends ExtendedListFragment implements
                     throw new IllegalArgumentException("Unknown E2E version");
                 }
 
-                mAdapter.setEncryptionAttributeForItemID(remoteId, shouldBeEncrypted);
+                requireActivity().runOnUiThread(() -> mAdapter.setEncryptionAttributeForItemID(remoteId, shouldBeEncrypted));
             } else if (remoteOperationResult.getHttpCode() == HttpStatus.SC_FORBIDDEN) {
-                Snackbar.make(getRecyclerView(),
-                              R.string.end_to_end_encryption_folder_not_empty,
-                              Snackbar.LENGTH_LONG).show();
+                requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
+                                                            R.string.end_to_end_encryption_folder_not_empty,
+                                                            Snackbar.LENGTH_LONG).show());
             } else {
-                Snackbar.make(getRecyclerView(),
-                              R.string.common_error_unknown,
-                              Snackbar.LENGTH_LONG).show();
+                requireActivity().runOnUiThread(() -> Snackbar.make(getRecyclerView(),
+                                                            R.string.common_error_unknown,
+                                                            Snackbar.LENGTH_LONG).show());
             }
 
         } catch (Throwable e) {

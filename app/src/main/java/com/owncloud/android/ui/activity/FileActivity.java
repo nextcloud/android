@@ -68,6 +68,7 @@ import com.owncloud.android.lib.resources.shares.ShareType;
 import com.owncloud.android.operations.CreateShareViaLinkOperation;
 import com.owncloud.android.operations.CreateShareWithShareeOperation;
 import com.owncloud.android.operations.GetSharesForFileOperation;
+import com.owncloud.android.operations.SetFilesDownloadLimitOperation;
 import com.owncloud.android.operations.SynchronizeFileOperation;
 import com.owncloud.android.operations.SynchronizeFolderOperation;
 import com.owncloud.android.operations.UnshareOperation;
@@ -367,7 +368,7 @@ public abstract class FileActivity extends DrawerActivity
                 (result.isException() && result.getException() instanceof AuthenticatorException)
         )) {
 
-            requestCredentialsUpdate(this);
+            requestCredentialsUpdate();
 
             if (result.getCode() == ResultCode.UNAUTHORIZED) {
                 DisplayUtils.showSnackMessage(
@@ -414,7 +415,7 @@ public abstract class FileActivity extends DrawerActivity
             onCreateShareViaLinkOperationFinish((CreateShareViaLinkOperation) operation, result);
         } else if (operation instanceof CreateShareWithShareeOperation) {
             onUpdateShareInformation(result, R.string.sharee_add_failed);
-        } else if (operation instanceof UpdateShareViaLinkOperation || operation instanceof UpdateShareInfoOperation) {
+        } else if (operation instanceof UpdateShareViaLinkOperation || operation instanceof UpdateShareInfoOperation || operation instanceof SetFilesDownloadLimitOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);
         } else if (operation instanceof UpdateSharePermissionsOperation) {
             onUpdateShareInformation(result, R.string.updating_share_failed);
@@ -431,34 +432,24 @@ public abstract class FileActivity extends DrawerActivity
      *
      * Equivalent to call requestCredentialsUpdate(context, null);
      *
-     * @param context   Android Context needed to access the {@link AccountManager}. Received as a parameter
-     *                  to make the method accessible to {@link android.content.BroadcastReceiver}s.
      */
-    protected void requestCredentialsUpdate(Context context) {
-        requestCredentialsUpdate(context, null);
+    protected void requestCredentialsUpdate() {
+        requestCredentialsUpdate(null);
     }
 
     /**
      * Invalidates the credentials stored for the given OC account and requests new credentials to the user,
      * navigating to {@link AuthenticatorActivity}
      *
-     * @param context   Android Context needed to access the {@link AccountManager}. Received as a parameter
-     *                  to make the method accessible to {@link android.content.BroadcastReceiver}s.
      * @param account   Stored OC account to request credentials update for. If null, current account will
      *                  be used.
      */
-    protected void requestCredentialsUpdate(Context context, Account account) {
+    protected void requestCredentialsUpdate(Account account) {
         if (account == null) {
             account = getAccount();
         }
 
-        boolean remoteWipeSupported = accountManager.getServerVersion(account).isRemoteWipeSupported();
-
-        if (remoteWipeSupported) {
-            new CheckRemoteWipeTask(backgroundJobManager, account, new WeakReference<>(this)).execute();
-        } else {
-            performCredentialsUpdate(account, context);
-        }
+        new CheckRemoteWipeTask(backgroundJobManager, account, new WeakReference<>(this)).execute();
     }
 
     public void performCredentialsUpdate(Account account, Context context) {

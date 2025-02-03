@@ -21,18 +21,21 @@ import androidx.fragment.app.Fragment
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.databinding.FileDetailsSharingProcessFragmentBinding
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.resources.shares.OCShare
 import com.owncloud.android.lib.resources.shares.SharePermissionsBuilder
 import com.owncloud.android.lib.resources.shares.ShareType
+import com.owncloud.android.lib.resources.status.OCCapability
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.dialog.ExpirationDatePickerDialogFragment
 import com.owncloud.android.ui.fragment.util.SharingMenuHelper
 import com.owncloud.android.ui.helpers.FileOperationsHelper
 import com.owncloud.android.utils.ClipboardUtil
 import com.owncloud.android.utils.DisplayUtils
+import com.owncloud.android.utils.theme.CapabilityUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -129,6 +132,8 @@ class FileDetailsSharingProcessFragment :
     private var isExpDateShown: Boolean = true // show or hide expiry date option
     private var isSecureShare: Boolean = false
 
+    private lateinit var capabilities: OCCapability
+
     private var expirationDatePickerFragment: ExpirationDatePickerDialogFragment? = null
 
     override fun onAttach(context: Context) {
@@ -161,6 +166,7 @@ class FileDetailsSharingProcessFragment :
         }
 
         fileActivity = activity as FileActivity?
+        capabilities = CapabilityUtils.getCapability(context)
 
         requireNotNull(fileActivity) { "FileActivity may not be null" }
     }
@@ -195,10 +201,12 @@ class FileDetailsSharingProcessFragment :
 
         viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessSetPasswordSwitch)
         viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessSetExpDateSwitch)
+        viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessSetDownloadLimitSwitch)
         viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessHideDownloadCheckbox)
         viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessChangeNameSwitch)
 
         viewThemeUtils.material.colorTextInputLayout(binding.shareProcessEnterPasswordContainer)
+        viewThemeUtils.material.colorTextInputLayout(binding.shareProcessSetDownloadLimitInputContainer)
         viewThemeUtils.material.colorTextInputLayout(binding.shareProcessChangeNameContainer)
         viewThemeUtils.material.colorTextInputLayout(binding.noteContainer)
 
@@ -259,9 +267,7 @@ class FileDetailsSharingProcessFragment :
 
         // show different text for link share and other shares
         // because we have link to share in Public Link
-        val resources = requireContext().resources
-
-        binding.shareProcessBtnNext.text = resources.getString(
+        binding.shareProcessBtnNext.text = getString(
             if (shareType == ShareType.PUBLIC_LINK) {
                 R.string.share_copy_link
             } else {
@@ -274,10 +280,12 @@ class FileDetailsSharingProcessFragment :
         showPasswordInput(binding.shareProcessSetPasswordSwitch.isChecked)
         updateExpirationDateView()
         showExpirationDateInput(binding.shareProcessSetExpDateSwitch.isChecked)
+        updateFileDownloadLimitView()
+        showFileDownloadLimitInput(binding.shareProcessSetDownloadLimitSwitch.isChecked)
     }
 
     private fun setupUpdateUI() {
-        binding.shareProcessBtnNext.text = requireContext().resources.getString(R.string.common_next)
+        binding.shareProcessBtnNext.text = getString(R.string.common_next)
         file.let {
             if (file?.isFolder == true) {
                 updateViewForFolder()
@@ -288,6 +296,7 @@ class FileDetailsSharingProcessFragment :
         }
         showPasswordInput(binding.shareProcessSetPasswordSwitch.isChecked)
         showExpirationDateInput(binding.shareProcessSetExpDateSwitch.isChecked)
+        showFileDownloadLimitInput(binding.shareProcessSetDownloadLimitSwitch.isChecked)
     }
 
     private fun updateViewForShareType() {
@@ -363,29 +372,38 @@ class FileDetailsSharingProcessFragment :
      * update expiration date view while modifying the share
      */
     private fun updateExpirationDateView() {
-        if (share != null) {
-            if ((share?.expirationDate ?: 0) > 0) {
-                chosenExpDateInMills = share?.expirationDate ?: -1
+        share?.let { share ->
+            if (share.expirationDate > 0) {
+                chosenExpDateInMills = share.expirationDate
                 binding.shareProcessSetExpDateSwitch.isChecked = true
-                binding.shareProcessSelectExpDate.text = (
-                    resources.getString(
-                        R.string.share_expiration_date_format,
-                        SimpleDateFormat.getDateInstance().format(Date(share?.expirationDate ?: 0))
-                    )
-                    )
+                binding.shareProcessSelectExpDate.text = getString(
+                    R.string.share_expiration_date_format,
+                    SimpleDateFormat.getDateInstance().format(Date(share.expirationDate))
+                )
+            }
+        }
+    }
+
+    private fun updateFileDownloadLimitView() {
+        if (capabilities.filesDownloadLimit.isTrue && share?.isFolder == false) {
+            binding.shareProcessSetDownloadLimitSwitch.visibility = View.VISIBLE
+
+            val currentDownloadLimit = share?.fileDownloadLimit?.limit ?: capabilities.filesDownloadLimitDefault
+            if (currentDownloadLimit > 0) {
+                binding.shareProcessSetDownloadLimitSwitch.isChecked = true
+                showFileDownloadLimitInput(true)
+                binding.shareProcessSetDownloadLimitInput.setText("$currentDownloadLimit")
             }
         }
     }
 
     private fun updateViewForFile() {
-        binding.shareProcessPermissionUploadEditing.text =
-            requireContext().resources.getString(R.string.link_share_editing)
+        binding.shareProcessPermissionUploadEditing.text = getString(R.string.link_share_editing)
         binding.shareProcessPermissionFileDrop.visibility = View.GONE
     }
 
     private fun updateViewForFolder() {
-        binding.shareProcessPermissionUploadEditing.text =
-            requireContext().resources.getString(R.string.link_share_allow_upload_and_editing)
+        binding.shareProcessPermissionUploadEditing.text = getString(R.string.link_share_allow_upload_and_editing)
         binding.shareProcessPermissionFileDrop.visibility = View.VISIBLE
         if (isSecureShare) {
             binding.shareProcessPermissionFileDrop.visibility = View.GONE
@@ -402,10 +420,10 @@ class FileDetailsSharingProcessFragment :
         binding.shareProcessEditShareLink.visibility = View.GONE
         binding.shareProcessGroupTwo.visibility = View.VISIBLE
         if (share != null) {
-            binding.shareProcessBtnNext.text = requireContext().resources.getString(R.string.set_note)
+            binding.shareProcessBtnNext.text = getString(R.string.set_note)
             binding.noteText.setText(share?.note)
         } else {
-            binding.shareProcessBtnNext.text = requireContext().resources.getString(R.string.send_share)
+            binding.shareProcessBtnNext.text = getString(R.string.send_share)
             binding.noteText.setText(R.string.empty)
         }
         shareProcessStep = SCREEN_TYPE_NOTE
@@ -427,6 +445,9 @@ class FileDetailsSharingProcessFragment :
         }
         binding.shareProcessSetExpDateSwitch.setOnCheckedChangeListener { _, isChecked ->
             showExpirationDateInput(isChecked)
+        }
+        binding.shareProcessSetDownloadLimitSwitch.setOnCheckedChangeListener { _, isChecked ->
+            showFileDownloadLimitInput(isChecked)
         }
         binding.shareProcessChangeNameSwitch.setOnCheckedChangeListener { _, isChecked ->
             showChangeNameInput(isChecked)
@@ -479,6 +500,15 @@ class FileDetailsSharingProcessFragment :
         if (!isChecked) {
             chosenExpDateInMills = -1
             binding.shareProcessSelectExpDate.text = getString(R.string.empty)
+        }
+    }
+
+    private fun showFileDownloadLimitInput(isChecked: Boolean) {
+        binding.shareProcessSetDownloadLimitInputContainer.setVisibleIf(isChecked)
+
+        // reset download limit if switch is unchecked
+        if (!isChecked) {
+            binding.shareProcessSetDownloadLimitInput.setText(R.string.empty)
         }
     }
 
@@ -568,6 +598,19 @@ class FileDetailsSharingProcessFragment :
             chosenExpDateInMills,
             binding.shareProcessChangeName.text.toString().trim()
         )
+
+        if (capabilities.filesDownloadLimit.isTrue) {
+            val downloadLimitInput = binding.shareProcessSetDownloadLimitInput.text.toString().trim()
+            val downloadLimit =
+                if (binding.shareProcessSetDownloadLimitSwitch.isChecked && downloadLimitInput.isNotEmpty()) {
+                    downloadLimitInput.toInt()
+                } else {
+                    0
+                }
+
+            fileOperationsHelper?.updateFilesDownloadLimit(share, downloadLimit)
+        }
+
         // copy the share link if available
         if (!TextUtils.isEmpty(share?.shareLink)) {
             ClipboardUtil.copyToClipboard(requireActivity(), share?.shareLink)
@@ -609,12 +652,10 @@ class FileDetailsSharingProcessFragment :
     }
 
     override fun onDateSet(year: Int, monthOfYear: Int, dayOfMonth: Int, chosenDateInMillis: Long) {
-        binding.shareProcessSelectExpDate.text = (
-            resources.getString(
-                R.string.share_expiration_date_format,
-                SimpleDateFormat.getDateInstance().format(Date(chosenDateInMillis))
-            )
-            )
+        binding.shareProcessSelectExpDate.text = getString(
+            R.string.share_expiration_date_format,
+            SimpleDateFormat.getDateInstance().format(Date(chosenDateInMillis))
+        )
         this.chosenExpDateInMills = chosenDateInMillis
     }
 

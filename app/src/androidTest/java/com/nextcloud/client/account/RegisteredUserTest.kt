@@ -31,7 +31,7 @@ class RegisteredUserTest {
             val ownCloudAccount = OwnCloudAccount(uri, credentials)
             val server = Server(
                 uri = URI(uri.toString()),
-                version = OwnCloudVersion.nextcloud_17
+                version = OwnCloudVersion.nextcloud_18
             )
             return RegisteredUser(
                 account = account,

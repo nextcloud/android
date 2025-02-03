@@ -47,17 +47,11 @@
     <string name="app_widget_description">Pokazuje jeden widżet z pulpitu nawigacyjnego</string>
     <string name="appbar_search_in">Szukaj w %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Dodaj nowe zadanie</string>
-    <string name="assistant_screen_all_task_type">Wszystkie</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Wpisz jakiś tekst</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Czy na pewno chcesz usunąć to zadanie?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Usuń zadanie</string>
-    <string name="assistant_screen_failed_task_text">Nie powiodło się</string>
     <string name="assistant_screen_loading">Trwa wczytywanie listy zadań. Proszę czekać</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Brak dostępnych zadań. Wybierz typ zadania, aby utworzyć nowe zadanie.</string>
     <string name="assistant_screen_no_task_available_text">Brak dostępnych zadań dla typu zadania %s. Możesz utworzyć nowe zadanie w prawym dolnym rogu.</string>
-    <string name="assistant_screen_running_task_text">W trakcie</string>
-    <string name="assistant_screen_scheduled_task_status_text">Zaplanowane</string>
-    <string name="assistant_screen_successful_task_text">Zakończone</string>
     <string name="assistant_screen_task_create_fail_message">Wystąpił błąd podczas tworzenia zadania</string>
     <string name="assistant_screen_task_create_success_message">Zadanie pomyślnie utworzone</string>
     <string name="assistant_screen_task_delete_fail_message">Wystąpił błąd podczas usuwania zadania</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Wynik zadanie nie jest jeszcze gotowy</string>
     <string name="assistant_screen_task_types_error_state_message">Nie można pobrać typów zadań. Sprawdź swoje połączenie internetowe.</string>
     <string name="assistant_screen_top_bar_title">Asystent</string>
-    <string name="assistant_screen_unknown_task_status_text">Nieznany</string>
     <string name="assistant_task_detail_screen_input_button_title">Wejście</string>
     <string name="assistant_task_detail_screen_output_button_title">Wyjście</string>
     <string name="associated_account_not_found">Nie znaleziono powiązanego konta!</string>
@@ -194,7 +187,6 @@
     <string name="confirmation_remove_folders_alert">Czy na pewno chcesz usunąć wybrane pozycje i ich zawartość?</string>
     <string name="confirmation_remove_local">Tylko lokalnie</string>
     <string name="conflict_dialog_error">Nie można utworzyć okna dialogowego rozwiązywania konfliktów</string>
-    <string name="conflict_file_headline">Plik powodujący konflikt %1$s</string>
     <string name="conflict_folder_headline">Konflikt katalogów</string>
     <string name="conflict_local_file">Plik lokalny</string>
     <string name="conflict_message_description">Jeśli wybierzesz obie wersje, to do nazwy pliku lokalnego zostanie dodany numer.</string>
@@ -261,6 +253,7 @@
     <string name="download_cannot_create_file">Nie można utworzyć pliku lokalnego</string>
     <string name="download_download_invalid_local_file_name">Nieprawidłowa nazwa pliku lokalnego</string>
     <string name="download_latest_dev_version">Pobierz najnowszą wersję dev</string>
+    <string name="download_limit">Limit pobierania</string>
     <string name="downloader_download_failed_content">Nie udało się pobrać %1$s</string>
     <string name="downloader_download_failed_credentials_error">Pobieranie nieudane, zaloguj się ponownie</string>
     <string name="downloader_download_failed_ticker">Pobieranie nie powiodło się</string>
@@ -435,7 +428,6 @@
     <string name="file_name_validator_error_invalid_character">Nazwa zawiera niedozwolone znaki %s</string>
     <string name="file_name_validator_error_reserved_names">%sjest zabronioną nazwą</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Zmień nazwę pliku przed przeniesieniem lub skopiowaniem</string>
-    <string name="file_name_validator_upload_content_error">Część zawartości nie może zostać uploadowana ponieważ zawiera niewłaściwe nazwy lub znaki</string>
     <string name="file_not_found">Nie znaleziono pliku</string>
     <string name="file_not_synced">Nie można zsynchronizować pliku. Pokazana jest najnowsza dostępna wersja.</string>
     <string name="file_rename">Zmień nazwę</string>
@@ -502,7 +494,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">w katalogu %1$s</string>
     <string name="instant_upload_existing">Wyślij również istniejące pliki</string>
     <string name="instant_upload_on_charging">Wysyłaj tylko podczas ładowania</string>
     <string name="instant_upload_path">/InstantUpload</string>
@@ -710,7 +701,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Sugestie aplikacji Nextcloud w nagłówku nawigacji</string>
     <string name="prefs_show_hidden_files">Pokaż ukryte pliki</string>
     <string name="prefs_sourcecode">Pobierz kod źródłowy</string>
-    <string name="prefs_storage_path">Katalog przechowywania danych</string>
     <string name="prefs_sycned_folders_summary">Zarządzaj katalogami do automatycznego wysyłania</string>
     <string name="prefs_synced_folders_local_path_title">Katalog lokalny</string>
     <string name="prefs_synced_folders_remote_path_title">Katalog zdalny</string>
@@ -759,7 +749,6 @@
     <string name="request_account_deletion_button">Poproś o usunięcie</string>
     <string name="request_account_deletion_details">Prośba o stałe usunięcie konta przez dostawcę usługi</string>
     <string name="resharing_is_not_allowed">Polityka lub uprawnienia uniemożliwiają ponowne udostępnianie</string>
-    <string name="resized_image_not_possible_download">Brak obrazu o zmienionym rozmiarze. Pobrać pełny obraz?</string>
     <string name="restore">Przywróć plik</string>
     <string name="restore_backup">Przywróć kopię zapasową</string>
     <string name="restore_button_description">Przywróć usunięty plik</string>
@@ -800,6 +789,7 @@
     <string name="share">Udostępnij</string>
     <string name="share_copy_link">Udostępnij i skopiuj odnośnik</string>
     <string name="share_dialog_title">Udostępnianie</string>
+    <string name="share_download_limit">Ustaw limit pobierania</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Wygaśnie o %1$s</string>
     <string name="share_file">Udostępnij %1$s</string>
@@ -1187,4 +1177,4 @@
         <item quantity="many">%d wybranych</item>
         <item quantity="other">%d wybranych</item>
     </plurals>
-</resources>
+    </resources>

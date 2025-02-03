@@ -47,17 +47,11 @@
     <string name="app_widget_description">Visa en widget från dashboard</string>
     <string name="appbar_search_in">Sök i %s</string>
     <string name="assistant_screen_add_task_alert_dialog_title">Lägg till ny uppgift</string>
-    <string name="assistant_screen_all_task_type">Alla</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Skriv någon text</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Är du säker på att du vill ta bort den här uppgiften?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Ta bort uppgift</string>
-    <string name="assistant_screen_failed_task_text">Misslyckades</string>
     <string name="assistant_screen_loading">Uppgiftslistan laddas, vänta</string>
-    <string name="assistant_screen_no_task_available_for_all_task_filter_text">Ingen uppgift tillgänglig. Välj en uppgiftstyp för att skapa en ny uppgift.</string>
     <string name="assistant_screen_no_task_available_text">Ingen uppgift tillgänglig för uppgiftstyp %s, du kan skapa en ny uppgift längst ner till höger.</string>
-    <string name="assistant_screen_running_task_text">Pågående</string>
-    <string name="assistant_screen_scheduled_task_status_text">Schemalagd</string>
-    <string name="assistant_screen_successful_task_text">Slutförd</string>
     <string name="assistant_screen_task_create_fail_message">Ett fel uppstod när uppgiften skapades</string>
     <string name="assistant_screen_task_create_success_message">Uppgiften har skapats</string>
     <string name="assistant_screen_task_delete_fail_message">Ett fel uppstod när uppgiften skulle tas bort</string>
@@ -67,7 +61,6 @@
     <string name="assistant_screen_task_output_empty_text">Uppgiftens resultat är inte redo än.</string>
     <string name="assistant_screen_task_types_error_state_message">Det går inte att hämta uppgiftstyper, kontrollera din internetanslutning.</string>
     <string name="assistant_screen_top_bar_title">Assistent</string>
-    <string name="assistant_screen_unknown_task_status_text">Okänd</string>
     <string name="assistant_task_detail_screen_input_button_title">Inmatning</string>
     <string name="assistant_task_detail_screen_output_button_title">Utdata</string>
     <string name="associated_account_not_found">Associerat konto kunde inte hittas!</string>
@@ -106,6 +99,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">behålls i originalmappen, eftersom den är skrivskyddad</string>
     <string name="auto_upload_gplay">Beteendet för automatisk uppladdning har ändrats</string>
     <string name="auto_upload_gplay_desc">På grund av nya begränsningar från Google kommer funktionen för automatisk uppladdning inte längre att kunna ta bort uppladdade filer automatiskt.</string>
+    <string name="auto_upload_gplay_desc2">På grund av nya begränsningar införda av Google har vi tvingats ta bort en viktig behörighet. Som en följd av detta kommer automatisk uppladdning endast att kunna ladda upp bild- och videofiler.\nDessutom krävs en ny behörighet för att få åtkomst till platsinformation för uppladdade bilder.\nSe till att medieåtkomst är inställd på “Tillåt alltid allt”.</string>
     <string name="auto_upload_on_wifi">Ladda bara upp via obelastad Wi-Fi</string>
     <string name="auto_upload_path">/AutomatiskUppladdning</string>
     <string name="autoupload_configure">Konfigurera</string>
@@ -140,6 +134,7 @@
     <string name="clear_notifications_failed">Kunde inte rensa aviseringar.</string>
     <string name="clear_status_message">Rensa statusmeddelande</string>
     <string name="clear_status_message_after">Rensa statusmeddelande efter</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Manuell åtgärd krävs för att återaktivera automatisk uppladdning</string>
     <string name="clipboard_label">Text kopierad från %1$s</string>
     <string name="clipboard_no_text_to_copy">Mottog ingen text att kopiera</string>
     <string name="clipboard_text_copied">Länk kopierad</string>
@@ -194,7 +189,6 @@
     <string name="confirmation_remove_folders_alert">Vill du verkligen radera de valda objekten och dess innehåll?</string>
     <string name="confirmation_remove_local">Endast lokalt</string>
     <string name="conflict_dialog_error">Dialogrutan för konfliktlösning kan inte skapas</string>
-    <string name="conflict_file_headline">Konfliktande fil %1$s</string>
     <string name="conflict_folder_headline">Mappkonflikt</string>
     <string name="conflict_local_file">Lokal fil</string>
     <string name="conflict_message_description">Om du väljer båda versionerna kommer den lokala filen få ett nummer tillagt i filnamnet.</string>
@@ -261,6 +255,7 @@
     <string name="download_cannot_create_file">Kan inte skapa lokal fil</string>
     <string name="download_download_invalid_local_file_name">Ogiltigt filnamn för lokal fil</string>
     <string name="download_latest_dev_version">Hämta senaste utvecklingsversionen</string>
+    <string name="download_limit">Hämtningsbegränsning</string>
     <string name="downloader_download_failed_content">Kunde inte hämta %1$s</string>
     <string name="downloader_download_failed_credentials_error">Hämtningen misslyckades, logga in igen</string>
     <string name="downloader_download_failed_ticker">Hämtning misslyckades</string>
@@ -435,7 +430,6 @@
     <string name="file_name_validator_error_invalid_character">Namnet innehåller ogiltiga tecken: %s</string>
     <string name="file_name_validator_error_reserved_names">%s är ett förbjudet namn</string>
     <string name="file_name_validator_rename_before_move_or_copy">%s. Byt namn på filen innan du flyttar eller kopierar</string>
-    <string name="file_name_validator_upload_content_error">En del innehåll kan inte laddas upp eftersom det innehåller reserverade namn eller ogiltiga tecken</string>
     <string name="file_not_found">Filen hittades inte</string>
     <string name="file_not_synced">Filen kunde inte synkroniseras. Visar senaste tillgängliga versionen.</string>
     <string name="file_rename">Byt namn</string>
@@ -502,7 +496,6 @@
     <string name="image_preview_unit_megapixel">%s MP</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
     <string name="image_preview_unit_seconds">%s s</string>
-    <string name="in_folder">i mapp %1$s</string>
     <string name="instant_upload_existing">Ladda även upp befintliga filer</string>
     <string name="instant_upload_on_charging">Ladda enbart upp när enheten laddas</string>
     <string name="instant_upload_path">/AutomatiskUppladdning</string>
@@ -712,7 +705,6 @@
     <string name="prefs_show_ecosystem_apps_summary">Nextcloud-appförslag i navigeringsrubriken</string>
     <string name="prefs_show_hidden_files">Visa dolda filer</string>
     <string name="prefs_sourcecode">Hämta källkod</string>
-    <string name="prefs_storage_path">Datalagringsmapp</string>
     <string name="prefs_sycned_folders_summary">Hantera mappar för automatiskt uppladdning</string>
     <string name="prefs_synced_folders_local_path_title">Lokal mapp</string>
     <string name="prefs_synced_folders_remote_path_title">Extern mapp</string>
@@ -737,11 +729,14 @@
     <string name="push_notifications_old_login">Inga push-aviseringar på grund av utgången inloggningssession. Överväg att lägga till ditt konto på nytt.</string>
     <string name="push_notifications_temp_error">Push-aviseringar är inte tillgängligt för tillfället.</string>
     <string name="qr_could_not_be_read">QR-koden kunde inte läsas!</string>
+    <string name="re_enable_auto_upload">Ändringar för automatisk uppladdning</string>
+    <string name="re_enable_auto_upload_desc">På grund av nya begränsningar införda av Google har vi tvingats ta bort en viktig behörighet. Vi arbetar för närvarande med Google för att lösa detta problem och återställa full funktionalitet.\n\nFör att återaktivera automatisk uppladdning för nya bilder och videor:\n:Välj “Tillåt alltid” i den följande dialogrutan eller i systeminställningarna.\nTillåt åtkomst till medieplats när du blir ombedd, eftersom detta gör att Nextcloud kan lagra platsdata vid uppladdning av bilder.\n\nBehörighetsdialogen visas endast vid behov. Om du är osäker, kontrollera gärna en extra gång i systeminställningarna.\n\nAutomatisk uppladdning kommer endast att kunna ladda upp bild- och videofiler när du använder Google Play-versionen av Nextcloud-appen.\n\nVänligen kontrollera om det finns några filer som inte har laddats upp sedan december 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Mappen kan inte hittas, synkroniseringen avbryts</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Kan inte hitta filen att ladda upp</string>
     <string name="recommend_subject">Försök%1$s på din enhet!</string>
     <string name="recommend_text">Jag vill bjuda in dig att använda %1$s på din enhet.\nHämta här: %2$s</string>
     <string name="recommend_urls">%1$s eller %2$s</string>
+    <string name="recommended_files_title">Rekommenderade filer</string>
     <string name="refresh_content">Återinläs innhåll</string>
     <string name="reload">Uppdatera</string>
     <string name="remote">(avlägsen)</string>
@@ -761,7 +756,6 @@
     <string name="request_account_deletion_button">Begäran om radering</string>
     <string name="request_account_deletion_details">Begär permanent borttagning av konto av tjänsteleverantör</string>
     <string name="resharing_is_not_allowed">Policy eller behörigheter förhindrar vidaredelning</string>
-    <string name="resized_image_not_possible_download">Ingen storleksändrad bild tillgänglig. Hämta hela bilden?</string>
     <string name="restore">Återställ fil</string>
     <string name="restore_backup">Återställ säkerhetskopiering</string>
     <string name="restore_button_description">Återställ raderad fil</string>
@@ -803,6 +797,7 @@
     <string name="share">Dela</string>
     <string name="share_copy_link">Dela och kopiera länk</string>
     <string name="share_dialog_title">Dela</string>
+    <string name="share_download_limit">Ställ in nedladdningsgräns</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">Gick ut %1$s</string>
     <string name="share_file">Dela %1$s</string>
@@ -993,6 +988,8 @@
     <string name="upload_file_dialog_title">Mata in filnamn och filtyp att ladda upp</string>
     <string name="upload_files">Ladda upp filer</string>
     <string name="upload_global_pause_title">Alla uppladdningar är pausade</string>
+    <string name="upload_gplay">Ändringar av behörighet</string>
+    <string name="upload_gplay_desc">En ny behörighet krävs för att få åtkomst till platsinformation för uppladdade bilder.\nSe till att medieåtkomst är inställd på “Tillåt alltid allt”.</string>
     <string name="upload_item_action_button">Ladda upp objekthändelse-knapp</string>
     <string name="upload_list_delete">Ta bort</string>
     <string name="upload_list_empty_headline">Inga uppladdningar tillgängliga</string>
@@ -1173,5 +1170,9 @@
     <plurals name="items_selected_count">
         <item quantity="one">%d vald</item>
         <item quantity="other">%d vald</item>
+    </plurals>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d återstående nedladdning</item>
+        <item quantity="other">%1$d återstående nedladdningar</item>
     </plurals>
 </resources>
