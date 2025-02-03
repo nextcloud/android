@@ -6,12 +6,15 @@
  */
 package com.owncloud.android.ui.preview
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.MenuItem
 import android.view.View
 import android.view.WindowInsets
@@ -182,6 +185,17 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
             // this is necessary because mViewPager.setCurrentItem(0) just after setting the
             // adapter does not result in a call to #onPageSelected(0)
             screenState = PreviewImageActivityState.WaitingForBinder
+        }
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setPreviewImagePagerCurrentItem(position: Int) {
+        if (user.isPresent) {
+            Handler(Looper.getMainLooper()).post {
+                initViewPager(user.get())
+                viewPager?.setCurrentItem(position, false)
+                viewPager?.adapter?.notifyDataSetChanged()
+            }
         }
     }
 
