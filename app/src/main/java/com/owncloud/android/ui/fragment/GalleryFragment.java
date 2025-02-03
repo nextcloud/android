@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.owncloud.android.BuildConfig;
 import com.owncloud.android.R;
@@ -35,7 +36,6 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
-import com.owncloud.android.ui.adapter.OCFileListDelegate;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 
@@ -68,7 +68,8 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
 
     @Inject FileDataStorageManager fileDataStorageManager;
     private final static int maxColumnSizeLandscape = 5;
-    private final static int maxColumnSizePortrait = 2;
+    @IonosCustomization("increased quantity")
+    private final static int maxColumnSizePortrait = 3;
     private int columnSize;
 
     protected void setPhotoSearchQueryRunning(boolean value) {

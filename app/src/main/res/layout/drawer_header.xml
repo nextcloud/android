@@ -12,7 +12,7 @@
     android:id="@+id/drawer_header_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/primary"
+    android:background="@color/drawer_header_background"
     android:gravity="center"
     android:orientation="vertical">
 

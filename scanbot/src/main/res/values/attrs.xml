@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <attr name="scanbotTheme" format="reference" />
+    <attr name="scanbotOutlinedButtonTheme" format="reference" />
+    <attr name="scanbotFilledTonalButtonTheme" format="reference" />
+
+    <attr name="scanbot_app_bar_color" format="color" />
+    <attr name="scanbot_status_bar_color" format="color" />
+    <attr name="scanbot_light_status_bar" format="boolean" />
+    <attr name="scanbot_navigation_bar_color" format="color" />
+    <attr name="scanbot_light_navigation_bar" format="boolean" />
+    <attr name="scanbot_toolbar_text_color" format="color" />
+    <attr name="scanbot_window_background" format="color" />
+    <attr name="scanbot_default_icon_color" format="color" />
+    <attr name="scanbot_tip_icon_color" format="color" />
+
+    <attr name="scanbot_camera_button_background_idle" format="color" />
+    <attr name="scanbot_camera_button_background_pressed" format="color" />
+    <attr name="scanbot_camera_toggle_activated_text_color" format="color" />
+    <attr name="scanbot_camera_toggle_deactivated_text_color" format="color" />
+    <attr name="scanbot_camera_button_icon_color" format="color" />
+    <attr name="scanbot_camera_flash_color" format="color" />
+    <attr name="scanbot_camera_flash_selected_color" format="color" />
+    <attr name="scanbot_camera_polygon_fill_color" format="color" />
+    <attr name="scanbot_camera_polygon_stroke_color" format="color" />
+    <attr name="scanbot_camera_screen_cancel_text_color" format="color" />
+    <attr name="scanbot_camera_toolbar_background" format="color" />
+    <attr name="scanbot_camera_bottom_bar_background" format="color" />
+    <attr name="scanbot_camera_user_guidance_text_color" format="color" />
+
+    <attr name="scanbot_crop_polygon_edge_color" format="color" />
+    <attr name="scanbot_crop_screen_button_background" format="color" />
+    <attr name="scanbot_crop_screen_button_text_color" format="color" />
+
+    <attr name="scanbot_file_type_text_color_checked" format="color" />
+    <attr name="scanbot_file_type_text_color_unchecked" format="color" />
+
+    <attr name="scanbot_filter_control_active" format="color" />
+    <attr name="scanbot_filter_control_icon_background" format="color" />
+    <attr name="scanbot_filter_control_icon_border" format="color" />
+    <attr name="scanbot_filter_control_inactive" format="color" />
+    <attr name="scanbot_filter_control_seek_bar_thumb_active" format="color" />
+    <attr name="scanbot_filter_control_seek_bar_progress_active" format="color" />
+    <attr name="scanbot_filter_control_seek_bar_progress_background_active" format="color" />
+    <attr name="scanbot_filter_apply_to_all_text_color" format="color" />
+
+    <attr name="scanbot_gallery_counter_rounded_background" format="color" />
+    <attr name="scanbot_gallery_screen_counter_text_color" format="color" />
+    <attr name="scanbot_gallery_screen_counter_background_color" format="color" />
+    <attr name="scanbot_gallery_bottom_navigation_icon_color" format="color" />
+    <attr name="scanbot_gallery_bottom_navigation_color" format="color" />
+    <attr name="scanbot_gallery_fab_background_tint" format="color" />
+    <attr name="scanbot_gallery_fab_icon_tint" format="color" />
+
+    <attr name="scanbot_rearrange_icon_color" format="color" />
+    <attr name="scanbot_rearrange_text_color" format="color" />
+
+    <attr name="scanbot_save_divider_color" format="color" />
+    <attr name="scanbot_save_file_location_label_text_color" format="color" />
+    <attr name="scanbot_save_file_name_label_text_color" format="color" />
+    <attr name="scanbot_save_file_type_label_text_color" format="color" />
+    <attr name="scanbot_save_screen_path_text_color" format="color" />
+
+    <attr name="scanbot_edit_text_text_color" format="color" />
+    <attr name="scanbot_edit_text_highlight_color" format="color" />
+    <attr name="scanbot_edit_text_select_handler_color" format="color" />
+
+    <declare-styleable name="UserGuidance">
+        <attr name="text" format="string" />
+        <attr name="icon" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="BottomNavigationItem">
+        <attr name="itemIcon" format="reference"/>
+        <attr name="label" format="string"/>
+    </declare-styleable>
+
+</resources>

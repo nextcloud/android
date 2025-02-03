@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <string name="scanbot_cancel_btn_title">Cancelar</string>
+    <string name="scanbot_fail">Se ha producido un error. Vuelve a intentarlo más tarde.</string>
+    <string name="scanbot_hold_and_drag_to_rearrange_pages">Mantén y arrastra para ordenar las páginas.</string>
+    <string name="scanbot_no_camera_permissions_granted">Se necesita el permiso de uso de la cámara para escanear el código.</string>
+    <string name="scanbot_no_enough_free_device_space_title">No hay suficiente espacio disponible</string>
+    <string name="scanbot_no_free_space_message">«El teléfono no tiene suficiente memoria disponible».</string>
+    <string name="scanbot_ok_btn_title">Aceptar</string>
+    <string name="scanbot_save">Guardar</string>
+    <string name="scanbot_save_as">Guardar como</string>
+    <string name="scanbot_unknown_exception">Se ha producido un error. Vuelve a intentarlo más tarde.</string>
+    <string name="scanbot_camera_automatic_btn">Automático</string>
+    <string name="scanbot_camera_detection_result_error_nothing_detected">Ningún documento</string>
+    <string name="scanbot_camera_detection_result_error_too_dark">Poca luz</string>
+    <string name="scanbot_camera_detection_result_error_too_noisy">Fondo demasiado ruidoso</string>
+    <string name="scanbot_camera_detection_result_ok">No te muevas</string>
+    <string name="scanbot_camera_detection_result_ok_but_bad_angles">Perspectiva</string>
+    <string name="scanbot_camera_detection_result_ok_but_too_small">Acércate</string>
+    <string name="scanbot_camera_flash_button">Flash</string>
+    <string name="scanbot_camera_import_btn_title">Importar</string>
+    <string name="scanbot_creating_document_error_message">Error al crear el documento</string>
+    <string name="scanbot_detect_document">Detectar documento</string>
+    <string name="scanbot_document_name_format" formatted="false">scan_%1$tY%1$tm%1$td-%1$tH%1$tM%1$tS</string>
+    <string name="scanbot_exit_confirmation_message">Se perderá el progreso</string>
+    <string name="scanbot_exit_confirmation_title">Escanear documento</string>
+    <string name="scanbot_file_import_failed">No se puede importar el archivo %s.</string>
+    <string name="scanbot_filter_applying_for_all">Aplicar filtro a todas las imágenes</string>
+    <string name="scanbot_filter_black_n_white">Blanco y negro</string>
+    <string name="scanbot_filter_color">Color</string>
+    <string name="scanbot_filter_grayscale">Escala de grises</string>
+    <string name="scanbot_filter_magic_color">Color mágico</string>
+    <string name="scanbot_filter_magic_text">Texto mágico</string>
+    <string name="scanbot_filter_none">Sin filtro</string>
+    <string name="scanbot_filter_popup_apply_for_all">Aplicar a todo</string>
+    <string name="scanbot_gallery_counter_formatted" formatted="false">%d de %d</string>
+    <string name="scanbot_no_enough_free_device_space_message">No hay suficiente memoria en el dispositivo para hacer la foto. Libera espacio.</string>
+    <string name="scanbot_processing_document_title">Procesando documento...</string>
+    <string name="scanbot_processing_title">Procesando...</string>
+    <string name="scanbot_rearrange_title">Reordenar páginas</string>
+    <string name="scanbot_reset_borders">Restablecer márgenes</string>
+    <string name="scanbot_save_file_name_title">Nombre del archivo:</string>
+    <string name="scanbot_save_file_type_title">Tipo de archivo:</string>
+    <string name="scanbot_save_invalid_file_name">Nombre de archivo no válido</string>
+    <string name="scanbot_save_path">Ubicación de guardado:</string>
+    <string name="scanbot_gallery_bottom_navigation_item_crop">Recortar</string>
+    <string name="scanbot_gallery_bottom_navigation_item_filter">Filtro</string>
+    <string name="scanbot_gallery_bottom_navigation_item_rotate">Rotar</string>
+    <string name="scanbot_gallery_bottom_navigation_item_rearrange">Reorganizar</string>
+    <string name="scanbot_gallery_bottom_navigation_item_delete">Borrar</string>
+</resources>

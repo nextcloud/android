@@ -1,0 +1,16 @@
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+    <path
+        android:pathData="M9.538,18.865C8.784,18.057 8.828,16.792 9.636,16.038C10.442,15.286 11.709,15.327 12.462,16.135L16,19.926V4C16,2.896 16.896,2 18,2C19.104,2 20,2.896 20,4V19.926L23.538,16.135C24.292,15.327 25.559,15.285 26.364,16.038C27.172,16.791 27.216,18.057 26.462,18.865L19.462,26.365C19.084,26.77 18.555,27 18,27C17.445,27 16.916,26.77 16.538,26.365L9.538,18.865ZM32,23C30.896,23 30,23.896 30,25V28C30,29.103 29.103,30 28,30H8C6.897,30 6,29.103 6,28V25C6,23.896 5.104,23 4,23C2.896,23 2,23.896 2,25V28C2,31.309 4.691,34 8,34H28C31.309,34 34,31.309 34,28V25C34,23.896 33.104,23 32,23Z"
+        android:fillColor="@color/ionos_default_icon_color"/>
+</vector>

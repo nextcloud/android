@@ -12,7 +12,7 @@
 <!-- Searchable configuration to search users & groups in an OC server -->
 <searchable xmlns:android="http://schemas.android.com/apk/res/android"
     android:label="@string/app_name"
-    android:hint="@string/share_search"
+    android:hint="@string/ionos_share_search"
     android:searchSuggestAuthority="@string/users_and_groups_search_authority"
     android:searchSuggestIntentAction="@string/users_and_groups_share_with"
     android:searchSuggestThreshold="1" >

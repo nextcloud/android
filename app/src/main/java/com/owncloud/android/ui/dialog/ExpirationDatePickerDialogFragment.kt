@@ -21,6 +21,7 @@ import android.text.format.DateUtils
 import android.widget.DatePicker
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.R
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -42,6 +43,7 @@ class ExpirationDatePickerDialogFragment : DialogFragment(), OnDateSetListener, 
         this.onExpiryDateListener = onExpiryDateListener
     }
 
+    @IonosCustomization()
     override fun onStart() {
         super.onStart()
 
@@ -52,15 +54,15 @@ class ExpirationDatePickerDialogFragment : DialogFragment(), OnDateSetListener, 
 
             val positiveButton = dialog.getButton(DatePickerDialog.BUTTON_POSITIVE) as MaterialButton?
             if (positiveButton != null) {
-                viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(positiveButton)
+                viewThemeUtils?.ionos?.material?.colorMaterialButtonPrimaryTonal(positiveButton)
             }
             val negativeButton = dialog.getButton(DatePickerDialog.BUTTON_NEGATIVE) as MaterialButton?
             if (negativeButton != null) {
-                viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(negativeButton)
+                viewThemeUtils?.ionos?.material?.colorMaterialButtonPrimaryBorderless(negativeButton)
             }
             val neutralButton = dialog.getButton(DatePickerDialog.BUTTON_NEUTRAL) as MaterialButton?
             if (neutralButton != null) {
-                viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(neutralButton)
+                viewThemeUtils?.ionos?.material?.colorMaterialButtonPrimaryBorderless(neutralButton)
             }
         }
     }

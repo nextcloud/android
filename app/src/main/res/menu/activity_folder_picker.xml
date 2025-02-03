@@ -23,6 +23,6 @@
         android:icon="@drawable/ic_action_create_dir"
         android:orderInCategory="1"
         android:title="@string/actionbar_mkdir"
-        app:iconTint="?attr/colorOnSurface"
+        app:ionosCustomization="Remove tint"
         app:showAsAction="ifRoom"/>
 </menu>

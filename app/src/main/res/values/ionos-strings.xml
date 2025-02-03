@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+
+    <!-- Storage Permissions Dialog -->
+    <string name="ionos_file_management_permission">Storage permissions</string>
+    <string name="ionos_file_management_permission_optional">Storage permissions</string>
+    <string name="ionos_file_management_permission_text">%1$s needs permission to access your files for better functionality. You can allow or deny access.</string>
+    <string name="ionos_file_management_permission_optional_text">%1$s needs permission to access your files for better functionality. You can allow or deny access.</string>
+
+    <!-- Sharing screen -->
+    <string name="ionos_share_search">Name or email address…</string>
+
+    <!-- Data protection -->
+    <string name="ionos_data_protection_title">Privacy Settings</string>
+    <string name="ionos_data_protection_description">This application uses cookies and similar technologies. By clicking on Agree, you consent to the processing of your data and also to its transfer to third parties. Visit our <annotation type="information_link">Privacy Policy </annotation> for more information, also on data processing by third party providers. Click on <annotation type="reject_link">Reject</annotation> to prevent use of the tool, or change your selection at any time in Settings.</string>
+    <string name="ionos_data_protection_settings_button">Settings</string>
+    <string name="ionos_data_protection_agree_button">Agree</string>
+    <string name="ionos_data_protection_settings_description">We collect anonymized data to optimize our app. We use software solutions by various partners for this purpose. Our intention is to offer full transparency and allow you to decide how your anonymized data is collected and used. You can also change your settings at any time later on under the Privacy menu item. Please note, however, that data collection contributes significantly to optimizing this app and that you would prevent these improvements by rejecting the transfer of data.</string>
+    <string name="ionos_data_protection_settings_data_gathering_description">Data collection is necessary in order to use key functions of the app.</string>
+    <string name="ionos_data_protection_settings_data_gathering_title">Necessary data collection</string>
+    <string name="ionos_data_protection_settings_analytics_description">This data helps us to optimize your user experience and to identify system crashes and bugs.</string>
+    <string name="ionos_data_protection_settings_analytics_title">Data analysis for needs-based design</string>
+    <string name="ionos_data_protection_settings_save">Save Settings</string>
+
+</resources>

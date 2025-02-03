@@ -19,6 +19,7 @@ import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import com.canhub.cropper.CropImageView
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.jobs.upload.FileUploadHelper
 import com.nextcloud.client.jobs.upload.FileUploadWorker
@@ -32,7 +33,9 @@ import com.owncloud.android.operations.UploadFileOperation
 import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.MimeType
+import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.File
+import javax.inject.Inject
 
 class EditImageActivity :
     FileActivity(),
@@ -44,6 +47,9 @@ class EditImageActivity :
     private lateinit var binding: ActivityEditImageBinding
     private lateinit var file: OCFile
     private lateinit var format: Bitmap.CompressFormat
+
+    @Inject
+    lateinit var viewThemeUtils: ViewThemeUtils
 
     companion object {
         const val EXTRA_FILE = "FILE"
@@ -63,6 +69,7 @@ class EditImageActivity :
         }
     }
 
+    @IonosCustomization
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -81,7 +88,7 @@ class EditImageActivity :
         val windowInsetsController = WindowCompat.getInsetsController(window, window.decorView)
         windowInsetsController.hide(WindowInsetsCompat.Type.statusBars())
 
-        window.navigationBarColor = getColor(R.color.black)
+        viewThemeUtils.ionos.platform.themeSystemBars(this,getColor(R.color.edit_image_background))
 
         setupCropper()
     }

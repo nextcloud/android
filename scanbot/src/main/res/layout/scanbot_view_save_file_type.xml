@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:orientation="horizontal"
+    tools:parentTag="android.widget.RadioGroup">
+
+    <RadioButton
+        android:id="@+id/choice_pdf_ocr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/scanbot_transparent"
+        android:button="@null"
+        android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+        android:drawablePadding="@dimen/scanbot_padding_normal"
+        android:gravity="center_horizontal"
+        android:minWidth="@dimen/scanbot_file_type_choice_min_width"
+        android:text="@string/scanbot_label_pdf_ocr"
+        android:textColor="@color/scanbot_file_type_text_color" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <RadioButton
+        android:id="@+id/choice_pdf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/scanbot_transparent"
+        android:button="@null"
+        android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+        android:drawablePadding="@dimen/scanbot_padding_normal"
+        android:gravity="center_horizontal"
+        android:minWidth="@dimen/scanbot_file_type_choice_min_width"
+        android:text="@string/scanbot_label_pdf"
+        android:textColor="@color/scanbot_file_type_text_color" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <RadioButton
+        android:id="@+id/choice_jpg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/scanbot_transparent"
+        android:button="@null"
+        android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+        android:drawablePadding="@dimen/scanbot_padding_normal"
+        android:gravity="center_horizontal"
+        android:minWidth="@dimen/scanbot_file_type_choice_min_width"
+        android:text="@string/scanbot_label_jpg"
+        android:textColor="@color/scanbot_file_type_text_color" />
+
+    <Space
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <RadioButton
+        android:id="@+id/choice_png"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/scanbot_transparent"
+        android:button="@null"
+        android:drawableBottom="?android:attr/listChoiceIndicatorSingle"
+        android:drawablePadding="@dimen/scanbot_padding_normal"
+        android:gravity="center_horizontal"
+        android:minWidth="@dimen/scanbot_file_type_choice_min_width"
+        android:text="@string/scanbot_label_png"
+        android:textColor="@color/scanbot_file_type_text_color" />
+
+</merge>

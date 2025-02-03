@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <string name="scanbot_cancel_btn_title">Annuleren</string>
+    <string name="scanbot_fail">Er is een fout opgetreden. Probeer het later nog eens.</string>
+    <string name="scanbot_hold_and_drag_to_rearrange_pages">Houd ingedrukt en versleep om pagina\'s opnieuw te sorteren</string>
+    <string name="scanbot_no_camera_permissions_granted">Toegang tot de camera is vereist om de code te scannen</string>
+    <string name="scanbot_no_enough_free_device_space_title">Onvoldoende ruimte</string>
+    <string name="scanbot_no_free_space_message">"Op de smartphone is onvoldoende opslagruimte beschikbaar."</string>
+    <string name="scanbot_ok_btn_title">OK</string>
+    <string name="scanbot_save">Opslaan</string>
+    <string name="scanbot_save_as">Opslaan als</string>
+    <string name="scanbot_unknown_exception">Er is een fout opgetreden. Probeer het later nog eens</string>
+    <string name="scanbot_camera_automatic_btn">Automatisch</string>
+    <string name="scanbot_camera_detection_result_error_nothing_detected">Geen document</string>
+    <string name="scanbot_camera_detection_result_error_too_dark">Slecht licht</string>
+    <string name="scanbot_camera_detection_result_error_too_noisy">Te veel ruis op achtergrond</string>
+    <string name="scanbot_camera_detection_result_ok">Niet bewegen</string>
+    <string name="scanbot_camera_detection_result_ok_but_bad_angles">Perspectief</string>
+    <string name="scanbot_camera_detection_result_ok_but_too_small">Dichterbij brengen</string>
+    <string name="scanbot_camera_flash_button">Flits</string>
+    <string name="scanbot_camera_import_btn_title">Importeren</string>
+    <string name="scanbot_creating_document_error_message">Fout tijdens maken van document</string>
+    <string name="scanbot_detect_document">Document detecteren</string>
+    <string name="scanbot_document_name_format" formatted="false">scan_%1$tY%1$tm%1$td-%1$tH%1$tM%1$tS</string>
+    <string name="scanbot_exit_confirmation_message">Voortgang gaat verloren</string>
+    <string name="scanbot_exit_confirmation_title">Document scannen</string>
+    <string name="scanbot_file_import_failed">Kan bestand %s niet importeren</string>
+    <string name="scanbot_filter_applying_for_all">Filter wordt toegepast op alle afbeeldingen</string>
+    <string name="scanbot_filter_black_n_white">Zwart/wit</string>
+    <string name="scanbot_filter_color">Kleur</string>
+    <string name="scanbot_filter_grayscale">Grijsschaal</string>
+    <string name="scanbot_filter_magic_color">Magische kleur</string>
+    <string name="scanbot_filter_magic_text">Magische tekst</string>
+    <string name="scanbot_filter_none">Geen filter</string>
+    <string name="scanbot_filter_popup_apply_for_all">Voor alle toepassen</string>
+    <string name="scanbot_gallery_counter_formatted" formatted="false">%d van %d</string>
+    <string name="scanbot_no_enough_free_device_space_message">Onvoldoende ruimte op apparaat om foto te nemen. Maak ruimte vrij.</string>
+    <string name="scanbot_processing_document_title">Document wordt verwerkt…</string>
+    <string name="scanbot_processing_title">Verwerken…</string>
+    <string name="scanbot_rearrange_title">Pagina\'s opnieuw sorteren</string>
+    <string name="scanbot_reset_borders">Randen resetten</string>
+    <string name="scanbot_save_file_name_title">Bestandsnaam:</string>
+    <string name="scanbot_save_file_type_title">Bestandstype:</string>
+    <string name="scanbot_save_invalid_file_name">Ongeldige bestandsnaam</string>
+    <string name="scanbot_save_path">Opslaglocatie:</string>
+    <string name="scanbot_gallery_bottom_navigation_item_crop">Bijsnijden</string>
+    <string name="scanbot_gallery_bottom_navigation_item_filter">Filteren</string>
+    <string name="scanbot_gallery_bottom_navigation_item_rotate">Draaien</string>
+    <string name="scanbot_gallery_bottom_navigation_item_rearrange">Herschikken</string>
+    <string name="scanbot_gallery_bottom_navigation_item_delete">Verwijderen</string>
+</resources>

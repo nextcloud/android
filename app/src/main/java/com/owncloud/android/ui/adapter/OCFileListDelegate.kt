@@ -16,7 +16,7 @@ import android.widget.ImageView
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.elyeproj.loaderviewlibrary.LoaderImageView
-import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.account.User
 import com.nextcloud.client.jobs.download.FileDownloadHelper
 import com.nextcloud.client.jobs.upload.FileUploadHelper
@@ -207,10 +207,11 @@ class OCFileListDelegate(
             shimmerThumbnail,
             preferences,
             viewThemeUtils,
-            syncFolderProvider
+            syncFolderProvider,
         )
     }
 
+    @IonosCustomization
     fun bindGridViewHolder(
         gridViewHolder: ListViewHolder,
         file: OCFile,
@@ -220,7 +221,20 @@ class OCFileListDelegate(
         // thumbnail
         gridViewHolder.imageFileName?.text = file.fileName
         gridViewHolder.thumbnail.tag = file.fileId
-        setThumbnail(gridViewHolder.thumbnail, gridViewHolder.shimmerThumbnail, file)
+        OCFileListThumbnailLoader(
+            file,
+            gridViewHolder.thumbnail,
+            user,
+            storageManager,
+            asyncTasks,
+            gridView,
+            context,
+            gridViewHolder.shimmerThumbnail,
+            preferences,
+            viewThemeUtils,
+            syncFolderProvider,
+            gridViewHolder.fileIcon,
+        ).load()
 
         // item layout + click listeners
         bindGridItemLayout(file, gridViewHolder)
@@ -270,8 +284,9 @@ class OCFileListDelegate(
         }
     }
 
+    @IonosCustomization
     private fun bindGridItemLayout(file: OCFile, gridViewHolder: ListViewHolder) {
-        setItemLayoutBackgroundColor(file, gridViewHolder)
+        setItemLayoutBackground(file, gridViewHolder)
         setCheckBoxImage(file, gridViewHolder)
         setItemLayoutOnClickListeners(file, gridViewHolder)
 
@@ -292,6 +307,26 @@ class OCFileListDelegate(
                     )
                 }
             }
+        }
+    }
+
+    @IonosCustomization
+    private fun setItemLayoutBackground(file: OCFile, gridViewHolder: ListViewHolder) {
+        val isSelected = file.fileId == highlightedItem?.fileId || isCheckedFile(file)
+        if (gridViewHolder is OCFileListGridItemViewHolder) {
+            val itemLayoutBackgroundResId = if (isSelected) {
+                R.drawable.grid_mode_selected_item_background
+            } else {
+                R.drawable.grid_mode_item_background
+            }
+            gridViewHolder.itemLayout.setBackgroundResource(itemLayoutBackgroundResId)
+        } else {
+            val itemLayoutBackgroundColor = if (isSelected) {
+                ContextCompat.getColor(context, R.color.selected_item_background)
+            } else {
+                ContextCompat.getColor(context, R.color.bg_default)
+            }
+            gridViewHolder.itemLayout.setBackgroundColor(itemLayoutBackgroundColor)
         }
     }
 
@@ -317,11 +352,10 @@ class OCFileListDelegate(
         }
     }
 
+    @IonosCustomization
     private fun setCheckBoxImage(file: OCFile, gridViewHolder: ListViewHolder) {
         if (isCheckedFile(file)) {
-            gridViewHolder.checkbox.setImageDrawable(
-                viewThemeUtils.platform.tintDrawable(context, R.drawable.ic_checkbox_marked, ColorRole.PRIMARY)
-            )
+            gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_marked)
         } else {
             gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline)
         }
@@ -387,6 +421,7 @@ class OCFileListDelegate(
     }
 
     @Suppress("ReturnCount")
+    @IonosCustomization
     private fun getShareIconIdAndContentDescriptionId(holder: ListViewHolder, file: OCFile): Pair<Int, Int>? {
         if (!MDMConfig.sharingSupport(context)) {
             return null
@@ -398,10 +433,10 @@ class OCFileListDelegate(
 
         return when {
             file.isSharedWithSharee || file.isSharedWithMe -> {
-                if (showShareAvatar) null else R.drawable.shared_via_users to R.string.shared_icon_shared
+                if (showShareAvatar) null else R.drawable.ic_filelist_shared_via_users to R.string.shared_icon_shared
             }
-            file.isSharedViaLink -> R.drawable.shared_via_link to R.string.shared_icon_shared_via_link
-            else -> R.drawable.ic_unshared to R.string.shared_icon_share
+            file.isSharedViaLink -> R.drawable.ic_filelist_shared_via_link to R.string.shared_icon_shared_via_link
+            else -> R.drawable.ic_filelist_unshared to R.string.shared_icon_share
         }
     }
 

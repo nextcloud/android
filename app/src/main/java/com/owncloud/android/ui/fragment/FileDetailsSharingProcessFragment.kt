@@ -18,6 +18,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
@@ -189,6 +190,7 @@ class FileDetailsSharingProcessFragment :
         themeView()
     }
 
+    @IonosCustomization
     private fun themeView() {
         viewThemeUtils.platform.colorTextView(binding.shareProcessEditShareLink)
         viewThemeUtils.platform.colorTextView(binding.shareProcessAdvancePermissionTitle)
@@ -205,13 +207,13 @@ class FileDetailsSharingProcessFragment :
         viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessHideDownloadCheckbox)
         viewThemeUtils.androidx.colorSwitchCompat(binding.shareProcessChangeNameSwitch)
 
-        viewThemeUtils.material.colorTextInputLayout(binding.shareProcessEnterPasswordContainer)
-        viewThemeUtils.material.colorTextInputLayout(binding.shareProcessSetDownloadLimitInputContainer)
-        viewThemeUtils.material.colorTextInputLayout(binding.shareProcessChangeNameContainer)
-        viewThemeUtils.material.colorTextInputLayout(binding.noteContainer)
+        viewThemeUtils.ionos.material.colorTextInputLayout(binding.shareProcessEnterPasswordContainer)
+        viewThemeUtils.ionos.material.colorTextInputLayout(binding.shareProcessSetDownloadLimitInputContainer)
+        viewThemeUtils.ionos.material.colorTextInputLayout(binding.shareProcessChangeNameContainer)
+        viewThemeUtils.ionos.material.colorTextInputLayout(binding.noteContainer)
 
-        viewThemeUtils.material.colorMaterialButtonPrimaryFilled(binding.shareProcessBtnNext)
-        viewThemeUtils.material.colorMaterialButtonPrimaryOutlined(binding.shareProcessBtnCancel)
+        viewThemeUtils.ionos.material.colorMaterialButtonPrimaryFilled(binding.shareProcessBtnNext)
+        viewThemeUtils.ionos.material.colorMaterialButtonPrimaryOutlined(binding.shareProcessBtnCancel)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

@@ -13,11 +13,14 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
+import com.ionos.annotation.IonosCustomization
 
 interface ListViewHolder {
     val thumbnail: ImageView
     fun showVideoOverlay()
     val shimmerThumbnail: LoaderImageView
+    @IonosCustomization
+    val fileIcon: ImageView
     val favorite: ImageView
     val localFileIndicator: ImageView
     val imageFileName: TextView?

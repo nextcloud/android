@@ -15,6 +15,7 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.ListenableWorker
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
+import com.ionos.privacy.PrivacyPreferences
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
 import com.nextcloud.client.device.DeviceInfo
@@ -32,6 +33,8 @@ import com.owncloud.android.datamodel.ArbitraryDataProvider
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.UploadsStorageManager
 import com.owncloud.android.utils.theme.ViewThemeUtils
+import com.ionos.scanbot.license.ScanbotLicenseDownloadWorker
+import com.ionos.scanbot.license.ScanbotLicenseJobFactory
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 import javax.inject.Provider
@@ -61,7 +64,9 @@ class BackgroundJobFactory @Inject constructor(
     private val viewThemeUtils: Provider<ViewThemeUtils>,
     private val localBroadcastManager: Provider<LocalBroadcastManager>,
     private val generatePdfUseCase: GeneratePDFUseCase,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val scanbotLicenseJobFactory: ScanbotLicenseJobFactory,
+    private val privacyPreferences: PrivacyPreferences,
 ) : WorkerFactory() {
 
     @SuppressLint("NewApi")
@@ -93,6 +98,7 @@ class BackgroundJobFactory @Inject constructor(
                 FilesExportWork::class -> createFilesExportWork(context, workerParameters)
                 FileUploadWorker::class -> createFilesUploadWorker(context, workerParameters)
                 FileDownloadWorker::class -> createFilesDownloadWorker(context, workerParameters)
+                ScanbotLicenseDownloadWorker::class -> scanbotLicenseJobFactory.create(context, workerParameters)
                 GeneratePdfFromImagesWork::class -> createPDFGenerateWork(context, workerParameters)
                 HealthStatusWork::class -> createHealthStatusWork(context, workerParameters)
                 TestJob::class -> createTestJob(context, workerParameters)
@@ -232,7 +238,8 @@ class BackgroundJobFactory @Inject constructor(
             clock,
             eventBus,
             preferences,
-            syncedFolderProvider
+            syncedFolderProvider,
+            privacyPreferences,
         )
     }
 

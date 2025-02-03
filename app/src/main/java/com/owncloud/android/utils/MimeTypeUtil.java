@@ -18,6 +18,7 @@ import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
 
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
@@ -91,6 +92,7 @@ public final class MimeTypeUtil {
      * @param filename Name, with extension.
      * @return Drawable of an image resource.
      */
+    @IonosCustomization("Custom icon tint")
     public static Drawable getFileTypeIcon(String mimetype,
                                            String filename,
                                            Context context,
@@ -102,9 +104,7 @@ public final class MimeTypeUtil {
                 return null;
             }
 
-            if (R.drawable.file_zip == iconId) {
-                viewThemeUtils.platform.tintDrawable(context, icon, ColorRole.PRIMARY);
-            }
+            icon.setTint(context.getColor(R.color.filelist_file_icon_color));
 
             return icon;
         } else {
@@ -186,14 +186,16 @@ public final class MimeTypeUtil {
         return DrawableUtil.INSTANCE.addDrawableAsOverlay(background, videoOverlay);
     }
 
+    @IonosCustomization("Custom icon tint")
     public static Drawable getDefaultFolderIcon(Context context, ViewThemeUtils viewThemeUtils) {
         Drawable drawable = ContextCompat.getDrawable(context, R.drawable.folder);
         assert(drawable != null);
 
-        viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY);
+        drawable.setTint(context.getColor(R.color.filelist_file_icon_color));
         return drawable;
     }
 
+    @IonosCustomization("Remove custom overlay color for dark mode")
     public static LayerDrawable getFolderIcon(boolean isDarkModeActive, Integer overlayIconId, Context context, ViewThemeUtils viewThemeUtils) {
         Drawable folderDrawable = getDefaultFolderIcon(context, viewThemeUtils);
         assert(folderDrawable != null);
@@ -206,10 +208,6 @@ public final class MimeTypeUtil {
 
         Drawable overlayDrawable = ContextCompat.getDrawable(context, overlayIconId);
         assert(overlayDrawable != null);
-
-        if (isDarkModeActive) {
-            overlayDrawable = DrawableUtil.INSTANCE.changeColor(overlayDrawable, R.color.dark);
-        }
 
         return DrawableUtil.INSTANCE.addDrawableAsOverlay(folderDrawable, overlayDrawable);
     }

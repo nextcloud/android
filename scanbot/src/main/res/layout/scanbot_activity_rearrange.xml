@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/scanbotRearrangeToolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?scanbot_app_bar_color"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="@dimen/scanbot_rearrange_icon_height"
+        android:layout_height="@dimen/scanbot_rearrange_icon_height"
+        android:layout_marginStart="@dimen/scanbot_rearrange_margin"
+        android:layout_marginTop="@dimen/scanbot_rearrange_margin"
+        android:src="@drawable/scanbot_ic_touch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanbotRearrangeToolbar"
+        app:tint="?scanbot_rearrange_icon_color"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/scanbot_rearrange_margin_small"
+        android:layout_marginEnd="@dimen/scanbot_rearrange_margin"
+        android:gravity="center"
+        android:text="@string/scanbot_hold_and_drag_to_rearrange_pages"
+        android:textColor="?scanbot_rearrange_text_color"
+        android:textSize="@dimen/scanbot_rearrange_tip_text_size"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="@+id/imageView3" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvScanbotRearrange"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/scanbot_rearrange_margin"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:spanCount="2"
+        tools:listitem="@layout/scanbot_item_rearrange"
+        tools:spanCount="2" />
+
+    <ProgressBar
+        android:id="@+id/pbScanbotRearrange"
+        android:layout_width="@dimen/scanbot_rearrange_progress_size"
+        android:layout_height="@dimen/scanbot_rearrange_progress_size"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/rvScanbotRearrange"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scanbotRearrangeToolbar"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

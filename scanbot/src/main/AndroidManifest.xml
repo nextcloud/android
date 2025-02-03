@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.ionos.scanbot">
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <application>
+
+        <activity
+            android:name=".screens.camera.CameraActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:supportsPictureInPicture="false" />
+
+        <activity
+            android:name=".screens.crop.CropActivity"
+            android:supportsPictureInPicture="false" />
+
+        <activity
+            android:name=".screens.filter.FilterActivity"
+            android:supportsPictureInPicture="false" />
+
+        <activity
+            android:name=".screens.gallery.GalleryActivity"
+            android:configChanges="orientation|screenSize"
+            android:launchMode="singleTop"
+            android:supportsPictureInPicture="false" />
+
+        <activity android:name=".screens.rearrange.RearrangeActivity" />
+
+        <activity
+            android:name=".screens.save.SaveActivity"
+            android:configChanges="screenSize|screenLayout|fontScale|orientation" />
+
+    </application>
+
+</manifest>

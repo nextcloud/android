@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-FileCopyrightText: 2014-2022 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2020 Abdourahamane Boinaidi <abdourahamane.boinaidi@infomaniak.com>
+  ~ SPDX-FileCopyrightText: 2016-2017 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+-->
+
+<com.owncloud.android.ui.SquareFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ListItemLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/grid_mode_item_background"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.owncloud.android.ui.RoundedCornersConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/grid_mode_item_margin"
+        android:backgroundTint="@color/bg_default">
+
+        <ImageView
+            android:id="@+id/file_icon"
+            android:layout_width="@dimen/standard_list_item_size"
+            android:layout_height="@dimen/standard_list_item_size"
+            android:contentDescription="@null"
+            app:layout_constraintBottom_toTopOf="@id/Filename"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/folder"
+            tools:visibility="visible" />
+
+        <com.elyeproj.loaderviewlibrary.LoaderImageView
+            android:id="@+id/thumbnail_shimmer"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:contentDescription="@null"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/file_features_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/standard_half_margin"
+            android:layout_marginBottom="@dimen/standard_margin"
+            android:alpha="0.75"
+            android:background="@drawable/rounded_rect"
+            android:backgroundTint="@color/grid_mode_feature_layout_background_color"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@id/Filename"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/favorite_action"
+                android:layout_width="@dimen/grid_mode_icon_size"
+                android:layout_height="@dimen/grid_mode_icon_size"
+                android:contentDescription="@string/favorite_icon"
+                android:padding="@dimen/standard_half_padding"
+                android:src="@drawable/favorite" />
+
+            <ImageView
+                android:id="@+id/videoOverlay"
+                android:layout_width="@dimen/grid_mode_icon_size"
+                android:layout_height="@dimen/grid_mode_icon_size"
+                android:contentDescription="@string/video_overlay_icon"
+                android:padding="@dimen/standard_half_padding"
+                android:src="@drawable/video_white"
+                android:visibility="gone"
+                app:tint="@color/grid_mode_default_feature_icon_color"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/sharedIcon"
+                android:layout_width="@dimen/grid_mode_icon_size"
+                android:layout_height="@dimen/grid_mode_icon_size"
+                android:contentDescription="@string/shared_icon_shared_via_link"
+                android:padding="@dimen/standard_half_padding"
+                android:src="@drawable/ic_filelist_unshared_grid_mode"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/unreadComments"
+                android:layout_width="@dimen/grid_mode_icon_size"
+                android:layout_height="@dimen/grid_mode_icon_size"
+                android:clickable="true"
+                android:contentDescription="@string/unread_comments"
+                android:focusable="true"
+                android:padding="@dimen/standard_half_padding"
+                android:src="@drawable/ic_comment_grid"
+                android:visibility="gone"
+                app:tint="@color/grid_mode_default_feature_icon_color"
+                tools:ignore="TouchTargetSizeCheck"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/grid_live_photo_indicator"
+                android:layout_width="@dimen/grid_mode_icon_size"
+                android:layout_height="@dimen/grid_mode_icon_size"
+                android:clickable="true"
+                android:contentDescription="@string/grid_file_features_live_photo_content_description"
+                android:focusable="true"
+                android:padding="@dimen/standard_half_padding"
+                android:src="@drawable/ic_live_photo"
+                android:visibility="gone"
+                app:tint="@color/grid_mode_default_feature_icon_color"
+                tools:ignore="TouchTargetSizeCheck"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/localFileIndicator"
+                android:layout_width="@dimen/grid_mode_icon_size"
+                android:layout_height="@dimen/grid_mode_icon_size"
+                android:contentDescription="@string/synced_icon"
+                android:padding="@dimen/standard_half_padding"
+                android:src="@drawable/ic_synced"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/custom_checkbox"
+            android:layout_width="@dimen/grid_mode_icon_size"
+            android:layout_height="@dimen/grid_mode_icon_size"
+            android:layout_margin="@dimen/standard_half_margin"
+            android:contentDescription="@string/checkbox"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_checkbox_blank_outline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/Filename"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/bg_default"
+            android:ellipsize="middle"
+            android:gravity="center_vertical"
+            android:padding="8dp"
+            android:singleLine="true"
+            android:text="@string/placeholder_filename"
+            android:textColor="@color/text_color"
+            android:textSize="@dimen/grid_item_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="visible" />
+
+        <ImageButton
+            android:id="@+id/more"
+            android:layout_width="@dimen/grid_mode_icon_size"
+            android:layout_height="@dimen/grid_mode_icon_size"
+            android:layout_margin="@dimen/standard_half_margin"
+            android:background="@drawable/grid_mode_more_button_background"
+            android:contentDescription="@string/overflow_menu"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_grid_mode_more"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </com.owncloud.android.ui.RoundedCornersConstraintLayout>
+
+</com.owncloud.android.ui.SquareFrameLayout>

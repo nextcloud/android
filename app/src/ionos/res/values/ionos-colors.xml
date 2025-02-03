@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <color name="ic_launcher_background">#003D8F</color>
+
+    <color name="text_color">@color/ionos_default_text_color</color>
+    <color name="secondary_text_color">@color/dusk</color>
+    <color name="bg_default">@color/white</color>
+    <color name="appbar">@color/ionos_toolbar_color</color>
+    <color name="action_mode_background">@color/ghost_white</color>
+    <color name="selected_item_background">@color/white_smoke</color>
+    <color name="default_icon_color">@color/ionos_default_icon_color</color>
+
+    <color name="system_bars_color">@color/bg_default</color>
+    <color name="bottom_sheet_nav_bar_color">@color/bg_default</color>
+
+    <color name="popup_background_color">@color/ghost_white</color>
+
+    <color name="ionos_drawer_background">@color/ionos_navigation_bar_background</color>
+    <color name="drawer_header_background">@color/navigation_bar_background_color</color>
+    <color name="ionos_drawer_item_background">@color/ghost_white</color>
+    <color name="ionos_drawer_item_background_checked">@color/lavender_mist</color>
+    <color name="ionos_drawer_quota_background">@color/white</color>
+
+    <color name="navigation_bar_background_color">@color/ionos_navigation_bar_background</color>
+    <color name="ionos_navigation_bar_background">@color/ghost_white</color>
+    <color name="ionos_default_icon_color">@color/navy</color>
+    <color name="ionos_default_text_color">@color/navy</color>
+    <color name="ionos_secondary_text_color">@color/dusk</color>
+    <color name="sidemenu_progress_bar_color">@color/dodger_blue</color>
+    <color name="sidemenu_warn_progress_bar_color">@color/chocolate</color>
+
+    <color name="ionos_default_button_bg_color">@color/madison</color>
+    <color name="ionos_default_pressed_button_bg_color">@color/dodger_blue</color>
+    <color name="ionos_default_disabled_button_bg_color">@color/gull_grayapprox</color>
+
+    <color name="ionos_filled_button_default_text_color">@color/white</color>
+    <color name="ionos_filled_button_pressed_text_color">@color/white</color>
+    <color name="ionos_filled_button_disabled_text_color">@color/geyser</color>
+
+    <color name="ionos_outlined_default_button_bg_color">@color/transparent</color>
+    <color name="ionos_outlined_pressed_button_bg_color">@color/navy</color>
+    <color name="ionos_outlined_disabled_button_bg_color">@color/transparent</color>
+    <color name="ionos_outlined_default_button_stroke_color">@color/madison</color>
+    <color name="ionos_outlined_pressed_button_stroke_color">@color/navy</color>
+    <color name="ionos_outlined_disabled_button_stroke_color">@color/gull_grayapprox</color>
+    <color name="ionos_outlined_button_default_text_color">@color/madison</color>
+    <color name="ionos_outlined_button_pressed_text_color">@color/white</color>
+    <color name="ionos_outlined_button_disabled_text_color">@color/gull_grayapprox</color>
+    <color name="ionos_text_button_default_text_color">@color/dodger_blue</color>
+    <color name="ionos_text_button_pressed_text_color">@color/royal_blue</color>
+    <color name="ionos_text_button_disabled_text_color">@color/gull_grayapprox</color>
+
+    <color name="dialog_pressed_item_color">@color/lavender_mist</color>
+
+    <color name="bottom_sheet_drag_handle_color">@color/slate_grey</color>
+
+    <color name="settings_screen_switcher_outline_color">@color/geyser</color>
+    <color name="settings_screen_switcher_surface_container_highest_color">@color/geyser</color>
+    <color name="settings_screen_switcher_on_surface_color">@color/metallic_silver</color>
+    <color name="settings_screen_switcher_primary_container_color">@color/white</color>
+    <color name="settings_screen_switcher_primary_color">@color/dodger_blue</color>
+    <color name="settings_screen_switcher_accent_color">@color/dodger_blue</color>
+
+    <color name="settings_screen_background">@color/bg_default</color>
+
+    <color name="settings_screen_dialog_background_color">@color/bg_default</color>
+    <color name="settings_screen_dialog_title_text_color">@color/text_color</color>
+    <color name="settings_screen_dialog_item_text_color">@color/text_color</color>
+    <color name="settings_screen_dialog_radiobutton_unchecked_color">@color/geyser</color>
+    <color name="settings_screen_dialog_radiobutton_checked_color">@color/dodger_blue</color>
+
+    <color name="search_bar_background_color">@color/ghost_white</color>
+    <color name="search_bar_icon_color">@color/dusk</color>
+    <color name="search_bar_text_color">@color/dusk</color>
+
+    <color name="snackbar_background_color">@color/midnight_blue2</color>
+    <color name="snackbar_text_color">@color/ghost_white</color>
+    <color name="snackbar_action_button_text_color">@color/cornflower</color>
+
+    <color name="avatar_background_color">@color/geyser</color>
+    <color name="avatar_icon_color">@color/navy</color>
+
+    <color name="ionos_toolbar_color">@color/white</color>
+    <color name="ionos_toolbar_hint_color">@color/dusk</color>
+
+    <color name="fab_icon_tint">@color/white</color>
+    <color name="fab_background_color">@color/dodger_blue</color>
+    <color name="fab_pressed_background_color">@color/royal_blue</color>
+    <color name="fab_disabled_background_color">@color/gull_grayapprox</color>
+
+    <color name="filelist_file_icon_color">@color/dodger_blue</color>
+    <color name="filelist_default_action_icon_color">@color/dodger_blue</color>
+    <color name="filelist_shared_icon_color">@color/ghost_white</color>
+    <color name="filelist_shared_icon_background_color">@color/dodger_blue</color>
+    <color name="filelist_text_color">@color/navy</color>
+    <color name="filelist_secondary_text_color">@color/dusk</color>
+    <color name="filelist_pressed_action_icon_background_color">@color/lavender_mist</color>
+
+    <color name="grid_mode_more_button_background_color">@color/white</color>
+    <color name="grid_mode_more_button_pressed_background_color">@color/lavender_mist</color>
+    <color name="grid_mode_more_button_icon_color">@color/dodger_blue</color>
+    <color name="grid_mode_default_feature_icon_color">@color/dodger_blue</color>
+    <color name="grid_mode_feature_layout_background_color">@color/geyser</color>
+    <color name="grid_mode_item_outline_color">@color/geyser</color>
+    <color name="grid_mode_selected_item_outline_color">@color/dodger_blue</color>
+
+    <color name="synced_folders_item_title_color">@color/ionos_default_text_color</color>
+
+    <color name="text_input_border_stroke_color">@color/navy</color>
+    <color name="text_input_focused_border_stroke_color">@color/dodger_blue</color>
+    <color name="text_input_error_color">@color/slate_grey</color>
+    <color name="text_input_hint_text_color">@color/slate_grey</color>
+    <color name="text_input_focused_hint_text_color">@color/navy</color>
+    <color name="text_input_highlight_color">@color/lavender_mist</color>
+
+    <color name="e2e_border_solid_color">@color/lavender_mist</color>
+    <color name="e2e_border_stroke_color">@color/dodger_blue</color>
+
+    <!-- Files list 'Server not available' view -->
+    <color name="filelist_icon_background">@color/ghost_white</color>
+    <color name="filelist_info_text_color">@color/dusk</color>
+    <color name="filelist_info_icon_color">@color/dusk</color>
+
+
+    <color name="exoplayer_controls_color">@color/ghost_white</color>
+
+    <color name="date_picker_accent_color">@color/dodger_blue</color>
+    <color name="date_picker_text_color_primary_inverse">@color/white</color>
+
+    <color name="checkbox_fill_color">@color/dodger_blue</color>
+    <color name="checkbox_stroke_color">@color/white</color>
+
+    <color name="preview_image_system_bars_color">@color/semitransparent_black</color>
+</resources>

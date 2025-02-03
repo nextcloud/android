@@ -17,6 +17,7 @@ import android.text.TextUtils
 import androidx.work.Worker
 import androidx.work.WorkerParameters
 import com.google.gson.Gson
+import com.ionos.privacy.PrivacyPreferences
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.core.Clock
@@ -58,7 +59,8 @@ class AccountRemovalWork(
     private val clock: Clock,
     private val eventBus: EventBus,
     private val preferences: AppPreferences,
-    private val syncedFolderProvider: SyncedFolderProvider
+    private val syncedFolderProvider: SyncedFolderProvider,
+    private val privacyPreferences: PrivacyPreferences,
 ) : Worker(context, params) {
 
     companion object {
@@ -111,6 +113,8 @@ class AccountRemovalWork(
         if (preferences.currentAccountName.equals(user.accountName)) {
             preferences.currentAccountName = ""
         }
+
+        privacyPreferences.removeDataProtectionProcessed(accountName)
 
         // remove all files
         storageManager.removeLocalFiles(user, storageManager)

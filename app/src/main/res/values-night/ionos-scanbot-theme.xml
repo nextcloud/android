@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <style name="ScanbotTheme" parent="ScanbotDefaultTheme">
+        <item name="scanbot_app_bar_color">@color/dark_slate_grey</item>
+        <item name="scanbot_status_bar_color">@color/black</item>
+        <item name="scanbot_light_status_bar">false</item>
+        <item name="scanbot_navigation_bar_color">@color/dark_slate_grey</item>
+        <item name="scanbot_light_navigation_bar">false</item>
+        <item name="scanbot_window_background">@color/bg_default</item>
+        <item name="scanbot_tip_icon_color">@color/curious_blue</item>
+
+        <item name="scanbot_camera_button_background_pressed">@color/slate_grey</item>
+        <item name="scanbot_camera_toggle_activated_text_color">@color/curious_blue</item>
+        <item name="scanbot_camera_toggle_deactivated_text_color">@color/ghost_white</item>
+        <item name="scanbot_camera_button_icon_color">@color/dark_slate_grey</item>
+        <item name="scanbot_camera_flash_color">@color/ghost_white</item>
+        <item name="scanbot_camera_flash_selected_color">@color/curious_blue</item>
+        <item name="scanbot_camera_toolbar_background">@color/dark_slate_grey</item>
+        <item name="scanbot_camera_bottom_bar_background">@color/dark_slate_grey</item>
+        <item name="scanbot_camera_user_guidance_text_color">@color/navy</item>
+
+        <item name="scanbot_crop_polygon_edge_color">@color/royal_blue</item>
+        <item name="scanbot_crop_screen_button_background">@color/curious_blue</item>
+
+        <item name="scanbot_file_type_text_color_checked">@color/curious_blue</item>
+
+        <item name="scanbot_filter_control_active">@color/curious_blue</item>
+        <item name="scanbot_filter_control_icon_background">@color/bg_default</item>
+        <item name="scanbot_filter_control_seek_bar_thumb_active">@color/curious_blue</item>
+        <item name="scanbot_filter_control_seek_bar_progress_active">@color/curious_blue</item>
+        <item name="scanbot_filter_control_seek_bar_progress_background_active">@color/curious_blue</item>
+
+        <item name="scanbot_gallery_screen_counter_background_color">@color/deep_koamaru</item>
+        <item name="scanbot_gallery_bottom_navigation_color">@color/dark_slate_grey</item>
+        <item name="scanbot_gallery_fab_icon_tint">@color/fab_icon_tint</item>
+        <item name="scanbot_gallery_fab_background_tint">@color/fab_background_tint</item>
+
+        <item name="scanbot_rearrange_icon_color">@color/curious_blue</item>
+    </style>
+</resources>

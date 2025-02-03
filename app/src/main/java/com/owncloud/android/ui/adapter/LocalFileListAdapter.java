@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.owncloud.android.R;
@@ -157,6 +158,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
     }
 
     @Override
+    @IonosCustomization
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof LocalFileListFooterViewHolder) {
             ((LocalFileListFooterViewHolder) holder).footerText.setText(getFooterText());
@@ -178,9 +180,7 @@ public class LocalFileListAdapter extends RecyclerView.Adapter<RecyclerView.View
                     gridViewHolder.checkbox.setVisibility(View.VISIBLE);
                     if (isCheckedFile(file)) {
                         gridViewHolder.itemLayout.setBackgroundColor(ContextCompat.getColor(mContext, R.color.selected_item_background));
-
-                        gridViewHolder.checkbox.setImageDrawable(
-                            viewThemeUtils.platform.tintDrawable(mContext, R.drawable.ic_checkbox_marked, ColorRole.PRIMARY));
+                        gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_marked);
                     } else {
                         gridViewHolder.itemLayout.setBackgroundColor(mContext.getResources().getColor(R.color.bg_default));
                         gridViewHolder.checkbox.setImageResource(R.drawable.ic_checkbox_blank_outline);

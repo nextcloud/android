@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+
+    <!-- Storage Permissions Dialog -->
+    <string name="ionos_file_management_permission">Permisos de almacenamiento</string>
+    <string name="ionos_file_management_permission_optional">Permisos de almacenamiento</string>
+    <string name="ionos_file_management_permission_text">%1$s necesita permiso para acceder a tus archivos para funcionar mejor. Puedes permitir o denegar el acceso.</string>
+    <string name="ionos_file_management_permission_optional_text">%1$s necesita permiso para acceder a tus archivos para funcionar mejor. Puedes permitir o denegar el acceso.</string>
+
+    <!-- Sharing screen -->
+    <string name="ionos_share_search">Nombre o dirección de correo electrónico…</string>
+
+    <!-- Data protection -->
+    <string name="ionos_data_protection_title">Configuración de la protección de datos</string>
+    <string name="ionos_data_protection_description">Esta aplicación utiliza cookies y tecnologías similares. Al hacer clic en Aceptar, consientes el procesamiento y la transferencia de tus datos a terceros. Encontrarás más información, incluida la relativa al procesamiento de datos por parte de terceros, en los ajustes y en nuestra <annotation type="information_link">política de privacidad </annotation> Puedes rechazar la utilización de estas herramientas <annotation type="reject_link">reject</annotation> o modificar tu selección en cualquier momento a través de tus ajustes.</string>
+    <string name="ionos_data_protection_settings_button">Ajustes</string>
+    <string name="ionos_data_protection_agree_button">Aceptar</string>
+    <string name="ionos_data_protection_settings_description">Para optimizar nuestra aplicación, recogemos datos anónimos. Para ello utilizamos soluciones de software de diferentes socios. Nos gustaría ofrecerte una transparencia y una ayuda en la toma de decisiones total sobre el procesamiento y la recopilación de tus datos de uso anonimizados. Posteriormente, puedes cambiar tu configuración en cualquier momento en el punto de menú Protección de datos. Sin embargo, ten en cuenta que la recopilación de datos contribuye de manera significativa a la optimización de esta aplicación y que si detienes el envío de datos impedirás estas optimizaciones.</string>
+    <string name="ionos_data_protection_settings_data_gathering_description">La recopilación de estos datos es necesaria para poder utilizar las funciones esenciales de la aplicación.</string>
+    <string name="ionos_data_protection_settings_data_gathering_title">Recopilación necesaria de datos</string>
+    <string name="ionos_data_protection_settings_analytics_description">Estos datos nos ayudan a optimizar el uso de la aplicación y a identificar los fallos del sistema y los errores más rápidamente.</string>
+    <string name="ionos_data_protection_settings_analytics_title">Análisis de la recopilación de datos para un diseño personalizado basado en las necesidades de cada usuario</string>
+    <string name="ionos_data_protection_settings_save">Guardar ajustes</string>
+ </resources>

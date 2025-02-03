@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2022 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2021 TSI-mc
+  ~ SPDX-FileCopyrightText: 2021 Nextcloud GmbH
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/bottom_sheet_default_list_bottom_margin"
+    android:orientation="vertical">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
+        android:id="@+id/menu_share_advanced_permissions"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_sheet_default_item_height"
+        android:layout_marginHorizontal="@dimen/bottom_sheet_default_item_horizontal_margin"
+        android:paddingHorizontal="@dimen/bottom_sheet_default_item_horizontal_padding"
+        android:background="@drawable/dialog_item_background"
+        android:orientation="horizontal"
+        android:layout_gravity="center_vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_advanced_permissions"
+            android:layout_width="@dimen/bottom_sheet_default_icon_width"
+            android:layout_height="@dimen/bottom_sheet_default_icon_height"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_share_settings"
+            app:tint="@color/ionos_default_icon_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="@dimen/bottom_sheet_default_text_horizontal_margin"
+            android:text="@string/share_settings"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_share_send_new_email"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_sheet_default_item_height"
+        android:layout_marginHorizontal="@dimen/bottom_sheet_default_item_horizontal_margin"
+        android:paddingHorizontal="@dimen/bottom_sheet_default_item_horizontal_padding"
+        android:background="@drawable/dialog_item_background"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_send_new_email"
+            android:layout_width="@dimen/bottom_sheet_default_icon_width"
+            android:layout_height="@dimen/bottom_sheet_default_icon_height"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_email"
+            app:tint="@color/ionos_default_icon_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="@dimen/bottom_sheet_default_text_horizontal_margin"
+            android:text="@string/share_send_new_email"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_share_send_link"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_sheet_default_item_height"
+        android:layout_marginHorizontal="@dimen/bottom_sheet_default_item_horizontal_margin"
+        android:paddingHorizontal="@dimen/bottom_sheet_default_item_horizontal_padding"
+        android:background="@drawable/dialog_item_background"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/menu_icon_send_link"
+            android:layout_width="@dimen/bottom_sheet_default_icon_width"
+            android:layout_height="@dimen/bottom_sheet_default_icon_height"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_link"
+            app:tint="@color/ionos_default_icon_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="@dimen/bottom_sheet_default_text_horizontal_margin"
+            android:text="@string/share_via_link_send_link_label"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_share_unshare"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_sheet_default_item_height"
+        android:layout_marginHorizontal="@dimen/bottom_sheet_default_item_horizontal_margin"
+        android:paddingHorizontal="@dimen/bottom_sheet_default_item_horizontal_padding"
+        android:background="@drawable/dialog_item_background"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/menu_icon_unshare"
+            android:layout_width="@dimen/bottom_sheet_default_icon_width"
+            android:layout_height="@dimen/bottom_sheet_default_icon_height"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_delete"
+            app:tint="@color/ionos_default_icon_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="@dimen/bottom_sheet_default_text_horizontal_margin"
+            android:text="@string/delete_link"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menu_share_add_another_link"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/bottom_sheet_default_item_height"
+        android:layout_marginHorizontal="@dimen/bottom_sheet_default_item_horizontal_margin"
+        android:paddingHorizontal="@dimen/bottom_sheet_default_item_horizontal_padding"
+        android:background="@drawable/dialog_item_background"
+        android:orientation="horizontal"
+        android:visibility="gone"
+        tools:ignore="UseCompoundDrawables"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/menu_icon_add_another_link"
+            android:layout_width="@dimen/bottom_sheet_default_icon_width"
+            android:layout_height="@dimen/bottom_sheet_default_icon_height"
+            android:layout_gravity="center_vertical"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_plus"
+            app:tint="@color/ionos_default_icon_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="@dimen/bottom_sheet_default_text_horizontal_margin"
+            android:text="@string/add_another_public_share_link"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

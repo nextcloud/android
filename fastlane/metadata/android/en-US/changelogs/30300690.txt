@@ -1,0 +1,8 @@
+## 3.30.6 (December 4, 2024)
+
+- Due to new restrictions imposed by Google, the auto-upload feature will no longer be able to automatically remove uploaded files.
+- Performance improvements and bug fixes have been implemented
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/103

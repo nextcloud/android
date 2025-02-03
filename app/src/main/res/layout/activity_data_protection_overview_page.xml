@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_splash"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/ionos_data_protection_screen_padding">
+
+        <Space
+            android:id="@+id/content_top_space"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/icon_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_weight="1" />
+
+        <ImageView
+            android:id="@+id/icon_view"
+            android:layout_width="@dimen/ionos_data_protection_icon_size"
+            android:layout_height="@dimen/ionos_data_protection_icon_size"
+            android:src="@drawable/ic_data_protection"
+            app:layout_constraintBottom_toTopOf="@id/text_top_space"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/content_top_space" />
+
+        <Space
+            android:id="@+id/text_top_space"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/title_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/icon_view"
+            app:layout_constraintVertical_weight="4" />
+
+        <TextView
+            android:id="@+id/title_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ionos_data_protection_title_top_margin"
+            android:text="@string/ionos_data_protection_title"
+            android:textSize="@dimen/ionos_data_protection_title_text_size"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/description_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_top_space"
+            app:layout_constraintWidth_max="@dimen/ionos_data_protection_text_max_width"
+            app:lineHeight="@dimen/ionos_data_protection_title_line_height" />
+
+        <TextView
+            android:id="@+id/description_text_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ionos_data_protection_description_top_margin"
+            android:layout_marginBottom="@dimen/ionos_data_protection_description_bottom_margin"
+            android:text="@string/ionos_data_protection_description"
+            android:textSize="@dimen/ionos_data_protection_description_text_size"
+            app:layout_constraintBottom_toTopOf="@id/text_bottom_space"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/title_text_view"
+            app:layout_constraintWidth_max="@dimen/ionos_data_protection_text_max_width"
+            app:lineHeight="@dimen/ionos_data_protection_description_line_height" />
+
+        <Space
+            android:id="@+id/text_bottom_space"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/settings_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/description_text_view"
+            app:layout_constraintVertical_weight="4" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/settings_button"
+            style="@style/Theme.Dialog.Button.OutlinedButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/ionos_data_protection_settings_button"
+            app:layout_constraintBottom_toTopOf="@id/agree_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_bottom_space"
+            app:layout_constraintWidth_max="@dimen/ionos_data_protection_button_max_width" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/agree_button"
+            style="@style/Theme.Dialog.IconButton.Filled"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/ionos_data_protection_agree_button_top_margin"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:text="@string/ionos_data_protection_agree_button"
+            app:layout_constraintBottom_toTopOf="@id/content_bottom_space"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/settings_button"
+            app:layout_constraintWidth_max="@dimen/ionos_data_protection_button_max_width" />
+
+        <Space
+            android:id="@+id/content_bottom_space"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/agree_button"
+            app:layout_constraintVertical_weight="1" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

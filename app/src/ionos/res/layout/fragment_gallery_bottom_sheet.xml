@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2021 TSI-mc
+  ~ SPDX-FileCopyrightText: 2021 Nextcloud GmbH
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+-->
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.Material3.BottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <LinearLayout
+        android:id="@+id/bottom_sheet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/bottom_sheet_default_list_bottom_margin"
+        android:orientation="vertical">
+
+        <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:id="@+id/btn_hide_images"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_sheet_default_item_height"
+            android:layout_marginHorizontal="@dimen/bottom_sheet_default_item_horizontal_margin"
+            android:paddingHorizontal="@dimen/bottom_sheet_default_item_horizontal_padding"
+            android:background="@drawable/dialog_item_background"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/bottom_sheet_default_icon_width"
+                android:layout_height="@dimen/bottom_sheet_default_icon_height"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_gallery_show_photos" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/bottom_sheet_default_text_horizontal_margin"
+                android:text="@string/show_images"
+                android:textColor="@color/ionos_default_text_color"
+                android:textSize="@dimen/dialog_default_text_size"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/tickMarkShowImages"
+                android:layout_width="@dimen/bottom_sheet_default_icon_width"
+                android:layout_height="@dimen/bottom_sheet_default_icon_height"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_gallery_tick"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_hide_videos"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_sheet_default_item_height"
+            android:layout_marginHorizontal="@dimen/bottom_sheet_default_item_horizontal_margin"
+            android:paddingHorizontal="@dimen/bottom_sheet_default_item_horizontal_padding"
+            android:background="@drawable/dialog_item_background"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/bottom_sheet_default_icon_width"
+                android:layout_height="@dimen/bottom_sheet_default_icon_height"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_gallery_show_videos" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/bottom_sheet_default_text_horizontal_margin"
+                android:text="@string/show_video"
+                android:textColor="@color/ionos_default_text_color"
+                android:textSize="@dimen/dialog_default_text_size"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/tickMarkShowVideos"
+                android:layout_width="@dimen/bottom_sheet_default_icon_width"
+                android:layout_height="@dimen/bottom_sheet_default_icon_height"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_gallery_tick"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/btn_select_media_folder"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_sheet_default_item_height"
+            android:layout_marginHorizontal="@dimen/bottom_sheet_default_item_horizontal_margin"
+            android:paddingHorizontal="@dimen/bottom_sheet_default_item_horizontal_padding"
+            android:background="@drawable/dialog_item_background"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/bottom_sheet_default_icon_width"
+                android:layout_height="@dimen/bottom_sheet_default_icon_height"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_gallery_set_media_folder" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginHorizontal="@dimen/bottom_sheet_default_text_horizontal_margin"
+                android:text="@string/select_media_folder"
+                android:textColor="@color/ionos_default_text_color"
+                android:textSize="@dimen/dialog_default_text_size"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

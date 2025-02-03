@@ -11,18 +11,20 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import com.afollestad.sectionedrecyclerview.SectionedViewHolder
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.account.User
 import com.nextcloud.client.network.ClientFactory
 import com.nextcloud.model.SearchResultEntryType
 import com.nextcloud.utils.CalendarEventManager
 import com.nextcloud.utils.ContactManager
 import com.nextcloud.utils.extensions.getType
+import com.owncloud.android.R
 import com.owncloud.android.databinding.UnifiedSearchItemBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.lib.common.SearchResultEntry
@@ -110,6 +112,7 @@ class UnifiedSearchItemViewHolder(
         }
     }
 
+    @IonosCustomization
     private fun getPlaceholder(
         entry: SearchResultEntry,
         entryType: SearchResultEntryType,
@@ -121,7 +124,8 @@ class UnifiedSearchItemViewHolder(
 
         val defaultDrawable = MimeTypeUtil.getFileTypeIcon(mimetype, entry.title, context, viewThemeUtils)
         val drawable: Drawable = ResourcesCompat.getDrawable(context.resources, iconId, null) ?: defaultDrawable
-        return viewThemeUtils.platform.tintDrawable(context, drawable, ColorRole.PRIMARY)
+        val color = ContextCompat.getColor(context, R.color.filelist_file_icon_color)
+        return viewThemeUtils.platform.colorDrawable(drawable, color)
     }
 
     private inner class RoundIfNeededListener(private val entry: SearchResultEntry) :

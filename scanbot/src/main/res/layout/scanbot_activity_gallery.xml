@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/rlContent"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<include
+		android:id="@+id/toolbar"
+		layout="@layout/scanbot_view_common_toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/scanbot_navigation_layout_height"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent" />
+
+	<androidx.viewpager.widget.ViewPager
+		android:id="@+id/vpPager"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		app:layout_constraintBottom_toTopOf="@+id/llBottomNavigation"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+	<TextView
+		android:id="@+id/tvCounter"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/scanbot_padding_small"
+		android:background="@drawable/scanbot_gallery_counter_rounded_background"
+        android:backgroundTint="?scanbot_gallery_screen_counter_background_color"
+		android:paddingLeft="@dimen/scanbot_gallery_counter_padding_left"
+		android:paddingRight="@dimen/scanbot_gallery_counter_padding_right"
+		android:textColor="?scanbot_gallery_screen_counter_text_color"
+		android:textStyle="bold"
+		app:layout_constraintBottom_toTopOf="@+id/llBottomNavigation"
+		app:layout_constraintEnd_toEndOf="@+id/llBottomNavigation"
+		app:layout_constraintStart_toStartOf="@+id/llBottomNavigation"
+		tools:text="1 of 1" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabScanbotAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/scanbot_gallery_fab_margin"
+        android:layout_marginBottom="@dimen/scanbot_gallery_fab_margin"
+        android:contentDescription="fab"
+        app:maxImageSize="@dimen/scanbot_gallery_fab_icon_size"
+        app:tint="?attr/scanbot_gallery_fab_icon_tint"
+        app:shapeAppearanceOverlay="@style/ScanbotFabButtonBackgroundShape"
+        android:backgroundTint="?attr/scanbot_gallery_fab_background_tint"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+        app:layout_constraintBottom_toTopOf="@+id/llBottomNavigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/scanbot_ic_add_fab"/>
+
+	<LinearLayout
+		android:id="@+id/llBottomNavigation"
+		android:layout_width="0dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:background="?scanbot_gallery_bottom_navigation_color"
+		android:orientation="horizontal"
+		android:padding="@dimen/scanbot_padding_small"
+        android:elevation="@dimen/scanbot_gallery_bottom_navigation_elevation"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintStart_toStartOf="parent">
+
+        <com.ionos.scanbot.screens.gallery.GalleryBottomNavigationItem
+            android:id="@+id/niCrop"
+            style="@style/ScanbotBottomNavigationItem"
+            app:label="@string/scanbot_gallery_bottom_navigation_item_crop"
+            app:itemIcon="@drawable/scanbot_ic_crop" />
+
+        <com.ionos.scanbot.screens.gallery.GalleryBottomNavigationItem
+            android:id="@+id/niFilter"
+            style="@style/ScanbotBottomNavigationItem"
+            app:label="@string/scanbot_gallery_bottom_navigation_item_filter"
+            app:itemIcon="@drawable/scanbot_ic_filter" />
+
+        <com.ionos.scanbot.screens.gallery.GalleryBottomNavigationItem
+            android:id="@+id/niRotate"
+            style="@style/ScanbotBottomNavigationItem"
+            app:label="@string/scanbot_gallery_bottom_navigation_item_rotate"
+            app:itemIcon="@drawable/scanbot_ic_rotate" />
+
+        <com.ionos.scanbot.screens.gallery.GalleryBottomNavigationItem
+            android:id="@+id/niRearrange"
+            style="@style/ScanbotBottomNavigationItem"
+            app:label="@string/scanbot_gallery_bottom_navigation_item_rearrange"
+            app:itemIcon="@drawable/scanbot_ic_rearrange" />
+
+        <com.ionos.scanbot.screens.gallery.GalleryBottomNavigationItem
+            android:id="@+id/niDelete"
+            style="@style/ScanbotBottomNavigationItem"
+            app:label="@string/scanbot_gallery_bottom_navigation_item_delete"
+            app:itemIcon="@drawable/scanbot_ic_delete" />
+
+	</LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

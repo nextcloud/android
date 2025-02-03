@@ -78,7 +78,7 @@
             android:layout_marginEnd="@dimen/standard_half_margin"
             android:layout_weight="1"
             android:text="@string/common_cancel"
-            style="@style/OutlinedButton"
+            style="@style/Theme.Dialog.Button.OutlinedButton"
             app:cornerRadius="@dimen/button_corner_radius" />
 
         <com.google.android.material.button.MaterialButton
@@ -87,7 +87,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/uploader_btn_upload_text"
-            android:theme="@style/Button.Primary"
+            android:textColor="@color/filled_button_text_color"
+            android:theme="@style/Theme.Dialog.IconButton.Filled"
             app:cornerRadius="@dimen/button_corner_radius" />
 
 	</LinearLayout>

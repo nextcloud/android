@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2021 TSI-mc
+  ~ SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2013 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="@dimen/standard_padding"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/filename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:text="@string/placeholder_filename"
+                android:textColor="@color/text_color"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="@string/placeholder_filename" />
+
+            <LinearLayout
+                android:id="@+id/filedetails"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/zero"
+                    android:layout_marginEnd="@dimen/standard_eighth_margin"
+                    android:contentDescription="@string/favorite"
+                    android:src="@drawable/ic_star_outline" />
+
+                <TextView
+                    android:id="@+id/size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/two_line_primary_text_size"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    tools:text="@string/placeholder_fileSize" />
+
+                <TextView
+                    android:id="@+id/file_separator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:paddingStart="@dimen/zero"
+                    android:paddingEnd="@dimen/standard_quarter_padding"
+                    android:text="@string/info_separator"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    android:textSize="@dimen/two_line_primary_text_size" />
+
+                <TextView
+                    android:id="@+id/last_modification_timestamp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:textSize="@dimen/two_line_primary_text_size"
+                    android:textColor="@color/list_item_lastmod_and_filesize_text"
+                    tools:text="@string/placeholder_media_time" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/standard_margin"
+                    android:layout_marginEnd="@dimen/standard_eighth_margin"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_tag"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/tags"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/tagsGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/standard_half_padding"
+                app:chipSpacingVertical="@dimen/standard_half_padding" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/overflow_menu"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:layout_marginTop="@dimen/standard_quarter_margin"
+            android:contentDescription="@string/overflow_menu"
+            app:cornerRadius="24dp"
+            app:icon="@drawable/ic_dots_vertical"
+            app:iconSize="24dp"
+            app:iconTint="@color/ionos_default_icon_color" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/progressBlock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingStart="@dimen/standard_padding"
+        android:paddingEnd="@dimen/zero"
+        android:paddingBottom="@dimen/standard_half_padding">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/standard_quarter_margin"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/progressText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/two_line_primary_text_size"
+                android:textColor="@color/list_item_lastmod_and_filesize_text"
+                android:text="@string/downloader_download_in_progress_ticker" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:indeterminateOnly="false" />
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancelBtn"
+            style="@style/Widget.AppTheme.Button.IconButton"
+            android:layout_width="@dimen/minimum_size_for_touchable_area"
+            android:layout_height="@dimen/minimum_size_for_touchable_area"
+            android:contentDescription="@string/common_cancel"
+            app:cornerRadius="24dp"
+            app:icon="@drawable/ic_cancel"
+            app:iconTint="@color/ionos_default_icon_color"
+            android:layout_marginTop="@dimen/standard_eighth_margin"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/syncBlock"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/list_divider_background" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/standard_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            android:paddingEnd="@dimen/zero"
+            android:paddingBottom="@dimen/standard_half_padding">
+
+            <CheckBox
+                android:id="@+id/folder_sync_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/sync" />
+        </LinearLayout>
+        
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/list_divider_background" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_default"
+        app:tabGravity="center"
+        app:tabMode="fixed"
+        app:tabTextColor="@color/text_color"
+        app:tabInlineLabel="true" />
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:visibility="gone"
+        android:id="@+id/sharing_frame_container"
+        android:layout_height="match_parent"/>
+
+    <include
+        android:id="@+id/empty_list"
+        layout="@layout/empty_list" />
+</LinearLayout>

@@ -47,6 +47,7 @@ import android.view.WindowManager;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.appReview.InAppReviewHelper;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.appinfo.AppInfo;
@@ -72,6 +73,7 @@ import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.nextcloud.utils.extensions.IntentExtensionsKt;
 import com.nextcloud.utils.fileNameValidator.FileNameValidator;
 import com.nextcloud.utils.view.FastScrollUtils;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.FilesBinding;
@@ -370,6 +372,49 @@ public class FileDisplayActivity extends FileActivity
                 .create()
                 .show();
         }
+    }
+
+    private void checkAutoUploadOnGPlay() {
+        if (!BuildHelper.GPLAY.equals(BuildConfig.FLAVOR)) {
+            return;
+        }
+
+        // only show on Android11+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.R) {
+            return;
+        }
+        
+        if (PermissionUtil.checkSelfPermission(this, Manifest.permission.MANAGE_EXTERNAL_STORAGE)) {
+            return;
+        }
+        
+        if (preferences.isAutoUploadGPlayWarningShown()) {
+            return;
+        }
+        
+        boolean showInfoDialog = false;
+        for (SyncedFolder syncedFolder : syncedFolderProvider.getSyncedFolders()) {
+            // move or delete after success
+            if (syncedFolder.getUploadAction() == FileUploadWorker.LOCAL_BEHAVIOUR_MOVE || 
+                syncedFolder.getUploadAction() == FileUploadWorker.LOCAL_BEHAVIOUR_DELETE) {
+                showInfoDialog = true;
+                break;
+            }
+        }
+
+        if (showInfoDialog) {
+            new MaterialAlertDialogBuilder(this, R.style.Theme_ownCloud_Dialog)
+                .setTitle(R.string.auto_upload_gplay)
+                .setMessage(R.string.auto_upload_gplay_desc)
+                .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
+                    dialog.dismiss();
+                })
+                .setIcon(R.drawable.nav_synced_folders)
+                .create()
+                .show();
+        }
+
+        preferences.setAutoUploadGPlayWarningShown(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -867,6 +912,7 @@ public class FileDisplayActivity extends FileActivity
     }
 
     @Override
+    @IonosCustomization
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.activity_file_display, menu);
@@ -879,8 +925,6 @@ public class FileDisplayActivity extends FileActivity
             showSearchView();
             searchView.setIconified(false);
         });
-
-        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
 
         // populate list of menu items to show/hide when drawer is opened/closed
         mDrawerMenuItemstoShowHideList = new ArrayList<>(1);
@@ -1485,6 +1529,7 @@ public class FileDisplayActivity extends FileActivity
     /**
      * Show a text message on screen view for notifying user if content is loading or folder is empty
      */
+    @IonosCustomization
     private void setBackgroundText() {
         final OCFileListFragment ocFileListFragment = getListOfFilesFragment();
         if (ocFileListFragment != null) {
@@ -1492,7 +1537,7 @@ public class FileDisplayActivity extends FileActivity
                 ocFileListFragment.setEmptyListLoadingMessage();
             } else {
                 if (MainApp.isOnlyOnDevice()) {
-                    ocFileListFragment.setMessageForEmptyList(R.string.file_list_empty_headline, R.string.file_list_empty_on_device, R.drawable.ic_list_empty_folder, true);
+                    ocFileListFragment.setMessageForEmptyList(R.string.file_list_empty_headline, R.string.file_list_empty_on_device, R.drawable.ic_list_empty_folder);
                 } else {
                     connectivityService.isNetworkAndServerAvailable(result -> {
                         if (result) {

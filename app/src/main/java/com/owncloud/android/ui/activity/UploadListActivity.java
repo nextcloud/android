@@ -20,6 +20,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.core.Clock;
@@ -142,12 +143,11 @@ public class UploadListActivity extends FileActivity {
         uploadListAdapter.loadUploadItemsFromDb();
     }
 
+    @IonosCustomization
     private void setupContent() {
         binding.list.setEmptyView(binding.emptyList.getRoot());
         binding.emptyList.getRoot().setVisibility(View.GONE);
         binding.emptyList.emptyListIcon.setImageResource(R.drawable.uploads);
-        binding.emptyList.emptyListIcon.getDrawable().mutate();
-        binding.emptyList.emptyListIcon.setAlpha(0.5f);
         binding.emptyList.emptyListIcon.setVisibility(View.VISIBLE);
         binding.emptyList.emptyListViewHeadline.setText(getString(R.string.upload_list_empty_headline));
         binding.emptyList.emptyListViewText.setText(getString(R.string.upload_list_empty_text_auto_upload));

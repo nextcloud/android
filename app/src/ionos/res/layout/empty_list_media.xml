@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2016 Andy Scherzinger <info@andy-scherzinger>
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/empty_list_view"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/empty_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:layout_margin="@dimen/standard_margin"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/standard_double_margin">
+
+        <ImageView
+            android:id="@+id/empty_list_icon"
+            android:layout_width="@dimen/empty_list_icon_layout_width"
+            android:layout_height="@dimen/empty_list_icon_layout_height"
+            android:contentDescription="@string/file_list_folder"
+            android:src="@drawable/ic_list_empty_folder"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/empty_list_view_headline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:paddingTop="@dimen/standard_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:text="@string/file_list_loading"
+            android:textSize="26sp" />
+
+        <TextView
+            android:id="@+id/empty_list_view_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:paddingTop="@dimen/standard_half_padding"
+            android:paddingBottom="@dimen/standard_half_padding"
+            android:text="@string/file_list_empty"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/empty_list_view_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/standard_half_margin"
+            android:theme="@style/Button.Primary"
+            android:visibility="gone"
+            app:cornerRadius="@dimen/button_corner_radius"
+            tools:visibility="visible" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

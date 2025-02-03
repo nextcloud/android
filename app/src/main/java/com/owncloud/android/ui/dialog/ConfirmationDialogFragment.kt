@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.di.Injectable
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -30,6 +31,7 @@ open class ConfirmationDialogFragment : DialogFragment(), Injectable {
 
     private var mListener: ConfirmationDialogFragmentListener? = null
 
+    @IonosCustomization()
     override fun onStart() {
         super.onStart()
 
@@ -38,17 +40,17 @@ open class ConfirmationDialogFragment : DialogFragment(), Injectable {
         if (alertDialog != null) {
             val positiveButton = alertDialog.getButton(AlertDialog.BUTTON_POSITIVE) as MaterialButton?
             if (positiveButton != null) {
-                viewThemeUtils?.material?.colorMaterialButtonPrimaryTonal(positiveButton)
+                viewThemeUtils?.ionos?.material?.colorMaterialButtonPrimaryTonal(positiveButton)
             }
 
             val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton?
             if (negativeButton != null) {
-                viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(negativeButton)
+                viewThemeUtils?.ionos?.material?.colorMaterialButtonPrimaryBorderless(negativeButton)
             }
 
             val neutralButton = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL) as MaterialButton?
             if (neutralButton != null) {
-                viewThemeUtils?.material?.colorMaterialButtonPrimaryBorderless(neutralButton)
+                viewThemeUtils?.ionos?.material?.colorMaterialButtonPrimaryBorderless(neutralButton)
             }
         }
     }

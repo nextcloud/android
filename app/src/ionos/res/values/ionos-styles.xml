@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="Theme.ownCloud.noActionBar.Login" parent="Theme.ownCloud.noActionBar.LoginBase">
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/madison</item>
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+    <!-- Launch screen -->
+    <style name="Theme.ownCloud.Launcher">
+        <item name="windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/black</item>
+        <item name="android:navigationBarColor">@color/madison</item>
+        <item name="android:windowBackground">@color/bg_default</item>
+        <item name="android:textColorHint">@color/secondary_text_color</item>
+    </style>
+
+    <!-- Splash screen style attributes: https://developer.android.com/develop/ui/views/launch/splash-screen#set-theme -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set the splash screen background color -->
+        <item name="windowSplashScreenBackground">@color/madison</item>
+
+        <!-- Set the splash screen animated icon  -->
+        <!-- Setting a transparent icon because of branding reason, showing icon is not accepted -->
+        <item name="windowSplashScreenAnimatedIcon">@android:color/transparent</item>
+
+        <!-- Set the theme of the Activity that directly follows your splash screen. -->
+        <!-- Required -->
+        <item name="postSplashScreenTheme">@style/Theme.ownCloud.Launcher</item>
+    </style>
+
+    <style name="Theme.ownCloud.Dialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
+        <item name="alertDialogStyle">@style/MaterialAlertDialogStyle</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.App.Title.Text</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.App.Body.Text</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.App.Button.Positive</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.App.Button.Negative</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.App.Button.Neutral</item>
+    </style>
+
+    <style name="MaterialAlertDialogStyle" parent="MaterialAlertDialog.Material3">
+        <item name="backgroundTint">@color/bg_default</item>
+    </style>
+
+    <style name="MaterialAlertDialog.App.Title.Text" parent="MaterialAlertDialog.Material3.Title.Text">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/dialog_title_text_size</item>
+    </style>
+
+    <style name="MaterialAlertDialog.App.Body.Text" parent="MaterialAlertDialog.Material3.Body.Text">
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textSize">@dimen/dialog_default_text_size</item>
+    </style>
+
+    <style name="Widget.App.Button.Positive" parent="Widget.Material3.Button.IconButton.Filled">
+        <item name="android:textColor">@color/filled_button_text_color</item>
+        <item name="android:backgroundTint">@color/filled_button_bg_color</item>
+        <item name="android:paddingRight">@dimen/button_text_padding</item>
+        <item name="android:paddingLeft">@dimen/button_text_padding</item>
+    </style>
+
+    <style name="Widget.App.Button.Negative" parent="Widget.Material3.Button.IconButton.Outlined">
+        <item name="android:textColor">@color/outlined_button_text_color</item>
+        <item name="android:backgroundTint">@color/outlined_button_bg_color</item>
+        <item name="strokeColor">@color/outlined_button_stroke_color</item>
+        <item name="strokeWidth">2dp</item>
+        <item name="android:paddingRight">@dimen/button_text_padding</item>
+        <item name="android:paddingLeft">@dimen/button_text_padding</item>
+    </style>
+
+    <style name="Widget.App.Button.Neutral" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/text_button_text_color</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+    </style>
+
+    <style name="Generic.ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.App.BottomSheetDialog">
+        <item name="bottomSheetDragHandleStyle">@style/App.BottomSheet.DragHandle</item>
+
+        <item name="android:navigationBarColor">@color/bottom_sheet_nav_bar_color</item>
+    </style>
+
+    <style name="App.BottomSheet.DragHandle" parent="Widget.Material3.BottomSheet.DragHandle">
+        <item name="android:minHeight">@dimen/bottom_sheet_drag_handle_height</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="srcCompat">@drawable/bottom_sheet_drag_handle</item>
+        <item name="tint">@color/bottom_sheet_drag_handle_color</item>
+    </style>
+
+    <style name="Generic.App.BottomSheetDialog" parent="App.BottomSheetDialog">
+        <item name="shapeAppearanceOverlay">@style/App.BottomSheet.ShapeAppearanceOverlay</item>
+        <item name="android:maxWidth">@dimen/huge_value</item>
+    </style>
+
+    <style name="App.BottomSheet.ShapeAppearanceOverlay" parent="">
+        <item name="cornerSizeTopLeft">@dimen/bottom_sheet_corner_radius</item>
+        <item name="cornerSizeTopRight">@dimen/bottom_sheet_corner_radius</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+
+    <style name="SettingsCategoryTitleStyle">
+        <item name="android:textSize">@dimen/settings_screen_title_text_size</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="SettingsTitleStyle">
+        <item name="android:textSize">@dimen/settings_screen_title_text_size</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="SettingsSubtitleStyle">
+        <item name="android:textSize">@dimen/settings_screen_description_text_size</item>
+        <item name="android:textColor">@color/secondary_text_color</item>
+    </style>
+
+    <style name="SettingsMaterialSwitchStyle" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="materialThemeOverlay">@style/SettingsMaterialSwitchThemeOverlayStyle</item>
+
+        <!-- unchecked, track stroke and thumb color -->
+        <item name="colorOutline">@color/settings_screen_switcher_outline_color</item>
+
+        <!-- unchecked, track background color -->
+        <item name="colorSurfaceContainerHighest">@color/settings_screen_switcher_surface_container_highest_color</item>
+
+        <!-- unchecked disabled, track background color -->
+        <item name="colorOnSurface">@color/settings_screen_switcher_on_surface_color</item>
+
+        <!-- checked, magnified thumb color -->
+        <item name="colorPrimaryContainer">@color/settings_screen_switcher_primary_container_color</item>
+
+        <!-- unchecked, pressed thumb color -->
+        <item name="thumbTint">@null</item>
+
+        <item name="android:minHeight">0dp</item>
+    </style>
+
+    <style name="SettingsMaterialSwitchThemeOverlayStyle">
+        <!-- checked, track background color -->
+        <item name="colorPrimary">@color/settings_screen_switcher_primary_color</item>
+
+        <!-- checked, pressed thumb ripple color -->
+        <item name="colorAccent">@color/settings_screen_switcher_accent_color</item>
+    </style>
+
+    <style name="SettingsBackupSwitchStyle" parent="SettingsMaterialSwitchStyle">
+        <item name="android:textSize">@dimen/settings_screen_title_text_size</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="SettingsBackupMaterialButtonFilledStyle" parent="Widget.App.Button.Positive">
+    </style>
+
+    <style name="SettingsBackupMaterialButtonOutlinedStyle" parent="Widget.App.Button.Negative">
+    </style>
+
+    <style name="PreferenceTheme" parent="FallbackThemingTheme">
+        <item name="android:colorBackground">@color/settings_screen_background</item>
+        <item name="android:listDivider">@null</item>
+        <item name="actionBarStyle">@style/PreferenceTheme.ActionBar</item>
+
+        <item name="android:alertDialogTheme">@style/PreferenceAlertDialogTheme</item>
+    </style>
+
+    <style name="PreferenceTheme.ActionBar" parent="@style/Widget.Material3.ActionBar.Solid">
+        <item name="background">@color/ionos_toolbar_color</item>
+        <item name="titleTextStyle">@style/PreferenceTheme.ActionBar.TitleTextStyle</item>
+    </style>
+
+    <style name="PreferenceTheme.ActionBar.TitleTextStyle" parent="TextAppearance.Material3.ActionBar.Title">
+        <item name="android:textColor">@color/ionos_default_text_color</item>-->
+    </style>
+
+    <style name="Theme.ToolbarTheme" parent="@style/ThemeOverlay.Material3.Dark.ActionBar">
+        <item name="android:editTextColor">@color/ionos_default_text_color</item>
+        <item name="android:textColor">@color/ionos_default_text_color</item>
+        <item name="android:textColorHint">@color/ionos_toolbar_hint_color</item>
+        <item name="actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
+        <item name="actionOverflowMenuStyle">@style/Generic.OverflowMenuStyle</item>
+        <item name="colorControlNormal">@color/ionos_default_icon_color</item>
+        <item name="iconTint">@color/ionos_default_icon_color</item>
+        <item name="titleTextColor">@color/ionos_default_text_color</item>
+        <item name="subtitleTextColor">@color/ionos_default_text_color</item>
+        <item name="searchViewStyle">@style/SearchViewStyle</item>
+    </style>
+
+    <style name="OverflowButtonStyle" parent="Widget.AppCompat.ActionButton.Overflow">
+        <item name="android:src">@drawable/ic_dots_vertical</item>
+    </style>
+
+    <style name="ToolbarSpinner" parent="Widget.AppCompat.Spinner">
+        <item name="colorControlNormal">@color/ionos_default_icon_color</item>
+    </style>
+
+    <style name="Widget.App.Snackbar" parent="Widget.MaterialComponents.Snackbar">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Snackbar</item>
+        <item name="actionTextColorAlpha">1</item>
+    </style>
+
+    <style name="Widget.App.SnackbarButton" parent="Widget.MaterialComponents.Button.TextButton.Snackbar">
+        <item name="android:textColor">@color/snackbar_action_button_text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
+
+    <style name="Widget.App.SnackbarTextView" parent="Widget.MaterialComponents.Snackbar.TextView">
+        <item name="android:textColor">@color/snackbar_text_color</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Snackbar" parent="">
+        <item name="colorOnSurface">@color/snackbar_background_color</item>
+        <item name="backgroundTint">@color/snackbar_background_color</item>
+    </style>
+
+    <style name="PreferenceAlertDialogTheme" parent="FallbackTheming.Dialog">
+
+        <!-- Dialog background -->
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+
+        <!-- Dialog title and item text color -->
+        <item name="android:textColor">@color/settings_screen_dialog_title_text_color</item>
+        <item name="android:textColorAlertDialogListItem">@color/settings_screen_dialog_item_text_color</item>
+
+        <!-- RadioButton unchecked color -->
+        <item name="colorControlNormal">@color/settings_screen_dialog_radiobutton_unchecked_color</item>
+
+        <!-- RadioButton checked color -->
+        <item name="colorControlActivated">@color/settings_screen_dialog_radiobutton_checked_color</item>
+
+        <!-- Button styles -->
+        <item name="android:buttonBarPositiveButtonStyle">@style/Widget.App.Button.Positive</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/Widget.App.Button.Negative</item>
+
+    </style>
+
+    <style name="App.ActionModeTitleText" parent="TextAppearance.Material3.ActionBar.Title">
+        <item name="android:textColor">@color/text_color</item>
+    </style>
+
+    <style name="Theme.Dialog.TextButton" parent="Widget.App.Button.Negative">
+    </style>
+
+    <style name="Theme.Dialog.IconButton.Filled.Tonal" parent="Widget.App.Button.Positive">
+    </style>
+
+    <style name="Theme.Dialog.IconButton.Filled" parent="Widget.App.Button.Positive">
+    </style>
+
+    <style name="Theme.Dialog.Button.OutlinedButton" parent="Widget.App.Button.Negative">
+    </style>
+
+    <style name="Theme.ownCloud.Media" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:textColor">@color/exoplayer_controls_color</item>
+    </style>
+
+    <style name="Generic.Nextcloud.Widget.PopupMenu" parent="Nextcloud.Widget.PopupMenu">
+        <item name="popupMenuBackground">@color/popup_background_color</item>
+    </style>
+
+    <style name="Generic.OverflowMenuStyle" parent="OverflowMenuStyle">
+        <item name="android:popupBackground">@color/popup_background_color</item>
+    </style>
+
+    <style name="FallbackDatePickerDialogTheme" parent="Theme.Material3.DayNight.Dialog">
+        <item name="android:windowBackground">@drawable/dialog_background</item>
+        <item name="android:datePickerStyle">@style/DatePickerStyle</item>
+        <item name="colorAccent">@color/date_picker_accent_color</item>
+        <item name="android:textColorPrimary">@color/text_color</item>
+        <item name="android:textColorPrimaryInverse">@color/date_picker_text_color_primary_inverse</item>
+        <item name="android:textColorSecondary">@color/secondary_text_color</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/Widget.App.Button.Positive</item>
+        <item name="android:buttonBarNegativeButtonStyle">@style/Widget.App.Button.Negative</item>
+    </style>
+
+    <style name="DatePickerStyle">
+        <item name="android:datePickerMode">calendar</item>
+    </style>
+
+    <style name="SearchViewStyle" parent="@style/Widget.AppCompat.SearchView.ActionBar">
+        <item name="closeIcon">@drawable/ic_close_search</item>
+    </style>
+
+</resources>

@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -114,6 +115,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
         inflater.inflate(R.menu.fragment_contact_list, menu);
     }
 
+    @IonosCustomization("colorMaterialButtonPrimaryBorderless")
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -235,7 +237,7 @@ public class BackupListFragment extends FileFragment implements Injectable {
             closeFragment();
         });
 
-        viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(binding.restoreSelected);
+        viewThemeUtils.ionos.material.colorMaterialButtonPrimaryBorderless(binding.restoreSelected);
 
         return view;
     }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <style name="Theme.ownCloud.PreviewImage" parent="Theme.ownCloud.Overlay">
+        <item name="android:windowFullscreen">false</item>
+    </style>
+
+    <style name="Generic.Nextcloud.Widget.PopupMenu" parent="Nextcloud.Widget.PopupMenu" />
+
+    <style name="Generic.OverflowMenuStyle" parent="OverflowMenuStyle" />
+
+    <style name="Generic.ThemeOverlay.App.BottomSheetDialog" parent="ThemeOverlay.App.BottomSheetDialog" />
+
+    <style name="Generic.App.BottomSheetDialog" parent="App.BottomSheetDialog" />
+
+    <style name="Theme.Dialog.TextButton" parent="Widget.Material3.Button.TextButton">
+    </style>
+
+    <style name="Theme.Dialog.IconButton.Filled.Tonal" parent="Widget.Material3.Button.IconButton.Filled.Tonal" />
+
+    <style name="Theme.Dialog.IconButton.Filled" parent="Widget.Material3.Button.IconButton.Filled" />
+
+    <style name="Theme.Dialog.Button.OutlinedButton" parent="Widget.Material3.Button.OutlinedButton" />
+
+    <style name="Theme.ownCloud.LoadingDialog" parent="Theme.ownCloud.Dialog">
+        <item name="android:windowMinWidthMajor">0%</item>
+        <item name="android:windowMinWidthMinor">0%</item>
+    </style>
+
+    <style name="FabButtonBackgroundShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+</resources>

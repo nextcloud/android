@@ -1,0 +1,10 @@
+## 3.30.4 (October 31, 2024)
+
+- Improved view handling for Two-Way Sync.
+- Added options to enable, disable, or schedule time intervals for Two-Way Sync.
+- Added ability to disable Two-Way Sync for all folders.
+- Optimized to skip syncing already downloaded files.
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/101

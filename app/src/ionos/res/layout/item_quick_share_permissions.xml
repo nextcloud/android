@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2021 TSI-mc
+  ~ SPDX-FileCopyrightText: 2021 Nextcloud GmbH
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/bottom_sheet_default_item_height"
+    android:layout_marginHorizontal="@dimen/bottom_sheet_default_item_horizontal_margin"
+    android:paddingHorizontal="@dimen/bottom_sheet_default_item_horizontal_padding"
+    android:background="@drawable/dialog_item_background">
+
+    <ImageView
+        android:id="@+id/tv_quick_share_check_icon"
+        android:layout_width="@dimen/bottom_sheet_default_icon_width"
+        android:layout_height="@dimen/bottom_sheet_default_icon_width"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_tick"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/ionos_default_icon_color" />
+
+    <TextView
+        android:id="@+id/tv_quick_share_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginHorizontal="@dimen/bottom_sheet_default_text_horizontal_margin"
+        android:text="@string/link_share_view_only"
+        android:textColor="@color/ionos_default_text_color"
+        android:textSize="@dimen/dialog_default_text_size"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/tv_quick_share_check_icon"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

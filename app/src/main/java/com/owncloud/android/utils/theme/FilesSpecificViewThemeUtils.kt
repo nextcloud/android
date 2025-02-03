@@ -23,6 +23,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.ActionBar
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.card.MaterialCardView
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.android.common.ui.color.ColorUtil
 import com.nextcloud.android.common.ui.theme.MaterialSchemes
 import com.nextcloud.android.common.ui.theme.ViewThemeUtilsBase
@@ -43,17 +44,9 @@ class FilesSpecificViewThemeUtils @Inject constructor(
     private val androidXViewThemeUtils: AndroidXViewThemeUtils
 ) : ViewThemeUtilsBase(schemes) {
     // not ported to common lib because PreferenceCategory is deprecated
+    @IonosCustomization
     fun themePreferenceCategory(category: PreferenceCategory) {
-        withScheme(category.context) {
-            val text: Spannable = SpannableString(category.title)
-            text.setSpan(
-                ForegroundColorSpan(it.primary),
-                0,
-                text.length,
-                Spannable.SPAN_INCLUSIVE_INCLUSIVE
-            )
-            category.title = text
-        }
+        // Do nothing
     }
 
     fun createAvatar(type: ShareType?, avatar: ImageView, context: Context) {
@@ -132,19 +125,11 @@ class FilesSpecificViewThemeUtils @Inject constructor(
      */
     // TODO move back arrow resource to lib and use lib method directly?
     @JvmOverloads
+    @IonosCustomization
     fun themeActionBar(context: Context, actionBar: ActionBar, title: String, isMenu: Boolean = false) {
         val icon = getHomeAsUpIcon(isMenu)
-        val backArrow = ResourcesCompat.getDrawable(
-            context.resources,
-            icon,
-            null
-        )!!
-        androidXViewThemeUtils.themeActionBar(
-            context,
-            actionBar,
-            title,
-            backArrow
-        )
+        actionBar.setHomeAsUpIndicator(icon)
+        actionBar.title = title
     }
 
     /**
@@ -165,13 +150,10 @@ class FilesSpecificViewThemeUtils @Inject constructor(
      * Colors actionbar background and back arrow but not the title
      */
     @JvmOverloads
+    @IonosCustomization
     fun themeActionBar(context: Context, actionBar: ActionBar, isMenu: Boolean = false) {
-        val backArrow = ResourcesCompat.getDrawable(
-            context.resources,
-            getHomeAsUpIcon(isMenu),
-            null
-        )!!
-        androidXViewThemeUtils.themeActionBar(context, actionBar, backArrow)
+        val icon = getHomeAsUpIcon(isMenu)
+        actionBar.setHomeAsUpIndicator(icon)
     }
 
     fun themeTemplateCardView(cardView: MaterialCardView) {

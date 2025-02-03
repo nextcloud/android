@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/info_box"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal|bottom"
+    android:background="@color/filelist_icon_background"
+    android:gravity="center"
+    android:padding="@dimen/standard_half_padding"
+    android:visibility="gone">
+
+    <TextView
+        android:id="@+id/info_box_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/standard_half_padding"
+        app:drawableStartCompat="@drawable/ic_information_outline"
+        android:drawableTint="@color/filelist_info_icon_color"
+        android:gravity="center"
+        android:paddingEnd="@dimen/standard_half_margin"
+        android:paddingLeft="@dimen/standard_half_padding"
+        android:paddingRight="@dimen/standard_half_padding"
+        android:paddingStart="@dimen/standard_half_margin"
+        android:textColor="@color/filelist_info_text_color"
+        tools:text="@string/offline_mode" />
+
+</LinearLayout>

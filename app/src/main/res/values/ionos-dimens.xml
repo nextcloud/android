@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+
+    <!-- Settings Screen -->
+    <dimen name="settings_screen_list_bottom_padding">8dp</dimen>
+
+    <!-- Data protection -->
+    <dimen name="ionos_data_protection_screen_padding">16dp</dimen>
+    <dimen name="ionos_data_protection_icon_size">64dp</dimen>
+    <dimen name="ionos_data_protection_title_text_size">18sp</dimen>
+    <dimen name="ionos_data_protection_title_line_height">24sp</dimen>
+    <dimen name="ionos_data_protection_title_top_margin">32dp</dimen>
+    <dimen name="ionos_data_protection_description_text_size">14sp</dimen>
+    <dimen name="ionos_data_protection_description_line_height">19sp</dimen>
+    <dimen name="ionos_data_protection_description_top_margin">12dp</dimen>
+    <dimen name="ionos_data_protection_description_bottom_margin">24dp</dimen>
+    <dimen name="ionos_data_protection_text_max_width">288dp</dimen>
+    <dimen name="ionos_data_protection_agree_button_top_margin">16dp</dimen>
+    <dimen name="ionos_data_protection_button_max_width">288dp</dimen>
+    <dimen name="ionos_data_protection_switch_vertical_padding">12dp</dimen>
+
+    <dimen name="text_input_box_stroke_width">1dp</dimen>
+    <dimen name="text_input_box_corner_radius">8dp</dimen>
+    <dimen name="text_input_text_size">14sp</dimen>
+    <dimen name="text_input_padding">16dp</dimen>
+
+</resources>

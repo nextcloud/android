@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.client.account.User;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -240,6 +241,7 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
      * {@inheritDoc}
      */
     @Override
+    @IonosCustomization
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.custom_menu_placeholder, menu);
@@ -248,7 +250,6 @@ public class PreviewTextFileFragment extends PreviewTextFragment {
         menuItem.setVisible(true);
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setMaxWidth(Integer.MAX_VALUE);
-        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
 
         if (searchOpen) {
             searchView.setIconified(false);

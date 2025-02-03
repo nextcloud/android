@@ -41,6 +41,8 @@ import android.view.ViewGroup;
 import android.webkit.URLUtil;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.ionos.annotation.IonosCustomization;
+import com.ionos.privacy.PrivacySettingsActivity;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -89,7 +91,6 @@ import androidx.annotation.VisibleForTesting;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 
 /**
  * An Activity that allows the user to change the application's settings.
@@ -146,7 +147,11 @@ public class SettingsActivity extends PreferenceActivity
 
     @SuppressWarnings("deprecation")
     @Override
+    @IonosCustomization("Delegate fix")
     public void onCreate(Bundle savedInstanceState) {
+        getDelegate().installViewFactory();
+        getDelegate().onCreate(savedInstanceState);
+
         boolean isApiLevel35OrHigher = (Build.VERSION.SDK_INT >= 35);
         if (isApiLevel35OrHigher) {
             WindowExtensionsKt.addSystemBarPaddings(getWindow());
@@ -155,8 +160,6 @@ public class SettingsActivity extends PreferenceActivity
 
         super.onCreate(savedInstanceState);
 
-        getDelegate().installViewFactory();
-        getDelegate().onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
 
         setupActionBar();
@@ -195,6 +198,10 @@ public class SettingsActivity extends PreferenceActivity
 
         // workaround for mismatched color when app dark mode and system dark mode don't agree
         setListBackground();
+
+        // workaround to set custom paddings
+        setListPadding();
+
         showPasscodeDialogIfEnforceAppProtection();
 
         if (isApiLevel35OrHigher) {
@@ -362,9 +369,10 @@ public class SettingsActivity extends PreferenceActivity
         viewThemeUtils.files.themePreferenceCategory(preferenceCategorySync);
 
         setupAutoUploadPreference(preferenceCategorySync);
-        setupInternalTwoWaySyncPreference();
+        setupInternalTwoWaySyncPreference(preferenceCategorySync);
     }
 
+    @IonosCustomization
     private void setupMoreCategory() {
         final PreferenceCategory preferenceCategoryMore = (PreferenceCategory) findPreference("more");
         viewThemeUtils.files.themePreferenceCategory(preferenceCategoryMore);
@@ -380,6 +388,8 @@ public class SettingsActivity extends PreferenceActivity
         setupE2EMnemonicPreference(preferenceCategoryMore);
 
         removeE2E(preferenceCategoryMore);
+
+        setupPrivacySettingsPreference(preferenceCategoryMore);
 
         setupHelpPreference(preferenceCategoryMore);
 
@@ -429,6 +439,7 @@ public class SettingsActivity extends PreferenceActivity
     }
 
 
+    @IonosCustomization
     private void setupRecommendPreference(PreferenceCategory preferenceCategoryMore) {
         boolean recommendEnabled = getResources().getBoolean(R.bool.recommend_enabled);
         Preference pRecommend = findPreference("recommend");
@@ -443,8 +454,13 @@ public class SettingsActivity extends PreferenceActivity
                     String appName = getString(R.string.app_name);
                     String downloadUrlGooglePlayStore = getString(R.string.url_app_download);
                     String downloadUrlFDroid = getString(R.string.fdroid_link);
-                    String downloadUrls = String.format(getString(R.string.recommend_urls),
-                                                        downloadUrlGooglePlayStore, downloadUrlFDroid);
+                    String downloadUrls;
+                    if (URLUtil.isValidUrl(downloadUrlFDroid)) {
+                        downloadUrls = String.format(getString(R.string.recommend_urls),
+                                                     downloadUrlGooglePlayStore, downloadUrlFDroid);
+                    } else {
+                        downloadUrls = downloadUrlGooglePlayStore;
+                    }
 
                     String recommendSubject = String.format(getString(R.string.recommend_subject), appName);
                     String recommendText = String.format(getString(R.string.recommend_text),
@@ -571,6 +587,16 @@ public class SettingsActivity extends PreferenceActivity
             .show();
     }
 
+    private void setupPrivacySettingsPreference(PreferenceCategory preferenceCategoryMore) {
+        Preference privacySettings = findPreference("privacy_settings");
+        if (privacySettings != null) {
+            privacySettings.setOnPreferenceClickListener(preference -> {
+                startActivity(PrivacySettingsActivity.createIntent(this));
+                return true;
+            });
+        }
+    }
+
     private void setupHelpPreference(PreferenceCategory preferenceCategoryMore) {
         boolean helpEnabled = getResources().getBoolean(R.bool.help_enabled);
         Preference pHelp = findPreference("help");
@@ -599,14 +625,10 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
-    private void setupInternalTwoWaySyncPreference() {
+    @IonosCustomization("internal_two_way_sync was hidden")
+    private void setupInternalTwoWaySyncPreference(PreferenceCategory preferenceCategorySync) {
         Preference twoWaySync = findPreference("internal_two_way_sync");
-
-        twoWaySync.setOnPreferenceClickListener(preference -> {
-            Intent intent = new Intent(this, InternalTwoWaySyncActivity.class);
-            startActivity(intent);
-            return true;
-        });
+        preferenceCategorySync.removePreference(twoWaySync);
     }
 
     private void setupBackupPreference() {
@@ -840,6 +862,7 @@ public class SettingsActivity extends PreferenceActivity
         }
     }
 
+    @IonosCustomization("Workaround to hide prefStoragePath")
     private void setupGeneralCategory() {
         final PreferenceCategory preferenceCategoryGeneral = (PreferenceCategory) findPreference("general");
         viewThemeUtils.files.themePreferenceCategory(preferenceCategoryGeneral);
@@ -847,14 +870,7 @@ public class SettingsActivity extends PreferenceActivity
         readStoragePath();
 
         prefDataLoc = findPreference(AppPreferencesImpl.DATA_STORAGE_LOCATION);
-        if (prefDataLoc != null) {
-            prefDataLoc.setOnPreferenceClickListener(p -> {
-                Intent intent = new Intent(MainApp.getAppContext(), ChooseStorageLocationActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                startActivityForResult(intent, ACTION_SET_STORAGE_LOCATION);
-                return true;
-            });
-        }
+        preferenceCategoryGeneral.removePreference(prefDataLoc);
 
         ListPreference themePref = (ListPreference) findPreference("darkMode");
 
@@ -890,6 +906,12 @@ public class SettingsActivity extends PreferenceActivity
         getListView().setBackgroundColor(ContextCompat.getColor(this, R.color.bg_default));
     }
 
+    @IonosCustomization
+    private void setListPadding() {
+        int bottom = (int) getResources().getDimension(R.dimen.settings_screen_list_bottom_padding);
+        getListView().setPadding(0, 0, 0, bottom);
+    }
+
     private String getAppVersion() {
         String temp;
         try {
@@ -908,24 +930,16 @@ public class SettingsActivity extends PreferenceActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @IonosCustomization
     private void setupActionBar() {
         ActionBar actionBar = getDelegate().getSupportActionBar();
         if (actionBar == null) return;
 
-        viewThemeUtils.platform.themeStatusBar(this);
+        viewThemeUtils.ionos.platform.themeSystemBars(this);
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(true);
-
-        if (getResources() == null) return;
-        Drawable menuIcon = ResourcesCompat.getDrawable(getResources(),
-                                                        R.drawable.ic_arrow_back,
-                                                        null);
-
-        if (menuIcon == null) return;
-        viewThemeUtils.androidx.themeActionBar(this,
-                                               actionBar,
-                                               getString(R.string.actionbar_settings),
-                                               menuIcon);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+        actionBar.setTitle(R.string.actionbar_settings);
     }
 
     private void launchDavDroidLogin() {

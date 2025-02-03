@@ -38,4 +38,18 @@
         app:cornerRadius="@dimen/button_corner_radius"
         android:text="@string/authenticator_activity_cancel_login" />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/bRetry"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/tvAuthorizationDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="0"
+        android:visibility="gone" />
+
 </LinearLayout>

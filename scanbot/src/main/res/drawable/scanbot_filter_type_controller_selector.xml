@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true">
+        <shape android:shape="oval">
+            <solid android:color="?scanbot_filter_control_icon_background"/>
+            <size android:width="40dp" android:height="40dp" />
+            <padding android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp" />
+            <stroke android:width="1dp" android:color="?scanbot_filter_control_active" />
+        </shape>
+    </item>
+    <item android:state_pressed="false">
+        <layer-list>
+            <item>
+                <shape android:shape="oval">
+                    <solid android:color="?scanbot_filter_control_icon_border"/>
+                    <size android:width="40dp" android:height="40dp" />
+                    <padding android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp" />
+                    <stroke android:width="1dp" android:color="?scanbot_filter_control_icon_background" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="oval">
+                    <size android:width="40dp" android:height="40dp" />
+                    <solid android:color="?scanbot_filter_control_icon_background" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_pressed="true">
+        <shape android:shape="oval">
+            <solid android:color="?scanbot_filter_control_icon_background"/>
+            <size android:width="40dp" android:height="40dp" />
+            <padding android:bottom="2dp" android:left="2dp" android:right="2dp" android:top="2dp" />
+            <stroke android:width="1dp" android:color="?scanbot_filter_control_active" />
+        </shape>
+    </item>
+</selector>

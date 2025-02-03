@@ -31,6 +31,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.di.Injectable;
@@ -210,6 +211,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
         searchConfig.reset();
     }
 
+    @IonosCustomization
     private void setupView() {
         setShareWithYou();
 
@@ -219,7 +221,6 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
             (SearchManager) fileActivity.getSystemService(Context.SEARCH_SERVICE),
             binding.searchView,
             fileActivity.getComponentName());
-        viewThemeUtils.androidx.themeToolbarSearchView(binding.searchView);
 
 
         if (file.canReshare()) {
@@ -237,7 +238,7 @@ public class FileDetailSharingFragment extends Fragment implements ShareeListAda
                     }
                 }
             } else {
-                binding.searchView.setQueryHint(getResources().getString(R.string.share_search));
+                binding.searchView.setQueryHint(getResources().getString(R.string.ionos_share_search));
             }
         } else {
             binding.searchView.setQueryHint(getResources().getString(R.string.resharing_is_not_allowed));

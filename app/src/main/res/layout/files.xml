@@ -63,6 +63,11 @@
             android:layout_marginBottom="@dimen/floating_action_button_bottom_margin"
             android:contentDescription="@string/fab_label"
             app:srcCompat="@drawable/ic_plus"
+            app:backgroundTint="@color/fab_background_tint"
+            app:rippleColor="@color/transparent"
+            app:shapeAppearanceOverlay="@style/FabButtonBackgroundShape"
+            app:tint="@color/fab_icon_tint"
+            app:ionosCustomization="Custom FAB colors"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             android:visibility="gone"
             tools:visibility="visible" />

@@ -19,6 +19,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.ionos.annotation.IonosCustomization;
+import com.ionos.authorization_method.AuthorizationMethodActivity;
 import com.nextcloud.client.onboarding.FirstRunActivity;
 import com.nextcloud.common.NextcloudClient;
 import com.nextcloud.utils.extensions.AccountExtensionsKt;
@@ -452,12 +454,13 @@ public class UserAccountManagerImpl implements UserAccountManager {
     }
 
     @Override
+    @IonosCustomization
     public void startAccountCreation(final Activity activity) {
 
         // skipping AuthenticatorActivity redirection when user is on Launcher or FirstRun Activity
         if (activity instanceof LauncherActivity || activity instanceof FirstRunActivity) return;
 
-        Intent intent = new Intent(context, AuthenticatorActivity.class);
+        Intent intent = AuthorizationMethodActivity.createInstance(context);
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);

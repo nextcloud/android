@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2017-2020 Andy Scherzinger <info@andy-scherzinger>
+  ~ SPDX-FileCopyrightText: 22020 Joris Bodin <joris.bodin@infomaniak.com>
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/ionos_toolbar_color">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/toolbar_frame"
+        android:background="@color/ionos_toolbar_color"
+        app:layout_scrollFlags="scroll|enterAlways">
+
+        <!-- sorting/layout bar -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sort_list_button_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/ionos_toolbar_color"
+            android:paddingTop="@dimen/standard_eight_padding"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sort_button"
+                style="@style/Nextcloud.Material.TextButton"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="7dp"
+                android:contentDescription="@string/actionbar_sort"
+                android:minWidth="0dp"
+                android:text="@string/ionos_toolbar_sort_button_text"
+                android:textAlignment="textStart"
+                android:textAllCaps="false"
+                android:textColor="@color/ionos_default_text_color"
+                android:textSize="16sp"
+                app:icon="@drawable/ic_alphabetical_asc"
+                app:iconGravity="textEnd"
+                app:iconSize="48dp"
+                app:iconTint="@color/ionos_default_icon_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/switch_grid_view_button"
+                style="@style/Widget.AppTheme.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="1dp"
+                android:contentDescription="@string/action_switch_grid_view"
+                app:cornerRadius="24dp"
+                app:icon="@drawable/ic_view_module"
+                app:iconSize="24dp"
+                app:iconTint="@color/ionos_default_icon_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <!-- default toolbar -->
+        <RelativeLayout
+            android:id="@+id/default_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <FrameLayout
+                android:id="@+id/preview_image_frame"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/nav_drawer_header_height"
+                android:visibility="gone">
+
+                <!--                TODO add shimmer -->
+
+                <ImageView
+                    android:id="@+id/preview_image"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/nav_drawer_header_height"
+                    android:contentDescription="@string/preview_image_description"
+                    android:scaleType="centerCrop" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/nav_drawer_header_height"
+                    android:background="@drawable/preview_image_gradient_shape" />
+            </FrameLayout>
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/ionos_toolbar_color"
+                android:minHeight="?attr/actionBarSize"
+                android:paddingBottom="@dimen/standard_half_padding"
+                android:theme="@style/Theme.ToolbarTheme"
+                tools:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/toolbar_spinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:visibility="gone"
+                    app:popupTheme="@style/Theme.AppCompat.DayNight.NoActionBar"
+                    style="@style/ToolbarSpinner" />
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/toolbar_linear_layout"
+            android:visibility="gone"
+            tools:visibility="gone"
+            android:orientation="horizontal"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/toolbar_menu_button"
+                style="@style/Widget.AppTheme.Button.IconButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:cornerRadius="@dimen/button_corner_radius"
+                app:icon="@drawable/ic_menu"
+                app:iconSize="24dp"
+                app:iconTint="@color/black" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/toolbar_title"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:lines="1"
+                android:textSize="16sp"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"/>
+
+        </LinearLayout>
+
+
+        <!-- home/search toolbar -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/home_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="4dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/search_bar_background_color"
+            app:cardCornerRadius="24dp"
+            app:strokeWidth="0dp"
+            tools:visibility="visible">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/menu_button"
+                    style="@style/Widget.AppTheme.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="10dp"
+                    android:contentDescription="@string/action_switch_grid_view"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:icon="@drawable/ic_menu"
+                    app:iconSize="24dp"
+                    app:iconTint="@color/search_bar_icon_color"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/search_text"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="7dp"
+                    android:layout_marginEnd="18dp"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:lines="1"
+                    android:textColor="@color/search_bar_text_color"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@id/menu_button"
+                    app:layout_constraintRight_toLeftOf="@id/notification_button"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Search" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/notification_button"
+                    style="@style/Widget.AppTheme.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/notification_icon_description"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:iconSize="20dp"
+                    app:icon="@drawable/ic_notification"
+                    app:iconTint="@color/fontAppbar"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/switch_account_button"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/switch_account_button"
+                    style="@style/Widget.AppTheme.Button.IconButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:icon="@drawable/account_circle_white"
+                    app:iconSize="32dp"
+                    app:iconTint="@color/transparent"
+                    app:iconTintMode="add"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </FrameLayout>
+
+    <include layout="@layout/info_box" />
+
+</com.google.android.material.appbar.AppBarLayout>

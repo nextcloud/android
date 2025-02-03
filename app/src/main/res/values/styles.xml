@@ -11,7 +11,7 @@
   ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski
   ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
 -->
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
+<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
     <style name="BaseTheme.ownCloud" parent="Theme.Material3.DayNight">
         <item name="actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
         <item name="android:actionBarStyle">@style/Theme.ownCloud.Widget.ActionBar</item>
@@ -32,6 +32,8 @@
         <item name="android:navigationBarColor">@color/bg_default</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="dialogCornerRadius">@dimen/dialogBorderRadius</item>
+
+        <item name="actionModeCloseDrawable" app:ionosCustomization="">@drawable/ic_arrow_back</item>
     </style>
 
     <style name="Theme.ownCloud" parent="BaseTheme.ownCloud" />
@@ -50,6 +52,12 @@
         <item name="android:navigationBarColor">@color/bg_default</item>
         <item name="textInputStyle">@style/Widget.App.TextInputLayout</item>
         <item name="dialogCornerRadius">@dimen/dialogBorderRadius</item>
+
+        <item name="snackbarStyle" app:ionosCustomization="">@style/Widget.App.Snackbar</item>
+        <item name="snackbarButtonStyle" app:ionosCustomization="">@style/Widget.App.SnackbarButton</item>
+        <item name="snackbarTextViewStyle" app:ionosCustomization="">@style/Widget.App.SnackbarTextView</item>
+
+        <item name="actionModeCloseDrawable" app:ionosCustomization="">@drawable/ic_arrow_back</item>
     </style>
 
     <style name="FallbackThemingTheme" parent="FallbackThemingThemeBase" />
@@ -97,7 +105,7 @@
         <item name="android:textColor">#FFFFFF</item>
     </style>
 
-    <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.ownCloud.Toolbar">
+    <style name="Theme.ownCloud.ToolbarBase" parent="BaseTheme.Ionos.Toolbar">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
@@ -112,7 +120,7 @@
         <item name="android:navigationBarColor">@color/bg_default</item>
     </style>
 
-    <style name="Theme.ownCloud.Toolbar.NullBackground" parent="BaseTheme.ownCloud.Toolbar">
+    <style name="Theme.ownCloud.Toolbar.NullBackground" parent="BaseTheme.Ionos.Toolbar">
         <item name="android:colorBackground">@null</item>
         <item name="android:background">@null</item>
     </style>
@@ -227,7 +235,7 @@
         <item name="android:navigationBarColor">@color/black</item>
         <item name="toolbarStyle">@style/Theme.ownCloud.Overlay.ActionBar</item>
         <item name="actionOverflowButtonStyle">@style/ToolbarStyle.Overflow</item>
-        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.App.BottomSheetDialog</item>
+        <item name="bottomSheetDialogTheme">@style/Generic.ThemeOverlay.App.BottomSheetDialog</item>
     </style>
 
     <style name="Theme.ownCloud.OverlayGrey" parent="Theme.ownCloud.OverlayBase">
@@ -243,7 +251,6 @@
 
     <!-- ACTION BAR STYLES -->
     <style name="Theme.ownCloud.Overlay.ActionBar" parent="@style/Widget.Material3.Toolbar">
-        <item name="android:background">@color/color_transparent</item>
         <item name="android:windowActionBarOverlay">true</item>
         <!-- Support library compatibility -->
         <item name="background">@color/color_transparent</item>
@@ -369,7 +376,7 @@
 
     <style name="Theme.ToolbarTheme" parent="@style/ThemeOverlay.Material3.Dark.ActionBar">
         <item name="android:textColor">@color/menu_item_text_color</item>
-        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+        <item name="actionOverflowMenuStyle">@style/Generic.OverflowMenuStyle</item>
     </style>
 
     <style name="OverflowMenuStyle" parent="Widget.Material3.PopupMenu.Overflow">
@@ -431,7 +438,7 @@
 
 
     <style name="ThemeOverlay.App.BottomSheetDialog" parent="@style/ThemeOverlay.Material3.BottomSheetDialog">
-        <item name="bottomSheetStyle">@style/App.BottomSheetDialog</item>
+        <item name="bottomSheetStyle">@style/Generic.App.BottomSheetDialog</item>
     </style>
 
     <style name="App.BottomSheetDialog" parent="Widget.Material3.BottomSheet.Modal">

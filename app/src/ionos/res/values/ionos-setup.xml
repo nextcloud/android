@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+<resources>
+    <!-- App name  and other strings-->
+    <string name="app_name">IONOS HiDrive Next</string>
+    <string name="account_type">com.ionos.hidrivenext</string>
+    <string name="authority">com.ionos.hidrivenext.provider</string>    <!-- better if was the app package with ".provider" appended ; it identifies the provider -->
+    <string name="users_and_groups_search_authority">com.ionos.hidrivenext.providers.UsersAndGroupsSearchProvider</string>
+    <string name="users_and_groups_share_with">com.ionos.hidrivenext.providers.UsersAndGroupsSearchProvider.action.SHARE_WITH</string>
+    <string name="document_provider_authority">com.ionos.hidrivenext.documents</string>
+    <string name="file_provider_authority">com.ionos.hidrivenext.files</string>
+    <string name="image_cache_provider_authority">com.ionos.hidrivenext.providers.imageCache</string>
+    <string name="db_file">ionos.db</string>
+    <string name="db_name">ionos</string>
+    <string name="data_folder">ionos</string>
+    <string name="default_display_name_for_root_folder">IONOS HiDrive Next</string>
+    <string name="nextcloud_user_agent">Mozilla/5.0 (Android) IONOS HiDrive Next/%1$s%2$s</string>
+    <bool name="show_hidden_files_enabled">false</bool>
+
+    <!-- URLs and flags related -->
+    <string name="provider_registration_server">https://easy-qa-1.nextcloud-ionos.com/login/v2</string>
+
+    <!-- Determine is participate enabled -->
+    <bool name="participate_enabled">false</bool>
+
+    <!-- Flags to enable/disable some features -->
+    <bool name="is_branded_client">true</bool>
+    <bool name="show_external_links">false</bool>
+    <bool name="logger_enabled">false</bool>
+
+    <!-- Help, imprint and feedback, and other things -->
+    <bool name="davdroid_integration_enabled">false</bool>
+    <bool name="help_enabled">true</bool>
+    <bool name="recommend_enabled">true</bool>
+    <bool name="imprint_enabled">true</bool>
+    <bool name="privacy_enabled">true</bool>
+    <bool name="sourcecode_enabled">true</bool>
+    <bool name="license_enabled">true</bool>
+    <string name="url_help">https://wl.hidrive.com/easy/0132</string>
+    <string name="url_app_download">https://wl.hidrive.com/easy/0192</string>
+    <string name="fdroid_link"></string>
+    <string name="url_imprint">https://wl.hidrive.com/easy/0102</string>
+    <string name="privacy_url">https://wl.hidrive.com/easy/0162</string>
+    <string name="sourcecode_url">https://wl.hidrive.com/easy/0182</string>
+</resources>
+
+

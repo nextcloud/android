@@ -27,7 +27,9 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.network.ClientFactory
@@ -295,9 +297,10 @@ class TrashbinActivity :
         onBackPressedCallback.isEnabled = !isRoot
     }
 
+    @IonosCustomization
     override fun onSortingOrderChosen(selection: FileSortOrder?) {
-        val sortButton = findViewById<TextView>(R.id.sort_button)
-        sortButton.setText(DisplayUtils.getSortOrderStringId(selection))
+        val sortButton = findViewById<MaterialButton>(R.id.sort_button)
+        sortButton.setIconResource(DisplayUtils.getSortOrderIconRes(selection))
         trashbinListAdapter?.setSortOrder(selection)
     }
 

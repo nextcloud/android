@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filtersContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="30dp">
+
+    <ImageButton
+        android:id="@+id/control_filter_1"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:layout_marginBottom="@dimen/scanbot_filter_control_margin_vertical"
+        android:background="@drawable/scanbot_filter_type_controller_selector"
+        android:scaleType="centerCrop"
+        android:src="@drawable/scanbot_ic_filter_type_magic_color_selector"
+        app:layout_constraintBottom_toTopOf="@id/control_image_1"
+        app:layout_constraintStart_toStartOf="@id/control_progress_1" />
+
+    <ImageButton
+        android:id="@+id/control_filter_2"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:background="@drawable/scanbot_filter_type_controller_selector"
+        android:scaleType="centerCrop"
+        android:src="@drawable/scanbot_ic_filter_type_magic_text_selector"
+        app:layout_constraintBottom_toBottomOf="@id/control_filter_1"
+        app:layout_constraintEnd_toStartOf="@+id/control_filter_3"
+        app:layout_constraintStart_toEndOf="@+id/control_filter_1"
+        app:layout_constraintTop_toTopOf="@id/control_filter_1" />
+
+    <ImageButton
+        android:id="@+id/control_filter_3"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:background="@drawable/scanbot_filter_type_controller_selector"
+        android:scaleType="centerCrop"
+        android:src="@drawable/scanbot_ic_filter_type_color_selector"
+        app:layout_constraintBottom_toBottomOf="@id/control_filter_1"
+        app:layout_constraintEnd_toStartOf="@+id/control_filter_4"
+        app:layout_constraintStart_toEndOf="@+id/control_filter_2"
+        app:layout_constraintTop_toTopOf="@id/control_filter_1" />
+
+    <ImageButton
+        android:id="@+id/control_filter_4"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:background="@drawable/scanbot_filter_type_controller_selector"
+        android:scaleType="centerCrop"
+        android:src="@drawable/scanbot_ic_filter_type_grayscale_selector"
+        app:layout_constraintBottom_toBottomOf="@id/control_filter_1"
+        app:layout_constraintEnd_toStartOf="@+id/control_filter_5"
+        app:layout_constraintStart_toEndOf="@+id/control_filter_3"
+        app:layout_constraintTop_toTopOf="@id/control_filter_1" />
+
+    <ImageButton
+        android:id="@+id/control_filter_5"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:background="@drawable/scanbot_filter_type_controller_selector"
+        android:scaleType="centerCrop"
+        android:src="@drawable/scanbot_ic_filter_type_black_white_selector"
+        app:layout_constraintBottom_toBottomOf="@id/control_filter_1"
+        app:layout_constraintEnd_toStartOf="@+id/control_filter_6"
+        app:layout_constraintStart_toEndOf="@+id/control_filter_4"
+        app:layout_constraintTop_toTopOf="@id/control_filter_1" />
+
+    <ImageButton
+        android:id="@+id/control_filter_6"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:background="@drawable/scanbot_filter_type_controller_selector"
+        android:scaleType="centerCrop"
+        android:src="@drawable/scanbot_ic_filter_type_none_selector"
+        app:layout_constraintBottom_toBottomOf="@id/control_filter_1"
+        app:layout_constraintEnd_toEndOf="@id/control_progress_1"
+        app:layout_constraintTop_toTopOf="@id/control_filter_1" />
+
+    <ImageView
+        android:id="@+id/control_image_1"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:layout_marginBottom="@dimen/scanbot_filter_control_margin_vertical"
+        android:src="@drawable/scanbot_ic_filter_brightness_selector"
+        app:layout_constraintBottom_toTopOf="@id/control_image_2"
+        app:layout_constraintStart_toStartOf="@id/filtersContainer" />
+
+    <SeekBar
+        android:id="@+id/control_progress_1"
+        style="@style/ScanbotFilterControlSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:layout_marginStart="@dimen/scanbot_filter_control_margin_horizontal"
+        android:layout_marginEnd="@dimen/scanbot_filter_control_margin_horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/control_image_1"
+        app:layout_constraintEnd_toStartOf="@id/control_reset_1"
+        app:layout_constraintStart_toEndOf="@id/control_image_1"
+        app:layout_constraintTop_toTopOf="@id/control_image_1"
+        tools:progress="50" />
+
+    <ImageButton
+        android:id="@+id/control_reset_1"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerCrop"
+        android:src="@drawable/scanbot_ic_filter_reset"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/control_image_1"
+        app:layout_constraintEnd_toEndOf="@id/filtersContainer"
+        app:layout_constraintTop_toTopOf="@id/control_image_1"
+        app:layout_constraintVertical_bias="0.0"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/control_image_2"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:layout_marginBottom="@dimen/scanbot_filter_control_margin_vertical"
+        android:src="@drawable/scanbot_ic_filter_sharpness_selector"
+        app:layout_constraintBottom_toTopOf="@id/control_image_3"
+        app:layout_constraintStart_toStartOf="@id/filtersContainer" />
+
+    <SeekBar
+        android:id="@+id/control_progress_2"
+        style="@style/ScanbotFilterControlSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:layout_marginStart="@dimen/scanbot_filter_control_margin_horizontal"
+        android:layout_marginEnd="@dimen/scanbot_filter_control_margin_horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/control_image_2"
+        app:layout_constraintEnd_toStartOf="@id/control_reset_2"
+        app:layout_constraintStart_toEndOf="@id/control_image_2"
+        app:layout_constraintTop_toTopOf="@id/control_image_2" />
+
+    <ImageButton
+        android:id="@+id/control_reset_2"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerCrop"
+        android:src="@drawable/scanbot_ic_filter_reset"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/control_image_2"
+        app:layout_constraintEnd_toEndOf="@id/filtersContainer"
+        app:layout_constraintTop_toTopOf="@id/control_image_2"
+        tools:visibility="visible" />
+
+    <ImageView
+        android:id="@+id/control_image_3"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:src="@drawable/scanbot_ic_filter_contrast_selector"
+        app:layout_constraintBottom_toBottomOf="@id/filtersContainer"
+        app:layout_constraintStart_toStartOf="@id/filtersContainer" />
+
+    <SeekBar
+        android:id="@+id/control_progress_3"
+        style="@style/ScanbotFilterControlSeekBar"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:layout_marginStart="@dimen/scanbot_filter_control_margin_horizontal"
+        android:layout_marginEnd="@dimen/scanbot_filter_control_margin_horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/control_image_3"
+        app:layout_constraintEnd_toStartOf="@id/control_reset_3"
+        app:layout_constraintStart_toEndOf="@id/control_image_3"
+        app:layout_constraintTop_toTopOf="@id/control_image_3" />
+
+    <ImageButton
+        android:id="@+id/control_reset_3"
+        android:layout_width="@dimen/scanbot_filter_icon_size"
+        android:layout_height="@dimen/scanbot_filter_icon_size"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:scaleType="centerCrop"
+        android:src="@drawable/scanbot_ic_filter_reset"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@id/control_image_3"
+        app:layout_constraintEnd_toEndOf="@id/filtersContainer"
+        app:layout_constraintTop_toTopOf="@id/control_image_3"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

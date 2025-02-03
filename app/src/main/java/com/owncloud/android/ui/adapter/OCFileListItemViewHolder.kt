@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.elyeproj.loaderviewlibrary.LoaderImageView
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
+import com.ionos.annotation.IonosCustomization
 import com.owncloud.android.databinding.ListItemBinding
 import com.owncloud.android.ui.AvatarGroupLayout
 
@@ -66,6 +67,9 @@ internal class OCFileListItemViewHolder(private var binding: ListItemBinding) :
         get() = null
     override val shimmerThumbnail: LoaderImageView
         get() = binding.thumbnailLayout.thumbnailShimmer
+    @IonosCustomization
+    override val fileIcon: ImageView
+        get() = binding.thumbnailLayout.fileIcon
     override val favorite: ImageView
         get() = binding.favoriteAction
     override val localFileIndicator: ImageView

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <string name="scanbot_cancel_btn_title">Cancel</string>
+    <string name="scanbot_fail">An error occurred. Please try again later.</string>
+    <string name="scanbot_hold_and_drag_to_rearrange_pages">Hold and drag to rearrange pages</string>
+    <string name="scanbot_no_camera_permissions_granted">Need use camera permissions to be granted to scan code</string>
+    <string name="scanbot_no_enough_free_device_space_title">No enough space</string>
+    <string name="scanbot_no_free_space_message">"The smartphone does not have enough storage space available. "</string>
+    <string name="scanbot_ok_btn_title">OK</string>
+    <string name="scanbot_save">Save</string>
+    <string name="scanbot_save_as">Save as</string>
+    <string name="scanbot_unknown_exception">An error occurred. Please try again later</string>
+
+    <string name="scanbot_camera_automatic_btn">Automatic</string>
+    <string name="scanbot_camera_detection_result_error_nothing_detected">No Document</string>
+    <string name="scanbot_camera_detection_result_error_too_dark">Poor light</string>
+    <string name="scanbot_camera_detection_result_error_too_noisy">Background too noisy</string>
+    <string name="scanbot_camera_detection_result_ok">Don\'t move</string>
+    <string name="scanbot_camera_detection_result_ok_but_bad_angles">Perspective</string>
+    <string name="scanbot_camera_detection_result_ok_but_too_small">Move closer</string>
+    <string name="scanbot_camera_flash_button">Flash</string>
+    <string name="scanbot_camera_import_btn_title">Import</string>
+    <string name="scanbot_creating_document_error_message">Error while creating document</string>
+    <string name="scanbot_detect_document">Detect document</string>
+    <string name="scanbot_document_name_format" formatted="false">scan_%1$tY%1$tm%1$td-%1$tH%1$tM%1$tS</string>
+    <string name="scanbot_exit_confirmation_message">Progress will be lost</string>
+    <string name="scanbot_exit_confirmation_title">Scan document</string>
+    <string name="scanbot_file_import_failed">Can\'t import file %s</string>
+    <string name="scanbot_filter_applying_for_all">Applying filter for all images</string>
+    <string name="scanbot_filter_black_n_white">Black &amp; White</string>
+    <string name="scanbot_filter_color">Color</string>
+    <string name="scanbot_filter_grayscale">Grayscale</string>
+    <string name="scanbot_filter_magic_color">Magic Color</string>
+    <string name="scanbot_filter_magic_text">Magic Text</string>
+    <string name="scanbot_filter_none">No filter</string>
+    <string name="scanbot_filter_popup_apply_for_all">Apply for all</string>
+    <string name="scanbot_gallery_counter_formatted" formatted="false">%d of %d</string>
+    <string name="scanbot_no_enough_free_device_space_message">Not enough space on device for taking photo. Please, clear storage.</string>
+    <string name="scanbot_processing_document_title">Processing document…</string>
+    <string name="scanbot_processing_title">Processing…</string>
+    <string name="scanbot_rearrange_title">Rearrange pages</string>
+    <string name="scanbot_reset_borders">Reset borders</string>
+    <string name="scanbot_save_file_name_title">File name:</string>
+    <string name="scanbot_save_file_type_title">File type:</string>
+    <string name="scanbot_save_invalid_file_name">Invalid file name</string>
+    <string name="scanbot_save_path">Save location:</string>
+    
+    <string name="scanbot_gallery_bottom_navigation_item_crop">Crop</string>
+    <string name="scanbot_gallery_bottom_navigation_item_filter">Filter</string>
+    <string name="scanbot_gallery_bottom_navigation_item_rotate">Rotate</string>
+    <string name="scanbot_gallery_bottom_navigation_item_rearrange">Rearrange</string>
+    <string name="scanbot_gallery_bottom_navigation_item_delete">Delete</string>
+</resources>

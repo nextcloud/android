@@ -50,7 +50,7 @@ class ProfileBottomSheetDialog(
             window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         }
 
-        viewThemeUtils.platform.themeDialog(binding.root)
+        viewThemeUtils.ionos.platform.themeDialog(binding.root)
 
         binding.icon.tag = hoverCard.userId
         DisplayUtils.setAvatar(

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2021 Andy Scherzinger <info@andy-scherzinger>
+  ~ SPDX-FileCopyrightText: 2016 Nextcloud
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:layout_weight="1"
+        android:background="@color/ionos_drawer_background"
+        android:theme="@style/NavigationView_ItemTextAppearance"
+        app:headerLayout="@layout/drawer_header"
+        app:itemVerticalPadding="16dp"
+        app:itemShapeInsetTop="6dp"
+        app:itemShapeInsetBottom="6dp"
+        app:itemHorizontalPadding="40dp"
+        app:itemShapeInsetStart="24dp"
+        app:itemShapeInsetEnd="24dp"
+        app:itemIconSize = "16dp"
+        app:itemTextColor="@color/ionos_default_text_color"
+        app:itemShapeFillColor="@color/drawer_item_shape_color"
+        app:drawerLayoutCornerSize="0dp"
+        app:menu="@menu/partial_drawer_entries">
+
+        <LinearLayout
+            android:id="@+id/drawer_quota"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:clickable="false"
+            android:orientation="vertical"
+            android:background="@color/ionos_drawer_background"
+            android:paddingLeft="@dimen/drawer_content_horizontal_padding"
+            android:paddingTop="@dimen/standard_half_padding"
+            android:paddingRight="@dimen/drawer_content_horizontal_padding"
+            android:paddingBottom="@dimen/standard_padding"
+            android:visibility="gone"
+            tools:visibility="visible">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/ic_cloud"
+                android:layout_marginBottom="@dimen/standard_half_padding"
+                android:text="@string/ionos_side_menu_storage_used"
+                android:textStyle="bold"
+                android:drawablePadding="@dimen/nav_drawer_used_storage_drawable_padding" />
+
+            <TextView
+                android:id="@+id/drawer_quota_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawablePadding="@dimen/alternate_half_padding" />
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/drawer_quota_ProgressBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="false"
+                android:indeterminateOnly="false"
+                android:text="@string/drawer_quota"
+                app:trackCornerRadius="13dp"
+                app:trackThickness="8dp"
+                app:trackColor="@color/ionos_drawer_quota_background"
+                app:trackStopIndicatorSize="0dp"
+                app:indicatorTrackGapSize = "0dp"
+                tools:progress="50" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/drawer_quota_percentage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/standard_half_padding"
+                android:drawablePadding="@dimen/alternate_half_padding"
+                android:text="@string/drawer_quota"
+                android:textColor="@color/ionos_default_text_color" />
+
+        </LinearLayout>
+
+    </com.google.android.material.navigation.NavigationView>
+
+</merge>

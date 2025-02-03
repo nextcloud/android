@@ -8,6 +8,7 @@ rootProject.name = 'Nextcloud'
 
 include ':app'
 include ':appscan'
+include ':scanbot'
 
 //includeBuild('../android-common') {
 //    dependencySubstitution {

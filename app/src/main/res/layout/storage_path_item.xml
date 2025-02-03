@@ -15,6 +15,9 @@
     android:gravity="center|start"
     android:paddingBottom="@dimen/standard_half_padding"
     android:text="@string/menu_item_sort_by_name_z_a"
+    android:textColor="@color/text_color"
     app:icon="@drawable/ic_user"
     app:iconPadding="@dimen/standard_padding"
+    app:iconTint="@color/default_icon_color"
+    app:ionosCustomization="Custom color"
     tools:text="DCIM" />

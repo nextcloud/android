@@ -112,7 +112,7 @@ class SendShareDialog : BottomSheetDialogFragment(R.layout.send_share_fragment),
     private fun applyTintColor() {
         viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(binding.btnLink)
         viewThemeUtils?.material?.colorMaterialButtonPrimaryFilled(binding.btnShare)
-        viewThemeUtils?.platform?.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
+        viewThemeUtils?.ionos?.platform?.colorViewBackground(binding.bottomSheet, ColorRole.SURFACE)
     }
 
     @Suppress("MagicNumber")

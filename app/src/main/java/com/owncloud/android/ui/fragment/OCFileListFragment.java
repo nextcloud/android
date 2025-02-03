@@ -41,6 +41,8 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.ionos.annotation.IonosCustomization;
+import com.ionos.scanbot.controller.ScanbotController;
 import com.nextcloud.android.lib.resources.files.ToggleFileLockRemoteOperation;
 import com.nextcloud.android.lib.resources.recommendations.GetRecommendationsRemoteOperation;
 import com.nextcloud.android.lib.resources.recommendations.Recommendation;
@@ -50,7 +52,6 @@ import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.device.DeviceInfo;
 import com.nextcloud.client.di.Injectable;
 import com.nextcloud.client.documentscan.AppScanOptionalFeature;
-import com.nextcloud.client.documentscan.DocumentScanActivity;
 import com.nextcloud.client.editimage.EditImageActivity;
 import com.nextcloud.client.jobs.BackgroundJobManager;
 import com.nextcloud.client.network.ClientFactory;
@@ -220,6 +221,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
     @Inject ShortcutUtil shortcutUtil;
     @Inject SyncedFolderProvider syncedFolderProvider;
     @Inject AppScanOptionalFeature appScanOptionalFeature;
+    @Inject ScanbotController scanbotController;
 
     protected FileFragment.ContainerActivity mContainerActivity;
 
@@ -316,6 +318,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      * {@inheritDoc}
      */
     @Override
+    @IonosCustomization
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log_OC.i(TAG, "onCreateView() start");
         View v = super.onCreateView(inflater, container, savedInstanceState);
@@ -338,11 +341,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         mFabMain = requireActivity().findViewById(R.id.fab_main);
-
-        if (mFabMain != null) {
-            // is not available in FolderPickerActivity
-            viewThemeUtils.material.themeFAB(mFabMain);
-        }
 
         Log_OC.i(TAG, "onCreateView() end");
         return v;
@@ -514,24 +512,21 @@ public class OCFileListFragment extends ExtendedListFragment implements
     /**
      * register listener on FAB.
      */
+    @IonosCustomization("Show simple FAB menu bottom sheet")
     public void registerFabListener() {
         FileActivity activity = (FileActivity) getActivity();
 
         if (mFabMain != null) {
             // is not available in FolderPickerActivity
-            viewThemeUtils.material.themeFAB(mFabMain);
             mFabMain.setOnClickListener(v -> {
                 PermissionUtil.requestMediaLocationPermission(activity);
 
-                final OCFileListBottomSheetDialog dialog =
-                    new OCFileListBottomSheetDialog(activity,
+                final SimpleOCFileListBottomSheetDialog dialog =
+                    new SimpleOCFileListBottomSheetDialog(activity,
                                                     this,
                                                     deviceInfo,
-                                                    accountManager.getUser(),
-                                                    getCurrentFile(),
                                                     themeUtils,
                                                     viewThemeUtils,
-                                                    editorUtils,
                                                     appScanOptionalFeature);
 
                 dialog.getBehavior().setState(BottomSheetBehavior.STATE_EXPANDED);
@@ -596,9 +591,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         final OCFile currentFile = getCurrentFile();
         if (fileDisplayActivity != null && currentFile != null && currentFile.isFolder()) {
 
-            Intent intent = new Intent(requireContext(), DocumentScanActivity.class);
-            intent.putExtra(DocumentScanActivity.EXTRA_FOLDER, currentFile.getRemotePath());
-            startActivity(intent);
+            scanbotController.scanToDocument(requireContext(), currentFile.getRemotePath());
         } else {
             Log.w(TAG, "scanDocUpload: Failed to start doc scanning, fileDisplayActivity=" + fileDisplayActivity +
                 ", currentFile=" + currentFile);
@@ -812,6 +805,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
          * Load menu and customize UI when action mode is started.
          */
         @Override
+        @IonosCustomization
         public boolean onCreateActionMode(ActionMode mode, Menu menu) {
             mActiveActionMode = mode;
             // Determine if actionMode is "new" or not (already affected by item-selection)
@@ -820,8 +814,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             // fake menu to be able to use bottom sheet instead
             MenuInflater inflater = getActivity().getMenuInflater();
             inflater.inflate(R.menu.custom_menu_placeholder, menu);
-            final MenuItem item = menu.findItem(R.id.custom_menu_placeholder_item);
-            item.setIcon(viewThemeUtils.platform.colorDrawable(item.getIcon(), ContextCompat.getColor(requireContext(), R.color.white)));
             mode.invalidate();
 
             //set actionMode color
@@ -881,7 +873,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
 
             Activity activity = getActivity();
             if (activity != null) {
-                viewThemeUtils.platform.resetStatusBar(activity);
+                viewThemeUtils.ionos.platform.resetSystemBars(activity);
             }
 
             getCommonAdapter().setMultiSelect(false);
@@ -1602,6 +1594,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         mAdapter.notifyItemChanged(file);
     }
 
+    @IonosCustomization
     private void updateLayout() {
         // decide grid vs list view
         if (isGridViewPreferred(mFile)) {
@@ -1611,7 +1604,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
 
         if (mSortButton != null) {
-            mSortButton.setText(DisplayUtils.getSortOrderStringId(preferences.getSortOrderByFolder(mFile)));
+            mSortButton.setIconResource(DisplayUtils.getSortOrderIconRes(preferences.getSortOrderByFolder(mFile)));
         }
         if (mSwitchGridViewButton != null) {
             setGridSwitchButton();
@@ -1636,8 +1629,9 @@ public class OCFileListFragment extends ExtendedListFragment implements
         }
     }
 
+    @IonosCustomization
     public void sortFiles(FileSortOrder sortOrder) {
-        mSortButton.setText(DisplayUtils.getSortOrderStringId(sortOrder));
+        mSortButton.setIconResource(DisplayUtils.getSortOrderIconRes(sortOrder));
         mAdapter.setSortOrder(mFile, sortOrder);
     }
 
@@ -2209,6 +2203,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param visible Desired visibility for the FAB.
      */
+    @IonosCustomization
     public void setFabVisible(final boolean visible) {
         if (mFabMain == null) {
             // is not available in FolderPickerActivity
@@ -2219,7 +2214,6 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (visible) {
                     mFabMain.show();
-                    viewThemeUtils.material.themeFAB(mFabMain);
                 } else {
                     mFabMain.hide();
                 }
@@ -2259,6 +2253,7 @@ public class OCFileListFragment extends ExtendedListFragment implements
      *
      * @param enabled Desired visibility for the FAB.
      */
+    @IonosCustomization
     public void setFabEnabled(final boolean enabled) {
         if (mFabMain == null) {
             // is not available in FolderPickerActivity
@@ -2269,10 +2264,8 @@ public class OCFileListFragment extends ExtendedListFragment implements
             getActivity().runOnUiThread(() -> {
                 if (enabled) {
                     mFabMain.setEnabled(true);
-                    viewThemeUtils.material.themeFAB(mFabMain);
                 } else {
                     mFabMain.setEnabled(false);
-                    viewThemeUtils.material.themeFAB(mFabMain);
                 }
             });
         }

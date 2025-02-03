@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2013 David A. Velasco <dvelasco@solidgear.es>
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+-->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/exo_black_opacity_60">
+
+    <LinearLayout
+        android:id="@id/exo_center_controls"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:clipToPadding="false"
+        android:gravity="center"
+        android:layoutDirection="ltr"
+        android:padding="@dimen/exo_center_controls_padding"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/rewindBtn"
+            style="@style/ExoStyledControls.Button.Center"
+            android:layout_width="@dimen/exo_rewind_buttons_size"
+            android:layout_height="@dimen/exo_rewind_buttons_size"
+            android:src="@drawable/exo_styled_controls_simple_rewind" />
+
+        <ImageButton
+            android:id="@+id/playBtn"
+            style="@style/ExoStyledControls.Button.Center.PlayPause"
+            android:layout_width="@dimen/exo_play_pause_button_size"
+            android:layout_height="@dimen/exo_play_pause_button_size"
+            android:layout_marginHorizontal="@dimen/exo_play_pause_margin_horizontal" />
+
+        <ImageButton
+            android:id="@+id/forwardBtn"
+            style="@style/ExoStyledControls.Button.Center"
+            android:layout_width="@dimen/exo_rewind_buttons_size"
+            android:layout_height="@dimen/exo_rewind_buttons_size"
+            android:src="@drawable/exo_styled_controls_simple_fastforward" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@id/exo_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/exo_bottom_bar_height"
+        android:background="@color/exo_bottom_bar_background"
+        android:layoutDirection="ltr"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@id/exo_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_marginBottom="@dimen/exo_time_margin_bottom"
+            android:layoutDirection="ltr"
+            android:paddingStart="@dimen/exo_styled_bottom_bar_time_padding"
+            android:paddingLeft="@dimen/exo_styled_bottom_bar_time_padding"
+            android:paddingEnd="@dimen/exo_styled_bottom_bar_time_padding"
+            android:paddingRight="@dimen/exo_styled_bottom_bar_time_padding">
+
+            <TextView
+                android:id="@+id/currentTimeText"
+                style="@style/ExoStyledControls.TimeText.Position"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:textColor="@color/exoplayer_controls_color" />
+
+            <ImageView
+                android:layout_width="@dimen/exo_time_divider_size"
+                android:layout_height="@dimen/exo_time_divider_size"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="4dp"
+                android:layout_marginTop="1dp"
+                android:src="@drawable/exo_divider" />
+
+            <TextView
+                android:id="@+id/totalTimeText"
+                style="@style/ExoStyledControls.TimeText.Duration"
+                android:layout_gravity="center"
+                android:textColor="@color/gull_grayapprox" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <SeekBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/exo_progress_bar_height"
+        android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:progressBackgroundTint="@color/gull_grayapprox"
+        android:progressBackgroundTintMode="src_over"
+        android:progressTint="@color/exoplayer_controls_color"
+        android:splitTrack="false"
+        android:layout_marginHorizontal="6dp"
+        android:thumb="@drawable/exo_thumb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/exo_bottom_bar"
+        app:layout_constraintTop_toTopOf="@+id/exo_bottom_bar"
+        tools:ignore="UnusedAttribute"
+        tools:progress="50" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

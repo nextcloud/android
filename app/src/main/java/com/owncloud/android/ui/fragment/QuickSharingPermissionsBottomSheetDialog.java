@@ -12,10 +12,10 @@ package com.owncloud.android.ui.fragment;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.ionos.annotation.IonosCustomization;
 import com.owncloud.android.R;
 import com.owncloud.android.databinding.QuickSharingPermissionsBottomSheetFragmentBinding;
 import com.owncloud.android.datamodel.QuickPermissionModel;
@@ -57,16 +57,13 @@ public class QuickSharingPermissionsBottomSheetDialog extends BottomSheetDialog 
     }
 
     @Override
+    @IonosCustomization("Remove custom window LayoutParams")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = QuickSharingPermissionsBottomSheetFragmentBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        if (getWindow() != null) {
-            getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        }
-
-        viewThemeUtils.platform.themeDialog(binding.getRoot());
+        viewThemeUtils.ionos.platform.themeDialog(binding.getRoot());
 
         setUpRecyclerView();
         setOnShowListener(d ->

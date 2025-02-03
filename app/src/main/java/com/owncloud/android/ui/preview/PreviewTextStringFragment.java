@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.android.lib.richWorkspace.RichWorkspaceDirectEditingRemoteOperation;
 import com.nextcloud.utils.extensions.FileExtensionsKt;
 import com.owncloud.android.R;
@@ -72,6 +73,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
     }
 
     @Override
+    @IonosCustomization
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = super.onCreateView(inflater, container, savedInstanceState);
 
@@ -85,7 +87,6 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         fabMain.setOnClickListener(v -> edit());
 
         fabMain.setImageResource(R.drawable.ic_edit);
-        viewThemeUtils.material.themeFAB(fabMain);
 
         return view;
     }
@@ -104,6 +105,7 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
      * {@inheritDoc}
      */
     @Override
+    @IonosCustomization
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
 
@@ -112,7 +114,6 @@ public class PreviewTextStringFragment extends PreviewTextFragment {
         searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
         searchView.setOnQueryTextListener(this);
         searchView.setMaxWidth(Integer.MAX_VALUE);
-        viewThemeUtils.androidx.themeToolbarSearchView(searchView);
 
         if (searchOpen) {
             searchView.setIconified(false);

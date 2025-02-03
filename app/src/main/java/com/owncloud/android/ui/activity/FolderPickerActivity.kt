@@ -22,6 +22,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.fileNameValidator.FileNameValidator
 import com.owncloud.android.R
@@ -206,6 +207,7 @@ open class FolderPickerActivity :
     /**
      * Show a text message on screen view for notifying user if content is loading or folder is empty
      */
+    @IonosCustomization
     private fun setBackgroundText() {
         val listFragment = listOfFilesFragment
 
@@ -219,7 +221,6 @@ open class FolderPickerActivity :
                     R.string.folder_list_empty_headline,
                     R.string.file_list_empty_moving,
                     R.drawable.ic_list_empty_create_folder,
-                    true
                 )
             } else {
                 it.setEmptyListLoadingMessage()
@@ -444,23 +445,23 @@ open class FolderPickerActivity :
 
     private fun initControls() {
         if (this is FilePickerActivity) {
-            viewThemeUtils.material.colorMaterialButtonPrimaryFilled(filesPickerBinding.folderPickerBtnCancel)
+            viewThemeUtils.ionos.material.colorMaterialButtonPrimaryFilled(filesPickerBinding.folderPickerBtnCancel)
             filesPickerBinding.folderPickerBtnCancel.setOnClickListener { finish() }
         } else {
-            viewThemeUtils.material.colorMaterialButtonText(folderPickerBinding.folderPickerBtnCancel)
+            viewThemeUtils.ionos.material.colorMaterialButtonText(folderPickerBinding.folderPickerBtnCancel)
             folderPickerBinding.folderPickerBtnCancel.setOnClickListener { finish() }
 
-            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(folderPickerBinding.folderPickerBtnChoose)
+            viewThemeUtils.ionos.material.colorMaterialButtonPrimaryTonal(folderPickerBinding.folderPickerBtnChoose)
             folderPickerBinding.folderPickerBtnChoose.setOnClickListener { processOperation(null) }
 
-            viewThemeUtils.material.colorMaterialButtonPrimaryFilled(folderPickerBinding.folderPickerBtnCopy)
+            viewThemeUtils.ionos.material.colorMaterialButtonPrimaryFilled(folderPickerBinding.folderPickerBtnCopy)
             folderPickerBinding.folderPickerBtnCopy.setOnClickListener {
                 processOperation(
                     OperationsService.ACTION_COPY_FILE
                 )
             }
 
-            viewThemeUtils.material.colorMaterialButtonPrimaryTonal(folderPickerBinding.folderPickerBtnMove)
+            viewThemeUtils.ionos.material.colorMaterialButtonPrimaryTonal(folderPickerBinding.folderPickerBtnMove)
             folderPickerBinding.folderPickerBtnMove.setOnClickListener {
                 processOperation(
                     OperationsService.ACTION_MOVE_FILE

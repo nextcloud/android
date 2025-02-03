@@ -43,6 +43,7 @@
             android:paddingTop="@dimen/standard_padding"
             android:paddingBottom="@dimen/standard_half_padding"
             android:text="@string/file_list_loading"
+            android:textColor="@color/text_color"
             android:textSize="26sp" />
 
         <TextView
@@ -55,6 +56,7 @@
             android:paddingTop="@dimen/standard_half_padding"
             android:paddingBottom="@dimen/standard_half_padding"
             android:text="@string/file_list_empty"
+            android:textColor="@color/text_color"
             android:visibility="gone"
             tools:visibility="visible" />
 

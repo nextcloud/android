@@ -1,0 +1,41 @@
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/scanbot_gallery_navigation_item_height"
+        android:layout_margin="@dimen/scanbot_padding_small"
+        app:tint="?scanbot_gallery_bottom_navigation_icon_color"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/scanbot_ic_crop" />
+
+    <TextView
+        android:id="@+id/tvLabel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/scanbot_gallery_navigation_item_label_vertical_margin"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        android:textColor="?scanbot_gallery_bottom_navigation_icon_color"
+        android:textSize="@dimen/scanbot_gallery_navigation_item_label_text_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivIcon"
+        tools:text="Crop" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

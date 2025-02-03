@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/fab_pressed_background_color" android:state_enabled="true" android:state_pressed="true" />
+    <item android:color="@color/fab_background_color" android:state_enabled="true" />
+    <item android:color="@color/fab_disabled_background_color" android:state_enabled="false" />
+</selector>

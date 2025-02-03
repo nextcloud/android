@@ -30,7 +30,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/searchView"
-        android:hint="@string/share_search"
+        android:hint="@string/ionos_share_search"
         style="@style/ownCloud.SearchView"/>
 
     <ListView

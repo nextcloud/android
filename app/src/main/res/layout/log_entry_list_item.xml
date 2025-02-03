@@ -20,6 +20,7 @@
         android:ellipsize="end"
         android:lines="1"
         android:textStyle="bold"
+        android:textColor="@color/text_color"
         tools:text="@tools:sample/lorem/random" />
 
     <TextView

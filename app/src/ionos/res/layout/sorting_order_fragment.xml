@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-FileCopyrightText: 2017 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/sorting_dialog_header_margin"
+            android:gravity="center|start"
+            android:text="@string/sort_by"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_title_text_size"
+            app:fontFamily="sans-serif-medium" />
+
+        <TextView
+            android:id="@+id/sortByNameAscending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/sorting_dialog_item_horizontal_margin"
+            android:layout_marginBottom="@dimen/sorting_dialog_item_bottom_margin"
+            android:background="@drawable/dialog_item_background"
+            android:drawablePadding="@dimen/sorting_dialog_item_drawable_padding"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_name_a_z"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_alphabetical_asc" />
+
+        <TextView
+            android:id="@+id/sortByNameDescending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/sorting_dialog_item_horizontal_margin"
+            android:layout_marginBottom="@dimen/sorting_dialog_item_bottom_margin"
+            android:background="@drawable/dialog_item_background"
+            android:drawablePadding="@dimen/sorting_dialog_item_drawable_padding"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_name_z_a"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_alphabetical_desc" />
+
+        <TextView
+            android:id="@+id/sortByModificationDateDescending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/sorting_dialog_item_horizontal_margin"
+            android:layout_marginBottom="@dimen/sorting_dialog_item_bottom_margin"
+            android:background="@drawable/dialog_item_background"
+            android:drawablePadding="@dimen/sorting_dialog_item_drawable_padding"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_date_newest_first"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_modification_desc" />
+
+        <TextView
+            android:id="@+id/sortByModificationDateAscending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/sorting_dialog_item_horizontal_margin"
+            android:layout_marginBottom="@dimen/sorting_dialog_item_bottom_margin"
+            android:background="@drawable/dialog_item_background"
+            android:drawablePadding="@dimen/sorting_dialog_item_drawable_padding"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_date_oldest_first"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_modification_asc" />
+
+        <TextView
+            android:id="@+id/sortBySizeDescending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/sorting_dialog_item_horizontal_margin"
+            android:layout_marginBottom="@dimen/sorting_dialog_item_bottom_margin"
+            android:background="@drawable/dialog_item_background"
+            android:drawablePadding="@dimen/sorting_dialog_item_drawable_padding"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_size_biggest_first"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_size_desc" />
+
+        <TextView
+            android:id="@+id/sortBySizeAscending"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/sorting_dialog_item_horizontal_margin"
+            android:layout_marginBottom="@dimen/sorting_dialog_item_bottom_margin"
+            android:background="@drawable/dialog_item_background"
+            android:drawablePadding="@dimen/sorting_dialog_item_drawable_padding"
+            android:gravity="center|start"
+            android:text="@string/menu_item_sort_by_size_smallest_first"
+            android:textColor="@color/ionos_default_text_color"
+            android:textSize="@dimen/dialog_default_text_size"
+            android:textStyle="bold"
+            app:drawableStartCompat="@drawable/ic_size_asc" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel"
+            style="@style/Widget.App.Button.Positive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/sorting_dialog_cancel_button_end_margin"
+            android:layout_marginBottom="@dimen/sorting_dialog_cancel_button_bottom_margin"
+            android:text="@string/common_cancel" />
+
+    </LinearLayout>
+
+</ScrollView>

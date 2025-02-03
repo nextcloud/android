@@ -1,0 +1,71 @@
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <style name="ScanbotDefaultTheme">
+        <item name="scanbot_app_bar_color">@color/scanbot_lochmara</item>
+        <item name="scanbot_status_bar_color">@color/scanbot_congress_blue</item>
+        <item name="scanbot_light_status_bar">false</item>
+        <item name="scanbot_navigation_bar_color">@color/scanbot_black</item>
+        <item name="scanbot_light_navigation_bar">false</item>
+        <item name="scanbot_toolbar_text_color">@color/scanbot_white</item>
+        <item name="scanbot_window_background">@color/scanbot_white</item>
+        <item name="scanbot_default_icon_color">@color/scanbot_lochmara</item>
+        <item name="scanbot_tip_icon_color">@color/scanbot_lochmara</item>
+
+        <item name="scanbot_camera_button_background_idle">@color/scanbot_white</item>
+        <item name="scanbot_camera_button_background_pressed">@color/scanbot_light_blue</item>
+        <item name="scanbot_camera_toggle_activated_text_color">@color/scanbot_lochmara</item>
+        <item name="scanbot_camera_toggle_deactivated_text_color">@color/scanbot_congress_blue</item>
+        <item name="scanbot_camera_button_icon_color">@color/scanbot_lochmara</item>
+        <item name="scanbot_camera_flash_color">@color/scanbot_congress_blue</item>
+        <item name="scanbot_camera_flash_selected_color">@color/scanbot_lochmara</item>
+        <item name="scanbot_camera_polygon_fill_color">@color/scanbot_transparent_pizazz</item>
+        <item name="scanbot_camera_polygon_stroke_color">@color/scanbot_transparent_pizazz2</item>
+        <item name="scanbot_camera_screen_cancel_text_color">@color/scanbot_white</item>
+        <item name="scanbot_camera_toolbar_background">@color/scanbot_white</item>
+        <item name="scanbot_camera_bottom_bar_background">@color/scanbot_lochmara</item>
+        <item name="scanbot_camera_user_guidance_text_color">@color/scanbot_black</item>
+
+        <item name="scanbot_crop_polygon_edge_color">@color/scanbot_lochmara</item>
+        <item name="scanbot_crop_screen_button_background">@color/scanbot_lochmara</item>
+        <item name="scanbot_crop_screen_button_text_color">@color/scanbot_white</item>
+
+        <item name="scanbot_file_type_text_color_checked">@color/scanbot_lochmara</item>
+        <item name="scanbot_file_type_text_color_unchecked">@color/scanbot_black</item>
+
+        <item name="scanbot_filter_control_active">@color/scanbot_lochmara</item>
+        <item name="scanbot_filter_control_icon_background">@color/scanbot_white</item>
+        <item name="scanbot_filter_control_icon_border">@color/scanbot_congress_blue</item>
+        <item name="scanbot_filter_control_inactive">@color/scanbot_lochmara</item>
+        <item name="scanbot_filter_control_seek_bar_thumb_active">@color/scanbot_lochmara</item>
+        <item name="scanbot_filter_control_seek_bar_progress_active">@color/scanbot_lochmara</item>
+        <item name="scanbot_filter_control_seek_bar_progress_background_active">@color/scanbot_lochmara</item>
+        <item name="scanbot_filter_apply_to_all_text_color">@color/scanbot_black</item>
+
+        <item name="scanbot_gallery_counter_rounded_background">@color/scanbot_grey</item>
+        <item name="scanbot_gallery_screen_counter_text_color">@color/scanbot_white</item>
+        <item name="scanbot_gallery_screen_counter_background_color">@color/scanbot_dark_grey</item>
+        <item name="scanbot_gallery_bottom_navigation_icon_color">@color/scanbot_lochmara</item>
+        <item name="scanbot_gallery_bottom_navigation_color">@color/scanbot_white</item>
+        <item name="scanbot_gallery_fab_background_tint">@color/scanbot_lochmara</item>
+        <item name="scanbot_gallery_fab_icon_tint">@color/scanbot_white</item>
+
+        <item name="scanbot_rearrange_icon_color">@color/scanbot_lochmara</item>
+        <item name="scanbot_rearrange_text_color">@color/scanbot_black</item>
+
+        <item name="scanbot_save_divider_color">@color/scanbot_dark_grey</item>
+        <item name="scanbot_save_file_location_label_text_color">@color/scanbot_grey</item>
+        <item name="scanbot_save_file_name_label_text_color">@color/scanbot_grey</item>
+        <item name="scanbot_save_file_type_label_text_color">@color/scanbot_grey</item>
+        <item name="scanbot_save_screen_path_text_color">@color/scanbot_black</item>
+
+        <item name="scanbot_edit_text_text_color">@color/scanbot_black</item>
+        <item name="scanbot_edit_text_highlight_color">@color/scanbot_transparent_lochmara</item>
+        <item name="scanbot_edit_text_select_handler_color">@color/scanbot_lochmara</item>
+    </style>
+</resources>

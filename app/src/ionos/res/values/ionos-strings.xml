@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+
+    <!-- Authorization Screen -->
+    <string name="ionos_authorization_method_greeting">Welcome to the cloud storage</string>
+    <string name="ionos_authorization_method_login_button">Log In</string>
+    <string name="ionos_authorization_method_description">You need to login over browser</string>
+    <string name="ionos_authorization_screen_cancel_button">Cancel</string>
+    <string name="ionos_authorization_screen_retry_button">Retry</string>
+
+    <!-- Toolbar -->
+    <string name="ionos_toolbar_sort_button_text">Filter</string>
+
+    <!-- Side menu -->
+    <string name="ionos_side_menu_storage_used">Storage used</string>
+
+</resources>

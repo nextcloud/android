@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+
+    <!-- Storage Permissions Dialog -->
+    <string name="ionos_file_management_permission">Speicherberechtigungen</string>
+    <string name="ionos_file_management_permission_optional">Speicherberechtigungen</string>
+    <string name="ionos_file_management_permission_text">%1$s braucht die Erlaubnis, auf Ihre Dateien zuzugreifen, um besser zu funktionieren. Sie können den Zugriff erlauben oder verweigern.</string>
+    <string name="ionos_file_management_permission_optional_text">%1$s braucht die Erlaubnis, auf Ihre Dateien zuzugreifen, um besser zu funktionieren. Sie können den Zugriff erlauben oder verweigern.</string>
+
+    <!-- Sharing screen -->
+    <string name="ionos_share_search">Name oder E-Mail-Adresse…</string>
+
+    <!-- Data protection -->
+    <string name="ionos_data_protection_title">Datenschutz-Einstellungen</string>
+    <string name="ionos_data_protection_description">Diese Anwendung verwendet Cookies und ähnliche Technologien. Durch Klicken auf Zustimmen akzeptieren Sie die Verarbeitung und auch die Weitergabe Ihrer Daten an Dritte.  Weitere Informationen, auch zur Datenverarbeitung durch Drittanbieter, finden Sie in den Einstellungen und in unserer <annotation type="information_link">Datenschutzhinweise</annotation> Sie können die Nutzung der Tools <annotation type="reject_link">Ablehnen</annotation> oder Ihre Auswahl jederzeit über Ihre Einstellungen anpassen.</string>
+    <string name="ionos_data_protection_settings_button">Einstellungen</string>
+    <string name="ionos_data_protection_agree_button">Zustimmen</string>
+    <string name="ionos_data_protection_settings_description">Zur Optimierung unserer App erfassen wir anonymisierte Daten. Hierzu nutzen wir Softwarelösungen verschiedener Partner. Wir möchten Ihnen volle Transparenz und Entscheidungsgewalt über die Verarbeitung und Erfassung Ihrer anonymisierten Nutzungsdaten geben. Ihre Einstellungen können Sie auch später jederzeit unter dem Menüpunkt Datenschutz ändern. Bitte beachten Sie jedoch, dass die Datenerfassung einen erheblichen Beitrag zur Optimierung dieser App leistet und Sie diese Optimierungen durch die Unterbindung der Datenübermittlung verhindern.</string>
+    <string name="ionos_data_protection_settings_data_gathering_description">Die Erfassung dieser Daten ist notwendig, um wesentliche Funktionen der App nutzen zu können.</string>
+    <string name="ionos_data_protection_settings_data_gathering_title">Erforderliche Datenerfassung</string>
+    <string name="ionos_data_protection_settings_analytics_description">Diese Daten helfen uns, die App-Nutzung für Sie zu optimieren und Systemabstürze und Fehler schneller zu identifizieren.</string>
+    <string name="ionos_data_protection_settings_analytics_title">Analyse der Datenerfassung zur bedarfsgerechten Gestaltung</string>
+    <string name="ionos_data_protection_settings_save">Einstellungen speichern</string>
+
+</resources>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/description_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_double_margin"
+        android:text="@string/ionos_data_protection_settings_description"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/txt_size_16sp"
+        app:lineHeight="21.79sp" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/necessary_data_switch"
+        style="@style/SettingsMaterialSwitchStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checked="true"
+        android:enabled="false"
+        android:paddingVertical="@dimen/ionos_data_protection_switch_vertical_padding"
+        android:text="@string/ionos_data_protection_settings_data_gathering_title"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/two_line_primary_text_size"
+        android:theme="@style/SettingsMaterialSwitchStyle"
+        app:lineHeight="21.79sp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/necessary_data_description_text_view"
+        style="@style/SettingsSubtitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/ionos_data_protection_settings_data_gathering_description"
+        app:lineHeight="19sp" />
+
+    <com.google.android.material.materialswitch.MaterialSwitch
+        android:id="@+id/analytics_switch"
+        style="@style/SettingsMaterialSwitchStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/standard_margin"
+        android:paddingVertical="@dimen/ionos_data_protection_switch_vertical_padding"
+        android:text="@string/ionos_data_protection_settings_analytics_title"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/two_line_primary_text_size"
+        android:theme="@style/SettingsMaterialSwitchStyle"
+        app:lineHeight="21.79sp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/analytics_description_text_view"
+        style="@style/SettingsSubtitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/standard_margin"
+        android:text="@string/ionos_data_protection_settings_analytics_description"
+        app:lineHeight="19sp" />
+
+</LinearLayout>

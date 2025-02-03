@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+<resources>
+    <color name="sidemenu_progress_bar_color">#3672be</color>
+    <color name="sidemenu_warn_progress_bar_color">#d62e2b</color>
+
+    <color name="settings_screen_background">@color/bg_default</color>
+
+    <color name="fab_icon_tint">@color/white</color>
+    <color name="fab_background_color">@color/primary</color>
+    <color name="fab_pressed_background_color">@color/primary_dark</color>
+    <color name="fab_disabled_background_color">@color/disabled_text</color>
+
+    <color name="filelist_file_icon_color">@color/primary</color>
+    <color name="filelist_default_action_icon_color">@color/black</color>
+
+    <color name="system_bars_color">@color/bg_default</color>
+    <color name="synced_folders_item_title_color">?android:textColorPrimary</color>
+
+    <color name="default_icon_color">@color/primary</color>
+    <color name="preview_image_background">@color/background_color_inverse</color>
+    <color name="preview_image_system_bars_color">@color/color_transparent</color>
+    <color name="edit_image_background">@color/black</color>
+    <color name="edit_image_toolbar_background">@color/black</color>
+    <color name="edit_image_controls_background">@color/grey_900</color>
+    <color name="filled_button_text_color">@color/primary_button_text_color</color>
+
+    <color name="text_input_border_stroke_color">@color/text_color</color>
+    <color name="text_input_focused_border_stroke_color">@color/primary</color>
+    <color name="text_input_error_color">@color/primary</color>
+    <color name="text_input_hint_text_color">@color/disabled_text</color>
+    <color name="text_input_focused_hint_text_color">@color/primary</color>
+    <color name="text_input_highlight_color">@color/primary</color>
+
+    <color name="navigation_bar_background_color">@color/primary</color>
+    <color name="drawer_header_background">@color/primary</color>
+
+    <color name="popup_background_color">@color/bg_default</color>
+</resources>

@@ -35,10 +35,8 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.annotation.OptIn
 import androidx.annotation.StringRes
-import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -60,6 +58,7 @@ import androidx.media3.ui.PlayerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.account.User
 import com.nextcloud.client.account.UserAccountManager
 import com.nextcloud.client.di.Injectable
@@ -273,7 +272,7 @@ class PreviewMediaActivity :
             }
         }
 
-        viewThemeUtils.platform.themeStatusBar(
+        viewThemeUtils.ionos.platform.themeSystemBars(
             this
         )
     }
@@ -290,6 +289,7 @@ class PreviewMediaActivity :
         binding.emptyView.emptyListView.visibility = View.VISIBLE
     }
 
+    @IonosCustomization("ui bugfix")
     private fun setErrorMessage(headline: String, @StringRes message: Int) {
         binding.emptyView.run {
             emptyListViewHeadline.text = headline
@@ -297,8 +297,7 @@ class PreviewMediaActivity :
             emptyListIcon.setImageResource(R.drawable.file_movie)
             emptyListViewText.visibility = View.VISIBLE
             emptyListIcon.visibility = View.VISIBLE
-
-            hideProgressLayout()
+            binding.progress.visibility = View.GONE
         }
     }
 
@@ -306,15 +305,9 @@ class PreviewMediaActivity :
         binding.imagePreview.setImageDrawable(genericThumbnail())
     }
 
+    @IonosCustomization("No generic thumbnail")
     private fun genericThumbnail(): Drawable? {
-        val result = AppCompatResources.getDrawable(this, R.drawable.logo)
-        result?.let {
-            if (!resources.getBoolean(R.bool.is_branded_client)) {
-                DrawableCompat.setTint(it, resources.getColor(R.color.primary, this.theme))
-            }
-        }
-
-        return result
+        return null
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -490,6 +483,8 @@ class PreviewMediaActivity :
         }
     }
 
+    @OptIn(markerClass = [UnstableApi::class])
+    @IonosCustomization("Insets for media controller")
     private fun applyWindowInsets() {
         val playerView = binding.exoplayerView
         val exoControls = playerView.findViewById<FrameLayout>(R.id.exo_bottom_bar)
@@ -711,16 +706,19 @@ class PreviewMediaActivity :
     }
 
     @Suppress("TooGenericExceptionCaught")
+    @IonosCustomization("Better UX")
     private fun playVideo() {
         setupVideoView()
 
-        if (file.isDown) {
-            prepareVideoPlayer(file.storageUri)
-        } else {
-            try {
-                LoadStreamUrl(this, user, clientFactory).execute(file.localId)
-            } catch (e: Exception) {
-                Log_OC.e(TAG, "Loading stream url for Video not possible: $e")
+        if(videoPlayer?.currentMediaItem == null) {
+            if (file.isDown) {
+                prepareVideoPlayer(file.storageUri)
+            } else {
+                try {
+                    LoadStreamUrl(this, user, clientFactory).execute(file.localId)
+                } catch (e: Exception) {
+                    Log_OC.e(TAG, "Loading stream url for Video not possible: $e")
+                }
             }
         }
     }
@@ -797,17 +795,19 @@ class PreviewMediaActivity :
         Log_OC.v(TAG, "onResume")
     }
 
+    @IonosCustomization("Stopping audio on latter lifecycle stage")
     override fun onDestroy() {
+        releaseVideoPlayer()
         mediaControllerFuture?.let { MediaController.releaseFuture(it) }
         super.onDestroy()
 
         Log_OC.v(TAG, "onDestroy")
     }
 
+    @IonosCustomization("Keeping audio/video playing in background")
     override fun onStop() {
         Log_OC.v(TAG, "onStop")
 
-        releaseVideoPlayer()
         super.onStop()
     }
 

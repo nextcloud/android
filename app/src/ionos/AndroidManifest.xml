@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false"
+            tools:node="merge" />
+
+        <receiver
+            android:name="com.nextcloud.client.widget.DashboardWidgetProvider"
+            android:enabled="false" />
+
+        <activity
+            android:name=".ui.preview.PreviewImageActivity"
+            android:theme="@style/Theme.ownCloud.PreviewImage"
+            tools:replace="android:theme" />
+
+        <activity
+            android:theme="@style/Theme.ownCloud.noActionBar.Login"
+            android:name="com.ionos.authorization_method.AuthorizationMethodActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.ionos.privacy.DataProtectionActivity"
+            android:exported="false" />
+
+        <activity
+            android:name="com.ionos.privacy.PrivacySettingsActivity"
+            android:exported="false" />
+
+    </application>
+
+</manifest>

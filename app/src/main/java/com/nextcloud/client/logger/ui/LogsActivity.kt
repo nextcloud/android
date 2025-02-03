@@ -16,6 +16,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.di.ViewModelFactory
 import com.owncloud.android.R
 import com.owncloud.android.databinding.LogsActivityBinding
@@ -75,12 +76,12 @@ class LogsActivity : ToolbarActivity() {
         }
     }
 
+    @IonosCustomization
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.activity_logs, menu)
 
         (menu.findItem(R.id.action_search).actionView as SearchView).apply {
             setOnQueryTextListener(searchBoxListener)
-            viewThemeUtils.androidx.themeToolbarSearchView(this)
         }
         return super.onCreateOptionsMenu(menu)
     }

@@ -24,6 +24,7 @@ import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask
 import com.owncloud.android.ui.asynctasks.CopyAndUploadContentUrisTask.OnCopyTmpFilesTaskListener
 import com.owncloud.android.ui.fragment.TaskRetainerFragment
 import com.owncloud.android.utils.UriUtils.getDisplayNameForUri
+import java.io.File
 
 /**
  * This class examines URIs pointing to files to upload and then requests [FileUploadHelper] to upload them.

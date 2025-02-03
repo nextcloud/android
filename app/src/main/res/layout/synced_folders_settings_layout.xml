@@ -442,7 +442,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNeutral"
-            style="@style/Widget.Material3.Button.TextButton"
+            style="@style/Theme.Dialog.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/common_cancel"
@@ -456,7 +456,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnNegative"
             android:layout_width="wrap_content"
-            style="@style/Widget.Material3.Button.TextButton"
+            style="@style/Theme.Dialog.TextButton"
             android:layout_height="wrap_content"
             android:text="@string/common_delete"
             android:layout_weight="1"/>
@@ -465,7 +465,7 @@
             android:id="@+id/btnPositive"
             android:layout_width="wrap_content"
             android:text="@string/common_save"
-            style="@style/Widget.Material3.Button.TonalButton"
+            style="@style/Theme.Dialog.IconButton.Filled.Tonal"
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
     </LinearLayout>

@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
+  ~ SPDX-FileCopyrightText: 2023 Andy Scherzinger <info@andy-scherzinger.de>
+  ~ SPDX-FileCopyrightText: 2023 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2020 Abdourahamane Boinaidi <abdourahamane.boinaidi@infomaniak.com>
+  ~ SPDX-FileCopyrightText: 2015 ownCloud Inc.
+  ~ SPDX-FileCopyrightText: 2012 Bartosz Przybylski <bart.p.pl@gmail.com>
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0-only AND (AGPL-3.0-or-later OR GPL-2.0-only)
+-->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/ListItemLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:descendantFocusability="blocksDescendants"
+        android:minHeight="@dimen/min_list_item_size"
+        android:orientation="horizontal">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="@dimen/min_list_item_size"
+            android:layout_height="@dimen/min_list_item_size"
+            android:layout_marginStart="@dimen/zero"
+            android:layout_marginEnd="@dimen/standard_quarter_padding">
+
+            <FrameLayout
+                android:id="@+id/thumbnail_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <include
+                    android:id="@+id/thumbnail_layout"
+                    layout="@layout/file_thumbnail" />
+            </FrameLayout>
+
+            <ImageView
+                android:id="@+id/localFileIndicator"
+                android:layout_width="@dimen/list_item_local_file_indicator_layout_width"
+                android:layout_height="@dimen/list_item_local_file_indicator_layout_height"
+                android:contentDescription="@string/downloader_download_succeeded_ticker"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_synced"
+                app:layout_constraintBottom_toBottomOf="@+id/thumbnail_container"
+                app:layout_constraintEnd_toEndOf="@+id/thumbnail_container"
+                app:layout_constraintStart_toEndOf="@+id/thumbnail_container"
+                app:layout_constraintTop_toBottomOf="@+id/thumbnail_container" />
+
+            <ImageView
+                android:id="@+id/favorite_action"
+                android:layout_width="@dimen/list_item_favorite_action_layout_width"
+                android:layout_height="@dimen/list_item_favorite_action_layout_height"
+                android:contentDescription="@string/favorite"
+                android:src="@drawable/favorite"
+                app:layout_constraintBottom_toTopOf="@+id/thumbnail_container"
+                app:layout_constraintEnd_toEndOf="@+id/thumbnail_container"
+                app:layout_constraintStart_toEndOf="@+id/thumbnail_container"
+                app:layout_constraintTop_toTopOf="@+id/thumbnail_container" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:gravity="top"
+            android:orientation="vertical"
+            android:paddingVertical="@dimen/standard_quarter_padding">
+
+            <TextView
+                android:id="@+id/Filename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="middle"
+                android:singleLine="true"
+                android:textColor="@color/filelist_text_color"
+                android:textSize="@dimen/two_line_primary_text_size"
+                android:textStyle="bold"
+                tools:text="@string/placeholder_filename" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/tagsGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="false"
+                    android:paddingTop="@dimen/standard_quarter_padding"
+                    android:visibility="gone"
+                    app:chipSpacingVertical="@dimen/standard_quarter_padding">
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/firstTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/tag_height"
+                        android:checkable="false"
+                        android:clickable="false"
+                        android:ellipsize="middle"
+                        android:textColor="@color/list_item_lastmod_and_filesize_text"
+                        android:textSize="@dimen/two_line_secondary_text_size"
+                        app:chipBackgroundColor="@color/bg_default"
+                        app:chipEndPadding="@dimen/zero"
+                        app:chipStartPadding="@dimen/zero"
+                        app:ensureMinTouchTargetSize="false"
+                        tools:text="tag1" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/secondTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/tag_height"
+                        android:checkable="false"
+                        android:clickable="false"
+                        android:ellipsize="middle"
+                        android:textColor="@color/list_item_lastmod_and_filesize_text"
+                        android:textSize="@dimen/two_line_secondary_text_size"
+                        app:chipBackgroundColor="@color/bg_default"
+                        app:chipEndPadding="@dimen/zero"
+                        app:chipStartPadding="@dimen/zero"
+                        app:ensureMinTouchTargetSize="false"
+                        tools:text="tag2" />
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/tag_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="@dimen/tag_height"
+                        android:checkable="false"
+                        android:clickable="false"
+                        android:ellipsize="none"
+                        android:textColor="@color/list_item_lastmod_and_filesize_text"
+                        android:textSize="@dimen/two_line_secondary_text_size"
+                        app:chipBackgroundColor="@color/bg_default"
+                        app:chipEndPadding="@dimen/zero"
+                        app:chipStartPadding="@dimen/zero"
+                        app:ensureMinTouchTargetSize="false"
+                        tools:text="+3" />
+
+                </com.google.android.material.chip.ChipGroup>
+
+                <LinearLayout
+                    android:id="@+id/file_detail_group"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/live_photo_indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/standard_eight_padding"
+                        android:gravity="center"
+                        android:text="@string/file_list_live"
+                        android:textColor="@color/filelist_secondary_text_color"
+                        android:textSize="@dimen/two_line_secondary_text_size"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        app:drawableLeftCompat="@drawable/ic_live_photo"
+                        app:drawableTint="@color/filelist_secondary_text_color"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/live_photo_indicator_separator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:paddingStart="@dimen/zero"
+                        android:paddingEnd="@dimen/standard_quarter_padding"
+                        android:text="@string/info_separator"
+                        android:textColor="@color/filelist_secondary_text_color"
+                        android:textSize="@dimen/two_line_secondary_text_size"
+                        android:textStyle="bold"
+                        android:visibility="gone"
+                        tools:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/file_size"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/placeholder_fileSize"
+                        android:textColor="@color/filelist_secondary_text_color"
+                        android:textSize="@dimen/two_line_secondary_text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/file_separator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:paddingStart="@dimen/zero"
+                        android:paddingEnd="@dimen/standard_quarter_padding"
+                        android:text="@string/info_separator"
+                        android:textColor="@color/filelist_secondary_text_color"
+                        android:textSize="@dimen/two_line_secondary_text_size"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/last_mod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:text="@string/placeholder_media_time"
+                        android:textColor="@color/filelist_secondary_text_color"
+                        android:textSize="@dimen/two_line_secondary_text_size"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/min_list_item_size"
+            android:gravity="center_vertical|end"
+            android:orientation="horizontal"
+            android:paddingStart="@dimen/standard_half_padding"
+            android:paddingEnd="@dimen/zero">
+
+            <ImageView
+                android:id="@+id/unreadComments"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/filelist_action_icon_background"
+                android:clickable="true"
+                android:contentDescription="@string/unread_comments"
+                android:focusable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_comment"
+                android:visibility="gone"
+                app:tint="@color/filelist_default_action_icon_color"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/sharedIcon"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/filelist_action_icon_background"
+                android:clickable="true"
+                android:contentDescription="@string/shared_icon_share"
+                android:focusable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_filelist_unshared"
+                tools:visibility="visible" />
+
+            <com.owncloud.android.ui.AvatarGroupLayout
+                android:id="@+id/sharedAvatars"
+                android:layout_width="75dp"
+                android:layout_height="48dp"
+                android:contentDescription="@string/shared_avatar_desc"
+                android:gravity="center_vertical"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/custom_checkbox"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:clickable="false"
+                android:contentDescription="@string/checkbox"
+                android:focusable="false"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_checkbox_blank_outline" />
+
+            <ImageView
+                android:id="@+id/overflow_menu"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/filelist_action_icon_background"
+                android:clickable="true"
+                android:contentDescription="@string/overflow_menu"
+                android:focusable="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/ic_dots_vertical"
+                app:tint="@color/filelist_default_action_icon_color" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/gull_grayapprox" />
+
+</FrameLayout>

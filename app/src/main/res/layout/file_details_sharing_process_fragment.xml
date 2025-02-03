@@ -48,6 +48,7 @@
                     android:id="@+id/share_process_permission_read_only"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
                     android:text="@string/link_share_view_only" />
 
@@ -55,6 +56,7 @@
                     android:id="@+id/share_process_permission_upload_editing"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
                     android:text="@string/link_share_allow_upload_and_editing" />
 
@@ -62,6 +64,7 @@
                     android:id="@+id/share_process_permission_file_drop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/text_color"
                     android:minHeight="@dimen/minimum_size_for_touchable_area"
                     android:text="@string/link_share_file_drop" />
 
@@ -82,6 +85,7 @@
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/allow_resharing"
+                android:textColor="@color/text_color"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -90,7 +94,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
-                android:text="@string/share_no_password_title"/>
+                android:text="@string/share_no_password_title"
+                android:textColor="@color/text_color" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/share_process_enter_password_container"
@@ -120,7 +125,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_half_margin"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
-                android:text="@string/share_no_expiration_date_label"/>
+                android:text="@string/share_no_expiration_date_label"
+                android:textColor="@color/text_color" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/share_process_select_exp_date"
@@ -178,6 +184,7 @@
                 android:layout_marginTop="@dimen/standard_half_margin"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
                 android:text="@string/share_via_link_hide_download"
+                android:textColor="@color/text_color"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -187,7 +194,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/standard_half_margin"
                 android:minHeight="@dimen/minimum_size_for_touchable_area"
-                android:text="@string/link_name" />
+                android:text="@string/link_name"
+                android:textColor="@color/text_color" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/share_process_change_name_container"
@@ -259,20 +267,25 @@
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/share_process_btn_cancel"
-                    style="@style/Widget.Material3.Button.OutlinedButton"
+                    style="@style/Theme.Dialog.Button.OutlinedButton"
                     android:layout_width="@dimen/button_width"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginEnd="@dimen/standard_half_margin"
                     android:text="@string/common_cancel"
-                    app:cornerRadius="@dimen/button_corner_radius" />
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:ionosCustomization="Adjust the height to match the height of the Next button" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/share_process_btn_next"
                     android:layout_width="@dimen/button_extra_width"
                     android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="2"
                     android:text="@string/common_next"
-                    android:theme="@style/Widget.Material3.Button.IconButton.Filled"
-                    app:cornerRadius="@dimen/button_corner_radius"/>
+                    android:textColor="@color/filled_button_text_color"
+                    android:theme="@style/Theme.Dialog.IconButton.Filled"
+                    app:cornerRadius="@dimen/button_corner_radius"
+                    app:ionosCustomization="Limit max lines number to 2" />
 
             </LinearLayout>
 

@@ -23,6 +23,20 @@
         android:layout_width="@dimen/grid_container_width"
         android:layout_height="@dimen/grid_container_height">
 
+        <ImageView
+            android:id="@+id/file_icon"
+            android:layout_width="@dimen/standard_list_item_size"
+            android:layout_height="@dimen/standard_list_item_size"
+            android:layout_marginBottom="@dimen/grid_thumbnail_margin_bottom"
+            android:contentDescription="@null"
+            app:ionosCustomization="Show file icon in a separate view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/folder"
+            tools:visibility="visible" />
+
         <com.elyeproj.loaderviewlibrary.LoaderImageView
             android:id="@+id/thumbnail_shimmer"
             android:visibility="gone"

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <dimen name="scanbot_padding_micro">4dp</dimen>
+    <dimen name="scanbot_padding_small">8dp</dimen>
+    <dimen name="scanbot_padding_small_2">12dp</dimen>
+    <dimen name="scanbot_padding_normal">16dp</dimen>
+    <dimen name="scanbot_padding_large">24dp</dimen>
+
+    <dimen name="scanbot_large_font_size">18sp</dimen>
+
+    <dimen name="scanbot_divider_height">1dp</dimen>
+
+    <dimen name="scanbot_navigation_layout_height">56dp</dimen>
+
+	<dimen name="scanbot_camera_polygon_stroke_widht">2dp</dimen>
+	<dimen name="scanbot_camera_toolbar_height">48dp</dimen>
+
+	<dimen name="scanbot_crop_view_edit_polygon_handle_size">48dp</dimen>
+	<dimen name="scanbot_crop_view_magnetic_line_treshold">10dp</dimen>
+	<dimen name="scanbot_crop_view_magnifier_margin">16dp</dimen>
+	<dimen name="scanbot_crop_view_magnifier_radius">36dp</dimen>
+
+	<dimen name="scanbot_file_type_choice_min_width">64dp</dimen>
+
+	<dimen name="scanbot_filter_control_margin_horizontal">20dp</dimen>
+	<dimen name="scanbot_filter_control_margin_vertical">20dp</dimen>
+	<dimen name="scanbot_filter_icon_size">30dp</dimen>
+
+    <dimen name="scanbot_gallery_counter_padding_left">4dp</dimen>
+	<dimen name="scanbot_gallery_counter_padding_right">4dp</dimen>
+	<dimen name="scanbot_gallery_navigation_item_height">24dp</dimen>
+	<dimen name="scanbot_gallery_navigation_item_label_vertical_margin">8dp</dimen>
+	<dimen name="scanbot_gallery_navigation_item_label_text_size">11sp</dimen>
+	<dimen name="scanbot_gallery_bottom_navigation_elevation">5dp</dimen>
+	<dimen name="scanbot_gallery_fab_margin">16dp</dimen>
+	<dimen name="scanbot_gallery_fab_icon_size">40dp</dimen>
+
+	<dimen name="scanbot_rearrange_icon_height">50dp</dimen>
+	<dimen name="scanbot_rearrange_item_height">250dp</dimen>
+	<dimen name="scanbot_rearrange_item_margin">15dp</dimen>
+	<dimen name="scanbot_rearrange_item_text_size">20sp</dimen>
+	<dimen name="scanbot_rearrange_margin">20dp</dimen>
+	<dimen name="scanbot_rearrange_margin_small">10dp</dimen>
+	<dimen name="scanbot_rearrange_progress_size">75dp</dimen>
+	<dimen name="scanbot_rearrange_tip_text_size">18sp</dimen>
+
+	<dimen name="scanbot_save_screen_max_content_width">480dp</dimen>
+
+	<dimen name="scanbot_text_size">20sp</dimen>
+</resources>

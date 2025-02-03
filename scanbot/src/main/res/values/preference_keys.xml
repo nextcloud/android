@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+	<string name="scanbot_preference_license_key" translatable="false">preference_scanbot_license_key</string>
+
+    <string name="scanbot_preference_aes_gsm_key" translatable="false">preference_aes_gsm_key</string>
+    <string name="scanbot_preference_aes_gsm_initialization_vector" translatable="false">preference_aes_gsm_initialization_vector</string>
+</resources>

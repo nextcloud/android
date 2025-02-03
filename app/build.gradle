@@ -24,6 +24,8 @@ buildscript {
         classpath "org.jacoco:org.jacoco.core:$jacoco_version"
         classpath "org.jacoco:org.jacoco.report:$jacoco_version"
         classpath "org.jacoco:org.jacoco.agent:$jacoco_version"
+        classpath 'com.google.gms:google-services:4.4.2'
+        classpath "com.google.firebase:firebase-crashlytics-gradle:3.0.2"
     }
 }
 
@@ -43,6 +45,7 @@ apply plugin: 'pmd'
 apply from: "$rootProject.projectDir/jacoco.gradle"
 apply plugin: 'com.github.spotbugs'
 apply plugin: 'io.gitlab.arturbosch.detekt'
+apply plugin: 'com.google.firebase.crashlytics'
 
 // needed to make renovate run without shot, as shot requires Android SDK
 // https://github.com/pedrovgs/Shot/issues/300
@@ -51,6 +54,9 @@ if (shotTest) {
 }
 apply plugin: 'com.google.devtools.ksp'
 
+if (getGradle().getStartParameter().getTaskRequests().toString().contains("Ionos")){
+    apply plugin: 'com.google.gms.google-services'
+}
 
 println "Gradle uses Java ${Jvm.current()}"
 
@@ -184,6 +190,13 @@ android {
                 dimension "default"
                 versionCode 1
                 versionName "1"
+            }
+
+            ionos {
+                applicationId "com.ionos.hidrivenext"
+                dimension "default"
+                versionCode 2
+                isDefault = true
             }
         }
 
@@ -322,6 +335,8 @@ dependencies {
     gplayImplementation project(':appscan')
     huaweiImplementation project(':appscan')
     qaImplementation project(':appscan')
+    ionosImplementation project(':appscan')
+    implementation project(':scanbot')
 
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.13.0'
     spotbugsPlugins 'com.mebigfatguy.fb-contrib:fb-contrib:7.6.9'
@@ -430,6 +445,10 @@ dependencies {
 
     // splash screen dependency ref: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
     implementation 'androidx.core:core-splashscreen:1.0.1'
+
+    implementation(platform("com.google.firebase:firebase-bom:33.7.0"))
+    implementation "com.google.firebase:firebase-analytics"
+    implementation "com.google.firebase:firebase-crashlytics"
 }
 
 configurations.configureEach {

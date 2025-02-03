@@ -32,6 +32,7 @@ import android.os.IBinder;
 import android.text.TextUtils;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.account.UserAccountManager;
 import com.nextcloud.client.jobs.BackgroundJobManager;
@@ -452,6 +453,7 @@ public abstract class FileActivity extends DrawerActivity
         new CheckRemoteWipeTask(backgroundJobManager, account, new WeakReference<>(this)).execute();
     }
 
+    @IonosCustomization
     public void performCredentialsUpdate(Account account, Context context) {
         try {
             /// step 1 - invalidate credentials of current account
@@ -477,6 +479,8 @@ public abstract class FileActivity extends DrawerActivity
                 AuthenticatorActivity.EXTRA_ACTION,
                 AuthenticatorActivity.ACTION_UPDATE_EXPIRED_TOKEN);
             updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            updateAccountCredentials.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivityForResult(updateAccountCredentials, REQUEST_CODE__UPDATE_CREDENTIALS);
         } catch (com.owncloud.android.lib.common.accounts.AccountUtils.AccountNotFoundException e) {
             DisplayUtils.showSnackMessage(this, R.string.auth_account_does_not_exist);
@@ -715,7 +719,7 @@ public abstract class FileActivity extends DrawerActivity
             Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), R.string.clipboard_text_copied,
                                               Snackbar.LENGTH_LONG)
                 .setAction(R.string.share, v -> showShareLinkDialog(activity, file, link));
-            viewThemeUtils.material.themeSnackbar(snackbar);
+            viewThemeUtils.ionos.material.themeSnackbar(snackbar);
             snackbar.show();
         }
     }
@@ -785,7 +789,7 @@ public abstract class FileActivity extends DrawerActivity
                 snackbar = Snackbar.make(sharingFragment.getView(), result.getMessage(), Snackbar.LENGTH_LONG);
             }
 
-            viewThemeUtils.material.themeSnackbar(snackbar);
+            viewThemeUtils.ionos.material.themeSnackbar(snackbar);
             snackbar.show();
         }
     }
@@ -862,7 +866,7 @@ public abstract class FileActivity extends DrawerActivity
                                                                                            operation,
                                                                                            getResources()),
                                                   Snackbar.LENGTH_LONG);
-                viewThemeUtils.material.themeSnackbar(snackbar);
+                viewThemeUtils.ionos.material.themeSnackbar(snackbar);
                 snackbar.show();
             }
         }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+
+    <!-- Storage Permissions Dialog -->
+    <string name="ionos_file_management_permission">Opslag-toestemmingen</string>
+    <string name="ionos_file_management_permission_optional">Opslag-toestemmingen</string>
+    <string name="ionos_file_management_permission_text">%1$s vereist toestemming voor toegang tot je bestanden voor een betere functionaliteit. Je kunt de toegang toestaan of weigeren.</string>
+    <string name="ionos_file_management_permission_optional_text">%1$s vereist toestemming voor toegang tot je bestanden voor een betere functionaliteit. Je kunt de toegang toestaan of weigeren.</string>
+
+    <!-- Sharing screen -->
+    <string name="ionos_share_search">Naam of e-mailadres…</string>
+
+    <!-- Data protection -->
+    <string name="ionos_data_protection_title">Privacyinstellingen</string>
+    <string name="ionos_data_protection_description">Deze toepassing gebruikt cookies en vergelijkbare technologie. Door akkoord te gaan, accepteer je de verwerking en de overdracht van je gegevens aan derden. <annotation type="information_link">privacybeleid </annotation>. Je kunt het gebruik van de tools op elk moment <annotation type="reject_link">weigeren</annotation> of je keuze aanpassen via je instellingen.</string>
+    <string name="ionos_data_protection_settings_button">Instellingen</string>
+    <string name="ionos_data_protection_agree_button">Akkoord</string>
+    <string name="ionos_data_protection_settings_description">Om onze app te optimaliseren, verzamelen we anonieme gegevens. Hiervoor gebruiken we softwareoplossingen van verschillende partners. Wij willen je volledige transparantie en beslissingsbevoegdheid geven over de verwerking en verzameling van je geanonimiseerde gebruiksgegevens. Je kunt je instellingen altijd wijzigen via het menu \'Privacy\'. Houd er rekening mee dat het verzamelen van gegevens een aanzienlijke bijdrage levert aan de optimalisatie van deze app. Als je de dataverzameling uitschakelt, zijn deze optimalisaties beperkt of niet meer mogelijk.</string>
+    <string name="ionos_data_protection_settings_data_gathering_description">Het verzamelen van deze gegevens is noodzakelijk om essentiële functies van de app te kunnen gebruiken.</string>
+    <string name="ionos_data_protection_settings_data_gathering_title">Noodzakelijke dataverzameling</string>
+    <string name="ionos_data_protection_settings_analytics_description">Deze gegevens helpen ons om het gebruik van de app voor je te optimaliseren en om systeemcrashes en fouten sneller te identificeren.</string>
+    <string name="ionos_data_protection_settings_analytics_title">Dataverzameling voor gebruikersgebaseerde app-optimalisatie</string>
+    <string name="ionos_data_protection_settings_save">Instellingen opslaan</string>
+
+ </resources>

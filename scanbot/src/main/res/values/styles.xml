@@ -1,0 +1,43 @@
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+    <style name="ScanbotFilterControlSeekBar" parent="Widget.AppCompat.SeekBar">
+        <item name="android:progressBackgroundTint">@drawable/scanbot_filter_controls_seek_bar_progress_background</item>
+        <item name="android:progressTint">@drawable/scanbot_filter_controls_seek_bar_progress</item>
+        <item name="android:thumbTint">@drawable/scanbot_filter_controls_seek_bar_thumb</item>
+    </style>
+
+    <style name="ScanbotRadioGroupStyle" parent="Theme.AppCompat.DayNight">
+        <item name="colorAccent">?scanbot_file_type_text_color_checked</item>
+    </style>
+
+    <style name="ScanbotBottomNavigationItem">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="ScanbotFabButtonBackgroundShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">8dp</item>
+    </style>
+
+    <style name="ScanbotEditTextStyle">
+        <item name="android:singleLine">true</item>
+        <item name="android:textSize">@dimen/scanbot_large_font_size</item>
+        <item name="android:textColor">?scanbot_edit_text_text_color</item>
+        <item name="android:textColorHighlight">?scanbot_edit_text_highlight_color</item>
+        <item name="android:textCursorDrawable">@null</item>
+        <item name="android:theme">@style/ScanbotEditTextTheme</item>
+    </style>
+
+    <style name="ScanbotEditTextTheme">
+        <item name="colorControlActivated">?scanbot_edit_text_select_handler_color</item>
+    </style>
+
+</resources>

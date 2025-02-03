@@ -7,10 +7,11 @@
  */
 package com.owncloud.android.utils
 
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.LayerDrawable
+import android.view.Gravity
 import androidx.core.graphics.drawable.DrawableCompat
+import com.ionos.annotation.IonosCustomization
 
 object DrawableUtil {
 
@@ -20,28 +21,11 @@ object DrawableUtil {
         return drawable
     }
 
+    @IonosCustomization
     fun addDrawableAsOverlay(backgroundDrawable: Drawable, overlayDrawable: Drawable): LayerDrawable {
-        val containerDrawable = LayerDrawable(arrayOf(backgroundDrawable, overlayDrawable))
-
-        val overlayWidth = overlayDrawable.intrinsicWidth
-        val overlayHeight = overlayDrawable.intrinsicHeight
-        val backgroundWidth = backgroundDrawable.intrinsicWidth
-        val backgroundHeight = backgroundDrawable.intrinsicHeight
-
-        val scaleFactor = 2f / maxOf(overlayWidth, overlayHeight)
-        val scaledOverlayWidth = (overlayWidth * scaleFactor).toInt()
-        val scaledOverlayHeight = (overlayHeight * scaleFactor).toInt()
-
-        val left = (backgroundWidth - scaledOverlayWidth) / 2
-        val top = (backgroundHeight - scaledOverlayHeight) / 2
-
-        // Icons are centered on the folder icon. However, some icons take up more vertical space,
-        // so adding a top margin to all icons helps center the overlay icon better.
-        val topMargin = 2
-
-        containerDrawable.setLayerInset(1, left, top + topMargin, left, top)
-        (overlayDrawable as? BitmapDrawable)?.setBounds(0, 0, scaledOverlayWidth, scaledOverlayHeight)
-
-        return containerDrawable
+        return LayerDrawable(arrayOf(backgroundDrawable, overlayDrawable)).apply {
+            setLayerSize(1, overlayDrawable.intrinsicWidth, overlayDrawable.intrinsicHeight)
+            setLayerGravity(1, Gravity.CENTER)
+        }
     }
 }

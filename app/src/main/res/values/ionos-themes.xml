@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+<resources>
+    <style name="BaseTheme.Ionos.Toolbar" parent="BaseTheme.ownCloud.Toolbar">
+        <item name="materialAlertDialogTheme">@style/Theme.ownCloud.Dialog</item>
+        <item name="popupMenuStyle">@style/Generic.Nextcloud.Widget.PopupMenu</item>
+        <item name="bottomSheetDialogTheme">@style/Generic.ThemeOverlay.App.BottomSheetDialog</item>
+        <item name="snackbarStyle">@style/Widget.App.Snackbar</item>
+        <item name="snackbarButtonStyle">@style/Widget.App.SnackbarButton</item>
+        <item name="snackbarTextViewStyle">@style/Widget.App.SnackbarTextView</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_arrow_back</item>
+        <item name="android:textColor">@color/text_color</item>
+        <item name="android:textColorSecondary">@color/secondary_text_color</item>
+        <item name="colorSurfaceContainer">@color/popup_background_color</item>
+        <item name="scanbotTheme">@style/ScanbotTheme</item>
+        <item name="scanbotOutlinedButtonTheme">@style/Theme.Dialog.Button.OutlinedButton</item>
+        <item name="scanbotFilledTonalButtonTheme">@style/Theme.Dialog.IconButton.Filled.Tonal</item>
+    </style>
+
+    <style name="Widget.App.Snackbar" parent="Widget.MaterialComponents.Snackbar" />
+
+    <style name="Widget.App.SnackbarButton" parent="Widget.MaterialComponents.Button.TextButton.Snackbar" />
+
+    <style name="Widget.App.SnackbarTextView" parent="Widget.MaterialComponents.Snackbar.TextView" />
+</resources>

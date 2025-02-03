@@ -1,0 +1,16 @@
+<!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2018-2024 Google LLC
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: Apache-2.0
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+    <path
+        android:pathData="M33,26.11V27.5C33,28.329 32.328,29 31.5,29H4.5C3.672,29 3,28.329 3,27.5V26.108C3,25.036 3.384,23.998 4.081,23.183L5.64,21.366C5.872,21.095 6,20.749 6,20.391V15C6,11.753 7.276,8.712 9.594,6.437C11.374,4.689 13.59,3.576 16,3.175V3C16,1.896 16.896,1 18,1C19.104,1 20,1.896 20,3V3.188C25.651,4.178 30,9.283 30,15.348V20.389C30,20.747 30.129,21.095 30.362,21.368L31.916,23.181C32.615,23.996 33,25.035 33,26.11ZM18,35C20.209,35 22,33.209 22,31H14C14,33.209 15.791,35 18,35Z"
+        android:fillColor="@color/ionos_default_icon_color"/>
+</vector>

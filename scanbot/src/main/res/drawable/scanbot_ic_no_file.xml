@@ -1,0 +1,24 @@
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="36"
+    android:viewportHeight="36">
+  <group>
+    <clip-path
+        android:pathData="M0,0h36v36h-36z"/>
+    <path
+        android:pathData="M31.498,34.738L4.482,3.032C3.71,2.126 3.595,0.957 4.226,0.419C4.857,-0.119 5.993,0.18 6.765,1.086L33.782,32.793C34.554,33.699 34.668,34.868 34.037,35.405C33.406,35.943 32.27,35.645 31.498,34.738Z"
+        android:fillColor="?scanbot_tip_icon_color"/>
+    <path
+        android:pathData="M22.343,0.936C21.89,0.484 21.314,0.176 20.697,0.024V9.411C20.697,9.687 20.922,9.911 21.197,9.911H30.587C30.437,9.294 30.131,8.724 29.67,8.264L22.343,0.936ZM17.697,9.411C17.697,11.341 19.267,12.911 21.197,12.911H30.697V30.078L7.401,2.721C8.344,1.045 10.141,-0.089 12.197,-0.089H17.697V9.411ZM6.697,8.602V30.411C6.697,33.444 9.165,35.911 12.197,35.911H25.197C26.575,35.911 27.836,35.402 28.802,34.561L6.697,8.602Z"
+        android:fillColor="?scanbot_tip_icon_color"
+        android:fillType="evenOdd"/>
+  </group>
+</vector>

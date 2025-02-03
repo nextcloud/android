@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/settings_screen_items_horizontal_padding"
+    android:paddingTop="@dimen/settings_screen_items_top_padding"
+    android:paddingRight="@dimen/settings_screen_items_horizontal_padding"
+    android:paddingBottom="@dimen/settings_screen_items_bottom_padding">
+
+    <TextView
+        android:id="@android:id/title"
+        style="@style/SettingsTitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="Settings item header" />
+
+    <TextView
+        android:id="@android:id/summary"
+        style="@style/SettingsSubtitleStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/settings_screen_description_top_margin"
+        tools:text="Settings item description" />
+
+</LinearLayout>

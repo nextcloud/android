@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:orientation="vertical">
+
+	<include
+		android:id="@+id/toolbar"
+		layout="@layout/scanbot_view_common_toolbar"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/scanbot_navigation_layout_height" />
+
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<androidx.constraintlayout.widget.ConstraintLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:paddingBottom="@dimen/scanbot_padding_small">
+
+			<Space
+				android:id="@+id/bgContent"
+				android:layout_width="0dp"
+				android:layout_height="0dp"
+				android:layout_marginStart="@dimen/scanbot_padding_normal"
+				android:layout_marginEnd="@dimen/scanbot_padding_normal"
+				android:orientation="vertical"
+				app:layout_constraintBottom_toBottomOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintWidth_max="@dimen/scanbot_save_screen_max_content_width" />
+
+			<TextView
+				android:id="@+id/lName"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/scanbot_padding_normal"
+				android:text="@string/scanbot_save_file_name_title"
+				android:textColor="?scanbot_save_file_name_label_text_color"
+				android:textStyle="bold"
+				app:layout_constraintEnd_toEndOf="@id/bgContent"
+				app:layout_constraintStart_toStartOf="@id/bgContent"
+				app:layout_constraintTop_toTopOf="parent" />
+
+			<EditText
+				android:id="@+id/tvName"
+				style="@style/ScanbotEditTextStyle"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:background="@null"
+				android:drawableEnd="@drawable/scanbot_ic_edit"
+				android:ellipsize="end"
+				android:inputType="text"
+				android:maxLines="1"
+				android:paddingStart="0dp"
+				android:paddingTop="@dimen/scanbot_padding_small"
+				android:paddingEnd="@dimen/scanbot_padding_normal"
+				android:paddingBottom="@dimen/scanbot_padding_small"
+				android:textColor="?scanbot_edit_text_text_color"
+				android:textSize="@dimen/scanbot_large_font_size"
+				app:layout_constraintEnd_toEndOf="@id/bgContent"
+				app:layout_constraintStart_toStartOf="@id/bgContent"
+				app:layout_constraintTop_toBottomOf="@id/lName"
+				tools:text="scan_201907390-1636" />
+
+			<View
+				android:id="@+id/divider"
+				android:layout_width="0dp"
+				android:layout_height="@dimen/scanbot_divider_height"
+				android:background="?scanbot_save_divider_color"
+				app:layout_constraintEnd_toEndOf="@id/bgContent"
+				app:layout_constraintStart_toStartOf="@id/bgContent"
+				app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+			<TextView
+				android:id="@+id/lType"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/scanbot_padding_normal"
+				android:paddingTop="@dimen/scanbot_padding_small"
+				android:paddingBottom="@dimen/scanbot_padding_micro"
+				android:text="@string/scanbot_save_file_type_title"
+				android:textColor="?scanbot_save_file_type_label_text_color"
+				android:textStyle="bold"
+				app:layout_constraintEnd_toEndOf="@id/bgContent"
+				app:layout_constraintStart_toStartOf="@id/bgContent"
+				app:layout_constraintTop_toBottomOf="@id/divider" />
+
+			<com.ionos.scanbot.screens.save.view.FileTypeView
+				android:id="@+id/file_type_view"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:layout_marginTop="@dimen/scanbot_padding_small"
+				android:theme="@style/ScanbotRadioGroupStyle"
+				app:layout_constraintEnd_toEndOf="@id/bgContent"
+				app:layout_constraintStart_toStartOf="@id/bgContent"
+				app:layout_constraintTop_toBottomOf="@id/lType" />
+
+			<TextView
+				android:id="@+id/lLocation"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_marginTop="@dimen/scanbot_padding_normal"
+				android:text="@string/scanbot_save_path"
+				android:textColor="?scanbot_save_file_location_label_text_color"
+				android:textStyle="bold"
+				app:layout_constraintEnd_toEndOf="@id/bgContent"
+				app:layout_constraintStart_toStartOf="@id/bgContent"
+				app:layout_constraintTop_toBottomOf="@id/file_type_view" />
+
+			<TextView
+				android:id="@+id/tvPath"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:drawableEnd="@drawable/scanbot_ic_edit"
+				android:drawablePadding="@dimen/scanbot_padding_normal"
+				android:ellipsize="middle"
+				android:paddingStart="0dp"
+				android:paddingTop="@dimen/scanbot_padding_small"
+				android:paddingEnd="@dimen/scanbot_padding_normal"
+				android:paddingBottom="@dimen/scanbot_padding_small"
+				android:textColor="?scanbot_save_screen_path_text_color"
+				android:textSize="@dimen/scanbot_large_font_size"
+				app:layout_constraintEnd_toEndOf="@id/bgContent"
+				app:layout_constraintStart_toStartOf="@id/bgContent"
+				app:layout_constraintTop_toBottomOf="@id/lLocation"
+				tools:text="PDF-Ordner" />
+
+			<View
+				android:id="@+id/dividerSeparator"
+				android:layout_width="0dp"
+				android:layout_height="@dimen/scanbot_divider_height"
+				android:background="?scanbot_save_divider_color"
+				app:layout_constraintEnd_toEndOf="@id/bgContent"
+				app:layout_constraintStart_toStartOf="@id/bgContent"
+				app:layout_constraintTop_toBottomOf="@id/tvPath" />
+
+		</androidx.constraintlayout.widget.ConstraintLayout>
+
+	</ScrollView>
+
+</LinearLayout>

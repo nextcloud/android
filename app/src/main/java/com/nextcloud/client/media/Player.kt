@@ -261,9 +261,7 @@ internal class Player(
     }
 
     override fun seekTo(pos: Int) {
-        if (stateMachine.isInState(State.PLAYING)) {
-            mediaPlayer?.seekTo(pos)
-        }
+        mediaPlayer?.seekTo(pos)
     }
 
     override fun getCurrentPosition(): Int {

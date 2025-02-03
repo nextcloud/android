@@ -8,13 +8,13 @@
  */
 package com.owncloud.android.ui.dialog
 
+import android.app.Dialog
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import com.nextcloud.android.common.ui.theme.utils.ColorRole
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.di.Injectable
+import com.owncloud.android.R
 import com.owncloud.android.databinding.LoadingDialogBinding
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import javax.inject.Inject
@@ -35,18 +35,13 @@ class LoadingDialog : DialogFragment(), Injectable {
         isCancelable = false
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = LoadingDialogBinding.inflate(inflater, container, false)
+    @IonosCustomization
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        binding = LoadingDialogBinding.inflate(layoutInflater)
         binding.loadingText.text = mMessage
-
-        val loadingDrawable = binding.loadingBar.indeterminateDrawable
-        if (loadingDrawable != null) {
-            viewThemeUtils?.platform?.tintDrawable(requireContext(), loadingDrawable)
-        }
-
-        viewThemeUtils?.platform?.colorViewBackground(binding.loadingLayout, ColorRole.SURFACE)
-
-        return binding.root
+        return MaterialAlertDialogBuilder(requireContext(), R.style.Theme_ownCloud_LoadingDialog)
+            .setView(binding.root)
+            .create()
     }
 
     override fun onDestroyView() {

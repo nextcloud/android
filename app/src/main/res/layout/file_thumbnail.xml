@@ -20,6 +20,16 @@
         android:layout_gravity="center">
 
         <ImageView
+            android:id="@+id/file_icon"
+            android:layout_width="@dimen/file_icon_size"
+            android:layout_height="@dimen/file_icon_size"
+            android:contentDescription="@null"
+            android:visibility="gone"
+            app:ionosCustomization="Show file icon in a separate view"
+            tools:src="@drawable/folder"
+            tools:visibility="visible" />
+
+        <ImageView
             android:id="@+id/thumbnail"
             android:layout_width="@dimen/file_icon_size"
             android:layout_height="@dimen/file_icon_size"

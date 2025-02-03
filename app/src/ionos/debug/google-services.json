@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "695238986129",
+    "project_id": "ionos-easystorage-dev",
+    "storage_bucket": "ionos-easystorage-dev.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695238986129:android:21f017261e3d0f7bc0f230",
+        "android_client_info": {
+          "package_name": "com.ionos.hidrivenext"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgq5tBI0SVPspdtVrRx-z-fBR9XsbZeUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

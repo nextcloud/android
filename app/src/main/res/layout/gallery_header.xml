@@ -9,6 +9,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="@dimen/alternate_half_padding"
     android:paddingTop="@dimen/alternate_half_padding"
     xmlns:tools="http://schemas.android.com/tools">
@@ -31,6 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/standard_margin"
         android:layout_marginBottom="@dimen/standard_margin"
+        android:textStyle="bold"
+        app:ionosCustomization="bold text"
         android:textAppearance="?android:attr/textAppearanceLarge"
         tools:text="2016" />
 </LinearLayout>

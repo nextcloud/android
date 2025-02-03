@@ -21,6 +21,7 @@ import androidx.fragment.app.DialogFragment
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.common.collect.Sets
+import com.ionos.annotation.IonosCustomization
 import com.nextcloud.client.account.CurrentAccountProvider
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
@@ -72,6 +73,7 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
         keyboardUtils.showKeyboardForEditText(requireDialog().window, binding.userInput)
     }
 
+    @IonosCustomization
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         mTargetFile = requireArguments().getParcelableArgument(ARG_TARGET_FILE, OCFile::class.java)
 
@@ -80,7 +82,7 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
 
         val currentName = mTargetFile?.fileName
         binding.userInput.setText(currentName)
-        viewThemeUtils.material.colorTextInputLayout(binding.userInputContainer)
+        viewThemeUtils.ionos.material.colorTextInputLayout(binding.userInputContainer)
         val extensionStart = if (mTargetFile?.isFolder == true) -1 else currentName?.lastIndexOf('.')
         val selectionEnd = if ((extensionStart ?: -1) >= 0) extensionStart else currentName?.length
         if (selectionEnd != null) {
@@ -116,6 +118,7 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
         return builder
     }
 
+    @IonosCustomization()
     private fun initAlertDialog() {
         val alertDialog = dialog as AlertDialog?
 
@@ -124,9 +127,9 @@ class RenameFileDialogFragment : DialogFragment(), DialogInterface.OnClickListen
             val negativeButton = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE) as MaterialButton
 
             positiveButton?.let {
-                viewThemeUtils.material.colorMaterialButtonPrimaryTonal(it)
+                viewThemeUtils.ionos.material.colorMaterialButtonPrimaryTonal(it)
             }
-            viewThemeUtils.material.colorMaterialButtonPrimaryBorderless(negativeButton)
+            viewThemeUtils.ionos.material.colorMaterialButtonPrimaryBorderless(negativeButton)
         }
     }
 

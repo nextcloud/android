@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Authorization Screen -->
+    <item name="authorization_guideline_top" type="dimen">0.2</item>
+    <item name="authorization_guideline_center" type="dimen">0.4</item>
+    <item name="authorization_guideline_bottom" type="dimen">0.8</item>
+
+    <!-- Settings Screen -->
+    <dimen name="settings_screen_list_bottom_padding">8dp</dimen>
+    <dimen name="settings_screen_first_group_top_padding">16dp</dimen>
+    <dimen name="settings_screen_group_top_padding">24dp</dimen>
+    <dimen name="settings_screen_group_bottom_padding">8dp</dimen>
+    <dimen name="settings_screen_group_horizontal_padding">16dp</dimen>
+    <dimen name="settings_screen_items_top_padding">8dp</dimen>
+    <dimen name="settings_screen_items_bottom_padding">8dp</dimen>
+    <dimen name="settings_screen_items_horizontal_padding">16dp</dimen>
+    <dimen name="settings_screen_description_top_margin">8dp</dimen>
+    <dimen name="settings_screen_title_text_size">16sp</dimen>
+    <dimen name="settings_screen_description_text_size">14sp</dimen>
+
+    <!-- Media preview Screen -->
+    <dimen name="exo_center_controls_padding">40dp</dimen>
+    <dimen name="exo_rewind_buttons_size">44dp</dimen>
+    <dimen name="exo_play_pause_button_size">52dp</dimen>
+    <dimen name="exo_play_pause_margin_horizontal">32dp</dimen>
+    <dimen name="exo_bottom_bar_height">96dp</dimen>
+    <dimen name="exo_time_margin_bottom">22dp</dimen>
+    <dimen name="exo_time_divider_size">6dp</dimen>
+    <dimen name="exo_progress_bar_height">24dp</dimen>
+    <dimen name="exo_scrubber_size">24dp</dimen>
+
+    <dimen name="file_icon_size">44dp</dimen>
+    <dimen name="min_list_item_size">64dp</dimen>
+
+    <dimen name="bottom_sheet_corner_radius">8dp</dimen>
+    <dimen name="bottom_sheet_drag_handle_height">56dp</dimen>
+    <dimen name="bottom_sheet_drag_handle_icon_width">32dp</dimen>
+    <dimen name="bottom_sheet_drag_handle_icon_height">4dp</dimen>
+    <dimen name="bottom_sheet_drag_handle_icon_radius">80dp</dimen>
+
+    <dimen name="dialog_default_text_size">16sp</dimen>
+    <dimen name="dialog_secondary_text_size">12sp</dimen>
+    <dimen name="dialog_title_text_size">24sp</dimen>
+
+    <dimen name="bottom_sheet_default_header_bottom_margin">24dp</dimen>
+    <dimen name="bottom_sheet_default_header_horizontal_margin">24dp</dimen>
+    <dimen name="bottom_sheet_default_list_bottom_margin">24dp</dimen>
+    <dimen name="bottom_sheet_default_item_height">48dp</dimen>
+    <dimen name="bottom_sheet_default_item_horizontal_margin">12dp</dimen>
+    <dimen name="bottom_sheet_default_item_horizontal_padding">12dp</dimen>
+    <dimen name="bottom_sheet_default_icon_width">16dp</dimen>
+    <dimen name="bottom_sheet_default_icon_height">16dp</dimen>
+    <dimen name="bottom_sheet_default_text_horizontal_margin">12dp</dimen>
+
+    <dimen name="sorting_dialog_header_margin">24dp</dimen>
+    <dimen name="sorting_dialog_item_horizontal_margin">12dp</dimen>
+    <dimen name="sorting_dialog_item_bottom_margin">12dp</dimen>
+    <dimen name="sorting_dialog_item_drawable_padding">8dp</dimen>
+    <dimen name="sorting_dialog_cancel_button_end_margin">12dp</dimen>
+    <dimen name="sorting_dialog_cancel_button_bottom_margin">12dp</dimen>
+
+    <dimen name="nav_drawer_used_storage_drawable_padding">12dp</dimen>
+
+    <dimen name="button_text_padding">16dp</dimen>
+
+    <dimen name="grid_mode_icon_size">32dp</dimen>
+    <dimen name="grid_mode_item_outline_margin">4dp</dimen>
+    <dimen name="grid_mode_item_margin">5dp</dimen>
+
+    <dimen name="text_input_box_stroke_width">1dp</dimen>
+    <dimen name="text_input_box_corner_radius">8dp</dimen>
+    <dimen name="text_input_text_size">14sp</dimen>
+    <dimen name="text_input_padding">16dp</dimen>
+
+    <dimen name="huge_value">1000000dp</dimen>
+
+    <dimen name="m3_comp_switch_disabled_track_opacity" tools:override="true">1</dimen>
+
+</resources>

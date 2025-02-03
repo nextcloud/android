@@ -14,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.ionos.annotation.IonosCustomization
 import com.owncloud.android.databinding.ItemQuickSharePermissionsBinding
 import com.owncloud.android.datamodel.QuickPermissionModel
 import com.owncloud.android.utils.theme.ViewThemeUtils
@@ -48,10 +49,10 @@ class QuickSharingPermissionsAdapter(
         RecyclerView
             .ViewHolder(itemView) {
 
+        @IonosCustomization("Disable icon tinting")
         fun bindData(quickPermissionModel: QuickPermissionModel) {
             binding.tvQuickShareName.text = quickPermissionModel.permissionName
             if (quickPermissionModel.isSelected) {
-                viewThemeUtils.platform.colorImageView(binding.tvQuickShareCheckIcon)
                 binding.tvQuickShareCheckIcon.visibility = View.VISIBLE
             } else {
                 binding.tvQuickShareCheckIcon.visibility = View.INVISIBLE

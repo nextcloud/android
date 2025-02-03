@@ -1,0 +1,9 @@
+## 3.30.5 (November 18, 2024)
+
+- Notification issues for Two-Way Sync have been resolved
+- The issue of multiple background jobs being scheduled has been fixed
+- Performance improvements and bug fixes have been implemented
+
+Minimum: NC 16 Server, Android 7.0 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/102

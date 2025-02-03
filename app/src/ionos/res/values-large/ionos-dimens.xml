@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<resources>
+
+    <!-- Settings Screen -->
+    <dimen name="settings_screen_list_bottom_padding">36dp</dimen>
+    <dimen name="settings_screen_first_group_top_padding">48dp</dimen>
+    <dimen name="settings_screen_group_top_padding">36dp</dimen>
+    <dimen name="settings_screen_group_bottom_padding">12dp</dimen>
+    <dimen name="settings_screen_group_horizontal_padding">48dp</dimen>
+    <dimen name="settings_screen_items_top_padding">12dp</dimen>
+    <dimen name="settings_screen_items_bottom_padding">12dp</dimen>
+    <dimen name="settings_screen_items_horizontal_padding">48dp</dimen>
+    <dimen name="settings_screen_description_top_margin">8dp</dimen>
+    <dimen name="settings_screen_title_text_size">16sp</dimen>
+    <dimen name="settings_screen_description_text_size">14sp</dimen>
+
+    <dimen name="bottom_sheet_corner_radius">16dp</dimen>
+    <dimen name="bottom_sheet_drag_handle_height">56dp</dimen>
+    <dimen name="bottom_sheet_drag_handle_icon_width">72dp</dimen>
+    <dimen name="bottom_sheet_drag_handle_icon_height">8dp</dimen>
+    <dimen name="bottom_sheet_drag_handle_icon_radius">80dp</dimen>
+
+</resources>

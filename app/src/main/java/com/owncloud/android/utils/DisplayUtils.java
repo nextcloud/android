@@ -57,10 +57,12 @@ import com.bumptech.glide.request.target.Target;
 import com.caverock.androidsvg.SVG;
 import com.elyeproj.loaderviewlibrary.LoaderImageView;
 import com.google.android.material.snackbar.Snackbar;
+import com.ionos.annotation.IonosCustomization;
 import com.nextcloud.client.account.CurrentAccountProvider;
 import com.nextcloud.client.account.User;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.owncloud.android.BuildConfig;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.ArbitraryDataProvider;
@@ -101,6 +103,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.TimeZone;
 
+import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -476,6 +479,7 @@ public final class DisplayUtils {
      * @param resources    reference for density information
      * @param callContext  which context is called to set the generated avatar
      */
+    @IonosCustomization
     public static void setAvatar(@NonNull User user,
                                  @NonNull String userId,
                                  String displayName,
@@ -486,6 +490,12 @@ public final class DisplayUtils {
                                  Context context) {
         if (callContext instanceof View) {
             ((View) callContext).setContentDescription(String.valueOf(user.toPlatformAccount().hashCode()));
+        }
+
+        if (BuildConfig.FLAVOR.equals("ionos")) {
+            Drawable avatar = ResourcesCompat.getDrawable(resources, R.drawable.account_circle_white, null);
+            listener.avatarGenerated(avatar, callContext);
+            return;
         }
 
         ArbitraryDataProvider arbitraryDataProvider = new ArbitraryDataProviderImpl(context);
@@ -817,21 +827,22 @@ public final class DisplayUtils {
         SortingOrderDialogFragment.newInstance(sortOrder).show(fragmentTransaction, SORTING_ORDER_FRAGMENT);
     }
 
-    public static @StringRes int getSortOrderStringId(FileSortOrder sortOrder) {
+    @IonosCustomization
+    public static @DrawableRes int getSortOrderIconRes(FileSortOrder sortOrder) {
         switch (sortOrder.name) {
             case SORT_Z_TO_A_ID:
-                return R.string.menu_item_sort_by_name_z_a;
+                return R.drawable.ic_alphabetical_desc;
             case SORT_NEW_TO_OLD_ID:
-                return R.string.menu_item_sort_by_date_newest_first;
+                return R.drawable.ic_modification_desc;
             case SORT_OLD_TO_NEW_ID:
-                return R.string.menu_item_sort_by_date_oldest_first;
+                return R.drawable.ic_modification_asc;
             case SORT_BIG_TO_SMALL_ID:
-                return R.string.menu_item_sort_by_size_biggest_first;
+                return R.drawable.ic_size_desc;
             case SORT_SMALL_TO_BIG_ID:
-                return R.string.menu_item_sort_by_size_smallest_first;
+                return R.drawable.ic_size_asc;
             case SORT_A_TO_Z_ID:
             default:
-                return R.string.menu_item_sort_by_name_a_z;
+                return R.drawable.ic_alphabetical_asc;
         }
     }
 

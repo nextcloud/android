@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ IONOS HiDrive Next - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: GPL-2.0
+  -->
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto">
+
+	<io.scanbot.sdk.ui.EditPolygonImageView
+		android:id="@+id/polygonView"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:cornerImageSrc="@drawable/scanbot_ic_crop_corner_handle"
+		app:edgeColor="?scanbot_crop_polygon_edge_color"
+		app:edgeImageSrc="@drawable/scanbot_ic_crop_side_handle"
+		app:editPolygonHandleSize="@dimen/scanbot_crop_view_edit_polygon_handle_size"
+		app:magneticLineTreshold="@dimen/scanbot_crop_view_magnetic_line_treshold" />
+
+	<io.scanbot.sdk.ui.MagnifierView
+		android:id="@+id/magnifier"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		app:magnifierImageSrc="@drawable/scanbot_ic_crop_magnifier"
+		app:magnifierMargin="@dimen/scanbot_crop_view_magnifier_margin"
+		app:magnifierRadius="@dimen/scanbot_crop_view_magnifier_radius" />
+
+</merge>

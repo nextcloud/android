@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Nextcloud - Android Client
+  ~
+  ~ SPDX-FileCopyrightText: 2017 Tobias Kaminsky <tobias@kaminsky.me>
+  ~ SPDX-FileCopyrightText: 2017 Nextcloud GmbH
+  ~ SPDX-FileCopyrightText: 2025 STRATO GmbH.
+  ~ SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/contacts_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/standard_margin"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/data_to_back_up_title"
+            style="@style/SettingsCategoryTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/data_to_back_up" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/contacts"
+            style="@style/SettingsBackupSwitchStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/contacts"
+            android:theme="@style/SettingsBackupSwitchStyle" />
+
+        <com.google.android.material.materialswitch.MaterialSwitch
+            android:id="@+id/calendar"
+            style="@style/SettingsBackupSwitchStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="@string/calendar"
+            android:theme="@style/SettingsBackupSwitchStyle" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/backup_settings_title"
+                style="@style/SettingsCategoryTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/standard_quarter_padding"
+                android:text="@string/backup_settings" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/daily_backup"
+                    style="@style/SettingsBackupSwitchStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:theme="@style/SettingsBackupSwitchStyle" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_toStartOf="@id/daily_backup"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        style="@style/SettingsTitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/daily_backup" />
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/last_backup_with_date"
+                        style="@style/SettingsSubtitleStyle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/last_backup" />
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/standard_margin"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/contacts_datepicker"
+                style="@style/SettingsBackupMaterialButtonOutlinedStyle"
+                android:layout_width="@dimen/backup_button_width"
+                android:layout_height="match_parent"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/restore_backup"
+                android:theme="@style/SettingsBackupMaterialButtonOutlinedStyle"
+                android:visibility="invisible"
+                tools:visibility="visible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/backup_now"
+                android:layout_width="@dimen/backup_button_width"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/standard_half_margin"
+                android:minHeight="@dimen/minimum_size_for_touchable_area"
+                android:text="@string/contacts_backup_button"
+                android:theme="@style/SettingsBackupMaterialButtonFilledStyle"
+                android:textColor="@color/filled_button_text_color"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

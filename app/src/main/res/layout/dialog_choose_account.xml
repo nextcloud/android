@@ -46,10 +46,12 @@
             android:textAlignment="textStart"
             android:textAllCaps="false"
             android:textColor="@color/fontAppbar"
+            android:visibility="gone"
             app:icon="@drawable/ic_edit"
             app:iconGravity="start"
             app:iconPadding="22dp"
-            app:iconTint="@color/fontAppbar" />
+            app:iconTint="@color/fontAppbar"
+            app:ionosCustomization="" />
     </LinearLayout>
 
     <View
