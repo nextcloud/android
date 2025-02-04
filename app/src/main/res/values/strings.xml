@@ -1275,11 +1275,11 @@
     <string name="image_editor_flip_vertical">Flip vertically</string>
     <string name="image_editor_unable_to_edit_image">Unable to edit image.</string>
     <string name="image_editor_file_edited_suffix">edited</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
+    <string name="ecosystem_apps_notes" translatable="false">Nextcloud Notes</string>
+    <string name="ecosystem_apps_talk" translatable="false">Nextcloud Talk</string>
     <string name="ecosystem_apps_more">More Nextcloud Apps</string>
-    <string name="ecosystem_apps_display_notes">Notes</string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
+    <string name="ecosystem_apps_display_notes" translatable="false">Notes</string>
+    <string name="ecosystem_apps_display_talk" translatable="false">Talk</string>
     <string name="ecosystem_apps_display_more">More</string>
     <string name="filedetails_details">Details</string>
     <string name="image_preview_unit_millimetres">%s mm</string>
@@ -1344,4 +1344,6 @@
     <string name="internal_shares">Internal shares</string>
     <string name="external_shares">External shares</string>
     <string name="create_link">Create link</string>
+    <string name="folder_best_viewed_in">This folder is best viewed in %1$s.</string>
+    <string name="open_in_app">Open in %1$s</string>
 </resources>
