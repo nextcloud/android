@@ -98,6 +98,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">manté a la carpeta original, ja que és només de lectura</string>
     <string name="auto_upload_gplay">S\'ha canviat el comportament de la càrrega automàtica</string>
     <string name="auto_upload_gplay_desc">A causa de les noves restriccions imposades per Google, la funció de càrrega automàtica ja no podrà eliminar automàticament els fitxers carregats.</string>
+    <string name="auto_upload_gplay_desc2">A causa de les noves restriccions imposades per Google, ens hem vist obligats a eliminar un permís important. Per consegüent, la pujada automàtica només podrà pujar fitxers d\'imatge i vídeo.\nA més a més, es requereix un altre permís per accedir a la informació d\'ubicació de les imatges pujades.\nComproveu que l\'accés multimèdia estigui establert a \"Permet sempre tot\".</string>
     <string name="auto_upload_on_wifi">Pujada només quan hi hagi Wi-Fi sense límits</string>
     <string name="auto_upload_path">/Càrrega automàtica</string>
     <string name="autoupload_configure">Configura</string>
@@ -132,6 +133,7 @@
     <string name="clear_notifications_failed">No s\'han pogut carregar les notificacions.</string>
     <string name="clear_status_message">Esborrar el missatge d\'estat</string>
     <string name="clear_status_message_after">Esborra el missatge d\'estat després</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Cal la intervenció manual per tornar a habilitar la pujada automàtica</string>
     <string name="clipboard_label">Text copiat des de %1$s</string>
     <string name="clipboard_no_text_to_copy">No s\'ha rebut cap text per copiar al porta-retalls</string>
     <string name="clipboard_text_copied">Enllaç copiat</string>
@@ -333,6 +335,7 @@
     <string name="error_showing_encryption_dialog">S\'ha produït un error en mostrar el quadre de diàleg de configuració del xifratge</string>
     <string name="error_starting_direct_camera_upload">S\'ha produït un error iniciant la càmera</string>
     <string name="error_starting_doc_scan">S\'ha produït un error en iniciar l\'escaneig del document</string>
+    <string name="error_uploading_direct_camera_upload">No s\'ha pogut pujar el contingut multimèdia</string>
     <string name="etm_accounts">Comptes</string>
     <string name="etm_background_job_created">S\'ha creat</string>
     <string name="etm_background_job_name">Nom de la tasca</string>
@@ -479,9 +482,24 @@
     <string name="icon_of_dashboard_widget">Icona del giny del tauler</string>
     <string name="icon_of_widget_entry">Icona de l\'entrada del giny</string>
     <string name="image_editor_file_edited_suffix">editat</string>
+    <string name="image_editor_flip_horizontal">Inverteix horitzontalment</string>
+    <string name="image_editor_flip_vertical">Inverteix verticalment</string>
+    <string name="image_editor_rotate_ccw">Gira en sentit antihorari</string>
+    <string name="image_editor_rotate_cw">Gira en sentit horari</string>
+    <string name="image_editor_unable_to_edit_image">No s\'ha pogut editar la imatge.</string>
+    <string name="image_preview_filedetails">Detalls del fitxer</string>
+    <string name="image_preview_image_taking_conditions">Condicions de presa d\'imatges</string>
+    <string name="image_preview_unit_fnumber">ƒ/%s</string>
+    <string name="image_preview_unit_iso">ISO %s</string>
+    <string name="image_preview_unit_megapixel">%s MP</string>
+    <string name="image_preview_unit_millimetres">%s mm</string>
+    <string name="image_preview_unit_seconds">%s s</string>
     <string name="instant_upload_existing">També pujar fitxers existents</string>
     <string name="instant_upload_on_charging">Pujada només durant la càrrega de bateria</string>
     <string name="instant_upload_path">/CàrregaInstantània</string>
+    <string name="internal_two_way_sync">Sincronització interna bidireccional</string>
+    <string name="internal_two_way_sync_not_yet">Encara no, aviat se sincronitzarà</string>
+    <string name="internet_connection_required_for_encrypted_folder_setup">Cal una connexió a Internet per configurar la carpeta xifrada</string>
     <string name="invalid_url">URL no vàlid</string>
     <string name="invisible">Invisible</string>
     <string name="label_empty">L\'etiqueta no pot estar buida</string>
@@ -505,6 +523,7 @@
     <string name="locked_by_app">Blocat per l\'aplicació %1$s</string>
     <string name="log_send_mail_subject">%1$s registres de la aplicació d\'Android.</string>
     <string name="log_send_no_mail_app">No s\'ha trobat cap aplicació per enviar els registres. Instal·leu un client de correu electrònic.</string>
+    <string name="logged_in_as">S\'ha iniciat la sessió com a %1$s</string>
     <string name="login">Inicia la sessió</string>
     <string name="login_url_helper_text">Enllaç a la interfície web del %1$s quan l\'obriu en el navegador.</string>
     <string name="logs_menu_delete">Suprimeix els registres</string>
@@ -519,6 +538,7 @@
     <string name="manage_space_clear_data">Neteja dades</string>
     <string name="manage_space_description">Els paràmetres, la base de dades i els certificats del servidor %1$s se suprimiran de forma permanent. \n\nEls fitxers descarregats romandran intactes.\n\n Aquest procés pot trigar una estona.</string>
     <string name="manage_space_title">Gestió d\'espai</string>
+    <string name="max_file_count_warning_message">Has assolit el límit màxim de pujada de fitxers. Puja menys de 500 fitxers alhora.</string>
     <string name="media_err_invalid_progressive_playback">No es pot reproduir el fitxer multimèdia</string>
     <string name="media_err_io">No s\'ha pogut llegir el fitxer multimèdia</string>
     <string name="media_err_malformed">El fitxer multimèdia té una codificació incorrecta</string>
@@ -556,6 +576,7 @@
     <string name="no_calendar_exists">No existeix el calendari</string>
     <string name="no_email_app_available">No hi ha cap aplicació disponible per gestionar l\'adreça de correu</string>
     <string name="no_items">No hi ha cap element</string>
+    <string name="no_map_app_availble">No hi ha cap aplicació disponible per gestionar mapes</string>
     <string name="no_mutliple_accounts_allowed">Només es permet un compte.</string>
     <string name="no_pdf_app_available">No hi ha cap aplicació disponible per manegar els PDF</string>
     <string name="no_send_app">No hi ha cap aplicació disponible per enviar els fitxers seleccionats</string>
@@ -563,6 +584,8 @@
     <string name="note_could_not_sent">No s\'ha pogut enviar la nota</string>
     <string name="note_icon_hint">Icona de nota</string>
     <string name="notification_action_failed">L\'execució de l\'acció ha fallat.</string>
+    <string name="notification_channel_background_operations_description">Mostra les notificacions a interactuar com a resultat de les operacions en segon pla</string>
+    <string name="notification_channel_background_operations_name">Operacions en segon pla</string>
     <string name="notification_channel_download_description">Mostra el progrés de les baixades</string>
     <string name="notification_channel_download_name_short">Baixades</string>
     <string name="notification_channel_file_sync_description">Mostra el procés de sincronització de fitxers i els resultats</string>
@@ -576,8 +599,10 @@
     <string name="notification_channel_upload_description">Mostra el progrés de pujada</string>
     <string name="notification_channel_upload_name_short">Pujades</string>
     <string name="notification_icon">Icona de notificació</string>
+    <string name="notification_icon_description">Hi ha notificacions sense llegir</string>
     <string name="notifications_no_results_headline">No hi ha notificacions</string>
     <string name="notifications_no_results_message">Si us plau, comproveu-ho més tard</string>
+    <string name="oc_file_list_adapter_offline_operation_description_text">Operació pendent</string>
     <string name="offline_mode">No hi ha connexió a internet</string>
     <string name="oneHour">1 hora</string>
     <string name="online">En línia</string>
@@ -861,6 +886,7 @@
     <string name="trashbin_file_remove">Suprimeix permanentment</string>
     <string name="trashbin_loading_failed">No s\'ha pogut carregar la paperera!</string>
     <string name="trashbin_not_emptied">Els fitxers no s\'han pogut suprimir permanentment!</string>
+    <string name="two_way_sync_activity_title">Sincronització interna bidireccional</string>
     <string name="unexpected_error_occurred">S\'ha produït un error inesperat</string>
     <string name="unlock_file">Desbloca el fitxer</string>
     <string name="unread_comments">Hi ha comentaris sense llegir</string>
