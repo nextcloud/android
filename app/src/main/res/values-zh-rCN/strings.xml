@@ -735,6 +735,7 @@
     <string name="recommend_subject">在你的设备上尝试%1$s！</string>
     <string name="recommend_text">我想邀请你在你的设备上使用 %1$s。\n在这里下载：%2$s</string>
     <string name="recommend_urls">%1$s 或 %2$s</string>
+    <string name="recommended_files_title">推荐文件</string>
     <string name="refresh_content">刷新内容</string>
     <string name="reload">刷新</string>
     <string name="remote">(远程)</string>
@@ -795,6 +796,7 @@
     <string name="share">共享</string>
     <string name="share_copy_link">共享并复制链接</string>
     <string name="share_dialog_title">共享</string>
+    <string name="share_download_limit">设置下载限制</string>
     <string name="share_expiration_date_format">%1$s</string>
     <string name="share_expiration_date_label">过期 %1$s</string>
     <string name="share_file">共享 %1$s</string>
@@ -1008,6 +1010,8 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="upload_file_dialog_title">输入要上传的文件名和文件类型</string>
     <string name="upload_files">上传文件</string>
     <string name="upload_global_pause_title">所有上传已暂停</string>
+    <string name="upload_gplay">权限更改</string>
+    <string name="upload_gplay_desc">需要新权限才能访问上传图片的位置信息。\n确保媒体访问设置为“始终允许全部”。</string>
     <string name="upload_item_action_button">上传项操作按钮</string>
     <string name="upload_list_delete">删除</string>
     <string name="upload_list_empty_headline">没有可以上传的</string>
@@ -1169,4 +1173,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <plurals name="items_selected_count">
         <item quantity="other">已选择 %d 个</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="other">剩余 %1$d 个下载</item>
+    </plurals>
+</resources>
