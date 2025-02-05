@@ -225,9 +225,6 @@
     <string name="drawer_quota_unlimited">%1$s בשימוש</string>
     <string name="drawer_synced_folders">העלאה אוטומטית</string>
     <string name="ecosystem_apps_display_more">יותר</string>
-    <string name="ecosystem_apps_display_notes">פתקים</string>
-    <string name="ecosystem_apps_display_talk">שיחה</string>
-    <string name="ecosystem_apps_notes">פתקים של Nextcloud</string>
     <string name="encrypted">הגדרה כמוצפן</string>
     <string name="end_to_end_encryption_confirm_button">הגדרת הצפנה</string>
     <string name="end_to_end_encryption_decrypting">מתבצע פענוח…</string>

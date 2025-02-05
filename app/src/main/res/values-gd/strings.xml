@@ -205,8 +205,6 @@
     <string name="drawer_quota_unlimited">Tha %1$s ’ga chleachdadh</string>
     <string name="drawer_synced_folders">Luchdaich suas gu fèin-obrachail</string>
     <string name="ecosystem_apps_display_more">Barrachd</string>
-    <string name="ecosystem_apps_display_notes">Nòtaichean</string>
-    <string name="ecosystem_apps_notes">Nòtaichean Nextcloud</string>
     <string name="encrypted">Suidhich crioptachadh air</string>
     <string name="end_to_end_encryption_confirm_button">Suidhich an crioptachadh</string>
     <string name="end_to_end_encryption_decrypting">’Ga dhì-chrioptachadh…</string>

@@ -273,11 +273,7 @@
     <string name="e2e_offline">Ne c\'hall ket bezañ graet hep kevreadenn genrouedad</string>
     <string name="ecosystem_apps_display_assistant">Skoazeller</string>
     <string name="ecosystem_apps_display_more">Muioc\'h</string>
-    <string name="ecosystem_apps_display_notes">Notennoù</string>
-    <string name="ecosystem_apps_display_talk">Komz</string>
     <string name="ecosystem_apps_more">Arloadoù Nextcloud all</string>
-    <string name="ecosystem_apps_notes">Notennoù Nextcloud</string>
-    <string name="ecosystem_apps_talk">Flap Nextcloud</string>
     <string name="email_pick_failed">N\'eus ket bet gallet tapout ar chomlec\'h postel</string>
     <string name="encrypted">Merkañ evel sifret</string>
     <string name="end_to_end_encryption_confirm_button">Arventenniñ ar sifradur</string>

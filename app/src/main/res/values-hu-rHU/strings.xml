@@ -296,11 +296,7 @@
     <string name="e2e_signature_does_not_match">Az aláírás nem egyezik</string>
     <string name="ecosystem_apps_display_assistant">Asszisztens</string>
     <string name="ecosystem_apps_display_more">Továbbiak</string>
-    <string name="ecosystem_apps_display_notes">Jegyzetek</string>
-    <string name="ecosystem_apps_display_talk">Beszélgetés</string>
     <string name="ecosystem_apps_more">További nextcloudos alkalmazások</string>
-    <string name="ecosystem_apps_notes">Nextcloud Jegyzetek</string>
-    <string name="ecosystem_apps_talk">Nextcloud Beszélgetés</string>
     <string name="email_pick_failed">Az e-mail-cím kiválasztása sikertelen.</string>
     <string name="encrypted">Titkosítás bekapcsolása</string>
     <string name="end_to_end_encryption_certificate_unavailable">A kiszolgáló tanúsítványa nem kérhető le</string>

@@ -297,11 +297,7 @@
     <string name="e2e_signature_does_not_match">Undirritanir samsvara ekki</string>
     <string name="ecosystem_apps_display_assistant">Meðhjálpari</string>
     <string name="ecosystem_apps_display_more">Meira</string>
-    <string name="ecosystem_apps_display_notes">Minnispunktar</string>
-    <string name="ecosystem_apps_display_talk">Spjalla</string>
     <string name="ecosystem_apps_more">Fleiri Nextcloud-forrit</string>
-    <string name="ecosystem_apps_notes">Nextcloud-minnispunktar</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Mistókst að velja tölvupóstfang.</string>
     <string name="encrypted">Setja sem dulritað</string>
     <string name="end_to_end_encryption_certificate_unavailable">Tókst ekki að ná í skilríki þjónsins</string>
