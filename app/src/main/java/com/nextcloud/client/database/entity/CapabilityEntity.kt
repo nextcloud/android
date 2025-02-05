@@ -136,5 +136,7 @@ data class CapabilityEntity(
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_FILES_DOWNLOAD_LIMIT_DEFAULT)
     val filesDownloadLimitDefault: Int?,
     @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_RECOMMENDATION)
-    val recommendation: Int?
+    val recommendation: Int?,
+    @ColumnInfo(name = ProviderTableMeta.CAPABILITIES_NOTES_FOLDER_PATH)
+    val notesFolderPath: String?
 )
