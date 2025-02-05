@@ -118,19 +118,27 @@ public class FilesystemDataProvider {
         }
     }
 
-    public Set<String> getFilesForUpload(String localPath, String syncedFolderId) {
+    public Set<String> getFilesForUpload(String localPath, String syncedFolderId, long minFileAge) {
         Set<String> localPathsToUpload = new HashSet<>();
 
+        String query = ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
+            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?";
         String likeParam = localPath + "%";
+        String[] queryParams = new String[]{likeParam, syncedFolderId, "0", "0"};
+
+        if (minFileAge > 0) {
+            query += " and " + ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_MODIFIED + " <= ?";
+            long maxFileTimestamp = System.currentTimeMillis() - minFileAge;
+            queryParams = ObjectArrays.concat(queryParams, Long.toString(maxFileTimestamp));
+        }
 
         Cursor cursor = contentResolver.query(
             ProviderMeta.ProviderTableMeta.CONTENT_URI_FILESYSTEM,
             null,
-            ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_LOCAL_PATH + " LIKE ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_SYNCED_FOLDER_ID + " = ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_SENT_FOR_UPLOAD + " = ? and " +
-                ProviderMeta.ProviderTableMeta.FILESYSTEM_FILE_IS_FOLDER + " = ?",
-            new String[]{likeParam, syncedFolderId, "0", "0"},
+            query,
+            queryParams,
             null);
 
         if (cursor != null) {

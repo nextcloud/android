@@ -243,19 +243,14 @@ class FilesSyncWork(
             null
         }
 
-        val maxFileTimestamp = if (syncedFolder.uploadDelayTimeMs > 0) {
-            System.currentTimeMillis() - syncedFolder.uploadDelayTimeMs
-        } else {
-            null
-        }
-
         // Ensure only new files are processed for upload.
         // Files that have been previously uploaded cannot be re-uploaded,
         // even if they have been deleted or moved from the target folder,
         // as they are already marked as uploaded in the database.
         val paths = filesystemDataProvider.getFilesForUpload(
             syncedFolder.localPath,
-            syncedFolder.id.toString()
+            syncedFolder.id.toString(),
+            syncedFolder.uploadDelayTimeMs
         )
         if (paths.isEmpty()) {
             return
