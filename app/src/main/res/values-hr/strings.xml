@@ -227,9 +227,6 @@
     <string name="drawer_quota_unlimited">Upotrijebljeno %1$s</string>
     <string name="drawer_synced_folders">Automatsko otpremanje</string>
     <string name="ecosystem_apps_display_more">Više</string>
-    <string name="ecosystem_apps_display_notes">Bilješke</string>
-    <string name="ecosystem_apps_display_talk">Razgovor</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notes</string>
     <string name="encrypted">Postavi kao šifrirano</string>
     <string name="end_to_end_encryption_confirm_button">Postavi šifriranje</string>
     <string name="end_to_end_encryption_decrypting">Dešifriranje u tijeku...</string>

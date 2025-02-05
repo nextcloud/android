@@ -191,8 +191,6 @@
     <string name="drawer_quota">%1$s el %2$s uzataj</string>
     <string name="drawer_quota_unlimited">%1$s uzataj</string>
     <string name="drawer_synced_folders">Aŭtomata alŝuto</string>
-    <string name="ecosystem_apps_display_talk">Paroli</string>
-    <string name="ecosystem_apps_notes">Nextcloud Notoj</string>
     <string name="encrypted">Difini kiel ĉifrita</string>
     <string name="end_to_end_encryption_confirm_button">Agordi ĉifradon</string>
     <string name="end_to_end_encryption_decrypting">Malĉifrado...</string>

@@ -294,11 +294,7 @@
     <string name="e2e_signature_does_not_match">Sinadura ez dator bat</string>
     <string name="ecosystem_apps_display_assistant">Morroia</string>
     <string name="ecosystem_apps_display_more">Gehiago</string>
-    <string name="ecosystem_apps_display_notes">Oharrak</string>
-    <string name="ecosystem_apps_display_talk">Hizketaldia</string>
     <string name="ecosystem_apps_more">Nextcloud aplikazio gehiago</string>
-    <string name="ecosystem_apps_notes">Nextcloud Oharrak</string>
-    <string name="ecosystem_apps_talk">Nextcloud Talk</string>
     <string name="email_pick_failed">Ezin izan da helbide elektronikoa hautatu.</string>
     <string name="encrypted">Ezarri zifratu gisa</string>
     <string name="end_to_end_encryption_confirm_button">Konfiguratu zifratzea</string>

@@ -264,10 +264,7 @@ Otomatis unggah hanya bekerja dengan baik apabila Anda mengeluarkan aplikasi ini
     <string name="e2e_offline">Tidak bisa dilakukan tanpa koneksi internet</string>
     <string name="ecosystem_apps_display_assistant">Asisten</string>
     <string name="ecosystem_apps_display_more">Lainnya</string>
-    <string name="ecosystem_apps_display_notes">Catatan</string>
-    <string name="ecosystem_apps_display_talk">Talk</string>
     <string name="ecosystem_apps_more">Aplikasi Nextcloud Lainnya</string>
-    <string name="ecosystem_apps_notes">Catatan Nextcloud</string>
     <string name="email_pick_failed">Gagal memilih alamat surel.</string>
     <string name="encrypted">Atur sebagai terenkripsi</string>
     <string name="end_to_end_encryption_confirm_button">Buat enkripsi</string>

@@ -440,7 +440,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             PreviewTextFragment.setText(headerViewHolder.getHeaderText(), text, null, activity, true, true, viewThemeUtils);
 
             // hide header text if empty (server returns NBSP)
-            ViewExtensionsKt.setVisibleIf(headerViewHolder.getHeaderText(), text != null && !text.isBlank() && !text.equals(" "));
+            ViewExtensionsKt.setVisibleIf(headerViewHolder.getHeaderText(), text != null && !text.isBlank() && !" ".equals(text));
 
             ViewExtensionsKt.setVisibleIf(headerBinding.recommendedFilesRecyclerView, shouldShowRecommendedFiles());
             ViewExtensionsKt.setVisibleIf(headerBinding.recommendedFilesTitle, shouldShowRecommendedFiles());
