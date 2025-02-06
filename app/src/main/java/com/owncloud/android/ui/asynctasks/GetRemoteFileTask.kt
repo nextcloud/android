@@ -28,8 +28,14 @@ class GetRemoteFileTask(
 
     data class Result(val success: Boolean = false, val file: OCFile = OCFile("/"))
 
+    // Define constants for timeouts
+    companion object {
+        private const val CONNECTION_TIMEOUT = 1000
+        private const val READ_TIMEOUT = 1000
+    }
+
     override fun invoke(): Result {
-        val sessionTimeout = SessionTimeOut(1000, 1000)
+        val sessionTimeout = SessionTimeOut(READ_TIMEOUT, CONNECTION_TIMEOUT)
         val result = ReadFileRemoteOperation(fileUrl, sessionTimeout).execute(client)
         if (result.isSuccess) {
             val remoteFile = result.getData().get(0) as RemoteFile
