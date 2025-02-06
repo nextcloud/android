@@ -34,7 +34,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions", "MagicNumber")
@@ -74,7 +73,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     private var passCodeDigits: Array<String> = arrayOf("", "", "", "")
     private var confirmingPassCode = false
     private var changed = true // to control that only one blocks jump
-    private var delayTimeInSeconds = 1
+    private var delayTimeInSeconds = 15
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -277,7 +276,6 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         binding.explanation.visibility = explanationVisibility // TODO check if really needed
         clearBoxes()
         showDelay()
-        increaseDelayTime()
     }
 
     /**
@@ -341,11 +339,6 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     }
 
     @Suppress("MagicNumber")
-    private fun getDelayValueInMillis(): Long {
-        return (delayTimeInSeconds * 1000L)
-    }
-
-    @Suppress("MagicNumber")
     private fun increaseDelayTime() {
         val maxDelayTimeInSeconds = 300
         val delayIncrementation = 15
@@ -356,15 +349,15 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     }
 
     @Suppress("MagicNumber")
-    private fun getExplanationText(): String {
+    private fun getExplanationText(timeInSecond: Int): String {
         return when {
-            delayTimeInSeconds < 60 -> resources.getQuantityString(
+            timeInSecond < 60 -> resources.getQuantityString(
                 R.plurals.delay_message,
-                delayTimeInSeconds,
-                delayTimeInSeconds
+                timeInSecond,
+                timeInSecond
             )
             else -> {
-                val minutes = (delayTimeInSeconds / 60)
+                val minutes = (timeInSecond / 60)
                 resources.getQuantityString(
                     R.plurals.delay_message_minutes,
                     minutes,
@@ -381,27 +374,30 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
             return
         }
 
-        val delayValue = getDelayValueInMillis()
-        binding.explanation.text = getExplanationText()
+        binding.explanation.text = getExplanationText(delayTimeInSeconds)
         binding.explanation.visibility = View.VISIBLE
         binding.txt0.isEnabled = false
         binding.txt1.isEnabled = false
         binding.txt2.isEnabled = false
         binding.txt3.isEnabled = false
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            delay(delayValue)
-
-            withContext(Dispatchers.Main) {
-                binding.explanation.visibility = View.INVISIBLE
-                binding.txt0.isEnabled = true
-                binding.txt1.isEnabled = true
-                binding.txt2.isEnabled = true
-                binding.txt3.isEnabled = true
-
-                binding.txt0.requestFocus()
-                binding.txt0.showKeyboard()
+        var counter = delayTimeInSeconds
+        lifecycleScope.launch(Dispatchers.Main) {
+            while (counter != 0) {
+                binding.explanation.text = getExplanationText(counter)
+                delay(1000)
+                counter -= 1
             }
+
+            binding.explanation.visibility = View.INVISIBLE
+            binding.txt0.isEnabled = true
+            binding.txt1.isEnabled = true
+            binding.txt2.isEnabled = true
+            binding.txt3.isEnabled = true
+
+            binding.txt0.requestFocus()
+            binding.txt0.showKeyboard()
+            increaseDelayTime()
         }
     }
 
