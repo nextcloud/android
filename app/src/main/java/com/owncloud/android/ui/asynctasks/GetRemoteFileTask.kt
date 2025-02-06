@@ -8,6 +8,7 @@ package com.owncloud.android.ui.asynctasks
 
 import android.content.Context
 import com.nextcloud.client.account.User
+import com.nextcloud.common.SessionTimeOut
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.lib.common.OwnCloudClient
@@ -28,7 +29,8 @@ class GetRemoteFileTask(
     data class Result(val success: Boolean = false, val file: OCFile = OCFile("/"))
 
     override fun invoke(): Result {
-        val result = ReadFileRemoteOperation(fileUrl).execute(client)
+        val sessionTimeout = SessionTimeOut(1000, 1000)
+        val result = ReadFileRemoteOperation(fileUrl, sessionTimeout).execute(client)
         if (result.isSuccess) {
             val remoteFile = result.getData().get(0) as RemoteFile
             val temp = FileStorageUtils.fillOCFile(remoteFile)
