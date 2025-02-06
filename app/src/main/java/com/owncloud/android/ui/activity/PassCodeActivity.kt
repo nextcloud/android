@@ -24,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.authentication.PassCodeManager
 import com.owncloud.android.databinding.PasscodelockBinding
@@ -73,7 +74,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     private var passCodeDigits: Array<String> = arrayOf("", "", "", "")
     private var confirmingPassCode = false
     private var changed = true // to control that only one blocks jump
-    private var delayTimeInSeconds = 15
+    private var delayTimeInSeconds = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -374,12 +375,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
             return
         }
 
-        binding.explanation.text = getExplanationText(delayTimeInSeconds)
-        binding.explanation.visibility = View.VISIBLE
-        binding.txt0.isEnabled = false
-        binding.txt1.isEnabled = false
-        binding.txt2.isEnabled = false
-        binding.txt3.isEnabled = false
+        enableInputFields(false)
 
         var counter = delayTimeInSeconds
         lifecycleScope.launch(Dispatchers.Main) {
@@ -389,15 +385,26 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
                 counter -= 1
             }
 
-            binding.explanation.visibility = View.INVISIBLE
-            binding.txt0.isEnabled = true
-            binding.txt1.isEnabled = true
-            binding.txt2.isEnabled = true
-            binding.txt3.isEnabled = true
-
-            binding.txt0.requestFocus()
-            binding.txt0.showKeyboard()
+            enableInputFields(true)
+            focusFirstInputField()
             increaseDelayTime()
+        }
+    }
+
+    private fun enableInputFields(enabled: Boolean) {
+        binding.run {
+            explanation.setVisibleIf(!enabled)
+            txt0.isEnabled = enabled
+            txt1.isEnabled = enabled
+            txt2.isEnabled = enabled
+            txt3.isEnabled = enabled
+        }
+    }
+
+    private fun focusFirstInputField() {
+        binding.run {
+            txt0.requestFocus()
+            txt0.showKeyboard()
         }
     }
 
