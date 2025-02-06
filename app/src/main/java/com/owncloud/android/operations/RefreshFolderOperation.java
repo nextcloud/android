@@ -386,7 +386,8 @@ public class RefreshFolderOperation extends RemoteOperation {
         Log_OC.d(TAG, "Checking changes in " + user.getAccountName() + remotePath);
 
         // remote request
-        SessionTimeOut sessionTimeOut = new SessionTimeOut(1000,1000);        result = new ReadFileRemoteOperation(remotePath, sessionTimeOut).execute(client);
+        SessionTimeOut sessionTimeOut = new SessionTimeOut(1000,1000);
+        result = new ReadFileRemoteOperation(remotePath, sessionTimeOut).execute(client);
 
         if (result.isSuccess()) {
             OCFile remoteFolder = FileStorageUtils.fillOCFile((RemoteFile) result.getData().get(0));
