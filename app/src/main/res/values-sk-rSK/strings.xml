@@ -252,7 +252,7 @@
     <string name="document_scan_pdf_generation_in_progress">Generuje sa PDF...</string>
     <string name="done">Hotové</string>
     <string name="dontClear">Nemazať</string>
-    <string name="download_cannot_create_file">Nieje možné vytvoriť lokálny súbor</string>
+    <string name="download_cannot_create_file">Nie je možné vytvoriť lokálny súbor</string>
     <string name="download_download_invalid_local_file_name">Nesprávny názov pre lokálny súbor</string>
     <string name="download_latest_dev_version">Stiahnuť poslednú vývojársku verziu</string>
     <string name="download_limit">Limit sťahovania</string>
