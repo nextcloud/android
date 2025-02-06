@@ -207,7 +207,7 @@ public class DocumentsStorageProvider extends DocumentsProvider {
 
         int accessMode = ParcelFileDescriptor.parseMode(mode);
         boolean writeOnly = (accessMode & MODE_WRITE_ONLY) != 0;
-        boolean needsDownload = !ocFile.existsOnDevice() && (!writeOnly && hasServerChange(document));
+        boolean needsDownload = !ocFile.existsOnDevice() || (!writeOnly && hasServerChange(document));
         if (needsDownload) {
             if (ocFile.getLocalModificationTimestamp() > ocFile.getLastSyncDateForData()) {
                 // TODO show a conflict notification with a pending intent that shows a ConflictResolveDialog
