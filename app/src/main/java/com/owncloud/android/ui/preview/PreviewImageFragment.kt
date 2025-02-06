@@ -529,11 +529,7 @@ class PreviewImageFragment : FileFragment(), Injectable {
                         }
 
                         try {
-                            bitmapResult = BitmapUtils.decodeSampledBitmapFromFile(
-                                storagePath,
-                                minWidth,
-                                minHeight
-                            )
+                            bitmapResult = BitmapUtils.retrieveBitmapFromFile(storagePath, minWidth, minHeight);
 
                             if (isCancelled) {
                                 return LoadImage(bitmapResult, null, ocFile)
@@ -543,12 +539,8 @@ class PreviewImageFragment : FileFragment(), Injectable {
                                 mErrorMessageId = R.string.preview_image_error_unknown_format
                                 Log_OC.e(TAG, "File could not be loaded as a bitmap: $storagePath")
                                 break
-                            } else {
-                                if (MimeType.JPEG.equals(ocFile.mimeType, ignoreCase = true)) {
-                                    // Rotate image, obeying exif tag.
-                                    bitmapResult = BitmapUtils.rotateImage(bitmapResult, storagePath)
-                                }
                             }
+
                         } catch (e: OutOfMemoryError) {
                             mErrorMessageId = R.string.common_error_out_memory
                             if (i < maxDownScale - 1) {
