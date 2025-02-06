@@ -358,12 +358,31 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
                 timeInSecond
             )
             else -> {
-                val minutes = (timeInSecond / 60)
-                resources.getQuantityString(
-                    R.plurals.delay_message_minutes,
-                    minutes,
-                    minutes
-                )
+                val minutes = timeInSecond / 60
+                val remainingSeconds = timeInSecond % 60
+
+                when {
+                    remainingSeconds == 0 -> resources.getQuantityString(
+                        R.plurals.delay_message_minutes,
+                        minutes,
+                        minutes
+                    )
+                    else -> {
+                        val minuteText = resources.getQuantityString(
+                            R.plurals.delay_message_minutes_part,
+                            minutes,
+                            minutes
+                        )
+                        val secondText = resources.getQuantityString(
+                            R.plurals.delay_message_seconds_part,
+                            remainingSeconds,
+                            remainingSeconds
+                        )
+
+                        val prefixText = "$minuteText $secondText"
+                        getString(R.string.due_to_too_many_wrong_attempts, prefixText)
+                    }
+                }
             }
         }
     }

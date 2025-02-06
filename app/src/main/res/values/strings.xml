@@ -1144,6 +1144,19 @@
         <item quantity="other">Delayed %d minutes due to too many wrong attempts</item>
     </plurals>
 
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Delayed %d minute</item>
+        <item quantity="other">Delayed %d minutes</item>
+    </plurals>
+
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d second</item>
+        <item quantity="other">%d seconds</item>
+    </plurals>
+
+    <string name="due_to_too_many_wrong_attempts">%s due to too many wrong attempts</string>
+
+
     <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
     <string name="create">Create</string>
     <string name="select_one_template">Please select one template</string>
