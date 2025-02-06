@@ -704,6 +704,7 @@
     <string name="prefs_synced_folders_remote_path_title">Távoli mappa</string>
     <string name="prefs_theme_title">Téma</string>
     <string name="prefs_two_way_sync_summary">Belső mappák kezelése kétirányú szinkronizáláshoz</string>
+    <string name="prefs_two_way_sync_switch_title">Kétirányú szinkronizálás engedélyezése</string>
     <string name="prefs_value_theme_dark">Sötét</string>
     <string name="prefs_value_theme_light">Világos</string>
     <string name="prefs_value_theme_system">Rendszer követése</string>
@@ -1042,6 +1043,26 @@
     <string name="write_email">E-mail küldése</string>
     <string name="wrong_storage_path">Adattároló mappa nem létezik!</string>
     <string name="wrong_storage_path_desc">Ennek oka lehet egy másik eszköz biztonsági mentésének visszaállítása. Visszatérés az alapértelmezettre. Ellenőrizze a beállításokat az adattárolási mappa beállításához.</string>
+    <plurals name="hours">
+        <item quantity="one">%d óra</item>
+        <item quantity="other">%d óra</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d perc</item>
+        <item quantity="other">%d perc</item>
+    </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">1 másodperccel ezelőtt</item>
+        <item quantity="other">%d másodperccel ezelőtt</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">egy perccel ezelőtt</item>
+        <item quantity="other">%d perccel ezelőtt</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">1 órája</item>
+        <item quantity="other">%d órával ezelőtt</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Nem sikerült szinkronizálni %1$d fájlt (ütközések: %2$d)</item>
         <item quantity="other">Nem sikerült szinkronizálni %1$d fájlt (ütközések: %2$d)</item>
@@ -1090,6 +1111,10 @@
         <item quantity="one">%1$d fájl</item>
         <item quantity="other">%1$d fájl</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d elem</item>
+        <item quantity="other">%1$d elem</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">%1$d rejtett mappa megjelenítése</item>
         <item quantity="other">%1$d rejtett mappa megjelenítése</item>
@@ -1098,4 +1123,8 @@
         <item quantity="one">%d kiválasztva</item>
         <item quantity="other">%d kiválasztva</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d letöltés maradt</item>
+        <item quantity="other">%1$d letöltés maradt</item>
+    </plurals>
+</resources>
