@@ -34,6 +34,7 @@ import com.owncloud.android.utils.theme.ViewThemeUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @Suppress("TooManyFunctions", "MagicNumber")
@@ -73,6 +74,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     private var passCodeDigits: Array<String> = arrayOf("", "", "", "")
     private var confirmingPassCode = false
     private var changed = true // to control that only one blocks jump
+    private var delayTimeInSeconds = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -275,6 +277,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         binding.explanation.visibility = explanationVisibility // TODO check if really needed
         clearBoxes()
         showDelay()
+        increaseDelayTime()
     }
 
     /**
@@ -337,14 +340,49 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         finish()
     }
 
-    private fun showDelay() {
-        val delayValue = preferences.pinBruteForceDelay()
+    @Suppress("MagicNumber")
+    private fun getDelayValueInMillis(): Long {
+        return (delayTimeInSeconds * 1000L)
+    }
 
-        if (delayValue <= 0) {
+    @Suppress("MagicNumber")
+    private fun increaseDelayTime() {
+        val maxDelayTimeInSeconds = 300
+        val delayIncrementation = 15
+
+        if (delayTimeInSeconds < maxDelayTimeInSeconds) {
+            delayTimeInSeconds += delayIncrementation
+        }
+    }
+
+    @Suppress("MagicNumber")
+    private fun getExplanationText(): String {
+        return when {
+            delayTimeInSeconds < 60 -> resources.getQuantityString(
+                R.plurals.delay_message,
+                delayTimeInSeconds,
+                delayTimeInSeconds
+            )
+            else -> {
+                val minutes = (delayTimeInSeconds / 60)
+                resources.getQuantityString(
+                    R.plurals.delay_message_minutes,
+                    minutes,
+                    minutes
+                )
+            }
+        }
+    }
+
+    @Suppress("MagicNumber")
+    private fun showDelay() {
+        val pinBruteForceCount = preferences.pinBruteForceDelay()
+        if (pinBruteForceCount <= 0) {
             return
         }
 
-        binding.explanation.setText(R.string.brute_force_delay)
+        val delayValue = getDelayValueInMillis()
+        binding.explanation.text = getExplanationText()
         binding.explanation.visibility = View.VISIBLE
         binding.txt0.isEnabled = false
         binding.txt1.isEnabled = false
@@ -352,9 +390,9 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         binding.txt3.isEnabled = false
 
         lifecycleScope.launch(Dispatchers.IO) {
-            delay(delayValue * 1000L)
+            delay(delayValue)
 
-            launch(Dispatchers.Main) {
+            withContext(Dispatchers.Main) {
                 binding.explanation.visibility = View.INVISIBLE
                 binding.txt0.isEnabled = true
                 binding.txt1.isEnabled = true

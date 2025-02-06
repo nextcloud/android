@@ -1132,7 +1132,18 @@
     <string name="e2e_signature_does_not_match">Signature does not match</string>
 
     <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
-    <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
+
+    <plurals name="delay_message">
+        <item quantity="one">Delayed %d second due to too many wrong attempts</item>
+        <item quantity="other">Delayed %d seconds due to too many wrong attempts</item>
+    </plurals>
+
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Delayed %d minute due to too many wrong attempts</item>
+        <item quantity="other">Delayed %d minutes due to too many wrong attempts</item>
+    </plurals>
+
+    <string name="brute_force_delay">Delayed %s due to too many wrong attempts</string>
     <string name="create">Create</string>
     <string name="select_one_template">Please select one template</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
