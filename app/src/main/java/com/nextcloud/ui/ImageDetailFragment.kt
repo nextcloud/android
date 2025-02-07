@@ -342,7 +342,7 @@ class ImageDetailFragment : Fragment(), Injectable {
         val drawable = ContextCompat.getDrawable(context, R.drawable.photo_pin) as LayerDrawable
 
         val bitmap =
-            ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.remoteId)
+            ThumbnailsCacheManager.getBitmapFromDiskCache(ThumbnailsCacheManager.PREFIX_THUMBNAIL + file.etag)
         BitmapUtils.bitmapToCircularBitmapDrawable(resources, bitmap)?.let {
             drawable.setDrawable(1, it)
         }

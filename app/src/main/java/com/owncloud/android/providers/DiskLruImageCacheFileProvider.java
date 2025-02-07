@@ -62,12 +62,12 @@ public class DiskLruImageCacheFileProvider extends ContentProvider {
 
     public static ParcelFileDescriptor getParcelFileDescriptorForOCFile(OCFile ocFile) throws FileNotFoundException {
         Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-            ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + ocFile.getRemoteId());
+            ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + ocFile.getEtag());
 
         // fallback to thumbnail
         if (thumbnail == null) {
             thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                ThumbnailsCacheManager.PREFIX_THUMBNAIL + ocFile.getRemoteId());
+                ThumbnailsCacheManager.PREFIX_THUMBNAIL + ocFile.getEtag());
         }
 
         // fallback to default image

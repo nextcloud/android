@@ -1599,7 +1599,7 @@ public class UploadFileOperation extends SyncOperation {
         // generate new Thumbnail
         final ThumbnailsCacheManager.ThumbnailGenerationTask task =
             new ThumbnailsCacheManager.ThumbnailGenerationTask(getStorageManager(), user);
-        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getRemoteId()));
+        task.execute(new ThumbnailsCacheManager.ThumbnailGenerationTaskObject(file, file.getEtag()));
     }
 
     private void updateOCFile(OCFile file, RemoteFile remoteFile) {

@@ -81,8 +81,7 @@ public class ShareActivity extends FileActivity {
                                                                                 this,
                                                                                 viewThemeUtils));
             if (MimeTypeUtil.isImage(file)) {
-                String remoteId = String.valueOf(file.getRemoteId());
-                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(remoteId);
+                Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.getEtag());
                 if (thumbnail != null) {
                     binding.shareFileIcon.setImageBitmap(thumbnail);
                 }

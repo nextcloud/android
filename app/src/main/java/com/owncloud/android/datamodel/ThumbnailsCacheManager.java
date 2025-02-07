@@ -263,8 +263,7 @@ public final class ThumbnailsCacheManager {
             FileDataStorageManager storageManager,
             List<GalleryImageGenerationTask> asyncTasks,
             String imageKey,
-            int backgroundColor
-                                         ) {
+            int backgroundColor) {
             this.user = user;
             this.storageManager = storageManager;
             imageViewReference = new WeakReference<>(imageView);
@@ -275,10 +274,6 @@ public final class ThumbnailsCacheManager {
 
         public void setListener(GalleryImageGenerationTask.GalleryListener listener) {
             this.listener = listener;
-        }
-
-        public String getImageKey() {
-            return imageKey;
         }
 
         @Override
@@ -292,10 +287,10 @@ public final class ThumbnailsCacheManager {
 
             file = (OCFile) params[0];
 
-            if (file.getRemoteId() != null || file.isPreviewAvailable()) {
+            if (file.getEtag() != null || file.isPreviewAvailable()) {
                 // Thumbnail in cache?
                 thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(
-                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getRemoteId());
+                    ThumbnailsCacheManager.PREFIX_RESIZED_IMAGE + file.getEtag());
 
                 if (thumbnail != null && !file.isUpdateThumbnailNeeded())
                     return getThumbnailFromCache(thumbnail);
@@ -654,6 +649,9 @@ public final class ThumbnailsCacheManager {
             Bitmap thumbnail;
             ServerFileInterface file = (ServerFileInterface) mFile;
             String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
+            if (file instanceof OCFile ocFile) {
+                imageKey = PREFIX_THUMBNAIL + ocFile.getEtag();
+            }
 
             boolean updateEnforced = (file instanceof OCFile && ((OCFile) file).isUpdateThumbnailNeeded());
 
@@ -670,8 +668,7 @@ public final class ThumbnailsCacheManager {
                 int pxH;
                 pxW = pxH = getThumbnailDimension();
 
-                if (file instanceof OCFile) {
-                    OCFile ocFile = (OCFile) file;
+                if (file instanceof OCFile ocFile) {
                     if (ocFile.isDown()) {
                         Bitmap bitmap;
                         if (MimeTypeUtil.isVideo(ocFile)) {
@@ -698,6 +695,9 @@ public final class ThumbnailsCacheManager {
                 if (thumbnail == null) {
                     // check if resized version is available
                     String resizedImageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
+                    if (file instanceof OCFile ocFile) {
+                        resizedImageKey = PREFIX_RESIZED_IMAGE + ocFile.getEtag();
+                    }
 
                     Bitmap resizedImage;
                     if (updateEnforced) {
@@ -1295,7 +1295,7 @@ public final class ThumbnailsCacheManager {
         Point p = getScreenDimension();
         int pxW = p.x;
         int pxH = p.y;
-        String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
+        String imageKey = PREFIX_RESIZED_IMAGE + file.getEtag();
 
         Bitmap bitmap = BitmapUtils.decodeSampledBitmapFromFile(file.getStoragePath(), pxW, pxH);
 
@@ -1313,7 +1313,7 @@ public final class ThumbnailsCacheManager {
         int pxW;
         int pxH;
         pxW = pxH = getThumbnailDimension();
-        String imageKey = PREFIX_THUMBNAIL + file.getRemoteId();
+        String imageKey = PREFIX_THUMBNAIL + file.getEtag();
 
         GetMethod getMethod = null;
 
@@ -1373,7 +1373,7 @@ public final class ThumbnailsCacheManager {
     private static Bitmap doResizedImageInBackground(OCFile file, FileDataStorageManager storageManager) {
         Bitmap thumbnail;
 
-        String imageKey = PREFIX_RESIZED_IMAGE + file.getRemoteId();
+        String imageKey = PREFIX_RESIZED_IMAGE + file.getEtag();
 
         // Check disk cache in background thread
         thumbnail = getBitmapFromDiskCache(imageKey);

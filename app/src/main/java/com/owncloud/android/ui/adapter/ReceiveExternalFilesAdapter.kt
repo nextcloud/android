@@ -104,7 +104,7 @@ class ReceiveExternalFilesAdapter(
 
         if (file.isFolder) {
             setupThumbnailForFolder(thumbnailImageView, file)
-        } else if (MimeTypeUtil.isImage(file) && file.remoteId != null) {
+        } else if (MimeTypeUtil.isImage(file) && file.etag != null) {
             setupThumbnailForImage(thumbnailImageView, file)
         } else {
             setupDefaultThumbnail(thumbnailImageView, file)
@@ -121,7 +121,7 @@ class ReceiveExternalFilesAdapter(
 
     @Suppress("NestedBlockDepth")
     private fun setupThumbnailForImage(thumbnailImageView: ImageView, file: OCFile) {
-        var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.remoteId.toString())
+        var thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(file.etag)
         if (thumbnail != null && !file.isUpdateThumbnailNeeded) {
             thumbnailImageView.setImageBitmap(thumbnail)
         } else {
@@ -143,7 +143,7 @@ class ReceiveExternalFilesAdapter(
                 thumbnailImageView.setImageDrawable(asyncDrawable)
 
                 @Suppress("DEPRECATION")
-                task.execute(ThumbnailGenerationTaskObject(file, file.remoteId))
+                task.execute(ThumbnailGenerationTaskObject(file, file.etag))
             }
         }
     }

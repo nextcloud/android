@@ -498,10 +498,10 @@ public class UploadListAdapter extends SectionedRecyclerViewAdapter<SectionedVie
 
         // TODO this code is duplicated; refactor to a common place
         if (MimeTypeUtil.isImage(fakeFileToCheatThumbnailsCacheManagerInterface)
-            && fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId() != null &&
+            && fakeFileToCheatThumbnailsCacheManagerInterface.getEtag() != null &&
             item.getUploadStatus() == UploadStatus.UPLOAD_SUCCEEDED) {
             // Thumbnail in Cache?
-            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getRemoteId()));
+            Bitmap thumbnail = ThumbnailsCacheManager.getBitmapFromDiskCache(String.valueOf(fakeFileToCheatThumbnailsCacheManagerInterface.getEtag()));
 
             if (thumbnail != null && !fakeFileToCheatThumbnailsCacheManagerInterface.isUpdateThumbnailNeeded()) {
                 itemViewHolder.binding.thumbnail.setImageBitmap(thumbnail);
