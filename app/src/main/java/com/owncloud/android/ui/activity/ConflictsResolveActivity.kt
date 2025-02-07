@@ -10,6 +10,7 @@
 package com.owncloud.android.ui.activity
 
 import android.annotation.SuppressLint
+import android.app.NotificationManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -38,6 +39,7 @@ import com.owncloud.android.lib.resources.files.model.RemoteFile
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.Decision
 import com.owncloud.android.ui.dialog.ConflictsResolveDialog.OnConflictDecisionMadeListener
+import com.owncloud.android.ui.notifications.NotificationUtils
 import com.owncloud.android.utils.FileStorageUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -118,8 +120,15 @@ class ConflictsResolveActivity : FileActivity(), OnConflictDecisionMadeListener 
                 else -> Unit
             }
 
+            dismissConflictResolveNotification(file)
             finish()
         }
+    }
+
+    private fun dismissConflictResolveNotification(file: OCFile?) {
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val tag =  NotificationUtils.createUploadNotificationTag(file)
+        notificationManager.cancel(tag, FileUploadWorker.NOTIFICATION_ERROR_ID)
     }
 
     private fun keepBothFolder(offlineOperation: OfflineOperationEntity?, serverFile: OCFile?) {
