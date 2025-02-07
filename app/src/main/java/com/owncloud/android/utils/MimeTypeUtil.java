@@ -22,7 +22,6 @@ import com.nextcloud.android.common.ui.theme.utils.ColorRole;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.OCFile;
 import com.owncloud.android.datamodel.ThumbnailsCacheManager;
-import com.owncloud.android.lib.common.utils.Log_OC;
 import com.owncloud.android.lib.resources.files.model.ServerFileInterface;
 import com.owncloud.android.utils.theme.ViewThemeUtils;
 
@@ -74,7 +73,6 @@ public final class MimeTypeUtil {
      */
     private static final Map<String, List<String>> FILE_EXTENSION_TO_MIMETYPE_MAPPING = new HashMap<>();
     public static final String MIMETYPE_TEXT_MARKDOWN = "text/markdown";
-    private static final String TAG = "MimeTypeUtil";
 
     static {
         populateFileExtensionMimeTypeMapping();
@@ -84,16 +82,6 @@ public final class MimeTypeUtil {
 
     private MimeTypeUtil() {
         // utility class -> private constructor
-    }
-
-    public static Drawable getFileTypeIcon(File file, Context context, ViewThemeUtils viewThemeUtils) {
-        if (file == null || !file.exists()) {
-            Log_OC.d(TAG, "Cannot getFileTypeIcon. File is null or not exists");
-            return null;
-        }
-
-        final var mimeType = MimeTypeUtil.getMimeTypeFromPath(file.getPath());
-        return MimeTypeUtil.getFileTypeIcon(mimeType, file.getName(), context, viewThemeUtils);
     }
 
     /**
