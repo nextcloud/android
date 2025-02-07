@@ -2786,4 +2786,13 @@ public class FileDataStorageManager {
 
         return result;
     }
+
+    public FileEntity getFileEntity(OCFile file) {
+        FileEntity entity = fileDao.getFileByDecryptedRemotePath(file.getDecryptedRemotePath(), user.getAccountName());
+        if (entity == null) {
+            return null;
+        }
+
+        return entity;
+    }
 }

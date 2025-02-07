@@ -22,6 +22,7 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.loadThumbnail
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ConflictResolveDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -29,7 +30,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.adapter.LocalFileListAdapter
 import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
 import com.owncloud.android.ui.dialog.parcel.ConflictFileData
 import com.owncloud.android.utils.DisplayUtils
@@ -197,7 +197,7 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
                 rightFileSize.text = rightData.fileSize
 
                 if (leftDataFile != null && rightDataFile != null && user != null) {
-                    setThumbnailsForFileConflicts()
+                    loadThumbnails()
                 } else {
                     val folderIcon = MimeTypeUtil.getDefaultFolderIcon(requireContext(), viewThemeUtils)
                     leftThumbnail.setImageDrawable(folderIcon)
@@ -207,17 +207,23 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
         }
     }
 
-    private fun setThumbnailsForFileConflicts() {
-        binding.leftThumbnail.tag = leftDataFile.hashCode()
+    private fun loadThumbnails() {
+        leftDataFile.loadThumbnail(requireContext(), viewThemeUtils, binding.leftThumbnail)
+        loadRightFileThumbnail()
+    }
+
+    private fun loadRightFileThumbnail() {
+        val storagePath = fileDataStorageManager.getFileEntity(rightDataFile).storagePath
+        if (storagePath != null) {
+            val file = File(storagePath)
+            file.loadThumbnail(requireContext(), viewThemeUtils, binding.rightThumbnail)
+        } else {
+            setThumbnailWithThumbnailCacheManager()
+        }
+    }
+
+    private fun setThumbnailWithThumbnailCacheManager() {
         binding.rightThumbnail.tag = rightDataFile.hashCode()
-
-        LocalFileListAdapter.setThumbnail(
-            leftDataFile,
-            binding.leftThumbnail,
-            context,
-            viewThemeUtils
-        )
-
         DisplayUtils.setThumbnail(
             rightDataFile,
             binding.rightThumbnail,
