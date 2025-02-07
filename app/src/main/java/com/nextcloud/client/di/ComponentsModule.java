@@ -33,6 +33,7 @@ import com.nextcloud.ui.ImageDetailFragment;
 import com.nextcloud.ui.SetStatusDialogFragment;
 import com.nextcloud.ui.composeActivity.ComposeActivity;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
+import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
 import com.nmc.android.ui.LauncherActivity;
 import com.owncloud.android.MainApp;
 import com.owncloud.android.authentication.AuthenticatorActivity;
@@ -98,6 +99,7 @@ import com.owncloud.android.ui.dialog.SslUntrustedCertDialog;
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment;
 import com.owncloud.android.ui.dialog.SyncFileNotEnoughSpaceDialogFragment;
 import com.owncloud.android.ui.dialog.SyncedFolderPreferencesDialogFragment;
+import com.owncloud.android.ui.dialog.TermsOfServiceDialog;
 import com.owncloud.android.ui.dialog.setupEncryption.SetupEncryptionDialogFragment;
 import com.owncloud.android.ui.fragment.ExtendedListFragment;
 import com.owncloud.android.ui.fragment.FeatureFragment;
@@ -125,7 +127,6 @@ import com.owncloud.android.ui.preview.PreviewTextFileFragment;
 import com.owncloud.android.ui.preview.PreviewTextFragment;
 import com.owncloud.android.ui.preview.PreviewTextStringFragment;
 import com.owncloud.android.ui.preview.pdf.PreviewPdfFragment;
-import com.nextcloud.ui.trashbinFileActions.TrashbinFileActionsBottomSheet;
 import com.owncloud.android.ui.trashbin.TrashbinActivity;
 
 import androidx.annotation.OptIn;
@@ -506,4 +507,6 @@ abstract class ComponentsModule {
     @ContributesAndroidInjector
     abstract BackgroundPlayerService backgroundPlayerService();
 
+    @ContributesAndroidInjector
+    abstract TermsOfServiceDialog termsOfServiceDialog();
 }
