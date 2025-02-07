@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Porta do Proxy</string>
     <string name="app_widget_description">Mostra um widget do painel</string>
     <string name="appbar_search_in">Pesquisar em %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Adicionar nova tarefa</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Digite algum texto</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Tem certeza de que deseja excluir esta tarefa?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Excluir tarefa</string>
@@ -96,6 +97,7 @@
     <string name="authenticator_activity_login_error">Ocorreu um problema ao processar o seu pedido de início de sessão. Tente novamente mais tarde.</string>
     <string name="authenticator_activity_please_complete_login_process">Conclua o processo de login no seu navegador</string>
     <string name="auto_upload_file_behaviour_kept_in_folder">mantido na pasta original, já que é somente leitura</string>
+    <string name="auto_upload_gplay">Comportamento do upload automático alterado</string>
     <string name="auto_upload_on_wifi">Enviar só por WiFi não medida</string>
     <string name="auto_upload_path">/AutoEnvio</string>
     <string name="autoupload_configure">Configurar</string>
@@ -394,6 +396,7 @@
     <string name="file_management_permission_optional">Permissões de armazenamento</string>
     <string name="file_management_permission_optional_text">%1$s funciona melhor com permissões para acessar o armazenamento. Você pode escolher acesso total a todos os arquivos ou acesso somente leitura a fotos e vídeos.</string>
     <string name="file_management_permission_text">%1$s precisa de permissões de gerenciamento de arquivos para enviar arquivos. Você pode escolher acesso total a todos os arquivos ou acesso somente leitura a fotos e vídeos.</string>
+    <string name="file_migration_allow_media_indexing">Permitir acesso por outros apps</string>
     <string name="file_migration_checking_destination">Verificando destino…</string>
     <string name="file_migration_cleaning">Limpando…</string>
     <string name="file_migration_dialog_title">Atualizando a pasta de armazenamento se dados</string>
@@ -1082,6 +1085,21 @@
         <item quantity="many">%d minutos</item>
         <item quantity="other">%d ata</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">1 segundo atrás</item>
+        <item quantity="many">%d segundos atrás</item>
+        <item quantity="other">%d segundos atrás</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">1 minuto atrás</item>
+        <item quantity="many">%d minutos atrás</item>
+        <item quantity="other">%d minutos atrás</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">1 hora atrás</item>
+        <item quantity="many">%d horas atrás</item>
+        <item quantity="other">%d horas atrás</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Erro ao sincronizar %1$d arquivo (conflitos: %2$d)</item>
         <item quantity="many">Erro ao sincronizar %1$d arquivos (conflitos: %2$d)</item>
@@ -1142,6 +1160,11 @@
         <item quantity="many">%1$d arquivos</item>
         <item quantity="other">%1$d arquivos</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d item</item>
+        <item quantity="many">%1$d itens</item>
+        <item quantity="other">%1$d itens</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">Mostrar %1$d pasta oculta</item>
         <item quantity="many">Mostrar %1$d pastas ocultas</item>
@@ -1152,4 +1175,9 @@
         <item quantity="many">%d selecionados</item>
         <item quantity="other">%d selecionados</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d download restante</item>
+        <item quantity="many">%1$d downloads restantes</item>
+        <item quantity="other">%1$d downloads restantes</item>
+    </plurals>
+</resources>
