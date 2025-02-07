@@ -22,6 +22,7 @@ import com.nextcloud.client.database.entity.OfflineOperationEntity
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.utils.extensions.getParcelableArgument
 import com.nextcloud.utils.extensions.getSerializableArgument
+import com.nextcloud.utils.extensions.loadThumbnail
 import com.owncloud.android.R
 import com.owncloud.android.databinding.ConflictResolveDialogBinding
 import com.owncloud.android.datamodel.FileDataStorageManager
@@ -29,7 +30,6 @@ import com.owncloud.android.datamodel.OCFile
 import com.owncloud.android.datamodel.SyncedFolderProvider
 import com.owncloud.android.datamodel.ThumbnailsCacheManager.ThumbnailGenerationTask
 import com.owncloud.android.lib.common.utils.Log_OC
-import com.owncloud.android.ui.adapter.LocalFileListAdapter
 import com.owncloud.android.ui.dialog.parcel.ConflictDialogData
 import com.owncloud.android.ui.dialog.parcel.ConflictFileData
 import com.owncloud.android.utils.DisplayUtils
@@ -208,29 +208,12 @@ class ConflictsResolveDialog : DialogFragment(), Injectable {
     }
 
     private fun setThumbnailsForFileConflicts() {
-        binding.leftThumbnail.tag = leftDataFile.hashCode()
-        binding.rightThumbnail.tag = rightDataFile.hashCode()
+        leftDataFile.loadThumbnail(requireContext(), viewThemeUtils, binding.leftThumbnail)
 
-        LocalFileListAdapter.setThumbnail(
-            leftDataFile,
-            binding.leftThumbnail,
-            context,
-            viewThemeUtils
-        )
-
-        DisplayUtils.setThumbnail(
-            rightDataFile,
-            binding.rightThumbnail,
-            user,
-            fileDataStorageManager,
-            asyncTasks,
-            false,
-            context,
-            null,
-            syncedFolderProvider.preferences,
-            viewThemeUtils,
-            syncedFolderProvider
-        )
+        // TODO: OCFile have null storagePath that's why we are fetching it from fileDataStorageManager
+        val mediaPath = fileDataStorageManager.getMediaPath(rightDataFile) ?: return
+        val file = File(mediaPath)
+        file.loadThumbnail(requireContext(), viewThemeUtils, binding.rightThumbnail)
     }
 
     private fun setOnClickListeners() {

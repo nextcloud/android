@@ -2786,4 +2786,17 @@ public class FileDataStorageManager {
 
         return result;
     }
+
+    /**
+     *
+     * @return e.g. /storage/emulated/0/Android/media/com.nextcloud.client/nextcloud/user@10.0.2.2%3A55001/Aaa/aa.jpg
+     */
+    public String getMediaPath(OCFile file) {
+        FileEntity entity = fileDao.getFileByDecryptedRemotePath(file.getDecryptedRemotePath(), user.getAccountName());
+        if (entity == null) {
+            return null;
+        }
+
+        return entity.getStoragePath();
+    }
 }
