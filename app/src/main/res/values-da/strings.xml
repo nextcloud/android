@@ -929,6 +929,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synkroniseret</string>
     <string name="tags">Tags</string>
+    <string name="terms_of_service_title">Servicebetingelser</string>
     <string name="test_server_button">Test server forbindelsen</string>
     <string name="thirtyMinutes">30 minutter</string>
     <string name="thisWeek">Denne uge</string>
