@@ -950,6 +950,7 @@ Nextcloud 是一个私有文件同步、共享和通信服务器。它是自由�
     <string name="synced_folders_type">类型</string>
     <string name="synced_icon">已同步</string>
     <string name="tags">标签</string>
+    <string name="terms_of_service_title">服务条款</string>
     <string name="test_server_button">测试服务端连接</string>
     <string name="thirtyMinutes">30分钟</string>
     <string name="thisWeek">本周</string>

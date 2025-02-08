@@ -927,6 +927,7 @@
     <string name="synced_folders_type">Тип</string>
     <string name="synced_icon">Синхронизовано</string>
     <string name="tags">Ознаке</string>
+    <string name="terms_of_service_title">Услови коришћења</string>
     <string name="test_server_button">Испробај везу са сервером</string>
     <string name="thirtyMinutes">30 минута</string>
     <string name="thisWeek">Ове недеље</string>
