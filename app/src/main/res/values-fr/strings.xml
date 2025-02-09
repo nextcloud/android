@@ -46,6 +46,7 @@
     <string name="app_config_proxy_port_title">Port Proxy</string>
     <string name="app_widget_description">Affiche un widget du tableau de bord</string>
     <string name="appbar_search_in">Recherche dans %s</string>
+    <string name="assistant_screen_add_task_alert_dialog_title">Ajouter une nouvelle tâche</string>
     <string name="assistant_screen_create_task_alert_dialog_input_field_placeholder">Tapez du texte</string>
     <string name="assistant_screen_delete_task_alert_dialog_description">Êtes-vous sûr de vouloir supprimer cette tâche ?</string>
     <string name="assistant_screen_delete_task_alert_dialog_title">Supprimer la tâche</string>
@@ -132,6 +133,7 @@
     <string name="clear_notifications_failed">Erreur lors de l\'effacement des notifications.</string>
     <string name="clear_status_message">Effacer le message d\'état</string>
     <string name="clear_status_message_after">Effacer le message d\'état après</string>
+    <string name="click_to_learn_how_to_re_enable_auto_uploads">Intervention manuelle requise pour réactiver le téléversement automatique</string>
     <string name="clipboard_label">Texte copié depuis %1$s</string>
     <string name="clipboard_no_text_to_copy">Aucun texte n\'a été reçu pour copier dans le presse-papier</string>
     <string name="clipboard_text_copied">Lien copié</string>
@@ -724,11 +726,14 @@
     <string name="push_notifications_old_login">Aucune notification push à cause d\'une connexion expirée. Veuillez ajouter de nouveau votre compte. </string>
     <string name="push_notifications_temp_error">Les notifications push ne sont pas disponibles actuellement.</string>
     <string name="qr_could_not_be_read">Le code QR ne peut être lu</string>
+    <string name="re_enable_auto_upload">Modifications du téléversement automatique</string>
+    <string name="re_enable_auto_upload_desc">En raison des nouvelles restrictions imposées par Google, nous avons été contraints de supprimer une autorisation importante. Nous travaillons actuellement avec Google pour résoudre ce problème et restaurer toutes les fonctionnalités.\n\nPour réactiver le téléversement automatique pour les nouvelles photos et vidéos :\nSélectionnez \"Tout autoriser\" dans la boîte de dialogue suivante ou dans les paramètres du système.\nAutorisez l\'emplacement des médias lorsque vous y êtes invité, car cela permet à Nextcloud de stocker les données de localisation lors du téléversement des images.\n\nLa boîte de dialogue des autorisations n\'est affichée que lorsque cela s\'avère nécessaire. En cas de doute, vérifiez les paramètres du système.\n\nLe téléversement automatique ne pourra téléverser des fichiers image et vidéo que si vous utilisez la version Google Play de l\'application Nextcloud.\n\nVérifiez s\'il y a des fichiers qui n\'ont pas été téléversés depuis décembre 2024.</string>
     <string name="receive_external_files_activity_start_sync_folder_is_not_exists_message">Le dossier est introuvable, l\'opération de synchronisation est annulée.</string>
     <string name="receive_external_files_activity_unable_to_find_file_to_upload">Impossible de trouver le fichier à téléverser</string>
     <string name="recommend_subject">Essayez %1$s sur votre appareil !</string>
     <string name="recommend_text">J\'aimerais vous inviter à utiliser %1$s sur votre appareil.\nTéléchargez-la ici : %2$s</string>
     <string name="recommend_urls">%1$s ou %2$s</string>
+    <string name="recommended_files_title">Fichiers recommandés</string>
     <string name="refresh_content">Actualiser le contenu</string>
     <string name="reload">Recharger</string>
     <string name="remote">(distant)</string>
@@ -920,6 +925,7 @@
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synchronisé</string>
     <string name="tags">Étiquettes</string>
+    <string name="terms_of_service_title">Conditions d\'utilisation</string>
     <string name="test_server_button">Tester la connexion du serveur</string>
     <string name="thirtyMinutes">30 minutes</string>
     <string name="thisWeek">Cette semaine</string>
@@ -1091,6 +1097,21 @@
         <item quantity="many">%d minutes</item>
         <item quantity="other">%d minutes</item>
     </plurals>
+    <plurals name="time_seconds_ago">
+        <item quantity="one">Il y a une seconde</item>
+        <item quantity="many">Il y a %d secondes</item>
+        <item quantity="other">Il y a %d secondes</item>
+    </plurals>
+    <plurals name="time_minutes_ago">
+        <item quantity="one">Il y a une minute</item>
+        <item quantity="many">Il y a %d minutes</item>
+        <item quantity="other">Il y a %d minutes</item>
+    </plurals>
+    <plurals name="time_hours_ago">
+        <item quantity="one">il y a une heure</item>
+        <item quantity="many">Il y a %d heures</item>
+        <item quantity="other">Il y a %d heures</item>
+    </plurals>
     <plurals name="sync_fail_in_favourites_content">
         <item quantity="one">Impossible de synchroniser %1$d fichier (conflits : %2$d)</item>
         <item quantity="many">Impossible de synchroniser %1$d fichiers (conflits : %2$d)</item>
@@ -1151,6 +1172,11 @@
         <item quantity="many">%1$d fichiers</item>
         <item quantity="other">%1$d fichiers</item>
     </plurals>
+    <plurals name="trashbin_list__footer__file">
+        <item quantity="one">%1$d élément</item>
+        <item quantity="many">%1$d éléments</item>
+        <item quantity="other">%1$d éléments</item>
+    </plurals>
     <plurals name="synced_folders_show_hidden_folders">
         <item quantity="one">%1$d dossier masqué affiché</item>
         <item quantity="many">%1$d dossiers masqués affichés</item>
@@ -1161,4 +1187,9 @@
         <item quantity="many">%d sélectionnés</item>
         <item quantity="other">%d sélectionnés</item>
     </plurals>
-    </resources>
+    <plurals name="share_download_limit_description">
+        <item quantity="one">%1$d téléchargement restant</item>
+        <item quantity="many">%1$d téléchargements restants</item>
+        <item quantity="other">%1$d téléchargements restants</item>
+    </plurals>
+</resources>

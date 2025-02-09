@@ -99,6 +99,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">haldið áfram í upprunalegri möppu, því hún er skrifvarin</string>
     <string name="auto_upload_gplay">Breytingar á hegðun sjálfvirkra innsendinga</string>
     <string name="auto_upload_gplay_desc">Vegna nýrra takmarkana sem Google hefur krafist, mun eiginleikinn fyrir sjálfvirkar innsendingar ekki lengur geta eytt innsendum skrám sjálfkrafa.</string>
+    <string name="auto_upload_gplay_desc2">Vegna nýrra takmarkana sem Google krefst, höfum við neyðst til að fjarlægja mikilvægar heimildir. Þar af leiðir mun sjálfvirk innsending einungis geta sent inn myndskrár og myndskeið.\nAð auki er ný heimild nauðsynleg til að komast í staðsetningarupplýsingar fyrir innsendar myndir.\nGakktu úr skugga um að aðgangur að myndefni sé stilltur á \"Alltaf leyfa allt\".</string>
     <string name="auto_upload_on_wifi">Aðeins senda inn á gjaldfrjálsu WiFi-neti</string>
     <string name="auto_upload_path">/SjálfvirkInnsending</string>
     <string name="autoupload_configure">Stilla</string>
@@ -598,6 +599,14 @@
     <string name="oc_file_list_adapter_offline_operation_description_text">Aðgerð í bið</string>
     <string name="oc_file_list_adapter_offline_operation_remove_description_text">Fjarlægingaraðgerð í bið</string>
     <string name="offline_mode">Engin internettenging</string>
+    <string name="offline_mode_info_description">Jafnvel án tengingar við internetið geturðu skipulagt möppurnar þínar og útbúið skrár. Um leið og tenging næst aftur, munu aðgerðirnar þínar sem verið hafa í bið, samstillast sjálfkrafa við netþjóninn.</string>
+    <string name="offline_mode_info_title">Tækið er ekki tengt við netið, en vinnan heldur áfram</string>
+    <string name="offline_operations_file_does_not_exists_yet">Skráin er ekki til, ennþá. Sendu fyrst inn skrána.</string>
+    <string name="offline_operations_worker_notification_conflict_text">Mappa í árekstri: %s</string>
+    <string name="offline_operations_worker_notification_delete_offline_folder">Eyða möppu fyrir ónettengt</string>
+    <string name="offline_operations_worker_notification_error_text">Ekki tókst að ljúka ónettengdu aðgerðinni. %s</string>
+    <string name="offline_operations_worker_notification_manager_ticker">Ónettengdar aðgerðir</string>
+    <string name="offline_operations_worker_notification_start_text">Byrja ónettengdar aðgerðir</string>
     <string name="oneHour">1 klukkustund</string>
     <string name="online">Á netinu</string>
     <string name="online_status">Staða á netinu</string>
@@ -907,6 +916,7 @@
     <string name="synced_folders_type">Tegund</string>
     <string name="synced_icon">Samstillt</string>
     <string name="tags">Merki</string>
+    <string name="terms_of_service_title">Þjónustuskilmálar</string>
     <string name="test_server_button">Prófa tengingu þjóns</string>
     <string name="thirtyMinutes">30 mínútur</string>
     <string name="thisWeek">Í þessari viku</string>
@@ -946,6 +956,7 @@
     <string name="upload_action_cancelled_resume">Halda áfram innsendingar sem hætt var við</string>
     <string name="upload_action_failed_clear">Hreinsa lista yfir innsendingar sem mistókust</string>
     <string name="upload_action_failed_retry">Prófa aftur innsendingar sem mistókust</string>
+    <string name="upload_action_file_not_exist_message">Sumar skrár eru ekki lengur til. Ekki er hægt að halda áfram með þær innsendingar.</string>
     <string name="upload_action_global_upload_pause">Setja allar innsendingar í bið</string>
     <string name="upload_action_global_upload_resume">Halda áfram með allar innsendingar</string>
     <string name="upload_cannot_create_file">Get ekki búið til skrá á tölvu</string>
@@ -964,10 +975,12 @@
     <string name="upload_files">Hlaða inn skrám</string>
     <string name="upload_global_pause_title">Allar innsendingar eru í bið</string>
     <string name="upload_gplay">Breyting á heimildum</string>
+    <string name="upload_gplay_desc">Ný heimild er nauðsynleg til að komast í staðsetningarupplýsingar fyrir innsendar myndir.\nGakktu úr skugga um að aðgangur að myndefni sé stilltur á \"Alltaf leyfa allt\".</string>
     <string name="upload_item_action_button">Aðgerðarhnappur til að senda inn atriði</string>
     <string name="upload_list_delete">Eyða</string>
     <string name="upload_list_empty_headline">Engar innsendingar tiltækar</string>
     <string name="upload_list_empty_text_auto_upload">Sendu inn einhverjar myndir eða virkjaðu sjálfvirka innsendingu.</string>
+    <string name="upload_list_expand_header">Víxla af/á útfellingu á haus</string>
     <string name="upload_list_resolve_conflict">Leysa árekstur</string>
     <string name="upload_local_storage_full">Staðvær gagnageymsla er full</string>
     <string name="upload_local_storage_not_copied">Skrá var ekki hægt að afrita í staðværa gagnageymslu</string>
@@ -988,7 +1001,10 @@
     <string name="uploader_error_message_source_file_not_found">Skrá sem valin var til sendingar fannst ekki. Athugaðu hvort skráin sé til</string>
     <string name="uploader_error_title_file_cannot_be_uploaded">Þessa skrá er ekki hægt að senda inn</string>
     <string name="uploader_error_title_no_file_to_upload">Engin skrá til að senda inn</string>
+    <string name="uploader_file_not_found_message">Skrá fannst ekki. Ertu viss um að þessi skrá sé til staðar eða er eldri árekstur ekki leystur?</string>
+    <string name="uploader_file_not_found_on_server_message">Ekki var hægt að finna skrána á netþjóninum. Annar notandi gæti hafa eytt skránni</string>
     <string name="uploader_info_dirname">Heiti möppu</string>
+    <string name="uploader_local_files_uploaded">Reyna aftur að senda inn skrár á tæki sem mistókust</string>
     <string name="uploader_top_message">Veldu innsendingarmöppu</string>
     <string name="uploader_upload_failed_content_single">Gat ekki sent inn %1$s</string>
     <string name="uploader_upload_failed_credentials_error">Innsending mistókst, skráðu þig inn aftur</string>
@@ -1026,6 +1042,7 @@
     <string name="uploads_view_upload_status_fetching_server_version">Næ í útgáfu þjóns…</string>
     <string name="uploads_view_upload_status_service_interrupted">Forrit hætti</string>
     <string name="uploads_view_upload_status_succeeded">Lokið</string>
+    <string name="uploads_view_upload_status_succeeded_same_file">Sama fannst á fjartengdum þjóni, sleppi innsendingu</string>
     <string name="uploads_view_upload_status_unknown_fail">Óþekkt villa</string>
     <string name="uploads_view_upload_status_virus_detected">Vírus fannst í skránni. Ekki er hægt að ljúka innsendingu!</string>
     <string name="uploads_view_upload_status_waiting_exit_power_save_mode">Bíð eftir að hætt sé í orkusparnaðarham</string>

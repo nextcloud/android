@@ -795,6 +795,7 @@ Berikut ini adalah daftar berkas lokal, dan berkas jarak jauh di %5$s yang terhu
     <string name="synced_folders_type">tipe</string>
     <string name="synced_icon">Tersinkronisasi</string>
     <string name="tags">Tag</string>
+    <string name="terms_of_service_title">Ketentuan layanan</string>
     <string name="test_server_button">Tes koneksi server.</string>
     <string name="thirtyMinutes">30 Menit</string>
     <string name="thisWeek">Pekan ini</string>
