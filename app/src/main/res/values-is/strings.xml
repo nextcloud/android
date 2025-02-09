@@ -338,6 +338,7 @@
     <string name="error_starting_doc_scan">Villa við að ræsa skönnun skjals</string>
     <string name="error_uploading_direct_camera_upload">Tókst ekki að senda inn teknar myndir</string>
     <string name="etm_accounts">Aðgangar</string>
+    <string name="etm_background_execution_count">Skipti keyrt á 48 klst</string>
     <string name="etm_background_job_created">Búið til þann</string>
     <string name="etm_background_job_name">Heiti verks</string>
     <string name="etm_background_job_progress">Framvinda</string>
@@ -365,7 +366,7 @@
     <string name="failed_to_print">Mistókst að prenta skrá</string>
     <string name="failed_to_start_editor">Mistókst að ræsa ritil</string>
     <string name="failed_update_ui">Mistókst að uppfæra viðmótið</string>
-    <string name="favorite">Bæta í Eftirlæti</string>
+    <string name="favorite">Bæta í eftirlæti</string>
     <string name="favorite_icon">Eftirlæti</string>
     <string name="file_activity_shared_file_cannot_be_updated">Ekki er hægt að uppfæra deilda skrá</string>
     <string name="file_already_exists">Skráarheitið er þegar til staðar</string>
@@ -397,6 +398,8 @@
     <string name="file_list_seconds_ago">sekúndum síðan</string>
     <string name="file_management_permission">Heimilda er krafist</string>
     <string name="file_management_permission_optional">Heimildir gagnageymslu</string>
+    <string name="file_management_permission_optional_text">%1$s virkar best með heimildum til að nota geymslurými. Þú getur valið að gefa fullan aðgang að öllum skrám, eða aðgang til að einungis lesa ljósmyndir og myndskeið.</string>
+    <string name="file_management_permission_text">%1$s þarf skráaumsýsluheimildir til að geta sent inn skrár. Þú getur valið að gefa fullan aðgang að öllum skrám, eða aðgang til að einungis lesa ljósmyndir og myndskeið.</string>
     <string name="file_migration_allow_media_indexing">Leyfa aðgang úr öðrum forritum</string>
     <string name="file_migration_checking_destination">Athuga áfangastað…</string>
     <string name="file_migration_cleaning">Hreinsun</string>
@@ -430,6 +433,7 @@
     <string name="file_not_found">Skrá fannst ekki</string>
     <string name="file_not_synced">Ekki tókst að samstilla skrána. Birti nýjustu tiltæku útgáfuna.</string>
     <string name="file_rename">Endurnefna</string>
+    <string name="file_upload_worker_same_file_already_exists">Sama skrá er þegar til, engir árekstrar fundust</string>
     <string name="file_version_restored_error">Villa við að endurheimta útgáfu skráar!</string>
     <string name="file_version_restored_successfully">Tókst að endurheimta útgáfu skráar.</string>
     <string name="filedetails_details">Nánar</string>
@@ -469,6 +473,7 @@
     <string name="forward">Áfram</string>
     <string name="fourHours">4 klukkustundir</string>
     <string name="gplay_restriction">Google takmarkaði niðurhal á APK/AAB-skrám!</string>
+    <string name="grid_file_features_live_photo_content_description">Þetta tákn gefur til kynna að ljósmynd í beinni útsendingu sé tiltæk</string>
     <string name="hidden_file_name_warning">Heitið mun valda falinni skrá</string>
     <string name="hint_name">Heiti</string>
     <string name="hint_note">Minnispunktur</string>
@@ -535,6 +540,7 @@
     <string name="manage_space_clear_data">Hreinsa gögn</string>
     <string name="manage_space_description">Stillingum, gagnagrunni og skilríkjum vefþjóns úr gögnum %1$s verður eytt endanlega. \n\nSóttar skrár verða ekki snertar.\n\nÞetta ferli getur tekið drjúga stund.</string>
     <string name="manage_space_title">Sýsla með geymslurými</string>
+    <string name="max_file_count_warning_message">Þú hefur náð hámarksfjölda innsendra skráa. Sendu inn færri en 500 skrár í einu.</string>
     <string name="media_err_invalid_progressive_playback">Ekki tókst að streyma margmiðlunarskrá</string>
     <string name="media_err_io">Gat ekki lesið margmiðlunarskrána</string>
     <string name="media_err_malformed">Margmiðlunarskráin er með ranga kóðun</string>
@@ -576,9 +582,11 @@
     <string name="no_mutliple_accounts_allowed">Aðeins leyfður einn notandaaðgangur</string>
     <string name="no_pdf_app_available">Ekkert forrit tiltækt til að meðhöndla PDF-skrár</string>
     <string name="no_send_app">Ekkert forrit er tiltækt sem getur sent völdu skrárnar</string>
+    <string name="no_share_permission_selected">Veldu að minnsta kosti eina heimild til að deila.</string>
     <string name="note_could_not_sent">Gat ekki sent minnispunkt</string>
     <string name="note_icon_hint">Táknmynd fyrir athugasemd</string>
     <string name="notification_action_failed">Mistókst að framkvæma aðgerð.</string>
+    <string name="notification_channel_background_operations_description">Birta tilkynningar til að meðhöndla niðurstöður bakgrunnsaðgerða</string>
     <string name="notification_channel_background_operations_name">Bakgrunnsaðgerðir</string>
     <string name="notification_channel_download_description">Sýnir framvindu niðurhals</string>
     <string name="notification_channel_download_name_short">Sótt gögn</string>
@@ -832,6 +840,7 @@
     <string name="sharee_already_added_to_file">Mistókst að bæta við sameign. Þessari skrá eða möppu hefur þegar verið deilt með þessum notanda eða hópi.</string>
     <string name="show_images">Sýna ljósmyndir</string>
     <string name="show_video">Sýna myndskeið</string>
+    <string name="sign_tos_failed">Þú þarft að merkja handvirkt við þjónustuskilmálana!</string>
     <string name="signup_with_provider">Skráðu þig hjá þjónustu</string>
     <string name="single_sign_on_request_token" formatted="true">Leyfa %1$s að að fá aðgang að %2$s Nextcloud-aðgangnum þínum?</string>
     <string name="sort_by">Raða eftir</string>
@@ -873,9 +882,10 @@
     <string name="storage_permission_full_access">Fullur aðgangur</string>
     <string name="storage_permission_media_read_only">Skrifvarinn gagnamiðill</string>
     <string name="storage_pictures">Ljósmyndir</string>
-    <string name="store_full_dev_desc">Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn.\nÞetta er opinbera þróunarútgáfan, sem kemur með daglegan skammt af óprófuðum nýjum eiginleikum, sem aftur gætu mögulega valdið truflunum og gagnatapi. Forritið er fyrir þá notendur sem vilja taka þátt í að prófa og tilkynna um villur, ef þær eiga sér stað. Ekki nota þetta í alvöru vinnuumhverfi!\n\nBæði opinbera þróunarútgáfan og venjulega útgáfan eru tiltækar á F-droid, og er hægt að setja þær upp samhliða hvorri annarri.</string>
-    <string name="store_short_desc">Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn</string>
-    <string name="store_short_dev_desc">Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn (forútgáfa fyrir hönnuði)</string>
+    <string name="store_full_desc">Sjálfhýsta Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn.\n\nEiginleikar:\n* Auðvelt, nútímalegt viðmót, sem hentar þema netþjónsins þíns\n* Sendu skrár inn á Nextcloud-þjóninn þinn\n* Deildu þeim með öðrum\n* Haltu eftirlætisskránum þínum og möppum samstilltum\n* Leitaðu í öllum möppum á netþjóninum þínum\n* Sjálfvirk innsending á myndum og myndskeiðum sem þú tekur á snjalltækinu þínu\n* Haltu öllu uppfærðu í gegnum tilkynningar\n* Styður marga aðganga fyrir hvern notanda\n* Tryggðu aðgang að gögnunum þínum með fingrafari eða PIN-númeri\n* Samþætting við DAVx5 (áður þekkt sem DAVdroid) fyrir auðvelda uppssetningu á samstilltu dagatali og tengiliðum\n\nTilkynntu öll vandamál á https://github.com/nextcloud/android/issues og ræddu um þennan hugbúnað á https://help.nextcloud.com/c/clients/android\n\nEr Nextcloud nýtt fyrir þér? Nextcloud er þinn eiginn netþjónn til að samstilla skrár og deila í samstarfs og samskiptaumhverfi. Þetta er frjáls hugbúnaður sem þú getur hýst sjálf/ur eða borgað þjónustuaðila fyrir að gera fyrir þig. Með þessu ert það þú sem ert við stjórnvölinn með gögnin sem þú vilt hafa aðgengileg í gegnum netið, hvort sem það eru ljósmyndir, dagatal, tengiliðir, skjölin þín, og margt fleira.\n\nSkoðaðu Nextcloud á https://nextcloud.com</string>
+    <string name="store_full_dev_desc">Sjálfhýsta Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn.\nÞetta er opinbera þróunarútgáfan, sem kemur með daglegan skammt af óprófuðum nýjum eiginleikum, sem aftur gætu mögulega valdið truflunum og gagnatapi. Forritið er fyrir þá notendur sem vilja taka þátt í að prófa og tilkynna um villur, ef þær eiga sér stað. Ekki nota þetta í alvöru vinnuumhverfi!\n\nBæði opinbera þróunarútgáfan og venjulega útgáfan eru tiltækar á F-droid, og er hægt að setja þær upp samhliða hvorri annarri.</string>
+    <string name="store_short_desc">Sjálfhýsta Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn</string>
+    <string name="store_short_dev_desc">Sjálfhýsta Nextcloud-kerfið er opið og frjálst, og heldur þér við stjórnvölinn (forútgáfa fyrir hönnuði)</string>
     <string name="stream">Streyma með…</string>
     <string name="stream_not_possible_headline">Innra streymi er ekki mögulegt</string>
     <string name="stream_not_possible_message">Endilega sæktu frekar gagnamiðil eða notaðu utanaðkomandi forrit.</string>
@@ -917,6 +927,7 @@
     <string name="synced_icon">Samstillt</string>
     <string name="tags">Merki</string>
     <string name="terms_of_service_title">Þjónustuskilmálar</string>
+    <string name="terms_of_services_agree">Ég samþykki þjónustuskilmálana hér að ofan</string>
     <string name="test_server_button">Prófa tengingu þjóns</string>
     <string name="thirtyMinutes">30 mínútur</string>
     <string name="thisWeek">Í þessari viku</string>
@@ -938,6 +949,9 @@
     <string name="two_way_sync_activity_empty_list_title">Tvíátta samstilling ekki sett upp</string>
     <string name="two_way_sync_activity_title">Innbyggð tvíátta samstilling</string>
     <string name="unexpected_error_occurred">Óvænt villa kom upp</string>
+    <string name="unified_search_fragment_calendar_event_not_found">Atburður fannst ekki, þú getur alltaf samstillt til að uppfæra. Endurbeini á vefinn…</string>
+    <string name="unified_search_fragment_contact_not_found">Tengiliður fannst ekki, þú getur alltaf samstillt til að uppfæra. Endurbeini á vefinn…</string>
+    <string name="unified_search_fragment_permission_needed">Krafist er heimilda til að opna leitarniðurstöður, annars mun þessu verða endurbeint á vefinn…</string>
     <string name="unlock_file">Aflæsa skrá</string>
     <string name="unread_comments">Ólesnar athugasemdir eru fyrirliggjandi</string>
     <string name="unset_encrypted">Gera dulritun óvirka</string>
