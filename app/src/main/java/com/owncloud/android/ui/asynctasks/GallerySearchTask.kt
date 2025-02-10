@@ -34,7 +34,7 @@ class GallerySearchTask(
 ) {
     private val photoFragmentWeakReference = WeakReference(photoFragment)
 
-    @Suppress("DEPRECATION")
+    @Suppress("DEPRECATION", "MagicNumber")
     fun execute(endDate: Long, limit: Int) {
         val photoFragment = photoFragmentWeakReference.get() ?: return
         photoFragment.lifecycleScope.launch(Dispatchers.IO) {
@@ -49,7 +49,7 @@ class GallerySearchTask(
                 setLimit(limit)
                 setEndDate(endDate)
 
-                //workaround to keep SearchRemoteOperation functioning correctly even if we don't actively use startDate
+                // workaround to keep SearchRemoteOperation functioning correctly even if we don't actively use startDate
                 setStartDate(0L)
                 this
             }
@@ -58,10 +58,12 @@ class GallerySearchTask(
 
             Log_OC.d(
                 this,
-                ("Start gallery search since "
-                    + dateFormat.format(Date(endDate * 1000L))
-                    + " with limit: "
-                    + limit)
+                (
+                    "Start gallery search since " +
+                        dateFormat.format(Date(endDate * 1000L)) +
+                        " with limit: " +
+                        limit
+                    )
             )
 
             val result = searchRemoteOperation.execute(user, context)
@@ -76,7 +78,7 @@ class GallerySearchTask(
 
             val lastTimeStamp = findLastTimestamp(result.resultData as ArrayList<RemoteFile>)
 
-            //query the local storage based on the lastTimeStamp retrieved, not by 1970-01-01
+            // query the local storage based on the lastTimeStamp retrieved, not by 1970-01-01
             val emptySearch = parseMedia(lastTimeStamp, endDate, result.data)
 
             withContext(Dispatchers.Main) {
@@ -85,6 +87,7 @@ class GallerySearchTask(
         }
     }
 
+    @Suppress("MagicNumber")
     private fun findLastTimestamp(remoteFiles: ArrayList<RemoteFile>): Long {
         val lastPosition = remoteFiles.size - 1
 
@@ -96,6 +99,7 @@ class GallerySearchTask(
         return lastFile.modifiedTimestamp / 1000
     }
 
+    @Suppress("MagicNumber", "LongMethod")
     private fun parseMedia(startDate: Long, endDate: Long, remoteFiles: List<Any>): Boolean {
         val localFiles = storageManager.getGalleryItems(startDate * 1000L, endDate * 1000L)
 
@@ -103,19 +107,23 @@ class GallerySearchTask(
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
             Log_OC.d(
                 this,
-                ("parseMedia - start: "
-                    + dateFormat.format(Date(startDate * 1000L))
-                    + " - "
-                    + dateFormat.format(Date(endDate * 1000L)))
+                (
+                    "parseMedia - start: " +
+                        dateFormat.format(Date(startDate * 1000L)) +
+                        " - " +
+                        dateFormat.format(Date(endDate * 1000L))
+                    )
             )
 
             for (localFile in localFiles) {
                 Log_OC.d(
                     this,
-                    ("local file: modified: "
-                        + dateFormat.format(Date(localFile.modificationTimestamp))
-                        + " path: "
-                        + localFile.remotePath)
+                    (
+                        "local file: modified: " +
+                            dateFormat.format(Date(localFile.modificationTimestamp)) +
+                            " path: " +
+                            localFile.remotePath
+                        )
                 )
             }
         }
@@ -133,10 +141,12 @@ class GallerySearchTask(
                 val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
                 Log_OC.d(
                     this,
-                    ("remote file: modified: "
-                        + dateFormat.format(Date(ocFile.modificationTimestamp))
-                        + " path: "
-                        + ocFile.remotePath)
+                    (
+                        "remote file: modified: " +
+                            dateFormat.format(Date(ocFile.modificationTimestamp)) +
+                            " path: " +
+                            ocFile.remotePath
+                        )
                 )
             }
 
@@ -169,7 +179,8 @@ class GallerySearchTask(
 
         if (BuildConfig.DEBUG) {
             Log_OC.d(
-                this, "Gallery search result:" +
+                this,
+                "Gallery search result:" +
                     " new: " + filesAdded +
                     " updated: " + filesUpdated +
                     " deleted: " + filesDeleted +
