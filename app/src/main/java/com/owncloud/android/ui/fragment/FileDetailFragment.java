@@ -33,6 +33,8 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.network.ClientFactory;
 import com.nextcloud.client.network.ConnectivityService;
 import com.nextcloud.client.preferences.AppPreferences;
+import com.nextcloud.model.WorkerState;
+import com.nextcloud.model.WorkerStateLiveData;
 import com.nextcloud.ui.fileactions.FileActionsBottomSheet;
 import com.nextcloud.utils.MenuUtils;
 import com.nextcloud.utils.extensions.BundleExtensionsKt;
@@ -608,6 +610,20 @@ public class FileDetailFragment extends FileFragment implements OnClickListener,
         if (getView() != null) {
             getView().invalidate();
         }
+
+        observeWorkerState();
+    }
+
+    private void observeWorkerState() {
+        WorkerStateLiveData.Companion.instance().observe(getViewLifecycleOwner(), state -> {
+            if (state instanceof WorkerState.DownloadStarted) {
+                binding.progressText.setText(R.string.downloader_download_in_progress_ticker);
+            } else if (state instanceof WorkerState.UploadStarted) {
+                binding.progressText.setText(R.string.uploader_upload_in_progress_ticker);
+            } else {
+                binding.progressBlock.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void setFileModificationTimestamp(OCFile file, boolean showDetailedTimestamp) {
