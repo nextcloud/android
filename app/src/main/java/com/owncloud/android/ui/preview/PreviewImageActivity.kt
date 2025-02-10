@@ -83,6 +83,7 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
     lateinit var localBroadcastManager: LocalBroadcastManager
 
     private var actionBar: ActionBar? = null
+    private var showDirectoryWhenDeletionCompleted = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,6 +122,10 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
         }
 
         observeWorkerState()
+    }
+
+    fun showDirectoryWhenDeletionCompleted() {
+        showDirectoryWhenDeletionCompleted = true
     }
 
     fun toggleActionBarVisibility(hide: Boolean) {
@@ -279,6 +284,10 @@ class PreviewImageActivity : FileActivity(), FileFragment.ContainerActivity, OnR
 
             viewPager?.setCurrentItem(nextPosition, true)
             previewImagePagerAdapter?.delete(deletePosition)
+
+            if (showDirectoryWhenDeletionCompleted) {
+                backToDisplayActivity()
+            }
         } else if (operation is SynchronizeFileOperation) {
             onSynchronizeFileOperationFinish(result)
         }
