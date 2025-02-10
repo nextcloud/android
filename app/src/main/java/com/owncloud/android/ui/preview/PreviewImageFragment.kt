@@ -64,7 +64,6 @@ import com.owncloud.android.ui.fragment.FileFragment
 import com.owncloud.android.ui.preview.PreviewMediaFragment.Companion.newInstance
 import com.owncloud.android.utils.BitmapUtils
 import com.owncloud.android.utils.DisplayUtils
-import com.owncloud.android.utils.MimeType
 import com.owncloud.android.utils.MimeTypeUtil
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings
@@ -529,7 +528,7 @@ class PreviewImageFragment : FileFragment(), Injectable {
                         }
 
                         try {
-                            bitmapResult = BitmapUtils.retrieveBitmapFromFile(storagePath, minWidth, minHeight);
+                            bitmapResult = BitmapUtils.retrieveBitmapFromFile(storagePath, minWidth, minHeight)
 
                             if (isCancelled) {
                                 return LoadImage(bitmapResult, null, ocFile)
@@ -540,7 +539,6 @@ class PreviewImageFragment : FileFragment(), Injectable {
                                 Log_OC.e(TAG, "File could not be loaded as a bitmap: $storagePath")
                                 break
                             }
-
                         } catch (e: OutOfMemoryError) {
                             mErrorMessageId = R.string.common_error_out_memory
                             if (i < maxDownScale - 1) {
