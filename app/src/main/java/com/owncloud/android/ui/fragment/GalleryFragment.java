@@ -124,11 +124,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         super.onDestroyView();
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
-
     /**
      * {@inheritDoc}
      */
