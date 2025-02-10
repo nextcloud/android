@@ -1170,10 +1170,6 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity
         } else {    // authorization fail due to client side - probably wrong credentials
             if (accountSetupWebviewBinding != null) {
                 anonymouslyPostLoginRequest(mServerInfo.mBaseUrl + WEB_LOGIN);
-                // initWebViewLogin(mServerInfo.mBaseUrl + WEB_LOGIN, false);
-                DisplayUtils.showSnackMessage(this,
-                                              accountSetupWebviewBinding.loginWebview, R.string.auth_access_failed,
-                                              result.getLogMessage());
             } else {
                 DisplayUtils.showSnackMessage(this, R.string.auth_access_failed, result.getLogMessage());
 
