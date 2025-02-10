@@ -1085,7 +1085,7 @@
     <string name="whats_new_skip">Sleppa</string>
     <string name="whats_new_title">Nýtt í %1$s</string>
     <string name="whats_your_status">Hver er staðan á þér?</string>
-    <string name="widgets_not_available">Viðmótshlutar eru einungis í boði á $s 25 eða nýrra þegar Dashboard stjórnskjásforritið er virkt</string>
+    <string name="widgets_not_available">Viðmótshlutar eru einungis í boði á %1$s 25 eða nýrra þegar Dashboard stjórnskjásforritið er virkt</string>
     <string name="widgets_not_available_title">Not available</string>
     <string name="worker_download">Sæki skrár…</string>
     <string name="write_email">Senda tölvupóst</string>
