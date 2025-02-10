@@ -74,10 +74,11 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     private var passCodeDigits: Array<String> = arrayOf("", "", "", "")
     private var confirmingPassCode = false
     private var changed = true // to control that only one blocks jump
-    private var delayTimeInSeconds = 0
+    private var delayTimeInSeconds: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        delayTimeInSeconds = preferences.passCodeDelay
         binding = PasscodelockBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -340,12 +341,13 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     }
 
     @Suppress("MagicNumber")
-    private fun increaseDelayTime() {
+    private fun increaseAndSaveDelayTime() {
         val maxDelayTimeInSeconds = 300
         val delayIncrementation = 15
 
         if (delayTimeInSeconds < maxDelayTimeInSeconds) {
             delayTimeInSeconds += delayIncrementation
+            preferences.passCodeDelay = delayTimeInSeconds
         }
     }
 
@@ -406,7 +408,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
 
             enableInputFields(true)
             focusFirstInputField()
-            increaseDelayTime()
+            increaseAndSaveDelayTime()
         }
     }
 
