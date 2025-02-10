@@ -842,6 +842,7 @@
     <string name="sharee_already_added_to_file">Pridanie zdieľania zlyhalo. Tento súbor alebo adresár už bol zdieľaný s touto osobou alebo skupinou.</string>
     <string name="show_images">Zobraziť fotky</string>
     <string name="show_video">Zobraziť videá</string>
+    <string name="sign_tos_failed">Prosím manuálne skontrolujte podmienky poskytovania služby!</string>
     <string name="signup_with_provider">Zaregistrovať sa u poskytovateľa</string>
     <string name="single_sign_on_request_token" formatted="true">Umožniť %1$s pristupovať k Vášmu Nextcloud účtu %2$s?</string>
     <string name="sort_by">Zoradiť podľa</string>
@@ -928,6 +929,7 @@
     <string name="synced_icon">Zosynchronizované</string>
     <string name="tags">Štítky</string>
     <string name="terms_of_service_title">Všeobecné podmienky</string>
+    <string name="terms_of_services_agree">Súhlasím s horeuvedenými Podmienkami poskytovania služby</string>
     <string name="test_server_button">Test serverového pripojenia</string>
     <string name="thirtyMinutes">30 minút</string>
     <string name="thisWeek">Tento týždeň</string>
