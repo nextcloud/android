@@ -74,11 +74,11 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     private var passCodeDigits: Array<String> = arrayOf("", "", "", "")
     private var confirmingPassCode = false
     private var changed = true // to control that only one blocks jump
-    private var delayTimeInSeconds: Int = 0
+    private var delayInSeconds = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        delayTimeInSeconds = preferences.passCodeDelay
+        delayInSeconds = preferences.passCodeDelay
         binding = PasscodelockBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -224,6 +224,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         if (ACTION_CHECK == intent.action) {
             if (checkPassCode()) {
                 preferences.resetPinWrongAttempts()
+                preferences.passCodeDelay = 0
 
                 // / pass code accepted in request, user is allowed to access the app
                 passCodeManager.updateLockTimestamp()
@@ -277,6 +278,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         binding.header.setText(headerMessage) // TODO check if really needed
         binding.explanation.visibility = explanationVisibility // TODO check if really needed
         clearBoxes()
+        increaseAndSaveDelayTime()
         showDelay()
     }
 
@@ -345,9 +347,10 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         val maxDelayTimeInSeconds = 300
         val delayIncrementation = 15
 
-        if (delayTimeInSeconds < maxDelayTimeInSeconds) {
-            delayTimeInSeconds += delayIncrementation
-            preferences.passCodeDelay = delayTimeInSeconds
+        if (delayInSeconds < maxDelayTimeInSeconds) {
+            delayInSeconds += delayIncrementation
+            preferences.passCodeDelay = delayInSeconds
+            preferences.increasePinWrongAttempts()
         }
     }
 
@@ -398,7 +401,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
 
         enableInputFields(false)
 
-        var counter = delayTimeInSeconds
+        var counter = delayInSeconds
         lifecycleScope.launch(Dispatchers.Main) {
             while (counter != 0) {
                 binding.explanation.text = getExplanationText(counter)
@@ -408,7 +411,6 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
 
             enableInputFields(true)
             focusFirstInputField()
-            increaseAndSaveDelayTime()
         }
     }
 
