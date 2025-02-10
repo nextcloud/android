@@ -28,6 +28,7 @@ import com.owncloud.android.lib.common.utils.Log_OC
 import com.owncloud.android.ui.dialog.StoragePermissionDialogFragment
 import com.owncloud.android.utils.theme.ViewThemeUtils
 
+@Suppress("TooManyFunctions")
 object PermissionUtil {
     private const val TAG = "PermissionUtil"
 
