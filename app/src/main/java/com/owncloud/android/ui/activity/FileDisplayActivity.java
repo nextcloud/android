@@ -684,7 +684,7 @@ public class FileDisplayActivity extends FileActivity
             .setTitle(R.string.re_enable_auto_upload)
             .setMessage(R.string.re_enable_auto_upload_desc)
             .setNegativeButton(R.string.dialog_close, (dialog, which) -> {
-                PermissionUtil.requestExternalStoragePermission(this, viewThemeUtils);
+                PermissionUtil.requestStoragePermissionIfNeeded(this, viewThemeUtils);
                 PermissionUtil.requestMediaLocationPermission(this);
                 preferences.setAutoUploadGPlayNotificationShown(true);
                 dialog.dismiss();
