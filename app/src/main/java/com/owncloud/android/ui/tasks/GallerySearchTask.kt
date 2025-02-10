@@ -1,12 +1,10 @@
 /*
  * Nextcloud - Android Client
  *
- * SPDX-FileCopyrightText: 2025 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
- * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
- * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
+ * SPDX-FileCopyrightText: 2025 Your Name <your@email.com>
+ * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-package com.owncloud.android.ui.asynctasks
+package com.owncloud.android.ui.tasks
 
 import android.content.Context
 import androidx.lifecycle.lifecycleScope
@@ -36,7 +34,7 @@ class GallerySearchTask(
     private val photoFragmentWeakReference = WeakReference(photoFragment)
     private val tag = "GallerySearchTask"
 
-    @Suppress("DEPRECATION", "MagicNumber")
+    @Suppress("DEPRECATION")
     fun execute(endDate: Long, limit: Int) {
         val photoFragment = photoFragmentWeakReference.get() ?: return
         photoFragment.lifecycleScope.launch(Dispatchers.IO) {
@@ -51,7 +49,8 @@ class GallerySearchTask(
                 setLimit(limit)
                 setEndDate(endDate)
 
-                // workaround to keep SearchRemoteOperation functioning correctly even if we don't actively use startDate
+                // workaround to keep SearchRemoteOperation
+                // functioning correctly even if we don't actively use startDate
                 setStartDate(0L)
                 this
             }
@@ -81,6 +80,7 @@ class GallerySearchTask(
         }
     }
 
+    @Suppress("MagicNumber")
     private fun logGallerySearch(endDate: Long, limit: Int) {
         if (!BuildConfig.DEBUG) {
             return
