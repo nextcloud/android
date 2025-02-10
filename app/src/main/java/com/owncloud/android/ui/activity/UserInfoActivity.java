@@ -7,6 +7,7 @@
  * SPDX-FileCopyrightText: 2018 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
+ * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.activity;
@@ -317,7 +318,7 @@ public class UserInfoActivity extends DrawerActivity implements Injectable {
                     // show error
                     runOnUiThread(() -> setErrorMessageForMultiList(
                         getString(R.string.user_information_retrieval_error),
-                        result.getLogMessage(),
+                        result.getLogMessage(this),
                         R.drawable.ic_list_empty_error)
                                  );
                     Log_OC.d(TAG, result.getLogMessage());

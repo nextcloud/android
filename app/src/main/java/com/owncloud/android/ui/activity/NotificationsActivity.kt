@@ -5,6 +5,7 @@
  * SPDX-FileCopyrightText: 2020 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2017 Mario Danic <mario@lovelyhq.com>
  * SPDX-FileCopyrightText: 2017 Nextcloud GmbH
+ * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.activity
@@ -259,7 +260,7 @@ class NotificationsActivity : AppCompatActivity(), NotificationsContract.View, I
                 runOnUiThread {
                     setEmptyContent(
                         getString(R.string.notifications_no_results_headline),
-                        result?.logMessage
+                        result?.getLogMessage(this)
                     )
                 }
             }
