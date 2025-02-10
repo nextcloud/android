@@ -575,7 +575,6 @@ class PreviewMediaFragment : FileFragment(), OnTouchListener, Injectable {
 
     override fun onPause() {
         exoPlayer?.pause()
-        releaseVideoPlayer()
         super.onPause()
     }
 
