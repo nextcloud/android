@@ -33,6 +33,7 @@ class GallerySearchTask(
     private val storageManager: FileDataStorageManager
 ) {
     private val photoFragmentWeakReference = WeakReference(photoFragment)
+    private val tag = "GallerySearchTask"
 
     @Suppress("DEPRECATION", "MagicNumber")
     fun execute(endDate: Long, limit: Int) {
@@ -54,25 +55,17 @@ class GallerySearchTask(
                 this
             }
 
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
-
-            Log_OC.d(
-                this,
-                (
-                    "Start gallery search since " +
-                        dateFormat.format(Date(endDate * 1000L)) +
-                        " with limit: " +
-                        limit
-                    )
-            )
+            logGallerySearch(endDate, limit)
 
             val result = searchRemoteOperation.execute(user, context)
 
             if (!result.isSuccess) {
+                Log_OC.d(tag, "GallerySearchTask failed")
                 return@launch
             }
 
             if (result.resultData !is ArrayList<RemoteFile>) {
+                Log_OC.d(tag, "GallerySearchTask data type is not ArrayList<RemoteFile>")
                 return@launch
             }
 
@@ -85,6 +78,24 @@ class GallerySearchTask(
                 photoFragment.searchCompleted(emptySearch, lastTimeStamp)
             }
         }
+    }
+
+    private fun logGallerySearch(endDate: Long, limit: Int) {
+        if (!BuildConfig.DEBUG) {
+            return
+        }
+
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
+
+        Log_OC.d(
+            this,
+            (
+                "Start gallery search since " +
+                    dateFormat.format(Date(endDate * 1000L)) +
+                    " with limit: " +
+                    limit
+                )
+        )
     }
 
     @Suppress("MagicNumber")
