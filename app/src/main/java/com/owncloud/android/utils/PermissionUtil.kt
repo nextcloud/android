@@ -137,6 +137,7 @@ object PermissionUtil {
      * Request a storage permission
      */
     // TODO inject this class to avoid passing ViewThemeUtils around
+    @Suppress("NestedBlockDepth")
     private fun requestStoragePermission(
         activity: Activity,
         readOnly: Boolean,
@@ -318,6 +319,7 @@ object PermissionUtil {
      *
      * @param activity target activity
      */
+    @Suppress("ReturnCount")
     @JvmStatic
     fun requestMediaLocationPermission(activity: Activity) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
