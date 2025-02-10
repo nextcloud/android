@@ -99,6 +99,7 @@
     <string name="auto_upload_file_behaviour_kept_in_folder">conservé dans le dossier original (puisqu\'il est en lecture seule)</string>
     <string name="auto_upload_gplay">Le comportement du téléversement automatique a changé</string>
     <string name="auto_upload_gplay_desc">À cause de nouvelles restrictions imposées par Google, la fonctionnalité de téléversement automatique ne pourra plus automatiquement supprimer les fichiers téléversés.</string>
+    <string name="auto_upload_gplay_desc2">A cause de nouvelles restrictions imposées par Google, nous avons été forcé de retirer une permission importante. En conséquence, le téléversement automatique ne sera disponible que pour les fichiers image et vidéo.\nDe plus, une nouvelle permission est requise pour accéder aux informations de localisation pour les images téléversées.\nVérifier que l\'accès au média est défini à \"Toujours autoriser tous\".</string>
     <string name="auto_upload_on_wifi">Téléverser par Wi-Fi uniquement</string>
     <string name="auto_upload_path">/TéléversementAuto</string>
     <string name="autoupload_configure">Configurer</string>
@@ -633,6 +634,7 @@
     <string name="permission_allow">Accepter</string>
     <string name="permission_deny">Refuser</string>
     <string name="permission_storage_access">Des permissions supplémentaires sont exigées pour téléverser et télécharger des fichiers.</string>
+    <string name="pick_contact_to_share_with">Choisir un contact avec qui partager</string>
     <string name="picture_set_as_no_app">Aucune application trouvée pour utiliser cette image</string>
     <string name="pin_home">Épingler sur l\'écran d\'accueil</string>
     <string name="pin_shortcut_label">Ouvrir %1$s</string>
@@ -840,6 +842,7 @@
     <string name="sharee_already_added_to_file">L\'ajout du partage a échoué. Ce fichier ou dossier a déjà été partagé avec cette personne ou ce groupe.</string>
     <string name="show_images">Afficher les photos</string>
     <string name="show_video">Afficher les vidéos</string>
+    <string name="sign_tos_failed">Veuillez vérifier manuellement les conditions générales d\'utilisation</string>
     <string name="signup_with_provider">Se connecter avec un fournisseur</string>
     <string name="single_sign_on_request_token" formatted="true">Autoriser %1$s à accéder à votre compte Nextcloud  %2$s ?</string>
     <string name="sort_by">Trier par</string>
@@ -926,6 +929,7 @@
     <string name="synced_icon">Synchronisé</string>
     <string name="tags">Étiquettes</string>
     <string name="terms_of_service_title">Conditions d\'utilisation</string>
+    <string name="terms_of_services_agree">J\'accepte les CGU ci-dessus</string>
     <string name="test_server_button">Tester la connexion du serveur</string>
     <string name="thirtyMinutes">30 minutes</string>
     <string name="thisWeek">Cette semaine</string>
@@ -986,6 +990,8 @@
     <string name="upload_file_dialog_title">Spécifiez le nom et le type du fichier à téléverser</string>
     <string name="upload_files">Téléverser des fichiers</string>
     <string name="upload_global_pause_title">Tous les téléversements sont suspendus</string>
+    <string name="upload_gplay">Modification des permissions</string>
+    <string name="upload_gplay_desc">Une nouvelle permission est requise pour accéder à l\'information de localisation pour les images téléversées.\nVérifier que l\'accès au média est défini à \"Toujours autoriser tous\".</string>
     <string name="upload_item_action_button">Bouton d\'action d\'upload</string>
     <string name="upload_list_delete">Supprimer</string>
     <string name="upload_list_empty_headline">Aucun téléversement disponible</string>
