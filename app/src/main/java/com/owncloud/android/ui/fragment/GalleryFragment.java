@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,7 +34,6 @@ import com.owncloud.android.ui.activity.FolderPickerActivity;
 import com.owncloud.android.ui.activity.ToolbarActivity;
 import com.owncloud.android.ui.adapter.CommonOCFileListAdapterInterface;
 import com.owncloud.android.ui.adapter.GalleryAdapter;
-import com.owncloud.android.ui.adapter.OCFileListDelegate;
 import com.owncloud.android.ui.asynctasks.GallerySearchTask;
 import com.owncloud.android.ui.events.ChangeMenuEvent;
 
@@ -58,7 +56,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     public static final String REFRESH_SEARCH_EVENT_RECEIVER = "refreshSearchEventReceiver";
 
     private boolean photoSearchQueryRunning = false;
-    private AsyncTask<Void, Void, GallerySearchTask.Result> photoSearchTask;
+    private GallerySearchTask photoSearchTask;
     private long endDate;
     private int limit = 150;
     private GalleryAdapter mAdapter;
@@ -97,6 +95,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             columnSize = maxColumnSizePortrait;
         }
 
+        initGallerySearchTask();
         registerRefreshSearchEventReceiver();
     }
 
@@ -128,10 +127,6 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
     @Override
     public void onPause() {
         super.onPause();
-
-        if (photoSearchTask != null) {
-            photoSearchTask.cancel(true);
-        }
     }
 
     /**
@@ -256,7 +251,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
             // to avoid reloading the gallery, check if endDate has already a value which is not -1 or 0 (which generally means some kind of reset/init)
             endDate = System.currentTimeMillis() / 1000;
             this.setPhotoSearchQueryRunning(true);
-            runGallerySearchTask();
+            photoSearchTask.execute(endDate, limit);
         }
     }
 
@@ -327,18 +322,18 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
         //TODO: Fix folder change, it seems it doesn't work at all
         this.endDate = System.currentTimeMillis() / 1000;
         this.setPhotoSearchQueryRunning(true);
-        runGallerySearchTask();
+        photoSearchTask.execute(endDate, limit);
     }
 
-    private void runGallerySearchTask() {
-        if (mContainerActivity != null) {
-            photoSearchTask = new GallerySearchTask(this,
-                                                    accountManager.getUser(),
-                                                    mContainerActivity.getStorageManager(),
-                                                    endDate,
-                                                    limit)
-                .execute();
+    private void initGallerySearchTask() {
+        if (mContainerActivity == null) {
+            return;
         }
+
+        photoSearchTask = new GallerySearchTask(this,
+                                                requireContext(),
+                                                accountManager.getUser(),
+                                                mContainerActivity.getStorageManager());
     }
 
     private void loadMoreWhenEndReached(@NonNull RecyclerView recyclerView, int dy) {
@@ -368,7 +363,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                     }
 
                     this.setPhotoSearchQueryRunning(true);
-                    runGallerySearchTask();
+                    photoSearchTask.execute(endDate, limit);
                 } else if ((totalItemCount - visibleItemCount) <= (lastVisibleItem + MAX_ITEMS_PER_ROW) //no more files in the gallery, retrieve the next ones
                     && (totalItemCount - visibleItemCount) > 0) {
 
@@ -379,7 +374,7 @@ public class GalleryFragment extends OCFileListFragment implements GalleryFragme
                     // Almost reached the end, continue to load new photos
                     endDate = lastItemTimestamp;
                     this.setPhotoSearchQueryRunning(true);
-                    runGallerySearchTask();
+                    photoSearchTask.execute(endDate, limit);
                 }
             }
         }
