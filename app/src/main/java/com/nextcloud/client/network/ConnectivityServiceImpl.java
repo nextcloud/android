@@ -25,7 +25,6 @@ import com.owncloud.android.lib.common.utils.Log_OC;
 import org.apache.commons.httpclient.HttpStatus;
 
 import androidx.annotation.NonNull;
-import androidx.core.net.ConnectivityManagerCompat;
 import kotlin.jvm.functions.Function1;
 
 class ConnectivityServiceImpl implements ConnectivityService {
@@ -146,19 +145,13 @@ class ConnectivityServiceImpl implements ConnectivityService {
         }
     }
 
+    // 
+    // Determine if the currently active network is metered
+    // Detects both metered cellular and Wi-Fi connections
+    //
     private boolean isNetworkMetered() {
         final Network network = platformConnectivityManager.getActiveNetwork();
-        try {
-            NetworkCapabilities networkCapabilities = platformConnectivityManager.getNetworkCapabilities(network);
-            if (networkCapabilities != null) {
-                return !networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_RESTRICTED);
-            } else {
-                return ConnectivityManagerCompat.isActiveNetworkMetered(platformConnectivityManager);
-            }
-        } catch (RuntimeException e) {
-            Log_OC.e(TAG, "Exception when checking network capabilities", e);
-            return false;
-        }
+        return platformConnectivityManager.isActiveNetworkMetered(platformConnectivityManager);
     }
 
     private boolean hasNonCellularConnectivity() {
