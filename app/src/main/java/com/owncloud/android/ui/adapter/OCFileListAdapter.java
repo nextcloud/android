@@ -100,6 +100,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -834,6 +835,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             ocFileListDelegate.setShowShareAvatar(true);
             this.user = account;
         }
+
         if (mStorageManager != null) {
             // TODO refactor filtering mechanism for mFiles
             mFiles = mStorageManager.getFolderContent(directory, onlyOnDevice);
@@ -859,9 +861,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles = sortOrder.sortCloudFiles(mFiles);
             prepareListOfHiddenFiles();
             mergeOCFilesForLivePhoto();
-            mFilesAll.clear();
             addOfflineOperations(directory.getFileId());
-            mFilesAll.addAll(mFiles);
             currentDirectory = directory;
         } else {
             mFiles.clear();
@@ -869,7 +869,8 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         searchType = null;
-        notifyDataSetChanged();
+
+        updateList();
     }
 
     /**
@@ -960,11 +961,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         }
 
         this.searchType = searchType;
-
-        mFilesAll.clear();
-        mFilesAll.addAll(mFiles);
-
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+        updateList();
     }
 
     private void parseShares(List<Object> objects) {
@@ -1104,17 +1101,28 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
         }
 
-        mFilesAll.clear();
-        mFilesAll.addAll(mFiles);
-
-        new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
+        updateList();
     }
 
+    private void updateList() {
+        final var newList = mFiles;
+        final var diffCallback = new OCFileDiffCallback(mFilesAll, newList);
+        final var diff = DiffUtil.calculateDiff(diffCallback);
+        mFilesAll.clear();
+        mFilesAll.addAll(mFiles);
+        diff.dispatchUpdatesTo(this);
+    }
 
     public void setSortOrder(@Nullable OCFile folder, FileSortOrder sortOrder) {
         preferences.setSortOrder(folder, sortOrder);
+
+        final var newList = sortOrder.sortCloudFiles(mFiles);
+        final var diffCallback = new OCFileDiffCallback(mFiles, newList);
+        final var diff = DiffUtil.calculateDiff(diffCallback);
         mFiles = sortOrder.sortCloudFiles(mFiles);
-        notifyDataSetChanged();
+        mFilesAll.clear();
+        mFilesAll.addAll(mFiles);
+        diff.dispatchUpdatesTo(this);
 
         this.sortOrder = sortOrder;
     }
