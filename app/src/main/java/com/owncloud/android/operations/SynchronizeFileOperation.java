@@ -302,14 +302,14 @@ public class SynchronizeFileOperation extends SyncOperation {
 
     private void requestForDownload(OCFile file) {
         final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
-        String filename = file.getFileName();
+        final var filename = file.getFileName();
 
         if (syncInBackgroundWorker) {
             Log_OC.d(TAG, "downloading file without notification: " + filename);
 
             try {
                 final var operation = new DownloadFileOperation(mUser, file, mContext);
-                var result = operation.execute(getClient());
+                final var result = operation.execute(getClient());
 
                 mTransferWasRequested = true;
 
