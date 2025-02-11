@@ -9,6 +9,7 @@ package com.nextcloud.client.jobs.upload
 
 import android.app.PendingIntent
 import android.content.Context
+import android.provider.Settings
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.work.Worker
 import androidx.work.WorkerParameters
@@ -148,6 +149,12 @@ class FileUploadWorker(
                 return Result.success()
             }
 
+            if (canExitEarly()) {
+                Log_OC.d(TAG, "Airplane mode is enabled or no internet connection, stopping worker.")
+                notificationManager.showConnectionErrorNotification()
+                return Result.failure()
+            }
+
             Log_OC.d(TAG, "Handling ${uploadsPerPage.size} uploads for account $accountName")
             val lastId = uploadsPerPage.last().uploadId
             uploadFiles(totalUploadSize, uploadsPerPage, accountName)
@@ -163,14 +170,38 @@ class FileUploadWorker(
         return Result.success()
     }
 
+    private fun canExitEarly(): Boolean {
+        val result = !connectivityService.isConnected ||
+            connectivityService.isInternetWalled ||
+            isStopped ||
+            isAirplaneModeEnabled()
+
+        if (!result) {
+            notificationManager.dismissErrorNotification()
+        }
+
+        return result
+    }
+
+    private fun isAirplaneModeEnabled(): Boolean {
+        return Settings.Global.getInt(context.contentResolver, Settings.Global.AIRPLANE_MODE_ON, 0) != 0
+    }
+
     @Suppress("NestedBlockDepth")
     private fun uploadFiles(totalUploadSize: Int, uploadsPerPage: List<OCUpload>, accountName: String) {
         val user = userAccountManager.getUser(accountName)
         setWorkerState(user.get(), uploadsPerPage)
 
+        if (canExitEarly()) {
+            Log_OC.d(TAG, "Airplane mode is enabled or no internet connection, stopping worker.")
+            notificationManager.showConnectionErrorNotification()
+            return
+        }
+
         run uploads@{
             uploadsPerPage.forEach { upload ->
-                if (isStopped) {
+                if (canExitEarly()) {
+                    notificationManager.showConnectionErrorNotification()
                     return@uploads
                 }
 

@@ -584,9 +584,14 @@ internal class BackgroundJobManagerImpl(
 
         val tag = startFileUploadJobTag(user)
 
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
         val request = oneTimeRequestBuilder(FileUploadWorker::class, JOB_FILES_UPLOAD, user)
             .addTag(tag)
             .setInputData(data)
+            .setConstraints(constraints)
             .build()
 
         workManager.enqueueUniqueWork(tag, ExistingWorkPolicy.KEEP, request)

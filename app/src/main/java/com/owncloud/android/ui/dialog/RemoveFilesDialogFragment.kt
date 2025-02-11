@@ -17,12 +17,14 @@ import android.view.ActionMode
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.button.MaterialButton
 import com.nextcloud.client.di.Injectable
+import com.nextcloud.utils.extensions.getTypedActivity
 import com.owncloud.android.R
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
-import com.owncloud.android.ui.activity.ComponentsGetter
+import com.owncloud.android.ui.activity.FileActivity
 import com.owncloud.android.ui.activity.FileDisplayActivity
 import com.owncloud.android.ui.dialog.ConfirmationDialogFragment.ConfirmationDialogFragmentListener
+import com.owncloud.android.ui.preview.PreviewImageActivity
 import javax.inject.Inject
 
 /**
@@ -90,38 +92,36 @@ class RemoveFilesDialogFragment : ConfirmationDialogFragment(), ConfirmationDial
             fileDataStorageManager.deleteOfflineOperation(it)
         }
 
-        if (requireActivity() is FileDisplayActivity) {
-            val activity = requireActivity() as FileDisplayActivity
-            activity.connectivityService.isNetworkAndServerAvailable { result ->
-                if (result) {
-                    if (files.isNotEmpty()) {
-                        val cg = activity as ComponentsGetter?
-                        cg?.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
-                    }
+        val fileActivity = getTypedActivity(FileActivity::class.java)
+        val fda = getTypedActivity(FileDisplayActivity::class.java)
 
-                    if (offlineFiles.isNotEmpty()) {
-                        activity.refreshCurrentDirectory()
-                    }
-                } else {
-                    files.forEach { file ->
-                        fileDataStorageManager.addRemoveFileOfflineOperation(
-                            file.decryptedRemotePath,
-                            file.fileName,
-                            file.parentId
-                        )
-                    }
-
-                    activity.refreshCurrentDirectory()
+        fileActivity?.connectivityService?.isNetworkAndServerAvailable { result ->
+            if (result) {
+                if (files.isNotEmpty()) {
+                    getTypedActivity(PreviewImageActivity::class.java)?.showDirectoryWhenDeletionCompleted()
+                    fileActivity.fileOperationsHelper?.removeFiles(files, onlyLocalCopy, false)
                 }
 
-                finishActionMode()
+                if (offlineFiles.isNotEmpty()) {
+                    fda?.refreshCurrentDirectory()
+                }
+            } else {
+                files.forEach { file ->
+                    fileDataStorageManager.addRemoveFileOfflineOperation(
+                        file.decryptedRemotePath,
+                        file.fileName,
+                        file.parentId
+                    )
+                }
+
+                fda?.refreshCurrentDirectory()
             }
+
+            finishActionMode()
         }
     }
 
-    override fun onNeutral(callerTag: String?) {
-        // nothing to do here
-    }
+    override fun onNeutral(callerTag: String?) = Unit
 
     private fun setActionMode(actionMode: ActionMode?) {
         this.actionMode = actionMode

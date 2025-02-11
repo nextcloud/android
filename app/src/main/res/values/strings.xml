@@ -196,6 +196,7 @@
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
+    <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Sync</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
@@ -1123,16 +1124,36 @@
     <string name="dialog_close">Close</string>
     <string name="direct_login_text">Login with %1$s to %2$s</string>
     <string name="direct_login_failed">Login via direct link failed!</string>
-    <string name="webview_version_check_alert_dialog_title">Update Android System WebView</string>
-    <string name="webview_version_check_alert_dialog_message">Please update the Android System WebView app for a login</string>
-    <string name="webview_version_check_alert_dialog_positive_button_title">Update</string>
 
     <string name="e2e_counter_too_old">Counter is too old</string>
     <string name="e2e_hash_not_found">Hash not found</string>
     <string name="e2e_signature_does_not_match">Signature does not match</string>
 
     <string name="login_url_helper_text">The link to your %1$s web interface when you open it in the browser.</string>
-    <string name="brute_force_delay">Delayed due to too many wrong attempts</string>
+
+    <plurals name="delay_message">
+        <item quantity="one">Delayed %d second due to too many wrong attempts</item>
+        <item quantity="other">Delayed %d seconds due to too many wrong attempts</item>
+    </plurals>
+
+    <plurals name="delay_message_minutes">
+        <item quantity="one">Delayed %d minute due to too many wrong attempts</item>
+        <item quantity="other">Delayed %d minutes due to too many wrong attempts</item>
+    </plurals>
+
+    <plurals name="delay_message_minutes_part">
+        <item quantity="one">Delayed %d minute</item>
+        <item quantity="other">Delayed %d minutes</item>
+    </plurals>
+
+    <plurals name="delay_message_seconds_part">
+        <item quantity="one">%d second</item>
+        <item quantity="other">%d seconds</item>
+    </plurals>
+
+    <string name="due_to_too_many_wrong_attempts">%s due to too many wrong attempts</string>
+
+
     <string name="create">Create</string>
     <string name="select_one_template">Please select one template</string>
     <string name="choose_template_helper_text">Please choose a template and enter a file name.</string>
@@ -1152,7 +1173,6 @@
     <string name="delete_link">Delete Link</string>
     <string name="share_settings">Settings</string>
     <string name="common_confirm">Confirm</string>
-    <string name="strict_mode">Strict mode: no HTTP connection allowed!</string>
     <string name="destination_filename">Destination filename</string>
     <string name="suggest">Suggest</string>
     <string name="enter_destination_filename">Enter destination filename</string>
