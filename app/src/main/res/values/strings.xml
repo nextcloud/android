@@ -196,6 +196,7 @@
     <string name="upload_list_empty_headline">No uploads available</string>
     <string name="upload_list_empty_text_auto_upload">Upload some content or activate auto upload.</string>
     <string name="file_list_folder">folder</string>
+    <string name="file_upload_worker_error_notification_title">Upload failed. No internet connection</string>
     <string name="filedetails_download">Download</string>
     <string name="filedetails_sync_file">Sync</string>
     <string name="filedetails_renamed_in_upload_msg">File renamed %1$s during upload</string>
