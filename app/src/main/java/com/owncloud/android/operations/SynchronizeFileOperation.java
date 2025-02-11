@@ -313,10 +313,6 @@ public class SynchronizeFileOperation extends SyncOperation {
                 mTransferWasRequested = true;
 
                 String filename = file.getFileName();
-                if (filename == null) {
-                    Log_OC.d(TAG,"filename is null cannot save file");
-                    return;
-                }
 
                 if (result.isSuccess()) {
                     fileDownloadHelper.saveFile(file, operation, getStorageManager());
