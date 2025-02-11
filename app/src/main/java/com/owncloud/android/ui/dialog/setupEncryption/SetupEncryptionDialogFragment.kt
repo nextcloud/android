@@ -37,6 +37,7 @@ import com.owncloud.android.lib.resources.users.GetPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.GetServerPublicKeyRemoteOperation
 import com.owncloud.android.lib.resources.users.SendCSRRemoteOperation
 import com.owncloud.android.lib.resources.users.StorePrivateKeyRemoteOperation
+import com.owncloud.android.utils.DisplayUtils
 import com.owncloud.android.utils.EncryptionUtils
 import com.owncloud.android.utils.theme.ViewThemeUtils
 import java.io.IOException
@@ -161,7 +162,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting)
 
         try {
-            val privateKey = task?.get()
+            val privateKey = task?.get() as? String?
             val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
             val mnemonic =
                 binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
@@ -269,36 +270,38 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         super.onSaveInstanceState(outState)
     }
 
+    enum class DownloadKeyError(val descriptionId: Int) {
+        CertificateVerificationFailed(R.string.end_to_end_encryption_certificate_verification_failed),
+        ServerPublicKeyUnavailable(R.string.end_to_end_encryption_server_public_key_unavailable),
+        ServerPrivateKeyUnavailable(R.string.end_to_end_encryption_server_private_key_unavailable),
+        CertificateUnavailable(R.string.end_to_end_encryption_certificate_unavailable),
+        UnexpectedError(R.string.end_to_end_encryption_unexpected_error_occurred)
+    }
+
     @SuppressLint("StaticFieldLeak")
-    inner class DownloadKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, String?>() {
+    inner class DownloadKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, Any?>() {
         private val mWeakContext: WeakReference<Context> = WeakReference(context)
 
         @Suppress("ReturnCount", "LongMethod")
         @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg params: Void?): String? {
+        override fun doInBackground(vararg params: Void?): Any? {
             // fetch private/public key
             // if available
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
+            val context = mWeakContext.get() ?: return DownloadKeyError.UnexpectedError
+            val user = user ?: return DownloadKeyError.UnexpectedError
 
-            val context = mWeakContext.get() ?: return null
             val certificateOperation = GetPublicKeyRemoteOperation()
-            val serverPublicKeyOperation = GetServerPublicKeyRemoteOperation()
-            val user = user ?: return null
-
-            val privateKeyOperation = GetPrivateKeyRemoteOperation()
-            val privateKeyResult = privateKeyOperation.executeNextcloudClient(user, context)
             val certificateResult = certificateOperation.executeNextcloudClient(user, context)
-            val serverPublicKeyResult = serverPublicKeyOperation.executeNextcloudClient(user, context)
-
-            var encryptedPrivateKey: com.owncloud.android.lib.ocs.responses.PrivateKey? = null
-            if (privateKeyResult.isSuccess) {
-                encryptedPrivateKey = privateKeyResult.resultData
+            if (!certificateResult.isSuccess) {
+                return DownloadKeyError.CertificateUnavailable
             }
 
-            if (!certificateResult.isSuccess || !serverPublicKeyResult.isSuccess) {
-                Log_OC.d(TAG, "certificate or server public key not fetched")
-                return null
+            val serverPublicKeyOperation = GetServerPublicKeyRemoteOperation()
+            val serverPublicKeyResult = serverPublicKeyOperation.executeNextcloudClient(user, context)
+            if (!serverPublicKeyResult.isSuccess) {
+                return DownloadKeyError.ServerPublicKeyUnavailable
             }
 
             val serverKey = serverPublicKeyResult.resultData
@@ -306,12 +309,11 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             val isCertificateValid = certificateValidator?.validate(serverKey, certificateAsString)
 
             if (isCertificateValid == false) {
-                Log_OC.d(TAG, "Could not save certificate, certificate is not valid")
-                return null
+                return DownloadKeyError.CertificateVerificationFailed
             }
 
             if (arbitraryDataProvider == null) {
-                return null
+                return DownloadKeyError.UnexpectedError
             }
 
             arbitraryDataProvider?.storeOrUpdateKeyValue(
@@ -320,13 +322,15 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 certificateAsString
             )
 
-            if (privateKeyResult.isSuccess) {
+            val privateKeyOperation = GetPrivateKeyRemoteOperation()
+            val privateKeyResult = privateKeyOperation.executeNextcloudClient(user, context)
+            return if (privateKeyResult.isSuccess) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
-                return encryptedPrivateKey?.getKey()
+                return privateKeyResult.resultData?.getKey()
+            } else {
+                DownloadKeyError.ServerPrivateKeyUnavailable
             }
-
-            return null
         }
 
         @Deprecated("Deprecated in Java")
@@ -338,8 +342,8 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         }
 
         @Deprecated("Deprecated in Java")
-        override fun onPostExecute(privateKey: String?) {
-            super.onPostExecute(privateKey)
+        override fun onPostExecute(result: Any?) {
+            super.onPostExecute(result)
 
             val context = mWeakContext.get()
             if (context == null) {
@@ -347,6 +351,18 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 return
             }
 
+            if (result is DownloadKeyError) {
+                val description = getString(result.descriptionId)
+                dismiss()
+                DisplayUtils.showSnackMessage(requireActivity(), description)
+                return
+            }
+
+            val privateKey = result as? String?
+            handlePrivateKey(privateKey)
+        }
+
+        private fun handlePrivateKey(privateKey: String?) {
             if (privateKey == null) {
                 // first show info
                 try {
