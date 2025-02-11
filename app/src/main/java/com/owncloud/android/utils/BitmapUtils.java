@@ -114,7 +114,44 @@ public final class BitmapUtils {
         return BitmapFactory.decodeFile(srcPath, options);
     }
 
+    /**
+     * Decodes a bitmap from a file containing it minimizing the memory use. Scales image to screen size.
+     *
+     * @param storagePath   Absolute path to the file containing the image.
+     */
+    public static Bitmap retrieveBitmapFromFile(String storagePath, int minWidth, int minHeight){
+        // Get the original dimensions of the bitmap
+        var bitmapResolution = getImageResolution(storagePath);
+        var originalWidth = bitmapResolution[0];
+        var originalHeight = bitmapResolution[1];
 
+        // Detect Orientation and swap height/width if the image is to be rotated
+        var shouldRotate = detectRotateImage(storagePath);
+        if (shouldRotate) {
+            // Swap the width and height
+            var tempWidth = originalWidth;
+            originalWidth = originalHeight;
+            originalHeight = tempWidth;
+        }
+
+        var bitmapResult = decodeSampledBitmapFromFile(
+            storagePath, originalWidth, originalHeight);
+
+        // Calculate the scaling factors based on screen dimensions
+        var widthScaleFactor = (float) minWidth/ bitmapResult.getWidth();
+        var heightScaleFactor = (float) minHeight / bitmapResult.getHeight();
+
+        // Use the smaller scaling factor to maintain aspect ratio
+        var scaleFactor = Math.min(widthScaleFactor, heightScaleFactor);
+
+        // Calculate the new scaled width and height
+        var scaledWidth = (int) (bitmapResult.getWidth() * scaleFactor);
+        var scaledHeight = (int) (bitmapResult.getHeight() * scaleFactor);
+
+        bitmapResult = scaleBitmap(bitmapResult,scaledWidth,scaledHeight);
+
+        return bitmapResult;
+    }
     /**
      * Calculates a proper value for options.inSampleSize in order to decode a Bitmap minimizing the memory overload and
      * covering a target surface of reqWidth x reqHeight if the original image is big enough.
@@ -160,6 +197,18 @@ public final class BitmapUtils {
         int w = Math.round(scale * width);
         int h = Math.round(scale * height);
         return Bitmap.createScaledBitmap(bitmap, w, h, true);
+    }
+
+    /**
+     * scales a given bitmap depending on the given size parameters.
+     *
+     * @param bitmap the bitmap to be scaled
+     * @param width  the width
+     * @param height the height
+     * @return the scaled bitmap
+     */
+    public static Bitmap scaleBitmap(Bitmap bitmap, int width, int height) {
+        return Bitmap.createScaledBitmap(bitmap, width, height, true);
     }
 
     /**
@@ -228,6 +277,44 @@ public final class BitmapUtils {
             Log_OC.e("BitmapUtil", "Could not rotate the image: " + storagePath);
         }
         return resultBitmap;
+    }
+
+    /**
+     * Detect if Image will be rotated according to EXIF orientation. Cf. http://www.daveperrett.com/articles/2012/07/28/exif-orientation-handling-is-a-ghetto/
+     *
+     * @param storagePath Path to source file of bitmap. Needed for EXIF information.
+     * @return true if image's orientation determines it will be rotated to where height and width change
+     */
+    public static boolean detectRotateImage(String storagePath) {
+        try {
+            ExifInterface exifInterface = new ExifInterface(storagePath);
+            int orientation = exifInterface.getAttributeInt(ExifInterface.TAG_ORIENTATION, 1);
+
+            if (orientation != ExifInterface.ORIENTATION_NORMAL) {
+                switch (orientation) {
+                    // 5
+                    case ExifInterface.ORIENTATION_TRANSPOSE: {
+                        return true;
+                    }
+                    // 6
+                    case ExifInterface.ORIENTATION_ROTATE_90: {
+                        return true;
+                    }
+                    // 7
+                    case ExifInterface.ORIENTATION_TRANSVERSE: {
+                        return true;
+                    }
+                    // 8
+                    case ExifInterface.ORIENTATION_ROTATE_270: {
+                        return true;
+                    }
+                }
+            }
+        }
+        catch (Exception exception) {
+            Log_OC.e("BitmapUtil", "Could not read orientation at: " + storagePath);
+        }
+        return false;
     }
 
     public static int[] getImageResolution(String srcPath) {
