@@ -1,0 +1,11 @@
+## 3.31.0 RC2 (February 11, 2025)
+
+- Observe download status in encrypted folders
+- Automatically pause uploads when the device is offline or in airplane mode
+- Remove Login Flow v1
+- Increase PIN entry delay after each incorrect attempt
+- Various bug fixes and performance enhancements
+
+Minimum: NC 18 Server, Android 7.1 Nougat
+
+For a full list, please see https://github.com/nextcloud/android/milestone/100
