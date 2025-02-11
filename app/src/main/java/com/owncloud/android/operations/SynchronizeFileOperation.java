@@ -302,17 +302,16 @@ public class SynchronizeFileOperation extends SyncOperation {
 
     private void requestForDownload(OCFile file) {
         final var fileDownloadHelper = FileDownloadHelper.Companion.instance();
-        
+        String filename = file.getFileName();
+
         if (syncInBackgroundWorker) {
-            Log_OC.d(TAG, "downloading file without notification: " + file.getFileName());
+            Log_OC.d(TAG, "downloading file without notification: " + filename);
 
             try {
                 final var operation = new DownloadFileOperation(mUser, file, mContext);
                 var result = operation.execute(getClient());
 
                 mTransferWasRequested = true;
-
-                String filename = file.getFileName();
 
                 if (result.isSuccess()) {
                     fileDownloadHelper.saveFile(file, operation, getStorageManager());
@@ -324,7 +323,7 @@ public class SynchronizeFileOperation extends SyncOperation {
                 Log_OC.d(TAG, "Exception caught at requestForDownload" + e);
             }
         } else {
-            Log_OC.d(TAG, "downloading file with notification: " + file.getFileName());
+            Log_OC.d(TAG, "downloading file with notification: " + filename);
             mTransferWasRequested = true;
             fileDownloadHelper.downloadFile(mUser, file);
         }
