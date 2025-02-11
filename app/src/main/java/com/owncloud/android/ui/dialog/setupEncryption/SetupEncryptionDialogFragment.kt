@@ -278,6 +278,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         UnexpectedError(R.string.end_to_end_encryption_unexpected_error_occurred)
     }
 
+    // TODO - Replace with Coroutines
     @SuppressLint("StaticFieldLeak")
     inner class DownloadKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, Any?>() {
         private val mWeakContext: WeakReference<Context> = WeakReference(context)
