@@ -270,39 +270,55 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         super.onSaveInstanceState(outState)
     }
 
-    enum class DownloadKeyError(val descriptionId: Int) {
-        CertificateVerificationFailed(R.string.end_to_end_encryption_certificate_verification_failed),
-        ServerPublicKeyUnavailable(R.string.end_to_end_encryption_server_public_key_unavailable),
-        ServerPrivateKeyUnavailable(R.string.end_to_end_encryption_server_private_key_unavailable),
-        CertificateUnavailable(R.string.end_to_end_encryption_certificate_unavailable),
-        UnexpectedError(R.string.end_to_end_encryption_unexpected_error_occurred)
+    sealed class DownloadKeyResult(open val descriptionId: Int? = null) {
+        data class CertificateVerificationFailed(
+            override val descriptionId: Int = R.string.end_to_end_encryption_certificate_verification_failed
+        ) : DownloadKeyResult(descriptionId)
+
+        data class ServerPublicKeyUnavailable(
+            override val descriptionId: Int = R.string.end_to_end_encryption_server_public_key_unavailable
+        ) : DownloadKeyResult(descriptionId)
+
+        data class ServerPrivateKeyUnavailable(
+            override val descriptionId: Int = R.string.end_to_end_encryption_server_private_key_unavailable
+        ) : DownloadKeyResult(descriptionId)
+
+        data class CertificateUnavailable(
+            override val descriptionId: Int = R.string.end_to_end_encryption_certificate_unavailable
+        ) : DownloadKeyResult(descriptionId)
+
+        data class UnexpectedError(
+            override val descriptionId: Int = R.string.end_to_end_encryption_unexpected_error_occurred
+        ) : DownloadKeyResult(descriptionId)
+
+        data class Success(val privateKey: String?) : DownloadKeyResult()
     }
 
     // TODO - Replace with Coroutines
     @SuppressLint("StaticFieldLeak")
-    inner class DownloadKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, Any?>() {
+    inner class DownloadKeysAsyncTask(context: Context) : AsyncTask<Void?, Void?, DownloadKeyResult>() {
         private val mWeakContext: WeakReference<Context> = WeakReference(context)
 
         @Suppress("ReturnCount", "LongMethod")
         @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg params: Void?): Any? {
+        override fun doInBackground(vararg params: Void?): DownloadKeyResult {
             // fetch private/public key
             // if available
             //  - store public key
             //  - decrypt private key, store unencrypted private key in database
-            val context = mWeakContext.get() ?: return DownloadKeyError.UnexpectedError
-            val user = user ?: return DownloadKeyError.UnexpectedError
+            val context = mWeakContext.get() ?: return DownloadKeyResult.UnexpectedError()
+            val user = user ?: return DownloadKeyResult.UnexpectedError()
 
             val certificateOperation = GetPublicKeyRemoteOperation()
             val certificateResult = certificateOperation.executeNextcloudClient(user, context)
             if (!certificateResult.isSuccess) {
-                return DownloadKeyError.CertificateUnavailable
+                return DownloadKeyResult.CertificateUnavailable()
             }
 
             val serverPublicKeyOperation = GetServerPublicKeyRemoteOperation()
             val serverPublicKeyResult = serverPublicKeyOperation.executeNextcloudClient(user, context)
             if (!serverPublicKeyResult.isSuccess) {
-                return DownloadKeyError.ServerPublicKeyUnavailable
+                return DownloadKeyResult.ServerPublicKeyUnavailable()
             }
 
             val serverKey = serverPublicKeyResult.resultData
@@ -310,11 +326,11 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             val isCertificateValid = certificateValidator?.validate(serverKey, certificateAsString)
 
             if (isCertificateValid == false) {
-                return DownloadKeyError.CertificateVerificationFailed
+                return DownloadKeyResult.CertificateVerificationFailed()
             }
 
             if (arbitraryDataProvider == null) {
-                return DownloadKeyError.UnexpectedError
+                return DownloadKeyResult.UnexpectedError()
             }
 
             arbitraryDataProvider?.storeOrUpdateKeyValue(
@@ -328,9 +344,10 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             return if (privateKeyResult.isSuccess) {
                 Log_OC.d(TAG, "private key successful downloaded for " + user.accountName)
                 keyResult = KEY_EXISTING_USED
-                return privateKeyResult.resultData?.getKey()
+                val privateKey = privateKeyResult.resultData?.getKey()
+                DownloadKeyResult.Success(privateKey)
             } else {
-                DownloadKeyError.ServerPrivateKeyUnavailable
+                DownloadKeyResult.ServerPrivateKeyUnavailable()
             }
         }
 
@@ -343,7 +360,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         }
 
         @Deprecated("Deprecated in Java")
-        override fun onPostExecute(result: Any?) {
+        override fun onPostExecute(result: DownloadKeyResult) {
             super.onPostExecute(result)
 
             val context = mWeakContext.get()
@@ -352,15 +369,14 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 return
             }
 
-            if (result is DownloadKeyError) {
-                val description = getString(result.descriptionId)
+            if (result is DownloadKeyResult.Success) {
+                handlePrivateKey(result.privateKey)
+            } else {
+                val descriptionId = result.descriptionId ?: return
+                val description = getString(descriptionId)
                 dismiss()
                 DisplayUtils.showSnackMessage(requireActivity(), description)
-                return
             }
-
-            val privateKey = result as? String?
-            handlePrivateKey(privateKey)
         }
 
         private fun handlePrivateKey(privateKey: String?) {
