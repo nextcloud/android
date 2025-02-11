@@ -24,6 +24,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.nextcloud.android.common.ui.theme.utils.ColorRole
 import com.nextcloud.client.di.Injectable
 import com.nextcloud.client.preferences.AppPreferences
+import com.nextcloud.utils.extensions.setVisibleIf
 import com.owncloud.android.R
 import com.owncloud.android.authentication.PassCodeManager
 import com.owncloud.android.databinding.PasscodelockBinding
@@ -73,9 +74,11 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
     private var passCodeDigits: Array<String> = arrayOf("", "", "", "")
     private var confirmingPassCode = false
     private var changed = true // to control that only one blocks jump
+    private var delayInSeconds = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        delayInSeconds = preferences.passCodeDelay
         binding = PasscodelockBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -221,6 +224,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         if (ACTION_CHECK == intent.action) {
             if (checkPassCode()) {
                 preferences.resetPinWrongAttempts()
+                preferences.passCodeDelay = 0
 
                 // / pass code accepted in request, user is allowed to access the app
                 passCodeManager.updateLockTimestamp()
@@ -274,6 +278,7 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         binding.header.setText(headerMessage) // TODO check if really needed
         binding.explanation.visibility = explanationVisibility // TODO check if really needed
         clearBoxes()
+        increaseAndSaveDelayTime()
         showDelay()
     }
 
@@ -337,33 +342,92 @@ class PassCodeActivity : AppCompatActivity(), Injectable {
         finish()
     }
 
-    private fun showDelay() {
-        val delayValue = preferences.pinBruteForceDelay()
+    @Suppress("MagicNumber")
+    private fun increaseAndSaveDelayTime() {
+        val maxDelayTimeInSeconds = 300
+        val delayIncrementation = 15
 
-        if (delayValue <= 0) {
+        if (delayInSeconds < maxDelayTimeInSeconds) {
+            delayInSeconds += delayIncrementation
+            preferences.passCodeDelay = delayInSeconds
+            preferences.increasePinWrongAttempts()
+        }
+    }
+
+    @Suppress("MagicNumber")
+    private fun getExplanationText(timeInSecond: Int): String {
+        return when {
+            timeInSecond < 60 -> resources.getQuantityString(
+                R.plurals.delay_message,
+                timeInSecond,
+                timeInSecond
+            )
+            else -> {
+                val minutes = timeInSecond / 60
+                val remainingSeconds = timeInSecond % 60
+
+                when {
+                    remainingSeconds == 0 -> resources.getQuantityString(
+                        R.plurals.delay_message_minutes,
+                        minutes,
+                        minutes
+                    )
+                    else -> {
+                        val minuteText = resources.getQuantityString(
+                            R.plurals.delay_message_minutes_part,
+                            minutes,
+                            minutes
+                        )
+                        val secondText = resources.getQuantityString(
+                            R.plurals.delay_message_seconds_part,
+                            remainingSeconds,
+                            remainingSeconds
+                        )
+
+                        val prefixText = "$minuteText $secondText"
+                        getString(R.string.due_to_too_many_wrong_attempts, prefixText)
+                    }
+                }
+            }
+        }
+    }
+
+    @Suppress("MagicNumber")
+    private fun showDelay() {
+        val pinBruteForceCount = preferences.pinBruteForceDelay()
+        if (pinBruteForceCount <= 0) {
             return
         }
 
-        binding.explanation.setText(R.string.brute_force_delay)
-        binding.explanation.visibility = View.VISIBLE
-        binding.txt0.isEnabled = false
-        binding.txt1.isEnabled = false
-        binding.txt2.isEnabled = false
-        binding.txt3.isEnabled = false
+        enableInputFields(false)
 
-        lifecycleScope.launch(Dispatchers.IO) {
-            delay(delayValue * 1000L)
-
-            launch(Dispatchers.Main) {
-                binding.explanation.visibility = View.INVISIBLE
-                binding.txt0.isEnabled = true
-                binding.txt1.isEnabled = true
-                binding.txt2.isEnabled = true
-                binding.txt3.isEnabled = true
-
-                binding.txt0.requestFocus()
-                binding.txt0.showKeyboard()
+        var counter = delayInSeconds
+        lifecycleScope.launch(Dispatchers.Main) {
+            while (counter != 0) {
+                binding.explanation.text = getExplanationText(counter)
+                delay(1000)
+                counter -= 1
             }
+
+            enableInputFields(true)
+            focusFirstInputField()
+        }
+    }
+
+    private fun enableInputFields(enabled: Boolean) {
+        binding.run {
+            explanation.setVisibleIf(!enabled)
+            txt0.isEnabled = enabled
+            txt1.isEnabled = enabled
+            txt2.isEnabled = enabled
+            txt3.isEnabled = enabled
+        }
+    }
+
+    private fun focusFirstInputField() {
+        binding.run {
+            txt0.requestFocus()
+            txt0.showKeyboard()
         }
     }
 
