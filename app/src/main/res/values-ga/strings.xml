@@ -842,6 +842,7 @@
     <string name="sharee_already_added_to_file">Theip ar chomhroinnt a chur leis. Roinneadh an comhad nó an fillteán seo leis an duine nó leis an ngrúpa seo cheana.</string>
     <string name="show_images">Taispeáin grianghraif</string>
     <string name="show_video">Taispeáin físeáin</string>
+    <string name="sign_tos_failed">Seiceáil téarmaí seirbhíse de láimh le do thoil!</string>
     <string name="signup_with_provider">Cláraigh leis an soláthraí</string>
     <string name="single_sign_on_request_token" formatted="true">Ceadaigh do %1$s rochtain a fháil ar do chuntas Nextcloud %2$s?</string>
     <string name="sort_by">Sórtáil de réir</string>
@@ -928,6 +929,7 @@
     <string name="synced_icon">Sioncronaithe</string>
     <string name="tags">Clibeanna</string>
     <string name="terms_of_service_title">Tearmaí Seirbhís</string>
+    <string name="terms_of_services_agree">Aontaím leis an ToS thuas</string>
     <string name="test_server_button">Nasc freastalaí tástála</string>
     <string name="thirtyMinutes">30 nóiméad</string>
     <string name="thisWeek">An tseachtain seo</string>
