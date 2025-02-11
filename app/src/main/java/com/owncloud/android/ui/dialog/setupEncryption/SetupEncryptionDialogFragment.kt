@@ -162,7 +162,13 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
         binding.encryptionStatus.setText(R.string.end_to_end_encryption_decrypting)
 
         try {
-            val privateKey = task?.get() as? String?
+            val taskResult = task?.get()
+            if (taskResult !is DownloadKeyResult.Success) {
+                Log_OC.d(TAG, "DownloadKeyResult is not success")
+                return
+            }
+
+            val privateKey = taskResult.privateKey
             val mnemonicUnchanged = binding.encryptionPasswordInput.text.toString().trim()
             val mnemonic =
                 binding.encryptionPasswordInput.text.toString().replace("\\s".toRegex(), "")
@@ -308,11 +314,20 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
             //  - decrypt private key, store unencrypted private key in database
             val context = mWeakContext.get() ?: return DownloadKeyResult.UnexpectedError()
             val user = user ?: return DownloadKeyResult.UnexpectedError()
+            val dataProvider = arbitraryDataProvider ?: return DownloadKeyResult.UnexpectedError()
 
             val certificateOperation = GetPublicKeyRemoteOperation()
             val certificateResult = certificateOperation.executeNextcloudClient(user, context)
+
+            val savedPrivateKey = dataProvider.getValue(user.accountName, EncryptionUtils.PRIVATE_KEY)
             if (!certificateResult.isSuccess) {
-                return DownloadKeyResult.CertificateUnavailable()
+                // The certificate might not be available on the server yet.
+                // Therefore, the user needs to generate a new passphrase first.
+                return if (savedPrivateKey.isEmpty()) {
+                    DownloadKeyResult.Success(null)
+                } else {
+                    DownloadKeyResult.CertificateUnavailable()
+                }
             }
 
             val serverPublicKeyOperation = GetServerPublicKeyRemoteOperation()
@@ -329,11 +344,7 @@ class SetupEncryptionDialogFragment : DialogFragment(), Injectable {
                 return DownloadKeyResult.CertificateVerificationFailed()
             }
 
-            if (arbitraryDataProvider == null) {
-                return DownloadKeyResult.UnexpectedError()
-            }
-
-            arbitraryDataProvider?.storeOrUpdateKeyValue(
+            dataProvider.storeOrUpdateKeyValue(
                 user.accountName,
                 EncryptionUtils.PUBLIC_KEY,
                 certificateAsString
