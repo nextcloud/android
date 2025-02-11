@@ -842,6 +842,7 @@
     <string name="sharee_already_added_to_file">Paylaşım eklenemedi. Bu dosya ya da klasör bu kişi ya da grup ile zaten paylaşılmış.</string>
     <string name="show_images">Fotoğraflar görüntülensin</string>
     <string name="show_video">Görüntüler görüntülensin</string>
+    <string name="sign_tos_failed">Lütfen hizmet koşullarını el ile denetleyin!</string>
     <string name="signup_with_provider">Hizmet sağlayıcı ile hesap aç</string>
     <string name="single_sign_on_request_token" formatted="true">%1$s, %2$s Nextcloud hesabınıza erişebilsin mi?</string>
     <string name="sort_by">Sıralama</string>
@@ -927,6 +928,8 @@
     <string name="synced_folders_type">Tür</string>
     <string name="synced_icon">Eşitle</string>
     <string name="tags">Etiketler</string>
+    <string name="terms_of_service_title">Hizmet koşulları</string>
+    <string name="terms_of_services_agree">Yukarıdaki hizmet koşullarını kabul ediyorum</string>
     <string name="test_server_button">Sunucu bağlantısını sına</string>
     <string name="thirtyMinutes">30 dakika</string>
     <string name="thisWeek">Bu hafta</string>

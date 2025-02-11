@@ -920,6 +920,7 @@
     <string name="synced_folders_type">Typ</string>
     <string name="synced_icon">Zsynchronizowano</string>
     <string name="tags">Etykiety</string>
+    <string name="terms_of_service_title">Warunki usługi</string>
     <string name="test_server_button">Sprawdź połączenie z serwerem</string>
     <string name="thirtyMinutes">30 minut</string>
     <string name="thisWeek">W tym tygodniu</string>

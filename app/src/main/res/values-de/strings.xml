@@ -842,6 +842,7 @@
     <string name="sharee_already_added_to_file">Das Hinzufügen der Freigabe ist fehlgeschlagen. Diese Datei oder dieser Ordner wurden bereits für diese Person oder Gruppe freigegeben.</string>
     <string name="show_images">Fotos anzeigen</string>
     <string name="show_video">Videos anzeigen</string>
+    <string name="sign_tos_failed">Bitte überprüfen Sie die Nutzungsbedingungen selbst!</string>
     <string name="signup_with_provider">Mit Provider anmelden</string>
     <string name="single_sign_on_request_token" formatted="true">Zulassen, dass %1$s auf Ihr Nextcloud Konto %2$s zugreifen darf?</string>
     <string name="sort_by">Sortiere nach</string>
@@ -927,6 +928,8 @@
     <string name="synced_folders_type">Typ</string>
     <string name="synced_icon">Synchronisiert</string>
     <string name="tags">Schlagworte</string>
+    <string name="terms_of_service_title">Nutzungsbedingungen</string>
+    <string name="terms_of_services_agree">Ich stimme den oben genannten ToS zu</string>
     <string name="test_server_button">Prüfe Server-Verbindung</string>
     <string name="thirtyMinutes">30 Minuten</string>
     <string name="thisWeek">Diese Woche</string>

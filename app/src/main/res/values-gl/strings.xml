@@ -298,10 +298,10 @@
     <string name="ecosystem_apps_display_assistant">Asistente</string>
     <string name="ecosystem_apps_display_more">Máis</string>
     <string name="ecosystem_apps_display_notes">Notas</string>
-    <string name="ecosystem_apps_display_talk">Parlar</string>
+    <string name="ecosystem_apps_display_talk">Parladoiro</string>
     <string name="ecosystem_apps_more">Máis aplicacións de Nextcloud</string>
     <string name="ecosystem_apps_notes">Notas de Nextcloud</string>
-    <string name="ecosystem_apps_talk">Parlar de Nextcloud</string>
+    <string name="ecosystem_apps_talk">Parladoiro de Nextcloud</string>
     <string name="email_pick_failed">Produciuse un fallo ao escoller o enderezo de correo.</string>
     <string name="encrypted">Definir como cifrado</string>
     <string name="end_to_end_encryption_confirm_button">Configurar o cifrado</string>
@@ -843,6 +843,7 @@
     <string name="sharee_already_added_to_file">Produciuse un erro ao engadir o contido compartido. Este ficheiro ou cartafol xa foi compartido con esta persoa ou grupo.</string>
     <string name="show_images">Amosar as fotos</string>
     <string name="show_video">Amosar os vídeos</string>
+    <string name="sign_tos_failed">Comprobe manualmente as condicións de servizo.</string>
     <string name="signup_with_provider">Rexistrarse cun provedor</string>
     <string name="single_sign_on_request_token" formatted="true">Permitirlle a %1$s acceder a súa conta %2$s en Nextcloud?</string>
     <string name="sort_by">Ordenar por</string>
@@ -928,6 +929,8 @@
     <string name="synced_folders_type">Tipo</string>
     <string name="synced_icon">Sincronizado</string>
     <string name="tags">Etiquetas</string>
+    <string name="terms_of_service_title">Condicións de servizo</string>
+    <string name="terms_of_services_agree">Estou conforme coas condicións anteriores</string>
     <string name="test_server_button">Probar a conexión co servidor</string>
     <string name="thirtyMinutes">30 minutos</string>
     <string name="thisWeek">Esta semana</string>

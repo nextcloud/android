@@ -856,6 +856,7 @@
     <string name="sharee_already_added_to_file">تعذّرت إضافة المشاركة بسبب أن هذا الملف أو المجلد سبقت مشاركته مع نفس الشخص أو المجموعة.</string>
     <string name="show_images">اعرض الصور</string>
     <string name="show_video">اعرض الفيديو</string>
+    <string name="sign_tos_failed">رجاءً؛ قم بمراجعة شروط الخدمة يدويّاً!</string>
     <string name="signup_with_provider">التسجيل عبر مزوّد خدمة</string>
     <string name="single_sign_on_request_token" formatted="true">هل تسمح لـ%1$s بالوصول إلى حسابك %2$s في Nextcloud؟</string>
     <string name="sort_by">ترتيب</string>
@@ -962,6 +963,8 @@
     <string name="synced_folders_type">حسب النوع</string>
     <string name="synced_icon">تمت المزامَنة</string>
     <string name="tags">الوسوم</string>
+    <string name="terms_of_service_title">شروط الخدمة</string>
+    <string name="terms_of_services_agree">أنا موافقٌ على شروط الخدمة أعلاه</string>
     <string name="test_server_button">أفحص أتصال الخادم</string>
     <string name="thirtyMinutes">30 دقيقة</string>
     <string name="thisWeek">هذا الأسبوع</string>

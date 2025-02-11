@@ -409,4 +409,7 @@ public interface AppPreferences {
 
     boolean isAutoUploadGPlayNotificationShown();
     void setAutoUploadGPlayNotificationShown(boolean value);
+
+    int getPassCodeDelay();
+    void setPassCodeDelay(int value);
 }

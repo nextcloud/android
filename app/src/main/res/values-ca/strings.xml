@@ -900,6 +900,7 @@
     <string name="synced_folders_type">Tipus</string>
     <string name="synced_icon">Sincronitzat</string>
     <string name="tags">Etiquetes</string>
+    <string name="terms_of_service_title">Condicions del servei</string>
     <string name="test_server_button">Proveu la connexió amb el servidor</string>
     <string name="thirtyMinutes">30 minuts</string>
     <string name="thisWeek">Aquesta setmana</string>

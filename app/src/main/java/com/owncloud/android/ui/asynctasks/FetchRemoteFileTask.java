@@ -3,6 +3,7 @@
  *
  * SPDX-FileCopyrightText: 2019 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2019 Nextcloud GmbH
+ * SPDX-FileCopyrightText: 2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-License-Identifier: AGPL-3.0-or-later OR GPL-2.0-only
  */
 package com.owncloud.android.ui.asynctasks;
@@ -10,6 +11,7 @@ package com.owncloud.android.ui.asynctasks;
 import android.os.AsyncTask;
 
 import com.nextcloud.client.account.User;
+import com.owncloud.android.MainApp;
 import com.owncloud.android.R;
 import com.owncloud.android.datamodel.FileDataStorageManager;
 import com.owncloud.android.datamodel.OCFile;
@@ -60,7 +62,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
 
             if (!result.isSuccess()) {
                 Exception exception = result.getException();
-                String message = "Fetching file " + remotePath + " fails with: " + result.getLogMessage();
+                String message = "Fetching file " + remotePath + " fails with: " + result.getLogMessage(MainApp.getAppContext());
 
                 if (exception != null) {
                     return exception.getMessage();
@@ -95,7 +97,7 @@ public class FetchRemoteFileTask extends AsyncTask<Void, Void, String> {
 
             fileDisplayActivity.setFile(ocFile);
         } else {
-            return remoteOperationResult.getLogMessage();
+            return remoteOperationResult.getLogMessage(MainApp.getAppContext());
         }
 
         return "";

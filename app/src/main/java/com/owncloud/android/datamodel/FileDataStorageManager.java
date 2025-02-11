@@ -2,7 +2,7 @@
  * Nextcloud - Android Client
  *
  * SPDX-FileCopyrightText: 2023 Alper Ozturk <alper.ozturk@nextcloud.com>
- * SPDX-FileCopyrightText: 2022 TSI-mc
+ * SPDX-FileCopyrightText: 2022-2025 TSI-mc <surinder.kumar@t-systems.com>
  * SPDX-FileCopyrightText: 2021 Chris Narkiewicz <hello@ezaquarii.com>
  * SPDX-FileCopyrightText: 2018-2020 Tobias Kaminsky <tobias@kaminsky.me>
  * SPDX-FileCopyrightText: 2018 Andy Scherzinger <info@andy-scherzinger.de>
@@ -567,7 +567,7 @@ public class FileDataStorageManager {
                 } else {
                     Exception exception = result.getException();
                     String message = "Error during saving file with parents: " + ocFile.getRemotePath() + " / "
-                        + result.getLogMessage();
+                        + result.getLogMessage(context);
 
                     if (exception != null) {
                         throw new RemoteOperationFailedException(message, exception);

@@ -103,8 +103,8 @@
     <string name="auto_upload_on_wifi">Upload kun på ubegrænset wifi</string>
     <string name="auto_upload_path">/AutoUpload</string>
     <string name="autoupload_configure">Konfigurer</string>
-    <string name="autoupload_create_new_custom_folder">Opret en ny selvvalgt mappe indstilling</string>
-    <string name="autoupload_custom_folder">Indstil en selvvalgt mappe</string>
+    <string name="autoupload_create_new_custom_folder">Opret en ny brugerdefineret mappeopsætning</string>
+    <string name="autoupload_custom_folder">Opsæt en brugerdefineret mappe</string>
     <string name="autoupload_disable_power_save_check">Deaktiver strømsparecheck</string>
     <string name="autoupload_hide_folder">Skjul mappe</string>
     <string name="avatar">Avatar</string>
@@ -223,10 +223,10 @@
     <string name="create_new_spreadsheet">Nyt Regneark</string>
     <string name="create_rich_workspace">Tilføj mappebeskrivelse</string>
     <string name="creates_rich_workspace">Tilføjer en mappebeskrivelse</string>
-    <string name="credentials_disabled">Brugeroplysninger deaktiverede</string>
+    <string name="credentials_disabled">Legitimationsoplysninger deaktiverede</string>
     <string name="daily_backup">Daglig backup</string>
     <string name="data_to_back_up">Data at sikkerhedskopiere</string>
-    <string name="default_credentials_wrong">Ukorrekte brugeroplysninger</string>
+    <string name="default_credentials_wrong">Forkerte legitimationsoplysninger</string>
     <string name="delete_account">Fjern konto</string>
     <string name="delete_entries">Slet poster</string>
     <string name="delete_link">Slet link</string>
@@ -674,7 +674,7 @@
     <string name="prefs_davx5_setup_error">Uventet fejl under opsætning af DAVx5 (tidligere kendt som DAVdroid)</string>
     <string name="prefs_e2e_active">End-to-end kryptering er blevet konfigureret!</string>
     <string name="prefs_e2e_mnemonic">E2E mnemonic</string>
-    <string name="prefs_e2e_no_device_credentials">For at vise mnemonic venligst aktiver enhedens brugeroplysninger</string>
+    <string name="prefs_e2e_no_device_credentials">For at vise mnemonic, så aktiver venligst enhedslegitimationsoplysninger</string>
     <string name="prefs_enable_media_scan_notifications">Vis media scan notifikationer</string>
     <string name="prefs_enable_media_scan_notifications_summary">Notificer om nyfundne media mapper</string>
     <string name="prefs_gpl_v2">GNU General Public License, Version 2</string>
@@ -690,13 +690,12 @@
     <string name="prefs_keys_exist">Tilføj end-to-end kryptering for denne klient</string>
     <string name="prefs_license">Licens</string>
     <string name="prefs_lock">App adgangskode</string>
-    <string name="prefs_lock_device_credentials_enabled">Enheds legitimationsoplysninger aktiveret</string>
-    <string name="prefs_lock_device_credentials_not_setup">Ingen 
-Enheds legitimationsoplysninger er sat op
+    <string name="prefs_lock_device_credentials_enabled">Enhedslegitimationsoplysninger aktiveret</string>
+    <string name="prefs_lock_device_credentials_not_setup">Ingen enhedslegitimationsoplysninger er sat op
 </string>
     <string name="prefs_lock_none">Ingen</string>
     <string name="prefs_lock_title">Beskyt app med</string>
-    <string name="prefs_lock_using_device_credentials">Enheds legitimationsoplysninger</string>
+    <string name="prefs_lock_using_device_credentials">Enhedslegitimationsoplysninger</string>
     <string name="prefs_lock_using_passcode">Adgangskode</string>
     <string name="prefs_manage_accounts">Administrer konti</string>
     <string name="prefs_recommend">Foreslå til en ven</string>
@@ -929,6 +928,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synkroniseret</string>
     <string name="tags">Tags</string>
+    <string name="terms_of_service_title">Servicebetingelser</string>
     <string name="test_server_button">Test server forbindelsen</string>
     <string name="thirtyMinutes">30 minutter</string>
     <string name="thisWeek">Denne uge</string>
@@ -1048,7 +1048,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="uploads_view_upload_status_cancelled">Annulléret</string>
     <string name="uploads_view_upload_status_conflict">Konflikt</string>
     <string name="uploads_view_upload_status_failed_connection_error">Tilslutnings-fejl</string>
-    <string name="uploads_view_upload_status_failed_credentials_error">Godkendelsesfejl</string>
+    <string name="uploads_view_upload_status_failed_credentials_error">Legitimationsoplysningsfejl</string>
     <string name="uploads_view_upload_status_failed_file_error">Filfejl</string>
     <string name="uploads_view_upload_status_failed_folder_error">Mappefejl</string>
     <string name="uploads_view_upload_status_failed_localfile_error">Lokal fil blev ikke fundet</string>
@@ -1076,7 +1076,7 @@ Enheds legitimationsoplysninger er sat op
     <string name="version_dev_download">Download</string>
     <string name="video_overlay_icon">Ikon til overlejring af videoer</string>
     <string name="wait_a_moment">Vent et øjeblik...</string>
-    <string name="wait_checking_credentials">Undersøger lagrede certificeringer</string>
+    <string name="wait_checking_credentials">Undersøger lagrede legitimationsoplysninger</string>
     <string name="wait_for_tmp_copy_from_private_storage">Kopierer fil fra privat lager.</string>
     <string name="warn_rename_extension">Ændring af endelsen kan bevirke at denne fil åbner i en anden applikation</string>
     <string name="webview_version_check_alert_dialog_message">Opdater Android System WebView appen for at logge på</string>

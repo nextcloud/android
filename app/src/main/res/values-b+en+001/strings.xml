@@ -842,6 +842,7 @@
     <string name="sharee_already_added_to_file">Adding share failed. This file or folder has already been shared with this person or group.</string>
     <string name="show_images">Show photos</string>
     <string name="show_video">Show videos</string>
+    <string name="sign_tos_failed">Please manually check terms of service!</string>
     <string name="signup_with_provider">Sign up with provider</string>
     <string name="single_sign_on_request_token" formatted="true">Allow %1$s to access your Nextcloud account %2$s?</string>
     <string name="sort_by">Sort by</string>
@@ -927,6 +928,8 @@
     <string name="synced_folders_type">Type</string>
     <string name="synced_icon">Synced</string>
     <string name="tags">Tags</string>
+    <string name="terms_of_service_title">Terms of service</string>
+    <string name="terms_of_services_agree">I agree to the above ToS</string>
     <string name="test_server_button">Test server connection</string>
     <string name="thirtyMinutes">30 minutes</string>
     <string name="thisWeek">This week</string>

@@ -112,6 +112,8 @@ public final class AppPreferencesImpl implements AppPreferences {
     private static final String PREF__AUTO_UPLOAD_GPLAY_WARNING2_SHOWN = "auto_upload_gplay_warning2_shown";
     private static final String PREF__AUTO_UPLOAD_GPLAY_NOTIFICATION_SHOWN = "auto_upload_gplay_notification_shown";
 
+    private static final String PREF__PASSCODE_DELAY_IN_SECONDS = "passcode_delay_in_seconds";
+
     private static final String LOG_ENTRY = "log_entry";
 
     private final Context context;
@@ -858,5 +860,15 @@ public final class AppPreferencesImpl implements AppPreferences {
     @Override
     public void setAutoUploadGPlayNotificationShown(boolean value) {
         preferences.edit().putBoolean(PREF__AUTO_UPLOAD_GPLAY_NOTIFICATION_SHOWN, value).apply();
+    }
+
+    @Override
+    public int getPassCodeDelay() {
+        return preferences.getInt(PREF__PASSCODE_DELAY_IN_SECONDS, 0);
+    }
+
+    @Override
+    public void setPassCodeDelay(int value) {
+        preferences.edit().putInt(PREF__PASSCODE_DELAY_IN_SECONDS, value).apply();
     }
 }
