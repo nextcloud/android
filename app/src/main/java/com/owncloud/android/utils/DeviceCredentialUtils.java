@@ -27,7 +27,7 @@ public final class DeviceCredentialUtils {
         KeyguardManager keyguardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
 
         if (keyguardManager != null) {
-            return keyguardManager.isDeviceSecure();
+            return keyguardManager.isKeyguardSecure();
         } else {
             Log_OC.e(TAG, "Keyguard manager is null");
             return false;
