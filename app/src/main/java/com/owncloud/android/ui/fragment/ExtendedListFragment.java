@@ -66,7 +66,6 @@ import com.owncloud.android.utils.theme.ViewThemeUtils;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.concurrent.locks.ReentrantLock;
 
 import javax.inject.Inject;
 
@@ -147,26 +146,15 @@ public class ExtendedListFragment extends Fragment implements
         return mRecyclerView;
     }
 
-    private final ReentrantLock lock = new ReentrantLock();
+    public synchronized void setLoading(boolean enabled) {
+        final var isRefreshing = mRefreshListLayout.isRefreshing();
 
-    public void setLoading(boolean enabled) {
-        if (!lock.tryLock()) {
+        if (isRefreshing && enabled) {
             return;
         }
 
-        try {
-            final var isRefreshing = mRefreshListLayout.isRefreshing();
-
-            if (isRefreshing && enabled) {
-                return;
-            }
-
-            mRefreshListLayout.setRefreshing(enabled);
-        } finally {
-            lock.unlock();
-        }
+        mRefreshListLayout.setRefreshing(enabled);
     }
-
 
     public void switchToGridView() {
         if (!isGridEnabled()) {
