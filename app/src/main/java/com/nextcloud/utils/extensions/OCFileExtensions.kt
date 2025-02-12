@@ -10,6 +10,26 @@ package com.nextcloud.utils.extensions
 import com.owncloud.android.datamodel.FileDataStorageManager
 import com.owncloud.android.datamodel.OCFile
 
+fun List<OCFile>.setEncryptionAttributeForItemId(
+    fileId: String,
+    encrypted: Boolean,
+    storageManager: FileDataStorageManager
+) {
+    find { it.remoteId == fileId }?.let { file ->
+        file.apply {
+            isEncrypted = encrypted
+            setE2eCounter(0L)
+            storageManager.saveFile(this)
+        }
+    }
+}
+
+fun List<OCFile>.refreshCommentsCount(remoteId: String) {
+    find { it.remoteId == remoteId }?.let { file ->
+        file.unreadCommentsCount = 0
+    }
+}
+
 fun List<OCFile>.getHiddenFilenames(): List<String> {
     return filter { it.shouldHide() }.map { it.fileName }
 }

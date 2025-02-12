@@ -268,32 +268,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public void refreshCommentsCount(String fileId) {
-        List<OCFile> newList = mFiles;
-
-        for (OCFile file : newList) {
-            if (file.getRemoteId().equals(fileId)) {
-                file.setUnreadCommentsCount(0);
-                break;
-            }
-        }
-
-        activity.runOnUiThread(() -> updateList(newList));
+        OCFileExtensionsKt.refreshCommentsCount(mFiles, fileId);
+        activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
     public void setEncryptionAttributeForItemID(String fileId, boolean encrypted) {
-        List<OCFile> newList = mFiles;
-
-        for (OCFile file : newList) {
-            if (file.getRemoteId().equals(fileId)) {
-                file.setEncrypted(encrypted);
-                file.setE2eCounter(0L);
-                mStorageManager.saveFile(file);
-
-                break;
-            }
-        }
-
-        activity.runOnUiThread(() -> updateList(newList));
+        OCFileExtensionsKt.setEncryptionAttributeForItemId(mFiles, fileId, encrypted, mStorageManager);
+        activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
     @Override
