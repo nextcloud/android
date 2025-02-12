@@ -36,6 +36,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationType;
+import com.nextcloud.utils.extensions.FileDataStorageManagerExtensionsKt;
 import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
@@ -863,10 +864,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             // TODO refactor add DrawerState instead of using static menuItemId
             if (DrawerActivity.menuItemId == R.id.nav_shared && currentDirectory != null) {
-                newList = updatedStorageManager.filter(currentDirectory, OCFileFilterType.Shared);
+                newList = FileDataStorageManagerExtensionsKt.filter(updatedStorageManager, currentDirectory, OCFileFilterType.Shared);
             }
             if (DrawerActivity.menuItemId == R.id.nav_favorites && currentDirectory != null) {
-                newList = updatedStorageManager.filter(currentDirectory, OCFileFilterType.Favorite);
+                newList = FileDataStorageManagerExtensionsKt.filter(updatedStorageManager, currentDirectory, OCFileFilterType.Favorite);
             }
 
             sortOrder = preferences.getSortOrderByFolder(directory);
