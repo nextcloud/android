@@ -19,6 +19,8 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -235,10 +237,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return position;
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setFavoriteAttributeForItemID(String remotePath, boolean favorite, boolean removeFromList) {
         List<OCFile> filesToDelete = new ArrayList<>();
-        List<OCFile> newList = mFiles;
-        for (OCFile file : newList) {
+        for (OCFile file : mFiles) {
             if (file.getRemotePath().equals(remotePath)) {
                 file.setFavorite(favorite);
 
@@ -254,15 +256,14 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         FileSortOrder sortOrder = preferences.getSortOrderByFolder(currentDirectory);
         if (searchType == SearchType.SHARED_FILTER) {
-            newList.sort((o1, o2) -> Long.compare(o2.getFirstShareTimestamp(), o1.getFirstShareTimestamp()));
+            mFiles.sort((o1, o2) -> Long.compare(o2.getFirstShareTimestamp(), o1.getFirstShareTimestamp()));
         } else {
-            newList = sortOrder.sortCloudFiles(mFiles);
+            mFiles = sortOrder.sortCloudFiles(mFiles);
         }
 
-        List<OCFile> finalNewList = newList;
-        activity.runOnUiThread(() -> {
-            finalNewList.removeAll(filesToDelete);
-            updateList(finalNewList);
+        new Handler(Looper.getMainLooper()).post(() -> {
+            mFiles.removeAll(filesToDelete);
+            notifyDataSetChanged();
         });
     }
 
