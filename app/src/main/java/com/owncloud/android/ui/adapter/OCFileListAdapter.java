@@ -928,17 +928,17 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
         }
 
-        List<OCFile> newList = new ArrayList<>();
         if (searchType == SearchType.GALLERY_SEARCH ||
             searchType == SearchType.RECENTLY_MODIFIED_SEARCH) {
-            newList = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
+            mFiles = FileStorageUtils.sortOcFolderDescDateModifiedWithoutFavoritesFirst(mFiles);
         } else if (searchType != SearchType.SHARED_FILTER) {
             sortOrder = preferences.getSortOrderByFolder(folder);
-            newList = sortOrder.sortCloudFiles(mFiles);
+            mFiles = sortOrder.sortCloudFiles(mFiles);
         }
 
         this.searchType = searchType;
-        updateList(newList);
+
+        activity.runOnUiThread(this::notifyDataSetChanged);
     }
 
     private void parseShares(List<Object> objects) {
