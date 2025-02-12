@@ -1210,4 +1210,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void showRecommendedFileMoreActions(@NonNull OCFile file, @NonNull View view) {
         ocFileListFragmentInterface.onOverflowIconClicked(file, view);
     }
+
+    @VisibleForTesting
+    public void setCurrentDirectory(OCFile folder) {
+        currentDirectory = folder;
+    }
+
+    public OCFile getCurrentDirectory() {
+        return currentDirectory;
+    }
 }
