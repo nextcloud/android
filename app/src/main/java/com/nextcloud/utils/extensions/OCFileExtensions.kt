@@ -19,17 +19,13 @@ fun List<OCFile>.filterHiddenFiles(): List<OCFile> = filterNot { it.isHidden }.d
 fun List<OCFile>.filterByMimeType(mimeType: String): List<OCFile> =
     filter { it.isFolder || it.mimeType.startsWith(mimeType) }
 
-fun List<OCFile>.limitToPersonalFiles(userId: String): List<OCFile> =
-    filter { file ->
-        file.ownerId?.let { ownerId ->
-            ownerId == userId && !file.isSharedWithMe && !file.isGroupFolder
-        } ?: false
-    }
+fun List<OCFile>.limitToPersonalFiles(userId: String): List<OCFile> = filter { file ->
+    file.ownerId?.let { ownerId ->
+        ownerId == userId && !file.isSharedWithMe && !file.isGroupFolder
+    } ?: false
+}
 
-fun List<OCFile>.addOfflineOperations(
-    storageManager: FileDataStorageManager,
-    fileId: Long
-) {
+fun List<OCFile>.addOfflineOperations(storageManager: FileDataStorageManager, fileId: Long) {
     val offlineOperations = storageManager.offlineOperationsRepository.convertToOCFiles(fileId)
     if (offlineOperations.isEmpty()) {
         return
