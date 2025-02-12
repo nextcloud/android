@@ -20,6 +20,8 @@ class OCFileDiffCallback(private val oldList: List<OCFile>, private val newList:
     }
 
     override fun areContentsTheSame(oldPosition: Int, newPosition: Int): Boolean {
-        return oldList[oldPosition].etag == newList[newPosition].etag
+        return oldList[oldPosition].remoteId == newList[newPosition].remoteId &&
+            oldList[oldPosition].hashCode() == newList[newPosition].hashCode() &&
+            oldList[oldPosition].fileLength == newList[newPosition].fileLength
     }
 }
