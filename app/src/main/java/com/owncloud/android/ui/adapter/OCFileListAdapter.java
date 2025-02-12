@@ -1061,12 +1061,11 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         diff.dispatchUpdatesTo(this);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     public void setSortOrder(@Nullable OCFile folder, @NonNull FileSortOrder sortOrder) {
         preferences.setSortOrder(folder, sortOrder);
-
-        final var newList = sortOrder.sortCloudFiles(mFiles);
-        updateList(newList);
-
+        mFiles = sortOrder.sortCloudFiles(mFiles);
+        notifyDataSetChanged();
         this.sortOrder = sortOrder;
     }
 
