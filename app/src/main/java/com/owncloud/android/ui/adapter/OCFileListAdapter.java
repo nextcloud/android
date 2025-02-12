@@ -19,6 +19,7 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Handler;
@@ -729,6 +730,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 });
             }
         } else {
+            // If thumbnail exists no need to set again. BitmapDrawable type represents thumbnail else
+            // it would be VectorDrawable or LayerDrawable
+            final var previousIcon = holder.getThumbnail().getDrawable();
+            if (previousIcon instanceof BitmapDrawable) {
+                return;
+            }
+
             boolean isAutoUpload = SyncedFolderProvider.isAutoUploadFolder(syncedFolderProvider, file, user);
             boolean isDarkModeActive = preferences.isDarkModeEnabled();
             Drawable icon = MimeTypeUtil.getOCFileIcon(file, context, viewThemeUtils, isAutoUpload, isDarkModeActive);
