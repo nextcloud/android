@@ -19,7 +19,6 @@ import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +36,7 @@ import com.nextcloud.client.jobs.upload.FileUploadHelper;
 import com.nextcloud.client.preferences.AppPreferences;
 import com.nextcloud.model.OCFileFilterType;
 import com.nextcloud.model.OfflineOperationType;
+import com.nextcloud.utils.extensions.OCFileExtensionsKt;
 import com.nextcloud.utils.LinkHelper;
 import com.nextcloud.utils.extensions.ViewExtensionsKt;
 import com.nextcloud.utils.mdm.MDMConfig;
@@ -87,9 +87,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
@@ -851,13 +852,13 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             // TODO refactor filtering mechanism for mFiles
             newList = mStorageManager.getFolderContent(directory, onlyOnDevice);
             if (!preferences.isShowHiddenFilesEnabled()) {
-                newList = filterHiddenFiles(newList);
+                newList = OCFileExtensionsKt.filterHiddenFiles(newList);
             }
             if (!limitToMimeType.isEmpty()) {
-                newList = filterByMimeType(newList, limitToMimeType);
+                newList = OCFileExtensionsKt.filterByMimeType(newList, limitToMimeType);
             }
             if (OCFile.ROOT_PATH.equals(directory.getRemotePath()) && MainApp.isOnlyPersonFiles()) {
-                newList = limitToPersonalFiles(newList);
+                newList = OCFileExtensionsKt.limitToPersonalFiles(newList, userId);
             }
 
             // TODO refactor add DrawerState instead of using static menuItemId
@@ -870,9 +871,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
             sortOrder = preferences.getSortOrderByFolder(directory);
             newList = sortOrder.sortCloudFiles(newList);
-            prepareListOfHiddenFiles();
+            prepareListOfHiddenFiles(newList);
             mergeOCFilesForLivePhoto();
-            addOfflineOperations(directory.getFileId());
+            newList = OCFileExtensionsKt.addOfflineOperations(newList, mStorageManager, directory.getFileId());
             currentDirectory = directory;
         } else {
             newList.clear();
@@ -881,36 +882,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         searchType = null;
 
         updateList(newList);
-    }
-
-    /**
-     * Converts Offline Operations to OCFiles and adds them to the adapter for visual feedback.
-     * This function creates pending OCFiles, but they may not consistently appear in the UI.
-     * The issue arises when  {@link RefreshFolderOperation} deletes pending Offline Operations, while some may still exist in the table.
-     * If only this function is used, it cause crash in {@link FileDisplayActivity mSyncBroadcastReceiver.onReceive}.
-     * <p>
-     * These function also need to be used: {@link FileDataStorageManager#createPendingDirectory(String, long, long)}, {@link FileDataStorageManager#createPendingFile(String, String, long, long)}.
-     */
-    private void addOfflineOperations(long fileId) {
-        List<OCFile> offlineOperations = mStorageManager.offlineOperationsRepository.convertToOCFiles(fileId);
-        if (offlineOperations.isEmpty()) {
-            return;
-        }
-
-        List<OCFile> newFiles;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            newFiles = offlineOperations.stream()
-                .filter(offlineFile -> mFiles.stream()
-                    .noneMatch(file -> Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())))
-                .toList();
-        } else {
-            newFiles = offlineOperations.stream()
-                .filter(offlineFile -> mFiles.stream()
-                    .noneMatch(file -> Objects.equals(file.getDecryptedRemotePath(), offlineFile.getDecryptedRemotePath())))
-                .collect(Collectors.toList());
-        }
-
-        mFiles.addAll(newFiles);
     }
 
     public void setData(List<Object> objects,
@@ -1137,14 +1108,9 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         return mFiles;
     }
 
-    private void prepareListOfHiddenFiles() {
+    private void prepareListOfHiddenFiles(List<OCFile> list) {
         listOfHiddenFiles.clear();
-
-        mFiles.forEach(file -> {
-            if (file.shouldHide()) {
-                listOfHiddenFiles.add(file.getFileName());
-            }
-        });
+        listOfHiddenFiles.addAll(OCFileExtensionsKt.getHiddenFilenames(list));
     }
 
     public void resetLastTimestamp() {
@@ -1184,50 +1150,6 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     public void setHighlightedItem(@NonNull OCFile file) {
         ocFileListDelegate.setHighlightedItem(file);
-    }
-
-    /**
-     * Filter for hidden files
-     *
-     * @param files Collection of files to filter
-     * @return Non-hidden files
-     */
-    private List<OCFile> filterHiddenFiles(Iterable<OCFile> files) {
-        List<OCFile> ret = new ArrayList<>();
-
-        for (OCFile file : files) {
-            if (!file.isHidden() && !ret.contains(file)) {
-                ret.add(file);
-            }
-        }
-
-        return ret;
-    }
-
-    private List<OCFile> filterByMimeType(Iterable<OCFile> files, String mimeType) {
-        List<OCFile> ret = new ArrayList<>();
-
-        for (OCFile file : files) {
-            if (file.isFolder() || file.getMimeType().startsWith(mimeType)) {
-                ret.add(file);
-            }
-        }
-
-        return ret;
-    }
-
-    private List<OCFile> limitToPersonalFiles(Iterable<OCFile> files) {
-        List<OCFile> ret = new ArrayList<>();
-
-        for (OCFile file : files) {
-            String ownerId = file.getOwnerId();
-
-            if (ownerId != null && ownerId.equals(userId) && !file.isSharedWithMe() && !file.isGroupFolder()) {
-                ret.add(file);
-            }
-        }
-
-        return ret;
     }
 
     public void cancelAllPendingTasks() {
