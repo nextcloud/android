@@ -146,7 +146,7 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final long footerId = UUID.randomUUID().getLeastSignificantBits();
     private final long headerId = UUID.randomUUID().getLeastSignificantBits();
     private final SyncedFolderProvider syncedFolderProvider;
-
+    private RecyclerView recyclerView = null;
     private ArrayList<Recommendation> recommendedFiles = new ArrayList<>();
 
     public OCFileListAdapter(
@@ -275,6 +275,18 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void setEncryptionAttributeForItemID(String fileId, boolean encrypted) {
         OCFileExtensionsKt.setEncryptionAttributeForItemId(mFiles, fileId, encrypted, mStorageManager);
         activity.runOnUiThread(this::notifyDataSetChanged);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.recyclerView = recyclerView;
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(@NonNull RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+        this.recyclerView = null;
     }
 
     @Override
@@ -1059,6 +1071,10 @@ public class OCFileListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         mFiles.clear();
         mFiles.addAll(newList);
         diff.dispatchUpdatesTo(this);
+
+        if (recyclerView != null) {
+            recyclerView.scrollToPosition(0);
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
